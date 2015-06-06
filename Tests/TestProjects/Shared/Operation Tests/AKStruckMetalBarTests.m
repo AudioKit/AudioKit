@@ -88,4 +88,49 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"e643af93bab5e7d066d00cfa92a54ec2");
 }
 
+- (void)testPresetIntenseDecayingMetalBar
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKStruckMetalBar presetIntenseDecayingMetalBar]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"abb1e09758dafdf39596e3a52f1984ba");
+}
+
+- (void)testPresetHollowMetalBar
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKStruckMetalBar presetSmallHollowMetalBar]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"0f4084fdc09315bbec26e1e2a1a8141e");
+}
+
+- (void)testPresetTinklingMetalBar
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKStruckMetalBar presetSmallTinklingMetalBar]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"694df76e62cf6d77d7e982dd99c9c149");
+}
+
+- (void)testPresetThickDullMetalBar
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKStruckMetalBar presetThickDullMetalBar]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"9a20afe5158c5b4ddd3ddafb570a6f27");
+}
+
+
 @end
