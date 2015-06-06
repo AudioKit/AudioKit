@@ -59,4 +59,72 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"b998e955e3a7d1564aa4e1f6f9a0d925");
 }
 
+- (void)testNarrowHighFrequencyNotchFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetNarrowHighFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"61f8d8f52d31ed65034497353bfc87ea");
+}
+
+- (void)testNarrowLowFrequencyNotchFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetNarrowLowFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"17a3a6e02d968d51c6b7a52f0e6eb113");
+}
+
+- (void)testWideHighFrequencyNotchFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetWideHighFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"cf01351c87d9e600714f42bdd3414695");
+}
+
+- (void)testWideLowFrequencyNotchFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetWideLowFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"e82b45c55829d62ffa93a38a67a51654");
+}
+
 @end

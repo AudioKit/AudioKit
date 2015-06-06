@@ -59,7 +59,7 @@
     return [[AKMoogLadder alloc] initWithInput:input];
 }
 
-- (instancetype)initUnderwaterFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetUnderwaterFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -72,12 +72,12 @@
     return self;
 }
 
-+ (instancetype)underwaterFilterWithInput:(AKParameter *)input;
++ (instancetype)presetUnderwaterFilterWithInput:(AKParameter *)input;
 {
-    return [[AKMoogLadder alloc] initUnderwaterFilterWithInput:input];
+    return [[AKMoogLadder alloc] initWithPresetUnderwaterFilterWithInput:input];
 }
 
-- (instancetype)initBassHeavyFilterWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetBassHeavyFilterWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -90,9 +90,9 @@
     return self;
 }
 
-+ (instancetype)bassHeavyFilterWithInput:(AKParameter *)input;
++ (instancetype)presetBassHeavyFilterWithInput:(AKParameter *)input;
 {
-    return [[AKMoogLadder alloc] initBassHeavyFilterWithInput:input];
+    return [[AKMoogLadder alloc] initWithPresetBassHeavyFilterWithInput:input];
 }
 
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {

@@ -54,4 +54,38 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"9158222aee0b6e4474b18aa1eae6c603");
 }
 
+- (void)testAlienSpaceshipFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKHilbertTransformer *presetReverb = [AKHilbertTransformer presetAlienSpaceshipFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"cbc16def3c8f628d4701ae7e84d6258c");
+}
+
+- (void)testMosquitoFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKHilbertTransformer *presetReverb = [AKHilbertTransformer presetMosquitoFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"1a294bdf8d517fafe06ecebb3f7c86d7");
+}
+
 @end
