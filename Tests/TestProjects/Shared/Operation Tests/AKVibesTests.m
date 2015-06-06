@@ -83,4 +83,37 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6d150cc0fec80b45b96754229edb7e6c");
 }
 
+- (void)testPresetGentleVibes
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKVibes presetGentleVibes]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"59852288963d7a8993424655bccfda64");
+}
+
+- (void)testPresetRingingVibes
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKVibes presetRingingVibes]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"b29f9207befbb3cf97ec349555cc76e4");
+}
+
+- (void)testPresetTinyVibes
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKVibes presetTinyVibes]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"6dedce3c95050031750d3832b8fe4abd");
+}
+
 @end
