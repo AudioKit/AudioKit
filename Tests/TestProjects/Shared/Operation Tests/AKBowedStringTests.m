@@ -92,4 +92,59 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"22cc703d0282180934d7ca084815eb0a");
 }
 
+- (void)testPresetCelloBowedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKBowedString presetCelloBowedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"0628ab36a96bccc312163cd807576dfa");
+}
+
+- (void)testPresetFeedbackBowedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKBowedString presetFeedbackBowedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"25c0b3bab9e1a92bed6d2597fc2a9671");
+}
+
+- (void)testPresetFogHornBowedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKBowedString presetFogHornBowedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"d2f55a33b3a43ad31b15f73aa9c71ff0");
+}
+
+- (void)testPresetTrainWhistleBowedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKBowedString presetTrainWhislteBowedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"a2704c34dcbb8b18412c91402e54704c");
+}
+
+- (void)testPresetWhistlingBowedString
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKBowedString presetWhistlingBowedString]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"03cf6dece4a2192eec1dd3f6d381fd6a");
+}
+
 @end
