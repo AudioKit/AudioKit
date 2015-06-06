@@ -85,4 +85,16 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"5a67652835046d6f311e402baaf2ac66");
 }
 
+- (void)testPresetManyBeadsSekere
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKSekere presetManyBeadsSekere]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"6a310d10c9401085790da77ca9131cc2");
+}
+
+
 @end
