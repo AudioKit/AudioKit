@@ -61,7 +61,7 @@
 
 @implementation AKVibesTests
 
-- (void)testVibes
+- (void)testDefaultVibes
 {
     // Set up performance
     TestVibesInstrument *testInstrument = [[TestVibesInstrument alloc] init];
@@ -88,10 +88,10 @@
     AKInstrument *testInstrument = [AKInstrument instrument];
     [testInstrument setAudioOutput:[AKVibes presetGentleVibes]];
     [AKOrchestra addInstrument:testInstrument];
-    [testInstrument play];
+    [testInstrument playForDuration:testDuration];
     
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
-                          @"59852288963d7a8993424655bccfda64");
+                          @"a4f079a3a5b1fc4b3769449e095a57ee");
 }
 
 - (void)testPresetRingingVibes
@@ -99,10 +99,10 @@
     AKInstrument *testInstrument = [AKInstrument instrument];
     [testInstrument setAudioOutput:[AKVibes presetRingingVibes]];
     [AKOrchestra addInstrument:testInstrument];
-    [testInstrument play];
+    [testInstrument playForDuration:testDuration];
     
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
-                          @"b29f9207befbb3cf97ec349555cc76e4");
+                          @"e27b0260922d306fb6ca99f79731e9a5");
 }
 
 - (void)testPresetTinyVibes
@@ -110,10 +110,10 @@
     AKInstrument *testInstrument = [AKInstrument instrument];
     [testInstrument setAudioOutput:[AKVibes presetTinyVibes]];
     [AKOrchestra addInstrument:testInstrument];
-    [testInstrument play];
+    [testInstrument playForDuration:testDuration];
     
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
-                          @"6dedce3c95050031750d3832b8fe4abd");
+                          @"e1cdcdbd0750419a6984e04a98656ade");
 }
 
 @end
