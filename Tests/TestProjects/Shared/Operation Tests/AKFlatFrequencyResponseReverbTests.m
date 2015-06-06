@@ -54,4 +54,39 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"bbbc6fe8afa513f8e799786e80509db1");
 }
 
+- (void)testPresetpresetMetallicReverbWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKFlatFrequencyResponseReverb *presetReverb = [AKFlatFrequencyResponseReverb presetMetallicReverbWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"b20c829d53b2170101ab3da654797fc5");
+}
+
+- (void)testPresetpresetStutteringReverbWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKFlatFrequencyResponseReverb *presetReverb = [AKFlatFrequencyResponseReverb presetStutteringReverbWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"da3529ade715a6053b59c9afb4b5ae19");
+}
+
+
 @end

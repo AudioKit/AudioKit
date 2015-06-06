@@ -69,4 +69,38 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"83b0eaeeccf43a86dc62b2fc7220fd5c");
 }
 
+- (void)testPresetpresetPloddingReverbWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKBallWithinTheBoxReverb *presetReverb = [AKBallWithinTheBoxReverb presetPloddingReverbWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"243cc1e9dacb19be977259f77990954b");
+}
+
+- (void)testPresetpresetStutteringReverbWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKBallWithinTheBoxReverb *presetReverb = [AKBallWithinTheBoxReverb presetStutteringReverbWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"6ce4f863b296ab275fbb54615e234c46");
+}
+
 @end
