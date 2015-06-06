@@ -68,10 +68,10 @@
     AKDecimator *presetReverb = [AKDecimator presetCrunchyDecimatorWithInput:mono];
     [testInstrument setAudioOutput:presetReverb];
     [AKOrchestra addInstrument:testInstrument];
-    [testInstrument play];
+    [testInstrument playForDuration:testDuration];
     
     // Check output
-    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"6b12ff8c9cccbd976b10c9e0be9cda79");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"6be7493e2045016a4e3f9eb385b3a4f9");
 }
 
 - (void)testPresetRobotDecimatorWithInput
@@ -85,10 +85,10 @@
     AKDecimator *presetReverb = [AKDecimator presetRobotDecimatorWithInput:mono];
     [testInstrument setAudioOutput:presetReverb];
     [AKOrchestra addInstrument:testInstrument];
-    [testInstrument play];
+    [testInstrument playForDuration:testDuration];
     
     // Check output
-    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"5cca821f1ed39179cff644910a18fc88");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"d82efeee48b79888303034abae081183");
 }
 
 - (void)testPresetVideogameDecimatorWithInput
@@ -102,10 +102,10 @@
     AKDecimator *presetReverb = [AKDecimator presetVideogameDecimatorWithInput:mono];
     [testInstrument setAudioOutput:presetReverb];
     [AKOrchestra addInstrument:testInstrument];
-    [testInstrument play];
+    [testInstrument playForDuration:testDuration];
     
     // Check output
-    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"609ed9678fd132226bd8a6f489fe7e9d");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"dca62ff43af1c3876704706f6006bffa");
 }
 
 @end
