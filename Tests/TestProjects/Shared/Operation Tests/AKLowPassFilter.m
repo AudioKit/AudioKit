@@ -63,8 +63,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKLowPassFilter *presetReverb = [AKLowPassFilter presetMuffledFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKLowPassFilter *presetFilter = [AKLowPassFilter presetMuffledFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     

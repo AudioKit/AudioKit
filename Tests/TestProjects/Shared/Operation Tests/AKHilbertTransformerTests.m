@@ -62,8 +62,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKHilbertTransformer *presetReverb = [AKHilbertTransformer presetAlienSpaceshipFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKHilbertTransformer *presetFilter = [AKHilbertTransformer presetAlienSpaceshipFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
@@ -79,8 +79,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKHilbertTransformer *presetReverb = [AKHilbertTransformer presetMosquitoFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKHilbertTransformer *presetFilter = [AKHilbertTransformer presetMosquitoFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     

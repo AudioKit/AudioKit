@@ -65,8 +65,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKDecimator *presetReverb = [AKDecimator presetCrunchyDecimatorWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKDecimator *presetFilter = [AKDecimator presetCrunchyDecimatorWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
     
@@ -82,8 +82,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKDecimator *presetReverb = [AKDecimator presetRobotDecimatorWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKDecimator *presetFilter = [AKDecimator presetRobotDecimatorWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
     
@@ -99,8 +99,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKDecimator *presetReverb = [AKDecimator presetVideogameDecimatorWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKDecimator *presetFilter = [AKDecimator presetVideogameDecimatorWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
     

@@ -63,8 +63,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKHighPassFilter *presetReverb = [AKHighPassFilter presetHighCutoffFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKHighPassFilter *presetFilter = [AKHighPassFilter presetHighCutoffFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     

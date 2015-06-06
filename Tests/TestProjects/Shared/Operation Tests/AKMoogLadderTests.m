@@ -68,8 +68,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKMoogLadder *presetReverb = [AKMoogLadder presetBassHeavyFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKMoogLadder *presetFilter = [AKMoogLadder presetBassHeavyFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
@@ -85,8 +85,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKMoogLadder *presetReverb = [AKMoogLadder presetUnderwaterFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKMoogLadder *presetFilter = [AKMoogLadder presetUnderwaterFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
