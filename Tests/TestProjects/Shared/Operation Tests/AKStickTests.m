@@ -85,4 +85,26 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"4b37d5f659f0c7df24942efa3f4aa2a2");
 }
 
+- (void)testPresetBundleOfSticks
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKStick presetBundleOfSticks]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"91f413c1543d2b5dbac5b2e96c993608");
+}
+
+- (void)testPresetThickStick
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKStick presetThickStick]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"e69b33af7cd8fd880ce842ca9bde41b6");
+}
+
 @end
