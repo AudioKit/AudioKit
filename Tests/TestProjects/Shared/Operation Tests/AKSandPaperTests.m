@@ -85,4 +85,16 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"3bb56ecfcda87114ba28b8c272fb1ecd");
 }
 
+
+- (void)testPresetMuffledSandPaper
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKSandPaper presetMuffledSandPaper]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"cf098382b41bf8a77a049d725ded7d05");
+}
+
 @end
