@@ -19,7 +19,6 @@
 }
 
 - (void)tearDown {
-    [[AKManager sharedManager] resetOrchestra];
     [[AKManager sharedManager].engine teardownForTest];
     [super tearDown];
 }
