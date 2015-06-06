@@ -67,8 +67,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetNarrowHighFrequencyNotchFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKEqualizerFilter *presetFilter = [AKEqualizerFilter presetNarrowHighFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
@@ -84,8 +84,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetNarrowLowFrequencyNotchFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKEqualizerFilter *presetFilter = [AKEqualizerFilter presetNarrowLowFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
@@ -101,8 +101,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetWideHighFrequencyNotchFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKEqualizerFilter *presetFilter = [AKEqualizerFilter presetWideHighFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
@@ -118,8 +118,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKEqualizerFilter *presetReverb = [AKEqualizerFilter presetWideLowFrequencyNotchFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKEqualizerFilter *presetFilter = [AKEqualizerFilter presetWideLowFrequencyNotchFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
