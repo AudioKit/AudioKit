@@ -95,4 +95,26 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"8c88f6eb00209fc63946052854d5f09c");
 }
 
+- (void)testPresetClosedTambourine
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKTambourine presetClosedTambourine]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"82e5675e159055f279d71692569c5267");
+}
+
+- (void)testPresetOpenTambourine
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKTambourine presetOpenTambourine]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"1fa2680fb57c3757a64f4ec8ab140201");
+}
+
 @end

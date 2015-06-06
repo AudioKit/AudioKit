@@ -92,4 +92,27 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"5d3e31608ec30f414ee7bea3706daf83");
 }
 
+
+- (void)testPresetOpenBells
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKSleighbells presetOpenBells]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"ef73a9961f7c0d625e6b954d2e2da57e");
+}
+
+- (void)testPresetSoftBells
+{
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    [testInstrument setAudioOutput:[AKSleighbells presetSoftBells]];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0],
+                          @"ec5e5c68cb38f4eb47b701d98495ab03");
+}
+
 @end
