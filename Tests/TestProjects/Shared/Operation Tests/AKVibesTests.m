@@ -80,7 +80,9 @@
     [testInstrument playPhrase:phrase];
 
     // Check output
-    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6d150cc0fec80b45b96754229edb7e6c");
+    NSArray *validMD5s = @[@"6d150cc0fec80b45b96754229edb7e6c", @"6ac98b0e083367e90cb0abf9b7196775"];
+    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
+//    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6d150cc0fec80b45b96754229edb7e6c");
 }
 
 - (void)testPresetGentleVibes
