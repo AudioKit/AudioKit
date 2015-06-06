@@ -62,8 +62,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKCombFilter *presetReverb = [AKCombFilter presetShuffleFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKCombFilter *presetFilter = [AKCombFilter presetShuffleFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
@@ -79,8 +79,8 @@
     AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
     
     AKInstrument *testInstrument = [AKInstrument instrument];
-    AKCombFilter *presetReverb = [AKCombFilter presetSpringFilterWithInput:mono];
-    [testInstrument setAudioOutput:presetReverb];
+    AKCombFilter *presetFilter = [AKCombFilter presetSpringFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
     
