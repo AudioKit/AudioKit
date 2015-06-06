@@ -55,4 +55,21 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"bf35ac2861e6ca595fca60d133c97a4d");
 }
 
+- (void)testHighCutoffFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKHighPassFilter *presetReverb = [AKHighPassFilter presetHighCutoffFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetReverb];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"1f5ec8efb996dcdeae8f5a0897135b41");
+}
+
 @end
