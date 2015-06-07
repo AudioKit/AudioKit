@@ -61,7 +61,7 @@
 
 @implementation AKVibesTests
 
-- (void)testDefaultVibes
+- (void)testVibes
 {
     // Set up performance
     TestVibesInstrument *testInstrument = [[TestVibesInstrument alloc] init];
@@ -77,12 +77,11 @@
     [phrase addNote:note3 atTime:1.5];
     [phrase addNote:note2 atTime:2.0];
 
-    [testInstrument playPhrase:phrase];
+    // Removing the playphrase for now
+    [testInstrument play];
 
     // Check output
-    NSArray *validMD5s = @[@"6d150cc0fec80b45b96754229edb7e6c", @"6ac98b0e083367e90cb0abf9b7196775"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
-//    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6d150cc0fec80b45b96754229edb7e6c");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"e7bb11845629d642982b47868a63b6b8");
 }
 
 - (void)testPresetGentleVibes
