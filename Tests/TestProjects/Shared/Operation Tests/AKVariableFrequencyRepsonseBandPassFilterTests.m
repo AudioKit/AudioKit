@@ -59,4 +59,72 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"26f0bc7ece1c2685d8a900b27facacad");
 }
 
+- (void)testPresetBassPeakFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKVariableFrequencyResponseBandPassFilter *presetFilter = [AKVariableFrequencyResponseBandPassFilter presetBassPeakFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"9135672ca5f2fbef0c09f5ebfb843045");
+}
+
+- (void)testPresetLargeMuffledFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKVariableFrequencyResponseBandPassFilter *presetFilter = [AKVariableFrequencyResponseBandPassFilter presetLargeMuffledFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"74f8f8975348b1c45feccfa0f3c2c679");
+}
+
+- (void)testPresetMuffledFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKVariableFrequencyResponseBandPassFilter *presetFilter = [AKVariableFrequencyResponseBandPassFilter presetMuffledFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"d033065c04f69e8b267d42fa99bfdb04");
+}
+
+- (void)testPresetTreblePeakFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKVariableFrequencyResponseBandPassFilter *presetFilter = [AKVariableFrequencyResponseBandPassFilter presetTreblePeakFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"11cae5e564672c1fd217474e23eb4e9b");
+}
+
 @end
