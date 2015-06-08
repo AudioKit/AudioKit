@@ -2,7 +2,7 @@
 //  SignalGeneratorPresetsPlayground.m
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 3/15/15.
+//  Created by Aurelius Prochazka on 6/7/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
