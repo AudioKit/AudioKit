@@ -57,4 +57,55 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"a62dd414fe5ebb6e21b3099ce1287e7e");
 }
 
+- (void)testPresetCrunchyDecimatorWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKDecimator *presetFilter = [AKDecimator presetCrunchyDecimatorWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument playForDuration:testDuration];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"6be7493e2045016a4e3f9eb385b3a4f9");
+}
+
+- (void)testPresetRobotDecimatorWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKDecimator *presetFilter = [AKDecimator presetRobotDecimatorWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument playForDuration:testDuration];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"d82efeee48b79888303034abae081183");
+}
+
+- (void)testPresetVideogameDecimatorWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKDecimator *presetFilter = [AKDecimator presetVideogameDecimatorWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument playForDuration:testDuration];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"dca62ff43af1c3876704706f6006bffa");
+}
+
 @end

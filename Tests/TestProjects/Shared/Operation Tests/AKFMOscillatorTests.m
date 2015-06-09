@@ -60,9 +60,7 @@
     [testInstrument playForDuration:testDuration];
 
     // Check output
-    NSArray *validMD5s = @[@"99becb404ef25b519470c6768ad47a84",
-                           @"dfe4b8c87584f8847acc1352ba3b2bf2"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"dfe4b8c87584f8847acc1352ba3b2bf2");
 }
 
 - (void)testPresetBuzzer
@@ -71,7 +69,7 @@
     [testInstrument setAudioOutput:[AKFMOscillator presetBuzzer]];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
-    
+
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"850cd857039adb870a83573a972ecd08");
 }
@@ -82,7 +80,7 @@
     [testInstrument setAudioOutput:[AKFMOscillator presetFogHorn]];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
-    
+
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"214908a4ee92b0696692e6e841c916f6");
 }
@@ -93,7 +91,7 @@
     [testInstrument setAudioOutput:[AKFMOscillator presetSpaceWobble]];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
-    
+
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"ff899014015ea961fa208d42cb0875e6");
 }
@@ -104,7 +102,7 @@
     [testInstrument setAudioOutput:[AKFMOscillator presetSpiral]];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
-    
+
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"0ae1436fd2f47c2ad487ef9bdfa55c26");
 }
@@ -115,7 +113,7 @@
     [testInstrument setAudioOutput:[AKFMOscillator presetStunRay]];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
-    
+
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"8386b8c1e289c702846b97cc9eccc641");
 }
@@ -126,7 +124,7 @@
     [testInstrument setAudioOutput:[AKFMOscillator presetWobble]];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument play];
-    
+
     // Check output
     XCTAssertEqualObjects([self md5ForOutputWithDuration:1.0], @"79b9806fbea0d735ee8ea95a8d875737");
 }

@@ -19,14 +19,14 @@
 {
     self = [super init];
     if (self) {
-        
-        
+
+
         AKOscillator *frequencyOscillator = [AKOscillator oscillator];
         frequencyOscillator.frequency = akp(2);
-        
+
         AKOscillator *oscillator = [AKOscillator oscillator];
         oscillator.frequency = [[frequencyOscillator scaledBy:akp(110)] plus:akp(440)];
-        
+
         [self setAudioOutput:oscillator];
     }
     return self;
@@ -45,11 +45,9 @@
     TestOscillatorInstrument *testInstrument = [[TestOscillatorInstrument alloc] init];
     [AKOrchestra addInstrument:testInstrument];
     [testInstrument playForDuration:testDuration];
-    
+
     // Check output
-    NSArray *validMD5s = @[@"2b8e98364007e66542ee2e92f44d789a",
-                           @"95184436da24aa6c7b65b80b48f916e8"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"95184436da24aa6c7b65b80b48f916e8");
 }
 
 @end

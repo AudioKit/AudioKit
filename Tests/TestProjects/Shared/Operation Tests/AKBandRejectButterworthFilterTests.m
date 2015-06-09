@@ -58,4 +58,38 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"13a895c3df53cfc3ff8b48484dcb082c");
 }
 
+- (void)testPresetBassRejectFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKBandRejectButterworthFilter *presetFilter = [AKBandRejectButterworthFilter presetBassRejectFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"33b325d02dae11c9fb8b2b31c552570c");
+}
+
+- (void)testPresetTrebleRejectFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKBandRejectButterworthFilter *presetFilter = [AKBandRejectButterworthFilter presetTrebleRejectFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"3e51deffda855c64f985d72f316228ca");
+}
+
 @end

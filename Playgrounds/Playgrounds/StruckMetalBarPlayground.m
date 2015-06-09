@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "StruckMetalBar.h"
 
 @implementation Playground
 
@@ -15,10 +14,10 @@
 {
     [super run];
 
-    StruckMetalBar *struckMetalBar = [[StruckMetalBar alloc] initWithNumber:1];
+    AKStruckMetalBarInstrument *struckMetalBar = [[AKStruckMetalBarInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:struckMetalBar];
 
-    StruckMetalBarNote *note = [[StruckMetalBarNote alloc] init];
+    AKStruckMetalBarNote *note = [[AKStruckMetalBarNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [struckMetalBar playNote:note]; }];
 

@@ -7,17 +7,19 @@
 //
 
 #import "Playground.h"
-#import "FMOscillatorInstrument.h"
+#import "AKFMOscillatorInstrument.h"
 
-@implementation Playground
+@implementation Playground {
+    AKPhrase *phrase;
+}
 
 - (void)run
 {
     [super run];
 
-    AKPhrase *phrase = [AKPhrase phrase];
+    phrase = [AKPhrase phrase];
 
-    FMOscillatorInstrument *oscillator = [[FMOscillatorInstrument alloc] initWithNumber:1];
+    AKFMOscillatorInstrument *oscillator = [[AKFMOscillatorInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:oscillator];
 
     float duration = 0.1;
@@ -44,7 +46,7 @@
 {
     [phrase reset];
     for (int i = 0; i <= 12 ; i++) {
-        FMOscillatorNote *note = [[FMOscillatorNote alloc] init];
+        AKFMOscillatorNote *note = [[AKFMOscillatorNote alloc] init];
         note.frequency.value = 440*(pow(2.0f,(float)i/12));
         note.duration.value = duration;
         [phrase addNote:note atTime:i*duration];
