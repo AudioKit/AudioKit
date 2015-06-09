@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "Sleighbells.h"
 
 @implementation Playground
 
@@ -15,10 +14,10 @@
 {
     [super run];
 
-    Sleighbells *sleighBells = [[Sleighbells alloc] initWithNumber:1];
+    AKSleighbellsInstrument *sleighBells = [[AKSleighbellsInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:sleighBells];
 
-    SleighbellsNote *note = [[SleighbellsNote alloc] init];
+    AKSleighbellsNote *note = [[AKSleighbellsNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [sleighBells playNote:note]; }];
 
