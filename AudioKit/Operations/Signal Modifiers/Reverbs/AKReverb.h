@@ -42,27 +42,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the reverb with 'small hall' values
 /// @param input Audio input
-- (instancetype)initSmallHallReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetSmallHallReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb 'small hall' values
 /// @param input Input for the left channel
-+ (instancetype)smallHallReverbWithInput:(AKParameter *)input;
++ (instancetype)presetSmallHallReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb with 'large hall' values
 /// @param input Input to the reverberator
-- (instancetype)initLargeHallReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetLargeHallReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb with 'large hall' values
 /// @param input Input to the reverberator
-+ (instancetype)largeHallReverbWithInput:(AKParameter *)input;
++ (instancetype)presetLargeHallReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb with 'muffled can' values
 /// @param input Audio input
-- (instancetype)initMuffledCanReverbWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetMuffledCanReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb with 'muffled can' values
 /// @param input Input for the left channel
-+ (instancetype)muffledCanReverbWithInput:(AKParameter *)input;
++ (instancetype)presetMuffledCanReverbWithInput:(AKParameter *)input;
 
 /// Instantiates the reverb with all values
 /// @param input Stereo input to the reverberator.
@@ -90,27 +90,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the reverb with 'small hall' values
 /// @param input Input to the reverberator
-- (instancetype)initSmallHallReverbWithStereoInput:(AKStereoAudio *)input;
+- (instancetype)initWithPresetSmallHallReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with 'small hall' values
 /// @param input Input to the reverberator
-+ (instancetype)smallHallReverbWithStereoInput:(AKStereoAudio *)input;
++ (instancetype)presetSmallHallReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with 'large hall' values
 /// @param input Input to the reverberator
-- (instancetype)initLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
+- (instancetype)initWithPresetLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with 'large hall' values
 /// @param input Input to the reverberator
-+ (instancetype)largeHallReverbWithStereoInput:(AKStereoAudio *)input;
++ (instancetype)presetLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with 'muffled can' values
 /// @param input Input to the reverberator
-- (instancetype)initMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
+- (instancetype)initWithPresetMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
 
 /// Instantiates the reverb with 'muffled can' values
 /// @param input Input to the reverberator
-+ (instancetype)muffledCanReverbWithStereoInput:(AKStereoAudio *)input;
++ (instancetype)presetMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
 
 
 /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable. [Default Value: 0.6]

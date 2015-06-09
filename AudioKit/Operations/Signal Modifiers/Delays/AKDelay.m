@@ -67,7 +67,7 @@
                                 delayTime:delayTime];
 }
 
-- (instancetype)initChoppedDelayWithInput:(AKParameter *)input
+- (instancetype)initWithPresetChoppedDelayWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -80,12 +80,12 @@
     return self;
 }
 
-+ (instancetype)choppedDelayWithInput:(AKParameter *)input
++ (instancetype)presetChoppedDelayWithInput:(AKParameter *)input;
 {
-    return [[AKDelay alloc] initChoppedDelayWithInput:input];
+    return [[AKDelay alloc] initWithPresetChoppedDelayWithInput:input];
 }
 
-- (instancetype)initRhythmicDelayWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetRhythmicDelayWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -98,12 +98,12 @@
     return self;
 }
 
-+ (instancetype)rhythmicAttackDelayWithInput:(AKParameter *)input;
++ (instancetype)presetRhythmicAttackDelayWithInput:(AKParameter *)input;
 {
-    return [[AKDelay alloc] initRhythmicDelayWithInput:input];
+    return [[AKDelay alloc] initWithPresetRhythmicDelayWithInput:input];
 }
 
-- (instancetype)initShortAttackDelayWithInput:(AKParameter *)input;
+- (instancetype)initWithPresetShortAttackDelayWithInput:(AKParameter *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -116,9 +116,9 @@
     return self;
 }
 
-+ (instancetype)shortAttackDelayWithInput:(AKParameter *)input
++ (instancetype)presetShortAttackDelayWithInput:(AKParameter *)input;
 {
-    return [[AKDelay alloc] initShortAttackDelayWithInput:input];
+    return [[AKDelay alloc] initWithPresetShortAttackDelayWithInput:input];
 }
 
 - (void)setFeedback:(AKParameter *)feedback {

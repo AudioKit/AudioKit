@@ -105,10 +105,14 @@
     if (instrument.userDefinedOperations.count > 0) {
         [instrumentString appendString:@"\n;--- User-defined operations ---\n"];
         for (NSString *udo in instrument.userDefinedOperations) {
+#ifdef AK_TESTING
+            [instrumentString appendFormat:@"%@\n", udo];
+#else
             if (![[[[AKManager sharedManager] orchestra] userDefinedOperations] containsObject:udo]) {
                 [instrumentString appendFormat:@"%@\n", udo];
                 [[[[AKManager sharedManager] orchestra] userDefinedOperations] addObject:udo];
             }
+#endif
         }
     }
     

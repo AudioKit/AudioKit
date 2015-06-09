@@ -55,4 +55,21 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"0c99def8c3e194deb1506ef4da32edbd");
 }
 
+- (void)testMuffledFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKLowPassFilter *presetFilter = [AKLowPassFilter presetMuffledFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"99aa0dc68889c03bb5586e1d9b531afc");
+}
+
 @end

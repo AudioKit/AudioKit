@@ -13,16 +13,6 @@
 #import <KZPTimelineViewController.h>
 
 #import "AKFoundation.h"
-#import "AKStereoOutputPlot.h"
-#import "AKAudioOutputPlot.h"
-#import "AKAudioInputPlot.h"
-#import "AKInstrumentPropertyPlot.h"
-#import "AKAudioInputFFTPlot.h"
-#import "AKAudioOutputFFTPlot.h"
-#import "AKTablePlot.h"
-#import "AKFloatPlot.h"
-#import "AKAudioInputRollingWaveformPlot.h"
-#import "AKAudioOutputRollingWaveformPlot.h"
 
 @interface AKPlayground : KZPPlayground
 

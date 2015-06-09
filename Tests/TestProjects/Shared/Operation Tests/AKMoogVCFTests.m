@@ -55,4 +55,38 @@
     XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"5bc5b6b23038bff35bba2d5bff1fe7d1");
 }
 
+- (void)testPresetFoggyBottomFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKMoogVCF *presetFilter = [AKMoogVCF presetFoggyBottomFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"32d362dfa3ee2111917eebedd10ba53b");
+}
+
+- (void)testPresetHighTrebleFilterWithInput
+{
+    NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
+    AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
+    audio.loop = YES;
+    AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
+    
+    AKInstrument *testInstrument = [AKInstrument instrument];
+    AKMoogVCF *presetFilter = [AKMoogVCF presetHighTrebleFilterWithInput:mono];
+    [testInstrument setAudioOutput:presetFilter];
+    [AKOrchestra addInstrument:testInstrument];
+    [testInstrument play];
+    
+    // Check output
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:2.0], @"a7196a9a7a9252dc447292e799a0fb4d");
+}
+
 @end

@@ -54,9 +54,7 @@
     [testInstrument playForDuration:testDuration];
 
     // Check output
-    NSArray *validMD5s = @[@"b29c592cc35527aa0c335eb9c0d3f211",
-                           @"212203a0a1b4ada367be49a10954ea2f"];
-    XCTAssertTrue([validMD5s containsObject:[self md5ForOutputWithDuration:testDuration]]);
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"b29c592cc35527aa0c335eb9c0d3f211");
 }
 
 @end

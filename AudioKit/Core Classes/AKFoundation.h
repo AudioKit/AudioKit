@@ -198,6 +198,11 @@
 #import "AKHighPassButterworthFilter.h"
 #import "AKLowPassButterworthFilter.h"
 
+// Operations - Signal Modifiers - Filters - Parametric Equalizers
+#import "AKHighShelfParametricEqualizerFilter.h"
+#import "AKLowShelfParametricEqualizerFilter.h"
+#import "AKPeakingParametricEqualizerFilter.h"
+
 // Operations - Signal Modifiers - Reverbs
 #import "AKBallWithinTheBoxReverb.h"
 #import "AKFlatFrequencyResponseReverb.h"
