@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "Mandolin.h"
 
 @implementation Playground
 
@@ -15,10 +14,10 @@
 {
     [super run];
 
-    Mandolin *mandolin = [[Mandolin alloc] initWithNumber:1];
+    AKMandolinInstrument *mandolin = [[AKMandolinInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mandolin];
 
-    MandolinNote *note = [[MandolinNote alloc] init];
+    AKMandolinNote *note = [[AKMandolinNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [mandolin playNote:note]; }];
 

@@ -7,8 +7,6 @@
 //
 
 #import "Playground.h"
-#import "Microphone.h"
-#import "AKAudioAnalyzer.h"
 
 @implementation Playground
 
@@ -16,7 +14,7 @@
 {
     [super run];
 
-    Microphone *mic = [[Microphone alloc] initWithNumber:1];
+    AKMicrophone *mic = [[AKMicrophone alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mic];
     AKAudioAnalyzer *analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:mic.auxilliaryOutput];
     [AKOrchestra addInstrument:analyzer];

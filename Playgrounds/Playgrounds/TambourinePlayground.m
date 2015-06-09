@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "Tambourine.h"
 
 @implementation Playground
 
@@ -15,10 +14,10 @@
 {
     [super run];
 
-    Tambourine * tambourine = [[Tambourine alloc] initWithNumber:1];
+    AKTambourineInstrument * tambourine = [[AKTambourineInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:tambourine];
 
-    TambourineNote *note = [[TambourineNote alloc] init];
+    AKTambourineNote *note = [[AKTambourineNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [tambourine playNote:note]; }];
 
