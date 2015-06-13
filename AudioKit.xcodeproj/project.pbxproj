@@ -20,6 +20,14 @@
 		C45552431ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
 		C45552481ADF152F000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
 		C45552491ADF155A000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
+		C47F63771B2BF33600D6FFC8 /* AKSoundFont.h in Headers */ = {isa = PBXBuildFile; fileRef = C47F63751B2BF33600D6FFC8 /* AKSoundFont.h */; };
+		C47F63781B2BF33600D6FFC8 /* AKSoundFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */; };
+		C47F63791B2BF33600D6FFC8 /* AKSoundFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */; };
+		C47F637A1B2BF33600D6FFC8 /* AKSoundFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */; };
+		C47F637D1B2BF7A100D6FFC8 /* AKSoundFontPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = C47F637B1B2BF7A100D6FFC8 /* AKSoundFontPlayer.h */; };
+		C47F637E1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m */; };
+		C47F637F1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m */; };
+		C47F63801B2BF7A100D6FFC8 /* AKSoundFontPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m */; };
 		C4C627601B1B714900B7AD86 /* AKAdditiveCosines.h in Headers */ = {isa = PBXBuildFile; fileRef = C4C6275E1B1B714900B7AD86 /* AKAdditiveCosines.h */; };
 		C4C627611B1B714900B7AD86 /* AKAdditiveCosines.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C6275F1B1B714900B7AD86 /* AKAdditiveCosines.m */; };
 		C4C627621B1B714900B7AD86 /* AKAdditiveCosines.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C6275F1B1B714900B7AD86 /* AKAdditiveCosines.m */; };
@@ -586,6 +594,10 @@
 		C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudio.m; sourceTree = "<group>"; };
 		C45552461ADF152F000C8D42 /* AKRingModulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRingModulator.h; sourceTree = "<group>"; };
 		C45552471ADF152F000C8D42 /* AKRingModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRingModulator.m; sourceTree = "<group>"; };
+		C47F63751B2BF33600D6FFC8 /* AKSoundFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFont.h; path = "AudioKit/Sound Fonts/AKSoundFont.h"; sourceTree = SOURCE_ROOT; };
+		C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFont.m; path = "AudioKit/Sound Fonts/AKSoundFont.m"; sourceTree = SOURCE_ROOT; };
+		C47F637B1B2BF7A100D6FFC8 /* AKSoundFontPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontPlayer.h; path = "AudioKit/Sound Fonts/AKSoundFontPlayer.h"; sourceTree = SOURCE_ROOT; };
+		C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontPlayer.m; path = "AudioKit/Sound Fonts/AKSoundFontPlayer.m"; sourceTree = SOURCE_ROOT; };
 		C4C6275E1B1B714900B7AD86 /* AKAdditiveCosines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosines.h; sourceTree = "<group>"; };
 		C4C6275F1B1B714900B7AD86 /* AKAdditiveCosines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosines.m; sourceTree = "<group>"; };
 		C4C812591AE5CA03003A8B73 /* AKSekereInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSekereInstrument.h; sourceTree = "<group>"; };
@@ -1020,6 +1032,18 @@
 			path = "Parametric Equalizers";
 			sourceTree = "<group>";
 		};
+		C47F63741B2BF2EB00D6FFC8 /* Sound Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C47F63751B2BF33600D6FFC8 /* AKSoundFont.h */,
+				C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */,
+				C47F637B1B2BF7A100D6FFC8 /* AKSoundFontPlayer.h */,
+				C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m */,
+			);
+			name = "Sound Fonts";
+			path = Tables;
+			sourceTree = "<group>";
+		};
 		C4FAE5EE1AED6B2600FD71E2 /* File Players */ = {
 			isa = PBXGroup;
 			children = (
@@ -1068,6 +1092,7 @@
 				EA8E94021AD3C6840057E979 /* Parameters */,
 				EA8E956E1AD3C6850057E979 /* Platforms */,
 				EA8E959A1AD3C6850057E979 /* Sequencing */,
+				C47F63741B2BF2EB00D6FFC8 /* Sound Fonts */,
 				EA8E946B1AD3C6840057E979 /* Tables */,
 				EA8E940F1AD3C6840057E979 /* Utilities */,
 			);
@@ -1873,8 +1898,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C627601B1B714900B7AD86 /* AKAdditiveCosines.h in Headers */,
+				C47F63771B2BF33600D6FFC8 /* AKSoundFont.h in Headers */,
 				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
 				EA321D1D1AEDCA5300DCCABD /* AKAudioFFTPlot.h in Headers */,
+				C47F637D1B2BF7A100D6FFC8 /* AKSoundFontPlayer.h in Headers */,
 				C4C8125B1AE5CA03003A8B73 /* AKSekereInstrument.h in Headers */,
 				C4FAE5F11AED6B2600FD71E2 /* AKAudioFilePlayer.h in Headers */,
 			);
@@ -1992,6 +2019,7 @@
 				EA8E95B91AD3C6850057E979 /* AKPluckedStringInstrument.m in Sources */,
 				EA8E95EC1AD3C6850057E979 /* AKAssignment.m in Sources */,
 				EA8E95CD1AD3C6850057E979 /* AKTablePlot.m in Sources */,
+				C47F63781B2BF33600D6FFC8 /* AKSoundFont.m in Sources */,
 				EA8E95B21AD3C6850057E979 /* AKTools.m in Sources */,
 				EA8E95F11AD3C6850057E979 /* AKMultipleInputMathOperation.m in Sources */,
 				EA8E95D71AD3C6850057E979 /* AKExponentialTableGenerator.m in Sources */,
@@ -2112,6 +2140,7 @@
 				EA8E96221AD3C6850057E979 /* AKAudioInput.m in Sources */,
 				EA8E96381AD3C6850057E979 /* AKMoogLadder.m in Sources */,
 				EA8E963D1AD3C6850057E979 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
+				C47F637E1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m in Sources */,
 				EA8E95C51AD3C6850057E979 /* AKAudioInputRollingWaveformPlot.m in Sources */,
 				EA8E95B11AD3C6850057E979 /* AKSampler.m in Sources */,
 				EA8E96501AD3C6850057E979 /* AKEvent.m in Sources */,
@@ -2178,6 +2207,7 @@
 				EA8E96C91AD3CA4B0057E979 /* AKTableLooper.m in Sources */,
 				EA8E96CA1AD3CA4B0057E979 /* AKPortamento.m in Sources */,
 				EA8E96CB1AD3CA4B0057E979 /* AKVibrato.m in Sources */,
+				C47F637A1B2BF33600D6FFC8 /* AKSoundFont.m in Sources */,
 				EA8E96CC1AD3CA4B0057E979 /* AKFMOscillator.m in Sources */,
 				EA8E96CD1AD3CA4B0057E979 /* AKLowFrequencyOscillator.m in Sources */,
 				EA8E96CE1AD3CA4B0057E979 /* AKOscillator.m in Sources */,
@@ -2298,6 +2328,7 @@
 				EA8E96911AD3C92B0057E979 /* AKAudioOutputPlot.m in Sources */,
 				EA8E96721AD3C85D0057E979 /* AKMidi.m in Sources */,
 				EA8E96A51AD3C9640057E979 /* AKRandomDistributionTableGenerator.m in Sources */,
+				C47F63801B2BF7A100D6FFC8 /* AKSoundFontPlayer.m in Sources */,
 				EA8E968C1AD3C9090057E979 /* AKVCOscillatorInstrument.m in Sources */,
 				EA8E968B1AD3C9090057E979 /* AKFMOscillatorInstrument.m in Sources */,
 				EA8E96781AD3C8790057E979 /* AKFSignal.m in Sources */,
@@ -2364,6 +2395,7 @@
 				EAA0F4EE1AE71C8F007CD7C9 /* AKPluckedStringInstrument.m in Sources */,
 				EAA0F4EF1AE71C8F007CD7C9 /* AKAssignment.m in Sources */,
 				EAA0F4F01AE71C8F007CD7C9 /* AKTablePlot.m in Sources */,
+				C47F63791B2BF33600D6FFC8 /* AKSoundFont.m in Sources */,
 				EAA0F4F11AE71C8F007CD7C9 /* AKTools.m in Sources */,
 				EAA0F4F21AE71C8F007CD7C9 /* AKMultipleInputMathOperation.m in Sources */,
 				EAA0F4F31AE71C8F007CD7C9 /* AKExponentialTableGenerator.m in Sources */,
@@ -2484,6 +2516,7 @@
 				EAA0F5601AE71C8F007CD7C9 /* AKAudioInput.m in Sources */,
 				EAA0F5611AE71C8F007CD7C9 /* AKMoogLadder.m in Sources */,
 				EAA0F5621AE71C8F007CD7C9 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
+				C47F637F1B2BF7A100D6FFC8 /* AKSoundFontPlayer.m in Sources */,
 				EAA0F5631AE71C8F007CD7C9 /* AKAudioInputRollingWaveformPlot.m in Sources */,
 				EAA0F5641AE71C8F007CD7C9 /* AKSampler.m in Sources */,
 				EAA0F5651AE71C8F007CD7C9 /* AKEvent.m in Sources */,
