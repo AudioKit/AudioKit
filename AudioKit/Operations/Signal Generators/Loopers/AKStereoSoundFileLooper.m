@@ -34,7 +34,7 @@
         _amplitude = amplitude;
         _loopMode = loopMode;
         [self setUpConnections];
-}
+    }
     return self;
 }
 

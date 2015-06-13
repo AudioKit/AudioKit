@@ -20,18 +20,11 @@
     self = [super init];
     if (self) {
 
-        NSString *filename = [AKManager pathToSoundFile:@"PianoBassDrumLoop" ofType:@"wav"];
-        AKFileInput *audio = [[AKFileInput alloc] initWithFilename:filename];
-        AKMix *mono = [[AKMix alloc] initMonoAudioFromStereoInput:audio];
-
-        AKLine *azimuth = [[AKLine alloc] initWithFirstPoint:akp(0)
-                                                 secondPoint:akp(720)
-                                       durationBetweenPoints:akp(testDuration)];
-
-        AK3DBinauralAudio *binauralAudio = [[AK3DBinauralAudio alloc] initWithInput:mono];
-        binauralAudio.azimuth = azimuth;
-
-        [self setAudioOutput:binauralAudio];
+        NSString *filename = [AKManager pathToSoundFile:@"07AcousticGuitar" ofType:@"sf2"];
+        AKSoundFont *font = [[AKSoundFont alloc] initWithFilename:filename];
+        AKSoundFontPlayer *player = [AKSoundFontPlayer playerWithSoundFont:font];
+        
+        [self setStereoAudioOutput:player];
     }
     return self;
 }
