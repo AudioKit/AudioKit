@@ -215,6 +215,10 @@
 #import "AKMix.h"
 #import "AKPanner.h"
 
+// Sound Fonts
+#import "AKSoundFont.h"
+#import "AKSoundFontPlayer.h"
+
 // Utilities
 #import "AKSampler.h"
 #import "AKTools.h"
