@@ -50,7 +50,6 @@
     [testInstrument setAudioOutput:testOperation];
         
     
-    ///// May 31st
    AKResonantFilter *presetOperation = [[AKResonantFilter alloc] initWithPresetMuffledFilterWithInput:presetAudio];
 
     
