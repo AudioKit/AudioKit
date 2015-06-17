@@ -29,7 +29,7 @@ For most users, the documentation you really want: installation instructions, tu
 
 Examples
 --------
-Included with AudioKit are two examples (HelloWorld and AudioKitDemo) written in two languages (Objective-C and Swift) for two operating systems (iOS and OSX).  So, there are eight projects for each permutation.  The Hello World project is a great starting point and a walkthrough is available [here](http://audiokit.io/examples/HelloWorld/).  In Hello World, only one file is used to create a sine oscillator playing at 440Hz.  The AudioKitDemo is quite a big more complex, combining three apps into one to demostrate audio synthesis, processing, and analysis techniques.  More info: [http://audiokit.io/examples/](http://audiokit.io/examples/)
+Included with AudioKit are two examples (HelloWorld and AudioKitDemo) written in two languages (Objective-C and Swift) for two operating systems (iOS and OSX).  So, there are eight projects for each permutation.  The Hello World project is a great starting point and a walkthrough is available [here](http://audiokit.io/examples/HelloWorld/).  In Hello World, only one file is used to create a sine oscillator playing at 440Hz.  The AudioKitDemo is quite a big more complex, combining three apps into one to demonstrate audio synthesis, processing, and analysis techniques.  More info: [http://audiokit.io/examples/](http://audiokit.io/examples/)
 
 Playgrounds
 -----------
