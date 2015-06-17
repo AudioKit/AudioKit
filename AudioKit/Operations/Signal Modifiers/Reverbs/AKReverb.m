@@ -167,8 +167,8 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _leftInput = input;
-        _rightInput = input;
+        _leftInput = input.leftOutput;
+        _rightInput = input.rightOutput;
         // 'Small Hall' Values
         _feedback = akp(0.8);
         _cutoffFrequency = akp(4000);
@@ -186,8 +186,8 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _leftInput = input;
-        _rightInput = input;
+        _leftInput = input.leftOutput;
+        _rightInput = input.rightOutput;
         // 'Large Hall' Values
         _feedback = akp(0.9);
         _cutoffFrequency = akp(4000);
@@ -198,15 +198,15 @@
 
 + (instancetype)presetLargeHallReverbWithStereoInput:(AKStereoAudio *)input;
 {
-    return [[AKReverb alloc] initWithPresetLargeHallReverbWithInput:input];
+    return [[AKReverb alloc] initWithPresetLargeHallReverbWithStereoInput:input];
 }
 
 - (instancetype)initWithPresetMuffledCanReverbWithStereoInput:(AKStereoAudio *)input;
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _leftInput = input;
-        _rightInput = input;
+        _leftInput = input.leftOutput;
+        _rightInput = input.rightOutput;
         // 'Muffled Can' Values
         _feedback = akp(0.8);
         _cutoffFrequency = akp(1200);
