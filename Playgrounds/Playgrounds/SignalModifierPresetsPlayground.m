@@ -234,6 +234,20 @@
         [self playPresetOperation:[AKResonantFilter presetHighBassFilterWithInput:[self mono]] forDuration:10.0];
     }];
     [self addButtonWithTitle:@"Stop" block:^{[presetInstrument stop];}];
+
+    [self makeSection:@"Panner"];
+    [self addButtonWithTitle:@"HardLeft" block:^{
+        [self playPresetOperation:[AKPanner presetDefaultHardLeftWithInput:[self mono]] forDuration:10.0];
+    }];
+    [self addButtonWithTitle:@"Centered" block:^{
+        [self playPresetOperation:[AKPanner presetDefaultCenteredWithInput:[self mono]] forDuration:10.0];
+    }];
+    [self addButtonWithTitle:@"HardRight" block:^{
+        [self playPresetOperation:[AKPanner presetDefaultHardRighWithInput:[self mono]] forDuration:10.0];
+    }];
+    [self addButtonWithTitle:@"Stop" block:^{[presetInstrument stop];}];
+
+
 }
 
 @end
