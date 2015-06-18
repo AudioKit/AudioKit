@@ -468,105 +468,104 @@ OSStatus  Csound_Render(void *inRefCon,
     Float32 *buffer;
 #endif
     
-    @synchronized(obj) {
-        
+    
 #if TARGET_OS_IPHONE
-        AudioUnitRender(obj->_csAUHAL, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
-        for(frame=0; frame < inNumberFrames; frame++){
-            @autoreleasepool {
-                if(AKSettings.shared.audioInputEnabled) {
-                    for (k = 0; k < nchnls; k++){
-                        buffer = (SInt32 *) ioData->mBuffers[k].mData;
-                        spin[insmps++] =(1./coef)*buffer[frame];
-                    }
-                }
-                
-                for (k = 0; k < nchnls; k++) {
+    AudioUnitRender(obj->_csAUHAL, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
+    for(frame=0; frame < inNumberFrames; frame++){
+        @autoreleasepool {
+            if(AKSettings.shared.audioInputEnabled) {
+                for (k = 0; k < nchnls; k++){
                     buffer = (SInt32 *) ioData->mBuffers[k].mData;
-                    if (obj.shouldMute == NO) {
-                        buffer[frame] = (SInt32) lrintf(spout[nsmps++]*coef) ;
-                    } else {
-                        buffer[frame] = 0;
-                    }
-                }
-                
-                @synchronized(obj.bindings) {
-                    if(nsmps == ksmps*nchnls){
-                        for(id<CsoundBinding> binding in obj.bindings) {
-                            if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
-                                [binding updateValuesToCsound];
-                            }
-                        }
-                        if(!ret) {
-                            ret = csoundPerformKsmps(cs);
-                        } else {
-                            obj.running = NO;
-                        }
-                        for(id<CsoundBinding> binding in obj.bindings) {
-                            if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
-                                [binding updateValuesFromCsound];
-                            }
-                        }
-                        insmps = nsmps = 0;
-                    }
+                    spin[insmps++] =(1./coef)*buffer[frame];
                 }
             }
-        }
-#elif TARGET_OS_MAC
-        for(i=0; i < slices; i++){
-            @autoreleasepool {
-                /* performance */
-                if(AKSettings.shared.audioInputEnabled) {
-                    for (k = 0; k < nchnls; k++){
-                        buffer = (Float32 *) ioData->mBuffers[k].mData;
-                        for(j=0; j < ksmps; j++){
-                            spin[j*nchnls+k] = buffer[j+i*ksmps];
-                        }
-                    }
+            
+            for (k = 0; k < nchnls; k++) {
+                buffer = (SInt32 *) ioData->mBuffers[k].mData;
+                if (obj.shouldMute == NO) {
+                    buffer[frame] = (SInt32) lrintf(spout[nsmps++]*coef) ;
+                } else {
+                    buffer[frame] = 0;
                 }
-                
-                for (k = 0; k < nchnls; k++) {
-                    buffer = (Float32 *) ioData->mBuffers[k].mData;
-                    if (obj.shouldMute == NO) {
-                        for(j=0; j < ksmps; j++){
-                            buffer[j+i*ksmps] = (Float32) spout[j*nchnls+k];
-                        }
-                    } else {
-                        memset(buffer, 0, sizeof(Float32) * inNumberFrames);
-                    }
-                }
-
-                @synchronized(obj.bindings) {
+            }
+            
+            @synchronized(obj.bindings) {
+                if(nsmps == ksmps*nchnls){
                     for(id<CsoundBinding> binding in obj.bindings) {
                         if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
                             [binding updateValuesToCsound];
                         }
                     }
-                    
                     if(!ret) {
                         ret = csoundPerformKsmps(cs);
                     } else {
                         obj.running = NO;
                     }
-                    
                     for(id<CsoundBinding> binding in obj.bindings) {
                         if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
                             [binding updateValuesFromCsound];
                         }
                     }
+                    insmps = nsmps = 0;
                 }
             }
         }
-#endif
-        
-        // Write to file.
-        if (obj.shouldRecord) {
-            OSStatus err = ExtAudioFileWriteAsync(obj->_file, inNumberFrames, ioData);
-            if (err != noErr) {
-                NSLog(@"***Error writing to file: %@", @(err));
+    }
+#elif TARGET_OS_MAC
+    for(i=0; i < slices; i++){
+        @autoreleasepool {
+            /* performance */
+            if(AKSettings.shared.audioInputEnabled) {
+                for (k = 0; k < nchnls; k++){
+                    buffer = (Float32 *) ioData->mBuffers[k].mData;
+                    for(j=0; j < ksmps; j++){
+                        spin[j*nchnls+k] = buffer[j+i*ksmps];
+                    }
+                }
+            }
+            
+            for (k = 0; k < nchnls; k++) {
+                buffer = (Float32 *) ioData->mBuffers[k].mData;
+                if (obj.shouldMute == NO) {
+                    for(j=0; j < ksmps; j++){
+                        buffer[j+i*ksmps] = (Float32) spout[j*nchnls+k];
+                    }
+                } else {
+                    memset(buffer, 0, sizeof(Float32) * inNumberFrames);
+                }
+            }
+            
+            @synchronized(obj.bindings) {
+                for(id<CsoundBinding> binding in obj.bindings) {
+                    if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
+                        [binding updateValuesToCsound];
+                    }
+                }
+                
+                if(!ret) {
+                    ret = csoundPerformKsmps(cs);
+                } else {
+                    obj.running = NO;
+                }
+                
+                for(id<CsoundBinding> binding in obj.bindings) {
+                    if ([binding respondsToSelector:@selector(updateValuesFromCsound)]) {
+                        [binding updateValuesFromCsound];
+                    }
+                }
             }
         }
     }
+#endif
+    
+    // Write to file.
+    if (obj.shouldRecord) {
+        OSStatus err = ExtAudioFileWriteAsync(obj->_file, inNumberFrames, ioData);
+        if (err != noErr) {
+            NSLog(@"***Error writing to file: %@", @(err));
+        }
+    }
+    
 #if TARGET_OS_IPHONE
     obj->_nsmps = nsmps;
 #endif
