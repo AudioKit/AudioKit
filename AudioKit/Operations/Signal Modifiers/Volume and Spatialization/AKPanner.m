@@ -55,6 +55,53 @@
     return [[AKPanner alloc] initWithInput:input];
 }
 
+- (instancetype)initWithPresetDefaultCenteredWithInput:(AKParameter *)input
+{
+    return [[AKPanner alloc] initWithInput:input];
+}
+
+
++ (instancetype)presetDefaultCenteredWithInput:(AKParameter *)input;
+{
+    return [[AKPanner alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetDefaultHardLeftWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _pan = akp(-1);
+        _panMethod = [AKPanner panMethodForEqualPower];
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetDefaultHardLeftWithInput:(AKParameter *)input;
+{
+    return [[AKPanner alloc] initWithPresetDefaultHardLeftWithInput:input];
+}
+
+- (instancetype)initWithPresetDefaultHardRighWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _pan = akp(1);
+        _panMethod = [AKPanner panMethodForEqualPower];
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetDefaultHardRighWithInput:(AKParameter *)input;
+{
+    return [[AKPanner alloc] initWithPresetDefaultHardRighWithInput:input];
+}
+
 - (void)setPan:(AKParameter *)pan {
     _pan = pan;
     [self setUpConnections];
