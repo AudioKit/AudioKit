@@ -1,5 +1,5 @@
 //
-//  MicrophoneAnalysisPlayground.m
+//  RingModulatorPlayground.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 2/22/15.
