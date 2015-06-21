@@ -1,5 +1,5 @@
 //
-//  SamplePlaybackPlayground.m
+//  BinauralAudioPlayground.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/15/15.
