@@ -48,7 +48,10 @@
     note4.frequency.value = 660;
     [phrase addNote:note4 atTime:0.75];
 
-    [self addButtonWithTitle:@"Loop Phrase" block:^{ [mandolin repeatPhrase:phrase duration:1.0]; }];
+    [self addButtonWithTitle:@"Loop Phrase" block:^{
+        [sequence stop];
+        [mandolin repeatPhrase:phrase duration:1.0];
+    }];
 
     [self addButtonWithTitle:@"Stop Phrase Loop" block:^{ [mandolin stopPhrase]; }];
 
@@ -57,7 +60,7 @@
     [self addSliderForProperty:note3.frequency title:@"note3 frequency"];
     [self addSliderForProperty:note4.frequency title:@"note4 frequency"];
 
-    [self makeSection:@"Sequence pulling notes from the above sliders, randomly"];
+    [self makeSection:@"Sequence randomly pulling notes from sliders above"];
 
     [sequence stop];
 
@@ -89,7 +92,10 @@
     [sequence addEvent:playRandomNote];
 
 
-    [self addButtonWithTitle:@"Loop Sequence" block:^{ [sequence loopWithLoopDuration:0.25]; }];
+    [self addButtonWithTitle:@"Loop Sequence" block:^{
+        [mandolin stopPhrase];
+        [sequence loopWithLoopDuration:0.25];
+    }];
 
     [self addButtonWithTitle:@"Stop Sequence" block:^{ [sequence stop]; }];
 
