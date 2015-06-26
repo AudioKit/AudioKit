@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4258E3B1B3D03D300D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
+		C4258E3C1B3D03F400D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
+		C4258E3D1B3D03F400D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
 		C43DB1371B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */; };
 		C43DB1381B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */; };
 		C43DB1391B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */; };
@@ -576,6 +579,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C4258E391B3D03D300D91B3D /* AKDelayPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDelayPedal.h; sourceTree = "<group>"; };
+		C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDelayPedal.m; sourceTree = "<group>"; };
 		C43DB1301B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighShelfParametricEqualizerFilter.h; sourceTree = "<group>"; };
 		C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighShelfParametricEqualizerFilter.m; sourceTree = "<group>"; };
 		C43DB1321B21866300C9E4D5 /* AKLowShelfParametricEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowShelfParametricEqualizerFilter.h; sourceTree = "<group>"; };
@@ -1217,6 +1222,8 @@
 		EA8E94331AD3C6840057E979 /* Processors */ = {
 			isa = PBXGroup;
 			children = (
+				C4258E391B3D03D300D91B3D /* AKDelayPedal.h */,
+				C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */,
 				EA8E94341AD3C6840057E979 /* AKReverbProcessor.h */,
 				EA8E94351AD3C6840057E979 /* AKReverbProcessor.m */,
 			);
@@ -2094,6 +2101,7 @@
 				EA8E95C91AD3C6850057E979 /* AKFloatPlot.m in Sources */,
 				EA8E96111AD3C6850057E979 /* AKSandPaper.m in Sources */,
 				EA8E95A61AD3C6850057E979 /* AKManager.m in Sources */,
+				C4258E3B1B3D03D300D91B3D /* AKDelayPedal.m in Sources */,
 				EA8E96151AD3C6850057E979 /* AKTambourine.m in Sources */,
 				EA8E95FF1AD3C6850057E979 /* AKTableLooper.m in Sources */,
 				EA8E95F01AD3C6850057E979 /* AKMinimum.m in Sources */,
@@ -2280,6 +2288,7 @@
 				EA8E96BD1AD3C9B20057E979 /* AKSingleInputMathOperation.m in Sources */,
 				EA8E96BE1AD3C9B20057E979 /* AKSum.m in Sources */,
 				EA8E96BF1AD3C9B20057E979 /* AKTableValue.m in Sources */,
+				C4258E3D1B3D03F400D91B3D /* AKDelayPedal.m in Sources */,
 				EA08B5711AD8985F00949FD5 /* CsoundObj.m in Sources */,
 				EA8E96A01AD3C9580057E979 /* AKTable.m in Sources */,
 				EA8E96941AD3C92B0057E979 /* AKInstrumentPropertyPlot.m in Sources */,
@@ -2466,6 +2475,7 @@
 				EAA0F54E1AE71C8F007CD7C9 /* AKFloatPlot.m in Sources */,
 				EAA0F54F1AE71C8F007CD7C9 /* AKSandPaper.m in Sources */,
 				EAA0F5501AE71C8F007CD7C9 /* AKManager.m in Sources */,
+				C4258E3C1B3D03F400D91B3D /* AKDelayPedal.m in Sources */,
 				EAA0F5511AE71C8F007CD7C9 /* AKTambourine.m in Sources */,
 				EAA0F5521AE71C8F007CD7C9 /* AKTableLooper.m in Sources */,
 				EAA0F5531AE71C8F007CD7C9 /* AKMinimum.m in Sources */,
