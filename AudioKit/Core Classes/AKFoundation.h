@@ -247,6 +247,7 @@
 #import "AKMicrophone.h"
 
 // Utilities - Instruments - Processors
+#import "AKDelayPedal.h"
 #import "AKReverbProcessor.h"
 
 // Utilities - Instruments - Synthesizers
