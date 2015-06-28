@@ -14,15 +14,15 @@
 {
     self = [super init];
     if (self) {
-        _time = [self createPropertyWithValue:0.2 minimum:0 maximum:3];
-        _feedback = [self createPropertyWithValue:0.4 minimum:0 maximum:1.0];
-        _mix = [self createPropertyWithValue:0.5 minimum:0.5 maximum:1.0];
-        
+        _time     = [self createPropertyWithValue:0.2 minimum:0.0 maximum:3.0];
+        _feedback = [self createPropertyWithValue:0.4 minimum:0.0 maximum:1.0];
+        _mix      = [self createPropertyWithValue:0.5 minimum:0.5 maximum:1.0];
+
         AKVariableDelay *delay = [[AKVariableDelay alloc] initWithInput:input
                                                               delayTime:_time
                                                        maximumDelayTime:akp(_time.maximum)];
         AKMix *mix = [[AKMix alloc] initWithInput1:input input2:delay balance:_mix];
-        
+
         [self setAudioOutput:mix];
         AKAssignment *feedback = [[AKAssignment alloc] initWithOutput:input input:[delay scaledBy:_feedback]];
         [self connect:feedback];
