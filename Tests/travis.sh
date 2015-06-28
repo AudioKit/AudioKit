@@ -10,7 +10,10 @@ xcodebuild -project Examples/iOS/AudioKitDemo/AudioKitDemo.xcodeproj       -sdk 
 xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj           -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 4
 xcodebuild -project Examples/iOS/Swift/AudioKitDemo/AudioKitDemo.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 5
 xcodebuild -project Examples/iOS/Swift/HelloWorld/HelloWorld.xcodeproj     -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 6
-cp Playgrounds/Playgrounds/DefaultPlayground.m Playgrounds/AudioKitPlayground/AudioKitPlayground/Playground.m || exit 7
-xcodebuild -workspace Playgrounds/AudioKitPlayground/AudioKitPlayground.xcworkspace -scheme AudioKitPlayground -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 8
-pod lib lint --quick AudioKit.podspec.json || exit 9
+xcodebuild -project Examples/OSX/AudioKitDemo/AudioKitDemo.xcodeproj build | xcpretty -c || exit 7
+xcodebuild -project Examples/OSX/HelloWorld/HelloWorld.xcodeproj     build | xcpretty -c || exit 8
+
+cp Playgrounds/Playgrounds/DefaultPlayground.m Playgrounds/AudioKitPlayground/AudioKitPlayground/Playground.m || exit 9
+xcodebuild -workspace Playgrounds/AudioKitPlayground/AudioKitPlayground.xcworkspace -scheme AudioKitPlayground -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build | xcpretty -c || exit 10
+pod lib lint --quick AudioKit.podspec.json || exit 11
 
