@@ -1,4 +1,5 @@
 language: objective-c
+osx_image: beta-xcode6.3
 
 env:
 - LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
@@ -7,7 +8,3 @@ before_install: gem install xcpretty cocoapods -N
 podfile: Playgrounds/AudioKitPlayground/Podfile
 cache: cocoapods
 script: ./Tests/travis.sh
-#- cd Tests && ./build_all.sh
-# Mac Projects use Storyboards which requires OSX Yosemite, ie 10.10, but Travis only runs 10.9 so can't really test these
-#- set -o pipefail && xcodebuild -project Examples/OSX/AudioKitDemo/AudioKitDemo.xcodeproj build | xcpretty -c
-#- set -o pipefail && xcodebuild -project Examples/OSX/HelloWorld/HelloWorld.xcodeproj  build | xcpretty -c

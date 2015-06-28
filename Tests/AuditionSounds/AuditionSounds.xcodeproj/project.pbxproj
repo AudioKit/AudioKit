@@ -10,7 +10,7 @@
 		C4534E0C1ADCD36500291E93 /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4534E091ADCD33900291E93 /* libAudioKit OS X.a */; };
 		C4534E0E1ADCD3DA00291E93 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */; };
 		C4534E111ADCD42900291E93 /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4534E101ADCD42900291E93 /* AudioKit.swift */; };
-		C4A396B31A213BEA00E8FB4D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A396B21A213BEA00E8FB4D /* main.swift */; };
+		C46C3B611B33DD7800781F9C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46C3B601B33DD7800781F9C /* main.swift */; };
 		C4FAE5E31AEB894B00FD71E2 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EAF365C61ADCEEE300AA6551 /* AKSoundFiles.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4534E131ADCD75100291E93 /* AKSoundFiles.bundle */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -74,9 +74,9 @@
 		C4534E0D1ADCD3DA00291E93 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 		C4534E101ADCD42900291E93 /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = "<group>"; };
 		C4534E131ADCD75100291E93 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
-		C4A396AF1A213BEA00E8FB4D /* AudioKitTest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AudioKitTest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4A396B21A213BEA00E8FB4D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		C4A398D51A213EC600E8FB4D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		C46C3B5F1B33DD7800781F9C /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "AuditionSounds/Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		C46C3B601B33DD7800781F9C /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = AuditionSounds/main.swift; sourceTree = SOURCE_ROOT; };
+		C4A396AF1A213BEA00E8FB4D /* AuditionSounds */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AuditionSounds; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				C4534E011ADCD33900291E93 /* AudioKit.xcodeproj */,
-				C4A396B11A213BEA00E8FB4D /* AudioKitTest */,
+				C4A396B11A213BEA00E8FB4D /* AuditionSounds */,
 				C4A396B01A213BEA00E8FB4D /* Products */,
 				EAF365C01ADCEAAD00AA6551 /* Frameworks */,
 			);
@@ -115,19 +115,20 @@
 		C4A396B01A213BEA00E8FB4D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4A396AF1A213BEA00E8FB4D /* AudioKitTest */,
+				C4A396AF1A213BEA00E8FB4D /* AuditionSounds */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C4A396B11A213BEA00E8FB4D /* AudioKitTest */ = {
+		C4A396B11A213BEA00E8FB4D /* AuditionSounds */ = {
 			isa = PBXGroup;
 			children = (
+				C46C3B5F1B33DD7800781F9C /* Bridging-Header.h */,
+				C46C3B601B33DD7800781F9C /* main.swift */,
 				C4534E131ADCD75100291E93 /* AKSoundFiles.bundle */,
 				C4534E101ADCD42900291E93 /* AudioKit.swift */,
-				C4A396B21A213BEA00E8FB4D /* main.swift */,
-				C4A398D51A213EC600E8FB4D /* Bridging-Header.h */,
 			);
+			name = AuditionSounds;
 			path = AudioKitTest;
 			sourceTree = "<group>";
 		};
@@ -142,9 +143,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C4A396AE1A213BEA00E8FB4D /* AudioKitTest */ = {
+		C4A396AE1A213BEA00E8FB4D /* AuditionSounds */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AudioKitTest" */;
+			buildConfigurationList = C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AuditionSounds" */;
 			buildPhases = (
 				C4A396AB1A213BEA00E8FB4D /* Sources */,
 				EAF365C11ADCED8200AA6551 /* Resources */,
@@ -158,9 +159,9 @@
 			dependencies = (
 				C4534E0B1ADCD35500291E93 /* PBXTargetDependency */,
 			);
-			name = AudioKitTest;
+			name = AuditionSounds;
 			productName = AudioKitTest;
-			productReference = C4A396AF1A213BEA00E8FB4D /* AudioKitTest */;
+			productReference = C4A396AF1A213BEA00E8FB4D /* AuditionSounds */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -177,7 +178,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AudioKitTest" */;
+			buildConfigurationList = C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AuditionSounds" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -195,7 +196,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				C4A396AE1A213BEA00E8FB4D /* AudioKitTest */,
+				C4A396AE1A213BEA00E8FB4D /* AuditionSounds */,
 			);
 		};
 /* End PBXProject section */
@@ -255,7 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4A396B31A213BEA00E8FB4D /* main.swift in Sources */,
+				C46C3B611B33DD7800781F9C /* main.swift in Sources */,
 				C4534E111ADCD42900291E93 /* AudioKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,7 +361,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AuditionSounds;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitTest/Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/AudioKit/**";
 			};
@@ -380,7 +381,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AuditionSounds;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitTest/Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/AudioKit/**";
 			};
@@ -442,7 +443,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AuditionSounds;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitTest/Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/AudioKit/**";
 			};
@@ -451,7 +452,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AudioKitTest" */ = {
+		C4A396AA1A213BEA00E8FB4D /* Build configuration list for PBXProject "AuditionSounds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B41A213BEA00E8FB4D /* Debug */,
@@ -461,7 +462,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Testing;
 		};
-		C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AudioKitTest" */ = {
+		C4A396B61A213BEA00E8FB4D /* Build configuration list for PBXNativeTarget "AuditionSounds" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4A396B71A213BEA00E8FB4D /* Debug */,

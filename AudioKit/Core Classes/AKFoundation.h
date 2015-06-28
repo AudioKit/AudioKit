@@ -174,6 +174,7 @@
 #import "AKCompressor.h"
 #import "AKDopplerEffect.h"
 #import "AKFlanger.h"
+#import "AKPitchShifter.h"
 #import "AKRingModulator.h"
 
 // Operations - Signal Modifiers - Filters
@@ -251,7 +252,9 @@
 #import "AKMicrophone.h"
 
 // Utilities - Instruments - Processors
-#import "AKReverbProcessor.h"
+#import "AKDelayPedal.h"
+#import "AKPitchShifterPedal.h"
+#import "AKReverbPedal.h"
 
 // Utilities - Instruments - Synthesizers
 #import "AKFMOscillatorInstrument.h"

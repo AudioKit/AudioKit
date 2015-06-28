@@ -1,5 +1,5 @@
 //
-//  AKReverbProcessor.h
+//  AKReverbPedal.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/20/15.
@@ -9,7 +9,7 @@
 #import "AKFoundation.h"
 
 /// A reverb processor and end point (outputs to the DAC)
-@interface AKReverbProcessor : AKInstrument
+@interface AKReverbPedal : AKInstrument
 
 @property (nonatomic) AKInstrumentProperty *feedback;
 
