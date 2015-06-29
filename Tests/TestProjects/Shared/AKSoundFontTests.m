@@ -8,7 +8,7 @@
 
 #import "AKTestCase.h"
 
-#define testDuration 10.0
+#define testDuration 1.0
 
 @interface TestSoundFontInstrument : AKInstrument
 @end
@@ -20,7 +20,7 @@
     self = [super init];
     if (self) {
 
-        NSString *filename = [AKManager pathToSoundFile:@"07AcousticGuitar" ofType:@"sf2"];
+        NSString *filename = [AKManager pathToSoundFile:@"AcousticGuitar" ofType:@"sf2"];
         AKSoundFont *font = [[AKSoundFont alloc] initWithFilename:filename];
         AKSoundFontPlayer *player = [AKSoundFontPlayer playerWithSoundFont:font];
         
@@ -44,7 +44,7 @@
     [testInstrument playForDuration:testDuration];
 
     // Check output
-    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"688ffe3ec5c35833954f039e8a21aa19");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"4e2292055c7186897a0fb5509ff63902");
 }
 
 @end
