@@ -31,7 +31,7 @@ Included with AudioKit are two examples (HelloWorld and AudioKitDemo) written in
 
 Playgrounds
 -----------
-Here is where the main AudioKitPlayground project is kept, and from here you can run a shell script to start the playground from a set of template playgrounds. Playgrounds allow for rapid audio prototyping, allowing you the abilitiy to quickly hear the results of your work without recompiling after every change. Refer to the [README within the Playgrounds folder](https://github.com/audiokit/AudioKit/tree/master/Playgrounds) for more instructions. More info: [http://audiokit.io/playgrounds/](http://audiokit.io/playgrounds/)
+Here is where the main AudioKitPlayground project is kept, and from here you can run a shell script to start the playground from a set of template playgrounds. Playgrounds allow for rapid audio prototyping, giving you the ability to quickly hear the results of your work without recompiling after every change. Refer to the [README within the Playgrounds folder](https://github.com/audiokit/AudioKit/tree/master/Playgrounds) for more instructions. More info: [http://audiokit.io/playgrounds/](http://audiokit.io/playgrounds/)
 
 Templates
 ---------
