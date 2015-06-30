@@ -26,7 +26,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         _soundFontPreset = soundFontPreset;
-        [[[AKManager sharedManager] engine] updateOrchestra:soundFontPreset.description];
+        [[[AKManager sharedManager] engine] updateOrchestra:[soundFontPreset orchestraString]];
         _noteNumber = noteNumber;
         _velocity = velocity;
         _frequencyMultiplier = frequencyMultiplier;
@@ -42,6 +42,7 @@
     if (self) {
         // Default Values
         _soundFontPreset = soundFontPreset;
+        [[[AKManager sharedManager] engine] updateOrchestra:[soundFontPreset orchestraString]];
 
         _noteNumber = akp(60);
         _velocity = akp(1);
