@@ -7,7 +7,6 @@
 //
 
 #import "AKSoundFont.h"
-#import "AKManager.h"
 
 @implementation AKSoundFont
 
@@ -57,7 +56,7 @@ static int currentID = 1;
     NSString *message = notification.userInfo[@"message"];
     
  
-    NSRange range = [message rangeOfString:@"^[0-9]+\\)" options:NSRegularExpressionSearch];
+    NSRange range = [message rangeOfString:@"^[ ]*[0-9]+\\)" options:NSRegularExpressionSearch];
 
     if (range.location != NSNotFound) {
         if ([message containsString:@"prog:"] && [message containsString:@"bank:"]) {
@@ -66,6 +65,7 @@ static int currentID = 1;
         } else {
             // this is an instrument
             [_instruments addObject:message];
+            NSLog(@"instruments %@", message);
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  AKSoundFontPlayer.m
+//  AKSoundFontPresetPlayer.m
 //  AudioKit
 //
 //  Auto-generated on 6/12/15.
@@ -9,24 +9,24 @@
 //  http://www.csounds.com/manual/html/sfplay3.html
 //
 
-#import "AKSoundFontPlayer.h"
-#import "AKManager.h"
+#import "AKSoundFontPresetPlayer.h"
+#import "AKFoundation.h"
 
-@implementation AKSoundFontPlayer
+@implementation AKSoundFontPresetPlayer
 {
-    AKSoundFont * _soundFont;
+    AKSoundFontPreset * _soundFontPreset;
 }
 
-
-- (instancetype)initWithSoundFont:(AKSoundFont *)soundFont
-                       noteNumber:(AKConstant *)noteNumber
-                         velocity:(AKConstant *)velocity
-              frequencyMultiplier:(AKParameter *)frequencyMultiplier
-                        amplitude:(AKParameter *)amplitude
+- (instancetype)initWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset
+                             noteNumber:(AKConstant *)noteNumber
+                               velocity:(AKConstant *)velocity
+                    frequencyMultiplier:(AKParameter *)frequencyMultiplier
+                              amplitude:(AKParameter *)amplitude
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _soundFont = soundFont;
+        _soundFontPreset = soundFontPreset;
+        [[[AKManager sharedManager] engine] updateOrchestra:soundFontPreset.description];
         _noteNumber = noteNumber;
         _velocity = velocity;
         _frequencyMultiplier = frequencyMultiplier;
@@ -36,12 +36,12 @@
     return self;
 }
 
-- (instancetype)initWithSoundFont:(AKSoundFont *)soundFont
+- (instancetype)initWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset
 {
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _soundFont = soundFont;
+        _soundFontPreset = soundFontPreset;
 
         _noteNumber = akp(60);
         _velocity = akp(1);
@@ -52,9 +52,9 @@
     return self;
 }
 
-+ (instancetype)playerWithSoundFont:(AKSoundFont *)soundFont
++ (instancetype)playerWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset
 {
-    return [[AKSoundFontPlayer alloc] initWithSoundFont:soundFont];
+    return [[AKSoundFontPresetPlayer alloc] initWithSoundFontPreset:soundFontPreset];
 }
 
 - (void)setNoteNumber:(AKConstant *)noteNumber {
@@ -132,7 +132,7 @@
     
     [inputsString appendFormat:@"%@, ", _frequencyMultiplier];
     
-    [inputsString appendFormat:@"%d", _soundFont.number];
+    [inputsString appendFormat:@"%@", _soundFontPreset];
     return inputsString;
 }
 
