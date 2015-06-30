@@ -55,17 +55,43 @@ static int currentID = 1;
 {
     NSString *message = notification.userInfo[@"message"];
     
- 
-    NSRange range = [message rangeOfString:@"^[ ]*[0-9]+\\)" options:NSRegularExpressionSearch];
+    NSRange range = [message rangeOfString:@"[0-9]+\\)" options:NSRegularExpressionSearch];
 
+    
     if (range.location != NSNotFound) {
+        
+        NSError *error = nil;
+        
+        int number;
+        NSString *name;
+        int program;
+        int bank;
+        
         if ([message containsString:@"prog:"] && [message containsString:@"bank:"]) {
             // this is a preset
-            [_presets addObject:message];
+            
+            number = [[message substringWithRange:NSMakeRange(0, 4)] intValue];
+            name = [[message substringWithRange:NSMakeRange(4, 22)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            program = [[message substringWithRange:NSMakeRange(31, 4)] intValue];
+            bank    = [[message substringWithRange:NSMakeRange(40,[message length] - 40)] intValue];
+
+            AKSoundFontPreset *preset = [[AKSoundFontPreset alloc] initWithName:name
+                                                                         number:number
+                                                                        program:program
+                                                                           bank:bank
+                                                                      soundFont:self];
+            [_presets addObject:preset];
+
         } else {
             // this is an instrument
-            [_instruments addObject:message];
-            NSLog(@"instruments %@", message);
+            
+            number = [[message substringWithRange:NSMakeRange(0, 4)] intValue];
+            name = [[message substringWithRange:NSMakeRange(4, 22)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            
+            AKSoundFontInstrument *instrument = [[AKSoundFontInstrument alloc] initWithName:name
+                                                                                     number:number
+                                                                                  soundFont:self];
+            [_instruments addObject:instrument];
         }
     }
 
