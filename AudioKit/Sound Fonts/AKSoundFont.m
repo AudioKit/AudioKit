@@ -60,8 +60,6 @@ static int currentID = 1;
     
     if (range.location != NSNotFound) {
         
-        NSError *error = nil;
-        
         int number;
         NSString *name;
         int program;
