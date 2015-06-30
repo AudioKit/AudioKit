@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "AKFoundation.h"
 
 @interface AKSoundFont : NSObject
 
@@ -22,7 +22,5 @@
 /// Create soundfont with a filename
 /// @param filename Sound font file to load.
 - (instancetype)initWithFilename:(NSString *)filename;
-
-
 
 @end
