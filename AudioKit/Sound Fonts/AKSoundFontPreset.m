@@ -41,7 +41,12 @@ static int currentID = 1;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"giSoundFontPreset%d sfpreset %lul, %lul, %@, %lul", currentID, (unsigned long)_program, (unsigned long)_bank, _soundFont, (unsigned long)_number];
+    return [NSString stringWithFormat:@"giSoundFontPreset%d", currentID];
+}
+
+- (NSString *)orchestraString
+{
+    return [NSString stringWithFormat:@"giSoundFontPreset%d sfpreset %lu, %lu, %@, %lu", currentID, (unsigned long)_program, (unsigned long)_bank, _soundFont, (unsigned long)_number];
 }
 
 

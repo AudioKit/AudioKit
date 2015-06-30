@@ -37,4 +37,7 @@
                         bank:(NSUInteger)bank
                    soundFont:(AKSoundFont *)soundFont;
 
+/// String for invocation when needed
+- (NSString *)orchestraString;
+
 @end
