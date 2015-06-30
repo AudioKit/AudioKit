@@ -335,6 +335,9 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
             char message[1024];
             vsnprintf(message, 1024, format, valist);
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CsoundMessage"
+                                                                object:nil
+                                                              userInfo:@{@"message":[NSString stringWithUTF8String:message]}];
             [obj.messageDelegate messageReceivedFrom:obj
                                                 attr:attr
                                              message:[NSString stringWithUTF8String:message]];
