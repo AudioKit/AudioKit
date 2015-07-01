@@ -15,6 +15,9 @@
 #import "AKFoundation.h"
 
 @interface AKPlayground : KZPPlayground
+{
+    KZPTimelineViewController *timelineViewController;
+}
 
 /// Add a label to the timeline that denotes a section
 /// @param title Title of the section

@@ -218,7 +218,10 @@
 
 // Sound Fonts
 #import "AKSoundFont.h"
-#import "AKSoundFontPlayer.h"
+#import "AKSoundFontInstrument.h"
+#import "AKSoundFontInstrumentPlayer.h"
+#import "AKSoundFontPreset.h"
+#import "AKSoundFontPresetPlayer.h"
 
 // Utilities
 #import "AKSampler.h"
