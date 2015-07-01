@@ -1,14 +1,15 @@
 //
-//  AKSoundFontPlayer.h
+//  AKSoundFontPresetPlayer.h
 //  AudioKit
 //
-//  Auto-generated on 6/12/15.
+//  Auto-generated on 6/12/15. Customized by Aurelius Prochazka on 6/30/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKStereoAudio.h"
-#import "AKSoundFont.h"
 #import "AKParameter+Operation.h"
+#import "AKStereoAudio.h"
+
+@class AKSoundFontPreset;
 
 /** Plays a SoundFont2 (SF2) sample preset, generating a stereo sound with cubic interpolation.
  
@@ -16,23 +17,24 @@
  */
 
 NS_ASSUME_NONNULL_BEGIN
-@interface AKSoundFontPlayer : AKStereoAudio
+@interface AKSoundFontPresetPlayer : AKStereoAudio
 /// Instantiates the sound font player with all values
+/// @param soundFontPreset Sound Font Preset
 /// @param noteNumber MIDI Note Number. [Default Value: 60]
 /// @param velocity Velocity from zero to 1. [Default Value: 1]
 /// @param frequencyMultiplier Frequency Multiplier. [Default Value: 1]
 /// @param amplitude Amplitude correction (different from velocity). [Default Value: 1]
-- (instancetype)initWithSoundFont:(AKSoundFont *)soundFont
-                       noteNumber:(AKConstant *)noteNumber
-                         velocity:(AKConstant *)velocity
-              frequencyMultiplier:(AKParameter *)frequencyMultiplier
-                        amplitude:(AKParameter *)amplitude;
+- (instancetype)initWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset
+                             noteNumber:(AKConstant *)noteNumber
+                               velocity:(AKConstant *)velocity
+                    frequencyMultiplier:(AKParameter *)frequencyMultiplier
+                              amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the sound font player with default values
-- (instancetype)initWithSoundFont:(AKSoundFont *)soundFont;
+- (instancetype)initWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset;
 
 /// Instantiates the sound font player with default values
-+ (instancetype)playerWithSoundFont:(AKSoundFont *)soundFont;
++ (instancetype)playerWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset;
 
 
 /// MIDI Note Number. [Default Value: 60]
