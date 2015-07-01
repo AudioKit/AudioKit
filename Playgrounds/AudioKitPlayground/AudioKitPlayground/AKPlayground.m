@@ -23,7 +23,7 @@
     NSMutableArray *views;
     NSMutableArray *shownViews;
 
-    KZPTimelineViewController *timelineViewController;
+    
 }
 
 - (void)makeSection:(NSString *)title
