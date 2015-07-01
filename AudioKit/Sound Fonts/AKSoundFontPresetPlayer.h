@@ -2,7 +2,7 @@
 //  AKSoundFontPresetPlayer.h
 //  AudioKit
 //
-//  Auto-generated on 6/12/15.
+//  Auto-generated on 6/12/15. Customized by Aurelius Prochazka on 6/30/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
