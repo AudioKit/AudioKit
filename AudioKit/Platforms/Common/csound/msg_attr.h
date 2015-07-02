@@ -36,6 +36,8 @@
 #define CSOUNDMSG_REALTIME      (0x3000)
 /* warning messages */
 #define CSOUNDMSG_WARNING       (0x4000)
+/* API response messages, intended to be parsed by code */
+#define CSOUNDMSG_API_RESP      (0x5000)
 
 /* format attributes (colors etc.), use the bitwise OR of any of these: */
 

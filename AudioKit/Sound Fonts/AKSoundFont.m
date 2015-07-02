@@ -40,10 +40,10 @@ static int currentID = 1;
         [[[AKManager sharedManager] engine] updateOrchestra:orchString];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(messageReceivedFromCsound:)
-                                                     name:@"CsoundMessage"
+                                                     name:AKCsoundAPIMessageNotification
                                                    object:nil];
-        NSString *instrumentListRequest = [NSString stringWithFormat:@"sfilist giSoundFont%d", self.number];
-        NSString *presetListRequest     = [NSString stringWithFormat:@"sfplist giSoundFont%d", self.number];
+        NSString *instrumentListRequest = [NSString stringWithFormat:@"sfilistapi giSoundFont%d, %d", self.number, self.number];
+        NSString *presetListRequest     = [NSString stringWithFormat:@"sfplistapi giSoundFont%d, %d", self.number, self.number];
         [[[AKManager sharedManager] engine] updateOrchestra:instrumentListRequest];
         [[[AKManager sharedManager] engine] updateOrchestra:presetListRequest];
         
@@ -53,38 +53,30 @@ static int currentID = 1;
 
 - (void)messageReceivedFromCsound:(NSNotification *)notification
 {
-    NSString *message = notification.userInfo[@"message"];
+    NSString *type = notification.userInfo[@"type"];
+    NSArray *fields = [notification.userInfo[@"message"] componentsSeparatedByString:@","];
     
-    NSRange range = [message rangeOfString:@"[0-9]+\\)" options:NSRegularExpressionSearch];
-
+    int number;
+    NSString *name;
     
-    if (range.location != NSNotFound) {
-        
-        int number;
-        NSString *name;
-        int program;
-        int bank;
-        
-        if ([message containsString:@"prog:"] && [message containsString:@"bank:"]) {
-            // this is a preset
+    if ([type isEqualToString:@"SFP"]) { // Preset
+        if ([fields[0] intValue] == self.number) {
+            number = [fields[1] intValue];
+            name = [fields[2] stringByReplacingOccurrencesOfString:@"'" withString:@""];
+            int program = [fields[3] intValue];
+            int bank    = [fields[4] intValue];
             
-            number = [[message substringWithRange:NSMakeRange(0, 4)] intValue];
-            name = [[message substringWithRange:NSMakeRange(4, 22)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            program = [[message substringWithRange:NSMakeRange(31, 4)] intValue];
-            bank    = [[message substringWithRange:NSMakeRange(40,[message length] - 40)] intValue];
-
             AKSoundFontPreset *preset = [[AKSoundFontPreset alloc] initWithName:name
                                                                          number:number
                                                                         program:program
                                                                            bank:bank
                                                                       soundFont:self];
             [_presets addObject:preset];
-
-        } else {
-            // this is an instrument
-            
-            number = [[message substringWithRange:NSMakeRange(0, 4)] intValue];
-            name = [[message substringWithRange:NSMakeRange(4, 22)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        }
+    } else if ([type isEqualToString:@"SFI"]) { // Instrument
+        if ([fields[0] intValue] == self.number) {
+            number = [fields[1] intValue];
+            name = [fields[2] stringByReplacingOccurrencesOfString:@"'" withString:@""];
             
             AKSoundFontInstrument *instrument = [[AKSoundFontInstrument alloc] initWithName:name
                                                                                      number:number
@@ -92,8 +84,6 @@ static int currentID = 1;
             [_instruments addObject:instrument];
         }
     }
-
-    
 }
 
 - (NSString *)description
