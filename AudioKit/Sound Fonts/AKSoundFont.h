@@ -18,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) int number;
 
 /// Array of instruments in the sound font
-@property (nonatomic,readonly) NSArray *instruments;
+@property (nonatomic,readonly,nullable) NSArray *instruments;
 
 /// Array of presets in the sound font
-@property (nonatomic,readonly) NSArray *presets;
+@property (nonatomic,readonly,nullable) NSArray *presets;
 
 /// Whether the file has been successfully loaded and parsed
 @property (nonatomic,readonly) BOOL loaded;
