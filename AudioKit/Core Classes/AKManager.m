@@ -356,6 +356,8 @@ static AKManager *_sharedManager = nil;
         } else {
             NSLog(@"%@", msg);
         }
+    } else if (attr & CSOUNDMSG_ERROR) {
+        NSLog(@"Csound Error: %@", msg);
     }
 }
 
