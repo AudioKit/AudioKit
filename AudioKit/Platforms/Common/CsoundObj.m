@@ -44,6 +44,8 @@ OSStatus  Csound_Render(void *inRefCon,
                         UInt32 inNumberFrames,
                         AudioBufferList *ioData);
 
+NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
+
 @interface CsoundObj ()
 {
     CSOUND *_cs;
@@ -335,12 +337,19 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
             char message[1024];
             vsnprintf(message, 1024, format, valist);
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"CsoundMessage"
-                                                                object:nil
-                                                              userInfo:@{@"message":[NSString stringWithUTF8String:message]}];
-            [obj.messageDelegate messageReceivedFrom:obj
-                                                attr:attr
-                                             message:[NSString stringWithUTF8String:message]];
+            if (attr == CSOUNDMSG_API_RESP) {
+                NSArray *substr = [[NSString stringWithUTF8String:message] componentsSeparatedByString:@":"];
+                
+                if (substr.count > 1) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:AKCsoundAPIMessageNotification
+                                                                        object:nil
+                                                                      userInfo:@{@"type":substr[0], @"message":substr[1]}];
+                }
+            } else {
+                [obj.messageDelegate messageReceivedFrom:obj
+                                                    attr:attr
+                                                 message:[NSString stringWithUTF8String:message]];
+            }
         }
     }
 }
