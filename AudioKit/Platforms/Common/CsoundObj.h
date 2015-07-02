@@ -69,6 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
                     message:(NSString *)msg;
 @end
 
+
+// -----------------------------------------------------------------------------
+#  pragma mark - CsoundObj notification names
+// -----------------------------------------------------------------------------
+extern NSString * const AKCsoundAPIMessageNotification;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - CsoundObj Interface
 // -----------------------------------------------------------------------------

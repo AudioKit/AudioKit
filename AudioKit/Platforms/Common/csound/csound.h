@@ -643,7 +643,7 @@ extern "C" {
     /**
      * Prepares an instance of Csound for Cscore
      * processing outside of running an orchestra (i.e. "standalone Cscore").
-     * It is an alternative to csoundPreCompile(), csoundCompile(), and
+     * It is an alternative to csoundCompile(), and
      * csoundPerform*() and should not be used with these functions.
      * You must call this function before using the interface in "cscore.h"
      * when you do not wish to compile an orchestra.
@@ -1252,7 +1252,7 @@ extern "C" {
 
     /**
      * Sorts score file 'inFile' and writes the result to 'outFile'.
-     * The Csound instance should be initialised with csoundPreCompile()
+     * The Csound instance should be initialised 
      * before calling this function, and csoundReset() should be called
      * after sorting the score to clean up. On success, zero is returned.
      */
@@ -1261,7 +1261,7 @@ extern "C" {
     /**
      * Extracts from 'inFile', controlled by 'extractFile', and writes
      * the result to 'outFile'. The Csound instance should be initialised
-     * with csoundPreCompile() before calling this function, and csoundReset()
+     * before calling this function, and csoundReset()
      * should be called after score extraction to clean up.
      * The return value is zero on success.
      */
@@ -2091,8 +2091,7 @@ extern "C" {
      * Get pointer to the value of environment variable 'name', searching
      * in this order: local environment of 'csound' (if not NULL), variables
      * set with csoundSetGlobalEnv(), and system environment variables.
-     * If 'csound' is not NULL, should be called after csoundPreCompile()
-     * or csoundCompile().
+     * If 'csound' is not NULL, should be called after csoundCompile().
      * Return value is NULL if the variable is not set.
      */
     PUBLIC const char *csoundGetEnv(CSOUND *csound, const char *name);
@@ -2140,8 +2139,8 @@ extern "C" {
 
     /**
      * Run utility with the specified name and command line arguments.
-     * Should be called after loading utility plugins with csoundPreCompile();
-     * use csoundReset() to clean up after calling this function.
+     * Should be called after loading utility plugins.
+     * Use csoundReset() to clean up after calling this function.
      * Returns zero if the utility was run successfully.
      */
     PUBLIC int csoundRunUtility(CSOUND *, const char *name,
@@ -2330,8 +2329,7 @@ extern "C" {
 
     /**
      * Sets callback function to be called by the opcodes 'chnsend' and
-     * 'chnrecv'. Should be called between csoundPreCompile() and
-     * csoundCompile().
+     * 'chnrecv'. Should be called before csoundCompile().
      * The callback function takes the following arguments:
      *   CSOUND *csound
      *     Csound instance pointer
@@ -2354,7 +2352,7 @@ extern "C" {
     PUBLIC void csoundSetChannelIOCallback(CSOUND *,
             CsoundChannelIOCallback_t func);
 
-       /**
+     /**
      * Senses input events, and performs one control sample worth (ksmps) of
      * audio output.
      * Note that csoundCompile() or csoundCompileOrc(),
