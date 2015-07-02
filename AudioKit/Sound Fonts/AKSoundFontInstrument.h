@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-@class AKSoundFont;
-@import Foundation;
+#import "AKFoundation.h"
 
+@class AKSoundFont;
+
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSoundFontInstrument : NSObject
 
 /// Unique number assigned to the instrument by the sound font
@@ -29,3 +31,4 @@
                    soundFont:(AKSoundFont *)soundFont;
 
 @end
+NS_ASSUME_NONNULL_END
