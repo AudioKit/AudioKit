@@ -49,16 +49,6 @@
     return [[AKVariableDelay alloc] initWithInput:input];
 }
 
-- (instancetype)initWithPresetDefaultDelayWithInput:(AKParameter *)input
-{
-    return [self initWithInput:input];
-}
-
-+ (instancetype)presetDefaultDelayWithInput:(AKParameter *)input
-{
-    return [[AKVariableDelay alloc] initWithInput:input];
-}
-
 - (void)setDelayTime:(AKParameter *)delayTime {
     _delayTime = delayTime;
     [self setUpConnections];

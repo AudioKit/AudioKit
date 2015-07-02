@@ -11,6 +11,7 @@
 @implementation Playground {
     AKMicrophone *mic;
     AKDelayPedal *delay;
+    AKAmplifier *amp;
 }
 
 - (void) setup
@@ -23,6 +24,10 @@
     delay = [[AKDelayPedal alloc] initWithInput:mic.auxilliaryOutput];
     [AKOrchestra addInstrument:delay];
     [delay start];
+
+    amp = [[AKAmplifier alloc] initWithAudioSource:delay.auxilliaryOutput];
+    [AKOrchestra addInstrument:amp];
+    [amp start];
 }
 
 - (void)run

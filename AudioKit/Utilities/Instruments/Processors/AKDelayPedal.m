@@ -23,7 +23,9 @@
                                                        maximumDelayTime:akp(_time.maximum)];
         AKMix *mix = [[AKMix alloc] initWithInput1:input input2:delay balance:_mix];
 
-        [self setAudioOutput:mix];
+        _auxilliaryOutput = [AKAudio globalParameter];
+        [self assignOutput:_auxilliaryOutput to:mix];
+
         AKAssignment *feedback = [[AKAssignment alloc] initWithOutput:input input:[delay scaledBy:_feedback]];
         [self connect:feedback];
     }

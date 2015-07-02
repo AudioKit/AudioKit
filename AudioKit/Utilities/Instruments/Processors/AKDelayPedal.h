@@ -9,9 +9,13 @@
 #import "AKFoundation.h"
 
 @interface AKDelayPedal : AKInstrument
+
 @property AKInstrumentProperty *feedback;
 @property AKInstrumentProperty *time;
 @property AKInstrumentProperty *mix;
+
+// Audio outlet for global effects processing
+@property (readonly) AKAudio *auxilliaryOutput;
 
 - (instancetype)initWithInput:(AKAudio *)input;
 
