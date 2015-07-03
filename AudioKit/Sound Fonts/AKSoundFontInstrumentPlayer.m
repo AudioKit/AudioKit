@@ -130,7 +130,7 @@
     
     [inputsString appendFormat:@"%@, ", _frequencyMultiplier];
     
-    [inputsString appendFormat:@"%lu, ", _soundFontInstrument.number];
+    [inputsString appendFormat:@"%@, ", @(_soundFontInstrument.number)];
     
     [inputsString appendFormat:@"%@", _soundFontInstrument.soundFont];
     return inputsString;
