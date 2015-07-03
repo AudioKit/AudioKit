@@ -18,11 +18,15 @@
 
     AKMicrophone *mic = [[AKMicrophone alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mic];
-    [mic restart];
+    [mic start];
 
     pitchShift = [[AKPitchShifterPedal alloc] initWithInput:mic.auxilliaryOutput];
     [AKOrchestra addInstrument:pitchShift];
-    [pitchShift restart];
+    [pitchShift start];
+
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithAudioSource:pitchShift.auxilliaryOutput];
+    [AKOrchestra addInstrument:amp];
+    [amp start];
 
     [self addSliderForProperty:pitchShift.frequencyShift title:@"Frequency Shift"];
     [self addSliderForProperty:pitchShift.feedback title:@"Feedback"];
