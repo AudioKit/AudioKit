@@ -9,6 +9,10 @@
 #import "AKSoundFont.h"
 
 @implementation AKSoundFont
+{
+    BOOL _instrumentsLoaded, _presetsLoaded;
+    NSMutableArray *_instruments, *_presets;
+}
 
 static int currentID = 1;
 
@@ -16,6 +20,21 @@ static int currentID = 1;
     @synchronized(self) {
         currentID = 1;
     }
+}
+
+- (NSArray *)instruments
+{
+    return _instrumentsLoaded ? _instruments : nil;
+}
+
+- (NSArray *)presets
+{
+    return _presetsLoaded ? _presets : nil;
+}
+
+- (BOOL)loaded
+{
+    return _instrumentsLoaded && _presetsLoaded;
 }
 
 - (instancetype)initWithFilename:(NSString *)filename
@@ -61,6 +80,10 @@ static int currentID = 1;
     
     if ([type isEqualToString:@"SFP"]) { // Preset
         if ([fields[0] intValue] == self.number) {
+            if ([fields[1] isEqualToString:@"END"]) {
+                _presetsLoaded = YES;
+                return;
+            }
             number = [fields[1] intValue];
             name = [fields[2] stringByReplacingOccurrencesOfString:@"'" withString:@""];
             int program = [fields[3] intValue];
@@ -75,6 +98,10 @@ static int currentID = 1;
         }
     } else if ([type isEqualToString:@"SFI"]) { // Instrument
         if ([fields[0] intValue] == self.number) {
+            if ([fields[1] isEqualToString:@"END"]) {
+                _instrumentsLoaded = YES;
+                return;
+            }
             number = [fields[1] intValue];
             name = [fields[2] stringByReplacingOccurrencesOfString:@"'" withString:@""];
             
@@ -89,6 +116,42 @@ static int currentID = 1;
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"giSoundFont%d", _number];
+}
+
+- (AKSoundFontInstrument *)findInstrumentNamed:(NSString *)name
+{
+    if (_instrumentsLoaded) {
+        for (AKSoundFontInstrument *inst in _instruments) {
+            if ([inst.name isEqualToString:name]) {
+                return inst;
+            }
+        }
+    }
+    return nil;
+}
+
+- (AKSoundFontPreset *)findPresetNamed:(NSString *)name
+{
+    if (_presetsLoaded) {
+        for (AKSoundFontPreset *preset in _presets) {
+            if ([preset.name isEqualToString:name]) {
+                return preset;
+            }
+        }
+    }
+    return nil;
+}
+
+- (AKSoundFontPreset *)findPresetProgram:(NSUInteger)program fromBank:(NSUInteger)bank
+{
+    if (_presetsLoaded) {
+        for (AKSoundFontPreset *preset in _presets) {
+            if (preset.program==program && preset.bank==bank) {
+                return preset;
+            }
+        }
+    }
+    return nil;
 }
 
 @end

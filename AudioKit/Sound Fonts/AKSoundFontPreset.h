@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 AudioKit. All rights reserved.
 //
 
-#import "AKSoundFont.h"
+#import "AKFoundation.h"
 
+@class AKSoundFont;
+
+NS_ASSUME_NONNULL_BEGIN
 @interface AKSoundFontPreset : NSObject
 
 /// Name of the preset
@@ -41,3 +44,5 @@
 - (NSString *)orchestraString;
 
 @end
+NS_ASSUME_NONNULL_END
+
