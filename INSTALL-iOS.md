@@ -33,16 +33,7 @@ Remember: *your entire application is now bound by the terms of the [GNU LGPL li
 * From within the AudioKit subproject, open the `AudioKit > Platforms > iOS > Dynamic Frameworks` group, then drag and drop the `CSoundLib.framework` and `libsndfile.framework` files to your own project.
 * This will automatically add a "Framework Search Paths" entry for you, but it will be an absolute reference, so if you are sharing your projects with others, you should go to **Build Settings** Tab and add an entry relative to `$(SRCROOT)` that leads to `AudioKit/Platforms/iOS`.
 * In your project settings, under the **General** tab, scroll down to the **Embedded Binaries** section and add the same `CsoundLib.framework` and `libsndfile.framework`. These frameworks should then also appear in the **Linked Frameworks and Libraries** just below.
-* Add a run script phase, of type `/bin/bash` with the following script:
-
-```
-for lib in CsoundLib libsndfile; do
-    install_name_tool -change $lib @rpath/$lib.framework/$lib $TARGET_BUILD_DIR/$EXECUTABLE_PATH
-    if ! test "$CURRENT_ARCH" = x86_64 -o "$CURRENT_ARCH" = i386; then
-        lipo -remove i386 -remove x86_64 $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib -output $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib 2>&1 || true
-    fi
-done
-```
+* Add a new **Run Script** phase, of type `/bin/bash` that either calls the script at `AudioKit/Platforms/iOS/run-script.sh` (adjust for the location on your system), or copy its contents into the phase for your target.
 
 
 ## Swift Projects
