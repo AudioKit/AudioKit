@@ -301,7 +301,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
+			shellScript = "${SRCROOT}/../../../../AudioKit/Platforms/OSX/run-script.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -384,6 +384,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitDemo/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Debug;
@@ -422,6 +423,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitDemo/Bridging-Header.h";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Release;
