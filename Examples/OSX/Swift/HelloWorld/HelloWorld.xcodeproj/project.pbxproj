@@ -130,7 +130,7 @@
 		EA5D421F1AD4BD6700BEA03A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA5D42241AD4BD6700BEA03A /* libAudioKit iOS.a */,
+				EA5D42241AD4BD6700BEA03A /* libAudioKit iOS Static.a */,
 				EAA0F5C91AE8456C007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				EA5D42261AD4BD6700BEA03A /* libAudioKit OS X.a */,
 			);
@@ -208,7 +208,7 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EA5D42241AD4BD6700BEA03A /* libAudioKit iOS.a */ = {
+		EA5D42241AD4BD6700BEA03A /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libAudioKit iOS Static.a";
@@ -255,7 +255,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "${SRCROOT}/../../../../AudioKit/Platforms/OSX/run-script.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -332,6 +332,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/HelloWorld/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Debug;
@@ -370,6 +371,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/HelloWorld/Bridging-Header.h";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Release;

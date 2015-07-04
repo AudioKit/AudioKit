@@ -9,9 +9,7 @@
 	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.  If your project directory is parallel to the AudioKit repository, this path will be `../AudioKit/AudioKit`.
 *  From within the AudioKit subproject, open the `AudioKit > Platforms > OS X` group, then drag and drop the `CSoundLib.framework` file to your own project.  This will automatically add a "Framework Search Paths" entry for you, but it will be an absolute reference, so if you are sharing your projects with other, you should go to **Build Settings** Tab and add an entry relative to `$(SRCROOT)` that leads to `AudioKit/Platforms/OSX`.
 * In your project settings, under the **Build Phases** tab, open the **Copy Files** section and add the same `CsoundLib.framework`.
-* Add a new **Run Script** phase, of type `/bin/bash` with the following script:
-
-`install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH`
+*  Add a new **Run Script** phase, of type `/bin/bash` that either calls the script at `AudioKit/Platforms/OSX/run-script.sh` (adjust for the location on your system), or copy its contents into the phase for your target.
 
 
 ## Swift Projects
