@@ -335,7 +335,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "${SRCROOT}/../../../AudioKit/Platforms/OSX/run-script.sh\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
