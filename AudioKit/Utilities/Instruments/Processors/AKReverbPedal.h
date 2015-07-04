@@ -13,6 +13,9 @@
 
 @property (nonatomic) AKInstrumentProperty *feedback;
 
+// Audio outlet for global effects processing
+@property (readonly) AKStereoAudio *auxilliaryOutput;
+
 - (instancetype)initWithAudioSource:(AKAudio *)audioSource;
 
 @end
