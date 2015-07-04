@@ -13,6 +13,9 @@
 @property AKInstrumentProperty *feedback;
 @property AKInstrumentProperty *mix;
 
+// Audio outlet for global effects processing
+@property (readonly) AKAudio *auxilliaryOutput;
+
 - (instancetype)initWithInput:(AKAudio *)input;
 
 - (void)setPresetWitnessProtection;
