@@ -7,31 +7,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AKMidiListener.h"
+
+extern NSString * const AKMidiNoteOn;
+extern NSString * const AKMidiNoteOn;
+extern NSString * const AKMidiNoteOff;
+extern NSString * const AKMidiPolyphonicAftertouch;
+extern NSString * const AKMidiAftertouch;
+extern NSString * const AKMidiPitchWheel;
+extern NSString * const AKMidiController;
+extern NSString * const AKMidiModulation;
+extern NSString * const AKMidiPortamento;
+extern NSString * const AKMidiVolume;
+extern NSString * const AKMidiBalance;
+extern NSString * const AKMidiPan;
+extern NSString * const AKMidiExpression;
 
 /** AKMidi is the object that handles the MIDI input and output from AK.
  */
 @interface AKMidi : NSObject
-
-/// MIDI note on/off, control and system exclusive constants
-typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
-{
-    AKMidiConstantNoteOff = 8,
-    AKMidiConstantNoteOn = 9,
-    AKMidiConstantPolyphonicAftertouch = 10,
-    AKMidiConstantControllerChange = 11,
-    AKMidiConstantProgramChange = 12,
-    AKMidiConstantAftertouch = 13,
-    AKMidiConstantPitchWheel = 14,
-    AKMidiConstantSysex = 240
-};
-
-/// A set of all listeners "subscribed" to MIDI Messages.
-@property NSMutableSet *listeners;
-
-/// Add listener to a list of notified listeners
-/// @param listener Object that implements the AKMidiListener protocol
-- (void)addListener:(id<AKMidiListener>)listener;
 
 /// Create midi client and connect to all available midi input sources.
 - (void)openMidiIn;

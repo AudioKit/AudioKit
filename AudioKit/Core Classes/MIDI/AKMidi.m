@@ -9,130 +9,64 @@
 #import "AKMidi.h"
 #import <CoreMIDI/CoreMIDI.h>
 
-#pragma mark  Utility Function
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+#import <CoreMIDI/MIDINetworkSession.h>
+#endif
+
+NSString * const AKMidiNoteOn               = @"AKMidiNoteOn";
+NSString * const AKMidiNoteOff              = @"AKMidiNoteOff";
+NSString * const AKMidiPolyphonicAftertouch = @"AKMidiPolyphonicAftertouch";
+NSString * const AKMidiAftertouch           = @"AKMidiAftertouch";
+NSString * const AKMidiPitchWheel           = @"AKMidiPitchWheel";
+NSString * const AKMidiController           = @"AKMidiController";
+NSString * const AKMidiModulation           = @"AKMidiModulation";
+NSString * const AKMidiPortamento           = @"AKMidiPortamento";
+NSString * const AKMidiVolume               = @"AKMidiVolume";
+NSString * const AKMidiBalance              = @"AKMidiBalance";
+NSString * const AKMidiPan                  = @"AKMidiPan";
+NSString * const AKMidiExpression           = @"AKMidiExpression";
+
 
 @implementation AKMidi
 {
     MIDIClientRef client;
 }
 
+/// MIDI note on/off, control and system exclusive constants
+typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
+{
+    AKMidiConstantNoteOff = 8,
+    AKMidiConstantNoteOn = 9,
+    AKMidiConstantPolyphonicAftertouch = 10,
+    AKMidiConstantControllerChange = 11,
+    AKMidiConstantProgramChange = 12,
+    AKMidiConstantAftertouch = 13,
+    AKMidiConstantPitchWheel = 14,
+    AKMidiConstantSysex = 240
+};
+
 #pragma mark - Initialization
 
 - (instancetype)init
 {
     if(self = [super init]) {
-        _listeners = [[NSMutableSet alloc] init];
+#if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
+        MIDINetworkSession *session = [MIDINetworkSession defaultSession];
+        session.enabled = YES;
+        session.connectionPolicy = MIDINetworkConnectionPolicy_Anyone;
+#endif
     }
     return self;
 }
-
--(void)addListener:(id<AKMidiListener>)listener
-{
-    NSLog(@"Adding listener");
-    [_listeners addObject:listener];
-}
-
 
 // -----------------------------------------------------------------------------
 #  pragma mark - Broadcast MIDI Events
 // -----------------------------------------------------------------------------
 
-- (void)broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)channel
-{
-    for (id<AKMidiListener> listener in _listeners) {
-        if ([listener respondsToSelector:@selector(midiNoteOn:velocity:channel:)]) {
-            [listener midiNoteOn:note velocity:velocity channel:channel];
-        }
-    }
-}
-
-- (void)broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)channel
-{
-    for (id<AKMidiListener> listener in _listeners) {
-        if ([listener respondsToSelector:@selector(midiNoteOff:velocity:channel:)]) {
-            [listener midiNoteOff:note velocity:velocity channel:channel];
-        }
-    }
-}
-
-- (void)broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)channel
-{
-    for (id<AKMidiListener> listener in _listeners) {
-        if ([listener respondsToSelector:@selector(midiAftertouchOnNote:pressure:channel:)]) {
-            [listener midiAftertouchOnNote:note pressure:pressure channel:channel];
-        }
-    }
-}
-
-- (void)broadcastAftertouch:(int)pressure channel:(int)channel
-{
-    for (id<AKMidiListener> listener in _listeners) {
-        if ([listener respondsToSelector:@selector(midiAftertouch:channel:)]) {
-            [listener midiAftertouch:pressure channel:channel];
-        }
-    }
-}
-
-- (void)broadcastPitchWheel:(int)pitchWheelValue channel:(int)channel
-{
-    for (id<AKMidiListener> listener in _listeners) {
-        if ([listener respondsToSelector:@selector(midiPitchWheel:channel:)]) {
-            [listener midiPitchWheel:pitchWheelValue  channel:channel];
-        }
-    }
-}
-
-
-- (void)broadcastChangeController:(int)controller toValue:(int)value channel:(int)channel
-{
-    for (id<AKMidiListener> listener in _listeners) {
-        [listener midiController:controller changedToValue:value channel:channel];
-        switch (controller) {
-            case 1:
-                if ([listener respondsToSelector:@selector(midiModulation:channel:)]) {
-                    [listener midiModulation:value channel:channel];
-                }
-                break;
-            case 5:
-                if ([listener respondsToSelector:@selector(midiPortamento:channel:)]) {
-                    [listener midiPortamento:value channel:channel];
-                }
-                break;
-            case 7:
-                if ([listener respondsToSelector:@selector(midiVolume:channel:)]) {
-                    [listener midiVolume:value channel:channel];
-                }
-                break;
-            case 8:
-                if ([listener respondsToSelector:@selector(midiBalance:channel:)]) {
-                    [listener midiBalance:value channel:channel];
-                }
-                break;
-            case 10:
-                if ([listener respondsToSelector:@selector(midiPan:channel:)]) {
-                    [listener midiPan:value channel:channel];
-                }
-                break;
-            case 11:
-                if ([listener respondsToSelector:@selector(midiExpression:channel:)]) {
-                    [listener midiExpression:value channel:channel];
-                }
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-
-// -----------------------------------------------------------------------------
-#  pragma mark - Low Level MIDI Handlining
-// -----------------------------------------------------------------------------
-
-
 void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)
 {
-    AKMidi *m = (__bridge AKMidi *)refCon;
+    //AKMidi *m = (__bridge AKMidi *)refCon;
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     
 	MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
 	for (uint i=0; i < pktlist->numPackets; i++) {
@@ -143,32 +77,72 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 		if (midiCommand == AKMidiConstantNoteOff) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
-            [m broadcastNoteOff:(int)note velocity:(int)velocity channel:(int)midiChannel];
+            NSDictionary *dict = @{@"note":@(note),
+                                   @"velocity":@(velocity),
+                                   @"channel":@(midiChannel)};
+            [nc postNotificationName:AKMidiNoteOff object:dict];
             
 		} else if (midiCommand == AKMidiConstantNoteOn) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte velocity = packet->data[2] & 0x7F;
-            [m broadcastNoteOn:(int)note velocity:(int)velocity channel:(int)midiChannel];
+            NSDictionary *dict = @{@"note":@(note),
+                                   @"velocity":@(velocity),
+                                   @"channel":@(midiChannel)};
+            [nc postNotificationName:AKMidiNoteOn object:dict];
             
 		} else if (midiCommand == AKMidiConstantPolyphonicAftertouch) {
 			Byte note     = packet->data[1] & 0x7F;
 			Byte pressure = packet->data[2] & 0x7F;
-            [m broadcastAftertouchOnNote:(int)note pressure:(int)pressure channel:(int)midiChannel];
+            NSDictionary *dict = @{@"note":@(note),
+                                   @"pressure":@(pressure),
+                                   @"channel":@(midiChannel)};
+            [nc postNotificationName:AKMidiPolyphonicAftertouch object:dict];
             
         } else if (midiCommand == AKMidiConstantAftertouch) {
 			Byte pressure = packet->data[2] & 0x7F;
-            [m broadcastAftertouch:(int)pressure channel:(int)midiChannel];
+            NSDictionary *dict = @{@"pressure":@(pressure),
+                                   @"channel":@(midiChannel)};
+            [nc postNotificationName:AKMidiAftertouch object:dict];
             
 		} else if (midiCommand == AKMidiConstantPitchWheel) {
             Byte value1 = packet->data[1] & 0x7F;
 			Byte value2 = packet->data[2] & 0x7F;
-            [m broadcastPitchWheel:128*value2+value1 channel:(int)midiChannel];
-            
+            NSDictionary *dict = @{@"pitchWheel":@(128*value2+value1),
+                                   @"channel":@(midiChannel)};
+            [nc postNotificationName:AKMidiPitchWheel object:dict];
             
 		} else if (midiCommand == AKMidiConstantControllerChange) {
 			Byte controller = packet->data[1] & 0x7F;
 			Byte value      = packet->data[2] & 0x7F;
-            [m broadcastChangeController:(int)controller toValue:(int)value channel:(int)midiChannel];
+            NSDictionary *dict = @{@"controller":@(controller),
+                                   @"value":@(value),
+                                   @"channel":@(midiChannel)};
+            [nc postNotificationName:AKMidiController object:dict];
+            
+            NSDictionary *smallDict = @{@"value":@(value),
+                                        @"channel":@(midiChannel)};
+            switch (controller) {
+                case 1:
+                    [nc postNotificationName:AKMidiModulation object:smallDict];
+                    break;
+                case 5:
+                    [nc postNotificationName:AKMidiPortamento object:smallDict];
+                    break;
+                case 7:
+                    [nc postNotificationName:AKMidiVolume object:smallDict];
+                    break;
+                case 8:
+                    [nc postNotificationName:AKMidiBalance object:smallDict];
+                    break;
+                case 10:
+                    [nc postNotificationName:AKMidiPan object:smallDict];
+                    break;
+                case 11:
+                    [nc postNotificationName:AKMidiExpression object:smallDict];
+                    break;
+                default:
+                    break;
+            }
             
         } else if (midiCommand == AKMidiConstantProgramChange) {
             
@@ -194,7 +168,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
 
 void MyMIDINotifyProc (const MIDINotification  *message, void *refCon)
 {
-	//printf("MIDI Notify, messageId=%d,", message->messageID);
+//	printf("MIDI Notify, messageId=%d,", message->messageID);
 }
 
 - (void)openMidiIn
