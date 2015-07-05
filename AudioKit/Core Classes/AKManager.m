@@ -103,9 +103,6 @@ static AKManager *_sharedManager = nil;
         
         _isRunning = NO;
         _isLogging = AKSettings.shared.loggingEnabled;
-#ifdef AK_TESTING
-        _testLog = [NSMutableArray array];
-#endif
         _totalRunDuration = 10000000;
 
         _batchInstructions = [[NSString alloc] init];
@@ -342,14 +339,7 @@ static AKManager *_sharedManager = nil;
 // -----------------------------------------------------------------------------
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
-{
-#ifdef AK_TESTING
-    if ([msg rangeOfString:@"AKTEST"].location != NSNotFound) {
-        [_testLog addObject:[msg stringByReplacingOccurrencesOfString:@"AKTEST" withString:@""]];
-        return;
-    }
-#endif
-    
+{    
     if (_isLogging) {
         if (AKSettings.shared.messagesEnabled) {
             NSLog(@"Csound(%d): %@", attr, msg);
