@@ -96,6 +96,8 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
+        AKMidi *midi = [[AKMidi alloc] init];
+        [midi openMidiIn];
         
         _engine = [[CsoundObj alloc] init];
         [_engine addListener:self];
