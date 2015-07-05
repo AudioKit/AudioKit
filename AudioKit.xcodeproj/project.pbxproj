@@ -652,7 +652,6 @@
 		EA8E93F81AD3C6840057E979 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = AudioKit/Resources/AudioKit.plist; sourceTree = SOURCE_ROOT; };
 		EA8E93FA1AD3C6840057E979 /* AKMidi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMidi.h; sourceTree = "<group>"; };
 		EA8E93FB1AD3C6840057E979 /* AKMidi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMidi.m; sourceTree = "<group>"; };
-		EA8E93FC1AD3C6840057E979 /* AKMidiListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMidiListener.h; sourceTree = "<group>"; };
 		EA8E93FE1AD3C6840057E979 /* AKInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKInstrument.h; sourceTree = "<group>"; };
 		EA8E93FF1AD3C6840057E979 /* AKInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrument.m; sourceTree = "<group>"; };
 		EA8E94001AD3C6840057E979 /* AKInstrumentProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKInstrumentProperty.h; sourceTree = "<group>"; };
@@ -1156,7 +1155,6 @@
 			children = (
 				EA8E93FA1AD3C6840057E979 /* AKMidi.h */,
 				EA8E93FB1AD3C6840057E979 /* AKMidi.m */,
-				EA8E93FC1AD3C6840057E979 /* AKMidiListener.h */,
 			);
 			path = MIDI;
 			sourceTree = "<group>";
