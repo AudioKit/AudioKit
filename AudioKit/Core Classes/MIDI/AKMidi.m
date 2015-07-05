@@ -65,7 +65,7 @@ typedef NS_OPTIONS(NSUInteger, AKMidiConstant)
 
 void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)
 {
-    //AKMidi *m = (__bridge AKMidi *)refCon;
+    AKMidi *m = (__bridge AKMidi *)refCon;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     
 	MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
@@ -80,7 +80,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
             NSDictionary *dict = @{@"note":@(note),
                                    @"velocity":@(velocity),
                                    @"channel":@(midiChannel)};
-            [nc postNotificationName:AKMidiNoteOff object:dict];
+            [nc postNotificationName:AKMidiNoteOff object:m userInfo:dict];
             
 		} else if (midiCommand == AKMidiConstantNoteOn) {
 			Byte note     = packet->data[1] & 0x7F;
@@ -88,7 +88,7 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
             NSDictionary *dict = @{@"note":@(note),
                                    @"velocity":@(velocity),
                                    @"channel":@(midiChannel)};
-            [nc postNotificationName:AKMidiNoteOn object:dict];
+            [nc postNotificationName:AKMidiNoteOn object:m userInfo:dict];
             
 		} else if (midiCommand == AKMidiConstantPolyphonicAftertouch) {
 			Byte note     = packet->data[1] & 0x7F;
@@ -96,20 +96,20 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
             NSDictionary *dict = @{@"note":@(note),
                                    @"pressure":@(pressure),
                                    @"channel":@(midiChannel)};
-            [nc postNotificationName:AKMidiPolyphonicAftertouch object:dict];
+            [nc postNotificationName:AKMidiPolyphonicAftertouch object:m userInfo:dict];
             
         } else if (midiCommand == AKMidiConstantAftertouch) {
 			Byte pressure = packet->data[2] & 0x7F;
             NSDictionary *dict = @{@"pressure":@(pressure),
                                    @"channel":@(midiChannel)};
-            [nc postNotificationName:AKMidiAftertouch object:dict];
+            [nc postNotificationName:AKMidiAftertouch object:m userInfo:dict];
             
 		} else if (midiCommand == AKMidiConstantPitchWheel) {
             Byte value1 = packet->data[1] & 0x7F;
 			Byte value2 = packet->data[2] & 0x7F;
             NSDictionary *dict = @{@"pitchWheel":@(128*value2+value1),
                                    @"channel":@(midiChannel)};
-            [nc postNotificationName:AKMidiPitchWheel object:dict];
+            [nc postNotificationName:AKMidiPitchWheel object:m userInfo:dict];
             
 		} else if (midiCommand == AKMidiConstantControllerChange) {
 			Byte controller = packet->data[1] & 0x7F;
@@ -117,28 +117,28 @@ void MyMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCo
             NSDictionary *dict = @{@"controller":@(controller),
                                    @"value":@(value),
                                    @"channel":@(midiChannel)};
-            [nc postNotificationName:AKMidiController object:dict];
+            [nc postNotificationName:AKMidiController object:m userInfo:dict];
             
             NSDictionary *smallDict = @{@"value":@(value),
                                         @"channel":@(midiChannel)};
             switch (controller) {
                 case 1:
-                    [nc postNotificationName:AKMidiModulation object:smallDict];
+                    [nc postNotificationName:AKMidiModulation object:m userInfo:smallDict];
                     break;
                 case 5:
-                    [nc postNotificationName:AKMidiPortamento object:smallDict];
+                    [nc postNotificationName:AKMidiPortamento object:m userInfo:smallDict];
                     break;
                 case 7:
-                    [nc postNotificationName:AKMidiVolume object:smallDict];
+                    [nc postNotificationName:AKMidiVolume object:m userInfo:smallDict];
                     break;
                 case 8:
-                    [nc postNotificationName:AKMidiBalance object:smallDict];
+                    [nc postNotificationName:AKMidiBalance object:m userInfo:smallDict];
                     break;
                 case 10:
-                    [nc postNotificationName:AKMidiPan object:smallDict];
+                    [nc postNotificationName:AKMidiPan object:m userInfo:smallDict];
                     break;
                 case 11:
-                    [nc postNotificationName:AKMidiExpression object:smallDict];
+                    [nc postNotificationName:AKMidiExpression object:m userInfo:smallDict];
                     break;
                 default:
                     break;
