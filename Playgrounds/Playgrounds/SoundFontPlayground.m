@@ -27,7 +27,7 @@
 {
     [super run];
 
-    soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]];
+    soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"] completion:nil];
 
     presetPlayer = [AKInstrument instrumentWithNumber:1];
     instrumentPlayer = [AKInstrument instrumentWithNumber:2];
@@ -60,7 +60,7 @@
     }];
 
     instrumentLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 30)];
-    instrumentLabel.text = [[[soundFont instruments] firstObject] name];
+    instrumentLabel.text = [[soundFont.instruments firstObject] name];
     [timelineViewController addView:instrumentLabel];
 
     [self addButtonWithTitle:@"Up Instrument" block:^{
@@ -86,7 +86,7 @@
 - (void)updatePresetPlayer
 {
     presetPlayer = [AKInstrument instrumentWithNumber:1];
-    AKSoundFontPreset *soundFontPreset = [[soundFont presets] objectAtIndex:presetNumber];
+    AKSoundFontPreset *soundFontPreset = soundFont.presets[presetNumber];
     presetLabel.text = soundFontPreset.name;
     AKSoundFontPresetPlayer *player = [[AKSoundFontPresetPlayer alloc] initWithSoundFontPreset:soundFontPreset];
     player.frequencyMultiplier = akp(1.5);
@@ -99,7 +99,7 @@
 - (void)updateInstrumentPlayer
 {
     instrumentPlayer = [AKInstrument instrumentWithNumber:2];
-    AKSoundFontInstrument *soundFontInstrument = [[soundFont instruments] objectAtIndex:instrumentNumber];
+    AKSoundFontInstrument *soundFontInstrument = soundFont.instruments[instrumentNumber];
     instrumentLabel.text = soundFontInstrument.name;
     AKSoundFontInstrumentPlayer *player = [[AKSoundFontInstrumentPlayer alloc] initWithSoundFontInstrument:soundFontInstrument];
     player.frequencyMultiplier = akp(1.5);
