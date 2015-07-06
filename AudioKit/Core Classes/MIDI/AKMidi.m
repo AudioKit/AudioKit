@@ -83,11 +83,11 @@ typedef NS_ENUM(UInt8, AKMidiSystemCommand)
 
 static void dumpPacket(MIDIPacket *packet, NSString *info)
 {
-    int b[10];
-    for (int i=0; i<=9; i++) {
-        b[i] = (packet->length > i) ? packet->data[i] : 0;
+    NSMutableString *str = [NSMutableString string];
+    for (int i = 0; i < packet->length; i++) {
+        [str appendFormat:@"%i ", packet->data[i]];
     }
-    NSLog(@"%@: %i %i %i %i %i %i %i %i %i %i", info, b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9]);
+    NSLog(@"%@: %@", info, str);
 }
 
 static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)
@@ -218,20 +218,20 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
 
 - (void)openMidiIn
 {
-    ItemCount sourceCount = MIDIGetNumberOfSources();
-    NSLog(@"%ld MIDI sources\n", sourceCount);
+    _inputs = MIDIGetNumberOfSources();
+    NSLog(@"%@ MIDI sources\n", @(_inputs));
     
-    if (sourceCount == 0)
+    if (_inputs == 0)
         return;
     
     MIDIClientCreate(CFSTR("CoreMIDI AudioKit"), AKMIDINotifyProc, (__bridge void *)self, &_client);
 	MIDIInputPortCreate(_client, CFSTR("AK Input port"), AKMIDIReadProc, (__bridge void *)self, &_inPort);
 	
-	for (uint i = 0; i < sourceCount; ++i) {
+	for (NSUInteger i = 0; i < _inputs; ++i) {
 		MIDIEndpointRef src = MIDIGetSource(i);
 		CFStringRef endpointName = NULL;
 		MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName);
-		NSLog(@"MIDI source %d: %@", i, endpointName);
+		NSLog(@"MIDI source %@: %@", @(i), endpointName);
 		MIDIPortConnectSource(_inPort, src, NULL);
 	}
     
