@@ -1,10 +1,11 @@
 language: objective-c
 osx_image: beta-xcode6.3
-
 env:
 - LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8
-
 before_install: gem install xcpretty cocoapods -N
 podfile: Playgrounds/AudioKitPlayground/Podfile
 cache: cocoapods
-script: ./Tests/travis.sh
+script: "./Tests/travis.sh"
+notifications:
+  slack:
+    secure: Bgfiib7NP2/98fjJvW+PraQQFnj5X23+Zmvy9XqIe9NetzyNqWVN6URRFdcjvSnpah1kg2gGhIdkT5gvBT8HcP8OS6x/2lMFQsOhuA0mMoJ3tK3vhve10s3Mt8JvWqnEI3OmnDF/Yx7FN0sGiTskLYvi7jCzLY1QNqdg52VTsNI=
