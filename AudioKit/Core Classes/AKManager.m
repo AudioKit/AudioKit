@@ -96,8 +96,10 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        AKMidi *midi = [[AKMidi alloc] init];
-        [midi openMidiIn];
+        if (AKSettings.shared.MIDIEnabled) {
+            _midi = [[AKMidi alloc] init];
+            [_midi openMidiIn];
+        }
         
         _engine = [[CsoundObj alloc] init];
         [_engine addListener:self];
@@ -125,7 +127,6 @@ static AKManager *_sharedManager = nil;
                     AKSettings.shared.audioOutput, inputOption];
         
         _csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
-        _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
         
         // Get notified when the application ends so we can a chance to do some cleanups
@@ -265,12 +266,12 @@ static AKManager *_sharedManager = nil;
 
 - (void)enableMidi
 {
-    [_midi openMidiIn];
+    [self.midi openMidiIn];
 }
 
 - (void)disableMidi
 {
-    [_midi closeMidiIn];
+    [self.midi closeMidiIn];
 }
 
 // -----------------------------------------------------------------------------
