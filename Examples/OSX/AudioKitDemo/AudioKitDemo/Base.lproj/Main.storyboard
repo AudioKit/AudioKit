@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -668,11 +668,12 @@
         <!--Tab View Controller-->
         <scene sceneID="Jl1-Cr-5gC">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" id="57a-dY-yUd" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="3" id="57a-dY-yUd" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="PKl-aE-53L"/>
                         <tabViewItem identifier="" id="tdJ-78-PUY"/>
                         <tabViewItem id="VLb-NC-tDH"/>
+                        <tabViewItem id="ucy-nR-9UJ"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="Xko-8k-GDN">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
@@ -684,11 +685,64 @@
                         <segue destination="old-N4-VP4" kind="relationship" relationship="tabItems" id="9WG-4f-tHD"/>
                         <segue destination="XQA-pb-uB0" kind="relationship" relationship="tabItems" id="2Dx-rH-EdC"/>
                         <segue destination="dpA-Dr-ofG" kind="relationship" relationship="tabItems" id="Vto-fT-wqP"/>
+                        <segue destination="XHM-tc-AAU" kind="relationship" relationship="tabItems" id="AZZ-2N-7yk"/>
                     </connections>
                 </tabViewController>
                 <customObject id="app-Mt-fDd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="90" y="707"/>
+        </scene>
+        <!--MIDI-->
+        <scene sceneID="SAD-WQ-xDo">
+            <objects>
+                <viewController title="MIDI" id="XHM-tc-AAU" customClass="MIDIViewController" sceneMemberID="viewController">
+                    <view key="view" id="fbn-BG-9Z8">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="evt-jA-VVs">
+                                <rect key="frame" x="18" y="245" width="101" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="zI3-wa-r3i"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Preset:" id="OAx-Ik-Ykv">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LFh-Ag-tfD">
+                                <rect key="frame" x="128" y="240" width="305" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="4P4-aq-B4H"/>
+                                </constraints>
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="bFw-4m-3sy">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="fk1-jh-Blg">
+                                        <items>
+                                            <menuItem title="Piano" id="mPR-a3-cWU"/>
+                                            <menuItem title="Item 2" id="wo0-fz-0C8"/>
+                                            <menuItem title="Item 3" id="900-Md-Pvl"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="LFh-Ag-tfD" secondAttribute="trailing" constant="20" id="HZ8-PB-vgs"/>
+                            <constraint firstItem="evt-jA-VVs" firstAttribute="centerY" secondItem="LFh-Ag-tfD" secondAttribute="centerY" id="JGj-gF-H0S"/>
+                            <constraint firstItem="evt-jA-VVs" firstAttribute="leading" secondItem="fbn-BG-9Z8" secondAttribute="leading" constant="20" id="R2L-y5-oeW"/>
+                            <constraint firstItem="evt-jA-VVs" firstAttribute="top" secondItem="fbn-BG-9Z8" secondAttribute="top" constant="38" id="Saw-ab-MoX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="presetsButton" destination="LFh-Ag-tfD" id="D8R-i3-UIG"/>
+                    </connections>
+                </viewController>
+                <customObject id="P1G-5L-wZH" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-280" y="1148"/>
         </scene>
         <!--Synthesis-->
         <scene sceneID="wEj-8J-eZh">
@@ -1214,7 +1268,7 @@
                 </viewController>
                 <customObject id="zKH-te-qbt" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="671" y="1788.5"/>
+            <point key="canvasLocation" x="156" y="1737.5"/>
         </scene>
     </scenes>
 </document>
