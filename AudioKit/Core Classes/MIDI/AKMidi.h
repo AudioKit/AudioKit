@@ -12,6 +12,7 @@ extern NSString * const AKMidiNoteOn;
 extern NSString * const AKMidiNoteOn;
 extern NSString * const AKMidiNoteOff;
 extern NSString * const AKMidiPolyphonicAftertouch;
+extern NSString * const AKMidiProgramChange;
 extern NSString * const AKMidiAftertouch;
 extern NSString * const AKMidiPitchWheel;
 extern NSString * const AKMidiController;
