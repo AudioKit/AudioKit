@@ -33,4 +33,7 @@ extern NSString * const AKMidiExpression;
 /// Dispose of midi client.
 - (void)closeMidiIn;
 
+/// The number of detected MIDI inputs
+@property (readonly) NSUInteger inputs;
+
 @end
