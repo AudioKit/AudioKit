@@ -37,6 +37,7 @@ static AKSettings *_settings = nil;
         _messagesEnabled = NO;
         _audioInputEnabled = NO;
         _playbackWhileMuted = NO;
+        _MIDIEnabled = YES;
         
         // Try to load from AudioKit.plist if found
         NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
@@ -62,6 +63,8 @@ static AKSettings *_settings = nil;
                 _messagesEnabled = [dict[@"Prefix Csound Messages"] boolValue];
             if (dict[@"Playback While Muted"])
                 _playbackWhileMuted = [dict[@"Playback While Muted"] boolValue];
+            if (dict[@"MIDI Enabled"])
+                _MIDIEnabled = [dict[@"MIDI Enabled"] boolValue];
         }
     }
     return self;
