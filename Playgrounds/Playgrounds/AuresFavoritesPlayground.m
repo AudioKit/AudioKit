@@ -120,20 +120,6 @@
         [self playPresetOperation:[AKCrunch presetDistantCrunch] forDuration:3.0];
     }];
 
-    [self makeSection:@"Flute"];
-    [self addButtonWithTitle:@"MicFeedbackFlute" block:^{
-        [self playPresetOperation:[AKFlute presetMicFeedbackFlute] forDuration:3.0];
-    }];
-    [self addButtonWithTitle:@"ShipsHornFlute" block:^{
-        [self playPresetOperation:[AKFlute presetShipsHornFlute] forDuration:3.0];
-    }];
-    [self addButtonWithTitle:@"SciFiNoiseFlute" block:^{
-        [self playPresetOperation:[AKFlute presetSciFiNoiseFlute] forDuration:3.0];
-    }];
-    [self addButtonWithTitle:@"ScreamingFlute" block:^{
-        [self playPresetOperation:[AKFlute presetScreamingFlute] forDuration:3.0];
-    }];
-
     [self makeSection:@"Guiro"];
     [self addButtonWithTitle:@"DefaultGuiro" block:^{
         [self playPresetOperation:[AKGuiro presetDefaultGuiro] forDuration:3.0];
@@ -261,14 +247,8 @@
     [self addButtonWithTitle:@"Stop" block:^{[presetInstrument stop];}];
 
     [self makeSection:@"Delay"];
-    [self addButtonWithTitle:@"ChoppedDelay" block:^{
-        [self playPresetOperation:[AKDelay presetChoppedDelayWithInput:[self mono]] forDuration:10.0];
-    }];
     [self addButtonWithTitle:@"ShortAttackDelay" block:^{
         [self playPresetOperation:[AKDelay presetShortAttackDelayWithInput:[self mono]] forDuration:10.0];
-    }];
-    [self addButtonWithTitle:@"RhythmicAttackDelay" block:^{
-        [self playPresetOperation:[AKDelay presetRhythmicAttackDelayWithInput:[self mono]] forDuration:10.0];
     }];
     [self addButtonWithTitle:@"Stop" block:^{[presetInstrument stop];}];
 
@@ -287,15 +267,6 @@
     }];
     [self addButtonWithTitle:@"UnderwaterFilter" block:^{
         [self playPresetOperation:[AKMoogLadder presetUnderwaterFilterWithInput:[self mono]] forDuration:10.0];
-    }];
-    [self addButtonWithTitle:@"Stop" block:^{[presetInstrument stop];}];
-
-    [self makeSection:@"Moog VCF"];
-    [self addButtonWithTitle:@"HighTrebleFilter" block:^{
-        [self playPresetOperation:[AKMoogVCF presetHighTrebleFilterWithInput:[self mono]] forDuration:10.0];
-    }];
-    [self addButtonWithTitle:@"FoggyBottomFilter" block:^{
-        [self playPresetOperation:[AKMoogVCF presetFoggyBottomFilterWithInput:[self mono]] forDuration:10.0];
     }];
     [self addButtonWithTitle:@"Stop" block:^{[presetInstrument stop];}];
 
@@ -334,15 +305,9 @@
     [self addButtonWithTitle:@"DullBass" block:^{
         [self playPresetOperation:[AKThreePoleLowpassFilter presetDullBassWithInput:[self mono]] forDuration:10.0];
     }];
-    [self addButtonWithTitle:@"Scream" block:^{
-        [self playPresetOperation:[AKThreePoleLowpassFilter presetScreamWithInput:[self mono]] forDuration:10.0];
-    }];
     [self addButtonWithTitle:@"Stop" block:^{[presetInstrument stop];}];
 
     [self addAudioOutputPlot];
-    [self addAudioOutputFFTPlot];
-    [self addAudioOutputRollingWaveformPlot];
-
 
 }
 
