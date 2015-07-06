@@ -24,5 +24,7 @@
 	<false/>
 	<key>Perform To Disk</key>
 	<false/>
+	<key>MIDI Enabled</key>
+	<true/>
 </dict>
 </plist>
