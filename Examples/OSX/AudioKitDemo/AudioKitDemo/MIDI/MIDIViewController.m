@@ -12,28 +12,76 @@
 @interface MIDIViewController ()
 
 @property (nonatomic,weak) IBOutlet NSPopUpButton *presetsButton;
+@property (nonatomic,weak) IBOutlet NSTextField *midiStatusText;
 
 @end
 
 @implementation MIDIViewController {
-    AKSoundFont *soundFont;
+    AKSoundFont *_soundFont;
+    AKInstrument *_instrument;
+    AKSoundFontPresetPlayer *_presetPlayer;
+    AKSoundFontPreset *_selectedPreset;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]];
+    _instrument = [AKInstrument instrumentWithNumber:1];
+    [AKOrchestra addInstrument:_instrument];
     
+    [self.presetsButton removeAllItems];
+    _soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]
+                                            completion:^(AKSoundFont *font) {
+                                                for (AKSoundFontPreset *preset in font.presets) {
+                                                    [self.presetsButton addItemWithTitle:preset.name];
+                                                }
+                                                [self.presetsButton selectItemAtIndex:0];
+                                            }];
+ 
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self
+               selector:@selector(midiNoteOn:)
+                   name:AKMidiNoteOnNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(midiNoteOff:)
+                   name:AKMidiNoteOnNotification
+                 object:nil];
 }
 
-- (void)viewDidAppear
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (IBAction)presetChanged:(NSPopUpButton *)sender
 {
-    [super viewDidAppear];
-
-    NSAssert(soundFont.loaded, @"Soundfont is not loaded");
-    for (AKSoundFontPreset *preset in soundFont.presets) {
-        [self.presetsButton addItemWithTitle:preset.name];
-    }
-}
+    _selectedPreset = [_soundFont findPresetNamed:sender.selectedItem.title];
+    NSAssert(_selectedPreset, @"Failed to find preset named '%@' in the soundfont.", sender.selectedItem.title);
     
+    _presetPlayer = [[AKSoundFontPresetPlayer alloc] initWithSoundFontPreset:_selectedPreset];
+    _presetPlayer.frequencyMultiplier = akp(1.5);
+    _presetPlayer.amplitude = akp(0.1);
+    [_instrument setStereoAudioOutput:_presetPlayer];
+}
+
+- (IBAction)playNote:(id)sender
+{
+    // TODO: Play a fixed note with the current preset
+    [_instrument playForDuration:1.0f];
+}
+
+// ----------------------------------
+// Handling of received MIDI messages
+// ----------------------------------
+
+- (void)midiNoteOn:(NSNotification *)notif
+{
+    
+}
+
+- (void)midiNoteOff:(NSNotification *)notif
+{
+    
+}
+
 @end
