@@ -7,6 +7,7 @@
 //
 
 #import "AKMidi.h"
+#import "AKSettings.h"
 #import <CoreMIDI/CoreMIDI.h>
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
@@ -188,7 +189,7 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
             case AKMidiConstantSystemCommand: {
                 switch (midiStatus) {
                     case AKMidiCommandClock:
-                        NSLog(@"MIDI Clock");
+                        //NSLog(@"MIDI Clock");
                         break;
                     case AKMidiCommandSysex:
                         dumpPacket(packet, @"SysEx");
@@ -213,7 +214,34 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
 
 static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
 {
-    NSLog(@"MIDI Notify, messageId=%d, size=%d", message->messageID, message->messageSize);
+    AKMidi *m = (__bridge AKMidi *)refCon;
+
+    // Detect when new audio inputs have become available, and reinit
+    switch (message->messageID) {
+        case kMIDIMsgSetupChanged:
+            if (AKSettings.shared.loggingEnabled)
+                NSLog(@"MIDI Setup changed");
+            [m openMidiIn];
+            break;
+        case kMIDIMsgPropertyChanged: {
+            const MIDIObjectPropertyChangeNotification *msg = (const MIDIObjectPropertyChangeNotification*)message;
+            if (AKSettings.shared.loggingEnabled)
+                NSLog(@"MIDI Property changed: %@", msg->propertyName);
+            break;
+        }
+        case kMIDIMsgObjectAdded:
+            if (AKSettings.shared.loggingEnabled)
+                NSLog(@"MIDI Object Added");
+            break;
+        case kMIDIMsgObjectRemoved:
+            if (AKSettings.shared.loggingEnabled)
+                NSLog(@"MIDI Object removed");
+            break;
+        default:
+            if (AKSettings.shared.loggingEnabled)
+                NSLog(@"MIDI Notify, messageId=%d, size=%d", message->messageID, message->messageSize);
+            break;
+    }
 }
 
 - (void)openMidiIn
@@ -224,8 +252,10 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
     if (_inputs == 0)
         return;
     
-    MIDIClientCreate(CFSTR("CoreMIDI AudioKit"), AKMIDINotifyProc, (__bridge void *)self, &_client);
-	MIDIInputPortCreate(_client, CFSTR("AK Input port"), AKMIDIReadProc, (__bridge void *)self, &_inPort);
+    if (!_client)
+        MIDIClientCreate(CFSTR("CoreMIDI AudioKit"), AKMIDINotifyProc, (__bridge void *)self, &_client);
+    if (!_inPort)
+        MIDIInputPortCreate(_client, CFSTR("AK Input port"), AKMIDIReadProc, (__bridge void *)self, &_inPort);
 	
 	for (NSUInteger i = 0; i < _inputs; ++i) {
 		MIDIEndpointRef src = MIDIGetSource(i);
@@ -240,6 +270,7 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
 -(void)closeMidiIn
 {
     MIDIClientDispose(_client);
+    _client = 0;
 }
 
 - (void)dealloc
