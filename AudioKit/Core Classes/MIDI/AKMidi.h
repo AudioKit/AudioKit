@@ -8,20 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const AKMidiNoteOn;
-extern NSString * const AKMidiNoteOn;
-extern NSString * const AKMidiNoteOff;
-extern NSString * const AKMidiPolyphonicAftertouch;
-extern NSString * const AKMidiProgramChange;
-extern NSString * const AKMidiAftertouch;
-extern NSString * const AKMidiPitchWheel;
-extern NSString * const AKMidiController;
-extern NSString * const AKMidiModulation;
-extern NSString * const AKMidiPortamento;
-extern NSString * const AKMidiVolume;
-extern NSString * const AKMidiBalance;
-extern NSString * const AKMidiPan;
-extern NSString * const AKMidiExpression;
+// Notification names broadcasted for MIDI events being received from the inputs.
+extern NSString * const AKMidiNoteOnNotification;
+extern NSString * const AKMidiNoteOffNotification;
+extern NSString * const AKMidiPolyphonicAftertouchNotification;
+extern NSString * const AKMidiProgramChangeNotification;
+extern NSString * const AKMidiAftertouchNotification;
+extern NSString * const AKMidiPitchWheelNotification;
+extern NSString * const AKMidiControllerNotification;
+extern NSString * const AKMidiModulationNotification;
+extern NSString * const AKMidiPortamentoNotification;
+extern NSString * const AKMidiVolumeNotification;
+extern NSString * const AKMidiBalanceNotification;
+extern NSString * const AKMidiPanNotification;
+extern NSString * const AKMidiExpressionNotification;
 
 /** AKMidi is the object that handles the MIDI input and output from AK.
  */
