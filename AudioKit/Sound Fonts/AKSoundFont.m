@@ -51,6 +51,12 @@ static int currentID = 1;
             _number = currentID++;
         }
         
+        if (![[NSFileManager defaultManager] isReadableFileAtPath:filename]) {
+            if (completionBlock)
+                completionBlock(nil);
+            return nil;
+        }
+        
         _instruments = [NSMutableArray array];
         _presets = [NSMutableArray array];
         _completionBlock = completionBlock;
