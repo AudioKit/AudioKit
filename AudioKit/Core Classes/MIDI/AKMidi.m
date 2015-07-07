@@ -239,7 +239,7 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
             break;
         default:
             if (AKSettings.shared.loggingEnabled)
-                NSLog(@"MIDI Notify, messageId=%d, size=%d", message->messageID, message->messageSize);
+                NSLog(@"MIDI Notify, messageId=%@, size=%@", @(message->messageID), @(message->messageSize));
             break;
     }
 }
