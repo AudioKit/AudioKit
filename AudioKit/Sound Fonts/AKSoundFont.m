@@ -8,10 +8,16 @@
 
 #import "AKSoundFont.h"
 
+// Private methods
+@interface AKSoundFont ()
+- (void)_checkForCompletion;
+@end
+
 @implementation AKSoundFont
 {
     BOOL _instrumentsLoaded, _presetsLoaded;
     NSMutableArray *_instruments, *_presets;
+    AKSoundFontCompletionBlock _completionBlock;
 }
 
 static int currentID = 1;
@@ -37,7 +43,7 @@ static int currentID = 1;
     return _instrumentsLoaded && _presetsLoaded;
 }
 
-- (instancetype)initWithFilename:(NSString *)filename
+- (instancetype)initWithFilename:(NSString *)filename completion:(__nullable AKSoundFontCompletionBlock)completionBlock
 {
     self = [super init];
     if (self) {
@@ -47,6 +53,7 @@ static int currentID = 1;
         
         _instruments = [NSMutableArray array];
         _presets = [NSMutableArray array];
+        _completionBlock = completionBlock;
         
         filename = [NSString stringWithFormat:@"\"%@\"", filename];
         NSString *orchString = [NSString stringWithFormat:
@@ -70,6 +77,14 @@ static int currentID = 1;
     return self;
 }
 
+- (void)_checkForCompletion
+{
+    if (_completionBlock && _instrumentsLoaded && _presetsLoaded) {
+        _completionBlock(self);
+        _completionBlock = nil;
+    }
+}
+
 - (void)messageReceivedFromCsound:(NSNotification *)notification
 {
     NSString *type = notification.userInfo[@"type"];
@@ -82,6 +97,7 @@ static int currentID = 1;
         if ([fields[0] intValue] == self.number) {
             if ([fields[1] isEqualToString:@"END"]) {
                 _presetsLoaded = YES;
+                [self _checkForCompletion];
                 return;
             }
             number = [fields[1] intValue];
@@ -100,6 +116,7 @@ static int currentID = 1;
         if ([fields[0] intValue] == self.number) {
             if ([fields[1] isEqualToString:@"END"]) {
                 _instrumentsLoaded = YES;
+                [self _checkForCompletion];
                 return;
             }
             number = [fields[1] intValue];
