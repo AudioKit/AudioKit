@@ -13,7 +13,8 @@
 
 @property (nonatomic,weak) IBOutlet NSPopUpButton *presetsButton;
 @property (nonatomic,weak) IBOutlet NSTextField *midiStatusText;
-
+@property (nonatomic,strong) IBOutlet NSTextView  *midiLog;
+@property (nonatomic,strong) IBOutlet NSScrollView *scrollView;
 @end
 
 @implementation MIDIViewController {
@@ -21,22 +22,28 @@
     AKInstrument *_instrument;
     AKSoundFontPresetPlayer *_presetPlayer;
     AKSoundFontPreset *_selectedPreset;
+    
+    NSMutableString *_log;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //AKSettings.shared.loggingEnabled = YES;
+    _log = [NSMutableString string];
+    
     _instrument = [AKInstrument instrumentWithNumber:1];
     [AKOrchestra addInstrument:_instrument];
     
     [self.presetsButton removeAllItems];
     _soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]
                                             completion:^(AKSoundFont *font) {
+                                                NSAssert(font, @"Failed to load sound font");
                                                 for (AKSoundFontPreset *preset in font.presets) {
                                                     [self.presetsButton addItemWithTitle:preset.name];
                                                 }
-                                                [self.presetsButton selectItemAtIndex:0];
                                             }];
+    [self presetChanged:self.presetsButton];
  
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
@@ -45,7 +52,15 @@
                  object:nil];
     [center addObserver:self
                selector:@selector(midiNoteOff:)
-                   name:AKMidiNoteOnNotification
+                   name:AKMidiNoteOffNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(midiPitchWheel:)
+                   name:AKMidiPitchWheelNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(midiProgramChange:)
+                   name:AKMidiProgramChangeNotification
                  object:nil];
 }
 
@@ -59,14 +74,13 @@
     NSAssert(_selectedPreset, @"Failed to find preset named '%@' in the soundfont.", sender.selectedItem.title);
     
     _presetPlayer = [[AKSoundFontPresetPlayer alloc] initWithSoundFontPreset:_selectedPreset];
-    _presetPlayer.frequencyMultiplier = akp(1.5);
-    _presetPlayer.amplitude = akp(0.1);
     [_instrument setStereoAudioOutput:_presetPlayer];
+    [AKOrchestra updateInstrument:_instrument];
 }
 
 - (IBAction)playNote:(id)sender
 {
-    // TODO: Play a fixed note with the current preset
+    // Play a fixed note with the current preset
     [_instrument playForDuration:1.0f];
 }
 
@@ -74,14 +88,55 @@
 // Handling of received MIDI messages
 // ----------------------------------
 
+- (void)logMessage:(NSString *)msg
+{
+    [self.midiStatusText setStringValue:msg];
+    [_log appendFormat:@"%@\n", msg];
+    [self.midiLog setString:_log];
+    [[self.scrollView documentView] scrollPoint:NSMakePoint(0.0f, NSHeight([[self.scrollView documentView] bounds]))];
+}
+
 - (void)midiNoteOn:(NSNotification *)notif
 {
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self logMessage:[NSString stringWithFormat:@"Note ON: %@, velocity = %@, channel %@",
+                          notif.userInfo[@"note"], notif.userInfo[@"velocity"], notif.userInfo[@"channel"]]];
+    });
+    NSUInteger vel = [notif.userInfo[@"velocity"] integerValue];
+    NSUInteger note = [notif.userInfo[@"note"] integerValue];
+    if (vel > 0) {
+        _presetPlayer.noteNumber = akp(note);
+        _presetPlayer.velocity = akp(vel);
+        [_instrument playForDuration:1.0f];
+    }
 }
 
 - (void)midiNoteOff:(NSNotification *)notif
 {
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self logMessage:[NSString stringWithFormat:@"Note OFF: %@, velocity = %@, channel %@",
+                          notif.userInfo[@"note"], notif.userInfo[@"velocity"], notif.userInfo[@"channel"]]];
+    });
+    [_instrument stop];
+}
+
+- (void)midiPitchWheel:(NSNotification *)notif
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self logMessage:[NSString stringWithFormat:@"Pitch Wheel: %@, channel %@",
+                          notif.userInfo[@"pitchWheel"], notif.userInfo[@"channel"]]];
+    });
+}
+
+- (void)midiProgramChange:(NSNotification *)notif
+{
+    NSUInteger program = [notif.userInfo[@"program"] unsignedIntegerValue] - 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self logMessage:[NSString stringWithFormat:@"Program Change: %@, channel %@",
+                          notif.userInfo[@"program"], notif.userInfo[@"channel"]]];
+        [self.presetsButton selectItemAtIndex:program];
+        [self presetChanged:self.presetsButton];
+    });
 }
 
 @end
