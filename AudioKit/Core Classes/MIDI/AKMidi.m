@@ -13,19 +13,19 @@
 #import <CoreMIDI/MIDINetworkSession.h>
 #endif
 
-NSString * const AKMidiNoteOn               = @"AKMidiNoteOn";
-NSString * const AKMidiNoteOff              = @"AKMidiNoteOff";
-NSString * const AKMidiPolyphonicAftertouch = @"AKMidiPolyphonicAftertouch";
-NSString * const AKMidiProgramChange        = @"AKMidiProgramChange";
-NSString * const AKMidiAftertouch           = @"AKMidiAftertouch";
-NSString * const AKMidiPitchWheel           = @"AKMidiPitchWheel";
-NSString * const AKMidiController           = @"AKMidiController";
-NSString * const AKMidiModulation           = @"AKMidiModulation";
-NSString * const AKMidiPortamento           = @"AKMidiPortamento";
-NSString * const AKMidiVolume               = @"AKMidiVolume";
-NSString * const AKMidiBalance              = @"AKMidiBalance";
-NSString * const AKMidiPan                  = @"AKMidiPan";
-NSString * const AKMidiExpression           = @"AKMidiExpression";
+NSString * const AKMidiNoteOnNotification               = @"AKMidiNoteOn";
+NSString * const AKMidiNoteOffNotification              = @"AKMidiNoteOff";
+NSString * const AKMidiPolyphonicAftertouchNotification = @"AKMidiPolyphonicAftertouch";
+NSString * const AKMidiProgramChangeNotification        = @"AKMidiProgramChange";
+NSString * const AKMidiAftertouchNotification           = @"AKMidiAftertouch";
+NSString * const AKMidiPitchWheelNotification           = @"AKMidiPitchWheel";
+NSString * const AKMidiControllerNotification           = @"AKMidiController";
+NSString * const AKMidiModulationNotification           = @"AKMidiModulation";
+NSString * const AKMidiPortamentoNotification           = @"AKMidiPortamento";
+NSString * const AKMidiVolumeNotification               = @"AKMidiVolume";
+NSString * const AKMidiBalanceNotification              = @"AKMidiBalance";
+NSString * const AKMidiPanNotification                  = @"AKMidiPan";
+NSString * const AKMidiExpressionNotification           = @"AKMidiExpression";
 
 
 @implementation AKMidi
@@ -108,7 +108,7 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
                 NSDictionary *dict = @{@"note":@(note),
                                        @"velocity":@(velocity),
                                        @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiNoteOff object:m userInfo:dict];
+                [nc postNotificationName:AKMidiNoteOffNotification object:m userInfo:dict];
                 break;
             }
             case AKMidiConstantNoteOn: {
@@ -117,7 +117,7 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
                 NSDictionary *dict = @{@"note":@(note),
                                        @"velocity":@(velocity),
                                        @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiNoteOn object:m userInfo:dict];
+                [nc postNotificationName:AKMidiNoteOnNotification object:m userInfo:dict];
                 break;
             }
             case AKMidiConstantPolyphonicAftertouch: {
@@ -126,14 +126,14 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
                 NSDictionary *dict = @{@"note":@(note),
                                        @"pressure":@(pressure),
                                        @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiPolyphonicAftertouch object:m userInfo:dict];
+                [nc postNotificationName:AKMidiPolyphonicAftertouchNotification object:m userInfo:dict];
                 break;
             }
             case AKMidiConstantAftertouch: {
                 UInt8 pressure = packet->data[1] & 0x7F;
                 NSDictionary *dict = @{@"pressure":@(pressure),
                                        @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiAftertouch object:m userInfo:dict];
+                [nc postNotificationName:AKMidiAftertouchNotification object:m userInfo:dict];
                 break;
             }
             case AKMidiConstantPitchWheel: {
@@ -141,14 +141,14 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
                 UInt8 value2 = packet->data[2] & 0x7F;
                 NSDictionary *dict = @{@"pitchWheel":@(128*value2+value1),
                                        @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiPitchWheel object:m userInfo:dict];
+                [nc postNotificationName:AKMidiPitchWheelNotification object:m userInfo:dict];
                 break;
             }
             case AKMidiConstantProgramChange: {
                 UInt8 program = packet->data[1] & 0x7F;
                 NSDictionary *dict = @{@"program":@(program),
                                        @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiProgramChange object:m userInfo:dict];
+                [nc postNotificationName:AKMidiProgramChangeNotification object:m userInfo:dict];
                 break;
             }
             case AKMidiConstantControllerChange: {
@@ -157,28 +157,28 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
                 NSDictionary *dict = @{@"controller":@(controller),
                                        @"value":@(value),
                                        @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiController object:m userInfo:dict];
+                [nc postNotificationName:AKMidiControllerNotification object:m userInfo:dict];
                 
                 NSDictionary *smallDict = @{@"value":@(value),
                                             @"channel":@(midiChannel)};
                 switch (controller) {
                     case 1:
-                        [nc postNotificationName:AKMidiModulation object:m userInfo:smallDict];
+                        [nc postNotificationName:AKMidiModulationNotification object:m userInfo:smallDict];
                         break;
                     case 5:
-                        [nc postNotificationName:AKMidiPortamento object:m userInfo:smallDict];
+                        [nc postNotificationName:AKMidiPortamentoNotification object:m userInfo:smallDict];
                         break;
                     case 7:
-                        [nc postNotificationName:AKMidiVolume object:m userInfo:smallDict];
+                        [nc postNotificationName:AKMidiVolumeNotification object:m userInfo:smallDict];
                         break;
                     case 8:
-                        [nc postNotificationName:AKMidiBalance object:m userInfo:smallDict];
+                        [nc postNotificationName:AKMidiBalanceNotification object:m userInfo:smallDict];
                         break;
                     case 10:
-                        [nc postNotificationName:AKMidiPan object:m userInfo:smallDict];
+                        [nc postNotificationName:AKMidiPanNotification object:m userInfo:smallDict];
                         break;
                     case 11:
-                        [nc postNotificationName:AKMidiExpression object:m userInfo:smallDict];
+                        [nc postNotificationName:AKMidiExpressionNotification object:m userInfo:smallDict];
                         break;
                     default:
                         break;
