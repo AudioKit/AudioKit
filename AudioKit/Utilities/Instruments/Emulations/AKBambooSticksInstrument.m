@@ -28,11 +28,8 @@
         bambooSticks.secondResonantFrequency = note.secondResonantFrequency;
         bambooSticks.amplitude               = note.amplitude;
 
-        [self setAudioOutput:[bambooSticks scaledBy:_amplitude]];
-
-        // Output to global effects processing (choose mono or stereo accordingly)
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:bambooSticks];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[bambooSticks scaledBy:_amplitude]];
     }
     return self;
 }

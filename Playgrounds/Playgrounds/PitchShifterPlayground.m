@@ -20,11 +20,11 @@
     [AKOrchestra addInstrument:mic];
     [mic start];
 
-    pitchShift = [[AKPitchShifterPedal alloc] initWithInput:mic.auxilliaryOutput];
+    pitchShift = [[AKPitchShifterPedal alloc] initWithInput:mic.output];
     [AKOrchestra addInstrument:pitchShift];
     [pitchShift start];
 
-    AKAmplifier *amp = [[AKAmplifier alloc] initWithAudioSource:pitchShift.auxilliaryOutput];
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:pitchShift.output];
     [AKOrchestra addInstrument:amp];
     [amp start];
 

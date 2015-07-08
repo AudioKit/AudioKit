@@ -7,34 +7,34 @@
 //
 
 class AnalysisViewController: NSViewController {
-    
+
     @IBOutlet var frequencyLabel: NSTextField!
     @IBOutlet var amplitudeLabel: NSTextField!
     @IBOutlet var noteNameWithSharpsLabel: NSTextField!
     @IBOutlet var noteNameWithFlatsLabel: NSTextField!
-    
+
     var analyzer: AKAudioAnalyzer!
     let microphone = AKMicrophone()
 
     let noteFrequencies = [16.35,17.32,18.35,19.45,20.6,21.83,23.12,24.5,25.96,27.5,29.14,30.87]
     let noteNamesWithSharps = ["C", "C♯","D","D♯","E","F","F♯","G","G♯","A","A♯","B"]
     let noteNamesWithFlats = ["C", "D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"]
-    
+
     let analysisSequence = AKSequence()
     var updateAnalysis: AKEvent?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         AKSettings.shared().audioInputEnabled = true
-        
-        analyzer = AKAudioAnalyzer(audioSource: microphone.auxilliaryOutput)
+
+        analyzer = AKAudioAnalyzer(input: microphone.output)
 
         AKOrchestra.addInstrument(microphone)
         AKOrchestra.addInstrument(analyzer)
         analyzer.play()
         microphone.play()
-        
+
         let analysisSequence = AKSequence()
         updateAnalysis = AKEvent {
             self.updateUI()
@@ -43,11 +43,11 @@ class AnalysisViewController: NSViewController {
         analysisSequence.addEvent(updateAnalysis)
         analysisSequence.play()
     }
-    
+
     func updateUI() {
         if (analyzer.trackedAmplitude.floatValue > 0.1) {
             frequencyLabel.stringValue = String(format: "%0.1f", analyzer.trackedFrequency.floatValue)
-            
+
             var frequency = analyzer.trackedFrequency.floatValue
             while (frequency > Float(noteFrequencies[noteFrequencies.count-1])) {
                 frequency = frequency / 2.0
@@ -57,9 +57,9 @@ class AnalysisViewController: NSViewController {
             }
             var minDistance: Float = 10000.0
             var index = 0
-            
+
             for (var i = 0; i < noteFrequencies.count; i++) {
-                
+
                 var distance = fabsf(Float(noteFrequencies[i]) - frequency)
                 if (distance < minDistance){
                     index = i

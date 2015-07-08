@@ -25,6 +25,12 @@
     mandolin.bodySize.minimum = 0.25;
     mandolin.bodySize.maximum = 0.6;
     [AKOrchestra addInstrument:mandolin];
+
+
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:mandolin.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
 }
 
 - (void)run

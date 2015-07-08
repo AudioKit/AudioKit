@@ -26,11 +26,8 @@
         sekere.dampingFactor = note.dampingFactor;
         sekere.amplitude     = note.amplitude;
 
-        [self setAudioOutput:[sekere scaledBy:_amplitude]];
-
-        // Output to global effects processing (choose mono or stereo accordingly)
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:sekere];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[sekere scaledBy:_amplitude]];
     }
     return self;
 }

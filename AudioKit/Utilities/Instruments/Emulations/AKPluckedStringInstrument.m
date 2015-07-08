@@ -28,12 +28,8 @@
         pluckedString.reflectionCoefficient = note.reflectionCoefficient;
         pluckedString.amplitude             = note.amplitude;
 
-        [self setAudioOutput:[pluckedString scaledBy:_amplitude]];
-
-        // Output to global effects processing (choose mono or stereo accordingly)
-        _auxilliaryOutput = [AKAudio globalParameter];
-        //_auxilliaryOutput = [AKStereoAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:pluckedString];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[pluckedString scaledBy:_amplitude]];
     }
     return self;
 }
