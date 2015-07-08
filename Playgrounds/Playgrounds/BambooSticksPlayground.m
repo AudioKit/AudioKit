@@ -17,6 +17,11 @@
     AKBambooSticksInstrument *bambooSticks = [[AKBambooSticksInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:bambooSticks];
 
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:bambooSticks.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
     AKBambooSticksNote *note = [[AKBambooSticksNote alloc] init];
     [self addButtonWithTitle:@"Play Once" block:^{ [bambooSticks playNote:note]; }];
 

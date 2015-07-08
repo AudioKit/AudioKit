@@ -10,7 +10,7 @@
 
 @interface AKAudioFilePlayer : AKInstrument
 
-@property (readonly) AKAudio *auxilliaryOutput;
+@property (readonly) AKAudio *output;
 
 @property AKInstrumentProperty *speed;
 @property AKInstrumentProperty *scaling;

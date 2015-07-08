@@ -30,11 +30,8 @@
         mandolin.pairedStringDetuning = _pairedStringDetuning;
         mandolin.amplitude            = note.amplitude;
 
-        [self setAudioOutput:[mandolin scaledBy:_amplitude]];
-
-        // Output to global effects processing (choose mono or stereo accordingly)
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:mandolin];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[mandolin scaledBy:_amplitude]];
     }
     return self;
 }

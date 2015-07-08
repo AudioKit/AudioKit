@@ -10,7 +10,7 @@
 
 @implementation AKStereoAmplifier
 
-- (instancetype)initWithAudioSource:(AKStereoAudio *)audioSource
+- (instancetype)initWithStereoInput:(AKStereoAudio *)audioSource
 {
     self = [super init];
     if (self) {

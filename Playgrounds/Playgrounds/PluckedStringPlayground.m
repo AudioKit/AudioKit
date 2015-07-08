@@ -17,6 +17,12 @@
     AKPluckedStringInstrument *pluckedString = [[AKPluckedStringInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:pluckedString];
 
+
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:pluckedString.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
     AKPluckedStringNote *note = [[AKPluckedStringNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [pluckedString playNote:note]; }];

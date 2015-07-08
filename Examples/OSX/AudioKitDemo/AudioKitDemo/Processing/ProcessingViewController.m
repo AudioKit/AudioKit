@@ -19,12 +19,12 @@
     IBOutlet AKPropertySlider *pitchSlider;
     IBOutlet AKPropertySlider *dishWellSlider;
     IBOutlet AKPropertySlider *dryWetSlider;
-    
+
     float pitchToMaintain;
-    
+
     ConvolutionInstrument *convolver;
     AKAudioFilePlayer *audioFilePlayer;
-    
+
     BOOL isPlaying;
 }
 
@@ -32,15 +32,15 @@
     [super viewDidLoad];
     audioFilePlayer = [[AKAudioFilePlayer alloc] init];
     [AKOrchestra addInstrument:audioFilePlayer];
-    
-    convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
+
+    convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.output];
     [AKOrchestra addInstrument:convolver];
-    
+
     speedSlider.property = audioFilePlayer.speed;
     pitchSlider.property = audioFilePlayer.scaling;
     dishWellSlider.property = convolver.dishWellBalance;
     dryWetSlider.property   = convolver.dryWetBalance;
-    
+
     pitchToMaintain = 1.0;
     isPlaying = NO;
 }
