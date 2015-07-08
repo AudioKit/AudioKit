@@ -27,11 +27,8 @@
         vibes.stickHardness  = note.stickHardness;
         vibes.strikePosition = note.strikePosition;
 
-        [self setAudioOutput:[vibes scaledBy:_amplitude]];
-
-        // Output to global effects processing
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:vibes];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[vibes scaledBy:_amplitude]];
     }
     return self;
 }

@@ -13,8 +13,8 @@
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
 
-// Audio outlet for global effects processing (choose mono or stereo accordingly)
-@property (readonly) AKAudio *auxilliaryOutput;
+// Audio outlet for global effects processing 
+@property (readonly) AKAudio *output;
 
 @end
 

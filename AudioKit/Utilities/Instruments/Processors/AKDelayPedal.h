@@ -15,7 +15,7 @@
 @property AKInstrumentProperty *mix;
 
 // Audio outlet for global effects processing
-@property (readonly) AKAudio *auxilliaryOutput;
+@property (readonly) AKAudio *output;
 
 - (instancetype)initWithInput:(AKAudio *)input;
 
