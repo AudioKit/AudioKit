@@ -602,12 +602,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C4258E391B3D03D300D91B3D /* AKDelayPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDelayPedal.h; sourceTree = "<group>"; };
-		C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDelayPedal.m; sourceTree = "<group>"; };
+		C4258E391B3D03D300D91B3D /* AKDelayPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKDelayPedal.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKDelayPedal.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4258E3E1B3E554D00D91B3D /* AKPitchShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPitchShifter.h; sourceTree = "<group>"; };
 		C4258E3F1B3E554D00D91B3D /* AKPitchShifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPitchShifter.m; sourceTree = "<group>"; };
-		C4258E441B3FAF7100D91B3D /* AKPitchShifterPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPitchShifterPedal.h; sourceTree = "<group>"; };
-		C4258E451B3FAF7100D91B3D /* AKPitchShifterPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPitchShifterPedal.m; sourceTree = "<group>"; };
+		C4258E441B3FAF7100D91B3D /* AKPitchShifterPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKPitchShifterPedal.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C4258E451B3FAF7100D91B3D /* AKPitchShifterPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKPitchShifterPedal.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C43DB1301B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighShelfParametricEqualizerFilter.h; sourceTree = "<group>"; };
 		C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighShelfParametricEqualizerFilter.m; sourceTree = "<group>"; };
 		C43DB1321B21866300C9E4D5 /* AKLowShelfParametricEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowShelfParametricEqualizerFilter.h; sourceTree = "<group>"; };
@@ -632,8 +632,8 @@
 		C4C6275F1B1B714900B7AD86 /* AKAdditiveCosines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAdditiveCosines.m; sourceTree = "<group>"; };
 		C4C812591AE5CA03003A8B73 /* AKSekereInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSekereInstrument.h; sourceTree = "<group>"; };
 		C4C8125A1AE5CA03003A8B73 /* AKSekereInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSekereInstrument.m; sourceTree = "<group>"; };
-		C4FAE5EF1AED6B2600FD71E2 /* AKAudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioFilePlayer.h; sourceTree = "<group>"; };
-		C4FAE5F01AED6B2600FD71E2 /* AKAudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioFilePlayer.m; sourceTree = "<group>"; };
+		C4FAE5EF1AED6B2600FD71E2 /* AKAudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKAudioFilePlayer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C4FAE5F01AED6B2600FD71E2 /* AKAudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKAudioFilePlayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EA08B56D1AD8985F00949FD5 /* CsoundObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundObj.h; sourceTree = "<group>"; };
 		EA08B56E1AD8985F00949FD5 /* CsoundObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundObj.m; sourceTree = "<group>"; };
 		EA15CDF41AE356B500BA279F /* AKCompatibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AKCompatibility.h; sourceTree = "<group>"; };
@@ -678,14 +678,14 @@
 		EA8E94191AD3C6840057E979 /* AKStereoAmplifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKStereoAmplifier.m; sourceTree = "<group>"; };
 		EA8E941B1AD3C6840057E979 /* AKAudioAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioAnalyzer.h; sourceTree = "<group>"; };
 		EA8E941C1AD3C6840057E979 /* AKAudioAnalyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioAnalyzer.m; sourceTree = "<group>"; };
-		EA8E941E1AD3C6840057E979 /* AKBambooSticksInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBambooSticksInstrument.h; sourceTree = "<group>"; };
-		EA8E941F1AD3C6840057E979 /* AKBambooSticksInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKBambooSticksInstrument.m; sourceTree = "<group>"; };
-		EA8E94201AD3C6840057E979 /* AKMandolinInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMandolinInstrument.h; sourceTree = "<group>"; };
-		EA8E94211AD3C6840057E979 /* AKMandolinInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMandolinInstrument.m; sourceTree = "<group>"; };
-		EA8E94221AD3C6840057E979 /* AKMarimbaInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMarimbaInstrument.h; sourceTree = "<group>"; };
-		EA8E94231AD3C6840057E979 /* AKMarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMarimbaInstrument.m; sourceTree = "<group>"; };
-		EA8E94241AD3C6840057E979 /* AKPluckedStringInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPluckedStringInstrument.h; sourceTree = "<group>"; };
-		EA8E94251AD3C6840057E979 /* AKPluckedStringInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPluckedStringInstrument.m; sourceTree = "<group>"; };
+		EA8E941E1AD3C6840057E979 /* AKBambooSticksInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKBambooSticksInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EA8E941F1AD3C6840057E979 /* AKBambooSticksInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKBambooSticksInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EA8E94201AD3C6840057E979 /* AKMandolinInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKMandolinInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EA8E94211AD3C6840057E979 /* AKMandolinInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKMandolinInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EA8E94221AD3C6840057E979 /* AKMarimbaInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKMarimbaInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EA8E94231AD3C6840057E979 /* AKMarimbaInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKMarimbaInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		EA8E94241AD3C6840057E979 /* AKPluckedStringInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKPluckedStringInstrument.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EA8E94251AD3C6840057E979 /* AKPluckedStringInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKPluckedStringInstrument.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EA8E94261AD3C6840057E979 /* AKSleighbellsInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSleighbellsInstrument.h; sourceTree = "<group>"; };
 		EA8E94271AD3C6840057E979 /* AKSleighbellsInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKSleighbellsInstrument.m; sourceTree = "<group>"; };
 		EA8E94281AD3C6840057E979 /* AKStickInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStickInstrument.h; sourceTree = "<group>"; };
@@ -696,8 +696,8 @@
 		EA8E942D1AD3C6840057E979 /* AKTambourineInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTambourineInstrument.m; sourceTree = "<group>"; };
 		EA8E942E1AD3C6840057E979 /* AKVibraphoneInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVibraphoneInstrument.h; sourceTree = "<group>"; };
 		EA8E942F1AD3C6840057E979 /* AKVibraphoneInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibraphoneInstrument.m; sourceTree = "<group>"; };
-		EA8E94311AD3C6840057E979 /* AKMicrophone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMicrophone.h; sourceTree = "<group>"; };
-		EA8E94321AD3C6840057E979 /* AKMicrophone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMicrophone.m; sourceTree = "<group>"; };
+		EA8E94311AD3C6840057E979 /* AKMicrophone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKMicrophone.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		EA8E94321AD3C6840057E979 /* AKMicrophone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKMicrophone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		EA8E94341AD3C6840057E979 /* AKReverbPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKReverbPedal.h; sourceTree = "<group>"; };
 		EA8E94351AD3C6840057E979 /* AKReverbPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKReverbPedal.m; sourceTree = "<group>"; };
 		EA8E94371AD3C6840057E979 /* AKFMOscillatorInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFMOscillatorInstrument.h; sourceTree = "<group>"; };

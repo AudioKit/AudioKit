@@ -11,6 +11,7 @@
 /// An instrument that wraps the tambourine physical model
 @interface AKTambourineInstrument : AKInstrument
 @property AKInstrumentProperty *amplitude;
+@property (readonly) AKAudio *output;
 @end
 
 @interface AKTambourineNote : AKNote

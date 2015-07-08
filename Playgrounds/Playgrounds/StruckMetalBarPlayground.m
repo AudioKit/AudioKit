@@ -17,6 +17,11 @@
     AKStruckMetalBarInstrument *struckMetalBar = [[AKStruckMetalBarInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:struckMetalBar];
 
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:struckMetalBar.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
     AKStruckMetalBarNote *note = [[AKStruckMetalBarNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [struckMetalBar playNote:note]; }];

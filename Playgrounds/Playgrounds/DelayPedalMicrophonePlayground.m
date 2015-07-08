@@ -21,11 +21,11 @@
     [AKOrchestra addInstrument:mic];
     [mic start];
 
-    delay = [[AKDelayPedal alloc] initWithInput:mic.auxilliaryOutput];
+    delay = [[AKDelayPedal alloc] initWithInput:mic.output];
     [AKOrchestra addInstrument:delay];
     [delay start];
 
-    amp = [[AKAmplifier alloc] initWithAudioSource:delay.auxilliaryOutput];
+    amp = [[AKAmplifier alloc] initWithInput:delay.output];
     [AKOrchestra addInstrument:amp];
     [amp start];
 }

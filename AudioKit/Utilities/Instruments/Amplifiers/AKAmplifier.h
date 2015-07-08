@@ -15,6 +15,6 @@
 
 @property (nonatomic) AKInstrumentProperty *amplitude;
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithInput:(AKAudio *)audioSource;
 
 @end

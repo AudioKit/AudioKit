@@ -15,6 +15,6 @@
 
 @property (nonatomic) AKInstrumentProperty *amplitude;
 
-- (instancetype)initWithAudioSource:(AKStereoAudio *)audioSource;
+- (instancetype)initWithStereoInput:(AKStereoAudio *)audioSource;
 
 @end

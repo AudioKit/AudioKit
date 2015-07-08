@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 // -----------------------------------------------------------------------------
 
 /// Unique instrument number
-@property (readonly) NSUInteger instrumentNumber;
+@property NSUInteger instrumentNumber;
 
 
 /// Array of instrument properties available for the instrument.

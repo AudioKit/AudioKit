@@ -18,7 +18,7 @@
 
 
 // Audio outlet for global effects processing
-@property (readonly) AKAudio *auxilliaryOutput;
+@property (readonly) AKAudio *output;
 
 @end
 

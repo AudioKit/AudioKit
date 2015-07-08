@@ -10,7 +10,7 @@
 
 @implementation AKAmplifier
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource
+- (instancetype)initWithInput:(AKAudio *)audioSource
 {
     self = [super init];
     if (self) {
