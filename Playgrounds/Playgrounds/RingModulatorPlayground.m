@@ -45,7 +45,7 @@
 
     AKMicrophone *mic = [[AKMicrophone alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mic];
-    RingModulator *ringmod = [[RingModulator alloc] initWithInput:mic.auxilliaryOutput];
+    RingModulator *ringmod = [[RingModulator alloc] initWithInput:mic.output];
     [AKOrchestra addInstrument:ringmod];
     [ringmod restart];
     [mic restart];
