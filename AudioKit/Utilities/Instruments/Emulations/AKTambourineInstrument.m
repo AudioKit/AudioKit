@@ -23,7 +23,9 @@
         tambourine.mainResonantFrequency   = note.mainResonantFrequency;
         tambourine.firstResonantFrequency  = note.firstResonantFrequency;
         tambourine.secondResonantFrequency = note.secondResonantFrequency;
-        [self setAudioOutput:[tambourine scaledBy:_amplitude]];
+
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[tambourine scaledBy:_amplitude]];
     }
     return self;
 }
