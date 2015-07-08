@@ -5,7 +5,7 @@
 #
 
 for lib in CsoundLib libsndfile; do
-    install_name_tool -change $lib @rpath/$lib.framework/$lib $TARGET_BUILD_DIR/$EXECUTABLE_PATH
+    install_name_tool -change $lib @rpath/$lib.framework/$lib "$TARGET_BUILD_DIR/$EXECUTABLE_PATH"
     # If building for devices, strip the Intel slices from the libraries
     if ! test "$CURRENT_ARCH" = x86_64 -o "$CURRENT_ARCH" = i386; then
 	libpath="$CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib"
