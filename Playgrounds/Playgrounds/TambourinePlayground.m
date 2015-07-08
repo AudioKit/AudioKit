@@ -17,6 +17,11 @@
     AKTambourineInstrument * tambourine = [[AKTambourineInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:tambourine];
 
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:tambourine.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
     AKTambourineNote *note = [[AKTambourineNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [tambourine playNote:note]; }];

@@ -17,6 +17,11 @@
     AKSleighbellsInstrument *sleighBells = [[AKSleighbellsInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:sleighBells];
 
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:sleighBells.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
     AKSleighbellsNote *note = [[AKSleighbellsNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [sleighBells playNote:note]; }];

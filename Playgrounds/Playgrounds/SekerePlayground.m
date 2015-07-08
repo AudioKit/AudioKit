@@ -17,6 +17,11 @@
     AKSekereInstrument *sekere = [[AKSekereInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:sekere];
 
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:sekere.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
     AKSekereNote *note = [[AKSekereNote alloc] init];
     [self addButtonWithTitle:@"Play Once" block:^{ [sekere playNote:note]; }];
 
