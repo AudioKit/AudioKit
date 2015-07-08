@@ -17,6 +17,6 @@
 // Audio outlet for global effects processing
 @property (readonly) AKAudio *output;
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+- (instancetype)initWithInput:(AKParameter *)audioSource;
 
 @end

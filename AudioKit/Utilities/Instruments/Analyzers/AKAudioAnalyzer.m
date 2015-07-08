@@ -10,7 +10,7 @@
 
 @implementation AKAudioAnalyzer
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource {
+- (instancetype)initWithInput:(AKAudio *)audioSource {
     self = [super init];
     if (self) {
         _trackedFrequency = [[AKInstrumentProperty alloc] initWithMinimum:0 maximum:2500];
