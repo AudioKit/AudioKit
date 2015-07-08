@@ -34,7 +34,7 @@
     audioFilePlayer = [[AKAudioFilePlayer alloc] init];
     [AKOrchestra addInstrument:audioFilePlayer];
 
-    convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.auxilliaryOutput];
+    convolver = [[ConvolutionInstrument alloc] initWithInput:audioFilePlayer.output];
     [AKOrchestra addInstrument:convolver];
     pitchToMaintain = 1.0;
     isPlaying = NO;

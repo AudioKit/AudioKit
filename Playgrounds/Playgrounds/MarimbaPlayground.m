@@ -17,6 +17,11 @@
     AKMarimbaInstrument *marimba = [[AKMarimbaInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:marimba];
 
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:marimba.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
     AKMarimbaNote *note = [[AKMarimbaNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [marimba playNote:note]; }];

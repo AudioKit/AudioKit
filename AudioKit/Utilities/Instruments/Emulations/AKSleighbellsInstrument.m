@@ -29,12 +29,8 @@
         sleighBells.firstResonantFrequency  = note.firstResonantFrequency;
         sleighBells.secondResonantFrequency = note.secondResonantFrequency;
         
-
-        [self setAudioOutput:[sleighBells scaledBy:_amplitude]];
-
-        // Output to global effects processing (choose mono or stereo accordingly)
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:sleighBells];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[sleighBells scaledBy:_amplitude]];
     }
     return self;
 }

@@ -16,7 +16,7 @@
 
     AKMicrophone *mic = [[AKMicrophone alloc] initWithNumber:1];
     [AKOrchestra addInstrument:mic];
-    AKAudioAnalyzer *analyzer = [[AKAudioAnalyzer alloc] initWithAudioSource:mic.auxilliaryOutput];
+    AKAudioAnalyzer *analyzer = [[AKAudioAnalyzer alloc] initWithInput:mic.output];
     [AKOrchestra addInstrument:analyzer];
     [analyzer play];
     [mic play];

@@ -22,8 +22,8 @@
         shifter.frequencyRatio = _frequencyShift;
         AKMix *mix = [[AKMix alloc] initWithInput1:input input2:shifter balance:_mix];
         
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:mix];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:mix];
         
         //        [self resetParameter:input];
         AKAssignment *feedback = [[AKAssignment alloc] initWithOutput:input input:[shifter scaledBy:_feedback]];
