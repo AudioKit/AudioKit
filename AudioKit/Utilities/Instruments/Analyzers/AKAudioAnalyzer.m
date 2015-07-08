@@ -25,8 +25,8 @@
         amplitude = [[AKTrackedAmplitude alloc] initWithInput:audioSource];
         [self setParameter:_trackedAmplitude to:amplitude];
         
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:audioSource];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:audioSource];
         
         [self resetParameter:audioSource];
     }

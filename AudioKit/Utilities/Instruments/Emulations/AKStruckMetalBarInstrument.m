@@ -32,11 +32,8 @@
         struckMetalBar.leftBoundaryCondition  = note.leftBoundaryCondition;
         struckMetalBar.rightBoundaryCondition = note.rightBoundaryCondition;
 
-        [self setAudioOutput:[struckMetalBar scaledBy:_amplitude]];
-
-        // Output to global effects processing (choose mono or stereo accordingly)
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:struckMetalBar];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[struckMetalBar scaledBy:_amplitude]];
     }
     return self;
 }

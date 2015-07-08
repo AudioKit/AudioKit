@@ -22,8 +22,8 @@
         AKReverb *reverb = [AKReverb reverbWithInput:audioSource];
         reverb.feedback = _feedback;
 
-        _auxilliaryOutput = [AKStereoAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:reverb];
+        _output = [AKStereoAudio globalParameter];
+        [self assignOutput:_output to:reverb];
 
         // Reset Inputs
         [self resetParameter:audioSource];

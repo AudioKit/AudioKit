@@ -69,8 +69,8 @@
         AKMix *mono = [[AKMix alloc] initWithInput1:scaledLeft input2:scaledRight balance:akp(0.5)];
         
         // Output to global effects processing
-        _auxilliaryOutput = [AKAudio globalParameter];
-        [self assignOutput:_auxilliaryOutput to:mono];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:mono];
         
     }
     return self;
