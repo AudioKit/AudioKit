@@ -16,6 +16,6 @@
 // Audio outlet for global effects processing
 @property (readonly) AKStereoAudio *output;
 
-- (instancetype)initWithAudioSource:(AKAudio *)audioSource;
+- (instancetype)initWithInput:(AKAudio *)audioSource;
 
 @end
