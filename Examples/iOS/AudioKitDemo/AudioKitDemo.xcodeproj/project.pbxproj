@@ -334,7 +334,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${SRCROOT}/../../../AudioKit/Platforms/iOS/run-script.sh\n";
+			shellScript = "\"${SRCROOT}/../../../AudioKit/Platforms/iOS/run-script.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
