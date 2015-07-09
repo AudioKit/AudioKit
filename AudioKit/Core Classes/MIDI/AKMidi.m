@@ -249,9 +249,6 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
     _inputs = MIDIGetNumberOfSources();
     NSLog(@"%@ MIDI sources\n", @(_inputs));
     
-    if (_inputs == 0)
-        return;
-    
     if (!_client)
         MIDIClientCreate(CFSTR("CoreMIDI AudioKit"), AKMIDINotifyProc, (__bridge void *)self, &_client);
     if (!_inPort)
