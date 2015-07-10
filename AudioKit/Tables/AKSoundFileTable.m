@@ -8,6 +8,7 @@
 
 #import "AKSoundFileTable.h"
 #import "AKManager.h"
+#import "csound.h"
 
 @implementation AKSoundFileTable
 
@@ -25,6 +26,9 @@
            NSLog(@"Sound File Table: %@",orchString);
         }
         [[[AKManager sharedManager] engine] updateOrchestra:orchString];
+#ifndef AK_TESTING
+        self.size = csoundTableLength([[[AKManager sharedManager] engine] getCsound], self.number);
+#endif
     }
     return self;
 }
