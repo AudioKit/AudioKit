@@ -20,6 +20,10 @@ class SynthesisViewController: UIViewController {
         // Do any additional setup after loading the vFMSynthesizeriew, typically from a nib.
         AKOrchestra.addInstrument(tambourine)
         AKOrchestra.addInstrument(fmSynthesizer)
+        
+        let amp = AKAmplifier(input: tambourine.output)
+        AKOrchestra.addInstrument(amp)
+        amp.start()
     }
 
 
