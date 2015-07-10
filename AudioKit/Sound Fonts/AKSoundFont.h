@@ -27,13 +27,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// Array of presets in the sound font
 @property (nonatomic,readonly,nullable) NSArray *presets;
 
-/// Whether the file has been successfully loaded and parsed
+/// Whether the presets and instruments has been successfully loaded and parsed
 @property (nonatomic,readonly) BOOL loaded;
 
 /// Load a sound font from a file.
+/// The presets and instruments are not automatically loaded at this point, call fetchPresets: to initiate it.
 /// @param filename Sound font file to load.
-/// @param completionBlock A block to be called when the sound font has been fully loaded.
-- (instancetype)initWithFilename:(NSString *)filename completion:(__nullable AKSoundFontCompletionBlock)completionBlock;
+- (instancetype)initWithFilename:(NSString *)filename;
+
+/// Loads the presets and instruments definitions from the file.
+/// @param completionBlock A block to be called when the data has been fully loaded.
+- (void)fetchPresets:(__nullable AKSoundFontCompletionBlock)completionBlock;
+
 
 // Utility methods to easily locate loaded presets and instruments
 

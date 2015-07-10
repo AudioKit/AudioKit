@@ -43,7 +43,7 @@ static int currentID = 1;
     return _instrumentsLoaded && _presetsLoaded;
 }
 
-- (instancetype)initWithFilename:(NSString *)filename completion:(__nullable AKSoundFontCompletionBlock)completionBlock
+- (instancetype)initWithFilename:(NSString *)filename
 {
     self = [super init];
     if (self) {
@@ -52,14 +52,11 @@ static int currentID = 1;
         }
         
         if (![[NSFileManager defaultManager] isReadableFileAtPath:filename]) {
-            if (completionBlock)
-                completionBlock(nil);
             return nil;
         }
         
         _instruments = [NSMutableArray array];
         _presets = [NSMutableArray array];
-        _completionBlock = completionBlock;
         
         filename = [NSString stringWithFormat:@"\"%@\"", filename];
         NSString *orchString = [NSString stringWithFormat:
@@ -74,13 +71,18 @@ static int currentID = 1;
                                                  selector:@selector(messageReceivedFromCsound:)
                                                      name:AKCsoundAPIMessageNotification
                                                    object:nil];
-        NSString *instrumentListRequest = [NSString stringWithFormat:@"sfilistapi giSoundFont%d, %d", self.number, self.number];
-        NSString *presetListRequest     = [NSString stringWithFormat:@"sfplistapi giSoundFont%d, %d", self.number, self.number];
-        [[[AKManager sharedManager] engine] updateOrchestra:instrumentListRequest];
-        [[[AKManager sharedManager] engine] updateOrchestra:presetListRequest];
-        
     }
     return self;
+}
+
+- (void)fetchPresets:(__nullable AKSoundFontCompletionBlock)completionBlock
+{
+    _instrumentsLoaded = _presetsLoaded = NO;
+    _completionBlock = completionBlock;
+    NSString *instrumentListRequest = [NSString stringWithFormat:@"sfilistapi giSoundFont%d, %d", self.number, self.number];
+    NSString *presetListRequest     = [NSString stringWithFormat:@"sfplistapi giSoundFont%d, %d", self.number, self.number];
+    [[[AKManager sharedManager] engine] updateOrchestra:instrumentListRequest];
+    [[[AKManager sharedManager] engine] updateOrchestra:presetListRequest];
 }
 
 - (void)_checkForCompletion

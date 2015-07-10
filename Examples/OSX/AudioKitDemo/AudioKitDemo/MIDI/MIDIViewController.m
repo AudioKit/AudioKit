@@ -36,14 +36,14 @@
     [AKOrchestra addInstrument:_instrument];
     
     [self.presetsButton removeAllItems];
-    _soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]
-                                            completion:^(AKSoundFont *font) {
-                                                NSAssert(font, @"Failed to load sound font");
-                                                for (AKSoundFontPreset *preset in font.presets) {
-                                                    [self.presetsButton addItemWithTitle:preset.name];
-                                                }
-                                            }];
-    [self presetChanged:self.presetsButton];
+    _soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]];
+    
+    [_soundFont fetchPresets:^(AKSoundFont *font) {
+        for (AKSoundFontPreset *preset in font.presets) {
+            [self.presetsButton addItemWithTitle:preset.name];
+        }
+        [self presetChanged:self.presetsButton];
+    }];
  
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self
