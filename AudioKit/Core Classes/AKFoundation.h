@@ -171,7 +171,6 @@
 #import "AKVariableDelay.h"
 
 // Operations - Signal Modifiers - Effects
-#import "AKClip.h"
 #import "AKCompressor.h"
 #import "AKDopplerEffect.h"
 #import "AKFlanger.h"
@@ -179,6 +178,7 @@
 #import "AKRingModulator.h"
 
 // Operations - Signal Modifiers - Filters
+#import "AKClipper.h"
 #import "AKCombFilter.h"
 #import "AKDCBlock.h"
 #import "AKDecimator.h"
