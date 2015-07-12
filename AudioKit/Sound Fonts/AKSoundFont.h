@@ -10,6 +10,10 @@
 
 @class AKSoundFontInstrument;
 @class AKSoundFontPreset;
+@class AKSoundFont;
+
+// A nil argument indicates the sound font failed to load.
+typedef void (^AKSoundFontCompletionBlock)(AKSoundFont * __nullable);
 
 NS_ASSUME_NONNULL_BEGIN
 @interface AKSoundFont : NSObject
@@ -28,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Load a sound font from a file.
 /// @param filename Sound font file to load.
-- (instancetype)initWithFilename:(NSString *)filename;
+/// @param completionBlock A block to be called when the sound font has been fully loaded.
+- (instancetype)initWithFilename:(NSString *)filename completion:(__nullable AKSoundFontCompletionBlock)completionBlock;
 
 // Utility methods to easily locate loaded presets and instruments
 

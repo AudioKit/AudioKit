@@ -12,6 +12,7 @@ extern NSString * const AKMidiNoteOn;
 extern NSString * const AKMidiNoteOn;
 extern NSString * const AKMidiNoteOff;
 extern NSString * const AKMidiPolyphonicAftertouch;
+extern NSString * const AKMidiProgramChange;
 extern NSString * const AKMidiAftertouch;
 extern NSString * const AKMidiPitchWheel;
 extern NSString * const AKMidiController;
@@ -31,5 +32,8 @@ extern NSString * const AKMidiExpression;
 
 /// Dispose of midi client.
 - (void)closeMidiIn;
+
+/// The number of detected MIDI inputs
+@property (readonly) NSUInteger inputs;
 
 @end
