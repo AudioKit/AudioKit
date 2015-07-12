@@ -178,6 +178,7 @@
 #import "AKRingModulator.h"
 
 // Operations - Signal Modifiers - Filters
+#import "AKClipper.h"
 #import "AKCombFilter.h"
 #import "AKDCBlock.h"
 #import "AKDecimator.h"
