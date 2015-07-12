@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)defaultValues;
 - (void)updateUI;
 
-@property (nonatomic,strong) IBInspectable NSColor *backgroundColor;
+@property (nonatomic,strong,nullable) IBInspectable NSColor *backgroundColor;
 
 @end
 NS_ASSUME_NONNULL_END
