@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6254"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -642,7 +642,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="HelloWorld" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
@@ -670,40 +670,49 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="HelloWorld" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="357"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="473"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ch7-tf-bPi">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="357"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AudioKitMan" id="Bpp-XH-GDd"/>
+                                <rect key="frame" x="0.0" y="116" width="480" height="357"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyUpOrDown" image="AudioKitMan" id="Bpp-XH-GDd"/>
                             </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sFs-O1-yJD">
-                                <rect key="frame" x="96" y="22" width="288" height="56"/>
+                                <rect key="frame" x="20" y="138" width="440" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="6hk-L2-NdR"/>
+                                </constraints>
                                 <buttonCell key="cell" type="smallSquare" title="Play Sine Wave at 440Hz" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qPZ-vb-3Dv">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemBold"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="toggleSound:" target="XfG-lQ-9wD" id="K4w-dB-7e2"/>
+                                    <action selector="toggleSound:" target="XfG-lQ-9wD" id="fCR-uo-AF8"/>
                                 </connections>
                             </button>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="D99-wT-xQV" customClass="AKAudioOutputPlot">
+                                <rect key="frame" x="20" y="20" width="440" height="103"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="D99-wT-xQV" secondAttribute="height" multiplier="440:103" id="Wit-mo-fU8"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="Ch7-tf-bPi" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="1T5-Pg-7jd"/>
-                            <constraint firstAttribute="trailing" secondItem="Ch7-tf-bPi" secondAttribute="trailing" id="2RP-bQ-YpM"/>
-                            <constraint firstItem="Ch7-tf-bPi" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="4rP-YD-8RG"/>
-                            <constraint firstItem="sFs-O1-yJD" firstAttribute="top" secondItem="Ch7-tf-bPi" secondAttribute="bottom" constant="-77" id="AiC-DK-ZhF"/>
-                            <constraint firstItem="sFs-O1-yJD" firstAttribute="width" secondItem="Ch7-tf-bPi" secondAttribute="width" multiplier="0.6" id="Djx-ag-iPF"/>
-                            <constraint firstItem="sFs-O1-yJD" firstAttribute="centerX" secondItem="Ch7-tf-bPi" secondAttribute="centerX" id="QGX-qy-nGh"/>
-                            <constraint firstAttribute="bottom" secondItem="Ch7-tf-bPi" secondAttribute="bottom" id="QU2-Sq-X6i"/>
-                            <constraint firstItem="sFs-O1-yJD" firstAttribute="height" secondItem="Ch7-tf-bPi" secondAttribute="height" multiplier="0.15" id="Ypn-lH-4jS"/>
-                            <constraint firstAttribute="centerY" secondItem="Ch7-tf-bPi" secondAttribute="centerY" id="j0T-ez-t3X"/>
+                            <constraint firstAttribute="trailing" secondItem="D99-wT-xQV" secondAttribute="trailing" constant="20" id="EEh-7t-fY5"/>
+                            <constraint firstItem="Ch7-tf-bPi" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Ecq-HL-FYL"/>
+                            <constraint firstAttribute="trailing" secondItem="Ch7-tf-bPi" secondAttribute="trailing" id="N9J-Xd-l8e"/>
+                            <constraint firstAttribute="trailing" secondItem="sFs-O1-yJD" secondAttribute="trailing" constant="20" id="Q95-Wt-ChN"/>
+                            <constraint firstItem="D99-wT-xQV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="T7A-GA-zT7"/>
+                            <constraint firstItem="D99-wT-xQV" firstAttribute="top" secondItem="sFs-O1-yJD" secondAttribute="bottom" constant="16" id="VPA-6z-ezg"/>
+                            <constraint firstItem="Ch7-tf-bPi" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="YQ4-6E-mxJ"/>
+                            <constraint firstAttribute="bottom" secondItem="D99-wT-xQV" secondAttribute="bottom" constant="20" id="cEp-Ei-v4a"/>
+                            <constraint firstItem="sFs-O1-yJD" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="gEl-PB-uG0"/>
                         </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="707.5"/>
+            <point key="canvasLocation" x="75" y="765.5"/>
         </scene>
     </scenes>
     <resources>

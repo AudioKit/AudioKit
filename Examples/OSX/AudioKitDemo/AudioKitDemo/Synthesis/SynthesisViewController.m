@@ -25,6 +25,10 @@
     tambourine = [[AKTambourineInstrument alloc] init];
     [AKOrchestra addInstrument:tambourine];
     
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:tambourine.output];
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+    
     fmSynthesizer = [[FMSynthesizer alloc] init];
     [AKOrchestra addInstrument:fmSynthesizer];
 }
