@@ -20,6 +20,10 @@ class SynthesisViewController: NSViewController {
 
         AKOrchestra.addInstrument(tambourine)
         AKOrchestra.addInstrument(fmSynthesizer)
+        
+        let amp = AKAmplifier(input: tambourine.output)
+        AKOrchestra.addInstrument(amp)
+        amp.start()
     }
     
     @IBAction func tapTambourine(sender: NSClickGestureRecognizer) {

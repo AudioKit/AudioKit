@@ -86,6 +86,7 @@
 		C43DB1E11B218BEB00C9E4D5 /* AKVCOscillatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1961B218BEB00C9E4D5 /* AKVCOscillatorTests.m */; };
 		C43DB1E21B218BEB00C9E4D5 /* AKVibesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1971B218BEB00C9E4D5 /* AKVibesTests.m */; };
 		C43DB1E31B218BEB00C9E4D5 /* AKVibratoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1981B218BEB00C9E4D5 /* AKVibratoTests.m */; };
+		C457ADFB1B50EF5800B46DAF /* AKClipperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C457ADFA1B50EF5800B46DAF /* AKClipperTests.m */; };
 		C45F404D1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C45F404E1B05C7BD00F3FC42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */; };
 		C4B3A7481AE30E6A00F43B96 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B3A7471AE30E6A00F43B96 /* main.m */; };
@@ -227,6 +228,7 @@
 		C43DB1961B218BEB00C9E4D5 /* AKVCOscillatorTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVCOscillatorTests.m; sourceTree = "<group>"; };
 		C43DB1971B218BEB00C9E4D5 /* AKVibesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibesTests.m; sourceTree = "<group>"; };
 		C43DB1981B218BEB00C9E4D5 /* AKVibratoTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKVibratoTests.m; sourceTree = "<group>"; };
+		C457ADFA1B50EF5800B46DAF /* AKClipperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKClipperTests.m; sourceTree = "<group>"; };
 		C45F404C1B05C7BD00F3FC42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AudioKit.plist; path = ../iOSObjectiveCAudioKit/AudioKit.plist; sourceTree = "<group>"; };
 		C4B3A7421AE30E6A00F43B96 /* iOSObjectiveCAudioKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSObjectiveCAudioKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B3A7461AE30E6A00F43B96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				C43DB1541B218BEB00C9E4D5 /* AKBandRejectButterworthFilterTests.m */,
 				C43DB1551B218BEB00C9E4D5 /* AKBowedStringTests.m */,
 				C43DB1561B218BEB00C9E4D5 /* AKCabasaTests.m */,
+				C457ADFA1B50EF5800B46DAF /* AKClipperTests.m */,
 				C43DB1571B218BEB00C9E4D5 /* AKCombFilterTests.m */,
 				C43DB1581B218BEB00C9E4D5 /* AKCompressorTests.m */,
 				C43DB1591B218BEB00C9E4D5 /* AKConvolutionTests.m */,
@@ -606,6 +609,7 @@
 				C43DB1BA1B218BEB00C9E4D5 /* AKLowFrequencyOscillatorTests.m in Sources */,
 				C43DB1B11B218BEB00C9E4D5 /* AKHighPassButterworthFilterTests.m in Sources */,
 				C43DB19B1B218BEB00C9E4D5 /* AKBalanceTests.m in Sources */,
+				C457ADFB1B50EF5800B46DAF /* AKClipperTests.m in Sources */,
 				C43DB1B01B218BEB00C9E4D5 /* AKGuiroTests.m in Sources */,
 				C43DB1C61B218BEB00C9E4D5 /* AKParallelCombLowPassFilterReverbTests.m in Sources */,
 				C43DB1CD1B218BEB00C9E4D5 /* AKReverbTests.m in Sources */,
