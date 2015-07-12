@@ -101,7 +101,7 @@ void  TPCircularBufferClear(TPCircularBuffer *buffer);
  */
 static __inline__ __attribute__((always_inline)) void* TPCircularBufferTail(TPCircularBuffer *buffer, int32_t* availableBytes) {
     *availableBytes = buffer->fillCount;
-    if ( *availableBytes == 0 ) return NULL;
+    if (*availableBytes == 0) return NULL;
     return (void*)((char*)buffer->buffer + buffer->tail);
 }
 
@@ -140,7 +140,7 @@ static __inline__ __attribute__((always_inline)) void TPCircularBufferConsumeNoB
  */
 static __inline__ __attribute__((always_inline)) void* TPCircularBufferHead(TPCircularBuffer *buffer, int32_t* availableBytes) {
     *availableBytes = (buffer->length - buffer->fillCount);
-    if ( *availableBytes == 0 ) return NULL;
+    if (*availableBytes == 0) return NULL;
     return (void*)((char*)buffer->buffer + buffer->head);
 }
     
@@ -182,7 +182,7 @@ static __inline__ __attribute__((always_inline)) void TPCircularBufferProduceNoB
 static __inline__ __attribute__((always_inline)) bool TPCircularBufferProduceBytes(TPCircularBuffer *buffer, const void* src, int32_t len) {
     int32_t space;
     void *ptr = TPCircularBufferHead(buffer, &space);
-    if ( space < len ) return false;
+    if (space < len) return false;
     memcpy(ptr, src, len);
     TPCircularBufferProduce(buffer, len);
     return true;
