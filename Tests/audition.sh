@@ -63,5 +63,5 @@ execfile=$TEST
 execfile=${execfile/Tests/}
 execfile=${execfile/.swift/}
 echo "./AudioKitTest built/$execfile"
-cp ./AuditionSounds built/$execfile
-./built/$execfile
+cp ./AuditionSounds "built/$execfile"
+"./built/$execfile"
