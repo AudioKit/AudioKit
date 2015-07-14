@@ -25,9 +25,14 @@
 
 - (void)defaultValues
 {
+}
+
+- (void)setupPlot
+{
     self.plotType = EZPlotTypeRolling;
     self.shouldFill = YES;
     self.shouldMirror = YES;
+    [self setRollingHistoryLength:1024];
 }
 
 - (const float *)bufferWithCsound:(CsoundObj *)cs
