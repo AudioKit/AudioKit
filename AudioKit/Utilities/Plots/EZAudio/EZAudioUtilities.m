@@ -25,6 +25,8 @@
 
 #import "EZAudioUtilities.h"
 
+@import Accelerate;
+
 BOOL __shouldExitOnCheckResultFail = YES;
 
 @implementation EZAudioUtilities
@@ -446,10 +448,12 @@ BOOL __shouldExitOnCheckResultFail = YES;
 +(float)RMS:(const float *)buffer
      length:(int)bufferSize
 {
-    float sum = 0.0;
-    for(int i = 0; i < bufferSize; i++)
-        sum += buffer[i] * buffer[i];
-    return sqrtf( sum / bufferSize);
+    float *squared = calloc(bufferSize, sizeof(float));
+    vDSP_vsq(buffer, 1, squared, 1, bufferSize);
+    float mean;
+    vDSP_meanv(squared, 1, &mean, bufferSize);
+    free(squared);
+    return sqrtf(mean);
 }
 
 //------------------------------------------------------------------------------
