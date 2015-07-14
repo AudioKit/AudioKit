@@ -7,6 +7,7 @@
 //
 
 #import "EZAudioPlot.h"
+#import "EZPlot.h"
 
 NS_ASSUME_NONNULL_BEGIN
 IB_DESIGNABLE

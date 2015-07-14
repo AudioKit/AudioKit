@@ -51,7 +51,7 @@
 }
 
 #if !TARGET_OS_IPHONE
-- (void)setBackgroundColor:(NSColor * __nonnull)backgroundColor
+- (void)setBackgroundColor:(NSColor *)backgroundColor
 {
     _backgroundColor = backgroundColor;
     [self updateUI];

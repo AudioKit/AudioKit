@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D131" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -843,14 +843,14 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="P5Y-Wz-QXH">
-                                <rect key="frame" x="18" y="506" width="414" height="21"/>
+                            <slider verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P5Y-Wz-QXH">
+                                <rect key="frame" x="18" y="506" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="75" tickMarkPosition="above" sliderType="linear" id="vJi-sr-eyI"/>
                                 <connections>
                                     <action selector="speedChanged:" target="XQA-pb-uB0" id="7GN-FD-2Wf"/>
                                 </connections>
                             </slider>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="1HW-WS-aa4">
+                            <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1HW-WS-aa4">
                                 <rect key="frame" x="169" y="461" width="112" height="18"/>
                                 <buttonCell key="cell" type="check" title="Preserve Pitch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eJb-lM-Ajm">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -860,7 +860,7 @@
                                     <action selector="togglePitchMaintenance:" target="XQA-pb-uB0" id="p4O-2O-hEq"/>
                                 </connections>
                             </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zMr-pa-02I">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zMr-pa-02I">
                                 <rect key="frame" x="113" y="421" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="c7t-26-a6x"/>
@@ -871,7 +871,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="u2O-rY-0pQ">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u2O-rY-0pQ">
                                 <rect key="frame" x="18" y="421" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="yxg-dK-8hZ"/>
@@ -882,7 +882,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZNb-ah-HBD">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZNb-ah-HBD">
                                 <rect key="frame" x="342" y="421" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="pF1-1S-4X3"/>
@@ -893,14 +893,14 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kdD-z3-vlJ">
-                                <rect key="frame" x="18" y="394" width="414" height="21"/>
+                            <slider verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kdD-z3-vlJ">
+                                <rect key="frame" x="18" y="394" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" doubleValue="33" tickMarkPosition="above" sliderType="linear" id="JXO-NN-abt"/>
                                 <connections>
                                     <action selector="pitchChanged:" target="XQA-pb-uB0" id="mCk-46-rmi"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d4U-xg-XDw">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d4U-xg-XDw">
                                 <rect key="frame" x="113" y="344" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="ZOv-xH-DTz"/>
@@ -911,7 +911,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-Vc-Q2K">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gWo-Vc-Q2K">
                                 <rect key="frame" x="18" y="344" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="gvD-zc-IkY"/>
@@ -922,7 +922,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rEh-uv-8Xv">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rEh-uv-8Xv">
                                 <rect key="frame" x="342" y="344" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="dDm-Dg-A73"/>
@@ -933,14 +933,14 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-Kh-JYj">
-                                <rect key="frame" x="18" y="317" width="414" height="21"/>
+                            <slider verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-Kh-JYj">
+                                <rect key="frame" x="18" y="317" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="Hq4-Us-yYi"/>
                                 <connections>
                                     <action selector="impulseResponseChanged:" target="XQA-pb-uB0" id="dkL-9R-KZp"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-Qd-uju">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-Qd-uju">
                                 <rect key="frame" x="113" y="267" width="225" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="4yD-hF-aZC"/>
@@ -951,7 +951,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="f1b-Ox-3qt">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f1b-Ox-3qt">
                                 <rect key="frame" x="18" y="267" width="77" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="73" id="6KW-Bt-jv7"/>
@@ -962,7 +962,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BB5-PA-9nH">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BB5-PA-9nH">
                                 <rect key="frame" x="342" y="267" width="90" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="86" id="caF-16-JOe"/>
@@ -973,14 +973,14 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HhX-bx-q4o">
-                                <rect key="frame" x="18" y="240" width="414" height="21"/>
+                            <slider verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HhX-bx-q4o">
+                                <rect key="frame" x="18" y="240" width="414" height="20"/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="aeu-7d-Jlu"/>
                                 <connections>
                                     <action selector="wetnessChanged:" target="XQA-pb-uB0" id="baX-Vz-wiU"/>
                                 </connections>
                             </slider>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="APH-tA-v7Z" customClass="AKAudioOutputRollingWaveformPlot">
+                            <customView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="APH-tA-v7Z" customClass="AKAudioOutputRollingWaveformPlot">
                                 <rect key="frame" x="20" y="123" width="410" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="xlW-qE-5vj"/>
@@ -1155,11 +1155,14 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="kur-Yn-JII" customClass="AKAudioInputRollingWaveformPlot">
                                 <rect key="frame" x="20" y="35" width="410" height="100"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="plotColor">
-                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="gain">
                                         <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </customView>

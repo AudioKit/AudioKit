@@ -247,7 +247,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "${SRCROOT}/../../AudioKit/Platforms/OSX/run-script.sh\n";
+			shellScript = "# This is slightly different for a Unix command\ninstall_name_tool -change CsoundLib @executable_path/../CsoundLib.framework/Versions/6.0/CsoundLib \"$TARGET_BUILD_DIR/$EXECUTABLE_PATH\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -362,7 +362,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AuditionSounds;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitTest/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AuditionSounds/Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/AudioKit/**";
 			};
 			name = Debug;
@@ -382,7 +382,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AuditionSounds;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitTest/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AuditionSounds/Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/AudioKit/**";
 			};
 			name = Release;
@@ -444,7 +444,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = AuditionSounds;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitTest/Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AuditionSounds/Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "../../../AudioKit/AudioKit/**";
 			};
 			name = Testing;
