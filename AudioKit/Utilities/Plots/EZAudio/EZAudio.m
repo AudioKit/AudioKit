@@ -1,364 +1,308 @@
 //
 //  EZAudio.m
-//  EZAudio
+//  EZAudioCoreGraphicsWaveformExample
 //
-//  Created by Syed Haris Ali on 11/21/13.
-//  Copyright (c) 2013 Syed Haris Ali. All rights reserved.
+//  Created by Syed Haris Ali on 5/13/15.
+//  Copyright (c) 2015 Syed Haris Ali. All rights reserved.
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
 
+#import "AKFoundation.h"
 #import "EZAudio.h"
-
-@import Accelerate;
 
 @implementation EZAudio
 
+//------------------------------------------------------------------------------
+#pragma mark - Debugging
+//------------------------------------------------------------------------------
+
++ (void)setShouldExitOnCheckResultFail:(BOOL)shouldExitOnCheckResultFail
+{
+    [EZAudioUtilities setShouldExitOnCheckResultFail:shouldExitOnCheckResultFail];
+}
+
+//------------------------------------------------------------------------------
+
++ (BOOL)shouldExitOnCheckResultFail
+{
+    return [EZAudioUtilities shouldExitOnCheckResultFail];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - AudioBufferList Utility
-+(AudioBufferList *)audioBufferListWithNumberOfFrames:(UInt32)frames
-                                     numberOfChannels:(UInt32)channels
-                                          interleaved:(BOOL)interleaved
+//------------------------------------------------------------------------------
+
++ (AudioBufferList *)audioBufferListWithNumberOfFrames:(UInt32)frames
+                                      numberOfChannels:(UInt32)channels
+                                           interleaved:(BOOL)interleaved
 {
-    AudioBufferList *audioBufferList = (AudioBufferList*)malloc(sizeof(AudioBufferList));
-    UInt32 outputBufferSize = 32 * frames; // 32 KB
-    audioBufferList->mNumberBuffers = interleaved ? 1 : channels;
-    for( int i = 0; i < audioBufferList->mNumberBuffers; i++ )
-    {
-        audioBufferList->mBuffers[i].mNumberChannels = channels;
-        audioBufferList->mBuffers[i].mDataByteSize = channels * outputBufferSize;
-        audioBufferList->mBuffers[i].mData = (float*)malloc(channels * sizeof(float) *outputBufferSize);
-    }
-    return audioBufferList;
+    return [EZAudioUtilities audioBufferListWithNumberOfFrames:frames
+                                              numberOfChannels:channels
+                                                   interleaved:interleaved];
 }
 
-+(void)freeBufferList:(AudioBufferList *)bufferList
+//------------------------------------------------------------------------------
+
++ (float **)floatBuffersWithNumberOfFrames:(UInt32)frames
+                          numberOfChannels:(UInt32)channels
 {
-    if( bufferList )
-    {
-        if( bufferList->mNumberBuffers )
-        {
-            for( int i = 0; i < bufferList->mNumberBuffers; i++ )
-            {
-                if( bufferList->mBuffers[i].mData )
-                {
-                    free(bufferList->mBuffers[i].mData);
-                }
-            }
-        }
-        free(bufferList);
-    }
-    bufferList = NULL;
+    return [EZAudioUtilities floatBuffersWithNumberOfFrames:frames
+                                           numberOfChannels:channels];
 }
 
+//------------------------------------------------------------------------------
+
++ (void)freeBufferList:(AudioBufferList *)bufferList
+{
+    [EZAudioUtilities freeBufferList:bufferList];
+}
+
+//------------------------------------------------------------------------------
+
++ (void)freeFloatBuffers:(float **)buffers numberOfChannels:(UInt32)channels
+{
+    [EZAudioUtilities freeFloatBuffers:buffers numberOfChannels:channels];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - AudioStreamBasicDescription Utility
-+(AudioStreamBasicDescription)AIFFFormatWithNumberOfChannels:(UInt32)channels
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)AIFFFormatWithNumberOfChannels:(UInt32)channels
+                                                   sampleRate:(float)sampleRate
+{
+    return [EZAudioUtilities AIFFFormatWithNumberOfChannels:channels
+                                                 sampleRate:sampleRate];
+}
+
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)iLBCFormatWithSampleRate:(float)sampleRate
+{
+    return [EZAudioUtilities iLBCFormatWithSampleRate:sampleRate];
+}
+
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)floatFormatWithNumberOfChannels:(UInt32)channels
+                                                    sampleRate:(float)sampleRate
+{
+    return [EZAudioUtilities floatFormatWithNumberOfChannels:channels
+                                                  sampleRate:sampleRate];
+}
+
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)M4AFormatWithNumberOfChannels:(UInt32)channels
                                                   sampleRate:(float)sampleRate
 {
-    AudioStreamBasicDescription asbd;
-    memset(&asbd, 0, sizeof(asbd));
-    asbd.mFormatID          = kAudioFormatLinearPCM;
-    asbd.mFormatFlags       = kAudioFormatFlagIsBigEndian|kAudioFormatFlagIsPacked|kAudioFormatFlagIsSignedInteger;
-    asbd.mSampleRate        = sampleRate;
-    asbd.mChannelsPerFrame  = channels;
-    asbd.mBitsPerChannel    = 32;
-    asbd.mBytesPerPacket    = (asbd.mBitsPerChannel / 8) * asbd.mChannelsPerFrame;
-    asbd.mFramesPerPacket   = 1;
-    asbd.mBytesPerFrame     = (asbd.mBitsPerChannel / 8) * asbd.mChannelsPerFrame;
-    return asbd;
+    return [EZAudioUtilities M4AFormatWithNumberOfChannels:channels
+                                                sampleRate:sampleRate];
 }
 
-+(AudioStreamBasicDescription)iLBCFormatWithSampleRate:(float)sampleRate
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)monoFloatFormatWithSampleRate:(float)sampleRate
 {
-    AudioStreamBasicDescription asbd;
-    memset(&asbd, 0, sizeof(asbd));
-    asbd.mFormatID          = kAudioFormatiLBC;
-    asbd.mChannelsPerFrame  = 1;
-    asbd.mSampleRate        = sampleRate;
-    
-    // Fill in the rest of the descriptions using the Audio Format API
-    UInt32 propSize = sizeof(asbd);
-    [EZAudio checkResult:AudioFormatGetProperty(kAudioFormatProperty_FormatInfo,
-                                                0,
-                                                NULL,
-                                                &propSize,
-                                                &asbd)
-               operation:"Failed to fill out the rest of the m4a AudioStreamBasicDescription"];
-    
-    return asbd;
+    return [EZAudioUtilities monoFloatFormatWithSampleRate:sampleRate];
 }
 
-+(AudioStreamBasicDescription)M4AFormatWithNumberOfChannels:(UInt32)channels
-                                                 sampleRate:(float)sampleRate
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)monoCanonicalFormatWithSampleRate:(float)sampleRate
 {
-    AudioStreamBasicDescription asbd;
-    memset(&asbd, 0, sizeof(asbd));
-    asbd.mFormatID          = kAudioFormatMPEG4AAC;
-    asbd.mChannelsPerFrame  = channels;
-    asbd.mSampleRate        = sampleRate;
-    
-    // Fill in the rest of the descriptions using the Audio Format API
-    UInt32 propSize = sizeof(asbd);
-    [EZAudio checkResult:AudioFormatGetProperty(kAudioFormatProperty_FormatInfo,
-                                                0,
-                                                NULL,
-                                                &propSize,
-                                                &asbd)
-               operation:"Failed to fill out the rest of the m4a AudioStreamBasicDescription"];
-    
-    return asbd;
+    return [EZAudioUtilities monoCanonicalFormatWithSampleRate:sampleRate];
 }
 
-+(AudioStreamBasicDescription)monoFloatFormatWithSampleRate:(float)sampleRate
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)stereoCanonicalNonInterleavedFormatWithSampleRate:(float)sampleRate
 {
-    AudioStreamBasicDescription asbd;
-    UInt32 byteSize = sizeof(float);
-    asbd.mBitsPerChannel   = 8 * byteSize;
-    asbd.mBytesPerFrame    = byteSize;
-    asbd.mBytesPerPacket   = byteSize;
-    asbd.mChannelsPerFrame = 1;
-    asbd.mFormatFlags      = kAudioFormatFlagIsPacked|kAudioFormatFlagIsFloat;
-    asbd.mFormatID         = kAudioFormatLinearPCM;
-    asbd.mFramesPerPacket  = 1;
-    asbd.mSampleRate       = sampleRate;
-    return asbd;
+    return [EZAudioUtilities stereoCanonicalNonInterleavedFormatWithSampleRate:sampleRate];
 }
 
-+(AudioStreamBasicDescription)monoCanonicalFormatWithSampleRate:(float)sampleRate
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)stereoFloatInterleavedFormatWithSampleRate:(float)sampleRate
 {
-    AudioStreamBasicDescription asbd;
-    UInt32 byteSize = sizeof(float);
-    asbd.mBitsPerChannel   = 8 * byteSize;
-    asbd.mBytesPerFrame    = byteSize;
-    asbd.mBytesPerPacket   = byteSize;
-    asbd.mChannelsPerFrame = 1;
-    asbd.mFormatFlags      = kAudioFormatFlagsNativeFloatPacked|kAudioFormatFlagIsNonInterleaved;
-    asbd.mFormatID         = kAudioFormatLinearPCM;
-    asbd.mFramesPerPacket  = 1;
-    asbd.mSampleRate       = sampleRate;
-    return asbd;
+    return [EZAudioUtilities stereoFloatInterleavedFormatWithSampleRate:sampleRate];
 }
 
-+(AudioStreamBasicDescription)stereoCanonicalNonInterleavedFormatWithSampleRate:(float)sampleRate
+//------------------------------------------------------------------------------
+
++ (AudioStreamBasicDescription)stereoFloatNonInterleavedFormatWithSampleRate:(float)sampleRate
 {
-    AudioStreamBasicDescription asbd;
-    UInt32 byteSize = sizeof(float);
-    asbd.mBitsPerChannel   = 8 * byteSize;
-    asbd.mBytesPerFrame    = byteSize;
-    asbd.mBytesPerPacket   = byteSize;
-    asbd.mChannelsPerFrame = 2;
-    asbd.mFormatFlags      = kAudioFormatFlagsNativeFloatPacked|kAudioFormatFlagIsNonInterleaved;
-    asbd.mFormatID         = kAudioFormatLinearPCM;
-    asbd.mFramesPerPacket  = 1;
-    asbd.mSampleRate       = sampleRate;
-    return asbd;
+    return [EZAudioUtilities stereoFloatNonInterleavedFormatWithSampleRate:sampleRate];
 }
 
-+(AudioStreamBasicDescription)stereoFloatInterleavedFormatWithSampleRate:(float)sampleRate
+//------------------------------------------------------------------------------
+
++ (BOOL)isFloatFormat:(AudioStreamBasicDescription)asbd
 {
-    AudioStreamBasicDescription asbd;
-    UInt32 floatByteSize   = sizeof(float);
-    asbd.mChannelsPerFrame = 2;
-    asbd.mBitsPerChannel   = 8 * floatByteSize;
-    asbd.mBytesPerFrame    = asbd.mChannelsPerFrame * floatByteSize;
-    asbd.mBytesPerPacket   = asbd.mChannelsPerFrame * floatByteSize;
-    asbd.mFormatFlags      = kAudioFormatFlagIsPacked|kAudioFormatFlagIsFloat;
-    asbd.mFormatID         = kAudioFormatLinearPCM;
-    asbd.mFramesPerPacket  = 1;
-    asbd.mSampleRate       = sampleRate;
-    return asbd;
+    return [EZAudioUtilities isFloatFormat:asbd];
 }
 
-+(AudioStreamBasicDescription)stereoFloatNonInterleavedFormatWithSampleRate:(float)sampleRate
+//------------------------------------------------------------------------------
+
++ (BOOL)isInterleaved:(AudioStreamBasicDescription)asbd
 {
-    AudioStreamBasicDescription asbd;
-    UInt32 floatByteSize   = sizeof(float);
-    asbd.mBitsPerChannel   = 8 * floatByteSize;
-    asbd.mBytesPerFrame    = floatByteSize;
-    asbd.mBytesPerPacket   = floatByteSize;
-    asbd.mChannelsPerFrame = 2;
-    asbd.mFormatFlags      = kAudioFormatFlagIsFloat|kAudioFormatFlagIsNonInterleaved;
-    asbd.mFormatID         = kAudioFormatLinearPCM;
-    asbd.mFramesPerPacket  = 1;
-    asbd.mSampleRate       = sampleRate;
-    return asbd;
+    return [EZAudioUtilities isInterleaved:asbd];
 }
 
-+(void)printASBD:(AudioStreamBasicDescription)asbd {
-    char formatIDString[5];
-    UInt32 formatID = CFSwapInt32HostToBig(asbd.mFormatID);
-    bcopy (&formatID, formatIDString, 4);
-    formatIDString[4] = '\0';
-    NSLog (@"  Sample Rate:         %10.0f",  asbd.mSampleRate);
-    NSLog (@"  Format ID:           %10s",    formatIDString);
-    NSLog (@"  Format Flags:        %10X",    (unsigned int)asbd.mFormatFlags);
-    NSLog (@"  Bytes per Packet:    %10d",    (unsigned int)asbd.mBytesPerPacket);
-    NSLog (@"  Frames per Packet:   %10d",    (unsigned int)asbd.mFramesPerPacket);
-    NSLog (@"  Bytes per Frame:     %10d",    (unsigned int)asbd.mBytesPerFrame);
-    NSLog (@"  Channels per Frame:  %10d",    (unsigned int)asbd.mChannelsPerFrame);
-    NSLog (@"  Bits per Channel:    %10d",    (unsigned int)asbd.mBitsPerChannel);
-}
+//------------------------------------------------------------------------------
 
-+(void)setCanonicalAudioStreamBasicDescription:(AudioStreamBasicDescription*)asbd
-                              numberOfChannels:(UInt32)nChannels
-                                   interleaved:(BOOL)interleaved {
-    
-    asbd->mFormatID = kAudioFormatLinearPCM;
-#if TARGET_OS_IPHONE
-    int sampleSize = sizeof(float);
-    asbd->mFormatFlags = kAudioFormatFlagsNativeFloatPacked;
-#elif TARGET_OS_MAC
-    int sampleSize = sizeof(Float32);
-    asbd->mFormatFlags = kAudioFormatFlagsNativeFloatPacked;
-#endif
-    asbd->mBitsPerChannel = 8 * sampleSize;
-    asbd->mChannelsPerFrame = nChannels;
-    asbd->mFramesPerPacket = 1;
-    if (interleaved)
-        asbd->mBytesPerPacket = asbd->mBytesPerFrame = nChannels * sampleSize;
-    else {
-        asbd->mBytesPerPacket = asbd->mBytesPerFrame = sampleSize;
-        asbd->mFormatFlags |= kAudioFormatFlagIsNonInterleaved;
-    }
-}
-
-#pragma mark - OSStatus Utility
-+(void)checkResult:(OSStatus)result
-         operation:(const char *)operation {
-	if (result == noErr) return;
-	char errorString[20];
-	// see if it appears to be a 4-char-code
-	*(UInt32 *)(errorString + 1) = CFSwapInt32HostToBig(result);
-	if (isprint(errorString[1]) && isprint(errorString[2]) && isprint(errorString[3]) && isprint(errorString[4])) {
-		errorString[0] = errorString[5] = '\'';
-		errorString[6] = '\0';
-	} else
-		// no, format it as an integer
-		snprintf(errorString, sizeof(errorString), "%d", (int)result);
-	fprintf(stderr, "Error: %s (%s)\n", operation, errorString);
-	exit(1);
-}
-
-#pragma mark - Math Utility
-+(void)appendBufferAndShift:(float*)buffer
-             withBufferSize:(int)bufferLength
-            toScrollHistory:(float*)scrollHistory
-      withScrollHistorySize:(NSUInteger)scrollHistoryLength
++ (BOOL)isLinearPCM:(AudioStreamBasicDescription)asbd
 {
-    NSAssert(scrollHistoryLength>=bufferLength,@"Scroll history array length must be greater buffer length");
-    NSAssert(scrollHistoryLength>0,@"Scroll history array length must be greater than 0");
-    NSAssert(bufferLength>0,@"Buffer array length must be greater than 0");
-    NSUInteger  shiftLength    = scrollHistoryLength - bufferLength;
-    size_t floatByteSize  = sizeof(float);
-    size_t shiftByteSize  = shiftLength  * floatByteSize;
-    size_t bufferByteSize = bufferLength * floatByteSize;
-    memmove(&scrollHistory[0],
-            &scrollHistory[bufferLength],
-            shiftByteSize);
-    memmove(&scrollHistory[shiftLength],
-            &buffer[0],
-            bufferByteSize);
+    return [EZAudioUtilities isLinearPCM:asbd];
 }
 
-+(void)    appendValue:(float)value
+//------------------------------------------------------------------------------
+
++ (void)printASBD:(AudioStreamBasicDescription)asbd
+{
+    [EZAudioUtilities printASBD:asbd];
+}
+
+//------------------------------------------------------------------------------
+
++ (NSString *)displayTimeStringFromSeconds:(NSTimeInterval)seconds
+{
+    return [EZAudioUtilities displayTimeStringFromSeconds:seconds];
+}
+
+//------------------------------------------------------------------------------
+
++ (NSString *)stringForAudioStreamBasicDescription:(AudioStreamBasicDescription)asbd
+{
+    return [EZAudioUtilities stringForAudioStreamBasicDescription:asbd];
+}
+
+//------------------------------------------------------------------------------
+
++ (void)setCanonicalAudioStreamBasicDescription:(AudioStreamBasicDescription*)asbd
+                               numberOfChannels:(UInt32)nChannels
+                                    interleaved:(BOOL)interleaved
+{
+    [EZAudioUtilities setCanonicalAudioStreamBasicDescription:asbd
+                                             numberOfChannels:nChannels
+                                                  interleaved:interleaved];
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - Math Utilities
+//------------------------------------------------------------------------------
+
++ (void)appendBufferAndShift:(float*)buffer
+              withBufferSize:(int)bufferLength
+             toScrollHistory:(float*)scrollHistory
+       withScrollHistorySize:(int)scrollHistoryLength
+{
+    [EZAudioUtilities appendBufferAndShift:buffer
+                            withBufferSize:bufferLength
+                           toScrollHistory:scrollHistory
+                     withScrollHistorySize:scrollHistoryLength];
+}
+
+//------------------------------------------------------------------------------
+
++ (void)   appendValue:(float)value
        toScrollHistory:(float*)scrollHistory
- withScrollHistorySize:(NSUInteger)scrollHistoryLength
+ withScrollHistorySize:(int)scrollHistoryLength
 {
-    float val[1]; val[0] = value;
-    [self appendBufferAndShift:val
-                withBufferSize:1
-               toScrollHistory:scrollHistory
-         withScrollHistorySize:scrollHistoryLength];
+    [EZAudioUtilities appendValue:value
+                  toScrollHistory:scrollHistory
+            withScrollHistorySize:scrollHistoryLength];
 }
 
-+(float)MAP:(float)value
-    leftMin:(float)leftMin
-    leftMax:(float)leftMax
-   rightMin:(float)rightMin
-   rightMax:(float)rightMax {
-    float leftSpan    = leftMax  - leftMin;
-    float rightSpan   = rightMax - rightMin;
-    float valueScaled = ( value  - leftMin ) / leftSpan;
-    return rightMin + (valueScaled * rightSpan);
-}
+//------------------------------------------------------------------------------
 
-+(float)RMS:(const float *)buffer
-     length:(int)bufferSize {
-    float *squared = calloc(bufferSize, sizeof(float));
-    vDSP_vsq(buffer, 1, squared, 1, bufferSize);
-    float mean;
-    vDSP_meanv(squared, 1, &mean, bufferSize);
-    free(squared);
-    return sqrtf(mean);
-}
-
-+(float)SGN:(float)value
++ (float)MAP:(float)value
+     leftMin:(float)leftMin
+     leftMax:(float)leftMax
+    rightMin:(float)rightMin
+    rightMax:(float)rightMax
 {
-    return value < 0 ? -1.0f : ( value > 0 ? 1.0f : 0.0f );
+    return [EZAudioUtilities MAP:value
+                         leftMin:leftMin
+                         leftMax:leftMax
+                        rightMin:rightMin
+                        rightMax:rightMax];
 }
 
+//------------------------------------------------------------------------------
+
++ (float)RMS:(float *)buffer length:(int)bufferSize
+{
+    return [EZAudioUtilities RMS:buffer length:bufferSize];
+}
+
+//------------------------------------------------------------------------------
+
++ (float)SGN:(float)value
+{
+    return [EZAudioUtilities SGN:value];
+}
+
+//------------------------------------------------------------------------------
+#pragma mark - OSStatus Utility
+//------------------------------------------------------------------------------
+
++ (void)checkResult:(OSStatus)result operation:(const char *)operation
+{
+    [EZAudioUtilities checkResult:result
+                        operation:operation];
+}
+
+//------------------------------------------------------------------------------
+
++ (NSString *)stringFromUInt32Code:(UInt32)code
+{
+    return [EZAudioUtilities stringFromUInt32Code:code];
+}
+
+//------------------------------------------------------------------------------
 #pragma mark - Plot Utility
+//------------------------------------------------------------------------------
 
-// Returns YES if we're actually scrolling, NO otherwise
-+ (BOOL) updateScrollHistory:(float **)scrollHistory
-                  withLength:(NSUInteger)scrollHistoryLength
-                     atIndex:(NSUInteger *)index
-                  withBuffer:(const float *)buffer
-              withBufferSize:(int)bufferSize
-        isResolutionChanging:(BOOL)isChanging
++ (void)updateScrollHistory:(float **)scrollHistory
+                 withLength:(int)scrollHistoryLength
+                    atIndex:(int *)index
+                 withBuffer:(float *)buffer
+             withBufferSize:(int)bufferSize
+       isResolutionChanging:(BOOL *)isChanging
 {
-    //
-    if( *scrollHistory == NULL ){
-        // Create the history buffer
-        *scrollHistory = (float*)calloc(kEZAudioPlotMaxHistoryBufferLength, sizeof(float));
-    }
-    
-    //
-    if( !isChanging ){
-        float rms = [EZAudio RMS:buffer length:bufferSize];
-        if( *index < scrollHistoryLength ){
-            float *hist = *scrollHistory;
-            hist[*index] = rms;
-            (*index)++;
-        } else {
-            [EZAudio appendValue:rms
-                 toScrollHistory:*scrollHistory
-           withScrollHistorySize:scrollHistoryLength];
-            return YES;
-        }
-    }
-    return NO;
+    [EZAudioUtilities updateScrollHistory:scrollHistory
+                               withLength:scrollHistoryLength
+                                  atIndex:index
+                               withBuffer:buffer
+                           withBufferSize:bufferSize
+                     isResolutionChanging:isChanging];
 }
 
+//------------------------------------------------------------------------------
 #pragma mark - TPCircularBuffer Utility
-+(void)circularBuffer:(TPCircularBuffer *)circularBuffer withSize:(int)size {
-    TPCircularBufferInit(circularBuffer,size);
+//------------------------------------------------------------------------------
+
++ (void)appendDataToCircularBuffer:(TPCircularBuffer *)circularBuffer
+               fromAudioBufferList:(AudioBufferList *)audioBufferList
+{
+    [EZAudioUtilities appendDataToCircularBuffer:circularBuffer
+                             fromAudioBufferList:audioBufferList];
 }
 
-+(void)appendDataToCircularBuffer:(TPCircularBuffer*)circularBuffer
-              fromAudioBufferList:(AudioBufferList*)audioBufferList {
-    TPCircularBufferProduceBytes(circularBuffer,
-                                 audioBufferList->mBuffers[0].mData,
-                                 audioBufferList->mBuffers[0].mDataByteSize);
+//------------------------------------------------------------------------------
+
++ (void)circularBuffer:(TPCircularBuffer *)circularBuffer withSize:(int)size
+{
+    [EZAudioUtilities circularBuffer:circularBuffer withSize:size];
 }
 
-+(void)freeCircularBuffer:(TPCircularBuffer *)circularBuffer {
-    TPCircularBufferClear(circularBuffer);
-    TPCircularBufferCleanup(circularBuffer);
+//------------------------------------------------------------------------------
+
++ (void)freeCircularBuffer:(TPCircularBuffer *)circularBuffer
+{
+    [EZAudioUtilities freeCircularBuffer:circularBuffer];
 }
+
+//------------------------------------------------------------------------------
 
 @end
