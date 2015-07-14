@@ -103,4 +103,9 @@
     return [self parameterWithString:formattedString];
 }
 
+- (void)setValue:(float)value {
+    [super setValue:value];
+    self.parameterString = [NSString stringWithFormat:@"%g", value];
+}
+
 @end
