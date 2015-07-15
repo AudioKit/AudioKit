@@ -381,6 +381,13 @@ typedef NSRect EZRect;
 + (float)SGN:(float)value;
 
 //------------------------------------------------------------------------------
+#pragma mark - Music Utilities
+//------------------------------------------------------------------------------
+
++ (NSString *)noteNameStringForFrequency:(float)frequency
+                           includeOctave:(BOOL)includeOctave;
+
+//------------------------------------------------------------------------------
 #pragma mark - OSStatus Utility
 //------------------------------------------------------------------------------
 
