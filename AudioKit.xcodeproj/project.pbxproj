@@ -573,6 +573,10 @@
 		EAA0F5891AE71C8F007CD7C9 /* AKPhasor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E94D81AD3C6840057E979 /* AKPhasor.m */; };
 		EAA0F58A1AE71C8F007CD7C9 /* AKNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E950C1AD3C6840057E979 /* AKNoise.m */; };
 		EAA0F58B1AE71C8F007CD7C9 /* AKParameter+Operation.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8E94811AD3C6840057E979 /* AKParameter+Operation.m */; };
+		EACF8E971B55E6720089700B /* EZAudioFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = EACF8E951B55E6720089700B /* EZAudioFFT.h */; };
+		EACF8E981B55E6720089700B /* EZAudioFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = EACF8E961B55E6720089700B /* EZAudioFFT.m */; };
+		EACF8E991B55E6720089700B /* EZAudioFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = EACF8E961B55E6720089700B /* EZAudioFFT.m */; };
+		EACF8E9A1B55E6720089700B /* EZAudioFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = EACF8E961B55E6720089700B /* EZAudioFFT.m */; };
 		EADE697B1B52687700996FE0 /* EZAudioUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = EADE69731B52687700996FE0 /* EZAudioUtilities.h */; };
 		EADE697C1B52687700996FE0 /* EZAudioUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE69741B52687700996FE0 /* EZAudioUtilities.m */; };
 		EADE697D1B52687700996FE0 /* EZAudioUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = EADE69741B52687700996FE0 /* EZAudioUtilities.m */; };
@@ -1010,6 +1014,8 @@
 		EA9F18821AE789E0009D3DA6 /* libsndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = libsndfile.framework; sourceTree = "<group>"; };
 		EAA0F5941AE71C8F007CD7C9 /* libAudioKit iOS Dynamic.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAudioKit iOS Dynamic.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAA0F5951AE71CD1007CD7C9 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CsoundLib.framework; sourceTree = "<group>"; };
+		EACF8E951B55E6720089700B /* EZAudioFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFFT.h; sourceTree = "<group>"; };
+		EACF8E961B55E6720089700B /* EZAudioFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFFT.m; sourceTree = "<group>"; };
 		EADE69731B52687700996FE0 /* EZAudioUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioUtilities.h; sourceTree = "<group>"; };
 		EADE69741B52687700996FE0 /* EZAudioUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioUtilities.m; sourceTree = "<group>"; };
 		EADE69751B52687700996FE0 /* EZAudioFloatData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFloatData.h; sourceTree = "<group>"; };
@@ -1381,6 +1387,8 @@
 				EADE69781B52687700996FE0 /* EZAudioFloatConverter.m */,
 				EADE69791B52687700996FE0 /* EZAudioDisplayLink.h */,
 				EADE697A1B52687700996FE0 /* EZAudioDisplayLink.m */,
+				EACF8E951B55E6720089700B /* EZAudioFFT.h */,
+				EACF8E961B55E6720089700B /* EZAudioFFT.m */,
 				EA8E945B1AD3C6840057E979 /* TPCircularBuffer.c */,
 				EA8E945C1AD3C6840057E979 /* TPCircularBuffer.h */,
 			);
@@ -1978,6 +1986,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4C627601B1B714900B7AD86 /* AKAdditiveCosines.h in Headers */,
+				EACF8E971B55E6720089700B /* EZAudioFFT.h in Headers */,
 				EADE697F1B52687700996FE0 /* EZAudioFloatData.h in Headers */,
 				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
 				C4258E461B3FAF7100D91B3D /* AKPitchShifterPedal.h in Headers */,
@@ -2222,6 +2231,7 @@
 				EADE69841B52687700996FE0 /* EZAudioFloatConverter.m in Sources */,
 				EA8E95F01AD3C6850057E979 /* AKMinimum.m in Sources */,
 				EA8E96431AD3C6850057E979 /* AKFlatFrequencyResponseReverb.m in Sources */,
+				EACF8E981B55E6720089700B /* EZAudioFFT.m in Sources */,
 				EA8E96341AD3C6850057E979 /* AKEqualizerFilter.m in Sources */,
 				EA8E96541AD3C6850057E979 /* AKNoteProperty.m in Sources */,
 				EA8E95AD1AD3C6850057E979 /* AKControl.m in Sources */,
@@ -2421,6 +2431,7 @@
 				EADE69861B52687700996FE0 /* EZAudioFloatConverter.m in Sources */,
 				EA8E96941AD3C92B0057E979 /* AKInstrumentPropertyPlot.m in Sources */,
 				EA8E967F1AD3C89F0057E979 /* AKAudioAnalyzer.m in Sources */,
+				EACF8E9A1B55E6720089700B /* EZAudioFFT.m in Sources */,
 				EA8E96831AD3C89F0057E979 /* AKPluckedStringInstrument.m in Sources */,
 				EA8E96971AD3C92B0057E979 /* AKTablePlot.m in Sources */,
 				EA8E967C1AD3C8810057E979 /* AKTools.m in Sources */,
@@ -2620,6 +2631,7 @@
 				EADE69851B52687700996FE0 /* EZAudioFloatConverter.m in Sources */,
 				EAA0F5531AE71C8F007CD7C9 /* AKMinimum.m in Sources */,
 				EAA0F5541AE71C8F007CD7C9 /* AKFlatFrequencyResponseReverb.m in Sources */,
+				EACF8E991B55E6720089700B /* EZAudioFFT.m in Sources */,
 				EAA0F5551AE71C8F007CD7C9 /* AKEqualizerFilter.m in Sources */,
 				EAA0F5571AE71C8F007CD7C9 /* AKNoteProperty.m in Sources */,
 				EAA0F5581AE71C8F007CD7C9 /* AKControl.m in Sources */,

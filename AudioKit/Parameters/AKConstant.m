@@ -7,6 +7,7 @@
 //
 
 #import "AKConstant.h"
+#import "AKNoteProperty.h"
 
 @implementation AKConstant
 
@@ -101,6 +102,13 @@
 {
     NSString *formattedString = [NSString stringWithFormat:@"i(%@)", control];
     return [self parameterWithString:formattedString];
+}
+
+- (void)setValue:(float)value {
+    [super setValue:value];
+    if (![[self class] isSubclassOfClass:[AKNoteProperty class]]) {
+        self.parameterString = [NSString stringWithFormat:@"%g", value];
+    }
 }
 
 @end
