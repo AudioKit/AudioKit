@@ -213,7 +213,7 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
 
 static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
 {
-    NSLog(@"MIDI Notify, messageId=%d, size=%d", message->messageID, message->messageSize);
+    NSLog(@"MIDI Notify, messageId=%@, size=%@", @(message->messageID), @(message->messageSize));
 }
 
 - (void)openMidiIn
