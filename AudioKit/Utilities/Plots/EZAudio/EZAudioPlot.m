@@ -216,9 +216,10 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 - (void)setShouldOptimizeForRealtimePlot:(BOOL)shouldOptimizeForRealtimePlot
 {
     _shouldOptimizeForRealtimePlot = shouldOptimizeForRealtimePlot;
-    if (shouldOptimizeForRealtimePlot && !self.displayLink)
+    if (shouldOptimizeForRealtimePlot)
     {
-        self.displayLink = [EZAudioDisplayLink displayLinkWithDelegate:self];
+        if (self.displayLink == nil)
+            self.displayLink = [EZAudioDisplayLink displayLinkWithDelegate:self];
         [self.displayLink start];
     }
     else
