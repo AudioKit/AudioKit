@@ -12,10 +12,11 @@
 @interface AKReverbPedal : AKInstrument
 
 @property (nonatomic) AKInstrumentProperty *feedback;
+@property (nonatomic) AKInstrumentProperty *mix;
 
 // Audio outlet for global effects processing
 @property (readonly) AKStereoAudio *output;
 
-- (instancetype)initWithInput:(AKAudio *)audioSource;
+- (instancetype)initWithInput:(AKAudio *)input;
 
 @end
