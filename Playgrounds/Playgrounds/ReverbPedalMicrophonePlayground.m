@@ -10,8 +10,8 @@
 
 @implementation Playground {
     AKMicrophone *mic;
-    AKDelayPedal *delay;
-    AKAmplifier *amp;
+    AKReverbPedal *reverb;
+    AKStereoAmplifier *amp;
 }
 
 - (void) setup
@@ -21,11 +21,11 @@
     [AKOrchestra addInstrument:mic];
     [mic start];
 
-    delay = [[AKDelayPedal alloc] initWithInput:mic.output];
-    [AKOrchestra addInstrument:delay];
-    [delay start];
+    reverb = [[AKReverbPedal alloc] initWithInput:mic.output];
+    [AKOrchestra addInstrument:reverb];
+    [reverb start];
 
-    amp = [[AKAmplifier alloc] initWithInput:delay.output];
+    amp = [[AKStereoAmplifier alloc] initWithStereoInput:reverb.output];
     [AKOrchestra addInstrument:amp];
     [amp start];
 }
@@ -34,24 +34,11 @@
 {
     [super run];
 
-    [self addSliderForProperty:delay.time title:@"Delay Time"];
-    [self addSliderForProperty:delay.feedback title:@"Feedback"];
-    [self addSliderForProperty:delay.mix title:@"Mix"];
+    [self addSliderForProperty:reverb.feedback title:@"Feedback"];
+    [self addSliderForProperty:reverb.mix title:@"Mix"];
 
-    [self makeSection:@"Playground Presets"];
-
-    [self addButtonWithTitle:@"SSSAAAFFFEEETTT" block:^{
-        delay.time.value = 0.2;
-        delay.feedback.value = 0.4;
-        delay.mix.value = 0.5;
-    }];
-
-    [self makeSection:@"Delay Pedal Presets"];
-
-    [self addButtonWithTitle:@"Small Chamber" block:^{[delay setPresetSmallChamber];}];
-    [self addButtonWithTitle:@"Robot Voice" block:^{[delay setPresetRobotVoice];}];
-    [self addButtonWithTitle:@"Daleks" block:^{[delay setPresetDaleks];}];
-
+    [self addAudioOutputPlot];
+    [self addAudioOutputRollingWaveformPlot];
 }
 
 @end
