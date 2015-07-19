@@ -37,6 +37,9 @@
 		C47F637E1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m */; };
 		C47F637F1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m */; };
 		C47F63801B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m */; };
+		C4922BAE1B59D8DB0032EBE2 /* AKDistortion.m in Sources */ = {isa = PBXBuildFile; fileRef = C4922BAC1B59D8DB0032EBE2 /* AKDistortion.m */; };
+		C4922BAF1B59D8DB0032EBE2 /* AKDistortion.m in Sources */ = {isa = PBXBuildFile; fileRef = C4922BAC1B59D8DB0032EBE2 /* AKDistortion.m */; };
+		C4922BB01B59D8DB0032EBE2 /* AKDistortion.m in Sources */ = {isa = PBXBuildFile; fileRef = C4922BAC1B59D8DB0032EBE2 /* AKDistortion.m */; };
 		C4A42C6F1B42710C0082DED3 /* AKSoundFontPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */; };
 		C4A42C701B42710C0082DED3 /* AKSoundFontPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */; };
 		C4A42C711B42710C0082DED3 /* AKSoundFontPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */; };
@@ -646,6 +649,8 @@
 		C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFont.m; path = "AudioKit/Sound Fonts/AKSoundFont.m"; sourceTree = SOURCE_ROOT; };
 		C47F637B1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontPresetPlayer.h; path = "AudioKit/Sound Fonts/AKSoundFontPresetPlayer.h"; sourceTree = SOURCE_ROOT; };
 		C47F637C1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontPresetPlayer.m; path = "AudioKit/Sound Fonts/AKSoundFontPresetPlayer.m"; sourceTree = SOURCE_ROOT; };
+		C4922BAB1B59D8DB0032EBE2 /* AKDistortion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDistortion.h; sourceTree = "<group>"; };
+		C4922BAC1B59D8DB0032EBE2 /* AKDistortion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKDistortion.m; sourceTree = "<group>"; };
 		C4A42C6C1B42710C0082DED3 /* AKSoundFontPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontPreset.h; path = "AudioKit/Sound Fonts/AKSoundFontPreset.h"; sourceTree = SOURCE_ROOT; };
 		C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontPreset.m; path = "AudioKit/Sound Fonts/AKSoundFontPreset.m"; sourceTree = SOURCE_ROOT; };
 		C4A42C721B4271F90082DED3 /* AKSoundFontInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontInstrument.h; path = "AudioKit/Sound Fonts/AKSoundFontInstrument.h"; sourceTree = SOURCE_ROOT; };
@@ -1757,6 +1762,8 @@
 			children = (
 				EA8E95321AD3C6840057E979 /* AKCompressor.h */,
 				EA8E95331AD3C6840057E979 /* AKCompressor.m */,
+				C4922BAB1B59D8DB0032EBE2 /* AKDistortion.h */,
+				C4922BAC1B59D8DB0032EBE2 /* AKDistortion.m */,
 				EA8E95341AD3C6840057E979 /* AKDopplerEffect.h */,
 				EA8E95351AD3C6840057E979 /* AKDopplerEffect.m */,
 				EA8E95361AD3C6840057E979 /* AKFlanger.h */,
@@ -2187,6 +2194,7 @@
 				EA8E95C81AD3C6850057E979 /* AKAudioOutputRollingWaveformPlot.m in Sources */,
 				EA8E95B31AD3C6850057E979 /* AKAmplifier.m in Sources */,
 				EA8E96401AD3C6850057E979 /* AKHighPassButterworthFilter.m in Sources */,
+				C4922BAE1B59D8DB0032EBE2 /* AKDistortion.m in Sources */,
 				EA8E96131AD3C6850057E979 /* AKSleighbells.m in Sources */,
 				EA8E96061AD3C6850057E979 /* AKVCOscillator.m in Sources */,
 				EA8E96421AD3C6850057E979 /* AKBallWithinTheBoxReverb.m in Sources */,
@@ -2387,6 +2395,7 @@
 				EA8E97091AD3CA4C0057E979 /* AKFlatFrequencyResponseReverb.m in Sources */,
 				EA8E970A1AD3CA4C0057E979 /* AKParallelCombLowPassFilterReverb.m in Sources */,
 				EA8E970B1AD3CA4C0057E979 /* AKReverb.m in Sources */,
+				C4922BB01B59D8DB0032EBE2 /* AKDistortion.m in Sources */,
 				EA8E970C1AD3CA4C0057E979 /* AKBalance.m in Sources */,
 				EA8E970D1AD3CA4C0057E979 /* AKMix.m in Sources */,
 				EA8E970E1AD3CA4C0057E979 /* AKPanner.m in Sources */,
@@ -2587,6 +2596,7 @@
 				EAA0F52E1AE71C8F007CD7C9 /* AKAudioOutputRollingWaveformPlot.m in Sources */,
 				EAA0F52F1AE71C8F007CD7C9 /* AKAmplifier.m in Sources */,
 				EAA0F5301AE71C8F007CD7C9 /* AKHighPassButterworthFilter.m in Sources */,
+				C4922BAF1B59D8DB0032EBE2 /* AKDistortion.m in Sources */,
 				EAA0F5311AE71C8F007CD7C9 /* AKSleighbells.m in Sources */,
 				EAA0F5321AE71C8F007CD7C9 /* AKVCOscillator.m in Sources */,
 				EAA0F5331AE71C8F007CD7C9 /* AKBallWithinTheBoxReverb.m in Sources */,
