@@ -99,6 +99,7 @@ static AKManager *_sharedManager = nil;
         if (AKSettings.shared.MIDIEnabled) {
             _midi = [[AKMidi alloc] init];
             [_midi openMidiIn];
+            [self.engine setMidiInEnabled:YES];
         }
         
         _engine = [[CsoundObj alloc] init];
@@ -123,6 +124,7 @@ static AKManager *_sharedManager = nil;
                     @"-o %@           ; Write sound to the host audio output\n"
                     "--expression-opt ; Enable expression optimizations\n"
                     "-m0              ; Print raw amplitudes\n"
+                    "-M0              ; Enable MIDI internally\n"
                     "%@\n",
                     AKSettings.shared.audioOutput, inputOption];
         

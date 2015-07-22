@@ -22,6 +22,7 @@
 # pragma mark - Instruments
 #import "AKInstrument.h"
 #import "AKInstrumentProperty.h"
+#import "AKMidiInstrument.h"
 
 #pragma mark - Notes
 #import "AKNote.h"
