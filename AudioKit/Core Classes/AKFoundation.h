@@ -22,6 +22,7 @@
 # pragma mark - Instruments
 #import "AKInstrument.h"
 #import "AKInstrumentProperty.h"
+#import "AKMidiInstrument.h"
 
 #pragma mark - Notes
 #import "AKNote.h"
@@ -172,6 +173,7 @@
 
 // Operations - Signal Modifiers - Effects
 #import "AKCompressor.h"
+#import "AKDistortion.h"
 #import "AKDopplerEffect.h"
 #import "AKFlanger.h"
 #import "AKPitchShifter.h"
