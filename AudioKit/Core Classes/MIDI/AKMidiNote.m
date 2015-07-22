@@ -17,8 +17,20 @@
         _notenumber = [[AKNoteProperty alloc] init];
         [self addProperty:_notenumber];
         
+        _frequency = [[AKNoteProperty alloc] init];
+        [self addProperty:_frequency];
+        
         _velocity = [[AKNoteProperty alloc] init];
         [self addProperty:_velocity];
+   
+        _modulation = [[AKControl alloc] init];
+        [_modulation setParameterString:@"kMidiModulation"];
+        
+        _pitchBend = [[AKControl alloc] init];
+        [_pitchBend setParameterString:@"kMidiPitchBend"];
+        
+        _aftertouch = [[AKControl alloc] init];
+        [_aftertouch setParameterString:@"kMidiAftertouch"];
     }
     return self;
 }
