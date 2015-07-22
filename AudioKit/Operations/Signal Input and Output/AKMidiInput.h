@@ -11,5 +11,9 @@
 @interface AKMidiInput : AKParameter
 
 - (instancetype)initWithNoteNumber:(AKParameter *)noteNumber
-                          Velocity:(AKParameter *)velocity;
+                         frequency:(AKParameter *)frequency
+                          velocity:(AKParameter *)velocity
+                        modulation:(AKParameter *)modulation
+                         pitchBend:(AKParameter *)pitchBend
+                        aftertouch:(AKParameter *)aftertouch;
 @end
