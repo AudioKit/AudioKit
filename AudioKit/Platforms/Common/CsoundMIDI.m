@@ -29,7 +29,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-void ReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon);
+static void ReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon);
 
 @implementation CsoundMIDI
 
@@ -56,7 +56,7 @@ typedef struct _cdata {
 } cdata;
 
 /* coremidi callback, called when MIDI data is available */
-void ReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
+static void ReadProc(const MIDIPacketList *pktlist, void *refcon, void *srcConnRefCon){
     cdata *data = (cdata *)refcon;  
 	MIDIdata *mdata = data->mdata; 
 	int *p = &data->p, i, j;
