@@ -14,4 +14,6 @@
 @property int midiChannel;
 @property AKMidiNote *note;
 
+- (void)startListeningOnAllMidiChannels;
+
 @end
