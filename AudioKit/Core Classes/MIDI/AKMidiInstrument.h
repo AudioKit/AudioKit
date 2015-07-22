@@ -15,5 +15,6 @@
 @property AKMidiNote *note;
 
 - (void)startListeningOnAllMidiChannels;
+- (void)startListeningOnMidiChannel:(int)channelNumber;
 
 @end

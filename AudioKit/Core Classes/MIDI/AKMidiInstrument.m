@@ -44,6 +44,12 @@
     NSString *updateString = [NSString stringWithFormat:@"massign 0, %lu", self.instrumentNumber];
     NSLog(@"%@", updateString);
     [[[AKManager sharedManager] engine] updateOrchestra:updateString];
+}
 
+- (void)startListeningOnMidiChannel:(int)channelNumber
+{
+    NSString *updateString = [NSString stringWithFormat:@"massign 0,0\nmassign %d, %lu", channelNumber, self.instrumentNumber];
+    NSLog(@"%@", updateString);
+    [[[AKManager sharedManager] engine] updateOrchestra:updateString];
 }
 @end
