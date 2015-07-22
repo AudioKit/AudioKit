@@ -35,7 +35,7 @@
 #import "CsoundObj.h"
 #import "csound.h"
 
-//#import "CsoundMIDI.h"
+#import "CsoundMIDI.h"
 
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
@@ -632,9 +632,9 @@ OSStatus  Csound_Render(void *inRefCon,
         csoundSetMessageCallback(cs, messageCallback);
         csoundSetHostData(cs, (__bridge void *)self);
         
-        if (self.midiInEnabled) {
-//            [CsoundMIDI setMidiInCallbacks:cs];
-        }
+//        if (self.midiInEnabled) {
+            [CsoundMIDI setMidiInCallbacks:cs];
+//        }
         
 #if TARGET_OS_IPHONE
         char *argv[] = { "csound",
