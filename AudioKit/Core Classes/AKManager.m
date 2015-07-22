@@ -125,6 +125,7 @@ static AKManager *_sharedManager = nil;
                     "--expression-opt ; Enable expression optimizations\n"
                     "-m0              ; Print raw amplitudes\n"
                     "-M0              ; Enable MIDI internally\n"
+                    "-+rtmidi=null    ; No MIDI driver\n"
                     "%@\n",
                     AKSettings.shared.audioOutput, inputOption];
         
