@@ -143,7 +143,7 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
     return [NSData dataWithBytes:_data length:_len];
 }
 
-- (void)postNotification
+- (BOOL)postNotification
 {
     NSDictionary *ret = nil;
     NSString *name = nil;
@@ -240,7 +240,9 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
         [[NSNotificationCenter defaultCenter] postNotificationName:name
                                                             object:self
                                                           userInfo:ret];
+        return YES;
     }
+    return NO;
 }
 
 - (NSString *)description {

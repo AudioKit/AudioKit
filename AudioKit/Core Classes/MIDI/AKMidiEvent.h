@@ -138,8 +138,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Convenience constructor
 + (instancetype)midiEventFromPacket:(MIDIPacket *)packet;
 
-/// Post a notification describing the MIDI event.
-- (void)postNotification;
+/// Post a notification describing the MIDI event. Returns YES if a notification was actually posted.
+- (BOOL)postNotification;
 
 @end
 NS_ASSUME_NONNULL_END
