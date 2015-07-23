@@ -9,12 +9,27 @@
 #import "AKMidiEvent.h"
 #import <CoreMIDI/CoreMIDI.h>
 
+NSString * const AKMidiNoteOnNotification               = @"AKMidiNoteOn";
+NSString * const AKMidiNoteOffNotification              = @"AKMidiNoteOff";
+NSString * const AKMidiPolyphonicAftertouchNotification = @"AKMidiPolyphonicAftertouch";
+NSString * const AKMidiProgramChangeNotification        = @"AKMidiProgramChange";
+NSString * const AKMidiAftertouchNotification           = @"AKMidiAftertouch";
+NSString * const AKMidiPitchWheelNotification           = @"AKMidiPitchWheel";
+NSString * const AKMidiControllerNotification           = @"AKMidiController";
+NSString * const AKMidiModulationNotification           = @"AKMidiModulation";
+NSString * const AKMidiPortamentoNotification           = @"AKMidiPortamento";
+NSString * const AKMidiVolumeNotification               = @"AKMidiVolume";
+NSString * const AKMidiBalanceNotification              = @"AKMidiBalance";
+NSString * const AKMidiPanNotification                  = @"AKMidiPan";
+NSString * const AKMidiExpressionNotification           = @"AKMidiExpression";
+NSString * const AKMidiControlNotification              = @"AKMidiControl";
+
 @implementation AKMidiEvent {
     UInt8 _data[3];
     UInt8 _len; // The actual length of the message (1 to 3 bytes)
 }
 
-- (instancetype)initWithStatus:(AKMidiConstant)status channel:(UInt8)channel data1:(UInt8)d1 data2:(UInt8)d2
+- (instancetype)initWithStatus:(AKMidiStatus)status channel:(UInt8)channel data1:(UInt8)d1 data2:(UInt8)d2
 {
     self = [super init];
     if (self) {
@@ -22,14 +37,14 @@
         _data[1] = d1 & 0x7F;
         _data[2] = d2 & 0x7F;
         switch(status) {
-            case AKMidiConstantControllerChange:
-                if (d1 < 96 || d1 == 122)
+            case AKMidiStatusControllerChange:
+                if (d1 < AKMidiControlDataEntryPlus || d1 == AKMidiControlLocalControlOnOff)
                     _len = 3;
                 else
                     _len = 2;
                 break;
-            case AKMidiConstantChannelAftertouch:
-            case AKMidiConstantProgramChange:
+            case AKMidiStatusChannelAftertouch:
+            case AKMidiStatusProgramChange:
                 _len = 2;
                 break;
             default:
@@ -91,7 +106,7 @@
 }
 
 
-- (AKMidiConstant)status
+- (AKMidiStatus)status
 {
     return _data[0] >> 4;
 }
@@ -107,7 +122,7 @@
 - (UInt8)channel
 {
     if ((_data[0] >> 4) < 15) {
-        return _data[0] & 0xF;
+        return (_data[0] & 0xF) + 1;
     }
     return 0; // Other system message
 }
@@ -126,6 +141,106 @@
 
 - (NSData *)bytes {
     return [NSData dataWithBytes:_data length:_len];
+}
+
+- (void)postNotification
+{
+    NSDictionary *ret = nil;
+    NSString *name = nil;
+    
+    switch (self.status) {
+        case AKMidiStatusNoteOn: {
+            ret = @{@"note":@(self.data1),
+                    @"velocity":@(self.data2),
+                    @"channel":@(self.channel)};
+            name = AKMidiNoteOnNotification;
+            break;
+        }
+        case AKMidiStatusNoteOff: {
+            ret = @{@"note":@(self.data1),
+                    @"velocity":@(self.data2),
+                    @"channel":@(self.channel)};
+            name = AKMidiNoteOffNotification;
+            break;
+        }
+        case AKMidiStatusPolyphonicAftertouch: {
+            ret = @{@"note":@(self.data1),
+                    @"pressure":@(self.data2),
+                    @"channel":@(self.channel)};
+            name = AKMidiPolyphonicAftertouchNotification;
+            break;
+        }
+        case AKMidiStatusChannelAftertouch: {
+            ret = @{@"pressure":@(self.data1),
+                    @"channel":@(self.channel)};
+            name = AKMidiAftertouchNotification;
+            break;
+        }
+        case AKMidiStatusPitchWheel: {
+            ret = @{@"pitchWheel":@(self.data),
+                    @"channel":@(self.channel)};
+            name = AKMidiPitchWheelNotification;
+            break;
+        }
+        case AKMidiStatusProgramChange: {
+            ret = @{@"program":@(self.data1),
+                    @"channel":@(self.channel)};
+            name = AKMidiProgramChangeNotification;
+            break;
+        }
+        case AKMidiStatusControllerChange: {
+            switch(self.data1) {
+                case AKMidiControlModulationWheel:
+                    name = AKMidiModulationNotification;
+                    break;
+                case AKMidiControlPortamento:
+                    name = AKMidiPortamentoNotification;
+                    break;
+                case AKMidiControlMainVolume:
+                    name = AKMidiVolumeNotification;
+                    break;
+                case AKMidiControlBalance:
+                    name = AKMidiBalanceNotification;
+                    break;
+                case AKMidiControlPan:
+                    name = AKMidiPanNotification;
+                    break;
+                case AKMidiControlExpression:
+                    name = AKMidiExpressionNotification;
+                    break;
+                default: // Catch-all
+                    name = AKMidiControlNotification;
+                    break;
+            }
+            ret = @{@"controller":@(self.data1),
+                    @"value":@(self.data2),
+                    @"channel":@(self.channel)};
+            break;
+        }
+        case AKMidiStatusSystemCommand: {
+            switch (self.command) {
+                case AKMidiCommandClock:
+                    //NSLog(@"MIDI Clock");
+                    break;
+                case AKMidiCommandSysex:
+                    break;
+                case AKMidiCommandSysexEnd:
+                    NSLog(@"SysEx EOX");
+                    break;
+                case AKMidiCommandSysReset:
+                    NSLog(@"MIDI System Reset");
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+    }
+    if (ret) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:name
+                                                            object:self
+                                                          userInfo:ret];
+    }
 }
 
 - (NSString *)description {

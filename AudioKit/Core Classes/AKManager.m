@@ -96,16 +96,17 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        if (AKSettings.shared.MIDIEnabled) {
-            _midi = [[AKMidi alloc] init];
-            [_midi openMidiIn];
-            [self.engine setMidiInEnabled:YES];
-        }
         
         _engine = [[CsoundObj alloc] init];
         [_engine addListener:self];
         _engine.messageDelegate = self;
-        
+
+        if (AKSettings.shared.MIDIEnabled) {
+            _midi = [[AKMidi alloc] init];
+            [_midi openMidiIn];
+            [_engine setMidiInEnabled:YES];
+        }
+
         _isRunning = NO;
         _isLogging = AKSettings.shared.loggingEnabled;
         _totalRunDuration = 10000000;
