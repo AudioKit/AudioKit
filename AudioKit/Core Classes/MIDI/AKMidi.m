@@ -33,35 +33,8 @@ NSString * const AKMidiExpressionNotification           = @"AKMidiExpression";
 {
     MIDIClientRef _client;
     MIDIPortRef _inPort;
+    NSMutableArray *_events; // Buffer of pending events to send to Csound
 }
-
-/// MIDI note on/off, control and system exclusive constants
-
-// These are the top 4 bits of the MIDI command, for commands that take a channel number in the low 4 bits
-typedef NS_ENUM(UInt8, AKMidiConstant)
-{
-    AKMidiConstantNoteOff = 8,
-    AKMidiConstantNoteOn = 9,
-    AKMidiConstantPolyphonicAftertouch = 10,
-    AKMidiConstantControllerChange = 11,
-    AKMidiConstantProgramChange = 12,
-    AKMidiConstantAftertouch = 13,
-    AKMidiConstantPitchWheel = 14,
-    AKMidiConstantSystemCommand = 15
-};
-
-// System commands (8 bits - 0xFx) that do not require a channel number
-typedef NS_ENUM(UInt8, AKMidiSystemCommand)
-{
-    AKMidiCommandSysex = 240,
-    AKMidiCommandSysexEnd = 247,
-    AKMidiCommandClock = 248,
-    AKMidiCommandStart = 250,
-    AKMidiCommandContinue = 251,
-    AKMidiCommandStop = 252,
-    AKMidiCommandActiveSensing = 254,
-    AKMidiCommandSysReset = 255
-};
 
 
 #pragma mark - Initialization
@@ -74,6 +47,7 @@ typedef NS_ENUM(UInt8, AKMidiSystemCommand)
         session.enabled = YES;
         session.connectionPolicy = MIDINetworkConnectionPolicy_Anyone;
 #endif
+        _events = [NSMutableArray array];
     }
     return self;
 }
@@ -102,6 +76,10 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
 		UInt8 midiCommand = midiStatus >> 4;
         UInt8 midiChannel = (midiStatus & 0x0F) + 1;
 		
+        if (m.forwardEvents) {
+            [m sendEvent:[AKMidiEvent midiEventFromPacket:packet]];
+        }
+        
 		switch (midiCommand) {
             case AKMidiConstantNoteOff: {
                 UInt8 note     = packet->data[1] & 0x7F;
@@ -130,7 +108,7 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
                 [nc postNotificationName:AKMidiPolyphonicAftertouchNotification object:m userInfo:dict];
                 break;
             }
-            case AKMidiConstantAftertouch: {
+            case AKMidiConstantChannelAftertouch: {
                 UInt8 pressure = packet->data[1] & 0x7F;
                 NSDictionary *dict = @{@"pressure":@(pressure),
                                        @"channel":@(midiChannel)};
@@ -241,6 +219,14 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
             if (AKSettings.shared.loggingEnabled)
                 NSLog(@"MIDI Notify, messageId=%@, size=%@", @(message->messageID), @(message->messageSize));
             break;
+    }
+}
+
+- (void)sendEvent:(AKMidiEvent *)event
+{
+    @synchronized(_events) {
+        // Queue the event for submission to Csound
+        [_events addObject:event];
     }
 }
 

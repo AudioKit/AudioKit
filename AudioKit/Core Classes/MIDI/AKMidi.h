@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "AKMidiEvent.h"
+
 // Notification names broadcasted for MIDI events being received from the inputs.
 extern NSString * const AKMidiNoteOnNotification;
 extern NSString * const AKMidiNoteOffNotification;
@@ -32,6 +34,12 @@ extern NSString * const AKMidiExpressionNotification;
 
 /// Dispose of midi client.
 - (void)closeMidiIn;
+
+/// Send a MIDI event to Csound
+- (void)sendEvent:(AKMidiEvent *)event;
+
+/// Whether received MIDI events are automatically forwarded to Csound (default: YES)
+@property BOOL forwardEvents;
 
 /// The number of detected MIDI inputs
 @property (readonly) NSUInteger inputs;
