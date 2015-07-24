@@ -32,7 +32,7 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
 {
     self = [super init];
     if (self) {
-        _data[0] = (status << 4) | (channel & 0xf);
+        _data[0] = (status << 4) | ((channel-1) & 0xf);
         _data[1] = d1 & 0x7F;
         _data[2] = d2 & 0x7F;
         switch(status) {
@@ -81,7 +81,7 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
 - (instancetype)initWithMIDIPacket:(const UInt8 [3])packet
 {
     if (packet[0] < 0xF0) {
-        return [self initWithStatus:(packet[0] >> 4) channel:(packet[0] & 0xF) data1:packet[1] data2:packet[2]];
+        return [self initWithStatus:(packet[0] >> 4) channel:(packet[0] & 0xF)+1 data1:packet[1] data2:packet[2]];
     } else {
         return [self initWithSystemCommand:packet[0] data1:packet[1] data2:packet[2]];
     }

@@ -122,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly,nonatomic) UInt8 channel;
 /// Additional 7-bits of data (0..127)
 @property (readonly,nonatomic) UInt8 data1, data2;
-/// Composite using data1 as LSB, data2 as MSB (14 bits of data)
+/// Composite value using data1 as LSB, data2 as MSB (14 bits of data)
 @property (readonly,nonatomic) UInt16 data;
 
 /// The length in bytes for this MIDI message (1 to 3 bytes)
@@ -130,27 +130,56 @@ NS_ASSUME_NONNULL_BEGIN
 /// The MIDI message data bytes as NSData.
 @property (readonly,nonatomic) NSData *bytes;
 
+/// Create a MIDI status message.
+/// @param status The status number (4 bits)
+/// @param channel The channel number (1..16)
+/// @param d1 The first data byte (7 bits)
+/// @param d2 The second data byte (7 bits)
 - (instancetype)initWithStatus:(AKMidiStatus)status channel:(UInt8)channel data1:(UInt8)d1 data2:(UInt8)d2;
+
+/// Create a MIDI system command message.
+/// @param command The command number (8 bits, 0xFx)
+/// @param d1 The first data byte (7 bits)
+/// @param d2 The second data byte (7 bits)
 - (instancetype)initWithSystemCommand:(AKMidiSystemCommand)command data1:(UInt8)d1 data2:(UInt8)d2;
+
 /// Create from a CoreMIDI packet.
+/// @param packet The 3-byte buffer containing the MIDI bytes.
 - (instancetype)initWithMIDIPacket:(const UInt8 [3])packet;
+
 /// Create from a NSData object.
+/// @param data A NSData object containing the MIDI data (up to 3 bytes)
 - (instancetype)initWithData:(NSData *)data;
 
 /// Parse multiple events, a single MIDIPacket might return several discrete events.
+/// @param packet A MIDIPacket structure received from CoreMIDI.
 + (NSArray *)midiEventsFromPacket:(const MIDIPacket *)packet;
 
 /// Copy the bytes from the MIDI message to a provided buffer.
+/// @param ptr The address of a buffer to copy the bytes to, must be at least `length` bytes long.
 - (void)copyBytes:(void *)ptr;
 
 /// Post a notification describing the MIDI event. Returns YES if a notification was actually posted.
 - (BOOL)postNotification;
 
 
-// Convenience constructors for common events
+#pragma mark - Convenience Constructors
+
+/// Create a MIDI "note on" event.
+/// @param note The MIDI note number.
+/// @param channel The channel number (1..16)
+/// @param velocity The velocity of the event (0..127)
 + (instancetype)eventWithNoteOn:(UInt8)note channel:(UInt8)channel velocity:(UInt8)velocity;
+
+/// Create a MIDI "note off" event.
+/// @param note The MIDI note number.
+/// @param channel The channel number (1..16)
+/// @param velocity The velocity of the event (0..127)
 + (instancetype)eventWithNoteOff:(UInt8)note channel:(UInt8)channel velocity:(UInt8)velocity;
 
+/// Create a MIDI "program change" event.
+/// @param program The program number to change to (0..127)
+/// @param channel The channel number (1..16)
 + (instancetype)eventWithProgramChange:(UInt8)program channel:(UInt8)channel;
 
 @end
