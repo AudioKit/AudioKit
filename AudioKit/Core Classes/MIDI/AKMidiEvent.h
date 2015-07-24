@@ -146,6 +146,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Post a notification describing the MIDI event. Returns YES if a notification was actually posted.
 - (BOOL)postNotification;
 
+
+// Convenience constructors for common events
++ (instancetype)eventWithNoteOn:(UInt8)note channel:(UInt8)channel velocity:(UInt8)velocity;
++ (instancetype)eventWithNoteOff:(UInt8)note channel:(UInt8)channel velocity:(UInt8)velocity;
+
++ (instancetype)eventWithProgramChange:(UInt8)program channel:(UInt8)channel;
+
 @end
 NS_ASSUME_NONNULL_END
 
