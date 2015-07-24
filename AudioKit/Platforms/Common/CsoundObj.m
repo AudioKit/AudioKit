@@ -86,7 +86,6 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
         _shouldMute = NO;
         _bindings  = [[NSMutableArray alloc] init];
         _listeners = [[NSMutableArray alloc] init];
-        _midiInEnabled = NO;
     }
     
     return self;
@@ -308,6 +307,17 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
     }
 }
 
+- (void)notifyListenersOfAboutToStart
+{
+    @synchronized(self.listeners) {
+        for (id<CsoundObjListener> listener in self.listeners) {
+            if ([listener respondsToSelector:@selector(csoundObjWillStart:)]) {
+                [listener csoundObjWillStart:self];
+            }
+        }
+    }
+}
+
 - (void)notifyListenersOfStartup
 {
     @synchronized(self.listeners) {
@@ -318,6 +328,7 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
         }
     }
 }
+
 - (void)notifyListenersOfCompletion
 {
     @synchronized(self.listeners) {
@@ -360,10 +371,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
 
 - (CSOUND *)getCsound
 {
-    if (self.running) {
-        return _cs;
-    }
-    return nil;
+    return _cs;
 }
 
 - (MYFLT *)getInputChannelPtr:(NSString *)channelName
@@ -591,6 +599,8 @@ OSStatus  Csound_Render(void *inRefCon,
         if (_cs == nil)
             _cs = csoundCreate(NULL);
 
+        [self notifyListenersOfAboutToStart];
+        
         char *argv[] = { "csound", (char*)[paths[0] cStringUsingEncoding:NSASCIIStringEncoding],
                          "-o",     (char*)[paths[1] cStringUsingEncoding:NSASCIIStringEncoding]};
         int ret = csoundCompile(_cs, 4, argv);
@@ -623,19 +633,15 @@ OSStatus  Csound_Render(void *inRefCon,
 - (void)runCsound:(NSString *)csdFilePath
 {
     @autoreleasepool {
-        CSOUND *cs;
-        
-        cs = csoundCreate(NULL);
+        _cs = csoundCreate(NULL);
 #if TARGET_OS_IPHONE
-        csoundSetHostImplementedAudioIO(cs, 1, 0);
+        csoundSetHostImplementedAudioIO(_cs, 1, 0);
 #endif
-        csoundSetMessageCallback(cs, messageCallback);
-        csoundSetHostData(cs, (__bridge void *)self);
+        csoundSetMessageCallback(_cs, messageCallback);
+        csoundSetHostData(_cs, (__bridge void *)self);
         
-//        if (self.midiInEnabled) {
-            [CsoundMIDI setMidiInCallbacks:cs];
-//        }
-        
+        [self notifyListenersOfAboutToStart];
+
 #if TARGET_OS_IPHONE
         char *argv[] = { "csound",
 # ifdef AK_TESTING
@@ -654,15 +660,14 @@ OSStatus  Csound_Render(void *inRefCon,
                          "-b256", (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
 #endif
         
-        int ret = csoundCompile(cs, sizeof(argv)/sizeof(char *), argv);
+        int ret = csoundCompile(_cs, sizeof(argv)/sizeof(char *), argv);
         _running = true;
         _nsmps = 0;
         
         if(!ret) {
-            _cs = cs;
             _ret = ret;
-            _nchnls = csoundGetNchnls(cs);
-            _bufframes = (UInt32)csoundGetOutputBufferSize(cs)/_nchnls;
+            _nchnls = csoundGetNchnls(_cs);
+            _bufframes = (UInt32)csoundGetOutputBufferSize(_cs)/_nchnls;
             self.running = YES;
             
             [self setupBindings];
@@ -702,7 +707,7 @@ OSStatus  Csound_Render(void *inRefCon,
                     destFormat.mFormatID         = kAudioFormatLinearPCM;
                     destFormat.mFormatFlags      = kLinearPCMFormatFlagIsPacked |
                     kLinearPCMFormatFlagIsSignedInteger;
-                    destFormat.mSampleRate       = csoundGetSr(cs);
+                    destFormat.mSampleRate       = csoundGetSr(_cs);
                     destFormat.mChannelsPerFrame = _nchnls;
                     destFormat.mBytesPerPacket   = _nchnls * 2;
                     destFormat.mBytesPerFrame    = _nchnls * 2;
@@ -758,12 +763,12 @@ OSStatus  Csound_Render(void *inRefCon,
                 }
                 [self stopAU:YES];
             }
-            csoundDestroy(cs);
+            csoundDestroy(_cs);
         }
 #elif TARGET_OS_MAC
-        float coef = (float) SHRT_MAX / csoundGet0dBFS(cs);
+        float coef = (float) SHRT_MAX / csoundGet0dBFS(_cs);
         
-        MYFLT* spout = csoundGetSpout(cs);
+        MYFLT* spout = csoundGetSpout(_cs);
         AudioBufferList bufferList;
         bufferList.mNumberBuffers = 1;
         
@@ -772,8 +777,8 @@ OSStatus  Csound_Render(void *inRefCon,
         if (self.shouldRecord) {
             [self recordToURL:self.outputURL];
             bufferList.mBuffers[0].mNumberChannels = _nchnls;
-            bufferList.mBuffers[0].mDataByteSize   = _nchnls * csoundGetKsmps(cs) * 2;// 16-bit PCM output
-            bufferList.mBuffers[0].mData           = malloc(sizeof(short) * _nchnls * csoundGetKsmps(cs));
+            bufferList.mBuffers[0].mDataByteSize   = _nchnls * csoundGetKsmps(_cs) * 2;// 16-bit PCM output
+            bufferList.mBuffers[0].mData           = malloc(sizeof(short) * _nchnls * csoundGetKsmps(_cs));
         }
         
         while (!_ret && self.running) {
@@ -786,10 +791,10 @@ OSStatus  Csound_Render(void *inRefCon,
                 // Write to file.
                 if (self.shouldRecord) {
                     short* data = (short*)bufferList.mBuffers[0].mData;
-                    for (int i = 0; i < csoundGetKsmps(cs) * _nchnls; i++) {
+                    for (int i = 0; i < csoundGetKsmps(_cs) * _nchnls; i++) {
                         data[i] = (short)lrintf(spout[i] * coef);
                     }
-                    OSStatus err = ExtAudioFileWriteAsync(_file, csoundGetKsmps(cs), &bufferList);
+                    OSStatus err = ExtAudioFileWriteAsync(_file, csoundGetKsmps(_cs), &bufferList);
                     if (err != noErr) {
                         NSLog(@"***Error writing to file: %@", @(err));
                     }
@@ -806,7 +811,7 @@ OSStatus  Csound_Render(void *inRefCon,
         }
     }
     
-    csoundDestroy(cs);
+    csoundDestroy(_cs);
 #endif
     
         self.running = NO;
