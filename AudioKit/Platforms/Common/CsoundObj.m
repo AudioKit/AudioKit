@@ -112,6 +112,7 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
     self.thread = [[NSThread alloc] initWithTarget:self
                                           selector:@selector(runCsound:)
                                             object:csdFilePath];
+    self.thread.name = @"AK Csound";
     [self.thread start];
 }
 
@@ -155,6 +156,7 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
     self.thread = [[NSThread alloc] initWithTarget:self
                                           selector:@selector(runCsound:)
                                             object:csdFilePath];
+    self.thread.name = @"AK Csound File";
     [self.thread start];
 }
 
