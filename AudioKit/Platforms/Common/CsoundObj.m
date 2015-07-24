@@ -35,8 +35,6 @@
 #import "CsoundObj.h"
 #import "csound.h"
 
-#import "CsoundMIDI.h"
-
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
                         const AudioTimeStamp *inTimeStamp,
