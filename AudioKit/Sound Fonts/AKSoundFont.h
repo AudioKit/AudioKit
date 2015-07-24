@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Array of presets in the sound font
 @property (nonatomic,readonly,nullable) NSArray *presets;
 
-/// Whether the presets and instruments has been successfully loaded and parsed
+/// Whether the presets and instruments have been successfully loaded and parsed
 @property (nonatomic,readonly) BOOL loaded;
 
 /// Load a sound font from a file.
