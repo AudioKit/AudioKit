@@ -107,12 +107,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param url URL to save the recording at
 - (void)startRecordingToURL:(NSURL *)url;
 
-/// Enable MIDI
-- (void)enableMidi;
-
-/// Disable MIDI
-- (void)disableMidi;
-
 // Utilities
 
 /// Add an object to the binding list. Should implicitly adopt the CsoundBinding protocol.

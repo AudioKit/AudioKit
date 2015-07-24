@@ -26,7 +26,6 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
 
 @implementation AKMidiEvent {
     UInt8 _data[3];
-    UInt8 _len; // The actual length of the message (1 to 3 bytes)
 }
 
 - (instancetype)initWithStatus:(AKMidiStatus)status channel:(UInt8)channel data1:(UInt8)d1 data2:(UInt8)d2
@@ -39,16 +38,16 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
         switch(status) {
             case AKMidiStatusControllerChange:
                 if (d1 < AKMidiControlDataEntryPlus || d1 == AKMidiControlLocalControlOnOff)
-                    _len = 3;
+                    _length = 3;
                 else
-                    _len = 2;
+                    _length = 2;
                 break;
             case AKMidiStatusChannelAftertouch:
             case AKMidiStatusProgramChange:
-                _len = 2;
+                _length = 2;
                 break;
             default:
-                _len = 3;
+                _length = 3;
                 break;
         }
     }
@@ -65,14 +64,14 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
             case AKMidiCommandSongPosition:
                 _data[1] = d1 & 0x7F;
                 _data[2] = d2 & 0x7F;
-                _len = 3;
+                _length = 3;
                 break;
             case AKMidiCommandSongSelect:
                 _data[1] = d1 & 0x7F;
-                _len = 2;
+                _length = 2;
                 break;
             default: // All other commands don't require a parameter or are undefined
-                _len = 1;
+                _length = 1;
                 break;
         }
     }
@@ -85,7 +84,7 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
     if (self) {
         NSAssert(packet->length <= sizeof(_data), @"Memory overrun, packet too long");
         memcpy(_data, packet->data, packet->length);
-        _len = packet->length;
+        _length = packet->length;
     }
     return self;
 }
@@ -95,7 +94,7 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
     self = [super init];
     if (self) {
         [data getBytes:_data length:sizeof(_data)];
-        _len = (data.length > sizeof(_data)) ? sizeof(_data) : data.length;
+        _length = (data.length > sizeof(_data)) ? sizeof(_data) : data.length;
     }
     return self;
 }
@@ -140,7 +139,12 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
 }
 
 - (NSData *)bytes {
-    return [NSData dataWithBytes:_data length:_len];
+    return [NSData dataWithBytes:_data length:self.length];
+}
+
+- (void)copyBytes:(void *)ptr
+{
+    memcpy(ptr, _data, self.length);
 }
 
 - (BOOL)postNotification
@@ -247,7 +251,7 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
 
 - (NSString *)description {
     NSMutableString *ret = [NSMutableString stringWithString:@"<MIDI:"];
-    for (int i = 0; i < _len; i++) {
+    for (int i = 0; i < self.length; i++) {
         [ret appendFormat:@" %02X",_data[i]];
     }
     [ret appendString:@">"];
