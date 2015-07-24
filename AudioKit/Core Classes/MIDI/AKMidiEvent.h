@@ -133,12 +133,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithStatus:(AKMidiStatus)status channel:(UInt8)channel data1:(UInt8)d1 data2:(UInt8)d2;
 - (instancetype)initWithSystemCommand:(AKMidiSystemCommand)command data1:(UInt8)d1 data2:(UInt8)d2;
 /// Create from a CoreMIDI packet.
-- (instancetype)initWithMIDIPacket:(MIDIPacket *)packet;
+- (instancetype)initWithMIDIPacket:(const UInt8 [3])packet;
 /// Create from a NSData object.
 - (instancetype)initWithData:(NSData *)data;
 
-/// Convenience constructor
-+ (instancetype)midiEventFromPacket:(MIDIPacket *)packet;
+/// Parse multiple events, a single MIDIPacket might return several discrete events.
++ (NSArray *)midiEventsFromPacket:(const MIDIPacket *)packet;
 
 /// Copy the bytes from the MIDI message to a provided buffer.
 - (void)copyBytes:(void *)ptr;

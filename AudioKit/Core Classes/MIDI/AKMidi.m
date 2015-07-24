@@ -61,12 +61,16 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
     @autoreleasepool {
         MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
         for (uint i = 0; i < pktlist->numPackets; i++) {
-            AKMidiEvent *event = [AKMidiEvent midiEventFromPacket:packet];
+            NSArray *events = [AKMidiEvent midiEventsFromPacket:packet];
             
-            if (m.forwardEvents) {
-                [m sendEvent:event];
+            for (AKMidiEvent *event in events) {
+                if (event.command == AKMidiCommandClock)
+                    continue;
+                if (m.forwardEvents) {
+                    [m sendEvent:event];
+                }
+                [event postNotification];
             }
-            [event postNotification];
             packet = MIDIPacketNext(packet);
         }
     }
@@ -134,8 +138,10 @@ static int AKMidiDataRead(CSOUND *csound, void *userData,
             AKMidiEvent *event;
             while (m->_events.count > 0) {
                 event = m->_events[0];
-                if (event.length > nbytes) // Out of room in the buffer
+                if (event.length > nbytes) { // Out of room in the buffer
                     break;
+                }
+                NSLog(@"%@", event);
                 [event copyBytes:mbuf+ret];
                 ret += event.length;
                 nbytes -= event.length;

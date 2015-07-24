@@ -78,15 +78,13 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
     return self;
 }
 
-- (instancetype)initWithMIDIPacket:(MIDIPacket *)packet
+- (instancetype)initWithMIDIPacket:(const UInt8 [3])packet
 {
-    self = [super init];
-    if (self) {
-        NSAssert(packet->length <= sizeof(_data), @"Memory overrun, packet too long");
-        memcpy(_data, packet->data, packet->length);
-        _length = packet->length;
+    if (packet[0] < 0xF0) {
+        return [self initWithStatus:(packet[0] >> 4) channel:(packet[0] & 0xF) data1:packet[1] data2:packet[2]];
+    } else {
+        return [self initWithSystemCommand:packet[0] data1:packet[1] data2:packet[2]];
     }
-    return self;
 }
 
 - (instancetype)initWithData:(NSData *)data
@@ -99,9 +97,14 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
     return self;
 }
 
-+ (instancetype)midiEventFromPacket:(MIDIPacket *)packet
++ (NSArray *)midiEventsFromPacket:(const MIDIPacket *)packet
 {
-    return [[AKMidiEvent alloc] initWithMIDIPacket:packet];
+    NSMutableArray *ret = [NSMutableArray arrayWithCapacity:packet->length/3];
+    for(NSUInteger i = 0; i < packet->length; i += 3) {
+        AKMidiEvent *event = [[AKMidiEvent alloc] initWithMIDIPacket:&packet->data[i]];
+        [ret addObject:event];
+    }
+    return ret;
 }
 
 
