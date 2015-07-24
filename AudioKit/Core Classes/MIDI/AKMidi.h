@@ -16,13 +16,14 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKMidi : NSObject
 
-- (instancetype)initWithCsound:(CsoundObj *)csound;
-
 /// Create the MIDI client and connect to all available MIDI input sources.
 - (void)openMidiIn;
 
 /// Dispose of the MIDI client.
 - (void)closeMidiIn;
+
+/// Sets up MIDI communication with Csound. This also enables MIDI forwarding.
+- (void)connectToCsound:(CsoundObj *)csound;
 
 /// Send a MIDI event to Csound.
 - (void)sendEvent:(AKMidiEvent *)event;
@@ -30,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Whether received MIDI events are automatically forwarded to Csound (default: YES)
 @property BOOL forwardEvents;
 
-/// The number of detected MIDI inputs
+/// The number of detected MIDI inputs.
 @property (readonly) NSUInteger inputs;
 
 @end

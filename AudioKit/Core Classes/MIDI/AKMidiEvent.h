@@ -125,6 +125,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Composite using data1 as LSB, data2 as MSB (14 bits of data)
 @property (readonly,nonatomic) UInt16 data;
 
+/// The length in bytes for this MIDI message (1 to 3 bytes)
+@property (readonly,nonatomic) UInt8 length;
 /// The MIDI message data bytes as NSData.
 @property (readonly,nonatomic) NSData *bytes;
 
@@ -137,6 +139,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Convenience constructor
 + (instancetype)midiEventFromPacket:(MIDIPacket *)packet;
+
+/// Copy the bytes from the MIDI message to a provided buffer.
+- (void)copyBytes:(void *)ptr;
 
 /// Post a notification describing the MIDI event. Returns YES if a notification was actually posted.
 - (BOOL)postNotification;

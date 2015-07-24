@@ -103,8 +103,6 @@ static AKManager *_sharedManager = nil;
 
         if (AKSettings.shared.MIDIEnabled) {
             _midi = [[AKMidi alloc] init];
-            [_midi openMidiIn];
-            [_engine setMidiInEnabled:YES];
         }
 
         _isRunning = NO;
@@ -265,20 +263,6 @@ static AKManager *_sharedManager = nil;
 }
 
 // -----------------------------------------------------------------------------
-#  pragma mark AKMidi
-// -----------------------------------------------------------------------------
-
-- (void)enableMidi
-{
-    [self.midi openMidiIn];
-}
-
-- (void)disableMidi
-{
-    [self.midi closeMidiIn];
-}
-
-// -----------------------------------------------------------------------------
 #  pragma mark - Csound control
 // -----------------------------------------------------------------------------
 
@@ -358,6 +342,10 @@ static AKManager *_sharedManager = nil;
     }
 }
 
+- (void)csoundObjWillStart:(CsoundObj *)csoundObj
+{
+    [_midi connectToCsound:_engine];
+}
 
 - (void)csoundObjStarted:(CsoundObj *)csoundObj {
     if (_isLogging) NSLog(@"Csound Started.");
