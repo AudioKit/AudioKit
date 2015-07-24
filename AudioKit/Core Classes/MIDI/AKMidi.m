@@ -7,60 +7,22 @@
 //
 
 #import "AKMidi.h"
+#import "AKSettings.h"
+#import "AKManager.h"
+
 #import <CoreMIDI/CoreMIDI.h>
+#import "csound.h"
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #import <CoreMIDI/MIDINetworkSession.h>
 #endif
 
-NSString * const AKMidiNoteOn               = @"AKMidiNoteOn";
-NSString * const AKMidiNoteOff              = @"AKMidiNoteOff";
-NSString * const AKMidiPolyphonicAftertouch = @"AKMidiPolyphonicAftertouch";
-NSString * const AKMidiProgramChange        = @"AKMidiProgramChange";
-NSString * const AKMidiAftertouch           = @"AKMidiAftertouch";
-NSString * const AKMidiPitchWheel           = @"AKMidiPitchWheel";
-NSString * const AKMidiController           = @"AKMidiController";
-NSString * const AKMidiModulation           = @"AKMidiModulation";
-NSString * const AKMidiPortamento           = @"AKMidiPortamento";
-NSString * const AKMidiVolume               = @"AKMidiVolume";
-NSString * const AKMidiBalance              = @"AKMidiBalance";
-NSString * const AKMidiPan                  = @"AKMidiPan";
-NSString * const AKMidiExpression           = @"AKMidiExpression";
-
-
 @implementation AKMidi
 {
     MIDIClientRef _client;
     MIDIPortRef _inPort;
+    NSMutableArray *_events; // Buffer of pending events to send to Csound
 }
-
-/// MIDI note on/off, control and system exclusive constants
-
-// These are the top 4 bits of the MIDI command, for commands that take a channel number in the low 4 bits
-typedef NS_ENUM(UInt8, AKMidiConstant)
-{
-    AKMidiConstantNoteOff = 8,
-    AKMidiConstantNoteOn = 9,
-    AKMidiConstantPolyphonicAftertouch = 10,
-    AKMidiConstantControllerChange = 11,
-    AKMidiConstantProgramChange = 12,
-    AKMidiConstantAftertouch = 13,
-    AKMidiConstantPitchWheel = 14,
-    AKMidiConstantSystemCommand = 15
-};
-
-// System commands (8 bits - 0xFx) that do not require a channel number
-typedef NS_ENUM(UInt8, AKMidiSystemCommand)
-{
-    AKMidiCommandSysex = 240,
-    AKMidiCommandSysexEnd = 247,
-    AKMidiCommandClock = 248,
-    AKMidiCommandStart = 250,
-    AKMidiCommandContinue = 251,
-    AKMidiCommandStop = 252,
-    AKMidiCommandActiveSensing = 254,
-    AKMidiCommandSysReset = 255
-};
 
 
 #pragma mark - Initialization
@@ -73,147 +35,139 @@ typedef NS_ENUM(UInt8, AKMidiSystemCommand)
         session.enabled = YES;
         session.connectionPolicy = MIDINetworkConnectionPolicy_Anyone;
 #endif
+        _events = [NSMutableArray arrayWithCapacity:5];
     }
     return self;
 }
 
-// -----------------------------------------------------------------------------
-#  pragma mark - Broadcast MIDI Events
-// -----------------------------------------------------------------------------
-
-static void dumpPacket(MIDIPacket *packet, NSString *info)
+- (void)connectToCsound:(CsoundObj *)csound
 {
-    NSMutableString *str = [NSMutableString string];
-    for (int i = 0; i < packet->length; i++) {
-        [str appendFormat:@"%i ", packet->data[i]];
-    }
-    NSLog(@"%@: %@", info, str);
+    NSAssert(csound.csound, @"Csound object is not yet ready to use!");
+    csoundSetExternalMidiInOpenCallback(csound.csound, AKMidiInDeviceOpen);
+    csoundSetExternalMidiReadCallback(csound.csound, AKMidiDataRead);
+    csoundSetExternalMidiInCloseCallback(csound.csound, AKMidiInDeviceClose);
+    csoundSetHostImplementedMIDIIO(csound.csound, 1);
+    _forwardEvents = YES;
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Broadcast CoreMIDI Events
+// -----------------------------------------------------------------------------
 
 static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)
 {
     AKMidi *m = (__bridge AKMidi *)refCon;
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     
-	MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
-	for (uint i=0; i < pktlist->numPackets; i++) {
-		UInt8 midiStatus = packet->data[0];
-		UInt8 midiCommand = midiStatus >> 4;
-        UInt8 midiChannel = (midiStatus & 0x0F) + 1;
-		
-		switch (midiCommand) {
-            case AKMidiConstantNoteOff: {
-                UInt8 note     = packet->data[1] & 0x7F;
-                UInt8 velocity = packet->data[2] & 0x7F;
-                NSDictionary *dict = @{@"note":@(note),
-                                       @"velocity":@(velocity),
-                                       @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiNoteOff object:m userInfo:dict];
-                break;
-            }
-            case AKMidiConstantNoteOn: {
-                UInt8 note     = packet->data[1] & 0x7F;
-                UInt8 velocity = packet->data[2] & 0x7F;
-                NSDictionary *dict = @{@"note":@(note),
-                                       @"velocity":@(velocity),
-                                       @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiNoteOn object:m userInfo:dict];
-                break;
-            }
-            case AKMidiConstantPolyphonicAftertouch: {
-                UInt8 note     = packet->data[1] & 0x7F;
-                UInt8 pressure = packet->data[2] & 0x7F;
-                NSDictionary *dict = @{@"note":@(note),
-                                       @"pressure":@(pressure),
-                                       @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiPolyphonicAftertouch object:m userInfo:dict];
-                break;
-            }
-            case AKMidiConstantAftertouch: {
-                UInt8 pressure = packet->data[1] & 0x7F;
-                NSDictionary *dict = @{@"pressure":@(pressure),
-                                       @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiAftertouch object:m userInfo:dict];
-                break;
-            }
-            case AKMidiConstantPitchWheel: {
-                UInt8 value1 = packet->data[1] & 0x7F;
-                UInt8 value2 = packet->data[2] & 0x7F;
-                NSDictionary *dict = @{@"pitchWheel":@(128*value2+value1),
-                                       @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiPitchWheel object:m userInfo:dict];
-                break;
-            }
-            case AKMidiConstantProgramChange: {
-                UInt8 program = packet->data[1] & 0x7F;
-                NSDictionary *dict = @{@"program":@(program),
-                                       @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiProgramChange object:m userInfo:dict];
-                break;
-            }
-            case AKMidiConstantControllerChange: {
-                UInt8 controller = packet->data[1] & 0x7F;
-                UInt8 value      = packet->data[2] & 0x7F;
-                NSDictionary *dict = @{@"controller":@(controller),
-                                       @"value":@(value),
-                                       @"channel":@(midiChannel)};
-                [nc postNotificationName:AKMidiController object:m userInfo:dict];
-                
-                NSDictionary *smallDict = @{@"value":@(value),
-                                            @"channel":@(midiChannel)};
-                switch (controller) {
-                    case 1:
-                        [nc postNotificationName:AKMidiModulation object:m userInfo:smallDict];
-                        break;
-                    case 5:
-                        [nc postNotificationName:AKMidiPortamento object:m userInfo:smallDict];
-                        break;
-                    case 7:
-                        [nc postNotificationName:AKMidiVolume object:m userInfo:smallDict];
-                        break;
-                    case 8:
-                        [nc postNotificationName:AKMidiBalance object:m userInfo:smallDict];
-                        break;
-                    case 10:
-                        [nc postNotificationName:AKMidiPan object:m userInfo:smallDict];
-                        break;
-                    case 11:
-                        [nc postNotificationName:AKMidiExpression object:m userInfo:smallDict];
-                        break;
-                    default:
-                        break;
+    @autoreleasepool {
+        MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
+        for (uint i = 0; i < pktlist->numPackets; i++) {
+            NSArray *events = [AKMidiEvent midiEventsFromPacket:packet];
+            
+            for (AKMidiEvent *event in events) {
+                if (event.command == AKMidiCommandClock)
+                    continue;
+                if (m.forwardEvents) {
+                    [m sendEvent:event];
                 }
-                break;
+                [event postNotification];
             }
-            case AKMidiConstantSystemCommand: {
-                switch (midiStatus) {
-                    case AKMidiCommandClock:
-                        NSLog(@"MIDI Clock");
-                        break;
-                    case AKMidiCommandSysex:
-                        dumpPacket(packet, @"SysEx");
-                        break;
-                    case AKMidiCommandSysexEnd:
-                        NSLog(@"SysEx EOX");
-                        break;
-                    case AKMidiCommandSysReset:
-                        NSLog(@"MIDI System Reset");
-                        break;
-                }
-                break;
-            }
-            default: { // Other
-                dumpPacket(packet, @"Unparsed MIDI");
-                break;
-            }
+            packet = MIDIPacketNext(packet);
         }
-        packet = MIDIPacketNext(packet);
     }
 }
 
 static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
 {
-    NSLog(@"MIDI Notify, messageId=%@, size=%@", @(message->messageID), @(message->messageSize));
+    AKMidi *m = (__bridge AKMidi *)refCon;
+
+    @autoreleasepool {
+        // Detect when new audio inputs have become available, and reinit
+        switch (message->messageID) {
+            case kMIDIMsgSetupChanged:
+                if (AKSettings.shared.loggingEnabled)
+                    NSLog(@"MIDI Setup changed");
+                [m openMidiIn];
+                break;
+            case kMIDIMsgPropertyChanged: {
+                const MIDIObjectPropertyChangeNotification *msg = (const MIDIObjectPropertyChangeNotification*)message;
+                if (AKSettings.shared.loggingEnabled)
+                    NSLog(@"MIDI Property changed: %@", msg->propertyName);
+                break;
+            }
+            case kMIDIMsgObjectAdded:
+                if (AKSettings.shared.loggingEnabled)
+                    NSLog(@"MIDI Object Added");
+                break;
+            case kMIDIMsgObjectRemoved:
+                if (AKSettings.shared.loggingEnabled)
+                    NSLog(@"MIDI Object removed");
+                break;
+            default:
+                if (AKSettings.shared.loggingEnabled)
+                    NSLog(@"MIDI Notify, messageId=%@, size=%@", @(message->messageID), @(message->messageSize));
+                break;
+        }
+    }
+}
+
+- (void)sendEvent:(AKMidiEvent *)event
+{
+    // Queue the event for submission to Csound
+    @synchronized(_events) {
+        [_events addObject:event];
+    }
+}
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound MIDI callbacks
+// -----------------------------------------------------------------------------
+
+
+/* Csound MIDI read callback, called every k-cycle */
+static int AKMidiDataRead(CSOUND *csound, void *userData,
+                          unsigned char *mbuf, int nbytes)
+{
+    if (userData == nil)
+        return 0;
+    
+    AKMidi *m = (__bridge AKMidi *)userData;
+    int ret = 0;
+
+    @autoreleasepool {
+        @synchronized(m->_events) {
+            AKMidiEvent *event;
+            while (m->_events.count > 0) {
+                event = m->_events[0];
+                if (event.length > nbytes) { // Out of room in the buffer
+                    break;
+                }
+                NSLog(@"%@", event);
+                [event copyBytes:mbuf+ret];
+                ret += event.length;
+                nbytes -= event.length;
+                [m->_events removeObjectAtIndex:0];
+            }
+        }
+    }
+    return ret;
+}
+
+/* Csound MIDI input open callback, sets the device for input */
+static int AKMidiInDeviceOpen(CSOUND *csound, void **userData, const char *dev)
+{
+    AKMidi *m = [AKManager sharedManager].midi;
+    NSCAssert(m, @"The AKMidi object is not yet available!");
+    *userData = (__bridge void *)m;
+    [m openMidiIn];
+    return 0;
+}
+
+/* Csound close device callback */
+static int AKMidiInDeviceClose(CSOUND *csound, void *userData)
+{
+    AKMidi *m = (__bridge AKMidi *)userData;
+    [m closeMidiIn];
+    return 0;
 }
 
 - (void)openMidiIn
@@ -221,11 +175,10 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
     _inputs = MIDIGetNumberOfSources();
     NSLog(@"%@ MIDI sources\n", @(_inputs));
     
-    if (_inputs == 0)
-        return;
-    
-    MIDIClientCreate(CFSTR("CoreMIDI AudioKit"), AKMIDINotifyProc, (__bridge void *)self, &_client);
-	MIDIInputPortCreate(_client, CFSTR("AK Input port"), AKMIDIReadProc, (__bridge void *)self, &_inPort);
+    if (!_client)
+        MIDIClientCreate(CFSTR("CoreMIDI AudioKit"), AKMIDINotifyProc, (__bridge void *)self, &_client);
+    if (!_inPort)
+        MIDIInputPortCreate(_client, CFSTR("AK Input Port"), AKMIDIReadProc, (__bridge void *)self, &_inPort);
 	
 	for (NSUInteger i = 0; i < _inputs; ++i) {
 		MIDIEndpointRef src = MIDIGetSource(i);
@@ -240,6 +193,7 @@ static void AKMIDINotifyProc(const MIDINotification *message, void *refCon)
 -(void)closeMidiIn
 {
     MIDIClientDispose(_client);
+    _client = 0;
 }
 
 - (void)dealloc

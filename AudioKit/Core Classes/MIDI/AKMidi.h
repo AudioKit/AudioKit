@@ -8,32 +8,31 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const AKMidiNoteOn;
-extern NSString * const AKMidiNoteOn;
-extern NSString * const AKMidiNoteOff;
-extern NSString * const AKMidiPolyphonicAftertouch;
-extern NSString * const AKMidiProgramChange;
-extern NSString * const AKMidiAftertouch;
-extern NSString * const AKMidiPitchWheel;
-extern NSString * const AKMidiController;
-extern NSString * const AKMidiModulation;
-extern NSString * const AKMidiPortamento;
-extern NSString * const AKMidiVolume;
-extern NSString * const AKMidiBalance;
-extern NSString * const AKMidiPan;
-extern NSString * const AKMidiExpression;
+#import "CsoundObj.h"
+#import "AKMidiEvent.h"
 
-/** AKMidi is the object that handles the MIDI input and output from AK.
+/** AKMidi is the object that handles the MIDI input and output from AudioKit.
  */
+NS_ASSUME_NONNULL_BEGIN
 @interface AKMidi : NSObject
 
-/// Create midi client and connect to all available midi input sources.
+/// Create the MIDI client and connect to all available MIDI input sources.
 - (void)openMidiIn;
 
-/// Dispose of midi client.
+/// Dispose of the MIDI client.
 - (void)closeMidiIn;
 
-/// The number of detected MIDI inputs
+/// Sets up MIDI communication with Csound. This also enables MIDI forwarding.
+- (void)connectToCsound:(CsoundObj *)csound;
+
+/// Send a MIDI event to Csound.
+- (void)sendEvent:(AKMidiEvent *)event;
+
+/// Whether received MIDI events are automatically forwarded to Csound (default: YES)
+@property BOOL forwardEvents;
+
+/// The number of detected MIDI inputs.
 @property (readonly) NSUInteger inputs;
 
 @end
+NS_ASSUME_NONNULL_END

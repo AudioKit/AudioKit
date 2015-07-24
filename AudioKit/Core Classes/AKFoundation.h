@@ -19,9 +19,15 @@
 #import "AKManager.h"
 #import "AKOrchestra.h"
 
+# pragma mark - MIDI
+#import "AKMidi.h"
+#import "AKMidiEvent.h"
+#import "AKMidiNote.h"
+
 # pragma mark - Instruments
 #import "AKInstrument.h"
 #import "AKInstrumentProperty.h"
+#import "AKMidiInstrument.h"
 
 #pragma mark - Notes
 #import "AKNote.h"

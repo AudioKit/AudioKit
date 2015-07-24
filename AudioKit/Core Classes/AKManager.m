@@ -96,15 +96,15 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        if (AKSettings.shared.MIDIEnabled) {
-            _midi = [[AKMidi alloc] init];
-            [_midi openMidiIn];
-        }
         
         _engine = [[CsoundObj alloc] init];
         [_engine addListener:self];
         _engine.messageDelegate = self;
-        
+
+        if (AKSettings.shared.MIDIEnabled) {
+            _midi = [[AKMidi alloc] init];
+        }
+
         _isRunning = NO;
         _isLogging = AKSettings.shared.loggingEnabled;
         _totalRunDuration = 10000000;
@@ -123,6 +123,8 @@ static AKManager *_sharedManager = nil;
                     @"-o %@           ; Write sound to the host audio output\n"
                     "--expression-opt ; Enable expression optimizations\n"
                     "-m0              ; Print raw amplitudes\n"
+                    "-M0              ; Enable MIDI internally\n"
+                    "-+rtmidi=null    ; No MIDI driver\n"
                     "%@\n",
                     AKSettings.shared.audioOutput, inputOption];
         
@@ -261,20 +263,6 @@ static AKManager *_sharedManager = nil;
 }
 
 // -----------------------------------------------------------------------------
-#  pragma mark AKMidi
-// -----------------------------------------------------------------------------
-
-- (void)enableMidi
-{
-    [self.midi openMidiIn];
-}
-
-- (void)disableMidi
-{
-    [self.midi closeMidiIn];
-}
-
-// -----------------------------------------------------------------------------
 #  pragma mark - Csound control
 // -----------------------------------------------------------------------------
 
@@ -354,6 +342,10 @@ static AKManager *_sharedManager = nil;
     }
 }
 
+- (void)csoundObjWillStart:(CsoundObj *)csoundObj
+{
+    [_midi connectToCsound:_engine];
+}
 
 - (void)csoundObjStarted:(CsoundObj *)csoundObj {
     if (_isLogging) NSLog(@"Csound Started.");
