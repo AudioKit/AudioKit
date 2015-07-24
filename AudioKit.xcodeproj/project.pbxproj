@@ -52,9 +52,6 @@
 		C4A148281B5F05290054F090 /* AKMidiInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A148261B5F05290054F090 /* AKMidiInput.m */; };
 		C4A148291B5F05290054F090 /* AKMidiInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A148261B5F05290054F090 /* AKMidiInput.m */; };
 		C4A1482A1B5F05290054F090 /* AKMidiInput.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A148261B5F05290054F090 /* AKMidiInput.m */; };
-		C4A1482E1B5F163D0054F090 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1482C1B5F163D0054F090 /* CsoundMIDI.m */; };
-		C4A1482F1B5F163D0054F090 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1482C1B5F163D0054F090 /* CsoundMIDI.m */; };
-		C4A148301B5F163D0054F090 /* CsoundMIDI.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A1482C1B5F163D0054F090 /* CsoundMIDI.m */; };
 		C4A42C6F1B42710C0082DED3 /* AKSoundFontPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */; };
 		C4A42C701B42710C0082DED3 /* AKSoundFontPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */; };
 		C4A42C711B42710C0082DED3 /* AKSoundFontPreset.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */; };
@@ -676,8 +673,6 @@
 		C4A148201B5F01F70054F090 /* AKMidiNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMidiNote.m; sourceTree = "<group>"; };
 		C4A148251B5F05290054F090 /* AKMidiInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMidiInput.h; sourceTree = "<group>"; };
 		C4A148261B5F05290054F090 /* AKMidiInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKMidiInput.m; sourceTree = "<group>"; };
-		C4A1482B1B5F163D0054F090 /* CsoundMIDI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CsoundMIDI.h; sourceTree = "<group>"; };
-		C4A1482C1B5F163D0054F090 /* CsoundMIDI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CsoundMIDI.m; sourceTree = "<group>"; };
 		C4A42C6C1B42710C0082DED3 /* AKSoundFontPreset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontPreset.h; path = "AudioKit/Sound Fonts/AKSoundFontPreset.h"; sourceTree = SOURCE_ROOT; };
 		C4A42C6D1B42710C0082DED3 /* AKSoundFontPreset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontPreset.m; path = "AudioKit/Sound Fonts/AKSoundFontPreset.m"; sourceTree = SOURCE_ROOT; };
 		C4A42C721B4271F90082DED3 /* AKSoundFontInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontInstrument.h; path = "AudioKit/Sound Fonts/AKSoundFontInstrument.h"; sourceTree = SOURCE_ROOT; };
@@ -1164,8 +1159,6 @@
 				EAF365671ADB5EE400AA6551 /* Csound Headers */,
 				EA08B56D1AD8985F00949FD5 /* CsoundObj.h */,
 				EA08B56E1AD8985F00949FD5 /* CsoundObj.m */,
-				C4A1482B1B5F163D0054F090 /* CsoundMIDI.h */,
-				C4A1482C1B5F163D0054F090 /* CsoundMIDI.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2184,7 +2177,6 @@
 				EADE698E1B5268D100996FE0 /* EZPlot.m in Sources */,
 				EA08B5701AD8985F00949FD5 /* CsoundObj.m in Sources */,
 				EA78DD8E1B605892001843F3 /* AKMidiEvent.m in Sources */,
-				C4A1482E1B5F163D0054F090 /* CsoundMIDI.m in Sources */,
 				C4A42C6F1B42710C0082DED3 /* AKSoundFontPreset.m in Sources */,
 				EA8E96471AD3C6850057E979 /* AKMix.m in Sources */,
 				EA8E95E81AD3C6850057E979 /* AKResynthesizedAudio.m in Sources */,
@@ -2390,7 +2382,6 @@
 				EADE69901B5268D100996FE0 /* EZPlot.m in Sources */,
 				EA8E96DA1AD3CA4B0057E979 /* AKGuiro.m in Sources */,
 				EA78DD901B605892001843F3 /* AKMidiEvent.m in Sources */,
-				C4A148301B5F163D0054F090 /* CsoundMIDI.m in Sources */,
 				C4A42C711B42710C0082DED3 /* AKSoundFontPreset.m in Sources */,
 				EA8E96DB1AD3CA4B0057E979 /* AKSandPaper.m in Sources */,
 				EA8E96DC1AD3CA4B0057E979 /* AKSekere.m in Sources */,
@@ -2596,7 +2587,6 @@
 				EADE698F1B5268D100996FE0 /* EZPlot.m in Sources */,
 				EAA0F4FF1AE71C8F007CD7C9 /* CsoundObj.m in Sources */,
 				EA78DD8F1B605892001843F3 /* AKMidiEvent.m in Sources */,
-				C4A1482F1B5F163D0054F090 /* CsoundMIDI.m in Sources */,
 				C4A42C701B42710C0082DED3 /* AKSoundFontPreset.m in Sources */,
 				EAA0F5001AE71C8F007CD7C9 /* AKMix.m in Sources */,
 				EAA0F5011AE71C8F007CD7C9 /* AKResynthesizedAudio.m in Sources */,
