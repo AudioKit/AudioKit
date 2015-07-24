@@ -84,6 +84,17 @@
     [_instrument startListeningOnAllMidiChannels];
 }
 
+- (IBAction)playNote:(id)sender
+{
+    AKMidiEvent *noteon = [AKMidiEvent eventWithNoteOn:60 channel:1 velocity:100];
+    AKMidiEvent *noteoff = [AKMidiEvent eventWithNoteOff:60 channel:1 velocity:100];
+
+    [[AKManager sharedManager].midi sendEvent:noteon];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[AKManager sharedManager].midi sendEvent:noteoff];
+    });
+}
+
 // ----------------------------------
 // Handling of received MIDI messages
 // ----------------------------------
