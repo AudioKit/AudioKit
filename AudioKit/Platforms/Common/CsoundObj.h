@@ -59,7 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CsoundObjListener <NSObject>
 @optional
+/// Called before CSD compilation and startup.
+- (void)csoundObjWillStart:(CsoundObj *)csoundObj;
+/// The Csound engine is now running.
 - (void)csoundObjStarted:(CsoundObj *)csoundObj;
+/// The Csound engine stopped running.
 - (void)csoundObjCompleted:(CsoundObj *)csoundObj;
 @end
 
@@ -82,7 +86,6 @@ extern NSString * const AKCsoundAPIMessageNotification;
 @interface CsoundObj : NSObject
 
 @property (nonatomic, strong, nullable) NSURL *outputURL;
-@property (assign) BOOL midiInEnabled;
 
 - (void)sendScore:(NSString *)score;
 
