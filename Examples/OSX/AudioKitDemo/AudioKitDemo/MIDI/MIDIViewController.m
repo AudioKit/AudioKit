@@ -19,7 +19,7 @@
 
 @implementation MIDIViewController {
     AKSoundFont *_soundFont;
-    AKInstrument *_instrument;
+    AKMidiInstrument *_instrument;
     AKSoundFontPresetPlayer *_presetPlayer;
     AKSoundFontPreset *_selectedPreset;
     
@@ -31,8 +31,9 @@
 
     //AKSettings.shared.loggingEnabled = YES;
     _log = [NSMutableString string];
-    
-    _instrument = [AKInstrument instrumentWithNumber:1];
+    [[AKManager sharedManager] setIsLogging:YES];
+    _instrument = [[AKMidiInstrument alloc] init];
+    _instrument.instrumentNumber = 1;
     [AKOrchestra addInstrument:_instrument];
     
     [self.presetsButton removeAllItems];
@@ -74,14 +75,13 @@
     NSAssert(_selectedPreset, @"Failed to find preset named '%@' in the soundfont.", sender.selectedItem.title);
     
     _presetPlayer = [[AKSoundFontPresetPlayer alloc] initWithSoundFontPreset:_selectedPreset];
+    _presetPlayer.noteNumber = _instrument.note.notenumber;
+    [_instrument enableParameterLog:@"nn" parameter:_instrument.note.notenumber timeInterval:100];
+    _presetPlayer.velocity = _instrument.note.velocity;
+    
     [_instrument setStereoAudioOutput:_presetPlayer];
     [AKOrchestra updateInstrument:_instrument];
-}
-
-- (IBAction)playNote:(id)sender
-{
-    // Play a fixed note with the current preset
-    [_instrument playForDuration:1.0f];
+    [_instrument startListeningOnAllMidiChannels];
 }
 
 // ----------------------------------
@@ -102,13 +102,6 @@
         [self logMessage:[NSString stringWithFormat:@"Note ON: %@, velocity = %@, channel %@",
                           notif.userInfo[@"note"], notif.userInfo[@"velocity"], notif.userInfo[@"channel"]]];
     });
-    NSUInteger vel = [notif.userInfo[@"velocity"] integerValue];
-    NSUInteger note = [notif.userInfo[@"note"] integerValue];
-    if (vel > 0) {
-        _presetPlayer.noteNumber = akp(note);
-        _presetPlayer.velocity = akp(vel);
-        [_instrument playForDuration:1.0f];
-    }
 }
 
 - (void)midiNoteOff:(NSNotification *)notif
@@ -117,7 +110,7 @@
         [self logMessage:[NSString stringWithFormat:@"Note OFF: %@, velocity = %@, channel %@",
                           notif.userInfo[@"note"], notif.userInfo[@"velocity"], notif.userInfo[@"channel"]]];
     });
-    [_instrument stop];
+//    [_instrument stop];
 }
 
 - (void)midiPitchWheel:(NSNotification *)notif
