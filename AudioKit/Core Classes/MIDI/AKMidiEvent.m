@@ -261,4 +261,22 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
     return ret;
 }
 
+#pragma mark - Utility constructors for common MIDI events
+
++ (instancetype)eventWithNoteOn:(UInt8)note channel:(UInt8)channel velocity:(UInt8)velocity
+{
+    return [[AKMidiEvent alloc] initWithStatus:AKMidiStatusNoteOn channel:channel data1:note data2:velocity];
+}
+
++ (instancetype)eventWithNoteOff:(UInt8)note channel:(UInt8)channel velocity:(UInt8)velocity
+{
+    return [[AKMidiEvent alloc] initWithStatus:AKMidiStatusNoteOff channel:channel data1:note data2:velocity];
+}
+
++ (instancetype)eventWithProgramChange:(UInt8)program channel:(UInt8)channel
+{
+    return [[AKMidiEvent alloc] initWithStatus:AKMidiStatusProgramChange channel:channel data1:program data2:0];
+}
+
+
 @end
