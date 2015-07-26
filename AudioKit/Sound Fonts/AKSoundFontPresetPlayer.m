@@ -125,11 +125,11 @@
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
 
-    [inputsString appendFormat:@"%@, ", _velocity];
+    [inputsString appendFormat:@"%@/127, ", _velocity];
     
     [inputsString appendFormat:@"%@, ", _noteNumber];
     
-    [inputsString appendFormat:@"%@/3000, ", _amplitude];
+    [inputsString appendFormat:@"%@*%@/(2500*127), ", _velocity, _amplitude];
     
     [inputsString appendFormat:@"%@, ", _frequencyMultiplier];
     
