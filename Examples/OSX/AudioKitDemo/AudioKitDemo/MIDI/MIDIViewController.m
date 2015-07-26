@@ -74,6 +74,9 @@
     _selectedPreset = [_soundFont findPresetNamed:sender.selectedItem.title];
     NSAssert(_selectedPreset, @"Failed to find preset named '%@' in the soundfont.", sender.selectedItem.title);
     
+    _instrument = [[AKMidiInstrument alloc] init];
+    _instrument.instrumentNumber = 1;
+    
     _presetPlayer = [[AKSoundFontPresetPlayer alloc] initWithSoundFontPreset:_selectedPreset];
     _presetPlayer.noteNumber = _instrument.note.notenumber;
     [_instrument enableParameterLog:@"nn" parameter:_instrument.note.notenumber timeInterval:100];
