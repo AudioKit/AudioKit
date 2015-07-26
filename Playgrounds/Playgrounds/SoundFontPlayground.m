@@ -27,7 +27,7 @@
 {
     [super run];
 
-    soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"] completion:nil];
+    soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]];
 
     presetPlayer = [AKInstrument instrumentWithNumber:1];
     instrumentPlayer = [AKInstrument instrumentWithNumber:2];
