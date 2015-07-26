@@ -129,7 +129,7 @@
     
     [inputsString appendFormat:@"%@, ", _noteNumber];
     
-    [inputsString appendFormat:@"%@*%@/(2500*127), ", _velocity, _amplitude];
+    [inputsString appendFormat:@"%@*%@/(3000*127), ", _velocity, _amplitude];
     
     [inputsString appendFormat:@"%@, ", _frequencyMultiplier];
     
