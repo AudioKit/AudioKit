@@ -29,8 +29,14 @@
 
     soundFont = [[AKSoundFont alloc] initWithFilename:[AKManager pathToSoundFile:@"GeneralMidi" ofType:@"sf2"]];
 
+    [soundFont fetchPresets:^(AKSoundFont *font) {
+        // Do nothing
+    }];
+
     presetPlayer = [AKInstrument instrumentWithNumber:1];
     instrumentPlayer = [AKInstrument instrumentWithNumber:2];
+
+    [AKOrchestra start];
 
     presetNumber = 0;
     instrumentNumber = 0;
@@ -88,9 +94,10 @@
     presetPlayer = [AKInstrument instrumentWithNumber:1];
     AKSoundFontPreset *soundFontPreset = soundFont.presets[presetNumber];
     presetLabel.text = soundFontPreset.name;
+
     AKSoundFontPresetPlayer *player = [[AKSoundFontPresetPlayer alloc] initWithSoundFontPreset:soundFontPreset];
     player.frequencyMultiplier = akp(1.5);
-    player.amplitude = akp(0.1);
+    player.amplitude = akp(64);
 
     [presetPlayer setStereoAudioOutput:player];
     [AKOrchestra addInstrument:presetPlayer];
@@ -103,7 +110,7 @@
     instrumentLabel.text = soundFontInstrument.name;
     AKSoundFontInstrumentPlayer *player = [[AKSoundFontInstrumentPlayer alloc] initWithSoundFontInstrument:soundFontInstrument];
     player.frequencyMultiplier = akp(1.5);
-    player.amplitude = akp(0.1);
+    player.amplitude = akp(1);
 
     [instrumentPlayer setStereoAudioOutput:player];
     [AKOrchestra addInstrument:instrumentPlayer];
