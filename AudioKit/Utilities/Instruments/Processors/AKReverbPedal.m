@@ -8,20 +8,24 @@
 
 #import "AKReverbPedal.h"
 
-@implementation AKReverbPedal
+@implementation AKReverbPedal {
+    AKAudio *_input;
+}
 
 - (instancetype)initWithInput:(AKAudio *)input
 {
     self = [super init];
     if (self) {
-
+        _input = input;
         // Instrument Properties
+        _cutoffFrequency = [self createPropertyWithValue:4000 minimum:0 maximum:20000];
         _feedback = [self createPropertyWithValue:0.5 minimum:0.0 maximum:1.0];
         _mix      = [self createPropertyWithValue:0.5 minimum:0.0 maximum:1.0];
 
         // Instrument Definition
         AKReverb *reverb = [AKReverb reverbWithInput:input];
         reverb.feedback = _feedback;
+        reverb.cutoffFrequency = _cutoffFrequency;
         
         AKMix *leftMix = [[AKMix alloc] initWithInput1:input input2:reverb.leftOutput balance:_mix];
         AKMix *rightMix = [[AKMix alloc] initWithInput1:input input2:reverb.rightOutput balance:_mix];
@@ -34,5 +38,26 @@
         [self resetParameter:input];
     }
     return self;
+}
+
+- (void)setPresetLargeHall
+{
+    AKReverb *reverb = [AKReverb presetLargeHallReverbWithInput:_input];
+    _feedback.value = reverb.feedback.value;
+    _cutoffFrequency.value = reverb.cutoffFrequency.value;
+}
+
+- (void)setPresetSmallHall
+{
+    AKReverb *reverb = [AKReverb presetSmallHallReverbWithInput:_input];
+    _feedback.value = reverb.feedback.value;
+    _cutoffFrequency.value = reverb.cutoffFrequency.value;
+}
+
+- (void)setPresetMuffledCan
+{
+    AKReverb *reverb = [AKReverb presetMuffledCanReverbWithInput:_input];
+    _feedback.value = reverb.feedback.value;
+    _cutoffFrequency.value = reverb.cutoffFrequency.value;
 }
 @end
