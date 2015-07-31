@@ -37,6 +37,18 @@
     [self addSliderForProperty:reverb.feedback title:@"Feedback"];
     [self addSliderForProperty:reverb.mix title:@"Mix"];
 
+    [self addButtonWithTitle:@"Large Hall" block:^{
+        [reverb setPresetLargeHall];
+    }];
+
+    [self addButtonWithTitle:@"Small Hall" block:^{
+        [reverb setPresetSmallHall];
+    }];
+
+    [self addButtonWithTitle:@"Muffled Can" block:^{
+        [reverb setPresetMuffledCan];
+    }];
+
     [self addAudioOutputPlot];
     [self addAudioOutputRollingWaveformPlot];
 }
