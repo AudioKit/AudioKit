@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Array of note properties available to events.
 @property NSMutableArray *noteProperties;
 
-/// Add an instrument property explicity (normally this happens automatically)
+/// Add an instrument property explicitly (normally this happens automatically)
 /// @param newProperty New property to add to the instrument.
 - (void) addProperty:(AKInstrumentProperty *)newProperty;
 
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
                                           minimum:(float)minimum
                                           maximum:(float)maximum;
 
-/// Add a note property to the instrumnet explicitly (normally happens automatically)
+/// Add a note property to the instrument explicitly (normally happens automatically)
 /// @param newNoteProperty New note property instrument needs to be aware of.
 - (void)addNoteProperty:(AKNoteProperty *)newNoteProperty;
 
