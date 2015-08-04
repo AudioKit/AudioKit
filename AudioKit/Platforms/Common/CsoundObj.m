@@ -643,7 +643,7 @@ OSStatus  Csound_Render(void *inRefCon,
         [self notifyListenersOfAboutToStart];
 
 #if TARGET_OS_IPHONE
-        char *argv[] = { "csound",
+        char *argv[] = { "csound", "-+rtmidi=null",
 # ifdef AK_TESTING
             "-+rtaudio=null",
 # else
@@ -651,7 +651,7 @@ OSStatus  Csound_Render(void *inRefCon,
 # endif            
                         (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
 #else
-        char *argv[] = { "csound", "-+ignore_csopts=0",
+        char *argv[] = { "csound", "-+ignore_csopts=0", "-+rtmidi=null",
 # ifdef AK_TESTING
                          "-+rtaudio=null",
 # else
