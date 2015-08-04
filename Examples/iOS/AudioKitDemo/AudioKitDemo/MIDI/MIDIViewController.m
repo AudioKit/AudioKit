@@ -109,7 +109,6 @@
         [self logMessage:[NSString stringWithFormat:@"Note OFF: %@, velocity = %@, channel %@",
                           notif.userInfo[@"note"], notif.userInfo[@"velocity"], notif.userInfo[@"channel"]]];
     });
-    //    [_instrument stop];
 }
 
 - (void)midiPitchWheel:(NSNotification *)notif
@@ -126,7 +125,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self logMessage:[NSString stringWithFormat:@"Program Change: %@, channel %@",
                           notif.userInfo[@"program"], notif.userInfo[@"channel"]]];
-        [_presetsPicker selectRow:program inComponent:1 animated:YES];
+        [_presetsPicker selectRow:program inComponent:0 animated:YES];
+        [self pickerView:_presetsPicker didSelectRow:program inComponent:0]; // Doesn't get called automatically
     });
 }
 
@@ -147,7 +147,7 @@
             forComponent:(NSInteger)component
 {
     AKSoundFontPreset *preset = _presets[row];
-    return preset.name;
+    return [NSString stringWithFormat:@"%@: %@",@(row),preset.name];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView
