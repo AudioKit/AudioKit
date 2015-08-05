@@ -149,6 +149,23 @@ extern NSString * const AKCsoundAPIMessageNotification;
 - (void)resetSession;
 
 // -----------------------------------------------------------------------------
+#  pragma mark - Csound debugger and breakpoints (not for release builds)
+// -----------------------------------------------------------------------------
+
+#ifdef DEBUG
+- (void)debugStop;
+- (void)debugContinue;
+- (void)debugNext;
+
+- (void)setBreakpointAt:(int)line instrument:(int)instr skip:(int)skip;
+- (void)removeBreakpointAt:(int)line instrument:(int)instr;
+
+- (void)setInstrumentBreakpoint:(float)instr skip:(int)skip;
+- (void)removeInstrumentBreakpoint:(float)instr;
+- (void)clearBreakpoints;
+#endif
+
+// -----------------------------------------------------------------------------
 #  pragma mark - Support for unit testing
 // -----------------------------------------------------------------------------
 
