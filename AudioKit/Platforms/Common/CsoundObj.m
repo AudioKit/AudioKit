@@ -597,7 +597,7 @@ OSStatus  Csound_Render(void *inRefCon,
 // Handling of Csound breakpoints
 static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
 {
-    CsoundObj *obj = (__bridge CsoundObj *)(userdata);
+    //CsoundObj *obj = (__bridge CsoundObj *)(userdata);
     
     // TODO: Show the info in bkpt
 }
