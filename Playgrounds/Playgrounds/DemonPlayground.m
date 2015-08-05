@@ -67,11 +67,6 @@
 
 @implementation Playground
 
-- (void) setup
-{
-    [super setup];
-}
-
 - (void)run
 {
     [super run];
