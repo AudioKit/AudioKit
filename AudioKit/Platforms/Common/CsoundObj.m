@@ -600,11 +600,6 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
     CsoundObj *obj = (__bridge CsoundObj *)(userdata);
     
     // TODO: Show the info in bkpt
-#if TARGET_OS_IPHONE
-    
-#else
-    Debugger("Csound breakpoint");
-#endif
 }
 
 - (void)runCsoundToDisk:(NSArray *)paths
