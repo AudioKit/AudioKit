@@ -13,7 +13,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKLog : AKParameter
 
-/// Prints the message followed by the paramter value every timeInterval seconds
+/// Prints the message followed by the parameter value every timeInterval seconds
 /// @param message      Text to print out before the parameter's value
 /// @param parameter    Parameter to print
 /// @param timeInterval How often to print, in seconds.
