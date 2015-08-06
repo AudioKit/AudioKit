@@ -16,12 +16,12 @@
 
 - (NSString *)stringForCSD
 {
-    NSMutableArray *paramterStrings = [NSMutableArray array];
+    NSMutableArray *parameterStrings = [NSMutableArray array];
     
     for (AKParameter *param in self.inputs) {
-        [paramterStrings addObject:[NSString stringWithFormat:@"AKAudio(%@)", param.parameterString]];
+        [parameterStrings addObject:[NSString stringWithFormat:@"AKAudio(%@)", param.parameterString]];
     }
-    NSString *inputsCombined = [paramterStrings componentsJoinedByString:@", "];
+    NSString *inputsCombined = [parameterStrings componentsJoinedByString:@", "];
     
     return [NSString stringWithFormat:@"%@ product %@",self, inputsCombined];
 }
