@@ -597,9 +597,12 @@ OSStatus  Csound_Render(void *inRefCon,
 // Handling of Csound breakpoints
 static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
 {
-    //CsoundObj *obj = (__bridge CsoundObj *)(userdata);
+    CsoundObj *obj = (__bridge CsoundObj *)(userdata);
     
-    // TODO: Show the info in bkpt
+    if (obj.breakpointHandler) {
+        // TODO: Gather the info in bkpt in a Cocoa way and pass to the handler
+        obj.breakpointHandler([NSString stringWithUTF8String:bkpt->currentOpcode->opname], bkpt->currentOpcode->line);
+    }
 }
 
 - (void)runCsoundToDisk:(NSArray *)paths
