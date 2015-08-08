@@ -154,7 +154,7 @@ extern NSString * const AKCsoundAPIMessageNotification;
 
 #ifdef DEBUG
 
-typedef void (^AKBreakpointHandler)(NSString *opcode, int line);
+typedef void (^AKBreakpointHandler)(NSString *opcode, int line, NSDictionary *vars);
 
 /// The handler that is being called when breakpoints are triggered.
 @property (strong,nonatomic) AKBreakpointHandler breakpointHandler;
