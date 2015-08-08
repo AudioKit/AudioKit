@@ -601,7 +601,20 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
     
     if (obj.breakpointHandler) {
         // TODO: Gather the info in bkpt in a Cocoa way and pass to the handler
-        obj.breakpointHandler([NSString stringWithUTF8String:bkpt->currentOpcode->opname], bkpt->currentOpcode->line);
+        NSMutableDictionary *vars = [NSMutableDictionary dictionary];
+        debug_variable_t *var = bkpt->instrVarList;
+        while (var) {
+            if (!strcmp(var->typeName, "S")) {
+                [vars setObject:[NSString stringWithCString:var->data encoding:NSASCIIStringEncoding]
+                         forKey:[NSString stringWithCString:var->name encoding:NSASCIIStringEncoding]];
+            } else { // assume i, k, a, r
+                [vars setObject:[NSNumber numberWithFloat:*((MYFLT *)var->data)]
+                         forKey:[NSString stringWithCString:var->name encoding:NSASCIIStringEncoding]];
+            }
+            var = var->next;
+        }
+        obj.breakpointHandler([NSString stringWithCString:bkpt->currentOpcode->opname encoding:NSASCIIStringEncoding],
+                              bkpt->currentOpcode->line, vars);
     }
 }
 
