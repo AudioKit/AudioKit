@@ -594,6 +594,7 @@ OSStatus  Csound_Render(void *inRefCon,
     return 0;
 }
 
+#ifdef DEBUG
 // Handling of Csound breakpoints
 static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
 {
@@ -617,6 +618,7 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
                               bkpt->currentOpcode->line, vars);
     }
 }
+#endif
 
 - (void)runCsoundToDisk:(NSArray *)paths
 {
