@@ -68,16 +68,10 @@
     }
     return self;
 }
-
 @end
 
 
 @implementation Playground
-
-- (void) setup
-{
-    [super setup];
-}
 
 - (void)run
 {

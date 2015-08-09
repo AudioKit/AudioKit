@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input  Parameter being read.
 - (void)assignOutput:(AKParameter *)output to:(AKParameter *)input;
 
-/// Explicitly set the output of one paramter to another, useful for tracking
+/// Explicitly set the output of one parameter to another, useful for tracking
 /// @param parameter Output or overwritten parameter
 /// @param input     Input parameter
 - (void)setParameter:(AKParameter *)parameter to:(AKParameter *)input;
