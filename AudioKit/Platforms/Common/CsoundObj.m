@@ -34,6 +34,7 @@
 
 #import "CsoundObj.h"
 #import "csound.h"
+#import "csdebug.h"
 
 OSStatus  Csound_Render(void *inRefCon,
                         AudioUnitRenderActionFlags *ioActionFlags,
@@ -593,11 +594,41 @@ OSStatus  Csound_Render(void *inRefCon,
     return 0;
 }
 
+#ifdef DEBUG
+// Handling of Csound breakpoints
+static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
+{
+    CsoundObj *obj = (__bridge CsoundObj *)(userdata);
+    
+    if (obj.breakpointHandler) {
+        // TODO: Gather the info in bkpt in a Cocoa way and pass to the handler
+        NSMutableDictionary *vars = [NSMutableDictionary dictionary];
+        debug_variable_t *var = bkpt->instrVarList;
+        while (var) {
+            if (!strcmp(var->typeName, "S")) {
+                [vars setObject:[NSString stringWithCString:var->data encoding:NSASCIIStringEncoding]
+                         forKey:[NSString stringWithCString:var->name encoding:NSASCIIStringEncoding]];
+            } else { // assume i, k, a, r
+                [vars setObject:[NSNumber numberWithFloat:*((MYFLT *)var->data)]
+                         forKey:[NSString stringWithCString:var->name encoding:NSASCIIStringEncoding]];
+            }
+            var = var->next;
+        }
+        obj.breakpointHandler([NSString stringWithCString:bkpt->currentOpcode->opname encoding:NSASCIIStringEncoding],
+                              bkpt->currentOpcode->line, vars);
+    }
+}
+#endif
+
 - (void)runCsoundToDisk:(NSArray *)paths
 {
     @autoreleasepool {
         if (_cs == nil)
             _cs = csoundCreate(NULL);
+#ifdef DEBUG
+        csoundDebuggerInit(_cs);
+        csoundSetBreakpointCallback(_cs, AKBreakpoint, (__bridge void *)(self));
+#endif
 
         [self notifyListenersOfAboutToStart];
         
@@ -636,6 +667,10 @@ OSStatus  Csound_Render(void *inRefCon,
         _cs = csoundCreate(NULL);
 #if TARGET_OS_IPHONE
         csoundSetHostImplementedAudioIO(_cs, 1, 0);
+#endif
+#ifdef DEBUG
+        csoundDebuggerInit(_cs);
+        csoundSetBreakpointCallback(_cs, AKBreakpoint, (__bridge void *)(self));
 #endif
         csoundSetMessageCallback(_cs, messageCallback);
         csoundSetHostData(_cs, (__bridge void *)self);
@@ -763,6 +798,9 @@ OSStatus  Csound_Render(void *inRefCon,
                 }
                 [self stopAU:YES];
             }
+#ifdef DEBUG
+            csoundDebuggerClean(_cs);
+#endif
             csoundDestroy(_cs);
         }
 #elif TARGET_OS_MAC
@@ -810,7 +848,10 @@ OSStatus  Csound_Render(void *inRefCon,
             ExtAudioFileDispose(_file);
         }
     }
-    
+
+#ifdef DEBUG
+    csoundDebuggerClean(_cs);
+#endif
     csoundDestroy(_cs);
 #endif
     
@@ -1014,6 +1055,51 @@ OSStatus  Csound_Render(void *inRefCon,
     }
 #endif // No effect on Mac so far
 }
+
+// -----------------------------------------------------------------------------
+#  pragma mark - Csound debugger and breakpoints (not for release builds)
+// -----------------------------------------------------------------------------
+
+#ifdef DEBUG
+- (void)debugStop
+{
+    csoundDebugStop(_cs);
+}
+
+- (void)debugContinue
+{
+    csoundDebugContinue(_cs);
+}
+
+- (void)debugNext
+{
+    csoundDebugNext(_cs);
+}
+
+- (void)setBreakpointAt:(int)line instrument:(int)instr skip:(int)skip
+{
+    csoundSetBreakpoint(_cs, line, instr, skip);
+}
+
+- (void)removeBreakpointAt:(int)line instrument:(int)instr
+{
+    csoundRemoveBreakpoint(_cs, line, instr);
+}
+
+- (void)setInstrumentBreakpoint:(float)instr skip:(int)skip
+{
+    csoundSetInstrumentBreakpoint(_cs, instr, skip);
+}
+
+- (void)removeInstrumentBreakpoint:(float)instr
+{
+    csoundRemoveInstrumentBreakpoint(_cs, instr);
+}
+- (void)clearBreakpoints
+{
+    csoundClearBreakpoints(_cs);
+}
+#endif
 
 
 // -----------------------------------------------------------------------------
