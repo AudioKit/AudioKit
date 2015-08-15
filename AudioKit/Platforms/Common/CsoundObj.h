@@ -149,6 +149,55 @@ extern NSString * const AKCsoundAPIMessageNotification;
 - (void)resetSession;
 
 // -----------------------------------------------------------------------------
+#  pragma mark - Csound debugger and breakpoints (not for release builds)
+// -----------------------------------------------------------------------------
+
+#ifdef DEBUG
+
+typedef void (^AKBreakpointHandler)(NSString *opcode, int line, NSDictionary *vars);
+
+/// The handler that is being called when breakpoints are triggered.
+@property (strong,nonatomic) AKBreakpointHandler breakpointHandler;
+
+- (void)debugStop;
+- (void)debugContinue;
+- (void)debugNext;
+
+/** Set a breakpoint on a particular line
+ *
+ * @param line The line number in the score, when instr is 0.
+ * @param instr When a number is given, it should
+ * refer to an instrument that has been compiled on the fly using
+ * csoundParseOrc().
+ * @param skip Number of control blocks to skip.
+ *
+ */
+- (void)setBreakpointAt:(int)line instrument:(int)instr skip:(int)skip;
+
+/// Remove a previously set line breakpoint.
+- (void)removeBreakpointAt:(int)line instrument:(int)instr;
+
+/** Set a breakpoint for an instrument number
+ *
+ * Sets a breakpoint for an instrument number with optional number of skip
+ * control blocks. You can specify a fractional instrument number to identify
+ * particular instances. Specifying a value greater than 1 will result in that
+ * number of control blocks being skipped before this breakpoint is called
+ * again. A value of 0 and 1 has the same effect.
+ *
+ * @param instr Instrument number.
+ * @param skip Number of control blocks to skip.
+ */
+- (void)setInstrumentBreakpoint:(float)instr skip:(int)skip;
+
+/// Remove a previously set instrument breakpoint.
+- (void)removeInstrumentBreakpoint:(float)instr;
+
+/// Remove all previously set breakpoints.
+- (void)clearBreakpoints;
+#endif
+
+// -----------------------------------------------------------------------------
 #  pragma mark - Support for unit testing
 // -----------------------------------------------------------------------------
 
