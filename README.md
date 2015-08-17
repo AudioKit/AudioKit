@@ -17,6 +17,7 @@ This folder contains the actual AudioKit toolkit classes.
 * [Operations](http://audiokit.io/operations/) - all of the synthesis and processing algorithms
 * [Parameters](http://audiokit.io/parameters/) - types of arguments that can be passed to operations
 * [Platforms](http://audiokit.io/platforms/) - audio engine and files specific to iOS, OSX, and Swift
+* [Resources](http://audiokit.io/resources/) - default audio files including a good general MIDI Sound Font and the AudioKit.plist settings file
 * [Sequencing](http://audiokit.io/sequencing/) -  phrases of notes and sequences of events
 * [Tables](http://audiokit.io/tables/) - lookup tables for waveforms and other tabular data
 * [Utilities](http://audiokit.io/utilities/) - pre-built instruments, waveform plotting classes, and UI elements
