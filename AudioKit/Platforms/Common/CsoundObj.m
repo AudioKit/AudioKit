@@ -652,10 +652,12 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
         
         if(!ret) {
             csoundPerform(_cs);
+#ifdef DEBUG
+            csoundDebuggerClean(_cs);
+#endif
             csoundCleanup(_cs);
             csoundDestroy(_cs);
         }
-        
         [self cleanupBindings];
         [self notifyListenersOfCompletion];
     }
