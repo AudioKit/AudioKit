@@ -18,6 +18,10 @@
 		C4258E471B3FAF7100D91B3D /* AKPitchShifterPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E451B3FAF7100D91B3D /* AKPitchShifterPedal.m */; };
 		C4258E481B3FAF7100D91B3D /* AKPitchShifterPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E451B3FAF7100D91B3D /* AKPitchShifterPedal.m */; };
 		C4258E491B3FAF7100D91B3D /* AKPitchShifterPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E451B3FAF7100D91B3D /* AKPitchShifterPedal.m */; };
+		C42966941B8374C60098A8EF /* AKAntiresonantFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = C42966921B8374C60098A8EF /* AKAntiresonantFilter.h */; };
+		C42966951B8374C60098A8EF /* AKAntiresonantFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C42966931B8374C60098A8EF /* AKAntiresonantFilter.m */; };
+		C42966961B8374C60098A8EF /* AKAntiresonantFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C42966931B8374C60098A8EF /* AKAntiresonantFilter.m */; };
+		C42966971B8374C60098A8EF /* AKAntiresonantFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C42966931B8374C60098A8EF /* AKAntiresonantFilter.m */; };
 		C43DB1371B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */; };
 		C43DB1381B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */; };
 		C43DB1391B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */; };
@@ -651,6 +655,8 @@
 		C4258E3F1B3E554D00D91B3D /* AKPitchShifter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKPitchShifter.m; sourceTree = "<group>"; };
 		C4258E441B3FAF7100D91B3D /* AKPitchShifterPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKPitchShifterPedal.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C4258E451B3FAF7100D91B3D /* AKPitchShifterPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKPitchShifterPedal.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C42966921B8374C60098A8EF /* AKAntiresonantFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAntiresonantFilter.h; sourceTree = "<group>"; };
+		C42966931B8374C60098A8EF /* AKAntiresonantFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAntiresonantFilter.m; sourceTree = "<group>"; };
 		C43DB1301B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighShelfParametricEqualizerFilter.h; sourceTree = "<group>"; };
 		C43DB1311B21866300C9E4D5 /* AKHighShelfParametricEqualizerFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKHighShelfParametricEqualizerFilter.m; sourceTree = "<group>"; };
 		C43DB1321B21866300C9E4D5 /* AKLowShelfParametricEqualizerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLowShelfParametricEqualizerFilter.h; sourceTree = "<group>"; };
@@ -1811,6 +1817,8 @@
 		EA8E95381AD3C6840057E979 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				C42966921B8374C60098A8EF /* AKAntiresonantFilter.h */,
+				C42966931B8374C60098A8EF /* AKAntiresonantFilter.m */,
 				C4C01C901B50AC060012AEB9 /* AKClipper.h */,
 				C4C01C911B50AC060012AEB9 /* AKClipper.m */,
 				EA8E95391AD3C6840057E979 /* AKCombFilter.h */,
@@ -2032,6 +2040,7 @@
 				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
 				C4258E461B3FAF7100D91B3D /* AKPitchShifterPedal.h in Headers */,
 				EADE69831B52687700996FE0 /* EZAudioFloatConverter.h in Headers */,
+				C42966941B8374C60098A8EF /* AKAntiresonantFilter.h in Headers */,
 				EADE69871B52687700996FE0 /* EZAudioDisplayLink.h in Headers */,
 				EA321D1D1AEDCA5300DCCABD /* AKAudioFFTPlot.h in Headers */,
 				C4A1481B1B5F00660054F090 /* AKMidiInstrument.h in Headers */,
@@ -2328,6 +2337,7 @@
 				C4A1481C1B5F00660054F090 /* AKMidiInstrument.m in Sources */,
 				EA8E96011AD3C6850057E979 /* AKVibrato.m in Sources */,
 				EA8E95CC1AD3C6850057E979 /* AKStereoOutputPlot.m in Sources */,
+				C42966951B8374C60098A8EF /* AKAntiresonantFilter.m in Sources */,
 				EA8E95BF1AD3C6850057E979 /* AKMicrophone.m in Sources */,
 				EA8E95A71AD3C6850057E979 /* AKOrchestra.m in Sources */,
 				EA8E95E41AD3C6850057E979 /* AKFFT.m in Sources */,
@@ -2533,6 +2543,7 @@
 				C4A1481E1B5F00660054F090 /* AKMidiInstrument.m in Sources */,
 				EA8E96881AD3C89F0057E979 /* AKVibraphoneInstrument.m in Sources */,
 				EA8E968E1AD3C92B0057E979 /* AKAudioInputPlot.m in Sources */,
+				C42966971B8374C60098A8EF /* AKAntiresonantFilter.m in Sources */,
 				EA8E967E1AD3C88A0057E979 /* AKStereoAmplifier.m in Sources */,
 				EA8E969D1AD3C94F0057E979 /* AKPropertySlider.m in Sources */,
 				EA8E96A61AD3C9640057E979 /* AKTableGenerator.m in Sources */,
@@ -2738,6 +2749,7 @@
 				C4A1481D1B5F00660054F090 /* AKMidiInstrument.m in Sources */,
 				EAA0F5801AE71C8F007CD7C9 /* AKVibrato.m in Sources */,
 				EAA0F5811AE71C8F007CD7C9 /* AKStereoOutputPlot.m in Sources */,
+				C42966961B8374C60098A8EF /* AKAntiresonantFilter.m in Sources */,
 				EAA0F5821AE71C8F007CD7C9 /* AKMicrophone.m in Sources */,
 				EAA0F5831AE71C8F007CD7C9 /* AKOrchestra.m in Sources */,
 				EAA0F5841AE71C8F007CD7C9 /* AKFFT.m in Sources */,
