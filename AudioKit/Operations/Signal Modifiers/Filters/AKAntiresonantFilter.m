@@ -27,7 +27,7 @@
         _centerFrequency = centerFrequency;
         _bandwidth = bandwidth;
         [self setUpConnections];
-}
+    }
     return self;
 }
 
@@ -77,11 +77,11 @@
 - (NSString *)inlineStringForCSD
 {
     NSMutableString *inlineCSDString = [[NSMutableString alloc] init];
-
+    
     [inlineCSDString appendString:@"areson("];
     [inlineCSDString appendString:[self inputsString]];
     [inlineCSDString appendString:@")"];
-
+    
     return inlineCSDString;
 }
 
@@ -89,7 +89,7 @@
 - (NSString *)stringForCSD
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ areson ", self];
     [csdString appendString:[self inputsString]];
     return csdString;
@@ -97,26 +97,26 @@
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
-
-
+    
+    
     if ([_audioSource class] == [AKAudio class]) {
         [inputsString appendFormat:@"%@, ", _audioSource];
     } else {
         [inputsString appendFormat:@"AKAudio(%@), ", _audioSource];
     }
-
+    
     if ([_centerFrequency class] == [AKControl class]) {
         [inputsString appendFormat:@"%@, ", _centerFrequency];
     } else {
         [inputsString appendFormat:@"AKControl(%@), ", _centerFrequency];
     }
-
+    
     if ([_bandwidth class] == [AKControl class]) {
         [inputsString appendFormat:@"%@", _bandwidth];
     } else {
         [inputsString appendFormat:@"AKControl(%@)", _bandwidth];
     }
-return inputsString;
+    return inputsString;
 }
 
 @end
