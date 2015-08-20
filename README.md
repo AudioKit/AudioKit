@@ -7,6 +7,14 @@ AudioKit
 
 [AudioKit](http://audiokit.io/) is a powerful audio toolkit for synthesizing, processing, and analyzing sounds.  It contains several examples for iOS (iPhone & iPad) and Mac OSX, written in both Objective-C and in Swift.  A test suite is provided for many of the operations included in AudioKit.  A playground project can be used for trying out AudioKit instruments and for greatly speeding up the development of your own instruments and applications.
 
+Apps Using AudioKit
+------------------------
+If you release an app that uses AudioKit, please feel free to add it to the list!
+
+* [Guitar Score Trainer](https://itunes.apple.com/us/app/guitar-score-trainer-lite/id1008613919?mt=8&ign-mpt=uo%3D4) 
+* [Well Tempered](https://itunes.apple.com/us/app/well-tempered/id303514313?mt=8#)
+* [VR TOEIC] (https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=975407337) 
+
 The "AudioKit" subfolder
 ------------------------
 This folder contains the actual AudioKit toolkit classes.
