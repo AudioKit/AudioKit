@@ -17,9 +17,9 @@
     AKParameter * _audioSource;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                    centerFrequency:(AKParameter *)centerFrequency
-                          bandwidth:(AKParameter *)bandwidth
+- (instancetype)initWithInput:(AKParameter *)audioSource
+              centerFrequency:(AKParameter *)centerFrequency
+                    bandwidth:(AKParameter *)bandwidth
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -31,7 +31,7 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)audioSource
 {
     self = [super initWithString:[self operationName]];
     if (self) {
@@ -44,9 +44,9 @@
     return self;
 }
 
-+ (instancetype)filterWithAudioSource:(AKParameter *)audioSource
++ (instancetype)filterWithInput:(AKParameter *)audioSource
 {
-    return [[AKAntiresonantFilter alloc] initWithAudioSource:audioSource];
+    return [[AKAntiresonantFilter alloc] initWithInput:audioSource];
 }
 
 - (void)setCenterFrequency:(AKParameter *)centerFrequency {
