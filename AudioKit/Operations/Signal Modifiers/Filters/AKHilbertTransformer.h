@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) AKParameter *frequency;
 
 /// Set an optional cutoff frequency
-/// @param cutoffFrequency Filter cut-off frequency in Hz. [Default Value: 440]
+/// @param frequency Filter cut-off frequency in Hz. [Default Value: 440]
 - (void)setOptionalFrequency:(AKParameter *)frequency;
 
 @end

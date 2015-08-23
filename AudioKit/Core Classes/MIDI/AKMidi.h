@@ -23,9 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)closeMidiIn;
 
 /// Sets up MIDI communication with Csound. This also enables MIDI forwarding.
+/// @param csound Pointer to the Csound object
 - (void)connectToCsound:(CsoundObj *)csound;
 
 /// Send a MIDI event to Csound.
+/// @param event MIDI event to send to Csound
 - (void)sendEvent:(AKMidiEvent *)event;
 
 /// Whether received MIDI events are automatically forwarded to Csound (default: YES)

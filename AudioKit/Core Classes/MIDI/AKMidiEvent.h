@@ -39,7 +39,7 @@ typedef NS_ENUM(UInt8, AKMidiStatus)
     AKMidiStatusSystemCommand = 15
 };
 
-// System commands (8 bits - 0xFx) that do not require a channel number
+/// System commands (8 bits - 0xFx) that do not require a channel number
 typedef NS_ENUM(UInt8, AKMidiSystemCommand)
 {
     AKMidiCommandNone = 0,
@@ -56,7 +56,7 @@ typedef NS_ENUM(UInt8, AKMidiSystemCommand)
     AKMidiCommandSysReset = 255
 };
 
-// Value of byte 2 in conjunction with AKMidiStatusControllerChange
+/// Value of byte 2 in conjunction with AKMidiStatusControllerChange
 typedef NS_ENUM(UInt8, AKMidiControl)
 {
     AKMidiControlCC0 = 0,
@@ -106,9 +106,10 @@ typedef NS_ENUM(UInt8, AKMidiControl)
     AKMidiControlAllNotesOff = 123,
 };
 
-// Forward declaration from CoreMidi
+/// Forward declaration from CoreMidi
 typedef struct MIDIPacket MIDIPacket;
 
+/// A class to wrap MIDI events and keep MIDI constants in
 NS_ASSUME_NONNULL_BEGIN
 @interface AKMidiEvent : NSObject
 

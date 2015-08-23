@@ -11,6 +11,7 @@
 @class AKSoundFont;
 
 NS_ASSUME_NONNULL_BEGIN
+/// The AudioKit class for sound font instruments
 @interface AKSoundFontInstrument : NSObject
 
 /// Unique number assigned to the instrument by the sound font

@@ -31,9 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
                               amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the sound font player with default values
+/// @param soundFontPreset Sound Font Preset
 - (instancetype)initWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset;
 
 /// Instantiates the sound font player with default values
+/// @param soundFontPreset Sound Font Preset
 + (instancetype)playerWithSoundFontPreset:(AKSoundFontPreset *)soundFontPreset;
 
 
