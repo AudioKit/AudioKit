@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AKCompatibility.h"
 
-// These values are initialized from AudioKit.plist if it is present in the app bundle
+/// These values are initialized from AudioKit.plist if it is present in the app bundle
 
 NS_ASSUME_NONNULL_BEGIN
 @interface AKSettings : NSObject

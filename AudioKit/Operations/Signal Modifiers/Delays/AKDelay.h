@@ -50,7 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Instantiates the delay with 'chopped' values
 /// @param input Input signal, usually audio.
-/// @param delayTime Requested delay time in seconds.
 - (instancetype)initWithPresetChoppedDelayWithInput:(AKParameter *)input;
 
 /// Instantiates the delay with 'chopped' values

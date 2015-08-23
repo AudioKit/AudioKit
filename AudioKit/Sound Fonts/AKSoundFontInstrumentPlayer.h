@@ -31,9 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
                                   amplitude:(AKParameter *)amplitude;
 
 /// Instantiates the sound font instrument player with default values
+/// @param soundFontInstrument Sound Font Instrument
 - (instancetype)initWithSoundFontInstrument:(AKSoundFontInstrument *)soundFontInstrument;
 
 /// Instantiates the sound font instrument player with default values
+/// @param soundFontInstrument Sound Font Instrument
 + (instancetype)playerWithSoundFontInstrument:(AKSoundFontInstrument *)soundFontInstrument;
 
 /// MIDI Note Number. [Default Value: 60]

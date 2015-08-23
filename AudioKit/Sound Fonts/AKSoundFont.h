@@ -16,6 +16,7 @@
 typedef void (^AKSoundFontCompletionBlock)(AKSoundFont * __nullable);
 
 NS_ASSUME_NONNULL_BEGIN
+/// The AudioKit class for sound fonts
 @interface AKSoundFont : NSObject
 
 /// A reference lookup number for the sound font.

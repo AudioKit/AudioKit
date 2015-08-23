@@ -11,6 +11,8 @@
 @class AKSoundFont;
 
 NS_ASSUME_NONNULL_BEGIN
+
+/// The AudioKit class for sound font presets
 @interface AKSoundFontPreset : NSObject
 
 /// Name of the preset
