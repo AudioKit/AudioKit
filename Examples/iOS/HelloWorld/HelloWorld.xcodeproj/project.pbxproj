@@ -269,7 +269,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "for lib in CsoundLib libsndfile; do\n    install_name_tool -change $lib @rpath/$lib.framework/$lib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n    if ! test \"$CURRENT_ARCH\" = x86_64 -o \"$CURRENT_ARCH\" = i386; then\n        lipo -remove i386 -remove x86_64 $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib -output $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib 2>&1 || true\n    fi\ndone\n";
+			shellScript = "\"${SRCROOT}/../../../AudioKit/Platforms/iOS/run-script.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -17,8 +17,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKRingModulator : AKAudio
 /// Instantiates the ring modulator with all values
-/// @param input Input audio signal [Default Value: ]
-/// @param carrier The carrier signal [Default Value: ]
+/// @param input Input audio signal
+/// @param carrier The carrier signal 
 - (instancetype)initWithInput:(AKParameter *)input
                       carrier:(AKParameter *)carrier;
 

@@ -16,15 +16,19 @@
     IBOutlet UIView *fmSynthesizerTouchView;
     IBOutlet UIView *tambourineTouchView;
     
-    Tambourine *tambourine;
+    AKTambourineInstrument *tambourine;
     FMSynthesizer *fmSynthesizer;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    tambourine = [[Tambourine alloc] init];
+    tambourine = [[AKTambourineInstrument alloc] init];
     [AKOrchestra addInstrument:tambourine];
+    
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:tambourine.output];
+    [AKOrchestra addInstrument:amp];
+    [amp start];
 
     fmSynthesizer = [[FMSynthesizer alloc] init];
     [AKOrchestra addInstrument:fmSynthesizer];
@@ -38,8 +42,8 @@
     
     float intensity = scaledY*4000 + 20;
     float dampingFactor = scaledX / 2.0;
-    TambourineNote *note = [[TambourineNote alloc] initWithIntensity:intensity
-                                                       dampingFactor:dampingFactor];
+    AKTambourineNote *note = [[AKTambourineNote alloc] initWithIntensity:intensity
+                                                           dampingFactor:dampingFactor];
     [tambourine playNote:note];
 }
 

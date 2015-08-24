@@ -2,7 +2,7 @@
 //  AKFlute.h
 //  AudioKit
 //
-//  Auto-generated on 3/2/15.
+//  Auto-generated on 5/25/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
@@ -21,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param attackTime Time in seconds to reach full blowing pressure. [Default Value: 0.1]
 /// @param releaseTime Time in seconds taken to stop blowing. [Default Value: 0.1]
 /// @param airJetPressure a parameter controlling the air jet. Values should be positive, and the useful range is approximately 0.08 to 0.56. Updated at Control-rate. [Default Value: 0.2]
-/// @param jetrf Amount of reflection in the breath jet that powers the flute. [Default Value: 0.5]
-/// @param endrf Reflection coefficient of the breath jet. [Default Value: 0.5]
+/// @param airJetReflection Amount of reflection in the breath jet that powers the flute. [Default Value: 0.5]
+/// @param reflectionCoefficient Reflection coefficient of the breath jet. [Default Value: 0.5]
 /// @param noiseAmplitude Amplitude of the noise component, about 0 to 0.5 Updated at Control-rate. [Default Value: 0.15]
 /// @param amplitude Amplitude of the note, up to but not including 1. Updated at Control-rate. [Default Value: 0.5]
 /// @param vibratoShape Table defining the shape of the vibrato. [Default Value: sine]
@@ -32,8 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
                        attackTime:(AKConstant *)attackTime
                       releaseTime:(AKConstant *)releaseTime
                    airJetPressure:(AKParameter *)airJetPressure
-                            jetrf:(AKConstant *)jetrf
-                            endrf:(AKConstant *)endrf
+                 airJetReflection:(AKConstant *)airJetReflection
+            reflectionCoefficient:(AKConstant *)reflectionCoefficient
                    noiseAmplitude:(AKParameter *)noiseAmplitude
                         amplitude:(AKParameter *)amplitude
                      vibratoShape:(AKTable *)vibratoShape
@@ -46,6 +46,32 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the flute with default values
 + (instancetype)flute;
 
+/// Instantiates the flute with default values
++ (instancetype)presetDefaultFlute;
+
+/// Instantiates the flute with a sound resembling microphone feedback
+- (instancetype)initWithPresetMicFeedbackFlute;
+
+/// Instantiates the flute with a sound resembling microphone feedback
++ (instancetype)presetMicFeedbackFlute;
+
+/// Instantiates the flute with a sound resembling a large ship horn
+- (instancetype)initWithPresetShipsHornFlute;
+
+/// Instantiates the flute with a sound resembling a large ship horn
++ (instancetype)presetShipsHornFlute;
+
+/// Instantiates the flute with a sci-fi type sound
+- (instancetype)initWithPresetSciFiNoiseFlute;
+
+/// Instantiates the flute with a sci-fi type sound
++ (instancetype)presetSciFiNoiseFlute;
+
+/// Instantiates the flute with a screaming space sound
+- (instancetype)initWithPresetScreamingFlute;
+
+/// Instantiates the flute with a screaming space sound
++ (instancetype)presetScreamingFlute;
 
 /// Frequency of the note. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
@@ -76,18 +102,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setOptionalAirJetPressure:(AKParameter *)airJetPressure;
 
 /// Amount of reflection in the breath jet that powers the flute. [Default Value: 0.5]
-@property (nonatomic) AKConstant *jetrf;
+@property (nonatomic) AKConstant *airJetReflection;
 
-/// Set an optional jetrf
-/// @param jetrf Amount of reflection in the breath jet that powers the flute. [Default Value: 0.5]
-- (void)setOptionalJetrf:(AKConstant *)jetrf;
+/// Set an optional air jet reflection
+/// @param airJetReflection Amount of reflection in the breath jet that powers the flute. [Default Value: 0.5]
+- (void)setOptionalAirJetReflection:(AKConstant *)airJetReflection;
 
 /// Reflection coefficient of the breath jet. [Default Value: 0.5]
-@property (nonatomic) AKConstant *endrf;
+@property (nonatomic) AKConstant *reflectionCoefficient;
 
-/// Set an optional endrf
-/// @param endrf Reflection coefficient of the breath jet. [Default Value: 0.5]
-- (void)setOptionalEndrf:(AKConstant *)endrf;
+/// Set an optional reflection coefficient
+/// @param reflectionCoefficient Reflection coefficient of the breath jet. [Default Value: 0.5]
+- (void)setOptionalReflectionCoefficient:(AKConstant *)reflectionCoefficient;
 
 /// Amplitude of the noise component, about 0 to 0.5 [Default Value: 0.15]
 @property (nonatomic) AKParameter *noiseAmplitude;
@@ -128,3 +154,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 NS_ASSUME_NONNULL_END
+

@@ -25,6 +25,10 @@
 /// Trigger playback of the sequence.
 - (void)play;
 
+/// Loop playback of the sequence.
+/// @param loopDuration Total time of one run of the loop
+- (void)loopWithLoopDuration:(float)loopDuration;
+
 /// Pause playback of the sequence.
 - (void)pause;
 

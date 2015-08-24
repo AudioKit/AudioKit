@@ -1,5 +1,5 @@
 //
-//  VibraphonePlayground.m
+//  MarimbaPlayground.m
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 3/15/15.
@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "Marimba.h"
 
 @implementation Playground
 
@@ -15,10 +14,15 @@
 {
     [super run];
 
-    Marimba *marimba = [[Marimba alloc] initWithNumber:1];
+    AKMarimbaInstrument *marimba = [[AKMarimbaInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:marimba];
 
-    MarimbaNote *note = [[MarimbaNote alloc] init];
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:marimba.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
+    AKMarimbaNote *note = [[AKMarimbaNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [marimba playNote:note]; }];
 

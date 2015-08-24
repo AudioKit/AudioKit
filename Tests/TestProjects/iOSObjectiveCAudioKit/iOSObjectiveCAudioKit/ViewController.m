@@ -14,12 +14,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    _mathTestInstrument = [[MathTestInstrument alloc] init];
-    [AKOrchestra addInstrument:_mathTestInstrument];
-    [_mathTestInstrument start];
-    
-    _tableTestInstrument= [[TableTestInstrument alloc] init];
-    [AKOrchestra addInstrument:_tableTestInstrument];
 }
 
 @end

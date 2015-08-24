@@ -38,7 +38,7 @@
         _riseTime = akp(0.33);
         _decayTime = akp(0.33);
         _totalDuration = akp(1);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         [self setUpConnections];
     }
     return self;

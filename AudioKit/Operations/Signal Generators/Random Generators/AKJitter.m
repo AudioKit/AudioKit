@@ -33,7 +33,7 @@
     self = [super initWithString:[self operationName]];
     if (self) {
         // Default Values
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _minimumFrequency = akp(0);
         _maximumFrequency = akp(60);
         [self setUpConnections];

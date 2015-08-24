@@ -28,10 +28,6 @@
     NSTimeInterval _totalRunDuration;
 }
 
-// Run Csound from a given filename
-// @param filename CSD file use when running Csound.
-- (void)runCSDFile:(NSString *)filename;
-
 @end
 
 @implementation AKManager
@@ -100,32 +96,39 @@ static AKManager *_sharedManager = nil;
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        _engine = [[CsoundObj alloc] init];
         
+        _engine = [[CsoundObj alloc] init];
         [_engine addListener:self];
         _engine.messageDelegate = self;
-        
+
+        if (AKSettings.shared.MIDIEnabled) {
+            _midi = [[AKMidi alloc] init];
+        }
+
         _isRunning = NO;
-        _isLogging = AKSettings.settings.loggingEnabled;
-#ifdef TRAVIS_CI
-        _testLog = [NSMutableArray array];
-#endif
+        _isLogging = AKSettings.shared.loggingEnabled;
         _totalRunDuration = 10000000;
 
         _batchInstructions = [[NSString alloc] init];
         _isBatching = NO;
         
         _orchestra = [[AKOrchestra alloc] init];
+        
+        NSString *inputOption = [NSString stringWithFormat:@"-i %@", AKSettings.shared.audioInput];
+#ifdef AK_TESTING
+        inputOption = @"";
+#endif
 
         _options = [NSString stringWithFormat:
                     @"-o %@           ; Write sound to the host audio output\n"
                     "--expression-opt ; Enable expression optimizations\n"
                     "-m0              ; Print raw amplitudes\n"
-                    "-i %@            ; Request sound from the host audio input device",
-                    AKSettings.settings.audioOutput, AKSettings.settings.audioInput];
+                    "-M0              ; Enable MIDI internally\n"
+                    "-+rtmidi=null    ; No MIDI driver\n"
+                    "%@\n",
+                    AKSettings.shared.audioOutput, inputOption];
         
         _csdFile = [NSString stringWithFormat:@"%@/AudioKit-%@.csd", NSTemporaryDirectory(), @(getpid())];
-        _midi = [[AKMidi alloc] init];
         _sequences = [NSMutableDictionary dictionary];
         
         // Get notified when the application ends so we can a chance to do some cleanups
@@ -146,31 +149,20 @@ static AKManager *_sharedManager = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)_applicationWillTerminate:(NSNotification *)notification
+- (void)cleanup
 {
     [self.engine stop];
     [[NSFileManager defaultManager] removeItemAtPath:_csdFile error:nil];
 }
 
+- (void)_applicationWillTerminate:(NSNotification *)notification
+{
+    [self cleanup];
+}
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Handling CSD Files
 // -----------------------------------------------------------------------------
-
-- (void)runCSDFile:(NSString *)filename 
-{
-    if(_isRunning) {
-        if (_isLogging) NSLog(@"Csound instance already active.");
-        [self stop];
-    }
-    NSString *file = [[NSBundle mainBundle] pathForResource:filename
-                                                     ofType:@"csd"];  
-    [self.engine play:file];
-    if (_isLogging) NSLog(@"Starting %@ \n\n%@\n",filename, [AKManager stringFromFile:file]);
-    while(!_isRunning) {
-        if (_isLogging) NSLog(@"Waiting for Csound to startup completely.");
-    }
-    if (_isLogging) NSLog(@"Started.");
-}
 
 - (void)writeCSDFileForOrchestra:(AKOrchestra *)orchestra 
 {
@@ -199,8 +191,18 @@ static AKManager *_sharedManager = nil;
     }
 }
 
+- (void)renderToFile:(NSString *)outputPath forDuration:(NSTimeInterval)duration
+{
+    _totalRunDuration = duration;
+    [self writeCSDFileForOrchestra:_orchestra];
+    [self.engine record:_csdFile toFile:outputPath];
+}
+
 - (void)runOrchestra
 {
+#ifdef AK_TESTING
+    return;
+#else
     if(_isRunning) {
         if (_isLogging) NSLog(@"Csound instance already active.");
         [self stop];
@@ -215,11 +217,12 @@ static AKManager *_sharedManager = nil;
     while(!_isRunning) {
         cycles++;
         if (cycles > 100) {
-            if (_isLogging) NSLog(@"Csound has not started in 1 second." );
+            if (_isLogging) NSLog(@"Csound has not started in 1 second.");
             break;
         }
         [NSThread sleepForTimeInterval:0.01];
     }
+#endif
 }
 
 - (void)runOrchestraForDuration:(NSTimeInterval)duration
@@ -239,12 +242,12 @@ static AKManager *_sharedManager = nil;
 
 /// Enable Audio Input
 - (void)enableAudioInput {
-    [self.engine setUseAudioInput:YES];
+    AKSettings.shared.audioInputEnabled = YES;
 }
 
 /// Disable AudioInput
 - (void)disableAudioInput {
-    [self.engine setUseAudioInput:NO];
+    AKSettings.shared.audioInputEnabled = NO;
 }
 
 // -----------------------------------------------------------------------------
@@ -257,20 +260,6 @@ static AKManager *_sharedManager = nil;
 
 - (void)startRecordingToURL:(NSURL *)url {
     [self.engine recordToURL:url];
-}
-
-// -----------------------------------------------------------------------------
-#  pragma mark AKMidi
-// -----------------------------------------------------------------------------
-
-- (void)enableMidi
-{
-    [_midi openMidiIn];
-}
-
-- (void)disableMidi
-{
-    [_midi closeMidiIn];
 }
 
 // -----------------------------------------------------------------------------
@@ -341,23 +330,22 @@ static AKManager *_sharedManager = nil;
 // -----------------------------------------------------------------------------
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
-{
-#ifdef TRAVIS_CI
-    if ([msg rangeOfString:@"AKTEST"].location != NSNotFound) {
-        [_testLog addObject:[msg stringByReplacingOccurrencesOfString:@"AKTEST" withString:@""]];
-        return;
-    }
-#endif
-    
+{    
     if (_isLogging) {
-        if (AKSettings.settings.messagesEnabled) {
+        if (AKSettings.shared.messagesEnabled) {
             NSLog(@"Csound(%d): %@", attr, msg);
         } else {
             NSLog(@"%@", msg);
         }
+    } else if (attr & CSOUNDMSG_ERROR) {
+        NSLog(@"Csound Error: %@", msg);
     }
 }
 
+- (void)csoundObjWillStart:(CsoundObj *)csoundObj
+{
+    [_midi connectToCsound:_engine];
+}
 
 - (void)csoundObjStarted:(CsoundObj *)csoundObj {
     if (_isLogging) NSLog(@"Csound Started.");

@@ -16,8 +16,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKConvolution : AKAudio
 /// Instantiates the convolution with all values
-/// @param input Input to the convolution, usually audio. [Default Value: ]
-/// @param impulseResponseFilename File contain the impulse response audio.  Usually a very short impulse sound. [Default Value: ]
+/// @param input Input to the convolution, usually audio.
+/// @param impulseResponseFilename File contain the impulse response audio.  Usually a very short impulse sound. 
 - (instancetype)initWithInput:(AKParameter *)input
       impulseResponseFilename:(NSString *)impulseResponseFilename;
 

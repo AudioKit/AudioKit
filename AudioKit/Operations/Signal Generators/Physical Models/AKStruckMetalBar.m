@@ -69,6 +69,107 @@
     return [[AKStruckMetalBar alloc] init];
 }
 
++ (instancetype)presetDefaultStruckMetalBar
+{
+    return [[AKStruckMetalBar alloc] init];
+}
+
+- (instancetype)initWithPresetThickDullMetalBar
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _decayTime = akp(1.0);
+        _dimensionlessStiffness = akp(50);
+        _highFrequencyLoss = akp(0.1);
+        _strikePosition = akp(0.6);
+        _strikeVelocity = akp(2000);
+        _strikeWidth = akp(0.2);
+        _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
+        _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
+        _scanSpeed = akp(0.23);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetThickDullMetalBar
+{
+    return [[AKStruckMetalBar alloc] initWithPresetThickDullMetalBar];
+}
+
+- (instancetype)initWithPresetIntenseDecayingMetalBar
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _decayTime = akp(5.0);
+        _dimensionlessStiffness = akp(100);
+        _highFrequencyLoss = akp(0.01);
+        _strikePosition = akp(0.2);
+        _strikeVelocity = akp(10000);
+        _strikeWidth = akp(0.2);
+        _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
+        _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
+        _scanSpeed = akp(0.23);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetIntenseDecayingMetalBar
+{
+    return [[AKStruckMetalBar alloc] initWithPresetIntenseDecayingMetalBar];
+}
+
+- (instancetype)initWithPresetSmallHollowMetalBar
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _decayTime = akp(0.1);
+        _dimensionlessStiffness = akp(200);
+        _highFrequencyLoss = akp(0.1);
+        _strikePosition = akp(0.2);
+        _strikeVelocity = akp(2000);
+        _strikeWidth = akp(0.9);
+        _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
+        _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
+        _scanSpeed = akp(0.23);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSmallHollowMetalBar
+{
+    return [[AKStruckMetalBar alloc] initWithPresetSmallHollowMetalBar];
+}
+
+- (instancetype)initWithPresetSmallTinklingMetalBar
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _decayTime = akp(0.1);
+        _dimensionlessStiffness = akp(900);
+        _highFrequencyLoss = akp(0.1);
+        _strikePosition = akp(0.2);
+        _strikeVelocity = akp(5000);
+        _strikeWidth = akp(0.9);
+        _leftBoundaryCondition  = [AKStruckMetalBar boundaryConditionClamped];
+        _rightBoundaryCondition = [AKStruckMetalBar boundaryConditionClamped];
+        _scanSpeed = akp(0.23);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSmallTinklingMetalBar
+{
+    return [[AKStruckMetalBar alloc] initWithPresetSmallTinklingMetalBar];
+}
+
 - (void)setDecayTime:(AKConstant *)decayTime {
     _decayTime = decayTime;
     [self setUpConnections];

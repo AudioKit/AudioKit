@@ -44,10 +44,75 @@
     return self;
 }
 
-+ (instancetype)WithInput:(AKParameter *)input
++ (instancetype)filterWithInput:(AKParameter *)input
 {
     return [[AKDecimator alloc] initWithInput:input];
 }
+
+- (instancetype)initWithPresetDefaultDecimatorWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetCrunchyDecimatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _bitDepth = akp(20);
+        _sampleRate = akp(44100);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetCrunchyDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initWithPresetCrunchyDecimatorWithInput:input];
+}
+
+- (instancetype)initWithPresetVideogameDecimatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _bitDepth = akp(20);
+        _sampleRate = akp(2400);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetVideogameDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initWithPresetVideogameDecimatorWithInput:input];
+}
+
+- (instancetype)initWithPresetRobotDecimatorWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _bitDepth = akp(20);
+        _sampleRate = akp(1200);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetRobotDecimatorWithInput:(AKParameter *)input;
+{
+    return [[AKDecimator alloc] initWithPresetRobotDecimatorWithInput:input];
+}
+
 
 - (void)setBitDepth:(AKParameter *)bitDepth {
     _bitDepth = bitDepth;

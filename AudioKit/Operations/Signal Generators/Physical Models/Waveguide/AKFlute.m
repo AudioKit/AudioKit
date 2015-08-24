@@ -2,7 +2,7 @@
 //  AKFlute.m
 //  AudioKit
 //
-//  Auto-generated on 3/2/15.
+//  Auto-generated on 5/25/15.
 //  Customized by Aurelius Prochazka to skip initialization on held notes with tival()
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
@@ -19,8 +19,8 @@
                        attackTime:(AKConstant *)attackTime
                       releaseTime:(AKConstant *)releaseTime
                    airJetPressure:(AKParameter *)airJetPressure
-                            jetrf:(AKConstant *)jetrf
-                            endrf:(AKConstant *)endrf
+                 airJetReflection:(AKConstant *)airJetReflection
+            reflectionCoefficient:(AKConstant *)reflectionCoefficient
                    noiseAmplitude:(AKParameter *)noiseAmplitude
                         amplitude:(AKParameter *)amplitude
                      vibratoShape:(AKTable *)vibratoShape
@@ -33,8 +33,8 @@
         _attackTime = attackTime;
         _releaseTime = releaseTime;
         _airJetPressure = airJetPressure;
-        _jetrf = jetrf;
-        _endrf = endrf;
+        _airJetReflection = airJetReflection;
+        _reflectionCoefficient = reflectionCoefficient;
         _noiseAmplitude = noiseAmplitude;
         _amplitude = amplitude;
         _vibratoShape = vibratoShape;
@@ -54,8 +54,8 @@
         _attackTime = akp(0.1);
         _releaseTime = akp(0.1);
         _airJetPressure = akp(0.2);
-        _jetrf = akp(0.5);
-        _endrf = akp(0.5);
+        _airJetReflection = akp(0.5);
+        _reflectionCoefficient = akp(0.5);
         _noiseAmplitude = akp(0.15);
         _amplitude = akp(0.5);
         _vibratoShape = [AKTable standardSineWave];
@@ -70,6 +70,119 @@
 + (instancetype)flute
 {
     return [[AKFlute alloc] init];
+}
+
++ (instancetype)presetDefaultFlute
+{
+    return [[AKFlute alloc] init];
+}
+
+- (instancetype)initWithPresetMicFeedbackFlute
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(900);
+        _attackTime = akp(0.2);
+        _releaseTime = akp(1);
+        _airJetPressure = akp(2);
+        _airJetReflection = akp(0.5);
+        _reflectionCoefficient = akp(0.8);
+        _noiseAmplitude = akp(0.1);
+        _amplitude = akp(0.5);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoAmplitude = akp(0);
+        _vibratoFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMicFeedbackFlute
+{
+    return [[AKFlute alloc] initWithPresetMicFeedbackFlute];
+}
+
+- (instancetype)initWithPresetShipsHornFlute
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(220);
+        _attackTime = akp(0.1);
+        _releaseTime = akp(0.3);
+        _airJetPressure = akp(2);
+        _airJetReflection = akp(0.5);
+        _reflectionCoefficient = akp(0.4);
+        _noiseAmplitude = akp(0.15);
+        _amplitude = akp(0.5);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoAmplitude = akp(0);
+        _vibratoFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetShipsHornFlute
+{
+    return [[AKFlute alloc] initWithPresetShipsHornFlute];
+}
+
+- (instancetype)initWithPresetSciFiNoiseFlute
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(50);
+        _attackTime = akp(0.1);
+        _releaseTime = akp(0.9);
+        _airJetPressure = akp(0.2);
+        _airJetReflection = akp(0.9);
+        _reflectionCoefficient = akp(0.5);
+        _noiseAmplitude = akp(0.12);
+        _amplitude = akp(0.5);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoAmplitude = akp(0);
+        _vibratoFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSciFiNoiseFlute
+{
+    return [[AKFlute alloc] initWithPresetSciFiNoiseFlute];
+}
+
+- (instancetype)initWithPresetScreamingFlute
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(10);
+        _attackTime = akp(0.1);
+        _releaseTime = akp(0);
+        _airJetPressure = akp(0.2);
+        _airJetReflection = akp(0.9);
+        _reflectionCoefficient = akp(0.6);
+        _noiseAmplitude = akp(1);
+        _amplitude = akp(0.5);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoAmplitude = akp(0);
+        _vibratoFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetScreamingFlute
+{
+    return [[AKFlute alloc] initWithPresetScreamingFlute];
 }
 
 - (void)setFrequency:(AKParameter *)frequency {
@@ -108,22 +221,22 @@
     [self setAirJetPressure:airJetPressure];
 }
 
-- (void)setJetrf:(AKConstant *)jetrf {
-    _jetrf = jetrf;
+- (void)setAirJetReflection:(AKConstant *)airJetReflection {
+    _airJetReflection = airJetReflection;
     [self setUpConnections];
 }
 
-- (void)setOptionalJetrf:(AKConstant *)jetrf {
-    [self setJetrf:jetrf];
+- (void)setOptionalAirJetReflection:(AKConstant *)airJetReflection {
+    [self setAirJetReflection:airJetReflection];
 }
 
-- (void)setEndrf:(AKConstant *)endrf {
-    _endrf = endrf;
+- (void)setReflectionCoefficient:(AKConstant *)reflectionCoefficient {
+    _reflectionCoefficient = reflectionCoefficient;
     [self setUpConnections];
 }
 
-- (void)setOptionalEndrf:(AKConstant *)endrf {
-    [self setEndrf:endrf];
+- (void)setOptionalReflectionCoefficient:(AKConstant *)reflectionCoefficient {
+    [self setReflectionCoefficient:reflectionCoefficient];
 }
 
 - (void)setNoiseAmplitude:(AKParameter *)noiseAmplitude {
@@ -175,7 +288,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_frequency, _attackTime, _releaseTime, _airJetPressure, _jetrf, _endrf, _noiseAmplitude, _amplitude, _vibratoAmplitude, _vibratoFrequency];
+    self.dependencies = @[_frequency, _attackTime, _releaseTime, _airJetPressure, _airJetReflection, _reflectionCoefficient, _noiseAmplitude, _amplitude, _vibratoAmplitude, _vibratoFrequency];
 }
 
 - (NSString *)inlineStringForCSD
@@ -249,9 +362,9 @@
     
     [inputsString appendFormat:@"%@-tival(), ", _initializationParameter];
     
-    [inputsString appendFormat:@"%@, ", _jetrf];
+    [inputsString appendFormat:@"%@, ", _airJetReflection];
     
-    [inputsString appendFormat:@"%@", _endrf];
+    [inputsString appendFormat:@"%@", _reflectionCoefficient];
     return inputsString;
 }
 

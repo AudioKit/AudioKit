@@ -17,18 +17,35 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKLowPassFilter : AKAudio
 /// Instantiates the low pass filter with all values
-/// @param audioSource The control to be filtered [Default Value: ]
+/// @param input The control to be filtered 
 /// @param halfPowerPoint The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. Updated at Control-rate. [Default Value: 1000]
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                     halfPowerPoint:(AKParameter *)halfPowerPoint;
+- (instancetype)initWithInput:(AKParameter *)input
+               halfPowerPoint:(AKParameter *)halfPowerPoint;
 
 /// Instantiates the low pass filter with default values
-/// @param audioSource The control to be filtered
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+/// @param input The control to be filtered
+- (instancetype)initWithInput:(AKParameter *)input;
 
 /// Instantiates the low pass filter with default values
-/// @param audioSource The control to be filtered
-+ (instancetype)filterWithAudioSource:(AKParameter *)audioSource;
+/// @param input The control to be filtered
++ (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with a muffled sound
+/// @param input The control to be filtered
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with a muffled sound
+/// @param input The control to be filtered
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
+
 
 /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 1000]
 @property (nonatomic) AKParameter *halfPowerPoint;

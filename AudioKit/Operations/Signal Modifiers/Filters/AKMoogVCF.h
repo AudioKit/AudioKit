@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKMoogVCF : AKAudio
 /// Instantiates the moog vcf with all values
-/// @param input Input signal. [Default Value: ]
+/// @param input Input signal. 
 /// @param cutoffFrequency Filter cut-off frequency in Hz. [Default Value: 1000]
 /// @param resonance Amount of resonance. Self-oscillation occurs when this is approximately one. [Default Value: 0.5]
 - (instancetype)initWithInput:(AKParameter *)input
@@ -31,6 +31,30 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the moog vcf with default values
 /// @param input Input signal.
 + (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with default values
+/// @param input Input signal.
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with default values
+/// @param input Input signal.
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with a high-treble sound
+/// @param input Input signal.
+- (instancetype)initWithPresetHighTrebleFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with a high-treble sound
+/// @param input Input signal.
++ (instancetype)presetHighTrebleFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with a bass-heavy sound
+/// @param input Input signal.
+- (instancetype)initWithPresetFoggyBottomFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the moog vcf with a bass-heavy sound
+/// @param input Input signal.
++ (instancetype)presetFoggyBottomFilterWithInput:(AKParameter *)input;
 
 /// Filter cut-off frequency in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *cutoffFrequency;

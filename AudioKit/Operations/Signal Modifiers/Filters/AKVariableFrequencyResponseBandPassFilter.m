@@ -16,21 +16,21 @@
 
 @implementation AKVariableFrequencyResponseBandPassFilter
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
 + (AKConstant *)scalingFactorNone { return akp(0); }
 + (AKConstant *)scalingFactorPeak { return akp(1); }
 + (AKConstant *)scalingFactorRMS  { return akp(2); }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
                     cutoffFrequency:(AKParameter *)cutoffFrequency
                           bandwidth:(AKParameter *)bandwidth
                       scalingFactor:(AKConstant *)scalingFactor
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _cutoffFrequency = cutoffFrequency;
         _bandwidth = bandwidth;
         _scalingFactor = scalingFactor;
@@ -39,23 +39,111 @@
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _cutoffFrequency = akp(1000);
         _bandwidth = akp(10);
-        _scalingFactor = akp(0);
+        _scalingFactor = akp(1);
         [self setUpConnections];
     }
     return self;
 }
 
-+ (instancetype)filterWithAudioSource:(AKParameter *)audioSource
++ (instancetype)filterWithInput:(AKParameter *)input
 {
-    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithAudioSource:audioSource];
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(500);
+        _bandwidth = akp(10);
+        _scalingFactor = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetMuffledFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetLargeMuffledFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(500);
+        _bandwidth = akp(5);
+        _scalingFactor = akp(2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetLargeMuffledFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetLargeMuffledFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetTreblePeakFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(3000);
+        _bandwidth = akp(5);
+        _scalingFactor = akp(2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetTreblePeakFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetTreblePeakFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetBassPeakFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _cutoffFrequency = akp(200);
+        _bandwidth = akp(1);
+        _scalingFactor = akp(2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetBassPeakFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithPresetBassPeakFilterWithInput:input];
+}
+
+
+
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefautFilterWithInput:(AKParameter *)input;
+{
+    return [[AKVariableFrequencyResponseBandPassFilter alloc] initWithInput:input];
 }
 
 - (void)setCutoffFrequency:(AKParameter *)cutoffFrequency {
@@ -89,7 +177,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_audioSource, _cutoffFrequency, _bandwidth, _scalingFactor];
+    self.dependencies = @[_input, _cutoffFrequency, _bandwidth, _scalingFactor];
 }
 
 - (NSString *)inlineStringForCSD
@@ -117,10 +205,10 @@
     NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     
-    if ([_audioSource class] == [AKAudio class]) {
-        [inputsString appendFormat:@"%@, ", _audioSource];
+    if ([_input class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [inputsString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_cutoffFrequency class] == [AKControl class]) {

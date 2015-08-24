@@ -57,6 +57,9 @@
     [self.backgroundColor setFill];
     NSRectFill(rect);
 #endif
+    if (!_historySize) // Csound not setup yet
+        return;
+    
     // Draw waveform
     AKBezierPath *wavePath = [AKBezierPath bezierPath];
     
@@ -81,11 +84,14 @@
 #endif
         y = AK_CLAMP(y, 0.0, self.bounds.size.height);
         //NSLog(@"%index:d value:%f x:%f y:%f y2:%f", i%historySize, history[i % historySize], x, y, y2 );
+        
+        if (isfinite(y)) {
 #if TARGET_OS_IPHONE
-        [wavePath addLineToPoint:CGPointMake(x, y)];
+            [wavePath addLineToPoint:CGPointMake(x, y)];
 #elif TARGET_OS_MAC
-        [wavePath lineToPoint:CGPointMake(x, y)];
+            [wavePath lineToPoint:CGPointMake(x, y)];
 #endif
+        }
         x += deltaX;
     }
     
@@ -161,7 +167,7 @@
 {
     _cs = csoundObj;
     
-    _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
+    _sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
     
     void *samples = malloc(_sampleSize * sizeof(float));
     bzero(samples, _sampleSize * sizeof(float));

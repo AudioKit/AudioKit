@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 1/3/15.
+//  Customized by Aurelius Prochazka on 5/29/15 to scale the amplitude by sqrt 2.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's rms:
@@ -14,38 +15,38 @@
 
 @implementation AKTrackedAmplitude
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
-                     halfPowerPoint:(AKConstant *)halfPowerPoint
+- (instancetype)initWithInput:(AKParameter *)input
+               halfPowerPoint:(AKConstant *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _halfPowerPoint = halfPowerPoint;
         self.state = @"connectable";
-        self.dependencies = @[audioSource];
+        self.dependencies = @[input];
     }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _halfPowerPoint = akp(10);
         self.state = @"connectable";
-        self.dependencies = @[audioSource];
+        self.dependencies = @[input];
     }
     return self;
 }
 
-+ (instancetype)amplitudeWithAudioSource:(AKParameter *)audioSource
++ (instancetype)amplitudeWithInput:(AKParameter *)input
 {
-    return [[AKTrackedAmplitude alloc] initWithAudioSource:audioSource];
+    return [[AKTrackedAmplitude alloc] initWithInput:input];
 }
 
 - (void)setOptionalHalfPowerPoint:(AKConstant *)halfPowerPoint {
@@ -54,15 +55,15 @@
 
 - (NSString *)stringForCSD {
     NSMutableString *csdString = [[NSMutableString alloc] init];
-
+    
     [csdString appendFormat:@"%@ rms ", self];
-
-    if ([_audioSource class] == [AKAudio class]) {
-        [csdString appendFormat:@"%@, ", _audioSource];
+    
+    if ([_input class] == [AKAudio class]) {
+        [csdString appendFormat:@"%@*1.414, ", _input];
     } else {
-        [csdString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [csdString appendFormat:@"AKAudio(%@*1.414), ", _input];
     }
-
+    
     [csdString appendFormat:@"%@", _halfPowerPoint];
     return csdString;
 }

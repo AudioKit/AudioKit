@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "Vibraphone.h"
 
 @implementation Playground
 
@@ -15,10 +14,15 @@
 {
     [super run];
 
-    Vibraphone *vibraphone = [[Vibraphone alloc] initWithNumber:1];
+    AKVibraphoneInstrument *vibraphone = [[AKVibraphoneInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:vibraphone];
 
-    VibraphoneNote *note = [[VibraphoneNote alloc] init];
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:vibraphone.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
+    AKVibraphoneNote *note = [[AKVibraphoneNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [vibraphone playNote:note]; }];
 

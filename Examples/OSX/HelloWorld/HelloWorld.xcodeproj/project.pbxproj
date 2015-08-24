@@ -135,7 +135,7 @@
 		EABF23C11AD4AFFB0008F3B7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EABF23C61AD4AFFB0008F3B7 /* libAudioKit iOS.a */,
+				EABF23C61AD4AFFB0008F3B7 /* libAudioKit iOS Static.a */,
 				EAA0F5C41AE84516007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				EABF23C81AD4AFFB0008F3B7 /* libAudioKit OS X.a */,
 			);
@@ -220,7 +220,7 @@
 			remoteRef = EAA0F5C31AE84516007CD7C9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		EABF23C61AD4AFFB0008F3B7 /* libAudioKit iOS.a */ = {
+		EABF23C61AD4AFFB0008F3B7 /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libAudioKit iOS Static.a";
@@ -260,7 +260,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "\"${SRCROOT}/../../../AudioKit/Platforms/OSX/run-script.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 

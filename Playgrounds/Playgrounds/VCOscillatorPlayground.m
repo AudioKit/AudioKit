@@ -7,7 +7,7 @@
 //
 
 #import "Playground.h"
-#import "VCOscillatorInstrument.h"
+#import "AKVCOscillatorInstrument.h"
 
 @implementation Playground
 
@@ -15,10 +15,10 @@
 {
     [super run];
 
-    VCOscillatorInstrument *vcoInstrument = [[VCOscillatorInstrument alloc] initWithNumber:1];
+    AKVCOscillatorInstrument *vcoInstrument = [[AKVCOscillatorInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:vcoInstrument];
 
-    VCOscillatorNote *note = [[VCOscillatorNote alloc] init];
+    AKVCOscillatorNote *note = [[AKVCOscillatorNote alloc] init];
 
     [self addSliderForProperty:vcoInstrument.amplitude title:@"Amplitude"];
     [self addSliderForProperty:note.frequency title:@"Frequency"];

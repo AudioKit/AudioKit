@@ -74,7 +74,7 @@ typedef enum pvoc_frametype {
 
 typedef enum pvoc_windowtype {
     PVOC_DEFAULT = 0,
-    PVOC_HAMMING,
+    PVOC_HAMMING = 0,
     PVOC_HANN,
     PVOC_KAISER,
     PVOC_RECT,

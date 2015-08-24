@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 // -----------------------------------------------------------------------------
 
 /// Unique instrument number
-@property (readonly) NSUInteger instrumentNumber;
+@property NSUInteger instrumentNumber;
 
 
 /// Array of instrument properties available for the instrument.
@@ -60,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Array of note properties available to events.
 @property NSMutableArray *noteProperties;
 
-/// Add an instrument property explicity (normally this happens automatically)
+/// Add an instrument property explicitly (normally this happens automatically)
 /// @param newProperty New property to add to the instrument.
 - (void) addProperty:(AKInstrumentProperty *)newProperty;
 
@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
                                           minimum:(float)minimum
                                           maximum:(float)maximum;
 
-/// Add a note property to the instrumnet explicitly (normally happens automatically)
+/// Add a note property to the instrument explicitly (normally happens automatically)
 /// @param newNoteProperty New note property instrument needs to be aware of.
 - (void)addNoteProperty:(AKNoteProperty *)newNoteProperty;
 
@@ -115,7 +115,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param input  Parameter being read.
 - (void)assignOutput:(AKParameter *)output to:(AKParameter *)input;
 
-/// Explicitly set the output of one paramter to another, useful for tracking
+/// Explicitly set the output of one parameter to another, useful for tracking
 /// @param parameter Output or overwritten parameter
 /// @param input     Input parameter
 - (void)setParameter:(AKParameter *)parameter to:(AKParameter *)input;

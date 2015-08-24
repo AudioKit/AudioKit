@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKSimpleWaveGuideModel : AKAudio
 /// Instantiates the simple wave guide model with all values
-/// @param input The excitation noise. [Default Value: ]
+/// @param input The excitation noise. 
 /// @param frequency The inverse of delay time. [Default Value: 440]
 /// @param cutoff Filter cut-off frequency in Hz Updated at Control-rate. [Default Value: 3000]
 /// @param feedback Feedback factor usually between 0 and 1 Updated at Control-rate. [Default Value: 0.8]

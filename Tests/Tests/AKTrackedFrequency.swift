@@ -30,7 +30,7 @@ class Instrument : AKInstrument {
         setAudioOutput(toneGenerator)
 
         let tracker = AKTrackedFrequency(
-            audioSource: toneGenerator,
+            input: toneGenerator,
             sampleSize: 512.ak
         )
 

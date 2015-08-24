@@ -18,7 +18,7 @@ The amplitude response for this filter will be flat (=1) for gain=1. With gain b
 NS_ASSUME_NONNULL_BEGIN
 @interface AKEqualizerFilter : AKAudio
 /// Instantiates the equalizer filter with all values
-/// @param input Input signal. [Default Value: ]
+/// @param input Input signal. 
 /// @param centerFrequency Filter center frequency in Hz. Updated at Control-rate. [Default Value: 1000]
 /// @param bandwidth Peak/notch bandwidth in Hz. Updated at Control-rate. [Default Value: 100]
 /// @param gain Peak/notch gain. Updated at Control-rate. [Default Value: 10]
@@ -34,6 +34,47 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the equalizer filter with default values
 /// @param input Input signal.
 + (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with default values
+/// @param input Input signal.
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with default values
+/// @param input Input signal.
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, low frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetNarrowLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, low frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetNarrowLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, high frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetNarrowHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a narrow, high frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetNarrowHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, low frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetWideHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, low frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetWideHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, high frequency notch setting
+/// @param input Input signal.
+- (instancetype)initWithPresetWideLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the equalizer filter with a wide, high frequency notch setting
+/// @param input Input signal.
++ (instancetype)presetWideLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+
 
 /// Filter center frequency in Hz. [Default Value: 1000]
 @property (nonatomic) AKParameter *centerFrequency;

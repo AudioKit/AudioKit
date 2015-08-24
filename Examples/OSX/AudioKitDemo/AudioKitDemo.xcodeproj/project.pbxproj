@@ -20,6 +20,7 @@
 		C47546BA1A9BDA11006151DE /* TouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = C47546B91A9BDA11006151DE /* TouchView.m */; };
 		EA5D42151AD4BBFD00BEA03A /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42121AD4BBDD00BEA03A /* libAudioKit OS X.a */; };
 		EA5D42171AD4BC0100BEA03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42161AD4BC0100BEA03A /* AVFoundation.framework */; };
+		EA8655AD1B4A867000524AE0 /* MIDIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8655AC1B4A867000524AE0 /* MIDIViewController.m */; };
 		EAB29D731AD51CC8000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D721AD51CC8000EA118 /* AKSoundFiles.bundle */; };
 		EAF365651ADB591400AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365641ADB591400AA6551 /* CsoundLib.framework */; };
 		EAF365661ADB5AA700AA6551 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EAF365641ADB591400AA6551 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -93,7 +94,9 @@
 		C47546B91A9BDA11006151DE /* TouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchView.m; path = Synthesis/TouchView.m; sourceTree = "<group>"; };
 		EA5D420A1AD4BBDD00BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D42161AD4BC0100BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		EAB29D721AD51CC8000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EA8655AB1B4A867000524AE0 /* MIDIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MIDIViewController.h; path = MIDI/MIDIViewController.h; sourceTree = "<group>"; };
+		EA8655AC1B4A867000524AE0 /* MIDIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MIDIViewController.m; path = MIDI/MIDIViewController.m; sourceTree = "<group>"; };
+		EAB29D721AD51CC8000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		EAF365641ADB591400AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -165,6 +168,7 @@
 				C47546B01A9BD244006151DE /* Synthesis */,
 				C42DC32B1A9C617B0041B644 /* Processing */,
 				C42DC33D1A9C65330041B644 /* Analysis */,
+				EA8655B01B4A867B00524AE0 /* MIDI */,
 				C47544911A9BD0DF006151DE /* Supporting Files */,
 			);
 			path = AudioKitDemo;
@@ -225,6 +229,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EA8655B01B4A867B00524AE0 /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				EA8655AB1B4A867000524AE0 /* MIDIViewController.h */,
+				EA8655AC1B4A867000524AE0 /* MIDIViewController.m */,
+			);
+			name = MIDI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -254,7 +267,7 @@
 		C47544861A9BD0DF006151DE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Aurelius Prochazka";
 				TargetAttributes = {
 					C475448D1A9BD0DF006151DE = {
@@ -335,7 +348,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "\"${SRCROOT}/../../../AudioKit/Platforms/OSX/run-script.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -347,6 +360,7 @@
 				C475449A1A9BD0DF006151DE /* ViewController.m in Sources */,
 				C42DC32A1A9C61740041B644 /* ProcessingViewController.m in Sources */,
 				C47544971A9BD0DF006151DE /* main.m in Sources */,
+				EA8655AD1B4A867000524AE0 /* MIDIViewController.m in Sources */,
 				C42DC3351A9C61DF0041B644 /* ConvolutionInstrument.m in Sources */,
 				C47546AF1A9BD23D006151DE /* SynthesisViewController.m in Sources */,
 				C42DC33B1A9C652E0041B644 /* AnalysisViewController.m in Sources */,
@@ -398,6 +412,7 @@
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -470,6 +485,12 @@
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-headerpad_max_install_names",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -486,6 +507,12 @@
 				INFOPLIST_FILE = AudioKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-headerpad_max_install_names",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

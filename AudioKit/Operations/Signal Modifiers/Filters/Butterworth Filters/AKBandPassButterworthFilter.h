@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKBandPassButterworthFilter : AKAudio
 /// Instantiates the band pass butterworth filter with all values
-/// @param input Input signal to be filtered. [Default Value: ]
+/// @param input Input signal to be filtered. 
 /// @param centerFrequency Center frequency for each of the filters. Updated at Control-rate. [Default Value: 2000]
 /// @param bandwidth Bandwidth of the band-pass filters. Updated at Control-rate. [Default Value: 100]
 - (instancetype)initWithInput:(AKParameter *)input
@@ -31,6 +31,31 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the band pass butterworth filter with default values
 /// @param input Input signal to be filtered.
 + (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with default values
+/// @param input Input signal to be filtered.
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with default values
+/// @param input Input signal to be filtered.
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a bass heavy sound
+/// @param input Input signal to be filtered.
+- (instancetype)initWithPresetBassHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a bass heavy sound
+/// @param input Input signal to be filtered.
++ (instancetype)presetBassHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a treble heavy sound
+/// @param input Input signal to be filtered.
+- (instancetype)initWithPresetTrebleHeavyFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band pass butterworth filter with a treble heavy sound
+/// @param input Input signal to be filtered.
++ (instancetype)presetTrebleHeavyFilterWithInput:(AKParameter *)input;
+
 
 /// Center frequency for each of the filters. [Default Value: 2000]
 @property (nonatomic) AKParameter *centerFrequency;

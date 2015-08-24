@@ -14,6 +14,7 @@
 {
     BOOL isPlaying;
     unsigned int index;
+    float _loopDuration;
 }
 
 // -----------------------------------------------------------------------------
@@ -27,6 +28,7 @@
         _events = [[NSMutableArray alloc] init];
         _times  = [[NSMutableArray alloc] init];
         isPlaying = NO;
+        _loopDuration = 0;
     }
     return self;
 }
@@ -92,6 +94,19 @@
                   inModes:@[NSRunLoopCommonModes]];
 }
 
+- (void)loopWithLoopDuration:(float)loopDuration
+{
+    index = 0;
+    isPlaying = YES;
+    _loopDuration = loopDuration;
+    
+    // Delay playback until first event is set to start.
+    [self performSelector:@selector(playNextEventInLoop)
+               withObject:nil
+               afterDelay:[_times[0] floatValue]
+                  inModes:@[NSRunLoopCommonModes]];
+}
+
 - (void)pause
 {
     isPlaying = NO;
@@ -126,6 +141,31 @@
                       inModes:@[NSRunLoopCommonModes]];
     }
     index++;
+}
+
+- (void)playNextEventInLoop
+{
+    if (isPlaying) {
+        AKEvent *event = _events[index];
+        [[AKManager sharedManager] triggerEvent:event];
+    }
+    
+    if (isPlaying) {
+        
+        float timeUntilNextEvent = 0;
+        if (index < [_times count]-1) {
+            timeUntilNextEvent = [_times[index+1] floatValue] - [_times[index] floatValue];
+        }
+        if (timeUntilNextEvent <= 0) {
+            timeUntilNextEvent += _loopDuration;
+        }
+        [self performSelector:@selector(playNextEventInLoop)
+                   withObject:nil
+                   afterDelay:timeUntilNextEvent
+                      inModes:@[NSRunLoopCommonModes]];
+    }
+    index++;
+    index = index % [_times count];
 }
 
 

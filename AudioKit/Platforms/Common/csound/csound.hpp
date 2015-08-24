@@ -424,6 +424,9 @@ public:
   {
     return csoundGetOutputName(csound);
   }
+  virtual long GetCurrentTimeSamples(){
+    return csoundGetCurrentTimeSamples(csound);
+  }
   virtual void SetHostImplementedAudioIO(int state, int bufSize)
   {
     csoundSetHostImplementedAudioIO(csound, state, bufSize);

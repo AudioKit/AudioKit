@@ -12,7 +12,7 @@ class SynthesisViewController: NSViewController {
     @IBOutlet var fmSynthesizerTouchView: NSView!
     @IBOutlet var tambourineTouchView: NSView!
     
-    let tambourine    = Tambourine()
+    let tambourine    = AKTambourineInstrument()
     let fmSynthesizer = FMSynthesizer()
     
     override func viewDidLoad() {
@@ -20,6 +20,10 @@ class SynthesisViewController: NSViewController {
 
         AKOrchestra.addInstrument(tambourine)
         AKOrchestra.addInstrument(fmSynthesizer)
+        
+        let amp = AKAmplifier(input: tambourine.output)
+        AKOrchestra.addInstrument(amp)
+        amp.start()
     }
     
     @IBAction func tapTambourine(sender: NSClickGestureRecognizer) {
@@ -31,7 +35,7 @@ class SynthesisViewController: NSViewController {
         let intensity = Float(scaledY*4000 + 20)
         let dampingFactor = Float(scaledX / 2.0)
         
-        let note = TambourineNote(intensity: intensity, dampingFactor: dampingFactor)
+        let note = AKTambourineNote(intensity: intensity, dampingFactor: dampingFactor)
         tambourine.playNote(note)
     }
     
