@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "BambooSticks.h"
 
 @implementation Playground
 
@@ -15,10 +14,15 @@
 {
     [super run];
 
-    BambooSticks *bambooSticks = [[BambooSticks alloc] initWithNumber:1];
+    AKBambooSticksInstrument *bambooSticks = [[AKBambooSticksInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:bambooSticks];
 
-    BambooSticksNote *note = [[BambooSticksNote alloc] init];
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:bambooSticks.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
+    AKBambooSticksNote *note = [[AKBambooSticksNote alloc] init];
     [self addButtonWithTitle:@"Play Once" block:^{ [bambooSticks playNote:note]; }];
 
     [self addSliderForProperty:bambooSticks.amplitude title:@"Volume"];

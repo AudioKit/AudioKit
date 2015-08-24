@@ -20,7 +20,7 @@
 + (AKConstant *)hammingWindow { return akp(0);  }
 + (AKConstant *)hannWindow    { return akp(1);  }
 
-- (instancetype)initWithInput:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
                       fftSize:(AKConstant *)fftSize
                       overlap:(AKConstant *)overlap
                    windowType:(AKConstant *)windowType
@@ -29,7 +29,7 @@
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        aIn = audioSource;
+        aIn = input;
         iFFTSize = fftSize;
         iOverlap = overlap;
         iWinType = windowType;

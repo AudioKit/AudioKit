@@ -15,7 +15,6 @@
 {
     // AudioKit sound data
     UInt32 _sampleSize;
-    NSDate *_lastUpdate;
     
     CsoundObj *_cs;
 }
@@ -26,9 +25,14 @@
 
 - (void)defaultValues
 {
-    [super defaultValues];
-    // The plot now has a default of 1024 samples for its history (rollingHistoryLength property)
-    _lastUpdate = [NSDate date];
+}
+
+- (void)setupPlot
+{
+    self.plotType = EZPlotTypeRolling;
+    self.shouldFill = YES;
+    self.shouldMirror = YES;
+    [self setRollingHistoryLength:1024];
 }
 
 - (const float *)bufferWithCsound:(CsoundObj *)cs
@@ -45,17 +49,12 @@
 {
     _cs = csoundObj;
     
-    _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
+    _sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
 }
 
 - (void)updateValuesFromCsound
 {
-    BOOL update = NO;
-    if ([_lastUpdate timeIntervalSinceNow] < -self.updateInterval) {
-        update = YES;
-        _lastUpdate = [NSDate date];
-    }
-    [self updateBuffer:[self bufferWithCsound:_cs] withBufferSize:_sampleSize update:update];
+    [self updateBuffer:[self bufferWithCsound:_cs] withBufferSize:_sampleSize];
 }
 
 

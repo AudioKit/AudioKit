@@ -23,6 +23,7 @@
 		EA9F18CC1AE7ACCA009D3DA6 /* libsndfile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */; };
 		EA9F18CD1AE7ACCA009D3DA6 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9F18961AE7A1F5009D3DA6 /* CsoundLib.framework */; };
 		EAB29D6C1AD5121B000EA118 /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */; };
+		EABBAEB71B7082EC000AB769 /* MIDIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABBAEB61B7082EC000AB769 /* MIDIViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,7 +95,9 @@
 		EA8E97271AD3D15C0057E979 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA9F18951AE7A1F5009D3DA6 /* libsndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = libsndfile.framework; path = ../../../AudioKit/Platforms/iOS/libsndfile.framework; sourceTree = SOURCE_ROOT; };
 		EA9F18961AE7A1F5009D3DA6 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../AudioKit/Platforms/iOS/CsoundLib.framework; sourceTree = SOURCE_ROOT; };
-		EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EAB29D6B1AD5121B000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EABBAEB51B7082EC000AB769 /* MIDIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MIDIViewController.h; path = MIDI/MIDIViewController.h; sourceTree = "<group>"; };
+		EABBAEB61B7082EC000AB769 /* MIDIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MIDIViewController.m; path = MIDI/MIDIViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +148,7 @@
 				C4BACF431A90608000736291 /* Synthesis */,
 				C4BACD351A9002CA00736291 /* Processing */,
 				C4BACF471A9060A500736291 /* Analysis */,
+				EABBAEBA1B7082F9000AB769 /* MIDI */,
 				C4BACD091A8FFC3100736291 /* Supporting Files */,
 			);
 			path = AudioKitDemo;
@@ -221,6 +225,15 @@
 				EA8E97271AD3D15C0057E979 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EABBAEBA1B7082F9000AB769 /* MIDI */ = {
+			isa = PBXGroup;
+			children = (
+				EABBAEB51B7082EC000AB769 /* MIDIViewController.h */,
+				EABBAEB61B7082EC000AB769 /* MIDIViewController.m */,
+			);
+			name = MIDI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,7 +347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "for lib in CsoundLib libsndfile; do\n    install_name_tool -change $lib @rpath/$lib.framework/$lib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n    if ! test \"$CURRENT_ARCH\" = x86_64 -o \"$CURRENT_ARCH\" = i386; then\n        lipo -remove i386 -remove x86_64 $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib -output $CODESIGNING_FOLDER_PATH/Frameworks/$lib.framework/$lib 2>&1 || true\n    fi\ndone\n";
+			shellScript = "\"${SRCROOT}/../../../AudioKit/Platforms/iOS/run-script.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -344,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4BACF401A90606300736291 /* ConvolutionInstrument.m in Sources */,
+				EABBAEB71B7082EC000AB769 /* MIDIViewController.m in Sources */,
 				C4BACD341A9002BE00736291 /* ProcessingViewController.m in Sources */,
 				C4BACF461A9060A100736291 /* AnalysisViewController.m in Sources */,
 				C4BACF541A91BB7100736291 /* FMSynthesizer.m in Sources */,

@@ -14,26 +14,26 @@
 
 @implementation AKLowPassFilter
 {
-    AKParameter * _audioSource;
+    AKParameter * _input;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
                      halfPowerPoint:(AKParameter *)halfPowerPoint
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         _halfPowerPoint = halfPowerPoint;
         [self setUpConnections];
 }
     return self;
 }
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource
+- (instancetype)initWithInput:(AKParameter *)input
 {
     self = [super initWithString:[self operationName]];
     if (self) {
-        _audioSource = audioSource;
+        _input = input;
         // Default Values
         _halfPowerPoint = akp(1000);
         [self setUpConnections];
@@ -41,9 +41,36 @@
     return self;
 }
 
-+ (instancetype)filterWithAudioSource:(AKParameter *)audioSource
++ (instancetype)filterWithInput:(AKParameter *)input
 {
-    return [[AKLowPassFilter alloc] initWithAudioSource:audioSource];
+    return [[AKLowPassFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKLowPassFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetMuffledFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _halfPowerPoint = akp(100);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetMuffledFilterWithInput:(AKParameter *)input;
+{
+    return [[AKLowPassFilter alloc] initWithPresetMuffledFilterWithInput:input];
 }
 
 - (void)setHalfPowerPoint:(AKParameter *)halfPowerPoint {
@@ -59,7 +86,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_audioSource, _halfPowerPoint];
+    self.dependencies = @[_input, _halfPowerPoint];
 }
 
 - (NSString *)inlineStringForCSD
@@ -87,10 +114,10 @@
     NSMutableString *inputsString = [[NSMutableString alloc] init];
 
     
-    if ([_audioSource class] == [AKAudio class]) {
-        [inputsString appendFormat:@"%@, ", _audioSource];
+    if ([_input class] == [AKAudio class]) {
+        [inputsString appendFormat:@"%@, ", _input];
     } else {
-        [inputsString appendFormat:@"AKAudio(%@), ", _audioSource];
+        [inputsString appendFormat:@"AKAudio(%@), ", _input];
     }
 
     if ([_halfPowerPoint class] == [AKControl class]) {

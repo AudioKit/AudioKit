@@ -44,7 +44,7 @@
     if (self) {
         // Default Values
         _frequency = akp(110);
-        _amplitude = akp(1);
+        _amplitude = akp(0.5);
         _pressure = akp(3);
         _position = akp(0.127236);
         _vibratoShape = [AKTable standardSineWave];
@@ -61,6 +61,132 @@
 {
     return [[AKBowedString alloc] init];
 }
+
++ (instancetype)presetDefaultBowedString
+{
+    return [[AKBowedString alloc] init];
+}
+
+- (instancetype)initWithPresetWhistlingBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(770);
+        _amplitude = akp(0.5);
+        _pressure = akp(10);
+        _position = akp(0.127236);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetWhistlingBowedString
+{
+    return [[AKBowedString alloc] initWithPresetWhistlingBowedString];
+}
+
+- (instancetype)initWithPresetTrainWhislteBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(500);
+        _amplitude = akp(0.5);
+        _pressure = akp(1);
+        _position = akp(0.127236);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetTrainWhislteBowedString
+{
+    return [[AKBowedString alloc] initWithPresetTrainWhislteBowedString];
+}
+
+- (instancetype)initWithPresetFogHornBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(770);
+        _amplitude = akp(0.5);
+        _pressure = akp(0);
+        _position = akp(10);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetFogHornBowedString
+{
+    return [[AKBowedString alloc] initWithPresetFogHornBowedString];
+}
+
+- (instancetype)initWithPresetCelloBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(400);
+        _amplitude = akp(0.5);
+        _pressure = akp(1);
+        _position = akp(5);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetCelloBowedString
+{
+    return [[AKBowedString alloc] initWithPresetCelloBowedString];
+}
+
+- (instancetype)initWithPresetFeedbackBowedString
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        // Default Values
+        _frequency = akp(200);
+        _amplitude = akp(0.5);
+        _pressure = akp(1);
+        _position = akp(3);
+        _vibratoShape = [AKTable standardSineWave];
+        
+        _vibratoFrequency = akp(0);
+        _vibratoAmplitude = akp(0);
+        _minimumFrequency = akp(0);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetFeedbackBowedString
+{
+    return [[AKBowedString alloc] initWithPresetFeedbackBowedString];
+}
+
 
 - (void)setFrequency:(AKParameter *)frequency {
     _frequency = frequency;

@@ -1,6 +1,6 @@
 {
     "name": "AudioKit",
-    "version": "2.1.1",
+    "version": "2.2",
     "authors": {
         "Aurelius Prochazka": "audiokit@audiokit.io"
     },
@@ -10,7 +10,7 @@
     "homepage": "http://audiokit.io/",
     "source": {
         "git": "https://github.com/audiokit/AudioKit.git",
-        "tag": "v2.1.1-05-06-2015"
+        "tag": "v2.2-08-23-2015"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "source_files": [
@@ -20,6 +20,7 @@
         "AudioKit/Operations/**/*.{h,m}",
         "AudioKit/Parameters/**/*.{h,m}",
         "AudioKit/Sequencing/**/*.{h,m}",
+        "AudioKit/Sound Fonts/**/*.{h,m}",
         "AudioKit/Tables/**/*.{h,m}",
         "AudioKit/Utilities/**/*.{h,m,c}",
         "AudioKit/Platforms/Common/csound/*.{h,hpp}",
@@ -36,6 +37,7 @@
         "AudioKit/Operations/**/*.h",
         "AudioKit/Parameters/**/*.h",
         "AudioKit/Sequencing/**/*.h",
+        "AudioKit/Sound Fonts/**/*.h",
         "AudioKit/Tables/**/*.h",
         "AudioKit/Utilities/**/*.h",
         "AudioKit/Platforms/Common/*.h"

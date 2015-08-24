@@ -32,10 +32,10 @@
         _userDefinedOperations = [[NSMutableSet alloc] init];
         
         // Default Values (for tests that don't load the AudioKit.plist)
-        _sampleRate = AKSettings.settings.sampleRate;
-        _samplesPerControlPeriod = AKSettings.settings.samplesPerControlPeriod;
-        _numberOfChannels = AKSettings.settings.numberOfChannels;
-        _zeroDBFullScaleValue = AKSettings.settings.zeroDBFullScaleValue;
+        _sampleRate = AKSettings.shared.sampleRate;
+        _samplesPerControlPeriod = AKSettings.shared.samplesPerControlPeriod;
+        _numberOfChannels = AKSettings.shared.numberOfChannels;
+        _zeroDBFullScaleValue = AKSettings.shared.zeroDBFullScaleValue;
         
         _udoFiles = [[NSMutableSet alloc] init];
         _csound = [[AKManager sharedManager] engine];
@@ -50,12 +50,6 @@
 + (void)start
 {
     if (![[AKManager sharedManager] isRunning]) {
-        if (AKSettings.settings.audioInputEnabled) {
-            [[AKManager sharedManager] enableAudioInput];
-        }else{
-            [[AKManager sharedManager] disableAudioInput];
-        }
-        
         [[AKManager sharedManager] runOrchestra];
     }
 }
@@ -111,10 +105,14 @@
     if (instrument.userDefinedOperations.count > 0) {
         [instrumentString appendString:@"\n;--- User-defined operations ---\n"];
         for (NSString *udo in instrument.userDefinedOperations) {
+#ifdef AK_TESTING
+            [instrumentString appendFormat:@"%@\n", udo];
+#else
             if (![[[[AKManager sharedManager] orchestra] userDefinedOperations] containsObject:udo]) {
                 [instrumentString appendFormat:@"%@\n", udo];
                 [[[[AKManager sharedManager] orchestra] userDefinedOperations] addObject:udo];
             }
+#endif
         }
     }
     

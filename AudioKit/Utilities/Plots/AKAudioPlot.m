@@ -40,6 +40,9 @@
     [self.backgroundColor setFill];
     NSRectFill(rect);
 #endif
+    if (!_sampleSize)
+        return;
+    
     // Draw waveform
     AKBezierPath *waveformPath = [AKBezierPath bezierPath];
     @synchronized(self) {
@@ -48,18 +51,23 @@
         CGFloat x = 0.0f;
         CGFloat y = 0.0f;
         const UInt32 sz = _sampleSize/2;
+        BOOL first = YES;
+        
         for (int i = 0; i < sz; i++) {
             y = AK_CLAMP(samples[i*2], -1.0f, 1.0f);
             y = self.bounds.size.height * (y + 1.0) / 2.0;
             
-            if (i == 0) {
-                [waveformPath moveToPoint:CGPointMake(x, y)];
-            } else {
+            if (isfinite(y)) {
+                if (first) {
+                    [waveformPath moveToPoint:CGPointMake(x, y)];
+                    first = NO;
+                } else {
 #if TARGET_OS_IPHONE
-                [waveformPath addLineToPoint:CGPointMake(x, y)];
+                    [waveformPath addLineToPoint:CGPointMake(x, y)];
 #elif TARGET_OS_MAC
-                [waveformPath lineToPoint:CGPointMake(x, y)];
+                    [waveformPath lineToPoint:CGPointMake(x, y)];
 #endif
+                }
             }
             x += self.frame.size.width / sz;
         }
@@ -77,7 +85,7 @@
 {
     _cs = csoundObj;
     
-    _sampleSize = AKSettings.settings.numberOfChannels * AKSettings.settings.samplesPerControlPeriod;
+    _sampleSize = AKSettings.shared.numberOfChannels * AKSettings.shared.samplesPerControlPeriod;
     
     void *samples = malloc(_sampleSize * sizeof(float));
     bzero(samples, _sampleSize * sizeof(float));

@@ -33,20 +33,45 @@ NS_ASSUME_NONNULL_BEGIN
 + (AKConstant *)panMethodForEqualPowerAlternate;
 
 /// Instantiates the panner with all values
-/// @param input Source signal. [Default Value: ]
+/// @param input Source signal. 
 /// @param pan From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 /// @param panMethod AKPanMethod can be EqualPower, SquareRoot, Linear, AltEqualPower [Default Value: AKPanMethodEqualPower]
 - (instancetype)initWithInput:(AKParameter *)input
                           pan:(AKParameter *)pan
                     panMethod:(AKConstant *)panMethod;
 
-/// Instantiates the panner with default values
+/// Instantiates the panner with default (centered) values
 /// @param input Source signal.
 - (instancetype)initWithInput:(AKParameter *)input;
 
-/// Instantiates the panner with default values
+/// Instantiates the panner with default (centered) values
 /// @param input Source signal.
 + (instancetype)pannerWithInput:(AKParameter *)input;
+
+/// Instantiates the panner with default (centered) values
+/// @param input Source signal.
+- (instancetype)initWithPresetDefaultCenteredWithInput:(AKParameter *)input;
+
+/// Instantiates the panner with default (centered) values
+/// @param input Source signal.
++ (instancetype)presetDefaultCenteredWithInput:(AKParameter *)input;
+
+/// Instantiates the panner with default (centered) values
+/// @param input Source signal.
+- (instancetype)initWithPresetDefaultHardLeftWithInput:(AKParameter *)input;
+
+/// Instantiates the panner with default (centered) values
+/// @param input Source signal.
++ (instancetype)presetDefaultHardLeftWithInput:(AKParameter *)input;
+
+/// Instantiates the panner with default (centered) values
+/// @param input Source signal.
+- (instancetype)initWithPresetDefaultHardRighWithInput:(AKParameter *)input;
+
+/// Instantiates the panner with default (centered) values
+/// @param input Source signal.
++ (instancetype)presetDefaultHardRighWithInput:(AKParameter *)input;
+
 
 /// From hard left (-1) to middle (0) to hard right (1). [Default Value: 0]
 @property (nonatomic) AKParameter *pan;

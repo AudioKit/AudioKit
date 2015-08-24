@@ -20,5 +20,7 @@
 	<true/>
 	<key>Enable Audio Input By Default</key>
 	<false/>
+	<key>Playback While Muted</key>
+	<false/>
 </dict>
 </plist>

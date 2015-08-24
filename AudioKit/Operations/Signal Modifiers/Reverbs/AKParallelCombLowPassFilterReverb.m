@@ -37,8 +37,8 @@
     if (self) {
         _input = input;
         // Default Values
-        _duration = akp(1);
-        _highFrequencyDiffusivity = akp(0.5);
+        _duration = akp(0.1);
+        _highFrequencyDiffusivity = akp(0.2);
         [self setUpConnections];
     }
     return self;

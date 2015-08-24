@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKBandRejectButterworthFilter : AKAudio
 /// Instantiates the band reject butterworth filter with all values
-/// @param input Input signal to be filtered. [Default Value: ]
+/// @param input Input signal to be filtered. 
 /// @param centerFrequency Center frequency for each of the filters. Updated at Control-rate. [Default Value: 3000]
 /// @param bandwidth Bandwidth of the band-reject filters. Updated at Control-rate. [Default Value: 2000]
 - (instancetype)initWithInput:(AKParameter *)input
@@ -31,6 +31,30 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the band reject butterworth filter with default values
 /// @param input Input signal to be filtered.
 + (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the band reject butterworth filter with default values
+/// @param input Input signal to be filtered.
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band reject butterworth filter with default values
+/// @param input Input signal to be filtered.
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band reject butterworth filter with a treble-heavy sound
+/// @param input Input signal to be filtered.
+- (instancetype)initWithPresetBassRejectFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band reject butterworth filter with a treble-heavy sound
+/// @param input Input signal to be filtered.
++ (instancetype)presetBassRejectFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band reject butterworth filter with a bass-heavy sound
+/// @param input Input signal to be filtered.
+- (instancetype)initWithPresetTrebleRejectFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the band reject butterworth filter with a bass-heavy sound
+/// @param input Input signal to be filtered.
++ (instancetype)presetTrebleRejectFilterWithInput:(AKParameter *)input;
 
 /// Center frequency for each of the filters. [Default Value: 3000]
 @property (nonatomic) AKParameter *centerFrequency;

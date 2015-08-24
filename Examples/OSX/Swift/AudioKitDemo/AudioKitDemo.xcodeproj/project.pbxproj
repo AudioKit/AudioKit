@@ -84,7 +84,7 @@
 		EA5D42311AD4BEA800BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
 		EA5D423B1AD4BED600BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA5D42411AD4BF6A00BEA03A /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKit.swift; path = ../../../../AudioKit/Platforms/Swift/AudioKit.swift; sourceTree = SOURCE_ROOT; };
-		EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../../AudioKit/AKSoundFiles.bundle; sourceTree = "<group>"; };
+		EAB29D761AD51D79000EA118 /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		EAF365AD1ADCB13C00AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,10 +150,10 @@
 		E42CC0D21AB245DB00689511 /* AudioKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E42CC0DB1AB245DB00689511 /* Main.storyboard */,
 				E4006CD61AB24D9E00375B5B /* Synthesis */,
 				E4006CD01AB24D4F00375B5B /* Processing */,
 				E4006CCF1AB24D3100375B5B /* Analysis  */,
-				E42CC0DB1AB245DB00689511 /* Main.storyboard */,
 				E42CC0D31AB245DB00689511 /* Supporting Files */,
 			);
 			path = AudioKitDemo;
@@ -301,7 +301,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH\n";
+			shellScript = "\"${SRCROOT}/../../../../AudioKit/Platforms/OSX/run-script.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -384,6 +384,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitDemo/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Debug;
@@ -422,6 +423,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/AudioKitDemo/Bridging-Header.h";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Release;

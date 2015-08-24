@@ -1,5 +1,5 @@
 //
-//  PluckedString.m
+//  PluckedStringPlayground.m
 //  AudioKit
 //
 //  Created by Nick Arner on 3/21/15.
@@ -7,7 +7,6 @@
 //
 
 #import "Playground.h"
-#import "PluckedString.h"
 
 @implementation Playground
 
@@ -15,10 +14,16 @@
 {
     [super run];
 
-    PluckedString *pluckedString = [[PluckedString alloc] initWithNumber:1];
+    AKPluckedStringInstrument *pluckedString = [[AKPluckedStringInstrument alloc] initWithNumber:1];
     [AKOrchestra addInstrument:pluckedString];
 
-    PluckedStringNote *note = [[PluckedStringNote alloc] init];
+
+    AKAmplifier *amp = [[AKAmplifier alloc] initWithInput:pluckedString.output];
+    amp.instrumentNumber = 2;
+    [AKOrchestra addInstrument:amp];
+    [amp start];
+
+    AKPluckedStringNote *note = [[AKPluckedStringNote alloc] init];
 
     [self addButtonWithTitle:@"Play Once" block:^{ [pluckedString playNote:note]; }];
 

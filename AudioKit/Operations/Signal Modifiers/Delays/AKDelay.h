@@ -10,7 +10,7 @@
 #import "AKParameter+Operation.h"
 
 /** Simple audio delay
-
+ 
  Delays an input signal by some time interval.
  */
 
@@ -35,6 +35,43 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param delayTime Requested delay time in seconds.
 + (instancetype)delayWithInput:(AKParameter *)input
                      delayTime:(AKConstant *)delayTime;
+
+/// Instantiates the delay with default values
+/// @param input Input signal, usually audio.
+/// @param delayTime Requested delay time in seconds.
+- (instancetype)initWithPresetDefaultDelayWithInput:(AKParameter *)input
+                                          delayTime:(AKConstant *)delayTime;
+
+/// Instantiates the delay with default values
+/// @param input Input signal, usually audio.
+/// @param delayTime Requested delay time in seconds.
++ (instancetype)presetDefaultDelayWithInput:(AKParameter *)input
+                                  delayTime:(AKConstant *)delayTime;
+
+/// Instantiates the delay with 'chopped' values
+/// @param input Input signal, usually audio.
+- (instancetype)initWithPresetChoppedDelayWithInput:(AKParameter *)input;
+
+/// Instantiates the delay with 'chopped' values
+/// @param input Input signal, usually audio.
++ (instancetype)presetChoppedDelayWithInput:(AKParameter *)input;
+
+/// Instantiates the delay with a rhythmic sound
+/// @param input Input signal, usually audio.
+- (instancetype)initWithPresetRhythmicDelayWithInput:(AKParameter *)input;
+
+/// Instantiates the delay with a rhythmic sound
+/// @param input Input signal, usually audio.
++ (instancetype)presetRhythmicAttackDelayWithInput:(AKParameter *)input;
+
+/// Instantiates the delay with 'short attack' values
+/// @param input Input signal, usually audio.
+- (instancetype)initWithPresetShortAttackDelayWithInput:(AKParameter *)input;
+
+/// Instantiates the delay with 'chopped' values
+/// @param input Input signal, usually audio.
++ (instancetype)presetShortAttackDelayWithInput:(AKParameter *)input;
+
 
 /// How much of the signal is sent back into the delay line.  Usually values range from 0-1. [Default Value: 0.0]
 @property (nonatomic) AKParameter *feedback;

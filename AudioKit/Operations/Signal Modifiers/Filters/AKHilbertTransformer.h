@@ -19,9 +19,9 @@ Unlike an FIR-based Hilbert Transformer, the output of AKHilbertTransformer does
 
 NS_ASSUME_NONNULL_BEGIN
 @interface AKHilbertTransformer : AKAudio
-/// Instantiates the hilbert transformer with all values
-/// @param input The input audio Signal [Default Value: ]
-/// @param frequency The frequency shifter frequency. Updated at Control-rate. [Default Value: ]
+// Instantiates the hilbert transformer with all values
+/// @param input The input audio Signal 
+/// @param frequency The frequency shifter frequency. Updated at Control-rate. [Default Value: 440]
 - (instancetype)initWithInput:(AKParameter *)input
                     frequency:(AKParameter *)frequency;
 
@@ -31,7 +31,45 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)filterWithInput:(AKParameter *)input
                       frequency:(AKParameter *)frequency;
 
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
+- (instancetype)initWithInput:(AKParameter *)input;
 
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
++ (instancetype)filterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with default values
+/// @param input The control to be filtered
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with an alien spaceship sound
+/// @param input The control to be filtered
+- (instancetype)initWithPresetAlienSpaceshipWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with an alien spaceship sound
+/// @param input The control to be filtered
++ (instancetype)presetAlienSpaceshipFilterWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with an mosquito sound
+/// @param input The control to be filtered
+- (instancetype)initWithPresetMosquitoWithInput:(AKParameter *)input;
+
+/// Instantiates the low pass filter with an mosquito sound
+/// @param input The control to be filtered
++ (instancetype)presetMosquitoFilterWithInput:(AKParameter *)input;
+
+
+/// Filter cut-off frequency in Hz. [Default Value: 440]
+@property (nonatomic) AKParameter *frequency;
+
+/// Set an optional cutoff frequency
+/// @param frequency Filter cut-off frequency in Hz. [Default Value: 440]
+- (void)setOptionalFrequency:(AKParameter *)frequency;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -34,6 +34,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the plucked string with default values
 + (instancetype)pluck;
 
+/// Instantiates the plucked string with default values
++ (instancetype)presetDefaultPluckedString;
+
+/// Instantiates the plucked string with a quick decay
+- (instancetype)initWithPresetDecayingPluckedString;
+
+/// Instantiates the plucked string with a quick decay
++ (instancetype)presetDecayingPluckedString;
+
+/// Instantiates the plucked string with a rounded sound
+- (instancetype)initWithPresetRoundedPluckedString;
+
+/// Instantiates the plucked string with a rounded sound
++ (instancetype)presetRoundedPluckedString;
+
+/// Instantiates the plucked string with a 'snappy' sound
+- (instancetype)initWithPresetSnappyPluckedString;
+
+/// Instantiates the plucked string with a 'snappy' sound
++ (instancetype)presetSnappyPluckedString;
+
 
 /// Frequency of the string [Default Value: 440]
 @property (nonatomic) AKConstant *frequency;
@@ -56,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param samplePosition Proportion of the way along the string to sample the output. Updated at Control-rate. [Default Value: 0.1]
 - (void)setOptionalSamplePosition:(AKParameter *)samplePosition;
 
-/// The coefficient of reflection, indicating the lossiness and the rate of decay. It must be strictly between 0 and 1 (it will complain about both 0 and 1). [Default Value: 0.1]
+/// The coefficient of reflection, indicating the lossiness and the rate of decay. It should be between 0 and 1. [Default Value: 0.1]
 @property (nonatomic) AKParameter *reflectionCoefficient;
 
 /// Set an optional reflection coefficient

@@ -16,6 +16,7 @@
 
 #import "CsoundObj.h"
 
+
 /** The AKManager is a singleton class available to all controllers that need access to audio.
  */
 NS_ASSUME_NONNULL_BEGIN
@@ -28,11 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Determines whether or not to log
 @property BOOL isLogging;
-
-#ifdef TRAVIS_CI
-/// Place to put lines of testing logs
-@property NSMutableArray *testLog;
-#endif
 
 /// The default orchestra
 @property AKOrchestra *orchestra;
@@ -58,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Stop AudioKit from making any more sound.
 - (void)stop;
+
+/// Stop AudioKit and do some internal cleanups.
+- (void)cleanup;
 
 /// Triggers an AKEvent
 /// @param event AKEvent to be triggered
@@ -96,18 +95,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// Disable AudioInput
 - (void)disableAudioInput;
 
+/// For testing, render to a file instead of real time
+/// @param outputPath Destination path for the output file
+/// @param duration   Total duration of the performance
+- (void)renderToFile:(NSString *)outputPath forDuration:(NSTimeInterval)duration;
+
 //// Stop recording
 - (void)stopRecording;
 
 /// Start recording to a given URL
 /// @param url URL to save the recording at
 - (void)startRecordingToURL:(NSURL *)url;
-
-/// Enable MIDI
-- (void)enableMidi;
-
-/// Disable MIDI
-- (void)disableMidi;
 
 // Utilities
 

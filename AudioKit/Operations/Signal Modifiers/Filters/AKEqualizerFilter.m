@@ -52,6 +52,93 @@
     return [[AKEqualizerFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter * __nonnull)input
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultFilterWithInput:(AKParameter * __nonnull)input
+{
+    return [[AKEqualizerFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetNarrowLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(500);
+        _bandwidth = akp(30);
+        _gain = akp(10);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetNarrowLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    return [[AKEqualizerFilter alloc] initWithPresetNarrowLowFrequencyNotchFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetNarrowHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(9000);
+        _bandwidth = akp(30);
+        _gain = akp(15);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetNarrowHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    return [[AKEqualizerFilter alloc] initWithPresetNarrowHighFrequencyNotchFilterWithInput:input];
+}
+
+
+- (instancetype)initWithPresetWideLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(500);
+        _bandwidth = akp(5000);
+        _gain = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetWideLowFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    return [[AKEqualizerFilter alloc] initWithPresetWideLowFrequencyNotchFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetWideHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _centerFrequency = akp(9000);
+        _bandwidth = akp(5000);
+        _gain = akp(15);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetWideHighFrequencyNotchFilterWithInput:(AKParameter *)input;
+{
+    return [[AKEqualizerFilter alloc] initWithPresetWideHighFrequencyNotchFilterWithInput:input];
+}
+
 - (void)setCenterFrequency:(AKParameter *)centerFrequency {
     _centerFrequency = centerFrequency;
     [self setUpConnections];

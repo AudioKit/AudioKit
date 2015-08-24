@@ -38,6 +38,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// Instantiates the vibes with default values
 + (instancetype)vibes;
 
+/// Instantiates the vibes with default values
++ (instancetype)presetDefaultVibes;
+
+/// Instantiates the vibes with a tiny, high-picthed sound
++ (instancetype)presetTinyVibes;
+
+/// Instantiates the vibes with a tiny, high-picthed sound
+- (instancetype)initWithPresetTinyVibes;
+
+/// Instantiates the vibes with a small, gentle sound
+- (instancetype)initWithPresetGentleVibes;
+
+/// Instantiates the vibes with a small, gentle sound
++ (instancetype)presetGentleVibes;
+
+/// Instantiates the vibes with a ringing sound
+- (instancetype)initWithPresetRingingVibes;
+
+/// Instantiates the vibes with a ringing sound
++ (instancetype)presetRingingVibes;
+
 
 /// Frequency of note played. [Default Value: 440]
 @property (nonatomic) AKParameter *frequency;
@@ -53,11 +74,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param amplitude Amplitude of note. Updated at Control-rate. [Default Value: 1.0]
 - (void)setOptionalAmplitude:(AKParameter *)amplitude;
 
-/// The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value. [Default Value: 0.5]
+/// The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0.5]
 @property (nonatomic) AKConstant *stickHardness;
 
 /// Set an optional stick hardness
-/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. 0.5 is a suitable value. [Default Value: 0.5]
+/// @param stickHardness The hardness of the stick used in the strike. A range of 0 to 1 is used. [Default Value: 0.5]
 - (void)setOptionalStickHardness:(AKConstant *)stickHardness;
 
 /// Where the block is hit, in the range 0 to 1. [Default Value: 0.2]

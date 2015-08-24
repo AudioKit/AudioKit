@@ -49,6 +49,52 @@
     return [[AKCombFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKCombFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetSpringyFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _reverbDuration = akp(0.75);
+        _loopDuration = akp(0.01);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetSpringFilterWithInput:(AKParameter *)input;
+{
+    return [[AKCombFilter alloc] initWithPresetSpringyFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetShuffleFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _reverbDuration = akp(2);
+        _loopDuration = akp(0.2);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetShuffleFilterWithInput:(AKParameter *)input;
+{
+    return [[AKCombFilter alloc] initWithPresetShuffleFilterWithInput:input];
+}
+
 - (void)setReverbDuration:(AKParameter *)reverbDuration {
     _reverbDuration = reverbDuration;
     [self setUpConnections];

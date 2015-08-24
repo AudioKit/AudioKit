@@ -2,7 +2,7 @@
 BUILDCONF=${BUILDCONF:-Testing}
 for i in Tests/*
   do
-    cp $i AudioKitTest/AudioKitTest/main.swift
+    cp $i AuditionSounds/AuditionSounds/main.swift
     name=${i/Tests\//}
     echo ""
     echo ""
@@ -10,13 +10,13 @@ for i in Tests/*
     echo " $name "
     echo "======================================"
     echo ""
-    cd AudioKitTest
+    cd AuditionSounds
     xcodebuild | xcpretty
     cd ./build/$BUILDCONF/
     mkdir -p built
     execfile=$i
     execfile=${execfile/Tests/}
     execfile=${execfile/.swift/}
-    cp ./AudioKitTest built/$execfile
+    cp ./AuditionSounds built/$execfile
     cd ../../..
   done

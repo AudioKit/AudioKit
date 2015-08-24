@@ -12,7 +12,7 @@ class SynthesisViewController: UIViewController {
     @IBOutlet var fmSynthesizerTouchView: UIView!
     @IBOutlet var tambourineTouchView: UIView!
     
-    let tambourine    = Tambourine()
+    let tambourine    = AKTambourineInstrument()
     let fmSynthesizer = FMSynthesizer()
     
     override func viewDidLoad() {
@@ -20,6 +20,10 @@ class SynthesisViewController: UIViewController {
         // Do any additional setup after loading the vFMSynthesizeriew, typically from a nib.
         AKOrchestra.addInstrument(tambourine)
         AKOrchestra.addInstrument(fmSynthesizer)
+        
+        let amp = AKAmplifier(input: tambourine.output)
+        AKOrchestra.addInstrument(amp)
+        amp.start()
     }
 
 
@@ -32,7 +36,7 @@ class SynthesisViewController: UIViewController {
         let intensity = Float(scaledY*4000 + 20)
         let dampingFactor = Float(scaledX / 2.0)
         
-        let note = TambourineNote(intensity: intensity, dampingFactor: dampingFactor)
+        let note = AKTambourineNote(intensity: intensity, dampingFactor: dampingFactor)
         tambourine.playNote(note)
     }
     

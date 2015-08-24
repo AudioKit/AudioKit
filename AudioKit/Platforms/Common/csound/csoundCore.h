@@ -150,7 +150,7 @@ typedef struct {
 #endif
 #define ISSTRCOD(X) isnan(X)
 
-#define SSTRSIZ    200
+#define SSTRSIZ    1024
 #define ALLCHNLS   0x7fff
 #define DFLT_SR    FL(44100.0)
 #define DFLT_KR    FL(4410.0)

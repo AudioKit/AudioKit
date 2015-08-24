@@ -14,6 +14,9 @@
 @property AKInstrumentProperty *trackedFrequency;
 @property AKInstrumentProperty *trackedAmplitude;
 
-- (instancetype)initWithAudioSource:(AKParameter *)audioSource;
+// Audio outlet for global effects processing
+@property (readonly) AKAudio *output;
+
+- (instancetype)initWithInput:(AKParameter *)audioSource;
 
 @end

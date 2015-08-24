@@ -12,7 +12,6 @@
 		E4CC74B21AA29B2D007E90B8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4CC74B11AA29B2D007E90B8 /* Images.xcassets */; };
 		E4CC74B51AA29B2D007E90B8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4CC74B31AA29B2D007E90B8 /* Main.storyboard */; };
 		EA5D422A1AD4BDA900BEA03A /* libAudioKit OS X.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D42261AD4BD6700BEA03A /* libAudioKit OS X.a */; };
-		EA5D422C1AD4BDAE00BEA03A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5D422B1AD4BDAE00BEA03A /* AVFoundation.framework */; };
 		EAF365B31ADCB22000AA6551 /* CsoundLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAF365B21ADCB22000AA6551 /* CsoundLib.framework */; };
 		EAF365B41ADCB23F00AA6551 /* CsoundLib.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = EAF365B21ADCB22000AA6551 /* CsoundLib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -69,7 +68,6 @@
 		E4CC74B11AA29B2D007E90B8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E4CC74B41AA29B2D007E90B8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EA5D421E1AD4BD6700BEA03A /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../../AudioKit.xcodeproj; sourceTree = "<group>"; };
-		EA5D422B1AD4BDAE00BEA03A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		EA5D422E1AD4BE0A00BEA03A /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		EAF365B21ADCB22000AA6551 /* CsoundLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CsoundLib.framework; path = ../../../../AudioKit/Platforms/OSX/CsoundLib.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,7 +78,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF365B31ADCB22000AA6551 /* CsoundLib.framework in Frameworks */,
-				EA5D422C1AD4BDAE00BEA03A /* AVFoundation.framework in Frameworks */,
 				EA5D422A1AD4BDA900BEA03A /* libAudioKit OS X.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,7 +127,7 @@
 		EA5D421F1AD4BD6700BEA03A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA5D42241AD4BD6700BEA03A /* libAudioKit iOS.a */,
+				EA5D42241AD4BD6700BEA03A /* libAudioKit iOS Static.a */,
 				EAA0F5C91AE8456C007CD7C9 /* libAudioKit iOS Dynamic.a */,
 				EA5D42261AD4BD6700BEA03A /* libAudioKit OS X.a */,
 			);
@@ -141,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				EAF365B21ADCB22000AA6551 /* CsoundLib.framework */,
-				EA5D422B1AD4BDAE00BEA03A /* AVFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -208,7 +204,7 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EA5D42241AD4BD6700BEA03A /* libAudioKit iOS.a */ = {
+		EA5D42241AD4BD6700BEA03A /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libAudioKit iOS Static.a";
@@ -255,7 +251,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change CsoundLib @executable_path/../Frameworks/CsoundLib.framework/Versions/6.0/CsoundLib $TARGET_BUILD_DIR/$EXECUTABLE_PATH";
+			shellScript = "\"${SRCROOT}/../../../../AudioKit/Platforms/OSX/run-script.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -332,6 +328,7 @@
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/HelloWorld/Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Debug;
@@ -370,6 +367,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/HelloWorld/Bridging-Header.h";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../../AudioKit/**";
 			};
 			name = Release;

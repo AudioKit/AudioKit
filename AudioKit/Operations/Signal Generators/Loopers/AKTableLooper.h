@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (AKConstant *)loopPlaysForwardAndThenBackwards;
 
 /// Instantiates the table looper with all values
-/// @param table Sound source table, generally an AKSoundFile. [Default Value: ]
+/// @param table Sound source table, generally an AKSoundFile. 
 /// @param startTime Loop start point in seconds. Updated at Control-rate. [Default Value: 0]
 /// @param endTime Playback end position in seconds.  Defaults to end of table(0). Updated at Control-rate. [Default Value: 0]
 /// @param transpositionRatio Pitch control by way of transposition ratio. Updated at Control-rate. [Default Value: 1]

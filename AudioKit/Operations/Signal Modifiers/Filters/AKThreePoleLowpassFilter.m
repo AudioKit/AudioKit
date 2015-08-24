@@ -52,6 +52,73 @@
     return [[AKThreePoleLowpassFilter alloc] initWithInput:input];
 }
 
+- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [self initWithInput:input];
+}
+
++ (instancetype)presetDefaultFilterWithInput:(AKParameter *)input;
+{
+    return [[AKThreePoleLowpassFilter alloc] initWithInput:input];
+}
+
+- (instancetype)initWithPresetBrightFilterWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _distortion = akp(1);
+        _cutoffFrequency = akp(9000);
+        _resonance = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetBrightFilterWithInput:(AKParameter *)input;
+{
+    return [[AKThreePoleLowpassFilter alloc] initWithPresetBrightFilterWithInput:input];
+}
+
+- (instancetype)initWithPresetDullBassWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _distortion = akp(0.9);
+        _cutoffFrequency = akp(150);
+        _resonance = akp(0.9);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetDullBassWithInput:(AKParameter *)input;
+{
+    return [[AKThreePoleLowpassFilter alloc] initWithPresetDullBassWithInput:input];
+}
+
+- (instancetype)initWithPresetScreamWithInput:(AKParameter *)input;
+{
+    self = [super initWithString:[self operationName]];
+    if (self) {
+        _input = input;
+        // Default Values
+        _distortion = akp(0.9);
+        _cutoffFrequency = akp(1000);
+        _resonance = akp(1);
+        [self setUpConnections];
+    }
+    return self;
+}
+
++ (instancetype)presetScreamWithInput:(AKParameter *)input;
+{
+    return [[AKThreePoleLowpassFilter alloc] initWithPresetScreamWithInput:input];
+}
+
 - (void)setDistortion:(AKParameter *)distortion {
     _distortion = distortion;
     [self setUpConnections];

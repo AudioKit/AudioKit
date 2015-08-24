@@ -164,7 +164,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Helper function to return square root
 - (instancetype)squareRoot;
 
-/// Helper fucntion to convert logarithmic full scale decibel values to properly scaled amplitude
+/// Helper function to convert logarithmic full scale decibel values to properly scaled amplitude
 - (instancetype)amplitudeFromFullScaleDecibel;
 
 @end

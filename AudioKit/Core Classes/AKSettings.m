@@ -7,12 +7,13 @@
 //
 
 #import "AKSettings.h"
+#import "AKManager.h"
 
 @implementation AKSettings
 
 static AKSettings *_settings = nil;
 
-+ (AKSettings *)settings
++ (AKSettings *)shared
 {
     @synchronized(self) {
         if (_settings == nil)
@@ -34,7 +35,9 @@ static AKSettings *_settings = nil;
         _zeroDBFullScaleValue = 1.0;
         _loggingEnabled = NO;
         _messagesEnabled = NO;
-        _audioInputEnabled = YES;
+        _audioInputEnabled = NO;
+        _playbackWhileMuted = NO;
+        _MIDIEnabled = YES;
         
         // Try to load from AudioKit.plist if found
         NSString *path = [[NSBundle mainBundle] pathForResource:@"AudioKit" ofType:@"plist"];
@@ -58,9 +61,31 @@ static AKSettings *_settings = nil;
                 _audioInputEnabled = [dict[@"Enable Audio Input By Default"] boolValue];
             if (dict[@"Prefix Csound Messages"])
                 _messagesEnabled = [dict[@"Prefix Csound Messages"] boolValue];
+            if (dict[@"Playback While Muted"])
+                _playbackWhileMuted = [dict[@"Playback While Muted"] boolValue];
+            if (dict[@"MIDI Enabled"])
+                _MIDIEnabled = [dict[@"MIDI Enabled"] boolValue];
         }
     }
     return self;
+}
+
+#pragma mark - Property setters that trigger some sort of action
+
+- (void)setAudioInputEnabled:(BOOL)audioInputEnabled
+{
+    if (audioInputEnabled != _audioInputEnabled) {
+        _audioInputEnabled = audioInputEnabled;
+        [[AKManager sharedManager].engine resetSession];
+    }
+}
+
+- (void)setPlaybackWhileMuted:(BOOL)playbackWhileMuted
+{
+    if (playbackWhileMuted != _playbackWhileMuted) {
+        _playbackWhileMuted = playbackWhileMuted;
+        [[AKManager sharedManager].engine resetSession];
+    }
 }
 
 @end
