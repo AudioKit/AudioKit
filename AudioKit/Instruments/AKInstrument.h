@@ -132,6 +132,8 @@ NS_ASSUME_NONNULL_BEGIN
                  parameter:(AKParameter *)parameter
               timeInterval:(NSTimeInterval)timeInterval;
 
+- (void)logChangesToParameter:(AKParameter *)parameter withMessage:(NSString *)message;
+
 // -----------------------------------------------------------------------------
 #  pragma mark - Csound Implementation
 // -----------------------------------------------------------------------------
