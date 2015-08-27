@@ -164,6 +164,7 @@
 #import "AKLog.h"
 #import "AKMP3FileInput.h"
 #import "AKMonoFileInput.h"
+#import "AKParameterChangeLog.h"
 
 // Operations - Signal Modifiers
 

@@ -65,6 +65,10 @@
 		C4A42C7B1B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */; };
 		C4A42C7C1B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */; };
 		C4A42C7D1B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */; };
+		C4B586D11B8EAA2800EC50E4 /* AKParameterChangeLog.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B586CF1B8EAA2800EC50E4 /* AKParameterChangeLog.h */; };
+		C4B586D21B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */; };
+		C4B586D31B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */; };
+		C4B586D41B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */; };
 		C4C01C921B50AC060012AEB9 /* AKClipper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C01C911B50AC060012AEB9 /* AKClipper.m */; };
 		C4C01C931B50AC0E0012AEB9 /* AKClipper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C01C911B50AC060012AEB9 /* AKClipper.m */; };
 		C4C01C941B50AC0F0012AEB9 /* AKClipper.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C01C911B50AC060012AEB9 /* AKClipper.m */; };
@@ -685,6 +689,8 @@
 		C4A42C731B4271F90082DED3 /* AKSoundFontInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontInstrument.m; path = "AudioKit/Sound Fonts/AKSoundFontInstrument.m"; sourceTree = SOURCE_ROOT; };
 		C4A42C781B42756B0082DED3 /* AKSoundFontInstrumentPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontInstrumentPlayer.h; path = "AudioKit/Sound Fonts/AKSoundFontInstrumentPlayer.h"; sourceTree = SOURCE_ROOT; };
 		C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontInstrumentPlayer.m; path = "AudioKit/Sound Fonts/AKSoundFontInstrumentPlayer.m"; sourceTree = SOURCE_ROOT; };
+		C4B586CF1B8EAA2800EC50E4 /* AKParameterChangeLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKParameterChangeLog.h; sourceTree = "<group>"; };
+		C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKParameterChangeLog.m; sourceTree = "<group>"; };
 		C4C01C901B50AC060012AEB9 /* AKClipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKClipper.h; sourceTree = "<group>"; };
 		C4C01C911B50AC060012AEB9 /* AKClipper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKClipper.m; sourceTree = "<group>"; };
 		C4C6275E1B1B714900B7AD86 /* AKAdditiveCosines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAdditiveCosines.h; sourceTree = "<group>"; };
@@ -1748,6 +1754,8 @@
 				EA8E951D1AD3C6840057E979 /* AKFileInput.m */,
 				EA8E951E1AD3C6840057E979 /* AKLog.h */,
 				EA8E951F1AD3C6840057E979 /* AKLog.m */,
+				C4B586CF1B8EAA2800EC50E4 /* AKParameterChangeLog.h */,
+				C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */,
 				EA8E95201AD3C6840057E979 /* AKMonoFileInput.h */,
 				EA8E95211AD3C6840057E979 /* AKMonoFileInput.m */,
 				EA8E95221AD3C6840057E979 /* AKMP3FileInput.h */,
@@ -2048,6 +2056,7 @@
 				C4258E401B3E554D00D91B3D /* AKPitchShifter.h in Headers */,
 				EADE698D1B5268D100996FE0 /* EZPlot.h in Headers */,
 				EADE697B1B52687700996FE0 /* EZAudioUtilities.h in Headers */,
+				C4B586D11B8EAA2800EC50E4 /* AKParameterChangeLog.h in Headers */,
 				C4C8125B1AE5CA03003A8B73 /* AKSekereInstrument.h in Headers */,
 				C4FAE5F11AED6B2600FD71E2 /* AKAudioFilePlayer.h in Headers */,
 			);
@@ -2249,6 +2258,7 @@
 				EA8E96201AD3C6850057E979 /* AKSegmentArrayLoop.m in Sources */,
 				EA8E960D1AD3C6850057E979 /* AKCabasa.m in Sources */,
 				C4C627611B1B714900B7AD86 /* AKAdditiveCosines.m in Sources */,
+				C4B586D21B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */,
 				EA8E96191AD3C6850057E979 /* AKFlute.m in Sources */,
 				EA8E95C31AD3C6850057E979 /* AKAudioInputFFTPlot.m in Sources */,
 				EA8E96121AD3C6850057E979 /* AKSekere.m in Sources */,
@@ -2455,6 +2465,7 @@
 				EA8E97111AD3CA4C0057E979 /* AKPhrase.m in Sources */,
 				EA8E97121AD3CA4C0057E979 /* AKSequence.m in Sources */,
 				C4C627631B1B714900B7AD86 /* AKAdditiveCosines.m in Sources */,
+				C4B586D41B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */,
 				EA8E97131AD3CA4C0057E979 /* AKNote.m in Sources */,
 				EA8E97141AD3CA4C0057E979 /* AKNoteProperty.m in Sources */,
 				EA8E96A81AD3C9B20057E979 /* AKParameter+Operation.m in Sources */,
@@ -2661,6 +2672,7 @@
 				EAA0F5351AE71C8F007CD7C9 /* AKSegmentArrayLoop.m in Sources */,
 				EAA0F5361AE71C8F007CD7C9 /* AKCabasa.m in Sources */,
 				C4C627621B1B714900B7AD86 /* AKAdditiveCosines.m in Sources */,
+				C4B586D31B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */,
 				EAA0F5371AE71C8F007CD7C9 /* AKFlute.m in Sources */,
 				EAA0F5381AE71C8F007CD7C9 /* AKAudioInputFFTPlot.m in Sources */,
 				EAA0F5391AE71C8F007CD7C9 /* AKSekere.m in Sources */,
