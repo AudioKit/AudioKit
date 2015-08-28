@@ -1,0 +1,2 @@
+*.a filter=lfs -text
+*.dylib filter=lfs -text
