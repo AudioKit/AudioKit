@@ -732,7 +732,6 @@ extern "C" {
     /**
      * Performs Csound, sensing real-time and score events
      * and processing one buffer's worth (-b frames) of interleaved audio.
-     * Returns a pointer to the new output audio in 'outputAudio'
      * Note that csoundCompile must be called first, then call
      * csoundGetOutputBuffer() and csoundGetInputBuffer() to get the pointer
      * to csound's I/O buffers.
