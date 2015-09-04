@@ -262,6 +262,9 @@
 #import "AKAudioFilePlayer.h"
 #import "AKStereoAudioFilePlayer.h"
 
+// Utilities - Instruments - Looper
+#import "AKBeatClock.h"
+
 // Utilities - Instruments - Microphone
 #import "AKMicrophone.h"
 
