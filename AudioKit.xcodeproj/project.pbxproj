@@ -69,6 +69,10 @@
 		C4A42C7B1B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */; };
 		C4A42C7C1B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */; };
 		C4A42C7D1B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */; };
+		C4B586C31B8E466100EC50E4 /* AKBeatClock.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B586C11B8E466100EC50E4 /* AKBeatClock.h */; };
+		C4B586C41B8E466100EC50E4 /* AKBeatClock.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586C21B8E466100EC50E4 /* AKBeatClock.m */; };
+		C4B586C51B8E466100EC50E4 /* AKBeatClock.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586C21B8E466100EC50E4 /* AKBeatClock.m */; };
+		C4B586C61B8E466100EC50E4 /* AKBeatClock.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586C21B8E466100EC50E4 /* AKBeatClock.m */; };
 		C4B586D11B8EAA2800EC50E4 /* AKParameterChangeLog.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B586CF1B8EAA2800EC50E4 /* AKParameterChangeLog.h */; };
 		C4B586D21B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */; };
 		C4B586D31B8EAA2800EC50E4 /* AKParameterChangeLog.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */; };
@@ -695,6 +699,8 @@
 		C4A42C731B4271F90082DED3 /* AKSoundFontInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontInstrument.m; path = "AudioKit/Sound Fonts/AKSoundFontInstrument.m"; sourceTree = SOURCE_ROOT; };
 		C4A42C781B42756B0082DED3 /* AKSoundFontInstrumentPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontInstrumentPlayer.h; path = "AudioKit/Sound Fonts/AKSoundFontInstrumentPlayer.h"; sourceTree = SOURCE_ROOT; };
 		C4A42C791B42756B0082DED3 /* AKSoundFontInstrumentPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFontInstrumentPlayer.m; path = "AudioKit/Sound Fonts/AKSoundFontInstrumentPlayer.m"; sourceTree = SOURCE_ROOT; };
+		C4B586C11B8E466100EC50E4 /* AKBeatClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKBeatClock.h; path = Looper/AKBeatClock.h; sourceTree = "<group>"; };
+		C4B586C21B8E466100EC50E4 /* AKBeatClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKBeatClock.m; path = Looper/AKBeatClock.m; sourceTree = "<group>"; };
 		C4B586CF1B8EAA2800EC50E4 /* AKParameterChangeLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKParameterChangeLog.h; sourceTree = "<group>"; };
 		C4B586D01B8EAA2800EC50E4 /* AKParameterChangeLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKParameterChangeLog.m; sourceTree = "<group>"; };
 		C4C01C901B50AC060012AEB9 /* AKClipper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKClipper.h; sourceTree = "<group>"; };
@@ -1162,6 +1168,16 @@
 			path = Tables;
 			sourceTree = "<group>";
 		};
+		C4B586C71B8E466800EC50E4 /* Looper */ = {
+			isa = PBXGroup;
+			children = (
+				C4B586C11B8E466100EC50E4 /* AKBeatClock.h */,
+				C4B586C21B8E466100EC50E4 /* AKBeatClock.m */,
+			);
+			name = Looper;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		C4FAE5EE1AED6B2600FD71E2 /* File Players */ = {
 			isa = PBXGroup;
 			children = (
@@ -1301,6 +1317,7 @@
 				EA8E941A1AD3C6840057E979 /* Analyzers */,
 				EA8E941D1AD3C6840057E979 /* Emulations */,
 				C4FAE5EE1AED6B2600FD71E2 /* File Players */,
+				C4B586C71B8E466800EC50E4 /* Looper */,
 				EA8E94301AD3C6840057E979 /* Microphone */,
 				EA8E94331AD3C6840057E979 /* Processors */,
 				EA8E94361AD3C6840057E979 /* Synthesizers */,
@@ -2058,6 +2075,7 @@
 				EADE69831B52687700996FE0 /* EZAudioFloatConverter.h in Headers */,
 				C42966941B8374C60098A8EF /* AKAntiresonantFilter.h in Headers */,
 				EADE69871B52687700996FE0 /* EZAudioDisplayLink.h in Headers */,
+				C4B586C31B8E466100EC50E4 /* AKBeatClock.h in Headers */,
 				EA321D1D1AEDCA5300DCCABD /* AKAudioFFTPlot.h in Headers */,
 				C4A1481B1B5F00660054F090 /* AKMidiInstrument.h in Headers */,
 				EA78DD8D1B605892001843F3 /* AKMidiEvent.h in Headers */,
@@ -2226,6 +2244,7 @@
 				EA8E96371AD3C6850057E979 /* AKLowPassFilter.m in Sources */,
 				EA8E96461AD3C6850057E979 /* AKBalance.m in Sources */,
 				EA8E95A81AD3C6850057E979 /* AKMidi.m in Sources */,
+				C4B586C41B8E466100EC50E4 /* AKBeatClock.m in Sources */,
 				EA95E9F21AD5EC50007FC41F /* AKSettings.m in Sources */,
 				C43DB13F1B21866300C9E4D5 /* AKPeakingParametricEqualizerFilter.m in Sources */,
 				EA8E95DB1AD3C6850057E979 /* AKRandomDistributionTableGenerator.m in Sources */,
@@ -2434,6 +2453,7 @@
 				EA8E96EE1AD3CA4B0057E979 /* AKConvolution.m in Sources */,
 				EA8E96EF1AD3CA4B0057E979 /* AKStereoConvolution.m in Sources */,
 				EA8E96F01AD3CA4C0057E979 /* AKDelay.m in Sources */,
+				C4B586C61B8E466100EC50E4 /* AKBeatClock.m in Sources */,
 				EA8E96F11AD3CA4C0057E979 /* AKMultitapDelay.m in Sources */,
 				C43DB1411B21866300C9E4D5 /* AKPeakingParametricEqualizerFilter.m in Sources */,
 				EA8E96F21AD3CA4C0057E979 /* AKVariableDelay.m in Sources */,
@@ -2642,6 +2662,7 @@
 				EAA0F5111AE71C8F007CD7C9 /* AKLowPassFilter.m in Sources */,
 				EAA0F5121AE71C8F007CD7C9 /* AKBalance.m in Sources */,
 				EAA0F5131AE71C8F007CD7C9 /* AKMidi.m in Sources */,
+				C4B586C51B8E466100EC50E4 /* AKBeatClock.m in Sources */,
 				EAA0F5141AE71C8F007CD7C9 /* AKSettings.m in Sources */,
 				C43DB1401B21866300C9E4D5 /* AKPeakingParametricEqualizerFilter.m in Sources */,
 				EAA0F5151AE71C8F007CD7C9 /* AKRandomDistributionTableGenerator.m in Sources */,
