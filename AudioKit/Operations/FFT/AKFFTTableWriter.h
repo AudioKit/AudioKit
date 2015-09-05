@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface AKFFTTableWriter : AKControl
 /// Instantiates the fft table writer with all values
-/// @param input A PVOC-EX formatted source. [Default Value: ]
+/// @param input An AKFsignal which the table is read from. [Default Value: ]
 /// @param amplitudeTable A table, at least inbins in size, that stores amplitude data. [Default Value: ]
 /// @param frequencyTable A table, at least inbins in size, that stores amplitude data. [Default Value: ]
 - (instancetype)initWithInput:(AKFSignal *)input
@@ -25,13 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
                frequencyTable:(AKTable *)frequencyTable;
 
 /// Instantiates the fft table writer with default values
-/// @param input A PVOC-EX formatted source.
+/// @param input An AKFsignal which the table is read from.
 /// @param amplitudeTable A table, at least inbins in size, that stores amplitude data.
 - (instancetype)initWithInput:(AKFSignal *)input
                amplitudeTable:(AKTable *)amplitudeTable;
 
 /// Instantiates the fft table writer with default values
-/// @param input A PVOC-EX formatted source.
+/// @param input An AKFsignal which the table is read from.
 /// @param amplitudeTable A table, at least inbins in size, that stores amplitude data.
 + (instancetype)fftTableWriterWithInput:(AKFSignal *)input
                          amplitudeTable:(AKTable *)amplitudeTable;
