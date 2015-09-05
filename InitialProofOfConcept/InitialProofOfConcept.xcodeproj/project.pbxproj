@@ -1,0 +1,288 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C4963DFE1B9A846600D57DDA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4963DFD1B9A846600D57DDA /* main.m */; };
+		C4963E0F1B9A84BA00D57DDA /* AKParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = C4963E061B9A84BA00D57DDA /* AKParameter.m */; };
+		C4963E101B9A84BA00D57DDA /* AKTable.m in Sources */ = {isa = PBXBuildFile; fileRef = C4963E081B9A84BA00D57DDA /* AKTable.m */; };
+		C4963E111B9A84BA00D57DDA /* AKFMOscillator.m in Sources */ = {isa = PBXBuildFile; fileRef = C4963E0A1B9A84BA00D57DDA /* AKFMOscillator.m */; };
+		C4963E121B9A84BA00D57DDA /* AKManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C4963E0C1B9A84BA00D57DDA /* AKManager.m */; };
+		C4963E131B9A84BA00D57DDA /* AKInstrument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4963E0E1B9A84BA00D57DDA /* AKInstrument.m */; };
+		C4963E171B9A883D00D57DDA /* libsoundpipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4963E161B9A883D00D57DDA /* libsoundpipe.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C4963DF81B9A846600D57DDA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C4963DFA1B9A846600D57DDA /* InitialProofOfConcept */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = InitialProofOfConcept; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4963DFD1B9A846600D57DDA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C4963E041B9A847A00D57DDA /* soundpipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = soundpipe.h; sourceTree = "<group>"; };
+		C4963E051B9A84BA00D57DDA /* AKParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKParameter.h; sourceTree = "<group>"; };
+		C4963E061B9A84BA00D57DDA /* AKParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKParameter.m; sourceTree = "<group>"; };
+		C4963E071B9A84BA00D57DDA /* AKTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTable.h; sourceTree = "<group>"; };
+		C4963E081B9A84BA00D57DDA /* AKTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTable.m; sourceTree = "<group>"; };
+		C4963E091B9A84BA00D57DDA /* AKFMOscillator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFMOscillator.h; sourceTree = "<group>"; };
+		C4963E0A1B9A84BA00D57DDA /* AKFMOscillator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFMOscillator.m; sourceTree = "<group>"; };
+		C4963E0B1B9A84BA00D57DDA /* AKManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKManager.h; sourceTree = "<group>"; };
+		C4963E0C1B9A84BA00D57DDA /* AKManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKManager.m; sourceTree = "<group>"; };
+		C4963E0D1B9A84BA00D57DDA /* AKInstrument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKInstrument.h; sourceTree = "<group>"; };
+		C4963E0E1B9A84BA00D57DDA /* AKInstrument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKInstrument.m; sourceTree = "<group>"; };
+		C4963E161B9A883D00D57DDA /* libsoundpipe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsoundpipe.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C4963DF71B9A846600D57DDA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4963E171B9A883D00D57DDA /* libsoundpipe.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C4963DF11B9A846600D57DDA = {
+			isa = PBXGroup;
+			children = (
+				C4963DFC1B9A846600D57DDA /* InitialProofOfConcept */,
+				C4963DFB1B9A846600D57DDA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C4963DFB1B9A846600D57DDA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4963DFA1B9A846600D57DDA /* InitialProofOfConcept */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C4963DFC1B9A846600D57DDA /* InitialProofOfConcept */ = {
+			isa = PBXGroup;
+			children = (
+				C4963E161B9A883D00D57DDA /* libsoundpipe.a */,
+				C4963E041B9A847A00D57DDA /* soundpipe.h */,
+				C4963DFD1B9A846600D57DDA /* main.m */,
+				C4963E051B9A84BA00D57DDA /* AKParameter.h */,
+				C4963E061B9A84BA00D57DDA /* AKParameter.m */,
+				C4963E071B9A84BA00D57DDA /* AKTable.h */,
+				C4963E081B9A84BA00D57DDA /* AKTable.m */,
+				C4963E091B9A84BA00D57DDA /* AKFMOscillator.h */,
+				C4963E0A1B9A84BA00D57DDA /* AKFMOscillator.m */,
+				C4963E0B1B9A84BA00D57DDA /* AKManager.h */,
+				C4963E0C1B9A84BA00D57DDA /* AKManager.m */,
+				C4963E0D1B9A84BA00D57DDA /* AKInstrument.h */,
+				C4963E0E1B9A84BA00D57DDA /* AKInstrument.m */,
+			);
+			path = InitialProofOfConcept;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C4963DF91B9A846600D57DDA /* InitialProofOfConcept */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4963E011B9A846600D57DDA /* Build configuration list for PBXNativeTarget "InitialProofOfConcept" */;
+			buildPhases = (
+				C4963DF61B9A846600D57DDA /* Sources */,
+				C4963DF71B9A846600D57DDA /* Frameworks */,
+				C4963DF81B9A846600D57DDA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = InitialProofOfConcept;
+			productName = InitialProofOfConcept;
+			productReference = C4963DFA1B9A846600D57DDA /* InitialProofOfConcept */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C4963DF21B9A846600D57DDA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = AudioKit;
+				TargetAttributes = {
+					C4963DF91B9A846600D57DDA = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = C4963DF51B9A846600D57DDA /* Build configuration list for PBXProject "InitialProofOfConcept" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C4963DF11B9A846600D57DDA;
+			productRefGroup = C4963DFB1B9A846600D57DDA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C4963DF91B9A846600D57DDA /* InitialProofOfConcept */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C4963DF61B9A846600D57DDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4963DFE1B9A846600D57DDA /* main.m in Sources */,
+				C4963E101B9A84BA00D57DDA /* AKTable.m in Sources */,
+				C4963E111B9A84BA00D57DDA /* AKFMOscillator.m in Sources */,
+				C4963E0F1B9A84BA00D57DDA /* AKParameter.m in Sources */,
+				C4963E131B9A84BA00D57DDA /* AKInstrument.m in Sources */,
+				C4963E121B9A84BA00D57DDA /* AKManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C4963DFF1B9A846600D57DDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C4963E001B9A846600D57DDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C4963E021B9A846600D57DDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/aure/Developer/Soundpipe,
+					"$(PROJECT_DIR)/InitialProofOfConcept",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C4963E031B9A846600D57DDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/aure/Developer/Soundpipe,
+					"$(PROJECT_DIR)/InitialProofOfConcept",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C4963DF51B9A846600D57DDA /* Build configuration list for PBXProject "InitialProofOfConcept" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4963DFF1B9A846600D57DDA /* Debug */,
+				C4963E001B9A846600D57DDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4963E011B9A846600D57DDA /* Build configuration list for PBXNativeTarget "InitialProofOfConcept" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4963E021B9A846600D57DDA /* Debug */,
+				C4963E031B9A846600D57DDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C4963DF21B9A846600D57DDA /* Project object */;
+}
