@@ -243,7 +243,6 @@
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/Soundpipe,
 					"$(PROJECT_DIR)/InitialProofOfConcept",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -255,7 +254,6 @@
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/aure/Developer/Soundpipe,
 					"$(PROJECT_DIR)/InitialProofOfConcept",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
