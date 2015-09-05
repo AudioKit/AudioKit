@@ -12,33 +12,28 @@
 #import "AKManager.h"
 #import "AKParameter.h"
 
-typedef struct MySineWavePlayer
-{
+typedef struct AudioKit {
     AudioUnit outputUnit;
-    double startingFrameCount;
-} MySineWavePlayer;
+} AudioKit;
 
-OSStatus SineWaveRenderProc(void *inRefCon,
-                            AudioUnitRenderActionFlags *ioActionFlags,
-                            const AudioTimeStamp *inTimeStamp,
-                            UInt32 inBusNumber,
-                            UInt32 inNumberFrames,
-                            AudioBufferList * ioData);
-void CreateAndConnectOutputUnit (MySineWavePlayer *player) ;
+OSStatus RenderProc(void *inRefCon,
+                    AudioUnitRenderActionFlags *ioActionFlags,
+                    const AudioTimeStamp *inTimeStamp,
+                    UInt32 inBusNumber,
+                    UInt32 inNumberFrames,
+                    AudioBufferList * ioData);
+void CreateAndConnectOutputUnit(AudioKit *engine) ;
 
 #pragma mark - callback function -
-OSStatus SineWaveRenderProc(void *inRefCon,
-                            AudioUnitRenderActionFlags *ioActionFlags,
-                            const AudioTimeStamp *inTimeStamp,
-                            UInt32 inBusNumber,
-                            UInt32 inNumberFrames,
-                            AudioBufferList * ioData)
+OSStatus RenderProc(void *inRefCon,
+                    AudioUnitRenderActionFlags *ioActionFlags,
+                    const AudioTimeStamp *inTimeStamp,
+                    UInt32 inBusNumber,
+                    UInt32 inNumberFrames,
+                    AudioBufferList * ioData)
 {
-    //	printf ("SineWaveRenderProc needs %ld frames at %f\n", inNumberFrames, CFAbsoluteTimeGetCurrent());
+    AudioKit *engine = (AudioKit *)inRefCon;
     
-    MySineWavePlayer *player = (MySineWavePlayer*)inRefCon;
-    
-    double j = player->startingFrameCount;
     int frame = 0;
     
     for (frame = 0; frame < inNumberFrames; ++frame)
@@ -61,7 +56,6 @@ OSStatus SineWaveRenderProc(void *inRefCon,
         (data)[frame] = outputSignal;
         
     }
-    player->startingFrameCount = j;
     return noErr;
 }
 
@@ -88,7 +82,7 @@ static void CheckError(OSStatus error, const char *operation)
 }
 
 
-void CreateAndConnectOutputUnit (MySineWavePlayer *player) {
+void CreateAndConnectOutputUnit (AudioKit *engine) {
     
     //  10.6 and later: generate description that will match out output device (speakers)
     AudioComponentDescription outputcd = {0}; // 10.6 version
@@ -101,14 +95,14 @@ void CreateAndConnectOutputUnit (MySineWavePlayer *player) {
         printf ("can't get output unit");
         exit (-1);
     }
-    CheckError (AudioComponentInstanceNew(comp, &player->outputUnit),
+    CheckError (AudioComponentInstanceNew(comp, &engine->outputUnit),
                 "Couldn't open component for outputUnit");
     
     // register render callback
     AURenderCallbackStruct input;
-    input.inputProc = SineWaveRenderProc;
-    input.inputProcRefCon = player;
-    CheckError(AudioUnitSetProperty(player->outputUnit,
+    input.inputProc = RenderProc;
+    input.inputProcRefCon = engine;
+    CheckError(AudioUnitSetProperty(engine->outputUnit,
                                     kAudioUnitProperty_SetRenderCallback,
                                     kAudioUnitScope_Input,
                                     0,
@@ -117,29 +111,30 @@ void CreateAndConnectOutputUnit (MySineWavePlayer *player) {
                "AudioUnitSetProperty failed");
     
     // initialize unit
-    CheckError (AudioUnitInitialize(player->outputUnit),
+    CheckError (AudioUnitInitialize(engine->outputUnit),
                 "Couldn't initialize output unit");
-
+    
 }
 
 #pragma mark main
 
 int	main(int argc, const char *argv[])
 {
-    MySineWavePlayer player = {0};
+    AudioKit engine = {0};
     
     // set up unit and callback
-    CreateAndConnectOutputUnit(&player);
+    CreateAndConnectOutputUnit(&engine);
     
     // start playing
-    CheckError (AudioOutputUnitStart(player.outputUnit), "Couldn't start output unit");
+    CheckError (AudioOutputUnitStart(engine.outputUnit), "Couldn't start output unit");
     
     printf ("playing\n");
-    // play for 5 seconds
+    // play for 50 seconds
     sleep(50);
+    
 cleanup:
-    AudioOutputUnitStop(player.outputUnit);
-    AudioUnitUninitialize(player.outputUnit);
-    AudioComponentInstanceDispose(player.outputUnit);
+    AudioOutputUnitStop(engine.outputUnit);
+    AudioUnitUninitialize(engine.outputUnit);
+    AudioComponentInstanceDispose(engine.outputUnit);
     return 0;
 }
