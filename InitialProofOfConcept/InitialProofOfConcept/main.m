@@ -32,11 +32,7 @@ OSStatus RenderProc(void *inRefCon,
                     UInt32 inNumberFrames,
                     AudioBufferList * ioData)
 {
-    AudioKit *engine = (AudioKit *)inRefCon;
-    
-    int frame = 0;
-    
-    for (frame = 0; frame < inNumberFrames; ++frame)
+    for (int frame = 0; frame < inNumberFrames; ++frame)
     {
         Float32 outputSignal = 0;
         
