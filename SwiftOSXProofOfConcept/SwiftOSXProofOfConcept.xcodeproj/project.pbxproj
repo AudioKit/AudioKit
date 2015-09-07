@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C42AC0261B9D77A5006CE9EE /* AKOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC0251B9D77A5006CE9EE /* AKOscillator.swift */; };
+		C42AC0281B9E22A1006CE9EE /* DemoInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC0271B9E22A1006CE9EE /* DemoInstrument.swift */; };
+		C42AC0371B9E23BB006CE9EE /* AKInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC02B1B9E23BB006CE9EE /* AKInstrument.swift */; };
+		C42AC0381B9E23BB006CE9EE /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC02C1B9E23BB006CE9EE /* AKManager.swift */; };
+		C42AC0391B9E23BB006CE9EE /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC02D1B9E23BB006CE9EE /* AKParameter.swift */; };
+		C42AC03A1B9E23BB006CE9EE /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC02E1B9E23BB006CE9EE /* AKTable.swift */; };
+		C42AC03B1B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = C42AC0311B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m */; };
+		C42AC03C1B9E23BB006CE9EE /* libsoundpipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C42AC0321B9E23BB006CE9EE /* libsoundpipe.a */; };
+		C42AC03D1B9E23BB006CE9EE /* AKFMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC0351B9E23BB006CE9EE /* AKFMOscillator.swift */; };
+		C42AC03E1B9E23BB006CE9EE /* AKOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC0361B9E23BB006CE9EE /* AKOscillator.swift */; };
 		C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */; };
 		C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7D1B9BDDBF00D57DDA /* ViewController.swift */; };
 		C4963E801B9BDDBF00D57DDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4963E7F1B9BDDBF00D57DDA /* Images.xcassets */; };
 		C4963E8F1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E8E1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift */; };
-		C4963E9B1B9BDDD900D57DDA /* AKAudioUnitRenderCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = C4963E9A1B9BDDD900D57DDA /* AKAudioUnitRenderCallback.m */; };
 		C4963E9D1B9BDE1000D57DDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4963E9C1B9BDE1000D57DDA /* Main.storyboard */; };
-		C4963EA01B9BE70900D57DDA /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E9F1B9BE70900D57DDA /* AKManager.swift */; };
-		C4963EA41B9BE74600D57DDA /* AKInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963EA31B9BE74600D57DDA /* AKInstrument.swift */; };
-		C4963EA61B9BE75200D57DDA /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963EA51B9BE75200D57DDA /* AKParameter.swift */; };
-		C4963EA81B9BE75B00D57DDA /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963EA71B9BE75B00D57DDA /* AKTable.swift */; };
-		C4963EAB1B9BE81C00D57DDA /* libsoundpipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4963EA91B9BE81C00D57DDA /* libsoundpipe.a */; };
-		C4963EAE1B9BED6500D57DDA /* AKFMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963EAD1B9BED6500D57DDA /* AKFMOscillator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +34,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C42AC0251B9D77A5006CE9EE /* AKOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillator.swift; sourceTree = "<group>"; };
+		C42AC0271B9E22A1006CE9EE /* DemoInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoInstrument.swift; sourceTree = "<group>"; };
+		C42AC02B1B9E23BB006CE9EE /* AKInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInstrument.swift; sourceTree = "<group>"; };
+		C42AC02C1B9E23BB006CE9EE /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
+		C42AC02D1B9E23BB006CE9EE /* AKParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameter.swift; sourceTree = "<group>"; };
+		C42AC02E1B9E23BB006CE9EE /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
+		C42AC0301B9E23BB006CE9EE /* AKAudioUnitRenderCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnitRenderCallback.h; sourceTree = "<group>"; };
+		C42AC0311B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioUnitRenderCallback.m; sourceTree = "<group>"; };
+		C42AC0321B9E23BB006CE9EE /* libsoundpipe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libsoundpipe.a; sourceTree = "<group>"; };
+		C42AC0331B9E23BB006CE9EE /* soundpipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = soundpipe.h; sourceTree = "<group>"; };
+		C42AC0351B9E23BB006CE9EE /* AKFMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillator.swift; sourceTree = "<group>"; };
+		C42AC0361B9E23BB006CE9EE /* AKOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillator.swift; sourceTree = "<group>"; };
 		C4963E761B9BDDBF00D57DDA /* SwiftOSXProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOSXProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4963E7A1B9BDDBF00D57DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,16 +54,7 @@
 		C4963E8D1B9BDDC000D57DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4963E8E1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftOSXProofOfConceptTests.swift; sourceTree = "<group>"; };
 		C4963E981B9BDDD800D57DDA /* SwiftOSXProofOfConcept-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftOSXProofOfConcept-Bridging-Header.h"; sourceTree = "<group>"; };
-		C4963E991B9BDDD900D57DDA /* AKAudioUnitRenderCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnitRenderCallback.h; sourceTree = "<group>"; };
-		C4963E9A1B9BDDD900D57DDA /* AKAudioUnitRenderCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioUnitRenderCallback.m; sourceTree = "<group>"; };
 		C4963E9C1B9BDE1000D57DDA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		C4963E9F1B9BE70900D57DDA /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
-		C4963EA31B9BE74600D57DDA /* AKInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInstrument.swift; sourceTree = "<group>"; };
-		C4963EA51B9BE75200D57DDA /* AKParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameter.swift; sourceTree = "<group>"; };
-		C4963EA71B9BE75B00D57DDA /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
-		C4963EA91B9BE81C00D57DDA /* libsoundpipe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoundpipe.a; path = ../../InitialProofOfConcept/InitialProofOfConcept/libsoundpipe.a; sourceTree = "<group>"; };
-		C4963EAA1B9BE81C00D57DDA /* soundpipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundpipe.h; path = ../../InitialProofOfConcept/InitialProofOfConcept/soundpipe.h; sourceTree = "<group>"; };
-		C4963EAD1B9BED6500D57DDA /* AKFMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4963EAB1B9BE81C00D57DDA /* libsoundpipe.a in Frameworks */,
+				C42AC03C1B9E23BB006CE9EE /* libsoundpipe.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +76,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C42AC0291B9E23BB006CE9EE /* AudioKit */ = {
+			isa = PBXGroup;
+			children = (
+				C42AC02A1B9E23BB006CE9EE /* Core Classes */,
+				C42AC02F1B9E23BB006CE9EE /* Engine */,
+				C42AC0341B9E23BB006CE9EE /* Operations */,
+			);
+			name = AudioKit;
+			path = ../../AudioKit;
+			sourceTree = "<group>";
+		};
+		C42AC02A1B9E23BB006CE9EE /* Core Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C42AC02B1B9E23BB006CE9EE /* AKInstrument.swift */,
+				C42AC02C1B9E23BB006CE9EE /* AKManager.swift */,
+				C42AC02D1B9E23BB006CE9EE /* AKParameter.swift */,
+				C42AC02E1B9E23BB006CE9EE /* AKTable.swift */,
+			);
+			path = "Core Classes";
+			sourceTree = "<group>";
+		};
+		C42AC02F1B9E23BB006CE9EE /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				C42AC0301B9E23BB006CE9EE /* AKAudioUnitRenderCallback.h */,
+				C42AC0311B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m */,
+				C42AC0321B9E23BB006CE9EE /* libsoundpipe.a */,
+				C42AC0331B9E23BB006CE9EE /* soundpipe.h */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		C42AC0341B9E23BB006CE9EE /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				C42AC0351B9E23BB006CE9EE /* AKFMOscillator.swift */,
+				C42AC0361B9E23BB006CE9EE /* AKOscillator.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
 		C4963E6D1B9BDDBF00D57DDA = {
 			isa = PBXGroup;
 			children = (
@@ -97,7 +141,8 @@
 			children = (
 				C4963E7D1B9BDDBF00D57DDA /* ViewController.swift */,
 				C4963E9C1B9BDE1000D57DDA /* Main.storyboard */,
-				C4963E9E1B9BE3D800D57DDA /* AudioKit */,
+				C42AC0271B9E22A1006CE9EE /* DemoInstrument.swift */,
+				C42AC0291B9E23BB006CE9EE /* AudioKit */,
 				C4963E791B9BDDBF00D57DDA /* Supporting Files */,
 			);
 			path = SwiftOSXProofOfConcept;
@@ -129,23 +174,6 @@
 				C4963E8D1B9BDDC000D57DDA /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C4963E9E1B9BE3D800D57DDA /* AudioKit */ = {
-			isa = PBXGroup;
-			children = (
-				C4963EA91B9BE81C00D57DDA /* libsoundpipe.a */,
-				C4963EAA1B9BE81C00D57DDA /* soundpipe.h */,
-				C4963E9F1B9BE70900D57DDA /* AKManager.swift */,
-				C4963EA31B9BE74600D57DDA /* AKInstrument.swift */,
-				C4963EAD1B9BED6500D57DDA /* AKFMOscillator.swift */,
-				C42AC0251B9D77A5006CE9EE /* AKOscillator.swift */,
-				C4963EA51B9BE75200D57DDA /* AKParameter.swift */,
-				C4963EA71B9BE75B00D57DDA /* AKTable.swift */,
-				C4963E991B9BDDD900D57DDA /* AKAudioUnitRenderCallback.h */,
-				C4963E9A1B9BDDD900D57DDA /* AKAudioUnitRenderCallback.m */,
-			);
-			name = AudioKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -247,15 +275,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4963EA41B9BE74600D57DDA /* AKInstrument.swift in Sources */,
-				C42AC0261B9D77A5006CE9EE /* AKOscillator.swift in Sources */,
-				C4963EA81B9BE75B00D57DDA /* AKTable.swift in Sources */,
-				C4963EAE1B9BED6500D57DDA /* AKFMOscillator.swift in Sources */,
-				C4963EA61B9BE75200D57DDA /* AKParameter.swift in Sources */,
+				C42AC0381B9E23BB006CE9EE /* AKManager.swift in Sources */,
+				C42AC03B1B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m in Sources */,
+				C42AC03A1B9E23BB006CE9EE /* AKTable.swift in Sources */,
+				C42AC0391B9E23BB006CE9EE /* AKParameter.swift in Sources */,
+				C42AC0281B9E22A1006CE9EE /* DemoInstrument.swift in Sources */,
+				C42AC03E1B9E23BB006CE9EE /* AKOscillator.swift in Sources */,
 				C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */,
-				C4963EA01B9BE70900D57DDA /* AKManager.swift in Sources */,
+				C42AC0371B9E23BB006CE9EE /* AKInstrument.swift in Sources */,
+				C42AC03D1B9E23BB006CE9EE /* AKFMOscillator.swift in Sources */,
 				C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */,
-				C4963E9B1B9BDDD900D57DDA /* AKAudioUnitRenderCallback.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +398,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../InitialProofOfConcept/InitialProofOfConcept",
+					"$(SRCROOT)/../AudioKit/Engine",
 				);
 				OTHER_SWIFT_FLAGS = "-Ddebug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -389,7 +418,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../InitialProofOfConcept/InitialProofOfConcept",
+					"$(SRCROOT)/../AudioKit/Engine",
 				);
 				OTHER_SWIFT_FLAGS = "-Ddebug";
 				PRODUCT_NAME = "$(TARGET_NAME)";
