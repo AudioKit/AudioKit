@@ -9,26 +9,25 @@
 import Foundation
 
 class AKInstrument {
-    var operations = Array<AKFMOscillator>([])
+    var operations = Array<AKParameter>([])
     
-    var fmOscillatingControl: AKFMOscillator
+    var oscillatingFrequency: AKOscillator
     var fmOscillator: AKFMOscillator
     
     init() {
-        fmOscillatingControl = AKFMOscillator(
-            baseFrequency: akp(2),
-            carrierMultiplier: akp(1),
-            modulatingMultiplier: akp(1),
-            modulationIndex: akp(1),
-            amplitude: akp(440))
+        oscillatingFrequency = AKOscillator(
+            frequency: akp(2),
+            amplitude: akp(440),
+            phase: 0.0
+        )
         
         fmOscillator = AKFMOscillator(
-            baseFrequency: fmOscillatingControl,
+            baseFrequency: oscillatingFrequency,
             carrierMultiplier: akp(3),
             modulatingMultiplier: akp(5),
             modulationIndex: akp(11),
             amplitude: akp(0.1))
-        operations.append(fmOscillatingControl)
+        operations.append(oscillatingFrequency)
         operations.append(fmOscillator)
     }
 

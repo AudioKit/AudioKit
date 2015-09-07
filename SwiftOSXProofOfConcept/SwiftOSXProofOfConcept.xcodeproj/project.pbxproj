@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C42AC0261B9D77A5006CE9EE /* AKOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC0251B9D77A5006CE9EE /* AKOscillator.swift */; };
 		C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */; };
 		C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7D1B9BDDBF00D57DDA /* ViewController.swift */; };
 		C4963E801B9BDDBF00D57DDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4963E7F1B9BDDBF00D57DDA /* Images.xcassets */; };
@@ -32,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C42AC0251B9D77A5006CE9EE /* AKOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillator.swift; sourceTree = "<group>"; };
 		C4963E761B9BDDBF00D57DDA /* SwiftOSXProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOSXProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4963E7A1B9BDDBF00D57DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				C4963E9F1B9BE70900D57DDA /* AKManager.swift */,
 				C4963EA31B9BE74600D57DDA /* AKInstrument.swift */,
 				C4963EAD1B9BED6500D57DDA /* AKFMOscillator.swift */,
+				C42AC0251B9D77A5006CE9EE /* AKOscillator.swift */,
 				C4963EA51B9BE75200D57DDA /* AKParameter.swift */,
 				C4963EA71B9BE75B00D57DDA /* AKTable.swift */,
 				C4963E991B9BDDD900D57DDA /* AKAudioUnitRenderCallback.h */,
@@ -245,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4963EA41B9BE74600D57DDA /* AKInstrument.swift in Sources */,
+				C42AC0261B9D77A5006CE9EE /* AKOscillator.swift in Sources */,
 				C4963EA81B9BE75B00D57DDA /* AKTable.swift in Sources */,
 				C4963EAE1B9BED6500D57DDA /* AKFMOscillator.swift in Sources */,
 				C4963EA61B9BE75200D57DDA /* AKParameter.swift in Sources */,

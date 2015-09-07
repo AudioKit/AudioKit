@@ -35,7 +35,7 @@ typealias Sample = Float
     func setupAudioUnit() {
         var outputComponent: AudioComponent
         var acd: AudioComponentDescription
-        var synthComponent: AudioComponentInstance = nil
+        var audiokitComponent: AudioComponentInstance = nil
         var asbd: AudioStreamBasicDescription
         var rcs: AURenderCallbackStruct
         var status: OSStatus
@@ -66,11 +66,11 @@ typealias Sample = Float
         outputComponent = AudioComponentFindNext(nil, &acd)
         assert(outputComponent != nil)
         
-        status = AudioComponentInstanceNew(outputComponent, &synthComponent)
+        status = AudioComponentInstanceNew(outputComponent, &audiokitComponent)
         assert(status == noErr)
         
         status = AudioUnitSetProperty(
-            synthComponent,
+            audiokitComponent,
             AudioUnitPropertyID(kAudioUnitProperty_StreamFormat),
             AudioUnitScope(kAudioUnitScope_Input),
             0,
@@ -85,7 +85,7 @@ typealias Sample = Float
         )
         
         status = AudioUnitSetProperty(
-            synthComponent,
+            audiokitComponent,
             AudioUnitPropertyID(kAudioUnitProperty_SetRenderCallback),
             AudioUnitScope(kAudioUnitScope_Global),
             0,
@@ -94,10 +94,10 @@ typealias Sample = Float
         )
         assert(status == noErr)
         
-        status = AudioUnitInitialize(synthComponent)
+        status = AudioUnitInitialize(audiokitComponent)
         assert(status == noErr)
         
-        status = AudioOutputUnitStart(synthComponent)
+        status = AudioOutputUnitStart(audiokitComponent)
         assert(status == noErr)
     }
     
