@@ -11,15 +11,17 @@ import Foundation
 /** A simple oscillator */
 @objc class AKOscillator : AKParameter {
     
-    var osc = UnsafeMutablePointer<sp_osc>.alloc(1)
-    
-    var table = AKTable()
+    private var osc = UnsafeMutablePointer<sp_osc>.alloc(1)
     private var phase: Float = 0
     
+    var table = AKTable()
+    
+    /** In cycles per second, or Hz. [Default Value: 440] */
     var frequency: AKParameter = akp(440) {
         didSet { frequency.bind(&osc.memory.freq) }
     }
     
+    /** Signal strength. [Default Value: 0.5] */
     var amplitude: AKParameter = akp(1) {
         didSet { amplitude.bind(&osc.memory.amp) }
     }
@@ -31,12 +33,14 @@ import Foundation
         bindAll()
     }
     
-     init(phase iphs: Float) {
+    /** Instantiates oscillator with constants */
+    init(phase iphs: Float) {
         super.init()
         setup(phase: iphs)
     }
     
-    /** Instantiates the oscillator with all values
+    /** 
+    Instantiates the oscillator with all values
     
     :param: frequency In cycles per second, or Hz. [Default Value: 440]
     :param: amplitude Signal strength. [Default Value: 0.5]

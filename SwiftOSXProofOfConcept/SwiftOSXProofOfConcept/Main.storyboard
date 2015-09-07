@@ -674,7 +674,7 @@
                         <subviews>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-nh-Xz3">
                                 <rect key="frame" x="18" y="171" width="195" height="21"/>
-                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="2" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
                                 <connections>
                                     <action selector="setFrequency:" target="XfG-lQ-9wD" id="5cc-G3-pFW"/>
                                 </connections>
