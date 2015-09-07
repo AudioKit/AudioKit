@@ -15,7 +15,6 @@ class AKInstrument {
     var fmOscillator: AKFMOscillator
     
     init() {
-        NSLog("Initializing AKInstrument")
         fmOscillatingControl = AKFMOscillator(
             baseFrequency: akp(2),
             carrierMultiplier: akp(1),

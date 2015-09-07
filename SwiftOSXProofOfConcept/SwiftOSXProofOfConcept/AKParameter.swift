@@ -16,7 +16,6 @@ class AKParameter {
 
     var pointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
     var value: Float = 0.0
-    var isPointer: Bool = false
     
     convenience init(float: Float) {
         self.init()
@@ -24,9 +23,8 @@ class AKParameter {
     }
     
     func bind(binding:UnsafeMutablePointer<Float>) {
-        isPointer = true
-        binding.memory = value
         pointer = binding
+        pointer.memory = value
     }
     
     

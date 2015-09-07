@@ -19,7 +19,7 @@ class ViewController : NSViewController {
     }
     
     @IBAction func setFrequency(sender: NSSlider) {
-        AKManager.sharedManager.instruments.first!.fmOscillator.frequency = sender.floatValue*55
+        AKManager.sharedManager.instruments.first!.fmOscillatingControl.frequency = sender.floatValue
     }
     
     @IBAction func setModulationIndex(sender: NSSlider) {

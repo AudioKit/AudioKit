@@ -18,7 +18,6 @@ typealias Sample = Float
     var instruments = Array<AKInstrument>([])
     
     init() {
-        NSLog("Initializing Manager")
         selfPtr = self
         sp_create(&data)
     }
