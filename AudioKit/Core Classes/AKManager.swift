@@ -20,11 +20,7 @@ typealias Sample = Float
     init() {
         selfPtr = self
         sp_create(&data)
-    }
-    
-    func createInstrument() {
-        var instrument = AKInstrument()
-        instruments.append(instrument)
+        setupAudioUnit()
     }
     
     func teardown() {
