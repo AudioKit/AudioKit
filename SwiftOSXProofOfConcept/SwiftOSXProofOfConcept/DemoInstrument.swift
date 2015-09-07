@@ -39,10 +39,11 @@ class DemoInstrument: AKInstrument {
         // Method 2: Default Initializer plus property setting
         fmOscillator = AKFMOscillator()
         fmOscillator.baseFrequency        = oscillatingFrequency
-        fmOscillator.carrierMultiplier    = akp(3)
-        fmOscillator.modulatingMultiplier = akp(5)
-        fmOscillator.modulationIndex      = akp(11)
-        fmOscillator.amplitude            = akp(0.1)
+        fmOscillator.carrierMultiplier    = 3.ak
+        fmOscillator.modulatingMultiplier = 5.ak
+        fmOscillator.modulationIndex      = 11.ak
+        fmOscillator.amplitude            = 0.5.ak
+        
         
         super.init()
         operations.append(oscillatingFrequency)
