@@ -11,8 +11,9 @@ import Foundation
 class AKFMOscillator : AKParameter {
     
     var fosc = UnsafeMutablePointer<sp_fosc>.alloc(1) // allocate 1
-    var ftbl: UnsafeMutablePointer<sp_ftbl> = nil  //not just nil
     
+    var table = AKTable()
+
     var frequency: Float = 440 {
         didSet {
             fosc.memory.freq = frequency
@@ -47,9 +48,7 @@ class AKFMOscillator : AKParameter {
     
     func create() {
         sp_fosc_create(&fosc)
-        sp_ftbl_create(AKManager.sharedManager.data, &ftbl, 4096)
-        sp_gen_sine(AKManager.sharedManager.data, ftbl);
-        sp_fosc_init(AKManager.sharedManager.data, fosc, ftbl)
+        sp_fosc_init(AKManager.sharedManager.data, fosc, table.ftbl)
     }
     
     func compute() -> Float {
