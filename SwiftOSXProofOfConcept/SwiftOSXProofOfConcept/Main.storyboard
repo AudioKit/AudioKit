@@ -688,14 +688,14 @@
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqN-XG-Wln">
                                 <rect key="frame" x="18" y="93" width="195" height="21"/>
-                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Ux3-De-jBS"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="3" tickMarkPosition="above" sliderType="linear" id="Ux3-De-jBS"/>
                                 <connections>
                                     <action selector="setCarrierMultiplier:" target="XfG-lQ-9wD" id="857-NF-LJc"/>
                                 </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctg-79-BeF">
                                 <rect key="frame" x="18" y="43" width="195" height="21"/>
-                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Yvb-vC-uHu"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="11" tickMarkPosition="above" sliderType="linear" id="Yvb-vC-uHu"/>
                                 <connections>
                                     <action selector="setModulationIndex:" target="XfG-lQ-9wD" id="UJn-tz-LAa"/>
                                 </connections>
@@ -773,7 +773,7 @@
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Gq-1p-c36">
                                 <rect key="frame" x="18" y="68" width="195" height="21"/>
-                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="rwf-cW-guo"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="5" tickMarkPosition="above" sliderType="linear" id="rwf-cW-guo"/>
                                 <connections>
                                     <action selector="setModulatingMultiplier:" target="XfG-lQ-9wD" id="jHq-WM-Gaq"/>
                                 </connections>
