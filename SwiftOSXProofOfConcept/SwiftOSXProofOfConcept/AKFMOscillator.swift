@@ -30,7 +30,8 @@ import Foundation
     /** Instantiates the fm oscillator with default values */
     override init() {
         super.init()
-        create()
+        setup()
+
     }
     
     /** Instantiates the fm oscillator with all values
@@ -56,8 +57,8 @@ import Foundation
         amplitude.bind(&fosc.memory.amp)
     }
     
-    override func create() {
     /** Internal set up function */
+    internal func setup() {
         sp_fosc_create(&fosc)
         sp_fosc_init(AKManager.sharedManager.data, fosc, table.ftbl)
     }
@@ -69,8 +70,8 @@ import Foundation
         return value
     }
     
-    override func destroy() {
     /** Release of memory */
+    override func teardown() {
         sp_fosc_destroy(&fosc)
     }
     

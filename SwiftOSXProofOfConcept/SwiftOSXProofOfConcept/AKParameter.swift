@@ -27,16 +27,12 @@ class AKParameter {
         pointer.memory = value
     }
     
-    func create() {
-        // override in subclass
-    }
-    
     func compute() -> Float {
         // override in subclass
         return 0.0
     }
     
-    func destroy() {
+    func teardown() {
         // override in subclass
     }
     

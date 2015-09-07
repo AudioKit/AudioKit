@@ -13,15 +13,15 @@ class AKTable : AKParameter {
     
     override init() {
         super.init()
-        create()
+        setup()
     }
     
-    override func create() {
+     func setup() {
         sp_ftbl_create(AKManager.sharedManager.data, &ftbl, 4096)
         sp_gen_sine(AKManager.sharedManager.data, ftbl);
     }
     
-    override func destroy() {
+    override func teardown() {
         sp_ftbl_destroy(&ftbl)
     }
 

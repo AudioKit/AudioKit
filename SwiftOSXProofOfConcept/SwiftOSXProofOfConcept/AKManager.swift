@@ -27,7 +27,7 @@ typealias Sample = Float
         instruments.append(instrument)
     }
     
-    func destroy() {
+    func teardown() {
         sp_destroy(&data)
     }
     

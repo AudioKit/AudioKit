@@ -24,7 +24,7 @@ import Foundation
     /** Instantiates the oscillator with default values */
     override init() {
         super.init()
-        create()
+        setup()
     }
     
     /** Instantiates the oscillator with all values
@@ -44,8 +44,8 @@ import Foundation
         self.phase = phase
     }
     
-    override func create() {
     /** Internal set up function */
+    internal func setup(phase: Float = 0) {
         sp_osc_create(&osc)
         sp_osc_init(AKManager.sharedManager.data, osc, table.ftbl, phase)
     }
@@ -56,9 +56,9 @@ import Foundation
         pointer.memory = value
         return value
     }
-override     
-    func destroy() {
+    
     /** Release of memory */
+    override func teardown() {
         sp_osc_destroy(&osc)
     }
     
