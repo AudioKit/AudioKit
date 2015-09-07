@@ -12,6 +12,20 @@ func akp(num: Float) -> AKParameter {
     return AKParameter(float: num)
 }
 
+extension Int {
+    var ak: AKParameter { return AKParameter(float: Float(self)) }
+}
+
+extension Float {
+    var ak: AKParameter { return AKParameter(float: self) }
+    var midiratio: Float { return pow(2, self * 0.083333333333) }
+}
+
+extension Double {
+    var ak: AKParameter {return AKParameter(float: Float(self))}
+    var midiratio: Double {return pow(2, self * 0.083333333333)}
+}
+
 class AKParameter {
 
     var pointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
