@@ -21,11 +21,18 @@ import Foundation
         }
     }
     
+    /** Instantiates the oscillator with default values */
     override init() {
         super.init()
         create()
     }
     
+    /** Instantiates the oscillator with all values
+    
+    :param: frequency In cycles per second, or Hz. [Default Value: 440]
+    :param: amplitude Signal strength. [Default Value: 0.5]
+    :param: phase Oscillator phase [Default Value: 0]
+    */
     convenience init(
         frequency: AKParameter,
         amplitude: AKParameter,
@@ -38,10 +45,12 @@ import Foundation
     }
     
     override func create() {
+    /** Internal set up function */
         sp_osc_create(&osc)
         sp_osc_init(AKManager.sharedManager.data, osc, table.ftbl, phase)
     }
     
+    /** Computation of the next value */
     override func compute() -> Float {
         sp_osc_compute(AKManager.sharedManager.data, osc, nil, &value);
         pointer.memory = value
@@ -49,6 +58,7 @@ import Foundation
     }
 override     
     func destroy() {
+    /** Release of memory */
         sp_osc_destroy(&osc)
     }
     
