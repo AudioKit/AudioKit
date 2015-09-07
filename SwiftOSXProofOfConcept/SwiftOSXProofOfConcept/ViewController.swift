@@ -9,20 +9,18 @@
 import Cocoa
 
 class ViewController : NSViewController {
-        
+    
+    var instrument = DemoInstrument()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let manager = AKManager.sharedManager
-        manager.createInstrument()
-        manager.setupAudioUnit()
     }
     
     @IBAction func setFrequency(sender: NSSlider) {
-        AKManager.sharedManager.instruments.first!.oscillatingFrequency.frequency.value = sender.floatValue
+        instrument.oscillatingFrequency.frequency.value = sender.floatValue
     }
     
     @IBAction func setModulationIndex(sender: NSSlider) {
-        AKManager.sharedManager.instruments.first!.fmOscillator.modulationIndex.value = sender.floatValue*0.2
+        instrument.fmOscillator.modulationIndex.value = sender.floatValue*0.2
     }
 }
