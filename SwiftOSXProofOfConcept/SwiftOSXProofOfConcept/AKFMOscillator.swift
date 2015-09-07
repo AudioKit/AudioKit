@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Frequency Modulating Oscillator */
 @objc class AKFMOscillator : AKParameter {
     
     var fosc = UnsafeMutablePointer<sp_fosc>.alloc(1) // allocate 1
@@ -26,11 +27,20 @@ import Foundation
         }
     }
     
+    /** Instantiates the fm oscillator with default values */
     override init() {
         super.init()
         create()
     }
     
+    /** Instantiates the fm oscillator with all values
+    
+    :param: baseFrequency In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. Updated at Control-rate. [Default Value: 440]
+    :param: carrierMultiplier This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1]
+    :param: modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency. [Default Value: 1]
+    :param: modulationIndex This multiplied by the modulating frequency gives the modulation amplitude. Updated at Control-rate. [Default Value: 1]
+    :param: amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
+    */
     convenience init(
         baseFrequency: AKParameter,
         carrierMultiplier: AKParameter,
@@ -47,10 +57,12 @@ import Foundation
     }
     
     override func create() {
+    /** Internal set up function */
         sp_fosc_create(&fosc)
         sp_fosc_init(AKManager.sharedManager.data, fosc, table.ftbl)
     }
     
+    /** Computation of the next value */
     override func compute() -> Float {
         sp_fosc_compute(AKManager.sharedManager.data, fosc, nil, &value);
         pointer.memory = value
@@ -58,6 +70,7 @@ import Foundation
     }
     
     override func destroy() {
+    /** Release of memory */
         sp_fosc_destroy(&fosc)
     }
     
