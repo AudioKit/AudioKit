@@ -11,26 +11,31 @@ import Foundation
 /** Frequency Modulating Oscillator */
 @objc class AKFMOscillator : AKParameter {
     
-    var fosc = UnsafeMutablePointer<sp_fosc>.alloc(1) // allocate 1
+    private var fosc = UnsafeMutablePointer<sp_fosc>.alloc(1) // allocate 1
     
     var table = AKTable()
 
+    /** In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. Updated at Control-rate. [Default Value: 440] */
     var baseFrequency: AKParameter = akp(440) {
         didSet { baseFrequency.bind(&fosc.memory.freq) }
     }
     
+    /** This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1] */
     var carrierMultiplier: AKParameter = akp(1) {
         didSet { carrierMultiplier.bind(&fosc.memory.car) }
     }
     
+    /** This multiplied by the baseFrequency gives the modulating frequency. [Default Value: 1] */
     var modulatingMultiplier: AKParameter = akp(1) {
         didSet { modulatingMultiplier.bind(&fosc.memory.mod) }
     }
     
+    /** This multiplied by the modulating frequency gives the modulation amplitude. Updated at Control-rate. [Default Value: 1] */
     var modulationIndex: AKParameter = akp(1) {
         didSet { modulationIndex.bind(&fosc.memory.indx) }
     }
     
+    /** This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5] */
     var amplitude: AKParameter = akp(0.5) {
         didSet { amplitude.bind(&fosc.memory.amp) }
     }
@@ -42,7 +47,8 @@ import Foundation
         bindAll()
     }
     
-    /** Instantiates the fm oscillator with all values
+    /** 
+    Instantiates the fm oscillator with all values
     
     :param: baseFrequency In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. Updated at Control-rate. [Default Value: 440]
     :param: carrierMultiplier This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1]
