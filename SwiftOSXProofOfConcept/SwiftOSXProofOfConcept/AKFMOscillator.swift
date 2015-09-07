@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AKFMOscillator : AKParameter {
+@objc class AKFMOscillator : AKParameter {
     
     var fosc = UnsafeMutablePointer<sp_fosc>.alloc(1) // allocate 1
     
@@ -46,18 +46,18 @@ class AKFMOscillator : AKParameter {
         amplitude.bind(&fosc.memory.amp)
     }
     
-    func create() {
+    override func create() {
         sp_fosc_create(&fosc)
         sp_fosc_init(AKManager.sharedManager.data, fosc, table.ftbl)
     }
     
-    func compute() -> Float {
+    override func compute() -> Float {
         sp_fosc_compute(AKManager.sharedManager.data, fosc, nil, &value);
         pointer.memory = value
         return value
     }
     
-    func destroy() {
+    override func destroy() {
         sp_fosc_destroy(&fosc)
     }
     
