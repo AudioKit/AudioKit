@@ -49,7 +49,7 @@ import Foundation
     override init() {
         super.init()
         setup()
-
+        bindAll()
     }
     
     /** Instantiates the fm oscillator with all values
@@ -74,13 +74,17 @@ import Foundation
         modulatingMultiplier = mod
         modulationIndex      = indx
         amplitude            = amp
-        
+
+        bindAll()
+    }
+    
+    /** Bind every property to the internal oscillator */
+    internal func bindAll() {
         baseFrequency       .bind(&fosc.memory.freq)
         carrierMultiplier   .bind(&fosc.memory.car)
         modulatingMultiplier.bind(&fosc.memory.mod)
         modulationIndex     .bind(&fosc.memory.indx)
         amplitude           .bind(&fosc.memory.amp)
-
     }
     
     /** Internal set up function */

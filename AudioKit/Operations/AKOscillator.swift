@@ -32,6 +32,7 @@ import Foundation
     override init() {
         super.init()
         setup()
+        bindAll()
     }
     
      init(phase iphs: Float) {
@@ -55,6 +56,11 @@ import Foundation
         frequency = freq
         amplitude = amp
         
+        bindAll()
+    }
+    
+    /** Bind every property to the internal oscillator */
+    func bindAll() {
         frequency.bind(&osc.memory.freq)
         amplitude.bind(&osc.memory.amp)
     }
