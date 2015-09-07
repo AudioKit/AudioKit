@@ -8,26 +8,34 @@
 
 typealias Sample = Float
 
+/** A class to manage AudioKit */
 @objc class AKManager {
-    var selfPtr: AKManager?
+    
+    /** Pointer for reference to this instance in CoreAudio */
+    private var selfPtr: AKManager?
+    
+    /** Internal reference to SoundPipe */
+    var data: UnsafeMutablePointer<sp_data> = nil
 
+    /** Singleton to handle all AudioKit internal operations */
     static let sharedManager = AKManager()
     
-    var data: UnsafeMutablePointer<sp_data> = nil
-    
+    /** The collection of instruments */
     var instruments: [AKInstrument] = []
     
+    /** Start up SoundPipe and CoreAudio */
     init() {
         selfPtr = self
         sp_create(&data)
         setupAudioUnit()
     }
     
+    /** Release memory */
     func teardown() {
         sp_destroy(&data)
     }
     
-    
+    /** Set up CoreAudio functionality */
     func setupAudioUnit() {
         var outputComponent: AudioComponent
         var acd: AudioComponentDescription
@@ -97,6 +105,7 @@ typealias Sample = Float
         assert(status == noErr)
     }
     
+    /** The render proc */
     func render(
         actionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
         timeStamp: UnsafePointer<AudioTimeStamp>,

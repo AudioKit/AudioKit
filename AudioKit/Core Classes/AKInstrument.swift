@@ -8,11 +8,14 @@
 
 import Foundation
 
+/** A parent class to all instruments */
 @objc class AKInstrument {
+    
+    /** All operations which need to be computed for this instrument */
     var operations: [AKParameter] = []
     
+    /** Initialize and append to the list of instruments */
     init() {
         AKManager.sharedManager.instruments.append(self)
     }
-
 }
