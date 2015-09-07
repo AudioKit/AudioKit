@@ -15,7 +15,7 @@ typealias Sample = Float
     
     var data: UnsafeMutablePointer<sp_data> = nil
     
-    var instruments = Array<AKInstrument>([])
+    var instruments: [AKInstrument] = []
     
     init() {
         selfPtr = self

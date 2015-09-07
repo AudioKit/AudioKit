@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** A simple oscillator */
 @objc class AKOscillator : AKParameter {
     
     var osc = UnsafeMutablePointer<sp_osc>.alloc(1)
@@ -15,9 +16,15 @@ import Foundation
     var table = AKTable()
     private var phase: Float = 0
     
-    var frequency: Float = 440 {
+    var frequency: AKParameter = akp(440) {
         didSet {
-            osc.memory.freq = frequency
+            frequency.bind(&osc.memory.freq)
+        }
+    }
+    
+    var amplitude: AKParameter = akp(1) {
+        didSet {
+            amplitude.bind(&osc.memory.amp)
         }
     }
     
@@ -27,6 +34,11 @@ import Foundation
         setup()
     }
     
+     init(phase iphs: Float) {
+        super.init()
+        setup(phase: iphs)
+    }
+    
     /** Instantiates the oscillator with all values
     
     :param: frequency In cycles per second, or Hz. [Default Value: 440]
@@ -34,14 +46,17 @@ import Foundation
     :param: phase Oscillator phase [Default Value: 0]
     */
     convenience init(
-        frequency: AKParameter,
-        amplitude: AKParameter,
-        phase: Float)
+        frequency freq: AKParameter,
+        amplitude amp:  AKParameter,
+        phase iphs: Float)
     {
-        self.init()
+        self.init(phase: iphs)
+        
+        frequency = freq
+        amplitude = amp
+        
         frequency.bind(&osc.memory.freq)
         amplitude.bind(&osc.memory.amp)
-        self.phase = phase
     }
     
     /** Internal set up function */

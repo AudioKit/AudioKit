@@ -15,15 +15,33 @@ import Foundation
     
     var table = AKTable()
 
-    var frequency: Float = 440 {
+    var baseFrequency: AKParameter = akp(440) {
         didSet {
-            fosc.memory.freq = frequency
+            baseFrequency.bind(&fosc.memory.freq)
         }
     }
     
-    var index: Float = 1 {
+    var carrierMultiplier: AKParameter = akp(1) {
         didSet {
-            fosc.memory.indx = index
+            carrierMultiplier.bind(&fosc.memory.car)
+        }
+    }
+    
+    var modulatingMultiplier: AKParameter = akp(1) {
+        didSet {
+            modulatingMultiplier.bind(&fosc.memory.mod)
+        }
+    }
+    
+    var modulationIndex: AKParameter = akp(1) {
+        didSet {
+            modulationIndex.bind(&fosc.memory.indx)
+        }
+    }
+    
+    var amplitude: AKParameter = akp(0.5) {
+        didSet {
+            amplitude.bind(&fosc.memory.amp)
         }
     }
     
@@ -43,18 +61,26 @@ import Foundation
     :param: amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
     */
     convenience init(
-        baseFrequency: AKParameter,
-        carrierMultiplier: AKParameter,
-        modulatingMultiplier: AKParameter,
-        modulationIndex: AKParameter,
-        amplitude: AKParameter)
+        baseFrequency        freq: AKParameter,
+        carrierMultiplier    car:  AKParameter,
+        modulatingMultiplier mod:  AKParameter,
+        modulationIndex      indx: AKParameter,
+        amplitude            amp:  AKParameter)
     {
         self.init()
-        baseFrequency.bind(&fosc.memory.freq)
-        carrierMultiplier.bind(&fosc.memory.car)
+        
+        baseFrequency        = freq
+        carrierMultiplier    = car
+        modulatingMultiplier = mod
+        modulationIndex      = indx
+        amplitude            = amp
+        
+        baseFrequency       .bind(&fosc.memory.freq)
+        carrierMultiplier   .bind(&fosc.memory.car)
         modulatingMultiplier.bind(&fosc.memory.mod)
-        modulationIndex.bind(&fosc.memory.indx)
-        amplitude.bind(&fosc.memory.amp)
+        modulationIndex     .bind(&fosc.memory.indx)
+        amplitude           .bind(&fosc.memory.amp)
+
     }
     
     /** Internal set up function */

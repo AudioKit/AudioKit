@@ -15,7 +15,12 @@ func akp(num: Float) -> AKParameter {
 class AKParameter {
 
     var pointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
-    var value: Float = 0.0
+    
+    var value: Float = 0.0 {
+        didSet {
+            pointer.memory = value
+        }
+    }
     
     convenience init(float: Float) {
         self.init()
