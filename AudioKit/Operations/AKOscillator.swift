@@ -17,15 +17,11 @@ import Foundation
     private var phase: Float = 0
     
     var frequency: AKParameter = akp(440) {
-        didSet {
-            frequency.bind(&osc.memory.freq)
-        }
+        didSet { frequency.bind(&osc.memory.freq) }
     }
     
     var amplitude: AKParameter = akp(1) {
-        didSet {
-            amplitude.bind(&osc.memory.amp)
-        }
+        didSet { amplitude.bind(&osc.memory.amp) }
     }
     
     /** Instantiates the oscillator with default values */

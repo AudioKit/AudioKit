@@ -16,33 +16,23 @@ import Foundation
     var table = AKTable()
 
     var baseFrequency: AKParameter = akp(440) {
-        didSet {
-            baseFrequency.bind(&fosc.memory.freq)
-        }
+        didSet { baseFrequency.bind(&fosc.memory.freq) }
     }
     
     var carrierMultiplier: AKParameter = akp(1) {
-        didSet {
-            carrierMultiplier.bind(&fosc.memory.car)
-        }
+        didSet { carrierMultiplier.bind(&fosc.memory.car) }
     }
     
     var modulatingMultiplier: AKParameter = akp(1) {
-        didSet {
-            modulatingMultiplier.bind(&fosc.memory.mod)
-        }
+        didSet { modulatingMultiplier.bind(&fosc.memory.mod) }
     }
     
     var modulationIndex: AKParameter = akp(1) {
-        didSet {
-            modulationIndex.bind(&fosc.memory.indx)
-        }
+        didSet { modulationIndex.bind(&fosc.memory.indx) }
     }
     
     var amplitude: AKParameter = akp(0.5) {
-        didSet {
-            amplitude.bind(&fosc.memory.amp)
-        }
+        didSet { amplitude.bind(&fosc.memory.amp) }
     }
     
     /** Instantiates the fm oscillator with default values */
