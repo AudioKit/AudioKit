@@ -20,7 +20,23 @@ class ViewController : NSViewController {
         instrument.oscillatingFrequency.frequency.value = sender.floatValue
     }
     
+    @IBAction func setAmplitude(sender: NSSlider) {
+        instrument.oscillatingFrequency.amplitude.value = sender.floatValue
+    }
+    
+    @IBAction func setCarrierMultiplier(sender: NSSlider) {
+        instrument.fmOscillator.carrierMultiplier.value = sender.floatValue
+    }
+    
+    @IBAction func setModulatingMultiplier(sender: NSSlider) {
+        instrument.fmOscillator.modulatingMultiplier.value = sender.floatValue
+    }
+    
     @IBAction func setModulationIndex(sender: NSSlider) {
-        instrument.fmOscillator.modulationIndex.value = sender.floatValue*0.2
+        instrument.fmOscillator.modulationIndex.value = sender.floatValue
+    }
+    
+    @IBAction func setFinalAmplitude(sender: NSSlider) {
+        instrument.fmOscillator.amplitude.value = sender.floatValue
     }
 }

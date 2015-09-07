@@ -669,52 +669,122 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftOSXProofOfConcept" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="64"/>
+                        <rect key="frame" x="0.0" y="0.0" width="404" height="233"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <slider horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NXy-Jx-9gX">
-                                <rect key="frame" x="18" y="17" width="28" height="30"/>
-                                <sliderCell key="cell" continuous="YES" alignment="left" maxValue="10" doubleValue="2" tickMarkPosition="right" sliderType="circular" id="Eu3-bv-RDc"/>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-nh-Xz3">
+                                <rect key="frame" x="18" y="171" width="195" height="21"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="2" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
                                 <connections>
-                                    <action selector="setFrequency:" target="XfG-lQ-9wD" id="yEW-T7-Qaz"/>
+                                    <action selector="setFrequency:" target="XfG-lQ-9wD" id="5cc-G3-pFW"/>
                                 </connections>
                             </slider>
-                            <slider horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5bD-Nh-Owb">
-                                <rect key="frame" x="230" y="17" width="28" height="30"/>
-                                <sliderCell key="cell" continuous="YES" alignment="left" maxValue="64" tickMarkPosition="right" sliderType="circular" id="bMB-TN-V3L"/>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xv1-y4-52k">
+                                <rect key="frame" x="18" y="146" width="195" height="21"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1000" doubleValue="440" tickMarkPosition="above" sliderType="linear" id="aPu-po-vLp"/>
                                 <connections>
-                                    <action selector="setModulationIndex:" target="XfG-lQ-9wD" id="0vl-q3-d8p"/>
+                                    <action selector="setAmplitude:" target="XfG-lQ-9wD" id="2U5-q6-2c9"/>
                                 </connections>
                             </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Val-vn-7ly">
-                                <rect key="frame" x="57" y="24" width="69" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frequency" id="JHO-fZ-rdh">
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqN-XG-Wln">
+                                <rect key="frame" x="18" y="93" width="195" height="21"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Ux3-De-jBS"/>
+                                <connections>
+                                    <action selector="setCarrierMultiplier:" target="XfG-lQ-9wD" id="857-NF-LJc"/>
+                                </connections>
+                            </slider>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctg-79-BeF">
+                                <rect key="frame" x="18" y="43" width="195" height="21"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="Yvb-vC-uHu"/>
+                                <connections>
+                                    <action selector="setModulationIndex:" target="XfG-lQ-9wD" id="UJn-tz-LAa"/>
+                                </connections>
+                            </slider>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EmE-Qe-70X">
+                                <rect key="frame" x="18" y="18" width="195" height="21"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="W4S-ES-NjX"/>
+                                <connections>
+                                    <action selector="setFinalAmplitude:" target="XfG-lQ-9wD" id="3op-dK-rhv"/>
+                                </connections>
+                            </slider>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMx-xn-xtD">
+                                <rect key="frame" x="20" y="196" width="180" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frequency Control Oscillator" id="eon-v8-gAx">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ogc-Qw-UAS">
-                                <rect key="frame" x="264" y="24" width="38" height="17"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Index" id="gDI-o6-ZNf">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sYC-6Q-3Py">
+                                <rect key="frame" x="230" y="173" width="69" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Frequency" id="r91-5O-ryn">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="x5Y-eg-sq6">
+                                <rect key="frame" x="230" y="95" width="107" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Carrier Multiplier" id="03h-OI-dc7">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fir-OF-CH8">
+                                <rect key="frame" x="230" y="70" width="134" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Modulating Multiplier" id="Wlx-vt-Kk1">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BHd-58-bLz">
+                                <rect key="frame" x="230" y="148" width="67" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ampliutde" id="xsf-dS-a1H">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G4q-sY-tcC">
+                                <rect key="frame" x="230" y="20" width="67" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Ampliutde" id="zID-7S-Zxx">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tt1-NB-dSx">
+                                <rect key="frame" x="22" y="120" width="86" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="FM Oscillator" id="CEG-fz-di0">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDK-PJ-5MT">
+                                <rect key="frame" x="230" y="45" width="111" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Modulation Index" id="TCH-qj-pCd">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Gq-1p-c36">
+                                <rect key="frame" x="18" y="68" width="195" height="21"/>
+                                <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="rwf-cW-guo"/>
+                                <connections>
+                                    <action selector="setModulatingMultiplier:" target="XfG-lQ-9wD" id="jHq-WM-Gaq"/>
+                                </connections>
+                            </slider>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="NXy-Jx-9gX" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="8wP-df-Moy"/>
-                            <constraint firstAttribute="bottom" secondItem="5bD-Nh-Owb" secondAttribute="bottom" constant="20" id="CxY-AB-Gvi"/>
-                            <constraint firstItem="5bD-Nh-Owb" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="H83-pm-lJR"/>
-                            <constraint firstAttribute="bottom" secondItem="NXy-Jx-9gX" secondAttribute="bottom" constant="20" id="Nzc-y1-2eE"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="K4Z-KE-ZbS"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="37" y="739.5"/>
         </scene>
     </scenes>
 </document>
