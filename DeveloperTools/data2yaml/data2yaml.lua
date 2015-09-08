@@ -7,9 +7,9 @@ YAML = { name=arg[1] }
 function YAML.tables(self, tbl)
     if(tbl.params.mandatory == nil) then return end
     local ftbl = {}
-    local ft = {}
     for k,v in pairs(tbl.params.mandatory) do
         if(string.match(v.type, "sp_ftbl")) then
+            local ft = {}
             ft.name = v.name
             ft.comment = v.description
             table.insert(ftbl, ft)
@@ -44,11 +44,11 @@ end
 function YAML.constants(self, tbl)
     if(tbl.params.mandatory == nil) then return end
     local constants = {}
-    local c = {}
     for k,v in pairs(tbl.params.mandatory) do
         if(string.match(v.type, "sp_ftbl")) then
             -- ignore
         else
+            local c = {}
             c.name = v.name
             c.comment = v.description
             c.default = v.default
