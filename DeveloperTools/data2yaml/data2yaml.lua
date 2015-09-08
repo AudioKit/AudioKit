@@ -1,5 +1,5 @@
 sptbl = {}
-print(arg[1])
+
 dofile(string.format("data/%s.lua", arg[1]))
 
 YAML = { name=arg[1] }
@@ -14,11 +14,11 @@ function YAML.tables(self, tbl)
             ft.comment = v.description
             table.insert(ftbl, ft)
         end
-    end 
+    end
 
     if(next(ftbl) == nil) then return end
     io.write("tables:\n")
-    for k,v in pairs(ftbl) do 
+    for k,v in pairs(ftbl) do
         io.write(string.format("- %s: {\n", v.name))
         io.write(string.format("  audioKitName: %s,\n", v.name))
         io.write(string.format("  comment: \"%s\",\n", v.comment))
@@ -31,7 +31,7 @@ end
 function YAML.parameters(self, tbl)
     if(tbl.params.optional == nil) then return end
     io.write("parameters:\n")
-    for k,v in pairs(tbl.params.optional) do 
+    for k,v in pairs(tbl.params.optional) do
         io.write(string.format("- %s: {\n", v.name))
         io.write(string.format("  audioKitName: %s,\n", v.name))
         io.write(string.format("  comment: \"%s\",\n", v.description))
@@ -54,12 +54,12 @@ function YAML.constants(self, tbl)
             c.default = v.default
             table.insert(constants, c)
         end
-    end 
+    end
 
     if(next(constants) == nil) then return end
 
     io.write("constants:\n")
-    for k,v in pairs(constants) do 
+    for k,v in pairs(constants) do
         io.write(string.format("- %s: {\n", v.name))
         io.write(string.format("  audioKitName: %s ,\n", v.name))
         io.write(string.format("  comment: \"%s\",\n", v.comment))
@@ -70,11 +70,13 @@ function YAML.constants(self, tbl)
 end
 
 
-function YAML.generate(self, tbl) 
+function YAML.generate(self, tbl)
+    io.write(string.format("installation_directory: \"../AudioKit/Operations/\"\n\n"))
     io.write(string.format("sp_name: %s\n\n", self.name))
-    io.write(string.format("summary: \n\n"));
-    io.write(string.format("shortDescription: \n\n"))
-    io.write(string.format("description: \n\n"))
+    io.write(string.format("operation: AK\n\n"))
+    io.write(string.format("summary: %s\n\n", tbl.description));
+    io.write(string.format("shortDescription: %s\n\n", tbl.description ))
+    io.write(string.format("description: %s\n\n", tbl.description))
 
     self:tables(tbl)
     self:parameters(tbl)
