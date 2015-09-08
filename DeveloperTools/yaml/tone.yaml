@@ -1,0 +1,26 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: tone
+
+operation: AKLowPassFilter
+
+summary: Low-pass filter
+
+shortDescription: filter
+
+description:
+  A first-order recursive low-pass filter with variable frequency response.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- hp: {
+  audioKitName: halfPowerPoint,
+  comment: "The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.",
+  default: 1000
+}
+
