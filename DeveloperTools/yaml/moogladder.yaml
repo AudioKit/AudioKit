@@ -1,0 +1,31 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: moogladder
+
+operation: AKMoogLadder
+
+summary: Moog Ladder Filter
+
+shortDescription: filter
+
+description:
+  Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
+  This implementation is probably a more accurate digital representation of the original analogue filter.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- freq: {
+  audioKitName: cutoffFrequency,
+  comment: "Filter cutoff frequency.",
+  default: 1000
+}
+- res: {
+  audioKitName: resonance,
+  comment: "Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.",
+  default: 0.5
+}

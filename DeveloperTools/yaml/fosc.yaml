@@ -1,0 +1,48 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: fosc
+
+operation: AKFMOscillator
+
+summary:  Basic frequency modulated oscillator.
+
+shortDescription: FM oscillator
+
+description:
+  Classic FM Synthesis audio generation.
+
+tables:
+- ftbl: {
+  audioKitName: waveform,
+  comment: "Waveform table to use.",
+  default: sine
+}
+
+parameters:
+- freq: {
+	audioKitName: baseFrequency,
+	comment: "In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.",
+  default: 440
+}
+- car: {
+	audioKitName: carrierMultiplier,
+	comment: "This multiplied by the baseFrequency gives the carrier frequency.",
+  default: 1
+}
+- mod: {
+	audioKitName: modulatingMultiplier,
+	comment: "This multiplied by the baseFrequency gives the modulating frequency.",
+  default: 1
+}
+- indx: {
+	audioKitName: modulationIndex,
+	comment: "This multiplied by the modulating frequency gives the modulation amplitude.",
+  default: 1
+}
+- amp: {
+	audioKitName: amplitude,
+	comment: "This multiplied by the modulating frequency gives the modulation amplitude.",
+  default: 0.5
+}
+
+
