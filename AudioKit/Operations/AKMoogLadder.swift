@@ -16,7 +16,8 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
 
     private var moogladder = UnsafeMutablePointer<sp_moogladder>.alloc(1)
     private var input = AKParameter()
-    
+
+
     /** Filter cutoff frequency. [Default Value: 1000] */
     var cutoffFrequency: AKParameter = akp(1000) {
         didSet { cutoffFrequency.bind(&moogladder.memory.freq) }
@@ -28,7 +29,9 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     }
 
     /** Instantiates the filter with default values */
-    init(input source: AKParameter) {
+    init(input source: AKParameter)
+
+    {
         super.init()
         input = source
         setup()
@@ -38,6 +41,7 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     /**
     Instantiates the filter with all values
 
+    :param: input Input audio signal. 
     :param: cutoffFrequency Filter cutoff frequency. [Default Value: 1000]
     :param: resonance Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. [Default Value: 0.5]
     */
