@@ -98,7 +98,7 @@
     [inputsString appendFormat:@"%@", _amplitudeTable];
     
     if (_frequencyTable) {
-        [inputsString appendFormat:@"%@, ", _frequencyTable];
+        [inputsString appendFormat:@", %@", _frequencyTable];
     }
     
     return inputsString;
