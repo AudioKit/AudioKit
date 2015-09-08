@@ -3,10 +3,11 @@
 //  AudioKit
 //
 //  Auto-generated on 9/5/15.
+//  Customised by Daniel Clelland on 9/5/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKControl.h"
+#import "AKFSignal.h"
 #import "AKParameter+Operation.h"
 
 /** Writes amplitude and/or frequency data to function tables.
