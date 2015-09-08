@@ -15,9 +15,9 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
 @objc class AKOscillator : AKParameter {
 
     private var osc = UnsafeMutablePointer<sp_osc>.alloc(1)
-
     /** Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0] */
     private var phase: Float = 0
+
 
     /** Waveform table to use. [Default Value: sine] */
     var waveform = AKTable()
@@ -33,7 +33,8 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
     }
 
     /** Instantiates the oscillator with default values */
-    override init() {
+    override init()
+    {
         super.init()
         setup()
         bindAll()

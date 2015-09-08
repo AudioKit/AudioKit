@@ -45,7 +45,8 @@ Classic FM Synthesis audio generation.
     }
 
     /** Instantiates the FM oscillator with default values */
-    override init() {
+    override init()
+    {
         super.init()
         setup()
         bindAll()
