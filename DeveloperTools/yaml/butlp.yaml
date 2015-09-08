@@ -1,0 +1,27 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: butlp
+
+operation: AKLowPassButterworthFilter
+
+summary: A low-pass Butterworth filter.
+
+shortDescription: filter
+
+description:
+  These filters are Butterworth second-order IIR filters. They offer an almost flat
+ passband and very good precision and stopband attenuation.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- freq: {
+  audioKitName: cutoffFrequency,
+  comment: "Cutoff frequency.",
+  default: 1000
+}
+
