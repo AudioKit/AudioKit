@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 9/5/15.
+//  Customised by Daniel Clelland on 9/5/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's pvsftr:
@@ -39,8 +40,6 @@
     if (self) {
         _input = input;
         _amplitudeTable = amplitudeTable;
-        // Default Values
-        _frequencyTable = akp();
         [self setUpConnections];
     }
     return self;
@@ -66,7 +65,7 @@
 - (void)setUpConnections
 {
     self.state = @"connectable";
-    self.dependencies = @[_input, ];
+    self.dependencies = @[_input];
 }
 
 - (NSString *)inlineStringForCSD
@@ -85,20 +84,23 @@
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
-    [csdString appendFormat:@"%@ pvsftr ", self];
+    [csdString appendFormat:@"pvsftr "];
     [csdString appendString:[self inputsString]];
+    
     return csdString;
 }
 
 - (NSString *)inputsString {
     NSMutableString *inputsString = [[NSMutableString alloc] init];
 
-    
     [inputsString appendFormat:@"%@, ", _input];
     
-    [inputsString appendFormat:@"%@, ", _amplitudeTable];
+    [inputsString appendFormat:@"%@", _amplitudeTable];
     
-    [inputsString appendFormat:@"%@", _frequencyTable];
+    if (_frequencyTable) {
+        [inputsString appendFormat:@"%@, ", _frequencyTable];
+    }
+    
     return inputsString;
 }
 
