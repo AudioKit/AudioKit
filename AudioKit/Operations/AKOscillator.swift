@@ -13,45 +13,45 @@ import Foundation
 Reads from the table sequentially and repeatedly at given frequency. Linear interpolation is applied for table look up from internal phase values.
 */
 @objc class AKOscillator : AKParameter {
-    
+
     private var osc = UnsafeMutablePointer<sp_osc>.alloc(1)
-    
+
     /** Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0] */
     private var phase: Float = 0
-    
+
     /** Waveform table to use. [Default Value: sine] */
     var waveform = AKTable()
-    
+
     /** Frequency in cycles per second [Default Value: 440] */
     var frequency: AKParameter = akp(440) {
         didSet { frequency.bind(&osc.memory.freq) }
     }
-    
+
     /** Amplitude of the output [Default Value: 1] */
     var amplitude: AKParameter = akp(1) {
         didSet { amplitude.bind(&osc.memory.amp) }
     }
-    
+
     /** Instantiates the oscillator with default values */
     override init() {
         super.init()
         setup()
         bindAll()
     }
-    
+
     /**
     Instantiates oscillator with constants
-    
+
     :param: phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
-    */
+ */
     init (phase iphs: Float) {
         super.init()
         setup(phase: iphs)
     }
-    
+
     /**
     Instantiates the oscillator with all values
-    
+
     :param: frequency Frequency in cycles per second [Default Value: 440]
     :param: amplitude Amplitude of the output [Default Value: 1]
     :param: phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
@@ -62,33 +62,33 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
         phase     iphs: Float)
     {
         self.init(phase: iphs)
-        
+
         frequency = freq
         amplitude = amp
-        
+
         bindAll()
     }
-    
+
     /** Bind every property to the internal oscillator */
     internal func bindAll() {
         frequency.bind(&osc.memory.freq)
         amplitude.bind(&osc.memory.amp)
     }
-    
+
     /** Internal set up function */
     internal func setup(phase: Float = 0)
-    {
+ {
         sp_osc_create(&osc)
         sp_osc_init(AKManager.sharedManager.data, osc, waveform.ftbl, phase)
     }
-    
+
     /** Computation of the next value */
     override func compute() -> Float {
         sp_osc_compute(AKManager.sharedManager.data, osc, nil, &value);
         pointer.memory = value
         return value
     }
-    
+
     /** Release of memory */
     override func teardown() {
         sp_osc_destroy(&osc)
