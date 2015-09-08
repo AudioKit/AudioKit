@@ -1,0 +1,19 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: phasor
+
+operation: AKPhasor
+
+summary: A normalized moving phase value.
+
+shortDescription: phasor
+
+description:
+  Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are often used when building table-lookup oscillators.
+
+parameters:
+- freq: {
+  audioKitName: frequency,
+  comment: "Frequency in cycles per second, or Hz.",
+  default: 1
+}
