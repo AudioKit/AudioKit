@@ -1,0 +1,54 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: gbuzz
+
+operation: AKAdditiveCosines
+
+summary: A set of harmonically related cosine partials.
+
+shortDescription: partials
+
+description:
+  This is used to generate a series of partials from the harmonic series.
+  It comes from the "buzz" family of Csound opcodes, and is capable of producing a
+  rich spectrum of harmonic content, possibly ideal for subtractive synthesis techniques.
+
+tables:
+- ft: {
+  audioKitName: cosineTable,
+  comment: "A cosine table with at least 8192 points is recommended.",
+  default:
+}
+
+parameters:
+- nharm: {
+  audioKitName: harmonicsCount,
+  comment: "Number of harmonics.",
+  default: 10
+}
+- lharm: {
+  audioKitName: firstHarmonicIndex,
+  comment: "Lowest harmonic present. This should be a whole number integer.",
+  default: 1
+}
+- mul: {
+  audioKitName: partialMultiplier,
+  comment: "Multiplier. This determines the relative strength of each harmonic.",
+  default: 1
+}
+- freq: {
+  audioKitName: fundamentalFrequency,
+  comment: "The fundamental frequency (which can be modulated), in Hertz.",
+  default: 220
+}
+- amp: {
+  audioKitName: amplitude,
+  comment: "The total amplitude of the output of all the cosines. (Typically a value between 0 and 1).",
+  default: 0.4
+}
+- iphs: {
+  audioKitName: phase,
+  comment: "Not yet implemented. Phase to start on (in the range 0-1)",
+  default: 0
+}
+
