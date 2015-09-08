@@ -1,0 +1,39 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: osc
+
+operation: AKOscillator
+
+summary: A simple oscillator with linear interpolation.
+
+shortDescription: oscillator
+
+description:
+ Reads from the table sequentially and repeatedly at given frequency.
+ Linear interpolation is applied for table look up from internal phase values.
+
+tables:
+- ftbl: {
+  audioKitName: waveform,
+  comment: "Waveform table to use.",
+  default: sine
+}
+
+parameters:
+- freq: {
+	audioKitName: frequency,
+	comment: "Frequency in cycles per second",
+	default: 440
+}
+- amp: {
+	audioKitName: amplitude,
+	comment: "Amplitude of the output",
+	default: 1
+}
+
+constants:
+- iphs: {
+	audioKitName: phase,
+	comment: "Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).",
+	default: 0
+}
