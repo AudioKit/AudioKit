@@ -21,6 +21,7 @@
 		C4963E801B9BDDBF00D57DDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4963E7F1B9BDDBF00D57DDA /* Images.xcassets */; };
 		C4963E8F1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E8E1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift */; };
 		C4963E9D1B9BDE1000D57DDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4963E9C1B9BDE1000D57DDA /* Main.storyboard */; };
+		C4B80E1C1B9EA648001A80DB /* AKMoogLadder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E1B1B9EA648001A80DB /* AKMoogLadder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		C4963E8E1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftOSXProofOfConceptTests.swift; sourceTree = "<group>"; };
 		C4963E981B9BDDD800D57DDA /* SwiftOSXProofOfConcept-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftOSXProofOfConcept-Bridging-Header.h"; sourceTree = "<group>"; };
 		C4963E9C1B9BDE1000D57DDA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C4B80E1B1B9EA648001A80DB /* AKMoogLadder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMoogLadder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				C42AC0351B9E23BB006CE9EE /* AKFMOscillator.swift */,
+				C4B80E1B1B9EA648001A80DB /* AKMoogLadder.swift */,
 				C42AC0361B9E23BB006CE9EE /* AKOscillator.swift */,
 			);
 			path = Operations;
@@ -275,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B80E1C1B9EA648001A80DB /* AKMoogLadder.swift in Sources */,
 				C42AC0381B9E23BB006CE9EE /* AKManager.swift in Sources */,
 				C42AC03B1B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m in Sources */,
 				C42AC03A1B9E23BB006CE9EE /* AKTable.swift in Sources */,

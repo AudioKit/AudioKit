@@ -12,6 +12,7 @@ class DemoInstrument: AKInstrument {
 
     var oscillatingFrequency: AKOscillator
     var fmOscillator: AKFMOscillator
+    var moog: AKMoogLadder
     
     override init() {
         
@@ -52,9 +53,13 @@ class DemoInstrument: AKInstrument {
         fmOscillator.modulationIndex.value      = 11
         fmOscillator.amplitude.value            = 0.5
         
+        moog = AKMoogLadder(input: fmOscillator)
+        moog = AKMoogLadder(input: fmOscillator, cutoffFrequency: 1000.ak, resonance: 0.5.ak)
+
         super.init()
         operations.append(oscillatingFrequency)
         operations.append(fmOscillator)
+        operations.append(moog)
     }
     
 }

@@ -39,4 +39,13 @@ class ViewController : NSViewController {
     @IBAction func setFinalAmplitude(sender: NSSlider) {
         instrument.fmOscillator.amplitude.value = sender.floatValue
     }
+    
+    @IBAction func setCutoffFrequency(sender: NSSlider) {
+        instrument.moog.cutoffFrequency.value = sender.floatValue
+    }
+    
+    @IBAction func setResonance(sender: NSSlider) {
+        instrument.moog.resonance.value = sender.floatValue
+    }
+    
 }
