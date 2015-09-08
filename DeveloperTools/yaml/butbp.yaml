@@ -1,0 +1,32 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: butbp
+
+operation: AKBandPassButterworthFilter
+
+summary: A band-pass Butterworth filter.
+
+shortDescription: filter
+
+description:
+  These filters are Butterworth second-order IIR filters. They offer an almost flat
+ passband and very good precision and stopband attenuation.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- freq: {
+  audioKitName: centerFrequency,
+  comment: "Center frequency. (in Hertz)",
+  default: 2000
+}
+- bw: {
+  audioKitName: bandwidth,
+  comment: "Bandwidth. (in Hertz)",
+  default: 100
+}
+
