@@ -48,7 +48,6 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     {
         self.init(input: source)
 
-        input           = source
         cutoffFrequency = freq
         resonance       = res
 
