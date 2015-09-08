@@ -14,12 +14,17 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
 */
 @objc class AKPhasor : AKParameter {
 
+    // MARK: - Properties
+
     private var phasor = UnsafeMutablePointer<sp_phasor>.alloc(1)
 
     /** Frequency in cycles per second, or Hz. [Default Value: 1] */
     var frequency: AKParameter = akp(1) {
         didSet { frequency.bind(&phasor.memory.freq) }
     }
+
+
+    // MARK: - Initializers
 
     /** Instantiates the phasor with default values */
     override init()
@@ -43,6 +48,8 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
 
         bindAll()
     }
+
+    // MARK: - Internals
 
     /** Bind every property to the internal phasor */
     internal func bindAll() {
