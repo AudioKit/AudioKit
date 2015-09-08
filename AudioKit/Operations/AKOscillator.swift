@@ -53,6 +53,7 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
     init (phase iphs: Float) {
         super.init()
         setup(phase: iphs)
+        bindAll()
     }
 
     /**
