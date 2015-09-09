@@ -24,19 +24,19 @@ Add a delay to an incoming signal with optional feedback.
 
 
     /** Feedback amount. Should be a value between 0-1. [Default Value: 0.0] */
-    var feedbackFraction: AKParameter = akp(0.0) {
-        didSet { feedbackFraction.bind(&delay.memory.feedback) }
+    var feedback: AKParameter = akp(0.0) {
+        didSet { feedback.bind(&delay.memory.feedback) }
     }
 
 
     // MARK: - Initializers
 
     /** Instantiates the delay with default values */
-    init(input source: AKParameter)
+    init(input sourceInput: AKParameter)
 
     {
         super.init()
-        input = source
+        input = sourceInput
         setup()
         bindAll()
     }
@@ -46,10 +46,10 @@ Add a delay to an incoming signal with optional feedback.
 
     :param: delayTime Delay time, in seconds. [Default Value: 1.0]
  */
-    init (input source: AKParameter, delayTime time: Float) {
+    init (input sourceInput: AKParameter, delayTime timeInput: Float) {
         super.init()
-        input = source
-        setup(delayTime: time)
+        input = sourceInput
+        setup(delayTime: timeInput)
         bindAll()
     }
 
@@ -57,18 +57,18 @@ Add a delay to an incoming signal with optional feedback.
     Instantiates the delay with all values
 
     :param: input Input audio signal. 
-    :param: feedbackFraction Feedback amount. Should be a value between 0-1. [Default Value: 0.0]
+    :param: feedback Feedback amount. Should be a value between 0-1. [Default Value: 0.0]
     :param: delayTime Delay time, in seconds. [Default Value: 1.0]
     */
     convenience init(
-        input            source:   AKParameter,
-        feedbackFraction feedback: AKParameter,
-        delayTime        time:     Float)
+        input     sourceInput:   AKParameter,
+        feedback  feedbackInput: AKParameter,
+        delayTime timeInput:     Float)
     {
-        self.init(input: source, 
-delayTime: time)
+        self.init(input: sourceInput, 
+delayTime: timeInput)
 
-        feedbackFraction = feedback
+        feedback  = feedbackInput
 
         bindAll()
     }
@@ -77,7 +77,7 @@ delayTime: time)
 
     /** Bind every property to the internal delay */
     internal func bindAll() {
-        feedbackFraction.bind(&delay.memory.feedback)
+        feedback .bind(&delay.memory.feedback)
     }
 
     /** Internal set up function */

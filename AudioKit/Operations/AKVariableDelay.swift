@@ -32,11 +32,11 @@ A delay line with cubic interpolation.
     // MARK: - Initializers
 
     /** Instantiates the delay with default values */
-    init(input source: AKParameter)
+    init(input sourceInput: AKParameter)
 
     {
         super.init()
-        input = source
+        input = sourceInput
         setup()
         bindAll()
     }
@@ -46,10 +46,10 @@ A delay line with cubic interpolation.
 
     :param: maximumDelayTime The maximum delay time, in seconds. [Default Value: 5.0]
  */
-    init (input source: AKParameter, maximumDelayTime maxdel: Float) {
+    init (input sourceInput: AKParameter, maximumDelayTime maxdelInput: Float) {
         super.init()
-        input = source
-        setup(maximumDelayTime: maxdel)
+        input = sourceInput
+        setup(maximumDelayTime: maxdelInput)
         bindAll()
     }
 
@@ -61,14 +61,14 @@ A delay line with cubic interpolation.
     :param: maximumDelayTime The maximum delay time, in seconds. [Default Value: 5.0]
     */
     convenience init(
-        input            source: AKParameter,
-        delayTime        del:    AKParameter,
-        maximumDelayTime maxdel: Float)
+        input            sourceInput: AKParameter,
+        delayTime        delInput:    AKParameter,
+        maximumDelayTime maxdelInput: Float)
     {
-        self.init(input: source, 
-maximumDelayTime: maxdel)
+        self.init(input: sourceInput, 
+maximumDelayTime: maxdelInput)
 
-        delayTime        = del
+        delayTime        = delInput
 
         bindAll()
     }

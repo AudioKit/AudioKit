@@ -26,19 +26,19 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     }
 
     /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. [Default Value: 0.95] */
-    var feedbackFraction: AKParameter = akp(0.95) {
-        didSet { feedbackFraction.bind(&streson.memory.fdbgain) }
+    var feedback: AKParameter = akp(0.95) {
+        didSet { feedback.bind(&streson.memory.fdbgain) }
     }
 
 
     // MARK: - Initializers
 
     /** Instantiates the filter with default values */
-    init(input source: AKParameter)
+    init(input sourceInput: AKParameter)
 
     {
         super.init()
-        input = source
+        input = sourceInput
         setup()
         bindAll()
     }
@@ -48,17 +48,17 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
 
     :param: input Input audio signal. 
     :param: fundamentalFrequency Fundamental frequency of string. [Default Value: 100.0]
-    :param: feedbackFraction Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. [Default Value: 0.95]
+    :param: feedback Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. [Default Value: 0.95]
     */
     convenience init(
-        input                source:  AKParameter,
-        fundamentalFrequency freq:    AKParameter,
-        feedbackFraction     fdbgain: AKParameter)
+        input                sourceInput:  AKParameter,
+        fundamentalFrequency freqInput:    AKParameter,
+        feedback             fdbgainInput: AKParameter)
     {
-        self.init(input: source)
+        self.init(input: sourceInput)
 
-        fundamentalFrequency = freq
-        feedbackFraction     = fdbgain
+        fundamentalFrequency = freqInput
+        feedback             = fdbgainInput
 
         bindAll()
     }
@@ -68,7 +68,7 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     /** Bind every property to the internal filter */
     internal func bindAll() {
         fundamentalFrequency.bind(&streson.memory.freq)
-        feedbackFraction    .bind(&streson.memory.fdbgain)
+        feedback            .bind(&streson.memory.fdbgain)
     }
 
     /** Internal set up function */
