@@ -1,0 +1,26 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: atone
+
+operation: AKHighPassFilter
+
+summary: A first-order recursive high-pass filter with variable frequency response.
+
+shortDescription: filter
+
+description:
+  A complement to the AKLowPassFilter.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- hp: {
+  audioKitName: cutoffFrequency,
+  comment: "This is the response curve's half power point (aka cutoff frequency).",
+  default: 1000
+}
+
