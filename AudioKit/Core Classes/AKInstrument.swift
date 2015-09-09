@@ -15,7 +15,8 @@ import Foundation
     var operations: [AKParameter] = []
     
     /** Initialize and append to the list of instruments */
-    init() {
+    override init() {
+        super.init()
         AKManager.sharedManager.instruments.append(self)
     }
 }
