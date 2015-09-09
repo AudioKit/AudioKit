@@ -27,7 +27,7 @@ extension Double {
 }
 
 /** A parent class for all variables in AudioKit */
-@objc class AKParameter : AKParameter {
+@objc class AKParameter : NSObject {
 
     /** A pointer to the SoundPipe float */
     var pointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
