@@ -49,9 +49,9 @@ This can be used to make more natural and “analog-sounding” some static, dul
     /**
     Instantiates the jitter with all values
 
-    :param: amplitude The amplitude of the jitter deviation line. Will produce values in the range of (+/-)amp. [Default Value: 1]
-    :param: minimumFrequency Minimum speed of random frequency variations (expressed in Hz). [Default Value: 0.5]
-    :param: maximumFrequency Maximum speed of random frequency variations (expressed in Hz). [Default Value: 60]
+    -parameter amplitude The amplitude of the jitter deviation line. Will produce values in the range of (+/-)amp. [Default Value: 1]
+    -parameter minimumFrequency Minimum speed of random frequency variations (expressed in Hz). [Default Value: 0.5]
+    -parameter maximumFrequency Maximum speed of random frequency variations (expressed in Hz). [Default Value: 60]
     */
     convenience init(
         amplitude        ampInput:    AKParameter,

@@ -65,12 +65,12 @@ This is used to generate a series of partials from the harmonic series. It comes
     /**
     Instantiates the partials with all values
 
-    :param: harmonicsCount Number of harmonics. [Default Value: 10]
-    :param: firstHarmonicIndex Lowest harmonic present. This should be a whole number integer. [Default Value: 1]
-    :param: partialMultiplier Multiplier. This determines the relative strength of each harmonic. [Default Value: 1]
-    :param: fundamentalFrequency The fundamental frequency (which can be modulated), in Hertz. [Default Value: 220]
-    :param: amplitude The total amplitude of the output of all the cosines. (Typically a value between 0 and 1). [Default Value: 0.4]
-    :param: phase Not yet implemented. Phase to start on (in the range 0-1) [Default Value: 0]
+    -parameter harmonicsCount Number of harmonics. [Default Value: 10]
+    -parameter firstHarmonicIndex Lowest harmonic present. This should be a whole number integer. [Default Value: 1]
+    -parameter partialMultiplier Multiplier. This determines the relative strength of each harmonic. [Default Value: 1]
+    -parameter fundamentalFrequency The fundamental frequency (which can be modulated), in Hertz. [Default Value: 220]
+    -parameter amplitude The total amplitude of the output of all the cosines. (Typically a value between 0 and 1). [Default Value: 0.4]
+    -parameter phase Not yet implemented. Phase to start on (in the range 0-1) [Default Value: 0]
     */
     convenience init(
         harmonicsCount       nharmInput: AKParameter,

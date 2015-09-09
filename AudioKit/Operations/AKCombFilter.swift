@@ -49,16 +49,16 @@ This filter reiterates input with an echo density determined by loopDuration. Th
     init (input sourceInput: AKParameter, loopDuration looptimeInput: Float) {
         super.init()
         input = sourceInput
-        setup(loopDuration: looptimeInput)
+        setup(looptimeInput)
         bindAll()
     }
 
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: reverbDuration The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). [Default Value: 1]
-    :param: loopDuration The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
+    -parameter input Input audio signal. 
+    -parameter reverbDuration The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). [Default Value: 1]
+    -parameter loopDuration The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
     */
     convenience init(
         input          sourceInput:   AKParameter,

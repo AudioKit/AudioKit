@@ -9,7 +9,7 @@
 import Foundation
 
 /** A parent class to all instruments */
-@objc class AKInstrument {
+@objc class AKInstrument : NSObject {
     
     /** All operations which need to be computed for this instrument */
     var operations: [AKParameter] = []

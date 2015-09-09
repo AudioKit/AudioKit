@@ -52,16 +52,16 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
  */
     init (phase iphsInput: Float) {
         super.init()
-        setup(phase: iphsInput)
+        setup(iphsInput)
         bindAll()
     }
 
     /**
     Instantiates the oscillator with all values
 
-    :param: frequency Frequency in cycles per second [Default Value: 440]
-    :param: amplitude Amplitude of the output [Default Value: 1]
-    :param: phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
+    -parameter frequency Frequency in cycles per second [Default Value: 440]
+    -parameter amplitude Amplitude of the output [Default Value: 1]
+    -parameter phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
     */
     convenience init(
         frequency freqInput: AKParameter,

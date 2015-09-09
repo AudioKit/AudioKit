@@ -49,16 +49,16 @@ Add a delay to an incoming signal with optional feedback.
     init (input sourceInput: AKParameter, delayTime timeInput: Float) {
         super.init()
         input = sourceInput
-        setup(delayTime: timeInput)
+        setup(timeInput)
         bindAll()
     }
 
     /**
     Instantiates the delay with all values
 
-    :param: input Input audio signal. 
-    :param: feedback Feedback amount. Should be a value between 0-1. [Default Value: 0.0]
-    :param: delayTime Delay time, in seconds. [Default Value: 1.0]
+    -parameter input Input audio signal. 
+    -parameter feedback Feedback amount. Should be a value between 0-1. [Default Value: 0.0]
+    -parameter delayTime Delay time, in seconds. [Default Value: 1.0]
     */
     convenience init(
         input     sourceInput:   AKParameter,

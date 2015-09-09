@@ -9,7 +9,7 @@
 import Foundation
 
 /** A table of values accessible as a waveform or lookup mechanism */
-class AKTable : AKParameter {
+@objc class AKTable : AKParameter {
     
     /** Pointer to the SoundPipe table */
     var ftbl: UnsafeMutablePointer<sp_ftbl> = nil  //not just nil

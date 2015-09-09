@@ -49,16 +49,16 @@ A delay line with cubic interpolation.
     init (input sourceInput: AKParameter, maximumDelayTime maxdelInput: Float) {
         super.init()
         input = sourceInput
-        setup(maximumDelayTime: maxdelInput)
+        setup(maxdelInput)
         bindAll()
     }
 
     /**
     Instantiates the delay with all values
 
-    :param: input Input audio signal. 
-    :param: delayTime Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. [Default Value: 1]
-    :param: maximumDelayTime The maximum delay time, in seconds. [Default Value: 5.0]
+    -parameter input Input audio signal. 
+    -parameter delayTime Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. [Default Value: 1]
+    -parameter maximumDelayTime The maximum delay time, in seconds. [Default Value: 5.0]
     */
     convenience init(
         input            sourceInput: AKParameter,

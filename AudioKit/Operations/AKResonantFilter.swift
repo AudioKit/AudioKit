@@ -46,9 +46,9 @@ import Foundation
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: centerFrequency Center frequency of the filter, or frequency position of the peak response. [Default Value: 1000]
-    :param: bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
+    -parameter input Input audio signal. 
+    -parameter centerFrequency Center frequency of the filter, or frequency position of the peak response. [Default Value: 1000]
+    -parameter bandwidth Bandwidth of the filter (the Hz difference between the upper and lower half-power points). [Default Value: 10]
     */
     convenience init(
         input           sourceInput: AKParameter,

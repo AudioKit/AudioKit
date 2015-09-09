@@ -46,9 +46,9 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: centerFrequency Center frequency. (in Hertz) [Default Value: 3000]
-    :param: bandwidth Bandwidth. (in Hertz) [Default Value: 2000]
+    -parameter input Input audio signal. 
+    -parameter centerFrequency Center frequency. (in Hertz) [Default Value: 3000]
+    -parameter bandwidth Bandwidth. (in Hertz) [Default Value: 2000]
     */
     convenience init(
         input           sourceInput: AKParameter,

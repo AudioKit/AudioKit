@@ -46,9 +46,9 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: fundamentalFrequency Fundamental frequency of string. [Default Value: 100.0]
-    :param: feedback Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. [Default Value: 0.95]
+    -parameter input Input audio signal. 
+    -parameter fundamentalFrequency Fundamental frequency of string. [Default Value: 100.0]
+    -parameter feedback Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. [Default Value: 0.95]
     */
     convenience init(
         input                sourceInput:  AKParameter,

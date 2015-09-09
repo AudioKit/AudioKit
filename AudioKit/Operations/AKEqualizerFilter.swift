@@ -51,10 +51,10 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: centerFrequency The center frequency of the filter [Default Value: 1000]
-    :param: bandwidth The peak/notch bandwidth in Hertz [Default Value: 100]
-    :param: gain The peak/notch gain [Default Value: 10]
+    -parameter input Input audio signal. 
+    -parameter centerFrequency The center frequency of the filter [Default Value: 1000]
+    -parameter bandwidth The peak/notch bandwidth in Hertz [Default Value: 100]
+    -parameter gain The peak/notch gain [Default Value: 10]
     */
     convenience init(
         input           sourceInput: AKParameter,

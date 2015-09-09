@@ -41,8 +41,8 @@ A complement to the AKLowPassFilter.
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: cutoffFrequency This is the response curve's half power point (aka cutoff frequency). [Default Value: 1000]
+    -parameter input Input audio signal. 
+    -parameter cutoffFrequency This is the response curve's half power point (aka cutoff frequency). [Default Value: 1000]
     */
     convenience init(
         input           sourceInput: AKParameter,

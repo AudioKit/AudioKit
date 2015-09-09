@@ -41,8 +41,8 @@ A first-order recursive low-pass filter with variable frequency response.
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: halfPowerPoint The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 1000]
+    -parameter input Input audio signal. 
+    -parameter halfPowerPoint The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 1000]
     */
     convenience init(
         input          sourceInput: AKParameter,

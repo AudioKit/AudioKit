@@ -60,11 +60,11 @@ Classic FM Synthesis audio generation.
     /**
     Instantiates the FM oscillator with all values
 
-    :param: baseFrequency In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440]
-    :param: carrierMultiplier This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1]
-    :param: modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency. [Default Value: 1]
-    :param: modulationIndex This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 1]
-    :param: amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
+    -parameter baseFrequency In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440]
+    -parameter carrierMultiplier This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1]
+    -parameter modulatingMultiplier This multiplied by the baseFrequency gives the modulating frequency. [Default Value: 1]
+    -parameter modulationIndex This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 1]
+    -parameter amplitude This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
     */
     convenience init(
         baseFrequency        freqInput: AKParameter,
