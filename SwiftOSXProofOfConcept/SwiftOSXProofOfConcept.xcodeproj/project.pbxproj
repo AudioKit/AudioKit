@@ -22,6 +22,22 @@
 		C4963E8F1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E8E1B9BDDC000D57DDA /* SwiftOSXProofOfConceptTests.swift */; };
 		C4963E9D1B9BDE1000D57DDA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4963E9C1B9BDE1000D57DDA /* Main.storyboard */; };
 		C4B80E1C1B9EA648001A80DB /* AKMoogLadder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E1B1B9EA648001A80DB /* AKMoogLadder.swift */; };
+		C4B80E1E1B9EC748001A80DB /* AKPhasor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E1D1B9EC748001A80DB /* AKPhasor.swift */; };
+		C4B80E201B9F522C001A80DB /* AKHighPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E1F1B9F522C001A80DB /* AKHighPassButterworthFilter.swift */; };
+		C4B80E221B9F54F4001A80DB /* AKLowPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E211B9F54F4001A80DB /* AKLowPassButterworthFilter.swift */; };
+		C4B80E241B9F5788001A80DB /* AKFlatFrequencyResponseReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E231B9F5788001A80DB /* AKFlatFrequencyResponseReverb.swift */; };
+		C4B80E261B9F98A6001A80DB /* AKStringResonator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E251B9F98A6001A80DB /* AKStringResonator.swift */; };
+		C4B80E281B9F9B05001A80DB /* AKBandPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E271B9F9B05001A80DB /* AKBandPassButterworthFilter.swift */; };
+		C4B80E2A1B9F9E0D001A80DB /* AKBandRejectButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E291B9F9E0D001A80DB /* AKBandRejectButterworthFilter.swift */; };
+		C4B80E2C1B9FA30D001A80DB /* AKLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E2B1B9FA30D001A80DB /* AKLowPassFilter.swift */; };
+		C4B80E2E1B9FA84E001A80DB /* AKAdditiveCosines.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E2D1B9FA84E001A80DB /* AKAdditiveCosines.swift */; };
+		C4B80E301B9FAEC1001A80DB /* AKResonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E2F1B9FAEC1001A80DB /* AKResonantFilter.swift */; };
+		C4B80E321B9FB03A001A80DB /* AKCombFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E311B9FB03A001A80DB /* AKCombFilter.swift */; };
+		C4B80E341B9FB3C8001A80DB /* AKHighPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E331B9FB3C8001A80DB /* AKHighPassFilter.swift */; };
+		C4B80E361B9FFCD9001A80DB /* AKJitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E351B9FFCD9001A80DB /* AKJitter.swift */; };
+		C4B80E3E1BA0A061001A80DB /* AKDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E3D1BA0A061001A80DB /* AKDelay.swift */; };
+		C4B80E401BA0B92F001A80DB /* AKVariableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E3F1BA0B92F001A80DB /* AKVariableDelay.swift */; };
+		C4B80E421BA0D4C9001A80DB /* AKEqualizerFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B80E411BA0D4C9001A80DB /* AKEqualizerFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +73,22 @@
 		C4963E981B9BDDD800D57DDA /* SwiftOSXProofOfConcept-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SwiftOSXProofOfConcept-Bridging-Header.h"; sourceTree = "<group>"; };
 		C4963E9C1B9BDE1000D57DDA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		C4B80E1B1B9EA648001A80DB /* AKMoogLadder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMoogLadder.swift; sourceTree = "<group>"; };
+		C4B80E1D1B9EC748001A80DB /* AKPhasor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhasor.swift; sourceTree = "<group>"; };
+		C4B80E1F1B9F522C001A80DB /* AKHighPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHighPassButterworthFilter.swift; sourceTree = "<group>"; };
+		C4B80E211B9F54F4001A80DB /* AKLowPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKLowPassButterworthFilter.swift; sourceTree = "<group>"; };
+		C4B80E231B9F5788001A80DB /* AKFlatFrequencyResponseReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatFrequencyResponseReverb.swift; sourceTree = "<group>"; };
+		C4B80E251B9F98A6001A80DB /* AKStringResonator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStringResonator.swift; sourceTree = "<group>"; };
+		C4B80E271B9F9B05001A80DB /* AKBandPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBandPassButterworthFilter.swift; sourceTree = "<group>"; };
+		C4B80E291B9F9E0D001A80DB /* AKBandRejectButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBandRejectButterworthFilter.swift; sourceTree = "<group>"; };
+		C4B80E2B1B9FA30D001A80DB /* AKLowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKLowPassFilter.swift; sourceTree = "<group>"; };
+		C4B80E2D1B9FA84E001A80DB /* AKAdditiveCosines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAdditiveCosines.swift; sourceTree = "<group>"; };
+		C4B80E2F1B9FAEC1001A80DB /* AKResonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResonantFilter.swift; sourceTree = "<group>"; };
+		C4B80E311B9FB03A001A80DB /* AKCombFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCombFilter.swift; sourceTree = "<group>"; };
+		C4B80E331B9FB3C8001A80DB /* AKHighPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKHighPassFilter.swift; sourceTree = "<group>"; };
+		C4B80E351B9FFCD9001A80DB /* AKJitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKJitter.swift; sourceTree = "<group>"; };
+		C4B80E3D1BA0A061001A80DB /* AKDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDelay.swift; sourceTree = "<group>"; };
+		C4B80E3F1BA0B92F001A80DB /* AKVariableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariableDelay.swift; sourceTree = "<group>"; };
+		C4B80E411BA0D4C9001A80DB /* AKEqualizerFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKEqualizerFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,9 +146,25 @@
 		C42AC0341B9E23BB006CE9EE /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				C4B80E2D1B9FA84E001A80DB /* AKAdditiveCosines.swift */,
+				C4B80E271B9F9B05001A80DB /* AKBandPassButterworthFilter.swift */,
+				C4B80E291B9F9E0D001A80DB /* AKBandRejectButterworthFilter.swift */,
+				C4B80E311B9FB03A001A80DB /* AKCombFilter.swift */,
+				C4B80E3D1BA0A061001A80DB /* AKDelay.swift */,
+				C4B80E411BA0D4C9001A80DB /* AKEqualizerFilter.swift */,
+				C4B80E231B9F5788001A80DB /* AKFlatFrequencyResponseReverb.swift */,
 				C42AC0351B9E23BB006CE9EE /* AKFMOscillator.swift */,
+				C4B80E1F1B9F522C001A80DB /* AKHighPassButterworthFilter.swift */,
+				C4B80E331B9FB3C8001A80DB /* AKHighPassFilter.swift */,
+				C4B80E351B9FFCD9001A80DB /* AKJitter.swift */,
+				C4B80E211B9F54F4001A80DB /* AKLowPassButterworthFilter.swift */,
+				C4B80E2B1B9FA30D001A80DB /* AKLowPassFilter.swift */,
 				C4B80E1B1B9EA648001A80DB /* AKMoogLadder.swift */,
 				C42AC0361B9E23BB006CE9EE /* AKOscillator.swift */,
+				C4B80E1D1B9EC748001A80DB /* AKPhasor.swift */,
+				C4B80E2F1B9FAEC1001A80DB /* AKResonantFilter.swift */,
+				C4B80E251B9F98A6001A80DB /* AKStringResonator.swift */,
+				C4B80E3F1BA0B92F001A80DB /* AKVariableDelay.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -278,8 +326,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B80E221B9F54F4001A80DB /* AKLowPassButterworthFilter.swift in Sources */,
 				C4B80E1C1B9EA648001A80DB /* AKMoogLadder.swift in Sources */,
+				C4B80E261B9F98A6001A80DB /* AKStringResonator.swift in Sources */,
 				C42AC0381B9E23BB006CE9EE /* AKManager.swift in Sources */,
+				C4B80E2E1B9FA84E001A80DB /* AKAdditiveCosines.swift in Sources */,
+				C4B80E341B9FB3C8001A80DB /* AKHighPassFilter.swift in Sources */,
+				C4B80E2C1B9FA30D001A80DB /* AKLowPassFilter.swift in Sources */,
+				C4B80E361B9FFCD9001A80DB /* AKJitter.swift in Sources */,
+				C4B80E241B9F5788001A80DB /* AKFlatFrequencyResponseReverb.swift in Sources */,
+				C4B80E1E1B9EC748001A80DB /* AKPhasor.swift in Sources */,
+				C4B80E281B9F9B05001A80DB /* AKBandPassButterworthFilter.swift in Sources */,
 				C42AC03B1B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m in Sources */,
 				C42AC03A1B9E23BB006CE9EE /* AKTable.swift in Sources */,
 				C42AC0391B9E23BB006CE9EE /* AKParameter.swift in Sources */,
@@ -287,8 +344,15 @@
 				C42AC03E1B9E23BB006CE9EE /* AKOscillator.swift in Sources */,
 				C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */,
 				C42AC0371B9E23BB006CE9EE /* AKInstrument.swift in Sources */,
+				C4B80E3E1BA0A061001A80DB /* AKDelay.swift in Sources */,
+				C4B80E301B9FAEC1001A80DB /* AKResonantFilter.swift in Sources */,
+				C4B80E2A1B9F9E0D001A80DB /* AKBandRejectButterworthFilter.swift in Sources */,
+				C4B80E421BA0D4C9001A80DB /* AKEqualizerFilter.swift in Sources */,
+				C4B80E321B9FB03A001A80DB /* AKCombFilter.swift in Sources */,
 				C42AC03D1B9E23BB006CE9EE /* AKFMOscillator.swift in Sources */,
+				C4B80E401BA0B92F001A80DB /* AKVariableDelay.swift in Sources */,
 				C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */,
+				C4B80E201B9F522C001A80DB /* AKHighPassButterworthFilter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
