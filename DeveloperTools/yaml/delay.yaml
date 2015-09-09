@@ -1,0 +1,33 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: delay
+
+operation: AKDelay
+
+summary: Simple audio delay
+
+shortDescription: delay
+
+description:
+  Add a delay to an incoming signal with optional feedback.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- feedback: {
+  audioKitName: feedbackFraction,
+  comment: "Feedback amount. Should be a value between 0-1.",
+  default: 0.0
+}
+
+constants:
+- time: {
+  audioKitName: delayTime,
+  comment: "Delay time, in seconds.",
+  default: 1.0
+}
+
