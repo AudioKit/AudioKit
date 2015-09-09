@@ -1,0 +1,33 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: vdelay
+
+operation: AKVariableDelay
+
+summary: A variable delay line
+
+shortDescription: delay
+
+description:
+  A delay line with cubic interpolation.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- del: {
+  audioKitName: delayTime,
+  comment: "Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.",
+  default: 1
+}
+
+constants:
+- maxdel: {
+  audioKitName: maximumDelayTime,
+  comment: "The maximum delay time, in seconds.",
+  default: 5.0
+}
+
