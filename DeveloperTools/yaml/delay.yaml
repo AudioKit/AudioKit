@@ -19,7 +19,7 @@ inputs:
 
 parameters:
 - feedback: {
-  audioKitName: feedbackFraction,
+  audioKitName: feedback,
   comment: "Feedback amount. Should be a value between 0-1.",
   default: 0.0
 }
