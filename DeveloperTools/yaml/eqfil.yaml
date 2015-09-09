@@ -1,0 +1,40 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: eqfil
+
+operation: AKEqualizerFilter
+
+summary: A 2nd order tunable equalization filter
+
+shortDescription: filter
+
+description:
+  A 2nd order tunable equalization filter that provides a
+  peak/notch filter for building parametric/graphic equalizers.
+  With gain above 1, there will be a peak at the center frequency
+  with a width dependent on bandwidth. If gain is less than 1, a notch is
+  formed around the center frequency.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- freq: {
+  audioKitName: centerFrequency,
+  comment: "The center frequency of the filter",
+  default: 1000
+}
+- bw: {
+  audioKitName: bandwidth,
+  comment: "The peak/notch bandwidth in Hertz",
+  default: 100
+}
+- gain: {
+  audioKitName: gain,
+  comment: "The peak/notch gain",
+  default: 10
+}
+
