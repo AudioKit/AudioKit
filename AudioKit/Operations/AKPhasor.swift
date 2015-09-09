@@ -37,7 +37,7 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
     /**
     Instantiates the phasor with all values
 
-    :param: frequency Frequency in cycles per second, or Hz. [Default Value: 1]
+    -parameter frequency Frequency in cycles per second, or Hz. [Default Value: 1]
     */
     convenience init(
         frequency freqInput: AKParameter)

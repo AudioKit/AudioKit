@@ -9,7 +9,7 @@
 typealias Sample = Float
 
 /** A class to manage AudioKit */
-@objc class AKManager {
+@objc class AKManager : NSObject {
     
     /** Pointer for reference to this instance in CoreAudio */
     private var selfPtr: AKManager?
@@ -24,7 +24,8 @@ typealias Sample = Float
     var instruments: [AKInstrument] = []
     
     /** Start up SoundPipe and CoreAudio */
-    init() {
+    override init() {
+        super.init()
         selfPtr = self
         sp_create(&data)
         setupAudioUnit()
@@ -112,8 +113,8 @@ typealias Sample = Float
         busNumber: UInt32,
         frameCount: UInt32,
         data: UnsafeMutablePointer<AudioBufferList>) -> OSStatus {
-            var buffer = unsafeBitCast(data.memory.mBuffers, AudioBuffer.self)
-            var bufferData = unsafeBitCast(buffer.mData, UnsafeMutablePointer<Sample>.self)
+            let buffer = unsafeBitCast(data.memory.mBuffers, AudioBuffer.self)
+            let bufferData = unsafeBitCast(buffer.mData, UnsafeMutablePointer<Sample>.self)
             var out: Float = 0.0
             for i in 0 ..< Int(frameCount) {
                 for operation in AKManager.sharedManager.instruments.first!.operations {

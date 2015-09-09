@@ -27,7 +27,7 @@ extension Double {
 }
 
 /** A parent class for all variables in AudioKit */
-class AKParameter {
+@objc class AKParameter : AKParameter {
 
     /** A pointer to the SoundPipe float */
     var pointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
@@ -38,7 +38,7 @@ class AKParameter {
     /** 
     An initializer for a constant parameter 
     
-    :param: float The value of the constant parameter
+    - parameter float: The value of the constant parameter
     */
     convenience init(float: Float) {
         self.init()

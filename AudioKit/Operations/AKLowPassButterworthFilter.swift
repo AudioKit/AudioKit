@@ -41,8 +41,8 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     /**
     Instantiates the filter with all values
 
-    :param: input Input audio signal. 
-    :param: cutoffFrequency Cutoff frequency. [Default Value: 1000]
+    -parameter input Input audio signal. 
+    -parameter cutoffFrequency Cutoff frequency. [Default Value: 1000]
     */
     convenience init(
         input           sourceInput: AKParameter,

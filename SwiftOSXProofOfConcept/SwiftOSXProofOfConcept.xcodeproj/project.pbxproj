@@ -332,6 +332,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -405,6 +406,7 @@
 					"$(SRCROOT)/../AudioKit/Engine",
 				);
 				OTHER_SWIFT_FLAGS = "-Ddebug";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftOSXProofOfConcept/SwiftOSXProofOfConcept-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -425,6 +427,7 @@
 					"$(SRCROOT)/../AudioKit/Engine",
 				);
 				OTHER_SWIFT_FLAGS = "-Ddebug";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftOSXProofOfConcept/SwiftOSXProofOfConcept-Bridging-Header.h";
 			};
@@ -445,6 +448,7 @@
 				);
 				INFOPLIST_FILE = SwiftOSXProofOfConceptTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftOSXProofOfConcept.app/Contents/MacOS/SwiftOSXProofOfConcept";
 			};
@@ -461,6 +465,7 @@
 				);
 				INFOPLIST_FILE = SwiftOSXProofOfConceptTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftOSXProofOfConcept.app/Contents/MacOS/SwiftOSXProofOfConcept";
 			};
