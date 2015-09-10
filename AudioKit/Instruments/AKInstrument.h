@@ -83,10 +83,10 @@ NS_ASSUME_NONNULL_BEGIN
 // -----------------------------------------------------------------------------
 
 /// All UDOs that are required by the instrument are stored here and declared before the instrument block.
-@property NSMutableSet *userDefinedOperations;
+@property NSMutableSet<NSString *> *userDefinedOperations;
 
 /// Globally accessible parameters used for cross-instrument communication
-@property NSMutableSet *globalParameters;
+@property NSMutableSet<AKParameter *> *globalParameters;
 
 /// Adds the operation to the AKInstrument.
 /// @param newOperation New operation to add to the instrument.
