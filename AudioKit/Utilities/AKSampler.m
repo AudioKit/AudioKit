@@ -12,7 +12,7 @@
 
 @implementation AKSampler
 {
-    NSMutableDictionary *players;
+    NSMutableDictionary<NSString *, AVAudioPlayer *> *players;
 }
 
 - (instancetype)init {

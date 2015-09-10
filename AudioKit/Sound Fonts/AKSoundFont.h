@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) int number;
 
 /// Array of instruments in the sound font
-@property (nonatomic,readonly,nullable) NSArray *instruments;
+@property (nonatomic,readonly,nullable) NSArray<AKSoundFontInstrument *> *instruments;
 
 /// Array of presets in the sound font
-@property (nonatomic,readonly,nullable) NSArray *presets;
+@property (nonatomic,readonly,nullable) NSArray<AKSoundFontPreset *> *presets;
 
 /// Whether the presets and instruments have been successfully loaded and parsed
 @property (nonatomic,readonly) BOOL loaded;

@@ -18,9 +18,9 @@
     IBOutlet UILabel *amplitudeLabel;
     IBOutlet UILabel *noteNameLabel;
 
-    NSArray *noteFrequencies;
-    NSArray *noteNamesWithSharps;
-    NSArray *noteNamesWithFlats;
+    NSArray<NSNumber *> *noteFrequencies;
+    NSArray<NSString *> *noteNamesWithSharps;
+    NSArray<NSString *> *noteNamesWithFlats;
 
     IBOutlet AKInstrumentPropertyPlot *amplitudePlot;
     IBOutlet AKInstrumentPropertyPlot *frequencyPlot;

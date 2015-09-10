@@ -54,11 +54,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Array of instrument properties available for the instrument.
-@property NSMutableArray *properties;
+@property NSMutableArray<AKInstrumentProperty *> *properties;
 
 
 /// Array of note properties available to events.
-@property NSMutableArray *noteProperties;
+@property NSMutableArray<AKNoteProperty *> *noteProperties;
 
 /// Add an instrument property explicitly (normally this happens automatically)
 /// @param newProperty New property to add to the instrument.
