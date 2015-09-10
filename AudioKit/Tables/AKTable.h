@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Creates a table from an array of objects.
 /// @param array An array of NSNumber instances.
-- (instancetype)initWithArray:(NSArray *)array;
+- (instancetype)initWithArray:(NSArray<NSNumber *> *)array;
 
 /// Creates an empty table with the default size (number of elements).
 + (instancetype)table;

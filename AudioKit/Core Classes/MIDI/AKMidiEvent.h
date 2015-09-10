@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Parse multiple events, a single MIDIPacket might return several discrete events.
 /// @param packet A MIDIPacket structure received from CoreMIDI.
-+ (NSArray *)midiEventsFromPacket:(const MIDIPacket *)packet;
++ (NSArray<AKMidiEvent *> *)midiEventsFromPacket:(const MIDIPacket *)packet;
 
 /// Copy the bytes from the MIDI message to a provided buffer.
 /// @param ptr The address of a buffer to copy the bytes to, must be at least `length` bytes long.
