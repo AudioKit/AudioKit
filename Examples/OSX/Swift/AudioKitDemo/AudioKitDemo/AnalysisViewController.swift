@@ -60,14 +60,14 @@ class AnalysisViewController: NSViewController {
 
             for (var i = 0; i < noteFrequencies.count; i++) {
 
-                var distance = fabsf(Float(noteFrequencies[i]) - frequency)
+                let distance = fabsf(Float(noteFrequencies[i]) - frequency)
                 if (distance < minDistance){
                     index = i
                     minDistance = distance
                 }
             }
 
-            var octave = Int(log2f(analyzer.trackedFrequency.floatValue / frequency))
+            let octave = Int(log2f(analyzer.trackedFrequency.floatValue / frequency))
             var noteName = String(format: "%@%d", noteNamesWithSharps[index], octave)
             noteNameWithSharpsLabel.stringValue = noteName
             noteName = String(format: "%@%d", noteNamesWithFlats[index], octave)
