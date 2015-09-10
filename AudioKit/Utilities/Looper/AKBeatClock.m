@@ -15,11 +15,11 @@
     self = [super init];
     if (self) {
         
-        _tempo = [self createPropertyWithValue:60 minimum:10 maximum:90];
+        _tempo = [self createPropertyWithValue:400  minimum:10 maximum:1000];
         _numberOfBeats = [self createPropertyWithValue:16 minimum:1 maximum:1024];
         
         // Instrument Definition
-        AKPhasor *phasor = [[AKPhasor alloc] initWithFrequency:[_tempo dividedBy:akp(60)]
+        AKPhasor *phasor = [[AKPhasor alloc] initWithFrequency:[_tempo dividedBy:[akp(60) scaledBy:_numberOfBeats]]
                                                          phase:akp(0)];
         AKPhasor *beat = [[phasor scaledBy:_numberOfBeats] round];
 
@@ -36,7 +36,6 @@
 - (void)messageReceivedFromCsound:(NSNotification *)notification
 {
     int beat =  roundf([notification.userInfo[@"message"] floatValue]);
-//    NSLog(@"Beat %d", beat);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"Beat" object:[NSNumber numberWithInt:beat]];
 }
 
