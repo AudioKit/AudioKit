@@ -10,9 +10,14 @@ import Foundation
 
 class DemoInstrument: AKInstrument {
 
+    var phasingResonance: AKPhasor
     var oscillatingFrequency: AKOscillator
     var fmOscillator: AKFMOscillator
     var moog: AKMoogLadder
+    var jitter: AKJitter
+    var filter: AKEqualizerFilter
+    var delay: AKVariableDelay
+    var panner: AKPanner
     
     override init() {
         
@@ -53,13 +58,44 @@ class DemoInstrument: AKInstrument {
         fmOscillator.modulationIndex.value      = 11
         fmOscillator.amplitude.value            = 0.5
         
+        phasingResonance = AKPhasor()
+        
         moog = AKMoogLadder(input: fmOscillator)
-        moog = AKMoogLadder(input: fmOscillator, cutoffFrequency: 1000.ak, resonance: 0.5.ak)
+        //moog.resonance = phasingResonance
 
+        filter = AKEqualizerFilter(input: fmOscillator)
+        
+        jitter = AKJitter()
+    
+//        fmOscillator.amplitude = jitter;
+
+        delay = AKVariableDelay(input: fmOscillator)
+        
+        let simple = AKOscillator()
+        simple.frequency.value = 880
+        simple.amplitude.value = 1.0
+        
+        
+        panner = AKPanner(input: simple)
+
+        
         super.init()
         operations.append(oscillatingFrequency)
         operations.append(fmOscillator)
+//        operations.append(phasingResonance)
+//        operations.append(jitter)
         operations.append(moog)
+//      operations.append(filter)
+      
+        let reverb = AKReverb(input: fmOscillator)
+        operations.append(reverb)
+        
+        operations.append(simple)
+
+        operations.append(panner)
+        
+        let output = AKAudioOutput(input:reverb)
+        operations.append(output)
     }
     
 }
