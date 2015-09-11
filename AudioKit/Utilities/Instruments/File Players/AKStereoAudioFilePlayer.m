@@ -11,7 +11,7 @@
 @implementation AKStereoAudioFilePlayer
 
 - (instancetype)init {
-    NSArray *docDirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray<NSString *> *docDirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docDir = [docDirs objectAtIndex:0];
     NSString *file = [[docDir stringByAppendingPathComponent:@"exported"]
                       stringByAppendingPathExtension:@"wav"];

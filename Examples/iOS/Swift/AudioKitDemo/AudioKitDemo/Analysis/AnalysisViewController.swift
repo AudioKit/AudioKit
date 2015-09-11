@@ -50,7 +50,7 @@ class AnalysisViewController: UIViewController {
         analyzer.start()
         microphone.start()
 
-        let timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateUI"), userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateUI"), userInfo: nil, repeats: true)
     }
 
     func updateUI() {
@@ -73,15 +73,15 @@ class AnalysisViewController: UIViewController {
 
             for (var i = 0; i < noteFrequencies.count; i++){
 
-                var distance = fabsf(Float(noteFrequencies[i]) - frequency)
+                let distance = fabsf(Float(noteFrequencies[i]) - frequency)
                 if (distance < minDistance){
                     index = i
                     minDistance = distance
                 }
             }
 
-            var octave = Int(log2f(analyzer.trackedFrequency.value / frequency))
-            var noteName = String(format: "%@%d", noteNamesWithSharps[index], octave, noteNamesWithFlats[index], octave)
+            let octave = Int(log2f(analyzer.trackedFrequency.value / frequency))
+            let noteName = String(format: "%@%d", noteNamesWithSharps[index], octave, noteNamesWithFlats[index], octave)
             noteNameLabel.text = noteName
         }
         amplitudeLabel.text = String(format: "%0.2f", analyzer.trackedAmplitude.value)

@@ -11,7 +11,7 @@
 
 #import <TargetConditionals.h>
 
-// Provide compatibility with Xcode < 6.3
+// Provide compatibility with Xcode < 7
 
 #if !__has_feature(nullability)
 
@@ -22,9 +22,9 @@
 # define nullable
 # define null_unspecified
 
-# define __nonnull
-# define __nullable
-# define __null_unspecified
+# define _Nonnull
+# define _Nullable
+# define _Null_unspecified
 
 #endif
 

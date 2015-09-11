@@ -16,7 +16,7 @@
 		C4FE74841AB9FB58001641B7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C4FE74821AB9FB58001641B7 /* LaunchScreen.xib */; };
 		C4FE749D1ABA4CF6001641B7 /* AKPlayground.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE749A1ABA4CF6001641B7 /* AKPlayground.m */; };
 		C4FE749E1ABA4CF6001641B7 /* Playground.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE749C1ABA4CF6001641B7 /* Playground.m */; };
-		EA8E97581AD4D72F0057E979 /* libAudioKit iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97531AD4D7100057E979 /* libAudioKit iOS.a */; };
+		EA8E97581AD4D72F0057E979 /* libAudioKit iOS Static.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97531AD4D7100057E979 /* libAudioKit iOS Static.a */; };
 		EA8E975A1AD4D7340057E979 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8E97591AD4D7340057E979 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +41,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = EA8E93D71AD3C5240057E979;
 			remoteInfo = "AudioKit iOS";
+		};
+		EAEF96C01BA196B0007F561A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA8E974D1AD4D7100057E979 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EAA0F5941AE71C8F007CD7C9;
+			remoteInfo = "AudioKit iOS Dynamic";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -71,7 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA8E975A1AD4D7340057E979 /* AVFoundation.framework in Frameworks */,
-				EA8E97581AD4D72F0057E979 /* libAudioKit iOS.a in Frameworks */,
+				EA8E97581AD4D72F0057E979 /* libAudioKit iOS Static.a in Frameworks */,
 				A6C0E747EDE883C2E9F648E6 /* libPods-AudioKitPlayground.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,7 +144,8 @@
 		EA8E974E1AD4D7100057E979 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EA8E97531AD4D7100057E979 /* libAudioKit iOS.a */,
+				EA8E97531AD4D7100057E979 /* libAudioKit iOS Static.a */,
+				EAEF96C11BA196B0007F561A /* libAudioKit iOS Dynamic.a */,
 				EA8E97551AD4D7100057E979 /* libAudioKit OS X.a */,
 			);
 			name = Products;
@@ -181,7 +189,7 @@
 		C4FE74681AB9FB58001641B7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Aurelius Prochazka";
 				TargetAttributes = {
 					C4FE746F1AB9FB58001641B7 = {
@@ -214,10 +222,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		EA8E97531AD4D7100057E979 /* libAudioKit iOS.a */ = {
+		EA8E97531AD4D7100057E979 /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libAudioKit iOS.a";
+			path = "libAudioKit iOS Static.a";
 			remoteRef = EA8E97521AD4D7100057E979 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -226,6 +234,13 @@
 			fileType = archive.ar;
 			path = "libAudioKit OS X.a";
 			remoteRef = EA8E97541AD4D7100057E979 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EAEF96C11BA196B0007F561A /* libAudioKit iOS Dynamic.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit iOS Dynamic.a";
+			remoteRef = EAEF96C01BA196B0007F561A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -330,7 +345,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -374,6 +391,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -405,6 +423,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../AudioKit/Platforms/iOS/libs",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -421,6 +440,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../AudioKit/Platforms/iOS/libs",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "io.audiokit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
