@@ -24,7 +24,7 @@
 
 # define _Nonnull
 # define _Nullable
-# define __null_unspecified
+# define _Null_unspecified
 
 #endif
 
