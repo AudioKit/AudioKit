@@ -44,7 +44,7 @@ This filter reiterates the input with an echo density determined by loop time. T
     /**
     Instantiates reverb with constants
 
-    :param: loopDuration The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. [Default Value: 0.1]
+    -parameter loopDuration The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. [Default Value: 0.1]
  */
     init (input sourceInput: AKParameter, loopDuration looptimeInput: Float) {
         super.init()

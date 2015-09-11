@@ -1,6 +1,6 @@
 //
 //  AKAudioOutput.swift
-//  SwiftOSXProofOfConcept
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/10/15.
 //  Copyright © 2015 AudioKit. All rights reserved.

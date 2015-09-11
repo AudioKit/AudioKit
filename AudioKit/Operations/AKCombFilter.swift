@@ -44,7 +44,7 @@ This filter reiterates input with an echo density determined by loopDuration. Th
     /**
     Instantiates filter with constants
 
-    :param: loopDuration The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
+    -parameter loopDuration The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
  */
     init (input sourceInput: AKParameter, loopDuration looptimeInput: Float) {
         super.init()
