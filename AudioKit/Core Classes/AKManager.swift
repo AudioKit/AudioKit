@@ -27,7 +27,7 @@ typealias Sample = Float
     override init() {
         super.init()
         selfPtr = self
-        sp_create(&data)
+        sp_createn(&data, 2)
         setupAudioUnit()
     }
     
@@ -55,7 +55,7 @@ typealias Sample = Float
             mBytesPerPacket: UInt32(sizeof(Sample)),
             mFramesPerPacket: 1,
             mBytesPerFrame: UInt32(sizeof(Sample)),
-            mChannelsPerFrame: 1,
+            mChannelsPerFrame: 2,
             mBitsPerChannel: UInt32(sizeof(Sample) * 8),
             mReserved:0
         )
@@ -115,12 +115,12 @@ typealias Sample = Float
         data: UnsafeMutablePointer<AudioBufferList>) -> OSStatus {
             let buffer = unsafeBitCast(data.memory.mBuffers, AudioBuffer.self)
             let bufferData = unsafeBitCast(buffer.mData, UnsafeMutablePointer<Sample>.self)
-            var out: Float = 0.0
             for i in 0 ..< Int(frameCount) {
                 for operation in AKManager.sharedManager.instruments.first!.operations {
-                    out = operation.compute() // only the last operation outputs
+                    operation.compute()
                 }
-                bufferData[i] = Sample(out)
+              bufferData[i]   = Sample(AKManager.sharedManager.data.memory.out[0])
+              bufferData[i+Int(frameCount)] = Sample(AKManager.sharedManager.data.memory.out[1])
             }
             
             return noErr

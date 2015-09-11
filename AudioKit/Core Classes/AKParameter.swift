@@ -28,27 +28,38 @@ extension Double {
 
 /** A parent class for all variables in AudioKit */
 @objc class AKParameter : NSObject {
+    
+    /** Pointers to the SoundPipe floats */
+    var leftPointer:  UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
+    var rightPointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
+    
+    /** The actual value of the parameters */
+    var leftOutput:  Float = 0.0 { didSet { leftPointer.memory  = leftOutput  } }
+    var rightOutput: Float = 0.0 { didSet { rightPointer.memory = rightOutput } }
 
-    /** A pointer to the SoundPipe float */
-    var pointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
+    var value: Float = 0.0 {
+        didSet {
+            leftPointer.memory = value
+        }
+    }
+
     
-    /** The actual value of the parameter */
-    var value: Float = 0.0 { didSet { pointer.memory = value } }
-    
-    /** 
-    An initializer for a constant parameter 
+    /**
+    An initializer for a constant parameter
     
     - parameter float: The value of the constant parameter
     */
     convenience init(float: Float) {
         self.init()
-        value = float
+        leftOutput  = float
+        rightOutput = float
     }
     
     /** Bind the memory of the SoundPipe value to this parameter */
-    func bind(binding:UnsafeMutablePointer<Float>) {
-        pointer = binding
-        pointer.memory = value
+    func bind(binding:UnsafeMutablePointer<Float>)
+    {
+        leftPointer = binding
+        leftPointer.memory = leftOutput        
     }
     
     /** The compute function to override in subclasses */
