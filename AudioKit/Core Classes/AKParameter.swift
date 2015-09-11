@@ -63,9 +63,8 @@ extension Double {
     }
     
     /** The compute function to override in subclasses */
-    func compute() -> Float {
+    func compute() {
         // override in subclass
-        return 0.0
     }
     
     /** A placeholder for a function to release the memory */
