@@ -13,7 +13,7 @@
 @class AKSoundFont;
 
 // A nil argument indicates the sound font failed to load.
-typedef void (^AKSoundFontCompletionBlock)(AKSoundFont * __nullable);
+typedef void (^AKSoundFontCompletionBlock)(AKSoundFont * _Nullable);
 
 NS_ASSUME_NONNULL_BEGIN
 /// The AudioKit class for sound fonts
@@ -23,10 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) int number;
 
 /// Array of instruments in the sound font
-@property (nonatomic,readonly,nullable) NSArray *instruments;
+@property (nonatomic,readonly,nullable) NSArray<AKSoundFontInstrument *> *instruments;
 
 /// Array of presets in the sound font
-@property (nonatomic,readonly,nullable) NSArray *presets;
+@property (nonatomic,readonly,nullable) NSArray<AKSoundFontPreset *> *presets;
 
 /// Whether the presets and instruments have been successfully loaded and parsed
 @property (nonatomic,readonly) BOOL loaded;
@@ -38,23 +38,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Loads the presets and instruments definitions from the file.
 /// @param completionBlock A block to be called when the data has been fully loaded.
-- (void)fetchPresets:(__nullable AKSoundFontCompletionBlock)completionBlock;
+- (void)fetchPresets:(nullable AKSoundFontCompletionBlock)completionBlock;
 
 
 // Utility methods to easily locate loaded presets and instruments
 
 /// Locate a named instrument in the sound font.
 /// @param name The name of the instrument as set in the file (case sensitive)
-- (AKSoundFontInstrument * __nullable)findInstrumentNamed:(NSString *)name;
+- (nullable AKSoundFontInstrument *)findInstrumentNamed:(NSString *)name;
 
 /// Locate a named preset in the sound font.
 /// @param name The name of the preset as set in the file (case sensitive)
-- (AKSoundFontPreset * __nullable)findPresetNamed:(NSString *)name;
+- (nullable AKSoundFontPreset *)findPresetNamed:(NSString *)name;
 
 /// Locate a particular preset by bank and program numbers.
 /// @param program The program number
 /// @param bank The bank number
-- (AKSoundFontPreset * __nullable)findPresetProgram:(NSUInteger)program fromBank:(NSUInteger)bank;
+- (nullable AKSoundFontPreset *)findPresetProgram:(NSUInteger)program fromBank:(NSUInteger)bank;
 
 @end
 NS_ASSUME_NONNULL_END

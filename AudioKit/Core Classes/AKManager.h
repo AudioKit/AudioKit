@@ -82,12 +82,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Helper function to get the string out of a file.
 /// @param filename Full path of file on disk
-+ (NSString * __nullable)stringFromFile:(NSString *)filename;
++ (nullable NSString *)stringFromFile:(NSString *)filename;
 
 /// Get the path to a resource file in AKSoundFiles.bundle, may fail if not found
 /// @param filename The file name without its extension
 /// @param extension The extension for the file (i.e. @"wav", etc)
-+ (NSString * __nullable)pathToSoundFile:(NSString *)filename ofType:(NSString *)extension;
++ (nullable NSString *)pathToSoundFile:(NSString *)filename ofType:(NSString *)extension;
 
 /// Enable Audio Input
 - (void)enableAudioInput;
