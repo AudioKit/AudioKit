@@ -1,6 +1,16 @@
+-- data2yaml
+-- Convert a soundpipe module into a YAML file for AK.
+--
+-- Usage:
+--
+-- lua data2yaml.lua NAME > NAME.yaml
+--
+-- Where *name* is the name of the soundpipe module.
+
+
 sptbl = {}
 
-dofile(string.format("data/%s.lua", arg[1]))
+dofile(string.format("../../Soundpipe/modules/data/%s.lua", arg[1]))
 
 YAML = { name=arg[1] }
 
