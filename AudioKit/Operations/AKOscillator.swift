@@ -49,7 +49,7 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
     /**
     Instantiates oscillator with constants
 
-    :param: phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
+    -parameter phase Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
  */
     init (phase iphsInput: Float) {
         super.init()

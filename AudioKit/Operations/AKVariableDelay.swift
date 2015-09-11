@@ -44,7 +44,7 @@ A delay line with cubic interpolation.
     /**
     Instantiates delay with constants
 
-    :param: maximumDelayTime The maximum delay time, in seconds. [Default Value: 5.0]
+    -parameter maximumDelayTime The maximum delay time, in seconds. [Default Value: 5.0]
  */
     init (input sourceInput: AKParameter, maximumDelayTime maxdelInput: Float) {
         super.init()

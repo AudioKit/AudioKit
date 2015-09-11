@@ -64,7 +64,7 @@ This is used to generate a series of partials from the harmonic series. It comes
     /**
     Instantiates partials with constants
 
-    :param: iphs Phase to start on (in the range 0-1) [Default Value: 0]
+    -parameter iphs Phase to start on (in the range 0-1) [Default Value: 0]
  */
     init (iphs iphsInput: Float) {
         super.init()

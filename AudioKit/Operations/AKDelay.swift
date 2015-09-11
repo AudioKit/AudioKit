@@ -44,7 +44,7 @@ Add a delay to an incoming signal with optional feedback.
     /**
     Instantiates delay with constants
 
-    :param: delayTime Delay time, in seconds. [Default Value: 1.0]
+    -parameter delayTime Delay time, in seconds. [Default Value: 1.0]
  */
     init (input sourceInput: AKParameter, delayTime timeInput: Float) {
         super.init()
