@@ -24,7 +24,7 @@ IB_DESIGNABLE
 /// Defaults to 0.9
 @property IBInspectable float scalingFactor;
 
-@property (nonatomic) AKTable * __nullable table;
+@property (nonatomic,nullable) AKTable *table;
 
 @end
 NS_ASSUME_NONNULL_END

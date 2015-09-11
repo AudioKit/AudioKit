@@ -76,7 +76,7 @@ static int currentID = 1;
     return self;
 }
 
-- (void)fetchPresets:(__nullable AKSoundFontCompletionBlock)completionBlock
+- (void)fetchPresets:(nullable AKSoundFontCompletionBlock)completionBlock
 {
     _instrumentsLoaded = _presetsLoaded = NO;
     _completionBlock = completionBlock;
