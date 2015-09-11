@@ -119,12 +119,9 @@ This is used to generate a series of partials from the harmonic series. It comes
     }
 
     /** Computation of the next value */
-    override func compute() -> Float {
+    override func compute() {
         sp_gbuzz_compute(AKManager.sharedManager.data, gbuzz, nil, &leftOutput);
-
         rightOutput = leftOutput
-
-        return Float(0.0)
     }
 
     /** Release of memory */

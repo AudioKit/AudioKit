@@ -46,9 +46,11 @@ parameters:
   comment: "The total amplitude of the output of all the cosines. (Typically a value between 0 and 1).",
   default: 0.4
 }
+
+constants:
 - iphs: {
-  audioKitName: phase,
-  comment: "Not yet implemented. Phase to start on (in the range 0-1)",
+  audioKitName: iphs ,
+  comment: "Phase to start on (in the range 0-1)",
   default: 0
 }
 
