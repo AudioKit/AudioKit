@@ -276,8 +276,8 @@ static NSUInteger currentID = 1;
                                     timeInterval:timeInterval]];
 }
 
-- (void)logChangesToParameter:(AKParameter * __nonnull)parameter
-                  withMessage:(NSString * __nonnull)message
+- (void)logChangesToParameter:(nonnull AKParameter *)parameter
+                  withMessage:(nonnull NSString *)message
 {
     [self connect:[[AKParameterChangeLog alloc] initWithMessage:message
                                                       parameter:parameter]];

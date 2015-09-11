@@ -132,10 +132,10 @@ extern NSString * const AKCsoundAPIMessageNotification;
 
 // get input or output that maps to a channel name and type, where type is
 // CSOUND_AUDIO_CHANNEL, CSOUND_CONTROL_CHANNEL, etc.
-- (float * __nullable)getInputChannelPtr:(NSString *)channelName
-                             channelType:(AKControlChannelType)channelType;
-- (float * __nullable)getOutputChannelPtr:(NSString *)channelName
-                              channelType:(AKControlChannelType)channelType;
+- (nullable float *)getInputChannelPtr:(NSString *)channelName
+                           channelType:(AKControlChannelType)channelType;
+- (nullable float *)getOutputChannelPtr:(NSString *)channelName
+                            channelType:(AKControlChannelType)channelType;
 
 // Read-only samples
 - (NSData *)getOutSamples;

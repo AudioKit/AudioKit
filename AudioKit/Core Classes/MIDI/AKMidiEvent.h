@@ -9,20 +9,20 @@
 #import <Foundation/Foundation.h>
 
 // Notification names broadcasted for MIDI events being received from the inputs.
-extern NSString * __nonnull const AKMidiNoteOnNotification;
-extern NSString * __nonnull const AKMidiNoteOffNotification;
-extern NSString * __nonnull const AKMidiPolyphonicAftertouchNotification;
-extern NSString * __nonnull const AKMidiProgramChangeNotification;
-extern NSString * __nonnull const AKMidiAftertouchNotification;
-extern NSString * __nonnull const AKMidiPitchWheelNotification;
-extern NSString * __nonnull const AKMidiControllerNotification;
-extern NSString * __nonnull const AKMidiModulationNotification;
-extern NSString * __nonnull const AKMidiPortamentoNotification;
-extern NSString * __nonnull const AKMidiVolumeNotification;
-extern NSString * __nonnull const AKMidiBalanceNotification;
-extern NSString * __nonnull const AKMidiPanNotification;
-extern NSString * __nonnull const AKMidiExpressionNotification;
-extern NSString * __nonnull const AKMidiControlNotification;
+extern NSString * _Nonnull const AKMidiNoteOnNotification;
+extern NSString * _Nonnull const AKMidiNoteOffNotification;
+extern NSString * _Nonnull const AKMidiPolyphonicAftertouchNotification;
+extern NSString * _Nonnull const AKMidiProgramChangeNotification;
+extern NSString * _Nonnull const AKMidiAftertouchNotification;
+extern NSString * _Nonnull const AKMidiPitchWheelNotification;
+extern NSString * _Nonnull const AKMidiControllerNotification;
+extern NSString * _Nonnull const AKMidiModulationNotification;
+extern NSString * _Nonnull const AKMidiPortamentoNotification;
+extern NSString * _Nonnull const AKMidiVolumeNotification;
+extern NSString * _Nonnull const AKMidiBalanceNotification;
+extern NSString * _Nonnull const AKMidiPanNotification;
+extern NSString * _Nonnull const AKMidiExpressionNotification;
+extern NSString * _Nonnull const AKMidiControlNotification;
 
 /// MIDI note on/off, control and system exclusive constants
 
