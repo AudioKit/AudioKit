@@ -16,6 +16,7 @@ import Foundation
     init(input sourceInput: AKParameter) {
         super.init()
         input = sourceInput
+        dependencies = [input]
     }
     
     override func compute() {

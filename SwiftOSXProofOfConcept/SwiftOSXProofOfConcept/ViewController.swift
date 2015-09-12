@@ -41,7 +41,7 @@ class ViewController : NSViewController {
     }
     
     @IBAction func setFilterParameter(sender: NSSlider) {
-        instrument.panner.pan.value = sender.floatValue
+        instrument.filter.cutoffFrequency.value = sender.floatValue
     }
     
     
