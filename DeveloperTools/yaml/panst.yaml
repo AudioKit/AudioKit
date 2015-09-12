@@ -1,0 +1,29 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: panst
+
+operation: AKPanner
+
+summary: Stereo Panner
+
+shortDescription: panner
+
+description: Stereo Panner
+
+inputCount: 2
+outputCount: 2
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+
+- pan: {
+  audioKitName: pan,
+  comment: "Panning. A value of zero is hard left, and a value of 1 is hard right.",
+  default: 0.5
+}
+
