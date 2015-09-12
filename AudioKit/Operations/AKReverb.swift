@@ -46,9 +46,9 @@ import Foundation
     /**
     Instantiates the reverb with all values
 
-    -parameter input Input audio signal. 
-    -parameter feedback Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable. [Default Value: 0.6]
-    -parameter cutoffFrequency Low-pass cutoff frequency. [Default Value: 4000]
+    - parameter input: Input audio signal. 
+    - parameter feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable. [Default Value: 0.6]
+    - parameter cutoffFrequency: Low-pass cutoff frequency. [Default Value: 4000]
     */
     convenience init(
         input           sourceInput:   AKParameter,
