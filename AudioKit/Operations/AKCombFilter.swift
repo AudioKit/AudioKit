@@ -88,7 +88,7 @@ This filter reiterates input with an echo density determined by loopDuration. Th
     /** Computation of the next value */
     override func compute() {
         sp_comb_compute(AKManager.sharedManager.data, comb, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_comb_compute(AKManager.sharedManager.data, comb, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
