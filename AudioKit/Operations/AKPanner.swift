@@ -8,22 +8,22 @@
 
 import Foundation
 
-/** Distribute an audio signal across two channels with a choice of methods.
+/** Stereo Panner
 
-Panning methods include equal power, square root, simple linear, and an alternative equal power method based on the MIDI Association Recommend Practice for GM2 RP036 (Default Pan Curve).
+Stereo Panner
 */
 @objc class AKPanner : AKParameter {
 
     // MARK: - Properties
 
-    private var pan2 = UnsafeMutablePointer<sp_pan2>.alloc(1)
+    private var panst = UnsafeMutablePointer<sp_panst>.alloc(1)
 
     private var input = AKParameter()
 
 
     /** Panning. A value of zero is hard left, and a value of 1 is hard right. [Default Value: 0.5] */
     var pan: AKParameter = akp(0.5) {
-        didSet { pan.bind(&pan2.memory.pan) }
+        didSet { pan.bind(&panst.memory.pan) }
     }
 
 
@@ -58,22 +58,22 @@ Panning methods include equal power, square root, simple linear, and an alternat
 
     /** Bind every property to the internal panner */
     internal func bindAll() {
-        pan  .bind(&pan2.memory.pan)
+        pan  .bind(&panst.memory.pan)
     }
 
     /** Internal set up function */
     internal func setup() {
-        sp_pan2_create(&pan2)
-        sp_pan2_init(AKManager.sharedManager.data, pan2)
+        sp_panst_create(&panst)
+        sp_panst_init(AKManager.sharedManager.data, panst)
     }
 
     /** Computation of the next value */
     override func compute() {
-        sp_pan2_compute(AKManager.sharedManager.data, pan2, &(input.leftOutput), &leftOutput, &rightOutput);
+        sp_panst_compute(AKManager.sharedManager.data, panst, &(input.leftOutput), &(input.rightOutput), &leftOutput, &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
-        sp_pan2_destroy(&pan2)
+        sp_panst_destroy(&panst)
     }
 }
