@@ -19,8 +19,15 @@
 
 // Note properties
 @property AKNoteProperty *frequency;
+@property AKNoteProperty *carrierMultiplier;
+@property AKNoteProperty *modulatingMultiplier;
+@property AKNoteProperty *modulationIndex;
 @property AKNoteProperty *amplitude;
 
-- (instancetype)initWithFrequency:(float)frequency amplitude:(float)amplitude;
+- (instancetype)initWithFrequency:(float)frequency
+                carrierMultiplier:(float)carrierMultiplier
+                modulatingMultiplier:(float)modulatingMultiplier
+                modulationIndex:(float)modulationIndex
+                        amplitude:(float)amplitude;
 
 @end

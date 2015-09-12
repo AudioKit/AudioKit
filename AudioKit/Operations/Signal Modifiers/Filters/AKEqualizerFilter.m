@@ -52,12 +52,12 @@
     return [[AKEqualizerFilter alloc] initWithInput:input];
 }
 
-- (instancetype)initWithPresetDefaultFilterWithInput:(AKParameter * __nonnull)input
+- (instancetype)initWithPresetDefaultFilterWithInput:(nonnull AKParameter *)input
 {
     return [self initWithInput:input];
 }
 
-+ (instancetype)presetDefaultFilterWithInput:(AKParameter * __nonnull)input
++ (instancetype)presetDefaultFilterWithInput:(nonnull AKParameter *)input
 {
     return [[AKEqualizerFilter alloc] initWithInput:input];
 }

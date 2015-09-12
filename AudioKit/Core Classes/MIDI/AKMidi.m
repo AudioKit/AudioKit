@@ -61,7 +61,7 @@ static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *co
     @autoreleasepool {
         MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
         for (uint i = 0; i < pktlist->numPackets; i++) {
-            NSArray *events = [AKMidiEvent midiEventsFromPacket:packet];
+            NSArray<AKMidiEvent *> *events = [AKMidiEvent midiEventsFromPacket:packet];
             
             for (AKMidiEvent *event in events) {
                 if (event.command == AKMidiCommandClock)

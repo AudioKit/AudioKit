@@ -12,7 +12,7 @@ class FMSynthesizer: AKInstrument{
         super.init()
         
         // Note Properties
-        var note = FMSynthesizerNote()
+        let note = FMSynthesizerNote()
         
         let envelope = AKADSREnvelope(
             attackDuration:  0.1.ak,
@@ -22,7 +22,7 @@ class FMSynthesizer: AKInstrument{
             delay: 0.ak
         )
         
-        var oscillator = AKFMOscillator()
+        let oscillator = AKFMOscillator()
         oscillator.baseFrequency        = note.frequency
         oscillator.carrierMultiplier    = note.color.scaledBy(2.ak)
         oscillator.modulatingMultiplier = note.color.scaledBy(3.ak)
@@ -30,8 +30,6 @@ class FMSynthesizer: AKInstrument{
         oscillator.amplitude            = envelope.scaledBy(0.25.ak)
         
         AKManager.sharedManager().isLogging = true
-        let square = AKTable.standardSquareWave()
-        let point = AKTableValue(table: square, atFractionOfTotalWidth: akp(0.25))
 
         setAudioOutput(oscillator)
     }

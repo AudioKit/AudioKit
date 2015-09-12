@@ -58,7 +58,7 @@ static int currentID = 2000;
     return [[AKTable alloc] init];
 }
 
-- (instancetype)initWithArray:(NSArray *)array {
+- (instancetype)initWithArray:(NSArray<NSNumber *> *)array {
     self = [super init];
     if (self) {
         @synchronized([self class]) {
