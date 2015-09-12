@@ -43,6 +43,13 @@ extension Double {
         }
     }
 
+    var dependencies = [AKParameter]()
+    var connected: Bool
+
+    override init() {
+        connected = false
+        super.init()
+    }
     
     /**
     An initializer for a constant parameter
@@ -53,6 +60,7 @@ extension Double {
         self.init()
         leftOutput  = float
         rightOutput = float
+        connected = true
     }
     
     /** Bind the memory of the SoundPipe value to this parameter */

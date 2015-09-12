@@ -12,7 +12,7 @@ class DemoInstrument: AKInstrument {
 
     var oscillatingFrequency: AKOscillator
     var fmOscillator: AKFMOscillator
-    var panner: AKPanner
+    var filter: AKLowPassButterworthFilter
     
     override init() {
         
@@ -57,19 +57,13 @@ class DemoInstrument: AKInstrument {
         simple.frequency.value = 880
         simple.amplitude.value = 1.0
         
-        panner = AKPanner(input: fmOscillator)
-        let reverb = AKReverb(input: panner)
+        filter = AKLowPassButterworthFilter(input: fmOscillator)
+        let reverb = AKReverb(input: filter)
 
         let output = AKAudioOutput(input:reverb)
         
         super.init()
-        
-        operations.append(oscillatingFrequency)
-        operations.append(fmOscillator)
-        operations.append(simple)
-        operations.append(panner)
-        operations.append(reverb)
-        operations.append(output)
+        connect(output)
         
     }
     

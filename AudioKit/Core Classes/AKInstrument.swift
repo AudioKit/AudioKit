@@ -19,4 +19,16 @@ import Foundation
         super.init()
         AKManager.sharedManager.instruments.append(self)
     }
+    
+    func connect(operation: AKParameter) {
+        operation.connected = true
+        operation.dependencies.forEach { (dependency) -> () in
+            if !dependency.connected {
+                connect(dependency)
+            }
+        }
+        operations.append(operation)
+        print("operations = \(operations)")
+    }
+
 }

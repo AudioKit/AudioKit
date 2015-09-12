@@ -676,7 +676,7 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-nh-Xz3">
                                 <rect key="frame" x="18" y="141" width="195" height="20"/>
                                 <animations/>
-                                <sliderCell key="cell" continuous="YES" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
+                                <sliderCell key="cell" continuous="YES" alignment="left" maxValue="4000" doubleValue="1000" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
                                 <connections>
                                     <action selector="setFilterParameter:" target="XfG-lQ-9wD" id="TvX-Rp-hDf"/>
                                 </connections>
