@@ -88,7 +88,7 @@ This filter reiterates the input with an echo density determined by loop time. T
     /** Computation of the next value */
     override func compute() {
         sp_allpass_compute(AKManager.sharedManager.data, allpass, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_allpass_compute(AKManager.sharedManager.data, allpass, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

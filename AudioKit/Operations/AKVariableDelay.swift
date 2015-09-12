@@ -88,7 +88,7 @@ A delay line with cubic interpolation.
     /** Computation of the next value */
     override func compute() {
         sp_vdelay_compute(AKManager.sharedManager.data, vdelay, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_vdelay_compute(AKManager.sharedManager.data, vdelay, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

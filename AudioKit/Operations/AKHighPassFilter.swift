@@ -70,7 +70,7 @@ A complement to the AKLowPassFilter.
     /** Computation of the next value */
     override func compute() {
         sp_atone_compute(AKManager.sharedManager.data, atone, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_atone_compute(AKManager.sharedManager.data, atone, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
