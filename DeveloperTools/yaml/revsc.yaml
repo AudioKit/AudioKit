@@ -28,7 +28,7 @@ parameters:
   default: 0.6
 }
 - lpfreq: {
-  audioKitName: lpfreq,
+  audioKitName: cutoffFrequency,
   comment: "Low-pass cutoff frequency.",
   default: 4000
 }
