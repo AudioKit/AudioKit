@@ -41,7 +41,6 @@ class ViewController : NSViewController {
     }
     
     @IBAction func setFilterParameter(sender: NSSlider) {
-        NSLog("%f", sender.floatValue)
         instrument.panner.pan.value = sender.floatValue
     }
     
