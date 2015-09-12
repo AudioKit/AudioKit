@@ -1,0 +1,42 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: scale
+
+operation: AKLinearTransformation
+
+summary: Linear tranformation from one range to another, based on minimum and maximum values.
+
+shortDescription: scaled value
+
+description:
+  This module scales from one range to another defined by a minimum and maximum point
+  in the input and output domain.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- inmin: {
+  audioKitName: minimumInput,
+  comment: "Minimum value to scale from.",
+  default: -1
+}
+- inmax: {
+  audioKitName: maximumInput,
+  comment: "Maximum value to scale from.",
+  default: 1
+}
+- outmin: {
+  audioKitName: minimumOutput,
+  comment: "Minimum value to scale to.",
+  default: 0
+}
+- outmax: {
+  audioKitName: maximumOutput,
+  comment: "Maximum value to scale to.",
+  default: 1
+}
+
