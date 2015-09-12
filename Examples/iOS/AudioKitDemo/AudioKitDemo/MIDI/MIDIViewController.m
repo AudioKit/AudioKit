@@ -21,8 +21,8 @@
     AKMidiInstrument *_instrument;
     AKSoundFontPresetPlayer *_presetPlayer;
     AKSoundFontPreset *_selectedPreset;
-    NSMutableArray *_log;
-    NSArray *_presets;
+    NSMutableArray<NSString *> *_log;
+    NSArray<AKSoundFontPreset *> *_presets;
 }
 
 - (void)viewDidLoad {

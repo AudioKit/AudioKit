@@ -11,8 +11,8 @@
 @implementation AKSegmentArray
 {
     AKConstant *value1;
-    NSMutableArray *segments;
-    NSArray *releaseSegment;
+    NSMutableArray<AKConstant *> *segments;
+    NSArray<AKConstant *> *releaseSegment;
 }
 
 - (instancetype)initWithInitialValue:(AKConstant *)initialValue
