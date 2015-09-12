@@ -70,7 +70,7 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     /** Computation of the next value */
     override func compute() {
         sp_buthp_compute(AKManager.sharedManager.data, buthp, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_buthp_compute(AKManager.sharedManager.data, buthp, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

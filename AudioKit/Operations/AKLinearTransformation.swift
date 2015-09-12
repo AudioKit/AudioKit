@@ -97,7 +97,7 @@ This module scales from one range to another defined by a minimum and maximum po
     /** Computation of the next value */
     override func compute() {
         sp_scale_compute(AKManager.sharedManager.data, scale, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_scale_compute(AKManager.sharedManager.data, scale, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

@@ -88,7 +88,7 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     /** Computation of the next value */
     override func compute() {
         sp_eqfil_compute(AKManager.sharedManager.data, eqfil, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_eqfil_compute(AKManager.sharedManager.data, eqfil, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

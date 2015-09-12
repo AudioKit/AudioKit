@@ -70,7 +70,7 @@ A first-order recursive low-pass filter with variable frequency response.
     /** Computation of the next value */
     override func compute() {
         sp_tone_compute(AKManager.sharedManager.data, tone, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_tone_compute(AKManager.sharedManager.data, tone, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

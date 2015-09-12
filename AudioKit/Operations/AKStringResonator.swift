@@ -79,7 +79,7 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     /** Computation of the next value */
     override func compute() {
         sp_streson_compute(AKManager.sharedManager.data, streson, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_streson_compute(AKManager.sharedManager.data, streson, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

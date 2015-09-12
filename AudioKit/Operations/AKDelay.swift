@@ -88,7 +88,7 @@ Add a delay to an incoming signal with optional feedback.
     /** Computation of the next value */
     override func compute() {
         sp_delay_compute(AKManager.sharedManager.data, delay, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_delay_compute(AKManager.sharedManager.data, delay, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */

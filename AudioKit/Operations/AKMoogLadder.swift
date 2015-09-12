@@ -79,7 +79,7 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     /** Computation of the next value */
     override func compute() {
         sp_moogladder_compute(AKManager.sharedManager.data, moogladder, &(input.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_moogladder_compute(AKManager.sharedManager.data, moogladder, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
