@@ -133,8 +133,8 @@
 		C42AC02A1B9E23BB006CE9EE /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C42AC02B1B9E23BB006CE9EE /* AKInstrument.swift */,
 				C42AC02C1B9E23BB006CE9EE /* AKManager.swift */,
+				C42AC02B1B9E23BB006CE9EE /* AKInstrument.swift */,
 				C42AC02D1B9E23BB006CE9EE /* AKParameter.swift */,
 				C42AC02E1B9E23BB006CE9EE /* AKTable.swift */,
 			);

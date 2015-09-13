@@ -9,10 +9,17 @@
 import Foundation
 
 /** A parent class to all instruments */
-@objc class AKInstrument : NSObject {
+@objc class AKInstrument : AKParameter {
     
     /** All operations which need to be computed for this instrument */
     var operations: [AKParameter] = []
+    var output: AKParameter? {
+        didSet {
+            connect(AKAudioOutput(input: output!))
+            leftOutput = output!.leftOutput
+            rightOutput = output!.rightOutput
+        }
+    }
     
     /** Initialize and append to the list of instruments */
     override init() {

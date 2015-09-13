@@ -60,10 +60,8 @@ class DemoInstrument: AKInstrument {
         filter = AKLowPassButterworthFilter(input: fmOscillator)
         let reverb = AKReverb(input: filter)
 
-        let output = AKAudioOutput(input:reverb)
-        
         super.init()
-        connect(output)
+        output = reverb
         
     }
     
