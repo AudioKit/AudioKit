@@ -35,3 +35,13 @@ constants:
   default: 0.1
 }
 
+presets:
+- SpringyFilter: {
+  comment: "",
+  parameters: {
+    reverbDuration: 0.75,
+  },
+  constants: {
+    loopDuration: 0.01,
+  }
+}
