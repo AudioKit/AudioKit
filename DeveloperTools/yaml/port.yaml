@@ -1,0 +1,27 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: port
+
+operation: AKPortamento
+
+summary: Applies portamento smoothing to a step-valued control signal.
+
+shortDescription: portamento
+
+description:
+  This applies portamento to a control signal. Useful for smoothing out low-resolution signals and applying glissando to filters.
+  At each new step value, the output is low-pass filtered to move towards that value at a rate determined by halfTime.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+constants:
+- htime: {
+  audioKitName: halfTime,
+  comment: "Time during which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote.",
+  default: 0.02
+}
+
