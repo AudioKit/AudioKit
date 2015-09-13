@@ -100,6 +100,25 @@ Classic FM Synthesis audio generation.
 
         bindAll()
     }
+    
+    // MARK: - Presets
+    
+    /** Class function to create an oscillator with the stun ray preset parameters */
+    class func presetStunRay() -> AKFMOscillator {
+        let oscillator = AKFMOscillator()
+        oscillator.presetStunRay()
+        return oscillator
+    }
+
+    /** Updates the oscillator's parameters to the stun ray preset */
+    func presetStunRay() {
+        dependencies.removeAll()
+        baseFrequency        = akp(200)
+        carrierMultiplier    = akp(90)
+        modulatingMultiplier = akp(10)
+        modulationIndex      = akp(25)
+        amplitude            = akp(0.5)
+    }
 
     // MARK: - Internals
 
