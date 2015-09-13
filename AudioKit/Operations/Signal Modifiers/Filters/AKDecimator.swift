@@ -24,7 +24,7 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
     /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. [Default Value: 8] */
     var bitDepth: AKParameter = akp(8) {
         didSet {
-            bitDepth.bind(&decimator.memory.bit)
+            bitDepth.bind(&decimator.memory.bitdepth)
             dependencies.append(bitDepth)
         }
     }
@@ -61,11 +61,11 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
     */
     convenience init(
         input      sourceInput: AKParameter,
-        bitDepth   bitInput:    AKParameter,
+        bitDepth   bitdepthInput:    AKParameter,
         sampleRate srateInput:  AKParameter)
     {
         self.init(input: sourceInput)
-        bitDepth   = bitInput
+        bitDepth   = bitdepthInput
         sampleRate = srateInput
 
         bindAll()
@@ -75,7 +75,7 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
 
     /** Bind every property to the internal decimator */
     internal func bindAll() {
-        bitDepth  .bind(&decimator.memory.bit)
+        bitDepth  .bind(&decimator.memory.bitdepth)
         sampleRate.bind(&decimator.memory.srate)
         dependencies.append(bitDepth)
         dependencies.append(sampleRate)

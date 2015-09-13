@@ -18,6 +18,9 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
 
     private var phasor = UnsafeMutablePointer<sp_phasor>.alloc(1)
 
+    /** Initial phase [Default Value: 0] */
+    private var phase: Float = 0
+
 
     /** Frequency in cycles per second, or Hz. [Default Value: 1] */
     var frequency: AKParameter = akp(1) {
@@ -40,15 +43,26 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
         bindAll()
     }
 
+    /** Instantiates phasor with constants
+
+    - parameter phase: Initial phase [Default Value: 0]
+    */
+    init (phase iphsInput: Float) {
+        super.init()
+        setup(iphsInput)
+        bindAll()
+    }
+
     /** Instantiates the phasor with all values
 
     - parameter frequency: Frequency in cycles per second, or Hz. [Default Value: 1]
+    - parameter phase: Initial phase [Default Value: 0]
     */
     convenience init(
-        frequency freqInput: AKParameter)
+        frequency freqInput: AKParameter,
+        phase     iphsInput: Float)
     {
-        self.init()
-
+        self.init(phase: iphsInput)
         frequency = freqInput
 
         bindAll()
@@ -63,9 +77,10 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
     }
 
     /** Internal set up function */
-    internal func setup() {
+    internal func setup(phase: Float = 0)
+ {
         sp_phasor_create(&phasor)
-        sp_phasor_init(AKManager.sharedManager.data, phasor)
+        sp_phasor_init(AKManager.sharedManager.data, phasor, phase)
     }
 
     /** Computation of the next value */
