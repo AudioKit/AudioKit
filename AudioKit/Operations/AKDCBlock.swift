@@ -24,7 +24,10 @@ import Foundation
 
     // MARK: - Initializers
 
-    /** Instantiates the filter with default values */
+    /** Instantiates the filter with default values
+
+    - parameter input: Input audio signal. 
+    */
     init(input sourceInput: AKParameter)
     {
         super.init()

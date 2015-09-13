@@ -26,7 +26,11 @@ This operation outputs a version of the audio source, amplitude-modified so that
 
     // MARK: - Initializers
 
-    /** Instantiates the balance with default values */
+    /** Instantiates the balance with default values
+
+    - parameter input: Input audio signal. 
+    - parameter comparator: Input audio signal. 
+    */
     init(input sourceInput: AKParameter, comparator comparatorInput: AKParameter)
     {
         super.init()
