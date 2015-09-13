@@ -17,3 +17,10 @@ parameters:
   comment: "Frequency in cycles per second, or Hz.",
   default: 1
 }
+
+constants:
+- iphs: {
+  audioKitName: phase ,
+  comment: "Initial phase",
+  default: 0
+}
