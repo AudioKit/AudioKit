@@ -45,4 +45,13 @@ parameters:
   default: 0.5
 }
 
+presets:
+- stunRay: {
+  baseFrequency: 200
+  carrierMultiplier: 90
+  modulatingMultiplier: 10
+  modulationIndex: 25
+  amplitude: 0.5
+}
+
 
