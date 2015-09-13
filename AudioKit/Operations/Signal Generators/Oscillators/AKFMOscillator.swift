@@ -65,7 +65,7 @@ Classic FM Synthesis audio generation.
 
     // MARK: - Initializers
 
-    /** Instantiates the FM oscillator with default values
+    /** Instantiates the oscillator with default values
     */
     override init()
     {
@@ -75,7 +75,7 @@ Classic FM Synthesis audio generation.
         bindAll()
     }
 
-    /** Instantiates the FM oscillator with all values
+    /** Instantiates the oscillator with all values
 
     - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440]
     - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1]
@@ -100,29 +100,35 @@ Classic FM Synthesis audio generation.
 
         bindAll()
     }
-    
+
     // MARK: - Presets
-    
-    /** Class function to create an oscillator with the stun ray preset parameters */
+
+    /** Class function to create the oscillator with the stun ray preset parameters. 
+    */
     class func presetStunRay() -> AKFMOscillator {
         let oscillator = AKFMOscillator()
-        oscillator.presetStunRay()
+        oscillator.baseFrequency        = akp(200)
+        oscillator.carrierMultiplier    = akp(90)
+        oscillator.modulatingMultiplier = akp(10)
+        oscillator.modulationIndex      = akp(25)
+        oscillator.amplitude            = akp(0.5)
         return oscillator
     }
-
-    /** Updates the oscillator's parameters to the stun ray preset */
-    func presetStunRay() {
-        dependencies.removeAll()
-        baseFrequency        = akp(200)
-        carrierMultiplier    = akp(90)
-        modulatingMultiplier = akp(10)
-        modulationIndex      = akp(25)
-        amplitude            = akp(0.5)
+    /** Class function to create the oscillator with the wobble preset parameters. 
+    */
+    class func presetWobble() -> AKFMOscillator {
+        let oscillator = AKFMOscillator()
+        oscillator.baseFrequency        = akp(20)
+        oscillator.carrierMultiplier    = akp(10)
+        oscillator.modulatingMultiplier = akp(0.9)
+        oscillator.modulationIndex      = akp(20)
+        oscillator.amplitude            = akp(0.5)
+        return oscillator
     }
 
     // MARK: - Internals
 
-    /** Bind every property to the internal FM oscillator */
+    /** Bind every property to the internal oscillator */
     internal func bindAll() {
         baseFrequency       .bind(&fosc.memory.freq)
         carrierMultiplier   .bind(&fosc.memory.car)
