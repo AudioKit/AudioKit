@@ -1,0 +1,31 @@
+installation_directory: "../AudioKit/Operations/"
+
+sp_name: decimator
+
+operation: AKDecimator
+
+summary: Otherwise known as a "bitcrusher", Decimator will digitially degrade a signal.
+
+shortDescription: decimator
+
+description:
+  Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- bit: {
+  audioKitName: bitDepth,
+  comment: "The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.",
+  default: 8
+}
+- srate: {
+  audioKitName: sampleRate,
+  comment: "The sample rate of signal output.",
+  default: 10000
+}
+
