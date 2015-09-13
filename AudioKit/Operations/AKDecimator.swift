@@ -40,7 +40,10 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
 
     // MARK: - Initializers
 
-    /** Instantiates the decimator with default values */
+    /** Instantiates the decimator with default values
+
+    - parameter input: Input audio signal. 
+    */
     init(input sourceInput: AKParameter)
     {
         super.init()
@@ -50,8 +53,7 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
         bindAll()
     }
 
-    /**
-    Instantiates the decimator with all values
+    /** Instantiates the decimator with all values
 
     - parameter input: Input audio signal. 
     - parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. [Default Value: 8]
