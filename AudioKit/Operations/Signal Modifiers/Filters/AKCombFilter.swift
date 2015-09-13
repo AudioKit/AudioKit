@@ -83,13 +83,8 @@ This filter reiterates input with an echo density determined by loopDuration. Th
     */
     class func presetSpringyFilter(input sourceInput: AKParameter) -> AKCombFilter {
         let filter = AKCombFilter(input: sourceInput, loopDuration: 0.01)
-        filter.presetSpringyFilter()
+        filter.reverbDuration = akp(0.75)
         return filter
-    }
-
-    /** Updates the filter's parameters to the springy filter preset.  */
-    func presetSpringyFilter() {
-        reverbDuration = akp(0.75)
     }
 
     // MARK: - Internals
