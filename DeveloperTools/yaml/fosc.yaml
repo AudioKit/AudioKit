@@ -12,9 +12,9 @@ description:
   Classic FM Synthesis audio generation.
 
 tables:
-- ftbl: {
+- ft: {
   audioKitName: waveform,
-  comment: "Waveform table to use.",
+  comment: "Shape of the table to oscillate.",
   default: sine
 }
 
