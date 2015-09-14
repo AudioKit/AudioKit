@@ -28,7 +28,6 @@ typealias Sample = Float
         super.init()
         selfPtr = self
         sp_createn(&data, 2)
-        setupAudioUnit()
     }
     
     /** Release memory */
