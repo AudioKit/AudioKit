@@ -9,11 +9,11 @@
 import Foundation
 
 /** A table of values accessible as a waveform or lookup mechanism */
-@objc class AKTable : AKParameter {
+@objc class AKTable : NSObject {
     
     /** Pointer to the SoundPipe table */
-    var ftbl: UnsafeMutablePointer<sp_ftbl> = nil  //not just nil
-    var table: UnsafeMutablePointer<Float> = nil
+    var ftbl: UnsafeMutablePointer<sp_ftbl> = UnsafeMutablePointer.alloc(1)
+
     private var size: Int
     
     /** Initialize and set up the default table */
@@ -21,32 +21,44 @@ import Foundation
         size = tableSize
         super.init()
         setup()
-        standardSineWave()
     }
     
-    func standardTriangleWave() {
-        let slope = Float(4.0) / Float(size)
-        for i in 0..<size {
-            if i < size / 2 {
-                ftbl.memory.tbl[i] = slope * Float(i) - 1.0
+    class func standardTriangleWave(size tableSize: Int = 4096) -> AKTable {
+        let triangle = AKTable(size: tableSize)
+        let slope = Float(4.0) / Float(triangle.size)
+        for i in 0..<triangle.size {
+            if i < triangle.size / 2 {
+                triangle.ftbl.memory.tbl[i] = slope * Float(i) - 1.0
             } else {
-                ftbl.memory.tbl[i] = slope * Float(-i) + 3.0
+                triangle.ftbl.memory.tbl[i] = slope * Float(-i) + 3.0
             }
         }
+        return triangle
     }
     
-    func standardSquareWave() {
-        for i in 0..<size {
-            if i < size / 2 {
-                ftbl.memory.tbl[i] = -1.0
+    class func standardSquareWave(size tableSize: Int = 4096) -> AKTable {
+        let square = AKTable(size: tableSize)
+        for i in 0..<square.size {
+            if i < square.size / 2 {
+                square.ftbl.memory.tbl[i] = -1.0
             } else {
-                ftbl.memory.tbl[i] = 1.0
-            }            
+                square.ftbl.memory.tbl[i] = 1.0
+            }
         }
+        return square
     }
     
-    func standardSineWave() {
-        sp_gen_sine(AKManager.sharedManager.data, ftbl);
+    
+    class func standardSineWave(size tableSize: Int = 4096) -> AKTable {
+        let sine = AKTable(size: tableSize)
+        sp_gen_sine(AKManager.sharedManager.data, sine.ftbl);
+        return sine
+    }
+    
+    /** Bind the memory of the SoundPipe value to this parameter */
+    func bind(binding:UnsafeMutablePointer<sp_ftbl>)
+    {
+        ftbl = binding
     }
     
     func setup() {
@@ -54,7 +66,7 @@ import Foundation
     }
     
     /** Release the table's memory */
-    override func teardown() {
+    func teardown() {
         sp_ftbl_destroy(&ftbl)
     }
 

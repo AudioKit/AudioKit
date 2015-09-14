@@ -17,13 +17,17 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
     // MARK: - Properties
 
     private var osc = UnsafeMutablePointer<sp_osc>.alloc(1)
-
+    
     /** Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0] */
     private var phase: Float = 0
 
-
     /** Waveform table to use. [Default Value: sine] */
-    var waveform = AKTable()
+    var waveform = AKTable.standardSineWave() {
+        didSet {
+            print("got here")
+            waveform.bind(osc.memory.tbl)
+        }
+    }
 
     /** Frequency in cycles per second [Default Value: 440] */
     var frequency: AKParameter = akp(440) {
