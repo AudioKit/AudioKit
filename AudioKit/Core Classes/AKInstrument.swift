@@ -35,7 +35,6 @@ import Foundation
             }
         }
         operations.append(operation)
-        print("operations = \(operations)")
     }
 
 }
