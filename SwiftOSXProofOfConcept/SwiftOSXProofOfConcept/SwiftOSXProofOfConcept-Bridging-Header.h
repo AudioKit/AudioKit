@@ -8,3 +8,5 @@
 
 #include "AKAudioUnitRenderCallback.h"
 #import "soundpipe.h"
+#import "md5.h"
+#import "test.h"

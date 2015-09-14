@@ -24,6 +24,12 @@ class ViewController : NSViewController {
         frequencySlider.parameter = instrument.oscillatingFrequency.frequency
         amplitudeSlider.parameter = instrument.oscillatingFrequency.amplitude
         carrierSlider.parameter   = instrument.fmOscillator.carrierMultiplier
+        
+        AKManager.sharedManager.setupAudioUnit()
+
+        //let tester = AKTester()
+        //tester.run(10)
+    }
     }
     
     @IBAction func setModulatingMultiplier(sender: NSSlider) {

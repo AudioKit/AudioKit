@@ -12,27 +12,44 @@ import Foundation
 @objc class AKTester : NSObject {
     
     /** Internal reference to SoundPipe */
-    var data: UnsafeMutablePointer<sp_data> = nil
+    var test: UnsafeMutablePointer<sp_test> = nil
     
     /** The collection of instruments */
     var instruments: [AKInstrument] = []
     
+    var instrument = DemoInstrument()
+    
     /** Start up SoundPipe */
     override init() {
         super.init()
-        sp_createn(&data, 2)
+        sp_test_create(&test, 10*44100)
     }
     
     /** Release memory */
     func teardown() {
-        sp_destroy(&data)
+        sp_test_destroy(&test)
     }
 
     func run(duration: Float) {
-        let samples = duration * 44100
+        let samples = 10 * 44100
         
-        for operation in AKManager.sharedManager.instruments.first!.operations {
-            operation.compute()
+        let md5 = "e9f8984c6dcc8281c9adede9fdf5ab4b"
+        let md52 = (md5 as NSString).UTF8String
+        
+        for _ in 0..<samples {
+            for operation in AKManager.sharedManager.instruments.first!.operations {
+                operation.compute()
+            }
+            sp_test_add_sample(test, AKManager.sharedManager.data.memory.out[0])
+        }
+
+        
+        if sp_test_compare(test, md52) == SP_OK {
+            print("it matches!")
+        } else {
+            let goodmd5 = String(CString: test.memory.md5, encoding: NSUTF8StringEncoding)
+            
+            print("sorry the rendered hash was \(goodmd5) and you had \(md5)")
         }
     }
     
