@@ -34,12 +34,14 @@ extension Double {
     var rightPointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
     
     /** The actual value of the parameters */
-    var leftOutput:  Float = 0.0 { didSet { leftPointer.memory  = leftOutput  } }
-    var rightOutput: Float = 0.0 { didSet { rightPointer.memory = rightOutput } }
+    dynamic var leftOutput:  Float = 0.0 { didSet { leftPointer.memory  = leftOutput  } }
+    dynamic var rightOutput: Float = 0.0 { didSet { rightPointer.memory = rightOutput } }
 
     var value: Float = 0.0 {
         didSet {
             leftPointer.memory = value
+            self.leftOutput = value
+            self.rightOutput = value
         }
     }
 
