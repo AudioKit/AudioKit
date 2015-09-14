@@ -17,6 +17,12 @@
 		C47AEF4A1BA6588900FFE3E7 /* AKTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AEF491BA6588900FFE3E7 /* AKTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C48423201BA67FE40011D63C /* libsptest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C484231F1BA67FE40011D63C /* libsptest.a */; settings = {ASSET_TAGS = (); }; };
 		C48423431BA732400011D63C /* AKDistortion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423421BA732400011D63C /* AKDistortion.swift */; settings = {ASSET_TAGS = (); }; };
+		C48423451BA737200011D63C /* AKChowningReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423441BA737200011D63C /* AKChowningReverb.swift */; settings = {ASSET_TAGS = (); }; };
+		C48423481BA73B1A0011D63C /* AKInterpolatedRandomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423461BA73B1A0011D63C /* AKInterpolatedRandomNumberPulse.swift */; settings = {ASSET_TAGS = (); }; };
+		C48423491BA73B1A0011D63C /* AKRandomNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423471BA73B1A0011D63C /* AKRandomNumbers.swift */; settings = {ASSET_TAGS = (); }; };
+		C484234B1BA741150011D63C /* AKModalResonanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484234A1BA741150011D63C /* AKModalResonanceFilter.swift */; settings = {ASSET_TAGS = (); }; };
+		C484234E1BA74F0A0011D63C /* AKMetronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484234D1BA74F0A0011D63C /* AKMetronome.swift */; settings = {ASSET_TAGS = (); }; };
+		C48423511BA74F3A0011D63C /* AKDroplet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423501BA74F3A0011D63C /* AKDroplet.swift */; settings = {ASSET_TAGS = (); }; };
 		C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */; };
 		C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7D1B9BDDBF00D57DDA /* ViewController.swift */; };
 		C4963E801B9BDDBF00D57DDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4963E7F1B9BDDBF00D57DDA /* Images.xcassets */; };
@@ -78,6 +84,12 @@
 		C48423211BA67FF20011D63C /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = md5.h; path = ../../../Soundpipe/test/md5.h; sourceTree = "<group>"; };
 		C48423231BA67FF20011D63C /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = test.h; path = ../../../Soundpipe/test/test.h; sourceTree = "<group>"; };
 		C48423421BA732400011D63C /* AKDistortion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDistortion.swift; sourceTree = "<group>"; };
+		C48423441BA737200011D63C /* AKChowningReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKChowningReverb.swift; sourceTree = "<group>"; };
+		C48423461BA73B1A0011D63C /* AKInterpolatedRandomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKInterpolatedRandomNumberPulse.swift; sourceTree = "<group>"; };
+		C48423471BA73B1A0011D63C /* AKRandomNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRandomNumbers.swift; sourceTree = "<group>"; };
+		C484234A1BA741150011D63C /* AKModalResonanceFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKModalResonanceFilter.swift; sourceTree = "<group>"; };
+		C484234D1BA74F0A0011D63C /* AKMetronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMetronome.swift; sourceTree = "<group>"; };
+		C48423501BA74F3A0011D63C /* AKDroplet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDroplet.swift; sourceTree = "<group>"; };
 		C4963E761B9BDDBF00D57DDA /* SwiftOSXProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOSXProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4963E7A1B9BDDBF00D57DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +210,14 @@
 			path = Effects;
 			sourceTree = "<group>";
 		};
+		C484234F1BA74F3A0011D63C /* Physical Models */ = {
+			isa = PBXGroup;
+			children = (
+				C48423501BA74F3A0011D63C /* AKDroplet.swift */,
+			);
+			path = "Physical Models";
+			sourceTree = "<group>";
+		};
 		C4963E6D1B9BDDBF00D57DDA = {
 			isa = PBXGroup;
 			children = (
@@ -280,6 +300,7 @@
 			children = (
 				C4A454CD1BA5A8A5005EA172 /* Musical Controls */,
 				C4A454CF1BA5A8A5005EA172 /* Oscillators */,
+				C484234F1BA74F3A0011D63C /* Physical Models */,
 				C4A454D31BA5A8A5005EA172 /* Random Generators */,
 				C4A454D51BA5A8A5005EA172 /* Subtractive Synthesis */,
 			);
@@ -289,6 +310,7 @@
 		C4A454CD1BA5A8A5005EA172 /* Musical Controls */ = {
 			isa = PBXGroup;
 			children = (
+				C484234D1BA74F0A0011D63C /* AKMetronome.swift */,
 				C4A454CE1BA5A8A5005EA172 /* AKPortamento.swift */,
 			);
 			path = "Musical Controls";
@@ -307,7 +329,9 @@
 		C4A454D31BA5A8A5005EA172 /* Random Generators */ = {
 			isa = PBXGroup;
 			children = (
+				C48423461BA73B1A0011D63C /* AKInterpolatedRandomNumberPulse.swift */,
 				C4A454D41BA5A8A5005EA172 /* AKJitter.swift */,
+				C48423471BA73B1A0011D63C /* AKRandomNumbers.swift */,
 			);
 			path = "Random Generators";
 			sourceTree = "<group>";
@@ -350,6 +374,7 @@
 				C4A454DF1BA5A8A5005EA172 /* AKEqualizerFilter.swift */,
 				C4A454E01BA5A8A5005EA172 /* AKHighPassFilter.swift */,
 				C4A454E11BA5A8A5005EA172 /* AKLowPassFilter.swift */,
+				C484234A1BA741150011D63C /* AKModalResonanceFilter.swift */,
 				C4A454E21BA5A8A5005EA172 /* AKMoogLadder.swift */,
 				C4A454E31BA5A8A5005EA172 /* AKStringResonator.swift */,
 				C4A454E41BA5A8A5005EA172 /* AKThreePoleLowpassFilter.swift */,
@@ -373,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A454EB1BA5A8A5005EA172 /* AKFlatFrequencyResponseReverb.swift */,
+				C48423441BA737200011D63C /* AKChowningReverb.swift */,
 				C4A454EC1BA5A8A5005EA172 /* AKReverb.swift */,
 			);
 			path = Reverbs;
@@ -504,12 +530,17 @@
 				C4A454F71BA5A8A5005EA172 /* AKDelay.swift in Sources */,
 				C4A454F31BA5A8A5005EA172 /* AKOscillator.swift in Sources */,
 				C4A455011BA5A8A5005EA172 /* AKThreePoleLowpassFilter.swift in Sources */,
+				C484234B1BA741150011D63C /* AKModalResonanceFilter.swift in Sources */,
 				C4A454FC1BA5A8A5005EA172 /* AKEqualizerFilter.swift in Sources */,
 				C4A454F81BA5A8A5005EA172 /* AKVariableDelay.swift in Sources */,
 				C47AEF471BA6505700FFE3E7 /* AKParameterSlider.swift in Sources */,
+				C484234E1BA74F0A0011D63C /* AKMetronome.swift in Sources */,
 				C4A454FE1BA5A8A5005EA172 /* AKLowPassFilter.swift in Sources */,
+				C48423511BA74F3A0011D63C /* AKDroplet.swift in Sources */,
 				C4A454F91BA5A8A5005EA172 /* AKCombFilter.swift in Sources */,
+				C48423481BA73B1A0011D63C /* AKInterpolatedRandomNumberPulse.swift in Sources */,
 				C4A454F21BA5A8A5005EA172 /* AKFMOscillator.swift in Sources */,
+				C48423451BA737200011D63C /* AKChowningReverb.swift in Sources */,
 				C4A455041BA5A8A5005EA172 /* AKHighPassButterworthFilter.swift in Sources */,
 				C42AC03B1B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m in Sources */,
 				C4A454F11BA5A8A5005EA172 /* AKPortamento.swift in Sources */,
@@ -523,6 +554,7 @@
 				C42AC0281B9E22A1006CE9EE /* DemoInstrument.swift in Sources */,
 				C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */,
 				C42AC0371B9E23BB006CE9EE /* AKInstrument.swift in Sources */,
+				C48423491BA73B1A0011D63C /* AKRandomNumbers.swift in Sources */,
 				C4A455051BA5A8A5005EA172 /* AKLowPassButterworthFilter.swift in Sources */,
 				C48423431BA732400011D63C /* AKDistortion.swift in Sources */,
 				C4A455071BA5A8A5005EA172 /* AKReverb.swift in Sources */,
