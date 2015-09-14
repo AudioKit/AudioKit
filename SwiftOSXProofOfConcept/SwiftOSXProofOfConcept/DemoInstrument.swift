@@ -18,6 +18,7 @@ class DemoInstrument: AKInstrument {
         
         // Method 1: Full Initializer
         oscillatingFrequency = AKOscillator(
+            waveform: AKTable.standardSquareWave(),
             frequency: akp(0.1),
             amplitude: akp(44),
             phase: 0.0
@@ -31,6 +32,7 @@ class DemoInstrument: AKInstrument {
         
         // Method 1: Full Initializer
         fmOscillator = AKFMOscillator(
+            waveform: AKTable.standardTriangleWave(),
             baseFrequency: oscillatingFrequency,
             carrierMultiplier: akp(3),
             modulatingMultiplier: akp(5),
@@ -40,6 +42,7 @@ class DemoInstrument: AKInstrument {
         
         // Method 2: Default Initializer plus property setting
         fmOscillator = AKFMOscillator()
+        fmOscillator.waveform             = AKTable.standardSquareWave()
         fmOscillator.baseFrequency        = oscillatingFrequency
         fmOscillator.carrierMultiplier    = 3.ak
         fmOscillator.modulatingMultiplier = 5.ak
@@ -48,6 +51,7 @@ class DemoInstrument: AKInstrument {
         
         // Method 3: Default initializer and resetting values
         fmOscillator = AKFMOscillator()
+        fmOscillator.waveform      = AKTable.standardSquareWave()
         fmOscillator.baseFrequency = oscillatingFrequency
         fmOscillator.carrierMultiplier.value    = 3
         fmOscillator.modulatingMultiplier.value = 5
@@ -61,11 +65,11 @@ class DemoInstrument: AKInstrument {
         simple.frequency.value = 880
         simple.amplitude.value = 1.0
         
-//        filter = AKDecimator(input: fmOscillator)
-//        let reverb = AKReverb(input: filter)
+        filter = AKDecimator(input: fmOscillator)
+        let reverb = AKReverb(input: filter)
 
         super.init()
-        output = simple
+        output = reverb
         
     }
     

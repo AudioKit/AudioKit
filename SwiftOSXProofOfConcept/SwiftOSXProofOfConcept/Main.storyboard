@@ -819,6 +819,17 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GdL-2B-9Wh">
+                                <rect key="frame" x="22" y="75" width="73" height="32"/>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Sines" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gWI-FN-Kan">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="revertToSines:" target="XfG-lQ-9wD" id="eAL-YV-rIv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                     </view>
