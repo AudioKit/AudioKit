@@ -1,0 +1,39 @@
+installation_directory: "../AudioKit/Operations/Signal\ Modifiers/Effects/"
+
+sp_name: dist
+
+operation: AKDistortion
+
+summary: Distortion using a modified hyperbolic tangent function.
+
+shortDescription: distortion
+
+description:
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- pregain: {
+  audioKitName: pregain,
+  comment: "Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.",
+  default: 2.0
+}
+- shape1: {
+  audioKitName: postiveShapeParameter,
+  comment: "Shape of the positive part of the signal. A value of 0 gets a flat clip.",
+  default: 0
+}
+- shape2: {
+  audioKitName: negativeShapeParameter,
+  comment: "Like shape1, only for the negative part.",
+  default: 0
+}
+- postgain: {
+  audioKitName: postgain,
+  comment: "Gain applied after waveshaping",
+  default: 0.5
+}

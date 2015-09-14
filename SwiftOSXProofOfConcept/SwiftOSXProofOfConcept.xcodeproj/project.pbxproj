@@ -16,6 +16,7 @@
 		C47AEF471BA6505700FFE3E7 /* AKParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AEF461BA6505600FFE3E7 /* AKParameterSlider.swift */; settings = {ASSET_TAGS = (); }; };
 		C47AEF4A1BA6588900FFE3E7 /* AKTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AEF491BA6588900FFE3E7 /* AKTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C48423201BA67FE40011D63C /* libsptest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C484231F1BA67FE40011D63C /* libsptest.a */; settings = {ASSET_TAGS = (); }; };
+		C48423431BA732400011D63C /* AKDistortion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423421BA732400011D63C /* AKDistortion.swift */; settings = {ASSET_TAGS = (); }; };
 		C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */; };
 		C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7D1B9BDDBF00D57DDA /* ViewController.swift */; };
 		C4963E801B9BDDBF00D57DDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4963E7F1B9BDDBF00D57DDA /* Images.xcassets */; };
@@ -76,6 +77,7 @@
 		C484231F1BA67FE40011D63C /* libsptest.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsptest.a; path = ../../../Soundpipe/test/libsptest.a; sourceTree = "<group>"; };
 		C48423211BA67FF20011D63C /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = md5.h; path = ../../../Soundpipe/test/md5.h; sourceTree = "<group>"; };
 		C48423231BA67FF20011D63C /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = test.h; path = ../../../Soundpipe/test/test.h; sourceTree = "<group>"; };
+		C48423421BA732400011D63C /* AKDistortion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDistortion.swift; sourceTree = "<group>"; };
 		C4963E761B9BDDBF00D57DDA /* SwiftOSXProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOSXProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4963E7A1B9BDDBF00D57DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +188,14 @@
 				C484231F1BA67FE40011D63C /* libsptest.a */,
 			);
 			name = Testing;
+			sourceTree = "<group>";
+		};
+		C48423411BA732400011D63C /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+				C48423421BA732400011D63C /* AKDistortion.swift */,
+			);
+			path = Effects;
 			sourceTree = "<group>";
 		};
 		C4963E6D1B9BDDBF00D57DDA = {
@@ -314,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A454D81BA5A8A5005EA172 /* Delays */,
+				C48423411BA732400011D63C /* Effects */,
 				C4A454DB1BA5A8A5005EA172 /* Filters */,
 				C4A454EA1BA5A8A5005EA172 /* Reverbs */,
 				C4A454ED1BA5A8A5005EA172 /* Volume and Spatialization */,
@@ -513,6 +524,7 @@
 				C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */,
 				C42AC0371B9E23BB006CE9EE /* AKInstrument.swift in Sources */,
 				C4A455051BA5A8A5005EA172 /* AKLowPassButterworthFilter.swift in Sources */,
+				C48423431BA732400011D63C /* AKDistortion.swift in Sources */,
 				C4A455071BA5A8A5005EA172 /* AKReverb.swift in Sources */,
 				C4A454F01BA5A8A5005EA172 /* AKLinearTransformation.swift in Sources */,
 				C4A455081BA5A8A5005EA172 /* AKBalance.swift in Sources */,

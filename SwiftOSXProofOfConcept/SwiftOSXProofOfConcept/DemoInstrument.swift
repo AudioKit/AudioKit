@@ -57,6 +57,8 @@ class DemoInstrument: AKInstrument {
         fmOscillator.modulatingMultiplier.value = 5
         fmOscillator.modulationIndex.value      = 11
         fmOscillator.amplitude.value            = 0.5
+        
+        let distortion = AKDistortion(input: fmOscillator)
 
         //fmOscillator = AKFMOscillator.presetWobble()
         
@@ -66,7 +68,7 @@ class DemoInstrument: AKInstrument {
         simple.amplitude.value = 1.0
         
         filter = AKDecimator(input: fmOscillator)
-        let reverb = AKReverb(input: filter)
+        let reverb = AKReverb(input: distortion)
 
         super.init()
         output = reverb
