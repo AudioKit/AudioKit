@@ -48,6 +48,22 @@ import Foundation
         return square
     }
     
+    class func standardSawtoothWave(size tableSize: Int = 4096) -> AKTable {
+        let sawtooth = AKTable(size: tableSize)
+        for i in 0..<sawtooth.size {
+            sawtooth.ftbl.memory.tbl[i] = -1.0 + 2.0*Float(i)/Float(sawtooth.size)
+        }
+        return sawtooth
+    }
+
+    class func standardReverseSawtoothWave(size tableSize: Int = 4096) -> AKTable {
+        let sawtooth = AKTable(size: tableSize)
+        for i in 0..<sawtooth.size {
+            sawtooth.ftbl.memory.tbl[i] = 1.0 - 2.0*Float(i)/Float(sawtooth.size)
+        }
+        return sawtooth
+    }
+
     
     class func standardSineWave(size tableSize: Int = 4096) -> AKTable {
         let sine = AKTable(size: tableSize)
