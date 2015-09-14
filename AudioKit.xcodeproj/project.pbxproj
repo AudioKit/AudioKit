@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65C65CFB1BA6D088003EED14 /* AKFFTTableReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */; settings = {ASSET_TAGS = (); }; };
+		65C65CFC1BA6D088003EED14 /* AKFFTTableWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */; settings = {ASSET_TAGS = (); }; };
+		65C65CFD1BA6D088003EED14 /* AKFilteredFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */; settings = {ASSET_TAGS = (); }; };
+		65C65CFE1BA6D0A3003EED14 /* AKFFTTableReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */; };
+		65C65CFF1BA6D0A3003EED14 /* AKFFTTableWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */; };
+		65C65D001BA6D0A3003EED14 /* AKFilteredFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */; };
+		65C65D011BA6D0AB003EED14 /* AKFFTTableReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */; };
+		65C65D021BA6D0AB003EED14 /* AKFFTTableWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */; };
+		65C65D031BA6D0AB003EED14 /* AKFilteredFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */; };
 		C4258E3B1B3D03D300D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
 		C4258E3C1B3D03F400D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
 		C4258E3D1B3D03F400D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
@@ -661,6 +670,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		65C65CF51BA6D088003EED14 /* AKFFTTableReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFFTTableReader.h; sourceTree = "<group>"; };
+		65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFFTTableReader.m; sourceTree = "<group>"; };
+		65C65CF71BA6D088003EED14 /* AKFFTTableWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFFTTableWriter.h; sourceTree = "<group>"; };
+		65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFFTTableWriter.m; sourceTree = "<group>"; };
+		65C65CF91BA6D088003EED14 /* AKFilteredFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFilteredFFT.h; sourceTree = "<group>"; };
+		65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFilteredFFT.m; sourceTree = "<group>"; };
 		C4258E391B3D03D300D91B3D /* AKDelayPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKDelayPedal.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKDelayPedal.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4258E3E1B3E554D00D91B3D /* AKPitchShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPitchShifter.h; sourceTree = "<group>"; };
@@ -1552,6 +1567,12 @@
 				EA8E948F1AD3C6840057E979 /* AKFFT.m */,
 				EA8E94901AD3C6840057E979 /* AKFFTProcessor.h */,
 				EA8E94911AD3C6840057E979 /* AKFFTProcessor.m */,
+				65C65CF51BA6D088003EED14 /* AKFFTTableReader.h */,
+				65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */,
+				65C65CF71BA6D088003EED14 /* AKFFTTableWriter.h */,
+				65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */,
+				65C65CF91BA6D088003EED14 /* AKFilteredFFT.h */,
+				65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */,
 				EA8E94921AD3C6840057E979 /* AKMixedFFT.h */,
 				EA8E94931AD3C6840057E979 /* AKMixedFFT.m */,
 				EA8E94941AD3C6840057E979 /* AKPhaseLockedVocoder.h */,
@@ -2200,6 +2221,7 @@
 				EA8E95EA1AD3C6850057E979 /* AKSpectralVocoder.m in Sources */,
 				EA8E962C1AD3C6850057E979 /* AKVariableDelay.m in Sources */,
 				EA8E95B51AD3C6850057E979 /* AKAudioAnalyzer.m in Sources */,
+				65C65CFC1BA6D088003EED14 /* AKFFTTableWriter.m in Sources */,
 				EA8E95B91AD3C6850057E979 /* AKPluckedStringInstrument.m in Sources */,
 				EA8E95EC1AD3C6850057E979 /* AKAssignment.m in Sources */,
 				EA8E95CD1AD3C6850057E979 /* AKTablePlot.m in Sources */,
@@ -2234,6 +2256,7 @@
 				EA8E96041AD3C6850057E979 /* AKOscillator.m in Sources */,
 				EA8E95F41AD3C6850057E979 /* AKSum.m in Sources */,
 				EA8E962F1AD3C6850057E979 /* AKFlanger.m in Sources */,
+				65C65CFD1BA6D088003EED14 /* AKFilteredFFT.m in Sources */,
 				EA8E95E11AD3C6850057E979 /* AKTrackedFrequency.m in Sources */,
 				EA8E95CB1AD3C6850057E979 /* AKPlotView.m in Sources */,
 				EA8E95D21AD3C6850057E979 /* AKPropertyLabel.m in Sources */,
@@ -2254,6 +2277,7 @@
 				EA8E95FC1AD3C6850057E979 /* AKSinusoidBursts.m in Sources */,
 				EA8E96141AD3C6850057E979 /* AKStick.m in Sources */,
 				EA8E95C21AD3C6850057E979 /* AKVCOscillatorInstrument.m in Sources */,
+				65C65CFB1BA6D088003EED14 /* AKFFTTableReader.m in Sources */,
 				EA8E95E71AD3C6850057E979 /* AKPhaseLockedVocoder.m in Sources */,
 				EA8E963A1AD3C6850057E979 /* AKResonantFilter.m in Sources */,
 				EA8E96301AD3C6850057E979 /* AKCombFilter.m in Sources */,
@@ -2395,6 +2419,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C65D011BA6D0AB003EED14 /* AKFFTTableReader.m in Sources */,
+				65C65D021BA6D0AB003EED14 /* AKFFTTableWriter.m in Sources */,
+				65C65D031BA6D0AB003EED14 /* AKFilteredFFT.m in Sources */,
 				EADE698A1B52687700996FE0 /* EZAudioDisplayLink.m in Sources */,
 				EAF365BF1ADCEA8200AA6551 /* AKRandomNumbers.m in Sources */,
 				EAF365BE1ADCEA6F00AA6551 /* AKNoise.m in Sources */,
@@ -2604,6 +2631,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C65CFE1BA6D0A3003EED14 /* AKFFTTableReader.m in Sources */,
+				65C65CFF1BA6D0A3003EED14 /* AKFFTTableWriter.m in Sources */,
+				65C65D001BA6D0A3003EED14 /* AKFilteredFFT.m in Sources */,
 				EADE69891B52687700996FE0 /* EZAudioDisplayLink.m in Sources */,
 				EAA0F4E01AE71C8F007CD7C9 /* AKBandRejectButterworthFilter.m in Sources */,
 				EAA0F4E11AE71C8F007CD7C9 /* AKConvolution.m in Sources */,
