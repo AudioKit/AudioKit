@@ -1,0 +1,28 @@
+installation_directory: "../AudioKit/Operations/Signal\ Modifiers/Effects/"
+
+sp_name: reverse
+
+operation: AKBackmask
+
+summary: Store a signal inside a buffer and play it back reversed.
+
+shortDescription: backmask
+
+description:
+  Backmasking is a recording technique in which a sound or message is recorded backward onto
+  a track that is meant to be played forward. Backmasking is a deliberate process, whereas a
+  message found through phonetic reversal may be unintentional.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+constants:
+- delay: {
+  audioKitName: delay,
+  comment: "Delay time in seconds.",
+  default: 1.0
+}
+
