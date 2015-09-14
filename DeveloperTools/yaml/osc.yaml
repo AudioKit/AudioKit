@@ -13,9 +13,9 @@ description:
  Linear interpolation is applied for table look up from internal phase values.
 
 tables:
-- ftbl: {
+- tbl: {
   audioKitName: waveform,
-  comment: "Waveform table to use.",
+  comment: "Shape of the table to oscillate.",
   default: sine
 }
 
