@@ -1,0 +1,20 @@
+installation_directory: "../AudioKit/Operations/Signal\ Modifiers/Reverbs/"
+
+sp_name: jcrev
+
+operation: AKChowningReverb
+
+summary: John Chowning reverberator
+
+shortDescription: reverb
+
+description:
+  This is was built using the JC reverb implentation found in FAUST.
+  According to the source code, the specifications for this implementation were
+  found on an old SAIL DART backup tape.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
