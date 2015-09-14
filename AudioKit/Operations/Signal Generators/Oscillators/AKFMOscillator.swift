@@ -18,11 +18,10 @@ Classic FM Synthesis audio generation.
 
     private var fosc = UnsafeMutablePointer<sp_fosc>.alloc(1)
 
-
     /** Waveform table to use. [Default Value: sine] */
     var waveform = AKTable.standardSineWave() {
         didSet {
-            waveform.bind(fosc.memory.ft)
+            fosc.memory.ft = waveform.ftbl
         }
     }
     /** In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440] */
@@ -80,6 +79,7 @@ Classic FM Synthesis audio generation.
 
     /** Instantiates the oscillator with all values
 
+    - parameter waveform: Shape of the table to oscillate [Default Value: Sine]
     - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440]
     - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency. [Default Value: 1]
     - parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency. [Default Value: 1]
@@ -87,6 +87,7 @@ Classic FM Synthesis audio generation.
     - parameter amplitude: This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
     */
     convenience init(
+        waveform             ftblInput: AKTable,
         baseFrequency        freqInput: AKParameter,
         carrierMultiplier    carInput:  AKParameter,
         modulatingMultiplier modInput:  AKParameter,
@@ -95,6 +96,7 @@ Classic FM Synthesis audio generation.
     {
         self.init()
 
+        waveform             = ftblInput
         baseFrequency        = freqInput
         carrierMultiplier    = carInput
         modulatingMultiplier = modInput
@@ -133,6 +135,7 @@ Classic FM Synthesis audio generation.
 
     /** Bind every property to the internal oscillator */
     internal func bindAll() {
+        fosc.memory.ft = waveform.ftbl
         baseFrequency       .bind(&fosc.memory.freq)
         carrierMultiplier   .bind(&fosc.memory.car)
         modulatingMultiplier.bind(&fosc.memory.mod)

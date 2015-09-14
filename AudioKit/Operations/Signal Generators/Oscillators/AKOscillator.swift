@@ -24,8 +24,7 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
     /** Waveform table to use. [Default Value: sine] */
     var waveform = AKTable.standardSineWave() {
         didSet {
-            print("got here")
-            waveform.bind(osc.memory.tbl)
+            osc.memory.tbl = waveform.ftbl
         }
     }
 
@@ -70,16 +69,19 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
 
     /** Instantiates the oscillator with all values
 
+    - parameter waveform: Shape of the table to oscillate [Default Value: Sine]
     - parameter frequency: Frequency in cycles per second [Default Value: 440]
     - parameter amplitude: Amplitude of the output [Default Value: 1]
     - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
     */
     convenience init(
+        waveform  ftblInput: AKTable,
         frequency freqInput: AKParameter,
         amplitude ampInput:  AKParameter,
         phase     iphsInput: Float)
     {
         self.init(phase: iphsInput)
+        waveform  = ftblInput
         frequency = freqInput
         amplitude = ampInput
 
@@ -90,6 +92,7 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
 
     /** Bind every property to the internal oscillator */
     internal func bindAll() {
+        osc.memory.tbl = waveform.ftbl
         frequency.bind(&osc.memory.freq)
         amplitude.bind(&osc.memory.amp)
         dependencies.append(frequency)

@@ -30,6 +30,10 @@ class ViewController : NSViewController {
         //let tester = AKTester()
         //tester.run(10)
     }
+    
+    @IBAction func revertToSines(sender: AnyObject) {
+        instrument.oscillatingFrequency.waveform = AKTable.standardSineWave()
+        instrument.fmOscillator.waveform         = AKTable.standardSineWave()
     }
     
     @IBAction func setModulatingMultiplier(sender: NSSlider) {
