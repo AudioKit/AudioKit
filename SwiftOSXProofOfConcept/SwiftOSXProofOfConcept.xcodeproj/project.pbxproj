@@ -13,6 +13,8 @@
 		C42AC0391B9E23BB006CE9EE /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC02D1B9E23BB006CE9EE /* AKParameter.swift */; };
 		C42AC03A1B9E23BB006CE9EE /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AC02E1B9E23BB006CE9EE /* AKTable.swift */; };
 		C42AC03B1B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = C42AC0311B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m */; };
+		C47AEF471BA6505700FFE3E7 /* AKParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AEF461BA6505600FFE3E7 /* AKParameterSlider.swift */; settings = {ASSET_TAGS = (); }; };
+		C47AEF4A1BA6588900FFE3E7 /* AKTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AEF491BA6588900FFE3E7 /* AKTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */; };
 		C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7D1B9BDDBF00D57DDA /* ViewController.swift */; };
 		C4963E801B9BDDBF00D57DDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4963E7F1B9BDDBF00D57DDA /* Images.xcassets */; };
@@ -45,6 +47,7 @@
 		C4A455081BA5A8A5005EA172 /* AKBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A454EE1BA5A8A5005EA172 /* AKBalance.swift */; settings = {ASSET_TAGS = (); }; };
 		C4A455091BA5A8A5005EA172 /* AKPanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A454EF1BA5A8A5005EA172 /* AKPanner.swift */; settings = {ASSET_TAGS = (); }; };
 		C4A4550C1BA5AA1C005EA172 /* AKAudioOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A4550B1BA5AA1C005EA172 /* AKAudioOutput.swift */; settings = {ASSET_TAGS = (); }; };
+		C4A4550F1BA64471005EA172 /* AKParameterLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A4550E1BA64471005EA172 /* AKParameterLabel.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E985BC1BA21336006555A3 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E985BB1BA21336006555A3 /* libsndfile.a */; };
 		C4E985CD1BA25224006555A3 /* libsoundpipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E985CC1BA25224006555A3 /* libsoundpipe.a */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -67,6 +70,8 @@
 		C42AC02E1B9E23BB006CE9EE /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C42AC0301B9E23BB006CE9EE /* AKAudioUnitRenderCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAudioUnitRenderCallback.h; sourceTree = "<group>"; };
 		C42AC0311B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioUnitRenderCallback.m; sourceTree = "<group>"; };
+		C47AEF461BA6505600FFE3E7 /* AKParameterSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameterSlider.swift; sourceTree = "<group>"; };
+		C47AEF491BA6588900FFE3E7 /* AKTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTester.swift; sourceTree = "<group>"; };
 		C4963E761B9BDDBF00D57DDA /* SwiftOSXProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOSXProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4963E7A1B9BDDBF00D57DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 		C4A454EE1BA5A8A5005EA172 /* AKBalance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBalance.swift; sourceTree = "<group>"; };
 		C4A454EF1BA5A8A5005EA172 /* AKPanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPanner.swift; sourceTree = "<group>"; };
 		C4A4550B1BA5AA1C005EA172 /* AKAudioOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioOutput.swift; sourceTree = "<group>"; };
+		C4A4550E1BA64471005EA172 /* AKParameterLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameterLabel.swift; sourceTree = "<group>"; };
 		C4E985BB1BA21336006555A3 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = /usr/local/Cellar/libsndfile/1.0.25/lib/libsndfile.a; sourceTree = "<absolute>"; };
 		C4E985C91BA2517E006555A3 /* soundpipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = soundpipe.h; path = ../../../Soundpipe/h/soundpipe.h; sourceTree = "<group>"; };
 		C4E985CC1BA25224006555A3 /* libsoundpipe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoundpipe.a; path = ../../../Soundpipe/libsoundpipe.a; sourceTree = "<group>"; };
@@ -143,10 +149,13 @@
 		C42AC02A1B9E23BB006CE9EE /* Core Classes */ = {
 			isa = PBXGroup;
 			children = (
-				C42AC02C1B9E23BB006CE9EE /* AKManager.swift */,
 				C42AC02B1B9E23BB006CE9EE /* AKInstrument.swift */,
-				C42AC02D1B9E23BB006CE9EE /* AKParameter.swift */,
+				C42AC02C1B9E23BB006CE9EE /* AKManager.swift */,
 				C42AC02E1B9E23BB006CE9EE /* AKTable.swift */,
+				C47AEF491BA6588900FFE3E7 /* AKTester.swift */,
+				C42AC02D1B9E23BB006CE9EE /* AKParameter.swift */,
+				C4A4550E1BA64471005EA172 /* AKParameterLabel.swift */,
+				C47AEF461BA6505600FFE3E7 /* AKParameterSlider.swift */,
 			);
 			path = "Core Classes";
 			sourceTree = "<group>";
@@ -461,6 +470,7 @@
 				C4A454FB1BA5A8A5005EA172 /* AKDecimator.swift in Sources */,
 				C4A455021BA5A8A5005EA172 /* AKBandPassButterworthFilter.swift in Sources */,
 				C4A4550C1BA5AA1C005EA172 /* AKAudioOutput.swift in Sources */,
+				C47AEF4A1BA6588900FFE3E7 /* AKTester.swift in Sources */,
 				C42AC0381B9E23BB006CE9EE /* AKManager.swift in Sources */,
 				C4A454F51BA5A8A5005EA172 /* AKJitter.swift in Sources */,
 				C4A454F41BA5A8A5005EA172 /* AKPhasor.swift in Sources */,
@@ -469,6 +479,7 @@
 				C4A455011BA5A8A5005EA172 /* AKThreePoleLowpassFilter.swift in Sources */,
 				C4A454FC1BA5A8A5005EA172 /* AKEqualizerFilter.swift in Sources */,
 				C4A454F81BA5A8A5005EA172 /* AKVariableDelay.swift in Sources */,
+				C47AEF471BA6505700FFE3E7 /* AKParameterSlider.swift in Sources */,
 				C4A454FE1BA5A8A5005EA172 /* AKLowPassFilter.swift in Sources */,
 				C4A454F91BA5A8A5005EA172 /* AKCombFilter.swift in Sources */,
 				C4A454F21BA5A8A5005EA172 /* AKFMOscillator.swift in Sources */,
@@ -491,6 +502,7 @@
 				C4A455081BA5A8A5005EA172 /* AKBalance.swift in Sources */,
 				C4A454FD1BA5A8A5005EA172 /* AKHighPassFilter.swift in Sources */,
 				C4A455061BA5A8A5005EA172 /* AKFlatFrequencyResponseReverb.swift in Sources */,
+				C4A4550F1BA64471005EA172 /* AKParameterLabel.swift in Sources */,
 				C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */,
 				C4A455091BA5A8A5005EA172 /* AKPanner.swift in Sources */,
 			);

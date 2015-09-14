@@ -12,20 +12,18 @@ class ViewController : NSViewController {
     
     var instrument = DemoInstrument()
     
+    @IBOutlet var frequencyLabel:  AKParameterLabel!
+    
+    @IBOutlet var frequencySlider: AKParameterSlider!
+    @IBOutlet var amplitudeSlider: AKParameterSlider!
+    @IBOutlet var carrierSlider:   AKParameterSlider!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    @IBAction func setFrequency(sender: NSSlider) {
-        instrument.oscillatingFrequency.frequency.value = sender.floatValue
-    }
-    
-    @IBAction func setAmplitude(sender: NSSlider) {
-        instrument.oscillatingFrequency.amplitude.value = sender.floatValue
-    }
-    
-    @IBAction func setCarrierMultiplier(sender: NSSlider) {
-        instrument.fmOscillator.carrierMultiplier.value = sender.floatValue
+        frequencyLabel.parameter  = instrument.oscillatingFrequency.frequency
+        frequencySlider.parameter = instrument.oscillatingFrequency.frequency
+        amplitudeSlider.parameter = instrument.oscillatingFrequency.amplitude
+        carrierSlider.parameter   = instrument.fmOscillator.carrierMultiplier
     }
     
     @IBAction func setModulatingMultiplier(sender: NSSlider) {
@@ -41,7 +39,9 @@ class ViewController : NSViewController {
     }
     
     @IBAction func setFilterParameter(sender: NSSlider) {
-        instrument.filter.cutoffFrequency.value = sender.floatValue
+        instrument.filter.bitDepth.value = sender.floatValue
+        instrument.filter.sampleRate.value = 1000
+        print(sender.floatValue)
     }
     
     

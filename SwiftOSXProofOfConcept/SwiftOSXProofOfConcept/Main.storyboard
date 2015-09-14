@@ -670,35 +670,29 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="SwiftOSXProofOfConcept" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="404" height="414"/>
+                        <rect key="frame" x="0.0" y="0.0" width="486" height="414"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-nh-Xz3">
-                                <rect key="frame" x="18" y="141" width="195" height="20"/>
+                                <rect key="frame" x="18" y="136" width="195" height="26"/>
                                 <animations/>
-                                <sliderCell key="cell" continuous="YES" alignment="left" maxValue="4000" doubleValue="1000" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
+                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="24" doubleValue="24" tickMarkPosition="above" numberOfTickMarks="24" allowsTickMarkValuesOnly="YES" sliderType="linear" id="Cyc-M5-QWD"/>
                                 <connections>
                                     <action selector="setFilterParameter:" target="XfG-lQ-9wD" id="TvX-Rp-hDf"/>
                                 </connections>
                             </slider>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xv1-y4-52k">
-                                <rect key="frame" x="18" y="327" width="195" height="20"/>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xv1-y4-52k" customClass="AKParameterSlider" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
+                                <rect key="frame" x="18" y="327" width="195" height="21"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1000" doubleValue="440" tickMarkPosition="above" sliderType="linear" id="aPu-po-vLp"/>
-                                <connections>
-                                    <action selector="setAmplitude:" target="XfG-lQ-9wD" id="2U5-q6-2c9"/>
-                                </connections>
                             </slider>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqN-XG-Wln">
-                                <rect key="frame" x="18" y="274" width="195" height="20"/>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqN-XG-Wln" customClass="AKParameterSlider" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
+                                <rect key="frame" x="18" y="274" width="195" height="21"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="3" tickMarkPosition="above" sliderType="linear" id="Ux3-De-jBS"/>
-                                <connections>
-                                    <action selector="setCarrierMultiplier:" target="XfG-lQ-9wD" id="857-NF-LJc"/>
-                                </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctg-79-BeF">
-                                <rect key="frame" x="18" y="224" width="195" height="20"/>
+                                <rect key="frame" x="18" y="224" width="195" height="21"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="11" tickMarkPosition="above" sliderType="linear" id="Yvb-vC-uHu"/>
                                 <connections>
@@ -706,7 +700,7 @@
                                 </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EmE-Qe-70X">
-                                <rect key="frame" x="18" y="199" width="195" height="20"/>
+                                <rect key="frame" x="18" y="199" width="195" height="21"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="W4S-ES-NjX"/>
                                 <connections>
@@ -795,20 +789,17 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Gq-1p-c36">
-                                <rect key="frame" x="18" y="249" width="195" height="20"/>
+                                <rect key="frame" x="18" y="249" width="195" height="21"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="5" tickMarkPosition="above" sliderType="linear" id="rwf-cW-guo"/>
                                 <connections>
                                     <action selector="setModulatingMultiplier:" target="XfG-lQ-9wD" id="jHq-WM-Gaq"/>
                                 </connections>
                             </slider>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-pD-6GA">
-                                <rect key="frame" x="20" y="350" width="195" height="20"/>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-pD-6GA" customClass="AKParameterSlider" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
+                                <rect key="frame" x="20" y="350" width="195" height="21"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="qtd-o1-n5P"/>
-                                <connections>
-                                    <action selector="setFrequency:" target="XfG-lQ-9wD" id="ue5-FY-xdI"/>
-                                </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ttA-uT-R19">
                                 <rect key="frame" x="232" y="352" width="69" height="17"/>
@@ -819,14 +810,29 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4ky-2z-gce" customClass="AKParameterLabel" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
+                                <rect key="frame" x="305" y="351" width="90" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="2uq-q3-MVL">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <animations/>
                     </view>
+                    <connections>
+                        <outlet property="amplitudeSlider" destination="xv1-y4-52k" id="2Hg-08-THW"/>
+                        <outlet property="carrierSlider" destination="uqN-XG-Wln" id="wYI-17-Hgo"/>
+                        <outlet property="frequencyLabel" destination="4ky-2z-gce" id="txM-B8-JLc"/>
+                        <outlet property="frequencySlider" destination="xH1-pD-6GA" id="A6b-Wq-QHd"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <userDefaultsController representsSharedInstance="YES" id="K4Z-KE-ZbS"/>
             </objects>
-            <point key="canvasLocation" x="37" y="830"/>
+            <point key="canvasLocation" x="78" y="830"/>
         </scene>
     </scenes>
 </document>

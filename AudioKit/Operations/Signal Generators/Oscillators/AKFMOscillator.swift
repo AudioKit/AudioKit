@@ -20,8 +20,11 @@ Classic FM Synthesis audio generation.
 
 
     /** Waveform table to use. [Default Value: sine] */
-    var waveform = AKTable()
-
+    var waveform = AKTable.standardSineWave() {
+        didSet {
+            waveform.bind(fosc.memory.ft)
+        }
+    }
     /** In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. [Default Value: 440] */
     var baseFrequency: AKParameter = akp(440) {
         didSet {
