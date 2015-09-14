@@ -1,0 +1,25 @@
+installation_directory: "../AudioKit/Operations/Signal\ Generators/Random\ Generators/"
+
+sp_name: random
+
+operation: AKRandomNumbers
+
+summary: Random Number Generator
+
+shortDescription: numbers
+
+description:
+  Generate random values within a range.
+
+parameters:
+- min: {
+  audioKitName: lowerBound,
+  comment: "Minimum range limit.",
+  default: -0.2
+}
+- max: {
+  audioKitName: upperBound,
+  comment: "Maximum range limit.",
+  default: 0.2
+}
+
