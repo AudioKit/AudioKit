@@ -17,6 +17,7 @@ import Foundation
     /** The collection of instruments */
     var instruments: [AKInstrument] = []
     
+    /** The demo instrument */
     var instrument = DemoInstrument()
     
     /** Start up SoundPipe */
@@ -30,6 +31,7 @@ import Foundation
         sp_test_destroy(&test)
     }
 
+    /** Run a test */
     func run(duration: Float) {
         let samples = 10 * 44100
         

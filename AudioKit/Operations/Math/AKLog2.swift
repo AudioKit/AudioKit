@@ -8,16 +8,18 @@
 
 import Foundation
 
+/** Log base 2 helper function */
 func log2(parameter: AKParameter) -> AKLog2 {
     return AKLog2(input: parameter)
 }
 
-/** Log2 of the input signal.
+/** Log base 2 of the input signal.
 */
 @objc class AKLog2 : AKParameter {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var input = AKParameter()
     
     // MARK: - Initializers

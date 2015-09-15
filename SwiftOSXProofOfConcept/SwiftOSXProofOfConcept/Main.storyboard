@@ -674,9 +674,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-nh-Xz3">
-                                <rect key="frame" x="18" y="136" width="195" height="26"/>
+                                <rect key="frame" x="18" y="141" width="195" height="21"/>
                                 <animations/>
-                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="24" doubleValue="24" tickMarkPosition="above" numberOfTickMarks="24" allowsTickMarkValuesOnly="YES" sliderType="linear" id="Cyc-M5-QWD"/>
+                                <sliderCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="10000" doubleValue="1000" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
                                 <connections>
                                     <action selector="setFilterParameter:" target="XfG-lQ-9wD" id="TvX-Rp-hDf"/>
                                 </connections>

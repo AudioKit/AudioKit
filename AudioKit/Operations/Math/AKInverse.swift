@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Inverse helper function */
 func inverse(parameter: AKParameter) -> AKInverse {
     return AKInverse(input: parameter)
 }
@@ -18,6 +19,7 @@ func inverse(parameter: AKParameter) -> AKInverse {
 
     // MARK: - Properties
 
+    /** Input to the mathematical function */
     private var input = AKParameter()
 
     // MARK: - Initializers

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Absolute value helper function */
 func abs(parameter: AKParameter) -> AKAbsoluteValue {
     return AKAbsoluteValue(input: parameter)
 }
@@ -18,6 +19,7 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var input = AKParameter()
     
     // MARK: - Initializers

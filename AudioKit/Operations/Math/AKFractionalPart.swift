@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Fractional Part helper function */
 func fractionalPart(parameter: AKParameter) -> AKFractionalPart {
     return AKFractionalPart(input: parameter)
 }
@@ -18,7 +19,8 @@ func fractionalPart(parameter: AKParameter) -> AKFractionalPart {
     
     // MARK: - Properties
     
-    private var input = AKParameter()
+    /** Input to the mathematical function */
+   private var input = AKParameter()
     
     // MARK: - Initializers
     

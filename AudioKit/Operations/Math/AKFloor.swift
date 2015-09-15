@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Floor helper function */
 func floor(parameter: AKParameter) -> AKFloor {
     return AKFloor(input: parameter)
 }
@@ -18,7 +19,8 @@ func floor(parameter: AKParameter) -> AKFloor {
     
     // MARK: - Properties
     
-    private var input = AKParameter()
+    /** Input to the mathematical function */
+   private var input = AKParameter()
     
     // MARK: - Initializers
     
