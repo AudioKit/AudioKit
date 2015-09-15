@@ -71,7 +71,7 @@ This module scales from one range to another defined by a minimum and maximum po
 
     /** Instantiates the scaled value with all values
 
-    - parameter input: Input audio signal. 
+    - parameter input: Input signal. 
     - parameter minimumInput: Minimum value to scale from. [Default Value: -1]
     - parameter maximumInput: Maximum value to scale from. [Default Value: 1]
     - parameter minimumOutput: Minimum value to scale to. [Default Value: 0]

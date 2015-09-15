@@ -1,5 +1,5 @@
 //
-//  AKAbsoluteValue.swift
+//  AKRound.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/14/15.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-func abs(parameter: AKParameter) -> AKAbsoluteValue {
-    return AKAbsoluteValue(input: parameter)
+func round(parameter: AKParameter) -> AKRound {
+    return AKRound(input: parameter)
 }
 
-/** Absolute value of the input signal.
+/** Round of the input signal.
 */
-@objc class AKAbsoluteValue : AKParameter {
+@objc class AKRound : AKParameter {
     
     // MARK: - Properties
     
@@ -22,7 +22,7 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
+    /** Instantiates the rounded value
     - parameter input: Input signal.
     */
     init(input sourceInput: AKParameter)
@@ -34,8 +34,9 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     /** Computation of the next value */
     override func compute() {
-        leftOutput  = abs(input.leftOutput)
-        rightOutput = abs(input.rightOutput)
+        leftOutput  = round(input.leftOutput)
+        rightOutput = round(input.rightOutput)
     }
     
 }
+

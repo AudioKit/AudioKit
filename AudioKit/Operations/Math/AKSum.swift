@@ -1,6 +1,6 @@
 //
 //  AKSum.swift
-//  SwiftOSXProofOfConcept
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/14/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
@@ -23,8 +23,9 @@ func + (left: AKParameter, right: AKParameter) -> AKSum {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
-    - parameter input: Input audio signal.
+    /** Instantiates the sum
+    - parameter input: The first input.
+    - parameter plus: The second input.
     */
     init(input firstInput: AKParameter, plus secondInput: AKParameter)
     {

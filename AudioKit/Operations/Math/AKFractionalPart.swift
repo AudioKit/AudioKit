@@ -1,5 +1,5 @@
 //
-//  AKAbsoluteValue.swift
+//  AKFractionalPart.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/14/15.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-func abs(parameter: AKParameter) -> AKAbsoluteValue {
-    return AKAbsoluteValue(input: parameter)
+func fractionalPart(parameter: AKParameter) -> AKFractionalPart {
+    return AKFractionalPart(input: parameter)
 }
 
-/** Absolute value of the input signal.
+/** FractionalPart of the input signal.
 */
-@objc class AKAbsoluteValue : AKParameter {
+@objc class AKFractionalPart : AKParameter {
     
     // MARK: - Properties
     
@@ -22,7 +22,7 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
+    /** Instantiates the fractionalPart
     - parameter input: Input signal.
     */
     init(input sourceInput: AKParameter)
@@ -34,8 +34,8 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     /** Computation of the next value */
     override func compute() {
-        leftOutput  = abs(input.leftOutput)
-        rightOutput = abs(input.rightOutput)
+        leftOutput  = abs(input.leftOutput  - floor(input.leftOutput))
+        rightOutput = abs(input.rightOutput - floor(input.rightOutput))
     }
     
 }

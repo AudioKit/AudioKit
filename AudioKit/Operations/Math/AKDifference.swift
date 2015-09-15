@@ -1,6 +1,6 @@
 //
 //  AKDifference.swift
-//  SwiftOSXProofOfConcept
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/14/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
@@ -23,8 +23,9 @@ func - (left: AKParameter, right: AKParameter) -> AKDifference {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
-    - parameter input: Input audio signal.
+    /** Instantiates the difference
+    - parameter input: The input to be subtracted from.
+    - parameter minus: The input that will be subtracted.
     */
     init(input minuendInput: AKParameter, minus subtrahendInput: AKParameter)
     {
