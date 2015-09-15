@@ -8,16 +8,18 @@
 
 import Foundation
 
+/** Rounding helper function */
 func round(parameter: AKParameter) -> AKRound {
     return AKRound(input: parameter)
 }
 
-/** Round of the input signal.
+/** Rounding of the input signal to the nearest integer.
 */
 @objc class AKRound : AKParameter {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var input = AKParameter()
     
     // MARK: - Initializers

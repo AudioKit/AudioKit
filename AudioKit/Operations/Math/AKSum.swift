@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Addition helper function */
 func + (left: AKParameter, right: AKParameter) -> AKSum {
     return AKSum(input: left, plus: right)
 }
@@ -18,7 +19,9 @@ func + (left: AKParameter, right: AKParameter) -> AKSum {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var first  = AKParameter()
+    /** Input to the mathematical function */
     private var second = AKParameter()
     
     // MARK: - Initializers

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Subtraction helper function */
 func - (left: AKParameter, right: AKParameter) -> AKDifference {
     return AKDifference(input: left, minus: right)
 }
@@ -18,7 +19,9 @@ func - (left: AKParameter, right: AKParameter) -> AKDifference {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var minuend    = AKParameter()
+    /** Input to the mathematical function */
     private var subtrahend = AKParameter()
     
     // MARK: - Initializers

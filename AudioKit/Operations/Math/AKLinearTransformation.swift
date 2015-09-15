@@ -16,8 +16,10 @@ This module scales from one range to another defined by a minimum and maximum po
 
     // MARK: - Properties
 
-    private var scale = UnsafeMutablePointer<sp_scale>.alloc(1)
+    /** Pointer to the Soundpipe variable */
+   private var scale = UnsafeMutablePointer<sp_scale>.alloc(1)
 
+    /** Input to the mathematical function */
     private var input = AKParameter()
 
 

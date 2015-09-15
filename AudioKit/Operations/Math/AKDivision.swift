@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Division helper function */
 func / (left: AKParameter, right: AKParameter) -> AKDivision {
     return AKDivision(input: left, dividedBy: right)
 }
@@ -18,7 +19,9 @@ func / (left: AKParameter, right: AKParameter) -> AKDivision {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var numerator   = AKParameter()
+    /** Input to the mathematical function */
     private var denominator = AKParameter()
     
     // MARK: - Initializers

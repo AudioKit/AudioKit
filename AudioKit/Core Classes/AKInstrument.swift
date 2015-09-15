@@ -13,6 +13,8 @@ import Foundation
     
     /** All operations which need to be computed for this instrument */
     var operations: [AKParameter] = []
+    
+    /** A final audio output parameter */
     var output: AKParameter? {
         didSet {
             connect(AKAudioOutput(input: output!))
@@ -27,6 +29,7 @@ import Foundation
         AKManager.sharedManager.instruments.append(self)
     }
     
+    /** Add a parameter to the operations and all of its dependencies */
     func connect(operation: AKParameter) {
         operation.connected = true
         operation.dependencies.forEach { (dependency) -> () in

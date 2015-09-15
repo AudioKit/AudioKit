@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Multiplication helper function */
 func * (left: AKParameter, right: AKParameter) -> AKProduct {
     return AKProduct(input: left, times: right)
 }
@@ -18,7 +19,9 @@ func * (left: AKParameter, right: AKParameter) -> AKProduct {
     
     // MARK: - Properties
     
-    private var first  = AKParameter()
+    /** Input to the mathematical function */
+   private var first  = AKParameter()
+    /** Input to the mathematical function */
     private var second = AKParameter()
     
     // MARK: - Initializers

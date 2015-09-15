@@ -8,6 +8,7 @@
 
 import Foundation
 
+/** Natural log helper function */
 func log(parameter: AKParameter) -> AKLog {
     return AKLog(input: parameter)
 }
@@ -18,6 +19,7 @@ func log(parameter: AKParameter) -> AKLog {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var input = AKParameter()
     
     // MARK: - Initializers

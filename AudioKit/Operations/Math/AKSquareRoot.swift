@@ -8,9 +8,10 @@
 
 import Foundation
 
-//func sqrt(parameter: AKParameter) -> AKSquareRoot {
-//    return AKSquareRoot(input: parameter)
-//}
+/** Square root helper function */
+func sqrt(parameter: AKParameter) -> AKSquareRoot {
+    return AKSquareRoot(input: parameter)
+}
 
 /** Square root of the input signal.
 */
@@ -18,7 +19,8 @@ import Foundation
     
     // MARK: - Properties
     
-    private var input = AKParameter()
+    /** Input to the mathematical function */
+   private var input = AKParameter()
     
     // MARK: - Initializers
     

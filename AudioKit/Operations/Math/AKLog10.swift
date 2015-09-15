@@ -8,16 +8,18 @@
 
 import Foundation
 
+/** Log base 10 helper function */
 func log10(parameter: AKParameter) -> AKLog10 {
     return AKLog10(input: parameter)
 }
 
-/** Log10 of the input signal.
+/** Log base 10 of the input signal.
 */
 @objc class AKLog10 : AKParameter {
     
     // MARK: - Properties
     
+    /** Input to the mathematical function */
     private var input = AKParameter()
     
     // MARK: - Initializers
