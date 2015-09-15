@@ -29,7 +29,9 @@ extension Double {
 /** A parent class for all variables in AudioKit */
 @objc class AKParameter : NSObject {
     
-    /** Pointers to the SoundPipe floats */
+    // MARK: - Properties
+    
+    /** Pointers to the SoundPipe variables */
     var leftPointer:  UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
     var rightPointer: UnsafeMutablePointer<Float> = UnsafeMutablePointer.alloc(1)
     
@@ -47,7 +49,9 @@ extension Double {
 
     var dependencies = [AKParameter]()
     var connected: Bool
-
+    
+    // MARK: - Initializers
+    
     override init() {
         connected = false
         super.init()
@@ -64,6 +68,26 @@ extension Double {
         rightOutput = float
         connected = true
     }
+    
+    // MARK: - Math Helpers
+    
+    func scaledBy(parameter: AKParameter) -> AKProduct {
+        return AKProduct(input: self, times: parameter)
+    }
+    
+    func dividedBy(parameter: AKParameter) -> AKDivision {
+        return AKDivision(input: self, dividedBy: parameter)
+    }
+    
+    func plus(parameter: AKParameter) -> AKSum {
+        return AKSum(input: self, plus: parameter)
+    }
+    
+    func minus(parameter: AKParameter) -> AKDifference {
+        return AKDifference(input: self, minus: parameter)
+    }
+    
+    // MARK: - Internal
     
     /** Bind the memory of the SoundPipe value to this parameter */
     func bind(binding:UnsafeMutablePointer<Float>)

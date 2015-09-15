@@ -1,5 +1,5 @@
 //
-//  AKAbsoluteValue.swift
+//  AKSquareRoot.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/14/15.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-func abs(parameter: AKParameter) -> AKAbsoluteValue {
-    return AKAbsoluteValue(input: parameter)
-}
+//func sqrt(parameter: AKParameter) -> AKSquareRoot {
+//    return AKSquareRoot(input: parameter)
+//}
 
-/** Absolute value of the input signal.
+/** Square root of the input signal.
 */
-@objc class AKAbsoluteValue : AKParameter {
+@objc class AKSquareRoot : AKParameter {
     
     // MARK: - Properties
     
@@ -22,7 +22,7 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
+    /** Instantiates the square root
     - parameter input: Input signal.
     */
     init(input sourceInput: AKParameter)
@@ -34,8 +34,8 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     /** Computation of the next value */
     override func compute() {
-        leftOutput  = abs(input.leftOutput)
-        rightOutput = abs(input.rightOutput)
+        leftOutput  = sqrt(input.leftOutput)
+        rightOutput = sqrt(input.rightOutput)
     }
     
 }

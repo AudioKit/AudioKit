@@ -1,5 +1,5 @@
 //
-//  AKAbsoluteValue.swift
+//  AKFloor.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/14/15.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-func abs(parameter: AKParameter) -> AKAbsoluteValue {
-    return AKAbsoluteValue(input: parameter)
+func floor(parameter: AKParameter) -> AKFloor {
+    return AKFloor(input: parameter)
 }
 
-/** Absolute value of the input signal.
+/** Floor of the input signal.
 */
-@objc class AKAbsoluteValue : AKParameter {
+@objc class AKFloor : AKParameter {
     
     // MARK: - Properties
     
@@ -22,7 +22,7 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
+    /** Instantiates the floored value
     - parameter input: Input signal.
     */
     init(input sourceInput: AKParameter)
@@ -34,8 +34,8 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     /** Computation of the next value */
     override func compute() {
-        leftOutput  = abs(input.leftOutput)
-        rightOutput = abs(input.rightOutput)
+        leftOutput  = floor(input.leftOutput)
+        rightOutput = floor(input.rightOutput)
     }
     
 }

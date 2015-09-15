@@ -1,6 +1,6 @@
 //
-//  AKAbsoluteValue.swift
-//  AudioKit
+//  AKLog2.swift
+//  SwiftOSXProofOfConcept
 //
 //  Created by Aurelius Prochazka on 9/14/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-func abs(parameter: AKParameter) -> AKAbsoluteValue {
-    return AKAbsoluteValue(input: parameter)
+func log2(parameter: AKParameter) -> AKLog2 {
+    return AKLog2(input: parameter)
 }
 
-/** Absolute value of the input signal.
+/** Log2 of the input signal.
 */
-@objc class AKAbsoluteValue : AKParameter {
+@objc class AKLog2 : AKParameter {
     
     // MARK: - Properties
     
@@ -22,7 +22,7 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
+    /** Instantiates the log2
     - parameter input: Input signal.
     */
     init(input sourceInput: AKParameter)
@@ -34,8 +34,8 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
     
     /** Computation of the next value */
     override func compute() {
-        leftOutput  = abs(input.leftOutput)
-        rightOutput = abs(input.rightOutput)
+        leftOutput  = log2(input.leftOutput)
+        rightOutput = log2(input.rightOutput)
     }
     
 }

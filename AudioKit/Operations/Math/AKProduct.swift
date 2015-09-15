@@ -1,6 +1,6 @@
 //
 //  AKProduct.swift
-//  SwiftOSXProofOfConcept
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 9/14/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
@@ -23,8 +23,9 @@ func * (left: AKParameter, right: AKParameter) -> AKProduct {
     
     // MARK: - Initializers
     
-    /** Instantiates the absoute value
-    - parameter input: Input audio signal.
+    /** Instantiates the product
+    - parameter input: The first input.
+    - parameter times: The second input.
     */
     init(input firstInput: AKParameter, times secondInput: AKParameter)
     {

@@ -23,7 +23,7 @@ func inverse(parameter: AKParameter) -> AKInverse {
     // MARK: - Initializers
 
     /** Instantiates the inverse
-    - parameter input: Input audio signal. 
+    - parameter input: Input signal. 
     */
     init(input sourceInput: AKParameter)
     {
