@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Log base 10 helper function */
-func log10(parameter: AKParameter) -> AKLog10 {
-    return AKLog10(input: parameter)
-}
-
 /** Log base 10 of the input signal.
 */
 @objc class AKLog10 : AKParameter {
@@ -39,5 +34,9 @@ func log10(parameter: AKParameter) -> AKLog10 {
         leftOutput  = log10(input.leftOutput)
         rightOutput = log10(input.rightOutput)
     }
-    
+}
+
+/** Log base 10 helper function */
+func log10(parameter: AKParameter) -> AKLog10 {
+    return AKLog10(input: parameter)
 }

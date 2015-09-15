@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Absolute value helper function */
-func abs(parameter: AKParameter) -> AKAbsoluteValue {
-    return AKAbsoluteValue(input: parameter)
-}
-
 /** Absolute value of the input signal.
 */
 @objc class AKAbsoluteValue : AKParameter {
@@ -39,5 +34,10 @@ func abs(parameter: AKParameter) -> AKAbsoluteValue {
         leftOutput  = abs(input.leftOutput)
         rightOutput = abs(input.rightOutput)
     }
-    
 }
+
+/** Absolute value helper function */
+func abs(parameter: AKParameter) -> AKAbsoluteValue {
+    return AKAbsoluteValue(input: parameter)
+}
+

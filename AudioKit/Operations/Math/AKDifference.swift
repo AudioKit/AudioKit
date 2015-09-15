@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Subtraction helper function */
-func - (left: AKParameter, right: AKParameter) -> AKDifference {
-    return AKDifference(input: left, minus: right)
-}
-
 /** Difference of two inputs signals
 */
 @objc class AKDifference : AKParameter {
@@ -43,5 +38,30 @@ func - (left: AKParameter, right: AKParameter) -> AKDifference {
         leftOutput  = minuend.leftOutput  - subtrahend.leftOutput
         rightOutput = minuend.rightOutput - subtrahend.rightOutput
     }
-    
 }
+
+/** Subtraction helper function */
+func - (left: AKParameter, right: AKParameter) -> AKDifference {
+    return AKDifference(input: left, minus: right)
+}
+
+/** Subtraction helper function */
+func - (left: AKParameter, right: Float) -> AKDifference {
+    return AKDifference(input: left, minus: akp(right))
+}
+
+/** Subtraction helper function */
+func - (left: Float, right: AKParameter) -> AKDifference {
+    return AKDifference(input: akp(left), minus: right)
+}
+
+/** Subtraction helper function */
+func - (left: AKParameter, right: Int) -> AKDifference {
+    return AKDifference(input: left, minus: akpi(right))
+}
+
+/** Subtraction helper function */
+func - (left: Int, right: AKParameter) -> AKDifference {
+    return AKDifference(input: akpi(left), minus: right)
+}
+

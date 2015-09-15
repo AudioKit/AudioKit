@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Floor helper function */
-func floor(parameter: AKParameter) -> AKFloor {
-    return AKFloor(input: parameter)
-}
-
 /** Floor of the input signal.
 */
 @objc class AKFloor : AKParameter {
@@ -39,5 +34,9 @@ func floor(parameter: AKParameter) -> AKFloor {
         leftOutput  = floor(input.leftOutput)
         rightOutput = floor(input.rightOutput)
     }
-    
+}
+
+/** Floor helper function */
+func floor(parameter: AKParameter) -> AKFloor {
+    return AKFloor(input: parameter)
 }

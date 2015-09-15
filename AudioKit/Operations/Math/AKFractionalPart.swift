@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Fractional Part helper function */
-func fractionalPart(parameter: AKParameter) -> AKFractionalPart {
-    return AKFractionalPart(input: parameter)
-}
-
 /** FractionalPart of the input signal.
 */
 @objc class AKFractionalPart : AKParameter {
@@ -39,5 +34,10 @@ func fractionalPart(parameter: AKParameter) -> AKFractionalPart {
         leftOutput  = abs(input.leftOutput  - floor(input.leftOutput))
         rightOutput = abs(input.rightOutput - floor(input.rightOutput))
     }
-    
 }
+
+/** Fractional Part helper function */
+func fractionalPart(parameter: AKParameter) -> AKFractionalPart {
+    return AKFractionalPart(input: parameter)
+}
+

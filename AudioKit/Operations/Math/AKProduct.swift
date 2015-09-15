@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Multiplication helper function */
-func * (left: AKParameter, right: AKParameter) -> AKProduct {
-    return AKProduct(input: left, times: right)
-}
-
 /** Product of two input signals
 */
 @objc class AKProduct : AKParameter {
@@ -43,5 +38,29 @@ func * (left: AKParameter, right: AKParameter) -> AKProduct {
         leftOutput  = first.leftOutput  * second.leftOutput
         rightOutput = first.rightOutput * second.rightOutput
     }
-    
+}
+
+/** Multiplication helper function */
+func * (left: AKParameter, right: AKParameter) -> AKProduct {
+    return AKProduct(input: left, times: right)
+}
+
+/** Multiplication helper function */
+func * (left: AKParameter, right: Float) -> AKProduct {
+    return AKProduct(input: left, times: akp(right))
+}
+
+/** Multiplication helper function */
+func * (left: Float, right: AKParameter) -> AKProduct {
+    return AKProduct(input: akp(left), times: right)
+}
+
+/** Multiplication helper function */
+func * (left: AKParameter, right: Int) -> AKProduct {
+    return AKProduct(input: left, times: akpi(right))
+}
+
+/** Multiplication helper function */
+func * (left: Int, right: AKParameter) -> AKProduct {
+    return AKProduct(input: akpi(left), times: right)
 }

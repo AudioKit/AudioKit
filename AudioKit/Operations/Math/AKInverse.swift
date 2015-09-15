@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Inverse helper function */
-func inverse(parameter: AKParameter) -> AKInverse {
-    return AKInverse(input: parameter)
-}
-
 /** Inverse of the input signal.
 */
 @objc class AKInverse : AKParameter {
@@ -39,5 +34,9 @@ func inverse(parameter: AKParameter) -> AKInverse {
         leftOutput  = 1.0 / input.leftOutput
         rightOutput = 1.0 / input.rightOutput
     }
+}
 
+/** Inverse helper function */
+func inverse(parameter: AKParameter) -> AKInverse {
+    return AKInverse(input: parameter)
 }

@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Addition helper function */
-func + (left: AKParameter, right: AKParameter) -> AKSum {
-    return AKSum(input: left, plus: right)
-}
-
 /** Sum of two input signals
 */
 @objc class AKSum : AKParameter {
@@ -43,5 +38,29 @@ func + (left: AKParameter, right: AKParameter) -> AKSum {
         leftOutput  = first.leftOutput  + second.leftOutput
         rightOutput = first.rightOutput + second.rightOutput
     }
-    
+}
+
+/** Addition helper function */
+func + (left: AKParameter, right: AKParameter) -> AKSum {
+    return AKSum(input: left, plus: right)
+}
+
+/** Addition helper function */
+func + (left: AKParameter, right: Float) -> AKSum {
+    return AKSum(input: left, plus: akp(right))
+}
+
+/** Addition helper function */
+func + (left: Float, right: AKParameter) -> AKSum {
+    return AKSum(input: akp(left), plus: right)
+}
+
+/** Addition helper function */
+func + (left: AKParameter, right: Int) -> AKSum {
+    return AKSum(input: left, plus: akpi(right))
+}
+
+/** Addition helper function */
+func + (left: Int, right: AKParameter) -> AKSum {
+    return AKSum(input: akpi(left), plus: right)
 }

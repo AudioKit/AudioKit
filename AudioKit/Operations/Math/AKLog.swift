@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Natural log helper function */
-func log(parameter: AKParameter) -> AKLog {
-    return AKLog(input: parameter)
-}
-
 /** Log of the input signal.
 */
 @objc class AKLog : AKParameter {
@@ -39,5 +34,9 @@ func log(parameter: AKParameter) -> AKLog {
         leftOutput  = log(input.leftOutput)
         rightOutput = log(input.rightOutput)
     }
-    
+}
+
+/** Natural log helper function */
+func log(parameter: AKParameter) -> AKLog {
+    return AKLog(input: parameter)
 }

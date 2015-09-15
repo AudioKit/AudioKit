@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Square root helper function */
-func sqrt(parameter: AKParameter) -> AKSquareRoot {
-    return AKSquareRoot(input: parameter)
-}
-
 /** Square root of the input signal.
 */
 @objc class AKSquareRoot : AKParameter {
@@ -39,5 +34,9 @@ func sqrt(parameter: AKParameter) -> AKSquareRoot {
         leftOutput  = sqrt(input.leftOutput)
         rightOutput = sqrt(input.rightOutput)
     }
-    
+}
+
+/** Square root helper function */
+func sqrt(parameter: AKParameter) -> AKSquareRoot {
+    return AKSquareRoot(input: parameter)
 }

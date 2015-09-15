@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Rounding helper function */
-func round(parameter: AKParameter) -> AKRound {
-    return AKRound(input: parameter)
-}
-
 /** Rounding of the input signal to the nearest integer.
 */
 @objc class AKRound : AKParameter {
@@ -39,6 +34,9 @@ func round(parameter: AKParameter) -> AKRound {
         leftOutput  = round(input.leftOutput)
         rightOutput = round(input.rightOutput)
     }
-    
 }
 
+/** Rounding helper function */
+func round(parameter: AKParameter) -> AKRound {
+    return AKRound(input: parameter)
+}
