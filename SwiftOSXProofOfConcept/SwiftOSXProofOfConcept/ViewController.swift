@@ -49,8 +49,7 @@ class ViewController : NSViewController {
     }
     
     @IBAction func setFilterParameter(sender: NSSlider) {
-        instrument.filter.bitDepth.value = sender.floatValue
-        instrument.filter.sampleRate.value = 1000
+        instrument.filter.frequency.value = sender.floatValue
         print(sender.floatValue)
     }
     

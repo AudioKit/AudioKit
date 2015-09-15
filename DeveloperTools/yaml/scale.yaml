@@ -15,7 +15,7 @@ description:
 inputs:
 - source: {
   audioKitName: input,
-  comment: "Input audio signal."
+  comment: "Input signal."
 }
 
 parameters:
