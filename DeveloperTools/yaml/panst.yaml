@@ -26,4 +26,10 @@ parameters:
   comment: "Panning. A value of zero is hard left, and a value of 1 is hard right.",
   default: 0.5
 }
+- type: {
+  audioKitName: panMethod,
+  comment: "Panning type. 0 = equal power, 1 = square root, 2 = linear, 3 = alternative equal power.",
+  type: UInt32,
+  default: 0
+}
 

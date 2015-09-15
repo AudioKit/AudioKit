@@ -18,6 +18,9 @@ New random numbers are generated at a given frequency between zero and a maximum
 
     private var randi = UnsafeMutablePointer<sp_randi>.alloc(1)
 
+    /** Seed to use. [Default Value: 0] */
+    private var seed: Int32 = 0
+
 
     /** Minimum range limit. [Default Value: 0] */
     var lowerBound: AKParameter = akp(0) {
@@ -56,19 +59,30 @@ New random numbers are generated at a given frequency between zero and a maximum
         bindAll()
     }
 
+    /** Instantiates pulse with constants
+
+    - parameter seed: Seed to use. [Default Value: 0]
+    */
+    init (seed seedInput: Int32) {
+        super.init()
+        setup(seedInput)
+        bindAll()
+    }
+
     /** Instantiates the pulse with all values
 
     - parameter lowerBound: Minimum range limit. [Default Value: 0]
     - parameter upperBound: Maximum range limit. [Default Value: 1]
     - parameter frequency: Frequency at which the new numbers are generated in Hz. [Default Value: 1]
+    - parameter seed: Seed to use. [Default Value: 0]
     */
     convenience init(
-        lowerBound minInput: AKParameter,
-        upperBound maxInput: AKParameter,
-        frequency  cpsInput: AKParameter)
+        lowerBound minInput:  AKParameter,
+        upperBound maxInput:  AKParameter,
+        frequency  cpsInput:  AKParameter,
+        seed       seedInput: Int32)
     {
-        self.init()
-
+        self.init(seed: seedInput)
         lowerBound = minInput
         upperBound = maxInput
         frequency  = cpsInput
@@ -82,16 +96,17 @@ New random numbers are generated at a given frequency between zero and a maximum
     internal func bindAll() {
         lowerBound.bind(&randi.memory.min)
         upperBound.bind(&randi.memory.max)
-        frequency .bind(&randi.memory.cps)
+        frequency.bind(&randi.memory.cps)
         dependencies.append(lowerBound)
         dependencies.append(upperBound)
         dependencies.append(frequency)
     }
 
     /** Internal set up function */
-    internal func setup() {
+    internal func setup(seed: Int32 = 0)
+ {
         sp_randi_create(&randi)
-        sp_randi_init(AKManager.sharedManager.data, randi, 0)
+        sp_randi_init(AKManager.sharedManager.data, randi, seed)
     }
 
     /** Computation of the next value */
