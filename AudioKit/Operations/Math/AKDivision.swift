@@ -8,11 +8,6 @@
 
 import Foundation
 
-/** Division helper function */
-func / (left: AKParameter, right: AKParameter) -> AKDivision {
-    return AKDivision(input: left, dividedBy: right)
-}
-
 /** Product of two input signals
 */
 @objc class AKDivision : AKParameter {
@@ -47,5 +42,30 @@ func / (left: AKParameter, right: AKParameter) -> AKDivision {
             rightOutput = numerator.rightOutput / denominator.rightOutput
         }
     }
-    
+}
+
+
+/** Division helper function */
+func / (left: AKParameter, right: AKParameter) -> AKDivision {
+    return AKDivision(input: left, dividedBy: right)
+}
+
+/** Division helper function */
+func / (left: AKParameter, right: Float) -> AKDivision {
+    return AKDivision(input: left, dividedBy: akp(right))
+}
+
+/** Division helper function */
+func / (left: Float, right: AKParameter) -> AKDivision {
+    return AKDivision(input: akp(left), dividedBy: right)
+}
+
+/** Division helper function */
+func / (left: AKParameter, right: Int) -> AKDivision {
+    return AKDivision(input: left, dividedBy: akpi(right))
+}
+
+/** Division helper function */
+func / (left: Int, right: AKParameter) -> AKDivision {
+    return AKDivision(input: akpi(left), dividedBy: right)
 }

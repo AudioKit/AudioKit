@@ -8,38 +8,6 @@
 
 import Foundation
 
-// MARK: - Parameter related functions and extensions
-
-/** Constant parameter helper function
-- parameter num: Floating point constant
-*/
-func akp(num: Float) -> AKParameter {
-    /** Returns an AKParameter with a constant value */
-    return AKParameter(float: num)
-}
-
-/** AudioKit extension to Int */
-extension Int {
-    /** Returns an AKParameter with a constant value */
-    var ak: AKParameter { return AKParameter(float: Float(self)) }
-}
-
-/** AudioKit extension to Float */
-extension Float {
-    /** Returns an AKParameter with a constant value */
-    var ak: AKParameter { return AKParameter(float: self) }
-    /** Returns an AKParameter with a MIDI ratio */
-    var midiratio: Float { return pow(2, self * 0.083333333333) }
-}
-
-/** AudioKit extension to Double */
-extension Double {
-    /** Returns an AKParameter with a constant value */
-    var ak: AKParameter {return AKParameter(float: Float(self))}
-    /** Returns an AKParameter with a MIDI ratio */
-    var midiratio: Double {return pow(2, self * 0.083333333333)}
-}
-
 /** A parent class for all variables in AudioKit */
 @objc class AKParameter : NSObject {
     
@@ -135,5 +103,43 @@ extension Double {
         // override in subclass
     }
     
-    
+    /** Free up the Soundpipe memory on deinit */
+    deinit {
+        teardown()
+    }
+}
+
+/** Constant parameter helper function
+- parameter num: Floating point constant
+*/
+func akp(num: Float) -> AKParameter {
+    /** Returns an AKParameter with a constant value */
+    return AKParameter(float: num)
+}
+
+func akpi(num: Int) -> AKParameter {
+    /** Returns an AKParameter with a constant value */
+    return AKParameter(float: Float(num))
+}
+
+/** AudioKit extension to Int */
+extension Int {
+    /** Returns an AKParameter with a constant value */
+    var ak: AKParameter { return AKParameter(float: Float(self)) }
+}
+
+/** AudioKit extension to Float */
+extension Float {
+    /** Returns an AKParameter with a constant value */
+    var ak: AKParameter { return AKParameter(float: self) }
+    /** Returns an AKParameter with a MIDI ratio */
+    var midiratio: Float { return pow(2, self * 0.083333333333) }
+}
+
+/** AudioKit extension to Double */
+extension Double {
+    /** Returns an AKParameter with a constant value */
+    var ak: AKParameter {return AKParameter(float: Float(self))}
+    /** Returns an AKParameter with a MIDI ratio */
+    var midiratio: Double {return pow(2, self * 0.083333333333)}
 }

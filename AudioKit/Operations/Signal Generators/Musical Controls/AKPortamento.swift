@@ -76,3 +76,8 @@ This applies portamento to a control signal. Useful for smoothing out low-resolu
         sp_port_destroy(&port)
     }
 }
+
+/** Portamento helper function */
+func portamento(parameter: AKParameter) -> AKPortamento {
+    return AKPortamento(input: parameter)
+}
