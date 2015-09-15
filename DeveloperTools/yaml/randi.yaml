@@ -29,3 +29,10 @@ parameters:
   default: 1
 }
 
+constants:
+- seed: {
+  audioKitName: seed,
+  comment: "Seed to use or use the default of zero to have a random seed.",
+  type: Int32,
+  default: 0
+}
