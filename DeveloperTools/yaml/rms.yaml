@@ -1,0 +1,28 @@
+installation_directory: "../AudioKit/Operations/Analysis/"
+
+sp_name: rms
+
+operation: AKTrackedAmplitude
+
+summary: Tracked Amplitude of an audio signal
+
+shortDescription: amplitude
+
+description:
+  Performs a "root-mean-square" on a signal to get overall amplitude of a signal.
+  The output signal looks similar to that of a classic VU meter.
+
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- ihp: {
+  audioKitName: halfPowerPoint,
+  comment: "Half-power point (in Hz) of internal lowpass filter.",
+  default: 10
+}
+
