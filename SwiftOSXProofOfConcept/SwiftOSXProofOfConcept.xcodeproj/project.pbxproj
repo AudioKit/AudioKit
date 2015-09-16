@@ -37,6 +37,9 @@
 		C484236B1BA78A900011D63C /* AKSquareRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484236A1BA78A900011D63C /* AKSquareRoot.swift */; settings = {ASSET_TAGS = (); }; };
 		C484236D1BA78AB50011D63C /* AKFractionalPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484236C1BA78AB50011D63C /* AKFractionalPart.swift */; settings = {ASSET_TAGS = (); }; };
 		C484236F1BA78CF10011D63C /* AKLog2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484236E1BA78CF10011D63C /* AKLog2.swift */; settings = {ASSET_TAGS = (); }; };
+		C48423741BA877130011D63C /* AKTriggeredAHDEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423721BA877130011D63C /* AKTriggeredAHDEnvelope.swift */; settings = {ASSET_TAGS = (); }; };
+		C48423751BA877130011D63C /* AKTriggeredAttackReleaseEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423731BA877130011D63C /* AKTriggeredAttackReleaseEnvelope.swift */; settings = {ASSET_TAGS = (); }; };
+		C48423771BA8CD860011D63C /* AKTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48423761BA8CD860011D63C /* AKTrigger.swift */; settings = {ASSET_TAGS = (); }; };
 		C4963E7C1B9BDDBF00D57DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */; };
 		C4963E7E1B9BDDBF00D57DDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4963E7D1B9BDDBF00D57DDA /* ViewController.swift */; };
 		C4963E801B9BDDBF00D57DDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4963E7F1B9BDDBF00D57DDA /* Images.xcassets */; };
@@ -118,6 +121,9 @@
 		C484236A1BA78A900011D63C /* AKSquareRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSquareRoot.swift; sourceTree = "<group>"; };
 		C484236C1BA78AB50011D63C /* AKFractionalPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFractionalPart.swift; sourceTree = "<group>"; };
 		C484236E1BA78CF10011D63C /* AKLog2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKLog2.swift; sourceTree = "<group>"; };
+		C48423721BA877130011D63C /* AKTriggeredAHDEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTriggeredAHDEnvelope.swift; sourceTree = "<group>"; };
+		C48423731BA877130011D63C /* AKTriggeredAttackReleaseEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTriggeredAttackReleaseEnvelope.swift; sourceTree = "<group>"; };
+		C48423761BA8CD860011D63C /* AKTrigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTrigger.swift; sourceTree = "<group>"; };
 		C4963E761B9BDDBF00D57DDA /* SwiftOSXProofOfConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftOSXProofOfConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4963E7A1B9BDDBF00D57DDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4963E7B1B9BDDBF00D57DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -247,6 +253,15 @@
 			path = "Physical Models";
 			sourceTree = "<group>";
 		};
+		C48423711BA877130011D63C /* Envelopes */ = {
+			isa = PBXGroup;
+			children = (
+				C48423721BA877130011D63C /* AKTriggeredAHDEnvelope.swift */,
+				C48423731BA877130011D63C /* AKTriggeredAttackReleaseEnvelope.swift */,
+			);
+			path = Envelopes;
+			sourceTree = "<group>";
+		};
 		C4963E6D1B9BDDBF00D57DDA = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +355,7 @@
 		C4A454CC1BA5A8A5005EA172 /* Signal Generators */ = {
 			isa = PBXGroup;
 			children = (
+				C48423711BA877130011D63C /* Envelopes */,
 				C4A454CD1BA5A8A5005EA172 /* Musical Controls */,
 				C4A454CF1BA5A8A5005EA172 /* Oscillators */,
 				C484234F1BA74F3A0011D63C /* Physical Models */,
@@ -354,6 +370,7 @@
 			children = (
 				C484234D1BA74F0A0011D63C /* AKMetronome.swift */,
 				C4A454CE1BA5A8A5005EA172 /* AKPortamento.swift */,
+				C48423761BA8CD860011D63C /* AKTrigger.swift */,
 			);
 			path = "Musical Controls";
 			sourceTree = "<group>";
@@ -569,6 +586,7 @@
 				C47AEF4A1BA6588900FFE3E7 /* AKTester.swift in Sources */,
 				C484236F1BA78CF10011D63C /* AKLog2.swift in Sources */,
 				C484236D1BA78AB50011D63C /* AKFractionalPart.swift in Sources */,
+				C48423741BA877130011D63C /* AKTriggeredAHDEnvelope.swift in Sources */,
 				C42AC0381B9E23BB006CE9EE /* AKManager.swift in Sources */,
 				C4A454F51BA5A8A5005EA172 /* AKJitter.swift in Sources */,
 				C4A454F41BA5A8A5005EA172 /* AKPhasor.swift in Sources */,
@@ -590,8 +608,10 @@
 				C484235B1BA7787F0011D63C /* AKDifference.swift in Sources */,
 				C48423481BA73B1A0011D63C /* AKInterpolatedRandomNumberPulse.swift in Sources */,
 				C48423611BA78A400011D63C /* AKFloor.swift in Sources */,
+				C48423751BA877130011D63C /* AKTriggeredAttackReleaseEnvelope.swift in Sources */,
 				C4A454F21BA5A8A5005EA172 /* AKFMOscillator.swift in Sources */,
 				C48423451BA737200011D63C /* AKChowningReverb.swift in Sources */,
+				C48423771BA8CD860011D63C /* AKTrigger.swift in Sources */,
 				C4A455041BA5A8A5005EA172 /* AKHighPassButterworthFilter.swift in Sources */,
 				C48423691BA78A7B0011D63C /* AKDivision.swift in Sources */,
 				C42AC03B1B9E23BB006CE9EE /* AKAudioUnitRenderCallback.m in Sources */,
