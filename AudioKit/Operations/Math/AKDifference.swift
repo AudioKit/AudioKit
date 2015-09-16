@@ -57,11 +57,11 @@ func - (left: Float, right: AKParameter) -> AKDifference {
 
 /** Subtraction helper function */
 func - (left: AKParameter, right: Int) -> AKDifference {
-    return AKDifference(input: left, minus: akpi(right))
+    return AKDifference(input: left, minus: akp(right))
 }
 
 /** Subtraction helper function */
 func - (left: Int, right: AKParameter) -> AKDifference {
-    return AKDifference(input: akpi(left), minus: right)
+    return AKDifference(input: akp(left), minus: right)
 }
 
