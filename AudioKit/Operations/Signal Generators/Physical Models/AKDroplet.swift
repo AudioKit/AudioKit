@@ -17,6 +17,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     // MARK: - Properties
 
     private var drip = UnsafeMutablePointer<sp_drip>.alloc(1)
+    private var drip2 = UnsafeMutablePointer<sp_drip>.alloc(1)
 
     private var input = AKParameter()
 
@@ -27,7 +28,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** Number of units. The intensity of the dripping sound. [Default Value: 10] */
     var intensity: AKParameter = akp(10) {
         didSet {
-            intensity.bind(&drip.memory.num_tubes)
+            intensity.bind(&drip.memory.num_tubes, right:&drip2.memory.num_tubes)
             dependencies.append(intensity)
         }
     }
@@ -35,7 +36,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** The damping factor. Maximum value is 2.0. [Default Value: 0.2] */
     var dampingFactor: AKParameter = akp(0.2) {
         didSet {
-            dampingFactor.bind(&drip.memory.damp)
+            dampingFactor.bind(&drip.memory.damp, right:&drip2.memory.damp)
             dependencies.append(dampingFactor)
         }
     }
@@ -43,7 +44,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** The amount of energy to add back into the system. [Default Value: 0] */
     var energyReturn: AKParameter = akp(0) {
         didSet {
-            energyReturn.bind(&drip.memory.shake_max)
+            energyReturn.bind(&drip.memory.shake_max, right:&drip2.memory.shake_max)
             dependencies.append(energyReturn)
         }
     }
@@ -51,7 +52,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** Main resonant frequency. [Default Value: 450] */
     var mainResonantFrequency: AKParameter = akp(450) {
         didSet {
-            mainResonantFrequency.bind(&drip.memory.freq)
+            mainResonantFrequency.bind(&drip.memory.freq, right:&drip2.memory.freq)
             dependencies.append(mainResonantFrequency)
         }
     }
@@ -59,7 +60,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** The first resonant frequency. [Default Value: 600] */
     var firstResonantFrequency: AKParameter = akp(600) {
         didSet {
-            firstResonantFrequency.bind(&drip.memory.freq1)
+            firstResonantFrequency.bind(&drip.memory.freq1, right:&drip2.memory.freq1)
             dependencies.append(firstResonantFrequency)
         }
     }
@@ -67,7 +68,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** The second resonant frequency. [Default Value: 750] */
     var secondResonantFrequency: AKParameter = akp(750) {
         didSet {
-            secondResonantFrequency.bind(&drip.memory.freq2)
+            secondResonantFrequency.bind(&drip.memory.freq2, right:&drip2.memory.freq2)
             dependencies.append(secondResonantFrequency)
         }
     }
@@ -75,7 +76,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** Amplitude. [Default Value: 0.3] */
     var amplitude: AKParameter = akp(0.3) {
         didSet {
-            amplitude.bind(&drip.memory.amp)
+            amplitude.bind(&drip.memory.amp, right:&drip2.memory.amp)
             dependencies.append(amplitude)
         }
     }
@@ -148,13 +149,13 @@ This is a physical model of the sound of dripping water. When triggered, it will
 
     /** Bind every property to the internal droplet */
     internal func bindAll() {
-        intensity              .bind(&drip.memory.num_tubes)
-        dampingFactor          .bind(&drip.memory.damp)
-        energyReturn           .bind(&drip.memory.shake_max)
-        mainResonantFrequency  .bind(&drip.memory.freq)
-        firstResonantFrequency .bind(&drip.memory.freq1)
-        secondResonantFrequency.bind(&drip.memory.freq2)
-        amplitude              .bind(&drip.memory.amp)
+        intensity              .bind(&drip.memory.num_tubes, right:&drip2.memory.num_tubes)
+        dampingFactor          .bind(&drip.memory.damp, right:&drip2.memory.damp)
+        energyReturn           .bind(&drip.memory.shake_max, right:&drip2.memory.shake_max)
+        mainResonantFrequency  .bind(&drip.memory.freq, right:&drip2.memory.freq)
+        firstResonantFrequency .bind(&drip.memory.freq1, right:&drip2.memory.freq1)
+        secondResonantFrequency.bind(&drip.memory.freq2, right:&drip2.memory.freq2)
+        amplitude              .bind(&drip.memory.amp, right:&drip2.memory.amp)
         dependencies.append(intensity)
         dependencies.append(dampingFactor)
         dependencies.append(energyReturn)
@@ -167,17 +168,20 @@ This is a physical model of the sound of dripping water. When triggered, it will
     /** Internal set up function */
     internal func setup(maximumDuration: Float = 0.09) {
         sp_drip_create(&drip)
+        sp_drip_create(&drip2)
         sp_drip_init(AKManager.sharedManager.data, drip, maximumDuration)
+        sp_drip_init(AKManager.sharedManager.data, drip2, maximumDuration)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_drip_compute(AKManager.sharedManager.data, drip, &(input.leftOutput), &leftOutput);
-        sp_drip_compute(AKManager.sharedManager.data, drip, &(input.rightOutput), &rightOutput);
+        sp_drip_compute(AKManager.sharedManager.data, drip2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_drip_destroy(&drip)
+        sp_drip_destroy(&drip2)
     }
 }

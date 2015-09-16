@@ -17,6 +17,7 @@ This module scales from one range to another defined by a minimum and maximum po
     // MARK: - Properties
 
     private var scale = UnsafeMutablePointer<sp_scale>.alloc(1)
+    private var scale2 = UnsafeMutablePointer<sp_scale>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ This module scales from one range to another defined by a minimum and maximum po
     /** Minimum value to scale from. [Default Value: -1] */
     var minimumInput: AKParameter = akp(-1) {
         didSet {
-            minimumInput.bind(&scale.memory.inmin)
+            minimumInput.bind(&scale.memory.inmin, right:&scale2.memory.inmin)
             dependencies.append(minimumInput)
         }
     }
@@ -32,7 +33,7 @@ This module scales from one range to another defined by a minimum and maximum po
     /** Maximum value to scale from. [Default Value: 1] */
     var maximumInput: AKParameter = akp(1) {
         didSet {
-            maximumInput.bind(&scale.memory.inmax)
+            maximumInput.bind(&scale.memory.inmax, right:&scale2.memory.inmax)
             dependencies.append(maximumInput)
         }
     }
@@ -40,7 +41,7 @@ This module scales from one range to another defined by a minimum and maximum po
     /** Minimum value to scale to. [Default Value: 0] */
     var minimumOutput: AKParameter = akp(0) {
         didSet {
-            minimumOutput.bind(&scale.memory.outmin)
+            minimumOutput.bind(&scale.memory.outmin, right:&scale2.memory.outmin)
             dependencies.append(minimumOutput)
         }
     }
@@ -48,7 +49,7 @@ This module scales from one range to another defined by a minimum and maximum po
     /** Maximum value to scale to. [Default Value: 1] */
     var maximumOutput: AKParameter = akp(1) {
         didSet {
-            maximumOutput.bind(&scale.memory.outmax)
+            maximumOutput.bind(&scale.memory.outmax, right:&scale2.memory.outmax)
             dependencies.append(maximumOutput)
         }
     }
@@ -97,10 +98,10 @@ This module scales from one range to another defined by a minimum and maximum po
 
     /** Bind every property to the internal scaled value */
     internal func bindAll() {
-        minimumInput .bind(&scale.memory.inmin)
-        maximumInput .bind(&scale.memory.inmax)
-        minimumOutput.bind(&scale.memory.outmin)
-        maximumOutput.bind(&scale.memory.outmax)
+        minimumInput .bind(&scale.memory.inmin, right:&scale2.memory.inmin)
+        maximumInput .bind(&scale.memory.inmax, right:&scale2.memory.inmax)
+        minimumOutput.bind(&scale.memory.outmin, right:&scale2.memory.outmin)
+        maximumOutput.bind(&scale.memory.outmax, right:&scale2.memory.outmax)
         dependencies.append(minimumInput)
         dependencies.append(maximumInput)
         dependencies.append(minimumOutput)
@@ -110,17 +111,20 @@ This module scales from one range to another defined by a minimum and maximum po
     /** Internal set up function */
     internal func setup() {
         sp_scale_create(&scale)
+        sp_scale_create(&scale2)
         sp_scale_init(AKManager.sharedManager.data, scale)
+        sp_scale_init(AKManager.sharedManager.data, scale2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_scale_compute(AKManager.sharedManager.data, scale, &(input.leftOutput), &leftOutput);
-        sp_scale_compute(AKManager.sharedManager.data, scale, &(input.rightOutput), &rightOutput);
+        sp_scale_compute(AKManager.sharedManager.data, scale2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_scale_destroy(&scale)
+        sp_scale_destroy(&scale2)
     }
 }

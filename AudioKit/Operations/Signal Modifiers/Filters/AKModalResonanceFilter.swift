@@ -17,6 +17,7 @@ A modal resonance filter used for modal synthesis. Plucked and bell sounds can b
     // MARK: - Properties
 
     private var mode = UnsafeMutablePointer<sp_mode>.alloc(1)
+    private var mode2 = UnsafeMutablePointer<sp_mode>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ A modal resonance filter used for modal synthesis. Plucked and bell sounds can b
     /** Resonant frequency of the filter. [Default Value: 500] */
     var frequency: AKParameter = akp(500) {
         didSet {
-            frequency.bind(&mode.memory.freq)
+            frequency.bind(&mode.memory.freq, right:&mode2.memory.freq)
             dependencies.append(frequency)
         }
     }
@@ -32,7 +33,7 @@ A modal resonance filter used for modal synthesis. Plucked and bell sounds can b
     /** Quality factor of the filter. Roughly equal to Q/frequency. [Default Value: 50] */
     var qualityFactor: AKParameter = akp(50) {
         didSet {
-            qualityFactor.bind(&mode.memory.q)
+            qualityFactor.bind(&mode.memory.q, right:&mode2.memory.q)
             dependencies.append(qualityFactor)
         }
     }
@@ -75,8 +76,8 @@ A modal resonance filter used for modal synthesis. Plucked and bell sounds can b
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        frequency    .bind(&mode.memory.freq)
-        qualityFactor.bind(&mode.memory.q)
+        frequency    .bind(&mode.memory.freq, right:&mode2.memory.freq)
+        qualityFactor.bind(&mode.memory.q, right:&mode2.memory.q)
         dependencies.append(frequency)
         dependencies.append(qualityFactor)
     }
@@ -84,17 +85,20 @@ A modal resonance filter used for modal synthesis. Plucked and bell sounds can b
     /** Internal set up function */
     internal func setup() {
         sp_mode_create(&mode)
+        sp_mode_create(&mode2)
         sp_mode_init(AKManager.sharedManager.data, mode)
+        sp_mode_init(AKManager.sharedManager.data, mode2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_mode_compute(AKManager.sharedManager.data, mode, &(input.leftOutput), &leftOutput);
-        sp_mode_compute(AKManager.sharedManager.data, mode, &(input.rightOutput), &rightOutput);
+        sp_mode_compute(AKManager.sharedManager.data, mode2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_mode_destroy(&mode)
+        sp_mode_destroy(&mode2)
     }
 }

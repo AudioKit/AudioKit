@@ -17,6 +17,7 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     // MARK: - Properties
 
     private var eqfil = UnsafeMutablePointer<sp_eqfil>.alloc(1)
+    private var eqfil2 = UnsafeMutablePointer<sp_eqfil>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     /** The center frequency of the filter [Default Value: 1000] */
     var centerFrequency: AKParameter = akp(1000) {
         didSet {
-            centerFrequency.bind(&eqfil.memory.freq)
+            centerFrequency.bind(&eqfil.memory.freq, right:&eqfil2.memory.freq)
             dependencies.append(centerFrequency)
         }
     }
@@ -32,7 +33,7 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     /** The peak/notch bandwidth in Hertz [Default Value: 100] */
     var bandwidth: AKParameter = akp(100) {
         didSet {
-            bandwidth.bind(&eqfil.memory.bw)
+            bandwidth.bind(&eqfil.memory.bw, right:&eqfil2.memory.bw)
             dependencies.append(bandwidth)
         }
     }
@@ -40,7 +41,7 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     /** The peak/notch gain [Default Value: 10] */
     var gain: AKParameter = akp(10) {
         didSet {
-            gain.bind(&eqfil.memory.gain)
+            gain.bind(&eqfil.memory.gain, right:&eqfil2.memory.gain)
             dependencies.append(gain)
         }
     }
@@ -86,9 +87,9 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        centerFrequency.bind(&eqfil.memory.freq)
-        bandwidth      .bind(&eqfil.memory.bw)
-        gain           .bind(&eqfil.memory.gain)
+        centerFrequency.bind(&eqfil.memory.freq, right:&eqfil2.memory.freq)
+        bandwidth      .bind(&eqfil.memory.bw, right:&eqfil2.memory.bw)
+        gain           .bind(&eqfil.memory.gain, right:&eqfil2.memory.gain)
         dependencies.append(centerFrequency)
         dependencies.append(bandwidth)
         dependencies.append(gain)
@@ -97,17 +98,20 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     /** Internal set up function */
     internal func setup() {
         sp_eqfil_create(&eqfil)
+        sp_eqfil_create(&eqfil2)
         sp_eqfil_init(AKManager.sharedManager.data, eqfil)
+        sp_eqfil_init(AKManager.sharedManager.data, eqfil2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_eqfil_compute(AKManager.sharedManager.data, eqfil, &(input.leftOutput), &leftOutput);
-        sp_eqfil_compute(AKManager.sharedManager.data, eqfil, &(input.rightOutput), &rightOutput);
+        sp_eqfil_compute(AKManager.sharedManager.data, eqfil2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_eqfil_destroy(&eqfil)
+        sp_eqfil_destroy(&eqfil2)
     }
 }

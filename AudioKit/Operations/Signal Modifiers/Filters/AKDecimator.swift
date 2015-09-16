@@ -17,6 +17,7 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
     // MARK: - Properties
 
     private var decimator = UnsafeMutablePointer<sp_decimator>.alloc(1)
+    private var decimator2 = UnsafeMutablePointer<sp_decimator>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
     /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. [Default Value: 8] */
     var bitDepth: AKParameter = akp(8) {
         didSet {
-            bitDepth.bind(&decimator.memory.bitdepth)
+            bitDepth.bind(&decimator.memory.bitdepth, right:&decimator2.memory.bitdepth)
             dependencies.append(bitDepth)
         }
     }
@@ -32,7 +33,7 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
     /** The sample rate of signal output. [Default Value: 10000] */
     var sampleRate: AKParameter = akp(10000) {
         didSet {
-            sampleRate.bind(&decimator.memory.srate)
+            sampleRate.bind(&decimator.memory.srate, right:&decimator2.memory.srate)
             dependencies.append(sampleRate)
         }
     }
@@ -75,8 +76,8 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
 
     /** Bind every property to the internal decimator */
     internal func bindAll() {
-        bitDepth  .bind(&decimator.memory.bitdepth)
-        sampleRate.bind(&decimator.memory.srate)
+        bitDepth  .bind(&decimator.memory.bitdepth, right:&decimator2.memory.bitdepth)
+        sampleRate.bind(&decimator.memory.srate, right:&decimator2.memory.srate)
         dependencies.append(bitDepth)
         dependencies.append(sampleRate)
     }
@@ -84,17 +85,20 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
     /** Internal set up function */
     internal func setup() {
         sp_decimator_create(&decimator)
+        sp_decimator_create(&decimator2)
         sp_decimator_init(AKManager.sharedManager.data, decimator)
+        sp_decimator_init(AKManager.sharedManager.data, decimator2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_decimator_compute(AKManager.sharedManager.data, decimator, &(input.leftOutput), &leftOutput);
-        sp_decimator_compute(AKManager.sharedManager.data, decimator, &(input.rightOutput), &rightOutput);
+        sp_decimator_compute(AKManager.sharedManager.data, decimator2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_decimator_destroy(&decimator)
+        sp_decimator_destroy(&decimator2)
     }
 }

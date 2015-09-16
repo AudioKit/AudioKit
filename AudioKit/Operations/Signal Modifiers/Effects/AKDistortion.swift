@@ -17,6 +17,7 @@ import Foundation
     // MARK: - Properties
 
     private var dist = UnsafeMutablePointer<sp_dist>.alloc(1)
+    private var dist2 = UnsafeMutablePointer<sp_dist>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ import Foundation
     /** Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. [Default Value: 2.0] */
     var pregain: AKParameter = akp(2.0) {
         didSet {
-            pregain.bind(&dist.memory.pregain)
+            pregain.bind(&dist.memory.pregain, right:&dist2.memory.pregain)
             dependencies.append(pregain)
         }
     }
@@ -32,7 +33,7 @@ import Foundation
     /** Shape of the positive part of the signal. A value of 0 gets a flat clip. [Default Value: 0] */
     var postiveShapeParameter: AKParameter = akp(0) {
         didSet {
-            postiveShapeParameter.bind(&dist.memory.shape1)
+            postiveShapeParameter.bind(&dist.memory.shape1, right:&dist2.memory.shape1)
             dependencies.append(postiveShapeParameter)
         }
     }
@@ -40,7 +41,7 @@ import Foundation
     /** Like shape1, only for the negative part. [Default Value: 0] */
     var negativeShapeParameter: AKParameter = akp(0) {
         didSet {
-            negativeShapeParameter.bind(&dist.memory.shape2)
+            negativeShapeParameter.bind(&dist.memory.shape2, right:&dist2.memory.shape2)
             dependencies.append(negativeShapeParameter)
         }
     }
@@ -48,7 +49,7 @@ import Foundation
     /** Gain applied after waveshaping [Default Value: 0.5] */
     var postgain: AKParameter = akp(0.5) {
         didSet {
-            postgain.bind(&dist.memory.postgain)
+            postgain.bind(&dist.memory.postgain, right:&dist2.memory.postgain)
             dependencies.append(postgain)
         }
     }
@@ -97,10 +98,10 @@ import Foundation
 
     /** Bind every property to the internal distortion */
     internal func bindAll() {
-        pregain               .bind(&dist.memory.pregain)
-        postiveShapeParameter .bind(&dist.memory.shape1)
-        negativeShapeParameter.bind(&dist.memory.shape2)
-        postgain              .bind(&dist.memory.postgain)
+        pregain               .bind(&dist.memory.pregain, right:&dist2.memory.pregain)
+        postiveShapeParameter .bind(&dist.memory.shape1, right:&dist2.memory.shape1)
+        negativeShapeParameter.bind(&dist.memory.shape2, right:&dist2.memory.shape2)
+        postgain              .bind(&dist.memory.postgain, right:&dist2.memory.postgain)
         dependencies.append(pregain)
         dependencies.append(postiveShapeParameter)
         dependencies.append(negativeShapeParameter)
@@ -110,17 +111,20 @@ import Foundation
     /** Internal set up function */
     internal func setup() {
         sp_dist_create(&dist)
+        sp_dist_create(&dist2)
         sp_dist_init(AKManager.sharedManager.data, dist)
+        sp_dist_init(AKManager.sharedManager.data, dist2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_dist_compute(AKManager.sharedManager.data, dist, &(input.leftOutput), &leftOutput);
-        sp_dist_compute(AKManager.sharedManager.data, dist, &(input.rightOutput), &rightOutput);
+        sp_dist_compute(AKManager.sharedManager.data, dist2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_dist_destroy(&dist)
+        sp_dist_destroy(&dist2)
     }
 }

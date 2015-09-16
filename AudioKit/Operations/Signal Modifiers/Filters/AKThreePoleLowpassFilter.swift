@@ -17,6 +17,7 @@ import Foundation
     // MARK: - Properties
 
     private var lpf18 = UnsafeMutablePointer<sp_lpf18>.alloc(1)
+    private var lpf182 = UnsafeMutablePointer<sp_lpf18>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ import Foundation
     /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. [Default Value: 0.5] */
     var distortion: AKParameter = akp(0.5) {
         didSet {
-            distortion.bind(&lpf18.memory.dist)
+            distortion.bind(&lpf18.memory.dist, right:&lpf182.memory.dist)
             dependencies.append(distortion)
         }
     }
@@ -32,7 +33,7 @@ import Foundation
     /** Filter cutoff frequency, in Hertz [Default Value: 1500] */
     var cutoffFrequency: AKParameter = akp(1500) {
         didSet {
-            cutoffFrequency.bind(&lpf18.memory.cutoff)
+            cutoffFrequency.bind(&lpf18.memory.cutoff, right:&lpf182.memory.cutoff)
             dependencies.append(cutoffFrequency)
         }
     }
@@ -40,7 +41,7 @@ import Foundation
     /** Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. [Default Value: 0.5] */
     var resonance: AKParameter = akp(0.5) {
         didSet {
-            resonance.bind(&lpf18.memory.res)
+            resonance.bind(&lpf18.memory.res, right:&lpf182.memory.res)
             dependencies.append(resonance)
         }
     }
@@ -86,9 +87,9 @@ import Foundation
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        distortion     .bind(&lpf18.memory.dist)
-        cutoffFrequency.bind(&lpf18.memory.cutoff)
-        resonance      .bind(&lpf18.memory.res)
+        distortion     .bind(&lpf18.memory.dist, right:&lpf182.memory.dist)
+        cutoffFrequency.bind(&lpf18.memory.cutoff, right:&lpf182.memory.cutoff)
+        resonance      .bind(&lpf18.memory.res, right:&lpf182.memory.res)
         dependencies.append(distortion)
         dependencies.append(cutoffFrequency)
         dependencies.append(resonance)
@@ -97,17 +98,20 @@ import Foundation
     /** Internal set up function */
     internal func setup() {
         sp_lpf18_create(&lpf18)
+        sp_lpf18_create(&lpf182)
         sp_lpf18_init(AKManager.sharedManager.data, lpf18)
+        sp_lpf18_init(AKManager.sharedManager.data, lpf182)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_lpf18_compute(AKManager.sharedManager.data, lpf18, &(input.leftOutput), &leftOutput);
-        sp_lpf18_compute(AKManager.sharedManager.data, lpf18, &(input.rightOutput), &rightOutput);
+        sp_lpf18_compute(AKManager.sharedManager.data, lpf182, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_lpf18_destroy(&lpf18)
+        sp_lpf18_destroy(&lpf182)
     }
 }

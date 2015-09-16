@@ -17,6 +17,7 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     // MARK: - Properties
 
     private var butbp = UnsafeMutablePointer<sp_butbp>.alloc(1)
+    private var butbp2 = UnsafeMutablePointer<sp_butbp>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     /** Center frequency. (in Hertz) [Default Value: 2000] */
     var centerFrequency: AKParameter = akp(2000) {
         didSet {
-            centerFrequency.bind(&butbp.memory.freq)
+            centerFrequency.bind(&butbp.memory.freq, right:&butbp2.memory.freq)
             dependencies.append(centerFrequency)
         }
     }
@@ -32,7 +33,7 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     /** Bandwidth. (in Hertz) [Default Value: 100] */
     var bandwidth: AKParameter = akp(100) {
         didSet {
-            bandwidth.bind(&butbp.memory.bw)
+            bandwidth.bind(&butbp.memory.bw, right:&butbp2.memory.bw)
             dependencies.append(bandwidth)
         }
     }
@@ -75,8 +76,8 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        centerFrequency.bind(&butbp.memory.freq)
-        bandwidth      .bind(&butbp.memory.bw)
+        centerFrequency.bind(&butbp.memory.freq, right:&butbp2.memory.freq)
+        bandwidth      .bind(&butbp.memory.bw, right:&butbp2.memory.bw)
         dependencies.append(centerFrequency)
         dependencies.append(bandwidth)
     }
@@ -84,17 +85,20 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     /** Internal set up function */
     internal func setup() {
         sp_butbp_create(&butbp)
+        sp_butbp_create(&butbp2)
         sp_butbp_init(AKManager.sharedManager.data, butbp)
+        sp_butbp_init(AKManager.sharedManager.data, butbp2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_butbp_compute(AKManager.sharedManager.data, butbp, &(input.leftOutput), &leftOutput);
-        sp_butbp_compute(AKManager.sharedManager.data, butbp, &(input.rightOutput), &rightOutput);
+        sp_butbp_compute(AKManager.sharedManager.data, butbp2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_butbp_destroy(&butbp)
+        sp_butbp_destroy(&butbp2)
     }
 }

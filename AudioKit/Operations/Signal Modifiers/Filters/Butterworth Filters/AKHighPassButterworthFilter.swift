@@ -17,6 +17,7 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     // MARK: - Properties
 
     private var buthp = UnsafeMutablePointer<sp_buthp>.alloc(1)
+    private var buthp2 = UnsafeMutablePointer<sp_buthp>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     /** Cutoff frequency. [Default Value: 500] */
     var cutoffFrequency: AKParameter = akp(500) {
         didSet {
-            cutoffFrequency.bind(&buthp.memory.freq)
+            cutoffFrequency.bind(&buthp.memory.freq, right:&buthp2.memory.freq)
             dependencies.append(cutoffFrequency)
         }
     }
@@ -64,24 +65,27 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        cutoffFrequency.bind(&buthp.memory.freq)
+        cutoffFrequency.bind(&buthp.memory.freq, right:&buthp2.memory.freq)
         dependencies.append(cutoffFrequency)
     }
 
     /** Internal set up function */
     internal func setup() {
         sp_buthp_create(&buthp)
+        sp_buthp_create(&buthp2)
         sp_buthp_init(AKManager.sharedManager.data, buthp)
+        sp_buthp_init(AKManager.sharedManager.data, buthp2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_buthp_compute(AKManager.sharedManager.data, buthp, &(input.leftOutput), &leftOutput);
-        sp_buthp_compute(AKManager.sharedManager.data, buthp, &(input.rightOutput), &rightOutput);
+        sp_buthp_compute(AKManager.sharedManager.data, buthp2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_buthp_destroy(&buthp)
+        sp_buthp_destroy(&buthp2)
     }
 }

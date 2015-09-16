@@ -93,6 +93,15 @@ import Foundation
         leftPointer.memory = leftOutput        
     }
     
+    /** Bind the memory of the SoundPipe value to this parameter */
+    func bind(left:UnsafeMutablePointer<Float>, right:UnsafeMutablePointer<Float>)
+    {
+        leftPointer = left
+        leftPointer.memory = leftOutput
+        rightPointer = right
+        rightPointer.memory = rightOutput
+    }
+    
     /** The compute function to override in subclasses */
     func compute() {
         // override in subclass

@@ -17,6 +17,7 @@ This envelope takes 2 triggers. When triggered once, the envelope will rise to 1
     // MARK: - Properties
 
     private var tenv2 = UnsafeMutablePointer<sp_tenv2>.alloc(1)
+    private var tenv22 = UnsafeMutablePointer<sp_tenv2>.alloc(1)
 
     private var trigger = AKParameter()
 
@@ -24,7 +25,7 @@ This envelope takes 2 triggers. When triggered once, the envelope will rise to 1
     /** Attack duration (in seconds). [Default Value: 0.1] */
     var attackDuration: AKParameter = akp(0.1) {
         didSet {
-            attackDuration.bind(&tenv2.memory.atk)
+            attackDuration.bind(&tenv2.memory.atk, right:&tenv22.memory.atk)
             dependencies.append(attackDuration)
         }
     }
@@ -32,7 +33,7 @@ This envelope takes 2 triggers. When triggered once, the envelope will rise to 1
     /** Release duration (in seconds). [Default Value: 0.1] */
     var releaseDuration: AKParameter = akp(0.1) {
         didSet {
-            releaseDuration.bind(&tenv2.memory.rel)
+            releaseDuration.bind(&tenv2.memory.rel, right:&tenv22.memory.rel)
             dependencies.append(releaseDuration)
         }
     }
@@ -75,8 +76,8 @@ This envelope takes 2 triggers. When triggered once, the envelope will rise to 1
 
     /** Bind every property to the internal envelope */
     internal func bindAll() {
-        attackDuration .bind(&tenv2.memory.atk)
-        releaseDuration.bind(&tenv2.memory.rel)
+        attackDuration .bind(&tenv2.memory.atk, right:&tenv22.memory.atk)
+        releaseDuration.bind(&tenv2.memory.rel, right:&tenv22.memory.rel)
         dependencies.append(attackDuration)
         dependencies.append(releaseDuration)
     }
@@ -84,17 +85,20 @@ This envelope takes 2 triggers. When triggered once, the envelope will rise to 1
     /** Internal set up function */
     internal func setup() {
         sp_tenv2_create(&tenv2)
+        sp_tenv2_create(&tenv22)
         sp_tenv2_init(AKManager.sharedManager.data, tenv2)
+        sp_tenv2_init(AKManager.sharedManager.data, tenv22)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_tenv2_compute(AKManager.sharedManager.data, tenv2, &(trigger.leftOutput), &leftOutput);
-        rightOutput = leftOutput
+        sp_tenv2_compute(AKManager.sharedManager.data, tenv22, &(trigger.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_tenv2_destroy(&tenv2)
+        sp_tenv2_destroy(&tenv22)
     }
 }

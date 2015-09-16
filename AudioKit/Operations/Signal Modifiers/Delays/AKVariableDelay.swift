@@ -17,6 +17,7 @@ A delay line with cubic interpolation.
     // MARK: - Properties
 
     private var vdelay = UnsafeMutablePointer<sp_vdelay>.alloc(1)
+    private var vdelay2 = UnsafeMutablePointer<sp_vdelay>.alloc(1)
 
     private var input = AKParameter()
 
@@ -27,7 +28,7 @@ A delay line with cubic interpolation.
     /** Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. [Default Value: 1] */
     var delayTime: AKParameter = akp(1) {
         didSet {
-            delayTime.bind(&vdelay.memory.del)
+            delayTime.bind(&vdelay.memory.del, right:&vdelay2.memory.del)
             dependencies.append(delayTime)
         }
     }
@@ -82,24 +83,27 @@ A delay line with cubic interpolation.
 
     /** Bind every property to the internal delay */
     internal func bindAll() {
-        delayTime       .bind(&vdelay.memory.del)
+        delayTime       .bind(&vdelay.memory.del, right:&vdelay2.memory.del)
         dependencies.append(delayTime)
     }
 
     /** Internal set up function */
     internal func setup(maximumDelayTime: Float = 5.0) {
         sp_vdelay_create(&vdelay)
+        sp_vdelay_create(&vdelay2)
         sp_vdelay_init(AKManager.sharedManager.data, vdelay, maximumDelayTime)
+        sp_vdelay_init(AKManager.sharedManager.data, vdelay2, maximumDelayTime)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_vdelay_compute(AKManager.sharedManager.data, vdelay, &(input.leftOutput), &leftOutput);
-        sp_vdelay_compute(AKManager.sharedManager.data, vdelay, &(input.rightOutput), &rightOutput);
+        sp_vdelay_compute(AKManager.sharedManager.data, vdelay2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_vdelay_destroy(&vdelay)
+        sp_vdelay_destroy(&vdelay2)
     }
 }

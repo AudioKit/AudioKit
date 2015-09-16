@@ -17,6 +17,7 @@ This applies portamento to a control signal. Useful for smoothing out low-resolu
     // MARK: - Properties
 
     private var port = UnsafeMutablePointer<sp_port>.alloc(1)
+    private var port2 = UnsafeMutablePointer<sp_port>.alloc(1)
 
     private var input = AKParameter()
 
@@ -62,17 +63,20 @@ This applies portamento to a control signal. Useful for smoothing out low-resolu
     /** Internal set up function */
     internal func setup(halfTime: Float = 0.02) {
         sp_port_create(&port)
+        sp_port_create(&port2)
         sp_port_init(AKManager.sharedManager.data, port, halfTime)
+        sp_port_init(AKManager.sharedManager.data, port2, halfTime)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_port_compute(AKManager.sharedManager.data, port, &(input.leftOutput), &leftOutput);
-        sp_port_compute(AKManager.sharedManager.data, port, &(input.rightOutput), &rightOutput);
+        sp_port_compute(AKManager.sharedManager.data, port2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_port_destroy(&port)
+        sp_port_destroy(&port2)
     }
 }
