@@ -1,0 +1,34 @@
+installation_directory: "../AudioKit/Operations/Signal\ Generators/Envelopes/"
+
+sp_name: tenv2
+
+operation: AKTriggeredAttackReleaseEnvelope
+
+summary: Linear 2-stage Attack/Release envelope generator
+
+shortDescription: envelope
+
+description:
+  This envelope takes 2 triggers. When triggered once,
+  the envelope will rise to 1 according to the attack time.
+  When triggered again, it will decay to 0 according to
+  the decay time.
+
+inputs:
+- source: {
+  audioKitName: trigger,
+  comment: "Input trigger."
+}
+
+parameters:
+- atk: {
+  audioKitName: attackDuration,
+  comment: "Attack duration (in seconds).",
+  default: 0.1
+}
+- rel: {
+  audioKitName: releaseDuration,
+  comment: "Release duration (in seconds).",
+  default: 0.1
+}
+
