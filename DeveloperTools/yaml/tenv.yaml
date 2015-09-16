@@ -1,0 +1,51 @@
+installation_directory: "../AudioKit/Operations/Signal\ Generators/Envelopes/"
+
+sp_name: tenv
+
+operation: AKTriggeredAHDEnvelope
+
+summary: Trigger based linear AHD envelope
+
+shortDescription: envelope
+
+description:
+  Only one trigger is required to create the lifetime of this envelope.
+
+inputs:
+- source: {
+  audioKitName: trigger,
+  comment: "Input trigger."
+}
+
+parameters:
+- sigmode: {
+  audioKitName: mode,
+  unused: true,
+  type: Int32,
+  comment: "If set to non-zero value, tenv will multiply the envelope with an internal signal instead of just returning an enveloped signal.",
+  default: 0
+}
+- input: {
+  audioKitName: internalInput,
+  unused: true,
+  comment: "Internal input signal. If sigmode variable is set, it will multiply the envelope by this variable. Most of the time, this should be updated at audiorate.",
+  default: 0
+}
+
+constants:
+- atk: {
+  audioKitName: attackDuration,
+  comment: "Attack duration, in seconds.",
+  default: 0.1
+}
+- hold: {
+  audioKitName: holdDuration,
+  comment: "Hold duration, in seconds.",
+  default: 0.3
+}
+- rel: {
+  audioKitName: releaseDuration,
+  comment: "Release duration, in seconds.",
+  default: 0.2
+}
+
