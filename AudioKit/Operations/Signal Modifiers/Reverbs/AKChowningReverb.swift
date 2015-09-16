@@ -17,6 +17,7 @@ This is was built using the JC reverb implentation found in FAUST. According to 
     // MARK: - Properties
 
     private var jcrev = UnsafeMutablePointer<sp_jcrev>.alloc(1)
+    private var jcrev2 = UnsafeMutablePointer<sp_jcrev>.alloc(1)
 
     private var input = AKParameter()
 
@@ -46,17 +47,20 @@ This is was built using the JC reverb implentation found in FAUST. According to 
     /** Internal set up function */
     internal func setup() {
         sp_jcrev_create(&jcrev)
+        sp_jcrev_create(&jcrev2)
         sp_jcrev_init(AKManager.sharedManager.data, jcrev)
+        sp_jcrev_init(AKManager.sharedManager.data, jcrev2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_jcrev_compute(AKManager.sharedManager.data, jcrev, &(input.leftOutput), &leftOutput);
-        sp_jcrev_compute(AKManager.sharedManager.data, jcrev, &(input.rightOutput), &rightOutput);
+        sp_jcrev_compute(AKManager.sharedManager.data, jcrev2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_jcrev_destroy(&jcrev)
+        sp_jcrev_destroy(&jcrev2)
     }
 }

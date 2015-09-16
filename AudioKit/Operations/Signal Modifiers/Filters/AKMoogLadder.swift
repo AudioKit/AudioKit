@@ -17,6 +17,7 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     // MARK: - Properties
 
     private var moogladder = UnsafeMutablePointer<sp_moogladder>.alloc(1)
+    private var moogladder2 = UnsafeMutablePointer<sp_moogladder>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     /** Filter cutoff frequency. [Default Value: 1000] */
     var cutoffFrequency: AKParameter = akp(1000) {
         didSet {
-            cutoffFrequency.bind(&moogladder.memory.freq)
+            cutoffFrequency.bind(&moogladder.memory.freq, right:&moogladder2.memory.freq)
             dependencies.append(cutoffFrequency)
         }
     }
@@ -32,7 +33,7 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. [Default Value: 0.5] */
     var resonance: AKParameter = akp(0.5) {
         didSet {
-            resonance.bind(&moogladder.memory.res)
+            resonance.bind(&moogladder.memory.res, right:&moogladder2.memory.res)
             dependencies.append(resonance)
         }
     }
@@ -75,8 +76,8 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        cutoffFrequency.bind(&moogladder.memory.freq)
-        resonance      .bind(&moogladder.memory.res)
+        cutoffFrequency.bind(&moogladder.memory.freq, right:&moogladder2.memory.freq)
+        resonance      .bind(&moogladder.memory.res, right:&moogladder2.memory.res)
         dependencies.append(cutoffFrequency)
         dependencies.append(resonance)
     }
@@ -84,17 +85,20 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     /** Internal set up function */
     internal func setup() {
         sp_moogladder_create(&moogladder)
+        sp_moogladder_create(&moogladder2)
         sp_moogladder_init(AKManager.sharedManager.data, moogladder)
+        sp_moogladder_init(AKManager.sharedManager.data, moogladder2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_moogladder_compute(AKManager.sharedManager.data, moogladder, &(input.leftOutput), &leftOutput);
-        sp_moogladder_compute(AKManager.sharedManager.data, moogladder, &(input.rightOutput), &rightOutput);
+        sp_moogladder_compute(AKManager.sharedManager.data, moogladder2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_moogladder_destroy(&moogladder)
+        sp_moogladder_destroy(&moogladder2)
     }
 }

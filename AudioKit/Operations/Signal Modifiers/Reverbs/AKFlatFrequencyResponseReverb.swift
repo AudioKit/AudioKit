@@ -17,6 +17,7 @@ This filter reiterates the input with an echo density determined by loop time. T
     // MARK: - Properties
 
     private var allpass = UnsafeMutablePointer<sp_allpass>.alloc(1)
+    private var allpass2 = UnsafeMutablePointer<sp_allpass>.alloc(1)
 
     private var input = AKParameter()
 
@@ -27,7 +28,7 @@ This filter reiterates the input with an echo density determined by loop time. T
     /** The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. [Default Value: 0.5] */
     var reverbDuration: AKParameter = akp(0.5) {
         didSet {
-            reverbDuration.bind(&allpass.memory.revtime)
+            reverbDuration.bind(&allpass.memory.revtime, right:&allpass2.memory.revtime)
             dependencies.append(reverbDuration)
         }
     }
@@ -82,24 +83,27 @@ This filter reiterates the input with an echo density determined by loop time. T
 
     /** Bind every property to the internal reverb */
     internal func bindAll() {
-        reverbDuration.bind(&allpass.memory.revtime)
+        reverbDuration.bind(&allpass.memory.revtime, right:&allpass2.memory.revtime)
         dependencies.append(reverbDuration)
     }
 
     /** Internal set up function */
     internal func setup(loopDuration: Float = 0.1) {
         sp_allpass_create(&allpass)
+        sp_allpass_create(&allpass2)
         sp_allpass_init(AKManager.sharedManager.data, allpass, loopDuration)
+        sp_allpass_init(AKManager.sharedManager.data, allpass2, loopDuration)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_allpass_compute(AKManager.sharedManager.data, allpass, &(input.leftOutput), &leftOutput);
-        sp_allpass_compute(AKManager.sharedManager.data, allpass, &(input.rightOutput), &rightOutput);
+        sp_allpass_compute(AKManager.sharedManager.data, allpass2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_allpass_destroy(&allpass)
+        sp_allpass_destroy(&allpass2)
     }
 }

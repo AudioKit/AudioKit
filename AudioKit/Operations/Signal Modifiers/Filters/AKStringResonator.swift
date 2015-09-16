@@ -17,6 +17,7 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     // MARK: - Properties
 
     private var streson = UnsafeMutablePointer<sp_streson>.alloc(1)
+    private var streson2 = UnsafeMutablePointer<sp_streson>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     /** Fundamental frequency of string. [Default Value: 100.0] */
     var fundamentalFrequency: AKParameter = akp(100.0) {
         didSet {
-            fundamentalFrequency.bind(&streson.memory.freq)
+            fundamentalFrequency.bind(&streson.memory.freq, right:&streson2.memory.freq)
             dependencies.append(fundamentalFrequency)
         }
     }
@@ -32,7 +33,7 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. [Default Value: 0.95] */
     var feedback: AKParameter = akp(0.95) {
         didSet {
-            feedback.bind(&streson.memory.fdbgain)
+            feedback.bind(&streson.memory.fdbgain, right:&streson2.memory.fdbgain)
             dependencies.append(feedback)
         }
     }
@@ -75,8 +76,8 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        fundamentalFrequency.bind(&streson.memory.freq)
-        feedback            .bind(&streson.memory.fdbgain)
+        fundamentalFrequency.bind(&streson.memory.freq, right:&streson2.memory.freq)
+        feedback            .bind(&streson.memory.fdbgain, right:&streson2.memory.fdbgain)
         dependencies.append(fundamentalFrequency)
         dependencies.append(feedback)
     }
@@ -84,17 +85,20 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     /** Internal set up function */
     internal func setup() {
         sp_streson_create(&streson)
+        sp_streson_create(&streson2)
         sp_streson_init(AKManager.sharedManager.data, streson)
+        sp_streson_init(AKManager.sharedManager.data, streson2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_streson_compute(AKManager.sharedManager.data, streson, &(input.leftOutput), &leftOutput);
-        sp_streson_compute(AKManager.sharedManager.data, streson, &(input.rightOutput), &rightOutput);
+        sp_streson_compute(AKManager.sharedManager.data, streson2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_streson_destroy(&streson)
+        sp_streson_destroy(&streson2)
     }
 }

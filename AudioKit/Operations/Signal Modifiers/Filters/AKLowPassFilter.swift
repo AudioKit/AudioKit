@@ -17,6 +17,7 @@ A first-order recursive low-pass filter with variable frequency response.
     // MARK: - Properties
 
     private var tone = UnsafeMutablePointer<sp_tone>.alloc(1)
+    private var tone2 = UnsafeMutablePointer<sp_tone>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ A first-order recursive low-pass filter with variable frequency response.
     /** The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 1000] */
     var halfPowerPoint: AKParameter = akp(1000) {
         didSet {
-            halfPowerPoint.bind(&tone.memory.hp)
+            halfPowerPoint.bind(&tone.memory.hp, right:&tone2.memory.hp)
             dependencies.append(halfPowerPoint)
         }
     }
@@ -64,24 +65,27 @@ A first-order recursive low-pass filter with variable frequency response.
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        halfPowerPoint.bind(&tone.memory.hp)
+        halfPowerPoint.bind(&tone.memory.hp, right:&tone2.memory.hp)
         dependencies.append(halfPowerPoint)
     }
 
     /** Internal set up function */
     internal func setup() {
         sp_tone_create(&tone)
+        sp_tone_create(&tone2)
         sp_tone_init(AKManager.sharedManager.data, tone)
+        sp_tone_init(AKManager.sharedManager.data, tone2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_tone_compute(AKManager.sharedManager.data, tone, &(input.leftOutput), &leftOutput);
-        sp_tone_compute(AKManager.sharedManager.data, tone, &(input.rightOutput), &rightOutput);
+        sp_tone_compute(AKManager.sharedManager.data, tone2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_tone_destroy(&tone)
+        sp_tone_destroy(&tone2)
     }
 }

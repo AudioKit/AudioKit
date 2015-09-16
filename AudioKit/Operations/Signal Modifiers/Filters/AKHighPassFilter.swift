@@ -17,6 +17,7 @@ A complement to the AKLowPassFilter.
     // MARK: - Properties
 
     private var atone = UnsafeMutablePointer<sp_atone>.alloc(1)
+    private var atone2 = UnsafeMutablePointer<sp_atone>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ A complement to the AKLowPassFilter.
     /** This is the response curve's half power point (aka cutoff frequency). [Default Value: 1000] */
     var cutoffFrequency: AKParameter = akp(1000) {
         didSet {
-            cutoffFrequency.bind(&atone.memory.hp)
+            cutoffFrequency.bind(&atone.memory.hp, right:&atone2.memory.hp)
             dependencies.append(cutoffFrequency)
         }
     }
@@ -64,24 +65,27 @@ A complement to the AKLowPassFilter.
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        cutoffFrequency.bind(&atone.memory.hp)
+        cutoffFrequency.bind(&atone.memory.hp, right:&atone2.memory.hp)
         dependencies.append(cutoffFrequency)
     }
 
     /** Internal set up function */
     internal func setup() {
         sp_atone_create(&atone)
+        sp_atone_create(&atone2)
         sp_atone_init(AKManager.sharedManager.data, atone)
+        sp_atone_init(AKManager.sharedManager.data, atone2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_atone_compute(AKManager.sharedManager.data, atone, &(input.leftOutput), &leftOutput);
-        sp_atone_compute(AKManager.sharedManager.data, atone, &(input.rightOutput), &rightOutput);
+        sp_atone_compute(AKManager.sharedManager.data, atone2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_atone_destroy(&atone)
+        sp_atone_destroy(&atone2)
     }
 }

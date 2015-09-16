@@ -17,6 +17,7 @@ Performs a "root-mean-square" on a signal to get overall amplitude of a signal. 
     // MARK: - Properties
 
     private var rms = UnsafeMutablePointer<sp_rms>.alloc(1)
+    private var rms2 = UnsafeMutablePointer<sp_rms>.alloc(1)
 
     private var input = AKParameter()
 
@@ -24,7 +25,7 @@ Performs a "root-mean-square" on a signal to get overall amplitude of a signal. 
     /** Half-power point (in Hz) of internal lowpass filter. [Default Value: 10] */
     var halfPowerPoint: AKParameter = akp(10) {
         didSet {
-            halfPowerPoint.bind(&rms.memory.ihp)
+            halfPowerPoint.bind(&rms.memory.ihp, right:&rms2.memory.ihp)
             dependencies.append(halfPowerPoint)
         }
     }
@@ -64,24 +65,27 @@ Performs a "root-mean-square" on a signal to get overall amplitude of a signal. 
 
     /** Bind every property to the internal amplitude */
     internal func bindAll() {
-        halfPowerPoint.bind(&rms.memory.ihp)
+        halfPowerPoint.bind(&rms.memory.ihp, right:&rms2.memory.ihp)
         dependencies.append(halfPowerPoint)
     }
 
     /** Internal set up function */
     internal func setup() {
         sp_rms_create(&rms)
+        sp_rms_create(&rms2)
         sp_rms_init(AKManager.sharedManager.data, rms)
+        sp_rms_init(AKManager.sharedManager.data, rms2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_rms_compute(AKManager.sharedManager.data, rms, &(input.leftOutput), &leftOutput);
-        sp_rms_compute(AKManager.sharedManager.data, rms, &(input.rightOutput), &rightOutput);
+        sp_rms_compute(AKManager.sharedManager.data, rms2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_rms_destroy(&rms)
+        sp_rms_destroy(&rms2)
     }
 }

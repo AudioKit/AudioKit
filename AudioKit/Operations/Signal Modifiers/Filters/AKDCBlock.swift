@@ -17,6 +17,7 @@ import Foundation
     // MARK: - Properties
 
     private var dcblock = UnsafeMutablePointer<sp_dcblock>.alloc(1)
+    private var dcblock2 = UnsafeMutablePointer<sp_dcblock>.alloc(1)
 
     private var input = AKParameter()
 
@@ -46,17 +47,20 @@ import Foundation
     /** Internal set up function */
     internal func setup() {
         sp_dcblock_create(&dcblock)
+        sp_dcblock_create(&dcblock2)
         sp_dcblock_init(AKManager.sharedManager.data, dcblock)
+        sp_dcblock_init(AKManager.sharedManager.data, dcblock2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_dcblock_compute(AKManager.sharedManager.data, dcblock, &(input.leftOutput), &leftOutput);
-        sp_dcblock_compute(AKManager.sharedManager.data, dcblock, &(input.rightOutput), &rightOutput);
+        sp_dcblock_compute(AKManager.sharedManager.data, dcblock2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_dcblock_destroy(&dcblock)
+        sp_dcblock_destroy(&dcblock2)
     }
 }

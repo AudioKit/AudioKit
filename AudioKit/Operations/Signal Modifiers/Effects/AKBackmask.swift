@@ -17,6 +17,7 @@ Backmasking is a recording technique in which a sound or message is recorded bac
     // MARK: - Properties
 
     private var reverse = UnsafeMutablePointer<sp_reverse>.alloc(1)
+    private var reverse2 = UnsafeMutablePointer<sp_reverse>.alloc(1)
 
     private var input = AKParameter()
 
@@ -62,17 +63,20 @@ Backmasking is a recording technique in which a sound or message is recorded bac
     /** Internal set up function */
     internal func setup(delay: Float = 1.0) {
         sp_reverse_create(&reverse)
+        sp_reverse_create(&reverse2)
         sp_reverse_init(AKManager.sharedManager.data, reverse, delay)
+        sp_reverse_init(AKManager.sharedManager.data, reverse2, delay)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_reverse_compute(AKManager.sharedManager.data, reverse, &(input.leftOutput), &leftOutput);
-        sp_reverse_compute(AKManager.sharedManager.data, reverse, &(input.rightOutput), &rightOutput);
+        sp_reverse_compute(AKManager.sharedManager.data, reverse2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_reverse_destroy(&reverse)
+        sp_reverse_destroy(&reverse2)
     }
 }

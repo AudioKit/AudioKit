@@ -75,7 +75,7 @@ Stereo Panner
 
     /** Bind every property to the internal panner */
     internal func bindAll() {
-        pan.bind(&panst.memory.pan)
+        pan      .bind(&panst.memory.pan)
         panst.memory.type = UInt32(floor(panMethod.value))
         dependencies.append(pan)
         dependencies.append(panMethod)

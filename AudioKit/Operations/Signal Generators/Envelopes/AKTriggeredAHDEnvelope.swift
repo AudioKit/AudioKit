@@ -17,6 +17,7 @@ Only one trigger is required to create the lifetime of this envelope.
     // MARK: - Properties
 
     private var tenv = UnsafeMutablePointer<sp_tenv>.alloc(1)
+    private var tenv2 = UnsafeMutablePointer<sp_tenv>.alloc(1)
 
     private var trigger = AKParameter()
 
@@ -25,6 +26,7 @@ Only one trigger is required to create the lifetime of this envelope.
     var mode: AKParameter = akp(0) {
         didSet {
             tenv.memory.sigmode = Int32(floor(mode.value))
+            tenv2.memory.sigmode = Int32(floor(mode.value))
             dependencies.append(mode)
         }
     }
@@ -32,7 +34,7 @@ Only one trigger is required to create the lifetime of this envelope.
     /** Internal input signal. If sigmode variable is set, it will multiply the envelope by this variable. Most of the time, this should be updated at audiorate. [Default Value: 0] */
     var internalInput: AKParameter = akp(0) {
         didSet {
-            internalInput.bind(&tenv.memory.input)
+            internalInput.bind(&tenv.memory.input, right:&tenv2.memory.input)
             dependencies.append(internalInput)
         }
     }
@@ -40,7 +42,7 @@ Only one trigger is required to create the lifetime of this envelope.
     /** Attack duration, in seconds. [Default Value: 0.1] */
     var attackDuration: AKParameter = akp(0.1) {
         didSet {
-            attackDuration.bind(&tenv.memory.atk)
+            attackDuration.bind(&tenv.memory.atk, right:&tenv2.memory.atk)
             dependencies.append(attackDuration)
         }
     }
@@ -48,7 +50,7 @@ Only one trigger is required to create the lifetime of this envelope.
     /** Hold duration, in seconds. [Default Value: 0.3] */
     var holdDuration: AKParameter = akp(0.3) {
         didSet {
-            holdDuration.bind(&tenv.memory.hold)
+            holdDuration.bind(&tenv.memory.hold, right:&tenv2.memory.hold)
             dependencies.append(holdDuration)
         }
     }
@@ -56,7 +58,7 @@ Only one trigger is required to create the lifetime of this envelope.
     /** Release duration, in seconds. [Default Value: 0.2] */
     var releaseDuration: AKParameter = akp(0.2) {
         didSet {
-            releaseDuration.bind(&tenv.memory.rel)
+            releaseDuration.bind(&tenv.memory.rel, right:&tenv2.memory.rel)
             dependencies.append(releaseDuration)
         }
     }
@@ -103,10 +105,11 @@ Only one trigger is required to create the lifetime of this envelope.
     /** Bind every property to the internal envelope */
     internal func bindAll() {
         tenv.memory.sigmode = Int32(floor(mode.value))
-        internalInput  .bind(&tenv.memory.input)
-        attackDuration .bind(&tenv.memory.atk)
-        holdDuration   .bind(&tenv.memory.hold)
-        releaseDuration.bind(&tenv.memory.rel)
+        tenv2.memory.sigmode = Int32(floor(mode.value))
+        internalInput  .bind(&tenv.memory.input, right:&tenv2.memory.input)
+        attackDuration .bind(&tenv.memory.atk, right:&tenv2.memory.atk)
+        holdDuration   .bind(&tenv.memory.hold, right:&tenv2.memory.hold)
+        releaseDuration.bind(&tenv.memory.rel, right:&tenv2.memory.rel)
         dependencies.append(mode)
         dependencies.append(internalInput)
         dependencies.append(attackDuration)
@@ -117,17 +120,20 @@ Only one trigger is required to create the lifetime of this envelope.
     /** Internal set up function */
     internal func setup() {
         sp_tenv_create(&tenv)
+        sp_tenv_create(&tenv2)
         sp_tenv_init(AKManager.sharedManager.data, tenv)
+        sp_tenv_init(AKManager.sharedManager.data, tenv2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_tenv_compute(AKManager.sharedManager.data, tenv, &(trigger.leftOutput), &leftOutput);
-        sp_tenv_compute(AKManager.sharedManager.data, tenv, &(trigger.rightOutput), &rightOutput);
+        sp_tenv_compute(AKManager.sharedManager.data, tenv2, &(trigger.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_tenv_destroy(&tenv)
+        sp_tenv_destroy(&tenv2)
     }
 }

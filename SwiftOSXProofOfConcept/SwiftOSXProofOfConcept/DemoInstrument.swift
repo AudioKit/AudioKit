@@ -8,13 +8,19 @@
 
 import Foundation
 
+/** Testing instrument */
 class DemoInstrument: AKInstrument {
 
+    /** controlling oscillator */
     var oscillatingFrequency: AKOscillator
+    /** fm oscillator */
     var fmOscillator: AKFMOscillator
-    var filter: AKDecimator
+    /** filter */
+    var filter: AKModalResonanceFilter
     
     var playNote = AKTrigger()
+    
+    /** initalize */
     override init() {
         
         // Method 1: Full Initializer
@@ -58,22 +64,24 @@ class DemoInstrument: AKInstrument {
         fmOscillator.modulatingMultiplier.value = 5
         fmOscillator.modulationIndex.value      = 11
         fmOscillator.amplitude.value            = 0.5
-        
-        let distortion = AKDistortion(input: fmOscillator)
 
-        //fmOscillator = AKFMOscillator.presetWobble()
-        
+        filter = AKModalResonanceFilter(input: fmOscillator)
+        let reverb = AKChowningReverb(input: filter)
+
         let simple = AKOscillator()
-        simple.waveform = AKTable.standardSquareWave()
-        simple.frequency.value = 880
-        simple.amplitude.value = 1.0
-        
-        filter = AKDecimator(input: fmOscillator)
-        let reverb = AKReverb(input: distortion)
+        simple.frequency = 440 + 2.0 * oscillatingFrequency
+    
+        let metro = AKMetronome()
+        metro.frequency = oscillatingFrequency.frequency
+    
+        let env1trigger = AKTriggeredAHDEnvelope(trigger: playNote)
+        let env1metro   = AKTriggeredAHDEnvelope(trigger: metro, attackDuration: 0.01.ak, holdDuration: 0.03.ak, releaseDuration: 0.02.ak)
+
+        let env2metro = AKTriggeredAttackReleaseEnvelope(trigger: metro)
 
         super.init()
         output = reverb
-        
+//        output = fmOscillator
     }
     
 }

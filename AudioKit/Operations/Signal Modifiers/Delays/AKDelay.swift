@@ -17,6 +17,7 @@ Add a delay to an incoming signal with optional feedback.
     // MARK: - Properties
 
     private var delay = UnsafeMutablePointer<sp_delay>.alloc(1)
+    private var delay2 = UnsafeMutablePointer<sp_delay>.alloc(1)
 
     private var input = AKParameter()
 
@@ -27,7 +28,7 @@ Add a delay to an incoming signal with optional feedback.
     /** Feedback amount. Should be a value between 0-1. [Default Value: 0.0] */
     var feedback: AKParameter = akp(0.0) {
         didSet {
-            feedback.bind(&delay.memory.feedback)
+            feedback.bind(&delay.memory.feedback, right:&delay2.memory.feedback)
             dependencies.append(feedback)
         }
     }
@@ -82,24 +83,27 @@ Add a delay to an incoming signal with optional feedback.
 
     /** Bind every property to the internal delay */
     internal func bindAll() {
-        feedback .bind(&delay.memory.feedback)
+        feedback .bind(&delay.memory.feedback, right:&delay2.memory.feedback)
         dependencies.append(feedback)
     }
 
     /** Internal set up function */
     internal func setup(delayTime: Float = 1.0) {
         sp_delay_create(&delay)
+        sp_delay_create(&delay2)
         sp_delay_init(AKManager.sharedManager.data, delay, delayTime)
+        sp_delay_init(AKManager.sharedManager.data, delay2, delayTime)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_delay_compute(AKManager.sharedManager.data, delay, &(input.leftOutput), &leftOutput);
-        sp_delay_compute(AKManager.sharedManager.data, delay, &(input.rightOutput), &rightOutput);
+        sp_delay_compute(AKManager.sharedManager.data, delay2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_delay_destroy(&delay)
+        sp_delay_destroy(&delay2)
     }
 }

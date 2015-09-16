@@ -17,6 +17,7 @@ This operation outputs a version of the audio source, amplitude-modified so that
     // MARK: - Properties
 
     private var bal = UnsafeMutablePointer<sp_bal>.alloc(1)
+    private var bal2 = UnsafeMutablePointer<sp_bal>.alloc(1)
 
     private var input = AKParameter()
 
@@ -50,17 +51,20 @@ This operation outputs a version of the audio source, amplitude-modified so that
     /** Internal set up function */
     internal func setup() {
         sp_bal_create(&bal)
+        sp_bal_create(&bal2)
         sp_bal_init(AKManager.sharedManager.data, bal)
+        sp_bal_init(AKManager.sharedManager.data, bal2)
     }
 
     /** Computation of the next value */
     override func compute() {
         sp_bal_compute(AKManager.sharedManager.data, bal, &(input.leftOutput), &(comparator.leftOutput), &leftOutput);
-        sp_bal_compute(AKManager.sharedManager.data, bal, &(input.rightOutput), &(comparator.rightOutput), &rightOutput);
+        sp_bal_compute(AKManager.sharedManager.data, bal2, &(input.rightOutput), &(comparator.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
         sp_bal_destroy(&bal)
+        sp_bal_destroy(&bal2)
     }
 }
