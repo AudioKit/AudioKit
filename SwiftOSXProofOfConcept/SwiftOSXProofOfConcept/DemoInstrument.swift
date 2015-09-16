@@ -14,6 +14,7 @@ class DemoInstrument: AKInstrument {
     var fmOscillator: AKFMOscillator
     var filter: AKDecimator
     
+    var playNote = AKTrigger()
     override init() {
         
         // Method 1: Full Initializer
