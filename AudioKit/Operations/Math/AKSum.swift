@@ -57,10 +57,10 @@ func + (left: Float, right: AKParameter) -> AKSum {
 
 /** Addition helper function */
 func + (left: AKParameter, right: Int) -> AKSum {
-    return AKSum(input: left, plus: akpi(right))
+    return AKSum(input: left, plus: akp(right))
 }
 
 /** Addition helper function */
 func + (left: Int, right: AKParameter) -> AKSum {
-    return AKSum(input: akpi(left), plus: right)
+    return AKSum(input: akp(left), plus: right)
 }

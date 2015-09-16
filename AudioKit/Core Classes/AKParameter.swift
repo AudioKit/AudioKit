@@ -117,7 +117,7 @@ func akp(num: Float) -> AKParameter {
     return AKParameter(float: num)
 }
 
-func akpi(num: Int) -> AKParameter {
+func akp(num: Int) -> AKParameter {
     /** Returns an AKParameter with a constant value */
     return AKParameter(float: Float(num))
 }

@@ -57,10 +57,10 @@ func * (left: Float, right: AKParameter) -> AKProduct {
 
 /** Multiplication helper function */
 func * (left: AKParameter, right: Int) -> AKProduct {
-    return AKProduct(input: left, times: akpi(right))
+    return AKProduct(input: left, times: akp(right))
 }
 
 /** Multiplication helper function */
 func * (left: Int, right: AKParameter) -> AKProduct {
-    return AKProduct(input: akpi(left), times: right)
+    return AKProduct(input: akp(left), times: right)
 }

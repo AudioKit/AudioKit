@@ -62,10 +62,10 @@ func / (left: Float, right: AKParameter) -> AKDivision {
 
 /** Division helper function */
 func / (left: AKParameter, right: Int) -> AKDivision {
-    return AKDivision(input: left, dividedBy: akpi(right))
+    return AKDivision(input: left, dividedBy: akp(right))
 }
 
 /** Division helper function */
 func / (left: Int, right: AKParameter) -> AKDivision {
-    return AKDivision(input: akpi(left), dividedBy: right)
+    return AKDivision(input: akp(left), dividedBy: right)
 }
