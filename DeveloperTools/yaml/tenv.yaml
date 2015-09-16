@@ -31,8 +31,6 @@ parameters:
   comment: "Internal input signal. If sigmode variable is set, it will multiply the envelope by this variable. Most of the time, this should be updated at audiorate.",
   default: 0
 }
-
-constants:
 - atk: {
   audioKitName: attackDuration,
   comment: "Attack duration, in seconds.",
