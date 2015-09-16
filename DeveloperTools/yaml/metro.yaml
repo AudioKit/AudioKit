@@ -11,10 +11,10 @@ shortDescription: metronome
 description:
   Typically, this is used alongside trigger-driven modules.
 
-constants:
+parameters:
 - freq: {
   audioKitName: frequency,
   comment: "The frequency to repeat.",
-  default: 1.0
+  default: 2.0
 }
 
