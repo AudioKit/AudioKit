@@ -9,9 +9,9 @@
 #import "AKControl.h"
 #import "AKParameter+Operation.h"
 
-/** One line title / summary for the operation.Determines the root-mean-square amplitude of an audio signal.
+/** Root-mean-square amplitude of an audio signal
  
- Determines the root-mean-square amplitude of an audio signal. It low-pass filters the actual value, to average in the manner of a VU meter. This unit is not a signal modifier, but functions rather as a signal power-gauge. It uses an internal low-pass filter to make the response smoother. The halfPowerPoint can be used to control this smoothing. The higher the value, the "snappier" the measurement.
+This operation low-pass filters the actual value, to average in the manner of a VU meter. This unit is not a signal modifier, but functions rather as a signal power-gauge. It uses an internal low-pass filter to make the response smoother. The halfPowerPoint can be used to control this smoothing. The higher the value, the "snappier" the measurement.
  */
 
 NS_ASSUME_NONNULL_BEGIN
