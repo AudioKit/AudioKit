@@ -53,5 +53,9 @@ class ViewController : NSViewController {
         print(sender.floatValue)
     }
     
+    @IBOutlet var trigger: NSButton!
+    @IBAction func trigger(sender: AnyObject) {
+        instrument.playNote.trigger = true
+    }
     
 }
