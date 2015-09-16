@@ -1,0 +1,19 @@
+installation_directory: "../AudioKit/Operations/Signal\ Generators/Random\ Generators/"
+
+sp_name: noise
+
+operation: AKWhiteNoise
+
+summary: White noise generator
+
+shortDescription: noise
+
+description:
+
+parameters:
+- amp: {
+  audioKitName: amplitude,
+  comment: "Amplitude. (Value between 0-1).",
+  default: 1.0
+}
+
