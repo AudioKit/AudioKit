@@ -36,7 +36,6 @@ import Foundation
     {
         super.init()
         setup()
-        dependencies = []
         bindAll()
     }
 
