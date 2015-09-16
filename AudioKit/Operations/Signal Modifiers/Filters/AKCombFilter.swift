@@ -16,7 +16,8 @@ This filter reiterates input with an echo density determined by loopDuration. Th
 
     // MARK: - Properties
 
-    private var comb = UnsafeMutablePointer<sp_comb>.alloc(1)
+    private var comb1 = UnsafeMutablePointer<sp_comb>.alloc(1)
+    private var comb2 = UnsafeMutablePointer<sp_comb>.alloc(1)
 
     private var input = AKParameter()
 
@@ -27,7 +28,8 @@ This filter reiterates input with an echo density determined by loopDuration. Th
     /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). [Default Value: 1] */
     var reverbDuration: AKParameter = akp(1) {
         didSet {
-            reverbDuration.bind(&comb.memory.revtime)
+            reverbDuration.bind(&comb1.memory.revtime)
+            reverbDuration.bind(&comb2.memory.revtime)
             dependencies.append(reverbDuration)
         }
     }
@@ -92,24 +94,28 @@ This filter reiterates input with an echo density determined by loopDuration. Th
 
     /** Bind every property to the internal filter */
     internal func bindAll() {
-        reverbDuration.bind(&comb.memory.revtime)
+        reverbDuration.bind(&comb1.memory.revtime)
+        reverbDuration.bind(&comb2.memory.revtime)
         dependencies.append(reverbDuration)
     }
 
     /** Internal set up function */
     internal func setup(loopDuration: Float = 0.1) {
-        sp_comb_create(&comb)
-        sp_comb_init(AKManager.sharedManager.data, comb, loopDuration)
+        sp_comb_create(&comb1)
+        sp_comb_create(&comb2)
+        sp_comb_init(AKManager.sharedManager.data, comb1, loopDuration)
+        sp_comb_init(AKManager.sharedManager.data, comb2, loopDuration)
     }
 
     /** Computation of the next value */
     override func compute() {
-        sp_comb_compute(AKManager.sharedManager.data, comb, &(input.leftOutput), &leftOutput);
-        sp_comb_compute(AKManager.sharedManager.data, comb, &(input.rightOutput), &rightOutput);
+        sp_comb_compute(AKManager.sharedManager.data, comb1, &(input.leftOutput), &leftOutput);
+        sp_comb_compute(AKManager.sharedManager.data, comb2, &(input.rightOutput), &rightOutput);
     }
 
     /** Release of memory */
     override func teardown() {
-        sp_comb_destroy(&comb)
+        sp_comb_destroy(&comb1)
+        sp_comb_destroy(&comb2)
     }
 }
