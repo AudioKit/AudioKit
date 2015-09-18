@@ -13,11 +13,12 @@ class AKTestCase: XCTestCase {
     
     var test: UnsafeMutablePointer<sp_test> = nil
     var testInstrument: AKInstrument?
+    var duration: UInt32 = 2
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        sp_test_create(&test, 2*44100)
+        sp_test_create(&test, duration * 44100)
     }
     
     override func tearDown() {
@@ -26,13 +27,8 @@ class AKTestCase: XCTestCase {
         sp_test_destroy(&test)
     }
     
-    func AKTestAssertMD5(md5: String) {
-        let utf8String = (md5 as NSString).UTF8String
-        XCTAssertEqual(sp_test_compare(test, utf8String), SP_OK)
-    }
-    
-    func process(time: Int) {
-        let samples = time * 44100
+    func process() {
+        let samples = duration * 44100
         
         for _ in 0..<samples {
             for operation in testInstrument!.operations {
@@ -40,10 +36,11 @@ class AKTestCase: XCTestCase {
             }
             sp_test_add_sample(test, AKManager.sharedManager.data.memory.out[0])
         }
+        sp_test_compare(test, "")
     }
     
-    func printMD5() {
-        print(String(CString: test.memory.md5, encoding: NSUTF8StringEncoding))
+    func calculatedMD5() -> String {
+        return String(CString: test.memory.md5, encoding: NSUTF8StringEncoding)!
     }
     
 }
