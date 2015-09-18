@@ -115,11 +115,13 @@ typealias Sample = Float
             let buffer = unsafeBitCast(data.memory.mBuffers, AudioBuffer.self)
             let bufferData = unsafeBitCast(buffer.mData, UnsafeMutablePointer<Sample>.self)
             for i in 0 ..< Int(frameCount) {
-                for operation in AKManager.sharedManager.instruments.first!.operations {
-                    operation.compute()
+                for instrument in AKManager.sharedManager.instruments {
+                    for operation in instrument.operations {
+                        operation.compute()
+                    }
+                    bufferData[i] += Sample(AKManager.sharedManager.data.memory.out[0])
+                    bufferData[i+Int(frameCount)] += Sample(AKManager.sharedManager.data.memory.out[1])
                 }
-              bufferData[i]   = Sample(AKManager.sharedManager.data.memory.out[0])
-              bufferData[i+Int(frameCount)] = Sample(AKManager.sharedManager.data.memory.out[1])
             }
             
             return noErr
