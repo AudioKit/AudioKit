@@ -673,26 +673,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="486" height="414"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-nh-Xz3">
-                                <rect key="frame" x="18" y="141" width="195" height="21"/>
+                            <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s3o-nh-Xz3" customClass="AKParameterSlider" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
+                                <rect key="frame" x="18" y="141" width="195" height="20"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="10000" doubleValue="1000" tickMarkPosition="above" sliderType="linear" id="Cyc-M5-QWD"/>
-                                <connections>
-                                    <action selector="setFilterParameter:" target="XfG-lQ-9wD" id="TvX-Rp-hDf"/>
-                                </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xv1-y4-52k" customClass="AKParameterSlider" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
-                                <rect key="frame" x="18" y="327" width="195" height="21"/>
+                                <rect key="frame" x="18" y="327" width="195" height="20"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1000" doubleValue="440" tickMarkPosition="above" sliderType="linear" id="aPu-po-vLp"/>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uqN-XG-Wln" customClass="AKParameterSlider" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
-                                <rect key="frame" x="18" y="274" width="195" height="21"/>
+                                <rect key="frame" x="18" y="274" width="195" height="20"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="3" tickMarkPosition="above" sliderType="linear" id="Ux3-De-jBS"/>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ctg-79-BeF">
-                                <rect key="frame" x="18" y="224" width="195" height="21"/>
+                                <rect key="frame" x="18" y="224" width="195" height="20"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="11" tickMarkPosition="above" sliderType="linear" id="Yvb-vC-uHu"/>
                                 <connections>
@@ -700,7 +697,7 @@
                                 </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EmE-Qe-70X">
-                                <rect key="frame" x="18" y="199" width="195" height="21"/>
+                                <rect key="frame" x="18" y="199" width="195" height="20"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="W4S-ES-NjX"/>
                                 <connections>
@@ -789,7 +786,7 @@
                                 </textFieldCell>
                             </textField>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Gq-1p-c36">
-                                <rect key="frame" x="18" y="249" width="195" height="21"/>
+                                <rect key="frame" x="18" y="249" width="195" height="20"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="20" doubleValue="5" tickMarkPosition="above" sliderType="linear" id="rwf-cW-guo"/>
                                 <connections>
@@ -797,7 +794,7 @@
                                 </connections>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xH1-pD-6GA" customClass="AKParameterSlider" customModule="SwiftOSXProofOfConcept" customModuleProvider="target">
-                                <rect key="frame" x="20" y="350" width="195" height="21"/>
+                                <rect key="frame" x="20" y="350" width="195" height="20"/>
                                 <animations/>
                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="10" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="qtd-o1-n5P"/>
                             </slider>
@@ -830,14 +827,27 @@
                                     <action selector="revertToSines:" target="XfG-lQ-9wD" id="eAL-YV-rIv"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yu3-ri-0rb">
+                                <rect key="frame" x="128" y="75" width="84" height="32"/>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Trigger" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZVp-uf-kwO">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="trigger:" target="XfG-lQ-9wD" id="lyF-s5-g0h"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                     </view>
                     <connections>
                         <outlet property="amplitudeSlider" destination="xv1-y4-52k" id="2Hg-08-THW"/>
                         <outlet property="carrierSlider" destination="uqN-XG-Wln" id="wYI-17-Hgo"/>
+                        <outlet property="filterSlider" destination="s3o-nh-Xz3" id="mwe-US-Jla"/>
                         <outlet property="frequencyLabel" destination="4ky-2z-gce" id="txM-B8-JLc"/>
                         <outlet property="frequencySlider" destination="xH1-pD-6GA" id="A6b-Wq-QHd"/>
+                        <outlet property="trigger" destination="Yu3-ri-0rb" id="aeb-eE-Qrt"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
