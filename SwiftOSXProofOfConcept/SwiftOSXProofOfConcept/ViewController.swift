@@ -11,12 +11,17 @@ import Cocoa
 class ViewController : NSViewController {
     
     var instrument = DemoInstrument()
-    
+    //var metro = MetronomeInstrument()
+    var chorus: AKChorus?
+
     @IBOutlet var frequencyLabel:  AKParameterLabel!
     
     @IBOutlet var frequencySlider: AKParameterSlider!
     @IBOutlet var amplitudeSlider: AKParameterSlider!
     @IBOutlet var carrierSlider:   AKParameterSlider!
+    
+    @IBOutlet var filterSlider: AKParameterSlider!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +29,13 @@ class ViewController : NSViewController {
         frequencySlider.parameter = instrument.oscillatingFrequency.frequency
         amplitudeSlider.parameter = instrument.oscillatingFrequency.amplitude
         carrierSlider.parameter   = instrument.fmOscillator.carrierMultiplier
-        
-        AKManager.sharedManager.setupAudioUnit()
 
-        //let tester = AKTester()
-        //tester.run(10)
+        chorus = AKChorus(input: instrument)
+        filterSlider.minValue = 0
+        filterSlider.maxValue = 1
+        filterSlider.parameter = chorus!.width
+        
+        //AKManager.sharedManager.setupAudioUnit()
     }
     
     @IBAction func revertToSines(sender: AnyObject) {
@@ -48,14 +55,9 @@ class ViewController : NSViewController {
         instrument.fmOscillator.amplitude.value = sender.floatValue
     }
     
-    @IBAction func setFilterParameter(sender: NSSlider) {
-        instrument.filter.frequency.value = sender.floatValue
-        print(sender.floatValue)
-    }
-    
     @IBOutlet var trigger: NSButton!
     @IBAction func trigger(sender: AnyObject) {
-        instrument.playNote.trigger = true
+//        metro.playNote.trigger = true
     }
     
 }
