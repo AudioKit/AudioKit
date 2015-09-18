@@ -38,6 +38,11 @@ import Foundation
     /** This tells us whether we've already connected this operation to the instrument */
     var connected: Bool
     
+    /** Internal reference to left AKParameter for recombining mono into stereo */
+    private var leftParameter:  AKParameter?
+    /** Internal reference to right AKParameter for recombining mono into stereo */
+    private var rightParameter: AKParameter?
+    
     // MARK: - Initializers
     
     /** Basic initializer */
@@ -56,6 +61,19 @@ import Foundation
         leftOutput  = float
         rightOutput = float
         connected = true
+    }
+    
+    /**
+    An initializer for combining two mono inputs into one stereo output
+    
+    - parameter float: The value of the constant parameter
+    */
+    convenience init(left: AKParameter, right: AKParameter) {
+        self.init()
+        leftParameter = left
+        rightParameter = right
+        dependencies.append(left)
+        dependencies.append(right)
     }
     
     // MARK: - Math Helpers
@@ -104,7 +122,13 @@ import Foundation
     
     /** The compute function to override in subclasses */
     func compute() {
-        // override in subclass
+
+        if let left = leftParameter {
+            leftOutput = left.leftOutput
+        }
+        if let right = rightParameter {
+            rightOutput = right.leftOutput
+        }
     }
     
     /** A placeholder for a function to release the memory */
