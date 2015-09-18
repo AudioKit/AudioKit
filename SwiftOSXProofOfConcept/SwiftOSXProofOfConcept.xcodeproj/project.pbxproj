@@ -139,6 +139,7 @@
 		C4C5E8961BABBDC70044F99F /* AKChorus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5E8511BAB90280044F99F /* AKChorus.swift */; settings = {ASSET_TAGS = (); }; };
 		C4C5E8971BABBDD10044F99F /* AKStringResonatorFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C5E8541BABAAFB0044F99F /* AKStringResonatorFilter.swift */; settings = {ASSET_TAGS = (); }; };
 		C4C5EA731BABC83A0044F99F /* AKAudioUnitRenderCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C5EA721BABC83A0044F99F /* AKAudioUnitRenderCallback.m */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0571BACB23A0068290D /* AKMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0561BACB23A0068290D /* AKMix.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E985BC1BA21336006555A3 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E985BB1BA21336006555A3 /* libsndfile.a */; };
 		C4E985CD1BA25224006555A3 /* libsoundpipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E985CC1BA25224006555A3 /* libsoundpipe.a */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -232,6 +233,7 @@
 		C4C5E8541BABAAFB0044F99F /* AKStringResonatorFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStringResonatorFilter.swift; sourceTree = "<group>"; };
 		C4C5E8561BABAD210044F99F /* MetronomeInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeInstrument.swift; sourceTree = "<group>"; };
 		C4C5EA721BABC83A0044F99F /* AKAudioUnitRenderCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKAudioUnitRenderCallback.m; path = SwiftOSXProofOfConcept/AKAudioUnitRenderCallback.m; sourceTree = SOURCE_ROOT; };
+		C4E3E0561BACB23A0068290D /* AKMix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMix.swift; sourceTree = "<group>"; };
 		C4E985BB1BA21336006555A3 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = /usr/local/Cellar/libsndfile/1.0.25/lib/libsndfile.a; sourceTree = "<absolute>"; };
 		C4E985C91BA2517E006555A3 /* soundpipe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = soundpipe.h; path = ../../../Soundpipe/h/soundpipe.h; sourceTree = "<group>"; };
 		C4E985CC1BA25224006555A3 /* libsoundpipe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoundpipe.a; path = ../../../Soundpipe/libsoundpipe.a; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A454EE1BA5A8A5005EA172 /* AKBalance.swift */,
+				C4E3E0561BACB23A0068290D /* AKMix.swift */,
 				C4A454EF1BA5A8A5005EA172 /* AKPanner.swift */,
 			);
 			path = "Volume and Spatialization";
@@ -722,6 +725,7 @@
 				C484235D1BA77C7C0011D63C /* AKSum.swift in Sources */,
 				C48423491BA73B1A0011D63C /* AKRandomNumbers.swift in Sources */,
 				C4A455051BA5A8A5005EA172 /* AKLowPassButterworthFilter.swift in Sources */,
+				C4E3E0571BACB23A0068290D /* AKMix.swift in Sources */,
 				C48423431BA732400011D63C /* AKDistortion.swift in Sources */,
 				C4C5E8551BABAAFB0044F99F /* AKStringResonatorFilter.swift in Sources */,
 				C4A455071BA5A8A5005EA172 /* AKReverb.swift in Sources */,
