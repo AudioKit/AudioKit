@@ -115,6 +115,8 @@ typealias Sample = Float
             let buffer = unsafeBitCast(data.memory.mBuffers, AudioBuffer.self)
             let bufferData = unsafeBitCast(buffer.mData, UnsafeMutablePointer<Sample>.self)
             for i in 0 ..< Int(frameCount) {
+                bufferData[i] = 0
+                bufferData[i+Int(frameCount)] = 0
                 for instrument in AKManager.sharedManager.instruments {
                     for operation in instrument.operations {
                         operation.compute()
