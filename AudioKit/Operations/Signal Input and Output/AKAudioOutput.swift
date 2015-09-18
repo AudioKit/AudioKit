@@ -27,6 +27,8 @@ import Foundation
     override func compute() {
         sp_out(AKManager.sharedManager.data, 0, input.leftOutput)
         sp_out(AKManager.sharedManager.data, 1, input.rightOutput)
+        leftOutput = input.leftOutput
+        rightOutput = input.rightOutput
     }
     
 }
