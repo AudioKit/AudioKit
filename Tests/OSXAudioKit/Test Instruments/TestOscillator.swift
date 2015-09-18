@@ -1,5 +1,5 @@
 //
-//  Oscillator.swift
+//  TestOscillator.swift
 //  OSXAudioKit
 //
 //  Created by Aurelius Prochazka on 9/18/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc class Oscillator : AKInstrument {
+@objc class TestOscillator : AKInstrument {
     
     override init() {
         super.init()

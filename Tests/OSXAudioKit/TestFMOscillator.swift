@@ -1,5 +1,5 @@
 //
-//  FMOscillator.swift
+//  TestFMOscillator.swift
 //  OSXAudioKit
 //
 //  Created by Aurelius Prochazka on 9/18/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc class FMOscillator : AKInstrument {
+@objc class TestFMOscillator : AKInstrument {
     
     override init() {
         super.init()
