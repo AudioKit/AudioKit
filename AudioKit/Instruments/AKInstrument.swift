@@ -17,9 +17,7 @@ import Foundation
     /** A final audio output parameter */
     var output: AKParameter? {
         didSet {
-            connect(AKAudioOutput(input: output!))
-            leftOutput = output!.leftOutput
-            rightOutput = output!.rightOutput
+            connect(output!)
         }
     }
     
@@ -38,6 +36,14 @@ import Foundation
             }
         }
         operations.append(operation)
+    }
+    
+    /** Computation of the next value */
+    override func compute() {
+        if let out = output {
+            leftOutput = out.leftOutput
+            rightOutput = out.rightOutput
+        }
     }
 
 }
