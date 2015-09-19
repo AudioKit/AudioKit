@@ -28,10 +28,16 @@ class InstrumentTests: AKTestCase {
         XCTAssertEqual(calculatedMD5(), "b08efaa81dbf543493074d2464d7dcda")
     }
     
+    func testPhasor() {
+        testInstrument = AKPhasorTester()
+        process()
+        XCTAssertEqual(calculatedMD5(), "5966be0858b60866826b685f31acb395")
+    }
+    
     func testSilence() {
         testInstrument = SilenceTester()
         process()
-        XCTAssertEqual(calculatedMD5(), "6160230370c1f7ca3dc2ced3cd39f3dd")
+        XCTAssertEqual(calculatedMD5(), "83d625897761e70d8eb580426a2724f1")
     }
     
     func testTrackedAmplitude() {
