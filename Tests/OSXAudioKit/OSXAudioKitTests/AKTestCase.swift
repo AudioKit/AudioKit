@@ -30,11 +30,13 @@ class AKTestCase: XCTestCase {
     func process() {
         let samples = duration * 44100
         
-        for _ in 0..<samples {
-            for operation in testInstrument!.operations {
-                operation.compute()
+        if let testInst = testInstrument  {
+            for _ in 0..<samples {
+                for operation in testInst.operations {
+                    operation.compute()
+                }
+                sp_test_add_sample(test, AKManager.sharedManager.data.memory.out[0])
             }
-            sp_test_add_sample(test, AKManager.sharedManager.data.memory.out[0])
         }
         sp_test_compare(test, "")
     }
