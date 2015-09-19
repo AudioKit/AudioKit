@@ -331,6 +331,12 @@ static AKManager *_sharedManager = nil;
 
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {    
+    if ([msg length] > 4 && [[msg substringToIndex:5] isEqualToString:@"clock"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"AKBeatClock"
+                                                            object:nil
+                                                          userInfo:@{@"message":[msg substringFromIndex:6]}];
+    } 
+
     if (_isLogging) {
         if (AKSettings.shared.messagesEnabled) {
             NSLog(@"Csound(%d): %@", attr, msg);

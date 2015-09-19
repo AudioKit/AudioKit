@@ -56,7 +56,7 @@
     [testInstrument playForDuration:testDuration];
     
     // Check output
-    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"6732f0f4e4b428dfcd2a043aa49b3c07");
+    XCTAssertEqualObjects([self md5ForOutputWithDuration:testDuration], @"1ed0bdfac7be5ace532d635186af071d");
 }
 
 

@@ -97,7 +97,7 @@ NSString * const AKMidiControlNotification              = @"AKMidiControl";
     return self;
 }
 
-+ (NSArray *)midiEventsFromPacket:(const MIDIPacket *)packet
++ (NSArray<AKMidiEvent *> *)midiEventsFromPacket:(const MIDIPacket *)packet
 {
     NSMutableArray *ret = [NSMutableArray arrayWithCapacity:packet->length/3];
     for(NSUInteger i = 0; i < packet->length; i += 3) {

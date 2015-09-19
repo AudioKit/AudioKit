@@ -72,7 +72,7 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
 @property (strong) NSThread *thread;
 
 - (void)runCsound:(NSString *)csdFilePath;
-- (void)runCsoundToDisk:(NSArray *)paths;
+- (void)runCsoundToDisk:(NSArray<NSString *> *)paths;
 
 @end
 
@@ -350,7 +350,7 @@ static void messageCallback(CSOUND *cs, int attr, const char *format, va_list va
             vsnprintf(message, 1024, format, valist);
             
             if (attr == CSOUNDMSG_API_RESP) {
-                NSArray *substr = [[NSString stringWithUTF8String:message] componentsSeparatedByString:@":"];
+                NSArray<NSString *> *substr = [[NSString stringWithUTF8String:message] componentsSeparatedByString:@":"];
                 
                 if (substr.count > 1) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:AKCsoundAPIMessageNotification
@@ -620,7 +620,7 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
 }
 #endif
 
-- (void)runCsoundToDisk:(NSArray *)paths
+- (void)runCsoundToDisk:(NSArray<NSString *> *)paths
 {
     @autoreleasepool {
         if (_cs == nil)

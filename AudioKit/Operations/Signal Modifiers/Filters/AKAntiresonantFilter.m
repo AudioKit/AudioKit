@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 8/16/15.
+//  Customized by Daniel Clelland on 8/30/15 to include tival() and peak scaling.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's areson:
@@ -116,6 +117,7 @@
     } else {
         [inputsString appendFormat:@"AKControl(%@)", _bandwidth];
     }
+    [inputsString appendString:@", 1, tival()"];
     return inputsString;
 }
 

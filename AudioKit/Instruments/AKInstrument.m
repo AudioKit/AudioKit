@@ -12,6 +12,7 @@
 #import "AKStereoAudio.h"
 #import "AKAudioOutput.h"
 #import "AKLog.h"
+#import "AKParameterChangeLog.h"
 
 @implementation AKInstrument
 {
@@ -273,6 +274,13 @@ static NSUInteger currentID = 1;
     [self connect:[[AKLog alloc] initWithMessage:message
                                        parameter:parameter
                                     timeInterval:timeInterval]];
+}
+
+- (void)logChangesToParameter:(nonnull AKParameter *)parameter
+                  withMessage:(nonnull NSString *)message
+{
+    [self connect:[[AKParameterChangeLog alloc] initWithMessage:message
+                                                      parameter:parameter]];
 }
 
 
