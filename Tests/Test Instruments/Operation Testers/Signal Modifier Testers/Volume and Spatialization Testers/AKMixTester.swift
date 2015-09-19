@@ -1,5 +1,5 @@
 //
-//  TestMix.swift
+//  AKMixTester.swift
 //  OSXAudioKit
 //
 //  Created by Aurelius Prochazka on 9/18/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TestMix : AKInstrument {
+class AKMixTester : AKInstrument {
     
     override init() {
         super.init()

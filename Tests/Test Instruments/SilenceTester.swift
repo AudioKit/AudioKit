@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc class TestSilence : AKInstrument {
+class SilenceTester : AKInstrument {
     
     override init() {
         super.init()
