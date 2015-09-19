@@ -3,6 +3,7 @@
 //  AudioKit
 //
 //  Auto-generated on 9/20/15.
+//  Customised by Daniel Clelland on 9/5/15.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's pvsmaska:
@@ -29,21 +30,6 @@
         _amplitudeTable = amplitudeTable;
         _depth = depth;
         [self setUpConnections];
-}
-    return self;
-}
-
-- (instancetype)initWithInput:(AKFSignal *)input
-               amplitudeTable:(AKTable *)amplitudeTable
-                        depth:(AKParameter *)depth
-{
-    self = [super initWithString:[self operationName]];
-    if (self) {
-        _input = input;
-        _amplitudeTable = amplitudeTable;
-        _depth = depth;
-        // Default Values
-        [self setUpConnections];
     }
     return self;
 }
@@ -56,7 +42,6 @@
                    amplitudeTable:amplitudeTable
                             depth:depth];
 }
-
 
 - (void)setUpConnections
 {
@@ -74,7 +59,6 @@
 
     return inlineCSDString;
 }
-
 
 - (NSString *)stringForCSD
 {
