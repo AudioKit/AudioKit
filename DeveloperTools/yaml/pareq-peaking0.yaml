@@ -1,0 +1,44 @@
+installation_directory: "../AudioKit/Operations/Signal\ Modifiers/Filters/"
+
+sp_name: pareq
+
+operation: AKPeakingParametricEqualizerFilter
+
+summary: Peaking Parametric Equalizer
+
+shortDescription: equalizer
+
+description:
+  This is an implementation of Zoelzer's parametric equalizer filter.
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- fc: {
+  audioKitName: centerFrequency,
+  comment: "Center frequency.",
+  default: 1000
+}
+- v: {
+  audioKitName: gain,
+  comment: "Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.",
+  default: 1
+}
+- q: {
+  audioKitName: q,
+  comment: "Q of the filter. sqrt(0.5) is no resonance.",
+  default: 0.707
+}
+
+constantParameters:
+- mode: {
+  audioKitName: mode,
+  unused: true,
+  comment: "EQ mode. 0 = peak, 1 = low shelving, 2 = high shelving",
+  default: 0
+}
+
