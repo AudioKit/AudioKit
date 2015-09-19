@@ -74,6 +74,7 @@
 #import "AKFFTTableReader.h"
 #import "AKFFTTableWriter.h"
 #import "AKFilteredFFT.h"
+#import "AKMaskedFFT.h"
 #import "AKMixedFFT.h"
 #import "AKPhaseLockedVocoder.h"
 #import "AKResynthesizedAudio.h"
