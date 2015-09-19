@@ -141,13 +141,15 @@
 		C4E3E04B1BABF0630068290D /* TestOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E04A1BABF0630068290D /* TestOscillator.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E04C1BABF0630068290D /* TestOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E04A1BABF0630068290D /* TestOscillator.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E04F1BABF3C50068290D /* InstrumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E04E1BABF3C50068290D /* InstrumentTests.swift */; settings = {ASSET_TAGS = (); }; };
-		C4E3E0511BAC00AB0068290D /* TestFMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0501BAC00AB0068290D /* TestFMOscillator.swift */; settings = {ASSET_TAGS = (); }; };
-		C4E3E0521BAC00AB0068290D /* TestFMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0501BAC00AB0068290D /* TestFMOscillator.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0541BAC02380068290D /* AKAudioUnitRenderCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0531BAC02380068290D /* AKAudioUnitRenderCallback.m */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0591BACB9D10068290D /* AKMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0581BACB9D10068290D /* AKMix.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E05A1BACB9D10068290D /* AKMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0581BACB9D10068290D /* AKMix.swift */; settings = {ASSET_TAGS = (); }; };
-		C4E3E05C1BACB9EE0068290D /* TestMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E05B1BACB9EE0068290D /* TestMix.swift */; settings = {ASSET_TAGS = (); }; };
-		C4E3E05D1BACB9EE0068290D /* TestMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E05B1BACB9EE0068290D /* TestMix.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0611BAD27730068290D /* TestSilence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0601BAD27730068290D /* TestSilence.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0621BAD27730068290D /* TestSilence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0601BAD27730068290D /* TestSilence.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0651BAD278E0068290D /* TestFMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0631BAD278E0068290D /* TestFMOscillator.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0661BAD278E0068290D /* TestFMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0631BAD278E0068290D /* TestFMOscillator.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0671BAD278E0068290D /* TestMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0641BAD278E0068290D /* TestMix.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0681BAD278E0068290D /* TestMix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0641BAD278E0068290D /* TestMix.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -238,10 +240,11 @@
 		C4E3E0421BABEA1F0068290D /* libsoundpipe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsoundpipe.a; path = ../../../Soundpipe/libsoundpipe.a; sourceTree = "<group>"; };
 		C4E3E04A1BABF0630068290D /* TestOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestOscillator.swift; path = "Test Instruments/TestOscillator.swift"; sourceTree = "<group>"; };
 		C4E3E04E1BABF3C50068290D /* InstrumentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstrumentTests.swift; sourceTree = "<group>"; };
-		C4E3E0501BAC00AB0068290D /* TestFMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFMOscillator.swift; sourceTree = "<group>"; };
 		C4E3E0531BAC02380068290D /* AKAudioUnitRenderCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKAudioUnitRenderCallback.m; sourceTree = "<group>"; };
 		C4E3E0581BACB9D10068290D /* AKMix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMix.swift; sourceTree = "<group>"; };
-		C4E3E05B1BACB9EE0068290D /* TestMix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMix.swift; sourceTree = "<group>"; };
+		C4E3E0601BAD27730068290D /* TestSilence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestSilence.swift; path = "Test Instruments/TestSilence.swift"; sourceTree = "<group>"; };
+		C4E3E0631BAD278E0068290D /* TestFMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestFMOscillator.swift; path = "Test Instruments/TestFMOscillator.swift"; sourceTree = "<group>"; };
+		C4E3E0641BAD278E0068290D /* TestMix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestMix.swift; path = "Test Instruments/TestMix.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -564,9 +567,10 @@
 		C4E3E04D1BABF0690068290D /* Test Instruments */ = {
 			isa = PBXGroup;
 			children = (
+				C4E3E0631BAD278E0068290D /* TestFMOscillator.swift */,
+				C4E3E0641BAD278E0068290D /* TestMix.swift */,
 				C4E3E04A1BABF0630068290D /* TestOscillator.swift */,
-				C4E3E0501BAC00AB0068290D /* TestFMOscillator.swift */,
-				C4E3E05B1BACB9EE0068290D /* TestMix.swift */,
+				C4E3E0601BAD27730068290D /* TestSilence.swift */,
 			);
 			name = "Test Instruments";
 			sourceTree = "<group>";
@@ -673,6 +677,7 @@
 			files = (
 				C4E3DFD51BABE95C0068290D /* AKDivision.swift in Sources */,
 				C4E3E00F1BABE95C0068290D /* AKBackmask.swift in Sources */,
+				C4E3E0671BAD278E0068290D /* TestMix.swift in Sources */,
 				C4E3DFE71BABE95C0068290D /* AKRound.swift in Sources */,
 				C4E3DFFB1BABE95C0068290D /* AKPhasor.swift in Sources */,
 				C4E3DF4E1BABE9210068290D /* AppDelegate.swift in Sources */,
@@ -690,6 +695,7 @@
 				C4E3E01F1BABE95C0068290D /* AKModalResonanceFilter.swift in Sources */,
 				C4E3E0011BABE95C0068290D /* AKJitter.swift in Sources */,
 				C4E3E0031BABE95C0068290D /* AKRandomNumbers.swift in Sources */,
+				C4E3E0651BAD278E0068290D /* TestFMOscillator.swift in Sources */,
 				C4E3DFED1BABE95C0068290D /* AKTriggeredAHDEnvelope.swift in Sources */,
 				C4E3DFE31BABE95C0068290D /* AKLog2.swift in Sources */,
 				C4E3E00D1BABE95C0068290D /* AKVariableDelay.swift in Sources */,
@@ -713,7 +719,6 @@
 				C4E3DFCB1BABE95C0068290D /* AKInstrument.swift in Sources */,
 				C4E3E01B1BABE95C0068290D /* AKHighPassFilter.swift in Sources */,
 				C4E3E0171BABE95C0068290D /* AKDecimator.swift in Sources */,
-				C4E3E05C1BACB9EE0068290D /* TestMix.swift in Sources */,
 				C4E3DFD91BABE95C0068290D /* AKFractionalPart.swift in Sources */,
 				C4E3E0071BABE95C0068290D /* AKAdditiveCosines.swift in Sources */,
 				C4E3DFCF1BABE95C0068290D /* AKTrackedAmplitude.swift in Sources */,
@@ -726,9 +731,9 @@
 				C4E3E0351BABE95C0068290D /* AKBalance.swift in Sources */,
 				C4E3DFF71BABE95C0068290D /* AKFMOscillator.swift in Sources */,
 				C4E3E0311BABE95C0068290D /* AKFlatFrequencyResponseReverb.swift in Sources */,
+				C4E3E0611BAD27730068290D /* TestSilence.swift in Sources */,
 				C4E3E0591BACB9D10068290D /* AKMix.swift in Sources */,
 				C4E3DFD11BABE95C0068290D /* AKAbsoluteValue.swift in Sources */,
-				C4E3E0511BAC00AB0068290D /* TestFMOscillator.swift in Sources */,
 				C4E3DFF11BABE95C0068290D /* AKMetronome.swift in Sources */,
 				C4E3E0271BABE95C0068290D /* AKBandPassButterworthFilter.swift in Sources */,
 				C4E3DFD71BABE95C0068290D /* AKFloor.swift in Sources */,
@@ -747,6 +752,7 @@
 			files = (
 				C4E3DFD61BABE95C0068290D /* AKDivision.swift in Sources */,
 				C4E3E0101BABE95C0068290D /* AKBackmask.swift in Sources */,
+				C4E3E0681BAD278E0068290D /* TestMix.swift in Sources */,
 				C4E3DFE81BABE95C0068290D /* AKRound.swift in Sources */,
 				C4E3DFFC1BABE95C0068290D /* AKPhasor.swift in Sources */,
 				C4E3DF5E1BABE9210068290D /* AKTestCase.swift in Sources */,
@@ -764,6 +770,7 @@
 				C4E3E0021BABE95C0068290D /* AKJitter.swift in Sources */,
 				C4E3E0041BABE95C0068290D /* AKRandomNumbers.swift in Sources */,
 				C4E3E04F1BABF3C50068290D /* InstrumentTests.swift in Sources */,
+				C4E3E0661BAD278E0068290D /* TestFMOscillator.swift in Sources */,
 				C4E3DFEE1BABE95C0068290D /* AKTriggeredAHDEnvelope.swift in Sources */,
 				C4E3DFE41BABE95C0068290D /* AKLog2.swift in Sources */,
 				C4E3E00E1BABE95C0068290D /* AKVariableDelay.swift in Sources */,
@@ -771,7 +778,6 @@
 				C4E3E0001BABE95C0068290D /* AKInterpolatedRandomNumberPulse.swift in Sources */,
 				C4E3DFFE1BABE95C0068290D /* AKDroplet.swift in Sources */,
 				C4E3E0221BABE95C0068290D /* AKMoogLadder.swift in Sources */,
-				C4E3E0521BAC00AB0068290D /* TestFMOscillator.swift in Sources */,
 				C4E3E00C1BABE95C0068290D /* AKDelay.swift in Sources */,
 				C4E3E02E1BABE95C0068290D /* AKLowPassButterworthFilter.swift in Sources */,
 				C4E3E0061BABE95C0068290D /* AKWhiteNoise.swift in Sources */,
@@ -787,7 +793,6 @@
 				C4E3E0161BABE95C0068290D /* AKDCBlock.swift in Sources */,
 				C4E3DFCC1BABE95C0068290D /* AKInstrument.swift in Sources */,
 				C4E3E01C1BABE95C0068290D /* AKHighPassFilter.swift in Sources */,
-				C4E3E05D1BACB9EE0068290D /* TestMix.swift in Sources */,
 				C4E3E0181BABE95C0068290D /* AKDecimator.swift in Sources */,
 				C4E3DFDA1BABE95C0068290D /* AKFractionalPart.swift in Sources */,
 				C4E3E0081BABE95C0068290D /* AKAdditiveCosines.swift in Sources */,
@@ -800,6 +805,7 @@
 				C4E3E02A1BABE95C0068290D /* AKBandRejectButterworthFilter.swift in Sources */,
 				C4E3E0361BABE95C0068290D /* AKBalance.swift in Sources */,
 				C4E3DFF81BABE95C0068290D /* AKFMOscillator.swift in Sources */,
+				C4E3E0621BAD27730068290D /* TestSilence.swift in Sources */,
 				C4E3E05A1BACB9D10068290D /* AKMix.swift in Sources */,
 				C4E3E0321BABE95C0068290D /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C4E3DFD21BABE95C0068290D /* AKAbsoluteValue.swift in Sources */,

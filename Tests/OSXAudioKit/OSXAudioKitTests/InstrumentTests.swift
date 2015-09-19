@@ -27,4 +27,10 @@ class InstrumentTests: AKTestCase {
         process()
         XCTAssertEqual(calculatedMD5(), "b08efaa81dbf543493074d2464d7dcda")
     }
+    
+    func testSilence() {
+        testInstrument = TestSilence()
+        process()
+        XCTAssertEqual(calculatedMD5(), "6160230370c1f7ca3dc2ced3cd39f3dd")
+    }
 }
