@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc class TestMix : AKInstrument {
+class TestMix : AKInstrument {
     
     override init() {
         super.init()

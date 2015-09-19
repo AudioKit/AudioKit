@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc class TestFMOscillator : AKInstrument {
+class TestFMOscillator : AKInstrument {
     
     override init() {
         super.init()
