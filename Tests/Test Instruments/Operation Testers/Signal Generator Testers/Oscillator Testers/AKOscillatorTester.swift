@@ -1,5 +1,5 @@
 //
-//  TestFMOscillator.swift
+//  AKOscillatorTester.swift
 //  OSXAudioKit
 //
 //  Created by Aurelius Prochazka on 9/18/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TestFMOscillator : AKInstrument {
+class AKOscillatorTester : AKInstrument {
     
     override init() {
         super.init()
@@ -17,10 +17,8 @@ class TestFMOscillator : AKInstrument {
         
         let amplitude = 0.8 - 0.5 * AKPhasor(frequency: 7.ak, phase: 0.5)
         
-        let fm = AKFMOscillator()
-        fm.baseFrequency = frequency
-        fm.amplitude = amplitude
-        
-        output = AKAudioOutput(input: fm)
+        let oscillator = AKOscillator(waveform: AKTable.standardSineWave(), frequency: frequency, amplitude: amplitude, phase: 0)
+
+        output = AKAudioOutput(input: oscillator)
     }
 }
