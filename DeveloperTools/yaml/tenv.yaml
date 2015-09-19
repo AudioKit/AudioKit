@@ -18,19 +18,6 @@ inputs:
 }
 
 parameters:
-- sigmode: {
-  audioKitName: mode,
-  unused: true,
-  type: Int32,
-  comment: "If set to non-zero value, tenv will multiply the envelope with an internal signal instead of just returning an enveloped signal.",
-  default: 0
-}
-- input: {
-  audioKitName: internalInput,
-  unused: true,
-  comment: "Internal input signal. If sigmode variable is set, it will multiply the envelope by this variable. Most of the time, this should be updated at audiorate.",
-  default: 0
-}
 - atk: {
   audioKitName: attackDuration,
   comment: "Attack duration, in seconds.",
@@ -47,3 +34,15 @@ parameters:
   default: 0.2
 }
 
+constantParameters:
+- sigmode: {
+  audioKitName: mode,
+  type: Int32,
+  comment: "If set to non-zero value, tenv will multiply the envelope with an internal signal instead of just returning an enveloped signal.",
+  default: 0
+}
+- input: {
+  audioKitName: internalInput,
+  comment: "Internal input signal. If sigmode variable is set, it will multiply the envelope by this variable. Most of the time, this should be updated at audiorate.",
+  default: 0
+}

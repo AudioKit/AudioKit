@@ -22,23 +22,6 @@ Only one trigger is required to create the lifetime of this envelope.
     private var trigger = AKParameter()
 
 
-    /** If set to non-zero value, tenv will multiply the envelope with an internal signal instead of just returning an enveloped signal. [Default Value: 0] */
-    var mode: AKParameter = akp(0) {
-        didSet {
-            tenv.memory.sigmode = Int32(floor(mode.value))
-            tenv2.memory.sigmode = Int32(floor(mode.value))
-            dependencies.append(mode)
-        }
-    }
-
-    /** Internal input signal. If sigmode variable is set, it will multiply the envelope by this variable. Most of the time, this should be updated at audiorate. [Default Value: 0] */
-    var internalInput: AKParameter = akp(0) {
-        didSet {
-            internalInput.bind(&tenv.memory.input, right:&tenv2.memory.input)
-            dependencies.append(internalInput)
-        }
-    }
-
     /** Attack duration, in seconds. [Default Value: 0.1] */
     var attackDuration: AKParameter = akp(0.1) {
         didSet {
@@ -60,6 +43,23 @@ Only one trigger is required to create the lifetime of this envelope.
         didSet {
             releaseDuration.bind(&tenv.memory.rel, right:&tenv2.memory.rel)
             dependencies.append(releaseDuration)
+        }
+    }
+
+    /** If set to non-zero value, tenv will multiply the envelope with an internal signal instead of just returning an enveloped signal. [Default Value: 0] */
+    var mode: AKParameter = akp(0) {
+        didSet {
+            tenv.memory.sigmode = Int32(floor(mode.value))
+            tenv2.memory.sigmode = Int32(floor(mode.value))
+            dependencies.append(mode)
+        }
+    }
+
+    /** Internal input signal. If sigmode variable is set, it will multiply the envelope by this variable. Most of the time, this should be updated at audiorate. [Default Value: 0] */
+    var internalInput: AKParameter = akp(0) {
+        didSet {
+            internalInput.bind(&tenv.memory.input, right:&tenv2.memory.input)
+            dependencies.append(internalInput)
         }
     }
 
@@ -87,10 +87,10 @@ Only one trigger is required to create the lifetime of this envelope.
     - parameter releaseDuration: Release duration, in seconds. [Default Value: 0.2]
     */
     convenience init(
-        trigger         sourceInput:  AKParameter,
-        attackDuration  atkInput:     AKParameter,
-        holdDuration    holdInput:    AKParameter,
-        releaseDuration relInput:     AKParameter)
+        trigger         sourceInput: AKParameter,
+        attackDuration  atkInput:    AKParameter,
+        holdDuration    holdInput:   AKParameter,
+        releaseDuration relInput:    AKParameter)
     {
         self.init(trigger: sourceInput)
         attackDuration  = atkInput
@@ -104,14 +104,9 @@ Only one trigger is required to create the lifetime of this envelope.
 
     /** Bind every property to the internal envelope */
     internal func bindAll() {
-        tenv.memory.sigmode = Int32(floor(mode.value))
-        tenv2.memory.sigmode = Int32(floor(mode.value))
-        internalInput  .bind(&tenv.memory.input, right:&tenv2.memory.input)
         attackDuration .bind(&tenv.memory.atk, right:&tenv2.memory.atk)
         holdDuration   .bind(&tenv.memory.hold, right:&tenv2.memory.hold)
         releaseDuration.bind(&tenv.memory.rel, right:&tenv2.memory.rel)
-        dependencies.append(mode)
-        dependencies.append(internalInput)
         dependencies.append(attackDuration)
         dependencies.append(holdDuration)
         dependencies.append(releaseDuration)
