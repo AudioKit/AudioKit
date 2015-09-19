@@ -37,7 +37,6 @@ parameters:
 constantParameters:
 - mode: {
   audioKitName: mode,
-  unused: true,
   comment: "EQ mode. 0 = peak, 1 = low shelving, 2 = high shelving",
   default: 2
 }
