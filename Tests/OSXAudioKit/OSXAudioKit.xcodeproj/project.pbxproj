@@ -156,6 +156,8 @@
 		C4E3E0DA1BAE28B10068290D /* AKFMOscillatorTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D11BAE28B10068290D /* AKFMOscillatorTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0DB1BAE28B10068290D /* AKOscillatorTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D21BAE28B10068290D /* AKOscillatorTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0DC1BAE28B10068290D /* AKOscillatorTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D21BAE28B10068290D /* AKOscillatorTester.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0DD1BAE28B10068290D /* AKPhasorTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D31BAE28B10068290D /* AKPhasorTester.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E0DE1BAE28B10068290D /* AKPhasorTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D31BAE28B10068290D /* AKPhasorTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0DF1BAE28B10068290D /* AKMixTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D61BAE28B10068290D /* AKMixTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0E01BAE28B10068290D /* AKMixTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D61BAE28B10068290D /* AKMixTester.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -256,6 +258,7 @@
 		C4E3E0CE1BAE28B10068290D /* AKTrackedAmplitudeTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTrackedAmplitudeTester.swift; sourceTree = "<group>"; };
 		C4E3E0D11BAE28B10068290D /* AKFMOscillatorTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorTester.swift; sourceTree = "<group>"; };
 		C4E3E0D21BAE28B10068290D /* AKOscillatorTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillatorTester.swift; sourceTree = "<group>"; };
+		C4E3E0D31BAE28B10068290D /* AKPhasorTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhasorTester.swift; sourceTree = "<group>"; };
 		C4E3E0D61BAE28B10068290D /* AKMixTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixTester.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -579,6 +582,68 @@
 			path = "Butterworth Filters";
 			sourceTree = "<group>";
 		};
+		C4E3E0AA1BAE27C20068290D /* Test Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				C4E3E0CC1BAE28B10068290D /* Operation Testers */,
+				C4E3E0B11BAE27C20068290D /* SilenceTester.swift */,
+			);
+			name = "Test Instruments";
+			path = "../Test Instruments";
+			sourceTree = "<group>";
+		};
+		C4E3E0CC1BAE28B10068290D /* Operation Testers */ = {
+			isa = PBXGroup;
+			children = (
+				C4E3E0CD1BAE28B10068290D /* Analysis Testers */,
+				C4E3E0CF1BAE28B10068290D /* Signal Generator Testers */,
+				C4E3E0D41BAE28B10068290D /* Signal Modifier Testers */,
+			);
+			path = "Operation Testers";
+			sourceTree = "<group>";
+		};
+		C4E3E0CD1BAE28B10068290D /* Analysis Testers */ = {
+			isa = PBXGroup;
+			children = (
+				C4E3E0CE1BAE28B10068290D /* AKTrackedAmplitudeTester.swift */,
+			);
+			path = "Analysis Testers";
+			sourceTree = "<group>";
+		};
+		C4E3E0CF1BAE28B10068290D /* Signal Generator Testers */ = {
+			isa = PBXGroup;
+			children = (
+				C4E3E0D01BAE28B10068290D /* Oscillator Testers */,
+			);
+			path = "Signal Generator Testers";
+			sourceTree = "<group>";
+		};
+		C4E3E0D01BAE28B10068290D /* Oscillator Testers */ = {
+			isa = PBXGroup;
+			children = (
+				C4E3E0D11BAE28B10068290D /* AKFMOscillatorTester.swift */,
+				C4E3E0D21BAE28B10068290D /* AKOscillatorTester.swift */,
+				C4E3E0D31BAE28B10068290D /* AKPhasorTester.swift */,
+			);
+			path = "Oscillator Testers";
+			sourceTree = "<group>";
+		};
+		C4E3E0D41BAE28B10068290D /* Signal Modifier Testers */ = {
+			isa = PBXGroup;
+			children = (
+				C4E3E0D51BAE28B10068290D /* Volume and Spatialization Testers */,
+			);
+			path = "Signal Modifier Testers";
+			sourceTree = "<group>";
+		};
+		C4E3E0D51BAE28B10068290D /* Volume and Spatialization Testers */ = {
+			isa = PBXGroup;
+			children = (
+				C4E3E0D61BAE28B10068290D /* AKMixTester.swift */,
+			);
+			path = "Volume and Spatialization Testers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -682,12 +747,10 @@
 				C4E3E0881BAD4D040068290D /* AKEqualizerFilter.swift in Sources */,
 				C4E3DFD51BABE95C0068290D /* AKDivision.swift in Sources */,
 				C4E3E00F1BABE95C0068290D /* AKBackmask.swift in Sources */,
-				C4E3E0671BAD278E0068290D /* TestMix.swift in Sources */,
 				C4E3DFE71BABE95C0068290D /* AKRound.swift in Sources */,
 				C4E3DFFB1BABE95C0068290D /* AKPhasor.swift in Sources */,
 				C4E3DF4E1BABE9210068290D /* AppDelegate.swift in Sources */,
 				C4E3DFD31BABE95C0068290D /* AKDifference.swift in Sources */,
-				C4E3E04B1BABF0630068290D /* TestOscillator.swift in Sources */,
 				C4E3E0371BABE95C0068290D /* AKPanner.swift in Sources */,
 				C4E3E0331BABE95C0068290D /* AKReverb.swift in Sources */,
 				C4E3E02F1BABE95C0068290D /* AKChowningReverb.swift in Sources */,
@@ -695,11 +758,12 @@
 				C4E3DFE51BABE95C0068290D /* AKProduct.swift in Sources */,
 				C4E3DFEF1BABE95C0068290D /* AKTriggeredAttackReleaseEnvelope.swift in Sources */,
 				C4E3E0011BABE95C0068290D /* AKJitter.swift in Sources */,
+				C4E3E0DF1BAE28B10068290D /* AKMixTester.swift in Sources */,
 				C4E3E0031BABE95C0068290D /* AKRandomNumbers.swift in Sources */,
-				C4E3E0651BAD278E0068290D /* TestFMOscillator.swift in Sources */,
 				C4E3DFED1BABE95C0068290D /* AKTriggeredAHDEnvelope.swift in Sources */,
 				C4E3DFE31BABE95C0068290D /* AKLog2.swift in Sources */,
 				C4E3E00D1BABE95C0068290D /* AKVariableDelay.swift in Sources */,
+				C4E3E0DB1BAE28B10068290D /* AKOscillatorTester.swift in Sources */,
 				C4E3DFE11BABE95C0068290D /* AKLog10.swift in Sources */,
 				C4E3DFFF1BABE95C0068290D /* AKInterpolatedRandomNumberPulse.swift in Sources */,
 				C4E3E0941BAD4D040068290D /* AKMoogLadder.swift in Sources */,
@@ -709,6 +773,7 @@
 				C4E3DFC91BABE95C0068290D /* AKChorus.swift in Sources */,
 				C4E3DFDB1BABE95C0068290D /* AKInverse.swift in Sources */,
 				C4E3DFBF1BABE95C0068290D /* AKParameter.swift in Sources */,
+				C4E3E0D71BAE28B10068290D /* AKTrackedAmplitudeTester.swift in Sources */,
 				C4E3DFC11BABE95C0068290D /* AKParameterLabel.swift in Sources */,
 				C4E3DFDF1BABE95C0068290D /* AKLog.swift in Sources */,
 				C4E3DFEB1BABE95C0068290D /* AKSum.swift in Sources */,
@@ -716,6 +781,7 @@
 				C4E3DFCB1BABE95C0068290D /* AKInstrument.swift in Sources */,
 				C4E3E0A21BAD4D040068290D /* AKLowPassButterworthFilter.swift in Sources */,
 				C4E3DFD91BABE95C0068290D /* AKFractionalPart.swift in Sources */,
+				C4E3E0BC1BAE27C20068290D /* SilenceTester.swift in Sources */,
 				C4E3E0071BABE95C0068290D /* AKAdditiveCosines.swift in Sources */,
 				C4E3DFCF1BABE95C0068290D /* AKTrackedAmplitude.swift in Sources */,
 				C4E3DFBD1BABE95C0068290D /* AKManager.swift in Sources */,
@@ -730,12 +796,13 @@
 				C4E3E0351BABE95C0068290D /* AKBalance.swift in Sources */,
 				C4E3DFF71BABE95C0068290D /* AKFMOscillator.swift in Sources */,
 				C4E3E0311BABE95C0068290D /* AKFlatFrequencyResponseReverb.swift in Sources */,
-				C4E3E0611BAD27730068290D /* TestSilence.swift in Sources */,
 				C4E3E0591BACB9D10068290D /* AKMix.swift in Sources */,
 				C4E3DFD11BABE95C0068290D /* AKAbsoluteValue.swift in Sources */,
 				C4E3E08C1BAD4D040068290D /* AKHighShelfParametricEqualizerFilter.swift in Sources */,
 				C4E3E0901BAD4D040068290D /* AKLowShelfParametricEqualizerFilter.swift in Sources */,
+				C4E3E0DD1BAE28B10068290D /* AKPhasorTester.swift in Sources */,
 				C4E3E09A1BAD4D040068290D /* AKThreePoleLowpassFilter.swift in Sources */,
+				C4E3E0D91BAE28B10068290D /* AKFMOscillatorTester.swift in Sources */,
 				C4E3E09E1BAD4D040068290D /* AKBandRejectButterworthFilter.swift in Sources */,
 				C4E3E08E1BAD4D040068290D /* AKLowPassFilter.swift in Sources */,
 				C4E3DFF11BABE95C0068290D /* AKMetronome.swift in Sources */,
@@ -760,24 +827,23 @@
 				C4E3E0891BAD4D040068290D /* AKEqualizerFilter.swift in Sources */,
 				C4E3DFD61BABE95C0068290D /* AKDivision.swift in Sources */,
 				C4E3E0101BABE95C0068290D /* AKBackmask.swift in Sources */,
-				C4E3E0681BAD278E0068290D /* TestMix.swift in Sources */,
 				C4E3DFE81BABE95C0068290D /* AKRound.swift in Sources */,
 				C4E3DFFC1BABE95C0068290D /* AKPhasor.swift in Sources */,
 				C4E3DF5E1BABE9210068290D /* AKTestCase.swift in Sources */,
 				C4E3DFD41BABE95C0068290D /* AKDifference.swift in Sources */,
 				C4E3E0381BABE95C0068290D /* AKPanner.swift in Sources */,
-				C4E3E04C1BABF0630068290D /* TestOscillator.swift in Sources */,
 				C4E3E0341BABE95C0068290D /* AKReverb.swift in Sources */,
 				C4E3E0301BABE95C0068290D /* AKChowningReverb.swift in Sources */,
 				C4E3DFE61BABE95C0068290D /* AKProduct.swift in Sources */,
 				C4E3DFF01BABE95C0068290D /* AKTriggeredAttackReleaseEnvelope.swift in Sources */,
 				C4E3E0021BABE95C0068290D /* AKJitter.swift in Sources */,
 				C4E3E0041BABE95C0068290D /* AKRandomNumbers.swift in Sources */,
+				C4E3E0E01BAE28B10068290D /* AKMixTester.swift in Sources */,
 				C4E3E04F1BABF3C50068290D /* InstrumentTests.swift in Sources */,
-				C4E3E0661BAD278E0068290D /* TestFMOscillator.swift in Sources */,
 				C4E3DFEE1BABE95C0068290D /* AKTriggeredAHDEnvelope.swift in Sources */,
 				C4E3DFE41BABE95C0068290D /* AKLog2.swift in Sources */,
 				C4E3E00E1BABE95C0068290D /* AKVariableDelay.swift in Sources */,
+				C4E3E0DC1BAE28B10068290D /* AKOscillatorTester.swift in Sources */,
 				C4E3DFE21BABE95C0068290D /* AKLog10.swift in Sources */,
 				C4E3E0001BABE95C0068290D /* AKInterpolatedRandomNumberPulse.swift in Sources */,
 				C4E3E0951BAD4D040068290D /* AKMoogLadder.swift in Sources */,
@@ -787,6 +853,7 @@
 				C4E3DFCA1BABE95C0068290D /* AKChorus.swift in Sources */,
 				C4E3DFDC1BABE95C0068290D /* AKInverse.swift in Sources */,
 				C4E3DFC01BABE95C0068290D /* AKParameter.swift in Sources */,
+				C4E3E0D81BAE28B10068290D /* AKTrackedAmplitudeTester.swift in Sources */,
 				C4E3DFC21BABE95C0068290D /* AKParameterLabel.swift in Sources */,
 				C4E3DFE01BABE95C0068290D /* AKLog.swift in Sources */,
 				C4E3DFEC1BABE95C0068290D /* AKSum.swift in Sources */,
@@ -794,6 +861,7 @@
 				C4E3DFCC1BABE95C0068290D /* AKInstrument.swift in Sources */,
 				C4E3E0A31BAD4D040068290D /* AKLowPassButterworthFilter.swift in Sources */,
 				C4E3DFDA1BABE95C0068290D /* AKFractionalPart.swift in Sources */,
+				C4E3E0BD1BAE27C20068290D /* SilenceTester.swift in Sources */,
 				C4E3E0081BABE95C0068290D /* AKAdditiveCosines.swift in Sources */,
 				C4E3DFD01BABE95C0068290D /* AKTrackedAmplitude.swift in Sources */,
 				C4E3DFBE1BABE95C0068290D /* AKManager.swift in Sources */,
@@ -807,13 +875,14 @@
 				C4E3DFC61BABE95C0068290D /* AKTable.swift in Sources */,
 				C4E3E0361BABE95C0068290D /* AKBalance.swift in Sources */,
 				C4E3DFF81BABE95C0068290D /* AKFMOscillator.swift in Sources */,
-				C4E3E0621BAD27730068290D /* TestSilence.swift in Sources */,
 				C4E3E05A1BACB9D10068290D /* AKMix.swift in Sources */,
 				C4E3E0321BABE95C0068290D /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C4E3DFD21BABE95C0068290D /* AKAbsoluteValue.swift in Sources */,
 				C4E3E08D1BAD4D040068290D /* AKHighShelfParametricEqualizerFilter.swift in Sources */,
 				C4E3E0911BAD4D040068290D /* AKLowShelfParametricEqualizerFilter.swift in Sources */,
+				C4E3E0DE1BAE28B10068290D /* AKPhasorTester.swift in Sources */,
 				C4E3E09B1BAD4D040068290D /* AKThreePoleLowpassFilter.swift in Sources */,
+				C4E3E0DA1BAE28B10068290D /* AKFMOscillatorTester.swift in Sources */,
 				C4E3E09F1BAD4D040068290D /* AKBandRejectButterworthFilter.swift in Sources */,
 				C4E3E08F1BAD4D040068290D /* AKLowPassFilter.swift in Sources */,
 				C4E3DFF21BABE95C0068290D /* AKMetronome.swift in Sources */,
