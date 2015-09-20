@@ -22,14 +22,15 @@ import Foundation
     // MARK: - Initializers
     
     /** Instantiates the sum
-    - parameter input: The first input.
+    
+    - parameter first: The first input.
     - parameter plus: The second input.
     */
-    init(_ firstInput: AKParameter, plus secondInput: AKParameter)
+    init(_ first: AKParameter, plus second: AKParameter)
     {
         super.init()
-        first = firstInput
-        second = secondInput
+        self.first = first
+        self.second = second
         dependencies = [first, second]
     }
     

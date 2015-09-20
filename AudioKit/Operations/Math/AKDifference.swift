@@ -22,14 +22,15 @@ import Foundation
     // MARK: - Initializers
     
     /** Instantiates the difference
+    
     - parameter input: The input to be subtracted from.
     - parameter minus: The input that will be subtracted.
     */
-    init(_ minuendInput: AKParameter, minus subtrahendInput: AKParameter)
+    init(_ minuend: AKParameter, minus subtrahend: AKParameter)
     {
         super.init()
-        minuend = minuendInput
-        subtrahend = subtrahendInput
+        self.minuend = minuend
+        self.subtrahend = subtrahend
         dependencies = [minuend, subtrahend]
     }
     

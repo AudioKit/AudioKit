@@ -20,12 +20,13 @@ import Foundation
     // MARK: - Initializers
     
     /** Instantiates the log10
+    
     - parameter input: Input signal.
     */
-    init(_ sourceInput: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         dependencies = [input]
     }
     
