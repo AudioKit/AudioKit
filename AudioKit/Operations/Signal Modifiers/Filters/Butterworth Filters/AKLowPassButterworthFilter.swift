@@ -37,10 +37,10 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -52,11 +52,11 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     - parameter cutoffFrequency: Cutoff frequency. [Default Value: 1000]
     */
     convenience init(
-        input           sourceInput: AKParameter,
-        cutoffFrequency freqInput:   AKParameter)
+        input:           AKParameter,
+        cutoffFrequency: AKParameter)
     {
-        self.init(input: sourceInput)
-        cutoffFrequency = freqInput
+        self.init(input: input)
+        self.cutoffFrequency = cutoffFrequency
 
         bindAll()
     }

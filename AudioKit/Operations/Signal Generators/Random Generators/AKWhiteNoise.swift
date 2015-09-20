@@ -44,11 +44,11 @@ import Foundation
     - parameter amplitude: Amplitude. (Value between 0-1). [Default Value: 1.0]
     */
     convenience init(
-        amplitude ampInput: AKParameter)
+        amplitude: AKParameter)
     {
         self.init()
 
-        amplitude = ampInput
+        self.amplitude = amplitude
 
         bindAll()
     }

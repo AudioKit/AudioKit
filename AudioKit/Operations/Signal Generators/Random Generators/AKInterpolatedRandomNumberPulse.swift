@@ -62,9 +62,9 @@ New random numbers are generated at a given frequency between zero and a maximum
 
     - parameter seed: Seed to use or use the default of zero to have a random seed. [Default Value: 0]
     */
-    init (seed seedInput: Int32) {
+    init (seed: Int32) {
         super.init()
-        setup(seedInput)
+        setup(seed)
         bindAll()
     }
 
@@ -76,15 +76,15 @@ New random numbers are generated at a given frequency between zero and a maximum
     - parameter seed: Seed to use or use the default of zero to have a random seed. [Default Value: 0]
     */
     convenience init(
-        lowerBound minInput:  AKParameter,
-        upperBound maxInput:  AKParameter,
-        frequency  cpsInput:  AKParameter,
-        seed       seedInput: Int32)
+        lowerBound: AKParameter,
+        upperBound: AKParameter,
+        frequency:  AKParameter,
+        seed:       Int32)
     {
-        self.init(seed: seedInput)
-        lowerBound = minInput
-        upperBound = maxInput
-        frequency  = cpsInput
+        self.init(seed: seed)
+        self.lowerBound = lowerBound
+        self.upperBound = upperBound
+        self.frequency  = frequency
 
         bindAll()
     }

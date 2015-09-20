@@ -32,10 +32,10 @@ This applies portamento to a control signal. Useful for smoothing out low-resolu
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -46,10 +46,10 @@ This applies portamento to a control signal. Useful for smoothing out low-resolu
     - parameter input: Input audio signal. 
     - parameter halfTime: Time during which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. [Default Value: 0.02]
     */
-    init (input sourceInput: AKParameter, halfTime htimeInput: Float) {
+    init (input: AKParameter, halfTime: Float) {
         super.init()
-        input = sourceInput
-        setup(htimeInput)
+        self.input = input
+        setup(halfTime)
         dependencies = [input]
         bindAll()
     }

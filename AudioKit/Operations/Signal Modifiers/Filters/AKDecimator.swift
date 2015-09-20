@@ -45,10 +45,10 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -61,13 +61,13 @@ Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
     - parameter sampleRate: The sample rate of signal output. [Default Value: 10000]
     */
     convenience init(
-        input      sourceInput:   AKParameter,
-        bitDepth   bitdepthInput: AKParameter,
-        sampleRate srateInput:    AKParameter)
+        input:      AKParameter,
+        bitDepth:   AKParameter,
+        sampleRate: AKParameter)
     {
-        self.init(input: sourceInput)
-        bitDepth   = bitdepthInput
-        sampleRate = srateInput
+        self.init(input: input)
+        self.bitDepth   = bitDepth
+        self.sampleRate = sampleRate
 
         bindAll()
     }

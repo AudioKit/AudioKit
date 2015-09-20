@@ -61,10 +61,10 @@ import Foundation
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -79,17 +79,17 @@ import Foundation
     - parameter postgain: Gain applied after waveshaping [Default Value: 0.5]
     */
     convenience init(
-        input                  sourceInput:   AKParameter,
-        pregain                pregainInput:  AKParameter,
-        postiveShapeParameter  shape1Input:   AKParameter,
-        negativeShapeParameter shape2Input:   AKParameter,
-        postgain               postgainInput: AKParameter)
+        input:                  AKParameter,
+        pregain:                AKParameter,
+        postiveShapeParameter:  AKParameter,
+        negativeShapeParameter: AKParameter,
+        postgain:               AKParameter)
     {
-        self.init(input: sourceInput)
-        pregain                = pregainInput
-        postiveShapeParameter  = shape1Input
-        negativeShapeParameter = shape2Input
-        postgain               = postgainInput
+        self.init(input: input)
+        self.pregain                = pregain
+        self.postiveShapeParameter  = postiveShapeParameter
+        self.negativeShapeParameter = negativeShapeParameter
+        self.postgain               = postgain
 
         bindAll()
     }

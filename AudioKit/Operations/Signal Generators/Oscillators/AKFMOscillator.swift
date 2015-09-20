@@ -88,21 +88,21 @@ Classic FM Synthesis audio generation.
     - parameter amplitude: This multiplied by the modulating frequency gives the modulation amplitude. [Default Value: 0.5]
     */
     convenience init(
-        waveform             ftInput:   AKTable,
-        baseFrequency        freqInput: AKParameter,
-        carrierMultiplier    carInput:  AKParameter,
-        modulatingMultiplier modInput:  AKParameter,
-        modulationIndex      indxInput: AKParameter,
-        amplitude            ampInput:  AKParameter)
+        waveform:             AKTable,
+        baseFrequency:        AKParameter,
+        carrierMultiplier:    AKParameter,
+        modulatingMultiplier: AKParameter,
+        modulationIndex:      AKParameter,
+        amplitude:            AKParameter)
     {
         self.init()
 
-        waveform             = ftInput
-        baseFrequency        = freqInput
-        carrierMultiplier    = carInput
-        modulatingMultiplier = modInput
-        modulationIndex      = indxInput
-        amplitude            = ampInput
+        self.waveform             = waveform
+        self.baseFrequency        = baseFrequency
+        self.carrierMultiplier    = carrierMultiplier
+        self.modulatingMultiplier = modulatingMultiplier
+        self.modulationIndex      = modulationIndex
+        self.amplitude            = amplitude
 
         bindAll()
     }

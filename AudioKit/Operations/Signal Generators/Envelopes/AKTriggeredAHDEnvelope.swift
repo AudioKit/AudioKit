@@ -70,10 +70,10 @@ Only one trigger is required to create the lifetime of this envelope.
 
     - parameter trigger: Input trigger. 
     */
-    init(trigger sourceInput: AKParameter)
+    init(trigger: AKParameter)
     {
         super.init()
-        trigger = sourceInput
+        self.trigger = trigger
         setup()
         dependencies = [trigger]
         bindAll()
@@ -87,15 +87,15 @@ Only one trigger is required to create the lifetime of this envelope.
     - parameter releaseDuration: Release duration, in seconds. [Default Value: 0.2]
     */
     convenience init(
-        trigger         sourceInput: AKParameter,
-        attackDuration  atkInput:    AKParameter,
-        holdDuration    holdInput:   AKParameter,
-        releaseDuration relInput:    AKParameter)
+        trigger:         AKParameter,
+        attackDuration:  AKParameter,
+        holdDuration:    AKParameter,
+        releaseDuration: AKParameter)
     {
-        self.init(trigger: sourceInput)
-        attackDuration  = atkInput
-        holdDuration    = holdInput
-        releaseDuration = relInput
+        self.init(trigger: trigger)
+        self.attackDuration  = attackDuration
+        self.holdDuration    = holdDuration
+        self.releaseDuration = releaseDuration
 
         bindAll()
     }

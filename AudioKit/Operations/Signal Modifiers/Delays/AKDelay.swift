@@ -40,10 +40,10 @@ Add a delay to an incoming signal with optional feedback.
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -54,10 +54,10 @@ Add a delay to an incoming signal with optional feedback.
     - parameter input: Input audio signal. 
     - parameter delayTime: Delay time, in seconds. [Default Value: 1.0]
     */
-    init (input sourceInput: AKParameter, delayTime timeInput: Float) {
+    init (input: AKParameter, delayTime: Float) {
         super.init()
-        input = sourceInput
-        setup(timeInput)
+        self.input = input
+        setup(delayTime)
         dependencies = [input]
         bindAll()
     }
@@ -69,12 +69,12 @@ Add a delay to an incoming signal with optional feedback.
     - parameter delayTime: Delay time, in seconds. [Default Value: 1.0]
     */
     convenience init(
-        input     sourceInput:   AKParameter,
-        feedback  feedbackInput: AKParameter,
-        delayTime timeInput:     Float)
+        input:     AKParameter,
+        feedback:  AKParameter,
+        delayTime: Float)
     {
-        self.init(input: sourceInput, delayTime: timeInput)
-        feedback  = feedbackInput
+        self.init(input: input, delayTime: delayTime)
+        self.feedback  = feedback
 
         bindAll()
     }

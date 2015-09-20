@@ -85,9 +85,9 @@ This is used to generate a series of partials from the harmonic series. It comes
 
     - parameter iphs: Phase to start on (in the range 0-1) [Default Value: 0]
     */
-    init (iphs iphsInput: Float) {
+    init (iphs: Float) {
         super.init()
-        setup(iphsInput)
+        setup(iphs)
         bindAll()
     }
 
@@ -102,21 +102,21 @@ This is used to generate a series of partials from the harmonic series. It comes
     - parameter iphs: Phase to start on (in the range 0-1) [Default Value: 0]
     */
     convenience init(
-        cosineTable          ftInput:    AKTable,
-        harmonicsCount       nharmInput: AKParameter,
-        firstHarmonicIndex   lharmInput: AKParameter,
-        partialMultiplier    mulInput:   AKParameter,
-        fundamentalFrequency freqInput:  AKParameter,
-        amplitude            ampInput:   AKParameter,
-        iphs                 iphsInput:  Float)
+        cosineTable:          AKTable,
+        harmonicsCount:       AKParameter,
+        firstHarmonicIndex:   AKParameter,
+        partialMultiplier:    AKParameter,
+        fundamentalFrequency: AKParameter,
+        amplitude:            AKParameter,
+        iphs:                 Float)
     {
-        self.init(iphs: iphsInput)
-        cosineTable          = ftInput
-        harmonicsCount       = nharmInput
-        firstHarmonicIndex   = lharmInput
-        partialMultiplier    = mulInput
-        fundamentalFrequency = freqInput
-        amplitude            = ampInput
+        self.init(iphs: iphs)
+        self.cosineTable          = cosineTable
+        self.harmonicsCount       = harmonicsCount
+        self.firstHarmonicIndex   = firstHarmonicIndex
+        self.partialMultiplier    = partialMultiplier
+        self.fundamentalFrequency = fundamentalFrequency
+        self.amplitude            = amplitude
 
         bindAll()
     }

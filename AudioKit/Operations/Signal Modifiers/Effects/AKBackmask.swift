@@ -32,10 +32,10 @@ Backmasking is a recording technique in which a sound or message is recorded bac
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -46,10 +46,10 @@ Backmasking is a recording technique in which a sound or message is recorded bac
     - parameter input: Input audio signal. 
     - parameter delay: Delay time in seconds. [Default Value: 1.0]
     */
-    init (input sourceInput: AKParameter, delay delayInput: Float) {
+    init (input: AKParameter, delay: Float) {
         super.init()
-        input = sourceInput
-        setup(delayInput)
+        self.input = input
+        setup(delay)
         dependencies = [input]
         bindAll()
     }

@@ -64,15 +64,15 @@ This can be used to make more natural and “analog-sounding” some static, dul
     - parameter maximumFrequency: Maximum speed of random frequency variations (expressed in Hz). [Default Value: 60]
     */
     convenience init(
-        amplitude        ampInput:    AKParameter,
-        minimumFrequency cpsMinInput: AKParameter,
-        maximumFrequency cpsMaxInput: AKParameter)
+        amplitude:        AKParameter,
+        minimumFrequency: AKParameter,
+        maximumFrequency: AKParameter)
     {
         self.init()
 
-        amplitude        = ampInput
-        minimumFrequency = cpsMinInput
-        maximumFrequency = cpsMaxInput
+        self.amplitude        = amplitude
+        self.minimumFrequency = minimumFrequency
+        self.maximumFrequency = maximumFrequency
 
         bindAll()
     }

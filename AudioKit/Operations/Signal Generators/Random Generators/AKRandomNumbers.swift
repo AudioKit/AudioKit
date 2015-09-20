@@ -53,13 +53,13 @@ Generate random values within a range.
     - parameter upperBound: Maximum range limit. [Default Value: 0.2]
     */
     convenience init(
-        lowerBound minInput: AKParameter,
-        upperBound maxInput: AKParameter)
+        lowerBound: AKParameter,
+        upperBound: AKParameter)
     {
         self.init()
 
-        lowerBound = minInput
-        upperBound = maxInput
+        self.lowerBound = lowerBound
+        self.upperBound = upperBound
 
         bindAll()
     }

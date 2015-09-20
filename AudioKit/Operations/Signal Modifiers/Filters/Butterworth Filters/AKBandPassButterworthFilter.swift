@@ -45,10 +45,10 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -61,13 +61,13 @@ These filters are Butterworth second-order IIR filters. They offer an almost fla
     - parameter bandwidth: Bandwidth. (in Hertz) [Default Value: 100]
     */
     convenience init(
-        input           sourceInput: AKParameter,
-        centerFrequency freqInput:   AKParameter,
-        bandwidth       bwInput:     AKParameter)
+        input:           AKParameter,
+        centerFrequency: AKParameter,
+        bandwidth:       AKParameter)
     {
-        self.init(input: sourceInput)
-        centerFrequency = freqInput
-        bandwidth       = bwInput
+        self.init(input: input)
+        self.centerFrequency = centerFrequency
+        self.bandwidth       = bandwidth
 
         bindAll()
     }

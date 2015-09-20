@@ -88,10 +88,10 @@ This is a physical model of the sound of dripping water. When triggered, it will
 
     - parameter input: Triggering input, such as a metronome. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -102,10 +102,10 @@ This is a physical model of the sound of dripping water. When triggered, it will
     - parameter input: Triggering input, such as a metronome. 
     - parameter maximumDuration: Period of time over which all sound is stopped. [Default Value: 0.09]
     */
-    init (input sourceInput: AKParameter, maximumDuration dettackInput: Float) {
+    init (input: AKParameter, maximumDuration: Float) {
         super.init()
-        input = sourceInput
-        setup(dettackInput)
+        self.input = input
+        setup(maximumDuration)
         dependencies = [input]
         bindAll()
     }
@@ -123,24 +123,24 @@ This is a physical model of the sound of dripping water. When triggered, it will
     - parameter maximumDuration: Period of time over which all sound is stopped. [Default Value: 0.09]
     */
     convenience init(
-        input                   sourceInput:    AKParameter,
-        intensity               num_tubesInput: AKParameter,
-        dampingFactor           dampInput:      AKParameter,
-        energyReturn            shake_maxInput: AKParameter,
-        mainResonantFrequency   freqInput:      AKParameter,
-        firstResonantFrequency  freq1Input:     AKParameter,
-        secondResonantFrequency freq2Input:     AKParameter,
-        amplitude               ampInput:       AKParameter,
-        maximumDuration         dettackInput:   Float)
+        input:                   AKParameter,
+        intensity:               AKParameter,
+        dampingFactor:           AKParameter,
+        energyReturn:            AKParameter,
+        mainResonantFrequency:   AKParameter,
+        firstResonantFrequency:  AKParameter,
+        secondResonantFrequency: AKParameter,
+        amplitude:               AKParameter,
+        maximumDuration:         Float)
     {
-        self.init(input: sourceInput, maximumDuration: dettackInput)
-        intensity               = num_tubesInput
-        dampingFactor           = dampInput
-        energyReturn            = shake_maxInput
-        mainResonantFrequency   = freqInput
-        firstResonantFrequency  = freq1Input
-        secondResonantFrequency = freq2Input
-        amplitude               = ampInput
+        self.init(input: input, maximumDuration: maximumDuration)
+        self.intensity               = intensity
+        self.dampingFactor           = dampingFactor
+        self.energyReturn            = energyReturn
+        self.mainResonantFrequency   = mainResonantFrequency
+        self.firstResonantFrequency  = firstResonantFrequency
+        self.secondResonantFrequency = secondResonantFrequency
+        self.amplitude               = amplitude
 
         bindAll()
     }
