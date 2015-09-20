@@ -29,7 +29,7 @@
         _amplitudeTable = amplitudeTable;
         _frequencyTable = frequencyTable;
         [self setUpConnections];
-}
+    }
     return self;
 }
 
@@ -46,10 +46,10 @@
 }
 
 + (instancetype)fftTableReaderWithInput:(AKFSignal *)input
-                        amplitudeTable:(AKTable *)amplitudeTable
+                         amplitudeTable:(AKTable *)amplitudeTable
 {
     return [[AKFFTTableReader alloc] initWithInput:input
-                        amplitudeTable:amplitudeTable];
+                                    amplitudeTable:amplitudeTable];
 }
 
 - (void)setFrequencyTable:(AKTable *)frequencyTable {
