@@ -22,7 +22,7 @@ import Foundation
     /** Instantiates the floored value
     - parameter input: Input signal.
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -38,5 +38,5 @@ import Foundation
 
 /** Floor helper function */
 func floor(parameter: AKParameter) -> AKFloor {
-    return AKFloor(input: parameter)
+    return AKFloor(parameter)
 }

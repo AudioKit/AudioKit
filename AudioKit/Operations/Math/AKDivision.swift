@@ -25,7 +25,7 @@ import Foundation
     - parameter input: The numerator of the division.
     - parameter dividedBy: The denominator.
     */
-    init(input numeratorInput: AKParameter, dividedBy denominatorInput: AKParameter)
+    init(_ numeratorInput: AKParameter, dividedBy denominatorInput: AKParameter)
     {
         super.init()
         numerator = numeratorInput
@@ -47,25 +47,25 @@ import Foundation
 
 /** Division helper function */
 func / (left: AKParameter, right: AKParameter) -> AKDivision {
-    return AKDivision(input: left, dividedBy: right)
+    return AKDivision(left, dividedBy: right)
 }
 
 /** Division helper function */
 func / (left: AKParameter, right: Float) -> AKDivision {
-    return AKDivision(input: left, dividedBy: akp(right))
+    return AKDivision(left, dividedBy: akp(right))
 }
 
 /** Division helper function */
 func / (left: Float, right: AKParameter) -> AKDivision {
-    return AKDivision(input: akp(left), dividedBy: right)
+    return AKDivision(akp(left), dividedBy: right)
 }
 
 /** Division helper function */
 func / (left: AKParameter, right: Int) -> AKDivision {
-    return AKDivision(input: left, dividedBy: akp(right))
+    return AKDivision(left, dividedBy: akp(right))
 }
 
 /** Division helper function */
 func / (left: Int, right: AKParameter) -> AKDivision {
-    return AKDivision(input: akp(left), dividedBy: right)
+    return AKDivision(akp(left), dividedBy: right)
 }

@@ -22,7 +22,7 @@ import Foundation
     /** Instantiates the fractionalPart
     - parameter input: Input signal.
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -38,6 +38,6 @@ import Foundation
 
 /** Fractional Part helper function */
 func fractionalPart(parameter: AKParameter) -> AKFractionalPart {
-    return AKFractionalPart(input: parameter)
+    return AKFractionalPart(parameter)
 }
 

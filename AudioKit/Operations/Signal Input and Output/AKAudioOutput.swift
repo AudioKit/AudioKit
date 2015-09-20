@@ -16,7 +16,7 @@ import Foundation
     /** Create an instance of an audio output
     - parameter input: The audio signal
     */
-    init(input sourceInput: AKParameter) {
+    init(_ sourceInput: AKParameter) {
         super.init()
         input = sourceInput
         dependencies = [input]

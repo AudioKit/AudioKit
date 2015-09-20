@@ -19,6 +19,6 @@ class AKOscillatorTester : AKInstrument {
         
         let oscillator = AKOscillator(waveform: AKTable.standardSineWave(), frequency: frequency, amplitude: amplitude, phase: 0)
 
-        output = AKAudioOutput(input: oscillator)
+        output = AKAudioOutput(oscillator)
     }
 }

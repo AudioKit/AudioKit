@@ -22,7 +22,7 @@ import Foundation
     /** Instantiates the inverse
     - parameter input: Input signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -38,5 +38,5 @@ import Foundation
 
 /** Inverse helper function */
 func inverse(parameter: AKParameter) -> AKInverse {
-    return AKInverse(input: parameter)
+    return AKInverse(parameter)
 }

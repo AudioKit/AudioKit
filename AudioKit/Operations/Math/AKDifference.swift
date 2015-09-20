@@ -25,7 +25,7 @@ import Foundation
     - parameter input: The input to be subtracted from.
     - parameter minus: The input that will be subtracted.
     */
-    init(input minuendInput: AKParameter, minus subtrahendInput: AKParameter)
+    init(_ minuendInput: AKParameter, minus subtrahendInput: AKParameter)
     {
         super.init()
         minuend = minuendInput
@@ -42,26 +42,26 @@ import Foundation
 
 /** Subtraction helper function */
 func - (left: AKParameter, right: AKParameter) -> AKDifference {
-    return AKDifference(input: left, minus: right)
+    return AKDifference(left, minus: right)
 }
 
 /** Subtraction helper function */
 func - (left: AKParameter, right: Float) -> AKDifference {
-    return AKDifference(input: left, minus: akp(right))
+    return AKDifference(left, minus: akp(right))
 }
 
 /** Subtraction helper function */
 func - (left: Float, right: AKParameter) -> AKDifference {
-    return AKDifference(input: akp(left), minus: right)
+    return AKDifference(akp(left), minus: right)
 }
 
 /** Subtraction helper function */
 func - (left: AKParameter, right: Int) -> AKDifference {
-    return AKDifference(input: left, minus: akp(right))
+    return AKDifference(left, minus: akp(right))
 }
 
 /** Subtraction helper function */
 func - (left: Int, right: AKParameter) -> AKDifference {
-    return AKDifference(input: akp(left), minus: right)
+    return AKDifference(akp(left), minus: right)
 }
 

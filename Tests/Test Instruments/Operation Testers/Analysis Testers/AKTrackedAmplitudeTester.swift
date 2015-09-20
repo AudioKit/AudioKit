@@ -22,6 +22,6 @@ class AKTrackedAmplitudeTester : AKInstrument {
         let growingHigherOscillator = AKOscillator()
         growingHigherOscillator.frequency = trackedAmplitude * 880.ak
         
-        output = AKAudioOutput(input: growingHigherOscillator)
+        output = AKAudioOutput(growingHigherOscillator)
     }
 }

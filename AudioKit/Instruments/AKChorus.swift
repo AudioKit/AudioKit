@@ -37,6 +37,6 @@ import Foundation
         vdelR.delayTime = 0.01 * transposedLFOR
         
         let stereo = AKParameter(left: vdelL, right: vdelR)
-        output = AKAudioOutput(input: stereo)
+        output = AKAudioOutput(stereo)
     }
 }

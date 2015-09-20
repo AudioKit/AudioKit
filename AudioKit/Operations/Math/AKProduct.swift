@@ -1,3 +1,4 @@
+
 //
 //  AKProduct.swift
 //  AudioKit
@@ -25,7 +26,7 @@ import Foundation
     - parameter input: The first input.
     - parameter times: The second input.
     */
-    init(input firstInput: AKParameter, times secondInput: AKParameter)
+    init(_ firstInput: AKParameter, times secondInput: AKParameter)
     {
         super.init()
         first = firstInput
@@ -42,25 +43,25 @@ import Foundation
 
 /** Multiplication helper function */
 func * (left: AKParameter, right: AKParameter) -> AKProduct {
-    return AKProduct(input: left, times: right)
+    return AKProduct(left, times: right)
 }
 
 /** Multiplication helper function */
 func * (left: AKParameter, right: Float) -> AKProduct {
-    return AKProduct(input: left, times: akp(right))
+    return AKProduct(left, times: akp(right))
 }
 
 /** Multiplication helper function */
 func * (left: Float, right: AKParameter) -> AKProduct {
-    return AKProduct(input: akp(left), times: right)
+    return AKProduct(akp(left), times: right)
 }
 
 /** Multiplication helper function */
 func * (left: AKParameter, right: Int) -> AKProduct {
-    return AKProduct(input: left, times: akp(right))
+    return AKProduct(left, times: akp(right))
 }
 
 /** Multiplication helper function */
 func * (left: Int, right: AKParameter) -> AKProduct {
-    return AKProduct(input: akp(left), times: right)
+    return AKProduct(akp(left), times: right)
 }
