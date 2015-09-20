@@ -31,7 +31,7 @@
         _depth = depth;
         _gain = gain;
         [self setUpConnections];
-}
+    }
     return self;
 }
 
@@ -52,12 +52,12 @@
 }
 
 + (instancetype)filteredFFTWithInput:(AKFSignal *)input
-                          amplitude:(AKFSignal *)amplitude
-                              depth:(AKParameter *)depth
+                           amplitude:(AKFSignal *)amplitude
+                               depth:(AKParameter *)depth
 {
     return [[AKFilteredFFT alloc] initWithInput:input
-                          amplitude:amplitude
-                              depth:depth];
+                                      amplitude:amplitude
+                                          depth:depth];
 }
 
 - (void)setGain:(AKConstant *)gain {

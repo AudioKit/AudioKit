@@ -35,12 +35,12 @@
 }
 
 + (instancetype)maskedFFTWithInput:(AKFSignal *)input
-                   amplitudeTable:(AKTable *)amplitudeTable
-                            depth:(AKParameter *)depth
+                    amplitudeTable:(AKTable *)amplitudeTable
+                             depth:(AKParameter *)depth
 {
     return [[AKMaskedFFT alloc] initWithInput:input
-                   amplitudeTable:amplitudeTable
-                            depth:depth];
+                               amplitudeTable:amplitudeTable
+                                        depth:depth];
 }
 
 - (void)setUpConnections
@@ -82,7 +82,7 @@
     } else {
         [inputsString appendFormat:@"AKControl(%@)", _depth];
     }
-return inputsString;
+    return inputsString;
 }
 
 @end
