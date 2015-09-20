@@ -62,7 +62,7 @@ class DemoInstrument: AKInstrument {
         fmOscillator.modulationIndex.value      = 11
         fmOscillator.amplitude.value            = 0.5
 
-        reverb = AKReverb(input: fmOscillator)
+        reverb = AKReverb(fmOscillator)
 
         super.init()
         
