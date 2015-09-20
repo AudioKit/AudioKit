@@ -17,7 +17,7 @@ class AKTrackedAmplitudeTester : AKInstrument {
         
         let growingLouderOscillator = AKOscillator(waveform: AKTable.standardSineWave(), frequency: 880.ak, amplitude: amplitude, phase: 0)
         
-        let trackedAmplitude = AKTrackedAmplitude(input: growingLouderOscillator)
+        let trackedAmplitude = AKTrackedAmplitude(growingLouderOscillator)
         
         let growingHigherOscillator = AKOscillator()
         growingHigherOscillator.frequency = trackedAmplitude * 880.ak
