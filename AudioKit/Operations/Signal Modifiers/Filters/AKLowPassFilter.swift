@@ -37,7 +37,7 @@ A first-order recursive low-pass filter with variable frequency response.
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -52,10 +52,10 @@ A first-order recursive low-pass filter with variable frequency response.
     - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. [Default Value: 1000]
     */
     convenience init(
-        input:          AKParameter,
+        _ input:        AKParameter,
         halfPowerPoint: AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.halfPowerPoint = halfPowerPoint
 
         bindAll()

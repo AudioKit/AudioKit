@@ -44,7 +44,7 @@ Stereo Panner
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -60,11 +60,11 @@ Stereo Panner
     - parameter panMethod: Panning type. 0 = equal power, 1 = square root, 2 = linear, 3 = alternative equal power. [Default Value: 0]
     */
     convenience init(
-        input:     AKParameter,
+        _ input:   AKParameter,
         pan:       AKParameter,
         panMethod: AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.pan       = pan
         self.panMethod = panMethod
 

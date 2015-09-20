@@ -37,7 +37,7 @@ A complement to the AKLowPassFilter.
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -52,10 +52,10 @@ A complement to the AKLowPassFilter.
     - parameter cutoffFrequency: This is the response curve's half power point (aka cutoff frequency). [Default Value: 1000]
     */
     convenience init(
-        input:           AKParameter,
+        _ input:         AKParameter,
         cutoffFrequency: AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.cutoffFrequency = cutoffFrequency
 
         bindAll()

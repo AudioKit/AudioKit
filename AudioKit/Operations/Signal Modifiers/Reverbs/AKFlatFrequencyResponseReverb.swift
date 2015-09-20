@@ -40,7 +40,7 @@ This filter reiterates the input with an echo density determined by loop time. T
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -54,7 +54,7 @@ This filter reiterates the input with an echo density determined by loop time. T
     - parameter input: Input audio signal. 
     - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. [Default Value: 0.1]
     */
-    init (input: AKParameter, loopDuration: Float) {
+    init (_ input: AKParameter, loopDuration: Float) {
         super.init()
         self.input = input
         setup(loopDuration)
@@ -69,11 +69,11 @@ This filter reiterates the input with an echo density determined by loop time. T
     - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. [Default Value: 0.1]
     */
     convenience init(
-        input:          AKParameter,
+        _ input:        AKParameter,
         reverbDuration: AKParameter,
         loopDuration:   Float)
     {
-        self.init(input: input, loopDuration: loopDuration)
+        self.init(input, loopDuration: loopDuration)
         self.reverbDuration = reverbDuration
 
         bindAll()

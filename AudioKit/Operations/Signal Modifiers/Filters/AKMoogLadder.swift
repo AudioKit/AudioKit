@@ -45,7 +45,7 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -61,11 +61,11 @@ Moog Ladder is an new digital implementation of the Moog ladder filter based on 
     - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. [Default Value: 0.5]
     */
     convenience init(
-        input:           AKParameter,
+        _ input:         AKParameter,
         cutoffFrequency: AKParameter,
         resonance:       AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.cutoffFrequency = cutoffFrequency
         self.resonance       = resonance
 

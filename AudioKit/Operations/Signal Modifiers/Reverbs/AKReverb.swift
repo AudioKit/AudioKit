@@ -44,7 +44,7 @@ import Foundation
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -60,11 +60,11 @@ import Foundation
     - parameter cutoffFrequency: Low-pass cutoff frequency. [Default Value: 4000]
     */
     convenience init(
-        input:           AKParameter,
+        _ input:         AKParameter,
         feedback:        AKParameter,
         cutoffFrequency: AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.feedback        = feedback
         self.cutoffFrequency = cutoffFrequency
 

@@ -88,7 +88,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
 
     - parameter input: Triggering input, such as a metronome. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -102,7 +102,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     - parameter input: Triggering input, such as a metronome. 
     - parameter maximumDuration: Period of time over which all sound is stopped. [Default Value: 0.09]
     */
-    init (input: AKParameter, maximumDuration: Float) {
+    init (_ input: AKParameter, maximumDuration: Float) {
         super.init()
         self.input = input
         setup(maximumDuration)
@@ -123,7 +123,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
     - parameter maximumDuration: Period of time over which all sound is stopped. [Default Value: 0.09]
     */
     convenience init(
-        input:                   AKParameter,
+        _ input:                 AKParameter,
         intensity:               AKParameter,
         dampingFactor:           AKParameter,
         energyReturn:            AKParameter,
@@ -133,7 +133,7 @@ This is a physical model of the sound of dripping water. When triggered, it will
         amplitude:               AKParameter,
         maximumDuration:         Float)
     {
-        self.init(input: input, maximumDuration: maximumDuration)
+        self.init(input, maximumDuration: maximumDuration)
         self.intensity               = intensity
         self.dampingFactor           = dampingFactor
         self.energyReturn            = energyReturn

@@ -53,7 +53,7 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -70,12 +70,12 @@ A 2nd order tunable equalization filter that provides a peak/notch filter for bu
     - parameter gain: The peak/notch gain [Default Value: 10]
     */
     convenience init(
-        input:           AKParameter,
+        _ input:         AKParameter,
         centerFrequency: AKParameter,
         bandwidth:       AKParameter,
         gain:            AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.centerFrequency = centerFrequency
         self.bandwidth       = bandwidth
         self.gain            = gain

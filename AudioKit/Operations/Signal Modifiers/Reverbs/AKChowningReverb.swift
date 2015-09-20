@@ -30,7 +30,7 @@ This class is derived from the CLM JCRev function, which is based on the use of 
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input

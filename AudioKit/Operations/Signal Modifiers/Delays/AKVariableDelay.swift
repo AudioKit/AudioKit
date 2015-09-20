@@ -40,7 +40,7 @@ A delay line with cubic interpolation.
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -54,7 +54,7 @@ A delay line with cubic interpolation.
     - parameter input: Input audio signal. 
     - parameter maximumDelayTime: The maximum delay time, in seconds. [Default Value: 5.0]
     */
-    init (input: AKParameter, maximumDelayTime: Float) {
+    init (_ input: AKParameter, maximumDelayTime: Float) {
         super.init()
         self.input = input
         setup(maximumDelayTime)
@@ -69,11 +69,11 @@ A delay line with cubic interpolation.
     - parameter maximumDelayTime: The maximum delay time, in seconds. [Default Value: 5.0]
     */
     convenience init(
-        input:            AKParameter,
+        _ input:          AKParameter,
         delayTime:        AKParameter,
         maximumDelayTime: Float)
     {
-        self.init(input: input, maximumDelayTime: maximumDelayTime)
+        self.init(input, maximumDelayTime: maximumDelayTime)
         self.delayTime        = delayTime
 
         bindAll()

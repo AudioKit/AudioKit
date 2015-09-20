@@ -14,7 +14,7 @@ class AKMultiTapDelay: AKInstrument {
 
         var sum = input
         for (time, gain) in timesAndGainsDictionary {
-            sum = sum + akp(gain) * AKDelay(input: input, delayTime: time)
+            sum = sum + akp(gain) * AKDelay(input, delayTime: time)
         }
         
         output = AKAudioOutput(sum)
