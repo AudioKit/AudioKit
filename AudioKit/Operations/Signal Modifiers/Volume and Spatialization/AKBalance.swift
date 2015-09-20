@@ -32,7 +32,7 @@ This operation outputs a version of the audio source, amplitude-modified so that
     - parameter input: Input audio signal. 
     - parameter comparator: Input audio signal. 
     */
-    init(input: AKParameter, comparator: AKParameter)
+    init(_ input: AKParameter, comparator: AKParameter)
     {
         super.init()
         self.input = input

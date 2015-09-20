@@ -53,7 +53,7 @@ import Foundation
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -70,12 +70,12 @@ import Foundation
     - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. [Default Value: 0.5]
     */
     convenience init(
-        input:           AKParameter,
+        _ input:         AKParameter,
         distortion:      AKParameter,
         cutoffFrequency: AKParameter,
         resonance:       AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.distortion      = distortion
         self.cutoffFrequency = cutoffFrequency
         self.resonance       = resonance

@@ -30,10 +30,10 @@ import Foundation
         let transposedLFOL = (lfoL + 1) * 0.5 + 0.1
         let transposedLFOR = (lfoR + 1) * 0.5 + 0.1
         
-        let vdelL = AKVariableDelay(input: input)
+        let vdelL = AKVariableDelay(input)
         vdelL.delayTime = 0.01 * transposedLFOL
         
-        let vdelR = AKVariableDelay(input: input)
+        let vdelR = AKVariableDelay(input)
         vdelR.delayTime = 0.01 * transposedLFOR
         
         let stereo = AKParameter(left: vdelL, right: vdelR)

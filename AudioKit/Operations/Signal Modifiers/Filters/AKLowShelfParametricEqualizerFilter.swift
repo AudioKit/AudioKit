@@ -61,7 +61,7 @@ This is an implementation of Zoelzer's parametric equalizer filter.
 
     - parameter input: Input audio signal. 
     */
-    init(input: AKParameter)
+    init(_ input: AKParameter)
     {
         super.init()
         self.input = input
@@ -78,12 +78,12 @@ This is an implementation of Zoelzer's parametric equalizer filter.
     - parameter q: Q of the filter. sqrt(0.5) is no resonance. [Default Value: 0.707]
     */
     convenience init(
-        input:           AKParameter,
+        _ input:         AKParameter,
         cornerFrequency: AKParameter,
         gain:            AKParameter,
         q:               AKParameter)
     {
-        self.init(input: input)
+        self.init(input)
         self.cornerFrequency = cornerFrequency
         self.gain            = gain
         self.q               = q
