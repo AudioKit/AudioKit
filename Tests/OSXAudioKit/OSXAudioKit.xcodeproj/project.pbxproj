@@ -162,6 +162,8 @@
 		C4E3E0E01BAE28B10068290D /* AKMixTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0D61BAE28B10068290D /* AKMixTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0E91BAE472C0068290D /* AKMultiTapDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0E81BAE472C0068290D /* AKMultiTapDelay.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E0EA1BAE472C0068290D /* AKMultiTapDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0E81BAE472C0068290D /* AKMultiTapDelay.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E10A1BAF51D50068290D /* AKFormantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E10B1BAF51D50068290D /* AKFormantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +265,7 @@
 		C4E3E0D31BAE28B10068290D /* AKPhasorTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhasorTester.swift; sourceTree = "<group>"; };
 		C4E3E0D61BAE28B10068290D /* AKMixTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixTester.swift; sourceTree = "<group>"; };
 		C4E3E0E81BAE472C0068290D /* AKMultiTapDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMultiTapDelay.swift; sourceTree = "<group>"; };
+		C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFormantFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -561,6 +564,7 @@
 				C4E3E0711BAD4D040068290D /* AKDCBlock.swift */,
 				C4E3E0721BAD4D040068290D /* AKDecimator.swift */,
 				C4E3E0731BAD4D040068290D /* AKEqualizerFilter.swift */,
+				C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */,
 				C4E3E0741BAD4D040068290D /* AKHighPassFilter.swift */,
 				C4E3E0751BAD4D040068290D /* AKHighShelfParametricEqualizerFilter.swift */,
 				C4E3E0761BAD4D040068290D /* AKLowPassFilter.swift */,
@@ -782,6 +786,7 @@
 				C4E3DFDF1BABE95C0068290D /* AKLog.swift in Sources */,
 				C4E3DFEB1BABE95C0068290D /* AKSum.swift in Sources */,
 				C4E3DFDD1BABE95C0068290D /* AKLinearTransformation.swift in Sources */,
+				C4E3E10A1BAF51D50068290D /* AKFormantFilter.swift in Sources */,
 				C4E3DFCB1BABE95C0068290D /* AKInstrument.swift in Sources */,
 				C4E3E0A21BAD4D040068290D /* AKLowPassButterworthFilter.swift in Sources */,
 				C4E3DFD91BABE95C0068290D /* AKFractionalPart.swift in Sources */,
@@ -863,6 +868,7 @@
 				C4E3DFE01BABE95C0068290D /* AKLog.swift in Sources */,
 				C4E3DFEC1BABE95C0068290D /* AKSum.swift in Sources */,
 				C4E3DFDE1BABE95C0068290D /* AKLinearTransformation.swift in Sources */,
+				C4E3E10B1BAF51D50068290D /* AKFormantFilter.swift in Sources */,
 				C4E3DFCC1BABE95C0068290D /* AKInstrument.swift in Sources */,
 				C4E3E0A31BAD4D040068290D /* AKLowPassButterworthFilter.swift in Sources */,
 				C4E3DFDA1BABE95C0068290D /* AKFractionalPart.swift in Sources */,

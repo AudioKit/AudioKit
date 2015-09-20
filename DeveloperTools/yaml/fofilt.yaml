@@ -1,0 +1,36 @@
+installation_directory: "../AudioKit/Operations/Signal\ Modifiers/Filters/"
+
+sp_name: fofilt
+
+operation: AKFormantFilter
+
+summary: Formant filter
+
+shortDescription: filter
+
+description:
+  When fed with a pulse train, it will generate a series of overlapping grains. Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html)
+
+inputs:
+- source: {
+  audioKitName: input,
+  comment: "Input audio signal."
+}
+
+parameters:
+- freq: {
+  audioKitName: centerFrequency,
+  comment: "Center frequency.",
+  default: 1.5
+}
+- atk: {
+  audioKitName: attackDuration,
+  comment: "Impulse response attack time (in seconds).",
+  default: 0.007
+}
+- dec: {
+  audioKitName: decayDuration,
+  comment: "Impulse reponse decay time (in seconds)",
+  default: 0.04
+}
+
