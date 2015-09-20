@@ -22,7 +22,7 @@ import Foundation
     /** Instantiates the absoute value
     - parameter input: Input signal.
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -38,6 +38,6 @@ import Foundation
 
 /** Absolute value helper function */
 func abs(parameter: AKParameter) -> AKAbsoluteValue {
-    return AKAbsoluteValue(input: parameter)
+    return AKAbsoluteValue(parameter)
 }
 

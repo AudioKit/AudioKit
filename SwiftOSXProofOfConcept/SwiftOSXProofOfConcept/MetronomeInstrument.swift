@@ -38,7 +38,7 @@ class MetronomeInstrument : AKInstrument {
         
         super.init()
         
-        output = AKAudioOutput(input: simple * env1metro)
+        output = AKAudioOutput(simple * env1metro)
     }
     
 }

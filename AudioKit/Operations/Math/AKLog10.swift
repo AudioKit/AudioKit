@@ -22,7 +22,7 @@ import Foundation
     /** Instantiates the log10
     - parameter input: Input signal.
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -38,5 +38,5 @@ import Foundation
 
 /** Log base 10 helper function */
 func log10(parameter: AKParameter) -> AKLog10 {
-    return AKLog10(input: parameter)
+    return AKLog10(parameter)
 }

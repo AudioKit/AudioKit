@@ -21,6 +21,6 @@ class AKFMOscillatorTester : AKInstrument {
         fm.baseFrequency = frequency
         fm.amplitude = amplitude
         
-        output = AKAudioOutput(input: fm)
+        output = AKAudioOutput(fm)
     }
 }

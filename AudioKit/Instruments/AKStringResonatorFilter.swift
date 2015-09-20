@@ -16,6 +16,6 @@ class AKStringResonatorFilter : AKInstrument {
     convenience init(input: AKParameter) {
         self.init()
         filter = AKStringResonator(input: input)
-        output = AKAudioOutput(input: filter!)
+        output = AKAudioOutput(filter!)
     }
 }

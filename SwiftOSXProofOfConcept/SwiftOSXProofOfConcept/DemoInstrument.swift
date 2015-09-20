@@ -66,7 +66,7 @@ class DemoInstrument: AKInstrument {
 
         super.init()
         
-        output = AKAudioOutput(input:reverb)
+        output = AKAudioOutput(reverb)
     }
     
 }

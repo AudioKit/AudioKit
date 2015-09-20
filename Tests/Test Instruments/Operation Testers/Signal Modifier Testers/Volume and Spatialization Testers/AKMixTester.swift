@@ -24,6 +24,6 @@ class AKMixTester : AKInstrument {
 
         let mix = AKMix(input1: osc1, input2: osc2, balancePoint: (lfo + 1 ) / 2 )
         
-        output = AKAudioOutput(input: mix)
+        output = AKAudioOutput(mix)
     }
 }

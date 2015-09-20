@@ -22,7 +22,7 @@ import Foundation
     /** Instantiates the rounded value
     - parameter input: Input signal.
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -38,5 +38,5 @@ import Foundation
 
 /** Rounding helper function */
 func round(parameter: AKParameter) -> AKRound {
-    return AKRound(input: parameter)
+    return AKRound(parameter)
 }

@@ -22,7 +22,7 @@ import Foundation
     /** Instantiates the square root
     - parameter input: Input signal.
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -38,5 +38,5 @@ import Foundation
 
 /** Square root helper function */
 func sqrt(parameter: AKParameter) -> AKSquareRoot {
-    return AKSquareRoot(input: parameter)
+    return AKSquareRoot(parameter)
 }

@@ -25,7 +25,7 @@ import Foundation
     - parameter input: The first input.
     - parameter plus: The second input.
     */
-    init(input firstInput: AKParameter, plus secondInput: AKParameter)
+    init(_ firstInput: AKParameter, plus secondInput: AKParameter)
     {
         super.init()
         first = firstInput
@@ -42,25 +42,26 @@ import Foundation
 
 /** Addition helper function */
 func + (left: AKParameter, right: AKParameter) -> AKSum {
-    return AKSum(input: left, plus: right)
+    return AKSum(left, plus: right)
 }
 
 /** Addition helper function */
 func + (left: AKParameter, right: Float) -> AKSum {
-    return AKSum(input: left, plus: akp(right))
+    return AKSum(left, plus: akp(right))
 }
 
 /** Addition helper function */
 func + (left: Float, right: AKParameter) -> AKSum {
-    return AKSum(input: akp(left), plus: right)
+    return AKSum(akp(left), plus: right)
 }
 
 /** Addition helper function */
 func + (left: AKParameter, right: Int) -> AKSum {
-    return AKSum(input: left, plus: akp(right))
+    return AKSum(left, plus: akp(right))
 }
 
 /** Addition helper function */
 func + (left: Int, right: AKParameter) -> AKSum {
-    return AKSum(input: akp(left), plus: right)
+    return AKSum(akp(left), plus: right)
 }
+

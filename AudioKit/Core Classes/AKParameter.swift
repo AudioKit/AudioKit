@@ -81,25 +81,25 @@ import Foundation
     /** Multiplication helper 
     - parameter parameter: The AKParameter to multiply by */
     func scaledBy(parameter: AKParameter) -> AKProduct {
-        return AKProduct(input: self, times: parameter)
+        return AKProduct(self, times: parameter)
     }
     
     /** Division helper
     - parameter parameter: The AKParameter to divide by */
     func dividedBy(parameter: AKParameter) -> AKDivision {
-        return AKDivision(input: self, dividedBy: parameter)
+        return AKDivision(self, dividedBy: parameter)
     }
     
     /** Summation helper
     - parameter parameter: The AKParameter to add to */
     func plus(parameter: AKParameter) -> AKSum {
-        return AKSum(input: self, plus: parameter)
+        return AKSum(self, plus: parameter)
     }
     
     /** Subtraction helper
     - parameter parameter: The AKParameter to subtract */
     func minus(parameter: AKParameter) -> AKDifference {
-        return AKDifference(input: self, minus: parameter)
+        return AKDifference(self, minus: parameter)
     }
     
     // MARK: - Internal

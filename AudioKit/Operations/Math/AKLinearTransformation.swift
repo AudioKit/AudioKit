@@ -61,7 +61,7 @@ This module scales from one range to another defined by a minimum and maximum po
 
     - parameter input: Input signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(_ sourceInput: AKParameter)
     {
         super.init()
         input = sourceInput
@@ -79,13 +79,13 @@ This module scales from one range to another defined by a minimum and maximum po
     - parameter maximumOutput: Maximum value to scale to. [Default Value: 1]
     */
     convenience init(
-        input         sourceInput: AKParameter,
+        _             sourceInput: AKParameter,
         minimumInput  inminInput:  AKParameter,
         maximumInput  inmaxInput:  AKParameter,
         minimumOutput outminInput: AKParameter,
         maximumOutput outmaxInput: AKParameter)
     {
-        self.init(input: sourceInput)
+        self.init(sourceInput)
         minimumInput  = inminInput
         maximumInput  = inmaxInput
         minimumOutput = outminInput
