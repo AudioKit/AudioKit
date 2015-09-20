@@ -37,10 +37,10 @@ Performs a "root-mean-square" on a signal to get overall amplitude of a signal. 
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -52,11 +52,11 @@ Performs a "root-mean-square" on a signal to get overall amplitude of a signal. 
     - parameter halfPowerPoint: Half-power point (in Hz) of internal lowpass filter. [Default Value: 10]
     */
     convenience init(
-        input          sourceInput: AKParameter,
-        halfPowerPoint ihpInput:    AKParameter)
+        input:          AKParameter,
+        halfPowerPoint: AKParameter)
     {
-        self.init(input: sourceInput)
-        halfPowerPoint = ihpInput
+        self.init(input: input)
+        self.halfPowerPoint = halfPowerPoint
 
         bindAll()
     }

@@ -40,10 +40,10 @@ This filter reiterates input with an echo density determined by loopDuration. Th
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -54,10 +54,10 @@ This filter reiterates input with an echo density determined by loopDuration. Th
     - parameter input: Input audio signal. 
     - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
     */
-    init (input sourceInput: AKParameter, loopDuration looptimeInput: Float) {
+    init (input: AKParameter, loopDuration: Float) {
         super.init()
-        input = sourceInput
-        setup(looptimeInput)
+        self.input = input
+        setup(loopDuration)
         dependencies = [input]
         bindAll()
     }
@@ -69,12 +69,12 @@ This filter reiterates input with an echo density determined by loopDuration. Th
     - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2. [Default Value: 0.1]
     */
     convenience init(
-        input          sourceInput:   AKParameter,
-        reverbDuration revtimeInput:  AKParameter,
-        loopDuration   looptimeInput: Float)
+        input:          AKParameter,
+        reverbDuration: AKParameter,
+        loopDuration:   Float)
     {
-        self.init(input: sourceInput, loopDuration: looptimeInput)
-        reverbDuration = revtimeInput
+        self.init(input: input, loopDuration: loopDuration)
+        self.reverbDuration = reverbDuration
 
         bindAll()
     }
@@ -83,8 +83,8 @@ This filter reiterates input with an echo density determined by loopDuration. Th
 
     /** Class function to create the filter with the springy filter preset parameters. 
     */
-    class func presetSpringyFilter(input sourceInput: AKParameter) -> AKCombFilter {
-        let filter = AKCombFilter(input: sourceInput, loopDuration: 0.01)
+    class func presetSpringyFilter(input: AKParameter) -> AKCombFilter {
+        let filter = AKCombFilter(input: input, loopDuration: 0.01)
         filter.reverbDuration = akp(0.75)
         return filter
     }

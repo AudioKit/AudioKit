@@ -44,11 +44,11 @@ Typically, this is used alongside trigger-driven modules.
     - parameter frequency: The frequency to repeat. [Default Value: 2.0]
     */
     convenience init(
-        frequency freqInput: AKParameter)
+        frequency: AKParameter)
     {
         self.init()
 
-        frequency = freqInput
+        self.frequency = frequency
 
         bindAll()
     }

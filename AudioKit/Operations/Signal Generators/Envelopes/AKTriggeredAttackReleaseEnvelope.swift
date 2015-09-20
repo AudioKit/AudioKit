@@ -45,10 +45,10 @@ This envelope takes 2 triggers. When triggered once, the envelope will rise to 1
 
     - parameter trigger: Input trigger. 
     */
-    init(trigger sourceInput: AKParameter)
+    init(trigger: AKParameter)
     {
         super.init()
-        trigger = sourceInput
+        self.trigger = trigger
         setup()
         dependencies = [trigger]
         bindAll()
@@ -61,13 +61,13 @@ This envelope takes 2 triggers. When triggered once, the envelope will rise to 1
     - parameter releaseDuration: Release duration (in seconds). [Default Value: 0.1]
     */
     convenience init(
-        trigger         sourceInput: AKParameter,
-        attackDuration  atkInput:    AKParameter,
-        releaseDuration relInput:    AKParameter)
+        trigger:         AKParameter,
+        attackDuration:  AKParameter,
+        releaseDuration: AKParameter)
     {
-        self.init(trigger: sourceInput)
-        attackDuration  = atkInput
-        releaseDuration = relInput
+        self.init(trigger: trigger)
+        self.attackDuration  = attackDuration
+        self.releaseDuration = releaseDuration
 
         bindAll()
     }

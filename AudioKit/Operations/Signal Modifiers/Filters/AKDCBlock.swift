@@ -29,10 +29,10 @@ import Foundation
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()

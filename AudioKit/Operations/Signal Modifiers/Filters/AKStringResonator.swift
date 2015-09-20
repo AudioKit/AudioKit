@@ -45,10 +45,10 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -61,13 +61,13 @@ AKStringResonator passes the input through a network composed of comb, low-pass 
     - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. [Default Value: 0.95]
     */
     convenience init(
-        input                sourceInput:  AKParameter,
-        fundamentalFrequency freqInput:    AKParameter,
-        feedback             fdbgainInput: AKParameter)
+        input:                AKParameter,
+        fundamentalFrequency: AKParameter,
+        feedback:             AKParameter)
     {
-        self.init(input: sourceInput)
-        fundamentalFrequency = freqInput
-        feedback             = fdbgainInput
+        self.init(input: input)
+        self.fundamentalFrequency = fundamentalFrequency
+        self.feedback             = feedback
 
         bindAll()
     }

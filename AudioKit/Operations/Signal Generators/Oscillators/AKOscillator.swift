@@ -61,9 +61,9 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
 
     - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
     */
-    init (phase iphsInput: Float) {
+    init (phase: Float) {
         super.init()
-        setup(iphsInput)
+        setup(phase)
         bindAll()
     }
 
@@ -75,15 +75,15 @@ Reads from the table sequentially and repeatedly at given frequency. Linear inte
     - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1). [Default Value: 0]
     */
     convenience init(
-        waveform  tblInput:  AKTable,
-        frequency freqInput: AKParameter,
-        amplitude ampInput:  AKParameter,
-        phase     iphsInput: Float)
+        waveform:  AKTable,
+        frequency: AKParameter,
+        amplitude: AKParameter,
+        phase:     Float)
     {
-        self.init(phase: iphsInput)
-        waveform  = tblInput
-        frequency = freqInput
-        amplitude = ampInput
+        self.init(phase: phase)
+        self.waveform  = waveform
+        self.frequency = frequency
+        self.amplitude = amplitude
 
         bindAll()
     }

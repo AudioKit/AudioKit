@@ -45,10 +45,10 @@ A modal resonance filter used for modal synthesis. Plucked and bell sounds can b
 
     - parameter input: Input audio signal. 
     */
-    init(input sourceInput: AKParameter)
+    init(input: AKParameter)
     {
         super.init()
-        input = sourceInput
+        self.input = input
         setup()
         dependencies = [input]
         bindAll()
@@ -61,13 +61,13 @@ A modal resonance filter used for modal synthesis. Plucked and bell sounds can b
     - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. [Default Value: 50]
     */
     convenience init(
-        input         sourceInput: AKParameter,
-        frequency     freqInput:   AKParameter,
-        qualityFactor qInput:      AKParameter)
+        input:         AKParameter,
+        frequency:     AKParameter,
+        qualityFactor: AKParameter)
     {
-        self.init(input: sourceInput)
-        frequency     = freqInput
-        qualityFactor = qInput
+        self.init(input: input)
+        self.frequency     = frequency
+        self.qualityFactor = qualityFactor
 
         bindAll()
     }

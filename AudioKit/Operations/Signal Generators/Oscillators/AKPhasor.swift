@@ -46,9 +46,9 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
 
     - parameter phase: Initial phase [Default Value: 0]
     */
-    init (phase iphsInput: Float) {
+    init (phase: Float) {
         super.init()
-        setup(iphsInput)
+        setup(phase)
         bindAll()
     }
 
@@ -58,11 +58,11 @@ Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are o
     - parameter phase: Initial phase [Default Value: 0]
     */
     convenience init(
-        frequency freqInput: AKParameter,
-        phase     iphsInput: Float)
+        frequency: AKParameter,
+        phase:     Float)
     {
-        self.init(phase: iphsInput)
-        frequency = freqInput
+        self.init(phase: phase)
+        self.frequency = frequency
 
         bindAll()
     }
