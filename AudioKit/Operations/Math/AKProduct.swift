@@ -23,14 +23,15 @@ import Foundation
     // MARK: - Initializers
     
     /** Instantiates the product
-    - parameter input: The first input.
+    
+    - parameter first: The first input.
     - parameter times: The second input.
     */
-    init(_ firstInput: AKParameter, times secondInput: AKParameter)
+    init(_ first: AKParameter, times second: AKParameter)
     {
         super.init()
-        first = firstInput
-        second = secondInput
+        self.first = first
+        self.second = second
         dependencies = [first, second]
     }
     

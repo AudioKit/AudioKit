@@ -12,7 +12,7 @@ class ViewController : NSViewController {
     
     var instrument = DemoInstrument()
     //var metro = MetronomeInstrument()
-    var chorus: AKChorus?
+//    var chorus: AKChorus?
 
     @IBOutlet var frequencyLabel:  AKParameterLabel!
     
@@ -30,12 +30,15 @@ class ViewController : NSViewController {
         amplitudeSlider.parameter = instrument.oscillatingFrequency.amplitude
         carrierSlider.parameter   = instrument.fmOscillator.carrierMultiplier
 
-        chorus = AKChorus(input: instrument)
+//        chorus = AKChorus(input: instrument)
+        
+        let timesAndGains: [Float: Float] = [1.0:1.0, 2.0:0.5, 3.0:0.2]
+        let delay = AKMultiTapDelay(input: instrument, timesAndGainsDictionary: timesAndGains)
         filterSlider.minValue = 0
         filterSlider.maxValue = 1
-        filterSlider.parameter = chorus!.width
+//        filterSlider.parameter = chorus!.width
         
-        //AKManager.sharedManager.setupAudioUnit()
+        AKManager.sharedManager.setupAudioUnit()
     }
     
     @IBAction func revertToSines(sender: AnyObject) {

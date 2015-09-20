@@ -8,7 +8,7 @@
 
 import Foundation
 
-/** Product of two input signals
+/** Division of two input signals
 */
 @objc class AKDivision : AKParameter {
     
@@ -22,14 +22,15 @@ import Foundation
     // MARK: - Initializers
     
     /** Instantiates the division
+    
     - parameter input: The numerator of the division.
     - parameter dividedBy: The denominator.
     */
-    init(_ numeratorInput: AKParameter, dividedBy denominatorInput: AKParameter)
+    init(_ numerator: AKParameter, dividedBy denominator: AKParameter)
     {
         super.init()
-        numerator = numeratorInput
-        denominator = denominatorInput
+        self.numerator = numerator
+        self.denominator = denominator
         dependencies = [numerator, denominator]
     }
     
