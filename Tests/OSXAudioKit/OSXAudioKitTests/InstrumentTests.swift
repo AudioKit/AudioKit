@@ -10,11 +10,7 @@ import XCTest
 
 class InstrumentTests: AKTestCase {
     
-    func testFMOscillator() {
-        testInstrument = AKFMOscillatorTester()
-        process()
-        XCTAssertEqual(calculatedMD5(), "2f03be95c90706a303370c38907f069f")
-    }
+
     
     func testMix() {
         testInstrument = AKMixTester()
