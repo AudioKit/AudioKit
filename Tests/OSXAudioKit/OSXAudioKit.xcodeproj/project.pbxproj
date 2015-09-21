@@ -164,6 +164,9 @@
 		C4E3E0EA1BAE472C0068290D /* AKMultiTapDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E0E81BAE472C0068290D /* AKMultiTapDelay.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E10A1BAF51D50068290D /* AKFormantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E10B1BAF51D50068290D /* AKFormantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E10F1BAF5AA50068290D /* AKFMOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E10E1BAF5AA50068290D /* AKFMOscillatorTests.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E1111BAF5CE60068290D /* AKPresetTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1101BAF5CE60068290D /* AKPresetTester.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E3E1121BAF5CE60068290D /* AKPresetTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1101BAF5CE60068290D /* AKPresetTester.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,6 +269,8 @@
 		C4E3E0D61BAE28B10068290D /* AKMixTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixTester.swift; sourceTree = "<group>"; };
 		C4E3E0E81BAE472C0068290D /* AKMultiTapDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMultiTapDelay.swift; sourceTree = "<group>"; };
 		C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFormantFilter.swift; sourceTree = "<group>"; };
+		C4E3E10E1BAF5AA50068290D /* AKFMOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorTests.swift; sourceTree = "<group>"; };
+		C4E3E1101BAF5CE60068290D /* AKPresetTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetTester.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,7 +333,9 @@
 			isa = PBXGroup;
 			children = (
 				C4E3DF5D1BABE9210068290D /* AKTestCase.swift */,
+				C4E3E1101BAF5CE60068290D /* AKPresetTester.swift */,
 				C4E3E04E1BABF3C50068290D /* InstrumentTests.swift */,
+				C4E3E10E1BAF5AA50068290D /* AKFMOscillatorTests.swift */,
 				C4E3DF5F1BABE9210068290D /* Info.plist */,
 				C4E3E0391BABE9BA0068290D /* OSXAudioKit-Bridging-Header.h */,
 				C4E3E03A1BABE9BA0068290D /* OSXAudioKitTests-Bridging-Header.h */,
@@ -769,6 +776,7 @@
 				C4E3E0DF1BAE28B10068290D /* AKMixTester.swift in Sources */,
 				C4E3E0031BABE95C0068290D /* AKRandomNumbers.swift in Sources */,
 				C4E3DFED1BABE95C0068290D /* AKTriggeredAHDEnvelope.swift in Sources */,
+				C4E3E1111BAF5CE60068290D /* AKPresetTester.swift in Sources */,
 				C4E3DFE31BABE95C0068290D /* AKLog2.swift in Sources */,
 				C4E3E00D1BABE95C0068290D /* AKVariableDelay.swift in Sources */,
 				C4E3E0DB1BAE28B10068290D /* AKOscillatorTester.swift in Sources */,
@@ -847,6 +855,7 @@
 				C4E3DFE61BABE95C0068290D /* AKProduct.swift in Sources */,
 				C4E3DFF01BABE95C0068290D /* AKTriggeredAttackReleaseEnvelope.swift in Sources */,
 				C4E3E0021BABE95C0068290D /* AKJitter.swift in Sources */,
+				C4E3E1121BAF5CE60068290D /* AKPresetTester.swift in Sources */,
 				C4E3E0041BABE95C0068290D /* AKRandomNumbers.swift in Sources */,
 				C4E3E0E01BAE28B10068290D /* AKMixTester.swift in Sources */,
 				C4E3E04F1BABF3C50068290D /* InstrumentTests.swift in Sources */,
@@ -856,6 +865,7 @@
 				C4E3E0DC1BAE28B10068290D /* AKOscillatorTester.swift in Sources */,
 				C4E3DFE21BABE95C0068290D /* AKLog10.swift in Sources */,
 				C4E3E0001BABE95C0068290D /* AKInterpolatedRandomNumberPulse.swift in Sources */,
+				C4E3E10F1BAF5AA50068290D /* AKFMOscillatorTests.swift in Sources */,
 				C4E3E0951BAD4D040068290D /* AKMoogLadder.swift in Sources */,
 				C4E3DFFE1BABE95C0068290D /* AKDroplet.swift in Sources */,
 				C4E3E00C1BABE95C0068290D /* AKDelay.swift in Sources */,
