@@ -167,6 +167,8 @@
 		C4E3E10F1BAF5AA50068290D /* AKFMOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E10E1BAF5AA50068290D /* AKFMOscillatorTests.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E1111BAF5CE60068290D /* AKPresetTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1101BAF5CE60068290D /* AKPresetTester.swift */; settings = {ASSET_TAGS = (); }; };
 		C4E3E1121BAF5CE60068290D /* AKPresetTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3E1101BAF5CE60068290D /* AKPresetTester.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E64F471BB11C3B00105407 /* AKClipper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E64F461BB11C3B00105407 /* AKClipper.swift */; settings = {ASSET_TAGS = (); }; };
+		C4E64F481BB11C3B00105407 /* AKClipper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E64F461BB11C3B00105407 /* AKClipper.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -271,6 +273,7 @@
 		C4E3E1091BAF51D50068290D /* AKFormantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFormantFilter.swift; sourceTree = "<group>"; };
 		C4E3E10E1BAF5AA50068290D /* AKFMOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorTests.swift; sourceTree = "<group>"; };
 		C4E3E1101BAF5CE60068290D /* AKPresetTester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetTester.swift; sourceTree = "<group>"; };
+		C4E64F461BB11C3B00105407 /* AKClipper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKClipper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -567,6 +570,7 @@
 		C4E3E06F1BAD4D040068290D /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				C4E64F461BB11C3B00105407 /* AKClipper.swift */,
 				C4E3E0701BAD4D040068290D /* AKCombFilter.swift */,
 				C4E3E0711BAD4D040068290D /* AKDCBlock.swift */,
 				C4E3E0721BAD4D040068290D /* AKDecimator.swift */,
@@ -815,6 +819,7 @@
 				C4E3DFF71BABE95C0068290D /* AKFMOscillator.swift in Sources */,
 				C4E3E0311BABE95C0068290D /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C4E3E0591BACB9D10068290D /* AKMix.swift in Sources */,
+				C4E64F471BB11C3B00105407 /* AKClipper.swift in Sources */,
 				C4E3DFD11BABE95C0068290D /* AKAbsoluteValue.swift in Sources */,
 				C4E3E08C1BAD4D040068290D /* AKHighShelfParametricEqualizerFilter.swift in Sources */,
 				C4E3E0901BAD4D040068290D /* AKLowShelfParametricEqualizerFilter.swift in Sources */,
@@ -893,6 +898,7 @@
 				C4E3DFFA1BABE95C0068290D /* AKOscillator.swift in Sources */,
 				C4E3E0871BAD4D040068290D /* AKDecimator.swift in Sources */,
 				C4E3E0121BABE95C0068290D /* AKDistortion.swift in Sources */,
+				C4E64F481BB11C3B00105407 /* AKClipper.swift in Sources */,
 				C4E3E0851BAD4D040068290D /* AKDCBlock.swift in Sources */,
 				C4E3DFC61BABE95C0068290D /* AKTable.swift in Sources */,
 				C4E3E0361BABE95C0068290D /* AKBalance.swift in Sources */,
@@ -1133,6 +1139,7 @@
 				C4E3DF641BABE9210068290D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C4E3DF651BABE9210068290D /* Build configuration list for PBXNativeTarget "OSXAudioKitTests" */ = {
 			isa = XCConfigurationList;
@@ -1141,6 +1148,7 @@
 				C4E3DF671BABE9210068290D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
