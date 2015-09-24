@@ -2,7 +2,7 @@
 //  AKLine.m
 //  AudioKit
 //
-//  Auto-generated on 2/18/15.
+//  Auto-generated on 2/18/15.  Customized to skip on tied values.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's line:
@@ -96,8 +96,10 @@
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
+    [csdString appendFormat:@"tigoto skip%@\n", self];
     [csdString appendFormat:@"%@ line ", self];
     [csdString appendString:[self inputsString]];
+    [csdString appendFormat:@"\nskip%@:\n", self];
     return csdString;
 }
 
