@@ -2,7 +2,7 @@
 //  AKLinearADSREnvelope.m
 //  AudioKit
 //
-//  Auto-generated on 2/19/15.
+//  Auto-generated on 2/19/15.  Customized to skip on tied values.
 //  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 //  Implementation of Csound's madsr:
@@ -120,8 +120,10 @@
 {
     NSMutableString *csdString = [[NSMutableString alloc] init];
 
+    [csdString appendFormat:@"tigoto skip%@\n", self];
     [csdString appendFormat:@"%@ madsr ", self];
     [csdString appendString:[self inputsString]];
+    [csdString appendFormat:@"\nskip%@:\n", self];
     return csdString;
 }
 
