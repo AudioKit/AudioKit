@@ -12,15 +12,14 @@
 		C4341E631BC0E27300CB83C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E611BC0E27300CB83C1 /* Main.storyboard */; };
 		C4341E651BC0E27300CB83C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4341E641BC0E27300CB83C1 /* Assets.xcassets */; };
 		C4341E681BC0E27300CB83C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E661BC0E27300CB83C1 /* LaunchScreen.storyboard */; };
-		C4341E771BC0E71A00CB83C1 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4341E761BC0E44000CB83C1 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C4341E751BC0E44000CB83C1 /* PBXContainerItemProxy */ = {
+		C4BF47D41BC1BEB30072FBAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C4341E711BC0E44000CB83C1 /* AudioKit.xcodeproj */;
+			containerPortal = C4BF47D01BC1BEB30072FBAC /* AudioKit.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = C4341E271BC0DFA200CB83C1;
+			remoteGlobalIDString = C43FA2FD1BC1961D00EC6C85;
 			remoteInfo = AudioKit;
 		};
 /* End PBXContainerItemProxy section */
@@ -33,7 +32,7 @@
 		C4341E641BC0E27300CB83C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4341E671BC0E27300CB83C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4341E691BC0E27300CB83C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4341E711BC0E44000CB83C1 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../AudioKit/AudioKit.xcodeproj; sourceTree = "<group>"; };
+		C4BF47D01BC1BEB30072FBAC /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../AudioKit/AudioKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4341E771BC0E71A00CB83C1 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,9 +49,9 @@
 		C4341E511BC0E27300CB83C1 = {
 			isa = PBXGroup;
 			children = (
+				C4BF47D01BC1BEB30072FBAC /* AudioKit.xcodeproj */,
 				C4341E5C1BC0E27300CB83C1 /* TestApp */,
 				C4341E5B1BC0E27300CB83C1 /* Products */,
-				C4341E711BC0E44000CB83C1 /* AudioKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,10 +76,10 @@
 			path = TestApp;
 			sourceTree = "<group>";
 		};
-		C4341E721BC0E44000CB83C1 /* Products */ = {
+		C4BF47D11BC1BEB30072FBAC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4341E761BC0E44000CB83C1 /* AudioKit.framework */,
+				C4BF47D51BC1BEB30072FBAC /* AudioKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,8 +131,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C4341E721BC0E44000CB83C1 /* Products */;
-					ProjectRef = C4341E711BC0E44000CB83C1 /* AudioKit.xcodeproj */;
+					ProductGroup = C4BF47D11BC1BEB30072FBAC /* Products */;
+					ProjectRef = C4BF47D01BC1BEB30072FBAC /* AudioKit.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -145,11 +143,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4341E761BC0E44000CB83C1 /* AudioKit.framework */ = {
+		C4BF47D51BC1BEB30072FBAC /* AudioKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AudioKit.framework;
-			remoteRef = C4341E751BC0E44000CB83C1 /* PBXContainerItemProxy */;
+			remoteRef = C4BF47D41BC1BEB30072FBAC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -8,22 +8,26 @@
 
 import AVFoundation
 
-public class AKMoogLadder : AVAudioUnit {
+public class AKMoogLadder {
     
     public var effect: AVAudioUnit?
-    public var componentDescription = AudioComponentDescription()
+    var componentDescription = AudioComponentDescription()
     
-    public override init() {
+    public init() {
+
         componentDescription.componentType = kAudioUnitType_Effect
+        AUAudioUnit.registerSubclass(
+            AKMoogLadderAudioUnit.self,
+            asComponentDescription: componentDescription,
+            name: "Local AKMoogLadder",
+            version: UInt32.max)
     }
     
     public func setup() {
-        
         AVAudioUnit.instantiateWithComponentDescription(componentDescription, options: []) { avAudioUnit, error in
             guard let avAudioUnitEffect = avAudioUnit else { return }
             
             self.effect = avAudioUnitEffect
-//            self.engine.attachNode(avAudioUnitEffect)
         }
     }
 }
