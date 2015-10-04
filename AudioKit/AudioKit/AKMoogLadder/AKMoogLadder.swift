@@ -10,7 +10,7 @@ import AVFoundation
 
 public class AKMoogLadder {
     
-    public var effect: AVAudioUnit?
+    public var output: AVAudioUnit?
     var componentDescription = AudioComponentDescription()
     
     public init() {
@@ -27,7 +27,7 @@ public class AKMoogLadder {
         AVAudioUnit.instantiateWithComponentDescription(componentDescription, options: []) { avAudioUnit, error in
             guard let avAudioUnitEffect = avAudioUnit else { return }
             
-            self.effect = avAudioUnitEffect
+            self.output = avAudioUnitEffect
         }
     }
 }
