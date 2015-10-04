@@ -24,6 +24,7 @@
 		C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D61BC1D23D0072FBAC /* AKManager.swift */; settings = {ASSET_TAGS = (); }; };
 		C4BF47D91BC1D24D0072FBAC /* AKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D81BC1D24D0072FBAC /* AKMicrophone.swift */; settings = {ASSET_TAGS = (); }; };
 		C4BF47DB1BC1D87C0072FBAC /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */; settings = {ASSET_TAGS = (); }; };
+		C4BF47DD1BC1DE120072FBAC /* AKAUDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DC1BC1DE120072FBAC /* AKAUDelay.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		C4BF47D61BC1D23D0072FBAC /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
 		C4BF47D81BC1D24D0072FBAC /* AKMicrophone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMicrophone.swift; sourceTree = "<group>"; };
 		C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
+		C4BF47DC1BC1DE120072FBAC /* AKAUDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUDelay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BF47D61BC1D23D0072FBAC /* AKManager.swift */,
+				C4BF47DC1BC1DE120072FBAC /* AKAUDelay.swift */,
 				C4BF47D81BC1D24D0072FBAC /* AKMicrophone.swift */,
 				C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */,
 				C43FA3081BC197C100EC6C85 /* AKMoogLadder */,
@@ -216,6 +219,7 @@
 				C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */,
 				C4BF47D91BC1D24D0072FBAC /* AKMicrophone.swift in Sources */,
 				C43FA3141BC197C100EC6C85 /* AKMoogLadderAudioUnit.mm in Sources */,
+				C4BF47DD1BC1DE120072FBAC /* AKAUDelay.swift in Sources */,
 				C43FA3221BC1981B00EC6C85 /* base.c in Sources */,
 				C43FA3231BC1981B00EC6C85 /* moogladder.c in Sources */,
 				C43FA3121BC197C100EC6C85 /* AKMoogLadder.swift in Sources */,
