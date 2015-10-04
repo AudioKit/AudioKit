@@ -22,6 +22,7 @@
 		C43FA3221BC1981B00EC6C85 /* base.c in Sources */ = {isa = PBXBuildFile; fileRef = C43FA31D1BC1981B00EC6C85 /* base.c */; };
 		C43FA3231BC1981B00EC6C85 /* moogladder.c in Sources */ = {isa = PBXBuildFile; fileRef = C43FA31E1BC1981B00EC6C85 /* moogladder.c */; };
 		C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D61BC1D23D0072FBAC /* AKManager.swift */; settings = {ASSET_TAGS = (); }; };
+		C4BF47DB1BC1D87C0072FBAC /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		C43FA31D1BC1981B00EC6C85 /* base.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = base.c; path = ../../../../Soundpipe/modules/base.c; sourceTree = "<group>"; };
 		C43FA31E1BC1981B00EC6C85 /* moogladder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = moogladder.c; path = ../../../../Soundpipe/modules/moogladder.c; sourceTree = "<group>"; };
 		C4BF47D61BC1D23D0072FBAC /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
+		C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BF47D61BC1D23D0072FBAC /* AKManager.swift */,
+				C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */,
 				C43FA3081BC197C100EC6C85 /* AKMoogLadder */,
 				C43FA30D1BC197C100EC6C85 /* Internals */,
 				C43FA3001BC1961D00EC6C85 /* AudioKit.h */,
@@ -206,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C43FA3181BC197C100EC6C85 /* DSPKernel.mm in Sources */,
+				C4BF47DB1BC1D87C0072FBAC /* AKOperation.swift in Sources */,
 				C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */,
 				C43FA3141BC197C100EC6C85 /* AKMoogLadderAudioUnit.mm in Sources */,
 				C43FA3221BC1981B00EC6C85 /* base.c in Sources */,
