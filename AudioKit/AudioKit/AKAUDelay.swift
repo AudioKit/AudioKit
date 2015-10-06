@@ -10,10 +10,30 @@ import Foundation
 import AVFoundation
 
 public class AKAUDelay: AKOperation {
-    
+    let delayAU = AVAudioUnitDelay()
+    public var delayTime:NSTimeInterval = 1 {
+        didSet {
+            delayAU.delayTime = delayTime
+        }
+    }
+    public var feedback:Float = 50.0 {
+        didSet {
+            delayAU.feedback = feedback
+        }
+    }
+    public var lowPassCutoff:Float = 15000.00 {
+        didSet {
+            delayAU.lowPassCutoff = lowPassCutoff
+        }
+    }
+    public var wetDryMix:Float = 100.0 {
+        didSet {
+            delayAU.wetDryMix = wetDryMix
+        }
+    }
     public init(_ input: AKOperation) {
         super.init()
-        output = AVAudioUnitDelay()
+        output = delayAU
         AKManager.sharedManager.engine.attachNode(output!)
         AKManager.sharedManager.engine.connect(input.output!, to: output!, format: nil)
     }
