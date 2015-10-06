@@ -13,9 +13,8 @@ void DSPKernel::handleOneEvent(AURenderEvent const *event) {
 		case AURenderEventParameter:
 		case AURenderEventParameterRamp: {
 			AUParameterEvent const& paramEvent = event->parameter;
-			
-            if (paramEvent.value != 0)
-                startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
+
+            startRamp(paramEvent.parameterAddress, paramEvent.value, paramEvent.rampDurationSampleFrames);
 			break;
 		}
 			
