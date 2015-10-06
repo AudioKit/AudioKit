@@ -10,15 +10,22 @@ import Foundation
 import AVFoundation
 
 public class AKAUReverb: AKOperation {
+    let reverbAU = AVAudioUnitReverb()
+    public var wetDryMix:Float = 50.0 {
+        didSet {
+            reverbAU.wetDryMix = wetDryMix
+        }
+    }
     
     public init(_ input: AKOperation) {
         super.init()
-        let reverb = AVAudioUnitReverb()
-        reverb.loadFactoryPreset(.Cathedral)
-        reverb.wetDryMix = 50
-        output = reverb
+        output = reverbAU
         AKManager.sharedManager.engine.attachNode(output!)
         AKManager.sharedManager.engine.connect(input.output!, to: output!, format: nil)
+    }
+    
+    public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
+        reverbAU.loadFactoryPreset(preset)
     }
     
 }
