@@ -59,7 +59,7 @@ public:
 				break;
                 
             case FilterParamResonance:
-                resonanceRamper.set(clamp(value, -20.0f, 20.0f));
+                resonanceRamper.set(clamp(value, 0.0f, 100.0f));
 				break;
         }
 	}
@@ -84,7 +84,7 @@ public:
 				break;
 			
 			case FilterParamResonance:
-				resonanceRamper.startRamp(clamp(value, -20.0f, 20.0f), duration);
+				resonanceRamper.startRamp(clamp(value, 0.0f, 100.0f), duration);
 				break;
 		}
 	}
@@ -104,7 +104,7 @@ public:
             
             // AK Decouple these from the rescaling?
             moog->freq = (float)cutoff * 10000;
-            moog->res  = 0.9;//(float)(resonance / 100);
+            moog->res  = (float)(resonance / 100);
 			
 			for (int channel = 0; channel < channels; ++channel) {
 				float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
@@ -134,7 +134,7 @@ private:
 
 public:
 	ParameterRamper cutoffRamper = 400.0 / 44100.0;
-	ParameterRamper resonanceRamper = 90;
+	ParameterRamper resonanceRamper = 50;
 };
 
 #endif /* AKMoogLadderDSPKernel_hpp */

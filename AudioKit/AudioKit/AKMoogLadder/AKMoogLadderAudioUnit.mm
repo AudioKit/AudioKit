@@ -12,7 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
-@interface AKMoogLadderAudioUnit ()
+@interface AKMoogLadderAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
 @property AUAudioUnitBusArray *inputBusArray;
