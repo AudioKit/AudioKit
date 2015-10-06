@@ -21,11 +21,11 @@
 		C43FA3211BC1981B00EC6C85 /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C43FA31C1BC1981B00EC6C85 /* soundpipe.h */; };
 		C43FA3221BC1981B00EC6C85 /* base.c in Sources */ = {isa = PBXBuildFile; fileRef = C43FA31D1BC1981B00EC6C85 /* base.c */; };
 		C43FA3231BC1981B00EC6C85 /* moogladder.c in Sources */ = {isa = PBXBuildFile; fileRef = C43FA31E1BC1981B00EC6C85 /* moogladder.c */; };
-		C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D61BC1D23D0072FBAC /* AKManager.swift */; settings = {ASSET_TAGS = (); }; };
-		C4BF47D91BC1D24D0072FBAC /* AKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D81BC1D24D0072FBAC /* AKMicrophone.swift */; settings = {ASSET_TAGS = (); }; };
-		C4BF47DB1BC1D87C0072FBAC /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */; settings = {ASSET_TAGS = (); }; };
-		C4BF47DD1BC1DE120072FBAC /* AKAUDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DC1BC1DE120072FBAC /* AKAUDelay.swift */; settings = {ASSET_TAGS = (); }; };
-		C4BF47DF1BC1E3B90072FBAC /* AKAUReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DE1BC1E3B90072FBAC /* AKAUReverb.swift */; settings = {ASSET_TAGS = (); }; };
+		C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D61BC1D23D0072FBAC /* AKManager.swift */; };
+		C4BF47D91BC1D24D0072FBAC /* AKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D81BC1D24D0072FBAC /* AKMicrophone.swift */; };
+		C4BF47DB1BC1D87C0072FBAC /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */; };
+		C4BF47DD1BC1DE120072FBAC /* AKAUDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DC1BC1DE120072FBAC /* AKAUDelay.swift */; };
+		C4BF47DF1BC1E3B90072FBAC /* AKAUReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47DE1BC1E3B90072FBAC /* AKAUReverb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,11 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BF47D61BC1D23D0072FBAC /* AKManager.swift */,
-				C4BF47DC1BC1DE120072FBAC /* AKAUDelay.swift */,
-				C4BF47DE1BC1E3B90072FBAC /* AKAUReverb.swift */,
-				C4BF47D81BC1D24D0072FBAC /* AKMicrophone.swift */,
-				C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */,
-				C43FA3081BC197C100EC6C85 /* AKMoogLadder */,
+				C4BF47E11BC1E5370072FBAC /* Operations */,
 				C43FA30D1BC197C100EC6C85 /* Internals */,
 				C43FA3001BC1961D00EC6C85 /* AudioKit.h */,
 				C43FA3021BC1961D00EC6C85 /* Info.plist */,
@@ -128,6 +124,18 @@
 				C43FA31E1BC1981B00EC6C85 /* moogladder.c */,
 			);
 			name = Soundpipe;
+			sourceTree = "<group>";
+		};
+		C4BF47E11BC1E5370072FBAC /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				C4BF47DC1BC1DE120072FBAC /* AKAUDelay.swift */,
+				C4BF47D81BC1D24D0072FBAC /* AKMicrophone.swift */,
+				C4BF47DE1BC1E3B90072FBAC /* AKAUReverb.swift */,
+				C4BF47DA1BC1D87C0072FBAC /* AKOperation.swift */,
+				C43FA3081BC197C100EC6C85 /* AKMoogLadder */,
+			);
+			name = Operations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,6 +262,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -309,6 +318,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -345,6 +355,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -366,6 +377,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
