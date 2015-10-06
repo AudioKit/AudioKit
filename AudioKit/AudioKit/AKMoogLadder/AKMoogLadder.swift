@@ -10,10 +10,28 @@ import AVFoundation
 
 public class AKMoogLadder: AKOperation {
     
-    var componentDescription = AudioComponentDescription()
+    var moogLadderAU: AKMoogLadderAudioUnit?
     
+    var cutoffParameter: AUParameter?
+    var resonanceParameter: AUParameter?
+    var parameterObserverToken: AUParameterObserverToken?
+    
+    public var cutoffFrequency: Float = 1000.0 {
+        didSet {    
+            cutoffParameter?.setValue(cutoffFrequency, originator: parameterObserverToken!)
+        }
+    }
+    
+    public var resonance: Float = 50 {
+        didSet {
+            resonanceParameter?.setValue(resonance, originator: parameterObserverToken!)
+        }
+    }
+
     public init(_ input: AKOperation) {
         super.init()
+
+        var componentDescription = AudioComponentDescription()
         componentDescription.componentType = kAudioUnitType_Effect
         AUAudioUnit.registerSubclass(
             AKMoogLadderAudioUnit.self,
@@ -25,8 +43,26 @@ public class AKMoogLadder: AKOperation {
             guard let avAudioUnitEffect = avAudioUnit else { return }
             
             self.output = avAudioUnitEffect
+            self.moogLadderAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
             AKManager.sharedManager.engine.attachNode(self.output!)
             AKManager.sharedManager.engine.connect(input.output!, to: self.output!, format: nil)
         }
+        
+        guard let paramTree = moogLadderAU?.parameterTree else { return }
+        
+        cutoffParameter = paramTree.valueForKey("cutoff") as? AUParameter
+        resonanceParameter = paramTree.valueForKey("resonance") as? AUParameter
+        
+        parameterObserverToken = paramTree.tokenByAddingParameterObserver { address, value in
+            dispatch_async(dispatch_get_main_queue()) {
+                if address == self.cutoffParameter!.address {
+                    self.cutoffFrequency = value
+                }
+                else if address == self.resonanceParameter!.address {
+                    self.resonance = value
+                }
+            }
+        }
+
     }
 }
