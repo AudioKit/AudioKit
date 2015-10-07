@@ -15,16 +15,18 @@ class ViewController: UIViewController {
     let input = AKMicrophone()
     var delay:  AKAUDelay?
     var moog:   AKMoogLadder?
+    var allpass: AKFlatFrequencyResponseReverb?
     var reverb: AKAUReverb?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        delay  = AKAUDelay(input)
-        moog   = AKMoogLadder(delay!)
-        reverb = AKAUReverb(moog!)
+        delay   = AKAUDelay(input)
+        moog    = AKMoogLadder(delay!)
+        allpass = AKFlatFrequencyResponseReverb(moog!, loopDuration: 0.1)
+        reverb  = AKAUReverb(allpass!)
         if let reverb = reverb { reverb.loadFactoryPreset(.Plate) }
-        audiokit.audioOutput = reverb
+        audiokit.audioOutput = reverb!
         audiokit.start()
     }
     
@@ -42,7 +44,10 @@ class ViewController: UIViewController {
     @IBAction func changeResonance(sender: UISlider) {
         guard let moog = moog else { return }
         moog.resonance = sender.value * 100.0
-
+    }
+    @IBAction func changeReverbDuration(sender: UISlider) {
+        guard let allpass = allpass else { return }
+        allpass.reverbDuration = sender.value * 5.0
     }
 }
 
