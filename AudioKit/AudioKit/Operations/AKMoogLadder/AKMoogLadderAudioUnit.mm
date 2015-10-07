@@ -49,8 +49,8 @@
 	
 	// Create a parameter object for the cutoff frequency.
     AUParameter *cutoffParam = [AUParameterTree createParameterWithIdentifier:@"cutoff"
-                                                                         name:@"Cutoff"
-                                                                      address:FilterParamCutoff
+                                                                         name:@"Cutoff Frequency"
+                                                                      address:ParamCutoff
                                                                           min:12.0 max:20000.0
                                                                          unit:kAudioUnitParameterUnit_Hertz
                                                                      unitName:nil
@@ -58,10 +58,10 @@
                                                                  valueStrings:nil
                                                           dependentParameters:nil];
     
-	// Create a parameter object for the filter resonance.
+	// Create a parameter object for the resonance.
     AUParameter *resonanceParam = [AUParameterTree createParameterWithIdentifier:@"resonance"
                                                                             name:@"Resonance"
-                                                                         address:FilterParamResonance
+                                                                         address:ParamResonance
                                                                              min:0.0
                                                                              max:100.0
                                                                             unit:kAudioUnitParameterUnit_Percent
@@ -73,8 +73,8 @@
 	// Initialize the parameter values.
 	cutoffParam.value = 400.0;
 	resonanceParam.value = 3.0;
-	_kernel.setParameter(FilterParamCutoff,    cutoffParam.value);
-	_kernel.setParameter(FilterParamResonance, resonanceParam.value);
+	_kernel.setParameter(ParamCutoff,    cutoffParam.value);
+	_kernel.setParameter(ParamResonance, resonanceParam.value);
 	
 	// Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
@@ -95,16 +95,16 @@
                                                               busses: @[_outputBus]];
 
 	// Make a local pointer to the kernel to avoid capturing self.
-	__block AKMoogLadderDSPKernel *filterKernel = &_kernel;
+	__block AKMoogLadderDSPKernel *moogLadderKernel = &_kernel;
 
 	// implementorValueObserver is called when a parameter changes value.
 	_parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-		filterKernel->setParameter(param.address, value);
+		moogLadderKernel->setParameter(param.address, value);
 	};
 	
 	// implementorValueProvider is called when the value needs to be refreshed.
 	_parameterTree.implementorValueProvider = ^(AUParameter *param) {
-		return filterKernel->getParameter(param.address);
+		return moogLadderKernel->getParameter(param.address);
 	};
 	
 	// A function to provide string representations of parameter values.
@@ -112,10 +112,10 @@
 		AUValue value = valuePtr == nil ? param.value : *valuePtr;
 	
 		switch (param.address) {
-			case FilterParamCutoff:
+			case ParamCutoff:
 				return [NSString stringWithFormat:@"%.f", value];
 			
-			case FilterParamResonance:
+			case ParamResonance:
 				return [NSString stringWithFormat:@"%.2f", value];
 			
 			default:
@@ -182,11 +182,11 @@
 	_inputBus.deallocateRenderResources();
 	
 	// Make a local pointer to the kernel to avoid capturing self.
-	__block AKMoogLadderDSPKernel *filterKernel = &_kernel;
+	__block AKMoogLadderDSPKernel *moogLadderKernel = &_kernel;
 
 	// Go back to setting parameters instead of scheduling them.
 	self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-		filterKernel->setParameter(param.address, value);
+		moogLadderKernel->setParameter(param.address, value);
 	};
 }
 	

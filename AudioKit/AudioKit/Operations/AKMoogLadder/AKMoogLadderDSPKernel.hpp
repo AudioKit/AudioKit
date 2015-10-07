@@ -20,8 +20,8 @@ extern "C" {
 }
 
 enum {
-	FilterParamCutoff = 0,
-	FilterParamResonance = 1
+	ParamCutoff = 0,
+	ParamResonance = 1
 };
 
 static inline double squared(double x) {
@@ -54,11 +54,11 @@ public:
 	
 	void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case FilterParamCutoff:
+            case ParamCutoff:
 				cutoffRamper.set(clamp(value * inverseNyquist, 0.0f, 0.99f));
 				break;
                 
-            case FilterParamResonance:
+            case ParamResonance:
                 resonanceRamper.set(clamp(value, 0.0f, 100.0f));
 				break;
         }
@@ -66,11 +66,11 @@ public:
 
 	AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case FilterParamCutoff:
+            case ParamCutoff:
                 // Return the goal. It is not thread safe to return the ramping value.
                 return cutoffRamper.goal() * nyquist;
 
-            case FilterParamResonance:
+            case ParamResonance:
                 return resonanceRamper.goal();
 				
 			default: return 0.0f;
@@ -79,11 +79,11 @@ public:
 
 	void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-			case FilterParamCutoff:
+			case ParamCutoff:
 				cutoffRamper.startRamp(clamp(value * inverseNyquist, 0.0f, 0.99f), duration);
 				break;
 			
-			case FilterParamResonance:
+			case ParamResonance:
 				resonanceRamper.startRamp(clamp(value, 0.0f, 100.0f), duration);
 				break;
 		}
