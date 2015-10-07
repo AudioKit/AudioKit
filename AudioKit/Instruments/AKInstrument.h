@@ -204,10 +204,5 @@ NS_ASSUME_NONNULL_BEGIN
 /// See http://www.csounds.com/manual/html/maxalloc.html for more info.
 @property NSUInteger maximumNoteAllocation;
 
-/// Set a limit to the amount of CPU usage per note. Note which exceed this limit will be deallocated.
-/// Range from 0.0 to 1.0. Defaults to zero, which is equivalent to setting no limit.
-/// See http://www.csounds.com/manual/html/cpuprc.html for more info.
-@property float maximumProcessorAllocation;
-
 @end
 NS_ASSUME_NONNULL_END
