@@ -17,6 +17,16 @@
 		C43FA3211BC1981B00EC6C85 /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C43FA31C1BC1981B00EC6C85 /* soundpipe.h */; };
 		C43FA3221BC1981B00EC6C85 /* base.c in Sources */ = {isa = PBXBuildFile; fileRef = C43FA31D1BC1981B00EC6C85 /* base.c */; };
 		C43FA3231BC1981B00EC6C85 /* moogladder.c in Sources */ = {isa = PBXBuildFile; fileRef = C43FA31E1BC1981B00EC6C85 /* moogladder.c */; };
+		C450E7AD1BC4CBDF007178B0 /* AKOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C450E7A91BC4CBDF007178B0 /* AKOscillator.swift */; };
+		C450E7AE1BC4CBDF007178B0 /* AKOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C450E7AA1BC4CBDF007178B0 /* AKOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C450E7AF1BC4CBDF007178B0 /* AKOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C450E7AB1BC4CBDF007178B0 /* AKOscillatorAudioUnit.mm */; };
+		C450E7B01BC4CBDF007178B0 /* AKOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C450E7AC1BC4CBDF007178B0 /* AKOscillatorDSPKernel.hpp */; };
+		C450E7B21BC4CFBE007178B0 /* osc.h in Headers */ = {isa = PBXBuildFile; fileRef = C450E7B11BC4CFBE007178B0 /* osc.h */; };
+		C450E7B41BC4CFCE007178B0 /* osc.c in Sources */ = {isa = PBXBuildFile; fileRef = C450E7B31BC4CFCE007178B0 /* osc.c */; };
+		C450E7B71BC4D10C007178B0 /* ftbl.c in Sources */ = {isa = PBXBuildFile; fileRef = C450E7B51BC4D10C007178B0 /* ftbl.c */; };
+		C450E7B81BC4D10C007178B0 /* randmt.c in Sources */ = {isa = PBXBuildFile; fileRef = C450E7B61BC4D10C007178B0 /* randmt.c */; };
+		C450E7BB1BC4D11E007178B0 /* ftbl.h in Headers */ = {isa = PBXBuildFile; fileRef = C450E7B91BC4D11E007178B0 /* ftbl.h */; };
+		C450E7BC1BC4D11E007178B0 /* randmt.h in Headers */ = {isa = PBXBuildFile; fileRef = C450E7BA1BC4D11E007178B0 /* randmt.h */; };
 		C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D61BC1D23D0072FBAC /* AKManager.swift */; };
 		C4ECB35A1BC4869200E09FA3 /* AKAUDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ECB34C1BC4869200E09FA3 /* AKAUDelay.swift */; };
 		C4ECB35B1BC4869200E09FA3 /* AKAUReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ECB34D1BC4869200E09FA3 /* AKAUReverb.swift */; };
@@ -47,6 +57,16 @@
 		C43FA31C1BC1981B00EC6C85 /* soundpipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundpipe.h; path = ../../../../Soundpipe/h/soundpipe.h; sourceTree = "<group>"; };
 		C43FA31D1BC1981B00EC6C85 /* base.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = base.c; path = ../../../../Soundpipe/modules/base.c; sourceTree = "<group>"; };
 		C43FA31E1BC1981B00EC6C85 /* moogladder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = moogladder.c; path = ../../../../Soundpipe/modules/moogladder.c; sourceTree = "<group>"; };
+		C450E7A91BC4CBDF007178B0 /* AKOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillator.swift; sourceTree = "<group>"; };
+		C450E7AA1BC4CBDF007178B0 /* AKOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOscillatorAudioUnit.h; sourceTree = "<group>"; };
+		C450E7AB1BC4CBDF007178B0 /* AKOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKOscillatorAudioUnit.mm; sourceTree = "<group>"; };
+		C450E7AC1BC4CBDF007178B0 /* AKOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
+		C450E7B11BC4CFBE007178B0 /* osc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osc.h; path = ../../../../Soundpipe/h/osc.h; sourceTree = "<group>"; };
+		C450E7B31BC4CFCE007178B0 /* osc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = osc.c; path = ../../../../Soundpipe/modules/osc.c; sourceTree = "<group>"; };
+		C450E7B51BC4D10C007178B0 /* ftbl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ftbl.c; path = ../../../../Soundpipe/modules/ftbl.c; sourceTree = "<group>"; };
+		C450E7B61BC4D10C007178B0 /* randmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = randmt.c; path = ../../../../Soundpipe/modules/randmt.c; sourceTree = "<group>"; };
+		C450E7B91BC4D11E007178B0 /* ftbl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ftbl.h; path = ../../../../Soundpipe/h/ftbl.h; sourceTree = "<group>"; };
+		C450E7BA1BC4D11E007178B0 /* randmt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = randmt.h; path = ../../../../Soundpipe/h/randmt.h; sourceTree = "<group>"; };
 		C4BF47D61BC1D23D0072FBAC /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
 		C4ECB34C1BC4869200E09FA3 /* AKAUDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUDelay.swift; sourceTree = "<group>"; };
 		C4ECB34D1BC4869200E09FA3 /* AKAUReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUReverb.swift; sourceTree = "<group>"; };
@@ -123,10 +143,27 @@
 				C43FA31D1BC1981B00EC6C85 /* base.c */,
 				C4ECB3661BC48BC800E09FA3 /* allpass.h */,
 				C4ECB3681BC48BD200E09FA3 /* allpass.c */,
+				C450E7B51BC4D10C007178B0 /* ftbl.c */,
+				C450E7B91BC4D11E007178B0 /* ftbl.h */,
 				C43FA31B1BC1981B00EC6C85 /* moogladder.h */,
 				C43FA31E1BC1981B00EC6C85 /* moogladder.c */,
+				C450E7B11BC4CFBE007178B0 /* osc.h */,
+				C450E7B31BC4CFCE007178B0 /* osc.c */,
+				C450E7BA1BC4D11E007178B0 /* randmt.h */,
+				C450E7B61BC4D10C007178B0 /* randmt.c */,
 			);
 			name = Soundpipe;
+			sourceTree = "<group>";
+		};
+		C450E7A81BC4CBDF007178B0 /* AKOscillator */ = {
+			isa = PBXGroup;
+			children = (
+				C450E7A91BC4CBDF007178B0 /* AKOscillator.swift */,
+				C450E7AA1BC4CBDF007178B0 /* AKOscillatorAudioUnit.h */,
+				C450E7AB1BC4CBDF007178B0 /* AKOscillatorAudioUnit.mm */,
+				C450E7AC1BC4CBDF007178B0 /* AKOscillatorDSPKernel.hpp */,
+			);
+			path = AKOscillator;
 			sourceTree = "<group>";
 		};
 		C4ECB34B1BC4869200E09FA3 /* Operations */ = {
@@ -137,6 +174,7 @@
 				C4ECB34E1BC4869200E09FA3 /* AKFlatFrequencyResponseReverb */,
 				C4ECB3531BC4869200E09FA3 /* AKMicrophone.swift */,
 				C4ECB3541BC4869200E09FA3 /* AKMoogLadder */,
+				C450E7A81BC4CBDF007178B0 /* AKOscillator */,
 				C4ECB3591BC4869200E09FA3 /* AKOperation.swift */,
 			);
 			path = Operations;
@@ -172,13 +210,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4ECB3641BC4869200E09FA3 /* AKMoogLadderDSPKernel.hpp in Headers */,
+				C450E7B01BC4CBDF007178B0 /* AKOscillatorDSPKernel.hpp in Headers */,
 				C43FA3201BC1981B00EC6C85 /* moogladder.h in Headers */,
 				C43FA3011BC1961D00EC6C85 /* AudioKit.h in Headers */,
+				C450E7BB1BC4D11E007178B0 /* ftbl.h in Headers */,
+				C450E7AE1BC4CBDF007178B0 /* AKOscillatorAudioUnit.h in Headers */,
 				C4ECB35D1BC4869200E09FA3 /* AKFlatFrequencyResponseReverbAudioUnit.h in Headers */,
 				C43FA3211BC1981B00EC6C85 /* soundpipe.h in Headers */,
 				C43FA3171BC197C100EC6C85 /* AKDSPKernel.hpp in Headers */,
 				C4ECB35F1BC4869200E09FA3 /* AKFlatFrequencyResponseReverbDSPKernel.hpp in Headers */,
+				C450E7B21BC4CFBE007178B0 /* osc.h in Headers */,
 				C43FA3161BC197C100EC6C85 /* AKBufferedAudioBus.hpp in Headers */,
+				C450E7BC1BC4D11E007178B0 /* randmt.h in Headers */,
 				C43FA3191BC197C100EC6C85 /* AKParameterRamper.hpp in Headers */,
 				C43FA31F1BC1981B00EC6C85 /* base.h in Headers */,
 				C4ECB3621BC4869200E09FA3 /* AKMoogLadderAudioUnit.h in Headers */,
@@ -255,14 +298,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4ECB3631BC4869200E09FA3 /* AKMoogLadderAudioUnit.mm in Sources */,
+				C450E7AD1BC4CBDF007178B0 /* AKOscillator.swift in Sources */,
 				C43FA3181BC197C100EC6C85 /* AKDSPKernel.mm in Sources */,
 				C4ECB3601BC4869200E09FA3 /* AKMicrophone.swift in Sources */,
 				C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */,
 				C43FA3221BC1981B00EC6C85 /* base.c in Sources */,
 				C43FA3231BC1981B00EC6C85 /* moogladder.c in Sources */,
+				C450E7B81BC4D10C007178B0 /* randmt.c in Sources */,
 				C4ECB35C1BC4869200E09FA3 /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C4ECB35E1BC4869200E09FA3 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
+				C450E7AF1BC4CBDF007178B0 /* AKOscillatorAudioUnit.mm in Sources */,
 				C4ECB35A1BC4869200E09FA3 /* AKAUDelay.swift in Sources */,
+				C450E7B71BC4D10C007178B0 /* ftbl.c in Sources */,
+				C450E7B41BC4CFCE007178B0 /* osc.c in Sources */,
 				C4ECB3651BC4869200E09FA3 /* AKOperation.swift in Sources */,
 				C4ECB3691BC48BD200E09FA3 /* allpass.c in Sources */,
 				C4ECB35B1BC4869200E09FA3 /* AKAUReverb.swift in Sources */,
