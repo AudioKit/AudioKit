@@ -26,8 +26,7 @@
 @implementation AKOscillatorAudioUnit {
 	// C++ members need to be ivars; they would be copied on access if they were properties.
     AKOscillatorDSPKernel _kernel;
-
-    BufferedInputBus _inputBus;
+    float buffer[2];
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -39,6 +38,8 @@
     if (self == nil) {
     	return nil;
     }
+    buffer[0] = 0.0;
+    buffer[1] = 0.0;
 
 	// Initialize a default format for the busses.
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.
@@ -85,14 +86,10 @@
 		amplitudeParam
 	]];
 
-	// Create the input and output busses.
-	_inputBus.init(defaultFormat, 8);
+	// Create the output bus.
     _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
 
-	// Create the input and output bus arrays.
-	_inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeInput
-                                                              busses: @[_inputBus.bus]];
+	// Create the output bus array.
 	_outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[_outputBus]];
@@ -145,21 +142,7 @@
 	if (![super allocateRenderResourcesAndReturnError:outError]) {
 		return NO;
 	}
-
-    if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
-        if (outError) {
-            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
-                                            code:kAudioUnitErr_FailedInitialization
-                                        userInfo:nil];
-        }
-        // Notify superclass that initialization was not successful
-        self.renderResourcesAllocated = NO;
-
-        return NO;
-    }
-
-	_inputBus.allocateRenderResources(self.maximumFramesToRender);
-
+    
 	_kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
 	_kernel.reset();
 
@@ -182,8 +165,6 @@
 - (void)deallocateRenderResources {
 	[super deallocateRenderResources];
 
-	_inputBus.deallocateRenderResources();
-
 	// Make a local pointer to the kernel to avoid capturing self.
 	__block AKOscillatorDSPKernel *blockKernel = &_kernel;
 
@@ -199,7 +180,6 @@
         render, we're doing it wrong.
 	*/
 	__block AKOscillatorDSPKernel *state = &_kernel;
-	__block BufferedInputBus *input = &_inputBus;
 
     return ^AUAudioUnitStatus(
 			 AudioUnitRenderActionFlags *actionFlags,
@@ -209,15 +189,6 @@
 			 AudioBufferList            *outputData,
 			 const AURenderEvent        *realtimeEventListHead,
 			 AURenderPullInputBlock      pullInputBlock) {
-		AudioUnitRenderActionFlags pullFlags = 0;
-
-		AUAudioUnitStatus err = input->pullInput(&pullFlags, timestamp, frameCount, 0, pullInputBlock);
-
-        if (err != 0) {
-			return err;
-		}
-
-		AudioBufferList *inAudioBufferList = input->mutableAudioBufferList;
 
 		/*
 			If the caller passed non-nil output pointers, use those. Otherwise,
@@ -226,13 +197,14 @@
             it here.
 		*/
 		AudioBufferList *outAudioBufferList = outputData;
-		if (outAudioBufferList->mBuffers[0].mData == nullptr) {
-			for (UInt32 i = 0; i < outAudioBufferList->mNumberBuffers; ++i) {
-				outAudioBufferList->mBuffers[i].mData = inAudioBufferList->mBuffers[i].mData;
-			}
-		}
+        if (outAudioBufferList->mBuffers[0].mData == nullptr) {
+            for (UInt32 i = 0; i < outAudioBufferList->mNumberBuffers; ++i) {
+                outAudioBufferList->mBuffers[i].mData = &buffer[i];
+            }
+        }
+        
 
-		state->setBuffers(inAudioBufferList, outAudioBufferList);
+		state->setBuffers(outAudioBufferList);
 		state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
 
 		return noErr;
