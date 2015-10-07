@@ -11,7 +11,7 @@ import Foundation
 public class AKMicrophone: AKOperation {
     public override init() {
         super.init()
-        output = AKManager.sharedManager.engine.inputNode
+        output = AKManager.sharedInstance.engine.inputNode
     }
     
 }

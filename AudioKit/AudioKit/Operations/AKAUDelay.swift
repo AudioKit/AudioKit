@@ -34,8 +34,8 @@ public class AKAUDelay: AKOperation {
     public init(_ input: AKOperation) {
         super.init()
         output = delayAU
-        AKManager.sharedManager.engine.attachNode(output!)
-        AKManager.sharedManager.engine.connect(input.output!, to: output!, format: nil)
+        AKManager.sharedInstance.engine.attachNode(output!)
+        AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
     }
     
 }

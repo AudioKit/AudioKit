@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 public class AKManager {
-    public static let sharedManager = AKManager()
+    public static let sharedInstance = AKManager()
     public var engine = AVAudioEngine()
     public var audioOutput: AKOperation? {
         didSet {
