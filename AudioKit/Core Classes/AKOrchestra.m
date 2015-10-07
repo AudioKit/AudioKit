@@ -116,6 +116,14 @@
         }
     }
     
+    if (instrument.maximumNoteAllocation) {
+        [instrumentString appendFormat:@"maxalloc %@, %@\n", @(instrument.instrumentNumber), @(instrument.maximumNoteAllocation)];
+    }
+    
+    if (instrument.maximumProcessorAllocation) {
+        [instrumentString appendFormat:@"cpuprc %@, %f\n", @(instrument.instrumentNumber), instrument.maximumProcessorAllocation];
+    }
+    
     [instrumentString appendFormat:@"instr %@\n", @(instrument.instrumentNumber)];
     [instrumentString appendString:[NSString stringWithFormat:@"%@\n", stringForCSD]];
     [instrumentString appendString:@"endin\n"];
