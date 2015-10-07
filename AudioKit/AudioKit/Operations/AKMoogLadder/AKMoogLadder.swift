@@ -33,6 +33,11 @@ public class AKMoogLadder: AKOperation {
 
         var componentDescription = AudioComponentDescription()
         componentDescription.componentType = kAudioUnitType_Effect
+        componentDescription.componentSubType = 0x6d676c64 /*'mgld'*/
+        componentDescription.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        componentDescription.componentFlags = 0
+        componentDescription.componentFlagsMask = 0
+
         AUAudioUnit.registerSubclass(
             AKMoogLadderAudioUnit.self,
             asComponentDescription: componentDescription,
