@@ -47,29 +47,32 @@
 	// Create a DSP kernel to handle the signal processing.
 	_kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 	
-	// Create a parameter object for the cutoff frequency.
-    AUParameter *cutoffParam = [AUParameterTree createParameterWithIdentifier:@"cutoff"
-                                                                         name:@"Cutoff Frequency"
-                                                                      address:ParamCutoff
-                                                                          min:12.0 max:20000.0
-                                                                         unit:kAudioUnitParameterUnit_Hertz
-                                                                     unitName:nil
-                                                                        flags: 0
-                                                                 valueStrings:nil
-                                                          dependentParameters:nil];
+    // Create a parameter object for the cutoff frequency.
+    AUParameter *cutoffParam =
+    [AUParameterTree createParameterWithIdentifier:@"cutoff"
+                                              name:@"Cutoff Frequency"
+                                           address:ParamCutoff
+                                               min:12.0
+                                               max:20000.0
+                                              unit:kAudioUnitParameterUnit_Hertz
+                                          unitName:nil
+                                             flags: 0
+                                      valueStrings:nil
+                               dependentParameters:nil];
     
-	// Create a parameter object for the resonance.
-    AUParameter *resonanceParam = [AUParameterTree createParameterWithIdentifier:@"resonance"
-                                                                            name:@"Resonance"
-                                                                         address:ParamResonance
-                                                                             min:0.0
-                                                                             max:100.0
-                                                                            unit:kAudioUnitParameterUnit_Percent
-                                                                        unitName:nil
-                                                                           flags: 0
-                                                                    valueStrings:nil
-                                                             dependentParameters:nil];
-	
+    // Create a parameter object for the resonance.
+    AUParameter *resonanceParam =
+    [AUParameterTree createParameterWithIdentifier:@"resonance"
+                                              name:@"Resonance"
+                                           address:ParamResonance
+                                               min:0.0
+                                               max:100.0
+                                              unit:kAudioUnitParameterUnit_Percent
+                                          unitName:nil
+                                             flags: 0
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    
 	// Initialize the parameter values.
 	cutoffParam.value = 400.0;
 	resonanceParam.value = 3.0;
