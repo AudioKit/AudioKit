@@ -1,5 +1,5 @@
 //
-//  BufferedAudioBus.hpp
+//  AKBufferedAudioBus.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 10/3/15.
@@ -12,7 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 // Reusable non-ObjC class, accessible from render thread.
-struct BufferedAudioBus {
+struct AKBufferedAudioBus {
 	AUAudioUnitBus* bus = nullptr;
 	AUAudioFrameCount maxFrames = 0;
     
@@ -53,7 +53,7 @@ struct BufferedAudioBus {
 	This class manages a buffer into which an audio unit with input busses can 
     pull its input data.
 */
-struct BufferedInputBus : BufferedAudioBus {
+struct BufferedInputBus : AKBufferedAudioBus {
 	/*
         Gets input data for this input by preparing the input buffer list and pulling
         the pullInputBlock.

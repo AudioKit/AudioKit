@@ -1,13 +1,13 @@
 //
-//  DSPKernel.hpp
+//  AKDSPKernel.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 10/3/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
 //
 
-#ifndef DSPKernel_h
-#define DSPKernel_h
+#ifndef AKDSPKernel_h
+#define AKDSPKernel_h
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <algorithm>
@@ -17,8 +17,8 @@ T clamp(T input, T low, T high) {
 	return std::min(std::max(input, low), high);
 }
 
-// Put your DSP code into a subclass of DSPKernel.
-class DSPKernel {
+// Put your DSP code into a subclass of AKDSPKernel.
+class AKDSPKernel {
 public:
 	virtual void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) = 0;
 	virtual void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) = 0;
@@ -33,4 +33,4 @@ private:
 	void performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const*& event);
 };
 
-#endif /* DSPKernel_h */
+#endif /* AKDSPKernel_h */

@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		C43FA3011BC1961D00EC6C85 /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C43FA3001BC1961D00EC6C85 /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C43FA3161BC197C100EC6C85 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C43FA30E1BC197C100EC6C85 /* BufferedAudioBus.hpp */; };
-		C43FA3171BC197C100EC6C85 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C43FA30F1BC197C100EC6C85 /* DSPKernel.hpp */; };
-		C43FA3181BC197C100EC6C85 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C43FA3101BC197C100EC6C85 /* DSPKernel.mm */; };
-		C43FA3191BC197C100EC6C85 /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C43FA3111BC197C100EC6C85 /* ParameterRamper.hpp */; };
+		C43FA3161BC197C100EC6C85 /* AKBufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C43FA30E1BC197C100EC6C85 /* AKBufferedAudioBus.hpp */; };
+		C43FA3171BC197C100EC6C85 /* AKDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C43FA30F1BC197C100EC6C85 /* AKDSPKernel.hpp */; };
+		C43FA3181BC197C100EC6C85 /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C43FA3101BC197C100EC6C85 /* AKDSPKernel.mm */; };
+		C43FA3191BC197C100EC6C85 /* AKParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C43FA3111BC197C100EC6C85 /* AKParameterRamper.hpp */; };
 		C43FA31F1BC1981B00EC6C85 /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = C43FA31A1BC1981B00EC6C85 /* base.h */; };
 		C43FA3201BC1981B00EC6C85 /* moogladder.h in Headers */ = {isa = PBXBuildFile; fileRef = C43FA31B1BC1981B00EC6C85 /* moogladder.h */; };
 		C43FA3211BC1981B00EC6C85 /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C43FA31C1BC1981B00EC6C85 /* soundpipe.h */; };
@@ -38,10 +38,10 @@
 		C43FA2FD1BC1961D00EC6C85 /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43FA3001BC1961D00EC6C85 /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
 		C43FA3021BC1961D00EC6C85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C43FA30E1BC197C100EC6C85 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
-		C43FA30F1BC197C100EC6C85 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
-		C43FA3101BC197C100EC6C85 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
-		C43FA3111BC197C100EC6C85 /* ParameterRamper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParameterRamper.hpp; sourceTree = "<group>"; };
+		C43FA30E1BC197C100EC6C85 /* AKBufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBufferedAudioBus.hpp; sourceTree = "<group>"; };
+		C43FA30F1BC197C100EC6C85 /* AKDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDSPKernel.hpp; sourceTree = "<group>"; };
+		C43FA3101BC197C100EC6C85 /* AKDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
+		C43FA3111BC197C100EC6C85 /* AKParameterRamper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKParameterRamper.hpp; sourceTree = "<group>"; };
 		C43FA31A1BC1981B00EC6C85 /* base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base.h; path = ../../../../Soundpipe/h/base.h; sourceTree = "<group>"; };
 		C43FA31B1BC1981B00EC6C85 /* moogladder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = moogladder.h; path = ../../../../Soundpipe/h/moogladder.h; sourceTree = "<group>"; };
 		C43FA31C1BC1981B00EC6C85 /* soundpipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundpipe.h; path = ../../../../Soundpipe/h/soundpipe.h; sourceTree = "<group>"; };
@@ -107,10 +107,10 @@
 			isa = PBXGroup;
 			children = (
 				C43FA3241BC1982100EC6C85 /* Soundpipe */,
-				C43FA30E1BC197C100EC6C85 /* BufferedAudioBus.hpp */,
-				C43FA30F1BC197C100EC6C85 /* DSPKernel.hpp */,
-				C43FA3101BC197C100EC6C85 /* DSPKernel.mm */,
-				C43FA3111BC197C100EC6C85 /* ParameterRamper.hpp */,
+				C43FA30E1BC197C100EC6C85 /* AKBufferedAudioBus.hpp */,
+				C43FA30F1BC197C100EC6C85 /* AKDSPKernel.hpp */,
+				C43FA3101BC197C100EC6C85 /* AKDSPKernel.mm */,
+				C43FA3111BC197C100EC6C85 /* AKParameterRamper.hpp */,
 			);
 			path = Internals;
 			sourceTree = "<group>";
@@ -176,10 +176,10 @@
 				C43FA3011BC1961D00EC6C85 /* AudioKit.h in Headers */,
 				C4ECB35D1BC4869200E09FA3 /* AKFlatFrequencyResponseReverbAudioUnit.h in Headers */,
 				C43FA3211BC1981B00EC6C85 /* soundpipe.h in Headers */,
-				C43FA3171BC197C100EC6C85 /* DSPKernel.hpp in Headers */,
+				C43FA3171BC197C100EC6C85 /* AKDSPKernel.hpp in Headers */,
 				C4ECB35F1BC4869200E09FA3 /* AKFlatFrequencyResponseReverbDSPKernel.hpp in Headers */,
-				C43FA3161BC197C100EC6C85 /* BufferedAudioBus.hpp in Headers */,
-				C43FA3191BC197C100EC6C85 /* ParameterRamper.hpp in Headers */,
+				C43FA3161BC197C100EC6C85 /* AKBufferedAudioBus.hpp in Headers */,
+				C43FA3191BC197C100EC6C85 /* AKParameterRamper.hpp in Headers */,
 				C43FA31F1BC1981B00EC6C85 /* base.h in Headers */,
 				C4ECB3621BC4869200E09FA3 /* AKMoogLadderAudioUnit.h in Headers */,
 				C4ECB3671BC48BC800E09FA3 /* allpass.h in Headers */,
@@ -255,7 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4ECB3631BC4869200E09FA3 /* AKMoogLadderAudioUnit.mm in Sources */,
-				C43FA3181BC197C100EC6C85 /* DSPKernel.mm in Sources */,
+				C43FA3181BC197C100EC6C85 /* AKDSPKernel.mm in Sources */,
 				C4ECB3601BC4869200E09FA3 /* AKMicrophone.swift in Sources */,
 				C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */,
 				C43FA3221BC1981B00EC6C85 /* base.c in Sources */,

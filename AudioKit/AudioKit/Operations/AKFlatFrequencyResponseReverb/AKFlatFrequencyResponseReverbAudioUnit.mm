@@ -10,7 +10,7 @@
 #import "AKFlatFrequencyResponseReverbDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
-#import "BufferedAudioBus.hpp"
+#import "AKBufferedAudioBus.hpp"
 
 @interface AKFlatFrequencyResponseReverbAudioUnit()
 
@@ -53,13 +53,13 @@
     // Create a parameter object for the reverb duration.
     AUParameter *reverbDurationParam =
     [AUParameterTree createParameterWithIdentifier:@"reverbDuration"
-                                              name:@"Reverb Duration"
+                                              name:@"Reverb Duration (seconds)"
                                            address:ParamReverbDuration
                                                min:12.0
                                                max:20000.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
-                                             flags: 0
+                                             flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
     
@@ -84,16 +84,16 @@
                                                               busses: @[_outputBus]];
     
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKFlatFrequencyResponseReverbDSPKernel *reverbKernel = &_kernel;
+    __block AKFlatFrequencyResponseReverbDSPKernel *blockKernel = &_kernel;
     
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        reverbKernel->setParameter(param.address, value);
+        blockKernel->setParameter(param.address, value);
     };
     
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return reverbKernel->getParameter(param.address);
+        return blockKernel->getParameter(param.address);
     };
     
     // A function to provide string representations of parameter values.

@@ -10,57 +10,62 @@ import AVFoundation
 
 public class AKMoogLadder: AKOperation {
     
-    var moogLadderAU: AKMoogLadderAudioUnit?
+    var internalAU: AKMoogLadderAudioUnit?
     
-    var cutoffParameter: AUParameter?
-    var resonanceParameter: AUParameter?
-    var parameterObserverToken: AUParameterObserverToken?
+    var cutoffFrequencyParameter: AUParameter?
+    var resonanceParameter:       AUParameter?
+    
+    var token: AUParameterObserverToken?
     
     public var cutoffFrequency: Float = 1000.0 {
-        didSet {    
-            cutoffParameter?.setValue(cutoffFrequency, originator: parameterObserverToken!)
+        didSet {
+            cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
     
     public var resonance: Float = 50 {
         didSet {
-            resonanceParameter?.setValue(resonance, originator: parameterObserverToken!)
+            resonanceParameter?.setValue(resonance, originator: token!)
         }
     }
-
+    
     public init(_ input: AKOperation) {
         super.init()
-
-        var componentDescription = AudioComponentDescription()
-        componentDescription.componentType = kAudioUnitType_Effect
-        componentDescription.componentSubType = 0x6d676c64 /*'mgld'*/
-        componentDescription.componentManufacturer = 0x41754b74 /*'AuKt'*/
-        componentDescription.componentFlags = 0
-        componentDescription.componentFlagsMask = 0
-
+        
+        var description = AudioComponentDescription()
+        description.componentType         = kAudioUnitType_Effect
+        description.componentSubType      = 0x6d676c64 /*'mgld'*/
+        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentFlags        = 0
+        description.componentFlagsMask    = 0
+        
         AUAudioUnit.registerSubclass(
             AKMoogLadderAudioUnit.self,
-            asComponentDescription: componentDescription,
+            asComponentDescription: description,
             name: "Local AKMoogLadder",
             version: UInt32.max)
-
-        AVAudioUnit.instantiateWithComponentDescription(componentDescription, options: []) { avAudioUnit, error in
+        
+        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+            avAudioUnit, error in
+            
             guard let avAudioUnitEffect = avAudioUnit else { return }
             
             self.output = avAudioUnitEffect
-            self.moogLadderAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
+            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
         }
         
-        guard let paramTree = moogLadderAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else { return }
         
-        cutoffParameter = paramTree.valueForKey("cutoff") as? AUParameter
-        resonanceParameter = paramTree.valueForKey("resonance") as? AUParameter
+        cutoffFrequencyParameter = tree.valueForKey("cutoff")    as? AUParameter
+        resonanceParameter       = tree.valueForKey("resonance") as? AUParameter
         
-        parameterObserverToken = paramTree.tokenByAddingParameterObserver { address, value in
+        token = tree.tokenByAddingParameterObserver {
+            address, value in
+            
             dispatch_async(dispatch_get_main_queue()) {
-                if address == self.cutoffParameter!.address {
+                if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = value
                 }
                 else if address == self.resonanceParameter!.address {
@@ -68,6 +73,6 @@ public class AKMoogLadder: AKOperation {
                 }
             }
         }
-
+        
     }
 }
