@@ -26,7 +26,6 @@
 @implementation AKOscillatorAudioUnit {
 	// C++ members need to be ivars; they would be copied on access if they were properties.
     AKOscillatorDSPKernel _kernel;
-    float buffer[2];
 }
 @synthesize parameterTree = _parameterTree;
 
@@ -38,8 +37,6 @@
     if (self == nil) {
     	return nil;
     }
-    buffer[0] = 0.0;
-    buffer[1] = 0.0;
 
 	// Initialize a default format for the busses.
     AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.
@@ -197,12 +194,12 @@
             it here.
 		*/
 		AudioBufferList *outAudioBufferList = outputData;
+        unsigned bufferSize = sizeof(float) * 1 * 1;
         if (outAudioBufferList->mBuffers[0].mData == nullptr) {
             for (UInt32 i = 0; i < outAudioBufferList->mNumberBuffers; ++i) {
-                outAudioBufferList->mBuffers[i].mData = &buffer[i];
+                outAudioBufferList->mBuffers[i].mData = calloc(bufferSize, 1);
             }
         }
-        
 
 		state->setBuffers(outAudioBufferList);
 		state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
