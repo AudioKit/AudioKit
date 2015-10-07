@@ -83,16 +83,15 @@ public:
 				break;
 		}
 	}
-
-	void setBuffers(AudioBufferList* inBufferList, AudioBufferList* outBufferList) {
-		inBufferListPtr = inBufferList;
+    
+	void setBuffers(AudioBufferList* outBufferList) {
 		outBufferListPtr = outBufferList;
 	}
 
 	void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
 		for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-			double frequency    = double(frequencyRamper.getStep());
+			double frequency = double(frequencyRamper.getStep());
 			double amplitude = double(amplitudeRamper.getStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
@@ -112,10 +111,9 @@ public:
 
 private:
 
-    int channels = 2;
+    int channels = 1;
 	float sampleRate = 44100.0;
 
-	AudioBufferList* inBufferListPtr = nullptr;
 	AudioBufferList* outBufferListPtr = nullptr;
 
     sp_data *sp;

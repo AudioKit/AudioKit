@@ -13,11 +13,11 @@ public class AKOscillator: AKOperation {
     var internalAU: AKOscillatorAudioUnit?
 
     var frequencyParameter: AUParameter?
-    var amplitudeParameter:       AUParameter?
+    var amplitudeParameter: AUParameter?
 
     var token: AUParameterObserverToken?
 
-    public var frequency: Float = 1000.0 {
+    public var frequency: Float = 400.0 {
         didSet {
             frequencyParameter?.setValue(frequency, originator: token!)
         }
@@ -29,7 +29,7 @@ public class AKOscillator: AKOperation {
         }
     }
 
-    public init(_ input: AKOperation) {
+    public override init() {
         super.init()
 
         var description = AudioComponentDescription()
@@ -48,18 +48,17 @@ public class AKOscillator: AKOperation {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOscillatorAudioUnit
+            self.output = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKOscillatorAudioUnit
+            
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
         }
-
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.valueForKey("frequency")    as? AUParameter
-        amplitudeParameter       = tree.valueForKey("amplitude") as? AUParameter
+        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
+        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
