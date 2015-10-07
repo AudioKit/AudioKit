@@ -14,5 +14,6 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
-#import <AudioKit/AKMoogLadderAudioUnit.h>
 #import <AudioKit/AKFlatFrequencyResponseReverbAudioUnit.h>
+#import <AudioKit/AKMoogLadderAudioUnit.h>
+#import <AudioKit/AKOscillatorAudioUnit.h>
