@@ -21,10 +21,6 @@ enum {
 	ParamReverbDuration = 0
 };
 
-static inline double squared(double x) {
-    return x * x;
-}
-
 class AKFlatFrequencyResponseReverbDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
@@ -35,8 +31,6 @@ public:
         channels = channelCount;
 
 		sampleRate = float(inSampleRate);
-		nyquist = 0.5 * sampleRate;
-		inverseNyquist = 1.0 / nyquist;
 
         sp_create(&sp);
         sp_allpass_create(&allpass);
@@ -58,7 +52,6 @@ public:
 	AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case ParamReverbDuration:
-                // Return the goal. It is not thread safe to return the ramping value.
                 return reverbDurationRamper.goal();
 
 			default: return 0.0f;
@@ -101,8 +94,6 @@ private:
 
     int channels = 2;
 	float sampleRate = 44100.0;
-	float nyquist = 0.5 * sampleRate;
-	float inverseNyquist = 1.0 / nyquist;
 
 	AudioBufferList* inBufferListPtr = nullptr;
 	AudioBufferList* outBufferListPtr = nullptr;
