@@ -18,13 +18,9 @@ extern "C" {
 }
 
 enum {
-	ParamCutoff = 0,
+	ParamCutoffFrequency = 0,
 	ParamResonance = 1
 };
-
-static inline double squared(double x) {
-    return x * x;
-}
 
 class AKMoogLadderDSPKernel : public AKDSPKernel {
 public:
@@ -49,8 +45,8 @@ public:
 	
 	void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case ParamCutoff:
-				cutoffRamper.set(clamp(value, 12.0f, 20000.0f));
+            case ParamCutoffFrequency:
+				cutoffFrequencyRamper.set(clamp(value, 12.0f, 20000.0f));
 				break;
                 
             case ParamResonance:
@@ -61,8 +57,8 @@ public:
 
 	AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case ParamCutoff:
-                return cutoffRamper.goal();
+            case ParamCutoffFrequency:
+                return cutoffFrequencyRamper.goal();
 
             case ParamResonance:
                 return resonanceRamper.goal();
@@ -73,8 +69,8 @@ public:
 
 	void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-			case ParamCutoff:
-				cutoffRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
+			case ParamCutoffFrequency:
+				cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
 				break;
 			
 			case ParamResonance:
@@ -91,12 +87,12 @@ public:
 	void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
 		for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-			double cutoff    = double(cutoffRamper.getStep());
-			double resonance = double(resonanceRamper.getStep());
+			double cutoffFrequency = double(cutoffFrequencyRamper.getStep());
+			double resonance       = double(resonanceRamper.getStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
             
-            moog->freq = (float)(cutoff);
+            moog->freq = (float)(cutoffFrequency);
             moog->res  = (float)(resonance / 100.0);
 			
 			for (int channel = 0; channel < channels; ++channel) {
@@ -123,7 +119,7 @@ private:
 
 public:
 	AKParameterRamper resonanceRamper = 50;
-    AKParameterRamper cutoffRamper = 400.0;
+    AKParameterRamper cutoffFrequencyRamper = 400.0;
 };
 
 #endif /* AKMoogLadderDSPKernel_hpp */

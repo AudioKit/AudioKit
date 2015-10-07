@@ -51,7 +51,7 @@
     AUParameter *cutoffParam =
     [AUParameterTree createParameterWithIdentifier:@"cutoff"
                                               name:@"Cutoff Frequency (Hz)"
-                                           address:ParamCutoff
+                                           address:ParamCutoffFrequency
                                                min:12.0
                                                max:20000.0
                                               unit:kAudioUnitParameterUnit_Hertz
@@ -76,8 +76,8 @@
 	// Initialize the parameter values.
 	cutoffParam.value = 400.0;
 	resonanceParam.value = 3.0;
-	_kernel.setParameter(ParamCutoff,    cutoffParam.value);
-	_kernel.setParameter(ParamResonance, resonanceParam.value);
+	_kernel.setParameter(ParamCutoffFrequency, cutoffParam.value);
+	_kernel.setParameter(ParamResonance,       resonanceParam.value);
 	
 	// Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
@@ -115,7 +115,7 @@
 		AUValue value = valuePtr == nil ? param.value : *valuePtr;
 	
 		switch (param.address) {
-			case ParamCutoff:
+			case ParamCutoffFrequency:
 				return [NSString stringWithFormat:@"%.f", value];
 			
 			case ParamResonance:
@@ -185,11 +185,11 @@
 	_inputBus.deallocateRenderResources();
 	
 	// Make a local pointer to the kernel to avoid capturing self.
-	__block AKMoogLadderDSPKernel *moogLadderKernel = &_kernel;
+	__block AKMoogLadderDSPKernel *blockKernel = &_kernel;
 
 	// Go back to setting parameters instead of scheduling them.
 	self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-		moogLadderKernel->setParameter(param.address, value);
+		blockKernel->setParameter(param.address, value);
 	};
 }
 	
