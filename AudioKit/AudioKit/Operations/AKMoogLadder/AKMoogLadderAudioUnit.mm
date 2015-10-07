@@ -10,7 +10,7 @@
 #import "AKMoogLadderDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
-#import "BufferedAudioBus.hpp"
+#import "AKBufferedAudioBus.hpp"
 
 @interface AKMoogLadderAudioUnit()
 
@@ -50,26 +50,26 @@
     // Create a parameter object for the cutoff frequency.
     AUParameter *cutoffParam =
     [AUParameterTree createParameterWithIdentifier:@"cutoff"
-                                              name:@"Cutoff Frequency"
+                                              name:@"Cutoff Frequency (Hz)"
                                            address:ParamCutoff
                                                min:12.0
                                                max:20000.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
-                                             flags: 0
+                                             flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
     
     // Create a parameter object for the resonance.
     AUParameter *resonanceParam =
     [AUParameterTree createParameterWithIdentifier:@"resonance"
-                                              name:@"Resonance"
+                                              name:@"Resonance (%)"
                                            address:ParamResonance
                                                min:0.0
                                                max:100.0
                                               unit:kAudioUnitParameterUnit_Percent
                                           unitName:nil
-                                             flags: 0
+                                             flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
     
@@ -98,16 +98,16 @@
                                                               busses: @[_outputBus]];
 
 	// Make a local pointer to the kernel to avoid capturing self.
-	__block AKMoogLadderDSPKernel *moogLadderKernel = &_kernel;
+	__block AKMoogLadderDSPKernel *blockKernel = &_kernel;
 
 	// implementorValueObserver is called when a parameter changes value.
 	_parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-		moogLadderKernel->setParameter(param.address, value);
+		blockKernel->setParameter(param.address, value);
 	};
 	
 	// implementorValueProvider is called when the value needs to be refreshed.
 	_parameterTree.implementorValueProvider = ^(AUParameter *param) {
-		return moogLadderKernel->getParameter(param.address);
+		return blockKernel->getParameter(param.address);
 	};
 	
 	// A function to provide string representations of parameter values.

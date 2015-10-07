@@ -1,24 +1,24 @@
 //
-//  ParameterRamper.hpp
+//  AKParameterRamper.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 10/3/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
 //
 
-#ifndef ParameterRamper_h
-#define ParameterRamper_h
+#ifndef AKParameterRamper_h
+#define AKParameterRamper_h
 
 #import <AudioToolbox/AudioToolbox.h>
 
-class ParameterRamper {
+class AKParameterRamper {
 	float clampLow, clampHigh;
     float _goal;
     float inverseSlope;
     AUAudioFrameCount samplesRemaining;
 
 public:
-	ParameterRamper(float value) {
+	AKParameterRamper(float value) {
 		set(value);
 	}
 
@@ -86,4 +86,4 @@ public:
     }
 };
 
-#endif /* ParameterRamper_h */
+#endif /* AKParameterRamper_h */

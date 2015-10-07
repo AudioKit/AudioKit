@@ -10,47 +10,51 @@ import AVFoundation
 
 public class AKFlatFrequencyResponseReverb: AKOperation {
 
-    var reverbAU: AKFlatFrequencyResponseReverbAudioUnit?
+    var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
 
     var reverbDurationParameter: AUParameter?
-    var parameterObserverToken: AUParameterObserverToken?
+    
+    var token: AUParameterObserverToken?
 
     public var reverbDuration: Float = 0.5 {
         didSet {
-            reverbDurationParameter?.setValue(reverbDuration, originator: parameterObserverToken!)
+            reverbDurationParameter?.setValue(reverbDuration, originator: token!)
         }
     }
 
     public init(_ input: AKOperation, loopDuration: Float) {
         super.init()
-        var componentDescription = AudioComponentDescription()
-        componentDescription.componentType = kAudioUnitType_Effect
-        componentDescription.componentSubType = 0x616c7073 /*'alps'*/
-        componentDescription.componentManufacturer = 0x41754b74 /*'AuKt'*/
-        componentDescription.componentFlags = 0
-        componentDescription.componentFlagsMask = 0
+        var description = AudioComponentDescription()
+        description.componentType         = kAudioUnitType_Effect
+        description.componentSubType      = 0x616c7073 /*'alps'*/
+        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentFlags        = 0
+        description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
             AKFlatFrequencyResponseReverbAudioUnit.self,
-            asComponentDescription: componentDescription,
+            asComponentDescription: description,
             name: "Local AKFlatFrequencyResponseReverb",
             version: UInt32.max)
 
-        AVAudioUnit.instantiateWithComponentDescription(componentDescription, options: []) { avAudioUnit, error in
+        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+            avAudioUnit, error in
+            
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.output = avAudioUnitEffect
-            self.reverbAU = avAudioUnitEffect.AUAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
         }
 
-        guard let paramTree = reverbAU?.parameterTree else { return }
+        guard let tree = internalAU?.parameterTree else { return }
 
-        reverbDurationParameter = paramTree.valueForKey("reverbDuration") as? AUParameter
+        reverbDurationParameter = tree.valueForKey("reverbDuration") as? AUParameter
 
-        parameterObserverToken = paramTree.tokenByAddingParameterObserver {
+        token = tree.tokenByAddingParameterObserver {
             address, value in
+            
             dispatch_async(dispatch_get_main_queue()) {
                 self.reverbDuration = value
             }

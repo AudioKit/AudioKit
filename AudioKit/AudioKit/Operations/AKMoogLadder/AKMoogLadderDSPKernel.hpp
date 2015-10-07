@@ -9,11 +9,9 @@
 #ifndef AKMoogLadderDSPKernel_hpp
 #define AKMoogLadderDSPKernel_hpp
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-#import <vector>
+#import "AKDSPKernel.hpp"
+#import "AKParameterRamper.hpp"
 
-// AK
 extern "C" {
 #include "base.h"
 #include "moogladder.h"
@@ -28,7 +26,7 @@ static inline double squared(double x) {
     return x * x;
 }
 
-class AKMoogLadderDSPKernel : public DSPKernel {
+class AKMoogLadderDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -38,10 +36,7 @@ public:
         channels = channelCount;
 		
 		sampleRate = float(inSampleRate);
-		nyquist = 0.5 * sampleRate;
-		inverseNyquist = 1.0 / nyquist;
         
-        // AK
         sp_create(&sp);
         sp_moogladder_create(&moog);
         sp_moogladder_init(sp, moog);
@@ -55,7 +50,7 @@ public:
 	void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case ParamCutoff:
-				cutoffRamper.set(clamp(value * inverseNyquist, 0.0f, 0.99f));
+				cutoffRamper.set(clamp(value, 12.0f, 20000.0f));
 				break;
                 
             case ParamResonance:
@@ -67,8 +62,7 @@ public:
 	AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case ParamCutoff:
-                // Return the goal. It is not thread safe to return the ramping value.
-                return cutoffRamper.goal() * nyquist;
+                return cutoffRamper.goal();
 
             case ParamResonance:
                 return resonanceRamper.goal();
@@ -80,7 +74,7 @@ public:
 	void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
 			case ParamCutoff:
-				cutoffRamper.startRamp(clamp(value * inverseNyquist, 0.0f, 0.99f), duration);
+				cutoffRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
 				break;
 			
 			case ParamResonance:
@@ -102,15 +96,13 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
             
-            // AK Decouple these from the rescaling?
-            moog->freq = (float)cutoff * 10000;
-            moog->res  = (float)(resonance / 100);
+            moog->freq = (float)(cutoff);
+            moog->res  = (float)(resonance / 100.0);
 			
 			for (int channel = 0; channel < channels; ++channel) {
 				float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
 				float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 
-                // AK
                 sp_moogladder_compute(sp, moog, in, out);
             }
 		}
@@ -122,19 +114,16 @@ private:
 	
     int channels = 2;
 	float sampleRate = 44100.0;
-	float nyquist = 0.5 * sampleRate;
-	float inverseNyquist = 1.0 / nyquist;
 	
 	AudioBufferList* inBufferListPtr = nullptr;
 	AudioBufferList* outBufferListPtr = nullptr;
     
-    // AK
     sp_data *sp;
     sp_moogladder *moog;
 
 public:
-	ParameterRamper cutoffRamper = 400.0 / 44100.0;
-	ParameterRamper resonanceRamper = 50;
+	AKParameterRamper resonanceRamper = 50;
+    AKParameterRamper cutoffRamper = 400.0;
 };
 
 #endif /* AKMoogLadderDSPKernel_hpp */

@@ -9,11 +9,9 @@
 #ifndef AKFlatFrequencyResponseReverbDSPKernel_hpp
 #define AKFlatFrequencyResponseReverbDSPKernel_hpp
 
-#import "DSPKernel.hpp"
-#import "ParameterRamper.hpp"
-#import <vector>
+#import "AKDSPKernel.hpp"
+#import "AKParameterRamper.hpp"
 
-// AK
 extern "C" {
 #include "base.h"
 #include "allpass.h"
@@ -27,7 +25,7 @@ static inline double squared(double x) {
     return x * x;
 }
 
-class AKFlatFrequencyResponseReverbDSPKernel : public DSPKernel {
+class AKFlatFrequencyResponseReverbDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions
 
@@ -40,7 +38,6 @@ public:
 		nyquist = 0.5 * sampleRate;
 		inverseNyquist = 1.0 / nyquist;
 
-        // AK
         sp_create(&sp);
         sp_allpass_create(&allpass);
         sp_allpass_init(sp, allpass, loopTime);
@@ -93,7 +90,6 @@ public:
 				float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
 				float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                // AK
                 sp_allpass_compute(sp, allpass, in, out);
             }
 		}
@@ -111,12 +107,11 @@ private:
 	AudioBufferList* inBufferListPtr = nullptr;
 	AudioBufferList* outBufferListPtr = nullptr;
 
-    // AK
     sp_data *sp;
     sp_allpass *allpass;
 
 public:
-	ParameterRamper reverbDurationRamper = 0.5;
+	AKParameterRamper reverbDurationRamper = 0.5;
 };
 
 #endif /* AKFlatFrequencyResponseReverbDSPKernel_hpp */

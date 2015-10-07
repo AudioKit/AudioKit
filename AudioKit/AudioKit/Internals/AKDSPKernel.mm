@@ -1,14 +1,14 @@
 //
-//  DSPKernel.mm
+//  AKDSPKernel.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 10/3/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
 //
 
-#import "DSPKernel.hpp"
+#import "AKDSPKernel.hpp"
 
-void DSPKernel::handleOneEvent(AURenderEvent const *event) {
+void AKDSPKernel::handleOneEvent(AURenderEvent const *event) {
 	switch (event->head.eventType) {
 		case AURenderEventParameter:
 		case AURenderEventParameterRamp: {
@@ -27,7 +27,7 @@ void DSPKernel::handleOneEvent(AURenderEvent const *event) {
 	}
 }
 
-void DSPKernel::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event) {
+void AKDSPKernel::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEvent const *&event) {
 	do {
 		handleOneEvent(event);
 
@@ -42,7 +42,7 @@ void DSPKernel::performAllSimultaneousEvents(AUEventSampleTime now, AURenderEven
 	This function handles the event list processing and rendering loop for you.
 	Call it inside your internalRenderBlock.
 */
-void DSPKernel::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount, AURenderEvent const *events) {
+void AKDSPKernel::processWithEvents(AudioTimeStamp const *timestamp, AUAudioFrameCount frameCount, AURenderEvent const *events) {
 
 	AUEventSampleTime now = AUEventSampleTime(timestamp->mSampleTime);
 	AUAudioFrameCount framesRemaining = frameCount;
