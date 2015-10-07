@@ -41,8 +41,8 @@ public class AKFlatFrequencyResponseReverb: AKOperation {
 
             self.output = avAudioUnitEffect
             self.reverbAU = avAudioUnitEffect.AUAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
-            AKManager.sharedManager.engine.attachNode(self.output!)
-            AKManager.sharedManager.engine.connect(input.output!, to: self.output!, format: nil)
+            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
         }
 
         guard let paramTree = reverbAU?.parameterTree else { return }

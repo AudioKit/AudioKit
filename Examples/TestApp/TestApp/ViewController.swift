@@ -11,7 +11,7 @@ import AudioKit
 
 class ViewController: UIViewController {
     
-    let audiokit = AKManager.sharedManager
+    let audiokit = AKManager.sharedInstance
     let input = AKMicrophone()
     var delay:  AKAUDelay?
     var moog:   AKMoogLadder?

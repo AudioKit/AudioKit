@@ -49,8 +49,8 @@ public class AKMoogLadder: AKOperation {
             
             self.output = avAudioUnitEffect
             self.moogLadderAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
-            AKManager.sharedManager.engine.attachNode(self.output!)
-            AKManager.sharedManager.engine.connect(input.output!, to: self.output!, format: nil)
+            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
         }
         
         guard let paramTree = moogLadderAU?.parameterTree else { return }

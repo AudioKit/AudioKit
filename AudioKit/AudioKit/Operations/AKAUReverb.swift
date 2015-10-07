@@ -20,8 +20,8 @@ public class AKAUReverb: AKOperation {
     public init(_ input: AKOperation) {
         super.init()
         output = reverbAU
-        AKManager.sharedManager.engine.attachNode(output!)
-        AKManager.sharedManager.engine.connect(input.output!, to: output!, format: nil)
+        AKManager.sharedInstance.engine.attachNode(output!)
+        AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
     }
     
     public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
