@@ -195,5 +195,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// Stop all notes created by the instrument
 - (void)stop;
 
+// -----------------------------------------------------------------------------
+#  pragma mark - Resource allocation
+// -----------------------------------------------------------------------------
+
+/// Set a limit to the number of notes to allocate at any one time. Note which exceed this limit will be deallocated.
+/// Defaults to zero, which is equivalent to setting no limit.
+/// See http://www.csounds.com/manual/html/maxalloc.html for more info.
+@property NSUInteger maximumNoteAllocation;
+
+/// Set a limit to the amount of CPU usage per note. Note which exceed this limit will be deallocated.
+/// Range from 0.0 to 1.0. Defaults to zero, which is equivalent to setting no limit.
+/// See http://www.csounds.com/manual/html/cpuprc.html for more info.
+@property float maximumProcessorAllocation;
+
 @end
 NS_ASSUME_NONNULL_END
