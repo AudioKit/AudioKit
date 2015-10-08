@@ -1,4 +1,4 @@
-installation_directory: "../AudioKit/Operations/Signal\ Generators/Envelopes/"
+installation_directory: "Signal\ Generators/Envelopes/"
 
 sp_name: tenv
 

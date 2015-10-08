@@ -1,4 +1,4 @@
-installation_directory: "../AudioKit/Operations/Signal\ Modifiers/Delays/"
+installation_directory: "Signal\ Modifiers/Delays/"
 
 sp_name: vdelay
 
