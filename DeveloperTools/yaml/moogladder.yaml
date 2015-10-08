@@ -1,10 +1,12 @@
-installation_directory: "../AudioKit/Operations/Signal\ Modifiers/Filters/"
+installation_directory: "../AudioKit/AudioKit/Operations/AKMoogLadder/"
 
 sp_name: moogladder
 
 operation: AKMoogLadder
 
 summary: Moog Ladder Filter
+
+fourLetterWord: mgld
 
 shortDescription: filter
 
@@ -21,11 +23,19 @@ inputs:
 parameters:
 - freq: {
   audioKitName: cutoffFrequency,
+  auName: "Cutoff Frequency (Hz)",
+  auUnit: kAudioUnitParameterUnit_Hertz,
   comment: "Filter cutoff frequency.",
-  default: 1000
+  default: 1000,
+  min: 12.0,
+  max: 20000.0
 }
 - res: {
   audioKitName: resonance,
+  auName: "Resonance (%)",
+  auUnit: kAudioUnitParameterUnit_Percent,
   comment: "Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.",
-  default: 0.5
+  default: 0.5,
+  min: 0.0,
+  max: 2.0
 }
