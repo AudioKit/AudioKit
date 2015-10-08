@@ -1,14 +1,14 @@
-installation_directory: "../AudioKit/AudioKit/Operations/AKMoogLadder/"
+installation_directory: "Signal\ Modifiers/Filters/"
 
-sp_name: moogladder
+sp-module: moogladder
 
 operation: AKMoogLadder
 
 summary: Moog Ladder Filter
 
-fourLetterWord: mgld
+four-letter-code: mgld
 
-shortDescription: filter
+one-word-description: filter
 
 description:
   Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli).
@@ -16,26 +16,26 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - freq: {
-  audioKitName: cutoffFrequency,
-  auName: "Cutoff Frequency (Hz)",
-  auUnit: kAudioUnitParameterUnit_Hertz,
+  ak-variable: cutoffFrequency,
+  au-name: "Cutoff Frequency (Hz)",
+  au-unit: kAudioUnitParameterUnit_Hertz,
   comment: "Filter cutoff frequency.",
   default: 1000,
-  min: 12.0,
-  max: 20000.0
+  minimum: 12.0,
+  maximum: 20000.0
 }
 - res: {
-  audioKitName: resonance,
-  auName: "Resonance (%)",
-  auUnit: kAudioUnitParameterUnit_Percent,
+  ak-variable: resonance,
+  au-name: "Resonance (%)",
+  au-unit: kAudioUnitParameterUnit_Percent,
   comment: "Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.",
   default: 0.5,
-  min: 0.0,
-  max: 2.0
+  minimum: 0.0,
+  maximum: 2.0
 }
