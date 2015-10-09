@@ -1,26 +1,32 @@
-installation_directory: "../AudioKit/AudioKit/Operations/Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: atone
+sp-module: atone
 
 operation: AKHighPassFilter
 
 summary: A first-order recursive high-pass filter with variable frequency response.
 
-shortDescription: filter
+four-letter-code: aton
+
+one-word-description: filter
 
 description:
   A complement to the AKLowPassFilter.
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - hp: {
-  audioKitName: cutoffFrequency,
-  comment: "This is the response curve's half power point (aka cutoff frequency).",
-  default: 1000
+  ak-variable: cutoffFrequency,
+  au-name: "Cutoff Frequency (Hz)",
+  au-unit: Hertz,
+  comment: "Filter cutoff frequency.",
+  default: 1000,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 
