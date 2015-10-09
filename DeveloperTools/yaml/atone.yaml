@@ -24,7 +24,7 @@ parameters:
   ak-variable: cutoffFrequency,
   au-name: "Cutoff Frequency (Hz)",
   au-unit: Hertz,
-  comment: "Filter cutoff frequency.",
+  comment: "Filter cutoff frequency in Hertz.",
   default: 1000,
   minimum: 12.0,
   maximum: 20000.0
