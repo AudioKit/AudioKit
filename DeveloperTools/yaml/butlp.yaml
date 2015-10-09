@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
+installation-directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
 
-sp_name: butlp
+sp-module: butlp
 
 operation: AKLowPassButterworthFilter
 
 summary: A low-pass Butterworth filter.
 
-shortDescription: filter
+four-letter-code: btlp
+
+one-word-description: filter
 
 description:
   These filters are Butterworth second-order IIR filters. They offer an almost flat
@@ -14,14 +16,17 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - freq: {
-  audioKitName: cutoffFrequency,
-  comment: "Cutoff frequency.",
-  default: 1000
+  ak-variable: cutoffFrequency,
+  au-unit: Hertz,
+  comment: "Cutoff frequency. (in Hertz)",
+  default: 1000,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 
