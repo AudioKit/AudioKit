@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
+installation-directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
 
-sp_name: buthp
+sp-module: buthp
 
 operation: AKHighPassButterworthFilter
 
 summary: A high-pass Butterworth filter.
 
-shortDescription: filter
+four-letter-code: bthp
+
+one-word-description: filter
 
 description:
   These filters are Butterworth second-order IIR filters. They offer an almost flat
@@ -14,14 +16,17 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - freq: {
-  audioKitName: cutoffFrequency,
-  comment: "Cutoff frequency.",
-  default: 500
+  ak-variable: cutoffFrequency,
+  au-unit: Hertz,
+  comment: "Cutoff frequency. (in Hertz)",
+  default: 500,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 
