@@ -14,6 +14,10 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 //! Project version string for AudioKit.
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
+#import <AudioKit/AKBandPassButterworthFilterAudioUnit.h>
+#import <AudioKit/AKBandRejectButterworthFilterAudioUnit.h>
+#import <AudioKit/AKHighPassButterworthFilterAudioUnit.h>
+#import <AudioKit/AKLowPassButterworthFilterAudioUnit.h>
 #import <AudioKit/AKFlatFrequencyResponseReverbAudioUnit.h>
 #import <AudioKit/AKHighPassFilterAudioUnit.h>
 #import <AudioKit/AKMoogLadderAudioUnit.h>
