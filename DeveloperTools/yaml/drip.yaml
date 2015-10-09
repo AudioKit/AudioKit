@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Generators/Physical\ Models/"
+installation-directory: "Signal\ Generators/Physical\ Models/"
 
-sp_name: drip
+sp-module: drip
 
 operation: AKDroplet
 
 summary: Semi-physical model of a water drop.
 
-shortDescription: droplet
+four-letter-code:
+
+one-word-description: droplet
 
 description:
   This is a physical model of the sound of dripping water. When triggered, it will produce a
@@ -14,52 +16,52 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Triggering input, such as a metronome."
 }
 
 parameters:
 - num_tubes: {
-  audioKitName: intensity,
+  ak-variable: intensity,
   comment: "Number of units. The intensity of the dripping sound.",
   default: 10
 }
 
 - damp: {
-  audioKitName: dampingFactor,
+  ak-variable: dampingFactor,
   comment: "The damping factor. Maximum value is 2.0.",
   default: 0.2
 }
 - shake_max: {
-  audioKitName: energyReturn,
+  ak-variable: energyReturn,
   comment: "The amount of energy to add back into the system.",
   default: 0
 }
 - freq: {
-  audioKitName: mainResonantFrequency,
+  ak-variable: mainResonantFrequency,
   comment: "Main resonant frequency.",
   default: 450
 }
 - freq1: {
-  audioKitName: firstResonantFrequency,
+  ak-variable: firstResonantFrequency,
   comment: "The first resonant frequency.",
   default: 600
 }
 - freq2: {
-  audioKitName: secondResonantFrequency,
+  ak-variable: secondResonantFrequency,
   comment: "The second resonant frequency.",
   default: 750
 }
 
 - amp: {
-  audioKitName: amplitude,
+  ak-variable: amplitude,
   comment: "Amplitude.",
   default: 0.3
 }
 
 constants:
 - dettack: {
-  audioKitName: maximumDuration,
+  ak-variable: maximumDuration,
   comment: "Period of time over which all sound is stopped.",
   default: 0.09
 }

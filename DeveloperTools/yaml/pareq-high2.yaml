@@ -1,42 +1,44 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: pareq
+sp-module: pareq
 
 operation: AKHighShelfParametricEqualizerFilter
 
 summary: High Shelf Parametric Equalizer
 
-shortDescription: equalizer
+four-letter-code:
+
+one-word-description: equalizer
 
 description:
   This is an implementation of Zoelzer's parametric equalizer filter.
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - fc: {
-  audioKitName: centerFrequency,
+  ak-variable: centerFrequency,
   comment: "Corner frequency.",
   default: 1000
 }
 - v: {
-  audioKitName: gain,
+  ak-variable: gain,
   comment: "Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.",
   default: 1
 }
 - q: {
-  audioKitName: q,
+  ak-variable: q,
   comment: "Q of the filter. sqrt(0.5) is no resonance.",
   default: 0.707
 }
 
 constantParameters:
 - mode: {
-  audioKitName: mode,
+  ak-variable: mode,
   comment: "EQ mode. 0 = peak, 1 = low shelving, 2 = high shelving",
   default: 2
 }

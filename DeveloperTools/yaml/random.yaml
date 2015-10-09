@@ -1,24 +1,26 @@
-installation_directory: "Signal\ Generators/Random\ Generators/"
+installation-directory: "Signal\ Generators/Random\ Generators/"
 
-sp_name: random
+sp-module: random
 
 operation: AKRandomNumbers
 
 summary: Random Number Generator
 
-shortDescription: numbers
+four-letter-code:
+
+one-word-description: numbers
 
 description:
   Generate random values within a range.
 
 parameters:
 - min: {
-  audioKitName: lowerBound,
+  ak-variable: lowerBound,
   comment: "Minimum range limit.",
   default: -0.2
 }
 - max: {
-  audioKitName: upperBound,
+  ak-variable: upperBound,
   comment: "Maximum range limit.",
   default: 0.2
 }

@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Generators/Musical\ Controls/"
+installation-directory: "Signal\ Generators/Musical\ Controls/"
 
-sp_name: port
+sp-module: port
 
 operation: AKPortamento
 
 summary: Applies portamento smoothing to a step-valued control signal.
 
-shortDescription: portamento
+four-letter-code:
+
+one-word-description: portamento
 
 description:
   This applies portamento to a control signal. Useful for smoothing out low-resolution signals and applying glissando to filters.
@@ -14,13 +16,13 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 constants:
 - htime: {
-  audioKitName: halfTime,
+  ak-variable: halfTime,
   comment: "Time during which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote.",
   default: 0.02
 }

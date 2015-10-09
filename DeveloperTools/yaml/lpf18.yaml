@@ -1,35 +1,37 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: lpf18
+sp-module: lpf18
 
 operation: AKThreePoleLowpassFilter
 
 summary: A 3-pole sweepable resonant lowpass filter.
 
-shortDescription: filter
+four-letter-code:
+
+one-word-description: filter
 
 description:
   3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - dist: {
-  audioKitName: distortion,
+  ak-variable: distortion,
   comment: "Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.",
   default: 0.5
 }
 - cutoff: {
-  audioKitName: cutoffFrequency,
+  ak-variable: cutoffFrequency,
   comment: "Filter cutoff frequency, in Hertz",
   default: 1500
 }
 - res: {
-  audioKitName: resonance,
+  ak-variable: resonance,
   comment: "Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.",
   default: 0.5
 }

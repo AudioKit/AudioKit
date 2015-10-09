@@ -1,25 +1,27 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: tone
+sp-module: tone
 
 operation: AKLowPassFilter
 
 summary: Low-pass filter
 
-shortDescription: filter
+four-letter-code:
+
+one-word-description: filter
 
 description:
   A first-order recursive low-pass filter with variable frequency response.
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - hp: {
-  audioKitName: halfPowerPoint,
+  ak-variable: halfPowerPoint,
   comment: "The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.",
   default: 1000
 }

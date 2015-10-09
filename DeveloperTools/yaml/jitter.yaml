@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Generators/Random\ Generators/"
+installation-directory: "Signal\ Generators/Random\ Generators/"
 
-sp_name: jitter
+sp-module: jitter
 
 operation: AKJitter
 
 summary: Generates a segmented line whose segments are randomly generated.
 
-shortDescription: jitter
+four-letter-code:
+
+one-word-description: jitter
 
 description:
   Produce a signal with random fluctuations (aka... jitter). This is useful for emulating jitter found in analogue equipment.
@@ -19,17 +21,17 @@ description:
 
 parameters:
 - amp: {
-  audioKitName: amplitude,
+  ak-variable: amplitude,
   comment: "The amplitude of the jitter deviation line. Will produce values in the range of (+/-)amp.",
   default: 1
 }
 - cpsMin: {
-  audioKitName: minimumFrequency,
+  ak-variable: minimumFrequency,
   comment: "Minimum speed of random frequency variations (expressed in Hz).",
   default: 0.5
 }
 - cpsMax: {
-  audioKitName: maximumFrequency,
+  ak-variable: maximumFrequency,
   comment: "Maximum speed of random frequency variations (expressed in Hz).",
   default: 60
 }

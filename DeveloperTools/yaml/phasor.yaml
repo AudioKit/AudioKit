@@ -1,26 +1,28 @@
-installation_directory: "Signal\ Generators/Oscillators/"
+installation-directory: "Signal\ Generators/Oscillators/"
 
-sp_name: phasor
+sp-module: phasor
 
 operation: AKPhasor
 
 summary: A normalized moving phase value.
 
-shortDescription: phasor
+four-letter-code:
+
+one-word-description: phasor
 
 description:
   Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are often used when building table-lookup oscillators.
 
 parameters:
 - freq: {
-  audioKitName: frequency,
+  ak-variable: frequency,
   comment: "Frequency in cycles per second, or Hz.",
   default: 1
 }
 
 constants:
 - iphs: {
-  audioKitName: phase ,
+  ak-variable: phase ,
   comment: "Initial phase",
   default: 0
 }

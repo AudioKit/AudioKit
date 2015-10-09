@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: eqfil
+sp-module: eqfil
 
 operation: AKEqualizerFilter
 
 summary: A 2nd order tunable equalization filter
 
-shortDescription: filter
+four-letter-code:
+
+one-word-description: filter
 
 description:
   A 2nd order tunable equalization filter that provides a
@@ -17,23 +19,23 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - freq: {
-  audioKitName: centerFrequency,
+  ak-variable: centerFrequency,
   comment: "The center frequency of the filter",
   default: 1000
 }
 - bw: {
-  audioKitName: bandwidth,
+  ak-variable: bandwidth,
   comment: "The peak/notch bandwidth in Hertz",
   default: 100
 }
 - gain: {
-  audioKitName: gain,
+  ak-variable: gain,
   comment: "The peak/notch gain",
   default: 10
 }

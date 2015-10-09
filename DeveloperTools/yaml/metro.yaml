@@ -1,19 +1,21 @@
-installation_directory: "Signal\ Generators/Musical\ Controls/"
+installation-directory: "Signal\ Generators/Musical\ Controls/"
 
-sp_name: metro
+sp-module: metro
 
 operation: AKMetronome
 
 summary: Generator of a series of 1-sample ticks at a regular rate.
 
-shortDescription: metronome
+four-letter-code:
+
+one-word-description: metronome
 
 description:
   Typically, this is used alongside trigger-driven modules.
 
 parameters:
 - freq: {
-  audioKitName: frequency,
+  ak-variable: frequency,
   comment: "The frequency to repeat.",
   default: 2.0
 }

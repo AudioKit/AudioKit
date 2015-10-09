@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Reverbs/"
+installation-directory: "Signal\ Modifiers/Reverbs/"
 
-sp_name: jcrev
+sp-module: jcrev
 
 operation: AKChowningReverb
 
 summary: John Chowning reverberator
 
-shortDescription: reverb
+four-letter-code:
+
+one-word-description: reverb
 
 description:
   This is was built using the JC reverb implentation found in FAUST.
@@ -20,6 +22,6 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }

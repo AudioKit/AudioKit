@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Generators/Envelopes/"
+installation-directory: "Signal\ Generators/Envelopes/"
 
-sp_name: tenv2
+sp-module: tenv2
 
 operation: AKTriggeredAttackReleaseEnvelope
 
 summary: Linear 2-stage Attack/Release envelope generator
 
-shortDescription: envelope
+four-letter-code:
+
+one-word-description: envelope
 
 description:
   This envelope takes 2 triggers. When triggered once,
@@ -16,18 +18,18 @@ description:
 
 inputs:
 - source: {
-  audioKitName: trigger,
+  ak-variable: trigger,
   comment: "Input trigger."
 }
 
 parameters:
 - atk: {
-  audioKitName: attackDuration,
+  ak-variable: attackDuration,
   comment: "Attack duration (in seconds).",
   default: 0.1
 }
 - rel: {
-  audioKitName: releaseDuration,
+  ak-variable: releaseDuration,
   comment: "Release duration (in seconds).",
   default: 0.1
 }

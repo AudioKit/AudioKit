@@ -1,6 +1,6 @@
-installation_directory: "Signal\ Modifiers/Reverbs/"
+installation-directory: "Signal\ Modifiers/Reverbs/"
 
-sp_name: revsc
+sp-module: revsc
 
 inputCount: 2
 outputCount: 2
@@ -9,7 +9,9 @@ operation: AKReverb
 
 summary:  8 delay line stereo FDN reverb
 
-shortDescription:  reverb
+four-letter-code:
+
+one-word-description:  reverb
 
 description:
   8 delay line stereo FDN reverb, with feedback matrix based upon physical
@@ -17,18 +19,18 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - feedback: {
-  audioKitName: feedback,
+  ak-variable: feedback,
   comment: "Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.",
   default: 0.6
 }
 - lpfreq: {
-  audioKitName: cutoffFrequency,
+  ak-variable: cutoffFrequency,
   comment: "Low-pass cutoff frequency.",
   default: 4000
 }

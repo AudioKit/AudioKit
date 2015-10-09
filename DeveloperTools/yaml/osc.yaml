@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Generators/Oscillators/"
+installation-directory: "Signal\ Generators/Oscillators/"
 
-sp_name: osc
+sp-module: osc
 
 operation: AKOscillator
 
 summary: A simple oscillator with linear interpolation.
 
-shortDescription: oscillator
+four-letter-code:
+
+one-word-description: oscillator
 
 description:
  Reads from the table sequentially and repeatedly at given frequency.
@@ -14,26 +16,26 @@ description:
 
 tables:
 - tbl: {
-  audioKitName: waveform,
+  ak-variable: waveform,
   comment: "Shape of the table to oscillate.",
   default: sine
 }
 
 parameters:
 - freq: {
-	audioKitName: frequency,
+	ak-variable: frequency,
 	comment: "Frequency in cycles per second",
 	default: 440
 }
 - amp: {
-	audioKitName: amplitude,
+	ak-variable: amplitude,
 	comment: "Amplitude of the output",
 	default: 1
 }
 
 constants:
 - iphs: {
-	audioKitName: phase,
+	ak-variable: phase,
 	comment: "Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).",
 	default: 0
 }

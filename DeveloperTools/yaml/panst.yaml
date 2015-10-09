@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Volume\ and\ Spatialization/"
+installation-directory: "Signal\ Modifiers/Volume\ and\ Spatialization/"
 
-sp_name: panst
+sp-module: panst
 
 operation: AKPanner
 
 summary: Stereo Panner
 
-shortDescription: panner
+four-letter-code:
+
+one-word-description: panner
 
 description: Stereo Panner
 
@@ -15,19 +17,19 @@ outputCount: 2
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 
 - pan: {
-  audioKitName: pan,
+  ak-variable: pan,
   comment: "Panning. A value of zero is hard left, and a value of 1 is hard right.",
   default: 0.5
 }
 - type: {
-  audioKitName: panMethod,
+  ak-variable: panMethod,
   comment: "Panning type. 0 = equal power, 1 = square root, 2 = linear, 3 = alternative equal power.",
   type: UInt32,
   default: 0
