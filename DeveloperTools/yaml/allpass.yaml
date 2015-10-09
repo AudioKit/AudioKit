@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Reverbs/"
+installation-directory: "Signal\ Modifiers/Reverbs/"
 
-sp_name: allpass
+sp-module: allpass
 
 operation: AKFlatFrequencyResponseReverb
 
 summary: All-pass filter, often used for the creation of reverb modules.
 
-shortDescription: reverb
+four-letter-code: alps
+
+one-word-description: reverb
 
 description:
   This filter reiterates the input with an echo density determined by loop time. The attenuation rate is
@@ -15,21 +17,29 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - revtime: {
-  audioKitName: reverbDuration,
+  ak-variable: reverbDuration,
+  au-name: "Reverb Duration (Seconds)",
+  au-unit: Seconds,
   comment: "The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.",
-  default: 0.5
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 10.0
 }
 
 constants:
 - looptime: {
-  audioKitName: loopDuration,
+  ak-variable: loopDuration,
+  au-name: "Loop Duration (Seconds)",
+  au-unit: Seconds,
   comment: "The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.",
-  default: 0.1
+  default: 0.1,
+  minimum: 0.0,
+  maximum: 1.0
 }
 
