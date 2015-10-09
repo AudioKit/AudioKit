@@ -6,7 +6,7 @@ operation: AKThreePoleLowpassFilter
 
 summary: A 3-pole sweepable resonant lowpass filter.
 
-four-letter-code:
+four-letter-code: lp18
 
 one-word-description: filter
 
@@ -22,17 +22,29 @@ inputs:
 parameters:
 - dist: {
   ak-variable: distortion,
+  au-name: "Distortion (%)",
+  au-unit: Percent,
   comment: "Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.",
-  default: 0.5
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 2.0
 }
 - cutoff: {
   ak-variable: cutoffFrequency,
-  comment: "Filter cutoff frequency, in Hertz",
-  default: 1500
+  au-name: "Cutoff Frequency (Hz)",
+  au-unit: Hertz,
+  comment: "Filter cutoff frequency in Hertz.",
+  default: 1500,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 - res: {
   ak-variable: resonance,
+  au-name: "Resonance (%)",
+  au-unit: Percent,
   comment: "Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.",
-  default: 0.5
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 2.0
 }
 
