@@ -9,7 +9,7 @@ summary:  A DC blocking filter.
 description:
   Implements the DC blocking filter: Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based on work by Perry Cook.
 
-four-letter-code:
+four-letter-code: dcbk
 
 one-word-description: filter
 
