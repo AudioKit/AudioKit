@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
+installation-directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
 
-sp_name: butbr
+sp-module: butbr
 
 operation: AKBandRejectButterworthFilter
 
 summary: A band-reject Butterworth filter.
 
-shortDescription: filter
+four-letter-code: btbr
+
+one-word-description: filter
 
 description:
   These filters are Butterworth second-order IIR filters. They offer an almost flat
@@ -14,19 +16,28 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - freq: {
-  audioKitName: centerFrequency,
+  ak-variable: centerFrequency,
+  au-name: "Center Frequency (Hz)",
+  au-unit: Hertz,
   comment: "Center frequency. (in Hertz)",
-  default: 3000
+  default: 3000,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 - bw: {
-  audioKitName: bandwidth,
+  ak-variable: bandwidth,
+  au-name: "Bandwidth (Hz)",
+  au-unit: Hertz,
   comment: "Bandwidth. (in Hertz)",
-  default: 2000
+  default: 2000,
+  minimum: 0.0,
+  maximum: 20000.0
 }
+
 
