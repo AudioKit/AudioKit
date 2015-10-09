@@ -6,7 +6,7 @@ operation: AKDecimator
 
 summary: Digital Signal Decimator
 
-four-letter-code:
+four-letter-code: dcm8
 
 one-word-description: decimator
 
@@ -23,11 +23,19 @@ parameters:
 - bitdepth: {
   ak-variable: bitDepth,
   comment: "The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.",
-  default: 8
+  au-name: "Bid Depth",
+  au-unit: Generic,
+  default: 8,
+  minimum: 1,
+  maximum: 24
 }
 - srate: {
   ak-variable: sampleRate,
   comment: "The sample rate of signal output.",
-  default: 10000
+  au-name: "Sample Rate (Hz)",
+  au-unit: Hertz,
+  default: 10000,
+  minimum: 0.0,
+  maximum: 20000.0
 }
 
