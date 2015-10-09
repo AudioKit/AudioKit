@@ -6,7 +6,7 @@ operation: AKDelay
 
 summary: Simple audio delay
 
-four-letter-code:
+four-letter-code: dlay
 
 one-word-description: delay
 
@@ -23,13 +23,21 @@ parameters:
 - feedback: {
   ak-variable: feedback,
   comment: "Feedback amount. Should be a value between 0-1.",
-  default: 0.0
+  au-name: "Feedback (%)",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 1.0
 }
 
 constants:
 - time: {
   ak-variable: delayTime,
   comment: "Delay time, in seconds.",
-  default: 1.0
+  au-name: "Delay time (Seconds)",
+  au-unit: Seconds,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 10.0
 }
 
