@@ -6,7 +6,7 @@ operation: AKEqualizerFilter
 
 summary: A 2nd order tunable equalization filter
 
-four-letter-code:
+four-letter-code: eqfl
 
 one-word-description: filter
 
@@ -26,17 +26,29 @@ inputs:
 parameters:
 - freq: {
   ak-variable: centerFrequency,
-  comment: "The center frequency of the filter",
-  default: 1000
+  au-name: "Center Frequency (Hz)",
+  au-unit: Hertz,
+  comment: "Center frequency. (in Hertz)",
+  default: 1000,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 - bw: {
   ak-variable: bandwidth,
+  au-name: "Bandwidth (Hz)",
+  au-unit: Hertz,
   comment: "The peak/notch bandwidth in Hertz",
-  default: 100
+  default: 100,
+  minimum: 0.0,
+  maximum: 20000.0
 }
 - gain: {
   ak-variable: gain,
+  au-name: "Gain (%)",
+  au-unit: Percent,
   comment: "The peak/notch gain",
-  default: 10
+  default: 10,
+  minimum: -100.0,
+  maximum: 100.0
 }
 
