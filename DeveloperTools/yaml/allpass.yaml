@@ -24,9 +24,9 @@ inputs:
 parameters:
 - revtime: {
   ak-variable: reverbDuration,
+  comment: "The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.",
   au-name: "Reverb Duration (Seconds)",
   au-unit: Seconds,
-  comment: "The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.",
   default: 0.5,
   minimum: 0.0,
   maximum: 10.0
@@ -35,9 +35,9 @@ parameters:
 constants:
 - looptime: {
   ak-variable: loopDuration,
+  comment: "The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.",
   au-name: "Loop Duration (Seconds)",
   au-unit: Seconds,
-  comment: "The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.",
   default: 0.1,
   minimum: 0.0,
   maximum: 1.0
