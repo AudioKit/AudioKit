@@ -17,8 +17,6 @@ extern "C" {
 #include "dcblock.h"
 }
 
-enum {
-};
 
 class AKDCBlockDSPKernel : public AKDSPKernel {
 public:
@@ -89,7 +87,6 @@ private:
     sp_data *sp;
     sp_dcblock *dcblock;
 
-public:
 };
 
 #endif /* AKDCBlockDSPKernel_hpp */
