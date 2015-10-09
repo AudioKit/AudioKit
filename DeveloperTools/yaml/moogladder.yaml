@@ -24,7 +24,7 @@ parameters:
 - freq: {
   ak-variable: cutoffFrequency,
   au-name: "Cutoff Frequency (Hz)",
-  au-unit: kAudioUnitParameterUnit_Hertz,
+  au-unit: Hertz,
   comment: "Filter cutoff frequency.",
   default: 1000,
   minimum: 12.0,
@@ -33,7 +33,7 @@ parameters:
 - res: {
   ak-variable: resonance,
   au-name: "Resonance (%)",
-  au-unit: kAudioUnitParameterUnit_Percent,
+  au-unit: Percent,
   comment: "Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.",
   default: 0.5,
   minimum: 0.0,
