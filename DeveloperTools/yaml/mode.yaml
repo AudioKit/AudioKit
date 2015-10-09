@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: mode
+sp-module: mode
 
 operation: AKModalResonanceFilter
 
 summary: A modal resonance filter used for modal synthesis.
 
-shortDescription: filter
+four-letter-code:
+
+one-word-description: filter
 
 description:
   A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created
@@ -14,18 +16,18 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - freq: {
-  audioKitName: frequency,
+  ak-variable: frequency,
   comment: "Resonant frequency of the filter.",
   default: 500
 }
 - q: {
-  audioKitName: qualityFactor,
+  ak-variable: qualityFactor,
   comment: "Quality factor of the filter. Roughly equal to Q/frequency.",
   default: 50
 }

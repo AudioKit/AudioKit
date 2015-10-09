@@ -1,10 +1,12 @@
-installation_directory: "Signal\ Modifiers/Volume\ and\ Spatialization/"
+installation-directory: "Signal\ Modifiers/Volume\ and\ Spatialization/"
 
-sp_name: bal
+sp-module: bal
 
 operation: AKBalance
 
-shortDescription: balance
+four-letter-code:
+
+one-word-description: balance
 
 summary: Adjusts one audio signal according to the values of another.
 
@@ -19,10 +21,10 @@ inputCount: 1
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 - comparator: {
-  audioKitName: comparator,
+  ak-variable: comparator,
   comment: "Input audio signal."
 }

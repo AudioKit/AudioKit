@@ -1,12 +1,14 @@
-installation_directory: "Analysis/"
+installation-directory: "Analysis/"
 
-sp_name: rms
+sp-module: rms
 
 operation: AKTrackedAmplitude
 
 summary: Tracked Amplitude of an audio signal
 
-shortDescription: amplitude
+four-letter-code:
+
+one-word-description: amplitude
 
 description:
   Performs a "root-mean-square" on a signal to get overall amplitude of a signal.
@@ -15,13 +17,13 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - ihp: {
-  audioKitName: halfPowerPoint,
+  ak-variable: halfPowerPoint,
   comment: "Half-power point (in Hz) of internal lowpass filter.",
   default: 10
 }

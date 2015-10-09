@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Generators/Random\ Generators/"
+installation-directory: "Signal\ Generators/Random\ Generators/"
 
-sp_name: randi
+sp-module: randi
 
 operation: AKInterpolatedRandomNumberPulse
 
 summary: Generates a controlled random number series with interpolation between each new number.
 
-shortDescription: pulse
+four-letter-code:
+
+one-word-description: pulse
 
 description:
   New random numbers are generated at a given frequency between zero and a maximum upper bound.  In between random numbers, the
@@ -14,24 +16,24 @@ description:
 
 parameters:
 - min: {
-  audioKitName: lowerBound,
+  ak-variable: lowerBound,
   comment: "Minimum range limit.",
   default: 0
 }
 - max: {
-  audioKitName: upperBound,
+  ak-variable: upperBound,
   comment: "Maximum range limit.",
   default: 1
 }
 - cps: {
-  audioKitName: frequency,
+  ak-variable: frequency,
   comment: "Frequency at which the new numbers are generated in Hz.",
   default: 1
 }
 
 constants:
 - seed: {
-  audioKitName: seed,
+  ak-variable: seed,
   comment: "Seed to use or use the default of zero to have a random seed.",
   type: Int32,
   default: 0

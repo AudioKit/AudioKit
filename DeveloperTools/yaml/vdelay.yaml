@@ -1,32 +1,34 @@
-installation_directory: "Signal\ Modifiers/Delays/"
+installation-directory: "Signal\ Modifiers/Delays/"
 
-sp_name: vdelay
+sp-module: vdelay
 
 operation: AKVariableDelay
 
 summary: A variable delay line
 
-shortDescription: delay
+four-letter-code:
+
+one-word-description: delay
 
 description:
   A delay line with cubic interpolation.
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - del: {
-  audioKitName: delayTime,
+  ak-variable: delayTime,
   comment: "Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.",
   default: 1
 }
 
 constants:
 - maxdel: {
-  audioKitName: maximumDelayTime,
+  ak-variable: maximumDelayTime,
   comment: "The maximum delay time, in seconds.",
   default: 5.0
 }

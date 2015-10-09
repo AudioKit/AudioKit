@@ -1,12 +1,14 @@
-installation_directory: "Math/"
+installation-directory: "Math/"
 
-sp_name: scale
+sp-module: scale
 
 operation: AKLinearTransformation
 
 summary: Linear tranformation from one range to another, based on minimum and maximum values.
 
-shortDescription: scaled value
+four-letter-code:
+
+one-word-description: scaled value
 
 description:
   This module scales from one range to another defined by a minimum and maximum point
@@ -14,28 +16,28 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input signal."
 }
 
 parameters:
 - inmin: {
-  audioKitName: minimumInput,
+  ak-variable: minimumInput,
   comment: "Minimum value to scale from.",
   default: -1
 }
 - inmax: {
-  audioKitName: maximumInput,
+  ak-variable: maximumInput,
   comment: "Maximum value to scale from.",
   default: 1
 }
 - outmin: {
-  audioKitName: minimumOutput,
+  ak-variable: minimumOutput,
   comment: "Minimum value to scale to.",
   default: 0
 }
 - outmax: {
-  audioKitName: maximumOutput,
+  ak-variable: maximumOutput,
   comment: "Maximum value to scale to.",
   default: 1
 }

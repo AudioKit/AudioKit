@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: clip
+sp-module: clip
 
 operation: AKClipper
 
 summary: Applies clip-limiting to a signal
 
-shortDescription: clipper
+four-letter-code:
+
+one-word-description: clipper
 
 description:
   Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
@@ -14,26 +16,26 @@ description:
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - arg: {
-  audioKitName: clippingStartPoint,
+  ak-variable: clippingStartPoint,
   comment: "When meth is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.",
   default: 0.5
 }
 
 constants:
 - meth: {
-  audioKitName: method,
+  ak-variable: method,
   comment: "Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.",
   type: Int32,
   default: 0
 }
 - lim: {
-  audioKitName: limit,
+  ak-variable: limit,
   comment: "Threshold / limiting value.",
   default: 1.0
 }

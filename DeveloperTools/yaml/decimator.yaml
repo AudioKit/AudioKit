@@ -1,30 +1,32 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: decimator
+sp-module: decimator
 
 operation: AKDecimator
 
 summary: Digital Signal Decimator
 
-shortDescription: decimator
+four-letter-code:
+
+one-word-description: decimator
 
 description:
   Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
 
 parameters:
 - bitdepth: {
-  audioKitName: bitDepth,
+  ak-variable: bitDepth,
   comment: "The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.",
   default: 8
 }
 - srate: {
-  audioKitName: sampleRate,
+  ak-variable: sampleRate,
   comment: "The sample rate of signal output.",
   default: 10000
 }

@@ -1,12 +1,14 @@
-installation_directory: "Signal\ Generators/Subtractive\ Synthesis/"
+installation-directory: "Signal\ Generators/Subtractive\ Synthesis/"
 
-sp_name: gbuzz
+sp-module: gbuzz
 
 operation: AKAdditiveCosines
 
 summary: A set of harmonically related cosine partials.
 
-shortDescription: partials
+four-letter-code:
+
+one-word-description: partials
 
 description:
   This is used to generate a series of partials from the harmonic series.
@@ -15,41 +17,41 @@ description:
 
 tables:
 - ft: {
-  audioKitName: cosineTable,
+  ak-variable: cosineTable,
   comment: "A cosine table with at least 8192 points is recommended.",
   default:
 }
 
 parameters:
 - nharm: {
-  audioKitName: harmonicsCount,
+  ak-variable: harmonicsCount,
   comment: "Number of harmonics.",
   default: 10
 }
 - lharm: {
-  audioKitName: firstHarmonicIndex,
+  ak-variable: firstHarmonicIndex,
   comment: "Lowest harmonic present. This should be a whole number integer.",
   default: 1
 }
 - mul: {
-  audioKitName: partialMultiplier,
+  ak-variable: partialMultiplier,
   comment: "Multiplier. This determines the relative strength of each harmonic.",
   default: 1
 }
 - freq: {
-  audioKitName: fundamentalFrequency,
+  ak-variable: fundamentalFrequency,
   comment: "The fundamental frequency (which can be modulated), in Hertz.",
   default: 220
 }
 - amp: {
-  audioKitName: amplitude,
+  ak-variable: amplitude,
   comment: "The total amplitude of the output of all the cosines. (Typically a value between 0 and 1).",
   default: 0.4
 }
 
 constants:
 - iphs: {
-  audioKitName: iphs ,
+  ak-variable: iphs ,
   comment: "Phase to start on (in the range 0-1)",
   default: 0
 }

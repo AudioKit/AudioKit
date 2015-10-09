@@ -1,6 +1,6 @@
-installation_directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Filters/"
 
-sp_name: dcblock
+sp-module: dcblock
 
 operation: AKDCBlock
 
@@ -9,10 +9,12 @@ summary:  A DC blocking filter.
 description:
   Implements the DC blocking filter: Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based on work by Perry Cook.
 
-shortDescription: filter
+four-letter-code:
+
+one-word-description: filter
 
 inputs:
 - source: {
-  audioKitName: input,
+  ak-variable: input,
   comment: "Input audio signal."
 }
