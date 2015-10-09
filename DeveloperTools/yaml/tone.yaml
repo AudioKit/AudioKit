@@ -6,7 +6,7 @@ operation: AKLowPassFilter
 
 summary: Low-pass filter
 
-four-letter-code:
+four-letter-code: tone
 
 one-word-description: filter
 
@@ -22,7 +22,11 @@ inputs:
 parameters:
 - hp: {
   ak-variable: halfPowerPoint,
+  au-name: "Half-Power Point (Hz)",
+  au-unit: Hertz,
   comment: "The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.",
-  default: 1000
+  default: 1000,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 
