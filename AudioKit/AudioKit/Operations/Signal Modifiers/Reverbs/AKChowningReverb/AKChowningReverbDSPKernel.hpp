@@ -17,8 +17,7 @@ extern "C" {
 #include "jcrev.h"
 }
 
-enum {
-};
+
 
 class AKChowningReverbDSPKernel : public AKDSPKernel {
 public:
@@ -89,7 +88,6 @@ private:
     sp_data *sp;
     sp_jcrev *jcrev;
 
-public:
 };
 
 #endif /* AKChowningReverbDSPKernel_hpp */
