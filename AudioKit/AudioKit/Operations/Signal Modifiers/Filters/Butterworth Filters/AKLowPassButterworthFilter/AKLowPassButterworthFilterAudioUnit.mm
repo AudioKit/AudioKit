@@ -49,7 +49,7 @@
         // Create a parameter object for the cutoffFrequency.
     AUParameter *cutoffFrequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"cutoffFrequency"
-                                              name:@""
+                                              name:@"Cutoff Frequency (Hz)"
                                            address:cutoffFrequencyAddress
                                                min:12.0
                                                max:20000.0
