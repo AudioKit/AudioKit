@@ -4,7 +4,7 @@ sp-module: streson
 
 operation: AKStringResonator
 
-four-letter-code:
+four-letter-code: stre
 
 one-word-description: filter
 
@@ -24,10 +24,18 @@ parameters:
 - freq: {
   ak-variable: fundamentalFrequency,
   comment: "Fundamental frequency of string.",
-  default: 100.0
+  au-name: "Fundamental Frequency (Hz)",
+  au-unit: Hertz,
+  default: 100,
+  minimum: 12.0,
+  maximum: 10000.0
 }
 - fdbgain: {
   ak-variable: feedback,
   comment: "Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.",
-  default: 0.95
+  au-name: "Feedback (%)",
+  au-unit: Generic,
+  default: 0.95,
+  minimum: 0.0,
+  maximum: 1.0
 }
