@@ -6,7 +6,7 @@ operation: AKModalResonanceFilter
 
 summary: A modal resonance filter used for modal synthesis.
 
-four-letter-code:
+four-letter-code: modf
 
 one-word-description: filter
 
@@ -24,11 +24,19 @@ parameters:
 - freq: {
   ak-variable: frequency,
   comment: "Resonant frequency of the filter.",
-  default: 500
+  au-name: "Resonant Frequency (Hz)",
+  au-unit: Hertz,
+  default: 500.0,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 - q: {
   ak-variable: qualityFactor,
   comment: "Quality factor of the filter. Roughly equal to Q/frequency.",
-  default: 50
+  au-name: "Quality Factor",
+  au-unit: Generic,
+  default: 50.0,
+  minimum: 0.0,
+  maximum: 100.0
 }
 
