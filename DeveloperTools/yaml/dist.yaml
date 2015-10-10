@@ -22,20 +22,36 @@ parameters:
 - pregain: {
   ak-variable: pregain,
   comment: "Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.",
-  default: 2.0
+  au-name: "Pregain",
+  au-unit: Generic,
+  default: 2.0,
+  minimum: 0.0,
+  maximum: 10.0
 }
 - shape1: {
   ak-variable: postiveShapeParameter,
   comment: "Shape of the positive part of the signal. A value of 0 gets a flat clip.",
-  default: 0
+  au-name: "Positive Shape Parameter",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -10.0,
+  maximum: 10.0
 }
 - shape2: {
   ak-variable: negativeShapeParameter,
-  comment: "Like shape1, only for the negative part.",
-  default: 0
+  comment: "Like the positive shape parameter, only for the negative part.",
+  au-name: "Negative Shape Parameter",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -10.0,
+  maximum: 10.0
 }
 - postgain: {
   ak-variable: postgain,
   comment: "Gain applied after waveshaping",
-  default: 0.5
+  au-name: "Postgain",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 10.0
 }
