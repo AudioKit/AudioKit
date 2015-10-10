@@ -6,7 +6,7 @@ operation: AKClipper
 
 summary: Applies clip-limiting to a signal
 
-four-letter-code:
+four-letter-code: clip
 
 one-word-description: clipper
 
@@ -21,22 +21,32 @@ inputs:
 }
 
 parameters:
+- lim: {
+  ak-variable: limit,
+  comment: "Threshold / limiting value.",
+  au-name: "Threshold",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1.0
+}
 - arg: {
   ak-variable: clippingStartPoint,
   comment: "When meth is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.",
-  default: 0.5
+  au-name: "Clip start point",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 1.0
 }
-
-constants:
 - meth: {
   ak-variable: method,
   comment: "Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.",
   type: Int32,
-  default: 0
-}
-- lim: {
-  ak-variable: limit,
-  comment: "Threshold / limiting value.",
-  default: 1.0
+  au-name: "Method",
+  au-unit: Generic,
+  default: 0,
+  minimum: 0,
+  maximum: 2
 }
 
