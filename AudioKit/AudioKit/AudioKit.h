@@ -35,4 +35,5 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKModalResonanceFilterAudioUnit.h>
 #import <AudioKit/AKMoogLadderAudioUnit.h>
 #import <AudioKit/AKChowningReverbAudioUnit.h>
+#import <AudioKit/AKLinearTransformationAudioUnit.h>
 #import <AudioKit/AKOscillatorAudioUnit.h>
