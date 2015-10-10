@@ -139,6 +139,12 @@
 		C4D09ABE1BC89C4B00A1823F /* AKModalResonanceFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D09ABA1BC89C4B00A1823F /* AKModalResonanceFilterDSPKernel.hpp */; };
 		C4D09AC01BC89C5A00A1823F /* mode.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D09ABF1BC89C5A00A1823F /* mode.h */; };
 		C4D09AC21BC89C6600A1823F /* mode.c in Sources */ = {isa = PBXBuildFile; fileRef = C4D09AC11BC89C6600A1823F /* mode.c */; };
+		C4D09AC41BC8BA9000A1823F /* streson.c in Sources */ = {isa = PBXBuildFile; fileRef = C4D09AC31BC8BA9000A1823F /* streson.c */; };
+		C4D09AC61BC8BA9B00A1823F /* streson.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D09AC51BC8BA9B00A1823F /* streson.h */; };
+		C4D09ACC1BC8BAAF00A1823F /* AKStringResonator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D09AC81BC8BAAF00A1823F /* AKStringResonator.swift */; };
+		C4D09ACD1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D09AC91BC8BAAF00A1823F /* AKStringResonatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4D09ACE1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D09ACA1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.mm */; };
+		C4D09ACF1BC8BAAF00A1823F /* AKStringResonatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D09ACB1BC8BAAF00A1823F /* AKStringResonatorDSPKernel.hpp */; };
 		C4D0B90F1BC6FB15007DE0BC /* AKMoogLadder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0B90B1BC6FB15007DE0BC /* AKMoogLadder.swift */; };
 		C4D0B9101BC6FB15007DE0BC /* AKMoogLadderAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D0B90C1BC6FB15007DE0BC /* AKMoogLadderAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D0B9111BC6FB15007DE0BC /* AKMoogLadderAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D0B90D1BC6FB15007DE0BC /* AKMoogLadderAudioUnit.mm */; };
@@ -284,6 +290,12 @@
 		C4D09ABA1BC89C4B00A1823F /* AKModalResonanceFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKModalResonanceFilterDSPKernel.hpp; sourceTree = "<group>"; };
 		C4D09ABF1BC89C5A00A1823F /* mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mode.h; path = ../../../../Soundpipe/h/mode.h; sourceTree = "<group>"; };
 		C4D09AC11BC89C6600A1823F /* mode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mode.c; path = ../../../../Soundpipe/modules/mode.c; sourceTree = "<group>"; };
+		C4D09AC31BC8BA9000A1823F /* streson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = streson.c; path = ../../../../Soundpipe/modules/streson.c; sourceTree = "<group>"; };
+		C4D09AC51BC8BA9B00A1823F /* streson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = streson.h; path = ../../../../Soundpipe/h/streson.h; sourceTree = "<group>"; };
+		C4D09AC81BC8BAAF00A1823F /* AKStringResonator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStringResonator.swift; sourceTree = "<group>"; };
+		C4D09AC91BC8BAAF00A1823F /* AKStringResonatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStringResonatorAudioUnit.h; sourceTree = "<group>"; };
+		C4D09ACA1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKStringResonatorAudioUnit.mm; sourceTree = "<group>"; };
+		C4D09ACB1BC8BAAF00A1823F /* AKStringResonatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKStringResonatorDSPKernel.hpp; sourceTree = "<group>"; };
 		C4D0B90B1BC6FB15007DE0BC /* AKMoogLadder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMoogLadder.swift; sourceTree = "<group>"; };
 		C4D0B90C1BC6FB15007DE0BC /* AKMoogLadderAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMoogLadderAudioUnit.h; sourceTree = "<group>"; };
 		C4D0B90D1BC6FB15007DE0BC /* AKMoogLadderAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMoogLadderAudioUnit.mm; sourceTree = "<group>"; };
@@ -576,6 +588,7 @@
 				C43FA31B1BC1981B00EC6C85 /* moogladder.h */,
 				C450E7B11BC4CFBE007178B0 /* osc.h */,
 				C450E7BA1BC4D11E007178B0 /* randmt.h */,
+				C4D09AC51BC8BA9B00A1823F /* streson.h */,
 				C46775B31BC78DAE0027FD6B /* tone.h */,
 				C4D09A8E1BC892C900A1823F /* vdelay.h */,
 			);
@@ -608,6 +621,7 @@
 				C43FA31E1BC1981B00EC6C85 /* moogladder.c */,
 				C450E7B31BC4CFCE007178B0 /* osc.c */,
 				C450E7B61BC4D10C007178B0 /* randmt.c */,
+				C4D09AC31BC8BA9000A1823F /* streson.c */,
 				C46775B51BC78DB70027FD6B /* tone.c */,
 				C4D09A8C1BC892BB00A1823F /* vdelay.c */,
 			);
@@ -666,6 +680,17 @@
 			path = AKModalResonanceFilter;
 			sourceTree = "<group>";
 		};
+		C4D09AC71BC8BAAF00A1823F /* AKStringResonator */ = {
+			isa = PBXGroup;
+			children = (
+				C4D09AC81BC8BAAF00A1823F /* AKStringResonator.swift */,
+				C4D09AC91BC8BAAF00A1823F /* AKStringResonatorAudioUnit.h */,
+				C4D09ACA1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.mm */,
+				C4D09ACB1BC8BAAF00A1823F /* AKStringResonatorDSPKernel.hpp */,
+			);
+			path = AKStringResonator;
+			sourceTree = "<group>";
+		};
 		C4D0B9081BC6FB15007DE0BC /* Signal Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -689,6 +714,7 @@
 				C46775AA1BC78D660027FD6B /* AKLowPassFilter */,
 				C4D09AB61BC89C4B00A1823F /* AKModalResonanceFilter */,
 				C4D0B90A1BC6FB15007DE0BC /* AKMoogLadder */,
+				C4D09AC71BC8BAAF00A1823F /* AKStringResonator */,
 				C46775BB1BC78F2D0027FD6B /* AKThreePoleLowpassFilter */,
 				C46775701BC782070027FD6B /* Butterworth Filters */,
 			);
@@ -728,17 +754,20 @@
 				C4D09A6F1BC8805200A1823F /* dcblock.h in Headers */,
 				C4D09A6B1BC87F6A00A1823F /* AKDCBlockAudioUnit.h in Headers */,
 				C450E7B01BC4CBDF007178B0 /* AKOscillatorDSPKernel.hpp in Headers */,
+				C4D09ACD1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.h in Headers */,
 				C43FA3201BC1981B00EC6C85 /* moogladder.h in Headers */,
 				C43FA3011BC1961D00EC6C85 /* AudioKit.h in Headers */,
 				C450E7BB1BC4D11E007178B0 /* ftbl.h in Headers */,
 				C46775691BC77D860027FD6B /* atone.h in Headers */,
 				C4D09A9A1BC8933500A1823F /* AKVariableDelayDSPKernel.hpp in Headers */,
 				C46775671BC77D310027FD6B /* AKHighPassFilterDSPKernel.hpp in Headers */,
+				C4D09AC61BC8BA9B00A1823F /* streson.h in Headers */,
 				C4D09ABC1BC89C4B00A1823F /* AKModalResonanceFilterAudioUnit.h in Headers */,
 				C46775981BC7897B0027FD6B /* AKBandRejectButterworthFilterAudioUnit.h in Headers */,
 				C450E7AE1BC4CBDF007178B0 /* AKOscillatorAudioUnit.h in Headers */,
 				C43FA3211BC1981B00EC6C85 /* soundpipe.h in Headers */,
 				C46775CC1BC78FCF0027FD6B /* AKChowningReverbDSPKernel.hpp in Headers */,
+				C4D09ACF1BC8BAAF00A1823F /* AKStringResonatorDSPKernel.hpp in Headers */,
 				C4D09A851BC8914200A1823F /* AKDelayAudioUnit.h in Headers */,
 				C4D09AA41BC8955600A1823F /* AKDistortionDSPKernel.hpp in Headers */,
 				C4D09AA61BC8959000A1823F /* dist.h in Headers */,
@@ -866,9 +895,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4D09AC21BC89C6600A1823F /* mode.c in Sources */,
+				C4D09AC41BC8BA9000A1823F /* streson.c in Sources */,
 				C4D09A621BC87E2F00A1823F /* comb.c in Sources */,
 				C467759F1BC7897B0027FD6B /* AKLowPassButterworthFilter.swift in Sources */,
 				C467759D1BC7897B0027FD6B /* AKHighPassButterworthFilterAudioUnit.mm in Sources */,
+				C4D09ACE1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.mm in Sources */,
 				C46775C01BC78F2D0027FD6B /* AKThreePoleLowpassFilter.swift in Sources */,
 				C450E7AD1BC4CBDF007178B0 /* AKOscillator.swift in Sources */,
 				C43FA3181BC197C100EC6C85 /* AKDSPKernel.mm in Sources */,
@@ -898,6 +929,7 @@
 				C450E7AF1BC4CBDF007178B0 /* AKOscillatorAudioUnit.mm in Sources */,
 				C4D09A6A1BC87F6A00A1823F /* AKDCBlock.swift in Sources */,
 				C46775BA1BC78F0E0027FD6B /* lpf18.c in Sources */,
+				C4D09ACC1BC8BAAF00A1823F /* AKStringResonator.swift in Sources */,
 				C46775D91BC798250027FD6B /* AKEqualizerFilter.swift in Sources */,
 				C4D0B90F1BC6FB15007DE0BC /* AKMoogLadder.swift in Sources */,
 				C46775661BC77D310027FD6B /* AKHighPassFilterAudioUnit.mm in Sources */,
