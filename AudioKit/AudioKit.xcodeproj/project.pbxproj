@@ -312,48 +312,8 @@
 		C43FA3241BC1982100EC6C85 /* Soundpipe */ = {
 			isa = PBXGroup;
 			children = (
-				C46775D11BC790930027FD6B /* CUI.h */,
-				C43FA31C1BC1981B00EC6C85 /* soundpipe.h */,
-				C43FA31A1BC1981B00EC6C85 /* base.h */,
-				C43FA31D1BC1981B00EC6C85 /* base.c */,
-				C4ECB3661BC48BC800E09FA3 /* allpass.h */,
-				C4ECB3681BC48BD200E09FA3 /* allpass.c */,
-				C46775681BC77D860027FD6B /* atone.h */,
-				C467756A1BC77D8D0027FD6B /* atone.c */,
-				C467757A1BC7856E0027FD6B /* butbp.h */,
-				C467756E1BC781A70027FD6B /* butbr.h */,
-				C467757B1BC7856E0027FD6B /* buthp.h */,
-				C46775801BC7858A0027FD6B /* butbp.c */,
-				C46775811BC7858A0027FD6B /* butbr.c */,
-				C46775821BC7858A0027FD6B /* buthp.c */,
-				C46775831BC7858A0027FD6B /* butlp.c */,
-				C467757C1BC7856E0027FD6B /* butlp.h */,
-				C4D09A631BC87E3A00A1823F /* comb.h */,
-				C4D09A611BC87E2F00A1823F /* comb.c */,
-				C4D09A6E1BC8805200A1823F /* dcblock.h */,
-				C4D09A701BC8805D00A1823F /* dcblock.c */,
-				C46775E31BC7A8A70027FD6B /* decimator.h */,
-				C46775E11BC7A8980027FD6B /* decimator.c */,
-				C4D09A881BC8918E00A1823F /* delay.h */,
-				C4D09A8A1BC8919700A1823F /* delay.c */,
-				C46775DD1BC798590027FD6B /* eqfil.h */,
-				C46775DF1BC798630027FD6B /* eqfil.c */,
-				C46775EE1BC7A91E0027FD6B /* fold.h */,
-				C46775F01BC7A92B0027FD6B /* fold.c */,
-				C450E7B51BC4D10C007178B0 /* ftbl.c */,
-				C450E7B91BC4D11E007178B0 /* ftbl.h */,
-				C46775CF1BC78FF30027FD6B /* jcrev.h */,
-				C46775CD1BC78FE60027FD6B /* jcrev.c */,
-				C46775B71BC78F000027FD6B /* lpf18.h */,
-				C46775B91BC78F0E0027FD6B /* lpf18.c */,
-				C43FA31B1BC1981B00EC6C85 /* moogladder.h */,
-				C43FA31E1BC1981B00EC6C85 /* moogladder.c */,
-				C450E7B11BC4CFBE007178B0 /* osc.h */,
-				C450E7B31BC4CFCE007178B0 /* osc.c */,
-				C450E7BA1BC4D11E007178B0 /* randmt.h */,
-				C450E7B61BC4D10C007178B0 /* randmt.c */,
-				C46775B31BC78DAE0027FD6B /* tone.h */,
-				C46775B51BC78DB70027FD6B /* tone.c */,
+				C4D09A901BC892EF00A1823F /* h */,
+				C4D09A911BC8931000A1823F /* modules */,
 			);
 			name = Soundpipe;
 			sourceTree = "<group>";
@@ -552,6 +512,64 @@
 				C4D09A831BC8914200A1823F /* AKDelayDSPKernel.hpp */,
 			);
 			path = AKDelay;
+			sourceTree = "<group>";
+		};
+		C4D09A901BC892EF00A1823F /* h */ = {
+			isa = PBXGroup;
+			children = (
+				C46775D11BC790930027FD6B /* CUI.h */,
+				C43FA31C1BC1981B00EC6C85 /* soundpipe.h */,
+				C43FA31A1BC1981B00EC6C85 /* base.h */,
+				C4ECB3661BC48BC800E09FA3 /* allpass.h */,
+				C46775681BC77D860027FD6B /* atone.h */,
+				C467757A1BC7856E0027FD6B /* butbp.h */,
+				C467756E1BC781A70027FD6B /* butbr.h */,
+				C467757B1BC7856E0027FD6B /* buthp.h */,
+				C467757C1BC7856E0027FD6B /* butlp.h */,
+				C4D09A6E1BC8805200A1823F /* dcblock.h */,
+				C46775E31BC7A8A70027FD6B /* decimator.h */,
+				C4D09A881BC8918E00A1823F /* delay.h */,
+				C46775DD1BC798590027FD6B /* eqfil.h */,
+				C46775EE1BC7A91E0027FD6B /* fold.h */,
+				C450E7B91BC4D11E007178B0 /* ftbl.h */,
+				C46775CF1BC78FF30027FD6B /* jcrev.h */,
+				C46775B71BC78F000027FD6B /* lpf18.h */,
+				C43FA31B1BC1981B00EC6C85 /* moogladder.h */,
+				C450E7B11BC4CFBE007178B0 /* osc.h */,
+				C450E7BA1BC4D11E007178B0 /* randmt.h */,
+				C46775B31BC78DAE0027FD6B /* tone.h */,
+				C4D09A8E1BC892C900A1823F /* vdelay.h */,
+			);
+			name = h;
+			sourceTree = "<group>";
+		};
+		C4D09A911BC8931000A1823F /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				C43FA31D1BC1981B00EC6C85 /* base.c */,
+				C4ECB3681BC48BD200E09FA3 /* allpass.c */,
+				C467756A1BC77D8D0027FD6B /* atone.c */,
+				C46775801BC7858A0027FD6B /* butbp.c */,
+				C46775811BC7858A0027FD6B /* butbr.c */,
+				C46775821BC7858A0027FD6B /* buthp.c */,
+				C46775831BC7858A0027FD6B /* butlp.c */,
+				C4D09A631BC87E3A00A1823F /* comb.h */,
+				C4D09A611BC87E2F00A1823F /* comb.c */,
+				C4D09A701BC8805D00A1823F /* dcblock.c */,
+				C46775E11BC7A8980027FD6B /* decimator.c */,
+				C4D09A8A1BC8919700A1823F /* delay.c */,
+				C46775DF1BC798630027FD6B /* eqfil.c */,
+				C46775F01BC7A92B0027FD6B /* fold.c */,
+				C450E7B51BC4D10C007178B0 /* ftbl.c */,
+				C46775CD1BC78FE60027FD6B /* jcrev.c */,
+				C46775B91BC78F0E0027FD6B /* lpf18.c */,
+				C43FA31E1BC1981B00EC6C85 /* moogladder.c */,
+				C450E7B31BC4CFCE007178B0 /* osc.c */,
+				C450E7B61BC4D10C007178B0 /* randmt.c */,
+				C46775B51BC78DB70027FD6B /* tone.c */,
+				C4D09A8C1BC892BB00A1823F /* vdelay.c */,
+			);
+			name = modules;
 			sourceTree = "<group>";
 		};
 		C4D09A921BC8933500A1823F /* AKVariableDelay */ = {
