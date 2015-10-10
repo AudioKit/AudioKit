@@ -6,7 +6,7 @@ operation: AKLinearTransformation
 
 summary: Linear tranformation from one range to another, based on minimum and maximum values.
 
-four-letter-code:
+four-letter-code: scal
 
 one-word-description: scaled value
 
@@ -24,21 +24,37 @@ parameters:
 - inmin: {
   ak-variable: minimumInput,
   comment: "Minimum value to scale from.",
-  default: -1
+  au-name: "Minimum Input",
+  au-unit: Generic,
+  default: -1.0,
+  minimum: -1000000.0,
+  maximum: 1000000.0
 }
 - inmax: {
   ak-variable: maximumInput,
   comment: "Maximum value to scale from.",
-  default: 1
+  au-name: "Maximum Input",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: -1000000.0,
+  maximum: 1000000.0
 }
 - outmin: {
   ak-variable: minimumOutput,
   comment: "Minimum value to scale to.",
-  default: 0
+  au-name: "Minimum Output",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: -1000000.0,
+  maximum: 1000000.0
 }
 - outmax: {
   ak-variable: maximumOutput,
   comment: "Maximum value to scale to.",
-  default: 1
+  au-name: "Maximum Output",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: -1000000.0,
+  maximum: 1000000.0
 }
 
