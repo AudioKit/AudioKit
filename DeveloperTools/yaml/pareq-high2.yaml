@@ -6,7 +6,7 @@ operation: AKHighShelfParametricEqualizerFilter
 
 summary: High Shelf Parametric Equalizer
 
-four-letter-code:
+four-letter-code: peq2
 
 one-word-description: equalizer
 
@@ -23,20 +23,32 @@ parameters:
 - fc: {
   ak-variable: centerFrequency,
   comment: "Corner frequency.",
-  default: 1000
+  au-name: "Corner Frequency (Hz)",
+  au-unit: Hertz,
+  default: 1000,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 - v: {
   ak-variable: gain,
-  comment: "Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.",
-  default: 1
+  comment: "Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.",
+  au-name: "Gain",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 10.0
 }
 - q: {
   ak-variable: q,
   comment: "Q of the filter. sqrt(0.5) is no resonance.",
-  default: 0.707
+  au-name: "Q",
+  au-unit: Generic,
+  default: 0.707,
+  minimum: 0.0,
+  maximum: 2.0
 }
 
-constantParameters:
+constant-parameters:
 - mode: {
   ak-variable: mode,
   comment: "EQ mode. 0 = peak, 1 = low shelving, 2 = high shelving",
