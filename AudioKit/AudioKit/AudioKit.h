@@ -30,6 +30,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKFormantFilterAudioUnit.h>
 #import <AudioKit/AKHighPassFilterAudioUnit.h>
 #import <AudioKit/AKLowPassFilterAudioUnit.h>
+#import <AudioKit/AKPeakingParametricEqualizerFilterAudioUnit.h>
 #import <AudioKit/AKStringResonatorAudioUnit.h>
 #import <AudioKit/AKThreePoleLowpassFilterAudioUnit.h>
 #import <AudioKit/AKModalResonanceFilterAudioUnit.h>
