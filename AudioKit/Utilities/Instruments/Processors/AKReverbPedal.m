@@ -61,13 +61,11 @@
         rightMix = [[AKMix alloc] initWithInput1:input.rightOutput
                                           input2:reverb.rightOutput
                                          balance:_mix];
-        
-        // AUDIO OUTPUT ========================================================
-        
-        AKAudioOutput *audio;
-        audio = [[AKAudioOutput alloc] initWithLeftAudio:leftMix
-                                              rightAudio:rightMix];
-        [self connect:audio];
+
+        _output = [AKStereoAudio globalParameter];
+        [self assignOutput:_output.leftOutput to:leftMix];
+        [self assignOutput:_output.rightOutput to:rightMix];
+
         
         // Reset Inputs
         [self resetParameter:input];
