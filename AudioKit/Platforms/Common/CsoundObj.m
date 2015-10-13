@@ -132,7 +132,7 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
         return;
     [self.thread cancel];
     while (!self.thread.finished) {
-        [NSThread sleepForTimeInterval:0.01];
+        [NSThread sleepForTimeInterval:0.1];
     }
 }
 
@@ -488,13 +488,13 @@ OSStatus  Csound_Render(void *inRefCon,
     int slices = inNumberFrames/ksmps;
     Float32 *buffer;
 #endif
-    
+    BOOL audioInputEnabled = AKSettings.shared.audioInputEnabled;
     
 #if TARGET_OS_IPHONE
     AudioUnitRender(obj->_csAUHAL, ioActionFlags, inTimeStamp, 1, inNumberFrames, ioData);
     for(frame=0; frame < inNumberFrames; frame++){
         @autoreleasepool {
-            if(AKSettings.shared.audioInputEnabled) {
+            if(audioInputEnabled) {
                 for (k = 0; k < nchnls; k++){
                     buffer = (SInt32 *) ioData->mBuffers[k].mData;
                     spin[insmps++] =(1./coef)*buffer[frame];
@@ -510,8 +510,8 @@ OSStatus  Csound_Render(void *inRefCon,
                 }
             }
             
-            @synchronized(obj.bindings) {
-                if(nsmps == ksmps*nchnls){
+            if(nsmps == ksmps*nchnls){
+                @synchronized(obj.bindings) {
                     for(id<CsoundBinding> binding in obj.bindings) {
                         if ([binding respondsToSelector:@selector(updateValuesToCsound)]) {
                             [binding updateValuesToCsound];
@@ -536,7 +536,7 @@ OSStatus  Csound_Render(void *inRefCon,
     for(i=0; i < slices; i++){
         @autoreleasepool {
             /* performance */
-            if(AKSettings.shared.audioInputEnabled) {
+            if(audioInputEnabled) {
                 for (k = 0; k < nchnls; k++){
                     buffer = (Float32 *) ioData->mBuffers[k].mData;
                     for(j=0; j < ksmps; j++){
@@ -789,7 +789,7 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
                         [self notifyListenersOfStartup];
                     
                         while (!_ret && self.running) {
-                            [NSThread sleepForTimeInterval:.001];
+                            [NSThread sleepForTimeInterval:.3];
                         }
                     }
                     
