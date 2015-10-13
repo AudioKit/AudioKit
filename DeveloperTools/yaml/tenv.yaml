@@ -36,7 +36,7 @@ parameters:
   default: 0.2
 }
 
-constantParameters:
+constant-parameters:
 - sigmode: {
   ak-variable: mode,
   type: Int32,

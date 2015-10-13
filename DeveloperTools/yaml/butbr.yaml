@@ -23,18 +23,18 @@ inputs:
 parameters:
 - freq: {
   ak-variable: centerFrequency,
+  comment: "Center frequency. (in Hertz)",
   au-name: "Center Frequency (Hz)",
   au-unit: Hertz,
-  comment: "Center frequency. (in Hertz)",
   default: 3000,
   minimum: 12.0,
   maximum: 20000.0
 }
 - bw: {
   ak-variable: bandwidth,
+  comment: "Bandwidth. (in Hertz)",
   au-name: "Bandwidth (Hz)",
   au-unit: Hertz,
-  comment: "Bandwidth. (in Hertz)",
   default: 2000,
   minimum: 0.0,
   maximum: 20000.0

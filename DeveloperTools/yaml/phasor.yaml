@@ -17,7 +17,11 @@ parameters:
 - freq: {
   ak-variable: frequency,
   comment: "Frequency in cycles per second, or Hz.",
-  default: 1
+  au-name: "Frequency (Hz)",
+  au-unit: Hertz,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1000.0
 }
 
 constants:

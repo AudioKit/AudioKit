@@ -9,7 +9,7 @@ operation: AKReverb
 
 summary:  8 delay line stereo FDN reverb
 
-four-letter-code:
+four-letter-code: rvsc
 
 one-word-description:  reverb
 
@@ -27,11 +27,20 @@ parameters:
 - feedback: {
   ak-variable: feedback,
   comment: "Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.",
-  default: 0.6
+  au-name: "Feedback (%)",
+  au-unit: Generic,
+  default: 0.6,
+  minimum: 0.0,
+  maximum: 1.0
 }
 - lpfreq: {
   ak-variable: cutoffFrequency,
   comment: "Low-pass cutoff frequency.",
-  default: 4000
+  au-name: "Cutoff Frequency (Hz)",
+  au-unit: Hertz,
+  comment: "Cutoff frequency. (in Hertz)",
+  default: 4000,
+  minimum: 12.0,
+  maximum: 20000.0
 }
 
