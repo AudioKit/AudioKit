@@ -38,7 +38,6 @@ parameters:
   comment: "Low-pass cutoff frequency.",
   au-name: "Cutoff Frequency (Hz)",
   au-unit: Hertz,
-  comment: "Cutoff frequency. (in Hertz)",
   default: 4000,
   minimum: 12.0,
   maximum: 20000.0
