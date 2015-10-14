@@ -6,7 +6,7 @@ operation: AKTrackedAmplitude
 
 summary: Tracked Amplitude of an audio signal
 
-four-letter-code:
+four-letter-code: rmsq
 
 one-word-description: amplitude
 
@@ -25,6 +25,10 @@ parameters:
 - ihp: {
   ak-variable: halfPowerPoint,
   comment: "Half-power point (in Hz) of internal lowpass filter.",
-  default: 10
+  au-name: "Half-power point (Hz)",
+  au-unit: Hertz,
+  default: 10,
+  minimum: 0,
+  maximum: 20000
 }
 
