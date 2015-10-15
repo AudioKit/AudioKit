@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A6C0E747EDE883C2E9F648E6 /* libPods-AudioKitPlayground.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A9D9CF323B312CF4DBE0CC /* libPods-AudioKitPlayground.a */; };
+		C44C1E4B1BCCF2140014049E /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C44C1E4A1BCCF2140014049E /* AKSoundFiles.bundle */; };
 		C4554D101ADD192A000C8D42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4554D0F1ADD192A000C8D42 /* AudioKit.plist */; };
 		C49D3D011AD5D32F000CBBCC /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C49D3D001AD5D32F000CBBCC /* AKSoundFiles.bundle */; };
 		C4FE74761AB9FB58001641B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74751AB9FB58001641B7 /* main.m */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		21A9D9CF323B312CF4DBE0CC /* libPods-AudioKitPlayground.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AudioKitPlayground.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6970C0F281C53F4CC291CAAB /* Pods-AudioKitPlayground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AudioKitPlayground.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AudioKitPlayground/Pods-AudioKitPlayground.debug.xcconfig"; sourceTree = "<group>"; };
+		C44C1E4A1BCCF2140014049E /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		C4554D0F1ADD192A000C8D42 /* AudioKit.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AudioKit.plist; sourceTree = "<group>"; };
 		C49D3D001AD5D32F000CBBCC /* AKSoundFiles.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AKSoundFiles.bundle; path = ../../../AudioKit/Resources/AKSoundFiles.bundle; sourceTree = "<group>"; };
 		C4FE74701AB9FB58001641B7 /* AudioKitPlayground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioKitPlayground.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 		C4FE74721AB9FB58001641B7 /* AudioKitPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				C44C1E4A1BCCF2140014049E /* AKSoundFiles.bundle */,
 				C4FE749B1ABA4CF6001641B7 /* Playground.h */,
 				C4FE749C1ABA4CF6001641B7 /* Playground.m */,
 				C4FE74731AB9FB58001641B7 /* Supporting Files */,
@@ -250,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C44C1E4B1BCCF2140014049E /* AKSoundFiles.bundle in Resources */,
 				C4FE74841AB9FB58001641B7 /* LaunchScreen.xib in Resources */,
 				C4FE74811AB9FB58001641B7 /* Images.xcassets in Resources */,
 				C4554D101ADD192A000C8D42 /* AudioKit.plist in Resources */,
