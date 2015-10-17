@@ -19,7 +19,7 @@
         _numberOfBeats = [self createPropertyWithValue:16 minimum:1 maximum:1024];
         
         // Instrument Definition
-        AKPhasor *phasor = [[AKPhasor alloc] initWithFrequency:[_tempo dividedBy:[akp(60) scaledBy:_numberOfBeats]]
+        AKPhasor *phasor = [[AKPhasor alloc] initWithFrequency:[_tempo dividedBy:[akp(60.0/4.0) scaledBy:_numberOfBeats]]
                                                          phase:akp(0)];
         AKPhasor *beat = [[phasor scaledBy:_numberOfBeats] round];
 
