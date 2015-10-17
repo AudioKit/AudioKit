@@ -8,9 +8,13 @@
 
 #import "AKFoundation.h"
 
+/// Looping beat clock notifying of time passing
 @interface AKBeatClock : AKInstrument
 
+/// Tempo in quarter notes
 @property AKInstrumentProperty *tempo;
+
+/// Number of beats to notify for every period
 @property AKInstrumentProperty *numberOfBeats;
 
 @end
