@@ -23,9 +23,9 @@ inputs:
 parameters:
 - freq: {
   ak-variable: cutoffFrequency,
+  comment: "Cutoff frequency. (in Hertz)",
   au-name: "Cutoff Frequency (Hz)",
   au-unit: Hertz,
-  comment: "Cutoff frequency. (in Hertz)",
   default: 500,
   minimum: 12.0,
   maximum: 20000.0
