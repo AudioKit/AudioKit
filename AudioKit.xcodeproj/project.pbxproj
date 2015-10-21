@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6593163F1BAD8D5100CE8331 /* AKMaskedFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = 6593163D1BAD8D5100CE8331 /* AKMaskedFFT.h */; settings = {ASSET_TAGS = (); }; };
-		659316401BAD8D5100CE8331 /* AKMaskedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 6593163E1BAD8D5100CE8331 /* AKMaskedFFT.m */; settings = {ASSET_TAGS = (); }; };
-		659316411BAD8D5100CE8331 /* AKMaskedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 6593163E1BAD8D5100CE8331 /* AKMaskedFFT.m */; settings = {ASSET_TAGS = (); }; };
-		659316421BAD8D5100CE8331 /* AKMaskedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 6593163E1BAD8D5100CE8331 /* AKMaskedFFT.m */; settings = {ASSET_TAGS = (); }; };
-		65C65CFB1BA6D088003EED14 /* AKFFTTableReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */; settings = {ASSET_TAGS = (); }; };
-		65C65CFC1BA6D088003EED14 /* AKFFTTableWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */; settings = {ASSET_TAGS = (); }; };
-		65C65CFD1BA6D088003EED14 /* AKFilteredFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */; settings = {ASSET_TAGS = (); }; };
+		6593163F1BAD8D5100CE8331 /* AKMaskedFFT.h in Headers */ = {isa = PBXBuildFile; fileRef = 6593163D1BAD8D5100CE8331 /* AKMaskedFFT.h */; };
+		659316401BAD8D5100CE8331 /* AKMaskedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 6593163E1BAD8D5100CE8331 /* AKMaskedFFT.m */; };
+		659316411BAD8D5100CE8331 /* AKMaskedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 6593163E1BAD8D5100CE8331 /* AKMaskedFFT.m */; };
+		659316421BAD8D5100CE8331 /* AKMaskedFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 6593163E1BAD8D5100CE8331 /* AKMaskedFFT.m */; };
+		65C65CFB1BA6D088003EED14 /* AKFFTTableReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */; };
+		65C65CFC1BA6D088003EED14 /* AKFFTTableWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */; };
+		65C65CFD1BA6D088003EED14 /* AKFilteredFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */; };
 		65C65CFE1BA6D0A3003EED14 /* AKFFTTableReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */; };
 		65C65CFF1BA6D0A3003EED14 /* AKFFTTableWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */; };
 		65C65D001BA6D0A3003EED14 /* AKFilteredFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */; };
