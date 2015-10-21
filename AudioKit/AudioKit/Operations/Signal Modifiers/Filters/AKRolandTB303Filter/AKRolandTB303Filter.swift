@@ -8,37 +8,54 @@
 
 import AVFoundation
 
+/** Emulation of the Roland TB-303 filter */
 public class AKRolandTB303Filter: AKOperation {
 
-    var internalAU: AKRolandTB303FilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKRolandTB303FilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Cutoff frequency. (in Hertz) */
     var cutoffFrequencyParameter:    AUParameter?
+    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
     var resonanceParameter:          AUParameter?
+    /** Distortion. Value is typically 2.0; deviation from this can cause stability issues.  */
     var distortionParameter:         AUParameter?
+    /** Asymmetry of resonance. Value is between 0-1 */
     var resonanceAsymmetryParameter: AUParameter?
 
+    /** Cutoff frequency. (in Hertz) */
     public var cutoffFrequency: Float = 500 {
         didSet {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
+    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
     public var resonance: Float = 0.5 {
         didSet {
             resonanceParameter?.setValue(resonance, originator: token!)
         }
     }
+    /** Distortion. Value is typically 2.0; deviation from this can cause stability issues.  */
     public var distortion: Float = 2.0 {
         didSet {
             distortionParameter?.setValue(distortion, originator: token!)
         }
     }
+    /** Asymmetry of resonance. Value is between 0-1 */
     public var resonanceAsymmetry: Float = 0.5 {
         didSet {
             resonanceAsymmetryParameter?.setValue(resonanceAsymmetry, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

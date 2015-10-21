@@ -8,25 +8,38 @@
 
 import AVFoundation
 
+/** Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal. */
 public class AKDecimator: AKOperation {
 
-    var internalAU: AKDecimatorAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKDecimatorAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. */
     var bitDepthParameter:   AUParameter?
+    /** The sample rate of signal output. */
     var sampleRateParameter: AUParameter?
 
+    /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. */
     public var bitDepth: Float = 8 {
         didSet {
             bitDepthParameter?.setValue(bitDepth, originator: token!)
         }
     }
+    /** The sample rate of signal output. */
     public var sampleRate: Float = 10000 {
         didSet {
             sampleRateParameter?.setValue(sampleRate, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this decimator operation */
     public init(_ input: AKOperation) {
         super.init()
 

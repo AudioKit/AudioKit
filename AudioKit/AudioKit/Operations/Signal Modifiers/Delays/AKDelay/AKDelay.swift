@@ -8,19 +8,30 @@
 
 import AVFoundation
 
+/** Add a delay to an incoming signal with optional feedback. */
 public class AKDelay: AKOperation {
 
-    var internalAU: AKDelayAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKDelayAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Feedback amount. Should be a value between 0-1. */
     var feedbackParameter:  AUParameter?
 
+    /** Feedback amount. Should be a value between 0-1. */
     public var feedback: Float = 0.0 {
         didSet {
             feedbackParameter?.setValue(feedback, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this delay operation */
     public init(_ input: AKOperation) {
         super.init()
 

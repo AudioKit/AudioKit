@@ -8,19 +8,30 @@
 
 import AVFoundation
 
+/** A first-order recursive low-pass filter with variable frequency response. */
 public class AKLowPassFilter: AKOperation {
 
-    var internalAU: AKLowPassFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKLowPassFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. */
     var halfPowerPointParameter: AUParameter?
 
+    /** The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. */
     public var halfPowerPoint: Float = 1000 {
         didSet {
             halfPowerPointParameter?.setValue(halfPowerPoint, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

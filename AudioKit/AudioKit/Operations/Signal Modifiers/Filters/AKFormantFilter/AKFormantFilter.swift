@@ -8,31 +8,46 @@
 
 import AVFoundation
 
+/** When fed with a pulse train, it will generate a series of overlapping grains. Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html) */
 public class AKFormantFilter: AKOperation {
 
-    var internalAU: AKFormantFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKFormantFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Center frequency. */
     var centerFrequencyParameter: AUParameter?
+    /** Impulse response attack time (in seconds). */
     var attackDurationParameter:  AUParameter?
+    /** Impulse reponse decay time (in seconds) */
     var decayDurationParameter:   AUParameter?
 
+    /** Center frequency. */
     public var centerFrequency: Float = 1000 {
         didSet {
             centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
         }
     }
+    /** Impulse response attack time (in seconds). */
     public var attackDuration: Float = 0.007 {
         didSet {
             attackDurationParameter?.setValue(attackDuration, originator: token!)
         }
     }
+    /** Impulse reponse decay time (in seconds) */
     public var decayDuration: Float = 0.04 {
         didSet {
             decayDurationParameter?.setValue(decayDuration, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

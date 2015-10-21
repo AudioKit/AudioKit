@@ -8,31 +8,46 @@
 
 import AVFoundation
 
+/** 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion. */
 public class AKThreePoleLowpassFilter: AKOperation {
 
-    var internalAU: AKThreePoleLowpassFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKThreePoleLowpassFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. */
     var distortionParameter:      AUParameter?
+    /** Filter cutoff frequency in Hertz. */
     var cutoffFrequencyParameter: AUParameter?
+    /** Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. */
     var resonanceParameter:       AUParameter?
 
+    /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. */
     public var distortion: Float = 0.5 {
         didSet {
             distortionParameter?.setValue(distortion, originator: token!)
         }
     }
+    /** Filter cutoff frequency in Hertz. */
     public var cutoffFrequency: Float = 1500 {
         didSet {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
+    /** Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. */
     public var resonance: Float = 0.5 {
         didSet {
             resonanceParameter?.setValue(resonance, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

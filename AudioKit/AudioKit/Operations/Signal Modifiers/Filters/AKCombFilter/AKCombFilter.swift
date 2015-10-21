@@ -8,19 +8,30 @@
 
 import AVFoundation
 
+/** This filter reiterates input with an echo density determined by loopDuration. The attenuation rate is independent and is determined by reverbDuration, the reverberation duration (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude). Output from a comb filter will appear only after loopDuration seconds. */
 public class AKCombFilter: AKOperation {
 
-    var internalAU: AKCombFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKCombFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). */
     var reverbDurationParameter: AUParameter?
 
+    /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). */
     public var reverbDuration: Float = 1.0 {
         didSet {
             reverbDurationParameter?.setValue(reverbDuration, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

@@ -31,7 +31,7 @@ public class AKFlatFrequencyResponseReverb: AKOperation {
 
     // MARK: - Initializers
 
-    /** Initialize this reverb */
+    /** Initialize this reverb operation */
     public init(_ input: AKOperation) {
         super.init()
 

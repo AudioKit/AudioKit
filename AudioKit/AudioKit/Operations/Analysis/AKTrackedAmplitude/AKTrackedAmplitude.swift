@@ -8,19 +8,30 @@
 
 import AVFoundation
 
+/** Performs a "root-mean-square" on a signal to get overall amplitude of a signal. The output signal looks similar to that of a classic VU meter. */
 public class AKTrackedAmplitude: AKOperation {
 
-    var internalAU: AKTrackedAmplitudeAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKTrackedAmplitudeAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Half-power point (in Hz) of internal lowpass filter. */
     var halfPowerPointParameter: AUParameter?
 
+    /** Half-power point (in Hz) of internal lowpass filter. */
     public var halfPowerPoint: Float = 10 {
         didSet {
             halfPowerPointParameter?.setValue(halfPowerPoint, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this amplitude operation */
     public init(_ input: AKOperation) {
         super.init()
 
