@@ -8,19 +8,30 @@
 
 import AVFoundation
 
+/** This filter reiterates the input with an echo density determined by loop time. The attenuation rate is independent and is determined by the reverberation time (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude).  Output will begin to appear immediately. */
 public class AKFlatFrequencyResponseReverb: AKOperation {
 
-    var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. */
     var reverbDurationParameter: AUParameter?
 
+    /** The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. */
     public var reverbDuration: Float = 0.5 {
         didSet {
             reverbDurationParameter?.setValue(reverbDuration, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this reverb */
     public init(_ input: AKOperation) {
         super.init()
 
