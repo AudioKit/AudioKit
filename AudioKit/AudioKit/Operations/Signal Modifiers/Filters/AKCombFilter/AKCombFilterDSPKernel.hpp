@@ -44,7 +44,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.set(clamp(value, 0.0f, 10.0f));
+                reverbDurationRamper.set(clamp(value, (float)0.0, (float)10.0));
                 break;
 
         }
@@ -62,7 +62,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
+                reverbDurationRamper.startRamp(clamp(value, (float)0.0, (float)10.0), duration);
                 break;
 
         }

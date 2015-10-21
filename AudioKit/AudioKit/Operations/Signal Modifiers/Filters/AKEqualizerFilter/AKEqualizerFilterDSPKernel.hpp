@@ -48,15 +48,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.set(clamp(value, 12.0f, 20000.0f));
+                centerFrequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.set(clamp(value, 0.0f, 20000.0f));
+                bandwidthRamper.set(clamp(value, (float)0.0, (float)20000.0));
                 break;
 
             case gainAddress:
-                gainRamper.set(clamp(value, -100.0f, 100.0f));
+                gainRamper.set(clamp(value, (float)-100.0, (float)100.0));
                 break;
 
         }
@@ -80,15 +80,15 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
+                centerFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.startRamp(clamp(value, 0.0f, 20000.0f), duration);
+                bandwidthRamper.startRamp(clamp(value, (float)0.0, (float)20000.0), duration);
                 break;
 
             case gainAddress:
-                gainRamper.startRamp(clamp(value, -100.0f, 100.0f), duration);
+                gainRamper.startRamp(clamp(value, (float)-100.0, (float)100.0), duration);
                 break;
 
         }

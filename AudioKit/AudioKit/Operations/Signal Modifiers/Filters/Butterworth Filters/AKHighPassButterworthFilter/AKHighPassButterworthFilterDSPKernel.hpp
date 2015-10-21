@@ -44,7 +44,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.set(clamp(value, 12.0f, 20000.0f));
+                cutoffFrequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
         }
@@ -62,7 +62,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
+                cutoffFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
                 break;
 
         }
