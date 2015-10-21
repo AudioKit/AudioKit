@@ -147,9 +147,9 @@
     _kernel.reset();
 
     /*
-        While rendering, we want to schedule all parameter changes. Setting them
-        off the render thread is not thread safe.
-    */
+     While rendering, we want to schedule all parameter changes. Setting them
+     off the render thread is not thread safe.
+     */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
     // Ramp over 20 milliseconds.
@@ -178,20 +178,20 @@
 
 - (AUInternalRenderBlock)internalRenderBlock {
     /*
-        Capture in locals to avoid ObjC member lookups. If "self" is captured in
-        render, we're doing it wrong.
-    */
+     Capture in locals to avoid ObjC member lookups. If "self" is captured in
+     render, we're doing it wrong.
+     */
     __block AKMoogLadderDSPKernel *state = &_kernel;
     __block BufferedInputBus *input = &_inputBus;
 
     return ^AUAudioUnitStatus(
-             AudioUnitRenderActionFlags *actionFlags,
-             const AudioTimeStamp       *timestamp,
-             AVAudioFrameCount           frameCount,
-             NSInteger                   outputBusNumber,
-             AudioBufferList            *outputData,
-             const AURenderEvent        *realtimeEventListHead,
-             AURenderPullInputBlock      pullInputBlock) {
+                              AudioUnitRenderActionFlags *actionFlags,
+                              const AudioTimeStamp       *timestamp,
+                              AVAudioFrameCount           frameCount,
+                              NSInteger                   outputBusNumber,
+                              AudioBufferList            *outputData,
+                              const AURenderEvent        *realtimeEventListHead,
+                              AURenderPullInputBlock      pullInputBlock) {
         AudioUnitRenderActionFlags pullFlags = 0;
 
         AUAudioUnitStatus err = input->pullInput(&pullFlags, timestamp, frameCount, 0, pullInputBlock);
@@ -203,11 +203,11 @@
         AudioBufferList *inAudioBufferList = input->mutableAudioBufferList;
 
         /*
-            If the caller passed non-nil output pointers, use those. Otherwise,
-            process in-place in the input buffer. If your algorithm cannot process
-            in-place, then you will need to preallocate an output buffer and use
-            it here.
-        */
+         If the caller passed non-nil output pointers, use those. Otherwise,
+         process in-place in the input buffer. If your algorithm cannot process
+         in-place, then you will need to preallocate an output buffer and use
+         it here.
+         */
         AudioBufferList *outAudioBufferList = outputData;
         if (outAudioBufferList->mBuffers[0].mData == nullptr) {
             for (UInt32 i = 0; i < outAudioBufferList->mNumberBuffers; ++i) {
