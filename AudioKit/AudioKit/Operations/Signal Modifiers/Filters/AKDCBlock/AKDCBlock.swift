@@ -8,13 +8,22 @@
 
 import AVFoundation
 
+/** {"Implements the DC blocking filter"=>"Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based on work by Perry Cook."} */
 public class AKDCBlock: AKOperation {
 
-    var internalAU: AKDCBlockAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
+
+    /** The underlying AudioUnit */
+    private var internalAU: AKDCBlockAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
 
 
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

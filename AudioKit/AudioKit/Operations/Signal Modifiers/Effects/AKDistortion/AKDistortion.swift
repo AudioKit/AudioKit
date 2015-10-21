@@ -8,37 +8,54 @@
 
 import AVFoundation
 
+/**  */
 public class AKDistortion: AKOperation {
 
-    var internalAU: AKDistortionAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKDistortionAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. */
     var pregainParameter:                AUParameter?
+    /** Shape of the positive part of the signal. A value of 0 gets a flat clip. */
     var postiveShapeParameterParameter:  AUParameter?
+    /** Like the positive shape parameter, only for the negative part. */
     var negativeShapeParameterParameter: AUParameter?
+    /** Gain applied after waveshaping */
     var postgainParameter:               AUParameter?
 
+    /** Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. */
     public var pregain: Float = 2.0 {
         didSet {
             pregainParameter?.setValue(pregain, originator: token!)
         }
     }
+    /** Shape of the positive part of the signal. A value of 0 gets a flat clip. */
     public var postiveShapeParameter: Float = 0.0 {
         didSet {
             postiveShapeParameterParameter?.setValue(postiveShapeParameter, originator: token!)
         }
     }
+    /** Like the positive shape parameter, only for the negative part. */
     public var negativeShapeParameter: Float = 0.0 {
         didSet {
             negativeShapeParameterParameter?.setValue(negativeShapeParameter, originator: token!)
         }
     }
+    /** Gain applied after waveshaping */
     public var postgain: Float = 0.5 {
         didSet {
             postgainParameter?.setValue(postgain, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this distortion operation */
     public init(_ input: AKOperation) {
         super.init()
 

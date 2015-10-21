@@ -8,25 +8,38 @@
 
 import AVFoundation
 
+/** AKStringResonator passes the input through a network composed of comb, low-pass and all-pass filters, similar to the one used in some versions of the Karplus-Strong algorithm, creating a string resonator effect. The fundamental frequency of the “string” is controlled by the fundamentalFrequency.  This operation can be used to simulate sympathetic resonances to an input signal. */
 public class AKStringResonator: AKOperation {
 
-    var internalAU: AKStringResonatorAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKStringResonatorAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Fundamental frequency of string. */
     var fundamentalFrequencyParameter: AUParameter?
+    /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. */
     var feedbackParameter:             AUParameter?
 
+    /** Fundamental frequency of string. */
     public var fundamentalFrequency: Float = 100 {
         didSet {
             fundamentalFrequencyParameter?.setValue(fundamentalFrequency, originator: token!)
         }
     }
+    /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. */
     public var feedback: Float = 0.95 {
         didSet {
             feedbackParameter?.setValue(feedback, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

@@ -8,31 +8,46 @@
 
 import AVFoundation
 
+/** This is an implementation of Zoelzer's parametric equalizer filter. */
 public class AKHighShelfParametricEqualizerFilter: AKOperation {
 
-    var internalAU: AKHighShelfParametricEqualizerFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKHighShelfParametricEqualizerFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Corner frequency. */
     var centerFrequencyParameter: AUParameter?
+    /** Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response. */
     var gainParameter:            AUParameter?
+    /** Q of the filter. sqrt(0.5) is no resonance. */
     var qParameter:               AUParameter?
 
+    /** Corner frequency. */
     public var centerFrequency: Float = 1000 {
         didSet {
             centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
         }
     }
+    /** Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response. */
     public var gain: Float = 1.0 {
         didSet {
             gainParameter?.setValue(gain, originator: token!)
         }
     }
+    /** Q of the filter. sqrt(0.5) is no resonance. */
     public var q: Float = 0.707 {
         didSet {
             qParameter?.setValue(q, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this equalizer operation */
     public init(_ input: AKOperation) {
         super.init()
 

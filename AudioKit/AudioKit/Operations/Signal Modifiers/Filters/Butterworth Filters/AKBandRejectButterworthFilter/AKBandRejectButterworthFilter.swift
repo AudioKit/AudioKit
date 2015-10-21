@@ -8,25 +8,38 @@
 
 import AVFoundation
 
+/** These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation. */
 public class AKBandRejectButterworthFilter: AKOperation {
 
-    var internalAU: AKBandRejectButterworthFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKBandRejectButterworthFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Center frequency. (in Hertz) */
     var centerFrequencyParameter: AUParameter?
+    /** Bandwidth. (in Hertz) */
     var bandwidthParameter:       AUParameter?
 
+    /** Center frequency. (in Hertz) */
     public var centerFrequency: Float = 3000 {
         didSet {
             centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
         }
     }
+    /** Bandwidth. (in Hertz) */
     public var bandwidth: Float = 2000 {
         didSet {
             bandwidthParameter?.setValue(bandwidth, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

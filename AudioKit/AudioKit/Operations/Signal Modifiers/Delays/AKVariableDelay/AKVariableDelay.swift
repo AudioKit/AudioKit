@@ -8,19 +8,30 @@
 
 import AVFoundation
 
+/** A delay line with cubic interpolation. */
 public class AKVariableDelay: AKOperation {
 
-    var internalAU: AKVariableDelayAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKVariableDelayAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. */
     var delayTimeParameter:        AUParameter?
 
+    /** Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. */
     public var delayTime: Float = 1.0 {
         didSet {
             delayTimeParameter?.setValue(delayTime, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this delay operation */
     public init(_ input: AKOperation) {
         super.init()
 

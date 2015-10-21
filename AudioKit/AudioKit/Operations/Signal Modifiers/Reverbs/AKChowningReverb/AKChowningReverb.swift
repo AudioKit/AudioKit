@@ -8,13 +8,23 @@
 
 import AVFoundation
 
+/** This is was built using the JC reverb implentation found in FAUST. According to the source code, the specifications for this implementation were found on an old SAIL DART backup tape.
+This class is derived from the CLM JCRev function, which is based on the use of networks of simple allpass and comb delay filters.  This class implements three series allpass units, followed by four parallel comb filters, and two decorrelation delay lines in parallel at the output. */
 public class AKChowningReverb: AKOperation {
 
-    var internalAU: AKChowningReverbAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
+
+    /** The underlying AudioUnit */
+    private var internalAU: AKChowningReverbAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
 
 
 
+    // MARK: - Initializers
+
+    /** Initialize this reverb operation */
     public init(_ input: AKOperation) {
         super.init()
 

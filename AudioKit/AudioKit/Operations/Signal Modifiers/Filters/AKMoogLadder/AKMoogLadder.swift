@@ -8,25 +8,38 @@
 
 import AVFoundation
 
+/** Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli). This implementation is probably a more accurate digital representation of the original analogue filter. */
 public class AKMoogLadder: AKOperation {
 
-    var internalAU: AKMoogLadderAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKMoogLadderAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Filter cutoff frequency. */
     var cutoffFrequencyParameter: AUParameter?
+    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
     var resonanceParameter:       AUParameter?
 
+    /** Filter cutoff frequency. */
     public var cutoffFrequency: Float = 1000 {
         didSet {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
+    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
     public var resonance: Float = 0.5 {
         didSet {
             resonanceParameter?.setValue(resonance, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

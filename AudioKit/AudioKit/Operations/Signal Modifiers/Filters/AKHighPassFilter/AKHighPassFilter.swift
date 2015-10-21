@@ -8,19 +8,30 @@
 
 import AVFoundation
 
+/** A complement to the AKLowPassFilter. */
 public class AKHighPassFilter: AKOperation {
 
-    var internalAU: AKHighPassFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKHighPassFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Filter cutoff frequency in Hertz. */
     var cutoffFrequencyParameter: AUParameter?
 
+    /** Filter cutoff frequency in Hertz. */
     public var cutoffFrequency: Float = 1000 {
         didSet {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

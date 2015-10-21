@@ -8,31 +8,46 @@
 
 import AVFoundation
 
+/** A 2nd order tunable equalization filter that provides a peak/notch filter for building parametric/graphic equalizers. With gain above 1, there will be a peak at the center frequency with a width dependent on bandwidth. If gain is less than 1, a notch is formed around the center frequency. */
 public class AKEqualizerFilter: AKOperation {
 
-    var internalAU: AKEqualizerFilterAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKEqualizerFilterAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Center frequency. (in Hertz) */
     var centerFrequencyParameter: AUParameter?
+    /** The peak/notch bandwidth in Hertz */
     var bandwidthParameter:       AUParameter?
+    /** The peak/notch gain */
     var gainParameter:            AUParameter?
 
+    /** Center frequency. (in Hertz) */
     public var centerFrequency: Float = 1000 {
         didSet {
             centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
         }
     }
+    /** The peak/notch bandwidth in Hertz */
     public var bandwidth: Float = 100 {
         didSet {
             bandwidthParameter?.setValue(bandwidth, originator: token!)
         }
     }
+    /** The peak/notch gain */
     public var gain: Float = 10 {
         didSet {
             gainParameter?.setValue(gain, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this filter operation */
     public init(_ input: AKOperation) {
         super.init()
 

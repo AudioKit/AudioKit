@@ -8,31 +8,46 @@
 
 import AVFoundation
 
+/** Clips a signal to a predefined limit, in a "soft" manner, using one of three methods. */
 public class AKClipper: AKOperation {
 
-    var internalAU: AKClipperAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
+    /** The underlying AudioUnit */
+    private var internalAU: AKClipperAudioUnit?
+
+    /** A generic parameter observer token */
+    private var token: AUParameterObserverToken?
+
+    /** Threshold / limiting value. */
     var limitParameter:              AUParameter?
+    /** When meth is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1. */
     var clippingStartPointParameter: AUParameter?
+    /** Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh. */
     var methodParameter:             AUParameter?
 
+    /** Threshold / limiting value. */
     public var limit: Float = 1.0 {
         didSet {
             limitParameter?.setValue(limit, originator: token!)
         }
     }
+    /** When meth is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1. */
     public var clippingStartPoint: Float = 0.5 {
         didSet {
             clippingStartPointParameter?.setValue(clippingStartPoint, originator: token!)
         }
     }
+    /** Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh. */
     public var method: Float = 0 {
         didSet {
             methodParameter?.setValue(method, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this clipper operation */
     public init(_ input: AKOperation) {
         super.init()
 
