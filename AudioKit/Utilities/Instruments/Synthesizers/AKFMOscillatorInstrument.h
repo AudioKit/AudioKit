@@ -26,8 +26,8 @@
 
 - (instancetype)initWithFrequency:(float)frequency
                 carrierMultiplier:(float)carrierMultiplier
-                modulatingMultiplier:(float)modulatingMultiplier
-                modulationIndex:(float)modulationIndex
+             modulatingMultiplier:(float)modulatingMultiplier
+                  modulationIndex:(float)modulationIndex
                         amplitude:(float)amplitude;
 
 @end
