@@ -13,20 +13,13 @@ public class AKRolandTB303Filter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKRolandTB303FilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Cutoff frequency. (in Hertz) */
-    var cutoffFrequencyParameter:    AUParameter?
-    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
-    var resonanceParameter:          AUParameter?
-    /** Distortion. Value is typically 2.0; deviation from this can cause stability issues.  */
-    var distortionParameter:         AUParameter?
-    /** Asymmetry of resonance. Value is between 0-1 */
-    var resonanceAsymmetryParameter: AUParameter?
+    private var cutoffFrequencyParameter:    AUParameter?
+    private var resonanceParameter:          AUParameter?
+    private var distortionParameter:         AUParameter?
+    private var resonanceAsymmetryParameter: AUParameter?
 
     /** Cutoff frequency. (in Hertz) */
     public var cutoffFrequency: Float = 500 {

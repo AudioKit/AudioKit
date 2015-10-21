@@ -13,14 +13,10 @@ public class AKLowPassFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKLowPassFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. */
-    var halfPowerPointParameter: AUParameter?
+    private var halfPowerPointParameter: AUParameter?
 
     /** The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. */
     public var halfPowerPoint: Float = 1000 {

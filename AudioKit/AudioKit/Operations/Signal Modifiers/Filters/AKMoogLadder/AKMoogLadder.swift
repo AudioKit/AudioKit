@@ -13,16 +13,11 @@ public class AKMoogLadder: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKMoogLadderAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Filter cutoff frequency. */
-    var cutoffFrequencyParameter: AUParameter?
-    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
-    var resonanceParameter:       AUParameter?
+    private var cutoffFrequencyParameter: AUParameter?
+    private var resonanceParameter:       AUParameter?
 
     /** Filter cutoff frequency. */
     public var cutoffFrequency: Float = 1000 {

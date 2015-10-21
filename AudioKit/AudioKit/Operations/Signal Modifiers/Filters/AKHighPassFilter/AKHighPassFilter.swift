@@ -13,14 +13,10 @@ public class AKHighPassFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKHighPassFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Filter cutoff frequency in Hertz. */
-    var cutoffFrequencyParameter: AUParameter?
+    private var cutoffFrequencyParameter: AUParameter?
 
     /** Filter cutoff frequency in Hertz. */
     public var cutoffFrequency: Float = 1000 {

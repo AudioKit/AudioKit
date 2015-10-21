@@ -13,16 +13,11 @@ public class AKModalResonanceFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKModalResonanceFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Resonant frequency of the filter. */
-    var frequencyParameter:     AUParameter?
-    /** Quality factor of the filter. Roughly equal to Q/frequency. */
-    var qualityFactorParameter: AUParameter?
+    private var frequencyParameter:     AUParameter?
+    private var qualityFactorParameter: AUParameter?
 
     /** Resonant frequency of the filter. */
     public var frequency: Float = 500.0 {

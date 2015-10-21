@@ -13,18 +13,12 @@ public class AKLowShelfParametricEqualizerFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Corner frequency. */
-    var cornerFrequencyParameter: AUParameter?
-    /** Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response. */
-    var gainParameter:            AUParameter?
-    /** Q of the filter. sqrt(0.5) is no resonance. */
-    var qParameter:               AUParameter?
+    private var cornerFrequencyParameter: AUParameter?
+    private var gainParameter:            AUParameter?
+    private var qParameter:               AUParameter?
 
     /** Corner frequency. */
     public var cornerFrequency: Float = 1000 {

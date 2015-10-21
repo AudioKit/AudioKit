@@ -13,16 +13,11 @@ public class AKBandPassButterworthFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKBandPassButterworthFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Center frequency. (in Hertz) */
-    var centerFrequencyParameter: AUParameter?
-    /** Bandwidth. (in Hertz) */
-    var bandwidthParameter:       AUParameter?
+    private var centerFrequencyParameter: AUParameter?
+    private var bandwidthParameter:       AUParameter?
 
     /** Center frequency. (in Hertz) */
     public var centerFrequency: Float = 2000 {

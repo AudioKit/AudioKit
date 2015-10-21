@@ -13,18 +13,12 @@ public class AKPeakingParametricEqualizerFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKPeakingParametricEqualizerFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Center frequency. */
-    var centerFrequencyParameter: AUParameter?
-    /** Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response. */
-    var gainParameter:            AUParameter?
-    /** Q of the filter. sqrt(0.5) is no resonance. */
-    var qParameter:               AUParameter?
+    private var centerFrequencyParameter: AUParameter?
+    private var gainParameter:            AUParameter?
+    private var qParameter:               AUParameter?
 
     /** Center frequency. */
     public var centerFrequency: Float = 1000 {

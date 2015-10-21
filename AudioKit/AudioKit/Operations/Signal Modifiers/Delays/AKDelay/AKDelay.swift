@@ -13,14 +13,10 @@ public class AKDelay: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKDelayAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Feedback amount. Should be a value between 0-1. */
-    var feedbackParameter:  AUParameter?
+    private var feedbackParameter:  AUParameter?
 
     /** Feedback amount. Should be a value between 0-1. */
     public var feedback: Float = 0.0 {
