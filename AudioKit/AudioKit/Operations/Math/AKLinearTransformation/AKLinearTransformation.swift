@@ -8,37 +8,47 @@
 
 import AVFoundation
 
+/** This module scales from one range to another defined by a minimum and maximum point in the input and output domain. */
 public class AKLinearTransformation: AKOperation {
 
-    var internalAU: AKLinearTransformationAudioUnit?
-    var token: AUParameterObserverToken?
+    // MARK: - Properties
 
-    var minimumInputParameter:  AUParameter?
-    var maximumInputParameter:  AUParameter?
-    var minimumOutputParameter: AUParameter?
-    var maximumOutputParameter: AUParameter?
+    private var internalAU: AKLinearTransformationAudioUnit?
+    private var token: AUParameterObserverToken?
 
+    private var minimumInputParameter:  AUParameter?
+    private var maximumInputParameter:  AUParameter?
+    private var minimumOutputParameter: AUParameter?
+    private var maximumOutputParameter: AUParameter?
+
+    /** Minimum value to scale from. */
     public var minimumInput: Float = -1.0 {
         didSet {
             minimumInputParameter?.setValue(minimumInput, originator: token!)
         }
     }
+    /** Maximum value to scale from. */
     public var maximumInput: Float = 1.0 {
         didSet {
             maximumInputParameter?.setValue(maximumInput, originator: token!)
         }
     }
+    /** Minimum value to scale to. */
     public var minimumOutput: Float = 0.0 {
         didSet {
             minimumOutputParameter?.setValue(minimumOutput, originator: token!)
         }
     }
+    /** Maximum value to scale to. */
     public var maximumOutput: Float = 1.0 {
         didSet {
             maximumOutputParameter?.setValue(maximumOutput, originator: token!)
         }
     }
 
+    // MARK: - Initializers
+
+    /** Initialize this scaled value operation */
     public init(_ input: AKOperation) {
         super.init()
 
