@@ -50,19 +50,19 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case pregainAddress:
-                pregainRamper.set(clamp(value, 0.0f, 10.0f));
+                pregainRamper.set(clamp(value, (float)0.0, (float)10.0));
                 break;
 
             case postiveShapeParameterAddress:
-                postiveShapeParameterRamper.set(clamp(value, -10.0f, 10.0f));
+                postiveShapeParameterRamper.set(clamp(value, (float)-10.0, (float)10.0));
                 break;
 
             case negativeShapeParameterAddress:
-                negativeShapeParameterRamper.set(clamp(value, -10.0f, 10.0f));
+                negativeShapeParameterRamper.set(clamp(value, (float)-10.0, (float)10.0));
                 break;
 
             case postgainAddress:
-                postgainRamper.set(clamp(value, 0.0f, 10.0f));
+                postgainRamper.set(clamp(value, (float)0.0, (float)10.0));
                 break;
 
         }
@@ -89,19 +89,19 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case pregainAddress:
-                pregainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
+                pregainRamper.startRamp(clamp(value, (float)0.0, (float)10.0), duration);
                 break;
 
             case postiveShapeParameterAddress:
-                postiveShapeParameterRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
+                postiveShapeParameterRamper.startRamp(clamp(value, (float)-10.0, (float)10.0), duration);
                 break;
 
             case negativeShapeParameterAddress:
-                negativeShapeParameterRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
+                negativeShapeParameterRamper.startRamp(clamp(value, (float)-10.0, (float)10.0), duration);
                 break;
 
             case postgainAddress:
-                postgainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
+                postgainRamper.startRamp(clamp(value, (float)0.0, (float)10.0), duration);
                 break;
 
         }

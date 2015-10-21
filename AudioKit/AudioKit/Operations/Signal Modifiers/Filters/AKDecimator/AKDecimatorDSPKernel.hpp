@@ -14,7 +14,6 @@
 
 extern "C" {
 #include "base.h"
-#include "fold.h"
 #include "decimator.h"
 }
 
@@ -51,7 +50,7 @@ public:
                 break;
 
             case sampleRateAddress:
-                sampleRateRamper.set(clamp(value, 0.0f, 20000.0f));
+                sampleRateRamper.set(clamp(value, (float)0.0, (float)20000.0));
                 break;
 
         }
@@ -76,7 +75,7 @@ public:
                 break;
 
             case sampleRateAddress:
-                sampleRateRamper.startRamp(clamp(value, 0.0f, 20000.0f), duration);
+                sampleRateRamper.startRamp(clamp(value, (float)0.0, (float)20000.0), duration);
                 break;
 
         }
