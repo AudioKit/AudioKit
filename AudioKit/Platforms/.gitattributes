@@ -1,3 +1,4 @@
 *.a filter=lfs diff=lfs merge=lfs -text
 CsoundLib filter=lfs diff=lfs merge=lfs -text
 *.dylib filter=lfs diff=lfs merge=lfs -text
+libsndfile filter=lfs diff=lfs merge=lfs -text
