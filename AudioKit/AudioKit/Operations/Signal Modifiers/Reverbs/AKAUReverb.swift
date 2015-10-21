@@ -9,14 +9,18 @@
 import Foundation
 import AVFoundation
 
+/** AudioKit version of Apple's Reverb Audio Unit */
 public class AKAUReverb: AKOperation {
-    let reverbAU = AVAudioUnitReverb()
+    private let reverbAU = AVAudioUnitReverb()
+    
+    /** Wet/Dry Mix (Default 50) */
     public var wetDryMix:Float = 50.0 {
         didSet {
             reverbAU.wetDryMix = wetDryMix
         }
     }
     
+    /** Initialize the reverb operation */
     public init(_ input: AKOperation) {
         super.init()
         output = reverbAU
@@ -24,6 +28,7 @@ public class AKAUReverb: AKOperation {
         AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
     }
     
+    /** Load an Apple Factory Preset */
     public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
         reverbAU.loadFactoryPreset(preset)
     }
