@@ -13,16 +13,11 @@ public class AKDecimator: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKDecimatorAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. */
-    var bitDepthParameter:   AUParameter?
-    /** The sample rate of signal output. */
-    var sampleRateParameter: AUParameter?
+    private var bitDepthParameter:   AUParameter?
+    private var sampleRateParameter: AUParameter?
 
     /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. */
     public var bitDepth: Float = 8 {

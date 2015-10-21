@@ -13,14 +13,10 @@ public class AKFlatFrequencyResponseReverb: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. */
-    var reverbDurationParameter: AUParameter?
+    private var reverbDurationParameter: AUParameter?
 
     /** The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. */
     public var reverbDuration: Float = 0.5 {

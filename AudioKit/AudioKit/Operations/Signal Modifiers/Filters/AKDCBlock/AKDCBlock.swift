@@ -13,10 +13,7 @@ public class AKDCBlock: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKDCBlockAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
 

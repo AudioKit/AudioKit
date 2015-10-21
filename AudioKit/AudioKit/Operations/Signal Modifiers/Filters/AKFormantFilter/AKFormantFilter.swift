@@ -13,18 +13,12 @@ public class AKFormantFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKFormantFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Center frequency. */
-    var centerFrequencyParameter: AUParameter?
-    /** Impulse response attack time (in seconds). */
-    var attackDurationParameter:  AUParameter?
-    /** Impulse reponse decay time (in seconds) */
-    var decayDurationParameter:   AUParameter?
+    private var centerFrequencyParameter: AUParameter?
+    private var attackDurationParameter:  AUParameter?
+    private var decayDurationParameter:   AUParameter?
 
     /** Center frequency. */
     public var centerFrequency: Float = 1000 {

@@ -13,14 +13,10 @@ public class AKHighPassButterworthFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKHighPassButterworthFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Cutoff frequency. (in Hertz) */
-    var cutoffFrequencyParameter: AUParameter?
+    private var cutoffFrequencyParameter: AUParameter?
 
     /** Cutoff frequency. (in Hertz) */
     public var cutoffFrequency: Float = 500 {

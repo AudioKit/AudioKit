@@ -13,14 +13,10 @@ public class AKCombFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKCombFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). */
-    var reverbDurationParameter: AUParameter?
+    private var reverbDurationParameter: AUParameter?
 
     /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). */
     public var reverbDuration: Float = 1.0 {

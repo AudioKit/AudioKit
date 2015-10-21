@@ -14,10 +14,7 @@ public class AKChowningReverb: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKChowningReverbAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
 

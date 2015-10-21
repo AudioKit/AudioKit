@@ -13,18 +13,12 @@ public class AKEqualizerFilter: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKEqualizerFilterAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Center frequency. (in Hertz) */
-    var centerFrequencyParameter: AUParameter?
-    /** The peak/notch bandwidth in Hertz */
-    var bandwidthParameter:       AUParameter?
-    /** The peak/notch gain */
-    var gainParameter:            AUParameter?
+    private var centerFrequencyParameter: AUParameter?
+    private var bandwidthParameter:       AUParameter?
+    private var gainParameter:            AUParameter?
 
     /** Center frequency. (in Hertz) */
     public var centerFrequency: Float = 1000 {

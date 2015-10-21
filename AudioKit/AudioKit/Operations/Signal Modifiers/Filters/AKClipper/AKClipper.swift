@@ -13,18 +13,12 @@ public class AKClipper: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKClipperAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Threshold / limiting value. */
-    var limitParameter:              AUParameter?
-    /** When meth is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1. */
-    var clippingStartPointParameter: AUParameter?
-    /** Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh. */
-    var methodParameter:             AUParameter?
+    private var limitParameter:              AUParameter?
+    private var clippingStartPointParameter: AUParameter?
+    private var methodParameter:             AUParameter?
 
     /** Threshold / limiting value. */
     public var limit: Float = 1.0 {

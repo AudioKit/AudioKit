@@ -18,7 +18,6 @@ extern "C" {
 }
 
 
-
 class AKChowningReverbDSPKernel : public AKDSPKernel {
 public:
     // MARK: Member Functions

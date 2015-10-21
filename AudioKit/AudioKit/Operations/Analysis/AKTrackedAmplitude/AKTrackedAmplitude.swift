@@ -13,14 +13,10 @@ public class AKTrackedAmplitude: AKOperation {
 
     // MARK: - Properties
 
-    /** The underlying AudioUnit */
     private var internalAU: AKTrackedAmplitudeAudioUnit?
-
-    /** A generic parameter observer token */
     private var token: AUParameterObserverToken?
 
-    /** Half-power point (in Hz) of internal lowpass filter. */
-    var halfPowerPointParameter: AUParameter?
+    private var halfPowerPointParameter: AUParameter?
 
     /** Half-power point (in Hz) of internal lowpass filter. */
     public var halfPowerPoint: Float = 10 {
