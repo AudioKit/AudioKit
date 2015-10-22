@@ -166,8 +166,8 @@
 				EA93646C1BD887820005B849 /* Sources */,
 				EA93646D1BD887820005B849 /* Frameworks */,
 				EA93646E1BD887820005B849 /* Resources */,
-				EA9364A01BD88AAD0005B849 /* ShellScript */,
 				EA9364A61BD8C5120005B849 /* Embed Frameworks */,
+				EA9364A01BD88AAD0005B849 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -273,7 +273,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "../../../../AudioKit/Platforms/tvOS/run-script.sh\n";
+			shellScript = "\"${SRCROOT}/../../../../AudioKit/Platforms/tvOS/run-script.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
