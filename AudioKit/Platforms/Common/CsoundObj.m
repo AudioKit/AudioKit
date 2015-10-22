@@ -876,7 +876,7 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
     if (self.running) {
         if (interruptionType == AVAudioSessionInterruptionTypeBegan) {
             AudioOutputUnitStop(_csAUHAL);
-        } else if (interruptionType == kAudioSessionEndInterruption) {
+        } else if (interruptionType == AVAudioSessionInterruptionTypeEnded) {
             // make sure we are again the active session
             success = [[AVAudioSession sharedInstance] setActive:YES error:&error];
             if(success) {
@@ -990,15 +990,19 @@ static void AKBreakpoint(CSOUND *cs, debug_bkpt_info_t *bkpt, void *userdata)
         BOOL success;
 
         AVAudioSession *session = [AVAudioSession sharedInstance];
+#if TARGET_OS_TV
+        AVAudioSessionCategoryOptions options = AVAudioSessionCategoryOptionMixWithOthers;
+#else
+        AVAudioSessionCategoryOptions options = AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker;
+#endif
+        
         if (AKSettings.shared.audioInputEnabled) {
             success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
-                               withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
-                                            AVAudioSessionCategoryOptionDefaultToSpeaker)
+                               withOptions:options
                                      error:&error];
         } else if (AKSettings.shared.playbackWhileMuted) {
             success = [session setCategory:AVAudioSessionCategoryPlayback
-                               withOptions:(AVAudioSessionCategoryOptionMixWithOthers |
-                                            AVAudioSessionCategoryOptionDefaultToSpeaker)
+                               withOptions:options
                                      error:&error];
         } else {
             success = [session setCategory:AVAudioSessionCategoryAmbient

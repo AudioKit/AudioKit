@@ -101,9 +101,11 @@ static AKManager *_sharedManager = nil;
         [_engine addListener:self];
         _engine.messageDelegate = self;
 
+#if !TARGET_OS_TV
         if (AKSettings.shared.MIDIEnabled) {
             _midi = [[AKMidi alloc] init];
         }
+#endif
 
         _isRunning = NO;
         _isLogging = AKSettings.shared.loggingEnabled;

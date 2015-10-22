@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HelloWorld" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-8O-zZG">
+                                <rect key="frame" x="707" y="539" width="507" height="86"/>
+                                <animations/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
+                                <state key="normal" title="Play Sine Wave at 440Hz"/>
+                                <connections>
+                                    <action selector="toggleSound:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="H2C-g8-5Y6"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-rS-84i">
+                                <rect key="frame" x="707" y="80" width="507" height="432"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QoR-rS-84i" secondAttribute="height" multiplier="169:144" id="v4j-2y-Xgy"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cPz-lK-Q6b" customClass="AKAudioOutputPlot">
+                                <rect key="frame" x="707" y="664" width="507" height="232"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nzf-8O-zZG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ey6-8B-wFh"/>
+                            <constraint firstItem="cPz-lK-Q6b" firstAttribute="centerX" secondItem="nzf-8O-zZG" secondAttribute="centerX" id="OIf-Qi-l6U"/>
+                            <constraint firstItem="QoR-rS-84i" firstAttribute="width" secondItem="nzf-8O-zZG" secondAttribute="width" id="Pkq-MX-WRa"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cPz-lK-Q6b" secondAttribute="bottom" constant="184" id="Svz-QK-fmN"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nzf-8O-zZG" secondAttribute="bottom" constant="455" id="TSd-on-OHs"/>
+                            <constraint firstItem="cPz-lK-Q6b" firstAttribute="width" secondItem="nzf-8O-zZG" secondAttribute="width" id="hOM-dN-xOI"/>
+                            <constraint firstItem="QoR-rS-84i" firstAttribute="centerX" secondItem="nzf-8O-zZG" secondAttribute="centerX" id="sY5-ud-fOB"/>
+                            <constraint firstItem="nzf-8O-zZG" firstAttribute="top" secondItem="QoR-rS-84i" secondAttribute="bottom" constant="27" id="zp9-Pg-Fhw"/>
+                            <constraint firstItem="cPz-lK-Q6b" firstAttribute="top" secondItem="nzf-8O-zZG" secondAttribute="bottom" constant="39" id="zut-Ip-QkQ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="673" y="478"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="AudioKitMan" width="357" height="357"/>
+    </resources>
+</document>
