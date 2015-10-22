@@ -78,41 +78,22 @@
 
 
 #if TARGET_OS_IPHONE
-#define AKSlider UISlider
+# define AKSlider UISlider
+# define AKTextField UITextField
+# define val value
+# define max maximumValue
+# define min minimumValue
+# define text text
 #elif TARGET_OS_MAC
-#define AKSlider NSSlider
+# define AKSlider NSSlider
+# define AKTextField NSTextField
+# define val doubleValue
+# define max maxValue
+# define min minValue
+# define text stringValue
 #endif
 
-#if TARGET_OS_IPHONE
-#define AKTextField UITextField
-#elif TARGET_OS_MAC
-#define AKTextField NSTextField
-#endif
-
-#if TARGET_OS_IPHONE
-#define val value
-#elif TARGET_OS_MAC
-#define val doubleValue
-#endif
-
-#if TARGET_OS_IPHONE
-#define max maximumValue
-#elif TARGET_OS_MAC
-#define max maxValue
-#endif
-
-#if TARGET_OS_IPHONE
-#define min minimumValue
-#elif TARGET_OS_MAC
-#define min minValue
-#endif
-
-#if TARGET_OS_IPHONE
-#define text text
-#elif TARGET_OS_MAC
-#define text stringValue
-#endif
-
+#if !TARGET_OS_TV
 + (void)setSlider:(AKSlider *)slider
         withValue:(float)value
           minimum:(float)minimum
@@ -145,6 +126,7 @@
     
     return expf( log(minimum) + percentage * (slider.val - slider.min) );
 }
+#endif
 
 #if TARGET_OS_IPHONE
 + (void)setProgressView:(UIProgressView *)progressView
@@ -163,6 +145,7 @@
 #  pragma mark - UI For Properties
 // -----------------------------------------------------------------------------
 
+#if !TARGET_OS_TV
 + (void)setSlider:(AKSlider *)slider withProperty:(id)property
 {
     if ([property isKindOfClass:[AKInstrumentProperty class]])
@@ -190,6 +173,7 @@
         p.value = [self scaleValueFromSlider:slider minimum:p.minimum maximum:p.maximum];
     }
 }
+#endif
 
 + (void)setTextField:(AKTextField *)textfield withProperty:(id)property
 {

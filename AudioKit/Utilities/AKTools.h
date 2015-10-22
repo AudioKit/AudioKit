@@ -79,6 +79,7 @@ withInverseScalingFactor:(float)scalingFactor;
 #define AKTextField NSTextField
 #endif
 
+#if !TARGET_OS_TV
 /// Reposition a slider's value and range
 /// @param slider The slider to set up
 /// @param value Current value of the slider
@@ -118,6 +119,8 @@ withInverseScalingFactor:(float)scalingFactor;
 /// @param property The AKInstrumentProperty or AKNoteProperty to set with the slider
 /// @param slider The slider to use
 + (void)setProperty:(id)property withSlider:(AKSlider *)slider;
+
+#endif
 
 /// Populate a text field with the value from AKInstrumentProperty or AKNoteProperty
 /// @param textfield The text field to set up

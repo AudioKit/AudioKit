@@ -8,6 +8,8 @@
 
 #import "AKParameter.h"
 
+#if !TARGET_OS_TV
+
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 /// A slider that sets the value of a property (within the property's bounds)
@@ -22,3 +24,5 @@
 @property (nonatomic) AKParameter *property;
 
 @end
+
+#endif
