@@ -5,7 +5,7 @@ The tvOS version of AudioKit is very similar to the iOS version. Because this sy
 * Drag and drop the `AudioKit.xcodeproj` file inside your own project in Xcode.
 * In your project settings in Xcode, go to the **Build Phases** tab for your target.
 	* Add a new **Target Dependency**. Pick the `AudioKit tvOS` library under AudioKit.
-	* Expand the **Link Binary With Libraries** section, and add the `AudioKit tvOS.a` library.
+	* Expand the **Link Binary With Libraries** section, and add the `libAudioKit tvOS.a` library.
 * In the **Build Settings** tab for your target :
 	* Look for the **Other Linker Flags** setting, and set it to `-ObjC`
 	* Look for the **User Header Search Paths** setting, point it to the location of the `AudioKit` directory, make sure to set it to **recursive**.  If your project directory is parallel to the AudioKit repository, this path will be `../AudioKit/AudioKit`.
