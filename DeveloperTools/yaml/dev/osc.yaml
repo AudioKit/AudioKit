@@ -6,7 +6,7 @@ operation: AKOscillator
 
 summary: A simple oscillator with linear interpolation.
 
-four-letter-code:
+four-letter-code: oscl
 
 one-word-description: oscillator
 
