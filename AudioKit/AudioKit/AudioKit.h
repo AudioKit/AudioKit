@@ -42,3 +42,4 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKChowningReverbAudioUnit.h>
 #import <AudioKit/AKLinearTransformationAudioUnit.h>
 #import <AudioKit/AKOscillatorAudioUnit.h>
+#import <AudioKit/AKFMOscillatorAudioUnit.h>

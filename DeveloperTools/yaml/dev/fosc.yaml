@@ -6,7 +6,7 @@ operation: AKFMOscillator
 
 summary:  Basic frequency modulated oscillator.
 
-four-letter-code:
+four-letter-code: fosc
 
 one-word-description: oscillator
 
@@ -24,27 +24,47 @@ parameters:
 - freq: {
 	ak-variable: baseFrequency,
 	comment: "In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.",
-  default: 440
+  au-name: "Base Frequency (Hz)",
+  au-unit: Hertz,
+  default: 440,
+  minimum: 0.0,
+  maximum: 20000.0
 }
 - car: {
 	ak-variable: carrierMultiplier,
 	comment: "This multiplied by the baseFrequency gives the carrier frequency.",
-  default: 1
+  au-name: "Carrier Multiplier",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1000.0
 }
 - mod: {
 	ak-variable: modulatingMultiplier,
 	comment: "This multiplied by the baseFrequency gives the modulating frequency.",
-  default: 1
+  au-name: "Modulating Multiplier",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1000.0
 }
 - indx: {
 	ak-variable: modulationIndex,
 	comment: "This multiplied by the modulating frequency gives the modulation amplitude.",
-  default: 1
+  au-name: "Modulation Index",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 1000.0
 }
 - amp: {
 	ak-variable: amplitude,
-	comment: "This multiplied by the modulating frequency gives the modulation amplitude.",
-  default: 0.5
+	comment: "Output Amplitude.",
+  au-name: "Amplitude",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 10.0
 }
 
 presets:
