@@ -6,7 +6,7 @@ operation: AKPhasor
 
 summary: A normalized moving phase value.
 
-four-letter-code:
+four-letter-code: phsr
 
 one-word-description: phasor
 

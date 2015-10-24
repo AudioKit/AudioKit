@@ -167,6 +167,12 @@
 		C4E8FA9C1BD9B8A2004761A2 /* AKFMOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E8FA981BD9B8A2004761A2 /* AKFMOscillatorDSPKernel.hpp */; };
 		C4E8FA9E1BD9B98A004761A2 /* fosc.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8FA9D1BD9B98A004761A2 /* fosc.h */; };
 		C4E8FAA01BD9B99F004761A2 /* fosc.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E8FA9F1BD9B99F004761A2 /* fosc.c */; };
+		C4E8FAA61BD9C251004761A2 /* AKPhasor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8FAA21BD9C251004761A2 /* AKPhasor.swift */; };
+		C4E8FAA71BD9C251004761A2 /* AKPhasorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8FAA31BD9C251004761A2 /* AKPhasorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4E8FAA81BD9C251004761A2 /* AKPhasorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E8FAA41BD9C251004761A2 /* AKPhasorAudioUnit.mm */; };
+		C4E8FAA91BD9C251004761A2 /* AKPhasorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E8FAA51BD9C251004761A2 /* AKPhasorDSPKernel.hpp */; };
+		C4E8FAAB1BD9C2C1004761A2 /* phasor.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E8FAAA1BD9C2C1004761A2 /* phasor.c */; };
+		C4E8FAAD1BD9C2D1004761A2 /* phasor.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8FAAC1BD9C2D1004761A2 /* phasor.h */; };
 		C4ECB3601BC4869200E09FA3 /* AKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ECB3531BC4869200E09FA3 /* AKMicrophone.swift */; };
 		C4ECB3651BC4869200E09FA3 /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ECB3591BC4869200E09FA3 /* AKOperation.swift */; };
 		C4ECB3671BC48BC800E09FA3 /* allpass.h in Headers */ = {isa = PBXBuildFile; fileRef = C4ECB3661BC48BC800E09FA3 /* allpass.h */; };
@@ -362,6 +368,12 @@
 		C4E8FA981BD9B8A2004761A2 /* AKFMOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFMOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
 		C4E8FA9D1BD9B98A004761A2 /* fosc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fosc.h; path = ../../../../Soundpipe/h/fosc.h; sourceTree = "<group>"; };
 		C4E8FA9F1BD9B99F004761A2 /* fosc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = fosc.c; path = ../../../../Soundpipe/modules/fosc.c; sourceTree = "<group>"; };
+		C4E8FAA21BD9C251004761A2 /* AKPhasor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhasor.swift; sourceTree = "<group>"; };
+		C4E8FAA31BD9C251004761A2 /* AKPhasorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhasorAudioUnit.h; sourceTree = "<group>"; };
+		C4E8FAA41BD9C251004761A2 /* AKPhasorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhasorAudioUnit.mm; sourceTree = "<group>"; };
+		C4E8FAA51BD9C251004761A2 /* AKPhasorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPhasorDSPKernel.hpp; sourceTree = "<group>"; };
+		C4E8FAAA1BD9C2C1004761A2 /* phasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = phasor.c; path = ../../../../Soundpipe/modules/phasor.c; sourceTree = "<group>"; };
+		C4E8FAAC1BD9C2D1004761A2 /* phasor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = phasor.h; path = ../../../../Soundpipe/h/phasor.h; sourceTree = "<group>"; };
 		C4ECB3531BC4869200E09FA3 /* AKMicrophone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMicrophone.swift; sourceTree = "<group>"; };
 		C4ECB3591BC4869200E09FA3 /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
 		C4ECB3661BC48BC800E09FA3 /* allpass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = allpass.h; path = ../../../../Soundpipe/h/allpass.h; sourceTree = "<group>"; };
@@ -687,6 +699,7 @@
 				C43FA31B1BC1981B00EC6C85 /* moogladder.h */,
 				C450E7B11BC4CFBE007178B0 /* osc.h */,
 				C4FD54771BCAD5550068B088 /* pareq.h */,
+				C4E8FAAC1BD9C2D1004761A2 /* phasor.h */,
 				C450E7BA1BC4D11E007178B0 /* randmt.h */,
 				C4FC63E51BCE250D00B2B22E /* rms.h */,
 				C41970681BC8F68E00825B6A /* scale.h */,
@@ -725,6 +738,7 @@
 				C43FA31E1BC1981B00EC6C85 /* moogladder.c */,
 				C450E7B31BC4CFCE007178B0 /* osc.c */,
 				C4FD54791BCAD5640068B088 /* pareq.c */,
+				C4E8FAAA1BD9C2C1004761A2 /* phasor.c */,
 				C450E7B61BC4D10C007178B0 /* randmt.c */,
 				C4FC63E71BCE251600B2B22E /* rms.c */,
 				C41970661BC8F68100825B6A /* scale.c */,
@@ -869,6 +883,7 @@
 			children = (
 				C4E8FA941BD9B8A2004761A2 /* AKFMOscillator */,
 				C4E8FA8B1BD9B0D4004761A2 /* AKOscillator */,
+				C4E8FAA11BD9C251004761A2 /* AKPhasor */,
 			);
 			path = Oscillators;
 			sourceTree = "<group>";
@@ -893,6 +908,17 @@
 				C4E8FA981BD9B8A2004761A2 /* AKFMOscillatorDSPKernel.hpp */,
 			);
 			path = AKFMOscillator;
+			sourceTree = "<group>";
+		};
+		C4E8FAA11BD9C251004761A2 /* AKPhasor */ = {
+			isa = PBXGroup;
+			children = (
+				C4E8FAA21BD9C251004761A2 /* AKPhasor.swift */,
+				C4E8FAA31BD9C251004761A2 /* AKPhasorAudioUnit.h */,
+				C4E8FAA41BD9C251004761A2 /* AKPhasorAudioUnit.mm */,
+				C4E8FAA51BD9C251004761A2 /* AKPhasorDSPKernel.hpp */,
+			);
+			path = AKPhasor;
 			sourceTree = "<group>";
 		};
 		C4ECB34B1BC4869200E09FA3 /* Operations */ = {
@@ -1019,6 +1045,7 @@
 				C4D09AB11BC89ADA00A1823F /* AKFormantFilterDSPKernel.hpp in Headers */,
 				C4FC63E21BCE24D600B2B22E /* AKTrackedAmplitudeAudioUnit.h in Headers */,
 				C46775D01BC78FF30027FD6B /* jcrev.h in Headers */,
+				C4E8FAAD1BD9C2D1004761A2 /* phasor.h in Headers */,
 				C467756F1BC781A70027FD6B /* butbr.h in Headers */,
 				C4FD54781BCAD5550068B088 /* pareq.h in Headers */,
 				C4FD548A1BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterAudioUnit.h in Headers */,
@@ -1030,6 +1057,7 @@
 				C467759C1BC7897B0027FD6B /* AKHighPassButterworthFilterAudioUnit.h in Headers */,
 				C46775A01BC7897B0027FD6B /* AKLowPassButterworthFilterAudioUnit.h in Headers */,
 				C43FA3161BC197C100EC6C85 /* AKBufferedAudioBus.hpp in Headers */,
+				C4E8FAA71BD9C251004761A2 /* AKPhasorAudioUnit.h in Headers */,
 				C4D09A871BC8914200A1823F /* AKDelayDSPKernel.hpp in Headers */,
 				C4FD54761BCAD53D0068B088 /* AKPeakingParametricEqualizerFilterDSPKernel.hpp in Headers */,
 				C467755E1BC77BD00027FD6B /* AKFlatFrequencyResponseReverbDSPKernel.hpp in Headers */,
@@ -1041,6 +1069,7 @@
 				C46775ED1BC7A8D50027FD6B /* AKDecimatorDSPKernel.hpp in Headers */,
 				C4D09A5E1BC87DB300A1823F /* AKCombFilterAudioUnit.h in Headers */,
 				C4D09AC01BC89C5A00A1823F /* mode.h in Headers */,
+				C4E8FAA91BD9C251004761A2 /* AKPhasorDSPKernel.hpp in Headers */,
 				C4FC63E41BCE24D600B2B22E /* AKTrackedAmplitudeDSPKernel.hpp in Headers */,
 				C4E8FA9C1BD9B8A2004761A2 /* AKFMOscillatorDSPKernel.hpp in Headers */,
 				C467755C1BC77BD00027FD6B /* AKFlatFrequencyResponseReverbAudioUnit.h in Headers */,
@@ -1146,6 +1175,7 @@
 			files = (
 				C4D09AC21BC89C6600A1823F /* mode.c in Sources */,
 				C4D09AC41BC8BA9000A1823F /* streson.c in Sources */,
+				C4E8FAA61BD9C251004761A2 /* AKPhasor.swift in Sources */,
 				C4D09A621BC87E2F00A1823F /* comb.c in Sources */,
 				C467759F1BC7897B0027FD6B /* AKLowPassButterworthFilter.swift in Sources */,
 				C467759D1BC7897B0027FD6B /* AKHighPassButterworthFilterAudioUnit.mm in Sources */,
@@ -1173,6 +1203,7 @@
 				C43FA3221BC1981B00EC6C85 /* base.c in Sources */,
 				C467756B1BC77D8D0027FD6B /* atone.c in Sources */,
 				C4D09A971BC8933500A1823F /* AKVariableDelay.swift in Sources */,
+				C4E8FAAB1BD9C2C1004761A2 /* phasor.c in Sources */,
 				C4D09AA31BC8955600A1823F /* AKDistortionAudioUnit.mm in Sources */,
 				C46775E01BC798630027FD6B /* eqfil.c in Sources */,
 				C43FA3231BC1981B00EC6C85 /* moogladder.c in Sources */,
@@ -1226,6 +1257,7 @@
 				C4ECB3651BC4869200E09FA3 /* AKOperation.swift in Sources */,
 				C4D09A6C1BC87F6A00A1823F /* AKDCBlockAudioUnit.mm in Sources */,
 				C467755D1BC77BD00027FD6B /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
+				C4E8FAA81BD9C251004761A2 /* AKPhasorAudioUnit.mm in Sources */,
 				C46775C21BC78F2D0027FD6B /* AKThreePoleLowpassFilterAudioUnit.mm in Sources */,
 				C4D09AD71BC8D8C200A1823F /* AKClipperAudioUnit.mm in Sources */,
 				C46775781BC782070027FD6B /* AKBandPassButterworthFilterAudioUnit.mm in Sources */,
