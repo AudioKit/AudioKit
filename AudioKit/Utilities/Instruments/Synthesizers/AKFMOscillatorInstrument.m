@@ -28,7 +28,8 @@
         oscillator.modulationIndex      = note.modulationIndex;
         oscillator.amplitude            = note.amplitude;
 
-        [self setAudioOutput:[oscillator scaledBy:_amplitude]];
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[oscillator scaledBy:_amplitude]];
     }
     return self;
 }

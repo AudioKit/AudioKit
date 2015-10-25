@@ -20,7 +20,9 @@
         vco.amplitude = _amplitude;
         vco.frequency = note.frequency;
         vco.waveformType = note.waveformType;
-        [self setAudioOutput:vco];
+        
+        _output = [AKAudio globalParameter];
+        [self assignOutput:_output to:[vco scaledBy:_amplitude]];
     }
     return self;
 }

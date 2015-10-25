@@ -13,6 +13,9 @@
 
 // Instrument Properties
 @property AKInstrumentProperty *amplitude;
+// Audio outlet for global effects processing
+@property (readonly) AKAudio *output;
+
 @end
 
 @interface AKFMOscillatorNote : AKNote
