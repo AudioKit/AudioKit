@@ -339,7 +339,7 @@ static AKManager *_sharedManager = nil;
                                                           userInfo:@{@"message":[msg substringFromIndex:6]}];
     } 
 
-    if (_isLogging) {
+    if (_isLogging && [msg rangeOfString: @"clock"].location != 0) {
         if (AKSettings.shared.messagesEnabled) {
             NSLog(@"Csound(%d): %@", attr, msg);
         } else {
