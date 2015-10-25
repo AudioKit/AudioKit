@@ -11,6 +11,8 @@
 /// An instrument for the Voltage-controlled oscillator operation
 @interface AKVCOscillatorInstrument : AKInstrument
 @property AKInstrumentProperty *amplitude;
+// Audio outlet for global effects processing
+@property (readonly) AKAudio *output;
 @end
 
 
