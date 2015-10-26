@@ -6,7 +6,7 @@ operation: AKWhiteNoise
 
 summary: White noise generator
 
-four-letter-code:
+four-letter-code: wnoz
 
 one-word-description: noise
 
@@ -16,6 +16,10 @@ parameters:
 - amp: {
   ak-variable: amplitude,
   comment: "Amplitude. (Value between 0-1).",
-  default: 1.0
+  au-name: "Amplitude",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0.0,
+  maximum: 10.0
 }
 

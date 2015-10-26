@@ -44,3 +44,4 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKFMOscillatorAudioUnit.h>
 #import <AudioKit/AKOscillatorAudioUnit.h>
 #import <AudioKit/AKPhasorAudioUnit.h>
+#import <AudioKit/AKWhiteNoiseAudioUnit.h>
