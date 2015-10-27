@@ -48,6 +48,11 @@
 		C45552431ADEFD8A000C8D42 /* AK3DBinauralAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */; };
 		C45552481ADF152F000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
 		C45552491ADF155A000C8D42 /* AKRingModulator.m in Sources */ = {isa = PBXBuildFile; fileRef = C45552471ADF152F000C8D42 /* AKRingModulator.m */; };
+		C46EB5421BDEFB32008B1B0D /* AKCompressorExpander.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EB5401BDEFB32008B1B0D /* AKCompressorExpander.h */; };
+		C46EB5431BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB5411BDEFB32008B1B0D /* AKCompressorExpander.m */; };
+		C46EB5441BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB5411BDEFB32008B1B0D /* AKCompressorExpander.m */; };
+		C46EB5451BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB5411BDEFB32008B1B0D /* AKCompressorExpander.m */; };
+		C46EB5461BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */ = {isa = PBXBuildFile; fileRef = C46EB5411BDEFB32008B1B0D /* AKCompressorExpander.m */; };
 		C47F63781B2BF33600D6FFC8 /* AKSoundFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */; };
 		C47F63791B2BF33600D6FFC8 /* AKSoundFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */; };
 		C47F637A1B2BF33600D6FFC8 /* AKSoundFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */; };
@@ -909,6 +914,8 @@
 		C45552401ADEFD8A000C8D42 /* AK3DBinauralAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AK3DBinauralAudio.m; sourceTree = "<group>"; };
 		C45552461ADF152F000C8D42 /* AKRingModulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKRingModulator.h; sourceTree = "<group>"; };
 		C45552471ADF152F000C8D42 /* AKRingModulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKRingModulator.m; sourceTree = "<group>"; };
+		C46EB5401BDEFB32008B1B0D /* AKCompressorExpander.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCompressorExpander.h; sourceTree = "<group>"; };
+		C46EB5411BDEFB32008B1B0D /* AKCompressorExpander.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKCompressorExpander.m; sourceTree = "<group>"; };
 		C47F63751B2BF33600D6FFC8 /* AKSoundFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFont.h; path = "AudioKit/Sound Fonts/AKSoundFont.h"; sourceTree = SOURCE_ROOT; };
 		C47F63761B2BF33600D6FFC8 /* AKSoundFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKSoundFont.m; path = "AudioKit/Sound Fonts/AKSoundFont.m"; sourceTree = SOURCE_ROOT; };
 		C47F637B1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKSoundFontPresetPlayer.h; path = "AudioKit/Sound Fonts/AKSoundFontPresetPlayer.h"; sourceTree = SOURCE_ROOT; };
@@ -2084,6 +2091,8 @@
 			children = (
 				EA8E95321AD3C6840057E979 /* AKCompressor.h */,
 				EA8E95331AD3C6840057E979 /* AKCompressor.m */,
+				C46EB5401BDEFB32008B1B0D /* AKCompressorExpander.h */,
+				C46EB5411BDEFB32008B1B0D /* AKCompressorExpander.m */,
 				C4922BAB1B59D8DB0032EBE2 /* AKDistortion.h */,
 				C4922BAC1B59D8DB0032EBE2 /* AKDistortion.m */,
 				EA8E95341AD3C6840057E979 /* AKDopplerEffect.h */,
@@ -2331,6 +2340,7 @@
 				EACF8E971B55E6720089700B /* EZAudioFFT.h in Headers */,
 				C4A148271B5F05290054F090 /* AKMidiInput.h in Headers */,
 				EADE697F1B52687700996FE0 /* EZAudioFloatData.h in Headers */,
+				C46EB5421BDEFB32008B1B0D /* AKCompressorExpander.h in Headers */,
 				EA95E9F11AD5EC50007FC41F /* AKSettings.h in Headers */,
 				C4258E461B3FAF7100D91B3D /* AKPitchShifterPedal.h in Headers */,
 				EADE69831B52687700996FE0 /* EZAudioFloatConverter.h in Headers */,
@@ -2626,6 +2636,7 @@
 				C47F637E1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m in Sources */,
 				EA8E95C51AD3C6850057E979 /* AKAudioInputRollingWaveformPlot.m in Sources */,
 				EA8E95B11AD3C6850057E979 /* AKSampler.m in Sources */,
+				C46EB5431BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */,
 				EA8E96501AD3C6850057E979 /* AKEvent.m in Sources */,
 				EA8E95AA1AD3C6850057E979 /* AKInstrumentProperty.m in Sources */,
 				EA8E960B1AD3C6850057E979 /* AKVibes.m in Sources */,
@@ -2839,6 +2850,7 @@
 				EA8E96A51AD3C9640057E979 /* AKRandomDistributionTableGenerator.m in Sources */,
 				C47F63801B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m in Sources */,
 				EA8E968C1AD3C9090057E979 /* AKVCOscillatorInstrument.m in Sources */,
+				C46EB5451BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */,
 				EA8E968B1AD3C9090057E979 /* AKFMOscillatorInstrument.m in Sources */,
 				EA8E96781AD3C8790057E979 /* AKFSignal.m in Sources */,
 				EA8E96A21AD3C9640057E979 /* AKFourierSeriesTableGenerator.m in Sources */,
@@ -3043,6 +3055,7 @@
 				EA9364211BD865230005B849 /* AKStickInstrument.m in Sources */,
 				EA9364221BD865230005B849 /* AKTrackedFrequencyFromFSignal.m in Sources */,
 				EA9364231BD865230005B849 /* AKRingModulator.m in Sources */,
+				C46EB5461BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */,
 				EA9364241BD865230005B849 /* AKReverb.m in Sources */,
 				EA9364251BD865230005B849 /* AKAudioInput.m in Sources */,
 				EA9364261BD865230005B849 /* AKMoogLadder.m in Sources */,
@@ -3260,6 +3273,7 @@
 				C47F637F1B2BF7A100D6FFC8 /* AKSoundFontPresetPlayer.m in Sources */,
 				EAA0F5631AE71C8F007CD7C9 /* AKAudioInputRollingWaveformPlot.m in Sources */,
 				EAA0F5641AE71C8F007CD7C9 /* AKSampler.m in Sources */,
+				C46EB5441BDEFB32008B1B0D /* AKCompressorExpander.m in Sources */,
 				EAA0F5651AE71C8F007CD7C9 /* AKEvent.m in Sources */,
 				EAA0F5661AE71C8F007CD7C9 /* AKInstrumentProperty.m in Sources */,
 				EAA0F5671AE71C8F007CD7C9 /* AKVibes.m in Sources */,

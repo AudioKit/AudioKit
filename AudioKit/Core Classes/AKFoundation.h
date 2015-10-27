@@ -183,6 +183,7 @@
 
 // Operations - Signal Modifiers - Effects
 #import "AKCompressor.h"
+#import "AKCompressorExpander.h"
 #import "AKDistortion.h"
 #import "AKDopplerEffect.h"
 #import "AKFlanger.h"
