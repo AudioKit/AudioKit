@@ -13,21 +13,22 @@ class ViewController: UIViewController {
     
     let audiokit = AKManager.sharedInstance
     let input = AKMicrophone()
-    let osc   = AKOscillator()
     var delay:  AKAUDelay?
     var moog:   AKMoogLadder?
+    var bandPassFilter: AKBandPassButterworthFilter?
     var allpass: AKFlatFrequencyResponseReverb?
     var reverb: AKAUReverb?
+    var jcReverb: AKChowningReverb?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        delay   = AKAUDelay(osc)
+        delay   = AKAUDelay(input)
         moog    = AKMoogLadder(delay!)
-        allpass = AKFlatFrequencyResponseReverb(moog!, loopDuration: 0.1)
+        allpass = AKFlatFrequencyResponseReverb(moog!)//, loopDuration: 0.1)
         reverb  = AKAUReverb(allpass!)
-        if let reverb = reverb { reverb.loadFactoryPreset(.Plate) }
-        audiokit.audioOutput = reverb!
+        if let reverb = reverb { reverb.loadFactoryPreset(.Cathedral) }
+        audiokit.audioOutput = reverb
         audiokit.start()
     }
     
@@ -44,18 +45,13 @@ class ViewController: UIViewController {
     }
     @IBAction func changeResonance(sender: UISlider) {
         guard let moog = moog else { return }
-        moog.resonance = sender.value * 100.0
+        moog.resonance = sender.value * 0.98
     }
     @IBAction func changeReverbDuration(sender: UISlider) {
         guard let allpass = allpass else { return }
         allpass.reverbDuration = sender.value * 5.0
     }
-    @IBAction func changeFrequency(sender: UISlider) {
-        osc.frequency = sender.value * 1000.0
-    }
-    @IBAction func changeAmplitude(sender: UISlider) {
-        osc.amplitude = sender.value * 100.0
-    }
+
 
 }
 
