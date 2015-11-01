@@ -1,6 +1,6 @@
 {
     "name": "AudioKit",
-    "version": "2.2",
+    "version": "2.3",
     "authors": {
         "Aurelius Prochazka": "audiokit@audiokit.io"
     },
@@ -10,7 +10,7 @@
     "homepage": "http://audiokit.io/",
     "source": {
         "git": "https://github.com/audiokit/AudioKit.git",
-        "tag": "v2.2-08-23-2015"
+        "tag": "v2.3-10-31-2015"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "source_files": [
