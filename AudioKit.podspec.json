@@ -10,7 +10,7 @@
     "homepage": "http://audiokit.io/",
     "source": {
         "git": "https://github.com/audiokit/AudioKit.git",
-        "tag": "v2.3-10-31-2015"
+	"tag": "v2.3-10-31-2015"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "source_files": [
@@ -28,7 +28,8 @@
     ],
     "platforms": {
         "osx": "10.10",
-        "ios": "8.0"
+        "ios": "8.0",
+	"tvos": "9.0"
     },
     "public_header_files": [
         "AudioKit/Core\ Classes/**/*.h",
@@ -60,5 +61,20 @@
             "AudioKit/Platforms/iOS/libs/libcsound.a",
             "AudioKit/Platforms/iOS/libs/libsndfile.a"
         ]
+    },
+    "tvos": {
+	"exclude_files": [
+		"AudioKit/Core Classes/MIDI/AKMidi.m",
+		"AudioKit/Core Classes/MIDI/AKMidiEvent.m",
+		"AudioKit/Utilities/User Interface Elements/AKPropertySlider.m"
+	],
+	"frameworks": [
+	     "CsoundLib",
+	     "libsndfile"
+	],
+	"vendored_frameworks": [
+	    "AudioKit/Platforms/tvOS/CsoundLib.framework",
+	    "AudioKit/Platforms/tvOS/libsndfile.framework"
+	]
     }
 }
