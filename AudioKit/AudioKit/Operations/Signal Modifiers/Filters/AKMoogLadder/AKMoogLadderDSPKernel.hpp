@@ -13,8 +13,7 @@
 #import "AKParameterRamper.hpp"
 
 extern "C" {
-#include "base.h"
-#include "moogladder.h"
+#include "soundpipe.h"
 }
 
 enum {
