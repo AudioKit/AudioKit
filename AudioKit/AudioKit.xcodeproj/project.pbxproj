@@ -209,6 +209,8 @@
 		C4FD548A1BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4FD54861BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4FD548B1BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4FD54871BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterAudioUnit.mm */; };
 		C4FD548C1BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4FD54881BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp */; };
+		FEA69F4B1BE3E35500C34F6D /* AKAUReverb2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA69F4A1BE3E35500C34F6D /* AKAUReverb2.swift */; };
+		FEA69F4E1BE4434700C34F6D /* AKAUPeakLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA69F4D1BE4434700C34F6D /* AKAUPeakLimiter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -416,6 +418,8 @@
 		C4FD54861BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHighShelfParametricEqualizerFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4FD54871BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKHighShelfParametricEqualizerFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C4FD54881BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKHighShelfParametricEqualizerFilterDSPKernel.hpp; sourceTree = "<group>"; };
+		FEA69F4A1BE3E35500C34F6D /* AKAUReverb2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUReverb2.swift; sourceTree = "<group>"; };
+		FEA69F4D1BE4434700C34F6D /* AKAUPeakLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAUPeakLimiter.swift; path = Dynamics/AKAUPeakLimiter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -501,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				C46775A81BC78A9F0027FD6B /* AKAUReverb.swift */,
+				FEA69F4A1BE3E35500C34F6D /* AKAUReverb2.swift */,
 				C46775C41BC78FCF0027FD6B /* AKChowningReverb */,
 				C46775561BC77BD00027FD6B /* AKFlatFrequencyResponseReverb */,
 			);
@@ -860,6 +865,7 @@
 		C4D0B9081BC6FB15007DE0BC /* Signal Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				FEA69F4C1BE4432100C34F6D /* Dynamics */,
 				C46775A31BC78A4F0027FD6B /* Delays */,
 				C4D09A9B1BC8955600A1823F /* Effects */,
 				C4D0B9091BC6FB15007DE0BC /* Filters */,
@@ -1029,6 +1035,14 @@
 				C4FD54881BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp */,
 			);
 			path = AKHighShelfParametricEqualizerFilter;
+			sourceTree = "<group>";
+		};
+		FEA69F4C1BE4432100C34F6D /* Dynamics */ = {
+			isa = PBXGroup;
+			children = (
+				FEA69F4D1BE4434700C34F6D /* AKAUPeakLimiter.swift */,
+			);
+			name = Dynamics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1216,6 +1230,7 @@
 				C4D09A621BC87E2F00A1823F /* comb.c in Sources */,
 				C467759F1BC7897B0027FD6B /* AKLowPassButterworthFilter.swift in Sources */,
 				C46EB53A1BDEDDD4008B1B0D /* AKWhiteNoiseAudioUnit.mm in Sources */,
+				FEA69F4E1BE4434700C34F6D /* AKAUPeakLimiter.swift in Sources */,
 				C467759D1BC7897B0027FD6B /* AKHighPassButterworthFilterAudioUnit.mm in Sources */,
 				C4D09ACE1BC8BAAF00A1823F /* AKStringResonatorAudioUnit.mm in Sources */,
 				C4FD54891BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilter.swift in Sources */,
@@ -1238,6 +1253,7 @@
 				C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */,
 				C46775B61BC78DB70027FD6B /* tone.c in Sources */,
 				C467755B1BC77BD00027FD6B /* AKFlatFrequencyResponseReverb.swift in Sources */,
+				FEA69F4B1BE3E35500C34F6D /* AKAUReverb2.swift in Sources */,
 				C43FA3221BC1981B00EC6C85 /* base.c in Sources */,
 				C467756B1BC77D8D0027FD6B /* atone.c in Sources */,
 				C4D09A971BC8933500A1823F /* AKVariableDelay.swift in Sources */,
