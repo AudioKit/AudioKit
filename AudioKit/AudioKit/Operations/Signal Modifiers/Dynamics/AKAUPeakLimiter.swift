@@ -41,7 +41,7 @@ public class AKAUPeakLimiter: AKOperation {
     /** LimitingAmount - Range is from 0 through 20. Default value is 0. */
     public var limitingAmount:Float = 0 {
         didSet {
-            AudioUnitSetParameter(internalAU, 1000, kAudioUnitScope_Global, 0, pregain, 0)
+            AudioUnitSetParameter(internalAU, 1000, kAudioUnitScope_Global, 0, limitingAmount, 0)
         }
     }//pregain
     
