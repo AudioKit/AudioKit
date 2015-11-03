@@ -229,7 +229,7 @@ public class AKAUDistortion: AKOperation {
         }
     }
     
-    /** Initialize the reverb operation */
+    /** Initialize the effect operation */
     public init(_ input: AKOperation) {
         super.init()
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
