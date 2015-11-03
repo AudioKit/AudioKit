@@ -1,0 +1,16 @@
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    private var <%= data["ak-variable"] %>Parameter:<%= ak_pad(data["ak-variable"]) %> AUParameter?
+<% end -%>
+<% end -%>
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    /** <%= data["comment"] %> */
+    public var <%= data["ak-variable"] %>: Float = <%= data["default"] %> {
+        didSet {
+            <%= data["ak-variable"] %>Parameter?.setValue(<%= data["ak-variable"] %>, originator: token!)
+        }
+    }
+<% end -%>
+<% end -%>
