@@ -1,0 +1,93 @@
+- name: Core Classes
+  children:
+  - AKManager
+  - AKInstrument
+  - AKParameter
+  - AKParameterLabel
+  - AKParameterSlider
+  - AKTable
+  - AKTester
+
+- name: Math
+  children:
+  - AKAbsoluteValue
+  - AKDifference
+  - AKDivision
+  - AKFloor
+  - AKFractionalPart
+  - AKInverse
+  - AKLinearTransformation
+  - AKLog
+  - AKLog10
+  - AKLog2
+  - AKProduct
+  - AKRound
+  - AKSquareRoot
+  - AKSum
+
+- name: Musical Controls
+  children:
+  - AKMetronome
+  - AKPortamento
+
+- name: Oscillators
+  children:
+  - AKFMOscillator
+  - AKOscillator
+  - AKPhasor
+
+- name: Physical Models
+  children:
+  - AKDroplet
+
+- name: Random Generators
+  children:
+  - AKInterpolatedRandomNumberPulse
+  - AKJitter
+  - AKRandomNumbers
+
+- name: Signal Input and Output
+  children:
+  - AKAudioOutput
+
+- name: Delays
+  children:
+  - AKDelay
+  - AKVariableDelay
+
+- name: Effects
+  children:
+  - AKBackmask
+  - AKDistortion
+
+- name: Filters
+  children:
+  - AKCombFilter
+  - AKDCBlock
+  - AKDecimator
+  - AKEqualizerFilter
+  - AKHighPassFilter
+  - AKLowPassFilter
+  - AKModalResonanceFilter
+  - AKMoogLadder
+  - AKStringResonator
+  - AKThreePoleLowpassFilter
+
+- name: Butterworth Filters
+  children:
+  - AKBandPassButterworthFilter
+  - AKBandRejectButterworthFilter
+  - AKHighPassButterworthFilter
+  - AKLowPassButterworthFilter
+
+- name: Reverbs
+  children:
+  - AKChowningReverb
+  - AKFlatFrequencyResponseReverb
+  - AKReverb
+
+- name: Volume and Spatialization
+  children:
+  - AKBalance
+  - AKPanner
+
