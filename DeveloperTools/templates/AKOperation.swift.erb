@@ -1,0 +1,26 @@
+<%= header_partial %>
+
+/** <%= description %> */
+public class <%= operation %>: AKOperation {
+
+    // MARK: - Properties
+
+    private var internalAU: <%= operation %>AudioUnit?
+    private var token: AUParameterObserverToken?
+
+<%= parameters_partial -%>
+
+    // MARK: - Initializers
+
+    /** Initialize this <%= one_word_desc %> operation */
+    public init(_ input: AKOperation) {
+        super.init()
+
+<%= description_partial %>
+
+<%= audio_unit_setup_partial %>
+
+<%= parameter_observation_partial %>
+
+    }
+}

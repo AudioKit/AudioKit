@@ -1,0 +1,38 @@
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    // Create a parameter object for the <%= data["ak-variable"] %>.
+    AUParameter *<%= data["ak-variable"] %>AUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"<%= data["ak-variable"] %>"
+                                              name:@"<%= data["au-name"] %>"
+                                           address:<%= data["ak-variable"] %>Address
+                                               min:<%= data["minimum"] %>
+                                               max:<%= data["maximum"] %>
+                                              unit:kAudioUnitParameterUnit_<%= data["au-unit"] %>
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
+<% end -%>
+<% end -%>
+
+    // Initialize the parameter values.
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    <%= data["ak-variable"] %>AUParameter.value = <%= data["default"] %>;
+<% end -%>
+<% end -%>
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    _kernel.setParameter(<%= data["ak-variable"] %>Address, <%= ak_pad(data["ak-variable"]) %><%= data["ak-variable"] %>AUParameter.value);
+<% end -%>
+<% end -%>
+
+    // Create the parameter tree.
+    _parameterTree = [AUParameterTree createTreeWithChildren:@[
+<% parameters.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        <%= data["ak-variable"] %>AUParameter<%= "," if i < parameters.count - 1 %>
+<% end -%>
+<% end -%>
+    ]];
