@@ -13,10 +13,10 @@ import AVFoundation
 public class AKAUReverb: AKOperation {
     private let reverbAU = AVAudioUnitReverb()
     
-    /** Dry/Wet Mix (Default 50) */
-    public var dryWetMix:Float = 50.0 {
+    /** Wet/Dry Mix (Default 50) */
+    public var wetDryMix:Float = 50.0 {
         didSet {
-            reverbAU.wetDryMix = dryWetMix
+            reverbAU.wetDryMix = wetDryMix
         }
     }
     
