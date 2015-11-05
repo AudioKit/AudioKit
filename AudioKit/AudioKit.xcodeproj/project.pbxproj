@@ -157,6 +157,8 @@
 		C4D0B9111BC6FB15007DE0BC /* AKMoogLadderAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D0B90D1BC6FB15007DE0BC /* AKMoogLadderAudioUnit.mm */; };
 		C4D0B9121BC6FB15007DE0BC /* AKMoogLadderDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D0B90E1BC6FB15007DE0BC /* AKMoogLadderDSPKernel.hpp */; };
 		C4E6CE3A1BEB54CB001EB7F3 /* AKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E6CE391BEB54CB001EB7F3 /* AKAudioPlayer.swift */; };
+		C4E6CE3F1BEB5700001EB7F3 /* 808loop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4E6CE3D1BEB5700001EB7F3 /* 808loop.wav */; };
+		C4E6CE401BEB5700001EB7F3 /* PianoBassDrumLoop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4E6CE3E1BEB5700001EB7F3 /* PianoBassDrumLoop.wav */; };
 		C4E8FA901BD9B0D4004761A2 /* AKOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8FA8C1BD9B0D4004761A2 /* AKOscillator.swift */; };
 		C4E8FA911BD9B0D4004761A2 /* AKOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8FA8D1BD9B0D4004761A2 /* AKOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E8FA921BD9B0D4004761A2 /* AKOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E8FA8E1BD9B0D4004761A2 /* AKOscillatorAudioUnit.mm */; };
@@ -348,6 +350,8 @@
 		C4D0B90D1BC6FB15007DE0BC /* AKMoogLadderAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMoogLadderAudioUnit.mm; sourceTree = "<group>"; };
 		C4D0B90E1BC6FB15007DE0BC /* AKMoogLadderDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKMoogLadderDSPKernel.hpp; sourceTree = "<group>"; };
 		C4E6CE391BEB54CB001EB7F3 /* AKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioPlayer.swift; sourceTree = "<group>"; };
+		C4E6CE3D1BEB5700001EB7F3 /* 808loop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 808loop.wav; sourceTree = "<group>"; };
+		C4E6CE3E1BEB5700001EB7F3 /* PianoBassDrumLoop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PianoBassDrumLoop.wav; sourceTree = "<group>"; };
 		C4E8FA8C1BD9B0D4004761A2 /* AKOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillator.swift; sourceTree = "<group>"; };
 		C4E8FA8D1BD9B0D4004761A2 /* AKOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C4E8FA8E1BD9B0D4004761A2 /* AKOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -438,6 +442,7 @@
 				C4BF47D61BC1D23D0072FBAC /* AKManager.swift */,
 				C4ECB34B1BC4869200E09FA3 /* Operations */,
 				C43FA30D1BC197C100EC6C85 /* Internals */,
+				C4E6CE3C1BEB5700001EB7F3 /* Sounds */,
 				C43FA3001BC1961D00EC6C85 /* AudioKit.h */,
 				C43FA3021BC1961D00EC6C85 /* Info.plist */,
 			);
@@ -871,6 +876,15 @@
 			path = AKMoogLadder;
 			sourceTree = "<group>";
 		};
+		C4E6CE3C1BEB5700001EB7F3 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				C4E6CE3D1BEB5700001EB7F3 /* 808loop.wav */,
+				C4E6CE3E1BEB5700001EB7F3 /* PianoBassDrumLoop.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		C4E8FA801BD9ABE5004761A2 /* Signal Generators */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,6 +1161,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C469274E1BE49129007B54F6 /* LICENSE.txt in Resources */,
+				C4E6CE3F1BEB5700001EB7F3 /* 808loop.wav in Resources */,
+				C4E6CE401BEB5700001EB7F3 /* PianoBassDrumLoop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
