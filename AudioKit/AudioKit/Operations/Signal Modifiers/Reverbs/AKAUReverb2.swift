@@ -8,6 +8,8 @@
 
 import AVFoundation
 
+#if os(iOS)
+
 /** AudioKit version of Apple's Reverb2 Audio Unit */
 public class AKAUReverb2: AKOperation {
     
@@ -122,3 +124,5 @@ public class AKAUReverb2: AKOperation {
         internalAU = internalEffect.audioUnit
     }
 }
+
+#endif
