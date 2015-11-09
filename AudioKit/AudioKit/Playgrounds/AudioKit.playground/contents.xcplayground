@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='osx' display-mode='raw'>
+    <pages>
+        <page name='Intro'/>
+        <page name='AKAUDelay'/>
+        <page name='AKAUPeakLimiter'/>
+        <page name='AKAUTimePitch'/>
+        <page name='AKStringResonator'/>
+    </pages>
+</playground>
