@@ -18,6 +18,8 @@
 	<false/>
 	<key>Prefix Csound Messages</key>
 	<false/>
+	<key>Maximum Time To Wait For Csound To Start</key>
+	<real>1</real>
 	<key>Enable Audio Input By Default</key>
 	<false/>
 	<key>Playback While Muted</key>

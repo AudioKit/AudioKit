@@ -34,6 +34,7 @@ static AKSettings *_settings = nil;
         _numberOfChannels = 2;
         _zeroDBFullScaleValue = 1.0;
         _loggingEnabled = NO;
+        _maximumWaitTime = 1.0;
         _messagesEnabled = NO;
         _audioInputEnabled = NO;
         _playbackWhileMuted = NO;
@@ -61,6 +62,8 @@ static AKSettings *_settings = nil;
                 _audioInputEnabled = [dict[@"Enable Audio Input By Default"] boolValue];
             if (dict[@"Prefix Csound Messages"])
                 _messagesEnabled = [dict[@"Prefix Csound Messages"] boolValue];
+            if (dict[@"Maximum Time To Wait For Csound To Start"])
+                _maximumWaitTime = [dict[@"Maximum Time To Wait For Csound To Start"] floatValue];
             if (dict[@"Playback While Muted"])
                 _playbackWhileMuted = [dict[@"Playback While Muted"] boolValue];
             if (dict[@"MIDI Enabled"])
