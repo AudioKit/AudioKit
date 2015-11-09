@@ -5,6 +5,5 @@
         <page name='AKAUDelay'/>
         <page name='AKAUPeakLimiter'/>
         <page name='AKAUTimePitch'/>
-        <page name='AKStringResonator'/>
     </pages>
 </playground>
