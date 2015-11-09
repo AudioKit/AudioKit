@@ -214,12 +214,12 @@ static AKManager *_sharedManager = nil;
     [self.engine play:_csdFile];
     if (_isLogging) NSLog(@"Starting \n\n%@\n", [AKManager stringFromFile:_csdFile]);
     
-    // Pause to allow Csound to start, warn if nothing happens after 1 second
+    // Pause to allow Csound to start, warn if nothing happens after allotted time
     int cycles = 0;
     while(!_isRunning) {
         cycles++;
-        if (cycles > 100) {
-            if (_isLogging) NSLog(@"Csound has not started in 1 second.");
+        if (cycles > 100 * AKSettings.shared.maximumWaitTime) {
+            NSLog(@"Csound has not started in %0.1f seconds.", AKSettings.shared.maximumWaitTime);
             break;
         }
         [NSThread sleepForTimeInterval:0.01];
