@@ -14,30 +14,30 @@ public class AKAUDelay: AKOperation {
     private let delayAU = AVAudioUnitDelay()
     
     /** Delay time in seconds (Default: 1) */
-    public var delayTime:NSTimeInterval = 1 {
+    public var time: NSTimeInterval = 1 {
         didSet {
-            delayAU.delayTime = delayTime
+            delayAU.delayTime = time
         }
     }
     
     /** Feedback as a percentage (Default: 50) */
-    public var feedback:Float = 50.0 {
+    public var feedback: Float = 50.0 {
         didSet {
             delayAU.feedback = feedback
         }
     }
     
     /** Low pass cut-off frequency in Hertz (Default: 15000) */
-    public var lowPassCutoff:Float = 15000.00 {
+    public var lowPassCutoff: Float = 15000.00 {
         didSet {
             delayAU.lowPassCutoff = lowPassCutoff
         }
     }
     
-    /** Wet/Dry Mix (Default 50) */
-    public var wetDryMix:Float = 50.0 {
+    /** Dry/Wet Mix (Default 50) */
+    public var dryWetMix: Float = 50.0 {
         didSet {
-            delayAU.wetDryMix = wetDryMix
+            delayAU.wetDryMix = dryWetMix
         }
     }
     
