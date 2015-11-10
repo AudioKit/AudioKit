@@ -16,6 +16,9 @@ public class AKAUDelay: AKOperation {
     /** Delay time in seconds (Default: 1) */
     public var time: NSTimeInterval = 1 {
         didSet {
+            if time < 0 {
+                time = 0
+            }
             delayAU.delayTime = time
         }
     }
@@ -23,6 +26,12 @@ public class AKAUDelay: AKOperation {
     /** Feedback as a percentage (Default: 50) */
     public var feedback: Float = 50.0 {
         didSet {
+            if feedback < 0 {
+                feedback = 0
+            }
+            if feedback > 100 {
+                feedback = 100
+            }
             delayAU.feedback = feedback
         }
     }
@@ -37,6 +46,12 @@ public class AKAUDelay: AKOperation {
     /** Dry/Wet Mix (Default 50) */
     public var dryWetMix: Float = 50.0 {
         didSet {
+            if dryWetMix < 0 {
+                dryWetMix = 0
+            }
+            if dryWetMix > 100 {
+                dryWetMix = 100
+            }
             delayAU.wetDryMix = dryWetMix
         }
     }
