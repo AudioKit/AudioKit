@@ -35,7 +35,13 @@ public class AKBandPassButterworthFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        centerFrequency: Float = 2000,
+        bandwidth: Float = 100)
+    {
+        self.centerFrequency = centerFrequency
+        self.bandwidth = bandwidth
         super.init()
 
         var description = AudioComponentDescription()

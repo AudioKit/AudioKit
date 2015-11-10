@@ -28,7 +28,11 @@ public class AKCombFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        reverbDuration: Float = 1.0)
+    {
+        self.reverbDuration = reverbDuration
         super.init()
 
         var description = AudioComponentDescription()

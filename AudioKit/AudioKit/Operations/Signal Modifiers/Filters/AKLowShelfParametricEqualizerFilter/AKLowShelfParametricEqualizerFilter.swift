@@ -42,7 +42,15 @@ public class AKLowShelfParametricEqualizerFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this equalizer operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        cornerFrequency: Float = 1000,
+        gain: Float = 1.0,
+        q: Float = 0.707)
+    {
+        self.cornerFrequency = cornerFrequency
+        self.gain = gain
+        self.q = q
         super.init()
 
         var description = AudioComponentDescription()
