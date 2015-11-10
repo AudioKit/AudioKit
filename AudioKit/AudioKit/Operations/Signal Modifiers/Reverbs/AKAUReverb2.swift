@@ -21,7 +21,7 @@ public class AKAUReverb2: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100) */
     public var dryWetMix: Float = 100 {

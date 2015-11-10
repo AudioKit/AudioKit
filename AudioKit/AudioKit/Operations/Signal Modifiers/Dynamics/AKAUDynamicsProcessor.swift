@@ -19,7 +19,7 @@ public class AKAUDynamicsProcessor: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Threshold (dB) ranges from -40 to 20 (Default: -20) */
     public var threshold: Float = -20 {

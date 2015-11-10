@@ -19,7 +19,7 @@ public class AKAUDecimator: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Decimation (Percent) ranges from 0 to 100 (Default: 50) */
     public var decimation: Float = 50 {

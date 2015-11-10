@@ -19,7 +19,7 @@ public class AKAUDistortion: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1) */
     public var delay: Float = 0.1 {

@@ -19,7 +19,7 @@ public class AKAU<%= au_name %>: AKOperation {
         componentFlagsMask: 0)
 
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
 
 <% parameters.each do |parameter| -%>
     /** <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>) */
