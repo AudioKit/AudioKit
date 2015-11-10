@@ -60,9 +60,18 @@ public class AKAUPeakLimiter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the peak limiter operation */
+    public init(
+        _ input: AKOperation,
+        attackTime: Float = 0.012,
+        decayTime: Float = 0.024,
+        preGain: Float = 0)
+    {
+        self.attackTime = attackTime
+        self.decayTime = decayTime
+        self.preGain = preGain
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

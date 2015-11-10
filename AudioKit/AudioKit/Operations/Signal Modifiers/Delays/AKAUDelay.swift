@@ -57,11 +57,17 @@ public class AKAUDelay: AKOperation {
     }
     
     /** Initialize the delay operation */
-    public init(_ input: AKOperation, time t: Float = 1, feedback fdbk: Float = 50, lowPassCutoff lpc: Float = 15000, dryWetMix mix: Float = 50) {
-        time = NSTimeInterval(Double(t))
-        feedback = fdbk
-        lowPassCutoff = lpc
-        dryWetMix = mix
+    public init(
+        _ input: AKOperation,
+        time: Float = 1,
+        feedback: Float = 50,
+        lowPassCutoff: Float = 15000,
+        dryWetMix: Float = 50)
+    {
+        self.time = NSTimeInterval(Double(time))
+        self.feedback = feedback
+        self.lowPassCutoff = lowPassCutoff
+        self.dryWetMix = dryWetMix
         
         super.init()
         output = delayAU

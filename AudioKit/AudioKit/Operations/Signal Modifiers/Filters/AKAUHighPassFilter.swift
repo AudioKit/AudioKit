@@ -47,9 +47,16 @@ public class AKAUHighPassFilter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the high pass filter operation */
+    public init(
+        _ input: AKOperation,
+        cutoffFrequency: Float = 6900,
+        resonance: Float = 0)
+    {
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

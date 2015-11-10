@@ -62,8 +62,17 @@ public class AKAUDecimator: AKOperation {
     }
     
     /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        decimation: Float = 50,
+        rounding: Float = 0,
+        mix: Float = 50)
+    {
+        self.decimation = decimation
+        self.rounding = rounding
+        self.mix = mix
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

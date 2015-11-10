@@ -61,9 +61,18 @@ public class AKAUParametricEQ: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the parametric eq operation */
+    public init(
+        _ input: AKOperation,
+        centerFrequency: Float = 2000,
+        q: Float = 1.0,
+        gain: Float = 0)
+    {
+        self.centerFrequency = centerFrequency
+        self.q = q
+        self.gain = gain
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

@@ -114,9 +114,26 @@ public class AKAUReverb2: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the reverb2 operation */
+    public init(
+        _ input: AKOperation,
+        dryWetMix: Float = 100,
+        gain: Float = 0,
+        minDelayTime: Float = 0.008,
+        maxDelayTime: Float = 0.050,
+        decayTimeAt0Hz: Float = 1.0,
+        decayTimeAtNyquist: Float = 0.5,
+        randomizeReflections: Float = 1)
+    {
+        self.dryWetMix = dryWetMix
+        self.gain = gain
+        self.minDelayTime = minDelayTime
+        self.maxDelayTime = maxDelayTime
+        self.decayTimeAt0Hz = decayTimeAt0Hz
+        self.decayTimeAtNyquist = decayTimeAtNyquist
+        self.randomizeReflections = randomizeReflections
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

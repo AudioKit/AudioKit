@@ -47,9 +47,16 @@ public class AKAUHighShelfFilter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the high shelf filter operation */
+    public init(
+        _ input: AKOperation,
+        cutOffFrequency: Float = 10000,
+        gain: Float = 0)
+    {
+        self.cutOffFrequency = cutOffFrequency
+        self.gain = gain
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

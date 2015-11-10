@@ -151,9 +151,32 @@ public class AKAUDynamicsProcessor: AKOperation {
         }
     }
     
-    /** Initialize the reverb operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the dynamics processor operation */
+    public init(
+        _ input: AKOperation,
+        threshold: Float = -20,
+        headRoom: Float = 5,
+        expansionRatio: Float = 2,
+        expansionThreshold: Float = 2,
+        attackTime: Float = 0.001,
+        releaseTime: Float = 0.05,
+        masterGain: Float = 0,
+        compressionAmount: Float = 0,
+        inputAmplitude: Float = 0,
+        outputAmplitude: Float = 0)
+    {
+        self.threshold = threshold
+        self.headRoom = headRoom
+        self.expansionRatio = expansionRatio
+        self.expansionThreshold = expansionThreshold
+        self.attackTime = attackTime
+        self.releaseTime = releaseTime
+        self.masterGain = masterGain
+        self.compressionAmount = compressionAmount
+        self.inputAmplitude = inputAmplitude
+        self.outputAmplitude = outputAmplitude
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

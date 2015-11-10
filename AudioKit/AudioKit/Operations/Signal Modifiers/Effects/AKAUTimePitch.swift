@@ -73,9 +73,20 @@ public class AKAUTimePitch: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the time pitch operation */
+    public init(
+        _ input: AKOperation,
+        rate: Float = 1.0,
+        pitch: Float = 1.0,
+        overlap: Float = 8.0,
+        enablePeakLocking: Float = 1)
+    {
+        self.rate = rate
+        self.pitch = pitch
+        self.overlap = overlap
+        self.enablePeakLocking = enablePeakLocking
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)
