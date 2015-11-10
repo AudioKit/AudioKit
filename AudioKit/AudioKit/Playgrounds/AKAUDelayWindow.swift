@@ -15,28 +15,32 @@ public class AKDelayWindow: NSWindow {
     let windowWidth = 400
     let padding = 30
     let sliderHeight = 20
-    let numberOfComponents = 3
+    let numberOfComponents = 4
     
-    public let timeSlider:      NSSlider
-    public let feedbackSlider:  NSSlider
-    public let dryWetMixSlider: NSSlider
+    public let timeSlider:          NSSlider
+    public let feedbackSlider:      NSSlider
+    public let lowPassCutoffSlider: NSSlider
+    public let dryWetMixSlider:     NSSlider
     
-    let timeTextField:      NSTextField
-    let feedbackTextField:  NSTextField
-    let dryWetMixTextField: NSTextField
+    let timeTextField:          NSTextField
+    let feedbackTextField:      NSTextField
+    let lowPassCutoffTextField: NSTextField
+    let dryWetMixTextField:     NSTextField
     
     var delay: AKAUDelay
     
     public init(_ control: AKAUDelay) {
         delay = control
         let sliderWidth = windowWidth - 2 * padding
-        timeSlider      = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        feedbackSlider  = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        dryWetMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        timeSlider          = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        feedbackSlider      = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        lowPassCutoffSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        dryWetMixSlider     = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
      
-        timeTextField      = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        feedbackTextField  = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        dryWetMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        timeTextField          = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        feedbackTextField      = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        lowPassCutoffTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        dryWetMixTextField     = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -97,11 +101,26 @@ public class AKDelayWindow: NSWindow {
         feedbackSlider.frame.origin.y = feedbackTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(feedbackSlider)
         
+        lowPassCutoffTextField.stringValue = "Low Pass Cutoff: \(delay.lowPassCutoff) Hz"
+        lowPassCutoffTextField.editable = false
+        lowPassCutoffTextField.drawsBackground = false
+        lowPassCutoffTextField.bezeled = false
+        lowPassCutoffTextField.frame.origin.y = feedbackSlider.frame.origin.y - 2 * CGFloat(sliderHeight)
+        view.addSubview(lowPassCutoffTextField)
+        
+        lowPassCutoffSlider.target = self
+        lowPassCutoffSlider.action = "updateLowPassCutoff"
+        lowPassCutoffSlider.minValue = 0
+        lowPassCutoffSlider.maxValue = 20000
+        lowPassCutoffSlider.floatValue = delay.lowPassCutoff
+        lowPassCutoffSlider.frame.origin.y = lowPassCutoffTextField.frame.origin.y - CGFloat(sliderHeight)
+        view.addSubview(lowPassCutoffSlider)
+        
         dryWetMixTextField.stringValue = "Dry/Wet Mix: \(delay.dryWetMix)%"
         dryWetMixTextField.editable = false
         dryWetMixTextField.drawsBackground = false
         dryWetMixTextField.bezeled = false
-        dryWetMixTextField.frame.origin.y = feedbackSlider.frame.origin.y - 2 * CGFloat(sliderHeight)
+        dryWetMixTextField.frame.origin.y = lowPassCutoffSlider.frame.origin.y - 2 * CGFloat(sliderHeight)
         view.addSubview(dryWetMixTextField)
         
         dryWetMixSlider.target = self
@@ -124,6 +143,11 @@ public class AKDelayWindow: NSWindow {
     internal func updateFeedback() {
         delay.feedback = feedbackSlider.floatValue
         feedbackTextField.stringValue = "Feedback: \(String(format: "%0.1f", delay.feedback))%"
+    }
+    
+    internal func updateLowPassCutoff() {
+        delay.lowPassCutoff = lowPassCutoffSlider.floatValue
+        lowPassCutoffTextField.stringValue = "Low Pass Cutoff: \(String(format: "%0.0f", delay.lowPassCutoff)) Hz"
     }
     
     internal func updateDryWetMix() {
