@@ -47,7 +47,7 @@ File.open( swift_file ).each do |line|
         k_prefix = regex.match(line).captures[0]
         name     = regex.match(line).captures[1]
 
-        puts parameters
+        # puts parameters
         parameters.push({
             :k_prefix => k_prefix,
             :name => name,
@@ -62,7 +62,7 @@ File.open( swift_file ).each do |line|
 
 end
 
-puts parameters
+# puts parameters
 
 File.open("templates/AKAUOperation.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
