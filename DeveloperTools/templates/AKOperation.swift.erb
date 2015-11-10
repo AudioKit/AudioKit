@@ -13,7 +13,17 @@ public class <%= operation %>: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this <%= one_word_desc %> operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+<% parameters.each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        <%= data["ak-variable"] %>: Float = <%= data["default"] %><%= ",\n" if i < parameters.count - 1 %><% end %><% end %>)
+    {
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        self.<%= data["ak-variable"] %> = <%= data["ak-variable"] %>
+<% end -%>
+<% end -%>
         super.init()
 
 <%= description_partial %>
