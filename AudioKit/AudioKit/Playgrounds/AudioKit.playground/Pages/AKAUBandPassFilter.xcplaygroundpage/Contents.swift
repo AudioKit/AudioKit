@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKAUTimePitch
-//: ### Add description
+//: ## AKAUBandPassFilter
+//: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
 import XCPlayground
 import AudioKit
 
@@ -16,24 +16,22 @@ let mic = AKMicrophone()
 let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 let playerWindow: AKAudioPlayerWindow
-let timePitch: AKAUTimePitch
+let bandPassFilter: AKAUBandPassFilter
 
 switch (source) {
 case "mic":
-    timePitch = AKAUTimePitch(mic)
+    bandPassFilter = AKAUBandPassFilter(mic)
 default:
-    timePitch = AKAUTimePitch(player)
+    bandPassFilter = AKAUBandPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
 //: Set the parameters of the Peak Limiter here
-timePitch.rate = 1.0 // rate
-timePitch.pitch = 1.0 // Cents
-timePitch.overlap = 8.0 // generic
-timePitch.enablePeakLocking = 1 // Boolean
+bandPassFilter.centerFrequency = 5000 // Hz
+bandPassFilter.bandwidth = 600  // Cents
 
-var timePitchWindow = AKAUTimePitchWindow(timePitch)
+var bandPassFilterWindow = AKAUBandPassFilterWindow(bandPassFilter)
 
-audiokit.audioOutput = timePitch
+audiokit.audioOutput = bandPassFilter
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
