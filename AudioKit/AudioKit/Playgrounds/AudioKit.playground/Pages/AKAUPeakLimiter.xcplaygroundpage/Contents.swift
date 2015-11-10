@@ -30,6 +30,8 @@ peakLimiter.attackTime = 0.001 // seconds
 peakLimiter.decayTime  = 0.01  // seconds
 peakLimiter.preGain    = 10 // dB (-40 to 40)
 
+var peakLimiterWindow  = AKPeakLimiterWindow(peakLimiter)
+
 audiokit.audioOutput = peakLimiter
 audiokit.start()
 

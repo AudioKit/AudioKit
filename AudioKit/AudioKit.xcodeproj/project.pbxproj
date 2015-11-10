@@ -87,6 +87,7 @@
 		C46EB53B1BDEDDD4008B1B0D /* AKWhiteNoiseDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C46EB5371BDEDDD4008B1B0D /* AKWhiteNoiseDSPKernel.hpp */; };
 		C46F8FC11BF156E0009B0191 /* AKAUDelayWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F8FBE1BF156E0009B0191 /* AKAUDelayWindow.swift */; };
 		C46F8FC21BF156E0009B0191 /* AKAudioPlayerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F8FBF1BF156E0009B0191 /* AKAudioPlayerWindow.swift */; };
+		C46F8FC41BF166B8009B0191 /* AKAUPeakLimiterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46F8FC31BF166B8009B0191 /* AKAUPeakLimiterWindow.swift */; };
 		C481F87D1BE48E3300F6AAA6 /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C481F85C1BE48E3300F6AAA6 /* allpass.c */; };
 		C481F87E1BE48E3300F6AAA6 /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C481F85D1BE48E3300F6AAA6 /* atone.c */; };
 		C481F87F1BE48E3300F6AAA6 /* base.c in Sources */ = {isa = PBXBuildFile; fileRef = C481F85E1BE48E3300F6AAA6 /* base.c */; };
@@ -283,6 +284,7 @@
 		C46F8FBE1BF156E0009B0191 /* AKAUDelayWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUDelayWindow.swift; sourceTree = "<group>"; };
 		C46F8FBF1BF156E0009B0191 /* AKAudioPlayerWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioPlayerWindow.swift; sourceTree = "<group>"; };
 		C46F8FC01BF156E0009B0191 /* AudioKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = AudioKit.playground; sourceTree = "<group>"; };
+		C46F8FC31BF166B8009B0191 /* AKAUPeakLimiterWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUPeakLimiterWindow.swift; sourceTree = "<group>"; };
 		C481F85C1BE48E3300F6AAA6 /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C481F85D1BE48E3300F6AAA6 /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C481F85E1BE48E3300F6AAA6 /* base.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = base.c; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 			children = (
 				C46F8FC01BF156E0009B0191 /* AudioKit.playground */,
 				C46F8FBE1BF156E0009B0191 /* AKAUDelayWindow.swift */,
+				C46F8FC31BF166B8009B0191 /* AKAUPeakLimiterWindow.swift */,
 				C46F8FBF1BF156E0009B0191 /* AKAudioPlayerWindow.swift */,
 			);
 			path = Playgrounds;
@@ -1284,6 +1287,7 @@
 				C4ECB3651BC4869200E09FA3 /* AKOperation.swift in Sources */,
 				C4D09A6C1BC87F6A00A1823F /* AKDCBlockAudioUnit.mm in Sources */,
 				C463A1DC1BE8A06C00159E9A /* AKAULowPassFilter.swift in Sources */,
+				C46F8FC41BF166B8009B0191 /* AKAUPeakLimiterWindow.swift in Sources */,
 				C467755D1BC77BD00027FD6B /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
 				C481F8851BE48E3300F6AAA6 /* comb.c in Sources */,
 				C4E8FAA81BD9C251004761A2 /* AKPhasorAudioUnit.mm in Sources */,
