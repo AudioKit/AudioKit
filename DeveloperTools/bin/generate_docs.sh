@@ -5,7 +5,8 @@ jazzy --module AudioKit \
       --author_url http://audiokit.io/ \
       --source-directory ../AudioKit/ \
       --readme ../README.md \
-      --min-acl internal
+      --min-acl internal \
+      --swift-version 2.1
 
 open docs/index.html
 #       --exclude ../Examples/TestApp/TestApp/ViewController.swift \
