@@ -47,9 +47,16 @@ public class AKAUVarispeed: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the varispeed operation */
+    public init(
+        _ input: AKOperation,
+        playbackRate: Float = 1.0,
+        playbackCents: Float = 0.0)
+    {
+        self.playbackRate = playbackRate
+        self.playbackCents = playbackCents
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

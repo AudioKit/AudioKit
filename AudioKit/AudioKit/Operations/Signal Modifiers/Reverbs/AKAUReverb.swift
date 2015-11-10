@@ -21,8 +21,10 @@ public class AKAUReverb: AKOperation {
     }
     
     /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    public init(_ input: AKOperation, dryWetMix: Float = 50) {
+        self.dryWetMix = dryWetMix
         super.init()
+        
         output = reverbAU
         AKManager.sharedInstance.engine.attachNode(output!)
         AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)

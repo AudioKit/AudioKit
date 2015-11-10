@@ -229,9 +229,44 @@ public class AKAUDistortion: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the distortion operation */
+    public init(
+        _ input: AKOperation,
+        delay: Float = 0.1,
+        decay: Float = 1.0,
+        delayMix: Float = 50,
+        decimation: Float = 50,
+        rounding: Float = 0,
+        decimationMix: Float = 50,
+        linearTerm: Float = 50,
+        squaredTerm: Float = 50,
+        cubicTerm: Float = 50,
+        polynomialMix: Float = 50,
+        ringModFreq1: Float = 100,
+        ringModFreq2: Float = 100,
+        ringModBalance: Float = 50,
+        ringModMix: Float = 0,
+        softClipGain: Float = -6,
+        finalMix: Float = 50)
+    {
+        self.delay = delay
+        self.decay = decay
+        self.delayMix = delayMix
+        self.decimation = decimation
+        self.rounding = rounding
+        self.decimationMix = decimationMix
+        self.linearTerm = linearTerm
+        self.squaredTerm = squaredTerm
+        self.cubicTerm = cubicTerm
+        self.polynomialMix = polynomialMix
+        self.ringModFreq1 = ringModFreq1
+        self.ringModFreq2 = ringModFreq2
+        self.ringModBalance = ringModBalance
+        self.ringModMix = ringModMix
+        self.softClipGain = softClipGain
+        self.finalMix = finalMix
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

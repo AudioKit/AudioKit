@@ -47,9 +47,16 @@ public class AKAUBandPassFilter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the band pass filter operation */
+    public init(
+        _ input: AKOperation,
+        centerFrequency: Float = 5000,
+        bandwidth: Float = 600)
+    {
+        self.centerFrequency = centerFrequency
+        self.bandwidth = bandwidth
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

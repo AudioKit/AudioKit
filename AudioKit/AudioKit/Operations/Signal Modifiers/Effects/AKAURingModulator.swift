@@ -74,8 +74,19 @@ public class AKAURingModulator: AKOperation {
     }
     
     /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        frequency1: Float = 100,
+        frequency2: Float = 100,
+        balance: Float = 50,
+        mix: Float = 0)
+    {
+        self.frequency1 = frequency1
+        self.frequency2 = frequency2
+        self.balance = balance
+        self.mix = mix
         super.init()
+
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)
