@@ -19,7 +19,7 @@ public class AKAULowPassFilter: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900) */
     public var cutoffFrequency: Float = 6900 {

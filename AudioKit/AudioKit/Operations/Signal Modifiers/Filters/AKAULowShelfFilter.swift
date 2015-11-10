@@ -19,7 +19,7 @@ public class AKAULowShelfFilter: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80) */
     public var cutoffFrequency: Float = 80 {

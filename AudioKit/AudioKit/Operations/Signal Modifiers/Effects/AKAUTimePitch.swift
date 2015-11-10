@@ -19,7 +19,7 @@ public class AKAUTimePitch: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0) */
     public var rate: Float = 1.0 {

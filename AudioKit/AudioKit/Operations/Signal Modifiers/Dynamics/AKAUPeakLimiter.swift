@@ -19,7 +19,7 @@ public class AKAUPeakLimiter: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012) */
     public var attackTime: Float = 0.012 {

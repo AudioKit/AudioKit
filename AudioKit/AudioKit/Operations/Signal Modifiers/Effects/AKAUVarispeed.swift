@@ -19,7 +19,7 @@ public class AKAUVarispeed: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Playback Rate (Rate) ranges from 0.25 to 4.0 (Default: 1.0) */
     public var playbackRate: Float = 1.0 {

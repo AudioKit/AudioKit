@@ -19,7 +19,7 @@ public class AKAUBandPassFilter: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000) */
     public var centerFrequency: Float = 5000 {

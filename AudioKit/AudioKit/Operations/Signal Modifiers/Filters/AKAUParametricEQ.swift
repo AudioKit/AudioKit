@@ -20,7 +20,7 @@ public class AKAUParametricEQ: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000) */
     public var centerFrequency: Float = 2000 {

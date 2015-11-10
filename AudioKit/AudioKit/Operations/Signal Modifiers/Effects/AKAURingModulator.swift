@@ -19,7 +19,7 @@ public class AKAURingModulator: AKOperation {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
     public var frequency1: Float = 100 {
