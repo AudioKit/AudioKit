@@ -39,6 +39,9 @@ public class AKAUDelay: AKOperation {
     /** Low pass cut-off frequency in Hertz (Default: 15000) */
     public var lowPassCutoff: Float = 15000.00 {
         didSet {
+            if lowPassCutoff < 0 {
+                lowPassCutoff = 0
+            }
             delayAU.lowPassCutoff = lowPassCutoff
         }
     }
