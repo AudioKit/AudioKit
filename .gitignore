@@ -16,4 +16,9 @@ xcodebuild
 .DS_Store
 profile
 
+junk/
+docs/
+
+output/
+dev/
 
