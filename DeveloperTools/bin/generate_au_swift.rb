@@ -69,3 +69,10 @@ File.open("templates/AKAUOperation.swift.erb") { |template|
     File.open("output/AKAU#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
     puts erb.result
 }
+
+File.open("templates/AKAUOperationWindow.swift.erb") { |template|
+    erb = ERB.new( template.read, nil, '-' )
+    File.open("../AudioKit/AudioKit/Playgrounds/Helpers/AKAU#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
+    puts erb.result
+}
+}
