@@ -35,7 +35,13 @@ public class AKStringResonator: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        fundamentalFrequency: Float = 100,
+        feedback: Float = 0.95)
+    {
+        self.fundamentalFrequency = fundamentalFrequency
+        self.feedback = feedback
         super.init()
 
         var description = AudioComponentDescription()

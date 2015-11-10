@@ -42,7 +42,15 @@ public class AKEqualizerFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        centerFrequency: Float = 1000,
+        bandwidth: Float = 100,
+        gain: Float = 10)
+    {
+        self.centerFrequency = centerFrequency
+        self.bandwidth = bandwidth
+        self.gain = gain
         super.init()
 
         var description = AudioComponentDescription()

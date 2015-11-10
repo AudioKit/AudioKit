@@ -42,7 +42,15 @@ public class AKThreePoleLowpassFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        distortion: Float = 0.5,
+        cutoffFrequency: Float = 1500,
+        resonance: Float = 0.5)
+    {
+        self.distortion = distortion
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
         super.init()
 
         var description = AudioComponentDescription()

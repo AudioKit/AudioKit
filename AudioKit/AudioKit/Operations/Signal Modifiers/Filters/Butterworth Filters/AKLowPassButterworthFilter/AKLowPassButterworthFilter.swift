@@ -28,7 +28,11 @@ public class AKLowPassButterworthFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        cutoffFrequency: Float = 1000)
+    {
+        self.cutoffFrequency = cutoffFrequency
         super.init()
 
         var description = AudioComponentDescription()

@@ -35,7 +35,13 @@ public class AKModalResonanceFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        frequency: Float = 500.0,
+        qualityFactor: Float = 50.0)
+    {
+        self.frequency = frequency
+        self.qualityFactor = qualityFactor
         super.init()
 
         var description = AudioComponentDescription()

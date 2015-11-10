@@ -49,7 +49,17 @@ public class AKLinearTransformation: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this scaled value operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        minimumInput: Float = -1.0,
+        maximumInput: Float = 1.0,
+        minimumOutput: Float = 0.0,
+        maximumOutput: Float = 1.0)
+    {
+        self.minimumInput = minimumInput
+        self.maximumInput = maximumInput
+        self.minimumOutput = minimumOutput
+        self.maximumOutput = maximumOutput
         super.init()
 
         var description = AudioComponentDescription()

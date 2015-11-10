@@ -42,7 +42,15 @@ public class AKFormantFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        centerFrequency: Float = 1000,
+        attackDuration: Float = 0.007,
+        decayDuration: Float = 0.04)
+    {
+        self.centerFrequency = centerFrequency
+        self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
         super.init()
 
         var description = AudioComponentDescription()

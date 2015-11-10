@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-/** Otherwise known as a "bitcrusher", BitCrusher will digitally degrade a signal. */
+/** This will digitally degrade a signal. */
 public class AKBitCrusher: AKOperation {
 
     // MARK: - Properties
@@ -34,13 +34,19 @@ public class AKBitCrusher: AKOperation {
 
     // MARK: - Initializers
 
-    /** Initialize this bit crusher operation */
-    public init(_ input: AKOperation) {
+    /** Initialize this bitcrusher operation */
+    public init(
+        _ input: AKOperation,
+        bitDepth: Float = 8,
+        sampleRate: Float = 10000)
+    {
+        self.bitDepth = bitDepth
+        self.sampleRate = sampleRate
         super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x64636d38 /*'dcm8'*/
+        description.componentSubType      = 0x62746372 /*'btcr'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0

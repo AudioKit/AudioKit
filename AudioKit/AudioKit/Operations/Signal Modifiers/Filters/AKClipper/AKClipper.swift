@@ -42,7 +42,15 @@ public class AKClipper: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this clipper operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        limit: Float = 1.0,
+        clippingStartPoint: Float = 0.5,
+        method: Float = 0)
+    {
+        self.limit = limit
+        self.clippingStartPoint = clippingStartPoint
+        self.method = method
         super.init()
 
         var description = AudioComponentDescription()
