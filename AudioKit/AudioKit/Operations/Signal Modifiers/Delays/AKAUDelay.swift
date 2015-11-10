@@ -57,7 +57,7 @@ public class AKAUDelay: AKOperation {
     }
     
     /** Initialize the delay operation */
-    public init(_ input: AKOperation) {
+    public init(_ input: AKOperation, time: Float = 1, feedback: Float = 50, lowPassCutoff: Float = 15000, dryWetMix: Float = 50) {
         super.init()
         output = delayAU
         AKManager.sharedInstance.engine.attachNode(output!)
