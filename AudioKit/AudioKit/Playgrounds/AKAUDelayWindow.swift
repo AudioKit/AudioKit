@@ -77,7 +77,7 @@ public class AKDelayWindow: NSWindow {
         timeSlider.target = self
         timeSlider.action = "updateTime"
         timeSlider.minValue = 0
-        timeSlider.maxValue = 2
+        timeSlider.maxValue = 1
         timeSlider.floatValue = Float(delay.time)
         timeSlider.frame.origin.y = timeTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(timeSlider)
