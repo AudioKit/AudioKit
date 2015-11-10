@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKAUTimePitch
+//: ## AKAULowShelfFilter
 //: ### Add description
 import XCPlayground
 import AudioKit
@@ -16,24 +16,22 @@ let mic = AKMicrophone()
 let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 let playerWindow: AKAudioPlayerWindow
-let timePitch: AKAUTimePitch
+let lowShelfFilter: AKAULowShelfFilter
 
 switch (source) {
 case "mic":
-    timePitch = AKAUTimePitch(mic)
+    lowShelfFilter = AKAULowShelfFilter(mic)
 default:
-    timePitch = AKAUTimePitch(player)
+    lowShelfFilter = AKAULowShelfFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
 //: Set the parameters of the Peak Limiter here
-timePitch.rate = 1.0 // rate
-timePitch.pitch = 1.0 // Cents
-timePitch.overlap = 8.0 // generic
-timePitch.enablePeakLocking = 1 // Boolean
+lowShelfFilter.cutoffFrequency = 80 // Hz
+lowShelfFilter.gain = 0 // dB
 
-var timePitchWindow = AKAUTimePitchWindow(timePitch)
+var lowShelfFilterWindow = AKAULowShelfFilterWindow(lowShelfFilter)
 
-audiokit.audioOutput = timePitch
+audiokit.audioOutput = lowShelfFilter
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

@@ -75,4 +75,9 @@ File.open("templates/AKAUOperationWindow.swift.erb") { |template|
     File.open("../AudioKit/AudioKit/Playgrounds/Helpers/AKAU#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
     puts erb.result
 }
+
+File.open("templates/AKAUOperation.playground.erb") { |template|
+    erb = ERB.new( template.read, nil, '-' )
+    File.open("output/AKAU#{au_name}.playground", 'w+') {|f| f.write(erb.result) }
+    puts erb.result
 }

@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKAUDelay
+//: ## AKAUPeakLimiter
 //: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
 import XCPlayground
 import AudioKit
@@ -30,7 +30,7 @@ peakLimiter.attackTime = 0.001 // seconds
 peakLimiter.decayTime  = 0.01  // seconds
 peakLimiter.preGain    = 10 // dB (-40 to 40)
 
-var peakLimiterWindow  = AKPeakLimiterWindow(peakLimiter)
+var peakLimiterWindow  = AKAUPeakLimiterWindow(peakLimiter)
 
 audiokit.audioOutput = peakLimiter
 audiokit.start()

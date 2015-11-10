@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKAUTimePitch
+//: ## AKAUHighPassFilter
 //: ### Add description
 import XCPlayground
 import AudioKit
@@ -16,24 +16,22 @@ let mic = AKMicrophone()
 let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 let playerWindow: AKAudioPlayerWindow
-let timePitch: AKAUTimePitch
+let highPassFilter: AKAUHighPassFilter
 
 switch (source) {
 case "mic":
-    timePitch = AKAUTimePitch(mic)
+    highPassFilter = AKAUHighPassFilter(mic)
 default:
-    timePitch = AKAUTimePitch(player)
+    highPassFilter = AKAUHighPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
 //: Set the parameters of the Peak Limiter here
-timePitch.rate = 1.0 // rate
-timePitch.pitch = 1.0 // Cents
-timePitch.overlap = 8.0 // generic
-timePitch.enablePeakLocking = 1 // Boolean
+highPassFilter.cutoffFrequency = 6900 // Hz
+highPassFilter.resonance = 0 // dB
 
-var timePitchWindow = AKAUTimePitchWindow(timePitch)
+var highPassFilterWindow = AKAUHighPassFilterWindow(highPassFilter)
 
-audiokit.audioOutput = timePitch
+audiokit.audioOutput = highPassFilter
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
