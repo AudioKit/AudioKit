@@ -12,9 +12,9 @@ import AVFoundation
 public class AKAUDecimator: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_Distortion),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_Distortion,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     

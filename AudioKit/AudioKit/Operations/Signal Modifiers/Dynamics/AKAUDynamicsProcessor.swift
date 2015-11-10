@@ -12,9 +12,9 @@ import AVFoundation
 public class AKAUDynamicsProcessor: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_DynamicsProcessor),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_DynamicsProcessor,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     

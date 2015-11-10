@@ -12,9 +12,9 @@ import AVFoundation
 public class AKAUVarispeed: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_Varispeed),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_Varispeed,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     

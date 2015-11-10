@@ -12,9 +12,9 @@ import AVFoundation
 public class AKAULowShelfFilter: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_LowShelfFilter),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_LowShelfFilter,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
