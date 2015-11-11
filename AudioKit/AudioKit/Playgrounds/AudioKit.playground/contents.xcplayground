@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='osx' display-mode='raw'>
+    <pages>
+        <page name='Intro'/>
+        <page name='AKAUBandPassFilter'/>
+        <page name='AKAUDelay'/>
+        <page name='AKAUDistortion'/>
+        <page name='AKAUDynamicsProcessor'/>
+        <page name='AKAUHighPassFilter'/>
+        <page name='AKAUHighShelfFilter'/>
+        <page name='AKAULowPassFilter'/>
+        <page name='AKAULowShelfFilter'/>
+        <page name='AKAUParametricEQ'/>
+        <page name='AKAUPeakLimiter'/>
+        <page name='AKAUTimePitch'/>
+    </pages>
+</playground>

@@ -28,7 +28,11 @@ public class AKVariableDelay: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this delay operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        delayTime: Float = 1.0)
+    {
+        self.delayTime = delayTime
         super.init()
 
         var description = AudioComponentDescription()

@@ -11,8 +11,8 @@ import AVFoundation
 
 public class AKAudioPlayer: AKOperation {
     
-    var audioFile: AVAudioFile
-    var internalPlayer: AVAudioPlayerNode
+    private var audioFile: AVAudioFile
+    private var internalPlayer: AVAudioPlayerNode
     
     public init(_ file: String) {
         let url = NSURL.fileURLWithPath(file, isDirectory: false)

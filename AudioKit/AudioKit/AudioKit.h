@@ -21,7 +21,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKLowPassButterworthFilterAudioUnit.h>
 #import <AudioKit/AKClipperAudioUnit.h>
 #import <AudioKit/AKCombFilterAudioUnit.h>
-#import <AudioKit/AKDecimatorAudioUnit.h>
+#import <AudioKit/AKBitCrusherAudioUnit.h>
 #import <AudioKit/AKDelayAudioUnit.h>
 #import <AudioKit/AKDistortionAudioUnit.h>
 #import <AudioKit/AKVariableDelayAudioUnit.h>

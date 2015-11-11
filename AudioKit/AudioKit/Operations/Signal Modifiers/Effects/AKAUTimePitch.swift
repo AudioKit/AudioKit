@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAUTimePitch: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_NewTimePitch),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_TimePitch,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0) */
     public var rate: Float = 1.0 {
@@ -73,9 +73,20 @@ public class AKAUTimePitch: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the time pitch operation */
+    public init(
+        _ input: AKOperation,
+        rate: Float = 1.0,
+        pitch: Float = 1.0,
+        overlap: Float = 8.0,
+        enablePeakLocking: Float = 1)
+    {
+        self.rate = rate
+        self.pitch = pitch
+        self.overlap = overlap
+        self.enablePeakLocking = enablePeakLocking
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

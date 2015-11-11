@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAUDistortion: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_Distortion),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_Distortion,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1) */
     public var delay: Float = 0.1 {
@@ -229,9 +229,44 @@ public class AKAUDistortion: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the distortion operation */
+    public init(
+        _ input: AKOperation,
+        delay: Float = 0.1,
+        decay: Float = 1.0,
+        delayMix: Float = 50,
+        decimation: Float = 50,
+        rounding: Float = 0,
+        decimationMix: Float = 50,
+        linearTerm: Float = 50,
+        squaredTerm: Float = 50,
+        cubicTerm: Float = 50,
+        polynomialMix: Float = 50,
+        ringModFreq1: Float = 100,
+        ringModFreq2: Float = 100,
+        ringModBalance: Float = 50,
+        ringModMix: Float = 0,
+        softClipGain: Float = -6,
+        finalMix: Float = 50)
+    {
+        self.delay = delay
+        self.decay = decay
+        self.delayMix = delayMix
+        self.decimation = decimation
+        self.rounding = rounding
+        self.decimationMix = decimationMix
+        self.linearTerm = linearTerm
+        self.squaredTerm = squaredTerm
+        self.cubicTerm = cubicTerm
+        self.polynomialMix = polynomialMix
+        self.ringModFreq1 = ringModFreq1
+        self.ringModFreq2 = ringModFreq2
+        self.ringModBalance = ringModBalance
+        self.ringModMix = ringModMix
+        self.softClipGain = softClipGain
+        self.finalMix = finalMix
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

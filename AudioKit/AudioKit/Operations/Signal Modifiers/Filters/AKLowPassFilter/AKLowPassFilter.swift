@@ -28,7 +28,11 @@ public class AKLowPassFilter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        halfPowerPoint: Float = 1000)
+    {
+        self.halfPowerPoint = halfPowerPoint
         super.init()
 
         var description = AudioComponentDescription()

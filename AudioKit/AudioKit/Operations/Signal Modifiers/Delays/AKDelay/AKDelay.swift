@@ -28,7 +28,11 @@ public class AKDelay: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this delay operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        feedback: Float = 0.0)
+    {
+        self.feedback = feedback
         super.init()
 
         var description = AudioComponentDescription()

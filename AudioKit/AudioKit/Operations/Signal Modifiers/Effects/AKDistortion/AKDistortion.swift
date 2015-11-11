@@ -49,7 +49,17 @@ public class AKDistortion: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this distortion operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        pregain: Float = 2.0,
+        postiveShapeParameter: Float = 0.0,
+        negativeShapeParameter: Float = 0.0,
+        postgain: Float = 0.5)
+    {
+        self.pregain = pregain
+        self.postiveShapeParameter = postiveShapeParameter
+        self.negativeShapeParameter = negativeShapeParameter
+        self.postgain = postgain
         super.init()
 
         var description = AudioComponentDescription()

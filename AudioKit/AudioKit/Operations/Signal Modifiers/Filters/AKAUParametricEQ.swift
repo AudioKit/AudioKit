@@ -13,14 +13,14 @@ import AVFoundation
 public class AKAUParametricEQ: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_ParametricEQ),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_ParametricEQ,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000) */
     public var centerFrequency: Float = 2000 {
@@ -61,9 +61,18 @@ public class AKAUParametricEQ: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the parametric eq operation */
+    public init(
+        _ input: AKOperation,
+        centerFrequency: Float = 2000,
+        q: Float = 1.0,
+        gain: Float = 0)
+    {
+        self.centerFrequency = centerFrequency
+        self.q = q
+        self.gain = gain
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

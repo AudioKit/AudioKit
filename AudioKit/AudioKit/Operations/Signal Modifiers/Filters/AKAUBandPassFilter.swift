@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAUBandPassFilter: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_BandPassFilter),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_BandPassFilter,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000) */
     public var centerFrequency: Float = 5000 {
@@ -47,9 +47,16 @@ public class AKAUBandPassFilter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the band pass filter operation */
+    public init(
+        _ input: AKOperation,
+        centerFrequency: Float = 5000,
+        bandwidth: Float = 600)
+    {
+        self.centerFrequency = centerFrequency
+        self.bandwidth = bandwidth
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)
