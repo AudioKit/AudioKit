@@ -85,7 +85,7 @@ enum AKMidiControl : UInt8
     case AKMidiControlAllNotesOff = 123
 }
 
-var AKMidiNoteOnNotification: String = "AKMidiNoteOn"
+let AKMidiNoteOnNotification: String = "AKMidiNoteOn"
 var AKMidiNoteOffNotification: String = "AKMidiNoteOff"
 var AKMidiPolyphonicAftertouchNotification: String = "AKMidiPolyphonicAftertouch"
 var AKMidiProgramChangeNotification: String = "AKMidiProgramChange"
@@ -128,11 +128,13 @@ public class AKMidiEvent : NSObject{
     var data2:UInt8{
         return _data[2]
     }
-    /*
     var data:UInt16{
-        return (_data[2] << 7) | _data[1]
+        let x = UInt16(_data[1])
+        let y = UInt16(_data[2] << 7)
+        return y + x
+        //return (_data[2] << 7) | _data[1]
     }
-    */
+    
     var bytes:NSData{
         return NSData(bytes: [_data[0], _data[1], _data[2]] as [UInt8], length: 3)
     }
@@ -224,12 +226,11 @@ public class AKMidiEvent : NSObject{
                 "channel":NSInteger(channel)]
             name = AKMidiAftertouchNotification;
             break
-        /*case .AKMidiStatusPitchWheel:
-            ret = ["pitchWheel":NSInteger(data()),
+        case .AKMidiStatusPitchWheel:
+            ret = ["pitchWheel":NSInteger(data),
                 "channel":NSInteger(channel)]
             name = AKMidiPitchWheelNotification;
             break
-        */
         case .AKMidiStatusProgramChange:
             ret = ["pressure":NSInteger(data1),
                 "channel":NSInteger(channel)]
@@ -281,7 +282,6 @@ public class AKMidiEvent : NSObject{
                     break
             }
             break
-        default: break
         }
         if (ret.count != 0) {
             NSNotificationCenter.defaultCenter().postNotificationName(name,
