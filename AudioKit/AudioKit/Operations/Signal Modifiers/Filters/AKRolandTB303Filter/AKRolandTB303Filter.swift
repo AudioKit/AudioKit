@@ -49,7 +49,17 @@ public class AKRolandTB303Filter: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        cutoffFrequency: Float = 500,
+        resonance: Float = 0.5,
+        distortion: Float = 2.0,
+        resonanceAsymmetry: Float = 0.5)
+    {
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
+        self.distortion = distortion
+        self.resonanceAsymmetry = resonanceAsymmetry
         super.init()
 
         var description = AudioComponentDescription()

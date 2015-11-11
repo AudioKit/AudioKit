@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAUHighPassFilter: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_HighPassFilter),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_HighPassFilter,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900) */
     public var cutoffFrequency: Float = 6900 {
@@ -47,9 +47,16 @@ public class AKAUHighPassFilter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the high pass filter operation */
+    public init(
+        _ input: AKOperation,
+        cutoffFrequency: Float = 6900,
+        resonance: Float = 0)
+    {
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

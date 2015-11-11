@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAUPeakLimiter: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_PeakLimiter),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_PeakLimiter,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012) */
     public var attackTime: Float = 0.012 {
@@ -60,9 +60,18 @@ public class AKAUPeakLimiter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the peak limiter operation */
+    public init(
+        _ input: AKOperation,
+        attackTime: Float = 0.012,
+        decayTime: Float = 0.024,
+        preGain: Float = 0)
+    {
+        self.attackTime = attackTime
+        self.decayTime = decayTime
+        self.preGain = preGain
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

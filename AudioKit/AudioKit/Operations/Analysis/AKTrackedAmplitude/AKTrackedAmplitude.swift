@@ -28,7 +28,11 @@ public class AKTrackedAmplitude: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this amplitude operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        halfPowerPoint: Float = 10)
+    {
+        self.halfPowerPoint = halfPowerPoint
         super.init()
 
         var description = AudioComponentDescription()

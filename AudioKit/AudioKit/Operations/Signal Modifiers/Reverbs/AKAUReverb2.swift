@@ -8,18 +8,20 @@
 
 import AVFoundation
 
+#if os(iOS)
+
 /** AudioKit version of Apple's Reverb2 Audio Unit */
 public class AKAUReverb2: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_Reverb2),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_Reverb2,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100) */
     public var dryWetMix: Float = 100 {
@@ -126,9 +128,26 @@ public class AKAUReverb2: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the reverb2 operation */
+    public init(
+        _ input: AKOperation,
+        dryWetMix: Float = 100,
+        gain: Float = 0,
+        minDelayTime: Float = 0.008,
+        maxDelayTime: Float = 0.050,
+        decayTimeAt0Hz: Float = 1.0,
+        decayTimeAtNyquist: Float = 0.5,
+        randomizeReflections: Float = 1)
+    {
+        self.dryWetMix = dryWetMix
+        self.gain = gain
+        self.minDelayTime = minDelayTime
+        self.maxDelayTime = maxDelayTime
+        self.decayTimeAt0Hz = decayTimeAt0Hz
+        self.decayTimeAtNyquist = decayTimeAtNyquist
+        self.randomizeReflections = randomizeReflections
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)
@@ -136,3 +155,5 @@ public class AKAUReverb2: AKOperation {
         internalAU = internalEffect.audioUnit
     }
 }
+
+#endif

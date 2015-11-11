@@ -6,7 +6,9 @@
 #endif 
 
 #define SP_BUFSIZE 4096
+#ifndef SPFLOAT
 #define SPFLOAT float
+#endif 
 #define SP_OK 1
 #define SP_NOT_OK 0
 
@@ -59,6 +61,18 @@ int sp_out(sp_data *sp, uint32_t chan, SPFLOAT val);
 
 uint32_t sp_rand(sp_data *sp);
 void sp_srand(sp_data *sp, uint32_t val);
+
+
+typedef struct {
+    SPFLOAT *utbl;
+    int16_t *BRLow;
+} sp_fft;
+
+void sp_fft_create(sp_fft **fft);
+void sp_fft_init(sp_fft *fft, int M);
+void sp_fftr(sp_fft *fft, SPFLOAT *buf, int FFTsize);
+void sp_ifftr(sp_fft *fft, SPFLOAT *buf, int FFTsize);
+void sp_fft_destroy(sp_fft *fft);
 typedef struct {
     SPFLOAT incr;
     SPFLOAT index;
@@ -205,12 +219,12 @@ typedef struct {
     SPFLOAT bitdepth;
     SPFLOAT srate;
     sp_fold *fold;
-} sp_decimator;
+} sp_bitcrush;
 
-int sp_decimator_create(sp_decimator **p);
-int sp_decimator_destroy(sp_decimator **p);
-int sp_decimator_init(sp_data *sp, sp_decimator *p);
-int sp_decimator_compute(sp_data *sp, sp_decimator *p, SPFLOAT *in, SPFLOAT *out);
+int sp_bitcrush_create(sp_bitcrush **p);
+int sp_bitcrush_destroy(sp_bitcrush **p);
+int sp_bitcrush_init(sp_data *sp, sp_bitcrush *p);
+int sp_bitcrush_compute(sp_data *sp, sp_bitcrush *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT time;
     SPFLOAT feedback;

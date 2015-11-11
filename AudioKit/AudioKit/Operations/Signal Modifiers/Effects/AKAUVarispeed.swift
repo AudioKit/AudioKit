@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAUVarispeed: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_Varispeed),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_Varispeed,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Playback Rate (Rate) ranges from 0.25 to 4.0 (Default: 1.0) */
     public var playbackRate: Float = 1.0 {
@@ -47,9 +47,16 @@ public class AKAUVarispeed: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the varispeed operation */
+    public init(
+        _ input: AKOperation,
+        playbackRate: Float = 1.0,
+        playbackCents: Float = 0.0)
+    {
+        self.playbackRate = playbackRate
+        self.playbackCents = playbackCents
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAUHighShelfFilter: AKOperation {
     
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_HighShelfFilter),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_HighShelfFilter,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
     
     /** Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000) */
     public var cutOffFrequency: Float = 10000 {
@@ -47,9 +47,16 @@ public class AKAUHighShelfFilter: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
-    public init(_ input: AKOperation) {
+    /** Initialize the high shelf filter operation */
+    public init(
+        _ input: AKOperation,
+        cutOffFrequency: Float = 10000,
+        gain: Float = 0)
+    {
+        self.cutOffFrequency = cutOffFrequency
+        self.gain = gain
         super.init()
+        
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

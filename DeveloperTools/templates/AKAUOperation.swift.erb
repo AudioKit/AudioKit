@@ -12,14 +12,14 @@ import AVFoundation
 public class AKAU<%= au_name %>: AKOperation {
 
     private let cd = AudioComponentDescription(
-        componentType: OSType(kAudioUnitType_Effect),
-        componentSubType: OSType(kAudioUnitSubType_<%= au_name %>),
-        componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
+        componentType: kAudioUnitType_Effect,
+        componentSubType: kAudioUnitSubType_<%= au_name %>,
+        componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
 
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAU = AudioUnit()
+    private var internalAU = AudioUnit()
 
 <% parameters.each do |parameter| -%>
     /** <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>) */
@@ -38,8 +38,16 @@ public class AKAU<%= au_name %>: AKOperation {
 
 <% end -%>
     /** Initialize the <%= au_name.underscore.humanize.uncapitalize %> operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+<% parameters.each_with_index do |parameter, i| -%>
+        <%= parameter[:variable] %>: Float = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 %><% end %>)
+    {
+<% parameters.each do |parameter| -%>
+        self.<%= parameter[:variable] %> = <%= parameter[:variable] %>
+<% end -%>
         super.init()
+
         internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
         output = internalEffect
         AKManager.sharedInstance.engine.attachNode(internalEffect)

@@ -35,7 +35,13 @@ public class AKMoogLadder: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this filter operation */
-    public init(_ input: AKOperation) {
+    public init(
+        _ input: AKOperation,
+        cutoffFrequency: Float = 1000,
+        resonance: Float = 0.5)
+    {
+        self.cutoffFrequency = cutoffFrequency
+        self.resonance = resonance
         super.init()
 
         var description = AudioComponentDescription()

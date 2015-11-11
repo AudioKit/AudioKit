@@ -1,17 +1,17 @@
-installation-directory: "Signal\ Modifiers/Filters/"
+installation-directory: "Signal\ Modifiers/Effects/"
 
-sp-module: decimator
+sp-module: bitcrush
 
-operation: AKDecimator
+operation: AKBitCrusher
 
 summary: Digital Signal Decimator
 
-four-letter-code: dcm8
+four-letter-code: btcr
 
-one-word-description: decimator
+one-word-description: bitcrusher
 
 description:
-  Otherwise known as a "bitcrusher", Decimator will digitally degrade a signal.
+  This will digitally degrade a signal.
 
 inputs:
 - source: {
