@@ -17,7 +17,7 @@
 		C43FA3181BC197C100EC6C85 /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C43FA3101BC197C100EC6C85 /* AKDSPKernel.mm */; };
 		C43FA3191BC197C100EC6C85 /* AKParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C43FA3111BC197C100EC6C85 /* AKParameterRamper.hpp */; };
 		C45F9AE81BED9D5C00612446 /* AKAURingModulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45F9AE71BED9D5C00612446 /* AKAURingModulator.swift */; };
-		C45F9AF51BEF302500612446 /* bitcrush.c in Sources */ = {isa = PBXBuildFile; fileRef = C45F9AF41BEF302500612446 /* bitcrush.c */; };
+		C4616F7F1BF4122000869D0C /* bitcrush.c in Sources */ = {isa = PBXBuildFile; fileRef = C4616F7E1BF4122000869D0C /* bitcrush.c */; };
 		C463A1D51BE86C9800159E9A /* AKAUDistortion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463A1D41BE86C9800159E9A /* AKAUDistortion.swift */; };
 		C463A1D81BE89C4700159E9A /* AKAUBandPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463A1D71BE89C4700159E9A /* AKAUBandPassFilter.swift */; };
 		C463A1DA1BE89E9700159E9A /* AKAUHighPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463A1D91BE89E9700159E9A /* AKAUHighPassFilter.swift */; };
@@ -223,7 +223,7 @@
 		C43FA3101BC197C100EC6C85 /* AKDSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDSPKernel.mm; sourceTree = "<group>"; };
 		C43FA3111BC197C100EC6C85 /* AKParameterRamper.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKParameterRamper.hpp; sourceTree = "<group>"; };
 		C45F9AE71BED9D5C00612446 /* AKAURingModulator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAURingModulator.swift; sourceTree = "<group>"; };
-		C45F9AF41BEF302500612446 /* bitcrush.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitcrush.c; path = ../../../../../../Soundpipe/modules/bitcrush.c; sourceTree = "<group>"; };
+		C4616F7E1BF4122000869D0C /* bitcrush.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitcrush.c; sourceTree = "<group>"; };
 		C463A1D41BE86C9800159E9A /* AKAUDistortion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUDistortion.swift; sourceTree = "<group>"; };
 		C463A1D71BE89C4700159E9A /* AKAUBandPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUBandPassFilter.swift; sourceTree = "<group>"; };
 		C463A1D91BE89E9700159E9A /* AKAUHighPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUHighPassFilter.swift; sourceTree = "<group>"; };
@@ -734,7 +734,7 @@
 				C481F85C1BE48E3300F6AAA6 /* allpass.c */,
 				C481F85D1BE48E3300F6AAA6 /* atone.c */,
 				C481F85E1BE48E3300F6AAA6 /* base.c */,
-				C45F9AF41BEF302500612446 /* bitcrush.c */,
+				C4616F7E1BF4122000869D0C /* bitcrush.c */,
 				C481F85F1BE48E3300F6AAA6 /* butbp.c */,
 				C481F8601BE48E3300F6AAA6 /* butbr.c */,
 				C481F8611BE48E3300F6AAA6 /* buthp.c */,
@@ -1310,6 +1310,7 @@
 				C46F8FC71BF1DFA1009B0191 /* AKAUDecimator.swift in Sources */,
 				C45F9AE81BED9D5C00612446 /* AKAURingModulator.swift in Sources */,
 				C46775971BC7897B0027FD6B /* AKBandRejectButterworthFilter.swift in Sources */,
+				C4616F7F1BF4122000869D0C /* bitcrush.c in Sources */,
 				C46F8FE91BF1EEB4009B0191 /* AKAULowPassFilterWindow.swift in Sources */,
 				C463A1D51BE86C9800159E9A /* AKAUDistortion.swift in Sources */,
 				C4FD54751BCAD53D0068B088 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
@@ -1325,7 +1326,6 @@
 				C481F8981BE48E3300F6AAA6 /* rms.c in Sources */,
 				C4D09ABD1BC89C4B00A1823F /* AKModalResonanceFilterAudioUnit.mm in Sources */,
 				C4E8FA9B1BD9B8A2004761A2 /* AKFMOscillatorAudioUnit.mm in Sources */,
-				C45F9AF51BEF302500612446 /* bitcrush.c in Sources */,
 				C4D09A841BC8914200A1823F /* AKDelay.swift in Sources */,
 				C46F8FD91BF1EA6C009B0191 /* AKAudioPlayerWindow.swift in Sources */,
 				C4FC63E31BCE24D600B2B22E /* AKTrackedAmplitudeAudioUnit.mm in Sources */,
