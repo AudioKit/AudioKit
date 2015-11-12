@@ -12,6 +12,7 @@ import CoreMIDI
 public class AKMidi: AKOperation {
     public var midiClient = MIDIClientRef()
     public var midiInPort = MIDIPortRef()
+    public var midiInPorts:[MIDIClientRef] = []
     var midiClientName:CFString = "Midi In Client"
     var midiInName:CFString = "Midi In Port"
     
@@ -29,10 +30,12 @@ public class AKMidi: AKOperation {
     public override init() {
         super.init()
         print("howdy world, from AKMidi")
-        MIDINetworkSession.defaultSession().enabled = true
-        MIDINetworkSession.defaultSession().connectionPolicy = MIDINetworkConnectionPolicy.Anyone
+        #if os(iOS)
+            MIDINetworkSession.defaultSession().enabled = true
+            MIDINetworkSession.defaultSession().connectionPolicy = MIDINetworkConnectionPolicy.Anyone
+        #endif
     }
-    public func openMidiIn(){
+    public func openMidiIn(namedInput: String = ""){
         print("Opening Midi In")
         var result = OSStatus(noErr)
         result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
@@ -43,20 +46,22 @@ public class AKMidi: AKOperation {
         }
         let sourceCount = MIDIGetNumberOfSources()
         print("SourceCount: \(sourceCount)")
-        
-        result = MIDIInputPortCreateWithBlock(midiClient, midiInName, &midiInPort, MyMIDIReadBlock)
-        if result == OSStatus(noErr) {
-            print("created midiInPort")
-        } else {
-            print("error creating midiInPort : \(result)")
-        }
         for(var i = 0; i < sourceCount; ++i){
             let src = MIDIGetSource(i)
-            var endpointName : Unmanaged<CFString>?
-            endpointName = nil
-            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
-            print("EndpointName \(endpointName!.takeRetainedValue())")
-            MIDIPortConnectSource(midiInPort, src, nil)
+            var inputName : Unmanaged<CFString>?
+            inputName = nil
+            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
+            if(namedInput.isEmpty || namedInput == (inputName?.takeRetainedValue())! as String){
+                midiInPorts.append(MIDIPortRef())
+                result = MIDIInputPortCreateWithBlock(midiClient, midiInName, &midiInPorts[i], MyMIDIReadBlock)
+                if result == OSStatus(noErr) {
+                    print("created midiInPort")
+                } else {
+                    print("error creating midiInPort : \(result)")
+                }
+                print("inputName \(inputName!.takeRetainedValue())")
+                MIDIPortConnectSource(midiInPorts[i], src, nil)
+            }
         }
     }//end openMidiIn
     
