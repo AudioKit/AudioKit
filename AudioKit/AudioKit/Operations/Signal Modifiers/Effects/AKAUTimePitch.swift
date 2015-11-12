@@ -13,7 +13,7 @@ public class AKAUTimePitch: AKOperation {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
-        componentSubType: kAudioUnitSubType_TimePitch,
+        componentSubType: kAudioUnitSubType_NewTimePitch,
         componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
         componentFlagsMask: 0)
