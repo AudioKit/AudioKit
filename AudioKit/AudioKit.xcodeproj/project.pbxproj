@@ -1190,7 +1190,6 @@
 				TargetAttributes = {
 					C43FA2FC1BC1961D00EC6C85 = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = N737B52A88;
 					};
 				};
 			};
@@ -1473,7 +1472,6 @@
 		C43FA3061BC1961D00EC6C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -1495,7 +1493,7 @@
 		C43FA3071BC1961D00EC6C85 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
