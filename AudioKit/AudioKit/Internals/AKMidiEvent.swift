@@ -254,6 +254,7 @@ public class AKMidiEvent : NSObject{
             break
         case .AKMidiStatusControllerChange:
             switch(data1) {
+                /*
                 case AKMidiControl.AKMidiControlModulationWheel.rawValue:
                     name = String(AKMidiNotification.AKMidiModulationNotification.rawValue)
                     break
@@ -272,6 +273,7 @@ public class AKMidiEvent : NSObject{
                 case AKMidiControl.AKMidiControlExpression.rawValue:
                     name = String(AKMidiNotification.AKMidiExpressionNotification.rawValue)
                     break
+                */
                 default: // Catch-all
                     name = String(AKMidiNotification.AKMidiControlNotification.rawValue)
                     break
