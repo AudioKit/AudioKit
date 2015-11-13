@@ -15,6 +15,7 @@ let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let parametricEQ: AKAUParametricEQ
 

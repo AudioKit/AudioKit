@@ -15,6 +15,7 @@ let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let file = NSBundle.mainBundle().pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let playerWindow: AKAudioPlayerWindow
 
 //: Next we'll connect the audio to a delay

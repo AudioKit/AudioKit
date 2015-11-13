@@ -11,16 +11,22 @@ import AVFoundation
 
 public class AKAudioPlayer: AKOperation {
     
-    private var audioFile: AVAudioFile
+    private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
+    
+    public var looping = false
     
     public init(_ file: String) {
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
-        audioFile = try! AVAudioFile(forReading: url)
-        print(audioFile.url)
+        let audioFile = try! AVAudioFile(forReading: url)
+        let audioFormat = audioFile.processingFormat
+        let audioFrameCount = UInt32(audioFile.length)
+        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat, frameCapacity: audioFrameCount)
+        try! audioFile.readIntoBuffer(audioFileBuffer)
+        
         internalPlayer = AVAudioPlayerNode()
         AKManager.sharedInstance.engine.attachNode(internalPlayer)
-        internalPlayer.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        internalPlayer.scheduleBuffer(audioFileBuffer, atTime: nil, options: .Loops, completionHandler: nil)
         internalPlayer.volume = 0.3
         super.init()
         output = internalPlayer
@@ -30,7 +36,11 @@ public class AKAudioPlayer: AKOperation {
     
     public func play() {
         if !internalPlayer.playing {
-            internalPlayer.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+            var options: AVAudioPlayerNodeBufferOptions = AVAudioPlayerNodeBufferOptions.Interrupts
+            if looping {
+                options = .Loops
+            }
+            internalPlayer.scheduleBuffer(audioFileBuffer, atTime: nil, options: options, completionHandler: nil)
         }
         internalPlayer.play()
     }
