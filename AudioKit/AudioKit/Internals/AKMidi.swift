@@ -22,9 +22,23 @@ public class AKMidi: AKOperation {
         
     }
     func MyMIDIReadBlock(packetList: UnsafePointer<MIDIPacketList>, srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
-        let packet = packetList.memory.packet
-        let midiEvent = AKMidiEvent.initWithMIDIPacket(packet)
-        print("MidiEvent of Type \(midiEvent.status)")
+        
+        /*
+        //can't yet figure out how to access the port passed via srcConnRefCon
+        //maybe having this port is not that necessary though...
+        let midiPortPtr = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
+        let midiPort = midiPortPtr.memory
+        */
+        let numPackets = Int(packetList.memory.numPackets)
+        let packet = packetList.memory.packet as MIDIPacket
+        var packetPtr:UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
+        packetPtr.initialize(packet)
+        
+        for (var i = 0; i < numPackets; ++i){
+            let event = AKMidiEvent.initWithMIDIPacket(packetPtr.memory)
+            event.postNotification()
+            packetPtr = MIDIPacketNext(packetPtr)
+        }
     }
     
     public override init() {
@@ -61,8 +75,8 @@ public class AKMidi: AKOperation {
                 }
                 print("inputName \(inputName!.takeRetainedValue())")
                 MIDIPortConnectSource(midiInPorts[i], src, nil)
-            }
-        }
+            }//end if no name provided, or input matches provided name
+        }//end foreach source
     }//end openMidiIn
     
 }//end AKMidi class
