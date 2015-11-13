@@ -18,13 +18,17 @@ public class AKAudioPlayerWindow: NSWindow {
     let numberOfComponents = 1
     
     public let playButton: NSButton
-    
+    public let stopButton: NSButton
+
     var player: AKAudioPlayer
     
     public init(_ control: AKAudioPlayer) {
         player = control
         let sliderWidth = windowWidth - 2 * padding
         playButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        
+        stopButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        
         
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -60,12 +64,23 @@ public class AKAudioPlayerWindow: NSWindow {
         playButton.frame.origin.y = topTitle.frame.origin.y - 2 * CGFloat(sliderHeight)
         view.addSubview(playButton)
         
+        stopButton.target = self
+        stopButton.action = "stop"
+        stopButton.title = "Stop"
+        stopButton.frame.origin.y = playButton.frame.origin.y - 2 * CGFloat(sliderHeight)
+        view.addSubview(stopButton)
+
+        
         self.contentView!.addSubview(view)
         self.makeKeyAndOrderFront(nil)
     }
     
     internal func play() {
         player.play()
+    }
+    
+    internal func stop() {
+        player.stop()
     }
     
     required public init?(coder: NSCoder) {
