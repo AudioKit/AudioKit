@@ -107,12 +107,18 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
 
 - (void)play:(NSString *)csdFilePath
 {
-    self.shouldRecord = NO;
-    self.thread = [[NSThread alloc] initWithTarget:self
-                                          selector:@selector(runCsound:)
-                                            object:csdFilePath];
-    self.thread.name = @"AK Csound";
-    [self.thread start];
+    @synchronized(self) {
+        if (self.thread == nil) {
+            self.shouldRecord = NO;
+            self.thread = [[NSThread alloc] initWithTarget:self
+                                                  selector:@selector(runCsound:)
+                                                    object:csdFilePath];
+            self.thread.name = @"AK Csound";
+            [self.thread start];
+        } else {
+            NSLog(@"***Attempting to start another Csound thread - not cool!");
+        }
+    }
 }
 
 - (void)updateOrchestra:(NSString *)orchestraString
@@ -127,12 +133,15 @@ NSString * const AKCsoundAPIMessageNotification = @"AKCSoundAPIMessage";
 }
 
 - (void)stop {
-    self.running = NO;
-    if (self.thread == nil)
-        return;
-    [self.thread cancel];
-    while (!self.thread.finished) {
-        [NSThread sleepForTimeInterval:0.1];
+    @synchronized(self) {
+        self.running = NO;
+        if (self.thread == nil)
+            return;
+        [self.thread cancel];
+        while (!self.thread.finished) {
+            [NSThread sleepForTimeInterval:0.1];
+        }
+        self.thread = nil;
     }
 }
 
