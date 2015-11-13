@@ -85,20 +85,36 @@ enum AKMidiControl : UInt8
     case AKMidiControlAllNotesOff = 123
 }
 
-let AKMidiNoteOnNotification: String = "AKMidiNoteOn"
-var AKMidiNoteOffNotification: String = "AKMidiNoteOff"
-var AKMidiPolyphonicAftertouchNotification: String = "AKMidiPolyphonicAftertouch"
-var AKMidiProgramChangeNotification: String = "AKMidiProgramChange"
-var AKMidiAftertouchNotification: String = "AKMidiAftertouch"
-var AKMidiPitchWheelNotification: String = "AKMidiPitchWheel"
-var AKMidiControllerNotification: String = "AKMidiController"
-var AKMidiModulationNotification: String = "AKMidiModulation"
-var AKMidiPortamentoNotification: String = "AKMidiPortamento"
-var AKMidiVolumeNotification: String = "AKMidiVolume"
-var AKMidiBalanceNotification: String = "AKMidiBalance"
-var AKMidiPanNotification: String = "AKMidiPan"
-var AKMidiExpressionNotification: String = "AKMidiExpression"
-var AKMidiControlNotification: String = "AKMidiControl"
+enum AKMidiNotification : String{
+    case AKMidiNoteOnNotification = "AKMidiNoteOn"
+    case AKMidiNoteOffNotification = "AKMidiNoteOff"
+    case AKMidiPolyphonicAftertouchNotification = "AKMidiPolyphonicAftertouch"
+    case AKMidiProgramChangeNotification = "AKMidiProgramChange"
+    case AKMidiAftertouchNotification = "AKMidiAftertouch"
+    case AKMidiPitchWheelNotification = "AKMidiPitchWheel"
+    case AKMidiControllerNotification = "AKMidiController"
+    case AKMidiModulationNotification = "AKMidiModulation"
+    case AKMidiPortamentoNotification = "AKMidiPortamento"
+    case AKMidiVolumeNotification = "AKMidiVolume"
+    case AKMidiBalanceNotification = "AKMidiBalance"
+    case AKMidiPanNotification = "AKMidiPan"
+    case AKMidiExpressionNotification = "AKMidiExpression"
+    case AKMidiControlNotification = "AKMidiControl"
+}
+/*
+You add observes like this:
+defaultCenter.addObserverForName(AKMidiNotification, object: nil, queue: mainQueue, usingBlock: YourNotifFunction)
+
+YourNotifFunction takes an NSNotifcation as an argument, 
+and then all the good stuff is contained in the userInfo part of the notification
+
+an example, calling a function called 'midiNotif':
+defaultCenter.addObserverForName("AKMidiControl", object: nil, queue: mainQueue, usingBlock: myNotifFunction)
+
+func myNotifFunction(notif:NSNotification){
+    print(notif.userInfo)
+}
+*/
 
 public class AKMidiEvent : NSObject{
     var _data=[UInt8](count: 3, repeatedValue: 0)
@@ -207,57 +223,57 @@ public class AKMidiEvent : NSObject{
             ret = ["note":NSInteger(data1),
                 "velocity":NSInteger(data2),
                 "channel":NSInteger(channel)]
-            name = AKMidiNoteOnNotification;
+            name = String(AKMidiNotification.AKMidiNoteOnNotification);
             break
         case .AKMidiStatusNoteOff:
             ret = ["note":NSInteger(data1),
                 "velocity":NSInteger(data2),
                 "channel":NSInteger(channel)]
-            name = AKMidiNoteOffNotification;
+            name = String(AKMidiNotification.AKMidiNoteOffNotification);
             break
         case .AKMidiStatusPolyphonicAftertouch:
             ret = ["note":NSInteger(data1),
                 "pressure":NSInteger(data2),
                 "channel":NSInteger(channel)]
-            name = AKMidiPolyphonicAftertouchNotification;
+            name = String(AKMidiNotification.AKMidiPolyphonicAftertouchNotification);
             break
         case .AKMidiStatusChannelAftertouch:
             ret = ["pressure":NSInteger(data1),
                 "channel":NSInteger(channel)]
-            name = AKMidiAftertouchNotification;
+            name = String(AKMidiNotification.AKMidiAftertouchNotification);
             break
         case .AKMidiStatusPitchWheel:
             ret = ["pitchWheel":NSInteger(data),
                 "channel":NSInteger(channel)]
-            name = AKMidiPitchWheelNotification;
+            name = String(AKMidiNotification.AKMidiPitchWheelNotification);
             break
         case .AKMidiStatusProgramChange:
             ret = ["pressure":NSInteger(data1),
                 "channel":NSInteger(channel)]
-            name = AKMidiProgramChangeNotification;
+            name = String(AKMidiNotification.AKMidiProgramChangeNotification);
             break
         case .AKMidiStatusControllerChange:
-            switch(AKMidiControl(rawValue: data1)!) {
-                case .AKMidiControlModulationWheel:
-                    name = AKMidiModulationNotification
+            switch(data1) {
+                case AKMidiControl.AKMidiControlModulationWheel.rawValue:
+                    name = String(AKMidiNotification.AKMidiModulationNotification.rawValue)
                     break
-                case .AKMidiControlPortamento:
-                    name = AKMidiPortamentoNotification
+                case AKMidiControl.AKMidiControlPortamento.rawValue:
+                    name = String(AKMidiNotification.AKMidiPortamentoNotification.rawValue)
                     break
-                case .AKMidiControlMainVolume:
-                    name = AKMidiVolumeNotification
+                case AKMidiControl.AKMidiControlMainVolume.rawValue:
+                    name = String(AKMidiNotification.AKMidiVolumeNotification.rawValue)
                     break
-                case .AKMidiControlBalance:
-                    name = AKMidiBalanceNotification
+                case AKMidiControl.AKMidiControlBalance.rawValue:
+                    name = String(AKMidiNotification.AKMidiBalanceNotification.rawValue)
                     break
-                case .AKMidiControlPan:
-                    name = AKMidiPanNotification
+                case AKMidiControl.AKMidiControlPan.rawValue:
+                    name = String(AKMidiNotification.AKMidiPanNotification.rawValue)
                     break
-                case .AKMidiControlExpression:
-                    name = AKMidiExpressionNotification
+                case AKMidiControl.AKMidiControlExpression.rawValue:
+                    name = String(AKMidiNotification.AKMidiExpressionNotification.rawValue)
                     break
                 default: // Catch-all
-                    name = AKMidiControlNotification
+                    name = String(AKMidiNotification.AKMidiControlNotification.rawValue)
                     break
             }
             ret = ["controller":NSInteger(data1),
@@ -314,4 +330,6 @@ for (int i = 0; i < self.length; i++) {
 [ret appendString:@">"];
 return ret;
 }
+
+
 */
