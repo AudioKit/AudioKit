@@ -15,6 +15,7 @@ let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let file = NSBundle.mainBundle().pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let delay: AKAUDelay
 
@@ -34,7 +35,7 @@ delay.dryWetMix = 60 // Percent
 var delayWindow  = AKDelayWindow(delay)
 
 //: You can also set the bounds of the sliders here
-delayWindow.timeSlider.maxValue = 0.5 // seconds
+delayWindow.timeSlider.maxValue = 0.2 // seconds
 delayWindow.feedbackSlider.maxValue = 99
 audiokit.audioOutput = delay
 audiokit.start()
