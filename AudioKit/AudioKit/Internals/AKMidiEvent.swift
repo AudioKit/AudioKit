@@ -223,34 +223,34 @@ public class AKMidiEvent : NSObject{
             ret = ["note":NSInteger(data1),
                 "velocity":NSInteger(data2),
                 "channel":NSInteger(channel)]
-            name = String(AKMidiNotification.AKMidiNoteOnNotification);
+            name = String(AKMidiNotification.AKMidiNoteOnNotification.rawValue);
             break
         case .AKMidiStatusNoteOff:
             ret = ["note":NSInteger(data1),
                 "velocity":NSInteger(data2),
                 "channel":NSInteger(channel)]
-            name = String(AKMidiNotification.AKMidiNoteOffNotification);
+            name = String(AKMidiNotification.AKMidiNoteOffNotification.rawValue);
             break
         case .AKMidiStatusPolyphonicAftertouch:
             ret = ["note":NSInteger(data1),
                 "pressure":NSInteger(data2),
                 "channel":NSInteger(channel)]
-            name = String(AKMidiNotification.AKMidiPolyphonicAftertouchNotification);
+            name = String(AKMidiNotification.AKMidiPolyphonicAftertouchNotification.rawValue);
             break
         case .AKMidiStatusChannelAftertouch:
             ret = ["pressure":NSInteger(data1),
                 "channel":NSInteger(channel)]
-            name = String(AKMidiNotification.AKMidiAftertouchNotification);
+            name = String(AKMidiNotification.AKMidiAftertouchNotification.rawValue);
             break
         case .AKMidiStatusPitchWheel:
             ret = ["pitchWheel":NSInteger(data),
                 "channel":NSInteger(channel)]
-            name = String(AKMidiNotification.AKMidiPitchWheelNotification);
+            name = String(AKMidiNotification.AKMidiPitchWheelNotification.rawValue);
             break
         case .AKMidiStatusProgramChange:
             ret = ["pressure":NSInteger(data1),
                 "channel":NSInteger(channel)]
-            name = String(AKMidiNotification.AKMidiProgramChangeNotification);
+            name = String(AKMidiNotification.AKMidiProgramChangeNotification.rawValue);
             break
         case .AKMidiStatusControllerChange:
             switch(data1) {
