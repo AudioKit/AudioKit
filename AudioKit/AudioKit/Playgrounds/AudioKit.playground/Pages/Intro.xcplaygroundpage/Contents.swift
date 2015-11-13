@@ -1,8 +1,8 @@
-//: [Previous](@previous)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
 //:
 //: ---
 //:
-//: ## Introduction to AudioKit
+//: ## Introduction
 //: ### Making sure things work on your system by playing back audio with AKAudioPlayer
 import XCPlayground
 import AudioKit
@@ -20,4 +20,4 @@ player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
