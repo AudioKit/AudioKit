@@ -1,4 +1,4 @@
-//: [Previous](@previous)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
 //:
 //: ---
 //:
@@ -37,4 +37,4 @@ audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

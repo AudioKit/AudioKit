@@ -1,4 +1,4 @@
-//: [Previous](@previous)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
 //:
 //: ---
 //:
@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 //: Change the source to "mic" to process your voice
-let source = "mic"
+let source = "player"
 
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
@@ -29,6 +29,8 @@ default:
 distortion.delay = 0.1 // Milliseconds
 distortion.decay = 1.0 // Rate
 distortion.delayMix = 50 // Percent
+
+//: These are the decimator-specific parameters
 distortion.decimation = 50 // Percent
 distortion.rounding = 0 // Percent
 distortion.decimationMix = 50 // Percent
@@ -50,4 +52,4 @@ audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
