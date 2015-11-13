@@ -1,4 +1,4 @@
-//: [Previous](@previous)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
 //:
 //: ---
 //:
@@ -27,18 +27,18 @@ default:
 }
 
 //: Set the parameters of the delay here
-delay.time = 0.1 // seconds
+delay.time = 0.01 // seconds
 delay.feedback  = 90 // Percent
 delay.dryWetMix = 60 // Percent
 
 var delayWindow  = AKDelayWindow(delay)
 
 //: You can also set the bounds of the sliders here
-delayWindow.timeSlider.maxValue = 0.1 // seconds
-
+delayWindow.timeSlider.maxValue = 0.5 // seconds
+delayWindow.feedbackSlider.maxValue = 99
 audiokit.audioOutput = delay
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
