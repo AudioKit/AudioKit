@@ -100,6 +100,20 @@ public class AKAUReverb2: AKOperation {
             AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, decayTimeAtNyquist, 0)
         }
     }
+    /** Decay Time (Secs) ranges from 0.001 to 20.0 (Default: 0.5) 
+     Sets both atNyquist and at0Hz decay times*/
+    public var decayTime: Float = 0.5 {
+        didSet {
+            if decayTime < 0.001 {
+                decayTime = 0.001
+            }
+            if decayTime > 20.0 {
+                decayTime = 20.0
+            }
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, decayTime, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, decayTime, 0)
+        }
+    }
     
     /** Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1) */
     public var randomizeReflections: Float = 1 {
