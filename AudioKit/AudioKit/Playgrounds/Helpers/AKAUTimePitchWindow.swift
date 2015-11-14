@@ -15,17 +15,15 @@
         let windowWidth = 400
         let padding = 30
         let sliderHeight = 20
-        let numberOfComponents = 4
+        let numberOfComponents = 3
 
         public let rateSlider: NSSlider
         public let pitchSlider: NSSlider
         public let overlapSlider: NSSlider
-        public let enablePeakLockingSlider: NSSlider
 
         let rateTextField: NSTextField
         let pitchTextField: NSTextField
         let overlapTextField: NSTextField
-        let enablePeakLockingTextField: NSTextField
 
         var timePitch: AKAUTimePitch
 
@@ -36,12 +34,10 @@
             rateSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             pitchSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             overlapSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            enablePeakLockingSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
 
             rateTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             pitchTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             overlapTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            enablePeakLockingTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -113,9 +109,6 @@
             overlapSlider.floatValue = Float(timePitch.overlap)
             overlapSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
             view.addSubview(overlapSlider)
-
-            enablePeakLockingSlider.frame.origin.y = topTitle.frame.origin.y - 12 * CGFloat(sliderHeight)
-            view.addSubview(enablePeakLockingSlider)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
