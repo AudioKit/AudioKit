@@ -14,6 +14,7 @@
         <page name='AKAULowShelfFilter'/>
         <page name='AKAUParametricEQ'/>
         <page name='AKAUPeakLimiter'/>
+        <page name='AKAURingModulator'/>
         <page name='AKAUTimePitch'/>
     </pages>
 </playground>

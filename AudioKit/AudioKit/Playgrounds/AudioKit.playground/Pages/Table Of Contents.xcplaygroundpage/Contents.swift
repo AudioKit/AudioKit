@@ -14,6 +14,5 @@
 //: * [AKAULowShelfFilter](AKAULowShelfFilter)
 //: * [AKAUParametricEQ](AKAUParametricEQ)
 //: * [AKAUPeakLimiter](AKAUPeakLimiter)
-//: * [AKAUReverb2](AKAUReverb2)
+//: * [AKAURingModulator](AKAURingModulatr)
 //: * [AKAUTimePitch](AKAUTimePitch)
-//: * [AKAUVarispeed](AKAUVarispeed)
