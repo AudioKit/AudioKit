@@ -67,7 +67,7 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            rateTextField.stringValue = "Rate: \(timePitch.rate) rate"
+            rateTextField.stringValue = "Rate: \(timePitch.rate) x normal playback rate"
             rateTextField.editable = false
             rateTextField.drawsBackground = false
             rateTextField.bezeled = false
@@ -116,7 +116,7 @@
 
         internal func updateRate() {
             timePitch.rate = rateSlider.floatValue
-            rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) rate"
+            rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) x normal playback rate"
         }
         internal func updatePitch() {
             timePitch.pitch = pitchSlider.floatValue
