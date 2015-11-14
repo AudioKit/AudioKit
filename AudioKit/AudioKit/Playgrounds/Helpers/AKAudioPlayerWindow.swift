@@ -34,7 +34,7 @@ public class AKAudioPlayerWindow: NSWindow {
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
         
-        super.init(contentRect: NSRect(x: padding, y: padding, width: windowWidth, height: windowHeight),
+        super.init(contentRect: NSRect(x: 2 * padding + 400, y: padding, width: windowWidth, height: windowHeight),
             styleMask: NSTitledWindowMask,
             backing: .Buffered,
             `defer`: false)
