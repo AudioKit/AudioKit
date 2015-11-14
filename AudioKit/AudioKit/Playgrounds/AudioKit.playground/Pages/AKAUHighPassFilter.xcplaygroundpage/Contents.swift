@@ -26,7 +26,7 @@ default:
     highPassFilter = AKAUHighPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the high pass filter here
 highPassFilter.cutoffFrequency = 6900 // Hz
 highPassFilter.resonance = 0 // dB
 

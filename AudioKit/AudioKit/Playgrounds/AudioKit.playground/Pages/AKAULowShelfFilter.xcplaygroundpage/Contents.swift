@@ -26,7 +26,7 @@ default:
     lowShelfFilter = AKAULowShelfFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the low shelf filter here
 lowShelfFilter.cutoffFrequency = 80 // Hz
 lowShelfFilter.gain = 0 // dB
 

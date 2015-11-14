@@ -26,7 +26,7 @@ default:
     dynamicsProcessor = AKAUDynamicsProcessor(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the dynamics processor here
 dynamicsProcessor.threshold = -20 // dB
 dynamicsProcessor.headRoom = 5 // dB
 dynamicsProcessor.expansionRatio = 2 // rate
