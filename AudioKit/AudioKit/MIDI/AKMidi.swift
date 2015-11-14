@@ -35,7 +35,7 @@ public class AKMidi: AKOperation {
         packetPtr.initialize(packet)
         
         for (var i = 0; i < numPackets; ++i){
-            let event = AKMidiEvent.initWithMIDIPacket(packetPtr.memory)
+            let event = AKMidiEvent(packet: packetPtr.memory)
             event.postNotification()
             packetPtr = MIDIPacketNext(packetPtr)
         }

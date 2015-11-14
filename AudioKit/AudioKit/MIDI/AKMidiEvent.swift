@@ -59,62 +59,62 @@ public class AKMidiEvent : NSObject {
         return NSData(bytes: [_data[0], _data[1], _data[2]] as [UInt8], length: 3)
     }
     
-    static func initWithMIDIPacket(packet: MIDIPacket) -> AKMidiEvent {
+    init(packet: MIDIPacket) {
+        super.init()
         if (packet.data.0 < 0xF0) {
-            let status = Int(packet.data.0) >> 4
+            let status = AKMidiStatus(rawValue: Int(packet.data.0) >> 4)
             let channel = UInt8(packet.data.0 & 0xF)+1
-            return initWithStatus(AKMidiStatus(rawValue: status)!,
-                channel: channel,
-                d1: packet.data.1,
-                d2: packet.data.2)
-        }else{
-            return initWithSystemCommand(AKMidiSystemCommand(rawValue: packet.data.0)!,
-                d1: packet.data.1,
-                d2: packet.data.2)
+            fillWithStatus(status!, channel: channel, d1: packet.data.1, d2: packet.data.2)
+        } else {
+            fillWithCommand(AKMidiSystemCommand(rawValue: packet.data.0)!, d1: packet.data.1, d2: packet.data.2)
         }
-    }//end initWithMIDIPacket
+    }
     
-    static func initWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) -> AKMidiEvent {
-        let midiEvent = AKMidiEvent()
-        midiEvent._data[0] = UInt8(status.rawValue << 4) | UInt8((channel-1) & 0xf);
-        midiEvent._data[1] = d1 & 0x7F;
-        midiEvent._data[2] = d2 & 0x7F;
+    init(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
+        super.init()
+        fillWithStatus(status, channel: channel, d1: d1, d2: d2)
+    }
+    func fillWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
+        _data[0] = UInt8(status.rawValue << 4) | UInt8((channel-1) & 0xf);
+        _data[1] = d1 & 0x7F;
+        _data[2] = d2 & 0x7F;
         
         switch status {
-            case .ControllerChange:
-                if (d1 < AKMidiControl.DataEntryPlus.rawValue
-                    || d1 == AKMidiControl.LocalControlOnOff.rawValue) {
-                    midiEvent.length = 3
-                }
-                else {
-                    midiEvent.length = 2
-                }
-            case .ChannelAftertouch: break
-            case .ProgramChange:
-                midiEvent.length = 2
-            default:
-                midiEvent.length = 3
+        case .ControllerChange:
+            if (d1 < AKMidiControl.DataEntryPlus.rawValue
+                || d1 == AKMidiControl.LocalControlOnOff.rawValue) {
+                    length = 3
             }
-        return midiEvent
-    }//end initWithStatus
+            else {
+                length = 2
+            }
+        case .ChannelAftertouch: break
+        case .ProgramChange:
+            length = 2
+        default:
+            length = 3
+        }
+    }
     
-    static func initWithSystemCommand(command:AKMidiSystemCommand, d1:UInt8, d2:UInt8) -> AKMidiEvent {
-        let midiEvent = AKMidiEvent()
-        midiEvent._data[0] = command.rawValue
-        switch command{
+    init(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
+        super.init()
+        fillWithCommand(command, d1: d1, d2: d2)
+    }
+    func fillWithCommand(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
+        _data[0] = command.rawValue
+        switch command {
         case .Sysex: break
         case .SongPosition:
-            midiEvent._data[1] = d1 & 0x7F;
-            midiEvent._data[2] = d2 & 0x7F;
-            midiEvent.length = 3;
+            _data[1] = d1 & 0x7F;
+            _data[2] = d2 & 0x7F;
+            length = 3;
         case .SongSelect:
-            midiEvent._data[1] = d1 & 0x7F;
-            midiEvent.length = 2;
+            _data[1] = d1 & 0x7F;
+            length = 2;
         default:
-            midiEvent.length = 1
+            length = 1
         }
-        return midiEvent
-    }//end initWithSystemCommand
+    }
     
     func postNotification() -> Bool {
         var ret = NSDictionary()
@@ -160,13 +160,13 @@ public class AKMidiEvent : NSObject {
     
 //#MARK: - Utility constructors for common MIDI events
     static func eventWithNoteOn(note: UInt8, channel: UInt8, velocity: UInt8) -> AKMidiEvent {
-        return AKMidiEvent.initWithStatus(.NoteOn, channel: channel, d1: note, d2: velocity)
+        return AKMidiEvent(status:.NoteOn, channel: channel, d1: note, d2: velocity)
     }
     static func eventWithNoteOff(note: UInt8, channel: UInt8, velocity: UInt8) -> AKMidiEvent {
-        return AKMidiEvent.initWithStatus(.NoteOff, channel: channel, d1: note, d2: velocity)
+        return AKMidiEvent(status:.NoteOff, channel: channel, d1: note, d2: velocity)
     }
     static func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMidiEvent {
-        return AKMidiEvent.initWithStatus(.ProgramChange, channel: channel, d1: program, d2: 0)
+        return AKMidiEvent(status:.ProgramChange, channel: channel, d1: program, d2: 0)
     }
 
 }//end akmidievent
