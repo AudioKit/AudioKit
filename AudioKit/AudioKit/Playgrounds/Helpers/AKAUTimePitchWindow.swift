@@ -113,18 +113,7 @@
             overlapSlider.floatValue = Float(timePitch.overlap)
             overlapSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
             view.addSubview(overlapSlider)
-            enablePeakLockingTextField.stringValue = "Enable Peak Locking: \(timePitch.enablePeakLocking) Boolean"
-            enablePeakLockingTextField.editable = false
-            enablePeakLockingTextField.drawsBackground = false
-            enablePeakLockingTextField.bezeled = false
-            enablePeakLockingTextField.frame.origin.y = topTitle.frame.origin.y -  11 *  CGFloat(sliderHeight)
-            view.addSubview(enablePeakLockingTextField)
 
-            enablePeakLockingSlider.target = self
-            enablePeakLockingSlider.action = "updateEnablepeaklocking"
-            enablePeakLockingSlider.minValue = 0
-            enablePeakLockingSlider.maxValue = 1
-            enablePeakLockingSlider.floatValue = Float(timePitch.enablePeakLocking)
             enablePeakLockingSlider.frame.origin.y = topTitle.frame.origin.y - 12 * CGFloat(sliderHeight)
             view.addSubview(enablePeakLockingSlider)
 
@@ -143,10 +132,6 @@
         internal func updateOverlap() {
             timePitch.overlap = overlapSlider.floatValue
             overlapTextField.stringValue = "Overlap \(String(format: "%0.4f", timePitch.overlap)) generic"
-        }
-        internal func updateEnablepeaklocking() {
-            timePitch.enablePeakLocking = enablePeakLockingSlider.floatValue
-            enablePeakLockingTextField.stringValue = "Enable Peak Locking \(String(format: "%0.4f", timePitch.enablePeakLocking)) Boolean"
         }
 
         required public init?(coder: NSCoder) {
