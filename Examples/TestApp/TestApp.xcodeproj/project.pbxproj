@@ -12,6 +12,7 @@
 		C4341E631BC0E27300CB83C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E611BC0E27300CB83C1 /* Main.storyboard */; };
 		C4341E651BC0E27300CB83C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4341E641BC0E27300CB83C1 /* Assets.xcassets */; };
 		C4341E681BC0E27300CB83C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E661BC0E27300CB83C1 /* LaunchScreen.storyboard */; };
+		C46E8A431BF751E2001A97B7 /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E8A421BF751E2001A97B7 /* AudioKitHelpers.swift */; };
 		FE85EB051BEBD3BD002ECE31 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BF47D51BC1BEB30072FBAC /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		C4341E641BC0E27300CB83C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4341E671BC0E27300CB83C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4341E691BC0E27300CB83C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C46E8A421BF751E2001A97B7 /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKitHelpers.swift; path = ../../../AudioKit/AudioKit/AudioKitHelpers.swift; sourceTree = "<group>"; };
 		C4BF47D01BC1BEB30072FBAC /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../AudioKit/AudioKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,6 +70,7 @@
 		C4341E5C1BC0E27300CB83C1 /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				C46E8A421BF751E2001A97B7 /* AudioKitHelpers.swift */,
 				C4341E5D1BC0E27300CB83C1 /* AppDelegate.swift */,
 				C4341E5F1BC0E27300CB83C1 /* ViewController.swift */,
 				C4341E611BC0E27300CB83C1 /* Main.storyboard */,
@@ -173,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46E8A431BF751E2001A97B7 /* AudioKitHelpers.swift in Sources */,
 				C4341E601BC0E27300CB83C1 /* ViewController.swift in Sources */,
 				C4341E5E1BC0E27300CB83C1 /* AppDelegate.swift in Sources */,
 			);

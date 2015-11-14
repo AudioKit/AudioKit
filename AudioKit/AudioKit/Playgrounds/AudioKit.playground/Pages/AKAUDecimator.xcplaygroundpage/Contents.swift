@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKAULowShelfFilter
+//: ## AKAUDecimator
 //: ### Add description
 import XCPlayground
 import AudioKit
@@ -18,22 +18,23 @@ let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow: AKAudioPlayerWindow
-let lowShelfFilter: AKAULowShelfFilter
+let decimator: AKAUDecimator
 
 switch (source) {
 case "mic":
-    lowShelfFilter = AKAULowShelfFilter(mic)
+    decimator = AKAUDecimator(mic)
 default:
-    lowShelfFilter = AKAULowShelfFilter(player)
+    decimator = AKAUDecimator(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the low shelf filter here
-lowShelfFilter.cutoffFrequency = 80 // Hz
-lowShelfFilter.gain = 0 // dB
+//: Set the parameters of the decimator here
+decimator.decimation =  50 // Percent
+decimator.rounding = 50 // Percent
+decimator.mix = 50 // Percent
 
-var lowShelfFilterWindow = AKAULowShelfFilterWindow(lowShelfFilter)
+var decimatorWindow = AKAUDecimatorWindow(decimator)
 
-audiokit.audioOutput = lowShelfFilter
+audiokit.audioOutput = decimator
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

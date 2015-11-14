@@ -15,17 +15,15 @@
         let windowWidth = 400
         let padding = 30
         let sliderHeight = 20
-        let numberOfComponents = 4
+        let numberOfComponents = 3
 
         public let rateSlider: NSSlider
         public let pitchSlider: NSSlider
         public let overlapSlider: NSSlider
-        public let enablePeakLockingSlider: NSSlider
 
         let rateTextField: NSTextField
         let pitchTextField: NSTextField
         let overlapTextField: NSTextField
-        let enablePeakLockingTextField: NSTextField
 
         var timePitch: AKAUTimePitch
 
@@ -36,12 +34,10 @@
             rateSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             pitchSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             overlapSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            enablePeakLockingSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
 
             rateTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             pitchTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
             overlapTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            enablePeakLockingTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -71,7 +67,7 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            rateTextField.stringValue = "Rate: \(timePitch.rate) rate"
+            rateTextField.stringValue = "Rate: \(timePitch.rate) x normal playback rate"
             rateTextField.editable = false
             rateTextField.drawsBackground = false
             rateTextField.bezeled = false
@@ -113,20 +109,6 @@
             overlapSlider.floatValue = Float(timePitch.overlap)
             overlapSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
             view.addSubview(overlapSlider)
-            enablePeakLockingTextField.stringValue = "Enable Peak Locking: \(timePitch.enablePeakLocking) Boolean"
-            enablePeakLockingTextField.editable = false
-            enablePeakLockingTextField.drawsBackground = false
-            enablePeakLockingTextField.bezeled = false
-            enablePeakLockingTextField.frame.origin.y = topTitle.frame.origin.y -  11 *  CGFloat(sliderHeight)
-            view.addSubview(enablePeakLockingTextField)
-
-            enablePeakLockingSlider.target = self
-            enablePeakLockingSlider.action = "updateEnablepeaklocking"
-            enablePeakLockingSlider.minValue = 0
-            enablePeakLockingSlider.maxValue = 1
-            enablePeakLockingSlider.floatValue = Float(timePitch.enablePeakLocking)
-            enablePeakLockingSlider.frame.origin.y = topTitle.frame.origin.y - 12 * CGFloat(sliderHeight)
-            view.addSubview(enablePeakLockingSlider)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
@@ -134,7 +116,7 @@
 
         internal func updateRate() {
             timePitch.rate = rateSlider.floatValue
-            rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) rate"
+            rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) x normal playback rate"
         }
         internal func updatePitch() {
             timePitch.pitch = pitchSlider.floatValue
@@ -143,10 +125,6 @@
         internal func updateOverlap() {
             timePitch.overlap = overlapSlider.floatValue
             overlapTextField.stringValue = "Overlap \(String(format: "%0.4f", timePitch.overlap)) generic"
-        }
-        internal func updateEnablepeaklocking() {
-            timePitch.enablePeakLocking = enablePeakLockingSlider.floatValue
-            enablePeakLockingTextField.stringValue = "Enable Peak Locking \(String(format: "%0.4f", timePitch.enablePeakLocking)) Boolean"
         }
 
         required public init?(coder: NSCoder) {

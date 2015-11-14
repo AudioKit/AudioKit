@@ -10,7 +10,7 @@
 import Foundation
 import Cocoa
 
-public class AKDelayWindow: NSWindow {
+public class AKAUDelayWindow: NSWindow {
     
     let windowWidth = 400
     let padding = 30

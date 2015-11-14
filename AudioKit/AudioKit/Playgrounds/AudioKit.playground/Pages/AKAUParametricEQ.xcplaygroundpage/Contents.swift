@@ -13,8 +13,10 @@ let source = "player"
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
-let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let parametricEQ: AKAUParametricEQ
 
@@ -25,7 +27,7 @@ default:
     parametricEQ = AKAUParametricEQ(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the parametric equalizer here
 parametricEQ.centerFrequency = 2000 // Hz
 parametricEQ.q = 1.0 // Hz
 parametricEQ.gain = 0 // dB

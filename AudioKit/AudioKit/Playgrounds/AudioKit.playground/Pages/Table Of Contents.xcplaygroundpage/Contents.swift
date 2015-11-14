@@ -5,6 +5,7 @@
 //: ---
 //: ## Operation Examples
 //: * [AKAUBandPassFilter](AKAUBandPassFilter)
+//: * [AKAUDecimator](AKAUDecimator)
 //: * [AKAUDelay](AKAUDelay)
 //: * [AKAUDistortion](AKAUDistortion)
 //: * [AKAUDynamicsProcessor](AKAUDynamicsProcessor)
@@ -14,6 +15,5 @@
 //: * [AKAULowShelfFilter](AKAULowShelfFilter)
 //: * [AKAUParametricEQ](AKAUParametricEQ)
 //: * [AKAUPeakLimiter](AKAUPeakLimiter)
-//: * [AKAUReverb2](AKAUReverb2)
+//: * [AKAURingModulator](AKAURingModulatr)
 //: * [AKAUTimePitch](AKAUTimePitch)
-//: * [AKAUVarispeed](AKAUVarispeed)

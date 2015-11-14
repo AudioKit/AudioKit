@@ -13,8 +13,10 @@ let source = "player"
 //: This section prepares the player and the microphone
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
-let file = NSBundle.mainBundle().pathForResource("808loop", ofType: "wav")
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let playerWindow: AKAudioPlayerWindow
 
 //: Next we'll connect the audio to a delay
@@ -32,7 +34,7 @@ delay.time = 0.1 // seconds
 delay.feedback  = 80 // Percent
 delay.dryWetMix = 60 // Percent
 
-var delayWindow  = AKDelayWindow(delay)
+var delayWindow  = AKAUDelayWindow(delay)
 
 //: You can continue add more operations as you wish, and here we add a reverb
 let reverb = AKAUReverb(delay)
