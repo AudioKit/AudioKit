@@ -58,8 +58,7 @@ public class AKAUTimePitch: AKOperation {
         _ input: AKOperation,
         rate: Float = 1.0,
         pitch: Float = 1.0,
-        overlap: Float = 8.0,
-        enablePeakLocking: Float = 1)
+        overlap: Float = 8.0)
     {
         self.rate = rate
         self.pitch = pitch

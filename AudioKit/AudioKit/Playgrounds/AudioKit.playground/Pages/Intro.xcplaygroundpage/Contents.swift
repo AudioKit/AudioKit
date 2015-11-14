@@ -11,7 +11,8 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Try Changing "PianoBassDrumLoop" to "808loop"
-let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 
 audiokit.audioOutput = player
