@@ -42,8 +42,8 @@ class ViewController: UIViewController {
         
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
-        
-        defaultCenter.addObserverForName("AKMidiControl", object: nil, queue: mainQueue, usingBlock: midiNotif)
+
+        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
     }
     
     func midiNotif(notif:NSNotification){
