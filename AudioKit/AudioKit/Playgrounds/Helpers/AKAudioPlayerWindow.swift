@@ -15,9 +15,10 @@ public class AKAudioPlayerWindow: NSWindow {
     let windowWidth = 200
     let padding = 30
     let sliderHeight = 20
-    let numberOfComponents = 1
+    let numberOfComponents = 3
     
     public let playButton: NSButton
+    public let pauseButton: NSButton
     public let stopButton: NSButton
 
     var player: AKAudioPlayer
@@ -26,14 +27,14 @@ public class AKAudioPlayerWindow: NSWindow {
         player = control
         let sliderWidth = windowWidth - 2 * padding
         playButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        
+        pauseButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         stopButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         
         
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
         
-        super.init(contentRect: NSRect(x: padding, y: padding, width: windowWidth, height: windowHeight),
+        super.init(contentRect: NSRect(x: 2 * padding + 400, y: padding, width: windowWidth, height: windowHeight),
             styleMask: NSTitledWindowMask,
             backing: .Buffered,
             `defer`: false)
@@ -64,10 +65,16 @@ public class AKAudioPlayerWindow: NSWindow {
         playButton.frame.origin.y = topTitle.frame.origin.y - 2 * CGFloat(sliderHeight)
         view.addSubview(playButton)
         
+        pauseButton.target = self
+        pauseButton.action = "pause"
+        pauseButton.title = "Pause"
+        pauseButton.frame.origin.y = playButton.frame.origin.y - 2 * CGFloat(sliderHeight)
+        view.addSubview(pauseButton)
+
         stopButton.target = self
         stopButton.action = "stop"
         stopButton.title = "Stop"
-        stopButton.frame.origin.y = playButton.frame.origin.y - 2 * CGFloat(sliderHeight)
+        stopButton.frame.origin.y = pauseButton.frame.origin.y - 2 * CGFloat(sliderHeight)
         view.addSubview(stopButton)
 
         
@@ -77,6 +84,10 @@ public class AKAudioPlayerWindow: NSWindow {
     
     internal func play() {
         player.play()
+    }
+    
+    internal func pause() {
+        player.pause()
     }
     
     internal func stop() {

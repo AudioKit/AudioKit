@@ -13,8 +13,10 @@ let source = "player"
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
-let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let timePitch: AKAUTimePitch
 
@@ -29,10 +31,9 @@ default:
 timePitch.rate = 1.0 // rate
 timePitch.pitch = 1.0 // Cents
 timePitch.overlap = 8.0 // generic
-timePitch.enablePeakLocking = 1 // Boolean
 
 var timePitchWindow = AKAUTimePitchWindow(timePitch)
-
+timePitchWindow.rateSlider.maxValue = 4.0
 audiokit.audioOutput = timePitch
 audiokit.start()
 

@@ -13,7 +13,8 @@ let source = "player"
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
-let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 let playerWindow: AKAudioPlayerWindow
 let bandPassFilter: AKAUBandPassFilter
@@ -25,7 +26,7 @@ default:
     bandPassFilter = AKAUBandPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the band pass filter here
 bandPassFilter.centerFrequency = 5000 // Hz
 bandPassFilter.bandwidth = 600  // Cents
 

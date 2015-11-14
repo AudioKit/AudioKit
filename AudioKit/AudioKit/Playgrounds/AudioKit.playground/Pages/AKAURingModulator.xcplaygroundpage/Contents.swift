@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKAULowShelfFilter
+//: ## AKAURingModulator
 //: ### Add description
 import XCPlayground
 import AudioKit
@@ -18,22 +18,24 @@ let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow: AKAudioPlayerWindow
-let lowShelfFilter: AKAULowShelfFilter
+let ringModulator: AKAURingModulator
 
 switch (source) {
 case "mic":
-    lowShelfFilter = AKAULowShelfFilter(mic)
+    ringModulator = AKAURingModulator(mic)
 default:
-    lowShelfFilter = AKAULowShelfFilter(player)
+    ringModulator = AKAURingModulator(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the low shelf filter here
-lowShelfFilter.cutoffFrequency = 80 // Hz
-lowShelfFilter.gain = 0 // dB
+//: Set the parameters of the ring modulator here
+ringModulator.frequency1 = 100 // Hertz
+ringModulator.frequency2 = 100 // Hertz
+ringModulator.balance = 50 // Percent
+ringModulator.mix = 50 // Percent
 
-var lowShelfFilterWindow = AKAULowShelfFilterWindow(lowShelfFilter)
+var ringModulatorWindow = AKAURingModulatorWindow(ringModulator)
 
-audiokit.audioOutput = lowShelfFilter
+audiokit.audioOutput = ringModulator
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

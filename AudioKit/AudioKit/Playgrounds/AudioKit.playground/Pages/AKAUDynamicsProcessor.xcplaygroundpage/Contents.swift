@@ -13,8 +13,10 @@ let source = "player"
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
-let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let dynamicsProcessor: AKAUDynamicsProcessor
 
@@ -25,7 +27,7 @@ default:
     dynamicsProcessor = AKAUDynamicsProcessor(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the dynamics processor here
 dynamicsProcessor.threshold = -20 // dB
 dynamicsProcessor.headRoom = 5 // dB
 dynamicsProcessor.expansionRatio = 2 // rate

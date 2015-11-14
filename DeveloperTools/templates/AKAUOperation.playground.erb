@@ -25,7 +25,7 @@ default:
     <%= au_name.uncapitalize %> = AKAU<%= au_name %>(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters here
 <% parameters.each do |parameter| -%>
 <%= au_name.uncapitalize %>.<%= parameter[:variable] %> = <%= parameter[:default] %> // <%= parameter[:type] %>
 <% end -%>
