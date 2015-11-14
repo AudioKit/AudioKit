@@ -16,7 +16,7 @@ defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue:
 YourNotifFunction takes an NSNotifcation as an argument, 
 and then all the good stuff is contained in the userInfo part of the notification
 
-func myNotifFunction(notif:NSNotification){
+func myNotifFunction(notif:NSNotification) {
     print(notif.userInfo)
 }
 */
@@ -31,14 +31,14 @@ public class AKMidiEvent : NSObject {
     }
     var command: AKMidiSystemCommand {
         let status = (_data[0] >> 4)
-        if(status < 15){
+        if(status < 15) {
             return .None
         }
         return AKMidiSystemCommand(rawValue:_data[0])!
     }
     var channel: UInt8 {
         let status = (_data[0] >> 4)
-        if (status < 15){
+        if (status < 15) {
             return (_data[0] & 0xF) + 1;
         }
         return 0
@@ -60,7 +60,7 @@ public class AKMidiEvent : NSObject {
     }
     
     static func initWithMIDIPacket(packet: MIDIPacket) -> AKMidiEvent {
-        if (packet.data.0 < 0xF0){
+        if (packet.data.0 < 0xF0) {
             let status = Int(packet.data.0) >> 4
             let channel = UInt8(packet.data.0 & 0xF)+1
             return initWithStatus(AKMidiStatus(rawValue: status)!,
