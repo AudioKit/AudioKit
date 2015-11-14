@@ -11,15 +11,7 @@ import AVFoundation
 /** AudioKit version of Apple's TimePitch Audio Unit */
 public class AKAUTimePitch: AKOperation {
     
-    private let cd = AudioComponentDescription(
-        componentType: kAudioUnitType_Effect,
-        componentSubType: kAudioUnitSubType_NewTimePitch,
-        componentManufacturer: kAudioUnitManufacturer_Apple,
-        componentFlags: 0,
-        componentFlagsMask: 0)
-    
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
+    private let timePitchAU = AVAudioUnitTimePitch()
     
     /** Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0) */
     public var rate: Float = 1.0 {
@@ -30,7 +22,7 @@ public class AKAUTimePitch: AKOperation {
             if rate > 32.0 {
                 rate = 32.0
             }
-            AudioUnitSetParameter(internalAU, kNewTimePitchParam_Rate, kAudioUnitScope_Global, 0, rate, 0)
+            timePitchAU.rate = rate
         }
     }
     
@@ -43,7 +35,7 @@ public class AKAUTimePitch: AKOperation {
             if pitch > 2400 {
                 pitch = 2400
             }
-            AudioUnitSetParameter(internalAU, kNewTimePitchParam_Pitch, kAudioUnitScope_Global, 0, pitch, 0)
+            timePitchAU.pitch = pitch
         }
     }
     
@@ -56,22 +48,10 @@ public class AKAUTimePitch: AKOperation {
             if overlap > 32.0 {
                 overlap = 32.0
             }
-            AudioUnitSetParameter(internalAU, kNewTimePitchParam_Overlap, kAudioUnitScope_Global, 0, overlap, 0)
+            timePitchAU.overlap = overlap
         }
     }
-    
-    /** Enable Peak Locking (Boolean) ranges from 0 to 1 (Default: 1) */
-    public var enablePeakLocking: Float = 1 {
-        didSet {
-            if enablePeakLocking < 0 {
-                enablePeakLocking = 0
-            }
-            if enablePeakLocking > 1 {
-                enablePeakLocking = 1
-            }
-            AudioUnitSetParameter(internalAU, kNewTimePitchParam_EnablePeakLocking, kAudioUnitScope_Global, 0, enablePeakLocking, 0)
-        }
-    }
+
     
     /** Initialize the time pitch operation */
     public init(
@@ -84,13 +64,10 @@ public class AKAUTimePitch: AKOperation {
         self.rate = rate
         self.pitch = pitch
         self.overlap = overlap
-        self.enablePeakLocking = enablePeakLocking
         super.init()
         
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+        output = timePitchAU
+        AKManager.sharedInstance.engine.attachNode(timePitchAU)
+        AKManager.sharedInstance.engine.connect(input.output!, to: timePitchAU, format: nil)
     }
 }

@@ -30,10 +30,9 @@ default:
 timePitch.rate = 1.0 // rate
 timePitch.pitch = 1.0 // Cents
 timePitch.overlap = 8.0 // generic
-timePitch.enablePeakLocking = 1 // Boolean
 
 var timePitchWindow = AKAUTimePitchWindow(timePitch)
-
+timePitchWindow.rateSlider.maxValue = 4.0
 audiokit.audioOutput = timePitch
 audiokit.start()
 

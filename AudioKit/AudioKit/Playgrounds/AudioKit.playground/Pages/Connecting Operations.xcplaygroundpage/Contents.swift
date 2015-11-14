@@ -33,7 +33,7 @@ delay.time = 0.1 // seconds
 delay.feedback  = 80 // Percent
 delay.dryWetMix = 60 // Percent
 
-var delayWindow  = AKDelayWindow(delay)
+var delayWindow  = AKAUDelayWindow(delay)
 
 //: You can continue add more operations as you wish, and here we add a reverb
 let reverb = AKAUReverb(delay)
