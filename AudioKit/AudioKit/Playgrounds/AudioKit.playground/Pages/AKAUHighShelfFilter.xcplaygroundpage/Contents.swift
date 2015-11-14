@@ -26,7 +26,7 @@ default:
     highShelfFilter = AKAUHighShelfFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the high shelf filter here
 highShelfFilter.cutOffFrequency = 10000 // Hz
 highShelfFilter.gain = 0 // dB
 

@@ -25,7 +25,7 @@ default:
     bandPassFilter = AKAUBandPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the band pass filter here
 bandPassFilter.centerFrequency = 5000 // Hz
 bandPassFilter.bandwidth = 600  // Cents
 

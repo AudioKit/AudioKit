@@ -26,7 +26,7 @@ default:
     distortion = AKAUDistortion(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the distortion here
 distortion.delay = 0.1 // Milliseconds
 distortion.decay = 1.0 // Rate
 distortion.delayMix = 50 // Percent

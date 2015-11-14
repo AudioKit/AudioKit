@@ -26,7 +26,7 @@ default:
     decimator = AKAUDecimator(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the decimator here
 decimator.decimation =  50 // Percent
 decimator.rounding = 50 // Percent
 decimator.mix = 50 // Percent

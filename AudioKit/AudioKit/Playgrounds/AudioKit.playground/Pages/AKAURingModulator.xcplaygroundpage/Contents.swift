@@ -26,7 +26,7 @@ default:
     ringModulator = AKAURingModulator(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the ring modulator here
 ringModulator.frequency1 = 100 // Hertz
 ringModulator.frequency2 = 100 // Hertz
 ringModulator.balance = 50 // Percent

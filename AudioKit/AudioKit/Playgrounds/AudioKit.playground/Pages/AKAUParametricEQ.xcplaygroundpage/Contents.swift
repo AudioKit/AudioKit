@@ -26,7 +26,7 @@ default:
     parametricEQ = AKAUParametricEQ(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the parametric equalizer here
 parametricEQ.centerFrequency = 2000 // Hz
 parametricEQ.q = 1.0 // Hz
 parametricEQ.gain = 0 // dB
