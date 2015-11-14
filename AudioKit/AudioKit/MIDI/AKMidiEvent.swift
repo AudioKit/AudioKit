@@ -21,7 +21,7 @@ func myNotifFunction(notif:NSNotification) {
 }
 */
 
-public class AKMidiEvent : NSObject {
+public struct AKMidiEvent {
     var _data = [UInt8](count: 3, repeatedValue: 0)
     var length: UInt8? // The length in bytes for this MIDI message (1 to 3 bytes)
     
@@ -60,7 +60,6 @@ public class AKMidiEvent : NSObject {
     }
     
     init(packet: MIDIPacket) {
-        super.init()
         if (packet.data.0 < 0xF0) {
             let status = AKMidiStatus(rawValue: Int(packet.data.0) >> 4)
             let channel = UInt8(packet.data.0 & 0xF)+1
@@ -71,10 +70,9 @@ public class AKMidiEvent : NSObject {
     }
     
     init(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
-        super.init()
         fillWithStatus(status, channel: channel, d1: d1, d2: d2)
     }
-    func fillWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
+    mutating func fillWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
         _data[0] = UInt8(status.rawValue << 4) | UInt8((channel-1) & 0xf);
         _data[1] = d1 & 0x7F;
         _data[2] = d2 & 0x7F;
@@ -97,10 +95,9 @@ public class AKMidiEvent : NSObject {
     }
     
     init(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
-        super.init()
         fillWithCommand(command, d1: d1, d2: d2)
     }
-    func fillWithCommand(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
+    mutating func fillWithCommand(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
         _data[0] = command.rawValue
         switch command {
         case .Sysex: break
@@ -150,7 +147,7 @@ public class AKMidiEvent : NSObject {
         }
         if (ret.count != 0) {
             NSNotificationCenter.defaultCenter().postNotificationName(status.name(),
-                object: self,
+                object: nil,
                 userInfo: ret as [NSObject : AnyObject])
             return true;
         }
