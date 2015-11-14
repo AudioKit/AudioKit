@@ -40,7 +40,6 @@ enum AKMidiSystemCommand : UInt8 {
 
 /// Value of byte 2 in conjunction with AKMidiStatusControllerChange
 enum AKMidiControl : UInt8 {
-    case CC0               = 0
     case ModulationWheel   = 1
     case BreathControl     = 2
     case FootControl       = 4
@@ -65,6 +64,7 @@ enum AKMidiControl : UInt8 {
     case AllNotesOff       = 123
     
     // Unnamed CC values: (Must be a better way)
+    case CC0  = 0
     case CC3  = 3
     case CC9  = 9
     case CC12 = 12
