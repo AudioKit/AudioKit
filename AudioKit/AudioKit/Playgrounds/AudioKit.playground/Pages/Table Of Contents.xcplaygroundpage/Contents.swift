@@ -5,6 +5,7 @@
 //: ---
 //: ## Operation Examples
 //: * [AKAUBandPassFilter](AKAUBandPassFilter)
+//: * [AKAUDecimator](AKAUDecimator)
 //: * [AKAUDelay](AKAUDelay)
 //: * [AKAUDistortion](AKAUDistortion)
 //: * [AKAUDynamicsProcessor](AKAUDynamicsProcessor)
