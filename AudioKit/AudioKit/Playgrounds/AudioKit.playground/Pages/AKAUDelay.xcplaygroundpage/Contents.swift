@@ -32,7 +32,7 @@ delay.time = 0.01 // seconds
 delay.feedback  = 90 // Percent
 delay.dryWetMix = 60 // Percent
 
-var delayWindow  = AKDelayWindow(delay)
+var delayWindow  = AKAUDelayWindow(delay)
 
 //: You can also set the bounds of the sliders here
 delayWindow.timeSlider.maxValue = 0.2 // seconds
