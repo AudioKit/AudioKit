@@ -26,7 +26,7 @@ public class AKAUReverb: AKOperation {
         }
     }
     
-    /** Initialize the effect operation */
+    /** Initialize the reverb operation */
     public init(_ input: AKOperation, dryWetMix: Float = 50) {
         self.dryWetMix = dryWetMix
         super.init()
