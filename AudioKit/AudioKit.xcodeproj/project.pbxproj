@@ -77,6 +77,7 @@
 		C469274C1BE49129007B54F6 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C46927461BE49129007B54F6 /* ini.h */; };
 		C469274E1BE49129007B54F6 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C46927481BE49129007B54F6 /* LICENSE.txt */; };
 		C46927511BE49270007B54F6 /* randmt.c in Sources */ = {isa = PBXBuildFile; fileRef = C46927501BE49270007B54F6 /* randmt.c */; };
+		C46E8A411BF751AC001A97B7 /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E8A401BF751AC001A97B7 /* AudioKitHelpers.swift */; };
 		C46EB5381BDEDDD4008B1B0D /* AKWhiteNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46EB5341BDEDDD4008B1B0D /* AKWhiteNoise.swift */; };
 		C46EB5391BDEDDD4008B1B0D /* AKWhiteNoiseAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C46EB5351BDEDDD4008B1B0D /* AKWhiteNoiseAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46EB53A1BDEDDD4008B1B0D /* AKWhiteNoiseAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C46EB5361BDEDDD4008B1B0D /* AKWhiteNoiseAudioUnit.mm */; };
@@ -285,6 +286,7 @@
 		C46927461BE49129007B54F6 /* ini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
 		C46927481BE49129007B54F6 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C46927501BE49270007B54F6 /* randmt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = randmt.c; sourceTree = "<group>"; };
+		C46E8A401BF751AC001A97B7 /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitHelpers.swift; sourceTree = "<group>"; };
 		C46EB5341BDEDDD4008B1B0D /* AKWhiteNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWhiteNoise.swift; sourceTree = "<group>"; };
 		C46EB5351BDEDDD4008B1B0D /* AKWhiteNoiseAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWhiteNoiseAudioUnit.h; sourceTree = "<group>"; };
 		C46EB5361BDEDDD4008B1B0D /* AKWhiteNoiseAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKWhiteNoiseAudioUnit.mm; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				C46F8FBD1BF156E0009B0191 /* Playgrounds */,
 				C43FA3001BC1961D00EC6C85 /* AudioKit.h */,
 				C43FA3021BC1961D00EC6C85 /* Info.plist */,
+				C46E8A401BF751AC001A97B7 /* AudioKitHelpers.swift */,
 			);
 			path = AudioKit;
 			sourceTree = "<group>";
@@ -1341,6 +1344,7 @@
 				C4ECB3651BC4869200E09FA3 /* AKOperation.swift in Sources */,
 				C4D09A6C1BC87F6A00A1823F /* AKDCBlockAudioUnit.mm in Sources */,
 				C463A1DC1BE8A06C00159E9A /* AKAULowPassFilter.swift in Sources */,
+				C46E8A411BF751AC001A97B7 /* AudioKitHelpers.swift in Sources */,
 				C467755D1BC77BD00027FD6B /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
 				C481F8851BE48E3300F6AAA6 /* comb.c in Sources */,
 				C4E8FAA81BD9C251004761A2 /* AKPhasorAudioUnit.mm in Sources */,
