@@ -9,12 +9,14 @@
 import Foundation
 import CoreMIDI
 
+/** AKMidi is the object that handles the MIDI input and output from AudioKit.
+ */
 public class AKMidi: AKOperation {
     public var midiClient = MIDIClientRef()
     public var midiInPort = MIDIPortRef()
-    public var midiInPorts:[MIDIClientRef] = []
-    var midiClientName:CFString = "Midi In Client"
-    var midiInName:CFString = "Midi In Port"
+    public var midiInPorts: [MIDIClientRef] = []
+    var midiClientName: CFString = "Midi In Client"
+    var midiInName: CFString = "Midi In Port"
     
     func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
         let notification = midiNotification.memory
@@ -65,7 +67,7 @@ public class AKMidi: AKOperation {
             var inputName : Unmanaged<CFString>?
             inputName = nil
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
-            if(namedInput.isEmpty || namedInput == (inputName?.takeRetainedValue())! as String){
+            if(namedInput.isEmpty || namedInput == (inputName?.takeRetainedValue())! as String) {
                 midiInPorts.append(MIDIPortRef())
                 result = MIDIInputPortCreateWithBlock(midiClient, midiInName, &midiInPorts[i], MyMIDIReadBlock)
                 if result == OSStatus(noErr) {
