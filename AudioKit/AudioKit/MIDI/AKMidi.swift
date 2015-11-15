@@ -9,14 +9,19 @@
 import Foundation
 import CoreMIDI
 
-/** AKMidi is the object that handles the MIDI input and output from AudioKit.
- */
 public class AKMidi: AKOperation {
     public var midiClient = MIDIClientRef()
-    public var midiInPort = MIDIPortRef()
-    public var midiInPorts: [MIDIClientRef] = []
-    var midiClientName: CFString = "Midi In Client"
-    var midiInName: CFString = "Midi In Port"
+    public var midiInPorts:[MIDIPortRef] = []
+    var midiClientName:CFString = "Midi Client"
+    var midiInName:CFString = "Midi In Port"
+    
+    public var midiEndpoint = MIDIEndpointRef()
+    public var midiOutPorts:[MIDIPortRef] = []
+    
+    public var midiOutPort = MIDIPortRef()
+    public var midiEndpoints:[MIDIEndpointRef] = []
+    
+    var midiOutName:CFString = "Midi Out Port"
     
     func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
         let notification = midiNotification.memory
@@ -67,24 +72,93 @@ public class AKMidi: AKOperation {
             var inputName : Unmanaged<CFString>?
             inputName = nil
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
-            if(namedInput.isEmpty || namedInput == (inputName?.takeRetainedValue())! as String) {
+            let inputNameStr = (inputName?.takeRetainedValue())! as String
+            if(namedInput.isEmpty || namedInput == inputNameStr){
                 midiInPorts.append(MIDIPortRef())
                 result = MIDIInputPortCreateWithBlock(midiClient, midiInName, &midiInPorts[i], MyMIDIReadBlock)
                 if result == OSStatus(noErr) {
-                    print("created midiInPort")
+                    print("created midiInPort at \(inputNameStr)")
                 } else {
                     print("error creating midiInPort : \(result)")
                 }
-                print("inputName \(inputName!.takeRetainedValue())")
                 MIDIPortConnectSource(midiInPorts[i], src, nil)
             }//end if no name provided, or input matches provided name
         }//end foreach source
     }//end openMidiIn
     
+    public func openMidiOut(namedOutput: String = ""){
+        print("Opening Midi Out")
+        var result = OSStatus(noErr)
+        if(midiClient == 0){
+            result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
+            if result == OSStatus(noErr) {
+                print("created client")
+            } else {
+                print("error creating client : \(result)")
+            }
+        }//end if no midiClient
+        let numOutputs = MIDIGetNumberOfDestinations()
+        print(numOutputs)
+        result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
+        if result == OSStatus(noErr) {
+            print("created midi out port")
+        } else {
+            print("error creating midi out port : \(result)")
+        }
+        for(var i = 0; i < numOutputs; ++i){
+            let src = MIDIGetDestination(i)
+            var endpointName : Unmanaged<CFString>?
+            endpointName = nil
+            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
+            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
+            print("Destination at \(endpointNameStr)")
+            if(namedOutput.isEmpty || namedOutput == endpointNameStr){
+                midiEndpoints.append(MIDIGetDestination(i))
+            }//end if match or no name set
+        }//end foreach midi destination
+    }//end openMidiOut
+    
+    public func sendMessage(data:[UInt8]){
+        var result = OSStatus(noErr)
+        let packetListPtr:UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.alloc(1)
+        
+        var packet = UnsafeMutablePointer<MIDIPacket>()
+        packet = MIDIPacketListInit(packetListPtr)
+        packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
+        for(var i = 0; i < midiEndpoints.count; ++i){
+            result = MIDISend(midiOutPort, midiEndpoints[0], packetListPtr)
+            if result == OSStatus(noErr) {
+                //print("sent midi")
+            } else {
+                print("error sending midi : \(result)")
+            }
+        }//for each midiEndpoint
+        
+        packetListPtr.destroy()
+        packetListPtr.dealloc(1)//necessary? wish i could do this without the alloc above
+    }//end sendMessage
+    
+    public func sendMidiEvent(event:AKMidiEvent){
+        sendMessage(event._data)
+    }
+    
+    public func sendNoteMessage(note:Int, vel:Int, channel:Int = 0){
+        let noteCommand:UInt8 = UInt8(0x90) + UInt8(channel);
+        let message:[UInt8] = [noteCommand, UInt8(note), UInt8(vel)]
+        self.sendMessage(message)
+    }
+    public func sendControllerMessage(control:Int, val:Int, channel:Int = 0){
+        let controlCommand:UInt8 = UInt8(0xB0) + UInt8(channel);
+        let message:[UInt8] = [controlCommand, UInt8(control), UInt8(val)]
+        self.sendMessage(message)
+    }
 }//end AKMidi class
 
 /*
 
+*/
+
+/*
 static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)
 {
 AKMidi *m = (__bridge AKMidi *)refCon;
