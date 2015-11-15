@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import AudioKit
 
 class ViewController: UIViewController {
@@ -38,16 +39,27 @@ class ViewController: UIViewController {
         
         */
         audiokit.start()
-        midi.openMidiIn("Session 1")
+        midi.openMidiOut("Session 1")
         
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
 
-        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
+        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
     }
     
     func midiNotif(notif:NSNotification){
         print(notif.userInfo!)
+    }
+    @IBAction func connectMidi(){
+        midi.openMidiOut("Session 1")
+    }
+    @IBAction func sendMidi(){
+        let event = AKMidiEvent.eventWithNoteOn(33, velocity: 127, channel: 1)
+        midi.sendMidiEvent(event)
+    }
+    @IBAction func sendMidiController(sender: UISlider){
+        let event = AKMidiEvent.eventWithController(33, val: UInt8(sender.value * 127), channel: 1)
+        midi.sendMidiEvent(event)
     }
     @IBAction func changeReverb(sender: UISlider) {
         guard let reverb = verb2 else { return }
