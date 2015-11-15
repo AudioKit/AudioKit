@@ -1,0 +1,108 @@
+- name: Core Classes
+  children:
+  - AKManager
+  - AKOperation
+  - AKAudioPlayer
+  - AKMicrophone
+
+- name: Analysis
+  children:
+  - AKTrackedAmplitude
+
+- name: MIDI
+  children:
+  - AKMidi
+  - AKMidiEvent
+  - AKMidiControl
+  - AKMidiNotification
+  - AKMidiStatus
+  - AKMidiSystemCommand
+
+- name: Math
+  children:
+  - AKLinearTransformation
+
+- name: Oscillators
+  children:
+  - AKFMOscillator
+  - AKOscillator
+  - AKPhasor
+
+- name: Random Generators
+  children:
+  - AKWhiteNoise
+
+- name: Delays
+  children:
+  - AKAUDelay
+  - AKDelay
+  - AKVariableDelay
+
+- name: Dynamics
+  children:
+  - AKAUPeakLimiter
+  - AKAUDynamicsProcessor
+
+- name: Effects
+  children:
+  - AKAUDecimator
+  - AKAUDistortion
+  - AKAURingModulator
+  - AKAUTimePitch
+  - AKBitCrusher
+  - AKDistortion
+
+- name: Filters
+  children:
+  - AKAUBandPassFilter
+  - AKAUHighPassFilter
+  - AKAUHighShelfFilter
+  - AKAULowPassFilter
+  - AKAULowShelfFilter
+  - AKAUParametricEQ
+  - AKClipper
+  - AKCombFilter
+  - AKDCBlock
+  - AKEqualizerFilter
+  - AKFormantFilter
+  - AKHighPassFilter
+  - AKHighShelfParametricEqualizerFilter
+  - AKLowPassFilter
+  - AKLowShelfParametricEqualizerFilter
+  - AKModalResonanceFilter
+  - AKMoogLadder
+  - AKPeakingParametricEqualizerFilter
+  - AKRolandTB303Filter
+  - AKStringResonator
+  - AKThreePoleLowpassFilter
+
+- name: Butterworth Filters
+  children:
+  - AKBandPassButterworthFilter
+  - AKBandRejectButterworthFilter
+  - AKHighPassButterworthFilter
+  - AKLowPassButterworthFilter
+
+- name: Reverbs
+  children:
+  - AKAUReverb
+  - AKAUReverb2
+  - AKChowningReverb
+  - AKFlatFrequencyResponseReverb
+
+- name: Playground Windows
+  children:
+  - AKAUBandPassFilterWindow
+  - AKAUDecimatorWindow
+  - AKAUDelayWindow
+  - AKAUDistortionWindow
+  - AKAUDynamicsProcessorWindow
+  - AKAUHighPassFilterWindow
+  - AKAUHighShelfFilterWindow
+  - AKAULowPassFilterWindow
+  - AKAULowShelfFilterWindow
+  - AKAUParametricEQWindow
+  - AKAUPeakLimiterWindow
+  - AKAURingModulatorWindow
+  - AKAUTimePitchWindow
+  - AKAudioPlayerWindow
