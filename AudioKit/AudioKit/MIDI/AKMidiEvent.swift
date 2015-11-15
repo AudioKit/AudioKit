@@ -121,8 +121,11 @@ public struct AKMidiEvent {
         
         switch status {
             
-        case .NoteOn, .NoteOff, .PolyphonicAftertouch, .ControllerChange:
+        case .NoteOn, .NoteOff, .PolyphonicAftertouch:
             ret = ["note":d1, "velocity":d2, "channel":c]
+        
+        case .ControllerChange:
+            ret = ["control":d1, "value":d2, "channel":c]
 
         case .ChannelAftertouch, .ProgramChange:
             ret = ["pressure":d1, "channel":c]
