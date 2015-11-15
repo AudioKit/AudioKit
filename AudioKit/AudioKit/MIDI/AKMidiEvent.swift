@@ -121,12 +121,21 @@ public struct AKMidiEvent {
         
         switch status {
             
-        case .NoteOn, .NoteOff, .PolyphonicAftertouch, .ControllerChange:
+        case .NoteOn, .NoteOff:
             ret = ["note":d1, "velocity":d2, "channel":c]
+            
+        case .PolyphonicAftertouch:
+            ret = ["note":d1, "pressure":d2, "channel":c]
+            
+        case .ControllerChange:
+            ret = ["control":d1, "value":d2, "channel":c]
 
-        case .ChannelAftertouch, .ProgramChange:
+        case .ChannelAftertouch:
             ret = ["pressure":d1, "channel":c]
-
+            
+        case .ProgramChange:
+            ret = ["program":d1, "channel":c]
+            
         case .PitchWheel:
             ret = ["pitchWheel":NSInteger(data), "channel":c]
 
@@ -156,14 +165,17 @@ public struct AKMidiEvent {
     }//end postNotification
     
 //#MARK: - Utility constructors for common MIDI events
-    static func eventWithNoteOn(note: UInt8, channel: UInt8, velocity: UInt8) -> AKMidiEvent {
+    static public func eventWithNoteOn(note: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMidiEvent {
         return AKMidiEvent(status:.NoteOn, channel: channel, d1: note, d2: velocity)
     }
-    static func eventWithNoteOff(note: UInt8, channel: UInt8, velocity: UInt8) -> AKMidiEvent {
+    static public func eventWithNoteOff(note: UInt8, velocity: UInt8, channel: UInt8) -> AKMidiEvent {
         return AKMidiEvent(status:.NoteOff, channel: channel, d1: note, d2: velocity)
     }
-    static func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMidiEvent {
+    static public func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMidiEvent {
         return AKMidiEvent(status:.ProgramChange, channel: channel, d1: program, d2: 0)
+    }
+    static public func eventWithController(control: UInt8, val: UInt8, channel: UInt8) -> AKMidiEvent {
+        return AKMidiEvent(status:.ControllerChange, channel: channel, d1: control, d2: val)
     }
 
 }//end akmidievent
