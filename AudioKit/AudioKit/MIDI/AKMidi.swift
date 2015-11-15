@@ -11,8 +11,7 @@ import CoreMIDI
 
 public class AKMidi: AKOperation {
     public var midiClient = MIDIClientRef()
-    public var midiInPort = MIDIPortRef()
-    public var midiInPorts:[MIDIClientRef] = []
+    public var midiInPorts:[MIDIPortRef] = []
     var midiClientName:CFString = "Midi In Client"
     var midiInName:CFString = "Midi In Port"
     
@@ -65,15 +64,15 @@ public class AKMidi: AKOperation {
             var inputName : Unmanaged<CFString>?
             inputName = nil
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
-            if(namedInput.isEmpty || namedInput == (inputName?.takeRetainedValue())! as String){
+            let inputNameStr = (inputName?.takeRetainedValue())! as String
+            if(namedInput.isEmpty || namedInput == inputNameStr){
                 midiInPorts.append(MIDIPortRef())
                 result = MIDIInputPortCreateWithBlock(midiClient, midiInName, &midiInPorts[i], MyMIDIReadBlock)
                 if result == OSStatus(noErr) {
-                    print("created midiInPort")
+                    print("created midiInPort at \(inputNameStr)")
                 } else {
                     print("error creating midiInPort : \(result)")
                 }
-                print("inputName \(inputName!.takeRetainedValue())")
                 MIDIPortConnectSource(midiInPorts[i], src, nil)
             }//end if no name provided, or input matches provided name
         }//end foreach source

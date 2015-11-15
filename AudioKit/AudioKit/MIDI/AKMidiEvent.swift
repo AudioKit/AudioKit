@@ -121,15 +121,21 @@ public struct AKMidiEvent {
         
         switch status {
             
-        case .NoteOn, .NoteOff, .PolyphonicAftertouch:
+        case .NoteOn, .NoteOff:
             ret = ["note":d1, "velocity":d2, "channel":c]
-        
+            
+        case .PolyphonicAftertouch:
+            ret = ["note":d1, "pressure":d2, "channel":c]
+            
         case .ControllerChange:
             ret = ["control":d1, "value":d2, "channel":c]
 
-        case .ChannelAftertouch, .ProgramChange:
+        case .ChannelAftertouch:
             ret = ["pressure":d1, "channel":c]
-
+            
+        case .ProgramChange:
+            ret = ["program":d1, "channel":c]
+            
         case .PitchWheel:
             ret = ["pitchWheel":NSInteger(data), "channel":c]
 
