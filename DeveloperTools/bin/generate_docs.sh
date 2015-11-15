@@ -6,8 +6,8 @@ jazzy --module AudioKit \
       --source-directory ../AudioKit/ \
       --readme ../README.md \
       --min-acl internal \
+      --categories ./bin/doc_categories_au.yaml \
       --swift-version 2.1
 
 open docs/index.html
 #       --exclude ../Examples/TestApp/TestApp/ViewController.swift \
-#--categories ./bin/doc_categories.yaml
