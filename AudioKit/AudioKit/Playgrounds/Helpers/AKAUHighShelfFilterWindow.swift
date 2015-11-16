@@ -10,21 +10,25 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUHighShelfFilter in Playgrounds
     public class AKAUHighShelfFilterWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 2
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 2
 
+        /// Slider to control cutOffFrequency
         public let cutOffFrequencySlider: NSSlider
+        /// Slider to control gain
         public let gainSlider: NSSlider
 
-        let cutOffFrequencyTextField: NSTextField
-        let gainTextField: NSTextField
+        private let cutOffFrequencyTextField: NSTextField
+        private let gainTextField: NSTextField
 
-        var highShelfFilter: AKAUHighShelfFilter
+        private var highShelfFilter: AKAUHighShelfFilter
 
+        /// Initiate the AKAUHighShelfFilter window
         public init(_ control: AKAUHighShelfFilter) {
             highShelfFilter = control
             let sliderWidth = windowWidth - 2 * padding
@@ -96,15 +100,16 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        internal func updateCutofffrequency() {
+        private func updateCutofffrequency() {
             highShelfFilter.cutOffFrequency = cutOffFrequencySlider.floatValue
             cutOffFrequencyTextField.stringValue = "Cut Off Frequency \(String(format: "%0.4f", highShelfFilter.cutOffFrequency)) Hz"
         }
-        internal func updateGain() {
+        private func updateGain() {
             highShelfFilter.gain = gainSlider.floatValue
             gainTextField.stringValue = "Gain \(String(format: "%0.4f", highShelfFilter.gain)) dB"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

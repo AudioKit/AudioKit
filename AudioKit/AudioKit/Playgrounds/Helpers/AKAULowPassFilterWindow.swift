@@ -10,21 +10,25 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAULowPassFilter in Playgrounds
     public class AKAULowPassFilterWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 2
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 2
 
+        /// Slider to control cutoffFrequency
         public let cutoffFrequencySlider: NSSlider
+        /// Slider to control resonance
         public let resonanceSlider: NSSlider
 
-        let cutoffFrequencyTextField: NSTextField
-        let resonanceTextField: NSTextField
+        private let cutoffFrequencyTextField: NSTextField
+        private let resonanceTextField: NSTextField
 
-        var lowPassFilter: AKAULowPassFilter
+        private var lowPassFilter: AKAULowPassFilter
 
+        /// Initiate the AKAULowPassFilter window
         public init(_ control: AKAULowPassFilter) {
             lowPassFilter = control
             let sliderWidth = windowWidth - 2 * padding
@@ -96,15 +100,16 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        internal func updateCutofffrequency() {
+        private func updateCutofffrequency() {
             lowPassFilter.cutoffFrequency = cutoffFrequencySlider.floatValue
             cutoffFrequencyTextField.stringValue = "Cutoff Frequency \(String(format: "%0.4f", lowPassFilter.cutoffFrequency)) Hz"
         }
-        internal func updateResonance() {
+        private func updateResonance() {
             lowPassFilter.resonance = resonanceSlider.floatValue
             resonanceTextField.stringValue = "Resonance \(String(format: "%0.4f", lowPassFilter.resonance)) dB"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

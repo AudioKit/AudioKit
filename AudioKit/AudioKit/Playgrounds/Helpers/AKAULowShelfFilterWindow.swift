@@ -10,21 +10,25 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAULowShelfFilter in Playgrounds
     public class AKAULowShelfFilterWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 2
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 2
 
+        /// Slider to control cutoffFrequency
         public let cutoffFrequencySlider: NSSlider
+        /// Slider to control gain
         public let gainSlider: NSSlider
 
-        let cutoffFrequencyTextField: NSTextField
-        let gainTextField: NSTextField
+        private let cutoffFrequencyTextField: NSTextField
+        private let gainTextField: NSTextField
 
-        var lowShelfFilter: AKAULowShelfFilter
+        private var lowShelfFilter: AKAULowShelfFilter
 
+        /// Initiate the AKAULowShelfFilter window
         public init(_ control: AKAULowShelfFilter) {
             lowShelfFilter = control
             let sliderWidth = windowWidth - 2 * padding
@@ -96,15 +100,16 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        internal func updateCutofffrequency() {
+        private func updateCutofffrequency() {
             lowShelfFilter.cutoffFrequency = cutoffFrequencySlider.floatValue
             cutoffFrequencyTextField.stringValue = "Cutoff Frequency \(String(format: "%0.4f", lowShelfFilter.cutoffFrequency)) Hz"
         }
-        internal func updateGain() {
+        private func updateGain() {
             lowShelfFilter.gain = gainSlider.floatValue
             gainTextField.stringValue = "Gain \(String(format: "%0.4f", lowShelfFilter.gain)) dB"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

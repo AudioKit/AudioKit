@@ -10,25 +10,31 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAURingModulator in Playgrounds
     public class AKAURingModulatorWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 4
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 4
 
+        /// Slider to control ringModFreq1
         public let ringModFreq1Slider: NSSlider
+        /// Slider to control ringModFreq2
         public let ringModFreq2Slider: NSSlider
+        /// Slider to control ringModBalance
         public let ringModBalanceSlider: NSSlider
+        /// Slider to control finalMix
         public let finalMixSlider: NSSlider
 
-        let ringModFreq1TextField: NSTextField
-        let ringModFreq2TextField: NSTextField
-        let ringModBalanceTextField: NSTextField
-        let finalMixTextField: NSTextField
+        private let ringModFreq1TextField: NSTextField
+        private let ringModFreq2TextField: NSTextField
+        private let ringModBalanceTextField: NSTextField
+        private let finalMixTextField: NSTextField
 
-        var ringModulator: AKAURingModulator
+        private var ringModulator: AKAURingModulator
 
+        /// Initiate the AKAURingModulator window
         public init(_ control: AKAURingModulator) {
             ringModulator = control
             let sliderWidth = windowWidth - 2 * padding
@@ -132,23 +138,24 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        internal func updateRingmodfreq1() {
+        private func updateRingmodfreq1() {
             ringModulator.frequency1 = ringModFreq1Slider.floatValue
             ringModFreq1TextField.stringValue = "Frequency 1 \(String(format: "%0.4f", ringModulator.frequency1)) Hertz"
         }
-        internal func updateRingmodfreq2() {
+        private func updateRingmodfreq2() {
             ringModulator.frequency2 = ringModFreq2Slider.floatValue
             ringModFreq2TextField.stringValue = "Ring Mod Freq2 \(String(format: "%0.4f", ringModulator.frequency2)) Hertz"
         }
-        internal func updateRingmodbalance() {
+        private func updateRingmodbalance() {
             ringModulator.balance = ringModBalanceSlider.floatValue
             ringModBalanceTextField.stringValue = "Ring Mod Balance \(String(format: "%0.4f", ringModulator.balance)) Percent"
         }
-        internal func updateFinalmix() {
+        private func updateFinalmix() {
             ringModulator.mix = finalMixSlider.floatValue
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", ringModulator.mix)) Percent"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

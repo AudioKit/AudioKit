@@ -10,49 +10,67 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUDistortion in Playgrounds
     public class AKAUDistortionWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 16
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 16
 
+        /// Slider to control delay
         public let delaySlider: NSSlider
+        /// Slider to control decay
         public let decaySlider: NSSlider
+        /// Slider to control delayMix
         public let delayMixSlider: NSSlider
+        /// Slider to control decimation
         public let decimationSlider: NSSlider
+        /// Slider to control rounding
         public let roundingSlider: NSSlider
+        /// Slider to control decimationMix
         public let decimationMixSlider: NSSlider
+        /// Slider to control linearTerm
         public let linearTermSlider: NSSlider
+        /// Slider to control squaredTerm
         public let squaredTermSlider: NSSlider
+        /// Slider to control cubicTerm
         public let cubicTermSlider: NSSlider
+        /// Slider to control polynomialMix
         public let polynomialMixSlider: NSSlider
+        /// Slider to control ringModFreq1
         public let ringModFreq1Slider: NSSlider
+        /// Slider to control ringModFreq2
         public let ringModFreq2Slider: NSSlider
+        /// Slider to control ringModBalance
         public let ringModBalanceSlider: NSSlider
+        /// Slider to control ringModMix
         public let ringModMixSlider: NSSlider
+        /// Slider to control softClipGain
         public let softClipGainSlider: NSSlider
+        /// Slider to control finalMix
         public let finalMixSlider: NSSlider
 
-        let delayTextField: NSTextField
-        let decayTextField: NSTextField
-        let delayMixTextField: NSTextField
-        let decimationTextField: NSTextField
-        let roundingTextField: NSTextField
-        let decimationMixTextField: NSTextField
-        let linearTermTextField: NSTextField
-        let squaredTermTextField: NSTextField
-        let cubicTermTextField: NSTextField
-        let polynomialMixTextField: NSTextField
-        let ringModFreq1TextField: NSTextField
-        let ringModFreq2TextField: NSTextField
-        let ringModBalanceTextField: NSTextField
-        let ringModMixTextField: NSTextField
-        let softClipGainTextField: NSTextField
-        let finalMixTextField: NSTextField
+        private let delayTextField: NSTextField
+        private let decayTextField: NSTextField
+        private let delayMixTextField: NSTextField
+        private let decimationTextField: NSTextField
+        private let roundingTextField: NSTextField
+        private let decimationMixTextField: NSTextField
+        private let linearTermTextField: NSTextField
+        private let squaredTermTextField: NSTextField
+        private let cubicTermTextField: NSTextField
+        private let polynomialMixTextField: NSTextField
+        private let ringModFreq1TextField: NSTextField
+        private let ringModFreq2TextField: NSTextField
+        private let ringModBalanceTextField: NSTextField
+        private let ringModMixTextField: NSTextField
+        private let softClipGainTextField: NSTextField
+        private let finalMixTextField: NSTextField
 
-        var distortion: AKAUDistortion
+        private var distortion: AKAUDistortion
 
+        /// Initiate the AKAUDistortion window
         public init(_ control: AKAUDistortion) {
             distortion = control
             let sliderWidth = windowWidth - 2 * padding
@@ -348,71 +366,72 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        internal func updateDelay() {
+        private func updateDelay() {
             distortion.delay = delaySlider.floatValue
             delayTextField.stringValue = "Delay \(String(format: "%0.4f", distortion.delay)) Milliseconds"
         }
-        internal func updateDecay() {
+        private func updateDecay() {
             distortion.decay = decaySlider.floatValue
             decayTextField.stringValue = "Decay \(String(format: "%0.4f", distortion.decay)) Rate"
         }
-        internal func updateDelaymix() {
+        private func updateDelaymix() {
             distortion.delayMix = delayMixSlider.floatValue
             delayMixTextField.stringValue = "Delay Mix \(String(format: "%0.4f", distortion.delayMix)) Percent"
         }
-        internal func updateDecimation() {
+        private func updateDecimation() {
             distortion.decimation = decimationSlider.floatValue
             decimationTextField.stringValue = "Decimation \(String(format: "%0.4f", distortion.decimation)) Percent"
         }
-        internal func updateRounding() {
+        private func updateRounding() {
             distortion.rounding = roundingSlider.floatValue
             roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", distortion.rounding)) Percent"
         }
-        internal func updateDecimationmix() {
+        private func updateDecimationmix() {
             distortion.decimationMix = decimationMixSlider.floatValue
             decimationMixTextField.stringValue = "Decimation Mix \(String(format: "%0.4f", distortion.decimationMix)) Percent"
         }
-        internal func updateLinearterm() {
+        private func updateLinearterm() {
             distortion.linearTerm = linearTermSlider.floatValue
             linearTermTextField.stringValue = "Linear Term \(String(format: "%0.4f", distortion.linearTerm)) Percent"
         }
-        internal func updateSquaredterm() {
+        private func updateSquaredterm() {
             distortion.squaredTerm = squaredTermSlider.floatValue
             squaredTermTextField.stringValue = "Squared Term \(String(format: "%0.4f", distortion.squaredTerm)) Percent"
         }
-        internal func updateCubicterm() {
+        private func updateCubicterm() {
             distortion.cubicTerm = cubicTermSlider.floatValue
             cubicTermTextField.stringValue = "Cubic Term \(String(format: "%0.4f", distortion.cubicTerm)) Percent"
         }
-        internal func updatePolynomialmix() {
+        private func updatePolynomialmix() {
             distortion.polynomialMix = polynomialMixSlider.floatValue
             polynomialMixTextField.stringValue = "Polynomial Mix \(String(format: "%0.4f", distortion.polynomialMix)) Percent"
         }
-        internal func updateRingmodfreq1() {
+        private func updateRingmodfreq1() {
             distortion.ringModFreq1 = ringModFreq1Slider.floatValue
             ringModFreq1TextField.stringValue = "Ring Mod Freq1 \(String(format: "%0.4f", distortion.ringModFreq1)) Hertz"
         }
-        internal func updateRingmodfreq2() {
+        private func updateRingmodfreq2() {
             distortion.ringModFreq2 = ringModFreq2Slider.floatValue
             ringModFreq2TextField.stringValue = "Ring Mod Freq2 \(String(format: "%0.4f", distortion.ringModFreq2)) Hertz"
         }
-        internal func updateRingmodbalance() {
+        private func updateRingmodbalance() {
             distortion.ringModBalance = ringModBalanceSlider.floatValue
             ringModBalanceTextField.stringValue = "Ring Mod Balance \(String(format: "%0.4f", distortion.ringModBalance)) Percent"
         }
-        internal func updateRingmodmix() {
+        private func updateRingmodmix() {
             distortion.ringModMix = ringModMixSlider.floatValue
             ringModMixTextField.stringValue = "Ring Mod Mix \(String(format: "%0.4f", distortion.ringModMix)) Percent"
         }
-        internal func updateSoftclipgain() {
+        private func updateSoftclipgain() {
             distortion.softClipGain = softClipGainSlider.floatValue
             softClipGainTextField.stringValue = "Soft Clip Gain \(String(format: "%0.4f", distortion.softClipGain)) dB"
         }
-        internal func updateFinalmix() {
+        private func updateFinalmix() {
             distortion.finalMix = finalMixSlider.floatValue
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", distortion.finalMix)) Percent"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

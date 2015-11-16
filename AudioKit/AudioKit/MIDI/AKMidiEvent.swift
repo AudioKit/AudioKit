@@ -21,14 +21,20 @@ func myNotifFunction(notif:NSNotification) {
 }
 */
 
+/// A container for teh values that define a MIDI event
 public struct AKMidiEvent {
+    /// Internal data (Why the _?)
     var _data = [UInt8](count: 3, repeatedValue: 0)
-    var length: UInt8? // The length in bytes for this MIDI message (1 to 3 bytes)
+    /// The length in bytes for this MIDI message (1 to 3 bytes)
+    var length: UInt8?
     
+    /// Status
     var status: AKMidiStatus {
         let status = _data[0] >> 4
         return AKMidiStatus(rawValue: Int(status))!
     }
+    
+    /// System Command
     var command: AKMidiSystemCommand {
         let status = (_data[0] >> 4)
         if(status < 15) {
@@ -36,6 +42,8 @@ public struct AKMidiEvent {
         }
         return AKMidiSystemCommand(rawValue:_data[0])!
     }
+    
+    /// MIDI Channel
     var channel: UInt8 {
         let status = (_data[0] >> 4)
         if (status < 15) {
@@ -43,22 +51,23 @@ public struct AKMidiEvent {
         }
         return 0
     }
-    var data1: UInt8 {
+    private var data1: UInt8 {
         return _data[1]
     }
-    var data2: UInt8 {
+    private var data2: UInt8 {
         return _data[2]
     }
-    var data: UInt16 {
+    private var data: UInt16 {
         let x = UInt16(_data[1])
         let y = UInt16(_data[2] << 7)
         return y + x
     }
     
-    var bytes: NSData {
+    private var bytes: NSData {
         return NSData(bytes: [_data[0], _data[1], _data[2]] as [UInt8], length: 3)
     }
     
+    /// Initialize the MIDI Event from a MIDI Packet
     init(packet: MIDIPacket) {
         if (packet.data.0 < 0xF0) {
             let status = AKMidiStatus(rawValue: Int(packet.data.0) >> 4)
@@ -69,10 +78,11 @@ public struct AKMidiEvent {
         }
     }
     
+    /// Initialize the MIDI Event from a status message
     init(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
         fillWithStatus(status, channel: channel, d1: d1, d2: d2)
     }
-    mutating func fillWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
+    private mutating func fillWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
         _data[0] = UInt8(status.rawValue << 4) | UInt8((channel-1) & 0xf);
         _data[1] = d1 & 0x7F;
         _data[2] = d2 & 0x7F;
@@ -93,11 +103,12 @@ public struct AKMidiEvent {
             length = 3
         }
     }
-    
+
+    /// Initialize the MIDI Event from a system command message
     init(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
         fillWithCommand(command, d1: d1, d2: d2)
     }
-    mutating func fillWithCommand(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
+    private mutating func fillWithCommand(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
         _data[0] = command.rawValue
         switch command {
         case .Sysex: break
@@ -113,6 +124,7 @@ public struct AKMidiEvent {
         }
     }
     
+    /// Broadcast a notification center message
     func postNotification() -> Bool {
         var ret = NSDictionary()
         let d1 = NSInteger(data1)
@@ -164,18 +176,23 @@ public struct AKMidiEvent {
 
     }//end postNotification
     
-//#MARK: - Utility constructors for common MIDI events
+    // MARK: - Utility constructors for common MIDI events
+    
+    /// Create note on event
     static public func eventWithNoteOn(note: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMidiEvent {
         return AKMidiEvent(status:.NoteOn, channel: channel, d1: note, d2: velocity)
     }
+    /// Create note off event
     static public func eventWithNoteOff(note: UInt8, velocity: UInt8, channel: UInt8) -> AKMidiEvent {
         return AKMidiEvent(status:.NoteOff, channel: channel, d1: note, d2: velocity)
     }
+    /// Create program change event
     static public func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMidiEvent {
         return AKMidiEvent(status:.ProgramChange, channel: channel, d1: program, d2: 0)
     }
+    /// Create controller event
     static public func eventWithController(control: UInt8, val: UInt8, channel: UInt8) -> AKMidiEvent {
         return AKMidiEvent(status:.ControllerChange, channel: channel, d1: control, d2: val)
     }
 
-}//end akmidievent
+}
