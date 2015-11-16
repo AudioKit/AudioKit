@@ -10,26 +10,27 @@
 import Foundation
 import Cocoa
 
+/// A Window to control AKAudioPlayer in Playgrounds
 public class AKAudioPlayerWindow: NSWindow {
     
-    let windowWidth = 200
-    let padding = 30
-    let sliderHeight = 20
-    let numberOfComponents = 3
+    private let windowWidth = 200
+    private let padding = 30
+    private let sliderHeight = 20
+    private let numberOfComponents = 3
     
-    public let playButton: NSButton
-    public let pauseButton: NSButton
-    public let stopButton: NSButton
+    private let playButton: NSButton
+    private let pauseButton: NSButton
+    private let stopButton: NSButton
 
-    var player: AKAudioPlayer
+    private var player: AKAudioPlayer
     
+    /// Initialize the AKAudioplayer window
     public init(_ control: AKAudioPlayer) {
         player = control
         let sliderWidth = windowWidth - 2 * padding
         playButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         pauseButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         stopButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        
         
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -82,18 +83,19 @@ public class AKAudioPlayerWindow: NSWindow {
         self.makeKeyAndOrderFront(nil)
     }
     
-    internal func play() {
+    private func play() {
         player.play()
     }
     
-    internal func pause() {
+    private func pause() {
         player.pause()
     }
     
-    internal func stop() {
+    private func stop() {
         player.stop()
     }
     
+    /// Required Initializer
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

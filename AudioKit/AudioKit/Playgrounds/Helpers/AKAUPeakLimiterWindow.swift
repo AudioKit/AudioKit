@@ -10,23 +10,28 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUPeakLimiter in Playgrounds
     public class AKAUPeakLimiterWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 3
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 3
 
+        /// Slider to control attackTime
         public let attackTimeSlider: NSSlider
+        /// Slider to control decayTime
         public let decayTimeSlider: NSSlider
+        /// Slider to control preGain
         public let preGainSlider: NSSlider
 
-        let attackTimeTextField: NSTextField
-        let decayTimeTextField: NSTextField
-        let preGainTextField: NSTextField
+        private let attackTimeTextField: NSTextField
+        private let decayTimeTextField: NSTextField
+        private let preGainTextField: NSTextField
 
-        var peakLimiter: AKAUPeakLimiter
+        private var peakLimiter: AKAUPeakLimiter
 
+        /// Initiate the AKAUPeakLimiter window
         public init(_ control: AKAUPeakLimiter) {
             peakLimiter = control
             let sliderWidth = windowWidth - 2 * padding
@@ -114,19 +119,20 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        internal func updateAttacktime() {
+        private func updateAttacktime() {
             peakLimiter.attackTime = attackTimeSlider.floatValue
             attackTimeTextField.stringValue = "Attack Time \(String(format: "%0.4f", peakLimiter.attackTime)) Secs"
         }
-        internal func updateDecaytime() {
+        private func updateDecaytime() {
             peakLimiter.decayTime = decayTimeSlider.floatValue
             decayTimeTextField.stringValue = "Decay Time \(String(format: "%0.4f", peakLimiter.decayTime)) Secs"
         }
-        internal func updatePregain() {
+        private func updatePregain() {
             peakLimiter.preGain = preGainSlider.floatValue
             preGainTextField.stringValue = "Pre Gain \(String(format: "%0.4f", peakLimiter.preGain)) dB"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

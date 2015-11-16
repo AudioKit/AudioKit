@@ -9,13 +9,16 @@
 import Foundation
 import AVFoundation
 
+/// Simple audio playback class
 public class AKAudioPlayer: AKOperation {
     
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
     
+    /// Boolean indicating whether or not to loop the playback
     public var looping = false
     
+    /// Initialize the player
     public init(_ file: String) {
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
         let audioFile = try! AVAudioFile(forReading: url)
@@ -33,7 +36,7 @@ public class AKAudioPlayer: AKOperation {
         
     }
     
-    
+    /// Start playback
     public func play() {
         if !internalPlayer.playing {
             var options: AVAudioPlayerNodeBufferOptions = AVAudioPlayerNodeBufferOptions.Interrupts
@@ -45,11 +48,12 @@ public class AKAudioPlayer: AKOperation {
         internalPlayer.play()
     }
     
+    /// Pause playback
     public func pause() {
         internalPlayer.pause()
     }
 
-    
+    /// Stop playback
     public func stop() {
         internalPlayer.stop()
     }
