@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A6C0E747EDE883C2E9F648E6 /* libPods-AudioKitPlayground.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A9D9CF323B312CF4DBE0CC /* libPods-AudioKitPlayground.a */; };
-		C44C1E4B1BCCF2140014049E /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C44C1E4A1BCCF2140014049E /* AKSoundFiles.bundle */; };
 		C4554D101ADD192A000C8D42 /* AudioKit.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4554D0F1ADD192A000C8D42 /* AudioKit.plist */; };
 		C49D3D011AD5D32F000CBBCC /* AKSoundFiles.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C49D3D001AD5D32F000CBBCC /* AKSoundFiles.bundle */; };
 		C4FE74761AB9FB58001641B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4FE74751AB9FB58001641B7 /* main.m */; };
@@ -22,6 +21,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C45584DD1BFC9CCE0055D61C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA8E974D1AD4D7100057E979 /* AudioKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA93645D1BD865230005B849;
+			remoteInfo = "AudioKit tvOS";
+		};
 		EA8E97521AD4D7100057E979 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EA8E974D1AD4D7100057E979 /* AudioKit.xcodeproj */;
@@ -150,6 +156,7 @@
 				EA8E97531AD4D7100057E979 /* libAudioKit iOS Static.a */,
 				EAEF96C11BA196B0007F561A /* libAudioKit iOS Dynamic.a */,
 				EA8E97551AD4D7100057E979 /* libAudioKit OS X.a */,
+				C45584DE1BFC9CCE0055D61C /* libAudioKit tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -225,6 +232,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		C45584DE1BFC9CCE0055D61C /* libAudioKit tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libAudioKit tvOS.a";
+			remoteRef = C45584DD1BFC9CCE0055D61C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		EA8E97531AD4D7100057E979 /* libAudioKit iOS Static.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -253,7 +267,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C44C1E4B1BCCF2140014049E /* AKSoundFiles.bundle in Resources */,
 				C4FE74841AB9FB58001641B7 /* LaunchScreen.xib in Resources */,
 				C4FE74811AB9FB58001641B7 /* Images.xcassets in Resources */,
 				C4554D101ADD192A000C8D42 /* AudioKit.plist in Resources */,
@@ -366,7 +379,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -405,7 +418,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
