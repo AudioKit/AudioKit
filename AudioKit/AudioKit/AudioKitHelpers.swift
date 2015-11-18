@@ -44,6 +44,7 @@ enum AKMidiStatus : Int {
 }
 
 /** MIDI System Command
+ 
  - None: Trivial Case
  - Sysex: System Exclusive
  - SongPosition: Song Position
@@ -84,7 +85,28 @@ enum AKMidiSystemCommand : UInt8 {
     case SysReset = 255
 }
 
-/// Value of byte 2 in conjunction with AKMidiStatusControllerChange
+/** Value of byte 2 in conjunction with AKMidiStatusControllerChange
+ 
+ - ModulationWheel: Modulation Control
+ - BreathControl: Breath Control (in MIDI Saxophones for example)
+ - FootControl: Foot Control
+ - Portamento: Portamento effect
+ - DataEntry: Data Entry
+ - MainVolume: Volume (Overall)
+ - Balance
+ - Pan: Stereo Panning
+ - Expression: Expression Pedal
+ - LSB: Least Significant Byte
+ - DamperOnOff: Damper Pedal, also known as Hold or Sustain
+ - PortamentoOnOff: Portamento Toggle
+ - SustenutoOnOff: Sustenuto Toggle
+ - SoftPedalOnOff: Soft Pedal Toggle
+ - DataEntryPlus: Data Entry Addition
+ - DataEntryMinus: Data Entry Subtraction
+ - LocalControlOnOff: Enable local control
+ - AllNotesOff: MIDI Panic
+ - CC# (0, 3, 9, 12-31) Unnamed Continuous Controllers
+ */
 enum AKMidiControl : UInt8 {
     /// Modulation Control
     case ModulationWheel = 1
