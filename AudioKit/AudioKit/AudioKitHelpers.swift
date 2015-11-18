@@ -43,7 +43,20 @@ enum AKMidiStatus : Int {
     }
 }
 
-/// MIDI System Command
+/** MIDI System Command
+ - None: Trivial Case
+ - Sysex: System Exclusive
+ - SongPosition: Song Position
+ - SongSelect: Song Selection
+ - TuneRequest: Request Tune
+ - SysexEnd: End System Exclusive
+ - Clock
+ - Start
+ - Continue
+ - Stop
+ - ActiveSensing: Active Sensing
+ - SysReset: System Reset
+ */
 enum AKMidiSystemCommand : UInt8 {
     /// Trivial Case of None
     case None = 0
