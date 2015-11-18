@@ -116,49 +116,50 @@ enum AKMidiControl : UInt8 {
     
     // Unnamed CC values: (Must be a better way)
     
-    /// Continuous Controller Numer 0
+    /// Continuous Controller Number 0
     case CC0  = 0
-    /// Continuous Controller Numer 3
+    /// Continuous Controller Number 3
     case CC3  = 3
-    /// Continuous Controller Numer 9
+    /// Continuous Controller Number 9
     case CC9  = 9
-    /// Continuous Controller Numer 12
+    /// Continuous Controller Number 12
     case CC12 = 12
-    /// Continuous Controller Numer 13
+    /// Continuous Controller Number 13
     case CC13 = 13
-    /// Continuous Controller Numer 14
+    /// Continuous Controller Number 14
     case CC14 = 14
-    /// Continuous Controller Numer 15
+    /// Continuous Controller Number 15
     case CC15 = 15
-    /// Continuous Controller Numer 16
+    /// Continuous Controller Number 16
     case CC16 = 16
-    /// Continuous Controller Numer 17
+    /// Continuous Controller Number 17
     case CC17 = 17
-    /// Continuous Controller Numer 18
+    /// Continuous Controller Number 18
     case CC18 = 18
-    /// Continuous Controller Numer 19
+    /// Continuous Controller Number 19
     case CC19 = 19
-    /// Continuous Controller Numer 20
+    /// Continuous Controller Number 20
     case CC20 = 20
-    /// Continuous Controller Numer 21
+    /// Continuous Controller Number 21
     case CC21 = 21
-    /// Continuous Controller Numer 22
+    /// Continuous Controller Number 22
     case CC22 = 22
-    /// Continuous Controller Numer 23
+    /// Continuous Controller Number 23
     case CC23 = 23
-    /// Continuous Controller Numer 24
+    /// Continuous Controller Number 24
     case CC24 = 24
-    /// Continuous Controller Numer 25
+    /// Continuous Controller Number 25
     case CC25 = 25
-    /// Continuous Controller Numer 26
+    /// Continuous Controller Number 26
     case CC26 = 26
-    /// Continuous Controller Numer 27
+    /// Continuous Controller Number 27
     case CC27 = 27
-    /// Continuous Controller Numer 28
+    /// Continuous Controller Number 28
     case CC28 = 28
-    /// Continuous Controller Numer 29
+    /// Continuous Controller Number 29
     case CC29 = 29
-    /// Continuous Controller Numer 30
+    /// Continuous Controller Number 30
     case CC30 = 30
-    /// Continuous Controller Numer 31
-    case CC31 = 31}
+    /// Continuous Controller Number 31
+    case CC31 = 31
+}
