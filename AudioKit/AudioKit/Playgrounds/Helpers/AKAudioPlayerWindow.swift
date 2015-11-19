@@ -83,15 +83,15 @@ public class AKAudioPlayerWindow: NSWindow {
         self.makeKeyAndOrderFront(nil)
     }
     
-    private func play() {
+    internal func play() {
         player.play()
     }
     
-    private func pause() {
+    internal func pause() {
         player.pause()
     }
     
-    private func stop() {
+    internal func stop() {
         player.stop()
     }
     
