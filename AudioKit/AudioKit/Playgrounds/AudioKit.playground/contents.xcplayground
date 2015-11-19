@@ -4,6 +4,7 @@
         <page name='Table Of Contents'/>
         <page name='Intro'/>
         <page name='Connecting Operations'/>
+        <page name='Mixing Operations'/>
         <page name='AKAUBandPassFilter'/>
         <page name='AKAUDecimator'/>
         <page name='AKAUDelay'/>
