@@ -141,22 +141,22 @@ public class AKAUDelayWindow: NSWindow {
         self.makeKeyAndOrderFront(nil)
     }
     
-    private func updateTime() {
+    internal func updateTime() {
         delay.time = Double(timeSlider.floatValue)
         timeTextField.stringValue = "Delay Time: \(String(format: "%0.4f", delay.time)) seconds"
     }
     
-    private func updateFeedback() {
+    internal func updateFeedback() {
         delay.feedback = feedbackSlider.floatValue
         feedbackTextField.stringValue = "Feedback: \(String(format: "%0.1f", delay.feedback))%"
     }
     
-    private func updateLowPassCutoff() {
+    internal func updateLowPassCutoff() {
         delay.lowPassCutoff = lowPassCutoffSlider.floatValue
         lowPassCutoffTextField.stringValue = "Low Pass Cutoff: \(String(format: "%0.0f", delay.lowPassCutoff)) Hz"
     }
     
-    private func updateDryWetMix() {
+    internal func updateDryWetMix() {
         delay.dryWetMix = dryWetMixSlider.floatValue
         dryWetMixTextField.stringValue = "Dry/Wet Mix: \(String(format: "%0.1f", delay.dryWetMix))%"
     }

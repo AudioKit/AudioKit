@@ -119,15 +119,15 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateAttacktime() {
+        internal func updateAttacktime() {
             peakLimiter.attackTime = attackTimeSlider.floatValue
             attackTimeTextField.stringValue = "Attack Time \(String(format: "%0.4f", peakLimiter.attackTime)) Secs"
         }
-        private func updateDecaytime() {
+        internal func updateDecaytime() {
             peakLimiter.decayTime = decayTimeSlider.floatValue
             decayTimeTextField.stringValue = "Decay Time \(String(format: "%0.4f", peakLimiter.decayTime)) Secs"
         }
-        private func updatePregain() {
+        internal func updatePregain() {
             peakLimiter.preGain = preGainSlider.floatValue
             preGainTextField.stringValue = "Pre Gain \(String(format: "%0.4f", peakLimiter.preGain)) dB"
         }

@@ -138,19 +138,19 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateRingmodfreq1() {
+        internal func updateRingmodfreq1() {
             ringModulator.frequency1 = ringModFreq1Slider.floatValue
             ringModFreq1TextField.stringValue = "Frequency 1 \(String(format: "%0.4f", ringModulator.frequency1)) Hertz"
         }
-        private func updateRingmodfreq2() {
+        internal func updateRingmodfreq2() {
             ringModulator.frequency2 = ringModFreq2Slider.floatValue
             ringModFreq2TextField.stringValue = "Ring Mod Freq2 \(String(format: "%0.4f", ringModulator.frequency2)) Hertz"
         }
-        private func updateRingmodbalance() {
+        internal func updateRingmodbalance() {
             ringModulator.balance = ringModBalanceSlider.floatValue
             ringModBalanceTextField.stringValue = "Ring Mod Balance \(String(format: "%0.4f", ringModulator.balance)) Percent"
         }
-        private func updateFinalmix() {
+        internal func updateFinalmix() {
             ringModulator.mix = finalMixSlider.floatValue
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", ringModulator.mix)) Percent"
         }

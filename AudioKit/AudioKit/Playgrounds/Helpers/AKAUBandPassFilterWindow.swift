@@ -101,11 +101,11 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateCenterfrequency() {
+        internal func updateCenterfrequency() {
             bandPassFilter.centerFrequency = centerFrequencySlider.floatValue
             centerFrequencyTextField.stringValue = "Center Frequency \(String(format: "%0.4f", bandPassFilter.centerFrequency)) Hz"
         }
-        private func updateBandwidth() {
+        internal func updateBandwidth() {
             bandPassFilter.bandwidth = bandwidthSlider.floatValue
             bandwidthTextField.stringValue = "Bandwidth \(String(format: "%0.4f", bandPassFilter.bandwidth)) Cents"
         }

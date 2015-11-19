@@ -366,67 +366,67 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateDelay() {
+        internal func updateDelay() {
             distortion.delay = delaySlider.floatValue
             delayTextField.stringValue = "Delay \(String(format: "%0.4f", distortion.delay)) Milliseconds"
         }
-        private func updateDecay() {
+        internal func updateDecay() {
             distortion.decay = decaySlider.floatValue
             decayTextField.stringValue = "Decay \(String(format: "%0.4f", distortion.decay)) Rate"
         }
-        private func updateDelaymix() {
+        internal func updateDelaymix() {
             distortion.delayMix = delayMixSlider.floatValue
             delayMixTextField.stringValue = "Delay Mix \(String(format: "%0.4f", distortion.delayMix)) Percent"
         }
-        private func updateDecimation() {
+        internal func updateDecimation() {
             distortion.decimation = decimationSlider.floatValue
             decimationTextField.stringValue = "Decimation \(String(format: "%0.4f", distortion.decimation)) Percent"
         }
-        private func updateRounding() {
+        internal func updateRounding() {
             distortion.rounding = roundingSlider.floatValue
             roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", distortion.rounding)) Percent"
         }
-        private func updateDecimationmix() {
+        internal func updateDecimationmix() {
             distortion.decimationMix = decimationMixSlider.floatValue
             decimationMixTextField.stringValue = "Decimation Mix \(String(format: "%0.4f", distortion.decimationMix)) Percent"
         }
-        private func updateLinearterm() {
+        internal func updateLinearterm() {
             distortion.linearTerm = linearTermSlider.floatValue
             linearTermTextField.stringValue = "Linear Term \(String(format: "%0.4f", distortion.linearTerm)) Percent"
         }
-        private func updateSquaredterm() {
+        internal func updateSquaredterm() {
             distortion.squaredTerm = squaredTermSlider.floatValue
             squaredTermTextField.stringValue = "Squared Term \(String(format: "%0.4f", distortion.squaredTerm)) Percent"
         }
-        private func updateCubicterm() {
+        internal func updateCubicterm() {
             distortion.cubicTerm = cubicTermSlider.floatValue
             cubicTermTextField.stringValue = "Cubic Term \(String(format: "%0.4f", distortion.cubicTerm)) Percent"
         }
-        private func updatePolynomialmix() {
+        internal func updatePolynomialmix() {
             distortion.polynomialMix = polynomialMixSlider.floatValue
             polynomialMixTextField.stringValue = "Polynomial Mix \(String(format: "%0.4f", distortion.polynomialMix)) Percent"
         }
-        private func updateRingmodfreq1() {
+        internal func updateRingmodfreq1() {
             distortion.ringModFreq1 = ringModFreq1Slider.floatValue
             ringModFreq1TextField.stringValue = "Ring Mod Freq1 \(String(format: "%0.4f", distortion.ringModFreq1)) Hertz"
         }
-        private func updateRingmodfreq2() {
+        internal func updateRingmodfreq2() {
             distortion.ringModFreq2 = ringModFreq2Slider.floatValue
             ringModFreq2TextField.stringValue = "Ring Mod Freq2 \(String(format: "%0.4f", distortion.ringModFreq2)) Hertz"
         }
-        private func updateRingmodbalance() {
+        internal func updateRingmodbalance() {
             distortion.ringModBalance = ringModBalanceSlider.floatValue
             ringModBalanceTextField.stringValue = "Ring Mod Balance \(String(format: "%0.4f", distortion.ringModBalance)) Percent"
         }
-        private func updateRingmodmix() {
+        internal func updateRingmodmix() {
             distortion.ringModMix = ringModMixSlider.floatValue
             ringModMixTextField.stringValue = "Ring Mod Mix \(String(format: "%0.4f", distortion.ringModMix)) Percent"
         }
-        private func updateSoftclipgain() {
+        internal func updateSoftclipgain() {
             distortion.softClipGain = softClipGainSlider.floatValue
             softClipGainTextField.stringValue = "Soft Clip Gain \(String(format: "%0.4f", distortion.softClipGain)) dB"
         }
-        private func updateFinalmix() {
+        internal func updateFinalmix() {
             distortion.finalMix = finalMixSlider.floatValue
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", distortion.finalMix)) Percent"
         }
