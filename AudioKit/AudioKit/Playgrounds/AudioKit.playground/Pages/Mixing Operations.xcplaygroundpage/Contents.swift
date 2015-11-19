@@ -19,11 +19,14 @@ let player1Window = AKAudioPlayerWindow(player1)
 let player2 = AKAudioPlayer(file2!)
 player2.looping = true
 let player2Window = AKAudioPlayerWindow(player2)
-let mixer = AKMixer()
 
-AKManager.sharedInstance.engine.connect(player1.output!, to: mixer.output!, format: nil)
+// One was is to use the main mixer
+//let mixer = AKMainMixer()
+//mixer.connect(player1)
+//mixer.connect(player2)
 
-AKManager.sharedInstance.engine.connect(player2.output!, to: mixer.output!, format: nil)
+// Preferred method is as follows:
+let mixer = AKMixer(player1, player2)
 
 audiokit.audioOutput = mixer
 audiokit.start()
