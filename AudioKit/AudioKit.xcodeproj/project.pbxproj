@@ -134,6 +134,7 @@
 		C481F89C1BE48E3300F6AAA6 /* tone.c in Sources */ = {isa = PBXBuildFile; fileRef = C481F87B1BE48E3300F6AAA6 /* tone.c */; };
 		C481F89D1BE48E3300F6AAA6 /* vdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C481F87C1BE48E3300F6AAA6 /* vdelay.c */; };
 		C4BF47D71BC1D23D0072FBAC /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF47D61BC1D23D0072FBAC /* AKManager.swift */; };
+		C4C3FE601BFDADA20093C0CD /* AKMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C3FE5F1BFDADA10093C0CD /* AKMixer.swift */; };
 		C4D09A5D1BC87DB300A1823F /* AKCombFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D09A591BC87DB300A1823F /* AKCombFilter.swift */; };
 		C4D09A5E1BC87DB300A1823F /* AKCombFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D09A5A1BC87DB300A1823F /* AKCombFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D09A5F1BC87DB300A1823F /* AKCombFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D09A5B1BC87DB300A1823F /* AKCombFilterAudioUnit.mm */; };
@@ -344,6 +345,7 @@
 		C481F87B1BE48E3300F6AAA6 /* tone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tone.c; sourceTree = "<group>"; };
 		C481F87C1BE48E3300F6AAA6 /* vdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vdelay.c; sourceTree = "<group>"; };
 		C4BF47D61BC1D23D0072FBAC /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
+		C4C3FE5F1BFDADA10093C0CD /* AKMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixer.swift; sourceTree = "<group>"; };
 		C4D09A591BC87DB300A1823F /* AKCombFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCombFilter.swift; sourceTree = "<group>"; };
 		C4D09A5A1BC87DB300A1823F /* AKCombFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCombFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4D09A5B1BC87DB300A1823F /* AKCombFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCombFilterAudioUnit.mm; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BF47D61BC1D23D0072FBAC /* AKManager.swift */,
+				C4C3FE5F1BFDADA10093C0CD /* AKMixer.swift */,
 				C4ECB34B1BC4869200E09FA3 /* Operations */,
 				C46E8A3A1BF74FC5001A97B7 /* MIDI */,
 				C43FA30D1BC197C100EC6C85 /* Internals */,
@@ -1354,6 +1357,7 @@
 				C4D09A6C1BC87F6A00A1823F /* AKDCBlockAudioUnit.mm in Sources */,
 				C463A1DC1BE8A06C00159E9A /* AKAULowPassFilter.swift in Sources */,
 				C46E8A411BF751AC001A97B7 /* AudioKitHelpers.swift in Sources */,
+				C4C3FE601BFDADA20093C0CD /* AKMixer.swift in Sources */,
 				C467755D1BC77BD00027FD6B /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
 				C481F8851BE48E3300F6AAA6 /* comb.c in Sources */,
 				C4E8FAA81BD9C251004761A2 /* AKPhasorAudioUnit.mm in Sources */,
