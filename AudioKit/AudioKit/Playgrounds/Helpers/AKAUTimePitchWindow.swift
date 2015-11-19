@@ -119,15 +119,15 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateRate() {
+        internal func updateRate() {
             timePitch.rate = rateSlider.floatValue
             rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) x normal playback rate"
         }
-        private func updatePitch() {
+        internal func updatePitch() {
             timePitch.pitch = pitchSlider.floatValue
             pitchTextField.stringValue = "Pitch \(String(format: "%0.4f", timePitch.pitch)) Cents"
         }
-        private func updateOverlap() {
+        internal func updateOverlap() {
             timePitch.overlap = overlapSlider.floatValue
             overlapTextField.stringValue = "Overlap \(String(format: "%0.4f", timePitch.overlap)) generic"
         }

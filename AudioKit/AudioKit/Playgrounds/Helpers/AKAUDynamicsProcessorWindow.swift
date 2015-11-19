@@ -252,43 +252,43 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateThreshold() {
+        internal func updateThreshold() {
             dynamicsProcessor.threshold = thresholdSlider.floatValue
             thresholdTextField.stringValue = "Threshold \(String(format: "%0.4f", dynamicsProcessor.threshold)) dB"
         }
-        private func updateHeadroom() {
+        internal func updateHeadroom() {
             dynamicsProcessor.headRoom = headRoomSlider.floatValue
             headRoomTextField.stringValue = "Head Room \(String(format: "%0.4f", dynamicsProcessor.headRoom)) dB"
         }
-        private func updateExpansionratio() {
+        internal func updateExpansionratio() {
             dynamicsProcessor.expansionRatio = expansionRatioSlider.floatValue
             expansionRatioTextField.stringValue = "Expansion Ratio \(String(format: "%0.4f", dynamicsProcessor.expansionRatio)) rate"
         }
-        private func updateExpansionthreshold() {
+        internal func updateExpansionthreshold() {
             dynamicsProcessor.expansionThreshold = expansionThresholdSlider.floatValue
             expansionThresholdTextField.stringValue = "Expansion Threshold \(String(format: "%0.4f", dynamicsProcessor.expansionThreshold)) rate"
         }
-        private func updateAttacktime() {
+        internal func updateAttacktime() {
             dynamicsProcessor.attackTime = attackTimeSlider.floatValue
             attackTimeTextField.stringValue = "Attack Time \(String(format: "%0.4f", dynamicsProcessor.attackTime)) secs"
         }
-        private func updateReleasetime() {
+        internal func updateReleasetime() {
             dynamicsProcessor.releaseTime = releaseTimeSlider.floatValue
             releaseTimeTextField.stringValue = "Release Time \(String(format: "%0.4f", dynamicsProcessor.releaseTime)) secs"
         }
-        private func updateMastergain() {
+        internal func updateMastergain() {
             dynamicsProcessor.masterGain = masterGainSlider.floatValue
             masterGainTextField.stringValue = "Master Gain \(String(format: "%0.4f", dynamicsProcessor.masterGain)) dB"
         }
-        private func updateCompressionamount() {
+        internal func updateCompressionamount() {
             dynamicsProcessor.compressionAmount = compressionAmountSlider.floatValue
             compressionAmountTextField.stringValue = "Compression Amount \(String(format: "%0.4f", dynamicsProcessor.compressionAmount)) dB"
         }
-        private func updateInputamplitude() {
+        internal func updateInputamplitude() {
             dynamicsProcessor.inputAmplitude = inputAmplitudeSlider.floatValue
             inputAmplitudeTextField.stringValue = "Input Amplitude \(String(format: "%0.4f", dynamicsProcessor.inputAmplitude)) dB"
         }
-        private func updateOutputamplitude() {
+        internal func updateOutputamplitude() {
             dynamicsProcessor.outputAmplitude = outputAmplitudeSlider.floatValue
             outputAmplitudeTextField.stringValue = "Output Amplitude \(String(format: "%0.4f", dynamicsProcessor.outputAmplitude)) dB"
         }

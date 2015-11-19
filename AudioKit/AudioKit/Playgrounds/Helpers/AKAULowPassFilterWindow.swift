@@ -100,11 +100,11 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateCutofffrequency() {
+        internal func updateCutofffrequency() {
             lowPassFilter.cutoffFrequency = cutoffFrequencySlider.floatValue
             cutoffFrequencyTextField.stringValue = "Cutoff Frequency \(String(format: "%0.4f", lowPassFilter.cutoffFrequency)) Hz"
         }
-        private func updateResonance() {
+        internal func updateResonance() {
             lowPassFilter.resonance = resonanceSlider.floatValue
             resonanceTextField.stringValue = "Resonance \(String(format: "%0.4f", lowPassFilter.resonance)) dB"
         }

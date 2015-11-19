@@ -100,11 +100,11 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateCutofffrequency() {
+        internal func updateCutofffrequency() {
             highShelfFilter.cutOffFrequency = cutOffFrequencySlider.floatValue
             cutOffFrequencyTextField.stringValue = "Cut Off Frequency \(String(format: "%0.4f", highShelfFilter.cutOffFrequency)) Hz"
         }
-        private func updateGain() {
+        internal func updateGain() {
             highShelfFilter.gain = gainSlider.floatValue
             gainTextField.stringValue = "Gain \(String(format: "%0.4f", highShelfFilter.gain)) dB"
         }

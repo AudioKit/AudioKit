@@ -119,15 +119,15 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updateDecimation() {
+        internal func updateDecimation() {
             decimator.decimation = decimationSlider.floatValue
             decimationTextField.stringValue = "Decimation \(String(format: "%0.4f", decimator.decimation)) "
         }
-        private func updateRounding() {
+        internal func updateRounding() {
             decimator.rounding = roundingSlider.floatValue
             roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", decimator.rounding)) Percent"
         }
-        private func updateMix() {
+        internal func updateMix() {
             decimator.mix = finalMixSlider.floatValue
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", decimator.mix)) Percent"
         }

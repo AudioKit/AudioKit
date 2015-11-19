@@ -119,15 +119,15 @@
             self.makeKeyAndOrderFront(nil)
         }
 
-        private func updatecenterFrequency() {
+        internal func updatecenterFrequency() {
             parametricEQ.centerFrequency = centerFrequencySlider.floatValue
             centerFrequencyTextField.stringValue = "Center Freq \(String(format: "%0.4f", parametricEQ.centerFrequency)) Hz"
         }
-        private func updateQ() {
+        internal func updateQ() {
             parametricEQ.q = qSlider.floatValue
             qTextField.stringValue = "Q \(String(format: "%0.4f", parametricEQ.q)) Hz"
         }
-        private func updateGain() {
+        internal func updateGain() {
             parametricEQ.gain = gainSlider.floatValue
             gainTextField.stringValue = "Gain \(String(format: "%0.4f", parametricEQ.gain)) dB"
         }
