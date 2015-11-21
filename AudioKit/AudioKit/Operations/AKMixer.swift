@@ -13,6 +13,19 @@ import AVFoundation
 public class AKMixer: AKOperation {
     private let mixerAU = AVAudioMixerNode()
     
+    /** Output Volume (Default 1) */
+    public var volume: Float = 1.0 {
+        didSet {
+            if volume < 0 {
+                volume = 0
+            }
+            if volume > 1 {
+                volume = 1
+            }
+            mixerAU.outputVolume = volume
+        }
+    }
+    
     /** Initialize the delay operation */
     public init(_ inputs: AKOperation...) {
         super.init()
