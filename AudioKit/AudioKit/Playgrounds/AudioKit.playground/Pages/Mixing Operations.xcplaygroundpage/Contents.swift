@@ -27,6 +27,7 @@ let player2Window = AKAudioPlayerWindow(player2)
 
 // Preferred method is as follows:
 let mixer = AKMixer(player1, player2)
+mixer.volume = 0.5
 
 audiokit.audioOutput = mixer
 audiokit.start()
