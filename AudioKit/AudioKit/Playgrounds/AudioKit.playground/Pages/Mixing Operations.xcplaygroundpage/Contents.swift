@@ -14,11 +14,11 @@ let file1 = bundle.pathForResource("808loop", ofType: "wav")
 let file2 = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player1 = AKAudioPlayer(file1!)
 player1.looping = true
-let player1Window = AKAudioPlayerWindow(player1)
+let player1Window = AKAudioPlayerWindow(player1, title: "808 Loop")
 
 let player2 = AKAudioPlayer(file2!)
 player2.looping = true
-let player2Window = AKAudioPlayerWindow(player2)
+let player2Window = AKAudioPlayerWindow(player2, title: "Full Band", xOffset: 640)
 
 // One was is to use the main mixer
 //let mixer = AKMainMixer()
