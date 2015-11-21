@@ -92,7 +92,7 @@
         }
 
 <% parameters.each do |parameter| -%>
-        private func update<%= parameter[:variable].capitalize %>() {
+        internal func update<%= parameter[:variable].capitalize %>() {
             <%= au_name.uncapitalize %>.<%= parameter[:variable] %> = <%= parameter[:variable] %>Slider.floatValue
             <%= parameter[:variable] %>TextField.stringValue = "<%= parameter[:variable].underscore.humanize.titlecase %> \(String(format: "%0.4f", <%= au_name.uncapitalize %>.<%= parameter[:variable] %>)) <%= parameter[:type] %>"
         }
