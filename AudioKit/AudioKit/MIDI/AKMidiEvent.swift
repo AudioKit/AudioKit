@@ -21,7 +21,7 @@ func myNotifFunction(notif:NSNotification) {
 }
 */
 
-/// A container for teh values that define a MIDI event
+/// A container for the values that define a MIDI event
 public struct AKMidiEvent {
     /// Internal data (Why the _?)
     var _data = [UInt8](count: 3, repeatedValue: 0)
@@ -46,8 +46,8 @@ public struct AKMidiEvent {
     /// MIDI Channel
     var channel: UInt8 {
         let status = (_data[0] >> 4)
-        if (status < 15) {
-            return (_data[0] & 0xF) + 1;
+        if (status < 16) {
+            return (_data[0] & 0xF);
         }
         return 0
     }
@@ -71,7 +71,7 @@ public struct AKMidiEvent {
     init(packet: MIDIPacket) {
         if (packet.data.0 < 0xF0) {
             let status = AKMidiStatus(rawValue: Int(packet.data.0) >> 4)
-            let channel = UInt8(packet.data.0 & 0xF)+1
+            let channel = UInt8(packet.data.0 & 0xF)
             fillWithStatus(status!, channel: channel, d1: packet.data.1, d2: packet.data.2)
         } else {
             fillWithCommand(AKMidiSystemCommand(rawValue: packet.data.0)!, d1: packet.data.1, d2: packet.data.2)
@@ -83,7 +83,7 @@ public struct AKMidiEvent {
         fillWithStatus(status, channel: channel, d1: d1, d2: d2)
     }
     private mutating func fillWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
-        _data[0] = UInt8(status.rawValue << 4) | UInt8((channel-1) & 0xf);
+        _data[0] = UInt8(status.rawValue << 4) | UInt8((channel) & 0xf);
         _data[1] = d1 & 0x7F;
         _data[2] = d2 & 0x7F;
         
