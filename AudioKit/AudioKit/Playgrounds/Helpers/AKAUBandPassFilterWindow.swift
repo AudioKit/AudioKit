@@ -10,21 +10,26 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUBandPassFilter in Playgrounds
     public class AKAUBandPassFilterWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 2
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 2
 
+        /// Slider to control centerFrequency
         public let centerFrequencySlider: NSSlider
+        /// Slider to control bandwidth
         public let bandwidthSlider: NSSlider
 
-        let centerFrequencyTextField: NSTextField
-        let bandwidthTextField: NSTextField
+        private let centerFrequencyTextField: NSTextField
+        private let bandwidthTextField: NSTextField
 
+        /// Internal representation of the operation
         var bandPassFilter: AKAUBandPassFilter
 
+        /// Initiate the AKAUBandPassFilter window
         public init(_ control: AKAUBandPassFilter) {
             bandPassFilter = control
             let sliderWidth = windowWidth - 2 * padding
@@ -105,6 +110,7 @@
             bandwidthTextField.stringValue = "Bandwidth \(String(format: "%0.4f", bandPassFilter.bandwidth)) Cents"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

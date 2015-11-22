@@ -10,23 +10,28 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUTimePitch in Playgrounds
     public class AKAUTimePitchWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 3
+        private let numberOfComponents = 3
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
 
+        /// Slider to control rate
         public let rateSlider: NSSlider
+        /// Slider to control pitch
         public let pitchSlider: NSSlider
+        /// Slider to control overlap
         public let overlapSlider: NSSlider
 
-        let rateTextField: NSTextField
-        let pitchTextField: NSTextField
-        let overlapTextField: NSTextField
+        private let rateTextField: NSTextField
+        private let pitchTextField: NSTextField
+        private let overlapTextField: NSTextField
 
-        var timePitch: AKAUTimePitch
+        private var timePitch: AKAUTimePitch
 
+        /// Initiate the AKAUTimePitch window
         public init(_ control: AKAUTimePitch) {
             timePitch = control
             let sliderWidth = windowWidth - 2 * padding
@@ -126,7 +131,8 @@
             timePitch.overlap = overlapSlider.floatValue
             overlapTextField.stringValue = "Overlap \(String(format: "%0.4f", timePitch.overlap)) generic"
         }
-
+        
+        /// Required Initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

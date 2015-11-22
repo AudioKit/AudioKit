@@ -8,11 +8,11 @@
 
 import AVFoundation
 
-#if os(iOS)
 
 /** AudioKit version of Apple's Reverb2 Audio Unit */
 public class AKAUReverb2: AKOperation {
-    
+  
+    #if os(iOS)
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
         componentSubType: kAudioUnitSubType_Reverb2,
@@ -154,6 +154,7 @@ public class AKAUReverb2: AKOperation {
         AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
         internalAU = internalEffect.audioUnit
     }
+    #endif
 }
 
-#endif
+

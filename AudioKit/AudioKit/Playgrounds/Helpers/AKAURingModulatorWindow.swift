@@ -10,25 +10,31 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAURingModulator in Playgrounds
     public class AKAURingModulatorWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 4
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 4
 
+        /// Slider to control ringModFreq1
         public let ringModFreq1Slider: NSSlider
+        /// Slider to control ringModFreq2
         public let ringModFreq2Slider: NSSlider
+        /// Slider to control ringModBalance
         public let ringModBalanceSlider: NSSlider
+        /// Slider to control finalMix
         public let finalMixSlider: NSSlider
 
-        let ringModFreq1TextField: NSTextField
-        let ringModFreq2TextField: NSTextField
-        let ringModBalanceTextField: NSTextField
-        let finalMixTextField: NSTextField
+        private let ringModFreq1TextField: NSTextField
+        private let ringModFreq2TextField: NSTextField
+        private let ringModBalanceTextField: NSTextField
+        private let finalMixTextField: NSTextField
 
-        var ringModulator: AKAURingModulator
+        private var ringModulator: AKAURingModulator
 
+        /// Initiate the AKAURingModulator window
         public init(_ control: AKAURingModulator) {
             ringModulator = control
             let sliderWidth = windowWidth - 2 * padding
@@ -149,6 +155,7 @@
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", ringModulator.mix)) Percent"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

@@ -9,26 +9,42 @@
 import Foundation
 import CoreMIDI
 
+//// MIDI input and output handler
 public class AKMidi: AKOperation {
+    
+    /// MIDI Client Reference
     public var midiClient = MIDIClientRef()
+    
+    /// Array of MIDI In ports
     public var midiInPorts:[MIDIPortRef] = []
+    
+    /// MIDI Client Name
     var midiClientName:CFString = "Midi Client"
+    
+    /// MIDI In Port Name
     var midiInName:CFString = "Midi In Port"
     
+    /// MIDI End Point
     public var midiEndpoint = MIDIEndpointRef()
+    
+    /// Array of MIDI Out ports
     public var midiOutPorts:[MIDIPortRef] = []
     
+    /// MIDI Out Port Reference
     public var midiOutPort = MIDIPortRef()
+    
+    /// Array of MIDI Endpoints
     public var midiEndpoints:[MIDIEndpointRef] = []
     
+    /// MIDI Out Port Name
     var midiOutName:CFString = "Midi Out Port"
     
-    func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
+    private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
         let notification = midiNotification.memory
         print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
         
     }
-    func MyMIDIReadBlock(packetList: UnsafePointer<MIDIPacketList>, srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
+    private func MyMIDIReadBlock(packetList: UnsafePointer<MIDIPacketList>, srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
         
         /*
         //can't yet figure out how to access the port passed via srcConnRefCon
@@ -48,14 +64,17 @@ public class AKMidi: AKOperation {
         }
     }
     
+    /// Initialize the AKMidi system
     public override init() {
         super.init()
-        print("howdy world, from AKMidi")
+        print("MIDI Enabled")
         #if os(iOS)
             MIDINetworkSession.defaultSession().enabled = true
             MIDINetworkSession.defaultSession().connectionPolicy = MIDINetworkConnectionPolicy.Anyone
         #endif
     }
+    
+    /// Open a MIDI In port
     public func openMidiIn(namedInput: String = ""){
         print("Opening Midi In")
         var result = OSStatus(noErr)
@@ -84,8 +103,9 @@ public class AKMidi: AKOperation {
                 MIDIPortConnectSource(midiInPorts[i], src, nil)
             }//end if no name provided, or input matches provided name
         }//end foreach source
-    }//end openMidiIn
+    }
     
+    /// Open a MIDI Out Port
     public func openMidiOut(namedOutput: String = ""){
         print("Opening Midi Out")
         var result = OSStatus(noErr)
@@ -97,8 +117,9 @@ public class AKMidi: AKOperation {
                 print("error creating client : \(result)")
             }
         }//end if no midiClient
+        
         let numOutputs = MIDIGetNumberOfDestinations()
-        print(numOutputs)
+        print("Number of MIDI Out ports = \(numOutputs)")
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         if result == OSStatus(noErr) {
             print("created midi out port")
@@ -116,8 +137,9 @@ public class AKMidi: AKOperation {
                 midiEndpoints.append(MIDIGetDestination(i))
             }//end if match or no name set
         }//end foreach midi destination
-    }//end openMidiOut
+    }
     
+    /// Send Message with data
     public func sendMessage(data:[UInt8]){
         var result = OSStatus(noErr)
         let packetListPtr:UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.alloc(1)
@@ -138,25 +160,25 @@ public class AKMidi: AKOperation {
         packetListPtr.dealloc(1)//necessary? wish i could do this without the alloc above
     }//end sendMessage
     
+    /// Send Messsage from midi event data
     public func sendMidiEvent(event:AKMidiEvent){
         sendMessage(event._data)
     }
     
+    /// Send a Note On Message
     public func sendNoteMessage(note:Int, vel:Int, channel:Int = 0){
         let noteCommand:UInt8 = UInt8(0x90) + UInt8(channel);
         let message:[UInt8] = [noteCommand, UInt8(note), UInt8(vel)]
         self.sendMessage(message)
     }
+    
+    /// Send a Continuous Controller message
     public func sendControllerMessage(control:Int, val:Int, channel:Int = 0){
         let controlCommand:UInt8 = UInt8(0xB0) + UInt8(channel);
         let message:[UInt8] = [controlCommand, UInt8(control), UInt8(val)]
         self.sendMessage(message)
     }
-}//end AKMidi class
-
-/*
-
-*/
+}
 
 /*
 static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)

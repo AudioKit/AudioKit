@@ -10,25 +10,31 @@
 import Foundation
 import Cocoa
 
+/// A Window to control AKAUDelay in Playgrounds
 public class AKAUDelayWindow: NSWindow {
     
-    let windowWidth = 400
-    let padding = 30
-    let sliderHeight = 20
-    let numberOfComponents = 4
+    private let windowWidth = 400
+    private let padding = 30
+    private let sliderHeight = 20
+    private let numberOfComponents = 4
     
+    /// Slider to control time
     public let timeSlider:          NSSlider
+    /// Slider to control feedback
     public let feedbackSlider:      NSSlider
+    /// Slider to control low pass cutoff frequency
     public let lowPassCutoffSlider: NSSlider
+    /// Slider to control dry/wet mix
     public let dryWetMixSlider:     NSSlider
     
-    let timeTextField:          NSTextField
-    let feedbackTextField:      NSTextField
-    let lowPassCutoffTextField: NSTextField
-    let dryWetMixTextField:     NSTextField
+    private let timeTextField:          NSTextField
+    private let feedbackTextField:      NSTextField
+    private let lowPassCutoffTextField: NSTextField
+    private let dryWetMixTextField:     NSTextField
     
-    var delay: AKAUDelay
+    private var delay: AKAUDelay
     
+    /// Initiate the AKAUDelay window
     public init(_ control: AKAUDelay) {
         delay = control
         let sliderWidth = windowWidth - 2 * padding
@@ -155,6 +161,7 @@ public class AKAUDelayWindow: NSWindow {
         dryWetMixTextField.stringValue = "Dry/Wet Mix: \(String(format: "%0.1f", delay.dryWetMix))%"
     }
     
+    /// Required Initializer
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -10,23 +10,28 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUDecimator in Playgrounds
     public class AKAUDecimatorWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 3
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 3
 
+        /// Slider to control decimation
         public let decimationSlider: NSSlider
+        /// Slider to control rounding
         public let roundingSlider: NSSlider
+        /// Slider to control finalMix
         public let finalMixSlider: NSSlider
 
-        let decimationTextField: NSTextField
-        let roundingTextField: NSTextField
-        let finalMixTextField: NSTextField
+        private let decimationTextField: NSTextField
+        private let roundingTextField: NSTextField
+        private let finalMixTextField: NSTextField
 
-        var decimator: AKAUDecimator
+        private var decimator: AKAUDecimator
 
+        /// Initiate the AKAUDecimator window
         public init(_ control: AKAUDecimator) {
             decimator = control
             let sliderWidth = windowWidth - 2 * padding
@@ -127,6 +132,7 @@
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", decimator.mix)) Percent"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

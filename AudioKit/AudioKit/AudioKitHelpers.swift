@@ -43,89 +43,158 @@ enum AKMidiStatus : Int {
     }
 }
 
+/** MIDI System Command
+ 
+ - None: Trivial Case
+ - Sysex: System Exclusive
+ - SongPosition: Song Position
+ - SongSelect: Song Selection
+ - TuneRequest: Request Tune
+ - SysexEnd: End System Exclusive
+ - Clock
+ - Start
+ - Continue
+ - Stop
+ - ActiveSensing: Active Sensing
+ - SysReset: System Reset
+ */
 enum AKMidiSystemCommand : UInt8 {
-    case None          = 0
-    case Sysex         = 240
-    case SongPosition  = 242
-    case SongSelect    = 243
-    case TuneRequest   = 246
-    case SysexEnd      = 247
-    case Clock         = 248
-    case Start         = 250
-    case Continue      = 251
-    case Stop          = 252
+    /// Trivial Case of None
+    case None = 0
+    /// System Exclusive
+    case Sysex = 240
+    /// Song Position
+    case SongPosition = 242
+    /// Song Selection
+    case SongSelect = 243
+    /// Request Tune
+    case TuneRequest = 246
+    /// End System Exclusive
+    case SysexEnd = 247
+    /// Clock
+    case Clock = 248
+    /// Start
+    case Start = 250
+    /// Continue
+    case Continue = 251
+    /// Stop
+    case Stop = 252
+    /// Active Sensing
     case ActiveSensing = 254
-    case SysReset      = 255
+    /// System Reset
+    case SysReset = 255
 }
 
-/// Value of byte 2 in conjunction with AKMidiStatusControllerChange
+/** Value of byte 2 in conjunction with AKMidiStatusControllerChange
+ 
+ - ModulationWheel: Modulation Control
+ - BreathControl: Breath Control (in MIDI Saxophones for example)
+ - FootControl: Foot Control
+ - Portamento: Portamento effect
+ - DataEntry: Data Entry
+ - MainVolume: Volume (Overall)
+ - Balance
+ - Pan: Stereo Panning
+ - Expression: Expression Pedal
+ - LSB: Least Significant Byte
+ - DamperOnOff: Damper Pedal, also known as Hold or Sustain
+ - PortamentoOnOff: Portamento Toggle
+ - SustenutoOnOff: Sustenuto Toggle
+ - SoftPedalOnOff: Soft Pedal Toggle
+ - DataEntryPlus: Data Entry Addition
+ - DataEntryMinus: Data Entry Subtraction
+ - LocalControlOnOff: Enable local control
+ - AllNotesOff: MIDI Panic
+ - CC# (0, 3, 9, 12-31) Unnamed Continuous Controllers
+ */
 enum AKMidiControl : UInt8 {
-    case ModulationWheel   = 1
-    case BreathControl     = 2
-    case FootControl       = 4
-    case Portamento        = 5
-    case DataEntry         = 6
-    case MainVolume        = 7
-    case Balance           = 8
-    case Pan               = 10
-    case Expression        = 11
+    /// Modulation Control
+    case ModulationWheel = 1
+    /// Breath Control (in MIDI Saxophones for example)
+    case BreathControl = 2
+    /// Foot Control
+    case FootControl = 4
+    /// Portamento effect
+    case Portamento = 5
+    /// Data Entry
+    case DataEntry = 6
+    /// Volume (Overall)
+    case MainVolume = 7
+    /// Balance
+    case Balance = 8
+    /// Stereo Panning
+    case Pan = 10
+    /// Expression Pedal
+    case Expression = 11
     
+    /// Least Significant Byte
     case LSB               = 32 // Combine with above constants to get the LSB
     
+    /// Damper Pedal, also known as Hold or Sustain
     case DamperOnOff       = 64
+    /// Portamento Toggle
     case PortamentoOnOff   = 65
+    /// Sustenuto Toggle
     case SustenutoOnOff    = 66
+    /// Soft Pedal Toggle
     case SoftPedalOnOff    = 67
     
+    /// Data Entry Addition
     case DataEntryPlus     = 96
+    /// Data Entry Subtraction
     case DataEntryMinus    = 97
     
+    /// Enable local control
     case LocalControlOnOff = 122
+    /// MIDI Panic
     case AllNotesOff       = 123
     
     // Unnamed CC values: (Must be a better way)
-    case CC0  = 0
-    case CC3  = 3
-    case CC9  = 9
-    case CC12 = 12
-    case CC13 = 13
-    case CC14 = 14
-    case CC15 = 15
-    case CC16 = 16
-    case CC17 = 17
-    case CC18 = 18
-    case CC19 = 19
-    case CC20 = 20
-    case CC21 = 21
-    case CC22 = 22
-    case CC23 = 23
-    case CC24 = 24
-    case CC25 = 25
-    case CC26 = 26
-    case CC27 = 27
-    case CC28 = 28
-    case CC29 = 29
-    case CC30 = 30
-    case CC31 = 31
-}
-
-enum AKMidiNotification {
-    case NoteOn
-    case NoteOff
-    case PolyphonicAftertouch
-    case ProgramChange
-    case Aftertouch
-    case PitchWheel
-    case Controller
-    case Modulation
-    case Portamento
-    case Volume
-    case Balance
-    case Pan
-    case Expression
-    case Control  // Is this different than controller above?
     
-    func name() -> String {
-        return "AudioKit Midi Notification: \(self)"
-    }
+    /// Continuous Controller Number 0
+    case CC0  = 0
+    /// Continuous Controller Number 3
+    case CC3  = 3
+    /// Continuous Controller Number 9
+    case CC9  = 9
+    /// Continuous Controller Number 12
+    case CC12 = 12
+    /// Continuous Controller Number 13
+    case CC13 = 13
+    /// Continuous Controller Number 14
+    case CC14 = 14
+    /// Continuous Controller Number 15
+    case CC15 = 15
+    /// Continuous Controller Number 16
+    case CC16 = 16
+    /// Continuous Controller Number 17
+    case CC17 = 17
+    /// Continuous Controller Number 18
+    case CC18 = 18
+    /// Continuous Controller Number 19
+    case CC19 = 19
+    /// Continuous Controller Number 20
+    case CC20 = 20
+    /// Continuous Controller Number 21
+    case CC21 = 21
+    /// Continuous Controller Number 22
+    case CC22 = 22
+    /// Continuous Controller Number 23
+    case CC23 = 23
+    /// Continuous Controller Number 24
+    case CC24 = 24
+    /// Continuous Controller Number 25
+    case CC25 = 25
+    /// Continuous Controller Number 26
+    case CC26 = 26
+    /// Continuous Controller Number 27
+    case CC27 = 27
+    /// Continuous Controller Number 28
+    case CC28 = 28
+    /// Continuous Controller Number 29
+    case CC29 = 29
+    /// Continuous Controller Number 30
+    case CC30 = 30
+    /// Continuous Controller Number 31
+    case CC31 = 31
 }

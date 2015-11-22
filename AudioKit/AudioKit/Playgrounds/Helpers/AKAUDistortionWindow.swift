@@ -10,49 +10,67 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUDistortion in Playgrounds
     public class AKAUDistortionWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 16
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 16
 
+        /// Slider to control delay
         public let delaySlider: NSSlider
+        /// Slider to control decay
         public let decaySlider: NSSlider
+        /// Slider to control delayMix
         public let delayMixSlider: NSSlider
+        /// Slider to control decimation
         public let decimationSlider: NSSlider
+        /// Slider to control rounding
         public let roundingSlider: NSSlider
+        /// Slider to control decimationMix
         public let decimationMixSlider: NSSlider
+        /// Slider to control linearTerm
         public let linearTermSlider: NSSlider
+        /// Slider to control squaredTerm
         public let squaredTermSlider: NSSlider
+        /// Slider to control cubicTerm
         public let cubicTermSlider: NSSlider
+        /// Slider to control polynomialMix
         public let polynomialMixSlider: NSSlider
+        /// Slider to control ringModFreq1
         public let ringModFreq1Slider: NSSlider
+        /// Slider to control ringModFreq2
         public let ringModFreq2Slider: NSSlider
+        /// Slider to control ringModBalance
         public let ringModBalanceSlider: NSSlider
+        /// Slider to control ringModMix
         public let ringModMixSlider: NSSlider
+        /// Slider to control softClipGain
         public let softClipGainSlider: NSSlider
+        /// Slider to control finalMix
         public let finalMixSlider: NSSlider
 
-        let delayTextField: NSTextField
-        let decayTextField: NSTextField
-        let delayMixTextField: NSTextField
-        let decimationTextField: NSTextField
-        let roundingTextField: NSTextField
-        let decimationMixTextField: NSTextField
-        let linearTermTextField: NSTextField
-        let squaredTermTextField: NSTextField
-        let cubicTermTextField: NSTextField
-        let polynomialMixTextField: NSTextField
-        let ringModFreq1TextField: NSTextField
-        let ringModFreq2TextField: NSTextField
-        let ringModBalanceTextField: NSTextField
-        let ringModMixTextField: NSTextField
-        let softClipGainTextField: NSTextField
-        let finalMixTextField: NSTextField
+        private let delayTextField: NSTextField
+        private let decayTextField: NSTextField
+        private let delayMixTextField: NSTextField
+        private let decimationTextField: NSTextField
+        private let roundingTextField: NSTextField
+        private let decimationMixTextField: NSTextField
+        private let linearTermTextField: NSTextField
+        private let squaredTermTextField: NSTextField
+        private let cubicTermTextField: NSTextField
+        private let polynomialMixTextField: NSTextField
+        private let ringModFreq1TextField: NSTextField
+        private let ringModFreq2TextField: NSTextField
+        private let ringModBalanceTextField: NSTextField
+        private let ringModMixTextField: NSTextField
+        private let softClipGainTextField: NSTextField
+        private let finalMixTextField: NSTextField
 
-        var distortion: AKAUDistortion
+        private var distortion: AKAUDistortion
 
+        /// Initiate the AKAUDistortion window
         public init(_ control: AKAUDistortion) {
             distortion = control
             let sliderWidth = windowWidth - 2 * padding
@@ -413,6 +431,7 @@
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", distortion.finalMix)) Percent"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

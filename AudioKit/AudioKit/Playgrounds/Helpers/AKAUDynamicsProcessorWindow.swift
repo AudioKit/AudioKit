@@ -10,37 +10,49 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUDynamicsProcessor in Playgrounds
     public class AKAUDynamicsProcessorWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 10
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 10
 
+        /// Slider to control threshold
         public let thresholdSlider: NSSlider
+        /// Slider to control headRoom
         public let headRoomSlider: NSSlider
+        /// Slider to control expansionRatio
         public let expansionRatioSlider: NSSlider
+        /// Slider to control expansionThreshold
         public let expansionThresholdSlider: NSSlider
+        /// Slider to control attackTime
         public let attackTimeSlider: NSSlider
+        /// Slider to control releaseTime
         public let releaseTimeSlider: NSSlider
+        /// Slider to control masterGain
         public let masterGainSlider: NSSlider
+        /// Slider to control compressionAmount
         public let compressionAmountSlider: NSSlider
+        /// Slider to control inputAmplitude
         public let inputAmplitudeSlider: NSSlider
+        /// Slider to control outputAmplitude
         public let outputAmplitudeSlider: NSSlider
 
-        let thresholdTextField: NSTextField
-        let headRoomTextField: NSTextField
-        let expansionRatioTextField: NSTextField
-        let expansionThresholdTextField: NSTextField
-        let attackTimeTextField: NSTextField
-        let releaseTimeTextField: NSTextField
-        let masterGainTextField: NSTextField
-        let compressionAmountTextField: NSTextField
-        let inputAmplitudeTextField: NSTextField
-        let outputAmplitudeTextField: NSTextField
+        private let thresholdTextField: NSTextField
+        private let headRoomTextField: NSTextField
+        private let expansionRatioTextField: NSTextField
+        private let expansionThresholdTextField: NSTextField
+        private let attackTimeTextField: NSTextField
+        private let releaseTimeTextField: NSTextField
+        private let masterGainTextField: NSTextField
+        private let compressionAmountTextField: NSTextField
+        private let inputAmplitudeTextField: NSTextField
+        private let outputAmplitudeTextField: NSTextField
 
-        var dynamicsProcessor: AKAUDynamicsProcessor
+        private var dynamicsProcessor: AKAUDynamicsProcessor
 
+        /// Initiate the AKAUDynamicsProcessor window
         public init(_ control: AKAUDynamicsProcessor) {
             dynamicsProcessor = control
             let sliderWidth = windowWidth - 2 * padding
@@ -281,6 +293,7 @@
             outputAmplitudeTextField.stringValue = "Output Amplitude \(String(format: "%0.4f", dynamicsProcessor.outputAmplitude)) dB"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
