@@ -10,23 +10,28 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUParametricEQ in Playgrounds
     public class AKAUParametricEQWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 3
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 3
 
+        /// Slider to control centerFreq
         public let centerFrequencySlider: NSSlider
+        /// Slider to control q
         public let qSlider: NSSlider
+        /// Slider to control gain
         public let gainSlider: NSSlider
 
-        let centerFrequencyTextField: NSTextField
-        let qTextField: NSTextField
-        let gainTextField: NSTextField
+        private let centerFrequencyTextField: NSTextField
+        private let qTextField: NSTextField
+        private let gainTextField: NSTextField
 
-        var parametricEQ: AKAUParametricEQ
+        private var parametricEQ: AKAUParametricEQ
 
+        /// Initiate the AKAUParametricEQ window
         public init(_ control: AKAUParametricEQ) {
             parametricEQ = control
             let sliderWidth = windowWidth - 2 * padding
@@ -127,6 +132,7 @@
             gainTextField.stringValue = "Gain \(String(format: "%0.4f", parametricEQ.gain)) dB"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

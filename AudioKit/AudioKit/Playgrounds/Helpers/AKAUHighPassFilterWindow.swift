@@ -10,21 +10,25 @@
     import Foundation
     import Cocoa
 
+    /// A Window to control AKAUHighPassFilter in Playgrounds
     public class AKAUHighPassFilterWindow: NSWindow {
 
-        let windowWidth = 400
-        let padding = 30
-        let sliderHeight = 20
-        let numberOfComponents = 2
+        private let windowWidth = 400
+        private let padding = 30
+        private let sliderHeight = 20
+        private let numberOfComponents = 2
 
+        /// Slider to control cutoffFrequency
         public let cutoffFrequencySlider: NSSlider
+        /// Slider to control resonance
         public let resonanceSlider: NSSlider
 
-        let cutoffFrequencyTextField: NSTextField
-        let resonanceTextField: NSTextField
+        private let cutoffFrequencyTextField: NSTextField
+        private let resonanceTextField: NSTextField
 
-        var highPassFilter: AKAUHighPassFilter
+        private var highPassFilter: AKAUHighPassFilter
 
+        /// Initiate the AKAUHighPassFilter window
         public init(_ control: AKAUHighPassFilter) {
             highPassFilter = control
             let sliderWidth = windowWidth - 2 * padding
@@ -105,6 +109,7 @@
             resonanceTextField.stringValue = "Resonance \(String(format: "%0.4f", highPassFilter.resonance)) dB"
         }
 
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

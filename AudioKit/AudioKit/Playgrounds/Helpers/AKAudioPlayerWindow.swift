@@ -10,31 +10,32 @@
 import Foundation
 import Cocoa
 
+/// A Window to control AKAudioPlayer in Playgrounds
 public class AKAudioPlayerWindow: NSWindow {
     
-    let windowWidth = 200
-    let padding = 30
-    let sliderHeight = 20
-    let numberOfComponents = 3
+    private let windowWidth = 200
+    private let padding = 30
+    private let sliderHeight = 20
+    private let numberOfComponents = 3
     
-    public let playButton: NSButton
-    public let pauseButton: NSButton
-    public let stopButton: NSButton
+    private let playButton: NSButton
+    private let pauseButton: NSButton
+    private let stopButton: NSButton
 
-    var player: AKAudioPlayer
+    private var player: AKAudioPlayer
     
-    public init(_ control: AKAudioPlayer) {
+    /// Initialize the AKAudioplayer window
+    public init(_ control: AKAudioPlayer, title: String = "AKAudioPlayer", xOffset: Int = 420) {
         player = control
         let sliderWidth = windowWidth - 2 * padding
         playButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         pauseButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         stopButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         
-        
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
         
-        super.init(contentRect: NSRect(x: 2 * padding + 400, y: padding, width: windowWidth, height: windowHeight),
+        super.init(contentRect: NSRect(x: padding + xOffset, y: padding, width: windowWidth, height: windowHeight),
             styleMask: NSTitledWindowMask,
             backing: .Buffered,
             `defer`: false)
@@ -42,13 +43,13 @@ public class AKAudioPlayerWindow: NSWindow {
         self.styleMask = NSBorderlessWindowMask | NSResizableWindowMask
         self.movableByWindowBackground = true
         self.level = 7
-        self.title = "AKAudioPlayer"
+        self.title = title
         
         let viewRect = NSRect(x: 0, y: 0, width: windowWidth, height: windowHeight)
         let view = NSView(frame: viewRect)
         
         let topTitle = NSTextField()
-        topTitle.stringValue = "AKAudioPlayer"
+        topTitle.stringValue = title
         topTitle.editable = false
         topTitle.drawsBackground = false
         topTitle.bezeled = false
@@ -94,6 +95,7 @@ public class AKAudioPlayerWindow: NSWindow {
         player.stop()
     }
     
+    /// Required Initializer
     required public init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
