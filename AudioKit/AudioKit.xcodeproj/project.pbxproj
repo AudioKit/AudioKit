@@ -213,6 +213,7 @@
 		C4FD548C1BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4FD54881BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp */; };
 		FEA69F511BE7FE4A00C34F6D /* AKAUPeakLimiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA69F501BE7FE4A00C34F6D /* AKAUPeakLimiter.swift */; };
 		FEA69F531BE7FE5B00C34F6D /* AKAUReverb2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA69F521BE7FE5B00C34F6D /* AKAUReverb2.swift */; };
+		FEFAFBAE1C02587E00EE9083 /* AKAUSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFAFBAD1C02587E00EE9083 /* AKAUSampler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -425,6 +426,7 @@
 		C4FD54881BCAD7E10068B088 /* AKHighShelfParametricEqualizerFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKHighShelfParametricEqualizerFilterDSPKernel.hpp; sourceTree = "<group>"; };
 		FEA69F501BE7FE4A00C34F6D /* AKAUPeakLimiter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUPeakLimiter.swift; sourceTree = "<group>"; };
 		FEA69F521BE7FE5B00C34F6D /* AKAUReverb2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUReverb2.swift; sourceTree = "<group>"; };
+		FEFAFBAD1C02587E00EE9083 /* AKAUSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUSampler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -960,6 +962,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E6CE391BEB54CB001EB7F3 /* AKAudioPlayer.swift */,
+				FEFAFBAD1C02587E00EE9083 /* AKAUSampler.swift */,
 				C4E8FA811BD9ABE5004761A2 /* Oscillators */,
 				C46EB5321BDEDDD4008B1B0D /* Random Generators */,
 			);
@@ -1289,6 +1292,7 @@
 				C481F8861BE48E3300F6AAA6 /* dcblock.c in Sources */,
 				C46775C91BC78FCF0027FD6B /* AKChowningReverb.swift in Sources */,
 				C463A1E01BE8A27000159E9A /* AKAULowShelfFilter.swift in Sources */,
+				FEFAFBAE1C02587E00EE9083 /* AKAUSampler.swift in Sources */,
 				C46E8A3D1BF74FC5001A97B7 /* AKMidi.swift in Sources */,
 				C4D09A861BC8914200A1823F /* AKDelayAudioUnit.mm in Sources */,
 				C4D09A5F1BC87DB300A1823F /* AKCombFilterAudioUnit.mm in Sources */,

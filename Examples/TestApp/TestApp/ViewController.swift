@@ -23,6 +23,10 @@ class ViewController: UIViewController {
     var verb2: AKAUReverb2?
     var limiter: AKAUPeakLimiter?
     var midi = AKMidi()
+    var fmOsc = AKFMOscillator()
+    var exs = AKAUSampler()
+    var exs2 = AKAUSampler()
+    var mixer = AKMixer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,27 +42,57 @@ class ViewController: UIViewController {
         //getAUParams((limiter?.internalAU)!)
         
         */
-        audiokit.start()
-        midi.openMidiOut("Session 1")
+        exs.loadEXS24("Sampler Files/sawPiano1")
+        exs2.loadWav("Sampler Files/Sounds/kylebell1-shrt")
         
+        mixer.connect(exs)
+        mixer.connect(exs2)
+        moog    = AKMoogLadder(mixer)
+        verb2  = AKAUReverb2(moog!)
+        audiokit.audioOutput = verb2
+        audiokit.start()
+        
+        
+        midi.openMidiOut("Session 1")
+        midi.openMidiIn()
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
-
-        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
+        
+//        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
+        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
+        
     }
     
     func midiNotif(notif:NSNotification){
         print(notif.userInfo!)
+        exs.playNote(Int(arc4random_uniform(127)))
+        exs2.playNote(Int(arc4random_uniform(127)))
+    }
+    
+    func midiNoteNotif(notif:NSNotification){
+        exs.playNote(Int((notif.userInfo?["note"])! as! NSNumber))
+        exs2.playNote(Int((notif.userInfo?["note"])! as! NSNumber))
+//        exs2.playNote(notif.userInfo?.indexForKey("note"))
+    }
+    @IBAction func playNote(){
+        exs.playNote(Int(arc4random_uniform(127)))
+    }
+    @IBAction func playNote2(){
+        exs2.playNote(Int(arc4random_uniform(127)))
+    }
+    @IBAction func playNoteboth(){
+        exs.playNote(Int(arc4random_uniform(127)))
+        exs2.playNote(Int(arc4random_uniform(127)))
     }
     @IBAction func connectMidi(){
         midi.openMidiOut("Session 1")
     }
     @IBAction func sendMidi(){
-        let event = AKMidiEvent.eventWithNoteOn(33, velocity: 127, channel: 1)
+        let event = AKMidiEvent.eventWithNoteOn(33, velocity: 127, channel: 0)
         midi.sendMidiEvent(event)
     }
     @IBAction func sendMidiController(sender: UISlider){
-        let event = AKMidiEvent.eventWithController(33, val: UInt8(sender.value * 127), channel: 1)
+        let event = AKMidiEvent.eventWithController(33, val: UInt8(sender.value * 127), channel: 0)
         midi.sendMidiEvent(event)
     }
     @IBAction func changeReverb(sender: UISlider) {
