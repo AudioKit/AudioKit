@@ -42,16 +42,16 @@ class ViewController: UIViewController {
         //getAUParams((limiter?.internalAU)!)
         
         */
-        exs.loadEXS24("Sampler Files/sawPiano1")
-        exs2.loadWav("Sampler Files/Sounds/kylebell1-shrt")
+        exs.loadEXS24("Sounds/sawPiano1")
+        exs2.loadWav("Sounds/kylebell1-shrt")
         
         mixer.connect(exs)
         mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
         verb2  = AKAUReverb2(moog!)
         audiokit.audioOutput = verb2
-        audiokit.start()
         
+        audiokit.start()
         
         midi.openMidiOut("Session 1")
         midi.openMidiIn()
