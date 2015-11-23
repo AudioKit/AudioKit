@@ -102,10 +102,9 @@ public:
             osc->amp = (float)amplitude;
 
             for (int channel = 0; channel < channels; ++channel) {
-                float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_osc_compute(sp, osc, in, out);
+                sp_osc_compute(sp, osc, nil, out);
             }
         }
     }
