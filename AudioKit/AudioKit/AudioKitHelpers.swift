@@ -203,7 +203,7 @@ enum AKMidiControl : UInt8 {
 func CheckError(error:OSStatus) {
     if error == 0 {return}
     switch(error) {
-        // AudioToolbox
+    // AudioToolbox
     case kAudio_ParamError:
         print("Error:kAudio_ParamError \n")
         
@@ -340,6 +340,6 @@ func CheckError(error:OSStatus) {
         print( " kAudioUnitErr_Unauthorized")
         
     default:
-        print("huh?")
+        print("Error: \(error)")
     }
 }
