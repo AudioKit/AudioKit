@@ -81,11 +81,14 @@ public:
 
             phasor->freq = (float)frequency;
 
+            float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
-                float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_phasor_compute(sp, phasor, in, out);
+                if (channel == 0) {
+                    sp_phasor_compute(sp, phasor, nil, &temp);
+                }
+                *out = temp;
             }
         }
     }
