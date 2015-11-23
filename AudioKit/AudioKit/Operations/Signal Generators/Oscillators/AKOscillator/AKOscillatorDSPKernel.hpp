@@ -100,11 +100,14 @@ public:
 
             osc->freq = (float)frequency;
             osc->amp = (float)amplitude;
-
+            
+            float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                sp_osc_compute(sp, osc, nil, out);
+                if (channel == 0) {
+                    sp_osc_compute(sp, osc, nil, &temp);
+                }
+                *out = temp;
             }
         }
     }
