@@ -145,11 +145,13 @@ public:
             fosc->indx = (float)modulationIndex;
             fosc->amp = (float)amplitude;
 
+            float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
-                float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                sp_fosc_compute(sp, fosc, in, out);
+                if (channel == 0) {
+                    sp_fosc_compute(sp, fosc, nil, &temp);
+                }
+                *out = temp;
             }
         }
     }
