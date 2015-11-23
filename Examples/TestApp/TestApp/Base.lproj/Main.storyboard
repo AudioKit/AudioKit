@@ -117,6 +117,27 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rM4-EV-fBb">
+                                <rect key="frame" x="66" y="493" width="60" height="30"/>
+                                <state key="normal" title="playInst1"/>
+                                <connections>
+                                    <action selector="playNote" destination="BYZ-38-t0r" eventType="touchUpInside" id="jhL-m6-T8T"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnU-2A-pgR">
+                                <rect key="frame" x="161" y="493" width="62" height="30"/>
+                                <state key="normal" title="playInst2"/>
+                                <connections>
+                                    <action selector="playNote2" destination="BYZ-38-t0r" eventType="touchUpInside" id="8rM-1i-jaL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dby-Hu-S8o">
+                                <rect key="frame" x="257" y="493" width="86" height="30"/>
+                                <state key="normal" title="playBothInst"/>
+                                <connections>
+                                    <action selector="playNoteboth" destination="BYZ-38-t0r" eventType="touchUpInside" id="b6K-Xa-53h"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -169,23 +190,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="477" y="619"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="V1g-lc-IfU">
-            <objects>
-                <viewController id="1OL-4b-kJs" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TZF-va-3lg"/>
-                        <viewControllerLayoutGuide type="bottom" id="ErA-4T-NWA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="AqZ-cp-7QQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yjP-Fw-pgc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
 </document>

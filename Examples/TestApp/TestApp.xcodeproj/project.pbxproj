@@ -14,6 +14,7 @@
 		C4341E681BC0E27300CB83C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E661BC0E27300CB83C1 /* LaunchScreen.storyboard */; };
 		C46E8A431BF751E2001A97B7 /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46E8A421BF751E2001A97B7 /* AudioKitHelpers.swift */; };
 		FE85EB051BEBD3BD002ECE31 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BF47D51BC1BEB30072FBAC /* AudioKit.framework */; };
+		FEFAFBBD1C02648B00EE9083 /* Sampler Files in Resources */ = {isa = PBXBuildFile; fileRef = FEFAFBBC1C02648B00EE9083 /* Sampler Files */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		C4341E691BC0E27300CB83C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C46E8A421BF751E2001A97B7 /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKitHelpers.swift; path = ../../../AudioKit/AudioKit/AudioKitHelpers.swift; sourceTree = "<group>"; };
 		C4BF47D01BC1BEB30072FBAC /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../AudioKit/AudioKit.xcodeproj; sourceTree = "<group>"; };
+		FEFAFBBC1C02648B00EE9083 /* Sampler Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Sampler Files"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 		C4341E5C1BC0E27300CB83C1 /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				FEFAFBBC1C02648B00EE9083 /* Sampler Files */,
 				C46E8A421BF751E2001A97B7 /* AudioKitHelpers.swift */,
 				C4341E5D1BC0E27300CB83C1 /* AppDelegate.swift */,
 				C4341E5F1BC0E27300CB83C1 /* ViewController.swift */,
@@ -163,6 +166,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEFAFBBD1C02648B00EE9083 /* Sampler Files in Resources */,
 				C4341E681BC0E27300CB83C1 /* LaunchScreen.storyboard in Resources */,
 				C4341E651BC0E27300CB83C1 /* Assets.xcassets in Resources */,
 				C4341E631BC0E27300CB83C1 /* Main.storyboard in Resources */,
