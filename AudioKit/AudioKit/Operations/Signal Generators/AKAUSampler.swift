@@ -10,6 +10,12 @@ import AVFoundation
 import CoreAudio
 
 /** Sampler audio generation. */
+/*
+ 1) init the audio unit like this: var sampler = AKAUSampler()
+ 2) load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
+ 3) connect to the avengine: audiokit.audioOutput = sampler
+ 4) start the avengine audiokit.start()
+*/
 public class AKAUSampler: AKOperation {
     
     // MARK: - Properties
