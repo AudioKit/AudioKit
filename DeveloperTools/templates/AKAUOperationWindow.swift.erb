@@ -71,20 +71,14 @@
             view.addSubview(topTitle)
 
 <% parameters.each_with_index do |parameter, i| -%>
-            <%= parameter[:variable] %>TextField.stringValue = "<%= parameter[:variable].underscore.humanize.titlecase %>: \(<%= au_name.uncapitalize %>.<%= parameter[:variable] %>) <%= parameter[:type] %>"
-            <%= parameter[:variable] %>TextField.editable = false
-            <%= parameter[:variable] %>TextField.drawsBackground = false
-            <%= parameter[:variable] %>TextField.bezeled = false
-            <%= parameter[:variable] %>TextField.frame.origin.y = topTitle.frame.origin.y -  <%= 2 * (i+1) + i %> *  CGFloat(sliderHeight)
-            view.addSubview(<%= parameter[:variable] %>TextField)
+            makeTextField(<%= parameter[:variable] %>TextField, view: view, below: topTitle, distance: <%= 2 * (i+1) + i %> ,
+                stringValue: "<%= parameter[:variable].underscore.humanize.titlecase %>: \(<%= au_name.uncapitalize %>.<%= parameter[:variable] %>) <%= parameter[:type] %>")
+            makeSlider(<%= parameter[:variable] %>Slider, view: view, below: topTitle, distance: <%= 2 * (i+1) + i %>, target: self,
+                action: "update<%= parameter[:variable].capitalize %>",
+                currentValue: <%= au_name.uncapitalize %>.<%= parameter[:variable] %>,
+                minimumValue: <%= parameter[:min] %>,
+                maximumValue: <%= parameter[:max] %>)
 
-            <%= parameter[:variable] %>Slider.target = self
-            <%= parameter[:variable] %>Slider.action = "update<%= parameter[:variable].capitalize %>"
-            <%= parameter[:variable] %>Slider.minValue = <%= parameter[:min] %>
-            <%= parameter[:variable] %>Slider.maxValue = <%= parameter[:max] %>
-            <%= parameter[:variable] %>Slider.floatValue = Float(<%= au_name.uncapitalize %>.<%= parameter[:variable] %>)
-            <%= parameter[:variable] %>Slider.frame.origin.y = topTitle.frame.origin.y - <%= 2 * (i+1) + i + 1 %> * CGFloat(sliderHeight)
-            view.addSubview(<%= parameter[:variable] %>Slider)
 <% end -%>
 
             self.contentView!.addSubview(view)
