@@ -137,34 +137,22 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            delayTextField.stringValue = "Delay: \(distortion.delay) Milliseconds"
-            delayTextField.editable = false
-            delayTextField.drawsBackground = false
-            delayTextField.bezeled = false
-            delayTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(delayTextField)
-
-            delaySlider.target = self
-            delaySlider.action = "updateDelay"
-            delaySlider.minValue = 0.1
-            delaySlider.maxValue = 500
-            delaySlider.floatValue = Float(distortion.delay)
-            delaySlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(delaySlider)
-            decayTextField.stringValue = "Decay: \(distortion.decay) Rate"
-            decayTextField.editable = false
-            decayTextField.drawsBackground = false
-            decayTextField.bezeled = false
-            decayTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(decayTextField)
-
-            decaySlider.target = self
-            decaySlider.action = "updateDecay"
-            decaySlider.minValue = 0.1
-            decaySlider.maxValue = 50
-            decaySlider.floatValue = Float(distortion.decay)
-            decaySlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(decaySlider)
+            makeTextField(delayTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Delay: \(distortion.delay) Milliseconds")
+            makeSlider(delaySlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateDelay",
+                currentValue: distortion.delay,
+                minimumValue: 0.1,
+                maximumValue: 500)
+                
+            makeTextField(decayTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Decay: \(distortion.decay) Rate")
+            makeSlider(decaySlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateDecay",
+                currentValue: distortion.decay,
+                minimumValue: 0.1,
+                maximumValue: 50)
+            
             delayMixTextField.stringValue = "Delay Mix: \(distortion.delayMix) Percent"
             delayMixTextField.editable = false
             delayMixTextField.drawsBackground = false
