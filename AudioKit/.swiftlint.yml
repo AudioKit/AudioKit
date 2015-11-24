@@ -1,0 +1,8 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_whitespace
+  - line_length
+  - file_length
+  - variable_name_min_length
+  - function_body_length
+  - type_body_length
+  - force_try
