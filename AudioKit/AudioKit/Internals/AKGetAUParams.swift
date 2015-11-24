@@ -46,7 +46,10 @@ public class AKGetAUParams {
                 &parameterInfoSize)
             outParams.append(paramInfo)
             print(paramID)
-            print("Paramer name :\(paramInfo.cfNameString?.takeUnretainedValue()) | Min:\(paramInfo.minValue) | Max:\(paramInfo.maxValue) | Default: \(paramInfo.defaultValue)")
+            print("Paramer name :\(paramInfo.cfNameString?.takeUnretainedValue()) | " +
+                "Min:\(paramInfo.minValue) | " +
+                "Max:\(paramInfo.maxValue) | " +
+                "Default: \(paramInfo.defaultValue)")
         }
         return outParams
     }

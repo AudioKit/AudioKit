@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created using  passing an impulse through a combination of modal filters. */
+/** A modal resonance filter used for modal synthesis. Plucked and bell sounds can
+ be created using  passing an impulse through a combination of modal filters. */
 public class AKModalResonanceFilter: AKOperation {
 
     // MARK: - Properties

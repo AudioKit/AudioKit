@@ -27,13 +27,15 @@ public class AKRolandTB303Filter: AKOperation {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
-    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
+    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values
+     might cause aliasing, analogue synths generally allow resonances to be above 1. */
     public var resonance: Float = 0.5 {
         didSet {
             resonanceParameter?.setValue(resonance, originator: token!)
         }
     }
-    /** Distortion. Value is typically 2.0; deviation from this can cause stability issues.  */
+    /** Distortion. Value is typically 2.0; deviation from this can cause stability
+     issues. */
     public var distortion: Float = 2.0 {
         didSet {
             distortionParameter?.setValue(distortion, originator: token!)

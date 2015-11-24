@@ -8,7 +8,11 @@
 
 import AVFoundation
 
-/** This filter reiterates input with an echo density determined by loopDuration. The attenuation rate is independent and is determined by reverbDuration, the reverberation duration (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude). Output from a comb filter will appear only after loopDuration seconds. */
+/** This filter reiterates input with an echo density determined by loopDuration.
+ The attenuation rate is independent and is determined by reverbDuration, the
+ reverberation duration (defined as the time in seconds for a signal to decay to
+ 1/1000, or 60dB down from its original amplitude). Output from a comb filter
+ will appear only after loopDuration seconds. */
 public class AKCombFilter: AKOperation {
 
     // MARK: - Properties

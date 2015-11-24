@@ -18,7 +18,8 @@ public class AKVariableDelay: AKOperation {
 
     private var delayTimeParameter: AUParameter?
 
-    /** Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. */
+    /** Delay time (in seconds) that can be changed during performance. This value must
+     not exceed the maximum delay time. */
     public var delayTime: Float = 1.0 {
         didSet {
             delayTimeParameter?.setValue(delayTime, originator: token!)

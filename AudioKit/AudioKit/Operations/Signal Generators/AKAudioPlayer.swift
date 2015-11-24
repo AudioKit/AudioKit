@@ -29,7 +29,11 @@ public class AKAudioPlayer: AKOperation {
         
         internalPlayer = AVAudioPlayerNode()
         AKManager.sharedInstance.engine.attachNode(internalPlayer)
-        internalPlayer.scheduleBuffer(audioFileBuffer, atTime: nil, options: .Loops, completionHandler: nil)
+        internalPlayer.scheduleBuffer(
+            audioFileBuffer,
+            atTime: nil,
+            options: .Loops,
+            completionHandler: nil)
         internalPlayer.volume = 0.3
         super.init()
         output = internalPlayer

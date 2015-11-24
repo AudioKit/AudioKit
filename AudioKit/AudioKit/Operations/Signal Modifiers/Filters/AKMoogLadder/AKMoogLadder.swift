@@ -8,7 +8,11 @@
 
 import AVFoundation
 
-/** Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli). This implementation is probably a more accurate digital representation of the original analogue filter. */
+/** Moog Ladder is an new digital implementation of the Moog ladder filter based on
+ the work of Antti Huovilainen, described in the paper "Non-Linear Digital
+ Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of
+ Napoli). This implementation is probably a more accurate digital representation
+ of the original analogue filter. */
 public class AKMoogLadder: AKOperation {
 
     // MARK: - Properties

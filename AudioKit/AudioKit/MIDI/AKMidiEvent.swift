@@ -11,7 +11,11 @@ import CoreMIDI
 
 /*
 You add observers like this:
-defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: YourNotifFunction)
+defaultCenter.addObserverForName(
+    AKMidiStatus.NoteOn.name(), 
+    object: nil, 
+    queue: mainQueue, 
+    usingBlock: YourNotifFunction)
 
 YourNotifFunction takes an NSNotifcation as an argument, 
 and then all the good stuff is contained in the userInfo part of the notification
