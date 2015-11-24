@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** Clips a signal to a predefined limit, in a "soft" manner, using one of three methods. */
+/** Clips a signal to a predefined limit, in a "soft" manner, using one of three
+ methods. */
 public class AKClipper: AKOperation {
 
     // MARK: - Properties

@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are often used when building table-lookup oscillators. */
+/** Produces a normalized sawtooth wave between the values of 0 and 1. 
+ Phasors are often used when building table-lookup oscillators. */
 public class AKPhasor: AKOperation {
 
     // MARK: - Properties

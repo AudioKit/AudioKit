@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** Performs a "root-mean-square" on a signal to get overall amplitude of a signal. The output signal looks similar to that of a classic VU meter. */
+/** Performs a "root-mean-square" on a signal to get overall amplitude of a signal.
+ The output signal looks similar to that of a classic VU meter. */
 public class AKTrackedAmplitude: AKOperation {
 
     // MARK: - Properties

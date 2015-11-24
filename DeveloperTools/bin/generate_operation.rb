@@ -4,6 +4,7 @@ require 'erb'
 require 'yaml'
 require 'pp'
 require 'active_support/all'
+require 'action_view'
 require 'fileutils'
 
 ####################
@@ -20,6 +21,10 @@ def ak_pad(var)
 	" " * length
 end
 
+def wrap(str, indent="")
+	ActionView::Base.new.word_wrap(str).gsub("\n", "\n " + indent)
+end
+
 ################
 # YAML Parsing #
 ################
@@ -31,7 +36,7 @@ sp_module           = o["sp-module"]
 operation           = o["operation"]
 four_letter_code    = o["four-letter-code"]
 one_word_desc       = o["one-word-description"]
-description         = o["description"]
+description         = wrap(o["description"])
 summary             = o["summary"]
 inputs	            = o["inputs"].to_a
 tables              = o["tables"].to_a

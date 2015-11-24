@@ -8,7 +8,9 @@
 
 import AVFoundation
 
-/** When fed with a pulse train, it will generate a series of overlapping grains. Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html) */
+/** When fed with a pulse train, it will generate a series of overlapping grains.
+ Overlapping will occur when 1/freq < dec, but there is no upper limit on the
+ number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html) */
 public class AKFormantFilter: AKOperation {
 
     // MARK: - Properties

@@ -8,7 +8,10 @@
 
 import AVFoundation
 
-/** A 2nd order tunable equalization filter that provides a peak/notch filter for building parametric/graphic equalizers. With gain above 1, there will be a peak at the center frequency with a width dependent on bandwidth. If gain is less than 1, a notch is formed around the center frequency. */
+/** A 2nd order tunable equalization filter that provides a peak/notch filter for
+ building parametric/graphic equalizers. With gain above 1, there will be a peak
+ at the center frequency with a width dependent on bandwidth. If gain is less
+ than 1, a notch is formed around the center frequency. */
 public class AKEqualizerFilter: AKOperation {
 
     // MARK: - Properties

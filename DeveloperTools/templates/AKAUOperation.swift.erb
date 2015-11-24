@@ -32,7 +32,11 @@ public class AKAU<%= au_name %>: AKOperation {
             if <%= parameter[:variable] %> > <%= parameter[:max] %> {
                 <%= parameter[:variable] %> = <%= parameter[:max] %>
             }<% end %>
-            AudioUnitSetParameter(internalAU, <%= parameter[:k_prefix] %>_<%= parameter[:name] %>, kAudioUnitScope_<%= parameter[:scope] %>, 0, <%= parameter[:variable] %>, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                <%= parameter[:k_prefix] %>_<%= parameter[:name] %>,
+                kAudioUnitScope_<%= parameter[:scope] %>, 0,
+                <%= parameter[:variable] %>, 0)
         }
     }
 

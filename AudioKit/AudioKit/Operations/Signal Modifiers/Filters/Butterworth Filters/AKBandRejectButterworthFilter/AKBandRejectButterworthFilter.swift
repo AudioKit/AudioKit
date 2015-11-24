@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation. */
+/** These filters are Butterworth second-order IIR filters. They offer an almost
+ flat passband and very good precision and stopband attenuation. */
 public class AKBandRejectButterworthFilter: AKOperation {
 
     // MARK: - Properties

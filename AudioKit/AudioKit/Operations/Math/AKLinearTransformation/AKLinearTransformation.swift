@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** This module scales from one range to another defined by a minimum and maximum point in the input and output domain. */
+/** This module scales from one range to another defined by a minimum and maximum
+ point in the input and output domain. */
 public class AKLinearTransformation: AKOperation {
 
     // MARK: - Properties

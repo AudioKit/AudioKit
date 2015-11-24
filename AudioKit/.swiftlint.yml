@@ -1,8 +1,7 @@
 disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
-  - line_length
-  - file_length
   - force_try
+#  - line_length
 
 type_body_length:
   - 400 # warning
@@ -13,5 +12,9 @@ function_body_length:
   - 1000 # error
 
 variable_name_min_length:
-  - 3 # warning
+  - 1 # warning
   - 0 # error
+
+line_length:
+  - 120 # warning
+  - 500 # error
