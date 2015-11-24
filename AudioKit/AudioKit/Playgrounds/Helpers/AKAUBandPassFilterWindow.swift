@@ -89,11 +89,13 @@
 
         internal func updateCenterfrequency() {
             bandPassFilter.centerFrequency = centerFrequencySlider.floatValue
-            centerFrequencyTextField.stringValue = "Center Frequency \(String(format: "%0.4f", bandPassFilter.centerFrequency)) Hz"
+            centerFrequencyTextField.stringValue =
+            "Center Frequency \(String(format: "%0.4f", bandPassFilter.centerFrequency)) Hz"
         }
         internal func updateBandwidth() {
             bandPassFilter.bandwidth = bandwidthSlider.floatValue
-            bandwidthTextField.stringValue = "Bandwidth \(String(format: "%0.4f", bandPassFilter.bandwidth)) Cents"
+            bandwidthTextField.stringValue =
+            "Bandwidth \(String(format: "%0.4f", bandPassFilter.bandwidth)) Cents"
         }
 
         /// Required initializer

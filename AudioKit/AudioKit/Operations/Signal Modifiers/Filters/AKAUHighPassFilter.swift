@@ -30,7 +30,11 @@ public class AKAUHighPassFilter: AKOperation {
             if cutoffFrequency > 22050 {
                 cutoffFrequency = 22050
             }
-            AudioUnitSetParameter(internalAU, kHipassParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoffFrequency, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kHipassParam_CutoffFrequency,
+                kAudioUnitScope_Global, 0,
+                cutoffFrequency, 0)
         }
     }
     
@@ -43,7 +47,11 @@ public class AKAUHighPassFilter: AKOperation {
             if resonance > 40 {
                 resonance = 40
             }
-            AudioUnitSetParameter(internalAU, kHipassParam_Resonance, kAudioUnitScope_Global, 0, resonance, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kHipassParam_Resonance,
+                kAudioUnitScope_Global, 0,
+                resonance, 0)
         }
     }
     
@@ -53,14 +61,14 @@ public class AKAUHighPassFilter: AKOperation {
         cutoffFrequency: Float = 6900,
         resonance: Float = 0) {
             
-        self.cutoffFrequency = cutoffFrequency
-        self.resonance = resonance
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+            self.cutoffFrequency = cutoffFrequency
+            self.resonance = resonance
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

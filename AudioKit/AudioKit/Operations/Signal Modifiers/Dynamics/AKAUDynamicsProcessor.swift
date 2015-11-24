@@ -30,7 +30,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if threshold > 20 {
                 threshold = 20
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_Threshold, kAudioUnitScope_Global, 0, threshold, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_Threshold,
+                kAudioUnitScope_Global, 0,
+                threshold, 0)
         }
     }
     
@@ -43,7 +47,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if headRoom > 40.0 {
                 headRoom = 40.0
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_HeadRoom, kAudioUnitScope_Global, 0, headRoom, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_HeadRoom,
+                kAudioUnitScope_Global, 0,
+                headRoom, 0)
         }
     }
     
@@ -56,7 +64,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if expansionRatio > 50.0 {
                 expansionRatio = 50.0
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionRatio, kAudioUnitScope_Global, 0, expansionRatio, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_ExpansionRatio,
+                kAudioUnitScope_Global, 0,
+                expansionRatio, 0)
         }
     }
     
@@ -69,7 +81,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if expansionThreshold > 50.0 {
                 expansionThreshold = 50.0
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionThreshold, kAudioUnitScope_Global, 0, expansionThreshold, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_ExpansionThreshold,
+                kAudioUnitScope_Global, 0,
+                expansionThreshold, 0)
         }
     }
     
@@ -82,7 +98,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if attackTime > 0.2 {
                 attackTime = 0.2
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_AttackTime, kAudioUnitScope_Global, 0, attackTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_AttackTime,
+                kAudioUnitScope_Global, 0,
+                attackTime, 0)
         }
     }
     
@@ -95,7 +115,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if releaseTime > 3 {
                 releaseTime = 3
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime, kAudioUnitScope_Global, 0, releaseTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_ReleaseTime,
+                kAudioUnitScope_Global, 0,
+                releaseTime, 0)
         }
     }
     
@@ -108,7 +132,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if masterGain > 40 {
                 masterGain = 40
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain, kAudioUnitScope_Global, 0, masterGain, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_MasterGain,
+                kAudioUnitScope_Global, 0,
+                masterGain, 0)
         }
     }
     
@@ -121,7 +149,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if compressionAmount > 40 {
                 compressionAmount = 40
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0, compressionAmount, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_CompressionAmount,
+                kAudioUnitScope_Global, 0,
+                compressionAmount, 0)
         }
     }
     
@@ -134,7 +166,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if inputAmplitude > 40 {
                 inputAmplitude = 40
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_InputAmplitude, kAudioUnitScope_Global, 0, inputAmplitude, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_InputAmplitude,
+                kAudioUnitScope_Global, 0,
+                inputAmplitude, 0)
         }
     }
     
@@ -147,7 +183,11 @@ public class AKAUDynamicsProcessor: AKOperation {
             if outputAmplitude > 40 {
                 outputAmplitude = 40
             }
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_OutputAmplitude, kAudioUnitScope_Global, 0, outputAmplitude, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDynamicsProcessorParam_OutputAmplitude,
+                kAudioUnitScope_Global, 0,
+                outputAmplitude, 0)
         }
     }
     
@@ -165,22 +205,22 @@ public class AKAUDynamicsProcessor: AKOperation {
         inputAmplitude: Float = 0,
         outputAmplitude: Float = 0) {
             
-        self.threshold = threshold
-        self.headRoom = headRoom
-        self.expansionRatio = expansionRatio
-        self.expansionThreshold = expansionThreshold
-        self.attackTime = attackTime
-        self.releaseTime = releaseTime
-        self.masterGain = masterGain
-        self.compressionAmount = compressionAmount
-        self.inputAmplitude = inputAmplitude
-        self.outputAmplitude = outputAmplitude
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+            self.threshold = threshold
+            self.headRoom = headRoom
+            self.expansionRatio = expansionRatio
+            self.expansionThreshold = expansionThreshold
+            self.attackTime = attackTime
+            self.releaseTime = releaseTime
+            self.masterGain = masterGain
+            self.compressionAmount = compressionAmount
+            self.inputAmplitude = inputAmplitude
+            self.outputAmplitude = outputAmplitude
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

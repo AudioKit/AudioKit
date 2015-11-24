@@ -45,17 +45,17 @@ public class AKAU<%= au_name %>: AKOperation {
     public init(
         _ input: AKOperation,
 <% parameters.each_with_index do |parameter, i| -%>
-        <%= parameter[:variable] %>: Float = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 %><% end %>)
-    {
-<% parameters.each do |parameter| -%>
-        self.<%= parameter[:variable] %> = <%= parameter[:variable] %>
-<% end -%>
-        super.init()
+        <%= parameter[:variable] %>: Float = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 %><% end %>) {
 
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+<% parameters.each do |parameter| -%>
+            self.<%= parameter[:variable] %> = <%= parameter[:variable] %>
+<% end -%>
+            super.init()
+
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

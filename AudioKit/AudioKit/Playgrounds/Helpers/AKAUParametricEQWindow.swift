@@ -102,15 +102,18 @@
 
         internal func updateCenterfreq() {
             parametricEQ.centerFrequency = centerFreqSlider.floatValue
-            centerFreqTextField.stringValue = "Center Frequency \(String(format: "%0.4f", parametricEQ.centerFrequency)) Hz"
+            centerFreqTextField.stringValue =
+            "Center Frequency \(String(format: "%0.4f", parametricEQ.centerFrequency)) Hz"
         }
         internal func updateQ() {
             parametricEQ.q = qSlider.floatValue
-            qTextField.stringValue = "Q \(String(format: "%0.4f", parametricEQ.q)) Hz"
+            qTextField.stringValue =
+            "Q \(String(format: "%0.4f", parametricEQ.q)) Hz"
         }
         internal func updateGain() {
             parametricEQ.gain = gainSlider.floatValue
-            gainTextField.stringValue = "Gain \(String(format: "%0.4f", parametricEQ.gain)) dB"
+            gainTextField.stringValue =
+            "Gain \(String(format: "%0.4f", parametricEQ.gain)) dB"
         }
 
         /// Required initializer
