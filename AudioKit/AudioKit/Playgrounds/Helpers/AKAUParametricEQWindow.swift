@@ -19,13 +19,13 @@
         private let numberOfComponents = 3
 
         /// Slider to control centerFreq
-        public let centerFrequencySlider: NSSlider
+        public let centerFreqSlider: NSSlider
         /// Slider to control q
         public let qSlider: NSSlider
         /// Slider to control gain
         public let gainSlider: NSSlider
 
-        private let centerFrequencyTextField: NSTextField
+        private let centerFreqTextField: NSTextField
         private let qTextField: NSTextField
         private let gainTextField: NSTextField
 
@@ -36,13 +36,13 @@
             parametricEQ = control
             let sliderWidth = windowWidth - 2 * padding
 
-            centerFrequencySlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            qSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            gainSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            centerFreqSlider = newSlider(sliderWidth)
+            qSlider = newSlider(sliderWidth)
+            gainSlider = newSlider(sliderWidth)
 
-            centerFrequencyTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            qTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            gainTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            centerFreqTextField = newTextField(sliderWidth)
+            qTextField = newTextField(sliderWidth)
+            gainTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -72,56 +72,37 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            centerFrequencyTextField.stringValue = "Center Freq: \(parametricEQ.centerFrequency) Hz"
-            centerFrequencyTextField.editable = false
-            centerFrequencyTextField.drawsBackground = false
-            centerFrequencyTextField.bezeled = false
-            centerFrequencyTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(centerFrequencyTextField)
+            makeTextField(centerFreqTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Center Frequency: \(parametricEQ.centerFrequency) Hz")
+            makeSlider(centerFreqSlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateCenterfreq",
+                currentValue: parametricEQ.centerFrequency,
+                minimumValue: 20,
+                maximumValue: 22050)
 
-            centerFrequencySlider.target = self
-            centerFrequencySlider.action = "updatecenterFrequency"
-            centerFrequencySlider.minValue = 20
-            centerFrequencySlider.maxValue = 22050
-            centerFrequencySlider.floatValue = Float(parametricEQ.centerFrequency)
-            centerFrequencySlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(centerFrequencySlider)
-            qTextField.stringValue = "Q: \(parametricEQ.q) Hz"
-            qTextField.editable = false
-            qTextField.drawsBackground = false
-            qTextField.bezeled = false
-            qTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(qTextField)
+            makeTextField(qTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Q: \(parametricEQ.q) Hz")
+            makeSlider(qSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateQ",
+                currentValue: parametricEQ.q,
+                minimumValue: 0.1,
+                maximumValue: 20)
 
-            qSlider.target = self
-            qSlider.action = "updateQ"
-            qSlider.minValue = 0.1
-            qSlider.maxValue = 20
-            qSlider.floatValue = Float(parametricEQ.q)
-            qSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(qSlider)
-            gainTextField.stringValue = "Gain: \(parametricEQ.gain) dB"
-            gainTextField.editable = false
-            gainTextField.drawsBackground = false
-            gainTextField.bezeled = false
-            gainTextField.frame.origin.y = topTitle.frame.origin.y -  8 *  CGFloat(sliderHeight)
-            view.addSubview(gainTextField)
-
-            gainSlider.target = self
-            gainSlider.action = "updateGain"
-            gainSlider.minValue = -20
-            gainSlider.maxValue = 20
-            gainSlider.floatValue = Float(parametricEQ.gain)
-            gainSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
-            view.addSubview(gainSlider)
+            makeTextField(gainTextField, view: view, below: topTitle, distance: 8,
+                stringValue: "Gain: \(parametricEQ.gain) dB")
+            makeSlider(gainSlider, view: view, below: topTitle, distance: 9, target: self,
+                action: "updateGain",
+                currentValue: parametricEQ.gain,
+                minimumValue: -20,
+                maximumValue: 20)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
         }
 
-        internal func updatecenterFrequency() {
-            parametricEQ.centerFrequency = centerFrequencySlider.floatValue
-            centerFrequencyTextField.stringValue = "Center Freq \(String(format: "%0.4f", parametricEQ.centerFrequency)) Hz"
+        internal func updateCenterfreq() {
+            parametricEQ.centerFrequency = centerFreqSlider.floatValue
+            centerFreqTextField.stringValue = "Center Frequency \(String(format: "%0.4f", parametricEQ.centerFrequency)) Hz"
         }
         internal func updateQ() {
             parametricEQ.q = qSlider.floatValue

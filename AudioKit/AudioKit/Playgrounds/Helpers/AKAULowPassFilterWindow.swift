@@ -33,11 +33,11 @@
             lowPassFilter = control
             let sliderWidth = windowWidth - 2 * padding
 
-            cutoffFrequencySlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            resonanceSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            cutoffFrequencySlider = newSlider(sliderWidth)
+            resonanceSlider = newSlider(sliderWidth)
 
-            cutoffFrequencyTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            resonanceTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            cutoffFrequencyTextField = newTextField(sliderWidth)
+            resonanceTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -67,34 +67,21 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            cutoffFrequencyTextField.stringValue = "Cutoff Frequency: \(lowPassFilter.cutoffFrequency) Hz"
-            cutoffFrequencyTextField.editable = false
-            cutoffFrequencyTextField.drawsBackground = false
-            cutoffFrequencyTextField.bezeled = false
-            cutoffFrequencyTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(cutoffFrequencyTextField)
+            makeTextField(cutoffFrequencyTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Cutoff Frequency: \(lowPassFilter.cutoffFrequency) Hz")
+            makeSlider(cutoffFrequencySlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateCutofffrequency",
+                currentValue: lowPassFilter.cutoffFrequency,
+                minimumValue: 10,
+                maximumValue: 22050)
 
-            cutoffFrequencySlider.target = self
-            cutoffFrequencySlider.action = "updateCutofffrequency"
-            cutoffFrequencySlider.minValue = 10
-            cutoffFrequencySlider.maxValue = 22050
-            cutoffFrequencySlider.floatValue = Float(lowPassFilter.cutoffFrequency)
-            cutoffFrequencySlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(cutoffFrequencySlider)
-            resonanceTextField.stringValue = "Resonance: \(lowPassFilter.resonance) dB"
-            resonanceTextField.editable = false
-            resonanceTextField.drawsBackground = false
-            resonanceTextField.bezeled = false
-            resonanceTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(resonanceTextField)
-
-            resonanceSlider.target = self
-            resonanceSlider.action = "updateResonance"
-            resonanceSlider.minValue = -20
-            resonanceSlider.maxValue = 40
-            resonanceSlider.floatValue = Float(lowPassFilter.resonance)
-            resonanceSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(resonanceSlider)
+            makeTextField(resonanceTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Resonance: \(lowPassFilter.resonance) dB")
+            makeSlider(resonanceSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateResonance",
+                currentValue: lowPassFilter.resonance,
+                minimumValue: -20,
+                maximumValue: 40)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)

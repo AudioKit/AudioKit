@@ -36,13 +36,13 @@
             peakLimiter = control
             let sliderWidth = windowWidth - 2 * padding
 
-            attackTimeSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decayTimeSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            preGainSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            attackTimeSlider = newSlider(sliderWidth)
+            decayTimeSlider = newSlider(sliderWidth)
+            preGainSlider = newSlider(sliderWidth)
 
-            attackTimeTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decayTimeTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            preGainTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            attackTimeTextField = newTextField(sliderWidth)
+            decayTimeTextField = newTextField(sliderWidth)
+            preGainTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -72,48 +72,29 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            attackTimeTextField.stringValue = "Attack Time: \(peakLimiter.attackTime) Secs"
-            attackTimeTextField.editable = false
-            attackTimeTextField.drawsBackground = false
-            attackTimeTextField.bezeled = false
-            attackTimeTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(attackTimeTextField)
+            makeTextField(attackTimeTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Attack Time: \(peakLimiter.attackTime) Secs")
+            makeSlider(attackTimeSlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateAttacktime",
+                currentValue: peakLimiter.attackTime,
+                minimumValue: 0.001,
+                maximumValue: 0.03)
 
-            attackTimeSlider.target = self
-            attackTimeSlider.action = "updateAttacktime"
-            attackTimeSlider.minValue = 0.001
-            attackTimeSlider.maxValue = 0.03
-            attackTimeSlider.floatValue = Float(peakLimiter.attackTime)
-            attackTimeSlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(attackTimeSlider)
-            decayTimeTextField.stringValue = "Decay Time: \(peakLimiter.decayTime) Secs"
-            decayTimeTextField.editable = false
-            decayTimeTextField.drawsBackground = false
-            decayTimeTextField.bezeled = false
-            decayTimeTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(decayTimeTextField)
+            makeTextField(decayTimeTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Decay Time: \(peakLimiter.decayTime) Secs")
+            makeSlider(decayTimeSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateDecaytime",
+                currentValue: peakLimiter.decayTime,
+                minimumValue: 0.001,
+                maximumValue: 0.06)
 
-            decayTimeSlider.target = self
-            decayTimeSlider.action = "updateDecaytime"
-            decayTimeSlider.minValue = 0.001
-            decayTimeSlider.maxValue = 0.06
-            decayTimeSlider.floatValue = Float(peakLimiter.decayTime)
-            decayTimeSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(decayTimeSlider)
-            preGainTextField.stringValue = "Pre Gain: \(peakLimiter.preGain) dB"
-            preGainTextField.editable = false
-            preGainTextField.drawsBackground = false
-            preGainTextField.bezeled = false
-            preGainTextField.frame.origin.y = topTitle.frame.origin.y -  8 *  CGFloat(sliderHeight)
-            view.addSubview(preGainTextField)
-
-            preGainSlider.target = self
-            preGainSlider.action = "updatePregain"
-            preGainSlider.minValue = -40
-            preGainSlider.maxValue = 40
-            preGainSlider.floatValue = Float(peakLimiter.preGain)
-            preGainSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
-            view.addSubview(preGainSlider)
+            makeTextField(preGainTextField, view: view, below: topTitle, distance: 8,
+                stringValue: "Pre Gain: \(peakLimiter.preGain) dB")
+            makeSlider(preGainSlider, view: view, below: topTitle, distance: 9, target: self,
+                action: "updatePregain",
+                currentValue: peakLimiter.preGain,
+                minimumValue: -40,
+                maximumValue: 40)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)

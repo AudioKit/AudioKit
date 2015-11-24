@@ -36,13 +36,13 @@
             decimator = control
             let sliderWidth = windowWidth - 2 * padding
 
-            decimationSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            roundingSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            finalMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            decimationSlider = newSlider(sliderWidth)
+            roundingSlider = newSlider(sliderWidth)
+            finalMixSlider = newSlider(sliderWidth)
 
-            decimationTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            roundingTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            finalMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            decimationTextField = newTextField(sliderWidth)
+            roundingTextField = newTextField(sliderWidth)
+            finalMixTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -72,48 +72,29 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            decimationTextField.stringValue = "Decimation: \(decimator.decimation) Percent"
-            decimationTextField.editable = false
-            decimationTextField.drawsBackground = false
-            decimationTextField.bezeled = false
-            decimationTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(decimationTextField)
+            makeTextField(decimationTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Decimation: \(decimator.decimation) ")
+            makeSlider(decimationSlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateDecimation",
+                currentValue: decimator.decimation,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            decimationSlider.target = self
-            decimationSlider.action = "updateDecimation"
-            decimationSlider.minValue = 0
-            decimationSlider.maxValue = 100
-            decimationSlider.floatValue = decimator.decimation
-            decimationSlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(decimationSlider)
-            roundingTextField.stringValue = "Rounding: \(decimator.rounding) Percent"
-            roundingTextField.editable = false
-            roundingTextField.drawsBackground = false
-            roundingTextField.bezeled = false
-            roundingTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(roundingTextField)
+            makeTextField(roundingTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Rounding: \(decimator.rounding) Percent")
+            makeSlider(roundingSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateRounding",
+                currentValue: decimator.rounding,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            roundingSlider.target = self
-            roundingSlider.action = "updateRounding"
-            roundingSlider.minValue = 0
-            roundingSlider.maxValue = 100
-            roundingSlider.floatValue = Float(decimator.rounding)
-            roundingSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(roundingSlider)
-            finalMixTextField.stringValue = "Mix: \(decimator.mix) Percent"
-            finalMixTextField.editable = false
-            finalMixTextField.drawsBackground = false
-            finalMixTextField.bezeled = false
-            finalMixTextField.frame.origin.y = topTitle.frame.origin.y -  8 *  CGFloat(sliderHeight)
-            view.addSubview(finalMixTextField)
-
-            finalMixSlider.target = self
-            finalMixSlider.action = "updateMix"
-            finalMixSlider.minValue = 0
-            finalMixSlider.maxValue = 100
-            finalMixSlider.floatValue = Float(decimator.mix)
-            finalMixSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
-            view.addSubview(finalMixSlider)
+            makeTextField(finalMixTextField, view: view, below: topTitle, distance: 8,
+                stringValue: "Final Mix: \(decimator.mix) Percent")
+            makeSlider(finalMixSlider, view: view, below: topTitle, distance: 9, target: self,
+                action: "updateFinalmix",
+                currentValue: decimator.mix,
+                minimumValue: 0,
+                maximumValue: 100)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
@@ -127,7 +108,7 @@
             decimator.rounding = roundingSlider.floatValue
             roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", decimator.rounding)) Percent"
         }
-        internal func updateMix() {
+        internal func updateFinalmix() {
             decimator.mix = finalMixSlider.floatValue
             finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", decimator.mix)) Percent"
         }

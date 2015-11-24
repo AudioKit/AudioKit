@@ -8,6 +8,18 @@
 
 import Foundation
 
+func newSlider(width: Int) -> NSSlider {
+    let padding = 30
+    let sliderHeight = 20
+    return NSSlider(frame: NSRect(x: padding, y: 0, width: width, height: sliderHeight))
+}
+
+func newTextField(width: Int) -> NSTextField {
+    let padding = 30
+    let sliderHeight = 20
+    return NSTextField(frame: NSRect(x: padding, y: 0, width: width, height: sliderHeight))
+}
+
 func makeTextField(
     textField: NSTextField,
     view: NSView,
@@ -16,6 +28,7 @@ func makeTextField(
     stringValue: String) {
         
         let sliderHeight = 20
+        
         textField.stringValue = stringValue
         textField.editable = false
         textField.drawsBackground = false
