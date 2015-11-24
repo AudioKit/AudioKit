@@ -38,8 +38,8 @@ public class AKStringResonator: AKOperation {
     public init(
         _ input: AKOperation,
         fundamentalFrequency: Float = 100,
-        feedback: Float = 0.95)
-    {
+        feedback: Float = 0.95) {
+
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
         super.init()
@@ -79,8 +79,7 @@ public class AKStringResonator: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.fundamentalFrequencyParameter!.address {
                     self.fundamentalFrequency = value
-                }
-                else if address == self.feedbackParameter!.address {
+                } else if address == self.feedbackParameter!.address {
                     self.feedback = value
                 }
             }

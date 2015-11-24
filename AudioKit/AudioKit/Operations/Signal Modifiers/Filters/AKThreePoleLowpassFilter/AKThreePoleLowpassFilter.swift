@@ -16,9 +16,9 @@ public class AKThreePoleLowpassFilter: AKOperation {
     private var internalAU: AKThreePoleLowpassFilterAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var distortionParameter:      AUParameter?
+    private var distortionParameter: AUParameter?
     private var cutoffFrequencyParameter: AUParameter?
-    private var resonanceParameter:       AUParameter?
+    private var resonanceParameter: AUParameter?
 
     /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. */
     public var distortion: Float = 0.5 {
@@ -46,8 +46,8 @@ public class AKThreePoleLowpassFilter: AKOperation {
         _ input: AKOperation,
         distortion: Float = 0.5,
         cutoffFrequency: Float = 1500,
-        resonance: Float = 0.5)
-    {
+        resonance: Float = 0.5) {
+
         self.distortion = distortion
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
@@ -89,11 +89,9 @@ public class AKThreePoleLowpassFilter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.distortionParameter!.address {
                     self.distortion = value
-                }
-                else if address == self.cutoffFrequencyParameter!.address {
+                } else if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = value
-                }
-                else if address == self.resonanceParameter!.address {
+                } else if address == self.resonanceParameter!.address {
                     self.resonance = value
                 }
             }

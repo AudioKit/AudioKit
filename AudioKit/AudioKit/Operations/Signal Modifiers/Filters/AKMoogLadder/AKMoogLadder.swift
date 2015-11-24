@@ -17,7 +17,7 @@ public class AKMoogLadder: AKOperation {
     private var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
-    private var resonanceParameter:       AUParameter?
+    private var resonanceParameter: AUParameter?
 
     /** Filter cutoff frequency. */
     public var cutoffFrequency: Float = 1000 {
@@ -38,8 +38,8 @@ public class AKMoogLadder: AKOperation {
     public init(
         _ input: AKOperation,
         cutoffFrequency: Float = 1000,
-        resonance: Float = 0.5)
-    {
+        resonance: Float = 0.5) {
+
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
         super.init()
@@ -79,8 +79,7 @@ public class AKMoogLadder: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = value
-                }
-                else if address == self.resonanceParameter!.address {
+                } else if address == self.resonanceParameter!.address {
                     self.resonance = value
                 }
             }

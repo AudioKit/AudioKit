@@ -51,8 +51,8 @@ public class AKAUBandPassFilter: AKOperation {
     public init(
         _ input: AKOperation,
         centerFrequency: Float = 5000,
-        bandwidth: Float = 600)
-    {
+        bandwidth: Float = 600) {
+            
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
         super.init()

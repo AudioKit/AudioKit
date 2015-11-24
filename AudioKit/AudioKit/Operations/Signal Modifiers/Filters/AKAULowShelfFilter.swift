@@ -51,8 +51,8 @@ public class AKAULowShelfFilter: AKOperation {
     public init(
         _ input: AKOperation,
         cutoffFrequency: Float = 80,
-        gain: Float = 0)
-    {
+        gain: Float = 0) {
+            
         self.cutoffFrequency = cutoffFrequency
         self.gain = gain
         super.init()

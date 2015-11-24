@@ -30,8 +30,8 @@ public class AKTrackedAmplitude: AKOperation {
     /** Initialize this amplitude operation */
     public init(
         _ input: AKOperation,
-        halfPowerPoint: Float = 10)
-    {
+        halfPowerPoint: Float = 10) {
+
         self.halfPowerPoint = halfPowerPoint
         super.init()
 

@@ -79,8 +79,8 @@ public class AKAURingModulator: AKOperation {
         frequency1: Float = 100,
         frequency2: Float = 100,
         balance: Float = 50,
-        mix: Float = 0)
-    {
+        mix: Float = 0) {
+            
         self.frequency1 = frequency1
         self.frequency2 = frequency2
         self.balance = balance

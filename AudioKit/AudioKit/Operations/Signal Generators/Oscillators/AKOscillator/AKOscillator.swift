@@ -72,8 +72,7 @@ public class AKOscillator: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.frequencyParameter!.address {
                     self.frequency = value
-                }
-                else if address == self.amplitudeParameter!.address {
+                } else if address == self.amplitudeParameter!.address {
                     self.amplitude = value
                 }
             }
