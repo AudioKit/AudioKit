@@ -45,7 +45,11 @@ public class AKAUReverb2: AKOperation {
             if gain > 20 {
                 gain = 20
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_Gain, kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kReverb2Param_Gain,
+                kAudioUnitScope_Global, 0,
+                gain, 0)
         }
     }
     
@@ -58,7 +62,11 @@ public class AKAUReverb2: AKOperation {
             if minDelayTime > 1.0 {
                 minDelayTime = 1.0
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, minDelayTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kReverb2Param_MinDelayTime,
+                kAudioUnitScope_Global, 0,
+                minDelayTime, 0)
         }
     }
     
@@ -71,7 +79,11 @@ public class AKAUReverb2: AKOperation {
             if maxDelayTime > 1.0 {
                 maxDelayTime = 1.0
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, maxDelayTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kReverb2Param_MaxDelayTime,
+                kAudioUnitScope_Global, 0,
+                maxDelayTime, 0)
         }
     }
     
@@ -84,7 +96,10 @@ public class AKAUReverb2: AKOperation {
             if decayTimeAt0Hz > 20.0 {
                 decayTimeAt0Hz = 20.0
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, decayTimeAt0Hz, 0)
+            AudioUnitSetParameter(internalAU,
+                kReverb2Param_DecayTimeAt0Hz,
+                kAudioUnitScope_Global, 0,
+                decayTimeAt0Hz, 0)
         }
     }
     
@@ -97,7 +112,10 @@ public class AKAUReverb2: AKOperation {
             if decayTimeAtNyquist > 20.0 {
                 decayTimeAtNyquist = 20.0
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, decayTimeAtNyquist, 0)
+            AudioUnitSetParameter(internalAU,
+                kReverb2Param_DecayTimeAtNyquist,
+                kAudioUnitScope_Global, 0,
+                decayTimeAtNyquist, 0)
         }
     }
     /** Decay Time (Secs) ranges from 0.001 to 20.0 (Default: 0.5) 
@@ -110,8 +128,16 @@ public class AKAUReverb2: AKOperation {
             if decayTime > 20.0 {
                 decayTime = 20.0
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, decayTime, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, decayTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kReverb2Param_DecayTimeAtNyquist,
+                kAudioUnitScope_Global, 0,
+                decayTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kReverb2Param_DecayTimeAt0Hz,
+                kAudioUnitScope_Global, 0,
+                decayTime, 0)
         }
     }
     
@@ -124,7 +150,10 @@ public class AKAUReverb2: AKOperation {
             if randomizeReflections > 1000 {
                 randomizeReflections = 1000
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, randomizeReflections, 0)
+            AudioUnitSetParameter(internalAU,
+                kReverb2Param_RandomizeReflections,
+                kAudioUnitScope_Global, 0,
+                randomizeReflections, 0)
         }
     }
     

@@ -29,7 +29,9 @@ public class AKStringResonator: AKOperation {
             fundamentalFrequencyParameter?.setValue(fundamentalFrequency, originator: token!)
         }
     }
-    /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9. */
+    /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay
+     and a more pronounced resonance. Small values may leave the input signal
+     unaffected. Depending on the filter frequency, typical values are > .9. */
     public var feedback: Float = 0.95 {
         didSet {
             feedbackParameter?.setValue(feedback, originator: token!)

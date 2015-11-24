@@ -89,11 +89,13 @@
 
         internal func updateCutofffrequency() {
             highPassFilter.cutoffFrequency = cutoffFrequencySlider.floatValue
-            cutoffFrequencyTextField.stringValue = "Cutoff Frequency \(String(format: "%0.4f", highPassFilter.cutoffFrequency)) Hz"
+            cutoffFrequencyTextField.stringValue =
+            "Cutoff Frequency \(String(format: "%0.4f", highPassFilter.cutoffFrequency)) Hz"
         }
         internal func updateResonance() {
             highPassFilter.resonance = resonanceSlider.floatValue
-            resonanceTextField.stringValue = "Resonance \(String(format: "%0.4f", highPassFilter.resonance)) dB"
+            resonanceTextField.stringValue =
+            "Resonance \(String(format: "%0.4f", highPassFilter.resonance)) dB"
         }
 
         /// Required initializer

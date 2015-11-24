@@ -29,7 +29,8 @@ public class AKMoogLadder: AKOperation {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
-    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
+    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values
+     might cause aliasing, analogue synths generally allow resonances to be above 1. */
     public var resonance: Float = 0.5 {
         didSet {
             resonanceParameter?.setValue(resonance, originator: token!)

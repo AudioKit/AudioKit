@@ -193,43 +193,53 @@
 
         internal func updateThreshold() {
             dynamicsProcessor.threshold = thresholdSlider.floatValue
-            thresholdTextField.stringValue = "Threshold \(String(format: "%0.4f", dynamicsProcessor.threshold)) dB"
+            thresholdTextField.stringValue =
+            "Threshold \(String(format: "%0.4f", dynamicsProcessor.threshold)) dB"
         }
         internal func updateHeadroom() {
             dynamicsProcessor.headRoom = headRoomSlider.floatValue
-            headRoomTextField.stringValue = "Head Room \(String(format: "%0.4f", dynamicsProcessor.headRoom)) dB"
+            headRoomTextField.stringValue =
+            "Head Room \(String(format: "%0.4f", dynamicsProcessor.headRoom)) dB"
         }
         internal func updateExpansionratio() {
             dynamicsProcessor.expansionRatio = expansionRatioSlider.floatValue
-            expansionRatioTextField.stringValue = "Expansion Ratio \(String(format: "%0.4f", dynamicsProcessor.expansionRatio)) rate"
+            expansionRatioTextField.stringValue =
+            "Expansion Ratio \(String(format: "%0.4f", dynamicsProcessor.expansionRatio)) rate"
         }
         internal func updateExpansionthreshold() {
             dynamicsProcessor.expansionThreshold = expansionThresholdSlider.floatValue
-            expansionThresholdTextField.stringValue = "Expansion Threshold \(String(format: "%0.4f", dynamicsProcessor.expansionThreshold)) rate"
+            expansionThresholdTextField.stringValue =
+            "Expansion Threshold \(String(format: "%0.4f", dynamicsProcessor.expansionThreshold)) rate"
         }
         internal func updateAttacktime() {
             dynamicsProcessor.attackTime = attackTimeSlider.floatValue
-            attackTimeTextField.stringValue = "Attack Time \(String(format: "%0.4f", dynamicsProcessor.attackTime)) secs"
+            attackTimeTextField.stringValue =
+            "Attack Time \(String(format: "%0.4f", dynamicsProcessor.attackTime)) secs"
         }
         internal func updateReleasetime() {
             dynamicsProcessor.releaseTime = releaseTimeSlider.floatValue
-            releaseTimeTextField.stringValue = "Release Time \(String(format: "%0.4f", dynamicsProcessor.releaseTime)) secs"
+            releaseTimeTextField.stringValue =
+            "Release Time \(String(format: "%0.4f", dynamicsProcessor.releaseTime)) secs"
         }
         internal func updateMastergain() {
             dynamicsProcessor.masterGain = masterGainSlider.floatValue
-            masterGainTextField.stringValue = "Master Gain \(String(format: "%0.4f", dynamicsProcessor.masterGain)) dB"
+            masterGainTextField.stringValue =
+            "Master Gain \(String(format: "%0.4f", dynamicsProcessor.masterGain)) dB"
         }
         internal func updateCompressionamount() {
             dynamicsProcessor.compressionAmount = compressionAmountSlider.floatValue
-            compressionAmountTextField.stringValue = "Compression Amount \(String(format: "%0.4f", dynamicsProcessor.compressionAmount)) dB"
+            compressionAmountTextField.stringValue =
+            "Compression Amount \(String(format: "%0.4f", dynamicsProcessor.compressionAmount)) dB"
         }
         internal func updateInputamplitude() {
             dynamicsProcessor.inputAmplitude = inputAmplitudeSlider.floatValue
-            inputAmplitudeTextField.stringValue = "Input Amplitude \(String(format: "%0.4f", dynamicsProcessor.inputAmplitude)) dB"
+            inputAmplitudeTextField.stringValue =
+            "Input Amplitude \(String(format: "%0.4f", dynamicsProcessor.inputAmplitude)) dB"
         }
         internal func updateOutputamplitude() {
             dynamicsProcessor.outputAmplitude = outputAmplitudeSlider.floatValue
-            outputAmplitudeTextField.stringValue = "Output Amplitude \(String(format: "%0.4f", dynamicsProcessor.outputAmplitude)) dB"
+            outputAmplitudeTextField.stringValue =
+            "Output Amplitude \(String(format: "%0.4f", dynamicsProcessor.outputAmplitude)) dB"
         }
 
         /// Required initializer

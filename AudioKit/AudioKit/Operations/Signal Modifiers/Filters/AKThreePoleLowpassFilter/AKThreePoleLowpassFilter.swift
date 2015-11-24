@@ -20,7 +20,9 @@ public class AKThreePoleLowpassFilter: AKOperation {
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
 
-    /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount. */
+    /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh
+     distortion controlled by the filter parameters, in such a way that both low
+     cutoff and high resonance increase the distortion amount. */
     public var distortion: Float = 0.5 {
         didSet {
             distortionParameter?.setValue(distortion, originator: token!)
@@ -32,7 +34,9 @@ public class AKThreePoleLowpassFilter: AKOperation {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
-    /** Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect. */
+    /** Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate
+     at the cutoff frequency. Values slightly greater than 1 are possible for more
+     sustained oscillation and an “overdrive” effect. */
     public var resonance: Float = 0.5 {
         didSet {
             resonanceParameter?.setValue(resonance, originator: token!)

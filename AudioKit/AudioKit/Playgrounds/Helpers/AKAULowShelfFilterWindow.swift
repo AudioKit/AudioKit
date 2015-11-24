@@ -89,11 +89,13 @@
 
         internal func updateCutofffrequency() {
             lowShelfFilter.cutoffFrequency = cutoffFrequencySlider.floatValue
-            cutoffFrequencyTextField.stringValue = "Cutoff Frequency \(String(format: "%0.4f", lowShelfFilter.cutoffFrequency)) Hz"
+            cutoffFrequencyTextField.stringValue =
+            "Cutoff Frequency \(String(format: "%0.4f", lowShelfFilter.cutoffFrequency)) Hz"
         }
         internal func updateGain() {
             lowShelfFilter.gain = gainSlider.floatValue
-            gainTextField.stringValue = "Gain \(String(format: "%0.4f", lowShelfFilter.gain)) dB"
+            gainTextField.stringValue =
+            "Gain \(String(format: "%0.4f", lowShelfFilter.gain)) dB"
         }
 
         /// Required initializer
