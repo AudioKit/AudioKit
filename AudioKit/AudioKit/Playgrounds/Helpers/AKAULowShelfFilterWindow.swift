@@ -33,11 +33,11 @@
             lowShelfFilter = control
             let sliderWidth = windowWidth - 2 * padding
 
-            cutoffFrequencySlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            gainSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            cutoffFrequencySlider = newSlider(sliderWidth)
+            gainSlider = newSlider(sliderWidth)
 
-            cutoffFrequencyTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            gainTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            cutoffFrequencyTextField = newTextField(sliderWidth)
+            gainTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -67,34 +67,21 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            cutoffFrequencyTextField.stringValue = "Cutoff Frequency: \(lowShelfFilter.cutoffFrequency) Hz"
-            cutoffFrequencyTextField.editable = false
-            cutoffFrequencyTextField.drawsBackground = false
-            cutoffFrequencyTextField.bezeled = false
-            cutoffFrequencyTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(cutoffFrequencyTextField)
+            makeTextField(cutoffFrequencyTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Cutoff Frequency: \(lowShelfFilter.cutoffFrequency) Hz")
+            makeSlider(cutoffFrequencySlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateCutofffrequency",
+                currentValue: lowShelfFilter.cutoffFrequency,
+                minimumValue: 10,
+                maximumValue: 200)
 
-            cutoffFrequencySlider.target = self
-            cutoffFrequencySlider.action = "updateCutofffrequency"
-            cutoffFrequencySlider.minValue = 10
-            cutoffFrequencySlider.maxValue = 200
-            cutoffFrequencySlider.floatValue = Float(lowShelfFilter.cutoffFrequency)
-            cutoffFrequencySlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(cutoffFrequencySlider)
-            gainTextField.stringValue = "Gain: \(lowShelfFilter.gain) dB"
-            gainTextField.editable = false
-            gainTextField.drawsBackground = false
-            gainTextField.bezeled = false
-            gainTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(gainTextField)
-
-            gainSlider.target = self
-            gainSlider.action = "updateGain"
-            gainSlider.minValue = -40
-            gainSlider.maxValue = 40
-            gainSlider.floatValue = Float(lowShelfFilter.gain)
-            gainSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(gainSlider)
+            makeTextField(gainTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Gain: \(lowShelfFilter.gain) dB")
+            makeSlider(gainSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateGain",
+                currentValue: lowShelfFilter.gain,
+                minimumValue: -40,
+                maximumValue: 40)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)

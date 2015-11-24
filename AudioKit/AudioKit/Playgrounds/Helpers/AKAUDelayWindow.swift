@@ -27,10 +27,10 @@ public class AKAUDelayWindow: NSWindow {
     /// Slider to control dry/wet mix
     public let dryWetMixSlider: NSSlider
     
-    private let timeTextField:          NSTextField
-    private let feedbackTextField:      NSTextField
+    private let timeTextField: NSTextField
+    private let feedbackTextField: NSTextField
     private let lowPassCutoffTextField: NSTextField
-    private let dryWetMixTextField:     NSTextField
+    private let dryWetMixTextField: NSTextField
     
     private var delay: AKAUDelay
     

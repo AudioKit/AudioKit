@@ -35,11 +35,11 @@
             let sliderWidth = windowWidth - 2 * padding
 
 <% parameters.each do |parameter| -%>
-            <%= parameter[:variable] %>Slider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            <%= parameter[:variable] %>Slider = newSlider(sliderWidth)
 <% end -%>
 
 <% parameters.each do |parameter| -%>
-            <%= parameter[:variable] %>TextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            <%= parameter[:variable] %>TextField = newTextField(sliderWidth)
 <% end -%>
 
             let titleHeightApproximation = 50
@@ -71,16 +71,15 @@
             view.addSubview(topTitle)
 
 <% parameters.each_with_index do |parameter, i| -%>
-            makeTextField(<%= parameter[:variable] %>TextField, view: view, below: topTitle, distance: <%= 2 * (i+1) + i %> ,
+            makeTextField(<%= parameter[:variable] %>TextField, view: view, below: topTitle, distance: <%= 2 * (i+1) + i %>,
                 stringValue: "<%= parameter[:variable].underscore.humanize.titlecase %>: \(<%= au_name.uncapitalize %>.<%= parameter[:variable] %>) <%= parameter[:type] %>")
-            makeSlider(<%= parameter[:variable] %>Slider, view: view, below: topTitle, distance: <%= 2 * (i+1) + i %>, target: self,
+            makeSlider(<%= parameter[:variable] %>Slider, view: view, below: topTitle, distance: <%= 2 * (i+1) + i + 1 %>, target: self,
                 action: "update<%= parameter[:variable].capitalize %>",
                 currentValue: <%= au_name.uncapitalize %>.<%= parameter[:variable] %>,
                 minimumValue: <%= parameter[:min] %>,
                 maximumValue: <%= parameter[:max] %>)
 
 <% end -%>
-
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
         }

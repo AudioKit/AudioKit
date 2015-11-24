@@ -39,15 +39,15 @@
             ringModulator = control
             let sliderWidth = windowWidth - 2 * padding
 
-            ringModFreq1Slider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModFreq2Slider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModBalanceSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            finalMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            ringModFreq1Slider = newSlider(sliderWidth)
+            ringModFreq2Slider = newSlider(sliderWidth)
+            ringModBalanceSlider = newSlider(sliderWidth)
+            finalMixSlider = newSlider(sliderWidth)
 
-            ringModFreq1TextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModFreq2TextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModBalanceTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            finalMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            ringModFreq1TextField = newTextField(sliderWidth)
+            ringModFreq2TextField = newTextField(sliderWidth)
+            ringModBalanceTextField = newTextField(sliderWidth)
+            finalMixTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -77,62 +77,37 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            ringModFreq1TextField.stringValue = "Ring Mod Freq1: \(ringModulator.frequency1) Hertz"
-            ringModFreq1TextField.editable = false
-            ringModFreq1TextField.drawsBackground = false
-            ringModFreq1TextField.bezeled = false
-            ringModFreq1TextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(ringModFreq1TextField)
+            makeTextField(ringModFreq1TextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Frequency 1: \(ringModulator.frequency1) Hertz")
+            makeSlider(ringModFreq1Slider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateRingmodfreq1",
+                currentValue: ringModulator.frequency1,
+                minimumValue: 0.5,
+                maximumValue: 8000)
 
-            ringModFreq1Slider.target = self
-            ringModFreq1Slider.action = "updateRingmodfreq1"
-            ringModFreq1Slider.minValue = 0.5
-            ringModFreq1Slider.maxValue = 8000
-            ringModFreq1Slider.floatValue = Float(ringModulator.frequency1)
-            ringModFreq1Slider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(ringModFreq1Slider)
-            ringModFreq2TextField.stringValue = "Ring Mod Freq2: \(ringModulator.frequency2) Hertz"
-            ringModFreq2TextField.editable = false
-            ringModFreq2TextField.drawsBackground = false
-            ringModFreq2TextField.bezeled = false
-            ringModFreq2TextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(ringModFreq2TextField)
+            makeTextField(ringModFreq2TextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Frequency 2: \(ringModulator.frequency2) Hertz")
+            makeSlider(ringModFreq2Slider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateRingmodfreq2",
+                currentValue: ringModulator.frequency2,
+                minimumValue: 0.5,
+                maximumValue: 8000)
 
-            ringModFreq2Slider.target = self
-            ringModFreq2Slider.action = "updateRingmodfreq2"
-            ringModFreq2Slider.minValue = 0.5
-            ringModFreq2Slider.maxValue = 8000
-            ringModFreq2Slider.floatValue = Float(ringModulator.frequency2)
-            ringModFreq2Slider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(ringModFreq2Slider)
-            ringModBalanceTextField.stringValue = "Ring Mod Balance: \(ringModulator.balance) Percent"
-            ringModBalanceTextField.editable = false
-            ringModBalanceTextField.drawsBackground = false
-            ringModBalanceTextField.bezeled = false
-            ringModBalanceTextField.frame.origin.y = topTitle.frame.origin.y -  8 *  CGFloat(sliderHeight)
-            view.addSubview(ringModBalanceTextField)
+            makeTextField(ringModBalanceTextField, view: view, below: topTitle, distance: 8,
+                stringValue: "Balance: \(ringModulator.balance) Percent")
+            makeSlider(ringModBalanceSlider, view: view, below: topTitle, distance: 9, target: self,
+                action: "updateRingmodbalance",
+                currentValue: ringModulator.balance,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            ringModBalanceSlider.target = self
-            ringModBalanceSlider.action = "updateRingmodbalance"
-            ringModBalanceSlider.minValue = 0
-            ringModBalanceSlider.maxValue = 100
-            ringModBalanceSlider.floatValue = Float(ringModulator.balance)
-            ringModBalanceSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
-            view.addSubview(ringModBalanceSlider)
-            finalMixTextField.stringValue = "Mix: \(ringModulator.mix) Percent"
-            finalMixTextField.editable = false
-            finalMixTextField.drawsBackground = false
-            finalMixTextField.bezeled = false
-            finalMixTextField.frame.origin.y = topTitle.frame.origin.y -  11 *  CGFloat(sliderHeight)
-            view.addSubview(finalMixTextField)
-
-            finalMixSlider.target = self
-            finalMixSlider.action = "updateMix"
-            finalMixSlider.minValue = 0
-            finalMixSlider.maxValue = 100
-            finalMixSlider.floatValue = Float(ringModulator.mix)
-            finalMixSlider.frame.origin.y = topTitle.frame.origin.y - 12 * CGFloat(sliderHeight)
-            view.addSubview(finalMixSlider)
+            makeTextField(finalMixTextField, view: view, below: topTitle, distance: 11,
+                stringValue: "Mix: \(ringModulator.mix) Percent")
+            makeSlider(finalMixSlider, view: view, below: topTitle, distance: 12, target: self,
+                action: "updateFinalmix",
+                currentValue: ringModulator.mix,
+                minimumValue: 0,
+                maximumValue: 100)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
@@ -144,15 +119,15 @@
         }
         internal func updateRingmodfreq2() {
             ringModulator.frequency2 = ringModFreq2Slider.floatValue
-            ringModFreq2TextField.stringValue = "Ring Mod Freq2 \(String(format: "%0.4f", ringModulator.frequency2)) Hertz"
+            ringModFreq2TextField.stringValue = "Frequency 2 \(String(format: "%0.4f", ringModulator.frequency2)) Hertz"
         }
         internal func updateRingmodbalance() {
             ringModulator.balance = ringModBalanceSlider.floatValue
-            ringModBalanceTextField.stringValue = "Ring Mod Balance \(String(format: "%0.4f", ringModulator.balance)) Percent"
+            ringModBalanceTextField.stringValue = "Balance \(String(format: "%0.4f", ringModulator.balance)) Percent"
         }
         internal func updateFinalmix() {
             ringModulator.mix = finalMixSlider.floatValue
-            finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", ringModulator.mix)) Percent"
+            finalMixTextField.stringValue = "Mix \(String(format: "%0.4f", ringModulator.mix)) Percent"
         }
 
         /// Required initializer
