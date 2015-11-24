@@ -1,6 +1,6 @@
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-    private var <%= data["ak-variable"] %>Parameter:<%= ak_pad(data["ak-variable"]) %> AUParameter?
+    private var <%= data["ak-variable"] %>Parameter: AUParameter?
 <% end -%>
 <% end -%>
 

@@ -163,8 +163,8 @@ public class AKAUDynamicsProcessor: AKOperation {
         masterGain: Float = 0,
         compressionAmount: Float = 0,
         inputAmplitude: Float = 0,
-        outputAmplitude: Float = 0)
-    {
+        outputAmplitude: Float = 0) {
+            
         self.threshold = threshold
         self.headRoom = headRoom
         self.expansionRatio = expansionRatio

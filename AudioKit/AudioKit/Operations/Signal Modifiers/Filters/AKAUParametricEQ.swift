@@ -66,8 +66,7 @@ public class AKAUParametricEQ: AKOperation {
         _ input: AKOperation,
         centerFrequency: Float = 2000,
         q: Float = 1.0,
-        gain: Float = 0)
-    {
+        gain: Float = 0) {
         self.centerFrequency = centerFrequency
         self.q = q
         self.gain = gain

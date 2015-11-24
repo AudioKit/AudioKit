@@ -51,8 +51,8 @@ public class AKAULowPassFilter: AKOperation {
     public init(
         _ input: AKOperation,
         cutoffFrequency: Float = 6900,
-        resonance: Float = 0)
-    {
+        resonance: Float = 0) {
+            
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
         super.init()

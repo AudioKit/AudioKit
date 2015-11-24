@@ -247,8 +247,8 @@ public class AKAUDistortion: AKOperation {
         ringModBalance: Float = 50,
         ringModMix: Float = 0,
         softClipGain: Float = -6,
-        finalMix: Float = 50)
-    {
+        finalMix: Float = 50) {
+            
         self.delay = delay
         self.decay = decay
         self.delayMix = delayMix

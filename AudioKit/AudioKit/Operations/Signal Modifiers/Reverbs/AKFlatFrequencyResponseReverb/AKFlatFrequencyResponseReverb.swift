@@ -30,8 +30,8 @@ public class AKFlatFrequencyResponseReverb: AKOperation {
     /** Initialize this reverb operation */
     public init(
         _ input: AKOperation,
-        reverbDuration: Float = 0.5)
-    {
+        reverbDuration: Float = 0.5) {
+
         self.reverbDuration = reverbDuration
         super.init()
 

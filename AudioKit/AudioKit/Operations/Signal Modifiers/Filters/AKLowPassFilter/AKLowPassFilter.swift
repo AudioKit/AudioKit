@@ -30,8 +30,8 @@ public class AKLowPassFilter: AKOperation {
     /** Initialize this filter operation */
     public init(
         _ input: AKOperation,
-        halfPowerPoint: Float = 1000)
-    {
+        halfPowerPoint: Float = 1000) {
+
         self.halfPowerPoint = halfPowerPoint
         super.init()
 

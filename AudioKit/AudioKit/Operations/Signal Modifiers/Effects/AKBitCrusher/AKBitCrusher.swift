@@ -16,7 +16,7 @@ public class AKBitCrusher: AKOperation {
     private var internalAU: AKBitCrusherAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var bitDepthParameter:   AUParameter?
+    private var bitDepthParameter: AUParameter?
     private var sampleRateParameter: AUParameter?
 
     /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. */
@@ -38,8 +38,8 @@ public class AKBitCrusher: AKOperation {
     public init(
         _ input: AKOperation,
         bitDepth: Float = 8,
-        sampleRate: Float = 10000)
-    {
+        sampleRate: Float = 10000) {
+
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
         super.init()
@@ -79,8 +79,7 @@ public class AKBitCrusher: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.bitDepthParameter!.address {
                     self.bitDepth = value
-                }
-                else if address == self.sampleRateParameter!.address {
+                } else if address == self.sampleRateParameter!.address {
                     self.sampleRate = value
                 }
             }

@@ -30,8 +30,8 @@ public class AKCombFilter: AKOperation {
     /** Initialize this filter operation */
     public init(
         _ input: AKOperation,
-        reverbDuration: Float = 1.0)
-    {
+        reverbDuration: Float = 1.0) {
+
         self.reverbDuration = reverbDuration
         super.init()
 

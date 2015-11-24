@@ -17,8 +17,8 @@ public class AKEqualizerFilter: AKOperation {
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
-    private var bandwidthParameter:       AUParameter?
-    private var gainParameter:            AUParameter?
+    private var bandwidthParameter: AUParameter?
+    private var gainParameter: AUParameter?
 
     /** Center frequency. (in Hertz) */
     public var centerFrequency: Float = 1000 {
@@ -46,8 +46,8 @@ public class AKEqualizerFilter: AKOperation {
         _ input: AKOperation,
         centerFrequency: Float = 1000,
         bandwidth: Float = 100,
-        gain: Float = 10)
-    {
+        gain: Float = 10) {
+
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
         self.gain = gain
@@ -89,11 +89,9 @@ public class AKEqualizerFilter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = value
-                }
-                else if address == self.bandwidthParameter!.address {
+                } else if address == self.bandwidthParameter!.address {
                     self.bandwidth = value
-                }
-                else if address == self.gainParameter!.address {
+                } else if address == self.gainParameter!.address {
                     self.gain = value
                 }
             }

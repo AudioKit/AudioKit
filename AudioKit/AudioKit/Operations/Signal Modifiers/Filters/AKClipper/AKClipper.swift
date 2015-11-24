@@ -16,9 +16,9 @@ public class AKClipper: AKOperation {
     private var internalAU: AKClipperAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var limitParameter:              AUParameter?
+    private var limitParameter: AUParameter?
     private var clippingStartPointParameter: AUParameter?
-    private var methodParameter:             AUParameter?
+    private var methodParameter: AUParameter?
 
     /** Threshold / limiting value. */
     public var limit: Float = 1.0 {
@@ -46,8 +46,8 @@ public class AKClipper: AKOperation {
         _ input: AKOperation,
         limit: Float = 1.0,
         clippingStartPoint: Float = 0.5,
-        method: Float = 0)
-    {
+        method: Float = 0) {
+
         self.limit = limit
         self.clippingStartPoint = clippingStartPoint
         self.method = method
@@ -89,11 +89,9 @@ public class AKClipper: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.limitParameter!.address {
                     self.limit = value
-                }
-                else if address == self.clippingStartPointParameter!.address {
+                } else if address == self.clippingStartPointParameter!.address {
                     self.clippingStartPoint = value
-                }
-                else if address == self.methodParameter!.address {
+                } else if address == self.methodParameter!.address {
                     self.method = value
                 }
             }

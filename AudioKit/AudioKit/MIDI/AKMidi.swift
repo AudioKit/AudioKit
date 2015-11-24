@@ -175,16 +175,16 @@ public class AKMidi: AKOperation {
     }
     
     /// Send a Note On Message
-    public func sendNoteMessage(note: Int, vel: Int, channel: Int = 0) {
+    public func sendNoteMessage(note: Int, velocity: Int, channel: Int = 0) {
         let noteCommand: UInt8 = UInt8(0x90) + UInt8(channel)
-        let message: [UInt8] = [noteCommand, UInt8(note), UInt8(vel)]
+        let message: [UInt8] = [noteCommand, UInt8(note), UInt8(velocity)]
         self.sendMessage(message)
     }
     
     /// Send a Continuous Controller message
-    public func sendControllerMessage(control: Int, val: Int, channel: Int = 0) {
+    public func sendControllerMessage(control: Int, value: Int, channel: Int = 0) {
         let controlCommand: UInt8 = UInt8(0xB0) + UInt8(channel)
-        let message: [UInt8] = [controlCommand, UInt8(control), UInt8(val)]
+        let message: [UInt8] = [controlCommand, UInt8(control), UInt8(value)]
         self.sendMessage(message)
     }
 }

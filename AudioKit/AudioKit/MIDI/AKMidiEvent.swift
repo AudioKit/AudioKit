@@ -72,28 +72,28 @@ public struct AKMidiEvent {
         if packet.data.0 < 0xF0 {
             let status = AKMidiStatus(rawValue: Int(packet.data.0) >> 4)
             let channel = UInt8(packet.data.0 & 0xF)
-            fillWithStatus(status!, channel: channel, d1: packet.data.1, d2: packet.data.2)
+            fillWithStatus(status!, channel: channel, byte1: packet.data.1, byte2: packet.data.2)
         } else {
             fillWithCommand(
                 AKMidiSystemCommand(rawValue: packet.data.0)!,
-                d1: packet.data.1,
-                d2: packet.data.2)
+                byte1: packet.data.1,
+                byte2: packet.data.2)
         }
     }
     
     /// Initialize the MIDI Event from a status message
-    init(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
-        fillWithStatus(status, channel: channel, d1: d1, d2: d2)
+    init(status: AKMidiStatus, channel: UInt8, byte1: UInt8, byte2: UInt8) {
+        fillWithStatus(status, channel: channel, byte1: byte1, byte2: byte2)
     }
-    private mutating func fillWithStatus(status: AKMidiStatus, channel: UInt8, d1: UInt8, d2: UInt8) {
+    private mutating func fillWithStatus(status: AKMidiStatus, channel: UInt8, byte1: UInt8, byte2: UInt8) {
         internalData[0] = UInt8(status.rawValue << 4) | UInt8((channel) & 0xf)
-        internalData[1] = d1 & 0x7F
-        internalData[2] = d2 & 0x7F
+        internalData[1] = byte1 & 0x7F
+        internalData[2] = byte2 & 0x7F
         
         switch status {
         case .ControllerChange:
-            if d1 < AKMidiControl.DataEntryPlus.rawValue ||
-            d1 == AKMidiControl.LocalControlOnOff.rawValue {
+            if byte1 < AKMidiControl.DataEntryPlus.rawValue ||
+            byte1 == AKMidiControl.LocalControlOnOff.rawValue {
                     length = 3
             } else {
                 length = 2
@@ -107,19 +107,19 @@ public struct AKMidiEvent {
     }
 
     /// Initialize the MIDI Event from a system command message
-    init(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
-        fillWithCommand(command, d1: d1, d2: d2)
+    init(command: AKMidiSystemCommand, byte1: UInt8, byte2: UInt8) {
+        fillWithCommand(command, byte1: byte1, byte2: byte2)
     }
-    private mutating func fillWithCommand(command: AKMidiSystemCommand, d1: UInt8, d2: UInt8) {
+    private mutating func fillWithCommand(command: AKMidiSystemCommand, byte1: UInt8, byte2: UInt8) {
         internalData[0] = command.rawValue
         switch command {
         case .Sysex: break
         case .SongPosition:
-            internalData[1] = d1 & 0x7F
-            internalData[2] = d2 & 0x7F
+            internalData[1] = byte1 & 0x7F
+            internalData[2] = byte2 & 0x7F
             length = 3
         case .SongSelect:
-            internalData[1] = d1 & 0x7F
+            internalData[1] = byte1 & 0x7F
             length = 2
         default:
             length = 1
@@ -129,26 +129,26 @@ public struct AKMidiEvent {
     /// Broadcast a notification center message
     func postNotification() -> Bool {
         var ret = NSDictionary()
-        let d1 = NSInteger(data1)
-        let d2 = NSInteger(data2)
+        let byte1 = NSInteger(data1)
+        let byte2 = NSInteger(data2)
         let c  = NSInteger(channel)
         
         switch status {
             
         case .NoteOn, .NoteOff:
-            ret = ["note":d1, "velocity":d2, "channel":c]
+            ret = ["note":byte1, "velocity":byte2, "channel":c]
             
         case .PolyphonicAftertouch:
-            ret = ["note":d1, "pressure":d2, "channel":c]
+            ret = ["note":byte1, "pressure":byte2, "channel":c]
             
         case .ControllerChange:
-            ret = ["control":d1, "value":d2, "channel":c]
+            ret = ["control":byte1, "value":byte2, "channel":c]
 
         case .ChannelAftertouch:
-            ret = ["pressure":d1, "channel":c]
+            ret = ["pressure":byte1, "channel":c]
             
         case .ProgramChange:
-            ret = ["program":d1, "channel":c]
+            ret = ["program":byte1, "channel":c]
             
         case .PitchWheel:
             ret = ["pitchWheel":NSInteger(data), "channel":c]
@@ -182,19 +182,19 @@ public struct AKMidiEvent {
     
     /// Create note on event
     static public func eventWithNoteOn(note: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMidiEvent {
-        return AKMidiEvent(status:.NoteOn, channel: channel, d1: note, d2: velocity)
+        return AKMidiEvent(status:.NoteOn, channel: channel, byte1: note, byte2: velocity)
     }
     /// Create note off event
     static public func eventWithNoteOff(note: UInt8, velocity: UInt8, channel: UInt8) -> AKMidiEvent {
-        return AKMidiEvent(status:.NoteOff, channel: channel, d1: note, d2: velocity)
+        return AKMidiEvent(status:.NoteOff, channel: channel, byte1: note, byte2: velocity)
     }
     /// Create program change event
     static public func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMidiEvent {
-        return AKMidiEvent(status:.ProgramChange, channel: channel, d1: program, d2: 0)
+        return AKMidiEvent(status:.ProgramChange, channel: channel, byte1: program, byte2: 0)
     }
     /// Create controller event
     static public func eventWithController(control: UInt8, val: UInt8, channel: UInt8) -> AKMidiEvent {
-        return AKMidiEvent(status:.ControllerChange, channel: channel, d1: control, d2: val)
+        return AKMidiEvent(status:.ControllerChange, channel: channel, byte1: control, byte2: val)
     }
 
 }

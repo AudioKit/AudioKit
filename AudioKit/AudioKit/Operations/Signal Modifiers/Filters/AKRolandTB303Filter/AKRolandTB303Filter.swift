@@ -16,9 +16,9 @@ public class AKRolandTB303Filter: AKOperation {
     private var internalAU: AKRolandTB303FilterAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var cutoffFrequencyParameter:    AUParameter?
-    private var resonanceParameter:          AUParameter?
-    private var distortionParameter:         AUParameter?
+    private var cutoffFrequencyParameter: AUParameter?
+    private var resonanceParameter: AUParameter?
+    private var distortionParameter: AUParameter?
     private var resonanceAsymmetryParameter: AUParameter?
 
     /** Cutoff frequency. (in Hertz) */
@@ -54,8 +54,8 @@ public class AKRolandTB303Filter: AKOperation {
         cutoffFrequency: Float = 500,
         resonance: Float = 0.5,
         distortion: Float = 2.0,
-        resonanceAsymmetry: Float = 0.5)
-    {
+        resonanceAsymmetry: Float = 0.5) {
+
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
         self.distortion = distortion
@@ -99,14 +99,11 @@ public class AKRolandTB303Filter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = value
-                }
-                else if address == self.resonanceParameter!.address {
+                } else if address == self.resonanceParameter!.address {
                     self.resonance = value
-                }
-                else if address == self.distortionParameter!.address {
+                } else if address == self.distortionParameter!.address {
                     self.distortion = value
-                }
-                else if address == self.resonanceAsymmetryParameter!.address {
+                } else if address == self.resonanceAsymmetryParameter!.address {
                     self.resonanceAsymmetry = value
                 }
             }

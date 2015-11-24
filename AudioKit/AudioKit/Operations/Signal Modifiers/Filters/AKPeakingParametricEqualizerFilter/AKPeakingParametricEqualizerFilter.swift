@@ -17,8 +17,8 @@ public class AKPeakingParametricEqualizerFilter: AKOperation {
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
-    private var gainParameter:            AUParameter?
-    private var qParameter:               AUParameter?
+    private var gainParameter: AUParameter?
+    private var qParameter: AUParameter?
 
     /** Center frequency. */
     public var centerFrequency: Float = 1000 {
@@ -46,8 +46,8 @@ public class AKPeakingParametricEqualizerFilter: AKOperation {
         _ input: AKOperation,
         centerFrequency: Float = 1000,
         gain: Float = 1.0,
-        q: Float = 0.707)
-    {
+        q: Float = 0.707) {
+
         self.centerFrequency = centerFrequency
         self.gain = gain
         self.q = q
@@ -89,11 +89,9 @@ public class AKPeakingParametricEqualizerFilter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = value
-                }
-                else if address == self.gainParameter!.address {
+                } else if address == self.gainParameter!.address {
                     self.gain = value
-                }
-                else if address == self.qParameter!.address {
+                } else if address == self.qParameter!.address {
                     self.q = value
                 }
             }

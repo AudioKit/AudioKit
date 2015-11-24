@@ -137,8 +137,8 @@ public class AKAUReverb2: AKOperation {
         maxDelayTime: Float = 0.050,
         decayTimeAt0Hz: Float = 1.0,
         decayTimeAtNyquist: Float = 0.5,
-        randomizeReflections: Float = 1)
-    {
+        randomizeReflections: Float = 1) {
+    
         self.dryWetMix = dryWetMix
         self.gain = gain
         self.minDelayTime = minDelayTime
