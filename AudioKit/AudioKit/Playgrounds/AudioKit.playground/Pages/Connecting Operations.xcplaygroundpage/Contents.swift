@@ -21,7 +21,7 @@ let playerWindow: AKAudioPlayerWindow
 
 //: Next we'll connect the audio to a delay
 let delay: AKAUDelay
-switch (source) {
+switch source {
 case "mic":
     delay = AKAUDelay(mic)
 default:

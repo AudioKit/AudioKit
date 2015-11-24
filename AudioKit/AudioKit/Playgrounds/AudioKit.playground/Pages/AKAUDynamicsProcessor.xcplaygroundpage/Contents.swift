@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let dynamicsProcessor: AKAUDynamicsProcessor
 
-switch (source) {
+switch source {
 case "mic":
     dynamicsProcessor = AKAUDynamicsProcessor(mic)
 default:

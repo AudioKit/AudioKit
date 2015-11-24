@@ -19,7 +19,7 @@ let player = AKAudioPlayer(file!)
 let playerWindow: AKAudioPlayerWindow
 let bandPassFilter: AKAUBandPassFilter
 
-switch (source) {
+switch source {
 case "mic":
     bandPassFilter = AKAUBandPassFilter(mic)
 default:

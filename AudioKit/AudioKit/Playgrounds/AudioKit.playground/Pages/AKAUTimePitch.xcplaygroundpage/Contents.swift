@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let timePitch: AKAUTimePitch
 
-switch (source) {
+switch source {
 case "mic":
     timePitch = AKAUTimePitch(mic)
 default:

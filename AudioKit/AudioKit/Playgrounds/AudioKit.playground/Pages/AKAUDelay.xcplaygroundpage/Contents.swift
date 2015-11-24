@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let delay: AKAUDelay
 
-switch (source) {
+switch source {
 case "mic":
     delay = AKAUDelay(mic)
 default:

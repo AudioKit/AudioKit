@@ -57,5 +57,4 @@ public class AKAudioPlayer: AKOperation {
     public func stop() {
         internalPlayer.stop()
     }
-
 }

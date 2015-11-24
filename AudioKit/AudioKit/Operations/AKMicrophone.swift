@@ -16,5 +16,4 @@ public class AKMicrophone: AKOperation {
         super.init()
         output = AKManager.sharedInstance.engine.inputNode
     }
-    
 }

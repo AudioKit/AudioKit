@@ -156,5 +156,3 @@ public class AKAUReverb2: AKOperation {
     }
     #endif
 }
-
-
