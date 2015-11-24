@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let decimator: AKAUDecimator
 
-switch (source) {
+switch source {
 case "mic":
     decimator = AKAUDecimator(mic)
 default:

@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let lowPassFilter: AKAULowPassFilter
 
-switch (source) {
+switch source {
 case "mic":
     lowPassFilter = AKAULowPassFilter(mic)
 default:

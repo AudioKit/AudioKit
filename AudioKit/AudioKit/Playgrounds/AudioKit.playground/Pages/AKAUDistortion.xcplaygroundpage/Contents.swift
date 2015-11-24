@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let distortion: AKAUDistortion
 
-switch (source) {
+switch source {
 case "mic":
     distortion = AKAUDistortion(mic)
 default:

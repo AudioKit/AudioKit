@@ -20,5 +20,4 @@ public class AKMainMixer: AKOperation {
     public func connect(input: AKOperation) {
         AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
     }
-    
 }

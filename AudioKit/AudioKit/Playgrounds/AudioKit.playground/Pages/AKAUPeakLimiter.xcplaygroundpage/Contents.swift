@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let peakLimiter: AKAUPeakLimiter
 
-switch (source) {
+switch source {
 case "mic":
     peakLimiter = AKAUPeakLimiter(mic)
 default:

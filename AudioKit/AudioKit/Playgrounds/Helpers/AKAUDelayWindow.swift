@@ -19,13 +19,13 @@ public class AKAUDelayWindow: NSWindow {
     private let numberOfComponents = 4
     
     /// Slider to control time
-    public let timeSlider:          NSSlider
+    public let timeSlider: NSSlider
     /// Slider to control feedback
-    public let feedbackSlider:      NSSlider
+    public let feedbackSlider: NSSlider
     /// Slider to control low pass cutoff frequency
     public let lowPassCutoffSlider: NSSlider
     /// Slider to control dry/wet mix
-    public let dryWetMixSlider:     NSSlider
+    public let dryWetMixSlider: NSSlider
     
     private let timeTextField:          NSTextField
     private let feedbackTextField:      NSTextField
