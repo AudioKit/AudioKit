@@ -12,29 +12,42 @@ import AudioToolbox
 
 /** Potential MIDI Status messages
 
- - NoteOff: something resembling a keyboard key release
- - NoteOn: triggered when a new note is created, or a keyboard key press
- - PolyphonicAftertouch: rare MIDI control on controllers in which every key has separate touch sensing
- - ControllerChange: wide range of control types including volume, expression, modulation and a host of unnamed controllers with numbers
- - ProgramChange: messages are associated with changing the basic character of the sound preset
- - ChannelAftertouch: single aftertouch for all notes on a given channel (most common aftertouch type in keyboards)
- - PitchWheel: common keyboard control that allow for a pitch to be bent up or down a given number of semitones
- - SystemCommand: differ from system to system
+ - NoteOff: 
+    something resembling a keyboard key release
+ - NoteOn: 
+    triggered when a new note is created, or a keyboard key press
+ - PolyphonicAftertouch: 
+    rare MIDI control on controllers in which every key has separate touch sensing
+ - ControllerChange: 
+    wide range of control types including volume, expression, modulation 
+    and a host of unnamed controllers with numbers
+ - ProgramChange: 
+    messages are associated with changing the basic character of the sound preset
+ - ChannelAftertouch: 
+    single aftertouch for all notes on a given channel (most common aftertouch type in keyboards)
+ - PitchWheel: 
+    common keyboard control that allow for a pitch to be bent up or down a given number of semitones
+ - SystemCommand: 
+    differ from system to system
 */
-enum AKMidiStatus : Int {
+enum AKMidiStatus: Int {
     /// Note off is something resembling a keyboard key release
     case NoteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
     case NoteOn = 9
-    /// Polyphonic aftertouch is a rare MIDI control on controllers in which every key has separate touch sensing
+    /// Polyphonic aftertouch is a rare MIDI control on controllers in which 
+    /// every key has separate touch sensing
     case PolyphonicAftertouch = 10
-    /// Controller changes represent a wide range of control types including volume, expression, modulation and a host of unnamed controllers with numbers
+    /// Controller changes represent a wide range of control types including volume,
+    /// expression, modulation and a host of unnamed controllers with numbers
     case ControllerChange = 11
     /// Program change messages are associated with changing the basic character of the sound preset
     case ProgramChange = 12
-    /// A single aftertouch for all notes on a given channel (most common aftertouch type in keyboards)
+    /// A single aftertouch for all notes on a given channel 
+    /// (most common aftertouch type in keyboards)
     case ChannelAftertouch = 13
-    /// A pitch wheel is a common keyboard control that allow for a pitch to be bent up or down a given number of semitones
+    /// A pitch wheel is a common keyboard control that allow for a pitch to be 
+    /// bent up or down a given number of semitones
     case PitchWheel = 14
     /// System commands differ from system to system
     case SystemCommand = 15
@@ -60,7 +73,7 @@ enum AKMidiStatus : Int {
  - ActiveSensing: Active Sensing
  - SysReset: System Reset
  */
-enum AKMidiSystemCommand : UInt8 {
+enum AKMidiSystemCommand: UInt8 {
     /// Trivial Case of None
     case None = 0
     /// System Exclusive
@@ -109,7 +122,7 @@ enum AKMidiSystemCommand : UInt8 {
  - AllNotesOff: MIDI Panic
  - CC# (0, 3, 9, 12-31) Unnamed Continuous Controllers
  */
-enum AKMidiControl : UInt8 {
+enum AKMidiControl: UInt8 {
     /// Modulation Control
     case ModulationWheel = 1
     /// Breath Control (in MIDI Saxophones for example)
@@ -200,9 +213,9 @@ enum AKMidiControl : UInt8 {
     /// Continuous Controller Number 31
     case CC31 = 31
 }
-func CheckError(error:OSStatus) {
+func CheckError(error: OSStatus) {
     if error == 0 {return}
-    switch(error) {
+    switch error {
     // AudioToolbox
     case kAudio_ParamError:
         print("Error:kAudio_ParamError \n")

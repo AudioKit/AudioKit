@@ -15,7 +15,6 @@
 @interface AKWhiteNoiseAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
 @property AUAudioUnitBusArray *outputBusArray;
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;
@@ -73,10 +72,7 @@
     _inputBus.init(defaultFormat, 8);
     _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
 
-    // Create the input and output bus arrays.
-    _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
-                                                             busType:AUAudioUnitBusTypeInput
-                                                              busses: @[_inputBus.bus]];
+    // Create the output bus array.
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[_outputBus]];
@@ -100,10 +96,6 @@
 }
 
 #pragma mark - AUAudioUnit Overrides
-
-- (AUAudioUnitBusArray *)inputBusses {
-    return _inputBusArray;
-}
 
 - (AUAudioUnitBusArray *)outputBusses {
     return _outputBusArray;
@@ -177,14 +169,7 @@
                               AudioBufferList            *outputData,
                               const AURenderEvent        *realtimeEventListHead,
                               AURenderPullInputBlock      pullInputBlock) {
-        AudioUnitRenderActionFlags pullFlags = 0;
-
-        AUAudioUnitStatus err = input->pullInput(&pullFlags, timestamp, frameCount, 0, pullInputBlock);
-
-        if (err != 0) {
-            return err;
-        }
-
+        
         AudioBufferList *inAudioBufferList = input->mutableAudioBufferList;
 
         /*

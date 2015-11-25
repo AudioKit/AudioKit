@@ -13,10 +13,10 @@
     /// A Window to control AKAUTimePitch in Playgrounds
     public class AKAUTimePitchWindow: NSWindow {
 
-        private let numberOfComponents = 3
         private let windowWidth = 400
         private let padding = 30
         private let sliderHeight = 20
+        private let numberOfComponents = 4
 
         /// Slider to control rate
         public let rateSlider: NSSlider
@@ -24,10 +24,13 @@
         public let pitchSlider: NSSlider
         /// Slider to control overlap
         public let overlapSlider: NSSlider
+        /// Slider to control enablePeakLocking
+        public let enablePeakLockingSlider: NSSlider
 
         private let rateTextField: NSTextField
         private let pitchTextField: NSTextField
         private let overlapTextField: NSTextField
+        private let enablePeakLockingTextField: NSTextField
 
         private var timePitch: AKAUTimePitch
 
@@ -36,13 +39,15 @@
             timePitch = control
             let sliderWidth = windowWidth - 2 * padding
 
-            rateSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            pitchSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            overlapSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            rateSlider = newSlider(sliderWidth)
+            pitchSlider = newSlider(sliderWidth)
+            overlapSlider = newSlider(sliderWidth)
+            enablePeakLockingSlider = newSlider(sliderWidth)
 
-            rateTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            pitchTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            overlapTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            rateTextField = newTextField(sliderWidth)
+            pitchTextField = newTextField(sliderWidth)
+            overlapTextField = newTextField(sliderWidth)
+            enablePeakLockingTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -72,48 +77,29 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            rateTextField.stringValue = "Rate: \(timePitch.rate) x normal playback rate"
-            rateTextField.editable = false
-            rateTextField.drawsBackground = false
-            rateTextField.bezeled = false
-            rateTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(rateTextField)
+            makeTextField(rateTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Rate: \(timePitch.rate) rate")
+            makeSlider(rateSlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateRate",
+                currentValue: timePitch.rate,
+                minimumValue: 0.03125,
+                maximumValue: 32.0)
 
-            rateSlider.target = self
-            rateSlider.action = "updateRate"
-            rateSlider.minValue = 0.03125
-            rateSlider.maxValue = 32.0
-            rateSlider.floatValue = Float(timePitch.rate)
-            rateSlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(rateSlider)
-            pitchTextField.stringValue = "Pitch: \(timePitch.pitch) Cents"
-            pitchTextField.editable = false
-            pitchTextField.drawsBackground = false
-            pitchTextField.bezeled = false
-            pitchTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(pitchTextField)
+            makeTextField(pitchTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Pitch: \(timePitch.pitch) Cents")
+            makeSlider(pitchSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updatePitch",
+                currentValue: timePitch.pitch,
+                minimumValue: -2400,
+                maximumValue: 2400)
 
-            pitchSlider.target = self
-            pitchSlider.action = "updatePitch"
-            pitchSlider.minValue = -2400
-            pitchSlider.maxValue = 2400
-            pitchSlider.floatValue = Float(timePitch.pitch)
-            pitchSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(pitchSlider)
-            overlapTextField.stringValue = "Overlap: \(timePitch.overlap) generic"
-            overlapTextField.editable = false
-            overlapTextField.drawsBackground = false
-            overlapTextField.bezeled = false
-            overlapTextField.frame.origin.y = topTitle.frame.origin.y -  8 *  CGFloat(sliderHeight)
-            view.addSubview(overlapTextField)
-
-            overlapSlider.target = self
-            overlapSlider.action = "updateOverlap"
-            overlapSlider.minValue = 3.0
-            overlapSlider.maxValue = 32.0
-            overlapSlider.floatValue = Float(timePitch.overlap)
-            overlapSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
-            view.addSubview(overlapSlider)
+            makeTextField(overlapTextField, view: view, below: topTitle, distance: 8,
+                stringValue: "Overlap: \(timePitch.overlap) generic")
+            makeSlider(overlapSlider, view: view, below: topTitle, distance: 9, target: self,
+                action: "updateOverlap",
+                currentValue: timePitch.overlap,
+                minimumValue: 3.0,
+                maximumValue: 32.0)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
@@ -121,7 +107,7 @@
 
         internal func updateRate() {
             timePitch.rate = rateSlider.floatValue
-            rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) x normal playback rate"
+            rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) rate"
         }
         internal func updatePitch() {
             timePitch.pitch = pitchSlider.floatValue
@@ -131,8 +117,8 @@
             timePitch.overlap = overlapSlider.floatValue
             overlapTextField.stringValue = "Overlap \(String(format: "%0.4f", timePitch.overlap)) generic"
         }
-        
-        /// Required Initializer
+
+        /// Required initializer
         required public init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }

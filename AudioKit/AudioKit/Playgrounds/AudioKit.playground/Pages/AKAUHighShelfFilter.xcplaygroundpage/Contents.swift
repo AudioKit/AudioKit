@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let highShelfFilter: AKAUHighShelfFilter
 
-switch (source) {
+switch source {
 case "mic":
     highShelfFilter = AKAUHighShelfFilter(mic)
 default:

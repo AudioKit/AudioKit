@@ -30,7 +30,11 @@ public class AKAUBandPassFilter: AKOperation {
             if centerFrequency > 22050 {
                 centerFrequency = 22050
             }
-            AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, centerFrequency, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kBandpassParam_CenterFrequency,
+                kAudioUnitScope_Global, 0,
+                centerFrequency, 0)
         }
     }
     
@@ -43,7 +47,11 @@ public class AKAUBandPassFilter: AKOperation {
             if bandwidth > 12000 {
                 bandwidth = 12000
             }
-            AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, bandwidth, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kBandpassParam_Bandwidth,
+                kAudioUnitScope_Global, 0,
+                bandwidth, 0)
         }
     }
     
@@ -51,16 +59,16 @@ public class AKAUBandPassFilter: AKOperation {
     public init(
         _ input: AKOperation,
         centerFrequency: Float = 5000,
-        bandwidth: Float = 600)
-    {
-        self.centerFrequency = centerFrequency
-        self.bandwidth = bandwidth
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+        bandwidth: Float = 600) {
+            
+            self.centerFrequency = centerFrequency
+            self.bandwidth = bandwidth
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let ringModulator: AKAURingModulator
 
-switch (source) {
+switch source {
 case "mic":
     ringModulator = AKAURingModulator(mic)
 default:

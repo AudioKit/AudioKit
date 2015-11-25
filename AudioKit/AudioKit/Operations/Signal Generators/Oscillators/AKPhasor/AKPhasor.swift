@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are often used when building table-lookup oscillators. */
+/** Produces a normalized sawtooth wave between the values of 0 and 1. 
+ Phasors are often used when building table-lookup oscillators. */
 public class AKPhasor: AKOperation {
 
     // MARK: - Properties
@@ -32,7 +33,7 @@ public class AKPhasor: AKOperation {
         super.init()
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
+        description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x70687372 /*'phsr'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
@@ -47,12 +48,11 @@ public class AKPhasor: AKOperation {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let generator = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPhasorAudioUnit
+            self.output = generator
+            self.internalAU = generator.AUAudioUnit as? AKPhasorAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(AKManager.sharedInstance.engine.inputNode!, to: self.output!, format: nil)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

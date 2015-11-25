@@ -8,7 +8,11 @@
 
 import AVFoundation
 
-/** Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli). This implementation is probably a more accurate digital representation of the original analogue filter. */
+/** Moog Ladder is an new digital implementation of the Moog ladder filter based on
+ the work of Antti Huovilainen, described in the paper "Non-Linear Digital
+ Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of
+ Napoli). This implementation is probably a more accurate digital representation
+ of the original analogue filter. */
 public class AKMoogLadder: AKOperation {
 
     // MARK: - Properties
@@ -17,7 +21,7 @@ public class AKMoogLadder: AKOperation {
     private var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
-    private var resonanceParameter:       AUParameter?
+    private var resonanceParameter: AUParameter?
 
     /** Filter cutoff frequency. */
     public var cutoffFrequency: Float = 1000 {
@@ -25,7 +29,8 @@ public class AKMoogLadder: AKOperation {
             cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
         }
     }
-    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. */
+    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values
+     might cause aliasing, analogue synths generally allow resonances to be above 1. */
     public var resonance: Float = 0.5 {
         didSet {
             resonanceParameter?.setValue(resonance, originator: token!)
@@ -38,8 +43,8 @@ public class AKMoogLadder: AKOperation {
     public init(
         _ input: AKOperation,
         cutoffFrequency: Float = 1000,
-        resonance: Float = 0.5)
-    {
+        resonance: Float = 0.5) {
+
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
         super.init()
@@ -79,8 +84,7 @@ public class AKMoogLadder: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = value
-                }
-                else if address == self.resonanceParameter!.address {
+                } else if address == self.resonanceParameter!.address {
                     self.resonance = value
                 }
             }

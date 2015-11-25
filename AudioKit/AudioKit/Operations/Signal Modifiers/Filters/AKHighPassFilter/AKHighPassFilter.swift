@@ -30,8 +30,8 @@ public class AKHighPassFilter: AKOperation {
     /** Initialize this filter operation */
     public init(
         _ input: AKOperation,
-        cutoffFrequency: Float = 1000)
-    {
+        cutoffFrequency: Float = 1000) {
+
         self.cutoffFrequency = cutoffFrequency
         super.init()
 

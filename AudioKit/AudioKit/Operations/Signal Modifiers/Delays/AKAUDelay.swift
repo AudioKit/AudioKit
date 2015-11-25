@@ -65,8 +65,8 @@ public class AKAUDelay: AKOperation {
         time: Float = 1,
         feedback: Float = 50,
         lowPassCutoff: Float = 15000,
-        dryWetMix: Float = 50)
-    {
+        dryWetMix: Float = 50) {
+            
         self.time = NSTimeInterval(Double(time))
         self.feedback = feedback
         self.lowPassCutoff = lowPassCutoff
@@ -77,5 +77,4 @@ public class AKAUDelay: AKOperation {
         AKManager.sharedInstance.engine.attachNode(output!)
         AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
     }
-    
 }

@@ -66,8 +66,8 @@ public class AKAUDecimator: AKOperation {
         _ input: AKOperation,
         decimation: Float = 50,
         rounding: Float = 0,
-        mix: Float = 50)
-    {
+        mix: Float = 50) {
+            
         self.decimation = decimation
         self.rounding = rounding
         self.mix = mix

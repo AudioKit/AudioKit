@@ -75,39 +75,39 @@
             distortion = control
             let sliderWidth = windowWidth - 2 * padding
 
-            delaySlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decaySlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            delayMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decimationSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            roundingSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decimationMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            linearTermSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            squaredTermSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            cubicTermSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            polynomialMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModFreq1Slider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModFreq2Slider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModBalanceSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            softClipGainSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            finalMixSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            delaySlider = newSlider(sliderWidth)
+            decaySlider = newSlider(sliderWidth)
+            delayMixSlider = newSlider(sliderWidth)
+            decimationSlider = newSlider(sliderWidth)
+            roundingSlider = newSlider(sliderWidth)
+            decimationMixSlider = newSlider(sliderWidth)
+            linearTermSlider = newSlider(sliderWidth)
+            squaredTermSlider = newSlider(sliderWidth)
+            cubicTermSlider = newSlider(sliderWidth)
+            polynomialMixSlider = newSlider(sliderWidth)
+            ringModFreq1Slider = newSlider(sliderWidth)
+            ringModFreq2Slider = newSlider(sliderWidth)
+            ringModBalanceSlider = newSlider(sliderWidth)
+            ringModMixSlider = newSlider(sliderWidth)
+            softClipGainSlider = newSlider(sliderWidth)
+            finalMixSlider = newSlider(sliderWidth)
 
-            delayTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decayTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            delayMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decimationTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            roundingTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            decimationMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            linearTermTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            squaredTermTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            cubicTermTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            polynomialMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModFreq1TextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModFreq2TextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModBalanceTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            ringModMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            softClipGainTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            finalMixTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            delayTextField = newTextField(sliderWidth)
+            decayTextField = newTextField(sliderWidth)
+            delayMixTextField = newTextField(sliderWidth)
+            decimationTextField = newTextField(sliderWidth)
+            roundingTextField = newTextField(sliderWidth)
+            decimationMixTextField = newTextField(sliderWidth)
+            linearTermTextField = newTextField(sliderWidth)
+            squaredTermTextField = newTextField(sliderWidth)
+            cubicTermTextField = newTextField(sliderWidth)
+            polynomialMixTextField = newTextField(sliderWidth)
+            ringModFreq1TextField = newTextField(sliderWidth)
+            ringModFreq2TextField = newTextField(sliderWidth)
+            ringModBalanceTextField = newTextField(sliderWidth)
+            ringModMixTextField = newTextField(sliderWidth)
+            softClipGainTextField = newTextField(sliderWidth)
+            finalMixTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -137,230 +137,133 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            delayTextField.stringValue = "Delay: \(distortion.delay) Milliseconds"
-            delayTextField.editable = false
-            delayTextField.drawsBackground = false
-            delayTextField.bezeled = false
-            delayTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(delayTextField)
+            makeTextField(delayTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Delay: \(distortion.delay) Milliseconds")
+            makeSlider(delaySlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateDelay",
+                currentValue: distortion.delay,
+                minimumValue: 0.1,
+                maximumValue: 500)
 
-            delaySlider.target = self
-            delaySlider.action = "updateDelay"
-            delaySlider.minValue = 0.1
-            delaySlider.maxValue = 500
-            delaySlider.floatValue = Float(distortion.delay)
-            delaySlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(delaySlider)
-            decayTextField.stringValue = "Decay: \(distortion.decay) Rate"
-            decayTextField.editable = false
-            decayTextField.drawsBackground = false
-            decayTextField.bezeled = false
-            decayTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(decayTextField)
+            makeTextField(decayTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Decay: \(distortion.decay) Rate")
+            makeSlider(decaySlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateDecay",
+                currentValue: distortion.decay,
+                minimumValue: 0.1,
+                maximumValue: 50)
 
-            decaySlider.target = self
-            decaySlider.action = "updateDecay"
-            decaySlider.minValue = 0.1
-            decaySlider.maxValue = 50
-            decaySlider.floatValue = Float(distortion.decay)
-            decaySlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(decaySlider)
-            delayMixTextField.stringValue = "Delay Mix: \(distortion.delayMix) Percent"
-            delayMixTextField.editable = false
-            delayMixTextField.drawsBackground = false
-            delayMixTextField.bezeled = false
-            delayMixTextField.frame.origin.y = topTitle.frame.origin.y -  8 *  CGFloat(sliderHeight)
-            view.addSubview(delayMixTextField)
+            makeTextField(delayMixTextField, view: view, below: topTitle, distance: 8,
+                stringValue: "Delay Mix: \(distortion.delayMix) Percent")
+            makeSlider(delayMixSlider, view: view, below: topTitle, distance: 9, target: self,
+                action: "updateDelaymix",
+                currentValue: distortion.delayMix,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            delayMixSlider.target = self
-            delayMixSlider.action = "updateDelaymix"
-            delayMixSlider.minValue = 0
-            delayMixSlider.maxValue = 100
-            delayMixSlider.floatValue = Float(distortion.delayMix)
-            delayMixSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
-            view.addSubview(delayMixSlider)
-            decimationTextField.stringValue = "Decimation: \(distortion.decimation) Percent"
-            decimationTextField.editable = false
-            decimationTextField.drawsBackground = false
-            decimationTextField.bezeled = false
-            decimationTextField.frame.origin.y = topTitle.frame.origin.y -  11 *  CGFloat(sliderHeight)
-            view.addSubview(decimationTextField)
+            makeTextField(decimationTextField, view: view, below: topTitle, distance: 11,
+                stringValue: "Decimation: \(distortion.decimation) Percent")
+            makeSlider(decimationSlider, view: view, below: topTitle, distance: 12, target: self,
+                action: "updateDecimation",
+                currentValue: distortion.decimation,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            decimationSlider.target = self
-            decimationSlider.action = "updateDecimation"
-            decimationSlider.minValue = 0
-            decimationSlider.maxValue = 100
-            decimationSlider.floatValue = Float(distortion.decimation)
-            decimationSlider.frame.origin.y = topTitle.frame.origin.y - 12 * CGFloat(sliderHeight)
-            view.addSubview(decimationSlider)
-            roundingTextField.stringValue = "Rounding: \(distortion.rounding) Percent"
-            roundingTextField.editable = false
-            roundingTextField.drawsBackground = false
-            roundingTextField.bezeled = false
-            roundingTextField.frame.origin.y = topTitle.frame.origin.y -  14 *  CGFloat(sliderHeight)
-            view.addSubview(roundingTextField)
+            makeTextField(roundingTextField, view: view, below: topTitle, distance: 14,
+                stringValue: "Rounding: \(distortion.rounding) Percent")
+            makeSlider(roundingSlider, view: view, below: topTitle, distance: 15, target: self,
+                action: "updateRounding",
+                currentValue: distortion.rounding,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            roundingSlider.target = self
-            roundingSlider.action = "updateRounding"
-            roundingSlider.minValue = 0
-            roundingSlider.maxValue = 100
-            roundingSlider.floatValue = Float(distortion.rounding)
-            roundingSlider.frame.origin.y = topTitle.frame.origin.y - 15 * CGFloat(sliderHeight)
-            view.addSubview(roundingSlider)
-            decimationMixTextField.stringValue = "Decimation Mix: \(distortion.decimationMix) Percent"
-            decimationMixTextField.editable = false
-            decimationMixTextField.drawsBackground = false
-            decimationMixTextField.bezeled = false
-            decimationMixTextField.frame.origin.y = topTitle.frame.origin.y -  17 *  CGFloat(sliderHeight)
-            view.addSubview(decimationMixTextField)
+            makeTextField(decimationMixTextField, view: view, below: topTitle, distance: 17,
+                stringValue: "Decimation Mix: \(distortion.decimationMix) Percent")
+            makeSlider(decimationMixSlider, view: view, below: topTitle, distance: 18, target: self,
+                action: "updateDecimationmix",
+                currentValue: distortion.decimationMix,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            decimationMixSlider.target = self
-            decimationMixSlider.action = "updateDecimationmix"
-            decimationMixSlider.minValue = 0
-            decimationMixSlider.maxValue = 100
-            decimationMixSlider.floatValue = Float(distortion.decimationMix)
-            decimationMixSlider.frame.origin.y = topTitle.frame.origin.y - 18 * CGFloat(sliderHeight)
-            view.addSubview(decimationMixSlider)
-            linearTermTextField.stringValue = "Linear Term: \(distortion.linearTerm) Percent"
-            linearTermTextField.editable = false
-            linearTermTextField.drawsBackground = false
-            linearTermTextField.bezeled = false
-            linearTermTextField.frame.origin.y = topTitle.frame.origin.y -  20 *  CGFloat(sliderHeight)
-            view.addSubview(linearTermTextField)
+            makeTextField(linearTermTextField, view: view, below: topTitle, distance: 20,
+                stringValue: "Linear Term: \(distortion.linearTerm) Percent")
+            makeSlider(linearTermSlider, view: view, below: topTitle, distance: 21, target: self,
+                action: "updateLinearterm",
+                currentValue: distortion.linearTerm,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            linearTermSlider.target = self
-            linearTermSlider.action = "updateLinearterm"
-            linearTermSlider.minValue = 0
-            linearTermSlider.maxValue = 100
-            linearTermSlider.floatValue = Float(distortion.linearTerm)
-            linearTermSlider.frame.origin.y = topTitle.frame.origin.y - 21 * CGFloat(sliderHeight)
-            view.addSubview(linearTermSlider)
-            squaredTermTextField.stringValue = "Squared Term: \(distortion.squaredTerm) Percent"
-            squaredTermTextField.editable = false
-            squaredTermTextField.drawsBackground = false
-            squaredTermTextField.bezeled = false
-            squaredTermTextField.frame.origin.y = topTitle.frame.origin.y -  23 *  CGFloat(sliderHeight)
-            view.addSubview(squaredTermTextField)
+            makeTextField(squaredTermTextField, view: view, below: topTitle, distance: 23,
+                stringValue: "Squared Term: \(distortion.squaredTerm) Percent")
+            makeSlider(squaredTermSlider, view: view, below: topTitle, distance: 24, target: self,
+                action: "updateSquaredterm",
+                currentValue: distortion.squaredTerm,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            squaredTermSlider.target = self
-            squaredTermSlider.action = "updateSquaredterm"
-            squaredTermSlider.minValue = 0
-            squaredTermSlider.maxValue = 100
-            squaredTermSlider.floatValue = Float(distortion.squaredTerm)
-            squaredTermSlider.frame.origin.y = topTitle.frame.origin.y - 24 * CGFloat(sliderHeight)
-            view.addSubview(squaredTermSlider)
-            cubicTermTextField.stringValue = "Cubic Term: \(distortion.cubicTerm) Percent"
-            cubicTermTextField.editable = false
-            cubicTermTextField.drawsBackground = false
-            cubicTermTextField.bezeled = false
-            cubicTermTextField.frame.origin.y = topTitle.frame.origin.y -  26 *  CGFloat(sliderHeight)
-            view.addSubview(cubicTermTextField)
+            makeTextField(cubicTermTextField, view: view, below: topTitle, distance: 26,
+                stringValue: "Cubic Term: \(distortion.cubicTerm) Percent")
+            makeSlider(cubicTermSlider, view: view, below: topTitle, distance: 27, target: self,
+                action: "updateCubicterm",
+                currentValue: distortion.cubicTerm,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            cubicTermSlider.target = self
-            cubicTermSlider.action = "updateCubicterm"
-            cubicTermSlider.minValue = 0
-            cubicTermSlider.maxValue = 100
-            cubicTermSlider.floatValue = Float(distortion.cubicTerm)
-            cubicTermSlider.frame.origin.y = topTitle.frame.origin.y - 27 * CGFloat(sliderHeight)
-            view.addSubview(cubicTermSlider)
-            polynomialMixTextField.stringValue = "Polynomial Mix: \(distortion.polynomialMix) Percent"
-            polynomialMixTextField.editable = false
-            polynomialMixTextField.drawsBackground = false
-            polynomialMixTextField.bezeled = false
-            polynomialMixTextField.frame.origin.y = topTitle.frame.origin.y -  29 *  CGFloat(sliderHeight)
-            view.addSubview(polynomialMixTextField)
+            makeTextField(polynomialMixTextField, view: view, below: topTitle, distance: 29,
+                stringValue: "Polynomial Mix: \(distortion.polynomialMix) Percent")
+            makeSlider(polynomialMixSlider, view: view, below: topTitle, distance: 30, target: self,
+                action: "updatePolynomialmix",
+                currentValue: distortion.polynomialMix,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            polynomialMixSlider.target = self
-            polynomialMixSlider.action = "updatePolynomialmix"
-            polynomialMixSlider.minValue = 0
-            polynomialMixSlider.maxValue = 100
-            polynomialMixSlider.floatValue = Float(distortion.polynomialMix)
-            polynomialMixSlider.frame.origin.y = topTitle.frame.origin.y - 30 * CGFloat(sliderHeight)
-            view.addSubview(polynomialMixSlider)
-            ringModFreq1TextField.stringValue = "Ring Mod Freq1: \(distortion.ringModFreq1) Hertz"
-            ringModFreq1TextField.editable = false
-            ringModFreq1TextField.drawsBackground = false
-            ringModFreq1TextField.bezeled = false
-            ringModFreq1TextField.frame.origin.y = topTitle.frame.origin.y -  32 *  CGFloat(sliderHeight)
-            view.addSubview(ringModFreq1TextField)
+            makeTextField(ringModFreq1TextField, view: view, below: topTitle, distance: 32,
+                stringValue: "Ring Mod Freq1: \(distortion.ringModFreq1) Hertz")
+            makeSlider(ringModFreq1Slider, view: view, below: topTitle, distance: 33, target: self,
+                action: "updateRingmodfreq1",
+                currentValue: distortion.ringModFreq1,
+                minimumValue: 0.5,
+                maximumValue: 8000)
 
-            ringModFreq1Slider.target = self
-            ringModFreq1Slider.action = "updateRingmodfreq1"
-            ringModFreq1Slider.minValue = 0.5
-            ringModFreq1Slider.maxValue = 8000
-            ringModFreq1Slider.floatValue = Float(distortion.ringModFreq1)
-            ringModFreq1Slider.frame.origin.y = topTitle.frame.origin.y - 33 * CGFloat(sliderHeight)
-            view.addSubview(ringModFreq1Slider)
-            ringModFreq2TextField.stringValue = "Ring Mod Freq2: \(distortion.ringModFreq2) Hertz"
-            ringModFreq2TextField.editable = false
-            ringModFreq2TextField.drawsBackground = false
-            ringModFreq2TextField.bezeled = false
-            ringModFreq2TextField.frame.origin.y = topTitle.frame.origin.y -  35 *  CGFloat(sliderHeight)
-            view.addSubview(ringModFreq2TextField)
+            makeTextField(ringModFreq2TextField, view: view, below: topTitle, distance: 35,
+                stringValue: "Ring Mod Freq2: \(distortion.ringModFreq2) Hertz")
+            makeSlider(ringModFreq2Slider, view: view, below: topTitle, distance: 36, target: self,
+                action: "updateRingmodfreq2",
+                currentValue: distortion.ringModFreq2,
+                minimumValue: 0.5,
+                maximumValue: 8000)
 
-            ringModFreq2Slider.target = self
-            ringModFreq2Slider.action = "updateRingmodfreq2"
-            ringModFreq2Slider.minValue = 0.5
-            ringModFreq2Slider.maxValue = 8000
-            ringModFreq2Slider.floatValue = Float(distortion.ringModFreq2)
-            ringModFreq2Slider.frame.origin.y = topTitle.frame.origin.y - 36 * CGFloat(sliderHeight)
-            view.addSubview(ringModFreq2Slider)
-            ringModBalanceTextField.stringValue = "Ring Mod Balance: \(distortion.ringModBalance) Percent"
-            ringModBalanceTextField.editable = false
-            ringModBalanceTextField.drawsBackground = false
-            ringModBalanceTextField.bezeled = false
-            ringModBalanceTextField.frame.origin.y = topTitle.frame.origin.y -  38 *  CGFloat(sliderHeight)
-            view.addSubview(ringModBalanceTextField)
+            makeTextField(ringModBalanceTextField, view: view, below: topTitle, distance: 38,
+                stringValue: "Ring Mod Balance: \(distortion.ringModBalance) Percent")
+            makeSlider(ringModBalanceSlider, view: view, below: topTitle, distance: 39, target: self,
+                action: "updateRingmodbalance",
+                currentValue: distortion.ringModBalance,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            ringModBalanceSlider.target = self
-            ringModBalanceSlider.action = "updateRingmodbalance"
-            ringModBalanceSlider.minValue = 0
-            ringModBalanceSlider.maxValue = 100
-            ringModBalanceSlider.floatValue = Float(distortion.ringModBalance)
-            ringModBalanceSlider.frame.origin.y = topTitle.frame.origin.y - 39 * CGFloat(sliderHeight)
-            view.addSubview(ringModBalanceSlider)
-            ringModMixTextField.stringValue = "Ring Mod Mix: \(distortion.ringModMix) Percent"
-            ringModMixTextField.editable = false
-            ringModMixTextField.drawsBackground = false
-            ringModMixTextField.bezeled = false
-            ringModMixTextField.frame.origin.y = topTitle.frame.origin.y -  41 *  CGFloat(sliderHeight)
-            view.addSubview(ringModMixTextField)
+            makeTextField(ringModMixTextField, view: view, below: topTitle, distance: 41,
+                stringValue: "Ring Mod Mix: \(distortion.ringModMix) Percent")
+            makeSlider(ringModMixSlider, view: view, below: topTitle, distance: 42, target: self,
+                action: "updateRingmodmix",
+                currentValue: distortion.ringModMix,
+                minimumValue: 0,
+                maximumValue: 100)
 
-            ringModMixSlider.target = self
-            ringModMixSlider.action = "updateRingmodmix"
-            ringModMixSlider.minValue = 0
-            ringModMixSlider.maxValue = 100
-            ringModMixSlider.floatValue = Float(distortion.ringModMix)
-            ringModMixSlider.frame.origin.y = topTitle.frame.origin.y - 42 * CGFloat(sliderHeight)
-            view.addSubview(ringModMixSlider)
-            softClipGainTextField.stringValue = "Soft Clip Gain: \(distortion.softClipGain) dB"
-            softClipGainTextField.editable = false
-            softClipGainTextField.drawsBackground = false
-            softClipGainTextField.bezeled = false
-            softClipGainTextField.frame.origin.y = topTitle.frame.origin.y -  44 *  CGFloat(sliderHeight)
-            view.addSubview(softClipGainTextField)
+            makeTextField(softClipGainTextField, view: view, below: topTitle, distance: 44,
+                stringValue: "Soft Clip Gain: \(distortion.softClipGain) dB")
+            makeSlider(softClipGainSlider, view: view, below: topTitle, distance: 45, target: self,
+                action: "updateSoftclipgain",
+                currentValue: distortion.softClipGain,
+                minimumValue: -80,
+                maximumValue: 20)
 
-            softClipGainSlider.target = self
-            softClipGainSlider.action = "updateSoftclipgain"
-            softClipGainSlider.minValue = -80
-            softClipGainSlider.maxValue = 20
-            softClipGainSlider.floatValue = Float(distortion.softClipGain)
-            softClipGainSlider.frame.origin.y = topTitle.frame.origin.y - 45 * CGFloat(sliderHeight)
-            view.addSubview(softClipGainSlider)
-            finalMixTextField.stringValue = "Final Mix: \(distortion.finalMix) Percent"
-            finalMixTextField.editable = false
-            finalMixTextField.drawsBackground = false
-            finalMixTextField.bezeled = false
-            finalMixTextField.frame.origin.y = topTitle.frame.origin.y -  47 *  CGFloat(sliderHeight)
-            view.addSubview(finalMixTextField)
-
-            finalMixSlider.target = self
-            finalMixSlider.action = "updateFinalmix"
-            finalMixSlider.minValue = 0
-            finalMixSlider.maxValue = 100
-            finalMixSlider.floatValue = Float(distortion.finalMix)
-            finalMixSlider.frame.origin.y = topTitle.frame.origin.y - 48 * CGFloat(sliderHeight)
-            view.addSubview(finalMixSlider)
+            makeTextField(finalMixTextField, view: view, below: topTitle, distance: 47,
+                stringValue: "Final Mix: \(distortion.finalMix) Percent")
+            makeSlider(finalMixSlider, view: view, below: topTitle, distance: 48, target: self,
+                action: "updateFinalmix",
+                currentValue: distortion.finalMix,
+                minimumValue: 0,
+                maximumValue: 100)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
@@ -368,67 +271,83 @@
 
         internal func updateDelay() {
             distortion.delay = delaySlider.floatValue
-            delayTextField.stringValue = "Delay \(String(format: "%0.4f", distortion.delay)) Milliseconds"
+            delayTextField.stringValue =
+            "Delay \(String(format: "%0.4f", distortion.delay)) Milliseconds"
         }
         internal func updateDecay() {
             distortion.decay = decaySlider.floatValue
-            decayTextField.stringValue = "Decay \(String(format: "%0.4f", distortion.decay)) Rate"
+            decayTextField.stringValue =
+            "Decay \(String(format: "%0.4f", distortion.decay)) Rate"
         }
         internal func updateDelaymix() {
             distortion.delayMix = delayMixSlider.floatValue
-            delayMixTextField.stringValue = "Delay Mix \(String(format: "%0.4f", distortion.delayMix)) Percent"
+            delayMixTextField.stringValue =
+            "Delay Mix \(String(format: "%0.4f", distortion.delayMix)) Percent"
         }
         internal func updateDecimation() {
             distortion.decimation = decimationSlider.floatValue
-            decimationTextField.stringValue = "Decimation \(String(format: "%0.4f", distortion.decimation)) Percent"
+            decimationTextField.stringValue =
+            "Decimation \(String(format: "%0.4f", distortion.decimation)) Percent"
         }
         internal func updateRounding() {
             distortion.rounding = roundingSlider.floatValue
-            roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", distortion.rounding)) Percent"
+            roundingTextField.stringValue =
+            "Rounding \(String(format: "%0.4f", distortion.rounding)) Percent"
         }
         internal func updateDecimationmix() {
             distortion.decimationMix = decimationMixSlider.floatValue
-            decimationMixTextField.stringValue = "Decimation Mix \(String(format: "%0.4f", distortion.decimationMix)) Percent"
+            decimationMixTextField.stringValue =
+            "Decimation Mix \(String(format: "%0.4f", distortion.decimationMix)) Percent"
         }
         internal func updateLinearterm() {
             distortion.linearTerm = linearTermSlider.floatValue
-            linearTermTextField.stringValue = "Linear Term \(String(format: "%0.4f", distortion.linearTerm)) Percent"
+            linearTermTextField.stringValue =
+            "Linear Term \(String(format: "%0.4f", distortion.linearTerm)) Percent"
         }
         internal func updateSquaredterm() {
             distortion.squaredTerm = squaredTermSlider.floatValue
-            squaredTermTextField.stringValue = "Squared Term \(String(format: "%0.4f", distortion.squaredTerm)) Percent"
+            squaredTermTextField.stringValue =
+            "Squared Term \(String(format: "%0.4f", distortion.squaredTerm)) Percent"
         }
         internal func updateCubicterm() {
             distortion.cubicTerm = cubicTermSlider.floatValue
-            cubicTermTextField.stringValue = "Cubic Term \(String(format: "%0.4f", distortion.cubicTerm)) Percent"
+            cubicTermTextField.stringValue =
+            "Cubic Term \(String(format: "%0.4f", distortion.cubicTerm)) Percent"
         }
         internal func updatePolynomialmix() {
             distortion.polynomialMix = polynomialMixSlider.floatValue
-            polynomialMixTextField.stringValue = "Polynomial Mix \(String(format: "%0.4f", distortion.polynomialMix)) Percent"
+            polynomialMixTextField.stringValue =
+            "Polynomial Mix \(String(format: "%0.4f", distortion.polynomialMix)) Percent"
         }
         internal func updateRingmodfreq1() {
             distortion.ringModFreq1 = ringModFreq1Slider.floatValue
-            ringModFreq1TextField.stringValue = "Ring Mod Freq1 \(String(format: "%0.4f", distortion.ringModFreq1)) Hertz"
+            ringModFreq1TextField.stringValue =
+            "Ring Mod Freq1 \(String(format: "%0.4f", distortion.ringModFreq1)) Hertz"
         }
         internal func updateRingmodfreq2() {
             distortion.ringModFreq2 = ringModFreq2Slider.floatValue
-            ringModFreq2TextField.stringValue = "Ring Mod Freq2 \(String(format: "%0.4f", distortion.ringModFreq2)) Hertz"
+            ringModFreq2TextField.stringValue =
+            "Ring Mod Freq2 \(String(format: "%0.4f", distortion.ringModFreq2)) Hertz"
         }
         internal func updateRingmodbalance() {
             distortion.ringModBalance = ringModBalanceSlider.floatValue
-            ringModBalanceTextField.stringValue = "Ring Mod Balance \(String(format: "%0.4f", distortion.ringModBalance)) Percent"
+            ringModBalanceTextField.stringValue =
+            "Ring Mod Balance \(String(format: "%0.4f", distortion.ringModBalance)) Percent"
         }
         internal func updateRingmodmix() {
             distortion.ringModMix = ringModMixSlider.floatValue
-            ringModMixTextField.stringValue = "Ring Mod Mix \(String(format: "%0.4f", distortion.ringModMix)) Percent"
+            ringModMixTextField.stringValue =
+            "Ring Mod Mix \(String(format: "%0.4f", distortion.ringModMix)) Percent"
         }
         internal func updateSoftclipgain() {
             distortion.softClipGain = softClipGainSlider.floatValue
-            softClipGainTextField.stringValue = "Soft Clip Gain \(String(format: "%0.4f", distortion.softClipGain)) dB"
+            softClipGainTextField.stringValue =
+            "Soft Clip Gain \(String(format: "%0.4f", distortion.softClipGain)) dB"
         }
         internal func updateFinalmix() {
             distortion.finalMix = finalMixSlider.floatValue
-            finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", distortion.finalMix)) Percent"
+            finalMixTextField.stringValue =
+            "Final Mix \(String(format: "%0.4f", distortion.finalMix)) Percent"
         }
 
         /// Required initializer

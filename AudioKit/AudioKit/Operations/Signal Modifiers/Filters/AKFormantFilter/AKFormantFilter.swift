@@ -8,7 +8,9 @@
 
 import AVFoundation
 
-/** When fed with a pulse train, it will generate a series of overlapping grains. Overlapping will occur when 1/freq < dec, but there is no upper limit on the number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html) */
+/** When fed with a pulse train, it will generate a series of overlapping grains.
+ Overlapping will occur when 1/freq < dec, but there is no upper limit on the
+ number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html) */
 public class AKFormantFilter: AKOperation {
 
     // MARK: - Properties
@@ -17,8 +19,8 @@ public class AKFormantFilter: AKOperation {
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
-    private var attackDurationParameter:  AUParameter?
-    private var decayDurationParameter:   AUParameter?
+    private var attackDurationParameter: AUParameter?
+    private var decayDurationParameter: AUParameter?
 
     /** Center frequency. */
     public var centerFrequency: Float = 1000 {
@@ -46,8 +48,8 @@ public class AKFormantFilter: AKOperation {
         _ input: AKOperation,
         centerFrequency: Float = 1000,
         attackDuration: Float = 0.007,
-        decayDuration: Float = 0.04)
-    {
+        decayDuration: Float = 0.04) {
+
         self.centerFrequency = centerFrequency
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
@@ -89,11 +91,9 @@ public class AKFormantFilter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = value
-                }
-                else if address == self.attackDurationParameter!.address {
+                } else if address == self.attackDurationParameter!.address {
                     self.attackDuration = value
-                }
-                else if address == self.decayDurationParameter!.address {
+                } else if address == self.decayDurationParameter!.address {
                     self.decayDuration = value
                 }
             }

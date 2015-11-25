@@ -30,7 +30,11 @@ public class AKAULowShelfFilter: AKOperation {
             if cutoffFrequency > 200 {
                 cutoffFrequency = 200
             }
-            AudioUnitSetParameter(internalAU, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoffFrequency, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kAULowShelfParam_CutoffFrequency,
+                kAudioUnitScope_Global, 0,
+                cutoffFrequency, 0)
         }
     }
     
@@ -43,7 +47,11 @@ public class AKAULowShelfFilter: AKOperation {
             if gain > 40 {
                 gain = 40
             }
-            AudioUnitSetParameter(internalAU, kAULowShelfParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kAULowShelfParam_Gain,
+                kAudioUnitScope_Global, 0,
+                gain, 0)
         }
     }
     
@@ -51,16 +59,16 @@ public class AKAULowShelfFilter: AKOperation {
     public init(
         _ input: AKOperation,
         cutoffFrequency: Float = 80,
-        gain: Float = 0)
-    {
-        self.cutoffFrequency = cutoffFrequency
-        self.gain = gain
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+        gain: Float = 0) {
+            
+            self.cutoffFrequency = cutoffFrequency
+            self.gain = gain
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

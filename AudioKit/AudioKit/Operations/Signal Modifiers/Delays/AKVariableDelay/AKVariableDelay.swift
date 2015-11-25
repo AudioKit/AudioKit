@@ -16,9 +16,10 @@ public class AKVariableDelay: AKOperation {
     private var internalAU: AKVariableDelayAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var delayTimeParameter:        AUParameter?
+    private var delayTimeParameter: AUParameter?
 
-    /** Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. */
+    /** Delay time (in seconds) that can be changed during performance. This value must
+     not exceed the maximum delay time. */
     public var delayTime: Float = 1.0 {
         didSet {
             delayTimeParameter?.setValue(delayTime, originator: token!)
@@ -30,8 +31,8 @@ public class AKVariableDelay: AKOperation {
     /** Initialize this delay operation */
     public init(
         _ input: AKOperation,
-        delayTime: Float = 1.0)
-    {
+        delayTime: Float = 1.0) {
+
         self.delayTime = delayTime
         super.init()
 

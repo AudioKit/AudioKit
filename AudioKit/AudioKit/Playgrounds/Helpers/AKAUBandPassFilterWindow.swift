@@ -26,19 +26,18 @@
         private let centerFrequencyTextField: NSTextField
         private let bandwidthTextField: NSTextField
 
-        /// Internal representation of the operation
-        var bandPassFilter: AKAUBandPassFilter
+        private var bandPassFilter: AKAUBandPassFilter
 
         /// Initiate the AKAUBandPassFilter window
         public init(_ control: AKAUBandPassFilter) {
             bandPassFilter = control
             let sliderWidth = windowWidth - 2 * padding
 
-            centerFrequencySlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            bandwidthSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            centerFrequencySlider = newSlider(sliderWidth)
+            bandwidthSlider = newSlider(sliderWidth)
 
-            centerFrequencyTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            bandwidthTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            centerFrequencyTextField = newTextField(sliderWidth)
+            bandwidthTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -68,34 +67,21 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            centerFrequencyTextField.stringValue = "Center Frequency: \(bandPassFilter.centerFrequency) Hz"
-            centerFrequencyTextField.editable = false
-            centerFrequencyTextField.drawsBackground = false
-            centerFrequencyTextField.bezeled = false
-            centerFrequencyTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(centerFrequencyTextField)
+            makeTextField(centerFrequencyTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Center Frequency: \(bandPassFilter.centerFrequency) Hz")
+            makeSlider(centerFrequencySlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateCenterfrequency",
+                currentValue: bandPassFilter.centerFrequency,
+                minimumValue: 20,
+                maximumValue: 22050)
 
-            centerFrequencySlider.target = self
-            centerFrequencySlider.action = "updateCenterfrequency"
-            centerFrequencySlider.minValue = 20
-            centerFrequencySlider.maxValue = 22050
-            centerFrequencySlider.floatValue = Float(bandPassFilter.centerFrequency)
-            centerFrequencySlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(centerFrequencySlider)
-            bandwidthTextField.stringValue = "Bandwidth: \(bandPassFilter.bandwidth) Cents"
-            bandwidthTextField.editable = false
-            bandwidthTextField.drawsBackground = false
-            bandwidthTextField.bezeled = false
-            bandwidthTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(bandwidthTextField)
-
-            bandwidthSlider.target = self
-            bandwidthSlider.action = "updateBandwidth"
-            bandwidthSlider.minValue = 100
-            bandwidthSlider.maxValue = 12000
-            bandwidthSlider.floatValue = Float(bandPassFilter.bandwidth)
-            bandwidthSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(bandwidthSlider)
+            makeTextField(bandwidthTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Bandwidth: \(bandPassFilter.bandwidth) Cents")
+            makeSlider(bandwidthSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateBandwidth",
+                currentValue: bandPassFilter.bandwidth,
+                minimumValue: 100,
+                maximumValue: 12000)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
@@ -103,11 +89,13 @@
 
         internal func updateCenterfrequency() {
             bandPassFilter.centerFrequency = centerFrequencySlider.floatValue
-            centerFrequencyTextField.stringValue = "Center Frequency \(String(format: "%0.4f", bandPassFilter.centerFrequency)) Hz"
+            centerFrequencyTextField.stringValue =
+            "Center Frequency \(String(format: "%0.4f", bandPassFilter.centerFrequency)) Hz"
         }
         internal func updateBandwidth() {
             bandPassFilter.bandwidth = bandwidthSlider.floatValue
-            bandwidthTextField.stringValue = "Bandwidth \(String(format: "%0.4f", bandPassFilter.bandwidth)) Cents"
+            bandwidthTextField.stringValue =
+            "Bandwidth \(String(format: "%0.4f", bandPassFilter.bandwidth)) Cents"
         }
 
         /// Required initializer

@@ -60,7 +60,7 @@ public class AKFMOscillator: AKOperation {
         super.init()
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
+        description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x666f7363 /*'fosc'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
@@ -75,12 +75,11 @@ public class AKFMOscillator: AKOperation {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let generator = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFMOscillatorAudioUnit
+            self.output = generator
+            self.internalAU = generator.AUAudioUnit as? AKFMOscillatorAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(AKManager.sharedInstance.engine.inputNode!, to: self.output!, format: nil)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

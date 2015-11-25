@@ -30,7 +30,11 @@ public class AKAUHighShelfFilter: AKOperation {
             if cutOffFrequency > 22050 {
                 cutOffFrequency = 22050
             }
-            AudioUnitSetParameter(internalAU, kHighShelfParam_CutOffFrequency, kAudioUnitScope_Global, 0, cutOffFrequency, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kHighShelfParam_CutOffFrequency,
+                kAudioUnitScope_Global, 0,
+                cutOffFrequency, 0)
         }
     }
     
@@ -43,7 +47,11 @@ public class AKAUHighShelfFilter: AKOperation {
             if gain > 40 {
                 gain = 40
             }
-            AudioUnitSetParameter(internalAU, kHighShelfParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kHighShelfParam_Gain,
+                kAudioUnitScope_Global, 0,
+                gain, 0)
         }
     }
     
@@ -51,16 +59,16 @@ public class AKAUHighShelfFilter: AKOperation {
     public init(
         _ input: AKOperation,
         cutOffFrequency: Float = 10000,
-        gain: Float = 0)
-    {
-        self.cutOffFrequency = cutOffFrequency
-        self.gain = gain
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+        gain: Float = 0) {
+            
+            self.cutOffFrequency = cutOffFrequency
+            self.gain = gain
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

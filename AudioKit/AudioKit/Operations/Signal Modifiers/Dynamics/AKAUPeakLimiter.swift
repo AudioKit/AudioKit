@@ -65,8 +65,8 @@ public class AKAUPeakLimiter: AKOperation {
         _ input: AKOperation,
         attackTime: Float = 0.012,
         decayTime: Float = 0.024,
-        preGain: Float = 0)
-    {
+        preGain: Float = 0) {
+            
         self.attackTime = attackTime
         self.decayTime = decayTime
         self.preGain = preGain
