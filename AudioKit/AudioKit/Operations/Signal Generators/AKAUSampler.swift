@@ -36,42 +36,40 @@ public class AKAUSampler: AKOperation {
         //you still need to connect the output, and you must do this before starting the processing graph
     }//end init
     
-    public func loadWav(file: String){
-        guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "wav")
-            else{
+    public func loadWav(file: String) {
+        guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "wav") else {
                 fatalError("file not found.")
         }
-        let files:[NSURL] = [url]
-        do{
+        let files: [NSURL] = [url]
+        do {
             try samplerUnit.loadAudioFilesAtURLs(files)
-        }catch{
+        } catch {
             print("error")
         }
     }
-    public func loadEXS24(file: String){
-        loadInstrument(file,type: "exs")
+    public func loadEXS24(file: String) {
+        loadInstrument(file, type: "exs")
     }
-    public func loadSoundfont(file: String){
-        loadInstrument(file,type: "sf2")
+    public func loadSoundfont(file: String) {
+        loadInstrument(file, type: "sf2")
     }
-    func loadInstrument(file: String, type: String){
+    func loadInstrument(file: String, type: String) {
         print("filename is \(file)")
-        guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: type)
-            else{
+        guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: type) else {
                 fatalError("file not found.")
         }
-        do{
+        do {
             try samplerUnit.loadInstrumentAtURL(url)
-        }catch{
+        } catch {
             print("error")
         }
     }
     
     // MARK: - Playback
-    public func playNote(note: Int = 60, vel: Int = 127, chan: Int = 0){
+    public func playNote(note: Int = 60, velocity: Int = 127, channel: Int = 0) {
         samplerUnit.startNote(UInt8(note), withVelocity: UInt8(vel), onChannel: UInt8(chan))
     }
-    public func stopNote(note: Int = 60, chan: Int = 0){
+    public func stopNote(note: Int = 60, channel: Int = 0) {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(chan))
     }
 }

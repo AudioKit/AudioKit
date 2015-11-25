@@ -82,10 +82,9 @@ public:
             noise->amp = (float)amplitude;
 
             for (int channel = 0; channel < channels; ++channel) {
-                float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_noise_compute(sp, noise, in, out);
+                sp_noise_compute(sp, noise, nil, out);
             }
         }
     }

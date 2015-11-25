@@ -12,10 +12,10 @@
             dispatch_async(dispatch_get_main_queue()) {
 <% parameters.each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-                <%= "else " if i>0 %>if address == self.<%= data["ak-variable"] %>Parameter!.address {
+                <%= "} else " if i>0 %>if address == self.<%= data["ak-variable"] %>Parameter!.address {
                     self.<%= data["ak-variable"] %> = value
+<% end -%>
+<% end -%>
                 }
-<% end -%>
-<% end -%>
             }
         }

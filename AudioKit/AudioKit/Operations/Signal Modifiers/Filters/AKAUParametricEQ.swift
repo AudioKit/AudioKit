@@ -31,7 +31,11 @@ public class AKAUParametricEQ: AKOperation {
             if centerFrequency > 22050 {
                 centerFrequency = 22050
             }
-            AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, centerFrequency, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kParametricEQParam_CenterFreq,
+                kAudioUnitScope_Global, 0,
+                centerFrequency, 0)
         }
     }
     
@@ -44,7 +48,11 @@ public class AKAUParametricEQ: AKOperation {
             if q > 20 {
                 q = 20
             }
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, q, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kParametricEQParam_Q,
+                kAudioUnitScope_Global, 0,
+                q, 0)
         }
     }
     
@@ -57,7 +65,11 @@ public class AKAUParametricEQ: AKOperation {
             if gain > 20 {
                 gain = 20
             }
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kParametricEQParam_Gain,
+                kAudioUnitScope_Global, 0,
+                gain, 0)
         }
     }
     
@@ -66,17 +78,17 @@ public class AKAUParametricEQ: AKOperation {
         _ input: AKOperation,
         centerFrequency: Float = 2000,
         q: Float = 1.0,
-        gain: Float = 0)
-    {
-        self.centerFrequency = centerFrequency
-        self.q = q
-        self.gain = gain
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+        gain: Float = 0) {
+            
+            self.centerFrequency = centerFrequency
+            self.q = q
+            self.gain = gain
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

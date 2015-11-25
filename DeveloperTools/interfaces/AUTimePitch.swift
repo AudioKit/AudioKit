@@ -6,5 +6,3 @@ public var kNewTimePitchParam_Rate: AudioUnitParameterID { get }
 public var kNewTimePitchParam_Pitch: AudioUnitParameterID { get }
 // Global, generic, 3.0 -> 32.0, 8.0
 public var kNewTimePitchParam_Overlap: AudioUnitParameterID { get }
-// Global, Boolean, 0->1, 1
-public var kNewTimePitchParam_EnablePeakLocking: AudioUnitParameterID { get }

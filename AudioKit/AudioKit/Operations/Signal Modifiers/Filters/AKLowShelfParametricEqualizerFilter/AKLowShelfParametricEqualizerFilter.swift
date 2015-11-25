@@ -17,8 +17,8 @@ public class AKLowShelfParametricEqualizerFilter: AKOperation {
     private var token: AUParameterObserverToken?
 
     private var cornerFrequencyParameter: AUParameter?
-    private var gainParameter:            AUParameter?
-    private var qParameter:               AUParameter?
+    private var gainParameter: AUParameter?
+    private var qParameter: AUParameter?
 
     /** Corner frequency. */
     public var cornerFrequency: Float = 1000 {
@@ -46,8 +46,8 @@ public class AKLowShelfParametricEqualizerFilter: AKOperation {
         _ input: AKOperation,
         cornerFrequency: Float = 1000,
         gain: Float = 1.0,
-        q: Float = 0.707)
-    {
+        q: Float = 0.707) {
+
         self.cornerFrequency = cornerFrequency
         self.gain = gain
         self.q = q
@@ -89,11 +89,9 @@ public class AKLowShelfParametricEqualizerFilter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cornerFrequencyParameter!.address {
                     self.cornerFrequency = value
-                }
-                else if address == self.gainParameter!.address {
+                } else if address == self.gainParameter!.address {
                     self.gain = value
-                }
-                else if address == self.qParameter!.address {
+                } else if address == self.qParameter!.address {
                     self.q = value
                 }
             }

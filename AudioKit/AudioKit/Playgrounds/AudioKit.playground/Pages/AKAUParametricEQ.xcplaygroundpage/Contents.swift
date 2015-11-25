@@ -20,7 +20,7 @@ player.looping = true
 let playerWindow: AKAudioPlayerWindow
 let parametricEQ: AKAUParametricEQ
 
-switch (source) {
+switch source {
 case "mic":
     parametricEQ = AKAUParametricEQ(mic)
 default:

@@ -16,7 +16,7 @@ public class AKDelay: AKOperation {
     private var internalAU: AKDelayAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var feedbackParameter:  AUParameter?
+    private var feedbackParameter: AUParameter?
 
     /** Feedback amount. Should be a value between 0-1. */
     public var feedback: Float = 0.0 {
@@ -30,8 +30,8 @@ public class AKDelay: AKOperation {
     /** Initialize this delay operation */
     public init(
         _ input: AKOperation,
-        feedback: Float = 0.0)
-    {
+        feedback: Float = 0.0) {
+
         self.feedback = feedback
         super.init()
 

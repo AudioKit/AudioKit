@@ -32,7 +32,7 @@ public class AKWhiteNoise: AKOperation {
         super.init()
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
+        description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x776e6f7a /*'wnoz'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
@@ -47,12 +47,11 @@ public class AKWhiteNoise: AKOperation {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKWhiteNoiseAudioUnit
+            self.output = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKWhiteNoiseAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(AKManager.sharedInstance.engine.inputNode!, to: self.output!, format: nil)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

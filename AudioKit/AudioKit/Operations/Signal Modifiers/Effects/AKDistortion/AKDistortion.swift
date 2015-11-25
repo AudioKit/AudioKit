@@ -16,10 +16,10 @@ public class AKDistortion: AKOperation {
     private var internalAU: AKDistortionAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var pregainParameter:                AUParameter?
-    private var postiveShapeParameterParameter:  AUParameter?
+    private var pregainParameter: AUParameter?
+    private var postiveShapeParameterParameter: AUParameter?
     private var negativeShapeParameterParameter: AUParameter?
-    private var postgainParameter:               AUParameter?
+    private var postgainParameter: AUParameter?
 
     /** Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. */
     public var pregain: Float = 2.0 {
@@ -54,8 +54,8 @@ public class AKDistortion: AKOperation {
         pregain: Float = 2.0,
         postiveShapeParameter: Float = 0.0,
         negativeShapeParameter: Float = 0.0,
-        postgain: Float = 0.5)
-    {
+        postgain: Float = 0.5) {
+
         self.pregain = pregain
         self.postiveShapeParameter = postiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
@@ -99,14 +99,11 @@ public class AKDistortion: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.pregainParameter!.address {
                     self.pregain = value
-                }
-                else if address == self.postiveShapeParameterParameter!.address {
+                } else if address == self.postiveShapeParameterParameter!.address {
                     self.postiveShapeParameter = value
-                }
-                else if address == self.negativeShapeParameterParameter!.address {
+                } else if address == self.negativeShapeParameterParameter!.address {
                     self.negativeShapeParameter = value
-                }
-                else if address == self.postgainParameter!.address {
+                } else if address == self.postgainParameter!.address {
                     self.postgain = value
                 }
             }

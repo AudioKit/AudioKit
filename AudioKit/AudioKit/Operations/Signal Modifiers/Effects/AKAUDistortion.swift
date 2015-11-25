@@ -30,7 +30,11 @@ public class AKAUDistortion: AKOperation {
             if delay > 500 {
                 delay = 500
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_Delay, kAudioUnitScope_Global, 0, delay, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_Delay,
+                kAudioUnitScope_Global, 0,
+                delay, 0)
         }
     }
     
@@ -43,7 +47,11 @@ public class AKAUDistortion: AKOperation {
             if decay > 50 {
                 decay = 50
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decay, kAudioUnitScope_Global, 0, decay, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_Decay,
+                kAudioUnitScope_Global, 0,
+                decay, 0)
         }
     }
     
@@ -56,7 +64,11 @@ public class AKAUDistortion: AKOperation {
             if delayMix > 100 {
                 delayMix = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_DelayMix, kAudioUnitScope_Global, 0, delayMix, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_DelayMix,
+                kAudioUnitScope_Global, 0,
+                delayMix, 0)
         }
     }
     
@@ -69,7 +81,11 @@ public class AKAUDistortion: AKOperation {
             if decimation > 100 {
                 decimation = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, decimation, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_Decimation,
+                kAudioUnitScope_Global, 0,
+                decimation, 0)
         }
     }
     
@@ -82,7 +98,11 @@ public class AKAUDistortion: AKOperation {
             if rounding > 100 {
                 rounding = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, rounding, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_Rounding,
+                kAudioUnitScope_Global, 0,
+                rounding, 0)
         }
     }
     
@@ -95,7 +115,11 @@ public class AKAUDistortion: AKOperation {
             if decimationMix > 100 {
                 decimationMix = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, decimationMix, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_DecimationMix,
+                kAudioUnitScope_Global, 0,
+                decimationMix, 0)
         }
     }
     
@@ -108,7 +132,11 @@ public class AKAUDistortion: AKOperation {
             if linearTerm > 100 {
                 linearTerm = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_LinearTerm, kAudioUnitScope_Global, 0, linearTerm, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_LinearTerm,
+                kAudioUnitScope_Global, 0,
+                linearTerm, 0)
         }
     }
     
@@ -121,7 +149,11 @@ public class AKAUDistortion: AKOperation {
             if squaredTerm > 100 {
                 squaredTerm = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_SquaredTerm, kAudioUnitScope_Global, 0, squaredTerm, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_SquaredTerm,
+                kAudioUnitScope_Global, 0,
+                squaredTerm, 0)
         }
     }
     
@@ -134,7 +166,11 @@ public class AKAUDistortion: AKOperation {
             if cubicTerm > 100 {
                 cubicTerm = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_CubicTerm, kAudioUnitScope_Global, 0, cubicTerm, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_CubicTerm,
+                kAudioUnitScope_Global, 0,
+                cubicTerm, 0)
         }
     }
     
@@ -147,7 +183,11 @@ public class AKAUDistortion: AKOperation {
             if polynomialMix > 100 {
                 polynomialMix = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, polynomialMix, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_PolynomialMix,
+                kAudioUnitScope_Global, 0,
+                polynomialMix, 0)
         }
     }
     
@@ -160,7 +200,11 @@ public class AKAUDistortion: AKOperation {
             if ringModFreq1 > 8000 {
                 ringModFreq1 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, ringModFreq1, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_RingModFreq1,
+                kAudioUnitScope_Global, 0,
+                ringModFreq1, 0)
         }
     }
     
@@ -173,7 +217,11 @@ public class AKAUDistortion: AKOperation {
             if ringModFreq2 > 8000 {
                 ringModFreq2 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, ringModFreq2, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_RingModFreq2,
+                kAudioUnitScope_Global, 0,
+                ringModFreq2, 0)
         }
     }
     
@@ -186,7 +234,11 @@ public class AKAUDistortion: AKOperation {
             if ringModBalance > 100 {
                 ringModBalance = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, ringModBalance, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_RingModBalance,
+                kAudioUnitScope_Global, 0,
+                ringModBalance, 0)
         }
     }
     
@@ -199,7 +251,11 @@ public class AKAUDistortion: AKOperation {
             if ringModMix > 100 {
                 ringModMix = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, ringModMix, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_RingModMix,
+                kAudioUnitScope_Global, 0,
+                ringModMix, 0)
         }
     }
     
@@ -212,7 +268,11 @@ public class AKAUDistortion: AKOperation {
             if softClipGain > 20 {
                 softClipGain = 20
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_SoftClipGain, kAudioUnitScope_Global, 0, softClipGain, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_SoftClipGain,
+                kAudioUnitScope_Global, 0,
+                softClipGain, 0)
         }
     }
     
@@ -225,7 +285,11 @@ public class AKAUDistortion: AKOperation {
             if finalMix > 100 {
                 finalMix = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, finalMix, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kDistortionParam_FinalMix,
+                kAudioUnitScope_Global, 0,
+                finalMix, 0)
         }
     }
     
@@ -247,30 +311,30 @@ public class AKAUDistortion: AKOperation {
         ringModBalance: Float = 50,
         ringModMix: Float = 0,
         softClipGain: Float = -6,
-        finalMix: Float = 50)
-    {
-        self.delay = delay
-        self.decay = decay
-        self.delayMix = delayMix
-        self.decimation = decimation
-        self.rounding = rounding
-        self.decimationMix = decimationMix
-        self.linearTerm = linearTerm
-        self.squaredTerm = squaredTerm
-        self.cubicTerm = cubicTerm
-        self.polynomialMix = polynomialMix
-        self.ringModFreq1 = ringModFreq1
-        self.ringModFreq2 = ringModFreq2
-        self.ringModBalance = ringModBalance
-        self.ringModMix = ringModMix
-        self.softClipGain = softClipGain
-        self.finalMix = finalMix
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+        finalMix: Float = 50) {
+            
+            self.delay = delay
+            self.decay = decay
+            self.delayMix = delayMix
+            self.decimation = decimation
+            self.rounding = rounding
+            self.decimationMix = decimationMix
+            self.linearTerm = linearTerm
+            self.squaredTerm = squaredTerm
+            self.cubicTerm = cubicTerm
+            self.polynomialMix = polynomialMix
+            self.ringModFreq1 = ringModFreq1
+            self.ringModFreq2 = ringModFreq2
+            self.ringModBalance = ringModBalance
+            self.ringModMix = ringModMix
+            self.softClipGain = softClipGain
+            self.finalMix = finalMix
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
 }

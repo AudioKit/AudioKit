@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation. */
+/** These filters are Butterworth second-order IIR filters. They offer an almost
+ flat passband and very good precision and stopband attenuation. */
 public class AKBandPassButterworthFilter: AKOperation {
 
     // MARK: - Properties
@@ -17,7 +18,7 @@ public class AKBandPassButterworthFilter: AKOperation {
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
-    private var bandwidthParameter:       AUParameter?
+    private var bandwidthParameter: AUParameter?
 
     /** Center frequency. (in Hertz) */
     public var centerFrequency: Float = 2000 {
@@ -38,8 +39,8 @@ public class AKBandPassButterworthFilter: AKOperation {
     public init(
         _ input: AKOperation,
         centerFrequency: Float = 2000,
-        bandwidth: Float = 100)
-    {
+        bandwidth: Float = 100) {
+
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
         super.init()
@@ -79,8 +80,7 @@ public class AKBandPassButterworthFilter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = value
-                }
-                else if address == self.bandwidthParameter!.address {
+                } else if address == self.bandwidthParameter!.address {
                     self.bandwidth = value
                 }
             }

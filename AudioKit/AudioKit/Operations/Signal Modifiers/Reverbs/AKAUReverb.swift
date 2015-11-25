@@ -40,5 +40,4 @@ public class AKAUReverb: AKOperation {
     public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
         reverbAU.loadFactoryPreset(preset)
     }
-    
 }

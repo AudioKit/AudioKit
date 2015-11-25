@@ -57,27 +57,27 @@
             dynamicsProcessor = control
             let sliderWidth = windowWidth - 2 * padding
 
-            thresholdSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            headRoomSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            expansionRatioSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            expansionThresholdSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            attackTimeSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            releaseTimeSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            masterGainSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            compressionAmountSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            inputAmplitudeSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            outputAmplitudeSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            thresholdSlider = newSlider(sliderWidth)
+            headRoomSlider = newSlider(sliderWidth)
+            expansionRatioSlider = newSlider(sliderWidth)
+            expansionThresholdSlider = newSlider(sliderWidth)
+            attackTimeSlider = newSlider(sliderWidth)
+            releaseTimeSlider = newSlider(sliderWidth)
+            masterGainSlider = newSlider(sliderWidth)
+            compressionAmountSlider = newSlider(sliderWidth)
+            inputAmplitudeSlider = newSlider(sliderWidth)
+            outputAmplitudeSlider = newSlider(sliderWidth)
 
-            thresholdTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            headRoomTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            expansionRatioTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            expansionThresholdTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            attackTimeTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            releaseTimeTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            masterGainTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            compressionAmountTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            inputAmplitudeTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-            outputAmplitudeTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+            thresholdTextField = newTextField(sliderWidth)
+            headRoomTextField = newTextField(sliderWidth)
+            expansionRatioTextField = newTextField(sliderWidth)
+            expansionThresholdTextField = newTextField(sliderWidth)
+            attackTimeTextField = newTextField(sliderWidth)
+            releaseTimeTextField = newTextField(sliderWidth)
+            masterGainTextField = newTextField(sliderWidth)
+            compressionAmountTextField = newTextField(sliderWidth)
+            inputAmplitudeTextField = newTextField(sliderWidth)
+            outputAmplitudeTextField = newTextField(sliderWidth)
 
             let titleHeightApproximation = 50
             let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -107,146 +107,85 @@
             topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
             view.addSubview(topTitle)
 
-            thresholdTextField.stringValue = "Threshold: \(dynamicsProcessor.threshold) dB"
-            thresholdTextField.editable = false
-            thresholdTextField.drawsBackground = false
-            thresholdTextField.bezeled = false
-            thresholdTextField.frame.origin.y = topTitle.frame.origin.y -  2 *  CGFloat(sliderHeight)
-            view.addSubview(thresholdTextField)
+            makeTextField(thresholdTextField, view: view, below: topTitle, distance: 2,
+                stringValue: "Threshold: \(dynamicsProcessor.threshold) dB")
+            makeSlider(thresholdSlider, view: view, below: topTitle, distance: 3, target: self,
+                action: "updateThreshold",
+                currentValue: dynamicsProcessor.threshold,
+                minimumValue: -40,
+                maximumValue: 20)
 
-            thresholdSlider.target = self
-            thresholdSlider.action = "updateThreshold"
-            thresholdSlider.minValue = -40
-            thresholdSlider.maxValue = 20
-            thresholdSlider.floatValue = Float(dynamicsProcessor.threshold)
-            thresholdSlider.frame.origin.y = topTitle.frame.origin.y - 3 * CGFloat(sliderHeight)
-            view.addSubview(thresholdSlider)
-            headRoomTextField.stringValue = "Head Room: \(dynamicsProcessor.headRoom) dB"
-            headRoomTextField.editable = false
-            headRoomTextField.drawsBackground = false
-            headRoomTextField.bezeled = false
-            headRoomTextField.frame.origin.y = topTitle.frame.origin.y -  5 *  CGFloat(sliderHeight)
-            view.addSubview(headRoomTextField)
+            makeTextField(headRoomTextField, view: view, below: topTitle, distance: 5,
+                stringValue: "Head Room: \(dynamicsProcessor.headRoom) dB")
+            makeSlider(headRoomSlider, view: view, below: topTitle, distance: 6, target: self,
+                action: "updateHeadroom",
+                currentValue: dynamicsProcessor.headRoom,
+                minimumValue: 0.1,
+                maximumValue: 40.0)
 
-            headRoomSlider.target = self
-            headRoomSlider.action = "updateHeadroom"
-            headRoomSlider.minValue = 0.1
-            headRoomSlider.maxValue = 40.0
-            headRoomSlider.floatValue = Float(dynamicsProcessor.headRoom)
-            headRoomSlider.frame.origin.y = topTitle.frame.origin.y - 6 * CGFloat(sliderHeight)
-            view.addSubview(headRoomSlider)
-            expansionRatioTextField.stringValue = "Expansion Ratio: \(dynamicsProcessor.expansionRatio) rate"
-            expansionRatioTextField.editable = false
-            expansionRatioTextField.drawsBackground = false
-            expansionRatioTextField.bezeled = false
-            expansionRatioTextField.frame.origin.y = topTitle.frame.origin.y -  8 *  CGFloat(sliderHeight)
-            view.addSubview(expansionRatioTextField)
+            makeTextField(expansionRatioTextField, view: view, below: topTitle, distance: 8,
+                stringValue: "Expansion Ratio: \(dynamicsProcessor.expansionRatio) rate")
+            makeSlider(expansionRatioSlider, view: view, below: topTitle, distance: 9, target: self,
+                action: "updateExpansionratio",
+                currentValue: dynamicsProcessor.expansionRatio,
+                minimumValue: 1,
+                maximumValue: 50.0)
 
-            expansionRatioSlider.target = self
-            expansionRatioSlider.action = "updateExpansionratio"
-            expansionRatioSlider.minValue = 1
-            expansionRatioSlider.maxValue = 50.0
-            expansionRatioSlider.floatValue = Float(dynamicsProcessor.expansionRatio)
-            expansionRatioSlider.frame.origin.y = topTitle.frame.origin.y - 9 * CGFloat(sliderHeight)
-            view.addSubview(expansionRatioSlider)
-            expansionThresholdTextField.stringValue = "Expansion Threshold: \(dynamicsProcessor.expansionThreshold) rate"
-            expansionThresholdTextField.editable = false
-            expansionThresholdTextField.drawsBackground = false
-            expansionThresholdTextField.bezeled = false
-            expansionThresholdTextField.frame.origin.y = topTitle.frame.origin.y -  11 *  CGFloat(sliderHeight)
-            view.addSubview(expansionThresholdTextField)
+            makeTextField(expansionThresholdTextField, view: view, below: topTitle, distance: 11,
+                stringValue: "Expansion Threshold: \(dynamicsProcessor.expansionThreshold) rate")
+            makeSlider(expansionThresholdSlider, view: view, below: topTitle, distance: 12, target: self,
+                action: "updateExpansionthreshold",
+                currentValue: dynamicsProcessor.expansionThreshold,
+                minimumValue: 1,
+                maximumValue: 50.0)
 
-            expansionThresholdSlider.target = self
-            expansionThresholdSlider.action = "updateExpansionthreshold"
-            expansionThresholdSlider.minValue = 1
-            expansionThresholdSlider.maxValue = 50.0
-            expansionThresholdSlider.floatValue = Float(dynamicsProcessor.expansionThreshold)
-            expansionThresholdSlider.frame.origin.y = topTitle.frame.origin.y - 12 * CGFloat(sliderHeight)
-            view.addSubview(expansionThresholdSlider)
-            attackTimeTextField.stringValue = "Attack Time: \(dynamicsProcessor.attackTime) secs"
-            attackTimeTextField.editable = false
-            attackTimeTextField.drawsBackground = false
-            attackTimeTextField.bezeled = false
-            attackTimeTextField.frame.origin.y = topTitle.frame.origin.y -  14 *  CGFloat(sliderHeight)
-            view.addSubview(attackTimeTextField)
+            makeTextField(attackTimeTextField, view: view, below: topTitle, distance: 14,
+                stringValue: "Attack Time: \(dynamicsProcessor.attackTime) secs")
+            makeSlider(attackTimeSlider, view: view, below: topTitle, distance: 15, target: self,
+                action: "updateAttacktime",
+                currentValue: dynamicsProcessor.attackTime,
+                minimumValue: 0.0001,
+                maximumValue: 0.2)
 
-            attackTimeSlider.target = self
-            attackTimeSlider.action = "updateAttacktime"
-            attackTimeSlider.minValue = 0.0001
-            attackTimeSlider.maxValue = 0.2
-            attackTimeSlider.floatValue = Float(dynamicsProcessor.attackTime)
-            attackTimeSlider.frame.origin.y = topTitle.frame.origin.y - 15 * CGFloat(sliderHeight)
-            view.addSubview(attackTimeSlider)
-            releaseTimeTextField.stringValue = "Release Time: \(dynamicsProcessor.releaseTime) secs"
-            releaseTimeTextField.editable = false
-            releaseTimeTextField.drawsBackground = false
-            releaseTimeTextField.bezeled = false
-            releaseTimeTextField.frame.origin.y = topTitle.frame.origin.y -  17 *  CGFloat(sliderHeight)
-            view.addSubview(releaseTimeTextField)
+            makeTextField(releaseTimeTextField, view: view, below: topTitle, distance: 17,
+                stringValue: "Release Time: \(dynamicsProcessor.releaseTime) secs")
+            makeSlider(releaseTimeSlider, view: view, below: topTitle, distance: 18, target: self,
+                action: "updateReleasetime",
+                currentValue: dynamicsProcessor.releaseTime,
+                minimumValue: 0.01,
+                maximumValue: 3)
 
-            releaseTimeSlider.target = self
-            releaseTimeSlider.action = "updateReleasetime"
-            releaseTimeSlider.minValue = 0.01
-            releaseTimeSlider.maxValue = 3
-            releaseTimeSlider.floatValue = Float(dynamicsProcessor.releaseTime)
-            releaseTimeSlider.frame.origin.y = topTitle.frame.origin.y - 18 * CGFloat(sliderHeight)
-            view.addSubview(releaseTimeSlider)
-            masterGainTextField.stringValue = "Master Gain: \(dynamicsProcessor.masterGain) dB"
-            masterGainTextField.editable = false
-            masterGainTextField.drawsBackground = false
-            masterGainTextField.bezeled = false
-            masterGainTextField.frame.origin.y = topTitle.frame.origin.y -  20 *  CGFloat(sliderHeight)
-            view.addSubview(masterGainTextField)
+            makeTextField(masterGainTextField, view: view, below: topTitle, distance: 20,
+                stringValue: "Master Gain: \(dynamicsProcessor.masterGain) dB")
+            makeSlider(masterGainSlider, view: view, below: topTitle, distance: 21, target: self,
+                action: "updateMastergain",
+                currentValue: dynamicsProcessor.masterGain,
+                minimumValue: -40,
+                maximumValue: 40)
 
-            masterGainSlider.target = self
-            masterGainSlider.action = "updateMastergain"
-            masterGainSlider.minValue = -40
-            masterGainSlider.maxValue = 40
-            masterGainSlider.floatValue = Float(dynamicsProcessor.masterGain)
-            masterGainSlider.frame.origin.y = topTitle.frame.origin.y - 21 * CGFloat(sliderHeight)
-            view.addSubview(masterGainSlider)
-            compressionAmountTextField.stringValue = "Compression Amount: \(dynamicsProcessor.compressionAmount) dB"
-            compressionAmountTextField.editable = false
-            compressionAmountTextField.drawsBackground = false
-            compressionAmountTextField.bezeled = false
-            compressionAmountTextField.frame.origin.y = topTitle.frame.origin.y -  23 *  CGFloat(sliderHeight)
-            view.addSubview(compressionAmountTextField)
+            makeTextField(compressionAmountTextField, view: view, below: topTitle, distance: 23,
+                stringValue: "Compression Amount: \(dynamicsProcessor.compressionAmount) dB")
+            makeSlider(compressionAmountSlider, view: view, below: topTitle, distance: 24, target: self,
+                action: "updateCompressionamount",
+                currentValue: dynamicsProcessor.compressionAmount,
+                minimumValue: -40,
+                maximumValue: 40)
 
-            compressionAmountSlider.target = self
-            compressionAmountSlider.action = "updateCompressionamount"
-            compressionAmountSlider.minValue = -40
-            compressionAmountSlider.maxValue = 40
-            compressionAmountSlider.floatValue = Float(dynamicsProcessor.compressionAmount)
-            compressionAmountSlider.frame.origin.y = topTitle.frame.origin.y - 24 * CGFloat(sliderHeight)
-            view.addSubview(compressionAmountSlider)
-            inputAmplitudeTextField.stringValue = "Input Amplitude: \(dynamicsProcessor.inputAmplitude) dB"
-            inputAmplitudeTextField.editable = false
-            inputAmplitudeTextField.drawsBackground = false
-            inputAmplitudeTextField.bezeled = false
-            inputAmplitudeTextField.frame.origin.y = topTitle.frame.origin.y -  26 *  CGFloat(sliderHeight)
-            view.addSubview(inputAmplitudeTextField)
+            makeTextField(inputAmplitudeTextField, view: view, below: topTitle, distance: 26,
+                stringValue: "Input Amplitude: \(dynamicsProcessor.inputAmplitude) dB")
+            makeSlider(inputAmplitudeSlider, view: view, below: topTitle, distance: 27, target: self,
+                action: "updateInputamplitude",
+                currentValue: dynamicsProcessor.inputAmplitude,
+                minimumValue: -40,
+                maximumValue: 40)
 
-            inputAmplitudeSlider.target = self
-            inputAmplitudeSlider.action = "updateInputamplitude"
-            inputAmplitudeSlider.minValue = -40
-            inputAmplitudeSlider.maxValue = 40
-            inputAmplitudeSlider.floatValue = Float(dynamicsProcessor.inputAmplitude)
-            inputAmplitudeSlider.frame.origin.y = topTitle.frame.origin.y - 27 * CGFloat(sliderHeight)
-            view.addSubview(inputAmplitudeSlider)
-            outputAmplitudeTextField.stringValue = "Output Amplitude: \(dynamicsProcessor.outputAmplitude) dB"
-            outputAmplitudeTextField.editable = false
-            outputAmplitudeTextField.drawsBackground = false
-            outputAmplitudeTextField.bezeled = false
-            outputAmplitudeTextField.frame.origin.y = topTitle.frame.origin.y -  29 *  CGFloat(sliderHeight)
-            view.addSubview(outputAmplitudeTextField)
-
-            outputAmplitudeSlider.target = self
-            outputAmplitudeSlider.action = "updateOutputamplitude"
-            outputAmplitudeSlider.minValue = -40
-            outputAmplitudeSlider.maxValue = 40
-            outputAmplitudeSlider.floatValue = Float(dynamicsProcessor.outputAmplitude)
-            outputAmplitudeSlider.frame.origin.y = topTitle.frame.origin.y - 30 * CGFloat(sliderHeight)
-            view.addSubview(outputAmplitudeSlider)
+            makeTextField(outputAmplitudeTextField, view: view, below: topTitle, distance: 29,
+                stringValue: "Output Amplitude: \(dynamicsProcessor.outputAmplitude) dB")
+            makeSlider(outputAmplitudeSlider, view: view, below: topTitle, distance: 30, target: self,
+                action: "updateOutputamplitude",
+                currentValue: dynamicsProcessor.outputAmplitude,
+                minimumValue: -40,
+                maximumValue: 40)
 
             self.contentView!.addSubview(view)
             self.makeKeyAndOrderFront(nil)
@@ -254,43 +193,53 @@
 
         internal func updateThreshold() {
             dynamicsProcessor.threshold = thresholdSlider.floatValue
-            thresholdTextField.stringValue = "Threshold \(String(format: "%0.4f", dynamicsProcessor.threshold)) dB"
+            thresholdTextField.stringValue =
+            "Threshold \(String(format: "%0.4f", dynamicsProcessor.threshold)) dB"
         }
         internal func updateHeadroom() {
             dynamicsProcessor.headRoom = headRoomSlider.floatValue
-            headRoomTextField.stringValue = "Head Room \(String(format: "%0.4f", dynamicsProcessor.headRoom)) dB"
+            headRoomTextField.stringValue =
+            "Head Room \(String(format: "%0.4f", dynamicsProcessor.headRoom)) dB"
         }
         internal func updateExpansionratio() {
             dynamicsProcessor.expansionRatio = expansionRatioSlider.floatValue
-            expansionRatioTextField.stringValue = "Expansion Ratio \(String(format: "%0.4f", dynamicsProcessor.expansionRatio)) rate"
+            expansionRatioTextField.stringValue =
+            "Expansion Ratio \(String(format: "%0.4f", dynamicsProcessor.expansionRatio)) rate"
         }
         internal func updateExpansionthreshold() {
             dynamicsProcessor.expansionThreshold = expansionThresholdSlider.floatValue
-            expansionThresholdTextField.stringValue = "Expansion Threshold \(String(format: "%0.4f", dynamicsProcessor.expansionThreshold)) rate"
+            expansionThresholdTextField.stringValue =
+            "Expansion Threshold \(String(format: "%0.4f", dynamicsProcessor.expansionThreshold)) rate"
         }
         internal func updateAttacktime() {
             dynamicsProcessor.attackTime = attackTimeSlider.floatValue
-            attackTimeTextField.stringValue = "Attack Time \(String(format: "%0.4f", dynamicsProcessor.attackTime)) secs"
+            attackTimeTextField.stringValue =
+            "Attack Time \(String(format: "%0.4f", dynamicsProcessor.attackTime)) secs"
         }
         internal func updateReleasetime() {
             dynamicsProcessor.releaseTime = releaseTimeSlider.floatValue
-            releaseTimeTextField.stringValue = "Release Time \(String(format: "%0.4f", dynamicsProcessor.releaseTime)) secs"
+            releaseTimeTextField.stringValue =
+            "Release Time \(String(format: "%0.4f", dynamicsProcessor.releaseTime)) secs"
         }
         internal func updateMastergain() {
             dynamicsProcessor.masterGain = masterGainSlider.floatValue
-            masterGainTextField.stringValue = "Master Gain \(String(format: "%0.4f", dynamicsProcessor.masterGain)) dB"
+            masterGainTextField.stringValue =
+            "Master Gain \(String(format: "%0.4f", dynamicsProcessor.masterGain)) dB"
         }
         internal func updateCompressionamount() {
             dynamicsProcessor.compressionAmount = compressionAmountSlider.floatValue
-            compressionAmountTextField.stringValue = "Compression Amount \(String(format: "%0.4f", dynamicsProcessor.compressionAmount)) dB"
+            compressionAmountTextField.stringValue =
+            "Compression Amount \(String(format: "%0.4f", dynamicsProcessor.compressionAmount)) dB"
         }
         internal func updateInputamplitude() {
             dynamicsProcessor.inputAmplitude = inputAmplitudeSlider.floatValue
-            inputAmplitudeTextField.stringValue = "Input Amplitude \(String(format: "%0.4f", dynamicsProcessor.inputAmplitude)) dB"
+            inputAmplitudeTextField.stringValue =
+            "Input Amplitude \(String(format: "%0.4f", dynamicsProcessor.inputAmplitude)) dB"
         }
         internal func updateOutputamplitude() {
             dynamicsProcessor.outputAmplitude = outputAmplitudeSlider.floatValue
-            outputAmplitudeTextField.stringValue = "Output Amplitude \(String(format: "%0.4f", dynamicsProcessor.outputAmplitude)) dB"
+            outputAmplitudeTextField.stringValue =
+            "Output Amplitude \(String(format: "%0.4f", dynamicsProcessor.outputAmplitude)) dB"
         }
 
         /// Required initializer

@@ -30,8 +30,7 @@ public class AKManager {
         // Start the engine.
         do {
             try self.engine.start()
-        }
-        catch {
+        } catch {
             fatalError("Could not start engine. error: \(error).")
         }
     }

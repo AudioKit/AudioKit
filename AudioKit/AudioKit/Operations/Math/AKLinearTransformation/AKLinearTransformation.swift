@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** This module scales from one range to another defined by a minimum and maximum point in the input and output domain. */
+/** This module scales from one range to another defined by a minimum and maximum
+ point in the input and output domain. */
 public class AKLinearTransformation: AKOperation {
 
     // MARK: - Properties
@@ -16,8 +17,8 @@ public class AKLinearTransformation: AKOperation {
     private var internalAU: AKLinearTransformationAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var minimumInputParameter:  AUParameter?
-    private var maximumInputParameter:  AUParameter?
+    private var minimumInputParameter: AUParameter?
+    private var maximumInputParameter: AUParameter?
     private var minimumOutputParameter: AUParameter?
     private var maximumOutputParameter: AUParameter?
 
@@ -54,8 +55,8 @@ public class AKLinearTransformation: AKOperation {
         minimumInput: Float = -1.0,
         maximumInput: Float = 1.0,
         minimumOutput: Float = 0.0,
-        maximumOutput: Float = 1.0)
-    {
+        maximumOutput: Float = 1.0) {
+
         self.minimumInput = minimumInput
         self.maximumInput = maximumInput
         self.minimumOutput = minimumOutput
@@ -99,14 +100,11 @@ public class AKLinearTransformation: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.minimumInputParameter!.address {
                     self.minimumInput = value
-                }
-                else if address == self.maximumInputParameter!.address {
+                } else if address == self.maximumInputParameter!.address {
                     self.maximumInput = value
-                }
-                else if address == self.minimumOutputParameter!.address {
+                } else if address == self.minimumOutputParameter!.address {
                     self.minimumOutput = value
-                }
-                else if address == self.maximumOutputParameter!.address {
+                } else if address == self.maximumOutputParameter!.address {
                     self.maximumOutput = value
                 }
             }

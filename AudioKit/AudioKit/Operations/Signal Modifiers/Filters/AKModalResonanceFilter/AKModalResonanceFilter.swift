@@ -8,7 +8,8 @@
 
 import AVFoundation
 
-/** A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created using  passing an impulse through a combination of modal filters. */
+/** A modal resonance filter used for modal synthesis. Plucked and bell sounds can
+ be created using  passing an impulse through a combination of modal filters. */
 public class AKModalResonanceFilter: AKOperation {
 
     // MARK: - Properties
@@ -16,7 +17,7 @@ public class AKModalResonanceFilter: AKOperation {
     private var internalAU: AKModalResonanceFilterAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var frequencyParameter:     AUParameter?
+    private var frequencyParameter: AUParameter?
     private var qualityFactorParameter: AUParameter?
 
     /** Resonant frequency of the filter. */
@@ -38,8 +39,8 @@ public class AKModalResonanceFilter: AKOperation {
     public init(
         _ input: AKOperation,
         frequency: Float = 500.0,
-        qualityFactor: Float = 50.0)
-    {
+        qualityFactor: Float = 50.0) {
+
         self.frequency = frequency
         self.qualityFactor = qualityFactor
         super.init()
@@ -79,8 +80,7 @@ public class AKModalResonanceFilter: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.frequencyParameter!.address {
                     self.frequency = value
-                }
-                else if address == self.qualityFactorParameter!.address {
+                } else if address == self.qualityFactorParameter!.address {
                     self.qualityFactor = value
                 }
             }
