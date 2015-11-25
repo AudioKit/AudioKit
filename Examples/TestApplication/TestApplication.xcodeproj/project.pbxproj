@@ -13,22 +13,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C4BF47CD1BC1BA2D0072FBAC /* PBXContainerItemProxy */ = {
+		C42F38BD1C058A6D000E937C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C4BF47C91BC1BA2D0072FBAC /* AudioKit.xcodeproj */;
+			containerPortal = C42F38B91C058A6D000E937C /* AudioKit For OSX.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = C43FA2FD1BC1961D00EC6C85;
+			remoteGlobalIDString = C42F36CC1C0582E6000E937C;
 			remoteInfo = AudioKit;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C42F38B91C058A6D000E937C /* AudioKit For OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For OSX.xcodeproj"; path = "../../AudioKit/OSX/AudioKit For OSX.xcodeproj"; sourceTree = "<group>"; };
 		C43FA3301BC19AF200EC6C85 /* TestApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C43FA3331BC19AF200EC6C85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C43FA3351BC19AF200EC6C85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C43FA3381BC19AF200EC6C85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		C43FA33A1BC19AF200EC6C85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4BF47C91BC1BA2D0072FBAC /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../AudioKit/AudioKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,10 +42,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C42F38BA1C058A6D000E937C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C42F38BE1C058A6D000E937C /* AudioKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C43FA3271BC19AF200EC6C85 = {
 			isa = PBXGroup;
 			children = (
-				C4BF47C91BC1BA2D0072FBAC /* AudioKit.xcodeproj */,
+				C42F38B91C058A6D000E937C /* AudioKit For OSX.xcodeproj */,
 				C43FA3321BC19AF200EC6C85 /* TestApplication */,
 				C43FA3311BC19AF200EC6C85 /* Products */,
 			);
@@ -68,14 +76,6 @@
 				C43FA33A1BC19AF200EC6C85 /* Info.plist */,
 			);
 			path = TestApplication;
-			sourceTree = "<group>";
-		};
-		C4BF47CA1BC1BA2D0072FBAC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C4BF47CE1BC1BA2D0072FBAC /* AudioKit.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,8 +125,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C4BF47CA1BC1BA2D0072FBAC /* Products */;
-					ProjectRef = C4BF47C91BC1BA2D0072FBAC /* AudioKit.xcodeproj */;
+					ProductGroup = C42F38BA1C058A6D000E937C /* Products */;
+					ProjectRef = C42F38B91C058A6D000E937C /* AudioKit For OSX.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -137,11 +137,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4BF47CE1BC1BA2D0072FBAC /* AudioKit.framework */ = {
+		C42F38BE1C058A6D000E937C /* AudioKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AudioKit.framework;
-			remoteRef = C4BF47CD1BC1BA2D0072FBAC /* PBXContainerItemProxy */;
+			remoteRef = C42F38BD1C058A6D000E937C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

@@ -1,4 +1,4 @@
-//: # AudioKitAU Playgrounds
+//: # AudioKit for OSX Playgrounds
 //: ## Tutorials
 //: * [Introduction](Intro)
 //: * [Connecting Operations](Connecting%20Operations)

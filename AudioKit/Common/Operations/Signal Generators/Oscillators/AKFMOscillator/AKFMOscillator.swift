@@ -16,11 +16,11 @@ public class AKFMOscillator: AKOperation {
     private var internalAU: AKFMOscillatorAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var baseFrequencyParameter:        AUParameter?
-    private var carrierMultiplierParameter:    AUParameter?
+    private var baseFrequencyParameter: AUParameter?
+    private var carrierMultiplierParameter: AUParameter?
     private var modulatingMultiplierParameter: AUParameter?
-    private var modulationIndexParameter:      AUParameter?
-    private var amplitudeParameter:            AUParameter?
+    private var modulationIndexParameter: AUParameter?
+    private var amplitudeParameter: AUParameter?
 
     /** In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. */
     public var baseFrequency: Float = 440 {
@@ -60,7 +60,7 @@ public class AKFMOscillator: AKOperation {
         super.init()
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Generator
+        description.componentType         = kAudioUnitType_MusicDevice
         description.componentSubType      = 0x666f7363 /*'fosc'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
@@ -71,16 +71,11 @@ public class AKFMOscillator: AKOperation {
             asComponentDescription: description,
             name: "Local AKFMOscillator",
             version: UInt32.max)
-
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
-            avAudioUnit, error in
-
-            guard let generator = avAudioUnit else { return }
-
-            self.output = generator
-            self.internalAU = generator.AUAudioUnit as? AKFMOscillatorAudioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-        }
+        
+        let generator = AVAudioUnitMIDIInstrument(audioComponentDescription: description)
+        output = generator
+        internalAU = generator.AUAudioUnit as? AKFMOscillatorAudioUnit
+        AKManager.sharedInstance.engine.attachNode(self.output!)
 
         guard let tree = internalAU?.parameterTree else { return }
 
@@ -96,17 +91,13 @@ public class AKFMOscillator: AKOperation {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.baseFrequencyParameter!.address {
                     self.baseFrequency = value
-                }
-                else if address == self.carrierMultiplierParameter!.address {
+                } else if address == self.carrierMultiplierParameter!.address {
                     self.carrierMultiplier = value
-                }
-                else if address == self.modulatingMultiplierParameter!.address {
+                } else if address == self.modulatingMultiplierParameter!.address {
                     self.modulatingMultiplier = value
-                }
-                else if address == self.modulationIndexParameter!.address {
+                } else if address == self.modulationIndexParameter!.address {
                     self.modulationIndex = value
-                }
-                else if address == self.amplitudeParameter!.address {
+                } else if address == self.amplitudeParameter!.address {
                     self.amplitude = value
                 }
             }
