@@ -67,9 +67,9 @@ public class AKAUSampler: AKOperation {
     
     // MARK: - Playback
     public func playNote(note: Int = 60, velocity: Int = 127, channel: Int = 0) {
-        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(vel), onChannel: UInt8(chan))
+        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
     public func stopNote(note: Int = 60, channel: Int = 0) {
-        samplerUnit.stopNote(UInt8(note), onChannel: UInt8(chan))
+        samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
 }
