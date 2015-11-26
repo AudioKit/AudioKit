@@ -18,5 +18,7 @@
 //: * [Ring Modulator](AKAURingModulatr)
 //: * [Time Pitch](AKAUTimePitch)
 //: * [Moog Ladder Filter](AKMoogLadder)
+//: ### Oscillators
+//: * [FM Oscillator](AKFMOscillator)
 //: * [Oscillator](AKOscillator)
 //: * [Sawtooth Oscillator](AKSawtoothOscillator)

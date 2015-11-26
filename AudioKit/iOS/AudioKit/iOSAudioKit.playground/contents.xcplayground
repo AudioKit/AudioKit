@@ -17,6 +17,7 @@
         <page name='AKAUPeakLimiter'/>
         <page name='AKAURingModulator'/>
         <page name='AKAUTimePitch'/>
+        <page name='AKFMOscillator'/>
         <page name='AKMoogLadder'/>
         <page name='AKOscillator'/>
         <page name='AKSawtoothOscillator'/>
