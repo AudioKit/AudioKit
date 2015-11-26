@@ -76,7 +76,7 @@ end
 ###############
 
 # Set up the output folder relative to the current directory and create it if necessary
-output_folder = "../AudioKit/AudioKit/Operations/#{output_folder}/#{operation}/"
+output_folder = "../AudioKit/Common/Operations/#{output_folder}/#{operation}/"
 FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 
 #####################
