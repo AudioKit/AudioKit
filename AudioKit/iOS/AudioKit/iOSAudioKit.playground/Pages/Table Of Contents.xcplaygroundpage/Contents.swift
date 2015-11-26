@@ -21,4 +21,5 @@
 //: ### Oscillators
 //: * [FM Oscillator](AKFMOscillator)
 //: * [Oscillator](AKOscillator)
+//: * [Phasor](AKPhasor)
 //: * [Sawtooth Oscillator](AKSawtoothOscillator)

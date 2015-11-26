@@ -20,6 +20,7 @@
         <page name='AKFMOscillator'/>
         <page name='AKMoogLadder'/>
         <page name='AKOscillator'/>
+        <page name='AKPhasor'/>
         <page name='AKSawtoothOscillator'/>
     </pages>
 </playground>
