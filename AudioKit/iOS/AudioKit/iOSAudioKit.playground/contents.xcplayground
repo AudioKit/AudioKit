@@ -5,10 +5,13 @@
         <page name='Intro'/>
         <page name='Connecting Operations'/>
         <page name='AKAUBandPassFilter'/>
-        <page name='AKAUDecimator'/>
         <page name='AKAUDelay'/>
-        <page name='AKAUDistortion'/>
         <page name='AKAUDynamicsProcessor'/>
+        <page name='Effects'/>
+        <page name='AKAUDecimator'/>
+        <page name='AKAUDistortion'/>
+        <page name='AKBitCrusher'/>
+        <page name='Filters'/>
         <page name='AKAUHighPassFilter'/>
         <page name='AKAUHighShelfFilter'/>
         <page name='AKAULowPassFilter'/>
