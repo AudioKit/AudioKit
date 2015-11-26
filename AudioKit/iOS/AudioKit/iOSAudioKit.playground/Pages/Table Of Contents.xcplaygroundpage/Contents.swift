@@ -4,6 +4,7 @@
 //: * [Connecting Operations](Connecting%20Operations)
 //: ---
 //: ## Operation Examples
-//: * [AKAUBandPassFilter](AKAUBandPassFilter)
-//: * [AKMoogLadder](AKMoogLadder)
-//: * [AKOscillator](AKOscillator)
+//: * [Band Pass Filter](AKAUBandPassFilter)
+//: * [Moog Ladder Filter](AKMoogLadder)
+//: * [Oscillator](AKOscillator)
+//: * [Sawtooth Oscillator](AKSawtoothOscillator)

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Intro'/>
         <page name='Connecting Operations'/>
         <page name='AKAUBandPassFilter'/>
+        <page name='AKAUDecimator'/>
         <page name='AKMoogLadder'/>
         <page name='AKOscillator'/>
+        <page name='AKSawtoothOscillator'/>
     </pages>
 </playground>
