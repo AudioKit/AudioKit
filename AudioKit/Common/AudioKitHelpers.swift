@@ -10,6 +10,25 @@ import Foundation
 import CoreAudio
 import AudioToolbox
 
+extension Float {
+    public mutating func randomize(minimum: Float, _ maximum: Float) {
+        self = randomFloat(minimum, maximum)
+    }
+}
+
+public func randomFloat(minimum: Float, _ maximum: Float) -> Float {
+    let precision = 1000000
+    let width = maximum - minimum
+    
+    return Float(arc4random_uniform(UInt32(precision))) / Float(precision) * width + minimum
+}
+
+public func randomInt(range: Range<Int>) -> Int {
+    let width = range.maxElement()! - range.minElement()!
+    return Int(arc4random_uniform(UInt32(width))) + range.minElement()!
+}
+
+
 /** Potential MIDI Status messages
 
  - NoteOff: 

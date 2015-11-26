@@ -14,7 +14,8 @@ audiokit.audioOutput = oscillator
 audiokit.start()
 
 while true {
-    oscillator.frequency = Float(arc4random_uniform(500)) + 200
-    usleep(arc4random_uniform(200000))
+    oscillator.frequency.randomize(0,400)
+    oscillator.amplitude.randomize(0, 0.5)
+    usleep(200000)
 }
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

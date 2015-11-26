@@ -13,11 +13,11 @@ audiokit.audioOutput = fm
 audiokit.start()
 
 while true {
-    fm.baseFrequency        = Float(arc4random_uniform(400)) + 400
-    fm.carrierMultiplier    = Float(arc4random_uniform(4))
-    fm.modulationIndex      = Float(arc4random_uniform(5))
-    fm.modulatingMultiplier = Float(arc4random_uniform(10)) * 0.03
-    fm.amplitude            = Float(arc4random_uniform(10)) * 0.03
-    usleep(80000)
+    fm.baseFrequency.randomize(220, 880)
+    fm.carrierMultiplier.randomize(0, 4)
+    fm.modulationIndex.randomize(0, 5)
+    fm.modulatingMultiplier.randomize(0, 0.3)
+    fm.amplitude.randomize(0, 0.3)
+    usleep(UInt32(randomInt(0...160000)))
 }
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
