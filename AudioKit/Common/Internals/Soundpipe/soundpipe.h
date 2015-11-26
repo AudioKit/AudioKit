@@ -73,6 +73,18 @@ void sp_fft_init(sp_fft *fft, int M);
 void sp_fftr(sp_fft *fft, SPFLOAT *buf, int FFTsize);
 void sp_ifftr(sp_fft *fft, SPFLOAT *buf, int FFTsize);
 void sp_fft_destroy(sp_fft *fft);
+#ifndef kiss_fft_scalar
+#define kiss_fft_scalar SPFLOAT
+#endif
+typedef struct {
+    kiss_fft_scalar r;
+    kiss_fft_scalar i;
+}kiss_fft_cpx;
+
+typedef struct kiss_fft_state* kiss_fft_cfg;
+typedef struct kiss_fftr_state* kiss_fftr_cfg;
+
+
 typedef struct {
     SPFLOAT incr;
     SPFLOAT index;
@@ -107,6 +119,8 @@ int sp_gen_sinesum(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_line(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_xline(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_gauss(sp_data *sp, sp_ftbl *ft, SPFLOAT scale, uint32_t seed);
+
+int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename);
 typedef struct {
     int mti;
     /* do not change value 624 */
@@ -406,6 +420,18 @@ int sp_rms_create(sp_rms **p);
 int sp_rms_destroy(sp_rms **p);
 int sp_rms_init(sp_data *sp, sp_rms *p);
 int sp_rms_compute(sp_data *sp, sp_rms *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    void *ud;
+    int argpos;
+    SPFLOAT *args[2];
+    SPFLOAT *freq;
+    SPFLOAT *amp;
+} sp_saw;
+
+int sp_saw_create(sp_saw **p);
+int sp_saw_destroy(sp_saw **p);
+int sp_saw_init(sp_data *sp, sp_saw *p);
+int sp_saw_compute(sp_data *sp, sp_saw *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT inmin, inmax, outmin, outmax;
 } sp_scale;
