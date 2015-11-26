@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKMoogLadder
+//: ## AKAUDecimator
 //: ### Add description
 import XCPlayground
 import AudioKit
@@ -16,25 +16,25 @@ let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
-let bandPassFilter: AKMoogLadder
+player.looping = true
+let decimator: AKAUDecimator
 
 switch source {
 case "mic":
-    bandPassFilter = AKMoogLadder(mic)
+    decimator = AKAUDecimator(mic)
 default:
-    bandPassFilter = AKMoogLadder(player)
+    decimator = AKAUDecimator(player)
 }
-//: Set the parameters of the band pass filter here
-bandPassFilter.cutoffFrequency = 1000 // Hz
-bandPassFilter.resonance = 0.98  // Cents
+//: Set the parameters of the decimator here
+decimator.decimation =  2 // Percent
+decimator.rounding = 0 // Percent
+decimator.mix = 50 // Percent
 
-audiokit.audioOutput = bandPassFilter
+audiokit.audioOutput = decimator
 audiokit.start()
-
 if source == "player" {
     player.play()
 }
-
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
