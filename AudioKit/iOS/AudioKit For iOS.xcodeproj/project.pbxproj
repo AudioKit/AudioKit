@@ -87,10 +87,6 @@
 		C42F364C1C057F4C000E937C /* AKWhiteNoiseAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F356A1C057F4C000E937C /* AKWhiteNoiseAudioUnit.mm */; };
 		C42F364D1C057F4C000E937C /* AKWhiteNoiseDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42F356B1C057F4C000E937C /* AKWhiteNoiseDSPKernel.hpp */; };
 		C42F364E1C057F4C000E937C /* AKAUDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F356E1C057F4C000E937C /* AKAUDelay.swift */; };
-		C42F364F1C057F4C000E937C /* AKDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35701C057F4C000E937C /* AKDelay.swift */; };
-		C42F36501C057F4C000E937C /* AKDelayAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35711C057F4C000E937C /* AKDelayAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C42F36511C057F4C000E937C /* AKDelayAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F35721C057F4C000E937C /* AKDelayAudioUnit.mm */; };
-		C42F36521C057F4C000E937C /* AKDelayDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42F35731C057F4C000E937C /* AKDelayDSPKernel.hpp */; };
 		C42F36531C057F4C000E937C /* AKVariableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35751C057F4C000E937C /* AKVariableDelay.swift */; };
 		C42F36541C057F4C000E937C /* AKVariableDelayAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35761C057F4C000E937C /* AKVariableDelayAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42F36551C057F4C000E937C /* AKVariableDelayAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F35771C057F4C000E937C /* AKVariableDelayAudioUnit.mm */; };
@@ -292,10 +288,6 @@
 		C42F356A1C057F4C000E937C /* AKWhiteNoiseAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKWhiteNoiseAudioUnit.mm; sourceTree = "<group>"; };
 		C42F356B1C057F4C000E937C /* AKWhiteNoiseDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKWhiteNoiseDSPKernel.hpp; sourceTree = "<group>"; };
 		C42F356E1C057F4C000E937C /* AKAUDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUDelay.swift; sourceTree = "<group>"; };
-		C42F35701C057F4C000E937C /* AKDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDelay.swift; sourceTree = "<group>"; };
-		C42F35711C057F4C000E937C /* AKDelayAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDelayAudioUnit.h; sourceTree = "<group>"; };
-		C42F35721C057F4C000E937C /* AKDelayAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDelayAudioUnit.mm; sourceTree = "<group>"; };
-		C42F35731C057F4C000E937C /* AKDelayDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDelayDSPKernel.hpp; sourceTree = "<group>"; };
 		C42F35751C057F4C000E937C /* AKVariableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariableDelay.swift; sourceTree = "<group>"; };
 		C42F35761C057F4C000E937C /* AKVariableDelayAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableDelayAudioUnit.h; sourceTree = "<group>"; };
 		C42F35771C057F4C000E937C /* AKVariableDelayAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKVariableDelayAudioUnit.mm; sourceTree = "<group>"; };
@@ -704,21 +696,9 @@
 			isa = PBXGroup;
 			children = (
 				C42F356E1C057F4C000E937C /* AKAUDelay.swift */,
-				C42F356F1C057F4C000E937C /* AKDelay */,
 				C42F35741C057F4C000E937C /* AKVariableDelay */,
 			);
 			path = Delays;
-			sourceTree = "<group>";
-		};
-		C42F356F1C057F4C000E937C /* AKDelay */ = {
-			isa = PBXGroup;
-			children = (
-				C42F35701C057F4C000E937C /* AKDelay.swift */,
-				C42F35711C057F4C000E937C /* AKDelayAudioUnit.h */,
-				C42F35721C057F4C000E937C /* AKDelayAudioUnit.mm */,
-				C42F35731C057F4C000E937C /* AKDelayDSPKernel.hpp */,
-			);
-			path = AKDelay;
 			sourceTree = "<group>";
 		};
 		C42F35741C057F4C000E937C /* AKVariableDelay */ = {
@@ -1129,7 +1109,6 @@
 				C42F36761C057F4C000E937C /* AKDCBlockDSPKernel.hpp in Headers */,
 				C42F366C1C057F4C000E937C /* AKClipperAudioUnit.h in Headers */,
 				C42F36541C057F4C000E937C /* AKVariableDelayAudioUnit.h in Headers */,
-				C42F36501C057F4C000E937C /* AKDelayAudioUnit.h in Headers */,
 				C42F36A81C057F4C000E937C /* AKBandPassButterworthFilterAudioUnit.h in Headers */,
 				C42F36431C057F4C000E937C /* AKOscillatorAudioUnit.h in Headers */,
 				C42F36BE1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.h in Headers */,
@@ -1153,7 +1132,6 @@
 				C42F36AC1C057F4C000E937C /* AKBandRejectButterworthFilterAudioUnit.h in Headers */,
 				C42F369A1C057F4C000E937C /* AKPeakingParametricEqualizerFilterDSPKernel.hpp in Headers */,
 				C42F36061C057F4C000E937C /* AKParameterRamper.hpp in Headers */,
-				C42F36521C057F4C000E937C /* AKDelayDSPKernel.hpp in Headers */,
 				C42F362D1C057F4C000E937C /* soundpipe.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1254,7 +1232,6 @@
 				C42F36B91C057F4C000E937C /* AKChowningReverb.swift in Sources */,
 				C42F36361C057F4C000E937C /* AKTrackedAmplitudeAudioUnit.mm in Sources */,
 				C42F362E1C057F4C000E937C /* AKMidi.swift in Sources */,
-				C42F364F1C057F4C000E937C /* AKDelay.swift in Sources */,
 				C42F36B11C057F4C000E937C /* AKHighPassButterworthFilterAudioUnit.mm in Sources */,
 				C42F36141C057F4C000E937C /* comb.c in Sources */,
 				C42F36461C057F4C000E937C /* AKPhasor.swift in Sources */,
@@ -1319,7 +1296,6 @@
 				C42F368F1C057F4C000E937C /* AKModalResonanceFilter.swift in Sources */,
 				C42F36991C057F4C000E937C /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C42F36661C057F4C000E937C /* AKAUHighPassFilter.swift in Sources */,
-				C42F36511C057F4C000E937C /* AKDelayAudioUnit.mm in Sources */,
 				C42F36291C057F4C000E937C /* streson.c in Sources */,
 				C42F36041C057F4C000E937C /* AKDSPKernel.mm in Sources */,
 				C42F361A1C057F4C000E937C /* fold.c in Sources */,
