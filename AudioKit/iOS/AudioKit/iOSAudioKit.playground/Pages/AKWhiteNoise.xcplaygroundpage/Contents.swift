@@ -15,7 +15,7 @@ audiokit.start()
 
 var t: Float = 0
 while true {
-    noise.amplitude = abs(sin(t)) * 0.1
+    noise.amplitude = (1.0 - cos(t)) / 4.0
     t = t + 0.01
     usleep(1000000 / 100)
 }
