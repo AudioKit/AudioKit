@@ -22,5 +22,6 @@
         <page name='AKOscillator'/>
         <page name='AKPhasor'/>
         <page name='AKSawtoothOscillator'/>
+        <page name='AKWhiteNoise'/>
     </pages>
 </playground>
