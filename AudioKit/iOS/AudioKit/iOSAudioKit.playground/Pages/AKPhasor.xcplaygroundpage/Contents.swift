@@ -13,7 +13,7 @@ audiokit.audioOutput = phasor
 audiokit.start()
 
 while true {
-    phasor.frequency = Float(arc4random_uniform(200)) + 200
+    phasor.frequency.randomize(220, 440)
     usleep(120000)
 }
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

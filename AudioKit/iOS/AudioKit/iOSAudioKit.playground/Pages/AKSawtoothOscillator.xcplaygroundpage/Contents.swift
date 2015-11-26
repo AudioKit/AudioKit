@@ -13,8 +13,8 @@ audiokit.audioOutput = sawtooth
 audiokit.start()
 
 while true {
-    sawtooth.frequency = Float(arc4random_uniform(200)) + 200
-    sawtooth.amplitude = Float(arc4random_uniform(100)) / 400.0
+    sawtooth.frequency.randomize(200, 600)
+    sawtooth.amplitude.randomize(0, 0.3)
     usleep(120000)
 }
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
