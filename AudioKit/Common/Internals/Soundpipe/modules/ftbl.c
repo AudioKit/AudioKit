@@ -67,19 +67,6 @@ int sp_gen_sine(sp_data *sp, sp_ftbl *ft)
     return SP_OK;
 }
 
-#ifndef NO_LIBSNDFILE
-/*TODO: add error checking, make tests */
-int sp_gen_file(sp_data *sp, sp_ftbl *ft, const char *filename)
-{
-    SF_INFO info;
-    info.format = 0;
-    SNDFILE *snd = sf_open(filename, SFM_READ, &info);
-    sf_readf_float(snd, ft->tbl, ft->size);
-    sf_close(snd);
-    return SP_OK;
-}
-#endif
-
 /* port of GEN10 from Csound */
 int sp_gen_sinesum(sp_data *sp, sp_ftbl *ft, const char *argstring)
 {
