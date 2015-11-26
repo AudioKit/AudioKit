@@ -618,7 +618,6 @@
 				C42F35541C057F4C000E937C /* AKAudioPlayer.swift */,
 				C42F35551C057F4C000E937C /* AKAUSampler.swift */,
 				C42F35561C057F4C000E937C /* Oscillators */,
-				C472F6EE1C06F7B2001A65C5 /* AKSawtoothOscillator */,
 				C42F35661C057F4C000E937C /* Random Generators */,
 			);
 			path = "Signal Generators";
@@ -630,6 +629,7 @@
 				C42F35571C057F4C000E937C /* AKFMOscillator */,
 				C42F355C1C057F4C000E937C /* AKOscillator */,
 				C42F35611C057F4C000E937C /* AKPhasor */,
+				C472F6EE1C06F7B2001A65C5 /* AKSawtoothOscillator */,
 			);
 			path = Oscillators;
 			sourceTree = "<group>";
@@ -1072,8 +1072,7 @@
 				C472F6F11C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm */,
 				C472F6F21C06F7B2001A65C5 /* AKSawtoothOscillatorDSPKernel.hpp */,
 			);
-			name = AKSawtoothOscillator;
-			path = Oscillators/AKSawtoothOscillator;
+			path = AKSawtoothOscillator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
