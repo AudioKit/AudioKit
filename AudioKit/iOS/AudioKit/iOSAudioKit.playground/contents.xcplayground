@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw'>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Intro'/>
         <page name='Connecting Operations'/>
         <page name='AKAUBandPassFilter'/>
         <page name='AKAUDecimator'/>
+        <page name='AKAUDelay'/>
+        <page name='AKAUDistortion'/>
+        <page name='AKAUDynamicsProcessor'/>
+        <page name='AKAUHighPassFilter'/>
+        <page name='AKAUHighShelfFilter'/>
+        <page name='AKAULowPassFilter'/>
+        <page name='AKAULowShelfFilter'/>
+        <page name='AKAUParametricEQ'/>
+        <page name='AKAUPeakLimiter'/>
+        <page name='AKAURingModulator'/>
+        <page name='AKAUTimePitch'/>
         <page name='AKMoogLadder'/>
         <page name='AKOscillator'/>
         <page name='AKSawtoothOscillator'/>
