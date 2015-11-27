@@ -29,11 +29,12 @@ public class AKFlatFrequencyResponseReverb: AKOperation {
     }
 
     // MARK: - Initializers
-
+    
     /** Initialize this reverb operation */
     public init(
         _ input: AKOperation,
-        reverbDuration: Float = 0.5) {
+        reverbDuration: Float = 0.5,
+        loopDuration: Float = 0.1) {
 
         self.reverbDuration = reverbDuration
         super.init()
@@ -60,6 +61,7 @@ public class AKFlatFrequencyResponseReverb: AKOperation {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            self.internalAU!.setLoopDuration(loopDuration)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
