@@ -9,7 +9,7 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 let noise = AKPinkNoise()
-noise.amplitude = 0.3
+noise.amplitude = 0.0
 audiokit.audioOutput = noise
 audiokit.start()
 
