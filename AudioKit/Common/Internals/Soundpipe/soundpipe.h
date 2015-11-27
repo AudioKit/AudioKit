@@ -1,14 +1,10 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#ifndef NO_LIBSNDFILE
-#include "sndfile.h"
-#endif 
-
 #define SP_BUFSIZE 4096
 #ifndef SPFLOAT
 #define SPFLOAT float
-#endif 
+#endif
 #define SP_OK 1
 #define SP_NOT_OK 0
 
@@ -25,7 +21,7 @@ typedef struct sp_auxdata {
     void *ptr;
 } sp_auxdata;
 
-typedef struct sp_data { 
+typedef struct sp_data {
     SPFLOAT *out;
     int sr;
     int nchan;
@@ -34,7 +30,7 @@ typedef struct sp_data {
     char filename[200];
     int k;
     uint32_t rand;
-} sp_data; 
+} sp_data;
 
 typedef struct {
     char state;
@@ -73,6 +69,18 @@ void sp_fft_init(sp_fft *fft, int M);
 void sp_fftr(sp_fft *fft, SPFLOAT *buf, int FFTsize);
 void sp_ifftr(sp_fft *fft, SPFLOAT *buf, int FFTsize);
 void sp_fft_destroy(sp_fft *fft);
+#ifndef kiss_fft_scalar
+#define kiss_fft_scalar SPFLOAT
+#endif
+typedef struct {
+    kiss_fft_scalar r;
+    kiss_fft_scalar i;
+}kiss_fft_cpx;
+
+typedef struct kiss_fft_state* kiss_fft_cfg;
+typedef struct kiss_fftr_state* kiss_fftr_cfg;
+
+
 typedef struct {
     SPFLOAT incr;
     SPFLOAT index;
@@ -107,6 +115,8 @@ int sp_gen_sinesum(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_line(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_xline(sp_data *sp, sp_ftbl *ft, const char *argstring);
 int sp_gen_gauss(sp_data *sp, sp_ftbl *ft, SPFLOAT scale, uint32_t seed);
+
+int sp_ftbl_loadfile(sp_data *sp, sp_ftbl **ft, const char *filename);
 typedef struct {
     int mti;
     /* do not change value 624 */
@@ -365,6 +375,18 @@ int sp_phasor_create(sp_phasor **p);
 int sp_phasor_destroy(sp_phasor **p);
 int sp_phasor_init(sp_data *sp, sp_phasor *p, SPFLOAT iphs);
 int sp_phasor_compute(sp_data *sp, sp_phasor *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    void *faust;
+    int argpos;
+    SPFLOAT *args[1];
+    SPFLOAT *amp;
+} sp_pinknoise;
+
+int sp_pinknoise_create(sp_pinknoise **p);
+int sp_pinknoise_destroy(sp_pinknoise **p);
+int sp_pinknoise_init(sp_data *sp, sp_pinknoise *p);
+int sp_pinknoise_compute(sp_data *sp, sp_pinknoise *p, SPFLOAT *in, SPFLOAT *out);
+
 typedef struct{
 size_t size;
 void *auxp;
@@ -407,6 +429,18 @@ int sp_rms_destroy(sp_rms **p);
 int sp_rms_init(sp_data *sp, sp_rms *p);
 int sp_rms_compute(sp_data *sp, sp_rms *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    void *ud;
+    int argpos;
+    SPFLOAT *args[2];
+    SPFLOAT *freq;
+    SPFLOAT *amp;
+} sp_saw;
+
+int sp_saw_create(sp_saw **p);
+int sp_saw_destroy(sp_saw **p);
+int sp_saw_init(sp_data *sp, sp_saw *p);
+int sp_saw_compute(sp_data *sp, sp_saw *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
     SPFLOAT inmin, inmax, outmin, outmax;
 } sp_scale;
 
@@ -414,6 +448,19 @@ int sp_scale_create(sp_scale **p);
 int sp_scale_destroy(sp_scale **p);
 int sp_scale_init(sp_data *sp, sp_scale *p);
 int sp_scale_compute(sp_data *sp, sp_scale *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    void *ud;
+    int argpos;
+    SPFLOAT *args[3];
+    SPFLOAT *freq;
+    SPFLOAT *amp;
+    SPFLOAT *width;
+} sp_square;
+
+int sp_square_create(sp_square **p);
+int sp_square_destroy(sp_square **p);
+int sp_square_init(sp_data *sp, sp_square *p);
+int sp_square_compute(sp_data *sp, sp_square *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct{
     SPFLOAT freq, fdbgain;
     SPFLOAT LPdelay, APdelay;
@@ -438,6 +485,19 @@ int sp_tbvcf_create(sp_tbvcf **p);
 int sp_tbvcf_destroy(sp_tbvcf **p);
 int sp_tbvcf_init(sp_data *sp, sp_tbvcf *p);
 int sp_tbvcf_compute(sp_data *sp, sp_tbvcf *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    void *ud;
+    int argpos;
+    SPFLOAT *args[2];
+    SPFLOAT *freq;
+    SPFLOAT *amp;
+} sp_triangle;
+
+int sp_triangle_create(sp_triangle **p);
+int sp_triangle_destroy(sp_triangle **p);
+int sp_triangle_init(sp_data *sp, sp_triangle *p);
+int sp_triangle_compute(sp_data *sp, sp_triangle *p, SPFLOAT *in, SPFLOAT *out);
+
 typedef struct {
     SPFLOAT hp;
     SPFLOAT c1, c2, yt1, prvhp;

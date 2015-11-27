@@ -1,0 +1,37 @@
+installation-directory: "Signal\ Generators/Oscillators/"
+
+sp-module: saw
+
+operation: AKSawtoothOscillator
+
+four-letter-code: sawo
+
+summary: Bandlimited sawtooth oscillator
+
+
+one-word-description: sawtooth
+
+description: Bandlimited sawtooth oscillator
+  This is a bandlimited sawtooth oscillator ported from the "sawtooth" function from the Faust programming language.
+
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  comment: "In cycles per second, or Hz.",
+  au-name: "Frequency (Hz)",
+  au-unit: Hertz,
+  default: 440,
+  minimum: 0.0,
+  maximum: 20000.0
+}
+- amp: {
+  ak-variable: amplitude,
+  comment: "Output Amplitude.",
+  au-name: "Amplitude",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 1.0
+}
+

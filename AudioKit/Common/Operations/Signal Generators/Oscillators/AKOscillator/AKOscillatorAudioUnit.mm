@@ -29,6 +29,18 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (size_t)getTableSize {
+    return _kernel.getTableSize();
+}
+
+- (void)setupTable {
+    _kernel.setupTable();
+}
+
+- (void)setTableValue:(float)value atIndex:(UInt32)index {
+    _kernel.setTableValue(index, value);
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
@@ -187,7 +199,7 @@
             }
         }
 
-        state->setBuffers(inAudioBufferList, outAudioBufferList);
+        state->setBuffer(outAudioBufferList);
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
 
         return noErr;
