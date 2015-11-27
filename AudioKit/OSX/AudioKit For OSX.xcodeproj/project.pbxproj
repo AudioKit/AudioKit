@@ -176,7 +176,6 @@
 		C42F38811C058442000E937C /* AKLowPassButterworthFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F37BC1C058442000E937C /* AKLowPassButterworthFilterAudioUnit.mm */; };
 		C42F38821C058442000E937C /* AKLowPassButterworthFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42F37BD1C058442000E937C /* AKLowPassButterworthFilterDSPKernel.hpp */; };
 		C42F38831C058442000E937C /* AKAUReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F37BF1C058442000E937C /* AKAUReverb.swift */; };
-		C42F38841C058442000E937C /* AKAUReverb2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F37C01C058442000E937C /* AKAUReverb2.swift */; };
 		C42F38851C058442000E937C /* AKChowningReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F37C21C058442000E937C /* AKChowningReverb.swift */; };
 		C42F38861C058442000E937C /* AKChowningReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F37C31C058442000E937C /* AKChowningReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42F38871C058442000E937C /* AKChowningReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F37C41C058442000E937C /* AKChowningReverbAudioUnit.mm */; };
@@ -405,7 +404,6 @@
 		C42F37BC1C058442000E937C /* AKLowPassButterworthFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKLowPassButterworthFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C42F37BD1C058442000E937C /* AKLowPassButterworthFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKLowPassButterworthFilterDSPKernel.hpp; sourceTree = "<group>"; };
 		C42F37BF1C058442000E937C /* AKAUReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUReverb.swift; sourceTree = "<group>"; };
-		C42F37C01C058442000E937C /* AKAUReverb2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAUReverb2.swift; sourceTree = "<group>"; };
 		C42F37C21C058442000E937C /* AKChowningReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKChowningReverb.swift; sourceTree = "<group>"; };
 		C42F37C31C058442000E937C /* AKChowningReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKChowningReverbAudioUnit.h; sourceTree = "<group>"; };
 		C42F37C41C058442000E937C /* AKChowningReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKChowningReverbAudioUnit.mm; sourceTree = "<group>"; };
@@ -1039,7 +1037,6 @@
 			isa = PBXGroup;
 			children = (
 				C42F37BF1C058442000E937C /* AKAUReverb.swift */,
-				C42F37C01C058442000E937C /* AKAUReverb2.swift */,
 				C42F37C11C058442000E937C /* AKChowningReverb */,
 				C42F37C61C058442000E937C /* AKFlatFrequencyResponseReverb */,
 				C42F37CB1C058442000E937C /* AKReverb */,
@@ -1457,7 +1454,6 @@
 				C42F38241C058442000E937C /* AKAUPeakLimiter.swift in Sources */,
 				C4F52E471C08107000F22BD1 /* AKSquareWaveOscillator.swift in Sources */,
 				C4F52DE21C07B86100F22BD1 /* AKTanhDistortion.swift in Sources */,
-				C42F38841C058442000E937C /* AKAUReverb2.swift in Sources */,
 				C42F38041C058442000E937C /* AKLinearTransformation.swift in Sources */,
 				C42F37D81C058442000E937C /* atone.c in Sources */,
 				C42F38AB1C0587B9000E937C /* AKAURingModulatorWindow.swift in Sources */,
