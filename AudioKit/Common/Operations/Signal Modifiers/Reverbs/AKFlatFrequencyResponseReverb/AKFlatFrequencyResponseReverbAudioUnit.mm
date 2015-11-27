@@ -30,6 +30,9 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setLoopDuration:(float)duration {
+    _kernel.setLoopDuration(duration);
+}
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {

@@ -33,13 +33,15 @@ public:
 
         sp_create(&sp);
         sp_allpass_create(&allpass);
-        sp_allpass_init(sp, allpass, 0.1); // Temporary Modification
+        sp_allpass_init(sp, allpass, internalLoopDuration);
         allpass->revtime = 0.5;
     }
 
     void reset() {
     }
-
+    void setLoopDuration(float duration) {
+        internalLoopDuration = duration;
+    }
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
@@ -102,6 +104,8 @@ private:
 
     sp_data *sp;
     sp_allpass *allpass;
+    
+    float internalLoopDuration = 0.1;
 
 public:
     AKParameterRamper reverbDurationRamper = 0.5;
