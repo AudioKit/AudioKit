@@ -28,9 +28,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKEqualizerFilterAudioUnit.h>
 #import <AudioKit/AKFlatFrequencyResponseReverbAudioUnit.h>
 #import <AudioKit/AKFormantFilterAudioUnit.h>
-#import <AudioKit/AKHighPassFilterAudioUnit.h>
+#import <AudioKit/AKToneComplementFilterAudioUnit.h>
 #import <AudioKit/AKHighShelfParametricEqualizerFilterAudioUnit.h>
-#import <AudioKit/AKLowPassFilterAudioUnit.h>
+#import <AudioKit/AKToneFilterAudioUnit.h>
 #import <AudioKit/AKLowShelfParametricEqualizerFilterAudioUnit.h>
 #import <AudioKit/AKPeakingParametricEqualizerFilterAudioUnit.h>
 #import <AudioKit/AKStringResonatorAudioUnit.h>
