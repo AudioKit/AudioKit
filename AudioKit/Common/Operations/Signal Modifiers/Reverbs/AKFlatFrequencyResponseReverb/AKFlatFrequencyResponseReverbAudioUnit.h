@@ -12,6 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKFlatFrequencyResponseReverbAudioUnit : AUAudioUnit
+- (void)setLoopDuration:(float)duration;
 @end
 
 #endif /* AKFlatFrequencyResponseReverbAudioUnit_h */

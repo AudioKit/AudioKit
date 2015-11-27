@@ -34,4 +34,10 @@ public class AKManager {
             fatalError("Could not start engine. error: \(error).")
         }
     }
+    
+    /** Stop the audio engine */
+    public func stop() {
+        // Stop the engine.
+        self.engine.stop()
+    }
 }

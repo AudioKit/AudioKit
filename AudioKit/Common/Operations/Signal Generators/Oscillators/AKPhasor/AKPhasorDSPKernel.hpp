@@ -67,8 +67,7 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList* inBufferList, AudioBufferList* outBufferList) {
-        inBufferListPtr = inBufferList;
+    void setBuffer(AudioBufferList* outBufferList) {
         outBufferListPtr = outBufferList;
     }
 
@@ -100,7 +99,6 @@ private:
     int channels = 2;
     float sampleRate = 44100.0;
 
-    AudioBufferList* inBufferListPtr = nullptr;
     AudioBufferList* outBufferListPtr = nullptr;
 
     sp_data *sp;

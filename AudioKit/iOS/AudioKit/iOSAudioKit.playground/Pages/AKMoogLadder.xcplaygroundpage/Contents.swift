@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## AKMoogLadder
-//: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
+//: ### Add description
 import XCPlayground
 import AudioKit
 
