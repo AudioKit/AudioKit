@@ -1,0 +1,25 @@
+installation-directory: "Signal Generators/Random Generators/"
+
+sp-module: pinknoise
+
+operation: AKPinkNoise
+
+four-letter-code: pink
+
+summary: Pink noise generator
+
+one-word-description: noise
+
+description: Faust-based pink noise generator
+
+parameters:
+- amp: {
+  ak-variable: amplitude,
+  comment: "Amplitude. (Value between 0-1).",
+  au-name: "Amplitude",
+  au-unit: Generic,
+  default: 1.0,
+  minimum: 0,
+  maximum: 1.0
+}
+
