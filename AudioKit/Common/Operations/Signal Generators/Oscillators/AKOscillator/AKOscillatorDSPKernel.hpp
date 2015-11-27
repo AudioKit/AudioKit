@@ -33,17 +33,25 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp_ftbl_create(sp, &ftbl, 4096);
-        sp_gen_sine(sp, ftbl);
-        
         sp_osc_create(&osc);
         sp_osc_init(sp, osc, ftbl, 0);
         osc->freq = 440;
         osc->amp = 1;
-        
-        
     }
 
+    size_t getTableSize() {
+        return ftbl->size;
+    }
+    
+    void setupTable() {
+        sp_ftbl_create(sp, &ftbl, 4096);
+        NSLog(@"setting up table");
+    }
+    
+    void setTableValue(uint32_t index, float value) {
+        ftbl->tbl[index] = value;
+    }
+    
     void reset() {
     }
 
