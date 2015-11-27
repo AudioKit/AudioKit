@@ -185,6 +185,10 @@
 		C42F36BE1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35FC1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42F36BF1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F35FD1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.mm */; };
 		C42F36C01C057F4C000E937C /* AKFlatFrequencyResponseReverbDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42F35FE1C057F4C000E937C /* AKFlatFrequencyResponseReverbDSPKernel.hpp */; };
+		C45C33F11C08DF2000E3C7F0 /* AKCostelloReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45C33ED1C08DF2000E3C7F0 /* AKCostelloReverb.swift */; };
+		C45C33F21C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45C33EE1C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C45C33F31C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45C33EF1C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.mm */; };
+		C45C33F41C08DF2000E3C7F0 /* AKCostelloReverbDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C45C33F01C08DF2000E3C7F0 /* AKCostelloReverbDSPKernel.hpp */; };
 		C472F6F31C06F7B2001A65C5 /* AKSawtoothOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C472F6EF1C06F7B2001A65C5 /* AKSawtoothOscillator.swift */; };
 		C472F6F41C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C472F6F01C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C472F6F51C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C472F6F11C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm */; };
@@ -402,6 +406,10 @@
 		C42F35FD1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlatFrequencyResponseReverbAudioUnit.mm; sourceTree = "<group>"; };
 		C42F35FE1C057F4C000E937C /* AKFlatFrequencyResponseReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFlatFrequencyResponseReverbDSPKernel.hpp; sourceTree = "<group>"; };
 		C42F36C11C05807A000E937C /* iOSAudioKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = iOSAudioKit.playground; path = AudioKit/iOSAudioKit.playground; sourceTree = "<group>"; };
+		C45C33ED1C08DF2000E3C7F0 /* AKCostelloReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCostelloReverb.swift; sourceTree = "<group>"; };
+		C45C33EE1C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCostelloReverbAudioUnit.h; sourceTree = "<group>"; };
+		C45C33EF1C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCostelloReverbAudioUnit.mm; sourceTree = "<group>"; };
+		C45C33F01C08DF2000E3C7F0 /* AKCostelloReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCostelloReverbDSPKernel.hpp; sourceTree = "<group>"; };
 		C472F6EF1C06F7B2001A65C5 /* AKSawtoothOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSawtoothOscillator.swift; sourceTree = "<group>"; };
 		C472F6F01C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSawtoothOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C472F6F11C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSawtoothOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -1015,8 +1023,8 @@
 				C42F35F31C057F4C000E937C /* AKAUReverb.swift */,
 				C42F35F41C057F4C000E937C /* AKAUReverb2.swift */,
 				C42F35F51C057F4C000E937C /* AKChowningReverb */,
+				C45C33EC1C08DF2000E3C7F0 /* AKCostelloReverb */,
 				C42F35FA1C057F4C000E937C /* AKFlatFrequencyResponseReverb */,
-				C42F35FF1C057F4C000E937C /* AKReverb */,
 			);
 			path = Reverbs;
 			sourceTree = "<group>";
@@ -1043,11 +1051,15 @@
 			path = AKFlatFrequencyResponseReverb;
 			sourceTree = "<group>";
 		};
-		C42F35FF1C057F4C000E937C /* AKReverb */ = {
+		C45C33EC1C08DF2000E3C7F0 /* AKCostelloReverb */ = {
 			isa = PBXGroup;
 			children = (
+				C45C33ED1C08DF2000E3C7F0 /* AKCostelloReverb.swift */,
+				C45C33EE1C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.h */,
+				C45C33EF1C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.mm */,
+				C45C33F01C08DF2000E3C7F0 /* AKCostelloReverbDSPKernel.hpp */,
 			);
-			path = AKReverb;
+			path = AKCostelloReverb;
 			sourceTree = "<group>";
 		};
 		C472F6EE1C06F7B2001A65C5 /* AKSawtoothOscillator */ = {
@@ -1156,6 +1168,7 @@
 				C42F36471C057F4C000E937C /* AKPhasorAudioUnit.h in Headers */,
 				C42F365E1C057F4C000E937C /* AKBitCrusherAudioUnit.h in Headers */,
 				C4F52DF31C07F53200F22BD1 /* AKToneComplementFilterDSPKernel.hpp in Headers */,
+				C45C33F21C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.h in Headers */,
 				C42F36701C057F4C000E937C /* AKCombFilterAudioUnit.h in Headers */,
 				C42F36781C057F4C000E937C /* AKEqualizerFilterAudioUnit.h in Headers */,
 				C4F52DF51C07F53200F22BD1 /* AKToneFilterAudioUnit.h in Headers */,
@@ -1192,6 +1205,7 @@
 				C42F364D1C057F4C000E937C /* AKWhiteNoiseDSPKernel.hpp in Headers */,
 				C4F52DDC1C07B7DE00F22BD1 /* AKTanhDistortionDSPKernel.hpp in Headers */,
 				C42F36B41C057F4C000E937C /* AKLowPassButterworthFilterAudioUnit.h in Headers */,
+				C45C33F41C08DF2000E3C7F0 /* AKCostelloReverbDSPKernel.hpp in Headers */,
 				C42F36741C057F4C000E937C /* AKDCBlockAudioUnit.h in Headers */,
 				C472F6F61C06F7B2001A65C5 /* AKSawtoothOscillatorDSPKernel.hpp in Headers */,
 				C4F52E121C08070200F22BD1 /* AKPinkNoiseDSPKernel.hpp in Headers */,
@@ -1296,6 +1310,7 @@
 				C42F36971C057F4C000E937C /* AKPeakingParametricEqualizerFilter.swift in Sources */,
 				C4F52E0F1C08070200F22BD1 /* AKPinkNoise.swift in Sources */,
 				C42F366F1C057F4C000E937C /* AKCombFilter.swift in Sources */,
+				C45C33F31C08DF2000E3C7F0 /* AKCostelloReverbAudioUnit.mm in Sources */,
 				C42F36231C057F4C000E937C /* pareq.c in Sources */,
 				C42F364C1C057F4C000E937C /* AKWhiteNoiseAudioUnit.mm in Sources */,
 				C42F36571C057F4C000E937C /* AKAUDynamicsProcessor.swift in Sources */,
@@ -1312,6 +1327,7 @@
 				C42F36141C057F4C000E937C /* comb.c in Sources */,
 				C42F36461C057F4C000E937C /* AKPhasor.swift in Sources */,
 				C42F36AD1C057F4C000E937C /* AKBandRejectButterworthFilterAudioUnit.mm in Sources */,
+				C45C33F11C08DF2000E3C7F0 /* AKCostelloReverb.swift in Sources */,
 				C42F36051C057F4C000E937C /* AKGetAUParams.swift in Sources */,
 				C42F361B1C057F4C000E937C /* fosc.c in Sources */,
 				C42F36BB1C057F4C000E937C /* AKChowningReverbAudioUnit.mm in Sources */,
