@@ -45,7 +45,7 @@ public class AKSawtoothOscillator: AKOperation {
         super.init()
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
+        description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x7361776f /*'sawo'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
