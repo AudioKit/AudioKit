@@ -8,11 +8,9 @@
 
 import AVFoundation
 
-
 /** AudioKit version of Apple's Reverb2 Audio Unit */
 public class AKAUReverb2: AKOperation {
-  
-    #if os(iOS)
+    
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
         componentSubType: kAudioUnitSubType_Reverb2,
@@ -118,7 +116,7 @@ public class AKAUReverb2: AKOperation {
                 decayTimeAtNyquist, 0)
         }
     }
-    /** Decay Time (Secs) ranges from 0.001 to 20.0 (Default: 0.5) 
+    /** Decay Time (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
      Sets both atNyquist and at0Hz decay times*/
     public var decayTime: Float = 0.5 {
         didSet {
@@ -167,21 +165,21 @@ public class AKAUReverb2: AKOperation {
         decayTimeAt0Hz: Float = 1.0,
         decayTimeAtNyquist: Float = 0.5,
         randomizeReflections: Float = 1) {
-    
-        self.dryWetMix = dryWetMix
-        self.gain = gain
-        self.minDelayTime = minDelayTime
-        self.maxDelayTime = maxDelayTime
-        self.decayTimeAt0Hz = decayTimeAt0Hz
-        self.decayTimeAtNyquist = decayTimeAtNyquist
-        self.randomizeReflections = randomizeReflections
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+            
+            self.dryWetMix = dryWetMix
+            self.gain = gain
+            self.minDelayTime = minDelayTime
+            self.maxDelayTime = maxDelayTime
+            self.decayTimeAt0Hz = decayTimeAt0Hz
+            self.decayTimeAtNyquist = decayTimeAtNyquist
+            self.randomizeReflections = randomizeReflections
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
     }
-    #endif
+    
 }
