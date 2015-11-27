@@ -215,7 +215,7 @@
             }
         }
 
-        state->setBuffers(inAudioBufferList, outAudioBufferList);
+        state->setBuffer(outAudioBufferList);
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
 
         return noErr;

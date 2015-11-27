@@ -67,7 +67,7 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList* inBufferList, AudioBufferList* outBufferList) {
+    void setBuffer(AudioBufferList* outBufferList) {
         outBufferListPtr = outBufferList;
     }
 
