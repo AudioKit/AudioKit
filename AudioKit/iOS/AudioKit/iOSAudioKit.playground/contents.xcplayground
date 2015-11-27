@@ -29,5 +29,6 @@
         <page name='AKTriangleOscillator'/>
         <page name='AKPinkNoise'/>
         <page name='AKWhiteNoise'/>
+        <page name='AKFlatFrequencyResponseReverb'/>
     </pages>
 </playground>
