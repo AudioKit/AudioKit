@@ -12,6 +12,9 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKOscillatorAudioUnit : AUAudioUnit
+- (size_t)getTableSize;
+- (void)setupTable;
+- (void)setTableValue:(float)value atIndex:(UInt32)index;
 @end
 
 #endif /* AKOscillatorAudioUnit_h */
