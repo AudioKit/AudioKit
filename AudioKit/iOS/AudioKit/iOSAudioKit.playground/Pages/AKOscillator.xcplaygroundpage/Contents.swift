@@ -16,13 +16,23 @@ let square = AKTable.standardSquareWave()
 for value in square.values { value } // Click the eye icon ->
 
 let sine = AKTable.standardSineWave()
-for value in sine.values { value } // Click the eye icon ->
+for value in sine.values {
+    value
+} // Click the eye icon ->
 
 let sawtooth = AKTable.standardSawtoothWave()
 for value in sawtooth.values { value } // Click the eye icon ->
 
+let custom = AKTable.standardSineWave()
+for i in 0..<custom.values.count {
+    custom.values[i] += randomFloat(-0.3, 0.3) + Float(i)/2048.0 - 1.0
+}
+
+for value in custom.values {
+    value
+} // Click the eye icon ->
 //: Try changing the table to triangle, square, sine, or sawtooth
-let oscillator = AKOscillator(table: sine)
+let oscillator = AKOscillator(table: custom)
 audiokit.audioOutput = oscillator
 audiokit.start()
 
