@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw'>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Intro'/>
         <page name='Connecting Operations'/>
         <page name='AKAUBandPassFilter'/>
         <page name='AKAUDelay'/>
+        <page name='AKVariableDelay'/>
         <page name='AKAUDynamicsProcessor'/>
         <page name='Effects'/>
         <page name='AKAUDecimator'/>
@@ -20,6 +21,7 @@
         <page name='AKAUPeakLimiter'/>
         <page name='AKAURingModulator'/>
         <page name='AKAUTimePitch'/>
+        <page name='AKFlatFrequencyResponseReverb'/>
         <page name='AKFMOscillator'/>
         <page name='AKMoogLadder'/>
         <page name='AKOscillator'/>
@@ -29,6 +31,5 @@
         <page name='AKTriangleOscillator'/>
         <page name='AKPinkNoise'/>
         <page name='AKWhiteNoise'/>
-        <page name='AKFlatFrequencyResponseReverb'/>
     </pages>
 </playground>
