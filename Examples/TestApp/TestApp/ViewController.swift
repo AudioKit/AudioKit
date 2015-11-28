@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     var fmOsc = AKFMOscillator()
     var exs = AKAUSampler()
     var exs2 = AKAUSampler()
+    var seq = AKSequencer(filename:"4tracks")
     var mixer = AKMixer()
     
     override func viewDidLoad() {
@@ -57,12 +58,14 @@ class ViewController: UIViewController {
         midi.openMidiIn("Session 1")
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
+        //        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
         
-        let seq = AKSequencer(filename: "4tracks")
-        CAShow(seq.seqPtr)
-//        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
+        //        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
         
-        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
+        seq.setGlobalMidiOutput(midi)
+        seq.setLength(4)
+        CAShow(seq.sequencePointer)
+        print(seq.length)
         
     }
     
@@ -78,14 +81,18 @@ class ViewController: UIViewController {
 //        exs2.playNote(notif.userInfo?.indexForKey("note"))
     }
     @IBAction func playNote(){
-        exs.playNote(Int(arc4random_uniform(127)))
+//        exs.playNote(Int(arc4random_uniform(127)))
+        seq.play()
     }
     @IBAction func playNote2(){
-        exs2.playNote(Int(arc4random_uniform(127)))
+        seq.rewind()
+//        exs2.playNote(Int(arc4random_uniform(127)))
     }
     @IBAction func playNoteboth(){
-        exs.playNote(Int(arc4random_uniform(127)))
-        exs2.playNote(Int(arc4random_uniform(127)))
+        seq.loopToggle()
+        print(seq.loopEnabled)
+//        exs.playNote(Int(arc4random_uniform(127)))
+//        exs2.playNote(Int(arc4random_uniform(127)))
     }
     @IBAction func connectMidi(){
         midi.openMidiOut("Session 1")
