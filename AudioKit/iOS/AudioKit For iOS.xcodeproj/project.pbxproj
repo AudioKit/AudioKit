@@ -222,6 +222,7 @@
 		C4F52E261C080C0900F22BD1 /* pinknoise.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F52E251C080C0900F22BD1 /* pinknoise.c */; };
 		C4F52E281C080C1000F22BD1 /* square.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F52E271C080C1000F22BD1 /* square.c */; };
 		C4F52E2A1C080C1F00F22BD1 /* triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = C4F52E291C080C1F00F22BD1 /* triangle.c */; };
+		FEBD3EFF1C095FFD009BC7F1 /* AKSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD3EFE1C095FFC009BC7F1 /* AKSequencer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -443,6 +444,7 @@
 		C4F52E251C080C0900F22BD1 /* pinknoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinknoise.c; sourceTree = "<group>"; };
 		C4F52E271C080C1000F22BD1 /* square.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = square.c; sourceTree = "<group>"; };
 		C4F52E291C080C1F00F22BD1 /* triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = triangle.c; sourceTree = "<group>"; };
+		FEBD3EFE1C095FFC009BC7F1 /* AKSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -597,6 +599,7 @@
 		C42F35421C057F4C000E937C /* Operations */ = {
 			isa = PBXGroup;
 			children = (
+				FEBD3EFE1C095FFC009BC7F1 /* AKSequencer.swift */,
 				C42F35431C057F4C000E937C /* AKMainMixer.swift */,
 				C42F35441C057F4C000E937C /* AKMicrophone.swift */,
 				C42F35451C057F4C000E937C /* AKMixer.swift */,
@@ -1329,6 +1332,7 @@
 				C42F36AD1C057F4C000E937C /* AKBandRejectButterworthFilterAudioUnit.mm in Sources */,
 				C45C33F11C08DF2000E3C7F0 /* AKCostelloReverb.swift in Sources */,
 				C42F36051C057F4C000E937C /* AKGetAUParams.swift in Sources */,
+				FEBD3EFF1C095FFD009BC7F1 /* AKSequencer.swift in Sources */,
 				C42F361B1C057F4C000E937C /* fosc.c in Sources */,
 				C42F36BB1C057F4C000E937C /* AKChowningReverbAudioUnit.mm in Sources */,
 				C42F36001C057F4C000E937C /* AKManager.swift in Sources */,

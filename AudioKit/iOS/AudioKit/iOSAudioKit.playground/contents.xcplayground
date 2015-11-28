@@ -32,5 +32,6 @@
         <page name='AKPinkNoise'/>
         <page name='AKWhiteNoise'/>
         <page name='AKCostelloReverb'/>
+        <page name='AKSequencer'/>
     </pages>
 </playground>
