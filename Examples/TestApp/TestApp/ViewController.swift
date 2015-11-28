@@ -42,8 +42,8 @@ class ViewController: UIViewController {
         //getAUParams((limiter?.internalAU)!)
         
         */
-        exs.loadEXS24("Sounds/sawPiano1")
-        exs2.loadWav("Sounds/kylebell1-shrt")
+//        exs.loadEXS24("Sounds/sawPiano1")
+//        exs2.loadWav("Sounds/kylebell1-shrt")
         
         mixer.connect(exs)
         mixer.connect(exs2)
@@ -54,11 +54,14 @@ class ViewController: UIViewController {
         audiokit.start()
         
         midi.openMidiOut("Session 1")
-        midi.openMidiIn()
+        midi.openMidiIn("Session 1")
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
         
+        let seq = AKSequencer(filename: "4tracks")
+        CAShow(seq.seqPtr)
 //        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
+        
         defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
         
     }
