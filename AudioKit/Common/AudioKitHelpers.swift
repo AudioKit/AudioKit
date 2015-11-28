@@ -49,7 +49,7 @@ public func randomInt(range: Range<Int>) -> Int {
  - SystemCommand: 
     differ from system to system
 */
-enum AKMidiStatus: Int {
+public enum AKMidiStatus: Int {
     /// Note off is something resembling a keyboard key release
     case NoteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -72,7 +72,7 @@ enum AKMidiStatus: Int {
     case SystemCommand = 15
     
     /// Return a unique string for use as broadcasted name in NSNotificationCenter
-    func name() -> String {
+    public func name() -> String {
         return "AudioKit Midi Status: \(self)"
     }
 }
@@ -92,7 +92,7 @@ enum AKMidiStatus: Int {
  - ActiveSensing: Active Sensing
  - SysReset: System Reset
  */
-enum AKMidiSystemCommand: UInt8 {
+public enum AKMidiSystemCommand: UInt8 {
     /// Trivial Case of None
     case None = 0
     /// System Exclusive
@@ -141,7 +141,7 @@ enum AKMidiSystemCommand: UInt8 {
  - AllNotesOff: MIDI Panic
  - CC# (0, 3, 9, 12-31) Unnamed Continuous Controllers
  */
-enum AKMidiControl: UInt8 {
+public enum AKMidiControl: UInt8 {
     /// Modulation Control
     case ModulationWheel = 1
     /// Breath Control (in MIDI Saxophones for example)
@@ -232,7 +232,7 @@ enum AKMidiControl: UInt8 {
     /// Continuous Controller Number 31
     case CC31 = 31
 }
-func CheckError(error: OSStatus) {
+public func CheckError(error: OSStatus) {
     if error == 0 {return}
     switch error {
     // AudioToolbox
