@@ -25,7 +25,9 @@ public class AKMidi: AKOperation {
     var midiInName: CFString = "Midi In Port"
     
     /// MIDI End Point
-    public var midiEndpoint = MIDIEndpointRef()
+    public var midiEndpoint:MIDIEndpointRef{
+        return midiEndpoints[0]
+    }
     
     /// Array of MIDI Out ports
     public var midiOutPorts: [MIDIPortRef] = []
