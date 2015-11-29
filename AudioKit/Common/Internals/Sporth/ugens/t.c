@@ -15,7 +15,6 @@ int sporth_tget(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    SPFLOAT out = 0;
     sporth_tbl_d *td;
     char *ftname;
 
@@ -64,7 +63,6 @@ int sporth_tset(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    SPFLOAT out = 0;
     sporth_tbl_d *td;
     char *ftname;
 
@@ -81,8 +79,8 @@ int sporth_tset(sporth_stack *stack, void *ud)
             }
             td = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
-            td->val = floor(sporth_stack_pop_float(stack));
             td->index = floor(sporth_stack_pop_float(stack));
+            td->val = floor(sporth_stack_pop_float(stack));
             if(plumber_ftmap_search(pd, ftname, &td->ft) == PLUMBER_NOTOK) {
                 fprintf(stderr, "tset: could not find table '%s'\n", ftname);
                 stack->error++;
@@ -93,8 +91,8 @@ int sporth_tset(sporth_stack *stack, void *ud)
 
         case PLUMBER_COMPUTE:
             td = pd->last->ud;
-            td->val = floor(sporth_stack_pop_float(stack));
             td->index = (unsigned int) floor(sporth_stack_pop_float(stack)) % td->ft->size;
+            td->val = floor(sporth_stack_pop_float(stack));
             td->ft->tbl[td->index] = td->val;
             break;
 
@@ -116,7 +114,7 @@ int sporth_tblsize(sporth_stack *stack, void *ud)
 
     char *ftname;
     sp_ftbl *ft;
-    uint32_t *tsize;
+    size_t *tsize;
 
     switch(pd->mode){
         case PLUMBER_CREATE:

@@ -10,7 +10,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <math.h>
-#include "base.h"
+#include "soundpipe.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -3097,7 +3097,7 @@ void sp_fft_init(sp_fft *fft, int M)
     //int16_t **BRLowArray;
     SPFLOAT *utbl;
     int16_t *BRLow;
-    int i;
+//    int i;
 
     //fft->FFT_table_1 = malloc(sizeof(SPFLOAT*) * 32);
     //fft->FFT_table_2 = malloc(sizeof(int16_t*) * 32);
@@ -3188,8 +3188,8 @@ static inline void getTablePointers(sp_fft *p, SPFLOAT **ct, int16_t **bt,
 
 void sp_fftr(sp_fft *fft, SPFLOAT *buf, int FFTsize)
 {
-    SPFLOAT *Utbl;
-    int16_t *BRLow;
+//    SPFLOAT *Utbl;
+//    int16_t *BRLow;
     int   M = log2(FFTsize);
 
     //M = ConvertFFTSize(fft, FFTsize);
@@ -3199,8 +3199,8 @@ void sp_fftr(sp_fft *fft, SPFLOAT *buf, int FFTsize)
 
 void sp_ifftr(sp_fft *fft, SPFLOAT *buf, int FFTsize)
 {
-    SPFLOAT *Utbl;
-    int16_t *BRLow;
+//    SPFLOAT *Utbl;
+//    int16_t *BRLow;
     int   M = log2(FFTsize);
 
     //M = ConvertFFTSize(fft, FFTsize);

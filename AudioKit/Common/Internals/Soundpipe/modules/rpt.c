@@ -23,7 +23,7 @@ int sp_rpt_init(sp_data *sp, sp_rpt *p, SPFLOAT maxdur)
     p->running = 0;
     p->reps = 4;
     p->count = p->reps;
-    p->size = p->aux.size;
+    p->size = (int) p->aux.size;
     p->sr = sp->sr;
     p->bpm = 130;
     p->div = 4;
