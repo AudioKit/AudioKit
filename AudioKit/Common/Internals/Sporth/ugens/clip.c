@@ -5,9 +5,7 @@ int sporth_clip(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     SPFLOAT in;
     SPFLOAT out;
-    int meth;
     SPFLOAT lim;
-    SPFLOAT arg;
     sp_clip *clip;
 
     switch(pd->mode) {

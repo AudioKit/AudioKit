@@ -6,7 +6,6 @@ int sporth_pan2(sporth_stack *stack, void *ud)
     SPFLOAT in;
     SPFLOAT out_left;
     SPFLOAT out_right;
-    uint32_t type;
     SPFLOAT pan;
     sp_pan2 *pan2;
 
@@ -47,7 +46,6 @@ int sporth_pan2(sporth_stack *stack, void *ud)
             pan = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
             pan2 = pd->last->ud;
-            pan2->type = type;
             pan2->pan = pan;
             sp_pan2_compute(pd->sp, pan2, &in, &out_left, &out_right);
             sporth_stack_push_float(stack, out_left);

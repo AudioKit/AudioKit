@@ -67,7 +67,7 @@ int sp_gbuzz_compute(sp_data *sp, sp_gbuzz *p, SPFLOAT *in, SPFLOAT *out)
     ftp = p->ft;
     ftbl = ftp->tbl;
     lobits = ftp->lobits;
-    lenmask = ftp->size - 1;
+    lenmask = (int) ftp->size - 1;
     k = (int32_t)p->lharm;
     
     if ((nn = (int32_t)p->nharm)<0) nn = -nn;

@@ -1,64 +1,64 @@
 #include "plumber.h"
 
-int sporth_randi(sporth_stack *stack, void *ud)
+int sporth_randh(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     SPFLOAT out;
+    SPFLOAT freq;
     SPFLOAT min;
     SPFLOAT max;
-    SPFLOAT cps;
-    sp_randi *randi;
+    sp_randh *randh;
 
     switch(pd->mode) {
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "randi: Creating\n");
+            fprintf(stderr, "randh: Creating\n");
 #endif
 
-            sp_randi_create(&randi);
-            plumber_add_module(pd, SPORTH_RANDI, sizeof(sp_randi), randi);
+            sp_randh_create(&randh);
+            plumber_add_module(pd, SPORTH_RANDH, sizeof(sp_randh), randh);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "randi: Initialising\n");
+            fprintf(stderr, "randh: Initialising\n");
 #endif
 
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for randi\n");
+                fprintf(stderr,"Not enough arguments for randh\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            cps = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
-            randi = pd->last->ud;
-            sp_randi_init(pd->sp, randi);
+            freq = sporth_stack_pop_float(stack);
+            randh = pd->last->ud;
+            sp_randh_init(pd->sp, randh);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for randi\n");
+                fprintf(stderr,"Not enough arguments for randh\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            cps = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
-            randi = pd->last->ud;
-            randi->min = min;
-            randi->max = max;
-            randi->cps = cps;
-            sp_randi_compute(pd->sp, randi, NULL, &out);
+            freq = sporth_stack_pop_float(stack);
+            randh = pd->last->ud;
+            randh->freq = freq;
+            randh->min = min;
+            randh->max = max;
+            sp_randh_compute(pd->sp, randh, NULL, &out);
             sporth_stack_push_float(stack, out);
             break;
         case PLUMBER_DESTROY:
-            randi = pd->last->ud;
-            sp_randi_destroy(&randi);
+            randh = pd->last->ud;
+            sp_randh_destroy(&randh);
             break;
         default:
-            fprintf(stderr, "randi: Uknown mode!\n");
+            fprintf(stderr, "randh: Uknown mode!\n");
             break;
     }
     return PLUMBER_OK;

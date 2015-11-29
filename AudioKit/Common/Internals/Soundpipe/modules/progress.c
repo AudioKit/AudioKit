@@ -18,7 +18,7 @@ int sp_progress_init(sp_data *sp, sp_progress *p)
     p->nbars = 40;
     p->skip = 1000;
     p->counter = 0;
-    p->len = sp->len;
+    p->len = (int) sp->len;
     return SP_OK;
 }
 

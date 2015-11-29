@@ -41,7 +41,7 @@ int sporth_check_args(sporth_stack *stack, const char *args)
 {
     if(stack->error > 0) return SPORTH_NOTOK;
 
-    int len = strlen(args);
+    int len = (int) strlen(args);
     int i;
     if(len > stack->pos) {
        fprintf(stderr,"Expected %d arguments on the stack, but there are only %d!\n",

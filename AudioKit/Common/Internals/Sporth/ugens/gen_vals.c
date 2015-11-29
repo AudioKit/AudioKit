@@ -8,7 +8,6 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    SPFLOAT out = 0;
     sp_ftbl *ft;
     char *str, *args;
 

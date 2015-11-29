@@ -4,7 +4,6 @@ int sporth_in(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
-    SPFLOAT freq;
     SPFLOAT out;
     sp_in *data;
     switch(pd->mode){

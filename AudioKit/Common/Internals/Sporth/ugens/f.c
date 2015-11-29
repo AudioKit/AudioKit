@@ -4,7 +4,7 @@
 int sporth_f(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    unsigned int fnum, i;
+    unsigned int fnum;
     sporth_func_d *fd;
     switch(pd->mode) {
         case PLUMBER_CREATE:

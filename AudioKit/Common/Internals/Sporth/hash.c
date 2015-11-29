@@ -12,7 +12,7 @@ uint32_t sporth_hash(const char *str)
     {
         h = ((h << 5) + h) ^ str[0];
         h %= 0x7FFFFFFF;
-        *str++;
+        str++;
     }
 
     return h % 256;
