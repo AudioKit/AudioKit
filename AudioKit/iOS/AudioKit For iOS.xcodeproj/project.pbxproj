@@ -315,6 +315,10 @@
 		C4E958FA1C0ADC5800516A6A /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E958F31C0ADC5800516A6A /* kiss_fftr.c */; };
 		C4E958FB1C0ADC5800516A6A /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E958F41C0ADC5800516A6A /* kiss_fftr.h */; };
 		C4E958FC1C0ADC5800516A6A /* README in Resources */ = {isa = PBXBuildFile; fileRef = C4E958F51C0ADC5800516A6A /* README */; };
+		C4E959081C0B847C00516A6A /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E959071C0B847C00516A6A /* fft.c */; };
+		C4E9590A1C0B84AE00516A6A /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E959091C0B84AE00516A6A /* base.h */; };
+		C4E9590C1C0B84E000516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590B1C0B84E000516A6A /* mincer.c */; };
+		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
 		C4F52DD91C07B7DE00F22BD1 /* AKTanhDistortion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F52DD51C07B7DE00F22BD1 /* AKTanhDistortion.swift */; };
 		C4F52DDA1C07B7DE00F22BD1 /* AKTanhDistortionAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F52DD61C07B7DE00F22BD1 /* AKTanhDistortionAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4F52DDB1C07B7DE00F22BD1 /* AKTanhDistortionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4F52DD71C07B7DE00F22BD1 /* AKTanhDistortionAudioUnit.mm */; };
@@ -654,6 +658,10 @@
 		C4E958F31C0ADC5800516A6A /* kiss_fftr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fftr.c; sourceTree = "<group>"; };
 		C4E958F41C0ADC5800516A6A /* kiss_fftr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fftr.h; sourceTree = "<group>"; };
 		C4E958F51C0ADC5800516A6A /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		C4E959071C0B847C00516A6A /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
+		C4E959091C0B84AE00516A6A /* base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base.h; sourceTree = "<group>"; };
+		C4E9590B1C0B84E000516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
+		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		C4F52DD51C07B7DE00F22BD1 /* AKTanhDistortion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTanhDistortion.swift; sourceTree = "<group>"; };
 		C4F52DD61C07B7DE00F22BD1 /* AKTanhDistortionAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTanhDistortionAudioUnit.h; sourceTree = "<group>"; };
 		C4F52DD71C07B7DE00F22BD1 /* AKTanhDistortionAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTanhDistortionAudioUnit.mm; sourceTree = "<group>"; };
@@ -784,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				C4261E1B1C0AD97000E472A8 /* faust */,
+				C4E959061C0B847C00516A6A /* fft */,
 				C4261E231C0AD97000E472A8 /* inih */,
 				C4261E291C0AD97000E472A8 /* kissfft */,
 			);
@@ -836,6 +845,7 @@
 				C4E958621C0ADBFD00516A6A /* lpf18.c */,
 				C4E958631C0ADBFD00516A6A /* maygate.c */,
 				C4E958641C0ADBFD00516A6A /* metro.c */,
+				C4E9590D1C0B84FA00516A6A /* mincer.c */,
 				C4E958661C0ADBFD00516A6A /* mode.c */,
 				C4E958671C0ADBFD00516A6A /* moogladder.c */,
 				C4E958681C0ADBFD00516A6A /* mul.c */,
@@ -1416,6 +1426,7 @@
 				C4E957EA1C0ADBAB00516A6A /* line.c */,
 				C4E957EB1C0ADBAB00516A6A /* maygate.c */,
 				C4E957EC1C0ADBAB00516A6A /* metro.c */,
+				C4E9590B1C0B84E000516A6A /* mincer.c */,
 				C4E957EE1C0ADBAB00516A6A /* mode.c */,
 				C4E957EF1C0ADBAB00516A6A /* moogladder.c */,
 				C4E957F01C0ADBAB00516A6A /* noise.c */,
@@ -1473,6 +1484,15 @@
 				C472F6F21C06F7B2001A65C5 /* AKSawtoothOscillatorDSPKernel.hpp */,
 			);
 			path = AKSawtoothOscillator;
+			sourceTree = "<group>";
+		};
+		C4E959061C0B847C00516A6A /* fft */ = {
+			isa = PBXGroup;
+			children = (
+				C4E959091C0B84AE00516A6A /* base.h */,
+				C4E959071C0B847C00516A6A /* fft.c */,
+			);
+			path = fft;
 			sourceTree = "<group>";
 		};
 		C4F52DD41C07B7DE00F22BD1 /* AKTanhDistortion */ = {
@@ -1589,6 +1609,7 @@
 				C42F36491C057F4C000E937C /* AKPhasorDSPKernel.hpp in Headers */,
 				C42F36451C057F4C000E937C /* AKOscillatorDSPKernel.hpp in Headers */,
 				C42F36BA1C057F4C000E937C /* AKChowningReverbAudioUnit.h in Headers */,
+				C4E9590A1C0B84AE00516A6A /* base.h in Headers */,
 				C42F36BC1C057F4C000E937C /* AKChowningReverbDSPKernel.hpp in Headers */,
 				C42F368E1C057F4C000E937C /* AKLowShelfParametricEqualizerFilterDSPKernel.hpp in Headers */,
 				C42F367A1C057F4C000E937C /* AKEqualizerFilterDSPKernel.hpp in Headers */,
@@ -1772,6 +1793,7 @@
 				C42F36BD1C057F4C000E937C /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C4E958211C0ADBAB00516A6A /* moogladder.c in Sources */,
 				C42F36791C057F4C000E937C /* AKEqualizerFilterAudioUnit.mm in Sources */,
+				C4E959081C0B847C00516A6A /* fft.c in Sources */,
 				C4E958AA1C0ADBFD00516A6A /* drip.c in Sources */,
 				C4E958201C0ADBAB00516A6A /* mode.c in Sources */,
 				C42F364A1C057F4C000E937C /* AKWhiteNoise.swift in Sources */,
@@ -1787,6 +1809,7 @@
 				C472F6F51C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm in Sources */,
 				C4E9580F1C0ADBAB00516A6A /* dist.c in Sources */,
 				C45C35571C08EE5700E3C7F0 /* hash.c in Sources */,
+				C4E9590C1C0B84E000516A6A /* mincer.c in Sources */,
 				C4E958301C0ADBAB00516A6A /* square.c in Sources */,
 				C42F36A11C057F4C000E937C /* AKStringResonatorAudioUnit.mm in Sources */,
 				C4E9589C1C0ADBFD00516A6A /* biquad.c in Sources */,
@@ -1807,6 +1830,7 @@
 				C42F36331C057F4C000E937C /* AKOperation.swift in Sources */,
 				C42F367B1C057F4C000E937C /* AKFormantFilter.swift in Sources */,
 				C4E958231C0ADBAB00516A6A /* osc.c in Sources */,
+				C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */,
 				C42F369F1C057F4C000E937C /* AKStringResonator.swift in Sources */,
 				C4E958D31C0ADBFD00516A6A /* randi.c in Sources */,
 				C4E958311C0ADBAB00516A6A /* switch.c in Sources */,
