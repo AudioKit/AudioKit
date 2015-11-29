@@ -81,5 +81,3 @@ int sp_butbp_compute(sp_data *sp, sp_butbp *p, SPFLOAT *in, SPFLOAT *out)
     *out = y;
     return SP_OK;
 }
-
-
