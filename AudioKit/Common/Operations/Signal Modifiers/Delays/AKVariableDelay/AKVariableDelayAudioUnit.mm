@@ -30,6 +30,9 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setMaxDelayTime:(float)duration {
+    _kernel.setMaxDelayTime(duration);
+}
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {

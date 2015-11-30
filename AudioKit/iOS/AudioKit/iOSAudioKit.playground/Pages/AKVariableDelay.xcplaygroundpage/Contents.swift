@@ -23,12 +23,11 @@ switch source {
 case "mic":
     delay = AKVariableDelay(mic)
 default:
-    delay = AKVariableDelay(player)
+    delay = AKVariableDelay(player, maximumDelayTime: 6.0)
 }
 
 //: Set the parameters of the delay here
 delay.delayTime = 0 // seconds
-
 
 audiokit.audioOutput = delay
 audiokit.start()
