@@ -2,15 +2,15 @@
 //:
 //: ---
 //:
-//: ## Connecting Operations
-//: ### Playing audio is great, but now let's process that audio
+//: ## AKDelay
+//: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
 import XCPlayground
 import AudioKit
 
 //: Change the source to "mic" to process your voice
 let source = "player"
 
-//: This section prepares the player and the microphone
+//: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()
@@ -18,9 +18,8 @@ let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow: AKAudioPlayerWindow
-
-//: Next we'll connect the audio to a delay
 let delay: AKDelay
+
 switch source {
 case "mic":
     delay = AKDelay(mic)
@@ -30,17 +29,16 @@ default:
 }
 
 delay.//: Set the parameters of the delay here
-time = 0.1 // seconds
-delay.feedback  = 80 // Percent
+time = 0.01 // seconds
+delay.feedback  = 90 // Percent
 delay.dryWetMix = 60 // Percent
 
 var delayWindow  = AKDelayWindow(delay)
 
-let reve//: You can continue add more operations as you wish, and here we add a reverb
-rb = AKReverb(delay)
-reverb.loadFactoryPreset(.Cathedral)
-
-audiokit.audioOutput = reverb
+delayWin//: You can also set the bounds of the sliders here
+dow.timeSlider.maxValue = 0.2 // seconds
+delayWindow.feedbackSlider.maxValue = 99
+audiokit.audioOutput = delay
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
