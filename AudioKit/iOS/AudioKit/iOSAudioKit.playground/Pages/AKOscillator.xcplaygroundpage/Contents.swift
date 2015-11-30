@@ -9,28 +9,24 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-let triangle = AKTable.standardTriangleWave()
+let triangle = AKTable(.Triangle, size: 128)
 for value in triangle.values { value } // Click the eye icon ->
 
-let square = AKTable.standardSquareWave()
+let square = AKTable(.Square, size: 16)
 for value in square.values { value } // Click the eye icon ->
 
-let sine = AKTable.standardSineWave()
-for value in sine.values {
-    value
-} // Click the eye icon ->
+let sine = AKTable(.Sine, size: 32)
+for value in sine.values { value } // Click the eye icon ->
 
-let sawtooth = AKTable.standardSawtoothWave()
+let sawtooth = AKTable(.Sawtooth, size: 16)
 for value in sawtooth.values { value } // Click the eye icon ->
 
-let custom = AKTable.standardSineWave()
+var custom = AKTable(size: 512)
 for i in 0..<custom.values.count {
     custom.values[i] += randomFloat(-0.3, 0.3) + Float(i)/2048.0 - 1.0
 }
+for value in custom.values { value } // Click the eye icon ->
 
-for value in custom.values {
-    value
-} // Click the eye icon ->
 //: Try changing the table to triangle, square, sine, or sawtooth
 let oscillator = AKOscillator(table: custom)
 audiokit.audioOutput = oscillator

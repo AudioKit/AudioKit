@@ -43,9 +43,9 @@ public:
         return ftbl->size;
     }
     
-    void setupTable() {
-        sp_ftbl_create(sp, &ftbl, 4096);
-        NSLog(@"setting up table");
+    void setupTable(uint32_t size) {
+        ftbl_size = size;
+        sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
     
     void setTableValue(uint32_t index, float value) {
@@ -131,6 +131,7 @@ private:
     sp_data *sp;
     sp_osc *osc;
     sp_ftbl *ftbl;
+    UInt32 ftbl_size = 4096;
 
 public:
     AKParameterRamper frequencyRamper = 440;

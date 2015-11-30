@@ -93,7 +93,6 @@ public class AKFMOscillator: AKOperation {
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             self.internalAU?.setupTable(Int32(table.size))
-            print(self.internalAU?.getTableSize())
             for var i = 0; i < table.size; i++ {
                 self.internalAU?.setTableValue(table.values[i], atIndex: UInt32(i))
             }
