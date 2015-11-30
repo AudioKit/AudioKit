@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw'>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Intro'/>
         <page name='Connecting Operations'/>
-        <page name='AKAUBandPassFilter'/>
-        <page name='AKAUDelay'/>
+        <page name='AKBandPassFilter'/>
+        <page name='AKDelay'/>
         <page name='AKVariableDelay'/>
-        <page name='AKAUDynamicsProcessor'/>
+        <page name='AKDynamicsProcessor'/>
         <page name='Effects'/>
-        <page name='AKAUDecimator'/>
-        <page name='AKAUDistortion'/>
         <page name='AKBitCrusher'/>
+        <page name='AKDecimator'/>
+        <page name='AKDistortion'/>
+        <page name='AKRingModulator'/>
+        <page name='AKTimePitch'/>
         <page name='Filters'/>
-        <page name='AKCombFilter'/>
-        <page name='AKAUHighPassFilter'/>
-        <page name='AKAUHighShelfFilter'/>
-        <page name='AKAULowPassFilter'/>
-        <page name='AKAULowShelfFilter'/>
-        <page name='AKAUParametricEQ'/>
-        <page name='AKAUPeakLimiter'/>
-        <page name='AKAURingModulator'/>
-        <page name='AKAUTimePitch'/>
+        <page name='AKHighPassFilter'/>
+        <page name='AKHighShelfFilter'/>
+        <page name='AKLowPassFilter'/>
+        <page name='AKLowShelfFilter'/>
+        <page name='AKMoogLadder'/>
+        <page name='AKParametricEQ'/>
+        <page name='AKPeakLimiter'/>
         <page name='AKFlatFrequencyResponseReverb'/>
         <page name='AKFMOscillator'/>
-        <page name='AKMoogLadder'/>
         <page name='AKOscillator'/>
         <page name='AKPhasor'/>
         <page name='AKSawtoothOscillator'/>
@@ -32,8 +31,9 @@
         <page name='AKTriangleOscillator'/>
         <page name='AKPinkNoise'/>
         <page name='AKWhiteNoise'/>
+        <page name='AKCombFilter'/>
         <page name='AKCostelloReverb'/>
-        <page name='AKSequencer'/>
         <page name='AKCustomModifier'/>
+        <page name='AKSequencer'/>
     </pages>
 </playground>

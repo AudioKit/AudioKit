@@ -11,10 +11,10 @@
 //: * [Phasor](AKPhasor)
 //: * [Sawtooth Oscillator](AKSawtoothOscillator)
 //: ### Signal Modifiers
-//: * [Delay](AKAUDelay)
+//: * [Delay](AKDelay)
 //: * [Effects](Effects)
 //: * [Filters](Filters)
 //: ### Dynamics
-//: * [Dynamics Processor](AKAUDynamicsProcessor)
-//: * [Peak Limiter](AKAUPeakLimiter)
+//: * [Dynamics Processor](AKDynamicsProcessor)
+//: * [Peak Limiter](AKPeakLimiter)
 
