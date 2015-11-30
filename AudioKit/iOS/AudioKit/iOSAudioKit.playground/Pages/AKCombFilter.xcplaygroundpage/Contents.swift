@@ -23,7 +23,7 @@ switch source {
 case "mic":
     filter = AKCombFilter(mic)
 default:
-    filter = AKCombFilter(player, loopDuration: 0.1)
+    filter = AKCombFilter(player, loopDuration: 0.05)
 }
 
 //: Set the parameters of the delay here
