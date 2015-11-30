@@ -14,18 +14,18 @@ class ViewController: UIViewController {
     
     let audiokit = AKManager.sharedInstance
     let input = AKMicrophone()
-    var delay:  AKAUDelay?
+    var delay:  AKDelay?
     var moog:   AKMoogLadder?
     var bandPassFilter: AKBandPassButterworthFilter?
     var allpass: AKFlatFrequencyResponseReverb?
-    var reverb: AKAUReverb?
+    var reverb: AKReverb?
     var jcReverb: AKChowningReverb?
-    var verb2: AKAUReverb2?
-    var limiter: AKAUPeakLimiter?
+    var verb2: AKReverb2?
+    var limiter: AKPeakLimiter?
     var midi = AKMidi()
     var fmOsc = AKFMOscillator()
-    var exs = AKAUSampler()
-    var exs2 = AKAUSampler()
+    var exs = AKSampler()
+    var exs2 = AKSampler()
     var seq = AKSequencer(filename:"4tracks")
     var mixer = AKMixer()
     
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         mixer.connect(exs)
         mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
-        verb2  = AKAUReverb2(moog!)
+        verb2  = AKReverb2(moog!)
         audiokit.audioOutput = verb2
         
         audiokit.start()
