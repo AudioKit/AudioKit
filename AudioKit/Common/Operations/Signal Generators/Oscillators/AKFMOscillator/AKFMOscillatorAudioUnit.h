@@ -12,7 +12,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKFMOscillatorAudioUnit : AUAudioUnit
-- (size_t)getTableSize;
 - (void)setupTable:(int)size;
 - (void)setTableValue:(float)value atIndex:(UInt32)index;
 @end
