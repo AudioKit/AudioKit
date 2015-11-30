@@ -2,6 +2,7 @@
 //: # Filters
 //: ---------
 //: * [Band Pass Filter](AKBandPassFilter)
+//: * [Comb Filter](AKCombFilter)
 //: * [High Pass Filter](AKHighPassFilter)
 //: * [High Shelf Filter](AKHighShelfFilter)
 //: * [Low Pass Filter](AKLowPassFilter)

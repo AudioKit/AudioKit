@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Intro'/>
         <page name='Connecting Operations'/>
-        <page name='AKBandPassFilter'/>
         <page name='AKDelay'/>
         <page name='AKVariableDelay'/>
         <page name='AKDynamicsProcessor'/>
+        <page name='AKPeakLimiter'/>
         <page name='Effects'/>
         <page name='AKBitCrusher'/>
         <page name='AKDecimator'/>
@@ -15,14 +15,15 @@
         <page name='AKRingModulator'/>
         <page name='AKTimePitch'/>
         <page name='Filters'/>
+        <page name='AKBandPassFilter'/>
+        <page name='AKCombFilter'/>
         <page name='AKHighPassFilter'/>
         <page name='AKHighShelfFilter'/>
         <page name='AKLowPassFilter'/>
         <page name='AKLowShelfFilter'/>
         <page name='AKMoogLadder'/>
         <page name='AKParametricEQ'/>
-        <page name='AKPeakLimiter'/>
-        <page name='AKFlatFrequencyResponseReverb'/>
+        <page name='Oscillators'/>
         <page name='AKFMOscillator'/>
         <page name='AKOscillator'/>
         <page name='AKPhasor'/>
@@ -31,8 +32,8 @@
         <page name='AKTriangleOscillator'/>
         <page name='AKPinkNoise'/>
         <page name='AKWhiteNoise'/>
-        <page name='AKCombFilter'/>
         <page name='AKCostelloReverb'/>
+        <page name='AKFlatFrequencyResponseReverb'/>
         <page name='AKCustomGenerator'/>
         <page name='AKCustomModifier'/>
         <page name='AKSequencer'/>
