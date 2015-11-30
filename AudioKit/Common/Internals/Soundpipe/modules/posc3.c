@@ -34,7 +34,7 @@ int sp_posc3_init(sp_data *sp, sp_posc3 *posc3, sp_ftbl *ft)
     posc3->onedsr = 1.0 / sp->sr;
 
     posc3->tbl = ft;
-    posc3->tablen = (int) ft->size;
+    posc3->tablen = (int32_t) ft->size;
     posc3->tablenUPsr = posc3->tablen * posc3->onedsr;
     posc3->phs = posc3->iphs * posc3->tablen;
     return SP_OK;
