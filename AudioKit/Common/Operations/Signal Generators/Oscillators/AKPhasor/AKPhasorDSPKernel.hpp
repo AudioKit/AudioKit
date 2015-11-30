@@ -37,6 +37,11 @@ public:
         phasor->freq = 1.0;
     }
 
+    void destroy() {
+        sp_phasor_destroy(&phasor);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

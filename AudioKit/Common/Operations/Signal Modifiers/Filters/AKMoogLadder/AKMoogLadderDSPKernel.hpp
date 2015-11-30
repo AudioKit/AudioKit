@@ -39,6 +39,11 @@ public:
         moogladder->res = 0.5;
     }
 
+    void destroy() {
+        sp_moogladder_destroy(&moogladder);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

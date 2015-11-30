@@ -33,6 +33,11 @@ public:
         sp_dcblock_init(sp, dcblock);
     }
 
+    void destroy() {
+        sp_dcblock_destroy(&dcblock);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

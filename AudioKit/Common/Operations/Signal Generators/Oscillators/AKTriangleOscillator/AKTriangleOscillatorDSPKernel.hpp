@@ -39,6 +39,11 @@ public:
         *triangle->amp = 0.5;
     }
 
+    void destroy() {
+        sp_triangle_destroy(&triangle);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

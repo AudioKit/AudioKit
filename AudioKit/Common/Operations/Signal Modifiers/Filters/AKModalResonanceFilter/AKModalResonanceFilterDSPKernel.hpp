@@ -39,6 +39,11 @@ public:
         mode->q = 50.0;
     }
 
+    void destroy() {
+        sp_mode_destroy(&mode);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

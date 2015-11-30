@@ -37,6 +37,11 @@ public:
         allpass->revtime = 0.5;
     }
 
+    void destroy() {
+        sp_allpass_destroy(&allpass);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
     void setLoopDuration(float duration) {

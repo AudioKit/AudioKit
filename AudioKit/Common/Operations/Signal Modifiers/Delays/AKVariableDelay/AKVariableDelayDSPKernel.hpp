@@ -37,6 +37,11 @@ public:
         vdelay->del = 1.0;
     }
 
+    void destroy() {
+        sp_vdelay_destroy(&vdelay);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
     void setMaxDelayTime(float duration) {

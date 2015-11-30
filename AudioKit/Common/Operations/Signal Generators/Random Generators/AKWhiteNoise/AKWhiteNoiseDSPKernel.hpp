@@ -37,6 +37,11 @@ public:
         noise->amp = 1.0;
     }
 
+    void destroy() {
+        sp_noise_destroy(&noise);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

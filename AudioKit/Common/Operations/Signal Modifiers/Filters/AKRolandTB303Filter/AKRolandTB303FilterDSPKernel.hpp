@@ -43,6 +43,11 @@ public:
         tbvcf->asym = 0.5;
     }
 
+    void destroy() {
+        sp_tbvcf_destroy(&tbvcf);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

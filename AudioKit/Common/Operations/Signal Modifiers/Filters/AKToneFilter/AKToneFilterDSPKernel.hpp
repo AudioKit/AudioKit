@@ -37,6 +37,11 @@ public:
         tone->hp = 1000;
     }
 
+    void destroy() {
+        sp_tone_destroy(&tone);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

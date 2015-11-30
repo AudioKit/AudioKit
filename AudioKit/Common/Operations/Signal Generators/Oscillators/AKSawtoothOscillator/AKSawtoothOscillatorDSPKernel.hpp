@@ -39,6 +39,11 @@ public:
         *saw->amp = 0.5;
     }
 
+    void destroy() {
+        sp_saw_destroy(&saw);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

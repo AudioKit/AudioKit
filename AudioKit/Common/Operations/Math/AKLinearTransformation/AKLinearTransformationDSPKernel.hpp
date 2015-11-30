@@ -43,6 +43,11 @@ public:
         scale->outmax = 1.0;
     }
 
+    void destroy() {
+        sp_scale_destroy(&scale);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

@@ -37,6 +37,11 @@ public:
         *pinknoise->amp = 1.0;
     }
 
+    void destroy() {
+        sp_pinknoise_destroy(&pinknoise);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

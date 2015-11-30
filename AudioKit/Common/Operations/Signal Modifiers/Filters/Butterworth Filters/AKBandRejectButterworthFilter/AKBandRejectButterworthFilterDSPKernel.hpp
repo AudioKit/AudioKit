@@ -39,6 +39,11 @@ public:
         butbr->bw = 2000;
     }
 
+    void destroy() {
+        sp_butbr_destroy(&butbr);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

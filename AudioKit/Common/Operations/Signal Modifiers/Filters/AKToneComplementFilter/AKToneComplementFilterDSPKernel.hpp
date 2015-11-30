@@ -37,6 +37,11 @@ public:
         atone->hp = 1000;
     }
 
+    void destroy() {
+        sp_atone_destroy(&atone);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

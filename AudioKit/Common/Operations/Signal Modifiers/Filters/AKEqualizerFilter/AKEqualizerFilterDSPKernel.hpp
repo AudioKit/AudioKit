@@ -41,6 +41,11 @@ public:
         eqfil->gain = 10;
     }
 
+    void destroy() {
+        sp_eqfil_destroy(&eqfil);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

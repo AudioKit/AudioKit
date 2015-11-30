@@ -55,6 +55,11 @@ public:
         ftbl->tbl[index] = value;
     }
 
+    void destroy() {
+        sp_fosc_destroy(&fosc);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

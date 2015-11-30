@@ -138,6 +138,7 @@
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
+    _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
 
