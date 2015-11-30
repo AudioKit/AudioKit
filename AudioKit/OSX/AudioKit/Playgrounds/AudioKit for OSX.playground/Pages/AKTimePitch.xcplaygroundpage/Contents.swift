@@ -27,8 +27,9 @@ default:
     timePitch = AKTimePitch(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-timePi//: Set the parameters of the Peak Limiter here
-tch.rate = 1.0 // rate
+
+//: Set the parameters of the Peak Limiter here
+timePitch.rate = 1.0 // rate
 timePitch.pitch = 1.0 // Cents
 timePitch.overlap = 8.0 // generic
 

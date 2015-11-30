@@ -1089,10 +1089,10 @@
 		C42F388F1C0585C2000E937C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C42F38931C0585C2000E937C /* AKAudioPlayerWindow.swift */,
 				C42F38901C0585C2000E937C /* AKBandPassFilterWindow.swift */,
 				C42F38911C0585C2000E937C /* AKDecimatorWindow.swift */,
 				C42F38921C0585C2000E937C /* AKDelayWindow.swift */,
-				C42F38931C0585C2000E937C /* AKAudioPlayerWindow.swift */,
 				C42F38941C0585C2000E937C /* AKDistortionWindow.swift */,
 				C42F38951C0585C2000E937C /* AKDynamicsProcessorWindow.swift */,
 				C42F38961C0585C2000E937C /* AKHighPassFilterWindow.swift */,

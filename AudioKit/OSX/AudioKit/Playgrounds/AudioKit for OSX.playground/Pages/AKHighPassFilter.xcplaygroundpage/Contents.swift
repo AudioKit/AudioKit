@@ -27,8 +27,9 @@ default:
     highPassFilter = AKHighPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-highPa//: Set the parameters of the high pass filter here
-ssFilter.cutoffFrequency = 6900 // Hz
+
+//: Set the parameters of the high pass filter here
+highPassFilter.cutoffFrequency = 6900 // Hz
 highPassFilter.resonance = 0 // dB
 
 var highPassFilterWindow = AKHighPassFilterWindow(highPassFilter)

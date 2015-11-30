@@ -27,8 +27,9 @@ default:
     ringModulator = AKRingModulator(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-ringMo//: Set the parameters of the ring modulator here
-dulator.frequency1 = 100 // Hertz
+
+//: Set the parameters of the ring modulator here
+ringModulator.frequency1 = 100 // Hertz
 ringModulator.frequency2 = 100 // Hertz
 ringModulator.balance = 50 // Percent
 ringModulator.mix = 50 // Percent

@@ -27,8 +27,9 @@ default:
     lowPassFilter = AKLowPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-lowPas//: Set the parameters of the low pass filter here
-sFilter.cutoffFrequency = 6900 // Hz
+
+//: Set the parameters of the low pass filter here
+lowPassFilter.cutoffFrequency = 6900 // Hz
 lowPassFilter.resonance = 0 // dB
 
 var lowPassFilterWindow = AKLowPassFilterWindow(lowPassFilter)

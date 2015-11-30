@@ -35,8 +35,8 @@ delay.dryWetMix = 60 // Percent
 
 var delayWindow  = AKDelayWindow(delay)
 
-delayWin//: You can also set the bounds of the sliders here
-dow.timeSlider.maxValue = 0.2 // seconds
+//: You can also set the bounds of the sliders here
+delayWindow.timeSlider.maxValue = 0.2 // seconds
 delayWindow.feedbackSlider.maxValue = 99
 audiokit.audioOutput = delay
 audiokit.start()

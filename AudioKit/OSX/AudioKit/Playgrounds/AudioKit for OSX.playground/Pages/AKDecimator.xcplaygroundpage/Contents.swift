@@ -27,8 +27,9 @@ default:
     decimator = AKDecimator(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-decima//: Set the parameters of the decimator here
-tor.decimation =  50 // Percent
+
+//: Set the parameters of the decimator here
+decimator.decimation =  50 // Percent
 decimator.rounding = 50 // Percent
 decimator.mix = 50 // Percent
 

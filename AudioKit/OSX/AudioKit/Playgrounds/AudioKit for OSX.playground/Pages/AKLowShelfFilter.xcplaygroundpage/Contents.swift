@@ -27,8 +27,9 @@ default:
     lowShelfFilter = AKLowShelfFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-lowShe//: Set the parameters of the low shelf filter here
-lfFilter.cutoffFrequency = 80 // Hz
+
+//: Set the parameters of the low shelf filter here
+lowShelfFilter.cutoffFrequency = 80 // Hz
 lowShelfFilter.gain = 0 // dB
 
 var lowShelfFilterWindow = AKLowShelfFilterWindow(lowShelfFilter)

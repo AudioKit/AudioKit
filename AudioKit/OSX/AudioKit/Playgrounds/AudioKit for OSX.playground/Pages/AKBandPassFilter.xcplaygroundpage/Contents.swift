@@ -26,8 +26,9 @@ default:
     bandPassFilter = AKBandPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-bandPa//: Set the parameters of the band pass filter here
-ssFilter.centerFrequency = 5000 // Hz
+
+//: Set the parameters of the band pass filter here
+bandPassFilter.centerFrequency = 5000 // Hz
 bandPassFilter.bandwidth = 600  // Cents
 
 var bandPassFilterWindow = AKBandPassFilterWindow(bandPassFilter)
