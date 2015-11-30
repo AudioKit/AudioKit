@@ -1,5 +1,5 @@
 /*
- * Allpass 
+ * Comb
  * 
  * This code has been extracted from the Csound opcode "comb".
  * It has been modified to work as a Soundpipe module.
@@ -50,10 +50,10 @@ int sp_comb_compute(sp_data *sp, sp_comb *p, SPFLOAT *in, SPFLOAT *out)
         coef = p->coef = exp(-6.9078 * p->looptime / p->prvt);
     }
     sp_auxdata_getbuf(&p->aux, p->bufpos, &samp);
-    *out = samp;
     samp *= coef;
     samp += *in;
     sp_auxdata_setbuf(&p->aux, p->bufpos, &samp);
+    *out = samp;
 
     p->bufpos++;
     p->bufpos %= p->bufsize; 
