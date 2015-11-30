@@ -41,6 +41,11 @@ public:
         *square->width = 0.5;
     }
 
+    void destroy() {
+        sp_square_destroy(&square);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

@@ -37,6 +37,11 @@ public:
         comb->revtime = 1.0;
     }
 
+    void destroy() {
+        sp_comb_destroy(&comb);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
     void setLoopDuration(float duration) {

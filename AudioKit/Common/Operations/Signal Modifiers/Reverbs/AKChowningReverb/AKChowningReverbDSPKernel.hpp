@@ -33,6 +33,11 @@ public:
         sp_jcrev_init(sp, jcrev);
     }
 
+    void destroy() {
+        sp_jcrev_destroy(&jcrev);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

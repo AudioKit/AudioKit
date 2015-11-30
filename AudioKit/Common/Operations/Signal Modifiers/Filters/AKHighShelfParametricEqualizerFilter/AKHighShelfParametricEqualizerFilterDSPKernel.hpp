@@ -42,6 +42,11 @@ public:
         pareq->mode = 2;
     }
 
+    void destroy() {
+        sp_pareq_destroy(&pareq);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

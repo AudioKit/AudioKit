@@ -47,6 +47,11 @@ public:
 //        plumber_compute(&pd, PLUMBER_INIT);
     }
 
+    void destroy() {
+        plumber_clean(&pd);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

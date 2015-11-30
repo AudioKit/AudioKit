@@ -41,6 +41,11 @@ public:
         clip->meth = 0;
     }
 
+    void destroy() {
+        sp_clip_destroy(&clip);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

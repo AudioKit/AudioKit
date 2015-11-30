@@ -39,6 +39,11 @@ public:
         butbp->bw = 100;
     }
 
+    void destroy() {
+        sp_butbp_destroy(&butbp);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

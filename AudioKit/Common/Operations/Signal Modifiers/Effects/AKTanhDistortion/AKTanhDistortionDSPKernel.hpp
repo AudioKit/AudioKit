@@ -43,6 +43,11 @@ public:
         dist->postgain = 0.5;
     }
 
+    void destroy() {
+        sp_dist_destroy(&dist);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

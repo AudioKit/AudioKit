@@ -39,6 +39,11 @@ public:
         bitcrush->srate = 10000;
     }
 
+    void destroy() {
+        sp_bitcrush_destroy(&bitcrush);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

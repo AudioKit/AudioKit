@@ -41,6 +41,11 @@ public:
         fofilt->dec = 0.04;
     }
 
+    void destroy() {
+        sp_fofilt_destroy(&fofilt);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

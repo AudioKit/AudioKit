@@ -37,6 +37,11 @@ public:
         butlp->freq = 1000;
     }
 
+    void destroy() {
+        sp_butlp_destroy(&butlp);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

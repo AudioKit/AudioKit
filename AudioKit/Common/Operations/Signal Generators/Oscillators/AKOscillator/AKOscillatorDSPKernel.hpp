@@ -48,6 +48,11 @@ public:
         ftbl->tbl[index] = value;
     }
     
+    void destroy() {
+        sp_osc_destroy(&osc);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

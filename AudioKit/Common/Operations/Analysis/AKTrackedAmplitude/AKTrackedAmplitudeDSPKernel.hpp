@@ -37,6 +37,11 @@ public:
         rms->ihp = 10;
     }
 
+    void destroy() {
+        sp_rms_destroy(&rms);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

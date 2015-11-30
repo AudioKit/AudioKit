@@ -41,6 +41,11 @@ public:
         lpf18->res = 0.5;
     }
 
+    void destroy() {
+        sp_lpf18_destroy(&lpf18);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 

@@ -39,6 +39,11 @@ public:
         streson->fdbgain = 0.95;
     }
 
+    void destroy() {
+        sp_streson_destroy(&streson);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 
