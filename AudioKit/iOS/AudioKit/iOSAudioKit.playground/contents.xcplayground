@@ -33,6 +33,7 @@
         <page name='AKWhiteNoise'/>
         <page name='AKCombFilter'/>
         <page name='AKCostelloReverb'/>
+        <page name='AKCustomGenerator'/>
         <page name='AKCustomModifier'/>
         <page name='AKSequencer'/>
     </pages>

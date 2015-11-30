@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKCustomModifier
+//: ## AKCustomGenerator
 //: ### Add description
 import XCPlayground
 import AudioKit
@@ -13,17 +13,10 @@ let source = "player"
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 
-let bundle = NSBundle.mainBundle()
+let generator = AKCustomGenerator("5 1 sine 220 440 scale 0.3 sine dup")
 
-let file = bundle.pathForResource("808loop", ofType: "wav")
-let player = AKAudioPlayer(file!)
-player.looping = true
-let modifier = AKCustomModifier(player, sporth:"0 p 1 p 0.1 1 sine 0.5 0.97 scale 10000 revsc")
-
-audiokit.audioOutput = modifier
+audiokit.audioOutput = generator
 audiokit.start()
-
-player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
