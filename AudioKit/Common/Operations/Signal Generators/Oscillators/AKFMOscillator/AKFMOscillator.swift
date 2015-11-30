@@ -56,11 +56,23 @@ public class AKFMOscillator: AKOperation {
     // MARK: - Initializers
 
     /** Initialize this oscillator operation */
-    public override init() {
+    public init(
+        table: AKTable = AKTable.standardSineWave(),
+        baseFrequency: Float = 440,
+        carrierMultiplier: Float = 1,
+        modulatingMultiplier: Float = 1,
+        modulationIndex: Float = 1,
+        amplitude: Float = 1) {
+            
+        self.baseFrequency = baseFrequency
+        self.carrierMultiplier = carrierMultiplier
+        self.modulatingMultiplier = modulatingMultiplier
+        self.modulationIndex = modulationIndex
+        self.amplitude = amplitude
         super.init()
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_MusicDevice
+        description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x666f7363 /*'fosc'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
@@ -72,10 +84,19 @@ public class AKFMOscillator: AKOperation {
             name: "Local AKFMOscillator",
             version: UInt32.max)
         
-        let generator = AVAudioUnitMIDIInstrument(audioComponentDescription: description)
-        output = generator
-        internalAU = generator.AUAudioUnit as? AKFMOscillatorAudioUnit
-        AKManager.sharedInstance.engine.attachNode(self.output!)
+        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+            avAudioUnit, error in
+            
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
+            
+            self.output = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
+            AKManager.sharedInstance.engine.attachNode(self.output!)
+            self.internalAU?.setupTable()
+            for var i = 0; i < self.internalAU?.getTableSize(); i++ {
+                self.internalAU?.setTableValue(table.values[i], atIndex: UInt32(i))
+            }
+        }
 
         guard let tree = internalAU?.parameterTree else { return }
 

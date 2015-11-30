@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
-let fm = AKFMOscillator()
+let fm = AKFMOscillator(table: AKTable.standardSineWave())
 audiokit.audioOutput = fm
 audiokit.start()
 
