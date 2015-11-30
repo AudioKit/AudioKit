@@ -13,6 +13,7 @@
         <page name='AKAUDistortion'/>
         <page name='AKBitCrusher'/>
         <page name='Filters'/>
+        <page name='AKCombFilter'/>
         <page name='AKAUHighPassFilter'/>
         <page name='AKAUHighShelfFilter'/>
         <page name='AKAULowPassFilter'/>
