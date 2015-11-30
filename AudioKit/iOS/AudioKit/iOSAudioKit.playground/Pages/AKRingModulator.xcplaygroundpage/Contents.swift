@@ -2,41 +2,36 @@
 //:
 //: ---
 //:
-//: ## Connecting Operations
-//: ### Playing audio is great, but now let's process that audio
+//: ## AKRingModulator
+//: ### Add description
 import XCPlayground
 import AudioKit
 
 //: Change the source to "mic" to process your voice
 let source = "player"
 
-//: This section prepares the player and the microphone
+//: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
+let ringModulator: AKRingModulator
 
-//: Next we'll connect the audio to a delay
-let delay: AKDelay
 switch source {
 case "mic":
-    delay = AKDelay(mic)
+    ringModulator = AKRingModulator(mic)
 default:
-    delay = AKDelay(player)
+    ringModulator = AKRingModulator(player)
 }
+//: Set the parameters of the ring modulator here
+ringModulator.frequency1 = 200 // Hertz
+ringModulator.frequency2 = 700 // Hertz
+ringModulator.balance = 50 // Percent
+ringModulator.mix = 50 // Percent
 
-//: Set the parameters of the delay here
-delay.time = 0.1 // seconds
-delay.feedback  = 80 // Percent
-delay.dryWetMix = 60 // Percent
-
-//: You can continue add more operations as you wish, and here we add a reverb
-let reverb = AKReverb(delay)
-reverb.loadFactoryPreset(.Cathedral)
-
-audiokit.audioOutput = reverb
+audiokit.audioOutput = ringModulator
 audiokit.start()
 
 if source == "player" {
