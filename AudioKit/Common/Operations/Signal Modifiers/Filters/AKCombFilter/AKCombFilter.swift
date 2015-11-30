@@ -34,7 +34,8 @@ public class AKCombFilter: AKOperation {
     /** Initialize this filter operation */
     public init(
         _ input: AKOperation,
-        reverbDuration: Float = 1.0) {
+        reverbDuration: Float = 1.0,
+        loopDuration: Float = 0.1) {
 
         self.reverbDuration = reverbDuration
         super.init()
@@ -61,6 +62,7 @@ public class AKCombFilter: AKOperation {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            self.internalAU!.setLoopDuration(loopDuration)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

@@ -12,6 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKCombFilterAudioUnit : AUAudioUnit
+- (void)setLoopDuration:(float)duration;
 @end
 
 #endif /* AKCombFilterAudioUnit_h */

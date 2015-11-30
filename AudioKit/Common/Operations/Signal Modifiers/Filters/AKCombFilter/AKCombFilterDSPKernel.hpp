@@ -33,13 +33,15 @@ public:
 
         sp_create(&sp);
         sp_comb_create(&comb);
-        sp_comb_init(sp, comb, 0.1); // Local modification to update later
+        sp_comb_init(sp, comb, internalLoopDuration);
         comb->revtime = 1.0;
     }
 
     void reset() {
     }
-
+    void setLoopDuration(float duration) {
+        internalLoopDuration = duration;
+    }
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
@@ -102,6 +104,8 @@ private:
 
     sp_data *sp;
     sp_comb *comb;
+    
+    float internalLoopDuration = 0.1;
 
 public:
     AKParameterRamper reverbDurationRamper = 1.0;
