@@ -28,13 +28,14 @@ default:
     distortion = AKDistortion(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-distor//: Set the parameters of the distortion here
-tion.delay = 0.1 // Milliseconds
+
+//: Set the parameters of the distortion here
+distortion.delay = 0.1 // Milliseconds
 distortion.decay = 1.0 // Rate
 distortion.delayMix = 50 // Percent
 
-distor//: These are the decimator-specific parameters
-tion.decimation = 50 // Percent
+//: These are the decimator-specific parameters
+distortion.decimation = 50 // Percent
 distortion.rounding = 0 // Percent
 distortion.decimationMix = 50 // Percent
 distortion.linearTerm = 50 // Percent

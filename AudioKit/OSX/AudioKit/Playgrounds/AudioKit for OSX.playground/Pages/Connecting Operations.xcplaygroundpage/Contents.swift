@@ -36,8 +36,8 @@ delay.dryWetMix = 60 // Percent
 
 var delayWindow  = AKDelayWindow(delay)
 
-let reve//: You can continue add more operations as you wish, and here we add a reverb
-rb = AKReverb(delay)
+//: You can continue add more operations as you wish, and here we add a reverb
+let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.Cathedral)
 
 audiokit.audioOutput = reverb

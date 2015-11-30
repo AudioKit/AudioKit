@@ -27,8 +27,9 @@ default:
     parametricEQ = AKParametricEQ(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-parame//: Set the parameters of the parametric equalizer here
-tricEQ.centerFrequency = 2000 // Hz
+
+//: Set the parameters of the parametric equalizer here
+parametricEQ.centerFrequency = 2000 // Hz
 parametricEQ.q = 1.0 // Hz
 parametricEQ.gain = 0 // dB
 

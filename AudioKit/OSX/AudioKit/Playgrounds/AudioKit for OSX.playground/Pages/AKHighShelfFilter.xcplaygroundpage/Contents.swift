@@ -27,8 +27,9 @@ default:
     highShelfFilter = AKHighShelfFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-highSh//: Set the parameters of the high shelf filter here
-elfFilter.cutOffFrequency = 10000 // Hz
+
+//: Set the parameters of the high shelf filter here
+highShelfFilter.cutOffFrequency = 10000 // Hz
 highShelfFilter.gain = 0 // dB
 
 var highShelfFilterWindow = AKHighShelfFilterWindow(highShelfFilter)

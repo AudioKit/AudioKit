@@ -27,8 +27,9 @@ default:
     dynamicsProcessor = AKDynamicsProcessor(player)
     playerWindow = AKAudioPlayerWindow(player)
 }
-dynami//: Set the parameters of the dynamics processor here
-csProcessor.threshold = -20 // dB
+
+//: Set the parameters of the dynamics processor here
+dynamicsProcessor.threshold = -20 // dB
 dynamicsProcessor.headRoom = 5 // dB
 dynamicsProcessor.expansionRatio = 2 // rate
 dynamicsProcessor.expansionThreshold = 2 // rate
