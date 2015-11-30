@@ -4,6 +4,12 @@
   - AKOperation
   - AKAudioPlayer
   - AKMicrophone
+  - AKMainMixer
+  - AKMixer
+  - AKSampler
+  - AKSequencer
+  - AKTable
+  - AKTableType
 
 - name: Analysis
   children:
@@ -27,39 +33,44 @@
   - AKFMOscillator
   - AKOscillator
   - AKPhasor
+  - AKSawtoothOscillator
+  - AKSquareWaveOscillator
+  - AKTriangleOscillator
 
 - name: Random Generators
   children:
+  - AKPinkNoise
   - AKWhiteNoise
 
 - name: Delays
   children:
-  - AKAUDelay
+  - AKDelay
   - AKDelay
   - AKVariableDelay
 
 - name: Dynamics
   children:
-  - AKAUPeakLimiter
-  - AKAUDynamicsProcessor
+  - AKPeakLimiter
+  - AKDynamicsProcessor
 
 - name: Effects
   children:
-  - AKAUDecimator
-  - AKAUDistortion
-  - AKAURingModulator
-  - AKAUTimePitch
   - AKBitCrusher
+  - AKDecimator
   - AKDistortion
+  - AKDistortion
+  - AKRingModulator
+  - AKTanhDistortion
+  - AKTimePitch
 
 - name: Filters
   children:
-  - AKAUBandPassFilter
-  - AKAUHighPassFilter
-  - AKAUHighShelfFilter
-  - AKAULowPassFilter
-  - AKAULowShelfFilter
-  - AKAUParametricEQ
+  - AKBandPassFilter
+  - AKHighPassFilter
+  - AKHighShelfFilter
+  - AKLowPassFilter
+  - AKLowShelfFilter
+  - AKParametricEQ
   - AKClipper
   - AKCombFilter
   - AKDCBlock
@@ -75,6 +86,8 @@
   - AKRolandTB303Filter
   - AKStringResonator
   - AKThreePoleLowpassFilter
+  - AKToneFilter
+  - AKToneComplementFilter
 
 - name: Butterworth Filters
   children:
@@ -85,24 +98,25 @@
 
 - name: Reverbs
   children:
-  - AKAUReverb
-  - AKAUReverb2
   - AKChowningReverb
+  - AKCostelloReverb
   - AKFlatFrequencyResponseReverb
+  - AKReverb
+  - AKReverb2
 
 - name: Playground Windows
   children:
-  - AKAUBandPassFilterWindow
-  - AKAUDecimatorWindow
-  - AKAUDelayWindow
-  - AKAUDistortionWindow
-  - AKAUDynamicsProcessorWindow
-  - AKAUHighPassFilterWindow
-  - AKAUHighShelfFilterWindow
-  - AKAULowPassFilterWindow
-  - AKAULowShelfFilterWindow
-  - AKAUParametricEQWindow
-  - AKAUPeakLimiterWindow
-  - AKAURingModulatorWindow
-  - AKAUTimePitchWindow
+  - AKBandPassFilterWindow
+  - AKDecimatorWindow
+  - AKDelayWindow
+  - AKDistortionWindow
+  - AKDynamicsProcessorWindow
+  - AKHighPassFilterWindow
+  - AKHighShelfFilterWindow
+  - AKLowPassFilterWindow
+  - AKLowShelfFilterWindow
+  - AKParametricEQWindow
+  - AKPeakLimiterWindow
+  - AKRingModulatorWindow
+  - AKTimePitchWindow
   - AKAudioPlayerWindow
