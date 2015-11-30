@@ -66,18 +66,18 @@ end
 
 File.open("templates/AKAUOperation.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    File.open("output/AKAU#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
+    File.open("output/AK#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
     puts erb.result
 }
 
-File.open("templates/AKAUOperationWindow.swift.erb") { |template|
+File.open("templates/AKOperationWindow.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    File.open("../AudioKit/AudioKit/Playgrounds/Helpers/AKAU#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
+    File.open("../AudioKit/AudioKit/Playgrounds/Helpers/AK#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
     puts erb.result
 }
 
-File.open("templates/AKAUOperation.playground.erb") { |template|
+File.open("templates/AKOperation.playground.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    File.open("output/AKAU#{au_name}.playground", 'w+') {|f| f.write(erb.result) }
+    File.open("output/AK#{au_name}.playground", 'w+') {|f| f.write(erb.result) }
     puts erb.result
 }

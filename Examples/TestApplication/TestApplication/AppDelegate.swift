@@ -13,17 +13,17 @@ import AudioKit
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
-    
+
     let audiokit = AKManager.sharedInstance
-    
+
     let input = AKMicrophone()
-    var delay:  AKAUDelay?
-    var distortion: AKAUDistortion?
+    var delay:  AKDelay?
+    var distortion: AKDistortion?
     var jcReverb: AKChowningReverb?
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        delay = AKAUDelay(input)
-        distortion = AKAUDistortion(delay!)
+        delay = AKDelay(input)
+        distortion = AKDistortion(delay!)
         jcReverb = AKChowningReverb(distortion!)
         audiokit.audioOutput = jcReverb
         audiokit.start()
