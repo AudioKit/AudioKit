@@ -67,7 +67,7 @@ public:
         }
     }
 
-    void setBuffer(AudioBufferList* outBufferList) {
+    void setBuffer(AudioBufferList *outBufferList) {
         outBufferListPtr = outBufferList;
     }
 
@@ -81,7 +81,7 @@ public:
             noise->amp = (float)amplitude;
 
             for (int channel = 0; channel < channels; ++channel) {
-                float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 sp_noise_compute(sp, noise, nil, out);
             }
@@ -95,7 +95,7 @@ private:
     int channels = 2;
     float sampleRate = 44100.0;
 
-    AudioBufferList* outBufferListPtr = nullptr;
+    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_noise *noise;
