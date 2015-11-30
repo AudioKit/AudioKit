@@ -45,13 +45,12 @@
 - name: Delays
   children:
   - AKDelay
-  - AKDelay
   - AKVariableDelay
 
 - name: Dynamics
   children:
-  - AKPeakLimiter
   - AKDynamicsProcessor
+  - AKPeakLimiter
 
 - name: Effects
   children:
