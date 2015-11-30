@@ -19,7 +19,7 @@ struct AKBufferedAudioBus {
 	AVAudioPCMBuffer* pcmBuffer = nullptr;
     
 	AudioBufferList const* originalAudioBufferList = nullptr;
-	AudioBufferList* mutableAudioBufferList = nullptr;
+	AudioBufferList *mutableAudioBufferList = nullptr;
 
 	void init(AVAudioFormat* defaultFormat, AVAudioChannelCount maxChannels) {
 		maxFrames = 0;

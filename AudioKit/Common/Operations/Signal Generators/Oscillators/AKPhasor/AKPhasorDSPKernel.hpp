@@ -67,7 +67,7 @@ public:
         }
     }
 
-    void setBuffer(AudioBufferList* outBufferList) {
+    void setBuffer(AudioBufferList *outBufferList) {
         outBufferListPtr = outBufferList;
     }
 
@@ -82,7 +82,7 @@ public:
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
-                float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (channel == 0) {
                     sp_phasor_compute(sp, phasor, nil, &temp);
@@ -99,7 +99,7 @@ private:
     int channels = 2;
     float sampleRate = 44100.0;
 
-    AudioBufferList* outBufferListPtr = nullptr;
+    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_phasor *phasor;

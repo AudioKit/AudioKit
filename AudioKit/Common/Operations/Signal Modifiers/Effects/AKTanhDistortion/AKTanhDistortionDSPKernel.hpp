@@ -106,7 +106,7 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList* inBufferList, AudioBufferList* outBufferList) {
+    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
         inBufferListPtr = inBufferList;
         outBufferListPtr = outBufferList;
     }
@@ -127,8 +127,8 @@ public:
             dist->postgain = (float)postgain;
 
             for (int channel = 0; channel < channels; ++channel) {
-                float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 sp_dist_compute(sp, dist, in, out);
             }
@@ -142,8 +142,8 @@ private:
     int channels = 2;
     float sampleRate = 44100.0;
 
-    AudioBufferList* inBufferListPtr = nullptr;
-    AudioBufferList* outBufferListPtr = nullptr;
+    AudioBufferList *inBufferListPtr = nullptr;
+    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_dist *dist;
