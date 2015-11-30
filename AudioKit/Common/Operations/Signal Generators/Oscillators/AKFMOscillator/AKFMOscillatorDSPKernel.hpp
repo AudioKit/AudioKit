@@ -36,9 +36,6 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp_ftbl_create(sp, &ftbl, 4096);
-        sp_gen_sine(sp, ftbl);
-        
         sp_fosc_create(&fosc);
         sp_fosc_init(sp, fosc, ftbl);
         
@@ -47,6 +44,19 @@ public:
         fosc->mod = 1.0;
         fosc->indx = 1.0;
         fosc->amp = 0.5;
+    }
+    
+    size_t getTableSize() {
+        return ftbl->size;
+    }
+    
+    void setupTable() {
+        sp_ftbl_create(sp, &ftbl, 4096);
+        NSLog(@"setting up table");
+    }
+    
+    void setTableValue(uint32_t index, float value) {
+        ftbl->tbl[index] = value;
     }
 
     void reset() {
