@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKAUDelay
-//: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
+//: ## AKFlatFrequencyResponseReverb
+//: ### Write Description
 import XCPlayground
 import AudioKit
 
