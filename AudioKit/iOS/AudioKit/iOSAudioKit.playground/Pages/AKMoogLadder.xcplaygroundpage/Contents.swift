@@ -16,20 +16,20 @@ let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
-let lowPassFilter: AKMoogLadder
+let moogLadder: AKMoogLadder
 
 switch source {
 case "mic":
-    lowPassFilter = AKMoogLadder(mic)
+    moogLadder = AKMoogLadder(mic)
 default:
-    lowPassFilter = AKMoogLadder(player)
+    moogLadder = AKMoogLadder(player)
 }
 //: Set the parameters of the low pass filter here
 
-lowPassFilter.cutoffFrequency = 300 // Hz
-lowPassFilter.resonance = 0.6  // Cents
+moogLadder.cutoffFrequency = 300 // Hz
+moogLadder.resonance = 0.6  // Cents
 
-audiokit.audioOutput = lowPassFilter
+audiokit.audioOutput = moogLadder
 audiokit.start()
 
 if source == "player" {
