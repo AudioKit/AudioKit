@@ -37,7 +37,7 @@ public class AKOscillator: AKOperation {
 
     /** Initialize this oscillator operation */
     public init(
-        table: AKTable = AKTable.standardSineWave(),
+        table: AKTable = AKTable(.Sine),
         frequency: Float = 440,
         amplitude: Float = 1) {
 
@@ -66,8 +66,8 @@ public class AKOscillator: AKOperation {
             self.output = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKOscillatorAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            self.internalAU?.setupTable()
-            for var i = 0; i < self.internalAU?.getTableSize(); i++ {
+            self.internalAU?.setupTable(Int32(table.size))
+            for var i = 0; i < table.size; i++ {
                 self.internalAU?.setTableValue(table.values[i], atIndex: UInt32(i))
             }
         }
