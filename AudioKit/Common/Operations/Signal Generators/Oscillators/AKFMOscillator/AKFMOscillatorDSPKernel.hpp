@@ -46,10 +46,6 @@ public:
         fosc->amp = 0.5;
     }
     
-    size_t getTableSize() {
-        return ftbl->size;
-    }
-    
     void setupTable(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);

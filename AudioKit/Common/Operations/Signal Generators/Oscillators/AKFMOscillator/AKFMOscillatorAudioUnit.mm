@@ -29,10 +29,6 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (size_t)getTableSize {
-    return _kernel.getTableSize();
-}
-
 - (void)setupTable:(int)size {
     _kernel.setupTable((uint32_t)size);
 }
