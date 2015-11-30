@@ -41,10 +41,7 @@ public:
     }
     
     void setSporth(char *sporth) {
-        NSLog(@"Set Sporth to %s", sporth);
         sporthCode = sporth;
-//        plumber_parse_string(&pd, sporthCode);
-//        plumber_compute(&pd, PLUMBER_INIT);
     }
 
     void destroy() {
