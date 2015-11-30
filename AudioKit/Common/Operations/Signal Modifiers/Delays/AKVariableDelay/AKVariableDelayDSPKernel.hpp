@@ -33,11 +33,14 @@ public:
 
         sp_create(&sp);
         sp_vdelay_create(&vdelay);
-        sp_vdelay_init(sp, vdelay, 5.0); // Temporary local modification
+        sp_vdelay_init(sp, vdelay, internalMaxDelay);
         vdelay->del = 1.0;
     }
 
     void reset() {
+    }
+    void setMaxDelayTime(float duration) {
+        internalMaxDelay = duration;
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -102,6 +105,8 @@ private:
 
     sp_data *sp;
     sp_vdelay *vdelay;
+    
+    float internalMaxDelay = 5.0;
 
 public:
     AKParameterRamper delayTimeRamper = 1.0;

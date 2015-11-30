@@ -31,7 +31,8 @@ public class AKVariableDelay: AKOperation {
     /** Initialize this delay operation */
     public init(
         _ input: AKOperation,
-        delayTime: Float = 1.0) {
+        delayTime: Float = 1.0,
+        maximumDelayTime: Float = 5.0) {
 
         self.delayTime = delayTime
         super.init()
@@ -58,11 +59,12 @@ public class AKVariableDelay: AKOperation {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKVariableDelayAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            self.internalAU!.setMaxDelayTime(maximumDelayTime)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        delayTimeParameter        = tree.valueForKey("delayTime")        as? AUParameter
+        delayTimeParameter = tree.valueForKey("delayTime") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
