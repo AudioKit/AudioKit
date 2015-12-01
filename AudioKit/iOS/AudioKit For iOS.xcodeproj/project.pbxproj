@@ -18,7 +18,7 @@
 		C42F36041C057F4C000E937C /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F35101C057F4C000E937C /* AKDSPKernel.mm */; };
 		C42F36051C057F4C000E937C /* AKGetAUParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35111C057F4C000E937C /* AKGetAUParams.swift */; };
 		C42F36061C057F4C000E937C /* AKParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42F35121C057F4C000E937C /* AKParameterRamper.hpp */; };
-		C42F362D1C057F4C000E937C /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F353E1C057F4C000E937C /* soundpipe.h */; };
+		C42F362D1C057F4C000E937C /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F353E1C057F4C000E937C /* soundpipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42F362E1C057F4C000E937C /* AKMidi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35401C057F4C000E937C /* AKMidi.swift */; };
 		C42F362F1C057F4C000E937C /* AKMidiEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35411C057F4C000E937C /* AKMidiEvent.swift */; };
 		C42F36301C057F4C000E937C /* AKMainMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35431C057F4C000E937C /* AKMainMixer.swift */; };

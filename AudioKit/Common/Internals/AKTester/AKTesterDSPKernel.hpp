@@ -39,7 +39,7 @@ public:
         samples = numberOfSamples;
     }
     void destroy() {
-//        sp_test_destroy(&sp_test);
+        sp_test_destroy(&sp_test);
     }
     
     void reset() {
@@ -77,7 +77,7 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 
                 *out = *in;
-//                sp_test_add_sample(sp_test, (SPFLOAT)*in);
+                sp_test_add_sample(sp_test, (SPFLOAT)*in);
             }
         }
     }
