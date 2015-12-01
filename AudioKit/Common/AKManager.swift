@@ -46,7 +46,10 @@ public class AKManager {
     
     public func testOutput(operation: AKOperation, samples: Int) {
         isTesting = true
+        print("creating test %@", test)
         sp_test_create(&test, 44100)
+        print("created test %@", test)
         let tester = AKTester(operation, samples: samples)
+        audioOutput = tester
     }
 }
