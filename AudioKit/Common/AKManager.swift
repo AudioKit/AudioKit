@@ -17,6 +17,9 @@ public class AKManager {
     
     /** Reference to the AV Audio Engine */
     public var engine = AVAudioEngine()
+
+    public var test: UnsafeMutablePointer<sp_test> = nil
+    public var isTesting = false
     
     /** An audio output operation that most applications will need to use last */
     public var audioOutput: AKOperation? {
@@ -39,5 +42,11 @@ public class AKManager {
     public func stop() {
         // Stop the engine.
         self.engine.stop()
+    }
+    
+    public func testOutput(operation: AKOperation, samples: Int) {
+        isTesting = true
+        sp_test_create(&test, 44100)
+        let tester = AKTester(operation, samples: samples)
     }
 }
