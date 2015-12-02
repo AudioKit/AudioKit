@@ -18,7 +18,7 @@
 		C42F36041C057F4C000E937C /* AKDSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42F35101C057F4C000E937C /* AKDSPKernel.mm */; };
 		C42F36051C057F4C000E937C /* AKGetAUParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35111C057F4C000E937C /* AKGetAUParams.swift */; };
 		C42F36061C057F4C000E937C /* AKParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42F35121C057F4C000E937C /* AKParameterRamper.hpp */; };
-		C42F362D1C057F4C000E937C /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F353E1C057F4C000E937C /* soundpipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C42F362D1C057F4C000E937C /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F353E1C057F4C000E937C /* soundpipe.h */; };
 		C42F362E1C057F4C000E937C /* AKMidi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35401C057F4C000E937C /* AKMidi.swift */; };
 		C42F362F1C057F4C000E937C /* AKMidiEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35411C057F4C000E937C /* AKMidiEvent.swift */; };
 		C42F36301C057F4C000E937C /* AKMainMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35431C057F4C000E937C /* AKMainMixer.swift */; };
@@ -157,9 +157,9 @@
 		C437927B1C0CE2E0001E9160 /* AudioKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437927A1C0CE2E0001E9160 /* AudioKitTests.swift */; };
 		C437927D1C0CE2E0001E9160 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		C43792881C0CEEB0001E9160 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = C43792841C0CEEB0001E9160 /* md5.c */; };
-		C43792891C0CEEB0001E9160 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C43792851C0CEEB0001E9160 /* md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C43792891C0CEEB0001E9160 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C43792851C0CEEB0001E9160 /* md5.h */; };
 		C437928A1C0CEEB0001E9160 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = C43792861C0CEEB0001E9160 /* test.c */; };
-		C437928B1C0CEEB0001E9160 /* test.h in Headers */ = {isa = PBXBuildFile; fileRef = C43792871C0CEEB0001E9160 /* test.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C437928B1C0CEEB0001E9160 /* test.h in Headers */ = {isa = PBXBuildFile; fileRef = C43792871C0CEEB0001E9160 /* test.h */; };
 		C43792911C0CFAD4001E9160 /* AKTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437928D1C0CFAD4001E9160 /* AKTester.swift */; };
 		C43792921C0CFAD4001E9160 /* AKTesterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C437928E1C0CFAD4001E9160 /* AKTesterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C43792931C0CFAD4001E9160 /* AKTesterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C437928F1C0CFAD4001E9160 /* AKTesterAudioUnit.mm */; };

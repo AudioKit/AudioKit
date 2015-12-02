@@ -15,12 +15,23 @@ public class AKTester: AKOperation {
 
     private var internalAU: AKTesterAudioUnit?
     private var token: AUParameterObserverToken?
+    var totalSamples = 0
 
     // MARK: - Initializers
 
+    public func getMD5() -> String {
+        return (self.internalAU?.getMD5())!
+    }
+    
+    public func isTesting() -> Bool {
+        return Int((self.internalAU?.getSamples())!) < totalSamples
+    }
+    
     /** Initialize this reverb operation */
     public init(_ input: AKOperation, samples: Int) {
         super.init()
+        
+        totalSamples = samples
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -44,7 +55,7 @@ public class AKTester: AKOperation {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTesterAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
-            self.internalAU?.setupTest(AKManager.sharedInstance.test, samples: Int32(samples))
+            self.internalAU?.setSamples(Int32(samples))
         }
 
         guard let tree = internalAU?.parameterTree else { return }
