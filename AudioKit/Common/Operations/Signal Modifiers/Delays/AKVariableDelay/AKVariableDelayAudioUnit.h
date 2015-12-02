@@ -12,7 +12,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKVariableDelayAudioUnit : AUAudioUnit
-- (void)setMaxDelayTime:(float)duration;
 @end
 
 #endif /* AKVariableDelayAudioUnit_h */
