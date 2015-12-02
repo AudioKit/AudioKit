@@ -9,6 +9,7 @@
         <page name='AKDynamicsProcessor'/>
         <page name='AKPeakLimiter'/>
         <page name='Effects'/>
+        <page name='AKAutoWah'/>
         <page name='AKBitCrusher'/>
         <page name='AKDecimator'/>
         <page name='AKDistortion'/>
