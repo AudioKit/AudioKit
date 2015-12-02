@@ -81,8 +81,8 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
             zitarev = pd->last->ud;
             *zitarev->in_delay = in_delay;
             *zitarev->lf_x = lf_x;
-            *zitarev->rt60_low = rt60_low;
-            *zitarev->rt60_mid = rt60_mid;
+            *zitarev->low_rt60 = rt60_low;
+            *zitarev->mid_rt60 = rt60_mid;
             *zitarev->hf_damping = hf_damping;
             *zitarev->eq1_freq = eq1_freq;
             *zitarev->eq1_level = eq1_level;

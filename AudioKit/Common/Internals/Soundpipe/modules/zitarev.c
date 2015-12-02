@@ -1043,8 +1043,8 @@ int sp_zitarev_init(sp_data *sp, sp_zitarev *p)
 
     p->in_delay=p->args[0];
     p->lf_x=p->args[1];
-    p->rt60_low=p->args[2];
-    p->rt60_mid=p->args[3];
+    p->low_rt60=p->args[2];
+    p->mid_rt60=p->args[3];
     p->hf_damping=p->args[4];
     p->eq1_freq=p->args[5];
     p->eq1_level=p->args[6];
