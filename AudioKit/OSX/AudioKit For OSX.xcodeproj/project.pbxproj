@@ -754,7 +754,7 @@
 				C43791091C0C4CD3001E9160 /* AKTable.swift */,
 				C42F36D91C058442000E937C /* Internals */,
 				C42F370B1C058442000E937C /* MIDI */,
-				C42F370E1C058442000E937C /* Operations */,
+				C42F370E1C058442000E937C /* Nodes */,
 			);
 			path = AudioKit;
 			sourceTree = "<group>";
@@ -784,7 +784,7 @@
 			path = ../../Common/MIDI;
 			sourceTree = "<group>";
 		};
-		C42F370E1C058442000E937C /* Operations */ = {
+		C42F370E1C058442000E937C /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
 				C42F370F1C058442000E937C /* AKMainMixer.swift */,
@@ -797,8 +797,8 @@
 				C42F371F1C058442000E937C /* Signal Generators */,
 				C42F37381C058442000E937C /* Signal Modifiers */,
 			);
-			name = Operations;
-			path = ../../Common/Operations;
+			name = Nodes;
+			path = ../../Common/Nodes;
 			sourceTree = "<group>";
 		};
 		C42F37131C058442000E937C /* Analysis */ = {
