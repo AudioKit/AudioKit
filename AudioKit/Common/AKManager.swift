@@ -20,7 +20,7 @@ public class AKManager {
     public var tester: AKTester?
     
     /** An audio output operation that most applications will need to use last */
-    public var audioOutput: AKOperation? {
+    public var audioOutput: AKNode? {
         didSet {
             engine.connect(audioOutput!.output!, to: engine.outputNode, format: nil)
         }
@@ -43,7 +43,7 @@ public class AKManager {
     }
 
     
-    public func testOutput(operation: AKOperation, samples: Int) {
+    public func testOutput(operation: AKNode, samples: Int) {
         tester = AKTester(operation, samples: samples)
         audioOutput = tester
     }

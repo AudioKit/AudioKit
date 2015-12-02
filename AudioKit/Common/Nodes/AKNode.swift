@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /** Parent class for all AudioKit Nodes */
-public class AKNodes {
+public class AKNode {
     
     /** Output of the node */
     public var output: AVAudioNode?
