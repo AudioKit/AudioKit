@@ -13,7 +13,6 @@
 #import "AKParameterRamper.hpp"
 
 extern "C" {
-//#include "soundpipe.h"
 #include "plumber.h"
 }
 
