@@ -79,46 +79,46 @@ end
 output_folder = "../AudioKit/Common/Operations/#{output_folder}/#{operation}/"
 FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 
-#####################
-# AKOperation.swift #
-#####################
-audio_unit_setup_partial      = new_partial("AKOperation.swift", "audio_unit_setup")
-description_partial           = new_partial("AKOperation.swift", "description")
-header_partial                = new_partial("AKOperation.swift", "header")
-parameter_observation_partial = new_partial("AKOperation.swift", "parameter_observation")
-parameters_partial            = new_partial("AKOperation.swift", "parameters")
+################
+# AKNode.swift #
+################
+audio_unit_setup_partial      = new_partial("AKNode.swift", "audio_unit_setup")
+description_partial           = new_partial("AKNode.swift", "description")
+header_partial                = new_partial("AKNode.swift", "header")
+parameter_observation_partial = new_partial("AKNode.swift", "parameter_observation")
+parameters_partial            = new_partial("AKNode.swift", "parameters")
 
-File.open("templates/AKOperation.swift.erb") { |template|
+File.open("templates/AKNode.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{output_folder}/#{operation}.swift", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
 }
 
-##########################
-# AKOperationAudioUnit.h #
-##########################
-File.open("templates/AKOperationAudioUnit.h.erb") { |template|
+#####################
+# AKNodeAudioUnit.h #
+#####################
+File.open("templates/AKNodeAudioUnit.h.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{output_folder}/#{operation}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
 }
 
-###########################
-# AKOperationAudioUnit.mm #
-###########################
-header_partial             = new_partial("AKOperationAudioUnit.mm", "header")
-parameter_creation_partial = new_partial("AKOperationAudioUnit.mm", "parameter_creation")
+######################
+# AKNodeAudioUnit.mm #
+######################
+header_partial             = new_partial("AKNodeAudioUnit.mm", "header")
+parameter_creation_partial = new_partial("AKNodeAudioUnit.mm", "parameter_creation")
 
-File.open("templates/AKOperationAudioUnit.mm.erb") { |template|
+File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{output_folder}/#{operation}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
 }
 
-############################
-# AKOperationDSPKernel.hpp #
-############################
-File.open("templates/AKOperationDSPKernel.hpp.erb") { |template|
+#######################
+# AKNodeDSPKernel.hpp #
+#######################
+File.open("templates/AKNodeDSPKernel.hpp.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{output_folder}/#{operation}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
