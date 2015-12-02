@@ -30,9 +30,16 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setupTest:(sp_test *)test samples:(int)samples {
+- (void)setSamples:(int)samples {
     _kernel.setSamples(samples);
-    _kernel.setTest(test);
+}
+
+- (NSString *)getMD5 {
+    return _kernel.getMD5();
+}
+
+- (int)getSamples {
+    return _kernel.getSamples();
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription

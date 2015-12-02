@@ -11,12 +11,10 @@
 
 #import <AudioToolbox/AudioToolbox.h>
 
-#import "soundpipe.h"
-#import "md5.h"
-#import "test.h"
-
 @interface AKTesterAudioUnit : AUAudioUnit
-- (void)setupTest:(sp_test *)test samples:(int)samples;
+- (void)setSamples:(int)samples;
+- (NSString *)getMD5;
+- (int)getSamples;
 @end
 
 #endif /* AKTesterAudioUnit_h */
