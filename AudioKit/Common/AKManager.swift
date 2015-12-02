@@ -17,6 +17,7 @@ public class AKManager {
     
     /** Reference to the AV Audio Engine */
     public var engine = AVAudioEngine()
+    public var tester: AKTester?
     
     /** An audio output operation that most applications will need to use last */
     public var audioOutput: AKOperation? {
@@ -39,5 +40,11 @@ public class AKManager {
     public func stop() {
         // Stop the engine.
         self.engine.stop()
+    }
+
+    
+    public func testOutput(operation: AKOperation, samples: Int) {
+        tester = AKTester(operation, samples: samples)
+        audioOutput = tester
     }
 }

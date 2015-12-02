@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #ifndef NO_LIBSNDFILE
-#include "sndfile.h"
+//#include "sndfile.h"
 #endif
 
 #define SP_BUFSIZE 4096
