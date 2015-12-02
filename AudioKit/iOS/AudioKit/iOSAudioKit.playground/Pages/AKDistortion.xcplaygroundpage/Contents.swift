@@ -7,24 +7,15 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
-let mic = AKMicrophone()
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let distortion: AKDistortion
+let distortion = AKDistortion(player)
 
-switch source {
-case "mic":
-    distortion = AKDistortion(mic)
-default:
-    distortion = AKDistortion(player)
-}
 //: Set the parameters of the distortion here
 distortion.delay = 0.1 // Milliseconds
 distortion.decay = 1.0 // Rate
@@ -47,10 +38,7 @@ distortion.finalMix = 50 // Percent
 
 audiokit.audioOutput = distortion
 audiokit.start()
-
-if source == "player" {
-    player.play()
-}
+player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

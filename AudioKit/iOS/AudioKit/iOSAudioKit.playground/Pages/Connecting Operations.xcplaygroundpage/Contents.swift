@@ -7,12 +7,9 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 //: This section prepares the player and the microphone
 let audiokit = AKManager.sharedInstance
-let mic = AKMicrophone()
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
@@ -39,9 +36,7 @@ reverb.loadFactoryPreset(.Cathedral)
 audiokit.audioOutput = reverb
 audiokit.start()
 
-if source == "player" {
-    player.play()
-}
+player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

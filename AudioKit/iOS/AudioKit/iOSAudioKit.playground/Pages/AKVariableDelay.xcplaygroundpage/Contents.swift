@@ -7,32 +7,20 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
-let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let delay: AKVariableDelay
-
-switch source {
-case "mic":
-    delay = AKVariableDelay(mic)
-default:
-    delay = AKVariableDelay(player)
-}
+let delay = AKVariableDelay(player)
 
 //: Set the parameters of the delay here delay.time = 0.1 // seconds
 
 audiokit.audioOutput = delay
 audiokit.start()
-if source == "player" {
-    player.play()
-}
+player.play()
+
 var t = 0.0
 while true {
     delay.time = Float(1.0 - cos(3 * t)) * 0.02
