@@ -30,9 +30,6 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setMaxDelayTime:(float)duration {
-    _kernel.setMaxDelayTime(duration);
-}
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
@@ -49,11 +46,11 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-        // Create a parameter object for the delayTime.
-    AUParameter *delayTimeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"delayTime"
+        // Create a parameter object for the time.
+    AUParameter *timeAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"time"
                                               name:@"Delay time (Seconds)"
-                                           address:delayTimeAddress
+                                           address:timeAddress
                                                min:0.0
                                                max:10.0
                                               unit:kAudioUnitParameterUnit_Seconds
@@ -61,15 +58,30 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
+    // Create a parameter object for the feedback.
+    AUParameter *feedbackAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"feedback"
+                                              name:@"Feedback (%)"
+                                           address:feedbackAddress
+                                               min:0.0
+                                               max:1.0
+                                              unit:kAudioUnitParameterUnit_Generic
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
 
     // Initialize the parameter values.
-    delayTimeAUParameter.value = 1.0;
+    timeAUParameter.value = 1.0;
+    feedbackAUParameter.value = 0.0;
 
-    _kernel.setParameter(delayTimeAddress,        delayTimeAUParameter.value);
+    _kernel.setParameter(timeAddress,             timeAUParameter.value);
+    _kernel.setParameter(feedbackAddress,         feedbackAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        delayTimeAUParameter
+        timeAUParameter,
+        feedbackAUParameter
     ]];
 
     // Create the input and output busses.
@@ -152,7 +164,6 @@
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
-    _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
 

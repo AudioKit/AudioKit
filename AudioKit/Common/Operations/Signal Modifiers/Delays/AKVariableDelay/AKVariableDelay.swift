@@ -16,13 +16,20 @@ public class AKVariableDelay: AKOperation {
     private var internalAU: AKVariableDelayAudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var delayTimeParameter: AUParameter?
+    private var timeParameter: AUParameter?
+    private var feedbackParameter: AUParameter?
 
     /** Delay time (in seconds) that can be changed during performance. This value must
      not exceed the maximum delay time. */
-    public var delayTime: Float = 1.0 {
+    public var time: Float = 1.0 {
         didSet {
-            delayTimeParameter?.setValue(delayTime, originator: token!)
+            timeParameter?.setValue(time, originator: token!)
+        }
+    }
+    /** Feedback amount. Should be a value between 0-1. */
+    public var feedback: Float = 0.0 {
+        didSet {
+            feedbackParameter?.setValue(feedback, originator: token!)
         }
     }
 
@@ -31,10 +38,11 @@ public class AKVariableDelay: AKOperation {
     /** Initialize this delay operation */
     public init(
         _ input: AKOperation,
-        delayTime: Float = 1.0,
-        maximumDelayTime: Float = 5.0) {
+        time: Float = 1.0,
+        feedback: Float = 0.0) {
 
-        self.delayTime = delayTime
+        self.time = time
+        self.feedback = feedback
         super.init()
 
         var description = AudioComponentDescription()
@@ -59,19 +67,21 @@ public class AKVariableDelay: AKOperation {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKVariableDelayAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
-            self.internalAU!.setMaxDelayTime(maximumDelayTime)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        delayTimeParameter = tree.valueForKey("delayTime") as? AUParameter
+        timeParameter             = tree.valueForKey("time")             as? AUParameter
+        feedbackParameter         = tree.valueForKey("feedback")         as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
 
             dispatch_async(dispatch_get_main_queue()) {
-                if address == self.delayTimeParameter!.address {
-                    self.delayTime = value
+                if address == self.timeParameter!.address {
+                    self.time = value
+                } else if address == self.feedbackParameter!.address {
+                    self.feedback = value
                 }
             }
         }

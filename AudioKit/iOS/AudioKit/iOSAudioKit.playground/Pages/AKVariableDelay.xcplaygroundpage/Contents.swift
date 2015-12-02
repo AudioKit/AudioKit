@@ -14,7 +14,7 @@ let source = "player"
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
+let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let delay: AKVariableDelay
@@ -23,11 +23,10 @@ switch source {
 case "mic":
     delay = AKVariableDelay(mic)
 default:
-    delay = AKVariableDelay(player, maximumDelayTime: 6.0)
+    delay = AKVariableDelay(player)
 }
 
-//: Set the parameters of the delay here
-delay.delayTime = 0 // seconds
+//: Set the parameters of the delay here delay.time = 0.1 // seconds
 
 audiokit.audioOutput = delay
 audiokit.start()
@@ -36,7 +35,8 @@ if source == "player" {
 }
 var t = 0.0
 while true {
-    delay.delayTime = Float(1.0 - cos(t))
+    delay.time = Float(1.0 - cos(3 * t)) * 0.02
+    delay.feedback = Float(1.0 - sin(2 * t)) * 0.5
     t = t + 0.01
     usleep(1000000 / 100)
 }

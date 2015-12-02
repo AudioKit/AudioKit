@@ -21,13 +21,23 @@ inputs:
 
 parameters:
 - del: {
-  ak-variable: delayTime,
+  ak-variable: time,
   comment: "Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.",
   au-name: "Delay time (Seconds)",
   au-unit: Seconds,
   default: 1.0,
   minimum: 0.0,
   maximum: 10.0
+}
+
+- feedback: {
+  ak-variable: feedback,
+  comment: "Feedback amount. Should be a value between 0-1.",
+  au-name: "Feedback (%)",
+  au-unit: Generic,
+  default: 0.0,
+  minimum: 0.0,
+  maximum: 1.0
 }
 
 constants:
