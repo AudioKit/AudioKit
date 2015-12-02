@@ -72,7 +72,7 @@ File.open("templates/AKAUOperation.swift.erb") { |template|
 
 File.open("templates/AKOperationWindow.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    File.open("../AudioKit/AudioKit/Playgrounds/Helpers/AK#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
+    File.open("../AudioKit/OSX/AudioKit/Playgrounds/Helpers/AK#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
     puts erb.result
 }
 
