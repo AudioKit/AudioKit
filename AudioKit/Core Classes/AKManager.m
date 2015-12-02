@@ -334,10 +334,12 @@ static AKManager *_sharedManager = nil;
 - (void)messageReceivedFrom:(CsoundObj *)csoundObj attr:(int)attr message:(NSString *)msg
 {    
     if ([msg length] > 4 && [[msg substringToIndex:5] isEqualToString:@"clock"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"AKBeatClock"
-                                                            object:nil
-                                                          userInfo:@{@"message":[msg substringFromIndex:6]}];
-    } 
+        dispatch_async(dispatch_get_main_queue(), ^{
+          [[NSNotificationCenter defaultCenter] postNotificationName:@"AKBeatClock"
+                                                              object:nil
+                                                            userInfo:@{@"message":[msg substringFromIndex:6]}];
+        });
+    }
 
     if (_isLogging && [msg rangeOfString: @"clock"].location != 0) {
         if (AKSettings.shared.messagesEnabled) {
