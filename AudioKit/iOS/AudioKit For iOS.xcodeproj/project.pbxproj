@@ -176,6 +176,7 @@
 		C46960121C0ED95200A65FBF /* AKAutoWahAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C469600E1C0ED95200A65FBF /* AKAutoWahAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46960131C0ED95200A65FBF /* AKAutoWahAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C469600F1C0ED95200A65FBF /* AKAutoWahAudioUnit.mm */; };
 		C46960141C0ED95200A65FBF /* AKAutoWahDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C46960101C0ED95200A65FBF /* AKAutoWahDSPKernel.hpp */; };
+		C46960161C0EE0CA00A65FBF /* AKSpatialMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46960151C0EE0CA00A65FBF /* AKSpatialMixer.swift */; };
 		C472F6F31C06F7B2001A65C5 /* AKSawtoothOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C472F6EF1C06F7B2001A65C5 /* AKSawtoothOscillator.swift */; };
 		C472F6F41C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C472F6F01C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C472F6F51C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C472F6F11C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm */; };
@@ -529,6 +530,7 @@
 		C469600E1C0ED95200A65FBF /* AKAutoWahAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAutoWahAudioUnit.h; sourceTree = "<group>"; };
 		C469600F1C0ED95200A65FBF /* AKAutoWahAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAutoWahAudioUnit.mm; sourceTree = "<group>"; };
 		C46960101C0ED95200A65FBF /* AKAutoWahDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKAutoWahDSPKernel.hpp; sourceTree = "<group>"; };
+		C46960151C0EE0CA00A65FBF /* AKSpatialMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSpatialMixer.swift; sourceTree = "<group>"; };
 		C472F6EF1C06F7B2001A65C5 /* AKSawtoothOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSawtoothOscillator.swift; sourceTree = "<group>"; };
 		C472F6F01C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSawtoothOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C472F6F11C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSawtoothOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -929,6 +931,7 @@
 			isa = PBXGroup;
 			children = (
 				FEBD3EFE1C095FFC009BC7F1 /* AKSequencer.swift */,
+				C46960151C0EE0CA00A65FBF /* AKSpatialMixer.swift */,
 				C42F35431C057F4C000E937C /* AKMainMixer.swift */,
 				C42F35441C057F4C000E937C /* AKMicrophone.swift */,
 				C42F35451C057F4C000E937C /* AKMixer.swift */,
@@ -1890,6 +1893,7 @@
 				C4E958071C0ADBAB00516A6A /* basic.c in Sources */,
 				C4F52E1D1C080A4400F22BD1 /* AKSquareWaveOscillator.swift in Sources */,
 				C4E958091C0ADBAB00516A6A /* buthp.c in Sources */,
+				C46960161C0EE0CA00A65FBF /* AKSpatialMixer.swift in Sources */,
 				C4F52DF61C07F53200F22BD1 /* AKToneFilterAudioUnit.mm in Sources */,
 				C42F365B1C057F4C000E937C /* AKRingModulator.swift in Sources */,
 				C4F52DF41C07F53200F22BD1 /* AKToneFilter.swift in Sources */,

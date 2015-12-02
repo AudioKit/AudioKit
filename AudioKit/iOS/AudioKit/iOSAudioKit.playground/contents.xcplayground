@@ -38,5 +38,6 @@
         <page name='AKCustomGenerator'/>
         <page name='AKCustomModifier'/>
         <page name='AKSequencer'/>
+        <page name='AKSpatialMixer'/>
     </pages>
 </playground>
