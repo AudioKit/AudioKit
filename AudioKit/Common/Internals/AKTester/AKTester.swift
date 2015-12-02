@@ -9,7 +9,7 @@
 import AVFoundation
 
 
-public class AKTester: AKOperation {
+public class AKTester: AKNode {
 
     // MARK: - Properties
 
@@ -28,7 +28,7 @@ public class AKTester: AKOperation {
     }
     
     /** Initialize this reverb operation */
-    public init(_ input: AKOperation, samples: Int) {
+    public init(_ input: AKNode, samples: Int) {
         super.init()
         
         totalSamples = samples
