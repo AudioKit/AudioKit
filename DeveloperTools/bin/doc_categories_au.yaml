@@ -1,7 +1,7 @@
 - name: Core Classes
   children:
   - AKManager
-  - AKOperation
+  - AKNode
   - AKAudioPlayer
   - AKMicrophone
   - AKMainMixer

@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's <%= au_name %> Audio Unit */
-public class AK<%= au_name %>: AKOperation {
+public class AK<%= au_name %>: AKNode {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -43,7 +43,7 @@ public class AK<%= au_name %>: AKOperation {
 <% end -%>
     /** Initialize the <%= au_name.underscore.humanize.uncapitalize %> operation */
     public init(
-        _ input: AKOperation,
+        _ input: AKNode,
 <% parameters.each_with_index do |parameter, i| -%>
         <%= parameter[:variable] %>: Float = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 %><% end %>) {
 
