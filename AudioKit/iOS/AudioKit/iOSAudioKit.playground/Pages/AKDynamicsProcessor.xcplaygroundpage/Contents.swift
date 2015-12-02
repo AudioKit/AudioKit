@@ -7,24 +7,15 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
-let mic = AKMicrophone()
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let dynamicsProcessor: AKDynamicsProcessor
+let dynamicsProcessor = AKDynamicsProcessor(player)
 
-switch source {
-case "mic":
-    dynamicsProcessor = AKDynamicsProcessor(mic)
-default:
-    dynamicsProcessor = AKDynamicsProcessor(player)
-}
 //: Set the parameters of the dynamics processor here
 dynamicsProcessor.threshold = -20 // dB
 dynamicsProcessor.headRoom = 5 // dB
@@ -40,9 +31,7 @@ dynamicsProcessor.outputAmplitude = 0 // dB
 audiokit.audioOutput = dynamicsProcessor
 audiokit.start()
 
-if source == "player" {
-    player.play()
-}
+player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

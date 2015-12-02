@@ -7,24 +7,15 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 //: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
-let mic = AKMicrophone()
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let lowPassFilter: AKLowPassFilter
+let lowPassFilter = AKLowPassFilter(player)
 
-switch source {
-case "mic":
-    lowPassFilter = AKLowPassFilter(mic)
-default:
-    lowPassFilter = AKLowPassFilter(player)
-}
 //: Set the parameters of the low pass filter here
 lowPassFilter.cutoffFrequency = 1000 // Hz
 lowPassFilter.resonance = 0 // dB
@@ -32,9 +23,7 @@ lowPassFilter.resonance = 0 // dB
 audiokit.audioOutput = lowPassFilter
 audiokit.start()
 
-if source == "player" {
-    player.play()
-}
+player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
