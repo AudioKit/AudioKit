@@ -27,7 +27,7 @@ public class AKTester: AKNode {
         return Int((self.internalAU?.getSamples())!) < totalSamples
     }
     
-    /** Initialize this reverb operation */
+    /** Initialize this test node */
     public init(_ input: AKNode, samples: Int) {
         super.init()
         

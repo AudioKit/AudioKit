@@ -1,16 +1,16 @@
 //: # AudioKit for iOS Playgrounds
 //: ## Tutorials
 //: * [Introduction](Intro)
-//: * [Connecting Operations](Connecting%20Operations)
+//: * [Connecting Nodes](Connecting%20Nodes)
 //: ---
-//: ## Operations
-//: ### Signal Generators
+//: ## Nodes
+//: ### Generators
 //: * [White Noise](AKWhiteNoise)
 //: * [FM Oscillator](AKFMOscillator)
 //: * [Oscillator](AKOscillator)
 //: * [Phasor](AKPhasor)
 //: * [Sawtooth Oscillator](AKSawtoothOscillator)
-//: ### Signal Modifiers
+//: ### Effects
 //: * [Delay](AKDelay)
 //: * [Effects](Effects)
 //: * [Filters](Filters)

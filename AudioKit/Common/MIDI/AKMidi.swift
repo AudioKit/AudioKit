@@ -10,7 +10,7 @@ import Foundation
 import CoreMIDI
 
 //// MIDI input and output handler
-public class AKMidi: AKOperation {
+public class AKMidi: AKNode {
     
     /// MIDI Client Reference
     public var midiClient = MIDIClientRef()
