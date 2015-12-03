@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKCustomModifier
+//: ## AKCustomEffect
 //: ### Add description
 import XCPlayground
 import AudioKit
@@ -15,7 +15,7 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let modifier = AKCustomModifier(player, sporth:"0 p 1 p 0.1 1 sine 0.5 0.97 scale 10000 revsc")
+let modifier = AKCustomEffect(player, sporth:"0 p 1 p 0.1 1 sine 0.5 0.97 scale 10000 revsc")
 
 audiokit.audioOutput = modifier
 audiokit.start()
