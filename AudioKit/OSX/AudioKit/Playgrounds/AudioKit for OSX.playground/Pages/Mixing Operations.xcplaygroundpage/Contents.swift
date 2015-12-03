@@ -20,14 +20,7 @@ let player2 = AKAudioPlayer(file2!)
 player2.looping = true
 let player2Window = AKAudioPlayerWindow(player2, title: "Full Band", xOffset: 640)
 
-//Aure---perhaps make a note here elaborating the difference between these methods, and why one is preferred and one isn't? Obviously method two is more succinct, but we could have more detail. Additionally, I'm currently getting an "unresolved identifier AKMixer" error. 
-
-// One way to mix audio is to use the main mixer
-//let mixer = AKMainMixer()
-//mixer.connect(player1)
-//mixer.connect(player2)
-
-// Preferred method is as follows:
+//: Any number of inputs can be equally summed into one output
 let mixer = AKMixer(player1, player2)
 mixer.volume = 0.5
 
