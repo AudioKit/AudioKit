@@ -12,6 +12,7 @@
 		C4341E631BC0E27300CB83C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E611BC0E27300CB83C1 /* Main.storyboard */; };
 		C4341E651BC0E27300CB83C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4341E641BC0E27300CB83C1 /* Assets.xcassets */; };
 		C4341E681BC0E27300CB83C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E661BC0E27300CB83C1 /* LaunchScreen.storyboard */; };
+		C49E2D0C1C10027B0051C445 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F38B31C058A05000E937C /* AudioKit.framework */; };
 		FEBD3F021C09688E009BC7F1 /* 4tracks.mid in Resources */ = {isa = PBXBuildFile; fileRef = FEBD3F011C09688E009BC7F1 /* 4tracks.mid */; };
 /* End PBXBuildFile section */
 
@@ -22,6 +23,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = C42F35001C057E03000E937C;
 			remoteInfo = AudioKit;
+		};
+		C49E2D0A1C10027B0051C445 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F38AE1C058A05000E937C /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C43792781C0CE2E0001E9160;
+			remoteInfo = AudioKitTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -42,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C49E2D0C1C10027B0051C445 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				C42F38B31C058A05000E937C /* AudioKit.framework */,
+				C49E2D0B1C10027B0051C445 /* AudioKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -152,6 +162,13 @@
 			fileType = wrapper.framework;
 			path = AudioKit.framework;
 			remoteRef = C42F38B21C058A05000E937C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C49E2D0B1C10027B0051C445 /* AudioKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AudioKitTests.xctest;
+			remoteRef = C49E2D0A1C10027B0051C445 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
