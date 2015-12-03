@@ -17,18 +17,30 @@ public struct AKParameter: CustomStringConvertible {
         parameterString = operationString
     }
     public init(value: Float) {
-        parameterString = "\(value) "
+        parameterString = "\(value)"
     }
 }
 
 public struct AKP {
     
+    /** Bit Crusher
+     - parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. (Default: 8, Minimum: 1, Maximum: 24)
+     - parameter sampleRate: The sample rate of signal output. (Default: 10000, Minimum: 0 Maximum: 22050)
+     */
+    public static func bitCrush(
+        input: AKParameter,
+        bitDepth: AKParameter = 8.ak,
+        sampleRate: AKParameter = 1.ak
+        ) -> AKParameter {
+            return AKParameter("\(input) \(bitDepth) \(sampleRate) bitcrush")
+    }
+    
     public enum SinePreset {
         case Fast
         case Slow
     }
-    public static func sine(frequency frequency: AKParameter = AKParameter(value: 440),
-        amplitude: AKParameter = AKParameter(value: 1)) -> AKParameter {
+    public static func sine(frequency frequency: AKParameter = 440.ak,
+        amplitude: AKParameter = 1.ak) -> AKParameter {
             return AKParameter("\(frequency) \(amplitude) sine")
     }
     public static func sine(preset preset: SinePreset) -> AKParameter {
@@ -60,10 +72,14 @@ public extension Double {
     public var ak: AKParameter {return AKParameter(value: Float(self))}
 }
 
-public func AKNewGenerator(operation: AKParameter) -> AKCustomGenerator {
-    return AKCustomGenerator("\(operation) dup")
-}
+extension AKP {
 
-public func AKNewGenerator(left: AKParameter, _ right: AKParameter) -> AKCustomGenerator {
-    return AKCustomGenerator("\(left) \(right)")
+    public static func generator(operation: AKParameter) -> AKCustomGenerator {
+        print(operation)
+        return AKCustomGenerator("\(operation) dup")
+    }
+    
+    public static func generator(left: AKParameter, _ right: AKParameter) -> AKCustomGenerator {
+        return AKCustomGenerator("\(left) \(right)")
+    }
 }
