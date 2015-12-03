@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Connecting Operations
-//: ### Playing audio is great, but now let's process that audio
+//: ### Playing audio is great, but now let's process that audio. This page demonstrates how operations can be connected together to process an input source. 
 import XCPlayground
 import AudioKit
 
@@ -19,7 +19,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow: AKAudioPlayerWindow
 
-//: Next, we'll connect the audio to a delay
+//: Next, we'll connect the audio source to a delay
 let delay: AKDelay
 switch source {
 case "mic":
