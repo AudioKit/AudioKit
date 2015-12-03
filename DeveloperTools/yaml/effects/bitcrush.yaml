@@ -2,7 +2,9 @@ installation-directory: "Signal\ Modifiers/Effects/"
 
 sp-module: bitcrush
 
-operation: AKBitCrusher
+node: AKBitCrusher
+
+operation: bitCrush
 
 summary: Digital Signal Decimator
 
