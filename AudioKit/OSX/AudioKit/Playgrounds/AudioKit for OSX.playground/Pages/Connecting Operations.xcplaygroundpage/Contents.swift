@@ -19,7 +19,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow: AKAudioPlayerWindow
 
-//: Next we'll connect the audio to a delay
+//: Next, we'll connect the audio to a delay
 let delay: AKDelay
 switch source {
 case "mic":

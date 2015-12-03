@@ -19,6 +19,10 @@ audiokit.audioOutput = player
 audiokit.start()
 player.play()
 
+
+//Aure--it would be nice if we could hide this away somehow
+//so that the playground only has content related to audio kit, or at least 
+//some sort of prgama mark signifying it has to do with playground behaviour. 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
