@@ -37,7 +37,7 @@ public:
     }
     
     NSString *getMD5() {
-        md5 = [@"" cString];
+        md5 = [@"" cStringUsingEncoding:NSUTF8StringEncoding];
         sp_test_compare(sp_test, md5);
         return [NSString stringWithCString:sp_test->md5 encoding:NSUTF8StringEncoding];
     }
