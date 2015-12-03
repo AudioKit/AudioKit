@@ -48,7 +48,6 @@ distortion.ringModMix = 0 // Percent
 distortion.softClipGain = -6 // dB
 distortion.finalMix = 50 // Percent
 
-//Aure --- I'm currently getting an error of
 var distortionWindow = AKDistortionWindow(distortion)
 
 audiokit.audioOutput = distortion

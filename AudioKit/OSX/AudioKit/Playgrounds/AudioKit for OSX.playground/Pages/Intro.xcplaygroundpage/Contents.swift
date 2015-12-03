@@ -15,14 +15,16 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 
+//: Next set AudioKit's main audio output to be this player
 audiokit.audioOutput = player
+
+//: Start up AudioKit to connect all nodes to the system
 audiokit.start()
+
+//: Start the player's audio playback
 player.play()
 
-
-//Aure--it would be nice if we could hide this away somehow
-//so that the playground only has content related to audio kit, or at least 
-//some sort of prgama mark signifying it has to do with playground behaviour. 
+//: Because we need to keep this playground running to playback the audio, we add the following line at the bottom to most playgrounds (or in some cases, we can set up a never ending loop)
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
