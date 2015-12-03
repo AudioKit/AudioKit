@@ -41,7 +41,6 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKMoogLadderAudioUnit.h>
 #import <AudioKit/AKChowningReverbAudioUnit.h>
 #import <AudioKit/AKCostelloReverbAudioUnit.h>
-#import <AudioKit/AKLinearTransformationAudioUnit.h>
 #import <AudioKit/AKFMOscillatorAudioUnit.h>
 #import <AudioKit/AKOscillatorAudioUnit.h>
 #import <AudioKit/AKPhasorAudioUnit.h>
@@ -51,7 +50,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKPinkNoiseAudioUnit.h>
 #import <AudioKit/AKWhiteNoiseAudioUnit.h>
 
-#import <AudioKit/AKCustomModifierAudioUnit.h>
+#import <AudioKit/AKCustomEffectAudioUnit.h>
 #import <AudioKit/AKCustomGeneratorAudioUnit.h>
 
 #import <AudioKit/AKTesterAudioUnit.h>

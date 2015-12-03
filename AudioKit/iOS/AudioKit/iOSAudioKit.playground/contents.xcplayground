@@ -35,9 +35,9 @@
         <page name='AKWhiteNoise'/>
         <page name='AKCostelloReverb'/>
         <page name='AKFlatFrequencyResponseReverb'/>
+        <page name='AKCustomEffect'/>
         <page name='AKCustomGenerator'/>
         <page name='Custom Generator'/>
-        <page name='AKCustomModifier'/>
         <page name='AKSequencer'/>
         <page name='AKSpatialMixer'/>
     </pages>
