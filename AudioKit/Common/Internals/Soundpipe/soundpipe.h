@@ -123,6 +123,7 @@ int sp_tevent_init(sp_data *sp, sp_tevent *te,
                    void (*reinit)(void*), void (*compute)(void *, SPFLOAT *out), void *ud);
 int sp_tevent_compute(sp_data *sp, sp_tevent *te, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    char empty;
 } sp_abs;
 
 int sp_abs_create(sp_abs **p);
@@ -130,6 +131,7 @@ int sp_abs_destroy(sp_abs **p);
 int sp_abs_init(sp_data *sp, sp_abs *p);
 int sp_abs_compute(sp_data *sp, sp_abs *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    char empty;
 } sp_add;
 
 int sp_add_create(sp_add **p);
@@ -334,6 +336,7 @@ int sp_dist_destroy(sp_dist **p);
 int sp_dist_init(sp_data *sp, sp_dist *p);
 int sp_dist_compute(sp_data *sp, sp_dist *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    char empty;
 } sp_div;
 
 int sp_div_create(sp_div **p);
@@ -573,6 +576,7 @@ int sp_in_destroy(sp_in **p);
 int sp_in_init(sp_data *sp, sp_in *p);
 int sp_in_compute(sp_data *sp, sp_in *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    char empty;
 } sp_inverse;
 
 int sp_inverse_create(sp_inverse **p);
@@ -685,6 +689,7 @@ int sp_moogladder_destroy(sp_moogladder **t);
 int sp_moogladder_init(sp_data *sp, sp_moogladder *p);
 int sp_moogladder_compute(sp_data *sp, sp_moogladder *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    char empty;
 } sp_mul;
 
 int sp_mul_create(sp_mul **p);
@@ -1042,6 +1047,7 @@ int sp_streson_destroy(sp_streson **p);
 int sp_streson_init(sp_data *sp, sp_streson *p);
 int sp_streson_compute(sp_data *sp, sp_streson *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    char empty;
 } sp_sub;
 
 int sp_sub_create(sp_sub **p);

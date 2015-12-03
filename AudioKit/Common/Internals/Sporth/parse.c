@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "sporth.h"
@@ -20,7 +21,7 @@ enum {
 };
 
 char * sporth_tokenizer(sporth_data *sporth, char *str,
-        uint32_t size, uint32_t *pos)
+                        uint32_t size, uint32_t *pos)
 {
     char c;
     uint32_t offset = 0;
@@ -195,7 +196,7 @@ int sporth_lexer(sporth_data *sporth, char *str, int32_t size)
                 return LEX_ERROR;
         }
     }
-
+    
     switch(mode) {
         case LEX_FLOAT:
         case LEX_FLOAT_DOT:

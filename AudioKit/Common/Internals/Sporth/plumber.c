@@ -65,7 +65,7 @@ int plumber_init(plumber_data *plumb)
     plumb->nchan = 1;
     sporth_stack_init(&plumb->sporth.stack);
     plumber_ftmap_init(plumb);
-    plumb->seed = time(NULL);
+    plumb->seed = (int) time(NULL);
     plumb->fp = NULL;
     int pos;
     for(pos = 0; pos < 16; pos++) plumb->p[pos] = 0;
@@ -224,13 +224,13 @@ int plumber_parse_string(plumber_data *plumb, char *str)
 {
     char *out, *tmp;
     uint32_t pos = 0, len = 0;
-    uint32_t size = strlen(str);
+    uint32_t size = (unsigned int)strlen(str);
 
     pos = 0;
     len = 0;
     while(pos < size) {
         out = sporth_tokenizer(&plumb->sporth, str, size, &pos);
-        len = strlen(out);
+        len = (unsigned int)strlen(out);
 
         switch(sporth_lexer(&plumb->sporth, out, len)) {
             case SPORTH_FLOAT:
@@ -283,8 +283,8 @@ int plumber_parse(plumber_data *plumb)
         pos = 0;
         len = 0;
         while(pos < read - 1) {
-            out = sporth_tokenizer(&plumb->sporth, line, read - 1, &pos);
-            len = strlen(out);
+            out = sporth_tokenizer(&plumb->sporth, line, (unsigned int)read - 1, &pos);
+            len = (unsigned int)strlen(out);
 
             switch(sporth_lexer(&plumb->sporth, out, len)) {
                 case SPORTH_FLOAT:
@@ -463,17 +463,17 @@ int plumber_register(plumber_data *plumb)
     return PLUMBER_OK;
 }
 
-static uint32_t str2time(plumber_data *pd, char *str)
-{
-    int len = strlen(str);
-    char last = str[len - 1];
-    switch(last) {
-        case 's':
-            str[len - 1] = '\0';
-            return atof(str) * pd->sp->sr;
-            break;
-        default:
-            return atoi(str);
-            break;
-    }
-}
+//static uint32_t str2time(plumber_data *pd, char *str)
+//{
+//    int len = (int)strlen(str);
+//    char last = str[len - 1];
+//    switch(last) {
+//        case 's':
+//            str[len - 1] = '\0';
+//            return atof(str) * pd->sp->sr;
+//            break;
+//        default:
+//            return atoi(str);
+//            break;
+//    }
+//}
