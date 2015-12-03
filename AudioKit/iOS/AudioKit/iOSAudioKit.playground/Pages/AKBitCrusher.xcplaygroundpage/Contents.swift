@@ -13,6 +13,7 @@ let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
 let bitcrusher = AKBitCrusher(player)
 
 //: Set the parameters of the band pass filter here

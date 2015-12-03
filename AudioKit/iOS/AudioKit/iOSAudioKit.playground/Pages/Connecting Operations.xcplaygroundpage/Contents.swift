@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## Connecting Operations
+//: ## Connecting Nodes
 //: ### Playing audio is great, but now let's process that audio
 import XCPlayground
 import AudioKit
@@ -17,19 +17,14 @@ player.looping = true
 
 //: Next we'll connect the audio to a delay
 let delay: AKDelay
-switch source {
-case "mic":
-    delay = AKDelay(mic)
-default:
-    delay = AKDelay(player)
-}
+delay = AKDelay(player)
 
 //: Set the parameters of the delay here
 delay.time = 0.1 // seconds
 delay.feedback  = 80 // Percent
 delay.dryWetMix = 60 // Percent
 
-//: You can continue add more operations as you wish, and here we add a reverb
+//: You can continue add more nodes as you wish, and here we add a reverb
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.Cathedral)
 
