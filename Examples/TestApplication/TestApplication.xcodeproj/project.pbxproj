@@ -10,6 +10,7 @@
 		C43FA3341BC19AF200EC6C85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43FA3331BC19AF200EC6C85 /* AppDelegate.swift */; };
 		C43FA3361BC19AF200EC6C85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C43FA3351BC19AF200EC6C85 /* Assets.xcassets */; };
 		C43FA3391BC19AF200EC6C85 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C43FA3371BC19AF200EC6C85 /* MainMenu.xib */; };
+		C49E2D0F1C1002FA0051C445 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F38BE1C058A6D000E937C /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C49E2D0F1C1002FA0051C445 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
