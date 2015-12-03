@@ -28,7 +28,7 @@ default:
     playerWindow = AKAudioPlayerWindow(player)
 }
 
-//: Set the parameters of the low shelf filter here
+//: Set the parameters of the low-shelf filter here
 lowShelfFilter.cutoffFrequency = 80 // Hz
 lowShelfFilter.gain = 0 // dB
 
