@@ -200,6 +200,7 @@
 		C48AA6971C0FA6C5006EB131 /* AKTanhDistortionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C48AA68B1C0FA6C5006EB131 /* AKTanhDistortionAudioUnit.mm */; };
 		C48AA6981C0FA6C5006EB131 /* AKTanhDistortionDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C48AA68C1C0FA6C5006EB131 /* AKTanhDistortionDSPKernel.hpp */; };
 		C48AA69B1C0FA70C006EB131 /* AKTimePitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48AA69A1C0FA70C006EB131 /* AKTimePitch.swift */; };
+		C49E2CF21C0FF2250051C445 /* randh.c in Sources */ = {isa = PBXBuildFile; fileRef = C49E2CF11C0FF2250051C445 /* randh.c */; };
 		C4DC86F91C07A1F700CA2591 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DC86F81C07A1F700CA2591 /* AKTable.swift */; };
 		C4E958071C0ADBAB00516A6A /* basic.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E957D51C0ADBAB00516A6A /* basic.c */; };
 		C4E958081C0ADBAB00516A6A /* bitcrush.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E957D61C0ADBAB00516A6A /* bitcrush.c */; };
@@ -348,7 +349,6 @@
 		C4E959081C0B847C00516A6A /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E959071C0B847C00516A6A /* fft.c */; };
 		C4E9590C1C0B84E000516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590B1C0B84E000516A6A /* mincer.c */; };
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
-		C4E959101C0B8C0500516A6A /* randh.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590F1C0B8C0500516A6A /* randh.c */; };
 		C4F52DF01C07F53200F22BD1 /* AKToneComplementFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F52DE71C07F53200F22BD1 /* AKToneComplementFilter.swift */; };
 		C4F52DF11C07F53200F22BD1 /* AKToneComplementFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F52DE81C07F53200F22BD1 /* AKToneComplementFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4F52DF21C07F53200F22BD1 /* AKToneComplementFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4F52DE91C07F53200F22BD1 /* AKToneComplementFilterAudioUnit.mm */; };
@@ -576,6 +576,7 @@
 		C48AA68B1C0FA6C5006EB131 /* AKTanhDistortionAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTanhDistortionAudioUnit.mm; sourceTree = "<group>"; };
 		C48AA68C1C0FA6C5006EB131 /* AKTanhDistortionDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTanhDistortionDSPKernel.hpp; sourceTree = "<group>"; };
 		C48AA69A1C0FA70C006EB131 /* AKTimePitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTimePitch.swift; sourceTree = "<group>"; };
+		C49E2CF11C0FF2250051C445 /* randh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = randh.c; sourceTree = "<group>"; };
 		C4DC86F81C07A1F700CA2591 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTable.swift; path = ../../Common/AKTable.swift; sourceTree = "<group>"; };
 		C4E957D51C0ADBAB00516A6A /* basic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = basic.c; sourceTree = "<group>"; };
 		C4E957D61C0ADBAB00516A6A /* bitcrush.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitcrush.c; sourceTree = "<group>"; };
@@ -724,7 +725,6 @@
 		C4E959071C0B847C00516A6A /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C4E9590B1C0B84E000516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
-		C4E9590F1C0B8C0500516A6A /* randh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = randh.c; path = ../../../../../../Sporth/ugens/randh.c; sourceTree = "<group>"; };
 		C4F52DE71C07F53200F22BD1 /* AKToneComplementFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKToneComplementFilter.swift; sourceTree = "<group>"; };
 		C4F52DE81C07F53200F22BD1 /* AKToneComplementFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKToneComplementFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4F52DE91C07F53200F22BD1 /* AKToneComplementFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKToneComplementFilterAudioUnit.mm; sourceTree = "<group>"; };
@@ -1503,7 +1503,7 @@
 				C4E957F41C0ADBAB00516A6A /* pluck.c */,
 				C4E957F51C0ADBAB00516A6A /* port.c */,
 				C4E957F61C0ADBAB00516A6A /* prop.c */,
-				C4E9590F1C0B8C0500516A6A /* randh.c */,
+				C49E2CF11C0FF2250051C445 /* randh.c */,
 				C4E957F71C0ADBAB00516A6A /* randi.c */,
 				C4E957F81C0ADBAB00516A6A /* reverse.c */,
 				C4E957F91C0ADBAB00516A6A /* revsc.c */,
@@ -2054,6 +2054,7 @@
 				C4E958291C0ADBAB00516A6A /* randi.c in Sources */,
 				C48AA6921C0FA6C5006EB131 /* AKDecimator.swift in Sources */,
 				C4E958161C0ADBAB00516A6A /* gen_sine.c in Sources */,
+				C49E2CF21C0FF2250051C445 /* randh.c in Sources */,
 				C4E958381C0ADBAB00516A6A /* vdelay.c in Sources */,
 				C4E958181C0ADBAB00516A6A /* gen_vals.c in Sources */,
 				C4E958AC1C0ADBFD00516A6A /* dust.c in Sources */,
@@ -2081,7 +2082,6 @@
 				C42F36B51C057F4C000E937C /* AKLowPassButterworthFilterAudioUnit.mm in Sources */,
 				C43792881C0CEEB0001E9160 /* md5.c in Sources */,
 				C42F36A31C057F4C000E937C /* AKThreePoleLowpassFilter.swift in Sources */,
-				C4E959101C0B8C0500516A6A /* randh.c in Sources */,
 				C4E958101C0ADBAB00516A6A /* dmetro.c in Sources */,
 				C4E9581D1C0ADBAB00516A6A /* maygate.c in Sources */,
 				C4E958A11C0ADBFD00516A6A /* butlp.c in Sources */,
