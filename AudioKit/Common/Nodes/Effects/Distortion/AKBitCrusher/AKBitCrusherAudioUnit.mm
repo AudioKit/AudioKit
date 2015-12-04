@@ -49,7 +49,7 @@
         // Create a parameter object for the bitDepth.
     AUParameter *bitDepthAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"bitDepth"
-                                              name:@"Bid Depth"
+                                              name:@"Bit Depth"
                                            address:bitDepthAddress
                                                min:1
                                                max:24
