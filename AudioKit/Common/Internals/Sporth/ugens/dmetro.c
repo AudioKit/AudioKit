@@ -15,7 +15,7 @@ int sporth_dmetro(sporth_stack *stack, void *ud)
 #endif
 
             sp_dmetro_create(&dmetro);
-            plumber_add_module(pd, SPORTH_DMETRO, sizeof(sp_dmetro), dmetro);
+            plumber_add_module(pd, SPORTH_DMETRO, dmetro);
             break;
         case PLUMBER_INIT:
 

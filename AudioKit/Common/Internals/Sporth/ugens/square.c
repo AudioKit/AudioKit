@@ -17,7 +17,7 @@ int sporth_square(sporth_stack *stack, void *ud)
 #endif
 
             sp_square_create(&square);
-            plumber_add_module(pd, SPORTH_SQUARE, sizeof(sp_square), square);
+            plumber_add_module(pd, SPORTH_SQUARE, square);
             break;
         case PLUMBER_INIT:
 

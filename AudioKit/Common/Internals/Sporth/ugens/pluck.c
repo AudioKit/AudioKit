@@ -26,8 +26,8 @@ int sporth_pluck(sporth_stack *stack, void *ud)
             pluck = malloc(sizeof(sporth_pluck_d));
             sp_pluck_create(&pluck->pluck);
             sp_ftbl_create(pd->sp, &pluck->ft, 4096);
-            sp_osc_create(&pluck->exc); 
-            plumber_add_module(pd, SPORTH_PLUCK, sizeof(sporth_pluck_d), pluck);
+            sp_osc_create(&pluck->exc);
+            plumber_add_module(pd, SPORTH_PLUCK, pluck);
             break;
         case PLUMBER_INIT:
 
@@ -49,7 +49,7 @@ int sporth_pluck(sporth_stack *stack, void *ud)
             pluck->pluck->freq = sporth_stack_pop_float(stack);
             pluck->pluck->plk = sporth_stack_pop_float(stack);
             pluck->trigger = sporth_stack_pop_float(stack);
-            
+
             sp_gen_sine(pd->sp, pluck->ft);
             sp_osc_init(pd->sp, pluck->exc, pluck->ft, 0);
             pluck->exc->freq = 1;

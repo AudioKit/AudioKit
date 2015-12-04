@@ -17,7 +17,7 @@ int sporth_tseq(sporth_stack *stack, void *ud)
             printf("Creating tseq function... \n");
 #endif
             sp_tseq_create(&tseq);
-            plumber_add_module(pd, SPORTH_TSEQ, sizeof(sp_tseq), tseq);
+            plumber_add_module(pd, SPORTH_TSEQ, tseq);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {

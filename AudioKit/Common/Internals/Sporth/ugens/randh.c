@@ -17,7 +17,7 @@ int sporth_randh(sporth_stack *stack, void *ud)
 #endif
 
             sp_randh_create(&randh);
-            plumber_add_module(pd, SPORTH_RANDH, sizeof(sp_randh), randh);
+            plumber_add_module(pd, SPORTH_RANDH, randh);
             break;
         case PLUMBER_INIT:
 

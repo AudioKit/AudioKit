@@ -17,7 +17,7 @@ int sporth_count(sporth_stack *stack, void *ud)
 #endif
 
             sp_count_create(&cnt);
-            plumber_add_module(pd, SPORTH_COUNT, sizeof(sp_count), cnt);
+            plumber_add_module(pd, SPORTH_COUNT, cnt);
             break;
         case PLUMBER_INIT:
 

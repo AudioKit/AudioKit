@@ -13,7 +13,7 @@ int sporth_dcblock(sporth_stack *stack, void *ud)
             fprintf(stderr, "Creating module dcblk\n");
 #endif
             sp_dcblock_create(&data);
-            plumber_add_module(pd, SPORTH_DCBLK, sizeof(sp_dcblock), data);
+            plumber_add_module(pd, SPORTH_DCBLK, data);
             break;
         case PLUMBER_INIT:
             data = pd->last->ud;

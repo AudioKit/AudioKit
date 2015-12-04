@@ -24,7 +24,7 @@ int sporth_fm(sporth_stack *stack, void *ud)
             fm = malloc(sizeof(sporth_fm_d));
             sp_ftbl_create(pd->sp, &fm->ft, 4096);
             sp_fosc_create(&fm->osc);
-            plumber_add_module(pd, SPORTH_FM, sizeof(sporth_fm_d), fm);
+            plumber_add_module(pd, SPORTH_FM, fm);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {

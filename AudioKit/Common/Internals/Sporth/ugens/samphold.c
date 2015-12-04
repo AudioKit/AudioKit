@@ -16,7 +16,7 @@ int sporth_samphold(sporth_stack *stack, void *ud)
 #endif
 
             sp_samphold_create(&samphold);
-            plumber_add_module(pd, SPORTH_SAMPHOLD, sizeof(sp_samphold), samphold);
+            plumber_add_module(pd, SPORTH_SAMPHOLD, samphold);
             break;
         case PLUMBER_INIT:
 

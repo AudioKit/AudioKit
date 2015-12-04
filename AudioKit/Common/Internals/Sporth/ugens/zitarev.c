@@ -28,7 +28,7 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
 #endif
 
             sp_zitarev_create(&zitarev);
-            plumber_add_module(pd, SPORTH_ZITAREV, sizeof(sp_zitarev), zitarev);
+            plumber_add_module(pd, SPORTH_ZITAREV, zitarev);
             break;
         case PLUMBER_INIT:
 

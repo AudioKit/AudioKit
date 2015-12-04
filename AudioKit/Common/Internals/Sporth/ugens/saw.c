@@ -16,7 +16,7 @@ int sporth_saw(sporth_stack *stack, void *ud)
 #endif
 
             sp_saw_create(&saw);
-            plumber_add_module(pd, SPORTH_SAW, sizeof(sp_saw), saw);
+            plumber_add_module(pd, SPORTH_SAW, saw);
             break;
         case PLUMBER_INIT:
 

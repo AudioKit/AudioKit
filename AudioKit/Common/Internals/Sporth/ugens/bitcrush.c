@@ -17,7 +17,7 @@ int sporth_bitcrush(sporth_stack *stack, void *ud)
 #endif
 
             sp_bitcrush_create(&bitcrush);
-            plumber_add_module(pd, SPORTH_BITCRUSH, sizeof(sp_bitcrush), bitcrush);
+            plumber_add_module(pd, SPORTH_BITCRUSH, bitcrush);
             break;
         case PLUMBER_INIT:
 

@@ -23,7 +23,7 @@ int sporth_osc(sporth_stack *stack, void *ud)
             fprintf(stderr, "Creating osc function... \n");
 #endif
             sp_osc_create(&osc);
-            plumber_add_module(pd, SPORTH_OSC, sizeof(sp_osc), osc);
+            plumber_add_module(pd, SPORTH_OSC, osc);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "fffs") != SPORTH_OK) {

@@ -3,7 +3,7 @@
 
 typedef struct {
     sp_vdelay *vdelay;
-    SPFLOAT prev; 
+    SPFLOAT prev;
 } sporth_vdelay_d;
 
 int sporth_vdelay(sporth_stack *stack, void *ud)
@@ -24,7 +24,7 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
 #endif
             vd = malloc(sizeof(sporth_vdelay_d));
             sp_vdelay_create(&vd->vdelay);
-            plumber_add_module(pd, SPORTH_VDELAY, sizeof(sporth_vdelay_d), vd);
+            plumber_add_module(pd, SPORTH_VDELAY, vd);
             break;
         case PLUMBER_INIT:
 

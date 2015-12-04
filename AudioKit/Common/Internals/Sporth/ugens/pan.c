@@ -17,7 +17,7 @@ int sporth_pan2(sporth_stack *stack, void *ud)
 #endif
 
             sp_pan2_create(&pan2);
-            plumber_add_module(pd, SPORTH_PAN, sizeof(sp_pan2), pan2);
+            plumber_add_module(pd, SPORTH_PAN, pan2);
             break;
         case PLUMBER_INIT:
 
