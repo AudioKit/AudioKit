@@ -185,7 +185,7 @@ int sp_bal_compute(sp_data *sp, sp_bal *p, SPFLOAT *sig, SPFLOAT *comp, SPFLOAT 
 typedef struct {
     SPFLOAT bcL, bcR, iK, ib, scan, T30;
     SPFLOAT pos, vel, wid;
-    
+
     SPFLOAT *w, *w1, *w2;
     int step, first;
     SPFLOAT s0, s1, s2, t0, t1;
@@ -353,7 +353,7 @@ int sp_dmetro_destroy(sp_dmetro **p);
 int sp_dmetro_init(sp_data *sp, sp_dmetro *p);
 int sp_dmetro_compute(sp_data *sp, sp_dmetro *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct sp_drip{
-    
+
     SPFLOAT amp; /* How loud */
     SPFLOAT dettack; /* How loud */
     SPFLOAT num_tubes;
@@ -362,7 +362,7 @@ typedef struct sp_drip{
     SPFLOAT freq;
     SPFLOAT freq1;
     SPFLOAT freq2;
-    
+
     SPFLOAT num_objectsSave;
     SPFLOAT shake_maxSave;
     SPFLOAT shakeEnergy;
@@ -675,7 +675,7 @@ typedef struct {
     SPFLOAT freq;
     SPFLOAT res;
     SPFLOAT istor;
-    
+
     SPFLOAT delay[6];
     SPFLOAT tanhstg[3];
     SPFLOAT oldfreq;
@@ -735,7 +735,7 @@ int sp_panst_init(sp_data *sp, sp_panst *p);
 int sp_panst_compute(sp_data *sp, sp_panst *p, SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2);
 typedef struct {
     SPFLOAT fc, v, q, mode;
-    
+
     SPFLOAT xnm1, xnm2, ynm1, ynm2;
     SPFLOAT prv_fc, prv_v, prv_q;
     SPFLOAT b0, b1, b2, a1, a2;
@@ -1078,7 +1078,7 @@ typedef struct{
     int fcocod, rezcod;
     SPFLOAT sr;
     SPFLOAT onedsr;
-    
+
 }sp_tbvcf;
 
 int sp_tbvcf_create(sp_tbvcf **p);
@@ -1194,8 +1194,8 @@ typedef struct {
     int argpos;
     SPFLOAT *in_delay;
     SPFLOAT *lf_x;
-    SPFLOAT *low_rt60;
-    SPFLOAT *mid_rt60;
+    SPFLOAT *rt60_low;
+    SPFLOAT *rt60_mid;
     SPFLOAT *hf_damping;
     SPFLOAT *eq1_freq;
     SPFLOAT *eq1_level;
@@ -1250,7 +1250,7 @@ int sp_gen_padsynth(sp_data *sp, sp_ftbl *ps, sp_ftbl *amps, SPFLOAT f, SPFLOAT 
 
 SPFLOAT sp_padsynth_profile(SPFLOAT fi, SPFLOAT bwi);
 
-int sp_padsynth_ifft(int N, SPFLOAT *freq_amp, 
-                     SPFLOAT *freq_phase, SPFLOAT *smp); 
+int sp_padsynth_ifft(int N, SPFLOAT *freq_amp,
+                     SPFLOAT *freq_phase, SPFLOAT *smp);
 
 int sp_padsynth_normalize(int N, SPFLOAT *smp);
