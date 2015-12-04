@@ -8,6 +8,8 @@ summary: A high-pass Butterworth filter.
 
 four-letter-code: bthp
 
+akalias: highPassFilter
+
 one-word-description: filter
 
 description:

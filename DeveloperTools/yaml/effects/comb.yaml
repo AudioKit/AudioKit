@@ -4,6 +4,7 @@ sp-module: comb
 
 node: AKCombFilter
 
+akalias: combFilter
 summary: Reverberates an input signal with a “colored” frequency response
 
 four-letter-code: comb
