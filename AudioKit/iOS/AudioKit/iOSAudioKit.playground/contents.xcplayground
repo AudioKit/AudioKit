@@ -41,5 +41,7 @@
         <page name='AKSequencer'/>
         <page name='AKSpatialMixer'/>
         <page name='AKP.bitCrush'/>
+        <page name='AKP.clip'/>
+        <page name='AKP.fmOscillator'/>
     </pages>
 </playground>
