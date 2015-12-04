@@ -12,6 +12,7 @@
 		C41702451C1048FB00AB689C /* AKCustomEffectAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C41702411C1048FB00AB689C /* AKCustomEffectAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C41702461C1048FB00AB689C /* AKCustomEffectAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C41702421C1048FB00AB689C /* AKCustomEffectAudioUnit.mm */; };
 		C41702471C1048FB00AB689C /* AKCustomEffectDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C41702431C1048FB00AB689C /* AKCustomEffectDSPKernel.hpp */; };
+		C41702761C11821B00AB689C /* scale2.c in Sources */ = {isa = PBXBuildFile; fileRef = C41702751C11821B00AB689C /* scale2.c */; };
 		C4261E341C0AD97000E472A8 /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E1C1C0AD97000E472A8 /* CUI.h */; };
 		C4261E3B1C0AD97000E472A8 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E251C0AD97000E472A8 /* ini.h */; };
 		C4261E3D1C0AD97000E472A8 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4261E271C0AD97000E472A8 /* LICENSE.txt */; };
@@ -379,6 +380,7 @@
 		C41702411C1048FB00AB689C /* AKCustomEffectAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomEffectAudioUnit.h; sourceTree = "<group>"; };
 		C41702421C1048FB00AB689C /* AKCustomEffectAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCustomEffectAudioUnit.mm; sourceTree = "<group>"; };
 		C41702431C1048FB00AB689C /* AKCustomEffectDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCustomEffectDSPKernel.hpp; sourceTree = "<group>"; };
+		C41702751C11821B00AB689C /* scale2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scale2.c; sourceTree = "<group>"; };
 		C4261E1C1C0AD97000E472A8 /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C4261E251C0AD97000E472A8 /* ini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
 		C4261E271C0AD97000E472A8 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -1492,6 +1494,7 @@
 				C4E957FB1C0ADBAB00516A6A /* samphold.c */,
 				C4E957FC1C0ADBAB00516A6A /* saw.c */,
 				C4E957FD1C0ADBAB00516A6A /* scale.c */,
+				C41702751C11821B00AB689C /* scale2.c */,
 				C4E957FE1C0ADBAB00516A6A /* square.c */,
 				C4E957FF1C0ADBAB00516A6A /* switch.c */,
 				C4E958001C0ADBAB00516A6A /* t.c */,
@@ -1943,6 +1946,7 @@
 				C4E958D61C0ADBFD00516A6A /* reverse.c in Sources */,
 				C42F368D1C057F4C000E937C /* AKLowShelfParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C4E958171C0ADBAB00516A6A /* gen_sinesum.c in Sources */,
+				C41702761C11821B00AB689C /* scale2.c in Sources */,
 				C4E9581A1C0ADBAB00516A6A /* jcrev.c in Sources */,
 				C4E958BE1C0ADBFD00516A6A /* maygate.c in Sources */,
 				C4E958D11C0ADBFD00516A6A /* prop.c in Sources */,
