@@ -63,7 +63,7 @@ public class AKFMOscillator: AKNode {
         modulatingMultiplier: Float = 1,
         modulationIndex: Float = 1,
         amplitude: Float = 1) {
-            
+
         self.baseFrequency = baseFrequency
         self.carrierMultiplier = carrierMultiplier
         self.modulatingMultiplier = modulatingMultiplier
@@ -99,7 +99,7 @@ public class AKFMOscillator: AKNode {
         }
 
         guard let tree = internalAU?.parameterTree else { return }
-
+            
         baseFrequencyParameter        = tree.valueForKey("baseFrequency")        as? AUParameter
         carrierMultiplierParameter    = tree.valueForKey("carrierMultiplier")    as? AUParameter
         modulatingMultiplierParameter = tree.valueForKey("modulatingMultiplier") as? AUParameter
@@ -123,6 +123,11 @@ public class AKFMOscillator: AKNode {
                 }
             }
         }
-
+        
+        baseFrequencyParameter?.setValue(baseFrequency, originator: token!)
+        carrierMultiplierParameter?.setValue(carrierMultiplier, originator: token!)
+        modulatingMultiplierParameter?.setValue(modulatingMultiplier, originator: token!)
+        modulationIndexParameter?.setValue(modulationIndex, originator: token!)
+        amplitudeParameter?.setValue(amplitude, originator: token!)
     }
 }
