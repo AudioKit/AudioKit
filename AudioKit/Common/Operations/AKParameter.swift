@@ -22,19 +22,9 @@ public struct AKParameter: CustomStringConvertible {
 }
 
 public struct AKP {
-    
-    /** Bit Crusher
-     - parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. (Default: 8, Minimum: 1, Maximum: 24)
-     - parameter sampleRate: The sample rate of signal output. (Default: 10000, Minimum: 0 Maximum: 22050)
-     */
-    public static func bitCrush(
-        input: AKParameter,
-        bitDepth: AKParameter = 8.ak,
-        sampleRate: AKParameter = 1.ak
-        ) -> AKParameter {
-            return AKParameter("\(input) \(bitDepth) \(sampleRate) bitcrush")
-    }
-    
+        
+    public static let input = AKParameter("0 p 1 p")
+
     public enum SinePreset {
         case Fast
         case Slow
@@ -50,10 +40,6 @@ public struct AKP {
         case .Slow:
             return AKParameter("0.1 1 sine")
         }
-    }
-
-    public static func scale(input: AKParameter, minimum: AKParameter = 0.ak, maximum: AKParameter = 1.ak) -> AKParameter {
-        return AKParameter("\(input) \(minimum) \(maximum) scale")
     }
 }
 
@@ -74,8 +60,13 @@ public extension Double {
 
 extension AKP {
 
+    
+    public static func effect(input: AKNode, operation: AKParameter) -> AKCustomEffect {
+        return AKCustomEffect(input, sporth:"\(operation)")
+    }
+    
+
     public static func generator(operation: AKParameter) -> AKCustomGenerator {
-        print(operation)
         return AKCustomGenerator("\(operation) dup")
     }
     
