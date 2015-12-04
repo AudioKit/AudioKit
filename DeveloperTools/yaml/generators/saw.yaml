@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Oscillators/"
 
 sp-module: saw
 
-operation: AKSawtoothOscillator
+node: AKSawtoothOscillator
 
 four-letter-code: sawo
 

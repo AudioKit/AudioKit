@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Physical\ Models/"
 
 sp-module: drip
 
-operation: AKDroplet
+node: AKDroplet
 
 summary: Semi-physical model of a water drop.
 

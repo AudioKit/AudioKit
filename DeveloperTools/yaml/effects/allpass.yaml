@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Reverbs/"
 
 sp-module: allpass
 
-operation: AKFlatFrequencyResponseReverb
+node: AKFlatFrequencyResponseReverb
 
 summary: All-pass filter, often used for the creation of reverb modules.
 

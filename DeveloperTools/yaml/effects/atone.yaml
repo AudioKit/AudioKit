@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: atone
 
-operation: AKHighPassFilter
+node: AKHighPassFilter
 
 summary: A first-order recursive high-pass filter with variable frequency response.
 

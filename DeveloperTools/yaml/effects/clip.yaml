@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: clip
 
-operation: AKClipper
+node: AKClipper
 
 summary: Applies clip-limiting to a signal
 

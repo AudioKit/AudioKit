@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Subtractive\ Synthesis/"
 
 sp-module: gbuzz
 
-operation: AKAdditiveCosines
+node: AKAdditiveCosines
 
 summary: A set of harmonically related cosine partials.
 

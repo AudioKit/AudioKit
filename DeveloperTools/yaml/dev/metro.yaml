@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Musical\ Controls/"
 
 sp-module: metro
 
-operation: AKMetronome
+node: AKMetronome
 
 summary: Generator of a series of 1-sample ticks at a regular rate.
 

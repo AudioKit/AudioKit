@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Musical\ Controls/"
 
 sp-module: port
 
-operation: AKPortamento
+node: AKPortamento
 
 summary: Applies portamento smoothing to a step-valued control signal.
 

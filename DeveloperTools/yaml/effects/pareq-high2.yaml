@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: pareq
 
-operation: AKHighShelfParametricEqualizerFilter
+node: AKHighShelfParametricEqualizerFilter
 
 summary: High Shelf Parametric Equalizer
 

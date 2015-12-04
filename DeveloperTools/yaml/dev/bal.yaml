@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Volume\ and\ Spatialization/"
 
 sp-module: bal
 
-operation: AKBalance
+node: AKBalance
 
 four-letter-code:
 

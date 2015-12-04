@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Oscillators/"
 
 sp-module: triangle
 
-operation: AKTriangleOscillator
+node: AKTriangleOscillator
 
 four-letter-code: trio
 

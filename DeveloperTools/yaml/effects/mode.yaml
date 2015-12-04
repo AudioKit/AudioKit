@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: mode
 
-operation: AKModalResonanceFilter
+node: AKModalResonanceFilter
 
 summary: A modal resonance filter used for modal synthesis.
 

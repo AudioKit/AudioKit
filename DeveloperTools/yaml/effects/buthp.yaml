@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
 
 sp-module: buthp
 
-operation: AKHighPassButterworthFilter
+node: AKHighPassButterworthFilter
 
 summary: A high-pass Butterworth filter.
 

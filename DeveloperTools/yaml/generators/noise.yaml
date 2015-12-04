@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Random\ Generators/"
 
 sp-module: noise
 
-operation: AKWhiteNoise
+node: AKWhiteNoise
 
 summary: White noise generator
 

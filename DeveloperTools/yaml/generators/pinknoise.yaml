@@ -2,7 +2,7 @@ installation-directory: "Signal Generators/Random Generators/"
 
 sp-module: pinknoise
 
-operation: AKPinkNoise
+node: AKPinkNoise
 
 four-letter-code: pink
 

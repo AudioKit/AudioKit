@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: comb
 
-operation: AKCombFilter
+node: AKCombFilter
 
 summary: Reverberates an input signal with a “colored” frequency response
 

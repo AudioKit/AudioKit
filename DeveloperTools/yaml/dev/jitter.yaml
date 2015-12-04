@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Random\ Generators/"
 
 sp-module: jitter
 
-operation: AKJitter
+node: AKJitter
 
 summary: Generates a segmented line whose segments are randomly generated.
 

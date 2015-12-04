@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
 
 sp-module: butlp
 
-operation: AKLowPassButterworthFilter
+node: AKLowPassButterworthFilter
 
 summary: A low-pass Butterworth filter.
 

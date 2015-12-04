@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Reverbs/"
 
 sp-module: jcrev
 
-operation: AKChowningReverb
+node: AKChowningReverb
 
 summary: John Chowning reverberator
 

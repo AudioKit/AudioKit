@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: tbvcf
 
-operation: AKRolandTB303Filter
+node: AKRolandTB303Filter
 
 summary: "Emulation of the Roland TB-303 filter"
 

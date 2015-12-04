@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
 
 sp-module: butbr
 
-operation: AKBandRejectButterworthFilter
+node: AKBandRejectButterworthFilter
 
 summary: A band-reject Butterworth filter.
 
