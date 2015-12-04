@@ -11,7 +11,7 @@ import Foundation
 public struct AKParameter: CustomStringConvertible {
     var parameterString = ""
     public var description: String {
-        return " \(parameterString) "
+        return "\(parameterString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
     }
     init(_ operationString: String) {
         parameterString = operationString
@@ -31,14 +31,14 @@ public struct AKP {
     }
     public static func sine(frequency frequency: AKParameter = 440.ak,
         amplitude: AKParameter = 1.ak) -> AKParameter {
-            return AKParameter("\(frequency) \(amplitude) sine")
+            return AKParameter("\(frequency)\(amplitude)sine")
     }
     public static func sine(preset preset: SinePreset) -> AKParameter {
         switch preset {
         case .Fast:
-            return AKParameter("10 1 sine")
+            return sine(frequency: 10.ak, amplitude: 1.ak)
         case .Slow:
-            return AKParameter("0.1 1 sine")
+            return sine(frequency: 0.1.ak, amplitude: 1.ak)
         }
     }
 }
@@ -59,13 +59,18 @@ public extension Double {
 }
 
 extension AKP {
-
-    
     public static func effect(input: AKNode, operation: AKParameter) -> AKCustomEffect {
+        // Add "swap drop" to discard the right channel input, and then
+        // add "dup" to copy the left channel output to the right channel output
+        return AKCustomEffect(input, sporth:"\(operation) swap drop dup")
+    }
+    public static func stereoEffect(input: AKNode, operation: AKParameter) -> AKCustomEffect {
         return AKCustomEffect(input, sporth:"\(operation)")
     }
+    public static func stereoEffect(input: AKNode, leftOperation: AKParameter, rightOperation: AKParameter) -> AKCustomEffect {
+        return AKCustomEffect(input, sporth:"\(leftOperation) swap \(rightOperation) swap")
+    }
     
-
     public static func generator(operation: AKParameter) -> AKCustomGenerator {
         return AKCustomGenerator("\(operation) dup")
     }
