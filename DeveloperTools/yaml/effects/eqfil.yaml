@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: eqfil
 
-operation: AKEqualizerFilter
+node: AKEqualizerFilter
 
 summary: A 2nd order tunable equalization filter
 

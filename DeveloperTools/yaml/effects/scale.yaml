@@ -2,7 +2,7 @@ installation-directory: "Math/"
 
 sp-module: scale
 
-operation: AKLinearTransformation
+node: AKLinearTransformation
 
 summary: Linear tranformation from one range to another, based on minimum and maximum values.
 

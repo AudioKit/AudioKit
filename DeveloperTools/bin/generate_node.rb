@@ -33,7 +33,7 @@ o = YAML::load(File.open("#{opcode_yaml}"))
 
 output_folder       = o["installation-directory"]
 sp_module           = o["sp-module"]
-operation           = o["operation"]
+node                = o["node"]
 four_letter_code    = o["four-letter-code"]
 one_word_desc       = o["one-word-description"]
 description         = wrap(o["description"])
@@ -76,7 +76,7 @@ end
 ###############
 
 # Set up the output folder relative to the current directory and create it if necessary
-output_folder = "../AudioKit/Common/Operations/#{output_folder}/#{operation}/"
+output_folder = "../AudioKit/Common/Nodes/#{output_folder}/#{node}/"
 FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 
 ################
@@ -90,7 +90,7 @@ parameters_partial            = new_partial("AKNode.swift", "parameters")
 
 File.open("templates/AKNode.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{operation}.swift", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}.swift", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
 }
 
@@ -99,7 +99,7 @@ File.open("templates/AKNode.swift.erb") { |template|
 #####################
 File.open("templates/AKNodeAudioUnit.h.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{operation}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
 }
 
@@ -111,7 +111,7 @@ parameter_creation_partial = new_partial("AKNodeAudioUnit.mm", "parameter_creati
 
 File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{operation}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
 }
 
@@ -120,7 +120,7 @@ File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
 #######################
 File.open("templates/AKNodeDSPKernel.hpp.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	File.open("#{output_folder}/#{operation}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
 }
 

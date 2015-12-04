@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Effects/"
 
 sp-module: autowah
 
-operation: AKAutoWah
+node: AKAutoWah
 
 four-letter-code: awah
 

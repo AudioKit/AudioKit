@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: streson
 
-operation: AKStringResonator
+node: AKStringResonator
 
 four-letter-code: stre
 

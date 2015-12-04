@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/Butterworth\ Filters"
 
 sp-module: butbp
 
-operation: AKBandPassButterworthFilter
+node: AKBandPassButterworthFilter
 
 summary: A band-pass Butterworth filter.
 

@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Delays/"
 
 sp-module: delay
 
-operation: AKDelay
+node: AKDelay
 
 summary: Simple audio delay
 

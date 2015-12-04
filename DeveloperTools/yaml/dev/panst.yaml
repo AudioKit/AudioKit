@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Volume\ and\ Spatialization/"
 
 sp-module: panst
 
-operation: AKPanner
+node: AKPanner
 
 summary: Stereo Panner
 

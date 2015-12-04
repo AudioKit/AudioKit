@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Oscillators/"
 
 sp-module: square
 
-operation: AKSquareWaveOscillator
+node: AKSquareWaveOscillator
 
 four-letter-code: sqro
 

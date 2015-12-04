@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: moogladder
 
-operation: AKMoogLadder
+node: AKMoogLadder
 
 summary: Moog Ladder Filter
 

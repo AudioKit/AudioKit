@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Effects/"
 
 sp-module: reverse
 
-operation: AKBackmask
+node: AKBackmask
 
 summary: Store a signal inside a buffer and play it back reversed.
 

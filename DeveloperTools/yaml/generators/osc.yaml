@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Oscillators/"
 
 sp-module: osc
 
-operation: AKOscillator
+node: AKOscillator
 
 summary: A simple oscillator with linear interpolation.
 

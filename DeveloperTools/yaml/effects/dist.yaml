@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Effects/"
 
 sp-module: dist
 
-operation: AKDistortion
+node: AKDistortion
 
 summary: Distortion using a modified hyperbolic tangent function.
 

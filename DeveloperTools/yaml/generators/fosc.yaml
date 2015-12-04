@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Oscillators/"
 
 sp-module: fosc
 
-operation: AKFMOscillator
+node: AKFMOscillator
 
 summary:  Basic frequency modulated oscillator.
 

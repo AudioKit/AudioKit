@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Envelopes/"
 
 sp-module: tenv
 
-operation: AKTriggeredAHDEnvelope
+node: AKTriggeredAHDEnvelope
 
 summary: Trigger based linear AHD envelope
 

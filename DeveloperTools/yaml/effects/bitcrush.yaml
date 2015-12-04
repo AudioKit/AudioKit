@@ -4,7 +4,7 @@ sp-module: bitcrush
 
 node: AKBitCrusher
 
-operation: bitCrush
+node: bitCrush
 
 summary: Digital Signal Decimator
 

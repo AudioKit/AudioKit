@@ -5,7 +5,7 @@ sp-module: revsc
 inputCount: 2
 outputCount: 2
 
-operation: AKCostelloReverb
+node: AKCostelloReverb
 
 summary:  8 delay line stereo FDN reverb
 

@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Filters/"
 
 sp-module: tone
 
-operation: AKLowPassFilter
+node: AKLowPassFilter
 
 summary: Low-pass filter
 

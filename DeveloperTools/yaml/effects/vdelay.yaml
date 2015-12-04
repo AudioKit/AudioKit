@@ -2,7 +2,7 @@ installation-directory: "Signal\ Modifiers/Delays/"
 
 sp-module: vdelay
 
-operation: AKVariableDelay
+node: AKVariableDelay
 
 summary: A variable delay line
 

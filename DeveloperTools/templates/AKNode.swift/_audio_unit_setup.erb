@@ -1,7 +1,7 @@
         AUAudioUnit.registerSubclass(
-            <%= operation %>AudioUnit.self,
+            <%= node %>AudioUnit.self,
             asComponentDescription: description,
-            name: "Local <%= operation %>",
+            name: "Local <%= node %>",
             version: UInt32.max)
 
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
@@ -10,7 +10,7 @@
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.output = avAudioUnit<%= au_type %>
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? <%= operation %>AudioUnit
+            self.internalAU = avAudioUnitEffect.AUAudioUnit as? <%= node %>AudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
         }

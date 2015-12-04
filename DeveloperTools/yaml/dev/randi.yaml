@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Random\ Generators/"
 
 sp-module: randi
 
-operation: AKInterpolatedRandomNumberPulse
+node: AKInterpolatedRandomNumberPulse
 
 summary: Generates a controlled random number series with interpolation between each new number.
 

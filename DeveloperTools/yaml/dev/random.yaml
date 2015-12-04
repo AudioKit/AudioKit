@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Random\ Generators/"
 
 sp-module: random
 
-operation: AKRandomNumbers
+node: AKRandomNumbers
 
 summary: Random Number Generator
 

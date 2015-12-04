@@ -2,7 +2,7 @@ installation-directory: "Signal\ Generators/Oscillators/"
 
 sp-module: phasor
 
-operation: AKPhasor
+node: AKPhasor
 
 summary: A normalized moving phase value.
 
