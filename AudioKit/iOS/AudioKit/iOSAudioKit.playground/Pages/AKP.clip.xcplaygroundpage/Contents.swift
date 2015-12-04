@@ -16,9 +16,7 @@ let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096), baseFrequency: 100,  
 let sine = AKP.sine(frequency: 0.3.ak)
 let limitSine = AKP.scale(sine, minimumOutput: 0.ak, maximumOutput: 1.ak)
 
-//let clip = AKP.clip(AKP.input, limit: limitSine)
-let cutoff = AKP.scale(sine, minimumOutput:  0.ak, maximumOutput:  22050.ak)
-let clip = AKP.lowPassFilter(AKP.input, cutoffFrequency: cutoff)
+let clip = AKP.clip(AKP.input, limit: limitSine)
 let effect = AKP.effect(player, operation: clip)
 
 audiokit.audioOutput = effect
