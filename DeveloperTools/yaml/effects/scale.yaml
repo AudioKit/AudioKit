@@ -1,8 +1,9 @@
 installation-directory: "Math/"
 
-sp-module: scale
+sp-module: scale2
 
 node: AKLinearTransformation
+akalias: scale
 
 summary: Linear tranformation from one range to another, based on minimum and maximum values.
 

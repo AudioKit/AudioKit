@@ -4,6 +4,8 @@ sp-module: dcblock
 
 node: AKDCBlock
 
+akalias: dcBlock
+
 summary:  A DC blocking filter.
 
 description:

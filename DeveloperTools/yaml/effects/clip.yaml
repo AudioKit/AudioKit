@@ -4,6 +4,8 @@ sp-module: clip
 
 node: AKClipper
 
+akalias: clip
+
 summary: Applies clip-limiting to a signal
 
 four-letter-code: clip

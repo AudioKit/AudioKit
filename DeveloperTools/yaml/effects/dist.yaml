@@ -4,13 +4,15 @@ sp-module: dist
 
 node: AKDistortion
 
+akalias: distort
+
 summary: Distortion using a modified hyperbolic tangent function.
 
 four-letter-code: dist
 
 one-word-description: distortion
 
-description:
+description: ""
 
 inputs:
 - source: {

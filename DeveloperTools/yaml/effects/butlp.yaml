@@ -10,6 +10,8 @@ four-letter-code: btlp
 
 one-word-description: filter
 
+akalias: lowPassFilter
+
 description:
   These filters are Butterworth second-order IIR filters. They offer an almost flat
  passband and very good precision and stopband attenuation.

@@ -1,12 +1,15 @@
 installation-directory: "Signal\ Generators/Oscillators/"
 
 sp-module: fosc
+sporth-module: fm
 
 node: AKFMOscillator
 
 summary:  Basic frequency modulated oscillator.
 
 four-letter-code: fosc
+
+akalias: fmOscillator
 
 one-word-description: oscillator
 

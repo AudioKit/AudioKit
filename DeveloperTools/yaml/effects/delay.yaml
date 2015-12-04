@@ -4,6 +4,8 @@ sp-module: delay
 
 node: AKDelay
 
+akalias: delay
+
 summary: Simple audio delay
 
 four-letter-code: dlay
@@ -22,8 +24,8 @@ inputs:
 parameters:
 - feedback: {
   ak-variable: feedback,
-  comment: "Feedback amount. Should be a value between 0-1.",
-  au-name: "Feedback (%)",
+  comment: "Feedback amount.",
+  au-name: "Feedback",
   au-unit: Generic,
   default: 0.0,
   minimum: 0.0,
