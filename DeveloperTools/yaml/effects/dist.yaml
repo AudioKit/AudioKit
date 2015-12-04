@@ -30,6 +30,15 @@ parameters:
   minimum: 0.0,
   maximum: 10.0
 }
+- postgain: {
+  ak-variable: postgain,
+  comment: "Gain applied after waveshaping",
+  au-name: "Postgain",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0.0,
+  maximum: 10.0
+}
 - shape1: {
   ak-variable: postiveShapeParameter,
   comment: "Shape of the positive part of the signal. A value of 0 gets a flat clip.",
@@ -48,12 +57,4 @@ parameters:
   minimum: -10.0,
   maximum: 10.0
 }
-- postgain: {
-  ak-variable: postgain,
-  comment: "Gain applied after waveshaping",
-  au-name: "Postgain",
-  au-unit: Generic,
-  default: 0.5,
-  minimum: 0.0,
-  maximum: 10.0
-}
+
