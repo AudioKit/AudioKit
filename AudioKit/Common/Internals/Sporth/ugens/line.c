@@ -3,7 +3,7 @@
 
 typedef struct {
     SPFLOAT ia, idur, ib;
-    SPFLOAT val, incr; 
+    SPFLOAT val, incr;
 } sporth_line_d;
 
 static void line_init(plumber_data *pd, sporth_line_d *line)
@@ -13,7 +13,7 @@ static void line_init(plumber_data *pd, sporth_line_d *line)
     line->val = line->ia;
 }
 
-SPFLOAT line_compute(sporth_line_d *line) 
+SPFLOAT line_compute(sporth_line_d *line)
 {
     SPFLOAT val = line->val;
     line->val += line->incr;
@@ -23,7 +23,7 @@ SPFLOAT line_compute(sporth_line_d *line)
 int sporth_line(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    
+
     sporth_line_d *line;
 
     switch(pd->mode) {
@@ -33,7 +33,7 @@ int sporth_line(sporth_stack *stack, void *ud)
             fprintf(stderr, "line: Creating\n");
 #endif
             line = malloc(sizeof(sporth_line_d));
-            plumber_add_module(pd, SPORTH_LINE, sizeof(sporth_line_d), line);
+            plumber_add_module(pd, SPORTH_LINE, line);
             break;
         case PLUMBER_INIT:
 

@@ -13,7 +13,7 @@ int sporth_gen_sine(sporth_stack *stack, void *ud)
 
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_GEN_SINE, 0, NULL);
+            plumber_add_module(pd, SPORTH_GEN_SINE, NULL);
             break;
 
         case PLUMBER_INIT:

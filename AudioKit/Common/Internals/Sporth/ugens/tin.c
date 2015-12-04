@@ -15,7 +15,7 @@ int sporth_tin(sporth_stack *stack, void *ud)
 #endif
 
             sp_tin_create(&tin);
-            plumber_add_module(pd, SPORTH_TIN, sizeof(sp_tin), tin);
+            plumber_add_module(pd, SPORTH_TIN, tin);
             break;
         case PLUMBER_INIT:
 

@@ -1,6 +1,6 @@
 #include "plumber.h"
 
-int sporth_in(sporth_stack *stack, void *ud) 
+int sporth_in(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
@@ -9,7 +9,7 @@ int sporth_in(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_in_create(&data);
-            plumber_add_module(pd, SPORTH_IN, sizeof(sp_in), data);
+            plumber_add_module(pd, SPORTH_IN, data);
             break;
         case PLUMBER_INIT:
             data = pd->last->ud;
@@ -26,8 +26,8 @@ int sporth_in(sporth_stack *stack, void *ud)
             sp_in_destroy(&data);
             break;
         default:
-           printf("Error: Unknown mode!"); 
+           printf("Error: Unknown mode!");
            break;
-    }   
+    }
     return PLUMBER_NOTOK;
 }

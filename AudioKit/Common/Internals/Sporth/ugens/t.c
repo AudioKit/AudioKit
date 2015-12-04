@@ -21,7 +21,7 @@ int sporth_tget(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             td = malloc(sizeof(sporth_tbl_d));
-            plumber_add_module(pd, SPORTH_TGET, sizeof(sporth_tbl_d), td);
+            plumber_add_module(pd, SPORTH_TGET, td);
             break;
 
         case PLUMBER_INIT:
@@ -69,7 +69,7 @@ int sporth_tset(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             td = malloc(sizeof(sporth_tbl_d));
-            plumber_add_module(pd, SPORTH_TSET, sizeof(sporth_tbl_d), td);
+            plumber_add_module(pd, SPORTH_TSET, td);
             break;
 
         case PLUMBER_INIT:
@@ -119,7 +119,7 @@ int sporth_tblsize(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             tsize = malloc(sizeof(uint32_t));
-            plumber_add_module(pd, SPORTH_TBLSIZE, sizeof(uint32_t), tsize);
+            plumber_add_module(pd, SPORTH_TBLSIZE, tsize);
             break;
 
         case PLUMBER_INIT:
@@ -167,7 +167,7 @@ int sporth_tbldur(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             tlen = malloc(sizeof(SPFLOAT));
-            plumber_add_module(pd, SPORTH_TBLDUR, sizeof(SPFLOAT), tlen);
+            plumber_add_module(pd, SPORTH_TBLDUR, tlen);
             break;
 
         case PLUMBER_INIT:

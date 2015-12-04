@@ -17,7 +17,7 @@ int sporth_moogladder(sporth_stack *stack, void *ud)
 #endif
 
             sp_moogladder_create(&moogladder);
-            plumber_add_module(pd, SPORTH_MOOGLADDER, sizeof(sp_moogladder), moogladder);
+            plumber_add_module(pd, SPORTH_MOOGLADDER, moogladder);
             break;
         case PLUMBER_INIT:
 

@@ -13,8 +13,7 @@ int sporth_mix(sporth_stack *stack, void *ud)
     int count;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_MIX, 0,
-                    NULL);
+            plumber_add_module(pd, SPORTH_MIX, NULL);
             break;
         case PLUMBER_INIT:
             count = stack->pos;
@@ -50,8 +49,7 @@ int sporth_drop(sporth_stack *stack, void *ud)
     plumber_data *pd = ud;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_DROP, 0,
-                    NULL);
+            plumber_add_module(pd, SPORTH_DROP, NULL);
             break;
         case PLUMBER_INIT:
             sporth_stack_pop_float(stack);
@@ -74,8 +72,7 @@ int sporth_rot(sporth_stack *stack, void *ud)
     SPFLOAT v1, v2, v3;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_ROT, 0,
-                    NULL);
+            plumber_add_module(pd, SPORTH_ROT, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
@@ -122,7 +119,7 @@ int sporth_dup(sporth_stack *stack, void *ud)
     SPFLOAT val = 0;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_DUP, 0, NULL);
+            plumber_add_module(pd, SPORTH_DUP, NULL);
             break;
         case PLUMBER_INIT:
             val = sporth_stack_pop_float(stack);
@@ -154,8 +151,7 @@ int sporth_swap(sporth_stack *stack, void *ud)
     SPFLOAT v1, v2;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_SWAP, 0,
-                    NULL);
+            plumber_add_module(pd, SPORTH_SWAP, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -194,7 +190,7 @@ int sporth_constant(sporth_stack *stack, void *ud)
 
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_CONSTANT, 0, NULL);
+            plumber_add_module(pd, SPORTH_CONSTANT, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
@@ -242,8 +238,7 @@ int sporth_sine(sporth_stack *stack, void *ud)
             data = malloc(sizeof(sporth_sine_d));
             sp_osc_create(&data->osc);
             sp_ftbl_create(pd->sp, &data->ft, 4096);
-            plumber_add_module(pd, SPORTH_SINE, sizeof(data),
-                    data);
+            plumber_add_module(pd, SPORTH_SINE, data);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -290,7 +285,7 @@ int sporth_add(sporth_stack *stack, void *ud)
     SPFLOAT v1, v2;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_ADD, 0, NULL);
+            plumber_add_module(pd, SPORTH_ADD, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -329,7 +324,7 @@ int sporth_mul(sporth_stack *stack, void *ud)
     SPFLOAT v1, v2;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_MUL, 0, NULL);
+            plumber_add_module(pd, SPORTH_MUL, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -367,7 +362,7 @@ int sporth_sub(sporth_stack *stack, void *ud)
     SPFLOAT v1, v2;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_SUB, 0, NULL);
+            plumber_add_module(pd, SPORTH_SUB, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -405,7 +400,7 @@ int sporth_divide(sporth_stack *stack, void *ud)
     SPFLOAT v1, v2;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_DIV, 0, NULL);
+            plumber_add_module(pd, SPORTH_DIV, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -443,7 +438,7 @@ int sporth_mtof(sporth_stack *stack, void *ud)
     SPFLOAT nn;
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_MTOF, 0, NULL);
+            plumber_add_module(pd, SPORTH_MTOF, NULL);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
@@ -482,7 +477,7 @@ int sporth_eq(sporth_stack *stack, void *ud)
 #ifdef DEBUG_MODE
             fprintf(stderr, "eq: Creating\n");
 #endif
-            plumber_add_module(pd, SPORTH_EQ, 0, NULL);
+            plumber_add_module(pd, SPORTH_EQ, NULL);
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
@@ -527,7 +522,7 @@ int sporth_lt(sporth_stack *stack, void *ud)
 #ifdef DEBUG_MODE
             fprintf(stderr, "lt: Creating\n");
 #endif
-            plumber_add_module(pd, SPORTH_LT, 0, NULL);
+            plumber_add_module(pd, SPORTH_LT, NULL);
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
@@ -572,7 +567,7 @@ int sporth_gt(sporth_stack *stack, void *ud)
 #ifdef DEBUG_MODE
             fprintf(stderr, "gt: Creating\n");
 #endif
-            plumber_add_module(pd, SPORTH_GT, 0, NULL);
+            plumber_add_module(pd, SPORTH_GT, NULL);
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
@@ -617,7 +612,7 @@ int sporth_ne(sporth_stack *stack, void *ud)
 #ifdef DEBUG_MODE
             fprintf(stderr, "ne: Creating\n");
 #endif
-            plumber_add_module(pd, SPORTH_NE, 0, NULL);
+            plumber_add_module(pd, SPORTH_NE, NULL);
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
@@ -662,7 +657,7 @@ int sporth_branch(sporth_stack *stack, void *ud)
 #ifdef DEBUG_MODE
             fprintf(stderr, "branch: Creating\n");
 #endif
-            plumber_add_module(pd, SPORTH_BRANCH, 0, NULL);
+            plumber_add_module(pd, SPORTH_BRANCH, NULL);
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
@@ -708,7 +703,7 @@ int sporth_pos(sporth_stack *stack, void *ud)
 #ifdef DEBUG_MODE
             fprintf(stderr, "pos: Creating\n");
 #endif
-            plumber_add_module(pd, SPORTH_POS, 0, NULL);
+            plumber_add_module(pd, SPORTH_POS, NULL);
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE
@@ -735,14 +730,14 @@ int sporth_dur(sporth_stack *stack, void *ud)
     if(stack->error > 0) return PLUMBER_NOTOK;
 
     plumber_data *pd = ud;
-    SPFLOAT *dur; 
+    SPFLOAT *dur;
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
             fprintf(stderr, "pos: Creating\n");
 #endif
             dur = malloc(sizeof(SPFLOAT));
-            plumber_add_module(pd, SPORTH_DUR, sizeof(SPFLOAT), dur);
+            plumber_add_module(pd, SPORTH_DUR, dur);
             break;
         case PLUMBER_INIT:
 #ifdef DEBUG_MODE

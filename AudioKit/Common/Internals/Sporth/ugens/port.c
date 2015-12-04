@@ -1,6 +1,6 @@
 #include "plumber.h"
 
-int sporth_port(sporth_stack *stack, void *ud) 
+int sporth_port(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
@@ -10,7 +10,7 @@ int sporth_port(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_port_create(&data);
-            plumber_add_module(pd, SPORTH_PORT, sizeof(sp_port), data);
+            plumber_add_module(pd, SPORTH_PORT, data);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
@@ -47,8 +47,8 @@ int sporth_port(sporth_stack *stack, void *ud)
             sp_port_destroy(&data);
             break;
         default:
-          fprintf(stderr,"Error: Unknown mode!"); 
+          fprintf(stderr,"Error: Unknown mode!");
            break;
-    }   
+    }
     return PLUMBER_NOTOK;
 }

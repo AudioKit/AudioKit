@@ -1,6 +1,6 @@
 #include "plumber.h"
 
-int sporth_revsc(sporth_stack *stack, void *ud) 
+int sporth_revsc(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
@@ -12,7 +12,7 @@ int sporth_revsc(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_revsc_create(&data);
-            plumber_add_module(pd, SPORTH_REVSC, sizeof(sp_revsc), data);
+            plumber_add_module(pd, SPORTH_REVSC, data);
             break;
 
         case PLUMBER_INIT:
@@ -28,7 +28,7 @@ int sporth_revsc(sporth_stack *stack, void *ud)
             in2 = sporth_stack_pop_float(stack);
             in1 = sporth_stack_pop_float(stack);
 
-            sp_revsc_init(pd->sp, data); 
+            sp_revsc_init(pd->sp, data);
 
             sporth_stack_push_float(stack, 0);
             sporth_stack_push_float(stack, 0);
@@ -61,12 +61,12 @@ int sporth_revsc(sporth_stack *stack, void *ud)
 
         case PLUMBER_DESTROY:
             data = pd->last->ud;
-            sp_revsc_destroy(&data); 
-            break; 
+            sp_revsc_destroy(&data);
+            break;
 
         default:
-          fprintf(stderr,"Error: Unknown mode!"); 
+          fprintf(stderr,"Error: Unknown mode!");
            break;
-    }   
+    }
     return PLUMBER_NOTOK;
 }

@@ -16,7 +16,7 @@ int sporth_reverse(sporth_stack *stack, void *ud)
 #endif
 
             sp_reverse_create(&reverse);
-            plumber_add_module(pd, SPORTH_REVERSE, sizeof(sp_reverse), reverse);
+            plumber_add_module(pd, SPORTH_REVERSE, reverse);
             break;
         case PLUMBER_INIT:
 

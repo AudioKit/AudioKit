@@ -1,6 +1,6 @@
 #include "plumber.h"
 
-int sporth_tenv(sporth_stack *stack, void *ud) 
+int sporth_tenv(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
@@ -12,7 +12,7 @@ int sporth_tenv(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_tenv_create(&data);
-            plumber_add_module(pd, SPORTH_TENV, sizeof(sp_tenv), data);
+            plumber_add_module(pd, SPORTH_TENV, data);
             break;
 
         case PLUMBER_INIT:
@@ -49,12 +49,12 @@ int sporth_tenv(sporth_stack *stack, void *ud)
 
         case PLUMBER_DESTROY:
             data = pd->last->ud;
-            sp_tenv_destroy(&data); 
-            break; 
+            sp_tenv_destroy(&data);
+            break;
 
         default:
-           fprintf(stderr, "Error: Unknown mode!"); 
+           fprintf(stderr, "Error: Unknown mode!");
            break;
-    }   
+    }
     return PLUMBER_NOTOK;
 }

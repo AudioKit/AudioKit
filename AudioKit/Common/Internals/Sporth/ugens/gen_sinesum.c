@@ -14,7 +14,7 @@ int sporth_gen_sinesum(sporth_stack *stack, void *ud)
 
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_GEN_SINESUM, 0, NULL);
+            plumber_add_module(pd, SPORTH_GEN_SINESUM, NULL);
             break;
 
         case PLUMBER_INIT:

@@ -12,7 +12,7 @@ int sporth_p(sporth_stack *stack, void *ud)
             fprintf(stderr, "p: creating\n");
 #endif
 
-            plumber_add_module(pd, SPORTH_P, sizeof(SPFLOAT), NULL);
+            plumber_add_module(pd, SPORTH_P, NULL);
             break;
         case PLUMBER_INIT:
         case PLUMBER_COMPUTE:
@@ -50,7 +50,7 @@ int sporth_pset(sporth_stack *stack, void *ud)
             fprintf(stderr, "p: creating\n");
 #endif
 
-            plumber_add_module(pd, SPORTH_PSET, sizeof(SPFLOAT), NULL);
+            plumber_add_module(pd, SPORTH_PSET, NULL);
             break;
         case PLUMBER_INIT:
         case PLUMBER_COMPUTE:

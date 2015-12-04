@@ -20,7 +20,7 @@ int sporth_mincer(sporth_stack *stack, void *ud)
 #endif
 
             sp_mincer_create(&mincer);
-            plumber_add_module(pd, SPORTH_MINCER, sizeof(sp_mincer), mincer);
+            plumber_add_module(pd, SPORTH_MINCER, mincer);
             break;
         case PLUMBER_INIT:
 
@@ -38,7 +38,7 @@ int sporth_mincer(sporth_stack *stack, void *ud)
             amp = sporth_stack_pop_float(stack);
             time = sporth_stack_pop_float(stack);
             mincer = pd->last->ud;
-            
+
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
                 stack->error++;
                 return PLUMBER_NOTOK;

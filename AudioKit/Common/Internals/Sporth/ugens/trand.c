@@ -17,7 +17,7 @@ int sporth_trand(sporth_stack *stack, void *ud)
 #endif
 
             sp_trand_create(&trand);
-            plumber_add_module(pd, SPORTH_TRAND, sizeof(sp_trand), trand);
+            plumber_add_module(pd, SPORTH_TRAND, trand);
             break;
         case PLUMBER_INIT:
 

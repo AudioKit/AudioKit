@@ -1,6 +1,6 @@
 #include "plumber.h"
 
-int sporth_metro(sporth_stack *stack, void *ud) 
+int sporth_metro(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
 
@@ -10,7 +10,7 @@ int sporth_metro(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_metro_create(&data);
-            plumber_add_module(pd, SPORTH_METRO, sizeof(sp_metro), data);
+            plumber_add_module(pd, SPORTH_METRO, data);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
@@ -40,8 +40,8 @@ int sporth_metro(sporth_stack *stack, void *ud)
             sp_metro_destroy(&data);
             break;
         default:
-          fprintf(stderr,"Error: Unknown mode!"); 
+          fprintf(stderr,"Error: Unknown mode!");
            break;
-    }   
+    }
     return PLUMBER_NOTOK;
 }
