@@ -14,6 +14,8 @@ public class AKMicrophone: AKNode {
     /** Initialize the microphone */
     public override init() {
         super.init()
+        #if !os(tvOS)
         output = AKManager.sharedInstance.engine.inputNode
+        #endif
     }
 }
