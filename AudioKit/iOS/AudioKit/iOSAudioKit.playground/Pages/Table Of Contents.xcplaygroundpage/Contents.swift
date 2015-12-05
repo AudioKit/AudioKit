@@ -1,6 +1,7 @@
 //: # AudioKit for iOS Playgrounds
 //: ## Tutorials
-//: * [Introduction](Intro)
+//: * [Non-Audio Tutorial](Non-Audio%20Tutorial)
+//: * [Introduction and Hello World](Introduction%20and%20Hello%20World)
 //: * [Connecting Nodes](Connecting%20Nodes)
 //: ---
 //: ## Nodes

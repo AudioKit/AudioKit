@@ -3,21 +3,21 @@
 //: ---
 //:
 //: ## Connecting Nodes
-//: ### Playing audio is great, but now let's process that audio
+//: ### Now that you're up and running, let's take it a step further by loading up an audio file and processing it.
 import XCPlayground
 import AudioKit
 
-//: This section prepares the player and the microphone
 let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("808loop", ofType: "wav")
+
+//: Here we set up a player to the loop the file's playback
 let player = AKAudioPlayer(file!)
 player.looping = true
 
 //: Next we'll connect the audio to a delay
-let delay: AKDelay
-delay = AKDelay(player)
+let delay = AKDelay(player)
 
 //: Set the parameters of the delay here
 delay.time = 0.1 // seconds
