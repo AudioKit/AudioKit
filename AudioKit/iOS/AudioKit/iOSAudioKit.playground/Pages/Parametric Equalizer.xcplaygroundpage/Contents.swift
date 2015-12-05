@@ -2,21 +2,29 @@
 //:
 //: ---
 //:
-//: ## Introduction
-//: ### Making sure things work on your system by playing back audio with AKAudioPlayer
+//: ## Parametric Equalizer
+//: ### AKParametricEQ Node
+//: #### Add description
 import XCPlayground
 import AudioKit
 
-//: All AudioKit powered apps need a reference to the AKManager
+//: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 
-//: Try Changing "PianoBassDrumLoop" to "808loop"
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
+player.looping = true
+let parametricEQ = AKParametricEQ(player)
 
-audiokit.audioOutput = player
+//: Set the parameters of the parametric equalizer here
+parametricEQ.centerFrequency = 1000 // Hz
+parametricEQ.q = 1 // Hz
+parametricEQ.gain = 10 // dB
+
+audiokit.audioOutput = parametricEQ
 audiokit.start()
+
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
