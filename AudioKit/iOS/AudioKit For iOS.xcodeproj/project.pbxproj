@@ -22,6 +22,7 @@
 		C41702721C11718100AB689C /* lowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C417026E1C11718100AB689C /* lowPassFilter.swift */; };
 		C41702741C11816A00AB689C /* scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41702731C11816A00AB689C /* scale.swift */; };
 		C41702761C11821B00AB689C /* scale2.c in Sources */ = {isa = PBXBuildFile; fileRef = C41702751C11821B00AB689C /* scale2.c */; };
+		C41702B81C125DA100AB689C /* costelloReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41702B71C125DA100AB689C /* costelloReverb.swift */; };
 		C4261E341C0AD97000E472A8 /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E1C1C0AD97000E472A8 /* CUI.h */; };
 		C4261E3B1C0AD97000E472A8 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E251C0AD97000E472A8 /* ini.h */; };
 		C4261E3D1C0AD97000E472A8 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4261E271C0AD97000E472A8 /* LICENSE.txt */; };
@@ -399,6 +400,7 @@
 		C417026E1C11718100AB689C /* lowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lowPassFilter.swift; sourceTree = "<group>"; };
 		C41702731C11816A00AB689C /* scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = scale.swift; sourceTree = "<group>"; };
 		C41702751C11821B00AB689C /* scale2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scale2.c; sourceTree = "<group>"; };
+		C41702B71C125DA100AB689C /* costelloReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = costelloReverb.swift; sourceTree = "<group>"; };
 		C4261E1C1C0AD97000E472A8 /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C4261E251C0AD97000E472A8 /* ini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
 		C4261E271C0AD97000E472A8 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -790,6 +792,7 @@
 				C417025F1C11626500AB689C /* AKParameter.swift */,
 				C41702611C11628400AB689C /* bitcrush.swift */,
 				C41702631C1165B700AB689C /* clip.swift */,
+				C41702B71C125DA100AB689C /* costelloReverb.swift */,
 				C41702691C1170A500AB689C /* dcBlock.swift */,
 				C417026B1C11718100AB689C /* delay.swift */,
 				C417026C1C11718100AB689C /* distort.swift */,
@@ -2078,6 +2081,7 @@
 				C4E958E01C0ADBFD00516A6A /* sub.c in Sources */,
 				C4E958DB1C0ADBFD00516A6A /* samphold.c in Sources */,
 				C4E9582B1C0ADBAB00516A6A /* revsc.c in Sources */,
+				C41702B81C125DA100AB689C /* costelloReverb.swift in Sources */,
 				C4E9589E1C0ADBFD00516A6A /* butbp.c in Sources */,
 				C4E958B41C0ADBFD00516A6A /* fosc.c in Sources */,
 				C4E958121C0ADBAB00516A6A /* f.c in Sources */,
