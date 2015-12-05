@@ -1,4 +1,4 @@
-installation-directory: "Signal\ Generators/Oscillators/"
+installation-directory: "Generators/Oscillators/"
 
 sp-module: saw
 
