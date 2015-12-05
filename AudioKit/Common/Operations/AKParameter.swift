@@ -21,6 +21,17 @@ public struct AKParameter: CustomStringConvertible {
     }
 }
 
+public struct AKStereoParameter: CustomStringConvertible {
+    var parameterString = ""
+    public var description: String {
+        return "\(parameterString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
+    }
+    init(_ operationString: String) {
+        parameterString = operationString
+    }
+}
+
+
 public struct AKP {
         
     public static let input = AKParameter("0 p 1 p")
@@ -64,9 +75,10 @@ extension AKP {
         // add "dup" to copy the left channel output to the right channel output
         return AKCustomEffect(input, sporth:"\(operation) swap drop dup")
     }
-    public static func stereoEffect(input: AKNode, operation: AKParameter) -> AKCustomEffect {
+    public static func effect(input: AKNode, operation: AKStereoParameter) -> AKCustomEffect {
         return AKCustomEffect(input, sporth:"\(operation)")
     }
+    
     public static func stereoEffect(input: AKNode, leftOperation: AKParameter, rightOperation: AKParameter) -> AKCustomEffect {
         return AKCustomEffect(input, sporth:"\(leftOperation) swap \(rightOperation) swap")
     }
