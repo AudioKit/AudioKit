@@ -32,5 +32,11 @@ public class <%= node %>: AKNode {
 
 <%= parameter_observation_partial %>
 
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+        <%= data["ak-variable"] %>Parameter?.setValue(<%= data["ak-variable"] %>, originator: token!)
+<% end -%>
+<% end -%>
+
     }
 }

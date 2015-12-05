@@ -1,8 +1,8 @@
-installation-directory: "Signal\ Modifiers/Effects/"
+installation-directory: "Effects/Distortion/"
 
 sp-module: dist
 
-node: AKDistortion
+node: AKTanhDistortion
 
 akalias: distort
 

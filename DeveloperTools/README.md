@@ -1,8 +1,8 @@
-== Instructions for Creating a Soundpipe-powered AudioKit Operation
+== Instructions for Creating a Soundpipe-powered AudioKit Node
 
 * Run `lua data2yaml.lua` to make a yaml file
 * Edit the yaml file to look like others
-* Run `./bin/generate_operation.rb yaml/file.yaml`
+* Run `./bin/generate_node.rb path-to-folder/file.yaml`
 * Add the folder to the Xcode project
 * Change the XXXAudioUnit.h to a public header file
 * Add <AudioKit/XXXAudioUnit.h> to the AudioKit.h file

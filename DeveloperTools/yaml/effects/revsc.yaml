@@ -1,6 +1,8 @@
-installation-directory: "Signal\ Modifiers/Reverbs/"
+installation-directory: "Effects/Reverbs/"
 
 sp-module: revsc
+
+akalias: costelloReverb
 
 inputCount: 2
 outputCount: 2
