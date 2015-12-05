@@ -15,8 +15,7 @@ let cutoff = AKP.scale(AKP.sine(frequency: 0.2.ak), minimumOutput: 12000.ak, max
 let filter = AKP.highPassFilter(AKP.input, cutoffFrequency: cutoff)
 
 //: Noise Example
-let whiteNoise = AKWhiteNoise()
-whiteNoise.amplitude = 0.1 // Bring down the amplitude so that when it is mixed it is not so loud
+let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so that when it is mixed it is not so loud
 let noise = AKP.effect(whiteNoise, operation: filter)
 let noiseExample = AKMixer(noise)
 

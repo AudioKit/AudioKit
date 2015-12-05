@@ -8,7 +8,7 @@
 
 import AudioKit
 let audiokit = AKManager.sharedInstance
-audiokit.audioOutput = AKOscillator(frequency: 220, amplitude: 0.1)
+audiokit.audioOutput = AKOscillator(frequency: 440, amplitude: 0.5)
 audiokit.start()
 
 sleep(1)

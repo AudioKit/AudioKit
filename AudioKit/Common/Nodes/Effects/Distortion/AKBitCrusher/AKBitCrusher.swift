@@ -85,5 +85,8 @@ public class AKBitCrusher: AKNode {
             }
         }
 
+        bitDepthParameter?.setValue(bitDepth, originator: token!)
+        sampleRateParameter?.setValue(sampleRate, originator: token!)
+
     }
 }

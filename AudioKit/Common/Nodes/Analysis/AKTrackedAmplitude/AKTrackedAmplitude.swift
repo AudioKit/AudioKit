@@ -73,6 +73,6 @@ public class AKTrackedAmplitude: AKNode {
                 }
             }
         }
-
+        halfPowerPointParameter?.setValue(halfPowerPoint, originator: token!)
     }
 }

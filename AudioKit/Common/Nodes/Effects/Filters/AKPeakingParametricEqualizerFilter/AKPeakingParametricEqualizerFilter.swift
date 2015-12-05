@@ -97,5 +97,9 @@ public class AKPeakingParametricEqualizerFilter: AKNode {
             }
         }
 
+        centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
+        gainParameter?.setValue(gain, originator: token!)
+        qParameter?.setValue(q, originator: token!)
+
     }
 }

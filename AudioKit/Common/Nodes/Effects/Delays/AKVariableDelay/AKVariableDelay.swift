@@ -86,5 +86,8 @@ public class AKVariableDelay: AKNode {
             }
         }
 
+        timeParameter?.setValue(time, originator: token!)
+        feedbackParameter?.setValue(feedback, originator: token!)
+
     }
 }

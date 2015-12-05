@@ -101,5 +101,9 @@ public class AKThreePoleLowpassFilter: AKNode {
             }
         }
 
+        distortionParameter?.setValue(distortion, originator: token!)
+        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+        resonanceParameter?.setValue(resonance, originator: token!)
+
     }
 }

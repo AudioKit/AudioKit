@@ -95,6 +95,8 @@ public class AKSquareWaveOscillator: AKNode {
                 }
             }
         }
-
+        frequencyParameter?.setValue(frequency, originator: token!)
+        amplitudeParameter?.setValue(amplitude, originator: token!)
+        pulseWidthParameter?.setValue(pulseWidth, originator: token!)
     }
 }

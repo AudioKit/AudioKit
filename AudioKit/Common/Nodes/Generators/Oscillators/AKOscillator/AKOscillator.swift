@@ -89,5 +89,8 @@ public class AKOscillator: AKNode {
             }
         }
 
+        frequencyParameter?.setValue(frequency, originator: token!)
+        amplitudeParameter?.setValue(amplitude, originator: token!)
+
     }
 }

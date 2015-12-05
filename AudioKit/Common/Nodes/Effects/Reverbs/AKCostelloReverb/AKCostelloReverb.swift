@@ -89,5 +89,8 @@ public class AKCostelloReverb: AKNode {
             }
         }
 
+        feedbackParameter?.setValue(feedback, originator: token!)
+        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+
     }
 }

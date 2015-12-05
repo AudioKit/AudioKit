@@ -69,6 +69,6 @@ public class AKPinkNoise: AKNode {
                 }
             }
         }
-
+        amplitudeParameter?.setValue(amplitude, originator: token!)
     }
 }

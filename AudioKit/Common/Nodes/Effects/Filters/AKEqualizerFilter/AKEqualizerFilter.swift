@@ -100,5 +100,9 @@ public class AKEqualizerFilter: AKNode {
             }
         }
 
+        centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
+        bandwidthParameter?.setValue(bandwidth, originator: token!)
+        gainParameter?.setValue(gain, originator: token!)
+
     }
 }

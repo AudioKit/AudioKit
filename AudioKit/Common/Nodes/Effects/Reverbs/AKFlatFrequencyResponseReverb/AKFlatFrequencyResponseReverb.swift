@@ -78,5 +78,7 @@ public class AKFlatFrequencyResponseReverb: AKNode {
             }
         }
 
+        reverbDurationParameter?.setValue(reverbDuration, originator: token!)
+
     }
 }
