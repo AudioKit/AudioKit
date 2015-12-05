@@ -367,7 +367,6 @@
 		C4BDEB5A1C13004A00207DA9 /* highPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE9EF1C13004A00207DA9 /* highPassFilter.swift */; };
 		C4BDEB5B1C13004A00207DA9 /* lowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE9F01C13004A00207DA9 /* lowPassFilter.swift */; };
 		C4BDEB5C1C13004A00207DA9 /* scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE9F11C13004A00207DA9 /* scale.swift */; };
-		C4BDEB631C13029600207DA9 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BDE8391C12FFBC00207DA9 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -740,7 +739,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4BDEB631C13029600207DA9 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1790,7 +1788,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit" */;
+			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2222,7 +2220,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit" */ = {
+		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4BDE83F1C12FFBC00207DA9 /* Debug */,
