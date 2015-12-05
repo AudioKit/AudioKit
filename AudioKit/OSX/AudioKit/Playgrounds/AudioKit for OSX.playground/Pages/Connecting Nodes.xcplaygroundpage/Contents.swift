@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## Connecting Operations
-//: ### Playing audio is great, but now let's process that audio. This page demonstrates how operations can be connected together to process an input source. 
+//: ## Connecting Nodes
+//: ### Playing audio is great, but now let's process that audio. This page demonstrates how nodes can be connected together to process an input source.
 import XCPlayground
 import AudioKit
 
@@ -36,7 +36,7 @@ delay.dryWetMix = 60 // Percent
 
 var delayWindow  = AKDelayWindow(delay)
 
-//: You can continue add more operations as you wish, and here we add a reverb
+//: You can continue add more nodes as you wish, and here we add a reverb
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.Cathedral)
 

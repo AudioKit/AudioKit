@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## Mixing Operations
-//: ### So, what about connecting two operations to output instead of having all operations sequential? To do that, you'll need a mixer. (NFA note to self---talk about how mixers sum the output; illustrate with a block diagram). 
+//: ## Mixing Nodes
+//: ### So, what about connecting two nodes to output instead of having all operations sequential? To do that, you'll need a mixer.
 import XCPlayground
 import AudioKit
 

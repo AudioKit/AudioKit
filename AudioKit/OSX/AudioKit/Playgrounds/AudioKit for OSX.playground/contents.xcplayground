@@ -2,21 +2,22 @@
 <playground version='6.0' target-platform='osx' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
+        <page name='Non-Audio Tutorial'/>
         <page name='Intro'/>
-        <page name='Connecting Operations'/>
-        <page name='Mixing Operations'/>
-        <page name='AKBandPassFilter'/>
-        <page name='AKDecimator'/>
-        <page name='AKDelay'/>
-        <page name='AKDistortion'/>
-        <page name='AKDynamicsProcessor'/>
-        <page name='AKHighShelfFilter'/>
-        <page name='AKHighPassFilter'/>
-        <page name='AKLowPassFilter'/>
-        <page name='AKLowShelfFilter'/>
-        <page name='AKParametricEQ'/>
-        <page name='AKPeakLimiter'/>
-        <page name='AKRingModulator'/>
-        <page name='AKTimePitch'/>
+        <page name='Connecting Nodes'/>
+        <page name='Mixing Nodes'/>
+        <page name='Band Pass Filter'/>
+        <page name='Decimator'/>
+        <page name='Delay'/>
+        <page name='Distortion'/>
+        <page name='Dynamics Processor'/>
+        <page name='High Shelf Filter'/>
+        <page name='High Pass Filter'/>
+        <page name='Low Pass Filter'/>
+        <page name='Low Shelf Filter'/>
+        <page name='Parametric Equalizer'/>
+        <page name='Peak Limiter'/>
+        <page name='Ring Modulator'/>
+        <page name='Time Stretching and Pitch Shifting'/>
     </pages>
 </playground>
