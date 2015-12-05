@@ -5,6 +5,7 @@
         <page name='Non-Audio Tutorial'/>
         <page name='Introduction and Hello World'/>
         <page name='Connecting Nodes'/>
+        <page name='Mixing Nodes'/>
         <page name='Delay'/>
         <page name='Variable Delay'/>
         <page name='Dynamics Processor'/>
