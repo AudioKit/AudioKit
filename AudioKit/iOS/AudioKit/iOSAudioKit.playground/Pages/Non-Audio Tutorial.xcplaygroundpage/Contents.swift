@@ -21,7 +21,7 @@ let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 
 //: You are not limited to using the sound files provided with AudioKit, in fact we encourage you to drag your own sound files to the Resources folder.  Ideally, to keep things running quickly, loopable 10-20 second `.wav` or `.aiff` files are recommended.  Many free loops are avaiable online at sites such as [looperman.com](http://www.looperman.com/).
 //:
-//: ![drag](http://localhost:4444/playgrounds/DragResource.gif "drag")
+//: ![drag](http://audiokit.io/playgrounds/DragResource.gif "drag")
 
 //: Remember the `import XCPlayground` line above?  Here's one way that is used.  The following line keeps a playground executing even after the last line is run so that the audio elements that were started have time to play and make sounds for us to listen to.
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
@@ -31,6 +31,6 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: Now that we are near the bottom of the screen (unless you have a majorly tall monitor!) we'd like to call your attention to the playground controls on the bottom left right below the navbar.  
 //:
 //: The first button toggles the console log which can be useful to look at when things go wrong. The second button is your play / stop button which is useful to control playback of the audio in the playground. If you click and hold on this button you will get a pop-up that will allow you choose between automatically running the playground or manually pressing play.  They both have their reason.  Automatic running is great for changing a parameter and quickly hearing the audio results.   Manual Run is better for when you're in the middle of creating an audio system and you don't want to hear results until you're further along in the process.
-//: ![controls](http://localhost:4444/playgrounds/controls.png "controls")
+//: ![controls](http://audiokit.io/playgrounds/controls.png "controls")
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
