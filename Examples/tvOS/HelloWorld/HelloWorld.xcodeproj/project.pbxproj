@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4BD21631C13099100CC1615 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD21621C13098600CC1615 /* AudioKit.framework */; };
 		C4BDE8171C12FF3D00207DA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8161C12FF3D00207DA9 /* AppDelegate.swift */; };
 		C4BDE8191C12FF3D00207DA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8181C12FF3D00207DA9 /* ViewController.swift */; };
 		C4BDE81C1C12FF3D00207DA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE81A1C12FF3D00207DA9 /* Main.storyboard */; };
@@ -14,9 +15,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C4BDEB611C13026E00207DA9 /* PBXContainerItemProxy */ = {
+		C4BD21611C13098600CC1615 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C4BDEB5D1C13026E00207DA9 /* AudioKit.xcodeproj */;
+			containerPortal = C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = C4BDE8391C12FFBC00207DA9;
 			remoteInfo = AudioKit;
@@ -24,13 +25,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit for tvOS.xcodeproj"; path = "../../../AudioKit/tvOS/AudioKit for tvOS.xcodeproj"; sourceTree = "<group>"; };
 		C4BDE8131C12FF3D00207DA9 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BDE8161C12FF3D00207DA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4BDE8181C12FF3D00207DA9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C4BDE81B1C12FF3D00207DA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4BDE81D1C12FF3D00207DA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4BDE81F1C12FF3D00207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4BDEB5D1C13026E00207DA9 /* AudioKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AudioKit.xcodeproj; path = ../../../AudioKit/tvOS/AudioKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,16 +39,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BD21631C13099100CC1615 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4BD215E1C13098600CC1615 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4BD21621C13098600CC1615 /* AudioKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C4BDE80A1C12FF3D00207DA9 = {
 			isa = PBXGroup;
 			children = (
-				C4BDEB5D1C13026E00207DA9 /* AudioKit.xcodeproj */,
+				C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */,
 				C4BDE8151C12FF3D00207DA9 /* HelloWorld */,
 				C4BDE8141C12FF3D00207DA9 /* Products */,
 			);
@@ -71,14 +81,6 @@
 				C4BDE81F1C12FF3D00207DA9 /* Info.plist */,
 			);
 			path = HelloWorld;
-			sourceTree = "<group>";
-		};
-		C4BDEB5E1C13026E00207DA9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C4BDEB621C13026E00207DA9 /* AudioKit.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,8 +131,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = C4BDEB5E1C13026E00207DA9 /* Products */;
-					ProjectRef = C4BDEB5D1C13026E00207DA9 /* AudioKit.xcodeproj */;
+					ProductGroup = C4BD215E1C13098600CC1615 /* Products */;
+					ProjectRef = C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -141,11 +143,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		C4BDEB621C13026E00207DA9 /* AudioKit.framework */ = {
+		C4BD21621C13098600CC1615 /* AudioKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = AudioKit.framework;
-			remoteRef = C4BDEB611C13026E00207DA9 /* PBXContainerItemProxy */;
+			remoteRef = C4BD21611C13098600CC1615 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
