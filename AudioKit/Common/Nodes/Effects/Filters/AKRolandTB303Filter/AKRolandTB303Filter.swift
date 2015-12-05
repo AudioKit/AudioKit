@@ -111,5 +111,10 @@ public class AKRolandTB303Filter: AKNode {
             }
         }
 
+        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+        resonanceParameter?.setValue(resonance, originator: token!)
+        distortionParameter?.setValue(distortion, originator: token!)
+        resonanceAsymmetryParameter?.setValue(resonanceAsymmetry, originator: token!)
+
     }
 }

@@ -99,5 +99,9 @@ public class AKFormantFilter: AKNode {
             }
         }
 
+        centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
+        attackDurationParameter?.setValue(attackDuration, originator: token!)
+        decayDurationParameter?.setValue(decayDuration, originator: token!)
+
     }
 }

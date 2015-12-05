@@ -90,5 +90,8 @@ public class AKMoogLadder: AKNode {
             }
         }
 
+        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+        resonanceParameter?.setValue(resonance, originator: token!)
+
     }
 }

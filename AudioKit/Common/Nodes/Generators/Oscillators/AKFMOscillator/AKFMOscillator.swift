@@ -59,10 +59,10 @@ public class AKFMOscillator: AKNode {
     public init(
         table: AKTable = AKTable(.Sine),
         baseFrequency: Float = 440,
-        carrierMultiplier: Float = 1,
-        modulatingMultiplier: Float = 1,
-        modulationIndex: Float = 1,
-        amplitude: Float = 1) {
+        carrierMultiplier: Float = 1.0,
+        modulatingMultiplier: Float = 1.0,
+        modulationIndex: Float = 1.0,
+        amplitude: Float = 0.5) {
 
         self.baseFrequency = baseFrequency
         self.carrierMultiplier = carrierMultiplier

@@ -97,5 +97,9 @@ public class AKAutoWah: AKNode {
             }
         }
 
+        wahParameter?.setValue(wah, originator: token!)
+        mixParameter?.setValue(mix, originator: token!)
+        amplitudeParameter?.setValue(amplitude, originator: token!)
+
     }
 }

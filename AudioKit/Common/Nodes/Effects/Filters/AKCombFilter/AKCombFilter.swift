@@ -79,5 +79,7 @@ public class AKCombFilter: AKNode {
             }
         }
 
+        reverbDurationParameter?.setValue(reverbDuration, originator: token!)
+
     }
 }

@@ -68,6 +68,6 @@ public class AKPhasor: AKNode {
                 }
             }
         }
-
+        frequencyParameter?.setValue(frequency, originator: token!)
     }
 }

@@ -74,5 +74,7 @@ public class AKLowPassButterworthFilter: AKNode {
             }
         }
 
+        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+
     }
 }

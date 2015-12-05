@@ -97,5 +97,9 @@ public class AKLowShelfParametricEqualizerFilter: AKNode {
             }
         }
 
+        cornerFrequencyParameter?.setValue(cornerFrequency, originator: token!)
+        gainParameter?.setValue(gain, originator: token!)
+        qParameter?.setValue(q, originator: token!)
+
     }
 }

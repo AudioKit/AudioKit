@@ -91,5 +91,8 @@ public class AKStringResonator: AKNode {
             }
         }
 
+        fundamentalFrequencyParameter?.setValue(fundamentalFrequency, originator: token!)
+        feedbackParameter?.setValue(feedback, originator: token!)
+
     }
 }

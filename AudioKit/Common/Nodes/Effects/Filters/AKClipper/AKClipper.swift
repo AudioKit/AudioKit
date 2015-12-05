@@ -98,5 +98,9 @@ public class AKClipper: AKNode {
             }
         }
 
+        limitParameter?.setValue(limit, originator: token!)
+        clippingStartPointParameter?.setValue(clippingStartPoint, originator: token!)
+        methodParameter?.setValue(method, originator: token!)
+
     }
 }

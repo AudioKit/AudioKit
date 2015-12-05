@@ -28,7 +28,8 @@ public class AKWhiteNoise: AKNode {
     // MARK: - Initializers
 
     /** Initialize this noise node */
-    public override init() {
+    public init(amplitude: Float = 1.0) {
+        self.amplitude = amplitude
         super.init()
 
         var description = AudioComponentDescription()
@@ -67,6 +68,6 @@ public class AKWhiteNoise: AKNode {
                 }
             }
         }
-
+        amplitudeParameter?.setValue(amplitude, originator: token!)
     }
 }

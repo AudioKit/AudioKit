@@ -83,6 +83,7 @@ public class AKSawtoothOscillator: AKNode {
                 }
             }
         }
-
+        frequencyParameter?.setValue(frequency, originator: token!)
+        amplitudeParameter?.setValue(amplitude, originator: token!)
     }
 }

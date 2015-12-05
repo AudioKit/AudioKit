@@ -86,5 +86,8 @@ public class AKModalResonanceFilter: AKNode {
             }
         }
 
+        frequencyParameter?.setValue(frequency, originator: token!)
+        qualityFactorParameter?.setValue(qualityFactor, originator: token!)
+
     }
 }
