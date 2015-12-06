@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## AKCustomEffect
-//: ### Add description
+//: ### You can also create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth). We'll show you how to do that for an effect node below...
 import XCPlayground
 import AudioKit
 
