@@ -3,7 +3,6 @@
 //: ---
 //:
 //: ## Parametric Equalizer
-//: ### AKParametricEQ Node
 //: #### Add description
 import XCPlayground
 import AudioKit
