@@ -15,7 +15,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string></string>
+	<string>6.06.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>6.06.0</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 	<key>MinimumOSVersion</key>
