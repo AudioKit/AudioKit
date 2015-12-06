@@ -525,7 +525,7 @@
 		C42F35FC1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFlatFrequencyResponseReverbAudioUnit.h; sourceTree = "<group>"; };
 		C42F35FD1C057F4C000E937C /* AKFlatFrequencyResponseReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFlatFrequencyResponseReverbAudioUnit.mm; sourceTree = "<group>"; };
 		C42F35FE1C057F4C000E937C /* AKFlatFrequencyResponseReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFlatFrequencyResponseReverbDSPKernel.hpp; sourceTree = "<group>"; };
-		C42F36C11C05807A000E937C /* iOSAudioKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = iOSAudioKit.playground; path = AudioKit/iOSAudioKit.playground; sourceTree = "<group>"; };
+		C42F36C11C05807A000E937C /* AudioKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AudioKit.playground; path = AudioKit/AudioKit.playground; sourceTree = "<group>"; };
 		C437926C1C0C58B3001E9160 /* AKCustomGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomGenerator.swift; sourceTree = "<group>"; };
 		C437926D1C0C58B3001E9160 /* AKCustomGeneratorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomGeneratorAudioUnit.h; sourceTree = "<group>"; };
 		C437926E1C0C58B3001E9160 /* AKCustomGeneratorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCustomGeneratorAudioUnit.mm; sourceTree = "<group>"; };
@@ -840,7 +840,7 @@
 			isa = PBXGroup;
 			children = (
 				C42F35021C057E03000E937C /* AudioKit */,
-				C42F36C11C05807A000E937C /* iOSAudioKit.playground */,
+				C42F36C11C05807A000E937C /* AudioKit.playground */,
 				C43792791C0CE2E0001E9160 /* AudioKitTests */,
 				C42F35011C057E03000E937C /* Products */,
 			);
