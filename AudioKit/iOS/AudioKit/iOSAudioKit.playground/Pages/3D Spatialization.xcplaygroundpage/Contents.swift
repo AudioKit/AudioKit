@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKSpatialMixer
-//: ### Add description
+//: ## 3D Spatialization
+//: ### Placing the sound in a 3D environment using `AKSpatialMixer`
 import XCPlayground
 import AudioKit
 import AVFoundation

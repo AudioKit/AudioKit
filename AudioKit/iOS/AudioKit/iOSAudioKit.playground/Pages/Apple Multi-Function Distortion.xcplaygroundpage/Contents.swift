@@ -2,12 +2,11 @@
 //:
 //: ---
 //:
-//: ## AKDistortion
-//: ### Add description
+//: ## Distortion
+//: ### This playground provides access to apple's built-in distortion effect that they lump together into one giant Audio Unit.  For clarity, the submodules to the distortion are also available as solo nodes themselves.
 import XCPlayground
 import AudioKit
 
-//: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
@@ -16,23 +15,30 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let distortion = AKDistortion(player)
 
-//: Set the parameters of the distortion here
+//: Delay parameters
 distortion.delay = 0.1 // Milliseconds
 distortion.decay = 1.0 // Rate
 distortion.delayMix = 50 // Percent
 
-//: These are the decimator-specific parameters
+//: Decimator parameters
 distortion.decimation = 50 // Percent
 distortion.rounding = 0 // Percent
 distortion.decimationMix = 50 // Percent
-distortion.linearTerm = 50 // Percent
-distortion.squaredTerm = 50 // Percent
-distortion.cubicTerm = 50 // Percent
-distortion.polynomialMix = 50 // Percent
+
+//: Ring modulator parameters
 distortion.ringModFreq1 = 100 // Hertz
 distortion.ringModFreq2 = 100 // Hertz
 distortion.ringModBalance = 50 // Percent
 distortion.ringModMix = 0 // Percent
+
+
+//: Polynomial parameters
+distortion.linearTerm = 50 // Percent
+distortion.squaredTerm = 50 // Percent
+distortion.cubicTerm = 50 // Percent
+distortion.polynomialMix = 50 // Percent
+
+//: Gain and mix parameters
 distortion.softClipGain = -6 // dB
 distortion.finalMix = 50 // Percent
 
