@@ -10,7 +10,7 @@
         <page name='Variable Delay'/>
         <page name='Dynamics Processor'/>
         <page name='Peak Limiter'/>
-        <page name='Effects'/>
+        <page name='Distortions'/>
         <page name='Auto Wah Wah'/>
         <page name='Bit Crush Effect'/>
         <page name='Decimator'/>
@@ -37,8 +37,8 @@
         <page name='White Noise Generator'/>
         <page name='Sean Costello Reverb'/>
         <page name='Flat Frequency Response Reverb'/>
-        <page name='Sequencer'/>
         <page name='3D Spatialization'/>
+        <page name='Sequencer'/>
         <page name='Sporth Based Effect'/>
         <page name='Sporth Based Generator'/>
         <page name='Custom Generator'/>
