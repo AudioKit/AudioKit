@@ -10,7 +10,6 @@ import AudioKit
 //: Change the source to "mic" to process your voice
 let source = "player"
 
-//: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()

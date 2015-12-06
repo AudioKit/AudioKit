@@ -8,7 +8,6 @@ import XCPlayground
 import AudioKit
 import AVFoundation
 
-//: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
