@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## clip
-//: ### This is an example of building a sound generator from scratch
+//: ### We tried to give you a large variety of different generators and effects. However, you may come across a situation where we don't have something that you may need. If that's the case, you can build your own! This is an example of building a sound generator from scratch.
 import XCPlayground
 import AudioKit
 
