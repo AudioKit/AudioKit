@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## AKCustomGenerator
-//: ### Add description
+//: ### Just as you can create effect nodes with Sporth for AudioKit, you can also create generators. 
 import XCPlayground
 import AudioKit
 
