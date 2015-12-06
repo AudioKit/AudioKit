@@ -7,7 +7,6 @@
 import XCPlayground
 import AudioKit
 
-//: This is set-up, the next thing to change is in the next section:
 let audiokit = AKManager.sharedInstance
 
 //: Filter setup
