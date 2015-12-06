@@ -62,6 +62,7 @@
 #import "AKParameter+Operation.h"
 
 // Operations - Analysis
+#import "AKAMDFTrackedFrequency.h"
 #import "AKTrackedAmplitude.h"
 #import "AKTrackedAmplitudeFromFSignal.h"
 #import "AKTrackedFrequency.h"
