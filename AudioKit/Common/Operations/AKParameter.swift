@@ -19,6 +19,14 @@ public struct AKParameter: CustomStringConvertible {
     public init(value: Float) {
         parameterString = "\(value)"
     }
+    
+    public func floor() -> AKParameter {
+        return AKParameter("\(self)floor")
+    }
+}
+
+public func floor(parameter: AKParameter) -> AKParameter {
+    return parameter.floor()
 }
 
 public struct AKStereoParameter: CustomStringConvertible {
