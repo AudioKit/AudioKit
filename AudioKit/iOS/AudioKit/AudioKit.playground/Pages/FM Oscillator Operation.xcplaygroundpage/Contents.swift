@@ -13,9 +13,9 @@ let audiokit = AKManager.sharedInstance
 let sine  = AKP.sine(frequency: 1.ak)
 let sine2 = AKP.sine(frequency: 1.64.ak)
 let freq  = AKP.scale(sine,  minimumOutput: 900.ak, maximumOutput: 400.ak)
-let car   = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 2.ak)
-let mod   = AKP.scale(sine,  minimumOutput: 1.ak,   maximumOutput: 3.ak)
-let index = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 5.ak)
+let car   = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 2.ak) * 7 + 3
+let mod   = AKP.scale(sine,  minimumOutput: 1.ak,   maximumOutput: 3.ak) * 2
+let index = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 5.ak) / 5 + 3
 let oscillator = AKP.fmOscillator(baseFrequency: freq, carrierMultiplier: car, modulatingMultiplier: mod, modulationIndex: index, amplitude: 0.1.ak)
 
 let generator = AKP.generator(oscillator)

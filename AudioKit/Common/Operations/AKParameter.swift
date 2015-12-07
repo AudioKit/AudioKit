@@ -31,6 +31,53 @@ public struct AKStereoParameter: CustomStringConvertible {
     }
 }
 
+public func + (left: AKParameter, right: AKParameter) -> AKParameter {
+    return AKP.add(left, right)
+}
+
+public func + (left: AKParameter, right: Float) -> AKParameter {
+    return AKP.add(left, right.ak)
+}
+
+public func + (left: Float, right: AKParameter) -> AKParameter {
+    return AKP.add(left.ak, right)
+}
+
+public func * (left: AKParameter, right: AKParameter) -> AKParameter {
+    return AKP.multiply(left, right)
+}
+
+public func * (left: AKParameter, right: Float) -> AKParameter {
+    return AKP.multiply(left, right.ak)
+}
+
+public func * (left: Float, right: AKParameter) -> AKParameter {
+    return AKP.multiply(left.ak, right)
+}
+
+public func - (left: AKParameter, right: AKParameter) -> AKParameter {
+    return AKP.subtract(left, right)
+}
+
+public func - (left: AKParameter, right: Float) -> AKParameter {
+    return AKP.subtract(left, right.ak)
+}
+
+public func - (left: Float, right: AKParameter) -> AKParameter {
+    return AKP.subtract(left.ak, right)
+}
+
+public func / (left: AKParameter, right: AKParameter) -> AKParameter {
+    return AKP.divide(left, right)
+}
+
+public func / (left: AKParameter, right: Float) -> AKParameter {
+    return AKP.divide(left, right.ak)
+}
+
+public func / (left: Float, right: AKParameter) -> AKParameter {
+    return AKP.divide(left.ak, right)
+}
 
 public struct AKP {
         
@@ -52,6 +99,20 @@ public struct AKP {
             return sine(frequency: 0.1.ak, amplitude: 1.ak)
         }
     }
+    
+    public static func multiply(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
+        return AKParameter("\(parameter1)\(parameter2)*")
+    }
+    public static func add(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
+        return AKParameter("\(parameter1)\(parameter2)+")
+    }
+    public static func subtract(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
+        return AKParameter("\(parameter1)\(parameter2)-")
+    }
+    public static func divide(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
+        return AKParameter("\(parameter1)\(parameter2)/")
+    }
+
 }
 
 public func akp(value: Float) -> AKParameter {

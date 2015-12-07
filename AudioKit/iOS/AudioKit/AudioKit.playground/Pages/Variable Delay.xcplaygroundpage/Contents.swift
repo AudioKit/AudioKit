@@ -15,7 +15,6 @@ player.looping = true
 let delay = AKVariableDelay(player)
 
 //: Set the parameters of the delay here delay.time = 0.1 // seconds
-
 audiokit.audioOutput = delay
 audiokit.start()
 player.play()
