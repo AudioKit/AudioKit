@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Distortion
-//: ### This playground provides access to apple's built-in distortion effect that they lump together into one giant Audio Unit.  For clarity, the submodules to the distortion are also available as solo nodes themselves.
+//: ### This playground provides access to Apple's built-in distortion effect that they lump together into one giant Audio Unit.  For clarity, the submodules to the distortion are also available as individual nodes themselves.
 import XCPlayground
 import AudioKit
 
