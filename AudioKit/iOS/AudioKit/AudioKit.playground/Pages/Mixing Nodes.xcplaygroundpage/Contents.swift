@@ -18,10 +18,16 @@ player1.looping = true
 let player2 = AKAudioPlayer(file2!)
 player2.looping = true
 
+//: Lets put the players through a gain node so that their relative volumes can be changed
+
+let playback1 = AKGain(player1, gain: 2.0)
+let playback2 = AKGain(player2, gain: 1.0)
 
 //: Any number of inputs can be equally summed into one output
-let mixer = AKMixer(player1, player2)
-mixer.volume = 0.5
+let mixer = AKMixer(playback1, playback2)
+
+//: Next we'll just make sure we're always outputing the same overall volume
+mixer.volume = 1.0 / (playback1.gain + playback2.gain)
 
 audiokit.audioOutput = mixer
 audiokit.start()

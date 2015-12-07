@@ -51,6 +51,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 #import <AudioKit/AKAutoWahAudioUnit.h>
 
+#import <AudioKit/AKGainAudioUnit.h>
+
 #import <AudioKit/AKCustomGeneratorAudioUnit.h>
 #import <AudioKit/AKCustomEffectAudioUnit.h>
 
