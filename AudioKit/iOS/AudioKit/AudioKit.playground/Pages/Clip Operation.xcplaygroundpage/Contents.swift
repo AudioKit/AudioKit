@@ -17,18 +17,11 @@ let sine = AKP.sine(frequency: 0.3.ak)
 let limitSine = AKP.scale(sine, minimumOutput: 0.ak, maximumOutput: 1.ak)
 
 let clip = AKP.clip(AKP.input, limit: limitSine)
-let effect = AKP.effect(player, operation: clip)
+let effect = AKNode.effect(player, operation: clip)
 
 audiokit.audioOutput = effect
 audiokit.start()
 player.play()
-while true {
-//    fm.baseFrequency.randomize(220, 880)
-//    fm.carrierMultiplier.randomize(0, 4)
-//    fm.modulationIndex.randomize(0, 5)
-//    fm.modulatingMultiplier.randomize(0, 0.3)
-//    fm.amplitude.randomize(0, 0.3)
-    usleep(UInt32(randomInt(0...160000)))
-}
 
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
