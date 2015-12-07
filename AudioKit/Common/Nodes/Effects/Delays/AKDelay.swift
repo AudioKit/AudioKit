@@ -67,14 +67,19 @@ public class AKDelay: AKNode {
         lowPassCutoff: Float = 15000,
         dryWetMix: Float = 50) {
             
-        self.time = NSTimeInterval(Double(time))
-        self.feedback = feedback
-        self.lowPassCutoff = lowPassCutoff
-        self.dryWetMix = dryWetMix
-        
-        super.init()
-        output = delayAU
-        AKManager.sharedInstance.engine.attachNode(output!)
-        AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
+            self.time = NSTimeInterval(Double(time))
+            self.feedback = feedback
+            self.lowPassCutoff = lowPassCutoff
+            self.dryWetMix = dryWetMix
+            
+            super.init()
+            output = delayAU
+            AKManager.sharedInstance.engine.attachNode(output!)
+            AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
+            
+            delayAU.delayTime = self.time
+            delayAU.feedback = feedback
+            delayAU.lowPassCutoff = lowPassCutoff
+            delayAU.dryWetMix = dryWetMix
     }
 }
