@@ -9,18 +9,24 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-//: ```AKP``` is basically shorthand for AKParameter, with type methods that return AKParameters that you can use in other operations
+//: Set up the operations that will be used to make a generator node
 let sine  = AKP.sine(frequency: 1.ak)
 let sine2 = AKP.sine(frequency: 1.64.ak)
-let freq  = AKP.scale(sine,  minimumOutput: 900.ak, maximumOutput: 400.ak)
-let car   = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 2.ak) * 7 + 3
-let mod   = AKP.scale(sine,  minimumOutput: 1.ak,   maximumOutput: 3.ak) * 2
-let index = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 5.ak) / 5 + 3
+let scaleFactor: Float = 1.4
+let sine3 = floor(sine.scaledBy(scaleFactor)).dividedBy(scaleFactor)
+let freq  = AKP.scale(sine3, minimumOutput: 900.ak, maximumOutput: 0.ak)
+let car   = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 1.4.ak)
+let mod   = AKP.scale(sine,  minimumOutput: 1.ak,   maximumOutput: 3.ak)
+let index = sine3 * 3 + 5
 let oscillator = AKP.fmOscillator(baseFrequency: freq, carrierMultiplier: car, modulatingMultiplier: mod, modulationIndex: index, amplitude: 0.1.ak)
 
-let generator = AKP.generator(oscillator)
+//: Set up the nodes
+let generator = AKNode.generator(oscillator)
+let delay1 = AKDelay(generator, time: 0.01, feedback: 99, lowPassCutoff: 0, dryWetMix: 50)
+let delay2 = AKDelay(delay1, time: 0.1, feedback: 10, lowPassCutoff: 0, dryWetMix: 50)
+let reverb = AKReverb(delay2, dryWetMix: 50)
 
-audiokit.audioOutput = generator
+audiokit.audioOutput = reverb
 audiokit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

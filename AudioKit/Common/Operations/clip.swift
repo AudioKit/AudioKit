@@ -10,8 +10,7 @@ import Foundation
 
 extension AKP {
 
-    /** clip: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner, using one of three
- methods.
+    /** clip: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
      - returns: AKParameter
      - Parameter input: Input audio signal.
      - Parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
