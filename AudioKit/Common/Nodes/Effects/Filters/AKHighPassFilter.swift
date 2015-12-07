@@ -70,5 +70,8 @@ public class AKHighPassFilter: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
             internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kHipassParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoffFrequency, 0)
+            AudioUnitSetParameter(internalAU, kHipassParam_Resonance,       kAudioUnitScope_Global, 0, resonance, 0)
     }
 }

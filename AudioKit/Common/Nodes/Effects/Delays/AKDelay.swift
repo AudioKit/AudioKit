@@ -80,6 +80,6 @@ public class AKDelay: AKNode {
             delayAU.delayTime = self.time
             delayAU.feedback = feedback
             delayAU.lowPassCutoff = lowPassCutoff
-            delayAU.dryWetMix = dryWetMix
+            delayAU.wetDryMix = dryWetMix
     }
 }

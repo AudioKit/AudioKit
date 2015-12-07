@@ -67,15 +67,19 @@ public class AKPeakLimiter: AKNode {
         decayTime: Float = 0.024,
         preGain: Float = 0) {
             
-        self.attackTime = attackTime
-        self.decayTime = decayTime
-        self.preGain = preGain
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
+            self.attackTime = attackTime
+            self.decayTime = decayTime
+            self.preGain = preGain
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, attackTime, 0)
+            AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime,  kAudioUnitScope_Global, 0, decayTime, 0)
+            AudioUnitSetParameter(internalAU, kLimiterParam_PreGain,    kAudioUnitScope_Global, 0, preGain, 0)
     }
 }

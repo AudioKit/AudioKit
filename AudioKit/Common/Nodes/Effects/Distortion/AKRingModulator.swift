@@ -81,19 +81,25 @@ public class AKRingModulator: AKNode {
         balance: Float = 50,
         mix: Float = 0) {
             
-        self.frequency1 = frequency1
-        self.frequency2 = frequency2
-        self.balance = balance
-        self.mix = mix
-        super.init()
-
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
-        
-        // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
-        AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
+            self.frequency1 = frequency1
+            self.frequency2 = frequency2
+            self.balance = balance
+            self.mix = mix
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
+            
+            // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
+            
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1,   kAudioUnitScope_Global, 0, frequency1, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2,   kAudioUnitScope_Global, 0, frequency2, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, balance, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix,       kAudioUnitScope_Global, 0, mix, 0)
+            
     }
 }

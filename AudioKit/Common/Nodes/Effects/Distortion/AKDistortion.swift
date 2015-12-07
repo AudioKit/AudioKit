@@ -336,5 +336,23 @@ public class AKDistortion: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
             internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kDistortionParam_Delay,         kAudioUnitScope_Global, 0, delay, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Decay,         kAudioUnitScope_Global, 0, decay, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_DelayMix,      kAudioUnitScope_Global, 0, delayMix, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation,    kAudioUnitScope_Global, 0, decimation, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding,      kAudioUnitScope_Global, 0, rounding, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, decimationMix, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_LinearTerm,    kAudioUnitScope_Global, 0, linearTerm, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_SquaredTerm,   kAudioUnitScope_Global, 0, squaredTerm, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_CubicTerm,     kAudioUnitScope_Global, 0, cubicTerm, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, polynomialMix, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1,  kAudioUnitScope_Global, 0, ringModFreq1, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2,  kAudioUnitScope_Global, 0, ringModFreq2, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance,kAudioUnitScope_Global, 0, ringModBalance, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix,    kAudioUnitScope_Global, 0, ringModMix, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_SoftClipGain,  kAudioUnitScope_Global, 0, softClipGain, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix,      kAudioUnitScope_Global, 0, finalMix, 0)
+            
     }
 }
