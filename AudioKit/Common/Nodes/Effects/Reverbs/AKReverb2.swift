@@ -180,6 +180,14 @@ public class AKReverb2: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
             internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix,            kAudioUnitScope_Global, 0, dryWetMix, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_Gain,                 kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime,         kAudioUnitScope_Global, 0, minDelayTime, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime,         kAudioUnitScope_Global, 0, maxDelayTime, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz,       kAudioUnitScope_Global, 0, decayTimeAt0Hz, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist,   kAudioUnitScope_Global, 0, decayTimeAtNyquist, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, randomizeReflections, 0)
     }
     
 }

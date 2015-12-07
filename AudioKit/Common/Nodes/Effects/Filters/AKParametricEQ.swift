@@ -90,5 +90,9 @@ public class AKParametricEQ: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
             internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, centerFrequency, 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_Q,          kAudioUnitScope_Global, 0, q, 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_Gain,       kAudioUnitScope_Global, 0, gain, 0)
     }
 }

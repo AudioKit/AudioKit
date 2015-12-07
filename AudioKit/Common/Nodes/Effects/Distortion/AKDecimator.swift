@@ -68,18 +68,22 @@ public class AKDecimator: AKNode {
         rounding: Float = 0,
         mix: Float = 50) {
             
-        self.decimation = decimation
-        self.rounding = rounding
-        self.mix = mix
-        super.init()
-        
-        internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-        output = internalEffect
-        AKManager.sharedInstance.engine.attachNode(internalEffect)
-        AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
-        internalAU = internalEffect.audioUnit
-        
-        // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
-        AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, 100, 0)
+            self.decimation = decimation
+            self.rounding = rounding
+            self.mix = mix
+            super.init()
+            
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            output = internalEffect
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            internalAU = internalEffect.audioUnit
+            
+            // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
+            AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, 100, 0)
+            
+            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, decimation, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, rounding, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, mix, 0)
     }
 }

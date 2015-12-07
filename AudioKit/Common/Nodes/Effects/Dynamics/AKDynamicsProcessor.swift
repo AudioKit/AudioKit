@@ -222,5 +222,16 @@ public class AKDynamicsProcessor: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
             internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_Threshold,          kAudioUnitScope_Global, 0, threshold, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_HeadRoom,           kAudioUnitScope_Global, 0, headRoom, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionRatio,     kAudioUnitScope_Global, 0, expansionRatio, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionThreshold, kAudioUnitScope_Global, 0, expansionThreshold, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_AttackTime,         kAudioUnitScope_Global, 0, attackTime, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime,        kAudioUnitScope_Global, 0, releaseTime, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain,         kAudioUnitScope_Global, 0, masterGain, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount,  kAudioUnitScope_Global, 0, compressionAmount, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_InputAmplitude,     kAudioUnitScope_Global, 0, inputAmplitude, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_OutputAmplitude,    kAudioUnitScope_Global, 0, outputAmplitude, 0)
     }
 }

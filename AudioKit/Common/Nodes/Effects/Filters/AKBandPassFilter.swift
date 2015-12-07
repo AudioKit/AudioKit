@@ -70,5 +70,8 @@ public class AKBandPassFilter: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
             internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, centerFrequency, 0)
+            AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth,       kAudioUnitScope_Global, 0, bandwidth, 0)
     }
 }

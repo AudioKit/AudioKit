@@ -34,6 +34,8 @@ public class AKReverb: AKNode {
         output = reverbAU
         AKManager.sharedInstance.engine.attachNode(output!)
         AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
+        
+        reverbAU.wetDryMix = dryWetMix
     }
     
     /** Load an Apple Factory Preset */
