@@ -39,54 +39,6 @@ public struct AKStereoParameter: CustomStringConvertible {
     }
 }
 
-public func + (left: AKParameter, right: AKParameter) -> AKParameter {
-    return AKP.add(left, right)
-}
-
-public func + (left: AKParameter, right: Float) -> AKParameter {
-    return AKP.add(left, right.ak)
-}
-
-public func + (left: Float, right: AKParameter) -> AKParameter {
-    return AKP.add(left.ak, right)
-}
-
-public func * (left: AKParameter, right: AKParameter) -> AKParameter {
-    return AKP.multiply(left, right)
-}
-
-public func * (left: AKParameter, right: Float) -> AKParameter {
-    return AKP.multiply(left, right.ak)
-}
-
-public func * (left: Float, right: AKParameter) -> AKParameter {
-    return AKP.multiply(left.ak, right)
-}
-
-public func - (left: AKParameter, right: AKParameter) -> AKParameter {
-    return AKP.subtract(left, right)
-}
-
-public func - (left: AKParameter, right: Float) -> AKParameter {
-    return AKP.subtract(left, right.ak)
-}
-
-public func - (left: Float, right: AKParameter) -> AKParameter {
-    return AKP.subtract(left.ak, right)
-}
-
-public func / (left: AKParameter, right: AKParameter) -> AKParameter {
-    return AKP.divide(left, right)
-}
-
-public func / (left: AKParameter, right: Float) -> AKParameter {
-    return AKP.divide(left, right.ak)
-}
-
-public func / (left: Float, right: AKParameter) -> AKParameter {
-    return AKP.divide(left.ak, right)
-}
-
 public struct AKP {
         
     public static let input = AKParameter("0 p 1 p")
@@ -107,20 +59,6 @@ public struct AKP {
             return sine(frequency: 0.1.ak, amplitude: 1.ak)
         }
     }
-    
-    public static func multiply(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
-        return AKParameter("\(parameter1)\(parameter2)*")
-    }
-    public static func add(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
-        return AKParameter("\(parameter1)\(parameter2)+")
-    }
-    public static func subtract(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
-        return AKParameter("\(parameter1)\(parameter2)-")
-    }
-    public static func divide(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
-        return AKParameter("\(parameter1)\(parameter2)/")
-    }
-
 }
 
 public func akp(value: Float) -> AKParameter {
@@ -139,24 +77,5 @@ public extension Double {
 }
 
 extension AKP {
-    public static func effect(input: AKNode, operation: AKParameter) -> AKCustomEffect {
-        // Add "swap drop" to discard the right channel input, and then
-        // add "dup" to copy the left channel output to the right channel output
-        return AKCustomEffect(input, sporth:"\(operation) swap drop dup")
-    }
-    public static func effect(input: AKNode, operation: AKStereoParameter) -> AKCustomEffect {
-        return AKCustomEffect(input, sporth:"\(operation)")
-    }
-    
-    public static func stereoEffect(input: AKNode, leftOperation: AKParameter, rightOperation: AKParameter) -> AKCustomEffect {
-        return AKCustomEffect(input, sporth:"\(leftOperation) swap \(rightOperation) swap")
-    }
-    
-    public static func generator(operation: AKParameter) -> AKCustomGenerator {
-        return AKCustomGenerator("\(operation) dup")
-    }
-    
-    public static func generator(left: AKParameter, _ right: AKParameter) -> AKCustomGenerator {
-        return AKCustomGenerator("\(left) \(right)")
-    }
+
 }
