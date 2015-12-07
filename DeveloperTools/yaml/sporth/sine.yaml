@@ -1,0 +1,19 @@
+description: Sine wave oscillator
+
+ak-alias: sine
+
+parameters:
+- frequency {
+    comment: Frequency,
+    units: Hz,
+    default: 440,
+    minimum: 0,
+    maximum: MAX_FREQUENCY
+}
+- amplitude {
+    comment: Amplitude,
+    units: Generic,
+    default: 1,
+    minimum: 0,
+    maximum: NA
+}
