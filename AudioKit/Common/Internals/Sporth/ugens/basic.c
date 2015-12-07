@@ -430,6 +430,42 @@ int sporth_divide(sporth_stack *stack, void *ud)
     return PLUMBER_OK;
 }
 
+int sporth_floor(sporth_stack *stack, void *ud)
+{
+    if(stack->error > 0) return PLUMBER_NOTOK;
+    
+    plumber_data *pd = ud;
+    SPFLOAT val;
+    switch(pd->mode){
+        case PLUMBER_CREATE:
+            plumber_add_module(pd, SPORTH_FLOOR, NULL);
+            break;
+        case PLUMBER_INIT:
+            if(sporth_check_args(stack, "f") != SPORTH_OK) {
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            val = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, (SPFLOAT)floor(val));
+            break;
+        case PLUMBER_COMPUTE:
+            if(sporth_check_args(stack, "f") != SPORTH_OK) {
+                return PLUMBER_NOTOK;
+            }
+            val = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, (SPFLOAT)floor(val));
+            break;
+        case PLUMBER_DESTROY:
+            break;
+        default:
+            fprintf(stderr,"Error: Unknown mode!");
+            stack->error++;
+            return PLUMBER_NOTOK;
+            break;
+    }
+    return PLUMBER_OK;
+}
+
 int sporth_mtof(sporth_stack *stack, void *ud)
 {
     if(stack->error > 0) return PLUMBER_NOTOK;
