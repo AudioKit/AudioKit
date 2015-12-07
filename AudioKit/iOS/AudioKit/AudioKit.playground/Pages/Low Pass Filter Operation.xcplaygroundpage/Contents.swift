@@ -16,7 +16,7 @@ let filter = AKP.lowPassFilter(AKP.input, cutoffFrequency: cutoff)
 //: Noise Example
 let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so that when it is mixed it is not so loud
 let noise = AKNode.effect(whiteNoise, operation: filter)
-let noiseExample = AKMixer(noise)
+let noiseExample = AKGain(noise)
 
 //: Music Example
 let bundle = NSBundle.mainBundle()
@@ -24,11 +24,11 @@ let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let filteredPlayer = AKNode.effect(player, operation: filter)
-let musicExample = AKMixer(filteredPlayer)
+let musicExample = AKGain(filteredPlayer)
 
-//: Change the volumes below to hear the examples
-noiseExample.volume = 1
-musicExample.volume = 0
+//: Change the gains below to hear the examples
+noiseExample.gain = 1
+musicExample.gain = 4
 
 //: Mixdown and playback
 let mixer = AKMixer(noiseExample, musicExample)

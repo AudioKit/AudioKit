@@ -13,7 +13,10 @@ let file = bundle.pathForResource("808loop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 
-let reverb = AKP.costelloReverb(AKP.input, feedback: 0.9.ak, cutoffFrequency: 10000.ak)
+let reverb = AKP.costelloReverb(
+    AKP.input,
+    feedback: 0.9.ak,
+    cutoffFrequency: 10000.ak)
 let effect = AKNode.effect(player, operation: reverb)
 
 audiokit.audioOutput = effect
