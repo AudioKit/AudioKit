@@ -27,7 +27,7 @@ for i in 0..<custom.values.count {
 }
 for value in custom.values { value } // Click the eye icon ->
 
-//: Try changing the table to triangle, square, sine, or sawtooth
+//: Try changing the table to triangle, square, sine, or sawtooth. This will change the shape of the oscillator's waveform.
 let oscillator = AKOscillator(table: custom)
 audiokit.audioOutput = oscillator
 audiokit.start()
