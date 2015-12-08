@@ -30,7 +30,7 @@ public class AKCustomGenerator: AKNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x33663466 /*'cstg'*/ // Temp Change Hex Later
+        description.componentSubType      = 0x63737467 /*'cstg'*/ 
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
