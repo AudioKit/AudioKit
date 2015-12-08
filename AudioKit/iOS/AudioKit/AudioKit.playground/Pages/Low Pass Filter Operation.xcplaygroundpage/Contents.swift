@@ -10,7 +10,7 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Filter setup
-let cutoff = AKP.scale(AKP.sine(frequency: 0.2.ak), minimumOutput: 100.ak, maximumOutput: 1000.ak)
+let cutoff = AKP.scale(AKP.sine(frequency: 0.2.ak), minimumOutput: 100.ak, maximumOutput: 2000.ak)
 let filter = AKP.lowPassFilter(AKP.input, cutoffFrequency: cutoff)
 
 //: Noise Example
@@ -20,7 +20,7 @@ let noiseExample = AKGain(noise)
 
 //: Music Example
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
+let file = bundle.pathForResource("mixloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let filteredPlayer = AKNode.effect(player, operation: filter)
@@ -28,7 +28,7 @@ let musicExample = AKGain(filteredPlayer)
 
 //: Change the gains below to hear the examples
 noiseExample.gain = 1
-musicExample.gain = 4
+musicExample.gain = 1
 
 //: Mixdown and playback
 let mixer = AKMixer(noiseExample, musicExample)
