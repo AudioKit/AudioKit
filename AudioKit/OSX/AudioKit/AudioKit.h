@@ -54,3 +54,5 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKCustomGeneratorAudioUnit.h>
 
 #import <AudioKit/AKTesterAudioUnit.h>
+
+#import <AudioKit/EZAudio.h>
