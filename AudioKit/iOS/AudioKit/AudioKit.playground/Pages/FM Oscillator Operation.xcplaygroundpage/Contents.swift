@@ -12,7 +12,7 @@ let audiokit = AKManager.sharedInstance
 //: Set up the operations that will be used to make a generator node
 let sine  = AKP.sine(frequency: 1.ak)
 let sine2 = AKP.sine(frequency: 1.64.ak)
-let scaleFactor: Float = 1.4
+let scaleFactor = 1.4
 let sine3 = floor(sine.scaledBy(scaleFactor)).dividedBy(scaleFactor)
 let freq  = AKP.scale(sine3, minimumOutput: 900.ak, maximumOutput: 0.ak)
 let car   = AKP.scale(sine2, minimumOutput: 1.ak,   maximumOutput: 1.4.ak)

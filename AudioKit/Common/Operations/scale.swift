@@ -29,11 +29,3 @@ extension AKP {
             return AKParameter("\(input)\(minimumInput)\(maximumInput)\(minimumOutput)\(maximumOutput)scale2")
     }
 }
-
-//public static func scale(
-//    input: AKParameter,
-//    minimum: AKParameter = 0.ak,
-//    maximum: AKParameter = 1.ak
-//    ) -> AKParameter {
-//        return AKParameter("\(input)\(minimum)\(maximum)scale")
-//}
