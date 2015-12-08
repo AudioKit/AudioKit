@@ -35,8 +35,6 @@ containerView.addSubview(plot1)
 containerView.addSubview(plot2)
 
 player1.output?.installTapOnBus(0, bufferSize: 512, format: player1.output?.outputFormatForBus(0)) { (buffer, time) -> Void in
-    print(time)
-    print(NSDate())
     buffer.frameLength = 512
     plot1.updateBuffer(buffer.floatChannelData[0], withBufferSize: 512)
 }
