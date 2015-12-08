@@ -18,6 +18,29 @@ public class AKAudioPlayer: AKNode {
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
     
+    /** Output Volume (Default 1) */
+    public var volume: Float = 1.0 {
+        didSet {
+            if volume < 0 {
+                volume = 0
+            }
+            internalPlayer.volume = volume
+        }
+    }
+    
+    /** Pan (Default Center = 0) */
+    public var pan: Float = 0.0 {
+        didSet {
+            if pan < -1 {
+                pan = -1
+            }
+            if pan > 1 {
+                pan = 1
+            }
+            internalPlayer.pan = pan
+        }
+    }
+    
     /// Initialize the player
     public init(_ file: String) {
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
