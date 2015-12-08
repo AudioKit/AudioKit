@@ -23,10 +23,32 @@ public struct AKParameter: CustomStringConvertible {
     public func floor() -> AKParameter {
         return AKParameter("\(self)floor")
     }
+    
+    public func round() -> AKParameter {
+        return AKParameter("\(self)round")
+    }
+    public func abs() -> AKParameter {
+        return AKParameter("\(self)abs")
+    }
 }
 
 public func floor(parameter: AKParameter) -> AKParameter {
     return parameter.floor()
+}
+
+public func round(parameter: AKParameter) -> AKParameter {
+    return parameter.round()
+}
+
+public func abs(parameter: AKParameter) -> AKParameter {
+    return parameter.abs()
+}
+
+public func max(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
+    return AKParameter("\(parameter1)\(parameter2)max")
+}
+public func min(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
+    return AKParameter("\(parameter1)\(parameter2)min")
 }
 
 public struct AKStereoParameter: CustomStringConvertible {
@@ -59,6 +81,7 @@ public struct AKP {
             return sine(frequency: 0.1.ak, amplitude: 1.ak)
         }
     }
+
 }
 
 public func akp(value: Float) -> AKParameter {
