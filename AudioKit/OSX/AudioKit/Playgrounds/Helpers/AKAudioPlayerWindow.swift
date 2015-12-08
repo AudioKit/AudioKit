@@ -21,17 +21,26 @@ public class AKAudioPlayerWindow: NSWindow {
     private let playButton: NSButton
     private let pauseButton: NSButton
     private let stopButton: NSButton
+    public let volumeSlider: NSSlider
+    public let panSlider: NSSlider
 
+    private let volumeTextField: NSTextField
+    private let panTextField: NSTextField
+  
     private var player: AKAudioPlayer
     
     /// Initialize the AKAudioplayer window
     public init(_ control: AKAudioPlayer, title: String = "AKAudioPlayer", xOffset: Int = 420) {
         player = control
         let sliderWidth = windowWidth - 2 * padding
-        playButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        pauseButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        stopButton      = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-        
+        playButton  = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        pauseButton = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        stopButton  = NSButton(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
+        volumeSlider = newSlider(sliderWidth)
+        panSlider    = newSlider(sliderWidth)
+        volumeTextField = newTextField(sliderWidth)
+        panTextField    = newTextField(sliderWidth)
+
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
         
@@ -77,6 +86,22 @@ public class AKAudioPlayerWindow: NSWindow {
         stopButton.title = "Stop"
         stopButton.frame.origin.y = pauseButton.frame.origin.y - 2 * CGFloat(sliderHeight)
         view.addSubview(stopButton)
+        
+        makeTextField(volumeTextField, view: view, below: topTitle, distance: 8,
+            stringValue: "Volume: \(player.volume)")
+        makeSlider(volumeSlider, view: view, below: topTitle, distance: 9, target: self,
+            action: "updateVolume",
+            currentValue: player.volume,
+            minimumValue: 0,
+            maximumValue: 2)
+        
+        makeTextField(panTextField, view: view, below: topTitle, distance: 10,
+            stringValue: "Pan: \(player.pan)")
+        makeSlider(panSlider, view: view, below: topTitle, distance: 11, target: self,
+            action: "updatePan",
+            currentValue: player.pan,
+            minimumValue: -1,
+            maximumValue: 1)
 
         
         self.contentView!.addSubview(view)
@@ -93,6 +118,18 @@ public class AKAudioPlayerWindow: NSWindow {
     
     internal func stop() {
         player.stop()
+    }
+    
+    internal func updateVolume() {
+        player.volume = volumeSlider.floatValue
+        volumeTextField.stringValue =
+        "Volume \(String(format: "%0.4f", player.volume)) "
+    }
+    
+    internal func updatePan() {
+        player.pan = panSlider.floatValue
+        panTextField.stringValue =
+        "Pan \(String(format: "%0.4f", player.pan)) "
     }
     
     /// Required Initializer
