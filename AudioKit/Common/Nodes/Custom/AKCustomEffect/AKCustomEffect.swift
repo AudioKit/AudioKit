@@ -30,7 +30,7 @@ public class AKCustomEffect: AKNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x33663466 /*'cstm'*/ // Temp Change Hex Later
+        description.componentSubType      = 0x6373746d /*'cstm'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0

@@ -35,7 +35,7 @@ public class AKTester: AKNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x336c3466 /*'testr'*/ // Temp Change Hex Later
+        description.componentSubType      = 0x74737472 /*'tstr'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
