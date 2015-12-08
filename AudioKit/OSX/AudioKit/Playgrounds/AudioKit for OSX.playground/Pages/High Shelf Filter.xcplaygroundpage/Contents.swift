@@ -23,8 +23,9 @@ switch source {
 case "mic":
     highShelfFilter = AKHighShelfFilter(mic)
 default:
-    highShelfFilter = AKHighShelfFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    highShelfFilter = AKHighShelfFilter(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the-high shelf filter here

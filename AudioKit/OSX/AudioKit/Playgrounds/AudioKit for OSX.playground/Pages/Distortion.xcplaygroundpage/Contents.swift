@@ -23,8 +23,9 @@ switch source {
 case "mic":
     distortion = AKDistortion(mic)
 default:
-    distortion = AKDistortion(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    distortion = AKDistortion(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the distortion here

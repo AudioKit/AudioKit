@@ -23,8 +23,9 @@ switch source {
 case "mic":
     dynamicsProcessor = AKDynamicsProcessor(mic)
 default:
-    dynamicsProcessor = AKDynamicsProcessor(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)    
+    dynamicsProcessor = AKDynamicsProcessor(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the dynamics processor here

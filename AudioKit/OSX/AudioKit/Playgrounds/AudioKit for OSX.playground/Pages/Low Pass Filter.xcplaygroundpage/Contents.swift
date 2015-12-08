@@ -23,8 +23,9 @@ switch source {
 case "mic":
     lowPassFilter = AKLowPassFilter(mic)
 default:
-    lowPassFilter = AKLowPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    lowPassFilter = AKLowPassFilter(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the low pass filter here

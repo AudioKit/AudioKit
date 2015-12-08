@@ -16,7 +16,7 @@
         private let windowWidth = 400
         private let padding = 30
         private let sliderHeight = 20
-        private let numberOfComponents = 4
+        private let numberOfComponents = 3
 
         /// Slider to control rate
         public let rateSlider: NSSlider

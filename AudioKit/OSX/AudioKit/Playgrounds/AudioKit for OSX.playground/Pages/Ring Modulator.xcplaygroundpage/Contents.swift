@@ -23,8 +23,9 @@ switch source {
 case "mic":
     ringModulator = AKRingModulator(mic)
 default:
-    ringModulator = AKRingModulator(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    ringModulator = AKRingModulator(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the ring modulator here

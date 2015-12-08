@@ -23,8 +23,9 @@ switch source {
 case "mic":
     timePitch = AKTimePitch(mic)
 default:
-    timePitch = AKTimePitch(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    timePitch = AKTimePitch(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the Peak Limiter here
