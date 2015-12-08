@@ -22,8 +22,9 @@ switch source {
 case "mic":
     bandPassFilter = AKBandPassFilter(mic)
 default:
-    bandPassFilter = AKBandPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    bandPassFilter = AKBandPassFilter(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the band pass filter here

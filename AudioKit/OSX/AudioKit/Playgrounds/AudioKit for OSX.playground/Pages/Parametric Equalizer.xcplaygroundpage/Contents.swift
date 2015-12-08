@@ -23,8 +23,9 @@ switch source {
 case "mic":
     parametricEQ = AKParametricEQ(mic)
 default:
-    parametricEQ = AKParametricEQ(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    parametricEQ = AKParametricEQ(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the parametric equalizer here

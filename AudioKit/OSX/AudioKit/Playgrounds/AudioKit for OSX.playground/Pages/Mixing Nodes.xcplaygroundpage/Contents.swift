@@ -22,10 +22,28 @@ let player2Window = AKAudioPlayerWindow(player2, title: "Full Band", xOffset: 64
 
 //: Any number of inputs can be equally summed into one output
 let mixer = AKMixer(player1, player2)
-mixer.volume = 0.5
 
 audiokit.audioOutput = mixer
 audiokit.start()
+
+let containerView = NSView(frame: CGRectMake(0, 0, 300, 800))
+XCPlaygroundPage.currentPage.liveView = containerView
+let plot1 = EZAudioPlot(frame: CGRect(x: 0.0, y: 0.0, width: 300.0, height: 300))
+let plot2 = EZAudioPlot(frame: CGRect(x: 0.0, y: 400.0, width: 300.0, height: 300))
+
+containerView.addSubview(plot1)
+containerView.addSubview(plot2)
+
+player1.output?.installTapOnBus(0, bufferSize: 512, format: player1.output?.outputFormatForBus(0)) { (buffer, time) -> Void in
+    print(time)
+    print(NSDate())
+    buffer.frameLength = 512
+    plot1.updateBuffer(buffer.floatChannelData[0], withBufferSize: 512)
+}
+player2.output?.installTapOnBus(0, bufferSize: 512, format: player2.output?.outputFormatForBus(0)) { (buffer, time) -> Void in
+    buffer.frameLength = 512
+    plot2.updateBuffer(buffer.floatChannelData[0], withBufferSize: 512)
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

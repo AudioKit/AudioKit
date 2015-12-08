@@ -23,8 +23,9 @@ switch source {
 case "mic":
     decimator = AKDecimator(mic)
 default:
-    decimator = AKDecimator(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    decimator = AKDecimator(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the decimator here

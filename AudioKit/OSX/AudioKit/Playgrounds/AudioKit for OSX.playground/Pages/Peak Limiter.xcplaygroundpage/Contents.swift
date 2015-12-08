@@ -23,8 +23,9 @@ switch source {
 case "mic":
     peakLimiter = AKPeakLimiter(mic)
 default:
-    peakLimiter = AKPeakLimiter(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    peakLimiter = AKPeakLimiter(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the Peak Limiter here

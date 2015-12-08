@@ -57,10 +57,9 @@ public class AKAudioPlayer: AKNode {
             atTime: nil,
             options: .Loops,
             completionHandler: nil)
-        internalPlayer.volume = 0.3
+        internalPlayer.volume = 1.0
         super.init()
         output = internalPlayer
-        
     }
     
     /// Start playback

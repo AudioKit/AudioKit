@@ -23,8 +23,9 @@ switch source {
 case "mic":
     highPassFilter = AKHighPassFilter(mic)
 default:
-    highPassFilter = AKHighPassFilter(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    highPassFilter = AKHighPassFilter(playerWithVolumeAndPanControl)
 }
 
 //: Set the parameters of the high pass filter here

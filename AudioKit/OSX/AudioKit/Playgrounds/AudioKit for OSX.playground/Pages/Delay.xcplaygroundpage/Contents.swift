@@ -23,8 +23,9 @@ switch source {
 case "mic":
     delay = AKDelay(mic)
 default:
-    delay = AKDelay(player)
     playerWindow = AKAudioPlayerWindow(player)
+    let playerWithVolumeAndPanControl = AKMixer(player)
+    delay = AKDelay(playerWithVolumeAndPanControl)
 }
 
 delay.//: Set the parameters of the delay here
