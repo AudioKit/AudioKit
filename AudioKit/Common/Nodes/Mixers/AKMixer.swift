@@ -19,9 +19,6 @@ public class AKMixer: AKNode {
             if volume < 0 {
                 volume = 0
             }
-            if volume > 1 {
-                volume = 1
-            }
             mixerAU.outputVolume = volume
         }
     }
