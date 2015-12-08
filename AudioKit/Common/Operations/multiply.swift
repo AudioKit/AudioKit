@@ -21,7 +21,7 @@ extension AKParameter {
      - returns: AKParameter
      - parameter parameter: The amount to multiply
      */
-    public func times(parameter: Float) -> AKParameter {
+    public func times(parameter: Double) -> AKParameter {
         return AKParameter("\(self)\(parameter.ak)*")
     }
     
@@ -36,7 +36,7 @@ extension AKParameter {
      - returns: AKParameter
      - parameter parameter: The amount to scale by
      */
-    public func scaledBy(parameter: Float) -> AKParameter {
+    public func scaledBy(parameter: Double) -> AKParameter {
         return self.times(parameter.ak)
     }
 }
@@ -66,7 +66,7 @@ public func * (left: AKParameter, right: AKParameter) -> AKParameter {
  - left: 1st parameter
  - right: Constant parameter
  */
-public func * (left: AKParameter, right: Float) -> AKParameter {
+public func * (left: AKParameter, right: Double) -> AKParameter {
     return left.times(right)
 }
 
@@ -75,6 +75,6 @@ public func * (left: AKParameter, right: Float) -> AKParameter {
  - left: Constant parameter
  - right: 2nd parameter
  */
-public func * (left: Float, right: AKParameter) -> AKParameter {
+public func * (left: Double, right: AKParameter) -> AKParameter {
     return right.times(left)
 }

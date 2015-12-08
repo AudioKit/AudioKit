@@ -21,7 +21,7 @@ extension AKParameter {
      - returns: AKParameter
      - parameter parameter: The amount to divide
      */
-    public func dividedBy(parameter: Float) -> AKParameter {
+    public func dividedBy(parameter: Double) -> AKParameter {
         return AKParameter("\(self)\(parameter.ak)/")
     }
 }
@@ -51,7 +51,7 @@ public func / (left: AKParameter, right: AKParameter) -> AKParameter {
  - left: 1st parameter
  - right: Constant parameter
  */
-public func / (left: AKParameter, right: Float) -> AKParameter {
+public func / (left: AKParameter, right: Double) -> AKParameter {
     return left.dividedBy(right)
 }
 
@@ -60,6 +60,6 @@ public func / (left: AKParameter, right: Float) -> AKParameter {
  - left: Constant parameter
  - right: 2nd parameter
  */
-public func / (left: Float, right: AKParameter) -> AKParameter {
+public func / (left: Double, right: AKParameter) -> AKParameter {
     return right.dividedBy(left)
 }

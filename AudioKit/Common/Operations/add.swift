@@ -21,7 +21,7 @@ extension AKParameter {
      - returns: AKParameter
      - parameter parameter: The amount to add
      */
-    public func plus(parameter: Float) -> AKParameter {
+    public func plus(parameter: Double) -> AKParameter {
         return AKParameter("\(self)\(parameter.ak)+")
     }
     
@@ -36,7 +36,7 @@ extension AKParameter {
      - returns: AKParameter
      - parameter parameter: The amount to offset by
      */
-    public func offsetBy(parameter: Float) -> AKParameter {
+    public func offsetBy(parameter: Double) -> AKParameter {
         return self.plus(parameter.ak)
     }
 }
@@ -75,7 +75,7 @@ public func + (left: AKParameter, right: AKParameter) -> AKParameter {
  - left: 1st parameter
  - right: Constant parameter
  */
-public func + (left: AKParameter, right: Float) -> AKParameter {
+public func + (left: AKParameter, right: Double) -> AKParameter {
     return left.plus(right)
 }
 
@@ -84,6 +84,6 @@ public func + (left: AKParameter, right: Float) -> AKParameter {
  - left: Constant parameter
  - right: 2nd parameter
  */
-public func + (left: Float, right: AKParameter) -> AKParameter {
+public func + (left: Double, right: AKParameter) -> AKParameter {
     return right.plus(left)
 }
