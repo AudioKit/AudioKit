@@ -17,7 +17,6 @@ player1.looping = true
 
 let player2 = AKAudioPlayer(file2!)
 player2.looping = true
-
 //: Lets put the players through a gain node so that their relative volumes can be changed
 
 let playback1 = AKGain(player1, gain: 2.0)
@@ -33,6 +32,12 @@ audiokit.audioOutput = mixer
 audiokit.start()
 player1.play()
 player2.play()
+
+//: Adjust the individual track volumes here
+player1.volume = 0.8
+player2.volume = 0.7
+player1.pan = 0.1
+player2.pan = -0.1
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

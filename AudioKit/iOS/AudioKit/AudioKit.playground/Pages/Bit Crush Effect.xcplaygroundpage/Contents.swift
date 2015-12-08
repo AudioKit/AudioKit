@@ -10,14 +10,14 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
+let file = bundle.pathForResource("drumloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let bitcrusher = AKBitCrusher(player)
 
 //: Set the parameters of the band pass filter here
 bitcrusher.bitDepth = 16
-bitcrusher.sampleRate = 8000
+bitcrusher.sampleRate = 3333
 
 audiokit.audioOutput = bitcrusher
 audiokit.start()

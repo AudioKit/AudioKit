@@ -10,7 +10,7 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("808loop", ofType: "wav")
+let file = bundle.pathForResource("leadloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let ringModulator = AKRingModulator(player)
