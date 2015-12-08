@@ -21,7 +21,7 @@ extension AKParameter {
      - returns: AKParameter
      - parameter subtrahend: The amount to subtract
      */
-    public func minus(subtrahend: Float) -> AKParameter {
+    public func minus(subtrahend: Double) -> AKParameter {
         return AKParameter("\(self)\(subtrahend.ak)-")
     }
 
@@ -61,7 +61,7 @@ public func - (left: AKParameter, right: AKParameter) -> AKParameter {
  - left: 1st parameter
  - right: Constant parameter
  */
-public func - (left: AKParameter, right: Float) -> AKParameter {
+public func - (left: AKParameter, right: Double) -> AKParameter {
     return left.minus(right)
 }
 
@@ -70,6 +70,6 @@ public func - (left: AKParameter, right: Float) -> AKParameter {
  - left: Constant parameter
  - right: 2nd parameter
  */
-public func - (left: Float, right: AKParameter) -> AKParameter {
+public func - (left: Double, right: AKParameter) -> AKParameter {
     return right.minus(left)
 }
