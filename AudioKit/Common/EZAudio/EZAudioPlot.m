@@ -343,6 +343,40 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     }
 }
 
+// Aure's hack
+- (void)updateBuffer:(float *)buffer
+          bufferSize:(UInt32)bufferSize
+ bufferFrameCapacity:(UInt32)bufferFrameCapacity
+{
+    // append the buffer to the history
+    [EZAudioUtilities appendBufferRMS:&buffer[bufferFrameCapacity - bufferSize]
+                       withBufferSize:bufferSize
+                        toHistoryInfo:self.historyInfo];
+    
+    // copy samples
+    switch (self.plotType)
+    {
+        case EZPlotTypeBuffer:
+            [self setSampleData:&buffer[bufferFrameCapacity - bufferSize]
+                         length:bufferSize];
+            break;
+        case EZPlotTypeRolling:
+            
+            [self setSampleData:self.historyInfo->buffer
+                         length:self.historyInfo->bufferSize];
+            break;
+        default:
+            break;
+    }
+    
+    // update drawing
+    if (!self.shouldOptimizeForRealtimePlot)
+    {
+        [self redraw];
+    }
+}
+
+
 //------------------------------------------------------------------------------
 
 - (void)setSampleData:(float *)data length:(int)length
