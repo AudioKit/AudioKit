@@ -76,18 +76,22 @@ public class AKMidi: AKNode {
             MIDINetworkSession.defaultSession().connectionPolicy =
                 MIDINetworkConnectionPolicy.Anyone
         #endif
+        var result = OSStatus(noErr)
+        if midiClient == 0 {
+            result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
+            if result == OSStatus(noErr) {
+                print("created client")
+            } else {
+                print("error creating client : \(result)")
+            }
+        }
     }
     
     /// Open a MIDI In port
     public func openMidiIn(namedInput: String = "") {
         print("Opening Midi In")
         var result = OSStatus(noErr)
-        result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
-        if result == OSStatus(noErr) {
-            print("created client")
-        } else {
-            print("error creating client : \(result)")
-        }
+        
         let sourceCount = MIDIGetNumberOfSources()
         print("SourceCount: \(sourceCount)")
         for var i = 0; i < sourceCount; ++i {
@@ -117,18 +121,10 @@ public class AKMidi: AKNode {
     public func openMidiOut(namedOutput: String = ""){
         print("Opening Midi Out")
         var result = OSStatus(noErr)
-        if midiClient == 0 {
-            result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
-            if result == OSStatus(noErr) {
-                print("created client")
-            } else {
-                print("error creating client : \(result)")
-            }
-        }
         
         let numOutputs = MIDIGetNumberOfDestinations()
         print("Number of MIDI Out ports = \(numOutputs)")
-        
+        var foundDest = false
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         
         if result == OSStatus(noErr) {
@@ -143,11 +139,15 @@ public class AKMidi: AKNode {
             endpointName = nil
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
             let endpointNameStr = (endpointName?.takeRetainedValue())! as String
-            print("Destination at \(endpointNameStr)")
             if namedOutput.isEmpty || namedOutput == endpointNameStr {
+                print("Destination at \(endpointNameStr)")
                 midiEndpoints.append(MIDIGetDestination(i))
-            }//end if match or no name set
+                foundDest = true
+            }
         }//end foreach midi destination
+        if(!foundDest){
+            print("no midi destination found named \"\(namedOutput)\"")
+        }//end if match or no name set
     }
     
     /// Send Message with data
