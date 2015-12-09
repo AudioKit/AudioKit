@@ -23,6 +23,8 @@ public class AKSampler: AKNode {
     private var internalAU: AUAudioUnit?
     private var token: AUParameterObserverToken?
     var samplerUnit = AVAudioUnitSampler()
+    public var midiIn = MIDIEndpointRef()
+    var midiClient = MIDIClientRef()
     
     // MARK: - Initializers
     
@@ -35,6 +37,10 @@ public class AKSampler: AKNode {
         AKManager.sharedInstance.engine.attachNode(self.output!)
         //you still need to connect the output, and you must do this before starting the processing graph
     }//end init
+    
+    public func enableMidi(midiClient: MIDIClientRef){
+        print(MIDIDestinationCreateWithBlock(midiClient, "midi sampler dest", &midiIn, MyMIDIReadBlock))
+    }
     
     public func loadWav(file: String) {
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "wav") else {
@@ -67,9 +73,25 @@ public class AKSampler: AKNode {
     
     // MARK: - Playback
     public func playNote(note: Int = 60, velocity: Int = 127, channel: Int = 0) {
-        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
+//        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
+        MusicDeviceMIDIEvent(samplerUnit.audioUnit, 0x90, UInt32(note), UInt32(velocity), 0)
     }
     public func stopNote(note: Int = 60, channel: Int = 0) {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
+    }
+    
+    private func MyMIDIReadBlock(
+        packetList: UnsafePointer<MIDIPacketList>,
+        srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
+            let numPackets = Int(packetList.memory.numPackets)
+            let packet = packetList.memory.packet as MIDIPacket
+            var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
+            packetPtr.initialize(packet)
+            
+            for var i = 0; i < numPackets; ++i {
+                let event = AKMidiEvent(packet: packetPtr.memory)
+                MusicDeviceMIDIEvent(samplerUnit.audioUnit, UInt32(event.internalData[0]), UInt32(event.internalData[1]), UInt32(event.internalData[2]), 0)
+                packetPtr = MIDIPacketNext(packetPtr)
+            }
     }
 }

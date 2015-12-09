@@ -412,6 +412,7 @@
 		C4F52E231C080A4400F22BD1 /* AKTriangleOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4F52E1B1C080A4400F22BD1 /* AKTriangleOscillatorAudioUnit.mm */; };
 		C4F52E241C080A4400F22BD1 /* AKTriangleOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4F52E1C1C080A4400F22BD1 /* AKTriangleOscillatorDSPKernel.hpp */; };
 		FEBD3EFF1C095FFD009BC7F1 /* AKSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD3EFE1C095FFC009BC7F1 /* AKSequencer.swift */; };
+		FEE41DB21C1790C500054865 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE41DB11C1790C500054865 /* AKMusicTrack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -834,6 +835,7 @@
 		C4F52E1B1C080A4400F22BD1 /* AKTriangleOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTriangleOscillatorAudioUnit.mm; sourceTree = "<group>"; };
 		C4F52E1C1C080A4400F22BD1 /* AKTriangleOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTriangleOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
 		FEBD3EFE1C095FFC009BC7F1 /* AKSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencer.swift; sourceTree = "<group>"; };
+		FEE41DB11C1790C500054865 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1106,6 +1108,7 @@
 				C46960171C0F8C3900A65FBF /* AKNode.swift */,
 				C48AA65F1C0FA31F006EB131 /* AKAudioPlayer.swift */,
 				C42F35441C057F4C000E937C /* AKMicrophone.swift */,
+				FEE41DB11C1790C500054865 /* AKMusicTrack.swift */,
 				C48AA6601C0FA31F006EB131 /* AKSampler.swift */,
 				FEBD3EFE1C095FFC009BC7F1 /* AKSequencer.swift */,
 				C48AA69A1C0FA70C006EB131 /* AKTimePitch.swift */,
@@ -2345,6 +2348,7 @@
 				C42F36A91C057F4C000E937C /* AKBandPassButterworthFilterAudioUnit.mm in Sources */,
 				C42F362F1C057F4C000E937C /* AKMidiEvent.swift in Sources */,
 				C41702661C116A4400AB689C /* fmOscillator.swift in Sources */,
+				FEE41DB21C1790C500054865 /* AKMusicTrack.swift in Sources */,
 				C4E958941C0ADBFD00516A6A /* abs.c in Sources */,
 				C42F36B71C057F4C000E937C /* AKReverb.swift in Sources */,
 				C4677DE61C16AE0D00BAE0DC /* TPCircularBuffer.c in Sources */,
