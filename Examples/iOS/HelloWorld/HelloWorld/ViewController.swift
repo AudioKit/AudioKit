@@ -13,12 +13,26 @@ class ViewController: UIViewController {
 
     let audiokit = AKManager.sharedInstance
     let oscillator = AKOscillator()
+    let bufferSize: UInt32 = 512
 
+    @IBOutlet var plot: EZAudioPlot!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        audiokit.audioOutput = oscillator
+        let mixer = AKMixer(oscillator)
+        audiokit.audioOutput = mixer
         audiokit.start()
+        
+        mixer.output?.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
+            if let strongSelf = self {
+                buffer.frameLength = strongSelf.bufferSize;
+                let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);
+                let tail = buffer.floatChannelData[0];
+                strongSelf.plot?.updateBuffer(&tail[offset],
+                    withBufferSize: strongSelf.bufferSize);
+            }
+        }
     }
     
     @IBAction func toggleSound(sender: UIButton) {
