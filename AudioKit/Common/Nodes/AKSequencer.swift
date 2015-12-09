@@ -15,6 +15,7 @@ public class AKSequencer{
     public var sequencePointer:UnsafeMutablePointer<MusicSequence>
     var musicPlayer:MusicPlayer = nil
     public var loopEnabled:Bool = false
+    public var tracks:[AKMusicTrack] = []
     
     public init() {
         NewMusicSequence(&sequence)
@@ -92,11 +93,9 @@ public class AKSequencer{
         MusicPlayerSetTime(musicPlayer, 0)
     }
     
-    public func setGlobalMidiOutput(midiOut:AKMidi, index:Int = 0){
-        for( var i = 0; i < self.numTracks; ++i){
-            var musicTrack = MusicTrack()
-            MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
-            MusicTrackSetDestMIDIEndpoint(musicTrack, midiOut.midiEndpoints[index])
+    public func setGlobalMidiOutput(midiEndpoint:MIDIEndpointRef){
+        for trackInd in tracks{
+            MusicTrackSetDestMIDIEndpoint(trackInd.internalMusicTrack, midiEndpoint)
         }
     }
     
@@ -111,5 +110,16 @@ public class AKSequencer{
         let file = bundle.pathForResource(filename, ofType: "mid")
         let fileURL = NSURL.fileURLWithPath(file!)
         MusicSequenceFileLoad(sequence, fileURL, MusicSequenceFileTypeID.MIDIType, MusicSequenceLoadFlags.SMF_PreserveTracks)
+        initTracks()
     }
+    
+    func initTracks(){
+        tracks.removeAll()
+        for( var i = 0; i < self.numTracks; ++i){
+            var musicTrack = MusicTrack()
+            MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
+            tracks.append(AKMusicTrack(musicTrack: musicTrack))
+        }
+    }
+    
 }//end AKSequencer
