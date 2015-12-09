@@ -14,7 +14,7 @@ let source = "player"
 let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("808loop", ofType: "wav")
+let file = bundle.pathForResource("drumloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow: AKAudioPlayerWindow
