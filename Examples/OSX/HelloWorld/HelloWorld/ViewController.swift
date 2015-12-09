@@ -26,11 +26,13 @@ class ViewController: NSViewController {
         mixer.output?.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize;
-                strongSelf.plot?.updateBuffer(buffer.floatChannelData[0], withBufferSize: strongSelf.bufferSize);
+                let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);
+                let tail = buffer.floatChannelData[0];
+                strongSelf.plot?.updateBuffer(&tail[offset],
+                    withBufferSize: strongSelf.bufferSize);
             }
-        };
+        }
     }
-    
     
     @IBAction func toggleSound(sender: NSButton) {
         if oscillator.amplitude >  0.5 {
@@ -43,5 +45,15 @@ class ViewController: NSViewController {
         sender.setNeedsDisplay()
     }
 
+    @IBAction func changePlotType(sender: NSSegmentedControl) {
+        switch sender.selectedSegment {
+        case 0:
+            plot?.plotType = .Buffer
+        case 1:
+            plot?.plotType = .Rolling
+        default:
+            break
+        }
+    }
 }
 
