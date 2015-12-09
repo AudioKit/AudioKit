@@ -19,30 +19,51 @@ public struct AKParameter: CustomStringConvertible {
     public init(value: Float) {
         parameterString = "\(value)"
     }
-    
-    public func floor() -> AKParameter {
-        return AKParameter("\(self)floor")
-    }
-    
-    public func round() -> AKParameter {
-        return AKParameter("\(self)round")
-    }
     public func abs() -> AKParameter {
         return AKParameter("\(self)abs")
     }
+    public func floor() -> AKParameter {
+        return AKParameter("\(self)floor")
+    }
+    public func fract() -> AKParameter {
+        return AKParameter("\(self)frac")
+    }
+    public func log() -> AKParameter {
+        return AKParameter("\(self)log")
+    }
+    public func log10() -> AKParameter {
+        return AKParameter("\(self)log10")
+    }
+    public func round() -> AKParameter {
+        return AKParameter("\(self)round")
+    }
+}
+
+public func abs(parameter: AKParameter) -> AKParameter {
+    return parameter.abs()
 }
 
 public func floor(parameter: AKParameter) -> AKParameter {
     return parameter.floor()
 }
 
+public func fract(parameter: AKParameter) -> AKParameter {
+    return parameter.fract()
+}
+
+public func log(parameter: AKParameter) -> AKParameter {
+    return parameter.log()
+}
+
+public func log10(parameter: AKParameter) -> AKParameter {
+    return parameter.log10()
+}
+
 public func round(parameter: AKParameter) -> AKParameter {
     return parameter.round()
 }
 
-public func abs(parameter: AKParameter) -> AKParameter {
-    return parameter.abs()
-}
+
 
 public func max(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
     return AKParameter("\(parameter1)\(parameter2)max")
