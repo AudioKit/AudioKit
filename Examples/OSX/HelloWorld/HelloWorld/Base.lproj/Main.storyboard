@@ -694,29 +694,45 @@
                                     <action selector="toggleSound:" target="XfG-lQ-9wD" id="Wjq-x0-OnZ"/>
                                 </connections>
                             </button>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="9hO-ac-9kI" customClass="EZAudioPlot">
-                                <rect key="frame" x="0.0" y="276" width="480" height="96"/>
+                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j8w-WD-kGS">
+                                <rect key="frame" x="167" y="229" width="146" height="24"/>
+                                <animations/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="9bI-wF-Vnz">
+                                    <font key="font" metaFont="system"/>
+                                    <segments>
+                                        <segment label="Buffer" width="70" selected="YES"/>
+                                        <segment label="Rolling" width="69" tag="1"/>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="changePlotType:" target="XfG-lQ-9wD" id="KyM-Gp-Yho"/>
+                                </connections>
+                            </segmentedControl>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KyK-oq-Xcd" customClass="EZAudioPlot">
+                                <rect key="frame" x="15" y="267" width="450" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="96" id="Fid-bZ-kky"/>
+                                    <constraint firstAttribute="height" constant="90" id="3Lh-wH-Xe0"/>
                                 </constraints>
                                 <animations/>
                             </customView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="KyK-oq-Xcd" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="15" id="2pf-9z-aAC"/>
                             <constraint firstItem="sHm-pl-bTD" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="7wZ-Hz-xd7"/>
                             <constraint firstItem="sHm-pl-bTD" firstAttribute="height" secondItem="m2S-Jp-Qdl" secondAttribute="height" id="9Re-Kh-8bl"/>
                             <constraint firstItem="sHm-pl-bTD" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="DLq-XZ-vnn"/>
-                            <constraint firstAttribute="trailing" secondItem="9hO-ac-9kI" secondAttribute="trailing" id="EV3-Gb-eH7"/>
-                            <constraint firstItem="9hO-ac-9kI" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="OO0-Ul-30V"/>
+                            <constraint firstItem="KyK-oq-Xcd" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="15" id="Pgq-r1-TX2"/>
+                            <constraint firstAttribute="trailing" secondItem="KyK-oq-Xcd" secondAttribute="trailing" constant="15" id="Q5I-if-y5W"/>
+                            <constraint firstItem="j8w-WD-kGS" firstAttribute="top" secondItem="KyK-oq-Xcd" secondAttribute="bottom" constant="15" id="XtI-4l-a2l"/>
                             <constraint firstItem="skp-Z1-XqT" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="ab8-bj-erS"/>
                             <constraint firstItem="sHm-pl-bTD" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="eB4-u8-Rce"/>
-                            <constraint firstItem="9hO-ac-9kI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="lV6-yy-sAp"/>
+                            <constraint firstItem="j8w-WD-kGS" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="fkP-PI-Y5k"/>
                             <constraint firstItem="skp-Z1-XqT" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" multiplier="1.5" id="lWm-ai-qCd"/>
                         </constraints>
                         <animations/>
                     </view>
                     <connections>
-                        <outlet property="plot" destination="9hO-ac-9kI" id="JKd-XO-yab"/>
+                        <outlet property="plot" destination="KyK-oq-Xcd" id="lWe-if-EvW"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
