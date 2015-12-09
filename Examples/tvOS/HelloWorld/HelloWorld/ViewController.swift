@@ -26,7 +26,10 @@ class ViewController: UIViewController {
         mixer.output?.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize;
-                strongSelf.plot?.updateBuffer(buffer.floatChannelData[0], withBufferSize: strongSelf.bufferSize)
+                let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);
+                let tail = buffer.floatChannelData[0];
+                strongSelf.plot?.updateBuffer(&tail[offset],
+                    withBufferSize: strongSelf.bufferSize);
             }
         }
     }
