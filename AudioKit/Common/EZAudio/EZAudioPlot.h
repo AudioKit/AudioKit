@@ -197,10 +197,6 @@ FOUNDATION_EXPORT UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength;
 
 //------------------------------------------------------------------------------
 
--(void)updateBuffer:(float *)buffer
-         bufferSize:(UInt32)bufferSize
-bufferFrameCapacity:(UInt32)bufferFrameCapacity;
-
 @end
 
 @interface EZAudioPlot () <EZAudioDisplayLinkDelegate>
