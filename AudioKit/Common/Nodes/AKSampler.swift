@@ -38,10 +38,6 @@ public class AKSampler: AKNode {
         //you still need to connect the output, and you must do this before starting the processing graph
     }//end init
     
-    public func enableMidi(midiClient: MIDIClientRef){
-        print(MIDIDestinationCreateWithBlock(midiClient, "midi sampler dest", &midiIn, MyMIDIReadBlock))
-    }
-    
     public func loadWav(file: String) {
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "wav") else {
                 fatalError("file not found.")
@@ -80,6 +76,12 @@ public class AKSampler: AKNode {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
     
+    
+    //the following should be included in any midi instrument
+    public func enableMidi(midiClient: MIDIClientRef, name:String){
+        MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
+    }
+    
     private func MyMIDIReadBlock(
         packetList: UnsafePointer<MIDIPacketList>,
         srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
@@ -90,8 +92,10 @@ public class AKSampler: AKNode {
             
             for var i = 0; i < numPackets; ++i {
                 let event = AKMidiEvent(packet: packetPtr.memory)
+                //the next line is unique for midiInstruments - otherwise this function is the same as AKMidi
                 MusicDeviceMIDIEvent(samplerUnit.audioUnit, UInt32(event.internalData[0]), UInt32(event.internalData[1]), UInt32(event.internalData[2]), 0)
                 packetPtr = MIDIPacketNext(packetPtr)
             }
     }
+    //end midi functionality
 }
