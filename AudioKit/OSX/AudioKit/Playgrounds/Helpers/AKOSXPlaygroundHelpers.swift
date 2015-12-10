@@ -1,5 +1,5 @@
 //
-//  AKPlaygroundHelpers.swift
+//  AKOSXPlaygroundHelpers.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 11/23/15.
