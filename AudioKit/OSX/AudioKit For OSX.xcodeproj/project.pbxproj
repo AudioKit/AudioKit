@@ -264,8 +264,6 @@
 		C437920E1C0C55DE001E9160 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791A71C0C55DE001E9160 /* kiss_fftr.c */; };
 		C437920F1C0C55DE001E9160 /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C43791A81C0C55DE001E9160 /* kiss_fftr.h */; };
 		C43792101C0C55DE001E9160 /* README in Resources */ = {isa = PBXBuildFile; fileRef = C43791A91C0C55DE001E9160 /* README */; };
-		C43792111C0C55DE001E9160 /* abs.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791AB1C0C55DE001E9160 /* abs.c */; };
-		C43792121C0C55DE001E9160 /* add.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791AC1C0C55DE001E9160 /* add.c */; };
 		C43792131C0C55DE001E9160 /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791AD1C0C55DE001E9160 /* allpass.c */; };
 		C43792141C0C55DE001E9160 /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791AE1C0C55DE001E9160 /* atone.c */; };
 		C43792151C0C55DE001E9160 /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791AF1C0C55DE001E9160 /* autowah.c */; };
@@ -284,7 +282,6 @@
 		C43792221C0C55DE001E9160 /* dcblock.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791BC1C0C55DE001E9160 /* dcblock.c */; };
 		C43792231C0C55DE001E9160 /* delay.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791BD1C0C55DE001E9160 /* delay.c */; };
 		C43792241C0C55DE001E9160 /* dist.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791BE1C0C55DE001E9160 /* dist.c */; };
-		C43792251C0C55DE001E9160 /* div.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791BF1C0C55DE001E9160 /* div.c */; };
 		C43792261C0C55DE001E9160 /* dmetro.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791C01C0C55DE001E9160 /* dmetro.c */; };
 		C43792271C0C55DE001E9160 /* drip.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791C11C0C55DE001E9160 /* drip.c */; };
 		C43792281C0C55DE001E9160 /* dtrig.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791C21C0C55DE001E9160 /* dtrig.c */; };
@@ -300,7 +297,6 @@
 		C43792321C0C55DE001E9160 /* ftbl.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791CC1C0C55DE001E9160 /* ftbl.c */; };
 		C43792331C0C55DE001E9160 /* gbuzz.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791CD1C0C55DE001E9160 /* gbuzz.c */; };
 		C43792341C0C55DE001E9160 /* in.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791CE1C0C55DE001E9160 /* in.c */; };
-		C43792351C0C55DE001E9160 /* inverse.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791CF1C0C55DE001E9160 /* inverse.c */; };
 		C43792361C0C55DE001E9160 /* jcrev.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791D01C0C55DE001E9160 /* jcrev.c */; };
 		C43792371C0C55DE001E9160 /* jitter.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791D11C0C55DE001E9160 /* jitter.c */; };
 		C43792381C0C55DE001E9160 /* line.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791D21C0C55DE001E9160 /* line.c */; };
@@ -310,7 +306,6 @@
 		C437923C1C0C55DE001E9160 /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791D61C0C55DE001E9160 /* mincer.c */; };
 		C437923D1C0C55DE001E9160 /* mode.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791D71C0C55DE001E9160 /* mode.c */; };
 		C437923E1C0C55DE001E9160 /* moogladder.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791D81C0C55DE001E9160 /* moogladder.c */; };
-		C437923F1C0C55DE001E9160 /* mul.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791D91C0C55DE001E9160 /* mul.c */; };
 		C43792401C0C55DE001E9160 /* noise.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791DA1C0C55DE001E9160 /* noise.c */; };
 		C43792411C0C55DE001E9160 /* osc.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791DB1C0C55DE001E9160 /* osc.c */; };
 		C43792421C0C55DE001E9160 /* padsynth.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791DC1C0C55DE001E9160 /* padsynth.c */; };
@@ -338,7 +333,6 @@
 		C43792581C0C55DE001E9160 /* scale.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791F21C0C55DE001E9160 /* scale.c */; };
 		C43792591C0C55DE001E9160 /* square.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791F31C0C55DE001E9160 /* square.c */; };
 		C437925A1C0C55DE001E9160 /* streson.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791F41C0C55DE001E9160 /* streson.c */; };
-		C437925B1C0C55DE001E9160 /* sub.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791F51C0C55DE001E9160 /* sub.c */; };
 		C437925C1C0C55DE001E9160 /* switch.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791F61C0C55DE001E9160 /* switch.c */; };
 		C437925D1C0C55DE001E9160 /* tabread.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791F71C0C55DE001E9160 /* tabread.c */; };
 		C437925E1C0C55DE001E9160 /* tbvcf.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791F81C0C55DE001E9160 /* tbvcf.c */; };
@@ -679,8 +673,6 @@
 		C43791A71C0C55DE001E9160 /* kiss_fftr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fftr.c; sourceTree = "<group>"; };
 		C43791A81C0C55DE001E9160 /* kiss_fftr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fftr.h; sourceTree = "<group>"; };
 		C43791A91C0C55DE001E9160 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		C43791AB1C0C55DE001E9160 /* abs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = abs.c; sourceTree = "<group>"; };
-		C43791AC1C0C55DE001E9160 /* add.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = add.c; sourceTree = "<group>"; };
 		C43791AD1C0C55DE001E9160 /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C43791AE1C0C55DE001E9160 /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C43791AF1C0C55DE001E9160 /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -699,7 +691,6 @@
 		C43791BC1C0C55DE001E9160 /* dcblock.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dcblock.c; sourceTree = "<group>"; };
 		C43791BD1C0C55DE001E9160 /* delay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = delay.c; sourceTree = "<group>"; };
 		C43791BE1C0C55DE001E9160 /* dist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dist.c; sourceTree = "<group>"; };
-		C43791BF1C0C55DE001E9160 /* div.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = div.c; sourceTree = "<group>"; };
 		C43791C01C0C55DE001E9160 /* dmetro.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dmetro.c; sourceTree = "<group>"; };
 		C43791C11C0C55DE001E9160 /* drip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = drip.c; sourceTree = "<group>"; };
 		C43791C21C0C55DE001E9160 /* dtrig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dtrig.c; sourceTree = "<group>"; };
@@ -715,7 +706,6 @@
 		C43791CC1C0C55DE001E9160 /* ftbl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftbl.c; sourceTree = "<group>"; };
 		C43791CD1C0C55DE001E9160 /* gbuzz.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gbuzz.c; sourceTree = "<group>"; };
 		C43791CE1C0C55DE001E9160 /* in.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = in.c; sourceTree = "<group>"; };
-		C43791CF1C0C55DE001E9160 /* inverse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inverse.c; sourceTree = "<group>"; };
 		C43791D01C0C55DE001E9160 /* jcrev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jcrev.c; sourceTree = "<group>"; };
 		C43791D11C0C55DE001E9160 /* jitter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jitter.c; sourceTree = "<group>"; };
 		C43791D21C0C55DE001E9160 /* line.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line.c; sourceTree = "<group>"; };
@@ -725,7 +715,6 @@
 		C43791D61C0C55DE001E9160 /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		C43791D71C0C55DE001E9160 /* mode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mode.c; sourceTree = "<group>"; };
 		C43791D81C0C55DE001E9160 /* moogladder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = moogladder.c; sourceTree = "<group>"; };
-		C43791D91C0C55DE001E9160 /* mul.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mul.c; sourceTree = "<group>"; };
 		C43791DA1C0C55DE001E9160 /* noise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = noise.c; sourceTree = "<group>"; };
 		C43791DB1C0C55DE001E9160 /* osc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osc.c; sourceTree = "<group>"; };
 		C43791DC1C0C55DE001E9160 /* padsynth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = padsynth.c; sourceTree = "<group>"; };
@@ -753,7 +742,6 @@
 		C43791F21C0C55DE001E9160 /* scale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scale.c; sourceTree = "<group>"; };
 		C43791F31C0C55DE001E9160 /* square.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = square.c; sourceTree = "<group>"; };
 		C43791F41C0C55DE001E9160 /* streson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = streson.c; sourceTree = "<group>"; };
-		C43791F51C0C55DE001E9160 /* sub.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sub.c; sourceTree = "<group>"; };
 		C43791F61C0C55DE001E9160 /* switch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = switch.c; sourceTree = "<group>"; };
 		C43791F71C0C55DE001E9160 /* tabread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tabread.c; sourceTree = "<group>"; };
 		C43791F81C0C55DE001E9160 /* tbvcf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tbvcf.c; sourceTree = "<group>"; };
@@ -1586,8 +1574,6 @@
 		C43791AA1C0C55DE001E9160 /* modules */ = {
 			isa = PBXGroup;
 			children = (
-				C43791AB1C0C55DE001E9160 /* abs.c */,
-				C43791AC1C0C55DE001E9160 /* add.c */,
 				C43791AD1C0C55DE001E9160 /* allpass.c */,
 				C43791AE1C0C55DE001E9160 /* atone.c */,
 				C43791AF1C0C55DE001E9160 /* autowah.c */,
@@ -1606,7 +1592,6 @@
 				C43791BC1C0C55DE001E9160 /* dcblock.c */,
 				C43791BD1C0C55DE001E9160 /* delay.c */,
 				C43791BE1C0C55DE001E9160 /* dist.c */,
-				C43791BF1C0C55DE001E9160 /* div.c */,
 				C43791C01C0C55DE001E9160 /* dmetro.c */,
 				C43791C11C0C55DE001E9160 /* drip.c */,
 				C43791C21C0C55DE001E9160 /* dtrig.c */,
@@ -1622,7 +1607,6 @@
 				C43791CC1C0C55DE001E9160 /* ftbl.c */,
 				C43791CD1C0C55DE001E9160 /* gbuzz.c */,
 				C43791CE1C0C55DE001E9160 /* in.c */,
-				C43791CF1C0C55DE001E9160 /* inverse.c */,
 				C43791D01C0C55DE001E9160 /* jcrev.c */,
 				C43791D11C0C55DE001E9160 /* jitter.c */,
 				C43791D21C0C55DE001E9160 /* line.c */,
@@ -1632,7 +1616,6 @@
 				C43791D61C0C55DE001E9160 /* mincer.c */,
 				C43791D71C0C55DE001E9160 /* mode.c */,
 				C43791D81C0C55DE001E9160 /* moogladder.c */,
-				C43791D91C0C55DE001E9160 /* mul.c */,
 				C43791DA1C0C55DE001E9160 /* noise.c */,
 				C43791DB1C0C55DE001E9160 /* osc.c */,
 				C43791DC1C0C55DE001E9160 /* padsynth.c */,
@@ -1660,7 +1643,6 @@
 				C43791F21C0C55DE001E9160 /* scale.c */,
 				C43791F31C0C55DE001E9160 /* square.c */,
 				C43791F41C0C55DE001E9160 /* streson.c */,
-				C43791F51C0C55DE001E9160 /* sub.c */,
 				C43791F61C0C55DE001E9160 /* switch.c */,
 				C43791F71C0C55DE001E9160 /* tabread.c */,
 				C43791F81C0C55DE001E9160 /* tbvcf.c */,
@@ -2031,7 +2013,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C43792671C0C55DE001E9160 /* tseq.c in Sources */,
-				C43792111C0C55DE001E9160 /* abs.c in Sources */,
 				C43792631C0C55DE001E9160 /* tin.c in Sources */,
 				665EB3611C168D4A000AC3C5 /* EZMicrophone.m in Sources */,
 				C48AA6D31C0FA806006EB131 /* AKDistortion.swift in Sources */,
@@ -2089,7 +2070,6 @@
 				C437916A1C0C5592001E9160 /* count.c in Sources */,
 				C41702B51C119BA300AB689C /* lowPassFilter.swift in Sources */,
 				C42F38231C058442000E937C /* AKDynamicsProcessor.swift in Sources */,
-				C437923F1C0C55DE001E9160 /* mul.c in Sources */,
 				C43791671C0C5592001E9160 /* buthp.c in Sources */,
 				C43792231C0C55DE001E9160 /* delay.c in Sources */,
 				C42F385D1C058442000E937C /* AKModalResonanceFilterAudioUnit.mm in Sources */,
@@ -2136,7 +2116,6 @@
 				C43792591C0C55DE001E9160 /* square.c in Sources */,
 				C43792511C0C55DE001E9160 /* random.c in Sources */,
 				C43792391C0C55DE001E9160 /* lpf18.c in Sources */,
-				C437925B1C0C55DE001E9160 /* sub.c in Sources */,
 				C43791891C0C5592001E9160 /* reverse.c in Sources */,
 				C437925E1C0C55DE001E9160 /* tbvcf.c in Sources */,
 				C42F38891C058442000E937C /* AKFlatFrequencyResponseReverb.swift in Sources */,
@@ -2168,7 +2147,6 @@
 				665EB34B1C168D4A000AC3C5 /* EZAudio.m in Sources */,
 				C42F38591C058442000E937C /* AKLowShelfParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C46960261C0F93A700A65FBF /* AKTester.swift in Sources */,
-				C43792251C0C55DE001E9160 /* div.c in Sources */,
 				C42F380C1C058442000E937C /* AKFMOscillatorAudioUnit.mm in Sources */,
 				C48AA6D21C0FA806006EB131 /* AKDecimator.swift in Sources */,
 				C42F386D1C058442000E937C /* AKStringResonatorAudioUnit.mm in Sources */,
@@ -2318,12 +2296,10 @@
 				C43792471C0C55DE001E9160 /* phasor.c in Sources */,
 				C43792061C0C55DE001E9160 /* fft.c in Sources */,
 				C41702B01C119BA300AB689C /* dcBlock.swift in Sources */,
-				C43792121C0C55DE001E9160 /* add.c in Sources */,
 				C42F38A31C058756000E937C /* AKDecimatorWindow.swift in Sources */,
 				C43792461C0C55DE001E9160 /* phaser.c in Sources */,
 				C43791771C0C5592001E9160 /* in.c in Sources */,
 				C417024F1C10498600AB689C /* AKCustomEffectAudioUnit.mm in Sources */,
-				C43792351C0C55DE001E9160 /* inverse.c in Sources */,
 				C43791661C0C5592001E9160 /* bitcrush.c in Sources */,
 				665EB3551C168D4A000AC3C5 /* EZAudioFloatConverter.m in Sources */,
 				C4F52E4D1C08107000F22BD1 /* AKTriangleOscillatorAudioUnit.mm in Sources */,

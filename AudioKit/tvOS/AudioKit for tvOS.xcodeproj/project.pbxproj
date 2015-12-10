@@ -63,8 +63,6 @@
 		C4BDEA071C13004A00207DA9 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8611C13004A00207DA9 /* kiss_fftr.c */; };
 		C4BDEA081C13004A00207DA9 /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BDE8621C13004A00207DA9 /* kiss_fftr.h */; };
 		C4BDEA091C13004A00207DA9 /* README in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE8631C13004A00207DA9 /* README */; };
-		C4BDEA0A1C13004A00207DA9 /* abs.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8651C13004A00207DA9 /* abs.c */; };
-		C4BDEA0B1C13004A00207DA9 /* add.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8661C13004A00207DA9 /* add.c */; };
 		C4BDEA0C1C13004A00207DA9 /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8671C13004A00207DA9 /* allpass.c */; };
 		C4BDEA0D1C13004A00207DA9 /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8681C13004A00207DA9 /* atone.c */; };
 		C4BDEA0E1C13004A00207DA9 /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8691C13004A00207DA9 /* autowah.c */; };
@@ -83,7 +81,6 @@
 		C4BDEA1B1C13004A00207DA9 /* dcblock.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8761C13004A00207DA9 /* dcblock.c */; };
 		C4BDEA1C1C13004A00207DA9 /* delay.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8771C13004A00207DA9 /* delay.c */; };
 		C4BDEA1D1C13004A00207DA9 /* dist.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8781C13004A00207DA9 /* dist.c */; };
-		C4BDEA1E1C13004A00207DA9 /* div.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8791C13004A00207DA9 /* div.c */; };
 		C4BDEA1F1C13004A00207DA9 /* dmetro.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE87A1C13004A00207DA9 /* dmetro.c */; };
 		C4BDEA201C13004A00207DA9 /* drip.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE87B1C13004A00207DA9 /* drip.c */; };
 		C4BDEA211C13004A00207DA9 /* dtrig.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE87C1C13004A00207DA9 /* dtrig.c */; };
@@ -99,7 +96,6 @@
 		C4BDEA2B1C13004A00207DA9 /* ftbl.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8861C13004A00207DA9 /* ftbl.c */; };
 		C4BDEA2C1C13004A00207DA9 /* gbuzz.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8871C13004A00207DA9 /* gbuzz.c */; };
 		C4BDEA2D1C13004A00207DA9 /* in.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8881C13004A00207DA9 /* in.c */; };
-		C4BDEA2E1C13004A00207DA9 /* inverse.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8891C13004A00207DA9 /* inverse.c */; };
 		C4BDEA2F1C13004A00207DA9 /* jcrev.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE88A1C13004A00207DA9 /* jcrev.c */; };
 		C4BDEA301C13004A00207DA9 /* jitter.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE88B1C13004A00207DA9 /* jitter.c */; };
 		C4BDEA311C13004A00207DA9 /* line.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE88C1C13004A00207DA9 /* line.c */; };
@@ -109,7 +105,6 @@
 		C4BDEA351C13004A00207DA9 /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8901C13004A00207DA9 /* mincer.c */; };
 		C4BDEA361C13004A00207DA9 /* mode.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8911C13004A00207DA9 /* mode.c */; };
 		C4BDEA371C13004A00207DA9 /* moogladder.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8921C13004A00207DA9 /* moogladder.c */; };
-		C4BDEA381C13004A00207DA9 /* mul.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8931C13004A00207DA9 /* mul.c */; };
 		C4BDEA391C13004A00207DA9 /* noise.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8941C13004A00207DA9 /* noise.c */; };
 		C4BDEA3A1C13004A00207DA9 /* osc.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8951C13004A00207DA9 /* osc.c */; };
 		C4BDEA3B1C13004A00207DA9 /* padsynth.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8961C13004A00207DA9 /* padsynth.c */; };
@@ -137,7 +132,6 @@
 		C4BDEA511C13004A00207DA9 /* scale.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8AC1C13004A00207DA9 /* scale.c */; };
 		C4BDEA521C13004A00207DA9 /* square.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8AD1C13004A00207DA9 /* square.c */; };
 		C4BDEA531C13004A00207DA9 /* streson.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8AE1C13004A00207DA9 /* streson.c */; };
-		C4BDEA541C13004A00207DA9 /* sub.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8AF1C13004A00207DA9 /* sub.c */; };
 		C4BDEA551C13004A00207DA9 /* switch.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8B01C13004A00207DA9 /* switch.c */; };
 		C4BDEA561C13004A00207DA9 /* tabread.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8B11C13004A00207DA9 /* tabread.c */; };
 		C4BDEA571C13004A00207DA9 /* tbvcf.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8B21C13004A00207DA9 /* tbvcf.c */; };
@@ -460,8 +454,6 @@
 		C4BDE8611C13004A00207DA9 /* kiss_fftr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kiss_fftr.c; sourceTree = "<group>"; };
 		C4BDE8621C13004A00207DA9 /* kiss_fftr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = kiss_fftr.h; sourceTree = "<group>"; };
 		C4BDE8631C13004A00207DA9 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		C4BDE8651C13004A00207DA9 /* abs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = abs.c; sourceTree = "<group>"; };
-		C4BDE8661C13004A00207DA9 /* add.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = add.c; sourceTree = "<group>"; };
 		C4BDE8671C13004A00207DA9 /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C4BDE8681C13004A00207DA9 /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C4BDE8691C13004A00207DA9 /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -480,7 +472,6 @@
 		C4BDE8761C13004A00207DA9 /* dcblock.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dcblock.c; sourceTree = "<group>"; };
 		C4BDE8771C13004A00207DA9 /* delay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = delay.c; sourceTree = "<group>"; };
 		C4BDE8781C13004A00207DA9 /* dist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dist.c; sourceTree = "<group>"; };
-		C4BDE8791C13004A00207DA9 /* div.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = div.c; sourceTree = "<group>"; };
 		C4BDE87A1C13004A00207DA9 /* dmetro.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dmetro.c; sourceTree = "<group>"; };
 		C4BDE87B1C13004A00207DA9 /* drip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = drip.c; sourceTree = "<group>"; };
 		C4BDE87C1C13004A00207DA9 /* dtrig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dtrig.c; sourceTree = "<group>"; };
@@ -496,7 +487,6 @@
 		C4BDE8861C13004A00207DA9 /* ftbl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ftbl.c; sourceTree = "<group>"; };
 		C4BDE8871C13004A00207DA9 /* gbuzz.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gbuzz.c; sourceTree = "<group>"; };
 		C4BDE8881C13004A00207DA9 /* in.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = in.c; sourceTree = "<group>"; };
-		C4BDE8891C13004A00207DA9 /* inverse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inverse.c; sourceTree = "<group>"; };
 		C4BDE88A1C13004A00207DA9 /* jcrev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jcrev.c; sourceTree = "<group>"; };
 		C4BDE88B1C13004A00207DA9 /* jitter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jitter.c; sourceTree = "<group>"; };
 		C4BDE88C1C13004A00207DA9 /* line.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line.c; sourceTree = "<group>"; };
@@ -506,7 +496,6 @@
 		C4BDE8901C13004A00207DA9 /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		C4BDE8911C13004A00207DA9 /* mode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mode.c; sourceTree = "<group>"; };
 		C4BDE8921C13004A00207DA9 /* moogladder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = moogladder.c; sourceTree = "<group>"; };
-		C4BDE8931C13004A00207DA9 /* mul.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mul.c; sourceTree = "<group>"; };
 		C4BDE8941C13004A00207DA9 /* noise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = noise.c; sourceTree = "<group>"; };
 		C4BDE8951C13004A00207DA9 /* osc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = osc.c; sourceTree = "<group>"; };
 		C4BDE8961C13004A00207DA9 /* padsynth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = padsynth.c; sourceTree = "<group>"; };
@@ -534,7 +523,6 @@
 		C4BDE8AC1C13004A00207DA9 /* scale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scale.c; sourceTree = "<group>"; };
 		C4BDE8AD1C13004A00207DA9 /* square.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = square.c; sourceTree = "<group>"; };
 		C4BDE8AE1C13004A00207DA9 /* streson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = streson.c; sourceTree = "<group>"; };
-		C4BDE8AF1C13004A00207DA9 /* sub.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sub.c; sourceTree = "<group>"; };
 		C4BDE8B01C13004A00207DA9 /* switch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = switch.c; sourceTree = "<group>"; };
 		C4BDE8B11C13004A00207DA9 /* tabread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tabread.c; sourceTree = "<group>"; };
 		C4BDE8B21C13004A00207DA9 /* tbvcf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tbvcf.c; sourceTree = "<group>"; };
@@ -972,8 +960,6 @@
 		C4BDE8641C13004A00207DA9 /* modules */ = {
 			isa = PBXGroup;
 			children = (
-				C4BDE8651C13004A00207DA9 /* abs.c */,
-				C4BDE8661C13004A00207DA9 /* add.c */,
 				C4BDE8671C13004A00207DA9 /* allpass.c */,
 				C4BDE8681C13004A00207DA9 /* atone.c */,
 				C4BDE8691C13004A00207DA9 /* autowah.c */,
@@ -992,7 +978,6 @@
 				C4BDE8761C13004A00207DA9 /* dcblock.c */,
 				C4BDE8771C13004A00207DA9 /* delay.c */,
 				C4BDE8781C13004A00207DA9 /* dist.c */,
-				C4BDE8791C13004A00207DA9 /* div.c */,
 				C4BDE87A1C13004A00207DA9 /* dmetro.c */,
 				C4BDE87B1C13004A00207DA9 /* drip.c */,
 				C4BDE87C1C13004A00207DA9 /* dtrig.c */,
@@ -1008,7 +993,6 @@
 				C4BDE8861C13004A00207DA9 /* ftbl.c */,
 				C4BDE8871C13004A00207DA9 /* gbuzz.c */,
 				C4BDE8881C13004A00207DA9 /* in.c */,
-				C4BDE8891C13004A00207DA9 /* inverse.c */,
 				C4BDE88A1C13004A00207DA9 /* jcrev.c */,
 				C4BDE88B1C13004A00207DA9 /* jitter.c */,
 				C4BDE88C1C13004A00207DA9 /* line.c */,
@@ -1018,7 +1002,6 @@
 				C4BDE8901C13004A00207DA9 /* mincer.c */,
 				C4BDE8911C13004A00207DA9 /* mode.c */,
 				C4BDE8921C13004A00207DA9 /* moogladder.c */,
-				C4BDE8931C13004A00207DA9 /* mul.c */,
 				C4BDE8941C13004A00207DA9 /* noise.c */,
 				C4BDE8951C13004A00207DA9 /* osc.c */,
 				C4BDE8961C13004A00207DA9 /* padsynth.c */,
@@ -1046,7 +1029,6 @@
 				C4BDE8AC1C13004A00207DA9 /* scale.c */,
 				C4BDE8AD1C13004A00207DA9 /* square.c */,
 				C4BDE8AE1C13004A00207DA9 /* streson.c */,
-				C4BDE8AF1C13004A00207DA9 /* sub.c */,
 				C4BDE8B01C13004A00207DA9 /* switch.c */,
 				C4BDE8B11C13004A00207DA9 /* tabread.c */,
 				C4BDE8B21C13004A00207DA9 /* tbvcf.c */,
@@ -1953,7 +1935,6 @@
 				C4BDEAB21C13004A00207DA9 /* AKCustomEffect.swift in Sources */,
 				C4BDEA1A1C13004A00207DA9 /* count.c in Sources */,
 				C4BDEAF51C13004A00207DA9 /* AKMoogLadder.swift in Sources */,
-				C4BDEA0A1C13004A00207DA9 /* abs.c in Sources */,
 				C4BDEB061C13004A00207DA9 /* AKThreePoleLowpassFilter.swift in Sources */,
 				C4BDEB1A1C13004A00207DA9 /* AKHighPassButterworthFilter.swift in Sources */,
 				C4BDEAFA1C13004A00207DA9 /* AKPeakingParametricEqualizerFilter.swift in Sources */,
@@ -2022,7 +2003,6 @@
 				C4BDEA8B1C13004A00207DA9 /* noise.c in Sources */,
 				C4BDEB261C13004A00207DA9 /* AKCostelloReverb.swift in Sources */,
 				C4677DA11C16AC1300BAE0DC /* EZRecorder.m in Sources */,
-				C4BDEA381C13004A00207DA9 /* mul.c in Sources */,
 				C4BDEA8C1C13004A00207DA9 /* osc.c in Sources */,
 				C4BDEB101C13004A00207DA9 /* AKToneFilterAudioUnit.mm in Sources */,
 				C4BDEB4E1C13004A00207DA9 /* AKTriangleOscillatorAudioUnit.mm in Sources */,
@@ -2158,12 +2138,10 @@
 				C4BDEB081C13004A00207DA9 /* AKThreePoleLowpassFilterAudioUnit.mm in Sources */,
 				C4BDEABD1C13004A00207DA9 /* AKVariableDelayAudioUnit.mm in Sources */,
 				C4BDE9F81C13004A00207DA9 /* AKGetAUParams.swift in Sources */,
-				C4BDEA1E1C13004A00207DA9 /* div.c in Sources */,
 				C4BDEB421C13004A00207DA9 /* AKPhasorAudioUnit.mm in Sources */,
 				C4BDEAE51C13004A00207DA9 /* AKHighPassFilter.swift in Sources */,
 				C4BDEA151C13004A00207DA9 /* butbr.c in Sources */,
 				C4BDEAC51C13004A00207DA9 /* AKRingModulator.swift in Sources */,
-				C4BDEA2E1C13004A00207DA9 /* inverse.c in Sources */,
 				C4BDEAED1C13004A00207DA9 /* AKLowShelfParametricEqualizerFilter.swift in Sources */,
 				C4BDEA7C1C13004A00207DA9 /* fm.c in Sources */,
 				C4BDE9FF1C13004A00207DA9 /* fft.c in Sources */,
@@ -2213,7 +2191,6 @@
 				C4BDEA5D1C13004A00207DA9 /* tone.c in Sources */,
 				C4BDEA9D1C13004A00207DA9 /* t.c in Sources */,
 				C4BDEAAA1C13004A00207DA9 /* AKNode.swift in Sources */,
-				C4BDEA541C13004A00207DA9 /* sub.c in Sources */,
 				C4BDEA9E1C13004A00207DA9 /* tenv.c in Sources */,
 				C4BDEAEC1C13004A00207DA9 /* AKLowShelfFilter.swift in Sources */,
 				C4BDEA201C13004A00207DA9 /* drip.c in Sources */,
@@ -2221,7 +2198,6 @@
 				C4BDEA641C13004A00207DA9 /* md5.c in Sources */,
 				C4BDEA811C13004A00207DA9 /* gen_vals.c in Sources */,
 				C4BDEB2C1C13004A00207DA9 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
-				C4BDEA0B1C13004A00207DA9 /* add.c in Sources */,
 				C4BDEAC11C13004A00207DA9 /* AKBitCrusherAudioUnit.mm in Sources */,
 				C4BDEA991C13004A00207DA9 /* scale.c in Sources */,
 				C4BDEA741C13004A00207DA9 /* clip.c in Sources */,
