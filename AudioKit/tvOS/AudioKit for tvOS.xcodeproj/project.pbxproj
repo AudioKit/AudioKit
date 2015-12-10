@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C40869611C190EF600EF9DED /* AKAudioOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40869601C190EF600EF9DED /* AKAudioOutputPlot.swift */; };
 		C4677D841C16AC1300BAE0DC /* EZAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = C4677D641C16AC1300BAE0DC /* EZAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4677D851C16AC1300BAE0DC /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C4677D651C16AC1300BAE0DC /* EZAudio.m */; };
 		C4677D861C16AC1300BAE0DC /* EZAudioDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = C4677D661C16AC1300BAE0DC /* EZAudioDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -396,6 +397,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C40869601C190EF600EF9DED /* AKAudioOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioOutputPlot.swift; sourceTree = "<group>"; };
 		C4677D641C16AC1300BAE0DC /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
 		C4677D651C16AC1300BAE0DC /* EZAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudio.m; sourceTree = "<group>"; };
 		C4677D661C16AC1300BAE0DC /* EZAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioDevice.h; sourceTree = "<group>"; };
@@ -797,6 +799,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C408695F1C190EF600EF9DED /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				C40869601C190EF600EF9DED /* AKAudioOutputPlot.swift */,
+			);
+			name = "User Interface";
+			path = "../User Interface";
+			sourceTree = "<group>";
+		};
 		C4677D631C16AC1300BAE0DC /* EZAudio */ = {
 			isa = PBXGroup;
 			children = (
@@ -879,6 +890,7 @@
 				C4BDE84D1C13004A00207DA9 /* AKTester */,
 				C4BDE8521C13004A00207DA9 /* Soundpipe */,
 				C4BDE8C41C13004A00207DA9 /* Sporth */,
+				C408695F1C190EF600EF9DED /* User Interface */,
 			);
 			name = Internals;
 			path = ../../Common/Internals;
@@ -2082,6 +2094,7 @@
 				C4BDEA8F1C13004A00207DA9 /* pluck.c in Sources */,
 				C4BDEB531C13004A00207DA9 /* bitcrush.swift in Sources */,
 				C4BDEAD01C13004A00207DA9 /* AKBandPassFilter.swift in Sources */,
+				C40869611C190EF600EF9DED /* AKAudioOutputPlot.swift in Sources */,
 				C4BDEAE31C13004A00207DA9 /* AKFormantFilterAudioUnit.mm in Sources */,
 				C4BDEA401C13004A00207DA9 /* phasor.c in Sources */,
 				C4BDEAFC1C13004A00207DA9 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,

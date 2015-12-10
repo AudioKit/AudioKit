@@ -39,6 +39,7 @@
 		665EB3671C168D4A000AC3C5 /* EZRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 665EB3471C168D4A000AC3C5 /* EZRecorder.m */; };
 		665EB3681C168D4A000AC3C5 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 665EB3481C168D4A000AC3C5 /* TPCircularBuffer.c */; };
 		665EB3691C168D4A000AC3C5 /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 665EB3491C168D4A000AC3C5 /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C40869651C190FDC00EF9DED /* AKAudioOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40869641C190FDC00EF9DED /* AKAudioOutputPlot.swift */; };
 		C417024D1C10498600AB689C /* AKCustomEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41702491C10498600AB689C /* AKCustomEffect.swift */; };
 		C417024E1C10498600AB689C /* AKCustomEffectAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C417024A1C10498600AB689C /* AKCustomEffectAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C417024F1C10498600AB689C /* AKCustomEffectAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C417024B1C10498600AB689C /* AKCustomEffectAudioUnit.mm */; };
@@ -445,6 +446,7 @@
 		665EB3471C168D4A000AC3C5 /* EZRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EZRecorder.m; path = ../../Common/EZAudio/EZRecorder.m; sourceTree = "<group>"; };
 		665EB3481C168D4A000AC3C5 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TPCircularBuffer.c; path = ../../Common/EZAudio/TPCircularBuffer.c; sourceTree = "<group>"; };
 		665EB3491C168D4A000AC3C5 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPCircularBuffer.h; path = ../../Common/EZAudio/TPCircularBuffer.h; sourceTree = "<group>"; };
+		C40869641C190FDC00EF9DED /* AKAudioOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioOutputPlot.swift; sourceTree = "<group>"; };
 		C41702491C10498600AB689C /* AKCustomEffect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCustomEffect.swift; sourceTree = "<group>"; };
 		C417024A1C10498600AB689C /* AKCustomEffectAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCustomEffectAudioUnit.h; sourceTree = "<group>"; };
 		C417024B1C10498600AB689C /* AKCustomEffectAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCustomEffectAudioUnit.mm; sourceTree = "<group>"; };
@@ -871,6 +873,15 @@
 			name = EZAudio;
 			sourceTree = "<group>";
 		};
+		C408695A1C1908AE00EF9DED /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				C40869641C190FDC00EF9DED /* AKAudioOutputPlot.swift */,
+			);
+			name = "User Interface";
+			path = "../User Interface";
+			sourceTree = "<group>";
+		};
 		C41702481C10498600AB689C /* AKCustomEffect */ = {
 			isa = PBXGroup;
 			children = (
@@ -952,6 +963,7 @@
 				C42F36DC1C058442000E937C /* AKDSPKernel.mm */,
 				C42F36DD1C058442000E937C /* AKGetAUParams.swift */,
 				C42F36DE1C058442000E937C /* AKParameterRamper.hpp */,
+				C408695A1C1908AE00EF9DED /* User Interface */,
 				C43791981C0C55DE001E9160 /* Soundpipe */,
 				C437911F1C0C5592001E9160 /* Sporth */,
 			);
@@ -2124,6 +2136,7 @@
 				C437917A1C0C5592001E9160 /* line.c in Sources */,
 				C43791921C0C5592001E9160 /* tenv.c in Sources */,
 				C417025A1C10C50900AB689C /* AKDistortionWindow.swift in Sources */,
+				C40869651C190FDC00EF9DED /* AKAudioOutputPlot.swift in Sources */,
 				C43792171C0C55DE001E9160 /* bar.c in Sources */,
 				C43791901C0C5592001E9160 /* switch.c in Sources */,
 				C43791861C0C5592001E9160 /* prop.c in Sources */,
