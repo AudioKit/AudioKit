@@ -24,12 +24,26 @@ import Foundation
     
     let bufferSize: UInt32 = 512
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setupNode()
     }
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupNode()
+    }
+    
+    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> UIView {
+        
+        let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
+        let plot = AKAudioOutputPlot(frame: frame)
+        
+        plot.plotType = .Buffer
+        plot.backgroundColor = UIColor.whiteColor()
+        plot.shouldCenterYAxis = true
+        
+        let containerView = UIView(frame: frame)
+        containerView.addSubview(plot)
+        return containerView
     }
 }
