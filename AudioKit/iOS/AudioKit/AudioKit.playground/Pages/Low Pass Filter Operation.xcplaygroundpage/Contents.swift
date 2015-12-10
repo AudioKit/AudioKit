@@ -10,7 +10,7 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Filter setup
-let cutoff = AKP.scale(AKP.sine(frequency: 0.2.ak), minimumOutput: 100.ak, maximumOutput: 2000.ak)
+let cutoff = AKP.scale(AKP.sine(frequency: 0.2.ak), minimum: 100.ak, maximum: 2000.ak)
 let filter = AKP.lowPassFilter(AKP.input, cutoffFrequency: cutoff)
 
 //: Noise Example
