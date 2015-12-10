@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-38-Wi4" customClass="EZAudioPlot">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-38-Wi4" customClass="AKAudioOutputPlot" customModule="AudioKit">
                                 <rect key="frame" x="20" y="20" width="1880" height="1040"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
@@ -27,8 +27,8 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-8O-zZG">
-                                <rect key="frame" x="703" y="539" width="516" height="86"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-8O-zZG">
+                                <rect key="frame" x="702" y="539" width="516" height="86"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
                                 <state key="normal" title="Stop Sine Wave at 440Hz"/>
@@ -36,8 +36,8 @@
                                     <action selector="toggleSound:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="H2C-g8-5Y6"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-rS-84i">
-                                <rect key="frame" x="707" y="80" width="507" height="432"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-rS-84i">
+                                <rect key="frame" x="702" y="72" width="516" height="440"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="QoR-rS-84i" secondAttribute="height" multiplier="169:144" id="v4j-2y-Xgy"/>
                                 </constraints>

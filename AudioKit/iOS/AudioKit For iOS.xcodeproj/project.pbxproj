@@ -218,6 +218,7 @@
 		C472F6F41C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C472F6F01C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C472F6F51C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C472F6F11C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm */; };
 		C472F6F61C06F7B2001A65C5 /* AKSawtoothOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C472F6F21C06F7B2001A65C5 /* AKSawtoothOscillatorDSPKernel.hpp */; };
+		C476F6571C184B090017238B /* AKAudioOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C476F6561C184B090017238B /* AKAudioOutputPlot.swift */; };
 		C48AA65D1C0FA276006EB131 /* AKMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48AA65A1C0FA276006EB131 /* AKMixer.swift */; };
 		C48AA65E1C0FA276006EB131 /* AKSpatialMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48AA65B1C0FA276006EB131 /* AKSpatialMixer.swift */; };
 		C48AA6611C0FA31F006EB131 /* AKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48AA65F1C0FA31F006EB131 /* AKAudioPlayer.swift */; };
@@ -634,6 +635,7 @@
 		C472F6F01C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKSawtoothOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C472F6F11C06F7B2001A65C5 /* AKSawtoothOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKSawtoothOscillatorAudioUnit.mm; sourceTree = "<group>"; };
 		C472F6F21C06F7B2001A65C5 /* AKSawtoothOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKSawtoothOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
+		C476F6561C184B090017238B /* AKAudioOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioOutputPlot.swift; path = "../../Common/User Interface/AKAudioOutputPlot.swift"; sourceTree = "<group>"; };
 		C48AA65A1C0FA276006EB131 /* AKMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixer.swift; sourceTree = "<group>"; };
 		C48AA65B1C0FA276006EB131 /* AKSpatialMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSpatialMixer.swift; sourceTree = "<group>"; };
 		C48AA65F1C0FA31F006EB131 /* AKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioPlayer.swift; sourceTree = "<group>"; };
@@ -933,6 +935,7 @@
 				C42F35051C057E03000E937C /* Info.plist */,
 				C42F35031C057E03000E937C /* AudioKit.h */,
 				C42F350C1C057F4C000E937C /* AudioKitHelpers.swift */,
+				C476F6561C184B090017238B /* AKAudioOutputPlot.swift */,
 				C42F350B1C057F4C000E937C /* AKManager.swift */,
 				C4DC86F81C07A1F700CA2591 /* AKTable.swift */,
 				C4677DA71C16AE0D00BAE0DC /* EZAudio */,
@@ -2189,6 +2192,7 @@
 				C4677DCD1C16AE0D00BAE0DC /* EZAudioDisplayLink.m in Sources */,
 				C4E958271C0ADBAB00516A6A /* port.c in Sources */,
 				C4677DD71C16AE0D00BAE0DC /* EZAudioPlayer.m in Sources */,
+				C476F6571C184B090017238B /* AKAudioOutputPlot.swift in Sources */,
 				C4E958C71C0ADBFD00516A6A /* pan2.c in Sources */,
 				C4E958E21C0ADBFD00516A6A /* tabread.c in Sources */,
 				C417026A1C1170A500AB689C /* dcBlock.swift in Sources */,

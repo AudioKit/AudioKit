@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C48a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -676,7 +676,6 @@
                         <subviews>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sHm-pl-bTD">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="372"/>
-                                <animations/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AudioKitMan" id="ZZs-UB-USZ"/>
                             </imageView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="skp-Z1-XqT">
@@ -685,7 +684,6 @@
                                     <constraint firstAttribute="height" constant="54" id="mqm-nn-QTk"/>
                                     <constraint firstAttribute="width" constant="440" id="qmP-pr-JiF"/>
                                 </constraints>
-                                <animations/>
                                 <buttonCell key="cell" type="smallSquare" title="Stop Sine Wave at 440Hz" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Ko-4P-vZR">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemBold"/>
@@ -694,26 +692,11 @@
                                     <action selector="toggleSound:" target="XfG-lQ-9wD" id="Wjq-x0-OnZ"/>
                                 </connections>
                             </button>
-                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j8w-WD-kGS">
-                                <rect key="frame" x="167" y="229" width="146" height="24"/>
-                                <animations/>
-                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="9bI-wF-Vnz">
-                                    <font key="font" metaFont="system"/>
-                                    <segments>
-                                        <segment label="Buffer" width="70" selected="YES"/>
-                                        <segment label="Rolling" width="69" tag="1"/>
-                                    </segments>
-                                </segmentedCell>
-                                <connections>
-                                    <action selector="changePlotType:" target="XfG-lQ-9wD" id="KyM-Gp-Yho"/>
-                                </connections>
-                            </segmentedControl>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KyK-oq-Xcd" customClass="EZAudioPlot">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="KyK-oq-Xcd" customClass="AKAudioOutputPlot" customModule="AudioKit">
                                 <rect key="frame" x="15" y="267" width="450" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="3Lh-wH-Xe0"/>
                                 </constraints>
-                                <animations/>
                             </customView>
                         </subviews>
                         <constraints>
@@ -723,16 +706,13 @@
                             <constraint firstItem="sHm-pl-bTD" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="DLq-XZ-vnn"/>
                             <constraint firstItem="KyK-oq-Xcd" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="15" id="Pgq-r1-TX2"/>
                             <constraint firstAttribute="trailing" secondItem="KyK-oq-Xcd" secondAttribute="trailing" constant="15" id="Q5I-if-y5W"/>
-                            <constraint firstItem="j8w-WD-kGS" firstAttribute="top" secondItem="KyK-oq-Xcd" secondAttribute="bottom" constant="15" id="XtI-4l-a2l"/>
                             <constraint firstItem="skp-Z1-XqT" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="ab8-bj-erS"/>
                             <constraint firstItem="sHm-pl-bTD" firstAttribute="width" secondItem="m2S-Jp-Qdl" secondAttribute="width" id="eB4-u8-Rce"/>
-                            <constraint firstItem="j8w-WD-kGS" firstAttribute="centerX" secondItem="m2S-Jp-Qdl" secondAttribute="centerX" id="fkP-PI-Y5k"/>
                             <constraint firstItem="skp-Z1-XqT" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" multiplier="1.5" id="lWm-ai-qCd"/>
                         </constraints>
-                        <animations/>
                     </view>
                     <connections>
-                        <outlet property="plot" destination="KyK-oq-Xcd" id="lWe-if-EvW"/>
+                        <outlet property="plot" destination="KyK-oq-Xcd" id="C7V-S5-jRN"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
