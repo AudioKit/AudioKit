@@ -14,7 +14,7 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let modifier = AKCustomEffect(player, sporth:"0 p 1 p 0.1 1 sine 0.5 0.97 scale 10000 revsc")
+let modifier = AKCustomEffect(player, sporth:"0 p 1 p 0.1 1 sine 0.5 0.97 biscale 10000 revsc")
 
 audiokit.audioOutput = modifier
 audiokit.start()
