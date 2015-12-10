@@ -17,7 +17,7 @@ int sporth_randh(sporth_stack *stack, void *ud)
 #endif
 
             sp_randh_create(&randh);
-            plumber_add_module(pd, SPORTH_RANDH, randh);
+            plumber_add_ugen(pd, SPORTH_RANDH, randh);
             break;
         case PLUMBER_INIT:
 
@@ -30,9 +30,9 @@ int sporth_randh(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            freq = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
-            freq = sporth_stack_pop_float(stack);
             randh = pd->last->ud;
             sp_randh_init(pd->sp, randh);
             sporth_stack_push_float(stack, 0);

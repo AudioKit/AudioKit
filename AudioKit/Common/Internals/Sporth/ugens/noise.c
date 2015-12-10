@@ -10,7 +10,7 @@ int sporth_noise(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_noise_create(&data);
-            plumber_add_module(pd, SPORTH_NOISE, data);
+            plumber_add_ugen(pd, SPORTH_NOISE, data);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {

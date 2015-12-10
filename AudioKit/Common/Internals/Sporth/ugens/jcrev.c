@@ -15,7 +15,7 @@ int sporth_jcrev(sporth_stack *stack, void *ud)
 #endif
 
             sp_jcrev_create(&jcrev);
-            plumber_add_module(pd, SPORTH_JCREV, jcrev);
+            plumber_add_ugen(pd, SPORTH_JCREV, jcrev);
             break;
         case PLUMBER_INIT:
 

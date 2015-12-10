@@ -13,7 +13,7 @@ int sporth_f(sporth_stack *stack, void *ud)
             fprintf(stderr, "aux (f)unction: creating\n");
 #endif
             fd = malloc(sizeof(sporth_func_d));
-            plumber_add_module(pd, SPORTH_F, fd);
+            plumber_add_ugen(pd, SPORTH_F, fd);
             break;
         case PLUMBER_INIT:
 

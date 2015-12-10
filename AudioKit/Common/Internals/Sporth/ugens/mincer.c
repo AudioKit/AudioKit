@@ -20,7 +20,7 @@ int sporth_mincer(sporth_stack *stack, void *ud)
 #endif
 
             sp_mincer_create(&mincer);
-            plumber_add_module(pd, SPORTH_MINCER, mincer);
+            plumber_add_ugen(pd, SPORTH_MINCER, mincer);
             break;
         case PLUMBER_INIT:
 
