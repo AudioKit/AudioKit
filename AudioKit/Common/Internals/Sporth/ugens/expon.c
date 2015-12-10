@@ -38,7 +38,7 @@ int sporth_expon(sporth_stack *stack, void *ud)
             fprintf(stderr, "expon: Creating\n");
 #endif
             expon = malloc(sizeof(sporth_expon_d));
-            plumber_add_module(pd, SPORTH_EXPON, expon);
+            plumber_add_ugen(pd, SPORTH_EXPON, expon);
             break;
         case PLUMBER_INIT:
 

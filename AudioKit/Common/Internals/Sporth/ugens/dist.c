@@ -19,7 +19,7 @@ int sporth_dist(sporth_stack *stack, void *ud)
 #endif
 
             sp_dist_create(&dist);
-            plumber_add_module(pd, SPORTH_DIST, dist);
+            plumber_add_ugen(pd, SPORTH_DIST, dist);
             break;
         case PLUMBER_INIT:
 

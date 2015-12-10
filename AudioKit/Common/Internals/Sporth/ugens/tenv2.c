@@ -17,7 +17,7 @@ int sporth_tenv2(sporth_stack *stack, void *ud)
 #endif
 
             sp_tenv2_create(&tenv2);
-            plumber_add_module(pd, SPORTH_TENV2, tenv2);
+            plumber_add_ugen(pd, SPORTH_TENV2, tenv2);
             break;
         case PLUMBER_INIT:
 

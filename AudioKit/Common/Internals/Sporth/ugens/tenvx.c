@@ -18,7 +18,7 @@ int sporth_tenvx(sporth_stack *stack, void *ud)
 #endif
 
             sp_tenvx_create(&tenvx);
-            plumber_add_module(pd, SPORTH_TENVX, tenvx);
+            plumber_add_ugen(pd, SPORTH_TENVX, tenvx);
             break;
         case PLUMBER_INIT:
 

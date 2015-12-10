@@ -17,7 +17,7 @@ int sporth_randi(sporth_stack *stack, void *ud)
 #endif
 
             sp_randi_create(&randi);
-            plumber_add_module(pd, SPORTH_RANDI, randi);
+            plumber_add_ugen(pd, SPORTH_RANDI, randi);
             break;
         case PLUMBER_INIT:
 

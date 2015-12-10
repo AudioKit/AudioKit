@@ -32,8 +32,8 @@ int sp_ftbl_destroy(sp_ftbl **ft)
 
 int sp_gen_vals(sp_data *sp, sp_ftbl *ft, const char *string)
 {
-    char *str1, *token, *t;
-    char *saveptr1;
+    char *str1 = NULL, *token = NULL, *t;
+    char *saveptr1 = NULL;
     int j;
     char *d;
     d = malloc(sizeof(char) + 1);

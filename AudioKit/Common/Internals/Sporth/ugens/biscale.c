@@ -1,63 +1,63 @@
 #include "plumber.h"
 
-int sporth_scale(sporth_stack *stack, void *ud)
+int sporth_biscale(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     SPFLOAT in;
     SPFLOAT out;
     SPFLOAT min;
     SPFLOAT max;
-    sp_scale *scale;
+    sp_biscale *biscale;
 
     switch(pd->mode) {
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "scale: Creating\n");
+            fprintf(stderr, "biscale: Creating\n");
 #endif
 
-            sp_scale_create(&scale);
-            plumber_add_ugen(pd, SPORTH_SCALE, scale);
+            sp_biscale_create(&biscale);
+            plumber_add_ugen(pd, SPORTH_BISCALE, biscale);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "scale: Initialising\n");
+            fprintf(stderr, "biscale: Initialising\n");
 #endif
 
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for scale\n");
+                fprintf(stderr,"Not enough arguments for biscale\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
-            scale = pd->last->ud;
-            sp_scale_init(pd->sp, scale);
+            biscale = pd->last->ud;
+            sp_biscale_init(pd->sp, biscale);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for scale\n");
+                fprintf(stderr,"Not enough arguments for biscale\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
-            scale = pd->last->ud;
-            scale->min = min;
-            scale->max = max;
-            sp_scale_compute(pd->sp, scale, &in, &out);
+            biscale = pd->last->ud;
+            biscale->min = min;
+            biscale->max = max;
+            sp_biscale_compute(pd->sp, biscale, &in, &out);
             sporth_stack_push_float(stack, out);
             break;
         case PLUMBER_DESTROY:
-            scale = pd->last->ud;
-            sp_scale_destroy(&scale);
+            biscale = pd->last->ud;
+            sp_biscale_destroy(&biscale);
             break;
         default:
-            fprintf(stderr, "scale: Uknown mode!\n");
+            fprintf(stderr, "biscale: Uknown mode!\n");
             break;
     }
     return PLUMBER_OK;

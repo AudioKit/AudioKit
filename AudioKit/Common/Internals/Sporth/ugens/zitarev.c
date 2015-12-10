@@ -28,7 +28,7 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
 #endif
 
             sp_zitarev_create(&zitarev);
-            plumber_add_module(pd, SPORTH_ZITAREV, zitarev);
+            plumber_add_ugen(pd, SPORTH_ZITAREV, zitarev);
             break;
         case PLUMBER_INIT:
 
@@ -52,8 +52,8 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
             rt60_low = sporth_stack_pop_float(stack);
             lf_x = sporth_stack_pop_float(stack);
             in_delay = sporth_stack_pop_float(stack);
-            input_1 = sporth_stack_pop_float(stack);
             input_2 = sporth_stack_pop_float(stack);
+            input_1 = sporth_stack_pop_float(stack);
             zitarev = pd->last->ud;
             sp_zitarev_init(pd->sp, zitarev);
             sporth_stack_push_float(stack, 0);
@@ -76,8 +76,8 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
             rt60_low = sporth_stack_pop_float(stack);
             lf_x = sporth_stack_pop_float(stack);
             in_delay = sporth_stack_pop_float(stack);
-            input_1 = sporth_stack_pop_float(stack);
             input_2 = sporth_stack_pop_float(stack);
+            input_1 = sporth_stack_pop_float(stack);
             zitarev = pd->last->ud;
             *zitarev->in_delay = in_delay;
             *zitarev->lf_x = lf_x;

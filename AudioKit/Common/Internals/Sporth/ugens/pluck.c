@@ -27,7 +27,7 @@ int sporth_pluck(sporth_stack *stack, void *ud)
             sp_pluck_create(&pluck->pluck);
             sp_ftbl_create(pd->sp, &pluck->ft, 4096);
             sp_osc_create(&pluck->exc);
-            plumber_add_module(pd, SPORTH_PLUCK, pluck);
+            plumber_add_ugen(pd, SPORTH_PLUCK, pluck);
             break;
         case PLUMBER_INIT:
 

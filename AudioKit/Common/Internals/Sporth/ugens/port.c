@@ -10,7 +10,7 @@ int sporth_port(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_port_create(&data);
-            plumber_add_module(pd, SPORTH_PORT, data);
+            plumber_add_ugen(pd, SPORTH_PORT, data);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {

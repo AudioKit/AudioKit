@@ -17,7 +17,7 @@ int sporth_switch(sporth_stack *stack, void *ud)
 #endif
 
             sp_switch_create(&sw);
-            plumber_add_module(pd, SPORTH_SWITCH, sw);
+            plumber_add_ugen(pd, SPORTH_SWITCH, sw);
             break;
         case PLUMBER_INIT:
 
