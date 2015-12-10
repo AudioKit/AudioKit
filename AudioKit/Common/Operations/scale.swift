@@ -10,22 +10,18 @@ import Foundation
 
 extension AKP {
 
-    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from one range to another defined by a minimum and maximum
+    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum
  point in the input and output domain.
      - returns: AKParameter
      - Parameter input: Input signal.
-     - Parameter minimumInput: Minimum value to scale from. (Default: -1.0, Minimum: -1000000.0, Maximum: 1000000.0)
-     - Parameter maximumInput: Maximum value to scale from. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
-     - Parameter minimumOutput: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
-     - Parameter maximumOutput: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
+     - Parameter minimum: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
+     - Parameter maximum: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
      */
     public static func scale(
         input: AKParameter,
-        minimumInput: AKParameter = (-1.0).ak,
-        maximumInput: AKParameter = 1.0.ak,
-        minimumOutput: AKParameter = 0.0.ak,
-        maximumOutput: AKParameter = 1.0.ak
+        minimum: AKParameter = 0.0.ak,
+        maximum: AKParameter = 1.0.ak
         ) -> AKParameter {
-            return AKParameter("\(input)\(minimumInput)\(maximumInput)\(minimumOutput)\(maximumOutput)scale2")
+            return AKParameter("\(input)\(minimum)\(maximum)biscale")
     }
 }
