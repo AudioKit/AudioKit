@@ -340,6 +340,13 @@ static AKManager *_sharedManager = nil;
                                                             userInfo:@{@"message":[msg substringFromIndex:6]}];
         });
     }
+    if ([msg length] > 3 && [[msg substringToIndex:4] isEqualToString:@"tick"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AKMetronome"
+                                                                object:nil
+                                                              userInfo:nil];
+        });
+    }
 
     if (_isLogging && [msg rangeOfString: @"clock"].location != 0) {
         if (AKSettings.shared.messagesEnabled) {

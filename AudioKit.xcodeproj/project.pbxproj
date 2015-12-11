@@ -20,6 +20,11 @@
 		65C65D011BA6D0AB003EED14 /* AKFFTTableReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF61BA6D088003EED14 /* AKFFTTableReader.m */; };
 		65C65D021BA6D0AB003EED14 /* AKFFTTableWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */; };
 		65C65D031BA6D0AB003EED14 /* AKFilteredFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */; };
+		C4086A491C1A809600EF9DED /* AKMetronome.h in Headers */ = {isa = PBXBuildFile; fileRef = C4086A471C1A809600EF9DED /* AKMetronome.h */; };
+		C4086A4A1C1A809600EF9DED /* AKMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = C4086A481C1A809600EF9DED /* AKMetronome.m */; };
+		C4086A4B1C1A809600EF9DED /* AKMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = C4086A481C1A809600EF9DED /* AKMetronome.m */; };
+		C4086A4C1C1A809600EF9DED /* AKMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = C4086A481C1A809600EF9DED /* AKMetronome.m */; };
+		C4086A4D1C1A809600EF9DED /* AKMetronome.m in Sources */ = {isa = PBXBuildFile; fileRef = C4086A481C1A809600EF9DED /* AKMetronome.m */; };
 		C4258E3B1B3D03D300D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
 		C4258E3C1B3D03F400D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
 		C4258E3D1B3D03F400D91B3D /* AKDelayPedal.m in Sources */ = {isa = PBXBuildFile; fileRef = C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */; };
@@ -901,6 +906,8 @@
 		65C65CF81BA6D088003EED14 /* AKFFTTableWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFFTTableWriter.m; sourceTree = "<group>"; };
 		65C65CF91BA6D088003EED14 /* AKFilteredFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFilteredFFT.h; sourceTree = "<group>"; };
 		65C65CFA1BA6D088003EED14 /* AKFilteredFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKFilteredFFT.m; sourceTree = "<group>"; };
+		C4086A471C1A809600EF9DED /* AKMetronome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKMetronome.h; path = Looper/AKMetronome.h; sourceTree = "<group>"; };
+		C4086A481C1A809600EF9DED /* AKMetronome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKMetronome.m; path = Looper/AKMetronome.m; sourceTree = "<group>"; };
 		C4258E391B3D03D300D91B3D /* AKDelayPedal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKDelayPedal.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C4258E3A1B3D03D300D91B3D /* AKDelayPedal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AKDelayPedal.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C4258E3E1B3E554D00D91B3D /* AKPitchShifter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPitchShifter.h; sourceTree = "<group>"; };
@@ -1429,6 +1436,8 @@
 			children = (
 				C4B586C11B8E466100EC50E4 /* AKBeatClock.h */,
 				C4B586C21B8E466100EC50E4 /* AKBeatClock.m */,
+				C4086A471C1A809600EF9DED /* AKMetronome.h */,
+				C4086A481C1A809600EF9DED /* AKMetronome.m */,
 			);
 			name = Looper;
 			path = ..;
@@ -2364,6 +2373,7 @@
 				C4A33D541B96C624004CE139 /* AKStereoAudioFilePlayer.h in Headers */,
 				C4B586D11B8EAA2800EC50E4 /* AKParameterChangeLog.h in Headers */,
 				C4C8125B1AE5CA03003A8B73 /* AKSekereInstrument.h in Headers */,
+				C4086A491C1A809600EF9DED /* AKMetronome.h in Headers */,
 				C4BD216E1C13F6D100CC1615 /* AKAMDFTrackedFrequency.h in Headers */,
 				C4FAE5F11AED6B2600FD71E2 /* AKAudioFilePlayer.h in Headers */,
 			);
@@ -2603,6 +2613,7 @@
 				EA8E95EE1AD3C6850057E979 /* AKInverse.m in Sources */,
 				EA8E95BA1AD3C6850057E979 /* AKSleighbellsInstrument.m in Sources */,
 				EA8E95F51AD3C6850057E979 /* AKTableValue.m in Sources */,
+				C4086A4A1C1A809600EF9DED /* AKMetronome.m in Sources */,
 				EA8E95B61AD3C6850057E979 /* AKBambooSticksInstrument.m in Sources */,
 				EA8E95FD1AD3C6850057E979 /* AKMonoSoundFileLooper.m in Sources */,
 				EA8E95D11AD3C6850057E979 /* TPCircularBuffer.c in Sources */,
@@ -2818,6 +2829,7 @@
 				EA8E96AC1AD3C9B20057E979 /* AKTrackedFrequencyFromFSignal.m in Sources */,
 				EA8E96AD1AD3C9B20057E979 /* AKCrossSynthesizedFFT.m in Sources */,
 				EA8E96AE1AD3C9B20057E979 /* AKFFT.m in Sources */,
+				C4086A4C1C1A809600EF9DED /* AKMetronome.m in Sources */,
 				EA8E96AF1AD3C9B20057E979 /* AKFFTProcessor.m in Sources */,
 				EA8E96B01AD3C9B20057E979 /* AKMixedFFT.m in Sources */,
 				EA8E96B11AD3C9B20057E979 /* AKPhaseLockedVocoder.m in Sources */,
@@ -3072,6 +3084,7 @@
 				EA9364241BD865230005B849 /* AKReverb.m in Sources */,
 				EA9364251BD865230005B849 /* AKAudioInput.m in Sources */,
 				EA9364261BD865230005B849 /* AKMoogLadder.m in Sources */,
+				C4086A4D1C1A809600EF9DED /* AKMetronome.m in Sources */,
 				EA9364271BD865230005B849 /* AKVariableFrequencyResponseBandPassFilter.m in Sources */,
 				EA9364281BD865230005B849 /* AKSoundFontPresetPlayer.m in Sources */,
 				EA9364291BD865230005B849 /* AKAudioInputRollingWaveformPlot.m in Sources */,
@@ -3243,6 +3256,7 @@
 				EAA0F53D1AE71C8F007CD7C9 /* AKInverse.m in Sources */,
 				EAA0F53E1AE71C8F007CD7C9 /* AKSleighbellsInstrument.m in Sources */,
 				EAA0F53F1AE71C8F007CD7C9 /* AKTableValue.m in Sources */,
+				C4086A4B1C1A809600EF9DED /* AKMetronome.m in Sources */,
 				EAA0F5401AE71C8F007CD7C9 /* AKBambooSticksInstrument.m in Sources */,
 				EAA0F5411AE71C8F007CD7C9 /* AKMonoSoundFileLooper.m in Sources */,
 				EAA0F5421AE71C8F007CD7C9 /* TPCircularBuffer.c in Sources */,
