@@ -270,6 +270,7 @@
 
 // Utilities - Instruments - Looper
 #import "AKBeatClock.h"
+#import "AKMetronome.h"
 
 // Utilities - Instruments - Microphone
 #import "AKMicrophone.h"
