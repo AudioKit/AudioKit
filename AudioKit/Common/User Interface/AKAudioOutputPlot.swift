@@ -32,33 +32,27 @@ import Foundation
         super.init(coder: aDecoder)
         setupNode()
     }
+    
     #if os(OSX)
-    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> NSView {
+    public typealias AKView = NSView
+    typealias AKColor = NSColor
+    #else
+    public typealias AKView = UIView
+    typealias AKColor = UIColor
+    #endif
+    
+    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
 
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKAudioOutputPlot(frame: frame)
         
         plot.plotType = .Buffer
-        plot.backgroundColor = NSColor.whiteColor()
+        plot.backgroundColor = AKColor.whiteColor()
         plot.shouldCenterYAxis = true
         
-        let containerView = NSView(frame: frame)
+        let containerView = AKView(frame: frame)
         containerView.addSubview(plot)
         return containerView
     }
-    #else
-    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> UIView {
-    
-    let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
-    let plot = AKAudioOutputPlot(frame: frame)
-    
-    plot.plotType = .Buffer
-    plot.backgroundColor = UIColor.whiteColor()
-    plot.shouldCenterYAxis = true
-    
-    let containerView = UIView(frame: frame)
-    containerView.addSubview(plot)
-    return containerView
-    }
-    #endif
+
 }
