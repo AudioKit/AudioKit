@@ -29,7 +29,6 @@
         <page name='Oscillators'/>
         <page name='FM Oscillator'/>
         <page name='General Purpose Oscillator'/>
-        <page name='Phasor'/>
         <page name='Sawtooth Oscillator'/>
         <page name='Square Wave Oscillator'/>
         <page name='Triangular Wave Oscillator'/>
