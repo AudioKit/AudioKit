@@ -12,13 +12,14 @@ let noise = AKWhiteNoise(amplitude: 0.0)
 audiokit.audioOutput = noise
 audiokit.start()
 
-let startTime = NSDate()
-
 //: This is a timer that will change the amplitude of the pink noise
-let updater = AKPlaygroundLoop(frequency: 30) {
-    let t = Float(NSDate().timeIntervalSinceDate(startTime))*100
-    let amp = (1.0 - cos(t/100)) * 0.5 // Click the eye to see a graph view
-    noise.amplitude = amp
+var t = 0.0
+let step = 0.02
+
+let updater = AKPlaygroundLoop(every: step) {
+    let amp = (1.0 - cos(2*t)) * 0.5 // Click the eye to see a graph view
+    noise.amplitude = Float(amp)
+    t = t + step
 }
 
 //: View the timeline in the assistant page to see the live waveform
