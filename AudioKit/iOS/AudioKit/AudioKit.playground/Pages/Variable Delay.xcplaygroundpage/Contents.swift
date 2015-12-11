@@ -20,11 +20,15 @@ audiokit.start()
 player.play()
 
 var t = 0.0
-while true {
+
+let updater = AKPlaygroundLoop(every: 0.02) {
     delay.time = Float(1.0 - cos(3 * t)) * 0.02
     delay.feedback = Float(1.0 - sin(2 * t)) * 0.5
-    t = t + 0.01
-    usleep(1000000 / 100)
+    t = t + 0.02
 }
+
+let plotView = AKAudioOutputPlot.createView()
+XCPlaygroundPage.currentPage.liveView = plotView
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

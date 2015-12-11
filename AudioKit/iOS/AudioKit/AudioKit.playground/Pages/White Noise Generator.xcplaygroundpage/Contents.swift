@@ -15,7 +15,7 @@ audiokit.start()
 let startTime = NSDate()
 
 //: This is a timer that will change the amplitude of the pink noise
-Timer.start(0.1, repeats: true) { (t: NSTimer) in
+let updater = AKPlaygroundLoop(frequency: 30) {
     let t = Float(NSDate().timeIntervalSinceDate(startTime))*100
     let amp = (1.0 - cos(t/100)) * 0.5 // Click the eye to see a graph view
     noise.amplitude = amp
