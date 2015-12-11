@@ -8,18 +8,32 @@
 
 import Foundation
 
-
-public class Timer {
-    // each instance has it's own handler
-    private var handler: (timer: NSTimer) -> () = { (timer: NSTimer) in }
+public class AKPlaygroundLoop {
     
-    public class func start(duration: NSTimeInterval, repeats: Bool, handler:(timer: NSTimer)->()) {
-        let t = Timer()
-        t.handler = handler
-        NSTimer.scheduledTimerWithTimeInterval(duration, target: t, selector: "processHandler:", userInfo: nil, repeats: repeats)
+    private var internalHandler: () -> () = {}
+    private var trigger = 60
+    private var counter = 0
+    public init(every: Double, handler:()->()) {
+        trigger =  Int(60 * every)
+        internalHandler = handler
+        let displayLink = CADisplayLink(target: self, selector: "update")
+        displayLink.frameInterval = 1
+        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
-    
-    @objc private func processHandler(timer: NSTimer) {
-        self.handler(timer: timer)
+    public init(frequency: Double, handler:()->()) {
+        trigger =  Int(60 / frequency)
+        internalHandler = handler
+        let displayLink = CADisplayLink(target: self, selector: "update")
+        displayLink.frameInterval = 1
+        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+    }
+    @objc func update() {
+        if counter < trigger {
+            counter++
+            return
+        }
+        counter = 0
+        self.internalHandler()
     }
 }
+
