@@ -52,14 +52,18 @@ public class AKAudioPlayer: AKNode {
         
         internalPlayer = AVAudioPlayerNode()
         AKManager.sharedInstance.engine.attachNode(internalPlayer)
+        super.init()
+        let mixer = AVAudioMixerNode()
+        AKManager.sharedInstance.engine.attachNode(mixer)
+        AKManager.sharedInstance.engine.connect(internalPlayer, to: mixer, format: audioFormat)
+        output = mixer
+
         internalPlayer.scheduleBuffer(
             audioFileBuffer,
             atTime: nil,
             options: .Loops,
             completionHandler: nil)
         internalPlayer.volume = 1.0
-        super.init()
-        output = internalPlayer
     }
     
     /// Start playback
