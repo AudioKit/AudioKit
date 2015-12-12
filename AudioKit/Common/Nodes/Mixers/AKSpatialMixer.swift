@@ -91,7 +91,7 @@ public class AKSpatialMixer: AKNode {
                 self.output = avAudioUnit
                 self.internalAU = avAudioUnit.audioUnit
                 AKManager.sharedInstance.engine.attachNode(self.output!)
-                AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+                AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
             }
     }
 }

@@ -334,7 +334,7 @@ public class AKDistortion: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             output = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kDistortionParam_Delay,         kAudioUnitScope_Global, 0, delay, 0)

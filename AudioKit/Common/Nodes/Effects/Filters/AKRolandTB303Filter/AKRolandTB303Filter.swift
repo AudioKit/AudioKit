@@ -85,7 +85,7 @@ public class AKRolandTB303Filter: AKNode {
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKRolandTB303FilterAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

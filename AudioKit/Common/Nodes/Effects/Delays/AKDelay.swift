@@ -75,7 +75,7 @@ public class AKDelay: AKNode {
             super.init()
             output = delayAU
             AKManager.sharedInstance.engine.attachNode(output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: AKManager.format)
             
             delayAU.delayTime = self.time
             delayAU.feedback = feedback
