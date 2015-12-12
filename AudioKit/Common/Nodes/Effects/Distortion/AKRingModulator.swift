@@ -90,7 +90,7 @@ public class AKRingModulator: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             output = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter

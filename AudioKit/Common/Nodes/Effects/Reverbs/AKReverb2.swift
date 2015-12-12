@@ -178,7 +178,7 @@ public class AKReverb2: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             output = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix,            kAudioUnitScope_Global, 0, dryWetMix, 0)

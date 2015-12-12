@@ -60,7 +60,7 @@ public class AKFlatFrequencyResponseReverb: AKNode {
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
             self.internalAU!.setLoopDuration(loopDuration)
         }
 

@@ -67,6 +67,6 @@ public class AKTimePitch: AKNode {
         
         output = timePitchAU
         AKManager.sharedInstance.engine.attachNode(timePitchAU)
-        AKManager.sharedInstance.engine.connect(input.output!, to: timePitchAU, format: nil)
+        AKManager.sharedInstance.engine.connect(input.output!, to: timePitchAU, format: AKManager.format)
     }
 }

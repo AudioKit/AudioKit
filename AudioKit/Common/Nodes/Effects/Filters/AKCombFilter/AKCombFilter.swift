@@ -61,7 +61,7 @@ public class AKCombFilter: AKNode {
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
             self.internalAU!.setLoopDuration(loopDuration)
         }
 
