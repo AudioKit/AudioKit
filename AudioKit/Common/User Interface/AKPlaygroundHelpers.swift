@@ -8,8 +8,8 @@
 
 import Foundation
 
+#if os(iOS)
 public class AKPlaygroundLoop {
-    
     private var internalHandler: () -> () = {}
     private var trigger = 60
     private var counter = 0
@@ -37,3 +37,4 @@ public class AKPlaygroundLoop {
     }
 }
 
+#endif
