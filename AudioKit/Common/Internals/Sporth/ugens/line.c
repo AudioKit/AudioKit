@@ -33,7 +33,7 @@ int sporth_line(sporth_stack *stack, void *ud)
             fprintf(stderr, "line: Creating\n");
 #endif
             line = malloc(sizeof(sporth_line_d));
-            plumber_add_module(pd, SPORTH_LINE, line);
+            plumber_add_ugen(pd, SPORTH_LINE, line);
             break;
         case PLUMBER_INIT:
 

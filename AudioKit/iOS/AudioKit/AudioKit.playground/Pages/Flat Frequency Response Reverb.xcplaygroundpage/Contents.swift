@@ -10,10 +10,10 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("808loop", ofType: "wav")
+let file = bundle.pathForResource("drumloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.2)
+let reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.1)
 
 //: Set the parameters of the delay here
 reverb.reverbDuration = 1

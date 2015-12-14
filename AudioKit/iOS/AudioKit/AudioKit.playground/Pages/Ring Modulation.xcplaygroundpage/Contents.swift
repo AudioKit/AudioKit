@@ -16,8 +16,8 @@ player.looping = true
 let ringModulator = AKRingModulator(player)
 
 //: Set the parameters of the ring modulator here
-ringModulator.frequency1 = 200 // Hertz
-ringModulator.frequency2 = 700 // Hertz
+ringModulator.frequency1 = 440 // Hertz
+ringModulator.frequency2 = 660 // Hertz
 ringModulator.balance = 50 // Percent
 ringModulator.mix = 50 // Percent
 

@@ -11,7 +11,7 @@ let audiokit = AKManager.sharedInstance
 
 //: ```AKP``` is basically shorthand for AKParameter, with type methods that return AKParameters that you can use in other operations
 let slowSine = round(AKP.sine(preset: .Slow)  * 12) / 12
-let vibrato  = AKP.scale(slowSine, minimumOutput: (-1200).ak, maximumOutput: 1200.ak)
+let vibrato  = AKP.scale(slowSine, minimum: (-1200).ak, maximum: 1200.ak)
 
 let fastSine = AKP.sine(preset: .Fast)
 let volume   = AKP.scale(fastSine) * 0.5

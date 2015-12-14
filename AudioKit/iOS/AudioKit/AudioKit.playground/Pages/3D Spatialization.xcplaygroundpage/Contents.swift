@@ -9,13 +9,11 @@ import AudioKit
 import AVFoundation
 
 let audiokit = AKManager.sharedInstance
-let file = NSBundle.mainBundle().pathForResource("PianoBassDrumLoop", ofType: "wav")
+let file = NSBundle.mainBundle().pathForResource("guitarloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let spatialMixer = AKSpatialMixer(player)
 
-//: Set the parameters here
-spatialMixer.azimuth = 90
+let spatialMixer = AKSpatialMixer(player, azimuth: 0, elevation: 0, distance: 0)
 
 audiokit.audioOutput = spatialMixer
 audiokit.start()

@@ -54,7 +54,7 @@ public class AKTester: AKNode {
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTesterAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
             self.internalAU?.setSamples(Int32(samples))
         }
 

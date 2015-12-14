@@ -27,7 +27,7 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
             gbuzz = malloc(sizeof(sporth_gbuzz_d));
             sp_ftbl_create(pd->sp, &gbuzz->ft, 4096);
             sp_gbuzz_create(&gbuzz->gbuzz);
-            plumber_add_module(pd, SPORTH_GBUZZ, gbuzz);
+            plumber_add_ugen(pd, SPORTH_GBUZZ, gbuzz);
             break;
         case PLUMBER_INIT:
 

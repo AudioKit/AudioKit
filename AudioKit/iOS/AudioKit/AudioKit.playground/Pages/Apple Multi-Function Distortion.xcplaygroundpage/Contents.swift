@@ -10,7 +10,7 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
+let file = bundle.pathForResource("guitarloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 let distortion = AKDistortion(player)

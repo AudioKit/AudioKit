@@ -12,7 +12,7 @@ int sporth_revsc(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_revsc_create(&data);
-            plumber_add_module(pd, SPORTH_REVSC, data);
+            plumber_add_ugen(pd, SPORTH_REVSC, data);
             break;
 
         case PLUMBER_INIT:

@@ -20,7 +20,7 @@ int sporth_rpt(sporth_stack *stack, void *ud)
 #endif
 
             sp_rpt_create(&rpt);
-            plumber_add_module(pd, SPORTH_RPT, rpt);
+            plumber_add_ugen(pd, SPORTH_RPT, rpt);
             break;
         case PLUMBER_INIT:
 

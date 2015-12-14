@@ -12,7 +12,7 @@ int sporth_tenv(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_tenv_create(&data);
-            plumber_add_module(pd, SPORTH_TENV, data);
+            plumber_add_ugen(pd, SPORTH_TENV, data);
             break;
 
         case PLUMBER_INIT:

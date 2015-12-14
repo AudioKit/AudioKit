@@ -9,7 +9,7 @@ int sporth_stack_push_float(sporth_stack *stack, float val)
 {
     if(stack->error > 0) return SPORTH_NOTOK;
 
-    if(stack->pos <= 32) {
+    if(stack->pos <= SPORTH_STACK_SIZE) {
         //printf("Pushing value %g.\n", val);
         stack->pos++;
         stack->stack[stack->pos - 1].fval = val;
@@ -28,7 +28,7 @@ int sporth_stack_push_string(sporth_stack *stack, const char *str)
     if(stack->error > 0) return SPORTH_NOTOK;
 
     sporth_stack_val *pstack;
-    if(stack->pos <= 32) {
+    if(stack->pos <= SPORTH_STACK_SIZE) {
         stack->pos++;
         pstack = &stack->stack[stack->pos - 1];
         strncpy(pstack->sval, str, SPORTH_MAXCHAR);

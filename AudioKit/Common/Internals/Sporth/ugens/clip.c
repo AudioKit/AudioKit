@@ -16,7 +16,7 @@ int sporth_clip(sporth_stack *stack, void *ud)
 #endif
 
             sp_clip_create(&clip);
-            plumber_add_module(pd, SPORTH_CLIP, clip);
+            plumber_add_ugen(pd, SPORTH_CLIP, clip);
             break;
         case PLUMBER_INIT:
 
