@@ -212,6 +212,7 @@
 		C467816D1C1C0C090000BF29 /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
 		C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		C46781AE1C1C28DD0000BF29 /* AKAudioOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781AD1C1C28DD0000BF29 /* AKAudioOutputPlot.swift */; };
+		C46781BA1C1C3EDF0000BF29 /* AKSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781B91C1C3EDF0000BF29 /* AKSplitter.swift */; };
 		C469600A1C0ECCAB00A65FBF /* trand.c in Sources */ = {isa = PBXBuildFile; fileRef = C46960081C0ECCAB00A65FBF /* trand.c */; };
 		C469600B1C0ECCAB00A65FBF /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C46960091C0ECCAB00A65FBF /* zitarev.c */; };
 		C46960181C0F8C3900A65FBF /* AKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46960171C0F8C3900A65FBF /* AKNode.swift */; };
@@ -629,6 +630,7 @@
 		C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeOutputPlot.swift; sourceTree = "<group>"; };
 		C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeFFTPlot.swift; sourceTree = "<group>"; };
 		C46781AD1C1C28DD0000BF29 /* AKAudioOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioOutputPlot.swift; sourceTree = "<group>"; };
+		C46781B91C1C3EDF0000BF29 /* AKSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSplitter.swift; sourceTree = "<group>"; };
 		C46960081C0ECCAB00A65FBF /* trand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trand.c; sourceTree = "<group>"; };
 		C46960091C0ECCAB00A65FBF /* zitarev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zitarev.c; sourceTree = "<group>"; };
 		C46960171C0F8C3900A65FBF /* AKNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNode.swift; sourceTree = "<group>"; };
@@ -1696,6 +1698,7 @@
 				C45BC44A1C1549A300BB63B7 /* AKGain */,
 				C48AA65A1C0FA276006EB131 /* AKMixer.swift */,
 				C48AA65B1C0FA276006EB131 /* AKSpatialMixer.swift */,
+				C46781B91C1C3EDF0000BF29 /* AKSplitter.swift */,
 			);
 			path = Mixers;
 			sourceTree = "<group>";
@@ -2093,6 +2096,7 @@
 				C408699D1C192C5E00EF9DED /* EZAudioPlotGL.m in Sources */,
 				C41702461C1048FB00AB689C /* AKCustomEffectAudioUnit.mm in Sources */,
 				C42F36B91C057F4C000E937C /* AKChowningReverb.swift in Sources */,
+				C46781BA1C1C3EDF0000BF29 /* AKSplitter.swift in Sources */,
 				C4E958261C0ADBAB00516A6A /* pluck.c in Sources */,
 				C48AA6721C0FA382006EB131 /* AKWhiteNoise.swift in Sources */,
 				C4E958E81C0ADBFD00516A6A /* tin.c in Sources */,
