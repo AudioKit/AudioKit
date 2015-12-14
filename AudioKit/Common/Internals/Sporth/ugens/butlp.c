@@ -16,7 +16,7 @@ int sporth_butlp(sporth_stack *stack, void *ud)
 #endif
 
             sp_butlp_create(&butlp);
-            plumber_add_module(pd, SPORTH_BUTLP, butlp);
+            plumber_add_ugen(pd, SPORTH_BUTLP, butlp);
             break;
         case PLUMBER_INIT:
 

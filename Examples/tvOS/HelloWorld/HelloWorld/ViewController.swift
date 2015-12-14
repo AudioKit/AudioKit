@@ -13,26 +13,19 @@ class ViewController: UIViewController {
 
     let audiokit = AKManager.sharedInstance
     let oscillator = AKOscillator()
-    let bufferSize: UInt32 = 512
-    @IBOutlet weak var plot: EZAudioPlot?
+
+    @IBOutlet var plot: AKAudioOutputPlot!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let mixer = AKMixer(oscillator)
-        audiokit.audioOutput = mixer
+        audiokit.audioOutput = oscillator
         audiokit.start()
         
-        mixer.output?.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
-            if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize;
-                strongSelf.plot?.updateBuffer(buffer.floatChannelData[0], withBufferSize: strongSelf.bufferSize)
-            }
-        }
     }
 
     @IBAction func toggleSound(sender: UIButton) {
-        if oscillator.amplitude >  0.5 {
+        if oscillator.amplitude >  0 {
             oscillator.amplitude = 0
             sender.setTitle("Play Sine Wave at 440Hz", forState: .Normal)
         } else {

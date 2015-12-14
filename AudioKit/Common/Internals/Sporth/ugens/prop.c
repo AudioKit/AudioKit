@@ -14,7 +14,7 @@ int sporth_prop(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_prop_create(&data);
-            plumber_add_module(pd, SPORTH_PROP, data);
+            plumber_add_ugen(pd, SPORTH_PROP, data);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "fs") != SPORTH_OK) {

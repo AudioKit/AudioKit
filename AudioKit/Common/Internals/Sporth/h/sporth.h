@@ -13,6 +13,7 @@ SPORTH_OK
 
 #define SPORTH_FOFFSET 2
 #define SPORTH_MAXCHAR 200
+#define SPORTH_STACK_SIZE 32
 
 typedef struct {
     float fval;
@@ -23,7 +24,7 @@ typedef struct {
 typedef struct {
     int pos;
     uint32_t error;
-    sporth_stack_val stack[32];
+    sporth_stack_val stack[SPORTH_STACK_SIZE];
 } sporth_stack;
 
 typedef struct sporth_entry {

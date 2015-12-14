@@ -17,7 +17,7 @@ int sporth_mode(sporth_stack *stack, void *ud)
 #endif
 
             sp_mode_create(&mode);
-            plumber_add_module(pd, SPORTH_MODE, mode);
+            plumber_add_ugen(pd, SPORTH_MODE, mode);
             break;
         case PLUMBER_INIT:
 

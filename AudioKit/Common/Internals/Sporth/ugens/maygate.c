@@ -17,7 +17,7 @@ int sporth_maygate(sporth_stack *stack, void *ud)
 #endif
 
             sp_maygate_create(&maygate);
-            plumber_add_module(pd, SPORTH_MAYGATE, maygate);
+            plumber_add_ugen(pd, SPORTH_MAYGATE, maygate);
             break;
         case PLUMBER_INIT:
 

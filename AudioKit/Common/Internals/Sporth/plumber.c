@@ -201,7 +201,7 @@ int plumber_add_string(plumber_data *plumb, const char *str)
     return PLUMBER_OK;
 }
 
-int plumber_add_module(plumber_data *plumb, uint32_t id, void *ud)
+int plumber_add_ugen(plumber_data *plumb, uint32_t id, void *ud)
 {
     plumber_pipe *new = malloc(sizeof(plumber_pipe));
     
@@ -393,6 +393,9 @@ int plumber_ftmap_init(plumber_data *plumb)
 
 int plumber_ftmap_add(plumber_data *plumb, const char *str, sp_ftbl *ft)
 {
+#ifdef DEBUG_MODE
+    fprintf(stderr, "Adding new table %s\n", str);
+#endif
     uint32_t pos = sporth_hash(str);
     plumber_ftentry *entry = &plumb->ftmap[pos];
     entry->nftbl++;

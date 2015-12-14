@@ -13,7 +13,7 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
 
     switch(pd->mode){
         case PLUMBER_CREATE:
-            plumber_add_module(pd, SPORTH_GEN_VALS, NULL);
+            plumber_add_ugen(pd, SPORTH_GEN_VALS, NULL);
             break;
 
         case PLUMBER_INIT:

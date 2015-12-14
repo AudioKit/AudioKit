@@ -17,7 +17,7 @@ int sporth_jitter(sporth_stack *stack, void *ud)
 #endif
 
             sp_jitter_create(&jitter);
-            plumber_add_module(pd, SPORTH_JITTER, jitter);
+            plumber_add_ugen(pd, SPORTH_JITTER, jitter);
             break;
         case PLUMBER_INIT:
 

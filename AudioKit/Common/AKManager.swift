@@ -15,6 +15,7 @@ public class AKManager {
     /** Globally accessible singleton */
     public static let sharedInstance = AKManager()
     
+    public static let format = AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)
     /** Reference to the AV Audio Engine */
     public var engine = AVAudioEngine()
     public var tester: AKTester?
@@ -22,7 +23,7 @@ public class AKManager {
     /** An audio output operation that most applications will need to use last */
     public var audioOutput: AKNode? {
         didSet {
-            engine.connect(audioOutput!.output!, to: engine.outputNode, format: nil)
+            engine.connect(audioOutput!.output!, to: engine.outputNode, format: AKManager.format)
         }
     }
     

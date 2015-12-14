@@ -24,11 +24,8 @@ audiokit.start()
 
 player.play()
 
-var t = 0.0
-while true {
-    //wah.wah = Float(1.0 - cos(20 * t))
-    t = t + 0.01
-    usleep(1000000 / 100)
-}
+let plotView = AKAudioOutputPlot.createView()
+XCPlaygroundPage.currentPage.liveView = plotView
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

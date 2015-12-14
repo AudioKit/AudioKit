@@ -34,6 +34,6 @@ public class AKMixer: AKNode {
     }
     
     public func connect(input: AKNode) {
-        AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: nil)
+        AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: AKManager.format)
     }
 }

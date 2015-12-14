@@ -68,7 +68,7 @@ public class AKHighShelfFilter: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             output = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kHighShelfParam_CutOffFrequency, kAudioUnitScope_Global, 0, cutOffFrequency, 0)

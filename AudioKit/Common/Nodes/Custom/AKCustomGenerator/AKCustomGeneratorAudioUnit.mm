@@ -94,19 +94,6 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
-
-    if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
-        if (outError) {
-            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
-                                            code:kAudioUnitErr_FailedInitialization
-                                        userInfo:nil];
-        }
-        // Notify superclass that initialization was not successful
-        self.renderResourcesAllocated = NO;
-
-        return NO;
-    }
-
     _inputBus.allocateRenderResources(self.maximumFramesToRender);
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);

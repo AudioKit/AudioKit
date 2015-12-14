@@ -10,7 +10,7 @@ int sporth_metro(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             sp_metro_create(&data);
-            plumber_add_module(pd, SPORTH_METRO, data);
+            plumber_add_ugen(pd, SPORTH_METRO, data);
             break;
         case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
