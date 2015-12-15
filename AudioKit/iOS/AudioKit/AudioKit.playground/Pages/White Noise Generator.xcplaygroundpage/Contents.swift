@@ -21,7 +21,7 @@ let updater = AKPlaygroundLoop(every: timeStep) {
     //: Vary the amplitude between zero and 1 in a sinusoid at 0.5Hz
     let amplitudeModulationHz = 0.5
     let amp = (1.0 - cos(2 * 3.14 * amplitudeModulationHz * t)) * 0.5 // Click the eye to see a graph view
-    noise.amplitude = Float(amp)
+    noise.amplitude = amp
     
     t = t + timeStep
 }
