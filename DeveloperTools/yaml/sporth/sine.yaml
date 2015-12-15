@@ -1,19 +1,28 @@
-description: Sine wave oscillator
+installation-directory: ""
 
-ak-alias: sine
+sp-module:
+
+node:
+
+summary: Sine wave oscillator
+
+four-letter-code:
+
+one-word-description: sine
+
+akalias: sine
+
+description: ""
 
 parameters:
-- frequency {
-    comment: Frequency,
-    units: Hz,
-    default: 440,
-    minimum: 0,
-    maximum: MAX_FREQUENCY
+- freq: {
+    ak-variable: frequency,
+    comment: "Frequency in cycles per second",
+    default: 440
 }
-- amplitude {
-    comment: Amplitude,
-    units: Generic,
-    default: 1,
-    minimum: 0,
-    maximum: NA
+- amp: {
+    ak-variable: amplitude,
+    comment: "Amplitude of the output",
+    default: 1
 }
+
