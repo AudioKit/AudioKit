@@ -10,16 +10,15 @@ import Foundation
 
 extension AKP {
 
-    /** lowPassFilter: A low-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost
- flat passband and very good precision and stopband attenuation.
+    /** lowPassFilter: Low-pass filter - A first-order recursive low-pass filter with variable frequency response.
      - returns: AKParameter
      - Parameter input: Input audio signal.
-     - Parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
+     - Parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
      */
     public static func lowPassFilter(
         input: AKParameter,
-        cutoffFrequency: AKParameter = 1000.ak
+        halfPowerPoint: AKParameter = 1000.ak
         ) -> AKParameter {
-            return AKParameter("\(input)\(cutoffFrequency)butlp")
+            return AKParameter("\(input)\(halfPowerPoint)tone")
     }
 }
