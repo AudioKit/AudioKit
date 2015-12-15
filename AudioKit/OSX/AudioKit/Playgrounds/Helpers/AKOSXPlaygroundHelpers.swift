@@ -6,7 +6,6 @@
 //  Copyright © 2015 AudioKit. All rights reserved.
 //
 
-#if os(OSX)
     
 import Foundation
 
@@ -62,4 +61,3 @@ func makeSlider(
         
 }
 
-#endif
