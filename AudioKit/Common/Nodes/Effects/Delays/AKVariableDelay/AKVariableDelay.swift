@@ -21,15 +21,15 @@ public class AKVariableDelay: AKNode {
 
     /** Delay time (in seconds) that can be changed during performance. This value must
      not exceed the maximum delay time. */
-    public var time: Float = 1.0 {
+    public var time = 1.0 {
         didSet {
-            timeParameter?.setValue(time, originator: token!)
+            timeParameter?.setValue(Float(time), originator: token!)
         }
     }
     /** Feedback amount. Should be a value between 0-1. */
-    public var feedback: Float = 0.0 {
+    public var feedback = 0.0 {
         didSet {
-            feedbackParameter?.setValue(feedback, originator: token!)
+            feedbackParameter?.setValue(Float(feedback), originator: token!)
         }
     }
 
@@ -38,8 +38,8 @@ public class AKVariableDelay: AKNode {
     /** Initialize this delay node */
     public init(
         _ input: AKNode,
-        time: Float = 1.0,
-        feedback: Float = 0.0) {
+        time: Double = 1.0,
+        feedback: Double = 0.0) {
 
         self.time = time
         self.feedback = feedback
@@ -79,15 +79,15 @@ public class AKVariableDelay: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.timeParameter!.address {
-                    self.time = value
+                    self.time = Double(value)
                 } else if address == self.feedbackParameter!.address {
-                    self.feedback = value
+                    self.feedback = Double(value)
                 }
             }
         }
 
-        timeParameter?.setValue(time, originator: token!)
-        feedbackParameter?.setValue(feedback, originator: token!)
+        timeParameter?.setValue(Float(time), originator: token!)
+        feedbackParameter?.setValue(Float(feedback), originator: token!)
 
     }
 }
