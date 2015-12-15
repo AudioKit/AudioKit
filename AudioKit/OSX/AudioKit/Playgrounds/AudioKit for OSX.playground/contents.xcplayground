@@ -11,8 +11,8 @@
         <page name='Delay'/>
         <page name='Distortion'/>
         <page name='Dynamics Processor'/>
-        <page name='High Shelf Filter'/>
         <page name='High Pass Filter'/>
+        <page name='High Shelf Filter'/>
         <page name='Low Pass Filter'/>
         <page name='Low Shelf Filter'/>
         <page name='Parametric Equalizer'/>

@@ -7,26 +7,22 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 let audiokit = AKManager.sharedInstance
+
+//: This section prepares the player and the microphone
 let mic = AKMicrophone()
+mic.volume = 0
+let micWindow = AKMicrophoneWindow(mic)
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow: AKAudioPlayerWindow
-let dynamicsProcessor: AKDynamicsProcessor
+let playerWindow = AKAudioPlayerWindow(player)
 
-switch source {
-case "mic":
-    dynamicsProcessor = AKDynamicsProcessor(mic)
-default:
-    playerWindow = AKAudioPlayerWindow(player)
-    let playerWithVolumeAndPanControl = AKMixer(player)    
-    dynamicsProcessor = AKDynamicsProcessor(playerWithVolumeAndPanControl)
-}
+//: Next, we'll connect the audio sources to a dynamics processor
+let inputMix = AKMixer(mic, player)
+let dynamicsProcessor = AKDynamicsProcessor(inputMix)
 
 //: Set the parameters of the dynamics processor here
 dynamicsProcessor.threshold = -20 // dB

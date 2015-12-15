@@ -7,26 +7,22 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 let audiokit = AKManager.sharedInstance
+
+//: This section prepares the player and the microphone
 let mic = AKMicrophone()
+mic.volume = 0
+let micWindow = AKMicrophoneWindow(mic)
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow: AKAudioPlayerWindow
-let lowPassFilter: AKLowPassFilter
+let playerWindow = AKAudioPlayerWindow(player)
 
-switch source {
-case "mic":
-    lowPassFilter = AKLowPassFilter(mic)
-default:
-    playerWindow = AKAudioPlayerWindow(player)
-    let playerWithVolumeAndPanControl = AKMixer(player)
-    lowPassFilter = AKLowPassFilter(playerWithVolumeAndPanControl)
-}
+//: Next, we'll connect the audio sources to a low pass filter
+let inputMix = AKMixer(mic, player)
+let lowPassFilter = AKLowPassFilter(inputMix)
 
 //: Set the parameters of the low pass filter here
 lowPassFilter.cutoffFrequency = 6900 // Hz
