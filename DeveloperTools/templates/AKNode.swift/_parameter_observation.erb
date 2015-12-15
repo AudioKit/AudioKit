@@ -13,7 +13,7 @@
 <% parameters.each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
                 <%= "} else " if i>0 %>if address == self.<%= data["ak-variable"] %>Parameter!.address {
-                    self.<%= data["ak-variable"] %> = value
+                    self.<%= data["ak-variable"] %> = Double(value)
 <% end -%>
 <% end -%>
                 }
