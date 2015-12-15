@@ -1,0 +1,125 @@
+module_name: AudioKit
+author_name: Aurelius Prochazka
+author_url: https://audiokit.io/
+github_url: https://github.com/audiokit/AudioKit
+min_acl: internal
+readme: ../README.md
+swift_version: 2.1.1
+
+
+custom_categories:
+  - name: AudioKit Core
+    children:
+    - AKManager
+    - AKMicrophone
+    - AKNode
+    - AKParameter
+    - AKStereoParameter
+    - AKTable
+    - AKTableType
+
+  - name: Plotting Tools
+    children:
+    - AKAudioOutputPlot
+    - AKNodeFFTPlot
+    - AKNodeOutputPlot
+
+  - name: Playback Tools
+    children:
+    - AKAudioPlayer
+    - AKSampler
+    - AKSequencer
+    - AKTimePitch
+
+  - name: Mixing Tools
+    children:
+    - AKGain
+    - AKMixer
+
+  - name: Analysis
+    children:
+    - AKTrackedAmplitude
+
+  - name: MIDI
+    children:
+    - AKMidi
+    - AKMidiEvent
+    - AKMidiControl
+    - AKMidiStatus
+    - AKMidiSystemCommand
+
+  - name: Delays
+    children:
+    - AKDelay
+    - AKVariableDelay
+
+  - name: Distortion
+    children:
+    - AKBitCrusher
+    - AKDecimator
+    - AKDistortion
+    - AKRingModulator
+    - AKTanhDistortion
+
+  - name: Dynamics
+    children:
+    - AKDynamicsProcessor
+    - AKPeakLimiter
+
+  - name: Filters
+    children:
+    - AKAutoWah
+    - AKBandPassFilter
+    - AKClipper
+    - AKCombFilter
+    - AKDCBlock
+    - AKEqualizerFilter
+    - AKFormantFilter
+    - AKHighPassFilter
+    - AKHighShelfFilter
+    - AKHighShelfParametricEqualizerFilter
+    - AKLowPassFilter
+    - AKLowShelfFilter
+    - AKLowShelfParametricEqualizerFilter
+    - AKModalResonanceFilter
+    - AKMoogLadder
+    - AKParametricEQ
+    - AKPeakingParametricEqualizerFilter
+    - AKRolandTB303Filter
+    - AKStringResonator
+    - AKThreePoleLowpassFilter
+    - AKToneFilter
+    - AKToneComplementFilter
+
+  - name: Butterworth Filters
+    children:
+    - AKBandPassButterworthFilter
+    - AKBandRejectButterworthFilter
+    - AKHighPassButterworthFilter
+    - AKLowPassButterworthFilter
+
+  - name: Reverbs
+    children:
+    - AKChowningReverb
+    - AKCostelloReverb
+    - AKFlatFrequencyResponseReverb
+    - AKReverb
+
+  - name: Oscillators
+    children:
+    - AKFMOscillator
+    - AKOscillator
+    - AKSawtoothOscillator
+    - AKSquareWaveOscillator
+    - AKTriangleOscillator
+
+  - name: Noise
+    children:
+    - AKPinkNoise
+    - AKWhiteNoise
+
+  - name: Other
+    children:
+    - AKCustomEffect
+    - AKCustomGenerator
+

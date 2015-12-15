@@ -1495,8 +1495,8 @@
 				C42F35F51C057F4C000E937C /* AKChowningReverb */,
 				C45C33EC1C08DF2000E3C7F0 /* AKCostelloReverb */,
 				C42F35FA1C057F4C000E937C /* AKFlatFrequencyResponseReverb */,
-				C42F35F41C057F4C000E937C /* AKReverb2.swift */,
 				C42F35F31C057F4C000E937C /* AKReverb.swift */,
+				C42F35F41C057F4C000E937C /* AKReverb2.swift */,
 			);
 			path = Reverbs;
 			sourceTree = "<group>";

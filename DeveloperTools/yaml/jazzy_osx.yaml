@@ -1,0 +1,17 @@
+  - name: Playground Windows
+    children:
+    - AKBandPassFilterWindow
+    - AKDecimatorWindow
+    - AKDelayWindow
+    - AKDistortionWindow
+    - AKDynamicsProcessorWindow
+    - AKHighPassFilterWindow
+    - AKHighShelfFilterWindow
+    - AKLowPassFilterWindow
+    - AKLowShelfFilterWindow
+    - AKMicrophoneWindow
+    - AKParametricEQWindow
+    - AKPeakLimiterWindow
+    - AKRingModulatorWindow
+    - AKTimePitchWindow
+    - AKAudioPlayerWindow
