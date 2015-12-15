@@ -7,26 +7,22 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 let audiokit = AKManager.sharedInstance
+
+//: This section prepares the player and the microphone
 let mic = AKMicrophone()
+mic.volume = 0
+let micWindow = AKMicrophoneWindow(mic)
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow: AKAudioPlayerWindow
-let ringModulator: AKRingModulator
+let playerWindow = AKAudioPlayerWindow(player)
 
-switch source {
-case "mic":
-    ringModulator = AKRingModulator(mic)
-default:
-    playerWindow = AKAudioPlayerWindow(player)
-    let playerWithVolumeAndPanControl = AKMixer(player)
-    ringModulator = AKRingModulator(playerWithVolumeAndPanControl)
-}
+//: Next, we'll connect the audio sources to a ring modulator
+let inputMix = AKMixer(mic, player)
+let ringModulator = AKRingModulator(inputMix)
 
 //: Set the parameters of the ring modulator here
 ringModulator.frequency1 = 440 // Hertz

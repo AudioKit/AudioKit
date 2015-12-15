@@ -7,26 +7,22 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 let audiokit = AKManager.sharedInstance
+
+//: This section prepares the player and the microphone
 let mic = AKMicrophone()
+mic.volume = 0
+let micWindow = AKMicrophoneWindow(mic)
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow: AKAudioPlayerWindow
-let distortion: AKDistortion
+let playerWindow = AKAudioPlayerWindow(player)
 
-switch source {
-case "mic":
-    distortion = AKDistortion(mic)
-default:
-    playerWindow = AKAudioPlayerWindow(player)
-    let playerWithVolumeAndPanControl = AKMixer(player)
-    distortion = AKDistortion(playerWithVolumeAndPanControl)
-}
+//: Next, we'll connect the audio sources to distortion
+let inputMix = AKMixer(mic, player)
+let distortion = AKDistortion(inputMix)
 
 //: Set the parameters of the distortion here
 distortion.delay = 0.1 // Milliseconds

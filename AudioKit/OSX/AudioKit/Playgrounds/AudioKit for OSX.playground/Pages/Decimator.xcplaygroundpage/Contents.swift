@@ -7,26 +7,22 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 let audiokit = AKManager.sharedInstance
+
+//: This section prepares the player and the microphone
 let mic = AKMicrophone()
+mic.volume = 0
+let micWindow = AKMicrophoneWindow(mic)
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow: AKAudioPlayerWindow
-let decimator: AKDecimator
+let playerWindow = AKAudioPlayerWindow(player)
 
-switch source {
-case "mic":
-    decimator = AKDecimator(mic)
-default:
-    playerWindow = AKAudioPlayerWindow(player)
-    let playerWithVolumeAndPanControl = AKMixer(player)
-    decimator = AKDecimator(playerWithVolumeAndPanControl)
-}
+//: Next, we'll connect the audio sources to a decimator
+let inputMix = AKMixer(mic, player)
+let decimator = AKDecimator(inputMix)
 
 //: Set the parameters of the decimator here
 decimator.decimation =  50 // Percent
