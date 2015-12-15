@@ -1111,22 +1111,22 @@
 		C42F37571C058442000E937C /* Filters */ = {
 			isa = PBXGroup;
 			children = (
-				C42F37581C058442000E937C /* AKBandPassFilter.swift */,
-				C42F37591C058442000E937C /* AKHighPassFilter.swift */,
-				C42F375A1C058442000E937C /* AKHighShelfFilter.swift */,
-				C42F375B1C058442000E937C /* AKLowPassFilter.swift */,
-				C42F375C1C058442000E937C /* AKLowShelfFilter.swift */,
-				C42F375D1C058442000E937C /* AKParametricEQ.swift */,
 				C48AA6B71C0FA7FD006EB131 /* AKAutoWah */,
+				C42F37581C058442000E937C /* AKBandPassFilter.swift */,
 				C42F375E1C058442000E937C /* AKClipper */,
 				C42F37631C058442000E937C /* AKCombFilter */,
 				C42F37681C058442000E937C /* AKDCBlock */,
 				C42F376D1C058442000E937C /* AKEqualizerFilter */,
 				C42F37721C058442000E937C /* AKFormantFilter */,
+				C42F37591C058442000E937C /* AKHighPassFilter.swift */,
+				C42F375A1C058442000E937C /* AKHighShelfFilter.swift */,
 				C42F377C1C058442000E937C /* AKHighShelfParametricEqualizerFilter */,
+				C42F375B1C058442000E937C /* AKLowPassFilter.swift */,
+				C42F375C1C058442000E937C /* AKLowShelfFilter.swift */,
 				C42F37861C058442000E937C /* AKLowShelfParametricEqualizerFilter */,
 				C42F378B1C058442000E937C /* AKModalResonanceFilter */,
 				C42F37901C058442000E937C /* AKMoogLadder */,
+				C42F375D1C058442000E937C /* AKParametricEQ.swift */,
 				C42F37951C058442000E937C /* AKPeakingParametricEqualizerFilter */,
 				C42F379A1C058442000E937C /* AKRolandTB303Filter */,
 				C42F379F1C058442000E937C /* AKStringResonator */,
@@ -1339,11 +1339,10 @@
 		C42F37BE1C058442000E937C /* Reverbs */ = {
 			isa = PBXGroup;
 			children = (
-				C42F37BF1C058442000E937C /* AKReverb.swift */,
 				C42F37C11C058442000E937C /* AKChowningReverb */,
 				C437910C1C0C5531001E9160 /* AKCostelloReverb */,
 				C42F37C61C058442000E937C /* AKFlatFrequencyResponseReverb */,
-				C42F37CB1C058442000E937C /* AKReverb */,
+				C42F37BF1C058442000E937C /* AKReverb.swift */,
 			);
 			path = Reverbs;
 			sourceTree = "<group>";
@@ -1368,13 +1367,6 @@
 				C42F37CA1C058442000E937C /* AKFlatFrequencyResponseReverbDSPKernel.hpp */,
 			);
 			path = AKFlatFrequencyResponseReverb;
-			sourceTree = "<group>";
-		};
-		C42F37CB1C058442000E937C /* AKReverb */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = AKReverb;
 			sourceTree = "<group>";
 		};
 		C42F388D1C0585C2000E937C /* Playgrounds */ = {
