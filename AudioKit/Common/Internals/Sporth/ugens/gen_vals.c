@@ -24,10 +24,15 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
             args = sporth_stack_pop_string(stack);
             str = sporth_stack_pop_string(stack);
 #ifdef DEBUG_MODE
-           fprintf(stderr,"Creating value table %s\n", str);
+            fprintf(stderr,"Creating value table %s\n", str);
 #endif
             sp_ftbl_create(pd->sp, &ft, 1);
+
+#ifdef DEBUG_MODE
+            fprintf(stderr,"Running gen_val function\n");
+#endif
             sp_gen_vals(pd->sp, ft, args);
+
             plumber_ftmap_add(pd, str, ft);
             free(str);
             free(args);
