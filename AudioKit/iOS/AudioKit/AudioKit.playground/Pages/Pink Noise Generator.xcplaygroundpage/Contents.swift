@@ -13,13 +13,19 @@ audiokit.audioOutput = noise
 audiokit.start()
 
 //: This is a timer that will change the amplitude of the pink noise
-var t = 0.0
-let step = 0.02
 
-let updater = AKPlaygroundLoop(every: step) {
-    let amp = (1.0 - cos(2*t)) * 0.5 // Click the eye to see a graph view
+
+var t = 0.0
+let timeStep = 0.02
+
+let updater = AKPlaygroundLoop(every: timeStep) {
+    
+    //: Vary the amplitude between zero and 1 in a sinusoid at 0.5Hz
+    let amplitudeModulationHz = 0.5
+    let amp = (1.0 - cos(2 * 3.14 * amplitudeModulationHz * t)) * 0.5 // Click the eye to see a graph view
     noise.amplitude = Float(amp)
-    t = t + step
+    
+    t = t + timeStep
 }
 
 //: View the timeline in the assistant page to see the live waveform
