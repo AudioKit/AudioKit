@@ -83,26 +83,7 @@ public struct AKStereoParameter: CustomStringConvertible {
 }
 
 public struct AKP {
-        
     public static let input = AKParameter("0 p 1 p")
-
-    public enum SinePreset {
-        case Fast
-        case Slow
-    }
-    public static func sine(frequency frequency: AKParameter = 440.ak,
-        amplitude: AKParameter = 1.ak) -> AKParameter {
-            return AKParameter("\(frequency)\(amplitude)sine")
-    }
-    public static func sine(preset preset: SinePreset) -> AKParameter {
-        switch preset {
-        case .Fast:
-            return sine(frequency: 10.ak, amplitude: 1.ak)
-        case .Slow:
-            return sine(frequency: 0.1.ak, amplitude: 1.ak)
-        }
-    }
-
 }
 
 public func akp(value: Float) -> AKParameter {
