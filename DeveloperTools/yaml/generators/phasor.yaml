@@ -4,6 +4,8 @@ sp-module: phasor
 
 node: AKPhasor
 
+akalias: phasor
+
 summary: A normalized moving phase value.
 
 four-letter-code: phsr
