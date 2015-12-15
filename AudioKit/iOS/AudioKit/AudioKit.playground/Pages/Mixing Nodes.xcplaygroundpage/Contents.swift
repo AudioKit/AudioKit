@@ -4,7 +4,6 @@
 //:
 //: ## Mixing Nodes
 //: ### So, what about connecting two operations to output instead of having all operations sequential? To do that, you'll need a mixer.
-//: ![mixer](http://localhost:4444/playgrounds/Mixer.svg "mixer")
 import XCPlayground
 import AudioKit
 
