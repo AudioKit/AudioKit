@@ -6,7 +6,6 @@
 //  Copyright © 2015 AudioKit. All rights reserved.
 //
 
-#if os(OSX)
 import Foundation
 import Cocoa
 
@@ -23,10 +22,10 @@ public class AKAudioPlayerWindow: NSWindow {
     private let stopButton: NSButton
     public let volumeSlider: NSSlider
     public let panSlider: NSSlider
-
+    
     private let volumeTextField: NSTextField
     private let panTextField: NSTextField
-  
+    
     private var player: AKAudioPlayer
     
     /// Initialize the AKAudioplayer window
@@ -40,7 +39,7 @@ public class AKAudioPlayerWindow: NSWindow {
         panSlider    = newSlider(sliderWidth)
         volumeTextField = newTextField(sliderWidth)
         panTextField    = newTextField(sliderWidth)
-
+        
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
         
@@ -80,7 +79,7 @@ public class AKAudioPlayerWindow: NSWindow {
         pauseButton.title = "Pause"
         pauseButton.frame.origin.y = playButton.frame.origin.y - 2 * CGFloat(sliderHeight)
         view.addSubview(pauseButton)
-
+        
         stopButton.target = self
         stopButton.action = "stop"
         stopButton.title = "Stop"
@@ -102,7 +101,7 @@ public class AKAudioPlayerWindow: NSWindow {
             currentValue: player.pan,
             minimumValue: -1,
             maximumValue: 1)
-
+        
         
         self.contentView!.addSubview(view)
         self.makeKeyAndOrderFront(nil)
@@ -138,4 +137,3 @@ public class AKAudioPlayerWindow: NSWindow {
     }
 }
 
-#endif
