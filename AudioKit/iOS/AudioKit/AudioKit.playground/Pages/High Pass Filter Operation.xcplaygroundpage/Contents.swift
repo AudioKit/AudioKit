@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## highPassFilter
-//: ### A high-pass filter takes an audio signal as an input, and cuts out the low-frequency components of the audio signal, allowing for the higher frequency components to "pass through" the filter. 
+//: ### Just as you can create custom generators, you can also create custom effects. Here, we demonstrate how to make a high-pass filter. 
 import XCPlayground
 import AudioKit
 
