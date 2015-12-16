@@ -10,43 +10,36 @@ import Foundation
 
 extension AKParameter {
     /** distort: Distortion using a modified hyperbolic tangent function. -
-     - returns: AKParameter
      - Parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
      - Parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
      - Parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      - Parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      */
-    public func distort(
-        pregain: AKParameter = 2.0.ak,
+    public mutating func distort(
+        pregain pregain: AKParameter = 2.0.ak,
         postgain: AKParameter = 0.5.ak,
         positiveShapeParameter: AKParameter = 0.0.ak,
-        negativeShapeParameter: AKParameter = 0.0.ak
-        ) -> AKParameter {
-            return AKP.distort(self,
+        negativeShapeParameter: AKParameter = 0.0.ak) {
+            self = self.distorted(
                 pregain: pregain,
                 postgain: postgain,
                 positiveShapeParameter: positiveShapeParameter,
                 negativeShapeParameter: negativeShapeParameter)
     }
-}
 
-extension AKP {
-
-    /** distort: Distortion using a modified hyperbolic tangent function. - 
+    /** distorted: Distortion using a modified hyperbolic tangent function. -
      - returns: AKParameter
-     - Parameter input: Input audio signal.
      - Parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
      - Parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
      - Parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      - Parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      */
-    public static func distort(
-        input: AKParameter,
-        pregain: AKParameter = 2.0.ak,
+    public func distorted(
+        pregain pregain: AKParameter = 2.0.ak,
         postgain: AKParameter = 0.5.ak,
         positiveShapeParameter: AKParameter = 0.0.ak,
         negativeShapeParameter: AKParameter = 0.0.ak
         ) -> AKParameter {
-            return AKParameter("\(input)\(pregain)\(postgain)\(positiveShapeParameter)\(negativeShapeParameter)dist")
+            return AKParameter("\(self)\(pregain)\(postgain)\(positiveShapeParameter)\(negativeShapeParameter)dist")
     }
 }

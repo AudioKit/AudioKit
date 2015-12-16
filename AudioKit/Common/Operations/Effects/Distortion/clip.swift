@@ -8,17 +8,20 @@
 
 import Foundation
 
-extension AKP {
+extension AKParameter {
 
-    /** clip: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner, using one of three methods.
-     - returns: AKParameter
-     - Parameter input: Input audio signal.
+    /** clip: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
      - Parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
      */
-    public static func clip(
-        input: AKParameter,
-        limit: AKParameter = 1.0.ak
-        ) -> AKParameter {
-            return AKParameter("\(input)\(limit)clip")
+    public mutating func clip(limit limit: AKParameter = 1.0.ak) {
+        self = self.clipped(limit: limit)
+    }
+    
+    /** clipped: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
+     - returns: AKParameter
+     - Parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
+     */
+    public  func clipped(limit limit: AKParameter = 1.0.ak) -> AKParameter {
+        return AKParameter("\(self)\(limit)clip")
     }
 }
