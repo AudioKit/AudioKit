@@ -80,9 +80,7 @@ public struct AKStereoParameter: CustomStringConvertible {
     }
 }
 
-public struct AKP {
-    public static let input = AKParameter("0 p 1 p")
-}
+public let AKInput = AKParameter("0 p 1 p")
 
 public func akp(value: Float) -> AKParameter {
     return AKParameter(value: value)
