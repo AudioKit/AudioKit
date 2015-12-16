@@ -16,36 +16,8 @@ extension AKParameter {
     public func minus(subtrahend: AKParameter) -> AKParameter {
         return AKParameter("\(self)\(subtrahend)-")
     }
-    
-    /** minus: Subtraction of parameters
-     - returns: AKParameter
-     - parameter subtrahend: The amount to subtract
-     */
-    public func minus(subtrahend: Double) -> AKParameter {
-        return AKParameter("\(self)\(subtrahend.ak)-")
-    }
-
 }
 
-extension AKP {
-    /** subtract: Subtraction of parameters
-     - returns: AKParameter
-     - Parameter parameter1: The first parameter
-     - Parameter parameter2: The second parameter
-     */
-    public static func subtract(minuend: AKParameter, _ subtrahend: AKParameter) -> AKParameter {
-        return minuend.minus(subtrahend)
-    }
-    
-    /** sum: Subtraction of parameters
-     - returns: AKParameter
-     - Parameter parameter1: The first parameter
-     - Parameter parameter2: The second parameter
-     */
-    public static func difference(minuend: AKParameter, _ subtrahend: AKParameter) -> AKParameter {
-        return minuend.minus(subtrahend)
-    }
-}
 
 /** Helper function for Subtraction
  - returns: AKParameter
@@ -62,7 +34,7 @@ public func - (left: AKParameter, right: AKParameter) -> AKParameter {
  - right: Constant parameter
  */
 public func - (left: AKParameter, right: Double) -> AKParameter {
-    return left.minus(right)
+    return left.minus(right.ak)
 }
 
 /** Helper function for Subtraction
@@ -71,5 +43,5 @@ public func - (left: AKParameter, right: Double) -> AKParameter {
  - right: 2nd parameter
  */
 public func - (left: Double, right: AKParameter) -> AKParameter {
-    return right.minus(left)
+    return left.ak.minus(right)
 }
