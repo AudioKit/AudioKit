@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Mixing Nodes
-//: ### So, what about connecting two operations to output instead of having all operations sequential? To do that, you'll need a mixer.
+//: ### So, what about connecting two operations to the output instead of feeding operations into each other in sequential order? To do that, you'll need a mixer.
 import XCPlayground
 import AudioKit
 
