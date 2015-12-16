@@ -832,6 +832,8 @@
 		C4BDE9E21C13004A00207DA9 /* AKTriangleOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTriangleOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
 		C4CA41681C21651E00ABF903 /* reverberatedWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberatedWithCostello.swift; sourceTree = "<group>"; };
 		C4CA41691C21651E00ABF903 /* reverberateWithFlatFrequencyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithFlatFrequencyResponse.swift; sourceTree = "<group>"; };
+		C4E7517E1C220A6D00688A1B /* tphasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tphasor.c; sourceTree = "<group>"; };
+		C4E751801C220A7200688A1B /* rms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rms.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1372,6 +1374,7 @@
 				C46301C01C20C841009B44D9 /* randi.c */,
 				C46301C11C20C841009B44D9 /* reverse.c */,
 				C46301C21C20C841009B44D9 /* revsc.c */,
+				C4E751801C220A7200688A1B /* rms.c */,
 				C46301C31C20C841009B44D9 /* rpt.c */,
 				C46301C41C20C841009B44D9 /* samphold.c */,
 				C46301C51C20C841009B44D9 /* saw.c */,
@@ -1385,6 +1388,7 @@
 				C46301CD1C20C841009B44D9 /* tenvx.c */,
 				C46301CE1C20C841009B44D9 /* tin.c */,
 				C463037F1C20EA3B009B44D9 /* tone.c */,
+				C4E7517E1C220A6D00688A1B /* tphasor.c */,
 				C46301CF1C20C841009B44D9 /* trand.c */,
 				C46301D01C20C841009B44D9 /* tseq.c */,
 				C46301D11C20C841009B44D9 /* vdelay.c */,
@@ -2199,6 +2203,7 @@
 				C46301DB1C20C842009B44D9 /* butlp.c in Sources */,
 				C46781AB1C1C277B0000BF29 /* AKNodeOutputPlot.swift in Sources */,
 				C4BDEB321C13004A00207DA9 /* AKPinkNoiseAudioUnit.mm in Sources */,
+				C4E7517F1C220A6D00688A1B /* tphasor.c in Sources */,
 				C4BDEA351C13004A00207DA9 /* mincer.c in Sources */,
 				C4BDEABF1C13004A00207DA9 /* AKBitCrusher.swift in Sources */,
 				C4BDEA681C13004A00207DA9 /* func.c in Sources */,
@@ -2259,6 +2264,7 @@
 				C4BDEA521C13004A00207DA9 /* square.c in Sources */,
 				C4BDEAB01C13004A00207DA9 /* AKTrackedAmplitudeAudioUnit.mm in Sources */,
 				C4086A2C1C19828200EF9DED /* EZAudioFloatData.m in Sources */,
+				C4E751811C220A7200688A1B /* rms.c in Sources */,
 				C4BDEA3A1C13004A00207DA9 /* osc.c in Sources */,
 				C4086A2E1C19828200EF9DED /* EZAudioPlayer.m in Sources */,
 				C46301FF1C20C842009B44D9 /* reverse.c in Sources */,
