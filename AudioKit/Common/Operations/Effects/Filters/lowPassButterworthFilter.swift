@@ -8,18 +8,24 @@
 
 import Foundation
 
-extension AKP {
-
+extension AKParameter {
+    
     /** lowPassButterworthFilter: A low-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost
- flat passband and very good precision and stopband attenuation.
-     - returns: AKParameter
-     - Parameter input: Input audio signal.
-     - Parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
+     flat passband and very good precision and stopband attenuation.
+     - Parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12.0, Maximum: 20000.0)
      */
-    public static func lowPassButterworthFilter(
-        input: AKParameter,
-        cutoffFrequency: AKParameter = 1000.ak
-        ) -> AKParameter {
-            return AKParameter("\(input)\(cutoffFrequency)butlp")
+    public mutating func lowPassButterworthFilter(
+        cutoffFrequency cutoffFrequency: AKParameter = 500.ak) {
+            self = self.lowPassButterworthFiltered(cutoffFrequency: cutoffFrequency)
+    }
+    
+    /** lowPassButterworthFiltered: A low-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost
+     flat passband and very good precision and stopband attenuation.
+     - returns: AKParameter
+     - Parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12.0, Maximum: 20000.0)
+     */
+    public func lowPassButterworthFiltered(
+        cutoffFrequency cutoffFrequency: AKParameter = 500.ak) -> AKParameter {
+            return AKParameter("\(self)\(cutoffFrequency)buthp")
     }
 }

@@ -8,17 +8,20 @@
 
 import Foundation
 
-extension AKP {
-
+extension AKParameter {
+    
     /** highPassFilter: A first-order recursive high-pass filter with variable frequency response. - A complement to the AKLowPassFilter.
-     - returns: AKParameter
-     - Parameter input: Input audio signal.
      - Parameter halfPowerPoint: Half-Power Pointin Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
      */
-    public static func highPassFilter(
-        input: AKParameter,
-        halfPowerPoint: AKParameter = 1000.ak
-        ) -> AKParameter {
-            return AKParameter("\(input)\(halfPowerPoint)atone")
+    public mutating func highPassFilter(halfPowerPoint halfPowerPoint: AKParameter = 1000.ak) {
+        self = self.highPassFiltered(halfPowerPoint: halfPowerPoint)
+    }
+
+    /** highPassFiltered: A first-order recursive high-pass filter with variable frequency response. - A complement to the AKLowPassFilter.
+     - returns: AKParameter
+     - Parameter halfPowerPoint: Half-Power Pointin Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
+     */
+    public func highPassFiltered(halfPowerPoint halfPowerPoint: AKParameter = 1000.ak) -> AKParameter {
+        return AKParameter("\(self)\(halfPowerPoint)atone")
     }
 }
