@@ -62,7 +62,8 @@ puts "output count = " + output_count.to_s
 ###############
 
 # Set up the output folder relative to the current directory and create it if necessary
-output_folder = "../AudioKit/Common/Operations/"
+output_folder = "../AudioKit/Common/Operations/#{output_folder}/"
+FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 
 File.open("templates/AKP.operation.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
