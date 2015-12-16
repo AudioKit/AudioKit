@@ -8,17 +8,21 @@
 
 import Foundation
 
-extension AKP {
+extension AKParameter {
 
     /** lowPassFilter: Low-pass filter - A first-order recursive low-pass filter with variable frequency response.
      - returns: AKParameter
-     - Parameter input: Input audio signal.
      - Parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
      */
-    public static func lowPassFilter(
-        input: AKParameter,
-        halfPowerPoint: AKParameter = 1000.ak
-        ) -> AKParameter {
-            return AKParameter("\(input)\(halfPowerPoint)tone")
+    public mutating func lowPassFilter(halfPowerPoint halfPowerPoint: AKParameter = 1000.ak) {
+        self = self.lowPassFiltered(halfPowerPoint: halfPowerPoint)
+    }
+    
+    /** lowPassFilter: Low-pass filter - A first-order recursive low-pass filter with variable frequency response.
+     - returns: AKParameter
+     - Parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
+     */
+    public func lowPassFiltered(halfPowerPoint halfPowerPoint: AKParameter = 1000.ak) -> AKParameter {
+        return AKParameter("\(self)\(halfPowerPoint)tone")
     }
 }

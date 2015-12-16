@@ -8,14 +8,21 @@
 
 import Foundation
 
-extension AKP {
+extension AKParameter {
 
     /** dcBlock: A DC blocking filter. - Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based
  on work by Perry Cook.
      - returns: AKParameter
-     - Parameter input: Input audio signal.
      */
-    public static func dcBlock(input: AKParameter) -> AKParameter {
-            return AKParameter("\(input)dcblk")
+    public mutating func dcBlock() {
+        self = self.dcBlocked()
+    }
+    
+    /** dcBlocked: A DC blocking filter. - Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based
+     on work by Perry Cook.
+     - returns: AKParameter
+     */
+    public func dcBlocked() -> AKParameter {
+        return AKParameter("\(self)dcblk")
     }
 }
