@@ -11,34 +11,8 @@ custom_categories:
   - name: AudioKit Core
     children:
     - AKManager
-    - AKMicrophone
-    - AKNode
-    - AKParameter
-    - AKStereoParameter
     - AKTable
     - AKTableType
-
-  - name: Plotting Tools
-    children:
-    - AKAudioOutputPlot
-    - AKNodeFFTPlot
-    - AKNodeOutputPlot
-
-  - name: Playback Tools
-    children:
-    - AKAudioPlayer
-    - AKSampler
-    - AKSequencer
-    - AKTimePitch
-
-  - name: Mixing Tools
-    children:
-    - AKGain
-    - AKMixer
-
-  - name: Analysis
-    children:
-    - AKTrackedAmplitude
 
   - name: MIDI
     children:
@@ -48,12 +22,20 @@ custom_categories:
     - AKMidiStatus
     - AKMidiSystemCommand
 
-  - name: Delays
+  - name: Nodes
+    children:
+    - AKNode
+
+  - name: Analysis Nodes
+    children:
+    - AKTrackedAmplitude
+
+  - name: Delay Nodes
     children:
     - AKDelay
     - AKVariableDelay
 
-  - name: Distortion
+  - name: Distortion Nodes
     children:
     - AKBitCrusher
     - AKClipper
@@ -62,12 +44,12 @@ custom_categories:
     - AKRingModulator
     - AKTanhDistortion
 
-  - name: Dynamics
+  - name: Dynamics Nodes
     children:
     - AKDynamicsProcessor
     - AKPeakLimiter
 
-  - name: Filters
+  - name: Filter Nodes
     children:
     - AKAutoWah
     - AKBandPassFilter
@@ -91,21 +73,21 @@ custom_categories:
     - AKToneFilter
     - AKToneComplementFilter
 
-  - name: Butterworth Filters
+  - name: Butterworth Filter Nodes
     children:
     - AKBandPassButterworthFilter
     - AKBandRejectButterworthFilter
     - AKHighPassButterworthFilter
     - AKLowPassButterworthFilter
 
-  - name: Reverbs
+  - name: Reverb Nodes
     children:
     - AKChowningReverb
     - AKCostelloReverb
     - AKFlatFrequencyResponseReverb
     - AKReverb
 
-  - name: Oscillators
+  - name: Oscillator Nodes
     children:
     - AKFMOscillator
     - AKOscillator
@@ -113,13 +95,40 @@ custom_categories:
     - AKSquareWaveOscillator
     - AKTriangleOscillator
 
-  - name: Noise
+  - name: Noise Generator Nodes
     children:
     - AKPinkNoise
     - AKWhiteNoise
 
-  - name: Other
+  - name: Input Node
+    children:
+    - AKMicrophone
+
+  - name: Mixing Nodes
+    children:
+    - AKGain
+    - AKMixer
+
+  - name: Playback Nodes
+    children:
+    - AKAudioPlayer
+    - AKSampler
+    - AKSequencer
+    - AKTimePitch
+
+  - name: Operation Nodes
     children:
     - AKCustomEffect
     - AKCustomGenerator
+
+  - name: Operations
+    children:
+    - AKParameter
+    - AKStereoParameter
+
+  - name: Plotting Tools
+    children:
+    - AKAudioOutputPlot
+    - AKNodeFFTPlot
+    - AKNodeOutputPlot
 
