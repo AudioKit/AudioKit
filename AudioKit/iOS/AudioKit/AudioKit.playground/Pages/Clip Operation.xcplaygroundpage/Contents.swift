@@ -16,7 +16,7 @@ let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096), baseFrequency: 100,  
 let sinusoid = sine(frequency: 0.3.ak)
 let limitSine = sinusoid.scaledTo(minimum: 0, maximum: 1)
 
-let clip = AKP.input.clipped(limit: limitSine)
+let clip = AKInput.clipped(limit: limitSine)
 
 let effect = AKNode.effect(player, operation: clip)
 
