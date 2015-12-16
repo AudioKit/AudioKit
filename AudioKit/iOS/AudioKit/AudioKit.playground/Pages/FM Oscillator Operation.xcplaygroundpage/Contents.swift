@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## fmOscillator
+//: ## FM Oscillator Operation
 //: ### This is an example of building a sound generator from scratch
 import XCPlayground
 import AudioKit
@@ -10,15 +10,15 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Set up the operations that will be used to make a generator node
-let sine  = AKP.sine(frequency: 1.ak)
-let sine2 = AKP.sine(frequency: 1.64.ak)
+let sine1 = sine(frequency: 1.ak)
+let sine2 = sine(frequency: 1.64.ak)
 let scaleFactor = 1.4
-let sine3 = floor(sine.scaledBy(scaleFactor)).dividedBy(scaleFactor)
-let freq  = AKP.scale(sine3, minimum: 900.ak, maximum: 0.ak)
-let car   = AKP.scale(sine2, minimum: 1.ak,   maximum: 1.4.ak)
-let mod   = AKP.scale(sine,  minimum: 1.ak,   maximum: 3.ak)
+let sine3 = floor(sine1.scaledBy(scaleFactor)).dividedBy(scaleFactor)
+let freq  = sine3.scaledTo(minimum: 900, maximum: 0)
+let car   = sine2.scaledTo(minimum: 1.2, maximum: 1.4)
+let mod   = sine1.scaledTo(minimum: 1,   maximum: 3)
 let index = sine3 * 3 + 5
-let oscillator = AKP.fmOscillator(
+let oscillator = AKParameter.fmOscillator(
     baseFrequency: freq,
     carrierMultiplier: car,
     modulatingMultiplier: mod,

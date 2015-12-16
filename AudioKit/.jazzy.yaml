@@ -1,0 +1,135 @@
+module_name: AudioKit
+author_name: Aurelius Prochazka
+author_url: https://audiokit.io/
+github_url: https://github.com/audiokit/AudioKit
+min_acl: internal
+readme: ../README.md
+swift_version: 2.1.1
+
+
+custom_categories:
+  - name: AudioKit Core
+    children:
+    - AKManager
+    - AKTable
+    - AKTableType
+
+  - name: MIDI
+    children:
+    - AKMidi
+    - AKMidiEvent
+    - AKMidiControl
+    - AKMidiStatus
+    - AKMidiSystemCommand
+
+  - name: Nodes
+    children:
+    - AKNode
+
+  - name: Analysis Nodes
+    children:
+    - AKTrackedAmplitude
+
+  - name: Delay Nodes
+    children:
+    - AKDelay
+    - AKVariableDelay
+
+  - name: Distortion Nodes
+    children:
+    - AKBitCrusher
+    - AKClipper
+    - AKDecimator
+    - AKDistortion
+    - AKRingModulator
+    - AKTanhDistortion
+
+  - name: Dynamics Nodes
+    children:
+    - AKDynamicsProcessor
+    - AKPeakLimiter
+
+  - name: Filter Nodes
+    children:
+    - AKAutoWah
+    - AKBandPassFilter
+    - AKCombFilter
+    - AKDCBlock
+    - AKEqualizerFilter
+    - AKFormantFilter
+    - AKHighPassFilter
+    - AKHighShelfFilter
+    - AKHighShelfParametricEqualizerFilter
+    - AKLowPassFilter
+    - AKLowShelfFilter
+    - AKLowShelfParametricEqualizerFilter
+    - AKModalResonanceFilter
+    - AKMoogLadder
+    - AKParametricEQ
+    - AKPeakingParametricEqualizerFilter
+    - AKRolandTB303Filter
+    - AKStringResonator
+    - AKThreePoleLowpassFilter
+    - AKToneFilter
+    - AKToneComplementFilter
+
+  - name: Butterworth Filter Nodes
+    children:
+    - AKBandPassButterworthFilter
+    - AKBandRejectButterworthFilter
+    - AKHighPassButterworthFilter
+    - AKLowPassButterworthFilter
+
+  - name: Reverb Nodes
+    children:
+    - AKChowningReverb
+    - AKCostelloReverb
+    - AKFlatFrequencyResponseReverb
+    - AKReverb
+    - AKReverb2
+
+  - name: Oscillator Nodes
+    children:
+    - AKFMOscillator
+    - AKOscillator
+    - AKSawtoothOscillator
+    - AKSquareWaveOscillator
+    - AKTriangleOscillator
+
+  - name: Noise Generator Nodes
+    children:
+    - AKPinkNoise
+    - AKWhiteNoise
+
+  - name: Input Node
+    children:
+    - AKMicrophone
+
+  - name: Mixing Nodes
+    children:
+    - AKGain
+    - AKMixer
+
+  - name: Playback Nodes
+    children:
+    - AKAudioPlayer
+    - AKSampler
+    - AKSequencer
+    - AKTimePitch
+
+  - name: Operation Nodes
+    children:
+    - AKCustomEffect
+    - AKCustomGenerator
+
+  - name: Operations
+    children:
+    - AKParameter
+    - AKStereoParameter
+
+  - name: Plotting Tools
+    children:
+    - AKAudioOutputPlot
+    - AKNodeFFTPlot
+    - AKNodeOutputPlot
+

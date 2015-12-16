@@ -7,26 +7,17 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
-
 let audiokit = AKManager.sharedInstance
-let mic = AKMicrophone()
+
+//: This section prepares the player
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow: AKAudioPlayerWindow
-let timePitch: AKTimePitch
+let playerWindow = AKAudioPlayerWindow(player)
 
-switch source {
-case "mic":
-    timePitch = AKTimePitch(mic)
-default:
-    playerWindow = AKAudioPlayerWindow(player)
-    let playerWithVolumeAndPanControl = AKMixer(player)
-    timePitch = AKTimePitch(playerWithVolumeAndPanControl)
-}
+//: Next, we'll connect the audio source to a time/pitch effect
+let timePitch = AKTimePitch(player)
 
 //: Set the parameters of the Peak Limiter here
 timePitch.rate = 1.0 // rate

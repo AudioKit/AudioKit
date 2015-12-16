@@ -19,16 +19,16 @@ public class AKPinkNoise: AKNode {
     private var amplitudeParameter: AUParameter?
 
     /** Amplitude. (Value between 0-1). */
-    public var amplitude: Float = 1.0 {
+    public var amplitude = 1.0 {
         didSet {
-            amplitudeParameter?.setValue(amplitude, originator: token!)
+            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
     // MARK: - Initializers
 
     /** Initialize this noise node */
-    public init(amplitude: Float = 1.0) {
+    public init(amplitude: Double = 1.0) {
 
         self.amplitude = amplitude
         super.init()
@@ -65,10 +65,10 @@ public class AKPinkNoise: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.amplitudeParameter!.address {
-                    self.amplitude = value
+                    self.amplitude = Double(value)
                 }
             }
         }
-        amplitudeParameter?.setValue(amplitude, originator: token!)
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 }

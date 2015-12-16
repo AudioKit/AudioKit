@@ -3,34 +3,50 @@
 //: ---
 //:
 //: ## Mixing Nodes
-//: ### So, what about connecting two operations to output instead of having all operations sequential? To do that, you'll need a mixer.
+//: ### So, what about connecting two operations to the output instead of feeding operations into each other in sequential order? To do that, you'll need a mixer.
 import XCPlayground
 import AudioKit
 
-//: This section prepares the players
 let audiokit = AKManager.sharedInstance
+
+//: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let file1 = bundle.pathForResource("drumloop",   ofType: "wav")
-let file2 = bundle.pathForResource("guitarloop", ofType: "wav")
-let player1 = AKAudioPlayer(file1!)
-player1.looping = true
-let player2 = AKAudioPlayer(file2!)
-player2.looping = true
+let drumFile   = bundle.pathForResource("drumloop",   ofType: "wav")
+let bassFile   = bundle.pathForResource("bassloop",   ofType: "wav")
+let guitarFile = bundle.pathForResource("guitarloop", ofType: "wav")
+let leadFile   = bundle.pathForResource("leadloop",   ofType: "wav")
+
+let drums  = AKAudioPlayer(drumFile!)
+let bass   = AKAudioPlayer(bassFile!)
+let guitar = AKAudioPlayer(guitarFile!)
+let lead   = AKAudioPlayer(leadFile!)
+
+drums.looping  = true
+bass.looping   = true
+guitar.looping = true
+lead.looping   = true
 
 //: Any number of inputs can be summed into one output
-let mixer = AKMixer(player1, player2)
+let mixer = AKMixer(drums, bass, guitar, lead)
 
 audiokit.audioOutput = mixer
 audiokit.start()
 
-player1.play()
-player2.play()
+drums.play()
+bass.play()
+guitar.play()
+lead.play()
 
 //: Adjust the individual track volumes here
-player1.volume = 0.8
-player2.volume = 0.7
-player1.pan = 0.1
-player2.pan = -0.1
+drums.volume  = 0.9
+bass.volume   = 0.9
+guitar.volume = 0.8
+lead.volume   = 0.7
+
+drums.pan  = 0.0
+bass.pan   = 0.0
+guitar.pan = 0.2
+lead.pan   = -0.2
 
 let plotView = AKAudioOutputPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView

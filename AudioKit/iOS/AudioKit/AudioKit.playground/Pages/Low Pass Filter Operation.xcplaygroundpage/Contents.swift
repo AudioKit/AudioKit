@@ -3,15 +3,15 @@
 //: ---
 //:
 //: ## lowPassFilter
-//: ### A low-pass filter takes an audio signal as an input, and cuts out the high-frequency components of the audio signal, allowing for the lower     frequency components to "pass through" the filter.
+//: ### We'll show you how to make a low-pass filter, too...
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
 //: Filter setup
-let cutoff = AKP.scale(AKP.sine(frequency: 0.2.ak), minimum: 100.ak, maximum: 2000.ak)
-let filter = AKP.lowPassFilter(AKP.input, cutoffFrequency: cutoff)
+let halfPower = sine(frequency: 0.2.ak).scaledTo(minimum: 100, maximum: 20000)
+let filter = AKInput.lowPassFiltered(halfPowerPoint: halfPower)
 
 //: Noise Example
 let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so that when it is mixed it is not so loud
