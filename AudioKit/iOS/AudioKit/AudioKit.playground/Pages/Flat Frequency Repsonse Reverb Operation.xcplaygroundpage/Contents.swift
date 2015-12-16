@@ -16,7 +16,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 
 // Note this is not currently working correctly...
-let duration = AKP.sine(frequency: 0.1.ak, amplitude: 0.1.ak) + 0.1
+let duration = sine(frequency: 0.1.ak, amplitude: 0.1.ak) + 0.1
 
 let reverb = AKP.flatFrequencyResponseReverb(AKP.input, reverbDuration: duration, loopDuration: 1)
 let effect = AKNode.effect(player, operation: reverb)
