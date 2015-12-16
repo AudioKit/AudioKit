@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## 3D Spatialization
-//: ### Placing the sound in a 3D environment using `AKSpatialMixer`
+//: ### Here, we demonstrate how to place sound in a 3D space using `AKSpatialMixer`. Sound is the sense most strongly attuned for localization. In order to create convincing 3D virual environments, it's important to have a great soundscape so that your users are able to feel properly oriented while using your app.
 import XCPlayground
 import AudioKit
 import AVFoundation
