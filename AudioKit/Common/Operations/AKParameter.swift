@@ -63,8 +63,6 @@ public func round(parameter: AKParameter) -> AKParameter {
     return parameter.round()
 }
 
-
-
 public func max(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
     return AKParameter("\(parameter1)\(parameter2)max")
 }
@@ -101,6 +99,4 @@ public extension Double {
     public var ak: AKParameter {return AKParameter(value: Float(self))}
 }
 
-extension AKP {
 
-}

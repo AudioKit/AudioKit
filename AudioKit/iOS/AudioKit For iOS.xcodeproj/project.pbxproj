@@ -284,7 +284,6 @@
 		C46303DF1C2126A2009B44D9 /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303DB1C2126A2009B44D9 /* AKSampler.swift */; };
 		C46303E01C2126A2009B44D9 /* AKSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303DC1C2126A2009B44D9 /* AKSequencer.swift */; };
 		C46303E11C2126A2009B44D9 /* AKTimePitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303DD1C2126A2009B44D9 /* AKTimePitch.swift */; };
-		C46303FF1C212A90009B44D9 /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C46303FE1C212A8F009B44D9 /* AudioKit.h */; };
 		C467816D1C1C0C090000BF29 /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
 		C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		C46781AE1C1C28DD0000BF29 /* AKAudioOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781AD1C1C28DD0000BF29 /* AKAudioOutputPlot.swift */; };

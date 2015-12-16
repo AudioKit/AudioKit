@@ -9,11 +9,12 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-let frequency = AKP.phasor(frequency: 0.5.ak) * 1600
-let amplitude = AKP.phasor(frequency: 0.5.ak) - 1
+let frequency = phasor(frequency: 0.5.ak) * 1600
+let amplitude = phasor(frequency: 0.5.ak) - 1
 
-let oscillator = AKP.sine(frequency: frequency, amplitude: amplitude)
-let lowPassFilter = AKP.lowPassFilter(oscillator, cutoffFrequency: 1600.ak)
+let oscillator = sine(frequency: frequency, amplitude: amplitude)
+
+let lowPassFilter = AKP.lowPassFilter(oscillator, halfPowerPoint: 1600.ak)
 //: Set up the nodes
 let generator = AKNode.generator(lowPassFilter)
 

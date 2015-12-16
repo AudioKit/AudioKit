@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKP {
+extension AKParameter {
 
     /** phasor: A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
  often used when building table-lookup oscillators.
@@ -22,4 +22,11 @@ extension AKP {
         ) -> AKParameter {
             return AKParameter("\(frequency)\(phase) phasor")
     }
+}
+
+public func phasor(
+    frequency frequency: AKParameter = 1.0.ak,
+    phase: Double = 0
+    ) -> AKParameter {
+        return AKParameter.phasor(frequency: frequency, phase: phase)
 }

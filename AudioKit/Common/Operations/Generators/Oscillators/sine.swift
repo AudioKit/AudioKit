@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKP {
+extension AKParameter {
 
     /** sine: Sine wave oscillator - 
      - returns: AKParameter
@@ -36,4 +36,18 @@ extension AKP {
     }
 }
 
+// Global Helper functions
 
+public func sin(
+    frequency frequency: AKParameter = 440.ak,
+    amplitude: AKParameter = 1.ak
+    ) -> AKParameter {
+        return AKParameter.sine(frequency: frequency, amplitude: amplitude)
+}
+
+public func sine(
+    frequency frequency: AKParameter = 440.ak,
+    amplitude: AKParameter = 1.ak
+    ) -> AKParameter {
+        return AKParameter.sine(frequency: frequency, amplitude: amplitude)
+}
