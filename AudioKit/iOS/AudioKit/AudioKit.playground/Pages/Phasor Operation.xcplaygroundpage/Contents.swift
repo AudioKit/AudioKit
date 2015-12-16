@@ -14,9 +14,9 @@ let amplitude = phasor(frequency: 0.5.ak) - 1
 
 let oscillator = sine(frequency: frequency, amplitude: amplitude)
 
-let lowPassFilter = AKP.lowPassFilter(oscillator, halfPowerPoint: 1600.ak)
+let filteredOscillator = oscillator.lowPassFiltered(halfPowerPoint: 1600.ak)
 //: Set up the nodes
-let generator = AKNode.generator(lowPassFilter)
+let generator = AKNode.generator(filteredOscillator)
 
 audiokit.audioOutput = generator
 audiokit.start()

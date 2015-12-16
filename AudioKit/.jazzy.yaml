@@ -86,6 +86,7 @@ custom_categories:
     - AKCostelloReverb
     - AKFlatFrequencyResponseReverb
     - AKReverb
+    - AKReverb2
 
   - name: Oscillator Nodes
     children:
