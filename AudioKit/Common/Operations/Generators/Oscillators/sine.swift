@@ -38,6 +38,11 @@ extension AKParameter {
 
 // Global Helper functions
 
+/** sine: Sine wave oscillator -
+- returns: AKParameter
+- Parameter frequency: Frequency in cycles per second (Default: 440, Minimum: , Maximum: )
+- Parameter amplitude: Amplitude of the output (Default: 1, Minimum: , Maximum: )
+*/
 public func sin(
     frequency frequency: AKParameter = 440.ak,
     amplitude: AKParameter = 1.ak
@@ -45,6 +50,11 @@ public func sin(
         return AKParameter.sine(frequency: frequency, amplitude: amplitude)
 }
 
+/** sine: Sine wave oscillator -
+ - returns: AKParameter
+ - Parameter frequency: Frequency in cycles per second (Default: 440, Minimum: , Maximum: )
+ - Parameter amplitude: Amplitude of the output (Default: 1, Minimum: , Maximum: )
+ */
 public func sine(
     frequency frequency: AKParameter = 440.ak,
     amplitude: AKParameter = 1.ak
