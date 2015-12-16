@@ -4,6 +4,8 @@ sp-module: atone
 
 node: AKHighPassFilter
 
+akalias: highPassFilter
+
 summary: A first-order recursive high-pass filter with variable frequency response.
 
 four-letter-code: aton
@@ -21,10 +23,10 @@ inputs:
 
 parameters:
 - hp: {
-  ak-variable: cutoffFrequency,
-  au-name: "Cutoff Frequency (Hz)",
+  ak-variable: halfPowerPoint,
+  au-name: "Half-Power Point (Hz)",
   au-unit: Hertz,
-  comment: "Filter cutoff frequency in Hertz.",
+  comment: "Half-Power Pointin Hertz. Half power is defined as peak power / root 2.",
   default: 1000,
   minimum: 12.0,
   maximum: 20000.0

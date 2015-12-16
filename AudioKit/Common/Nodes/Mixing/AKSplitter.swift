@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 /** AudioKit version of Apple's Splitter Audio Unit */
 public class AKSplitter: AKNode {

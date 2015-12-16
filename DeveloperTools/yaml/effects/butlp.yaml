@@ -10,7 +10,7 @@ four-letter-code: btlp
 
 one-word-description: filter
 
-akalias: lowPassFilter
+akalias: lowPassButterworthFilter
 
 description:
   These filters are Butterworth second-order IIR filters. They offer an almost flat
