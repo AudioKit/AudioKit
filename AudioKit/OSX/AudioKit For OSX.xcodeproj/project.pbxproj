@@ -853,6 +853,8 @@
 		C48AA6CD1C0FA806006EB131 /* AKTanhDistortionDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTanhDistortionDSPKernel.hpp; sourceTree = "<group>"; };
 		C4CA41631C2164F300ABF903 /* reverberatedWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberatedWithCostello.swift; sourceTree = "<group>"; };
 		C4CA41641C2164F300ABF903 /* reverberateWithFlatFrequencyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithFlatFrequencyResponse.swift; sourceTree = "<group>"; };
+		C4E7518E1C220AD700688A1B /* rms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rms.c; sourceTree = "<group>"; };
+		C4E751901C220ADF00688A1B /* tphasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tphasor.c; sourceTree = "<group>"; };
 		C4F52DF91C07F59F00F22BD1 /* AKToneComplementFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKToneComplementFilter.swift; sourceTree = "<group>"; };
 		C4F52DFA1C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKToneComplementFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4F52DFB1C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKToneComplementFilterAudioUnit.mm; sourceTree = "<group>"; };
@@ -1451,6 +1453,7 @@
 				C46301421C20C6FF009B44D9 /* randi.c */,
 				C46301431C20C6FF009B44D9 /* reverse.c */,
 				C46301441C20C6FF009B44D9 /* revsc.c */,
+				C4E7518E1C220AD700688A1B /* rms.c */,
 				C46301451C20C6FF009B44D9 /* rpt.c */,
 				C46301461C20C6FF009B44D9 /* samphold.c */,
 				C46301471C20C6FF009B44D9 /* saw.c */,
@@ -1464,6 +1467,7 @@
 				C463014F1C20C6FF009B44D9 /* tenvx.c */,
 				C46301501C20C6FF009B44D9 /* tin.c */,
 				C463037D1C20E9FC009B44D9 /* tone.c */,
+				C4E751901C220ADF00688A1B /* tphasor.c */,
 				C46301511C20C6FF009B44D9 /* trand.c */,
 				C46301521C20C6FF009B44D9 /* tseq.c */,
 				C46301531C20C6FF009B44D9 /* vdelay.c */,
@@ -2424,6 +2428,7 @@
 				C463035A1C20E966009B44D9 /* AKMixer.swift in Sources */,
 				C43792411C0C55DE001E9160 /* osc.c in Sources */,
 				C46303491C20E926009B44D9 /* AKClipper.swift in Sources */,
+				C4E751911C220ADF00688A1B /* tphasor.c in Sources */,
 				C43792241C0C55DE001E9160 /* dist.c in Sources */,
 				C463015B1C20C6FF009B44D9 /* bitcrush.c in Sources */,
 				C43792601C0C55DE001E9160 /* tenv2.c in Sources */,
@@ -2483,6 +2488,7 @@
 				C46303001C20E8D2009B44D9 /* fmOscillator.swift in Sources */,
 				C43792571C0C55DE001E9160 /* saw.c in Sources */,
 				C46301161C20C6E5009B44D9 /* delay1.c in Sources */,
+				C4E7518F1C220AD700688A1B /* rms.c in Sources */,
 				C43792611C0C55DE001E9160 /* tenvx.c in Sources */,
 				C46301921C20C6FF009B44D9 /* zitarev.c in Sources */,
 				C43792471C0C55DE001E9160 /* phasor.c in Sources */,
