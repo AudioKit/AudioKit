@@ -10,14 +10,14 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: ```AKP``` is basically shorthand for AKParameter, with type methods that return AKParameters that you can use in other operations
-let slowSine = round(AKP.sine(preset: .Slow)  * 12) / 12
-let vibrato  = AKP.scale(slowSine, minimum: (-1200).ak, maximum: 1200.ak)
+let slowSine = round(AKParameter.sine(preset: .Slow)  * 12) / 12
+let vibrato  = slowSine.scaledTo(minimum: -1200, maximum: 1200)
 
-let fastSine = AKP.sine(preset: .Fast)
-let volume   = AKP.scale(fastSine) * 0.5
+let fastSine = AKParameter.sine(preset: .Fast)
+let volume   = fastSine.scaledTo(minimum: 0, maximum: 0.5)
 
-let leftOutput  = AKP.sine(frequency: 440 + vibrato, amplitude: volume)
-let rightOutput = AKP.sine(frequency: 220 + vibrato, amplitude: volume)
+let leftOutput  = sine(frequency: 440 + vibrato, amplitude: volume)
+let rightOutput = sine(frequency: 220 + vibrato, amplitude: volume)
 
 let generator = AKNode.generator(leftOutput, rightOutput)
 
