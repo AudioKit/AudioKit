@@ -6,7 +6,6 @@
 //  Copyright © 2015 AudioKit. All rights reserved.
 //
 
-#if os(OSX)
 import Foundation
 import Cocoa
 
@@ -42,7 +41,7 @@ public class AKDelayWindow: NSWindow {
         feedbackSlider      = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         lowPassCutoffSlider = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         dryWetMixSlider     = NSSlider(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
-     
+        
         timeTextField          = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         feedbackTextField      = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
         lowPassCutoffTextField = NSTextField(frame: NSRect(x: padding, y: 0, width: sliderWidth, height: sliderHeight))
@@ -76,7 +75,7 @@ public class AKDelayWindow: NSWindow {
         topTitle.frame.origin.y = CGFloat(windowHeight - padding) - topTitle.frame.height
         view.addSubview(topTitle)
         
-
+        
         timeTextField.stringValue = "Delay Time: \(delay.time) seconds"
         timeTextField.editable = false
         timeTextField.drawsBackground = false
@@ -97,7 +96,7 @@ public class AKDelayWindow: NSWindow {
         feedbackTextField.drawsBackground = false
         feedbackTextField.bezeled = false
         feedbackTextField.frame.origin.y = timeSlider.frame.origin.y - 2 * CGFloat(sliderHeight)
-       view.addSubview(feedbackTextField)
+        view.addSubview(feedbackTextField)
         
         feedbackSlider.target = self
         feedbackSlider.action = "updateFeedback"
@@ -167,4 +166,3 @@ public class AKDelayWindow: NSWindow {
     }
 }
 
-#endif

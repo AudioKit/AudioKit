@@ -3,15 +3,15 @@
 //: ---
 //:
 //: ## highPassFilter
-//: ### A high-pass filter takes an audio signal as an input, and cuts out the low-frequency components of the audio signal, allowing for the higher frequency components to "pass through" the filter. 
+//: ### Just as you can create custom generators, you can also create custom effects. Here, we demonstrate how to make a high-pass filter. 
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
 //: Filter setup
-let cutoff = AKP.scale(AKP.sine(frequency: 0.2.ak), minimum: 12000.ak, maximum: 100.ak)
-let filter = AKP.highPassFilter(AKP.input, cutoffFrequency: cutoff)
+let halfPower = sine(frequency: 0.2.ak).scaledTo(minimum: 12000, maximum: 100)
+let filter = AKInput.highPassFiltered(halfPowerPoint: halfPower)
 
 //: Noise Example
 let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so that when it is mixed it is not so loud

@@ -45,6 +45,8 @@
         <page name='Bit Crush Operation'/>
         <page name='Clip Operation'/>
         <page name='Sean Costello Reverb Operation'/>
+        <page name='Phasor Operation'/>
+        <page name='Flat Frequency Repsonse Reverb Operation'/>
         <page name='FM Oscillator Operation'/>
         <page name='High Pass Filter Operation'/>
         <page name='Low Pass Filter Operation'/>

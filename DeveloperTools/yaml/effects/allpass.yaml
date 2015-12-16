@@ -2,6 +2,8 @@ installation-directory: "Effects/Reverbs/"
 
 sp-module: allpass
 
+akalias: flatFrequencyResponseReverb
+
 node: AKFlatFrequencyResponseReverb
 
 summary: All-pass filter, often used for the creation of reverb modules.

@@ -12,5 +12,5 @@
             self.output = avAudioUnit<%= au_type %>
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? <%= node %>AudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: nil)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

@@ -6,6 +6,8 @@ node: AKLowPassFilter
 
 summary: Low-pass filter
 
+akalias: lowPassFilter
+
 four-letter-code: tone
 
 one-word-description: filter

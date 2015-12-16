@@ -7,31 +7,25 @@
 import XCPlayground
 import AudioKit
 
-//: Change the source to "mic" to process your voice
-let source = "player"
+let audiokit = AKManager.sharedInstance
 
 //: This section prepares the player and the microphone
-let audiokit = AKManager.sharedInstance
 let mic = AKMicrophone()
+mic.volume = 0
+let micWindow = AKMicrophoneWindow(mic)
+
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow: AKAudioPlayerWindow
+let playerWindow = AKAudioPlayerWindow(player)
 
-//: Next, we'll connect the audio source to a delay
-let delay: AKDelay
-switch source {
-case "mic":
-    delay = AKDelay(mic)
-default:
-    playerWindow = AKAudioPlayerWindow(player)
-    let playerWithVolumeAndPanControl = AKMixer(player)
-    delay = AKDelay(playerWithVolumeAndPanControl)
-}
+//: Next, we'll connect the audio sources to a delay
+let inputMix = AKMixer(mic, player)
+let delay = AKDelay(inputMix)
 
-delay.//: Set the parameters of the delay here
-time = 0.1 // seconds
+//: Set the parameters of the delay here
+delay.time = 0.1 // seconds
 delay.feedback  = 80 // Percent
 delay.dryWetMix = 60 // Percent
 
