@@ -26,17 +26,6 @@ extension AKParameter {
     }
 }
 
-extension AKP {
-    /** product: Division of parameters
-     - returns: AKParameter
-     - Parameter parameter1: The first parameter
-     - Parameter parameter2: The second parameter
-     */
-    public static func division(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
-        return parameter1.dividedBy(parameter2)
-    }
-}
-
 /** Helper function for Division
  - returns: AKParameter
  - left: 1st parameter

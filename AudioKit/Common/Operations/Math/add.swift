@@ -41,26 +41,6 @@ extension AKParameter {
     }
 }
 
-extension AKP {
-    /** add: Addition / Summation of parameters
-     - returns: AKParameter
-     - Parameter parameter1: The first parameter
-     - Parameter parameter2: The second parameter
-     */
-    public static func add(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
-        return parameter1.plus(parameter2)
-    }
-    
-    /** sum: Addition / Summation of parameters
-     - returns: AKParameter
-     - Parameter parameter1: The first parameter
-     - Parameter parameter2: The second parameter
-     */
-    public static func sum(parameter1: AKParameter, _ parameter2: AKParameter) -> AKParameter {
-        return parameter1.plus(parameter2)
-    }
-}
-
 /** Helper function for addition
 - returns: AKParameter
 - left: 1st parameter
