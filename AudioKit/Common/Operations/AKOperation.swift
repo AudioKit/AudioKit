@@ -13,7 +13,7 @@ public struct AKOperation: CustomStringConvertible {
     public var description: String {
         return "\(parameterString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
     }
-    init(_ operationString: String) {
+    public init(_ operationString: String) {
         parameterString = operationString
     }
     public init(value: Float) {
@@ -64,6 +64,11 @@ public func log10(parameter: AKOperation) -> AKOperation {
 
 public func round(parameter: AKOperation) -> AKOperation {
     return parameter.round()
+}
+
+public func mix(first: AKOperation, _ second: AKOperation, t: Double) -> AKOperation {
+    let firstRatio = 1.0 - t
+    return AKOperation("\(firstRatio * first)\(t * second)mix")
 }
 
 public struct AKStereoOperation: CustomStringConvertible {
