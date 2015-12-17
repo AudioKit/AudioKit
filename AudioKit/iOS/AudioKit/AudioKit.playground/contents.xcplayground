@@ -48,6 +48,7 @@
         <page name='Phasor Operation'/>
         <page name='Flat Frequency Repsonse Reverb Operation'/>
         <page name='FM Oscillator Operation'/>
+        <page name='AutoWah Operation'/>
         <page name='High Pass Filter Operation'/>
         <page name='Low Pass Filter Operation'/>
     </pages>

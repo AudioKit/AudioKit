@@ -322,6 +322,7 @@
 		C4E751931C220C1B00688A1B /* triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E751921C220C1B00688A1B /* triangle.c */; };
 		C4E751951C220C4E00688A1B /* triangleWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751941C220C4E00688A1B /* triangleWave.swift */; };
 		C4E7519F1C233A2300688A1B /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7519E1C233A2300688A1B /* AKOperation.swift */; };
+		C4E751A31C2344E000688A1B /* autoWah.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A21C2344E000688A1B /* autoWah.swift */; };
 		C4E958961C0ADBFD00516A6A /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583B1C0ADBFD00516A6A /* allpass.c */; };
 		C4E958971C0ADBFD00516A6A /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583C1C0ADBFD00516A6A /* atone.c */; };
 		C4E958981C0ADBFD00516A6A /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583D1C0ADBFD00516A6A /* autowah.c */; };
@@ -761,6 +762,7 @@
 		C4E751921C220C1B00688A1B /* triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = triangle.c; sourceTree = "<group>"; };
 		C4E751941C220C4E00688A1B /* triangleWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangleWave.swift; sourceTree = "<group>"; };
 		C4E7519E1C233A2300688A1B /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
+		C4E751A21C2344E000688A1B /* autoWah.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = autoWah.swift; sourceTree = "<group>"; };
 		C4E9583B1C0ADBFD00516A6A /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C4E9583C1C0ADBFD00516A6A /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C4E9583D1C0ADBFD00516A6A /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -1666,6 +1668,7 @@
 		C463026B1C20E7A7009B44D9 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				C4E751A21C2344E000688A1B /* autoWah.swift */,
 				C463026C1C20E7A7009B44D9 /* dcBlock.swift */,
 				C463026D1C20E7A7009B44D9 /* highPassButterworthFilter.swift */,
 				C463026E1C20E7A7009B44D9 /* highPassFilter.swift */,
@@ -2486,6 +2489,7 @@
 				C46300F81C20C342009B44D9 /* phasor.c in Sources */,
 				C40869A11C192C5E00EF9DED /* EZMicrophone.m in Sources */,
 				C42F362F1C057F4C000E937C /* AKMidiEvent.swift in Sources */,
+				C4E751A31C2344E000688A1B /* autoWah.swift in Sources */,
 				C46302881C20E7A7009B44D9 /* lowPassFilter.swift in Sources */,
 				C46301001C20C342009B44D9 /* revsc.c in Sources */,
 				C4E958D71C0ADBFD00516A6A /* revsc.c in Sources */,
