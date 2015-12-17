@@ -24,8 +24,8 @@ extension AKOperation {
             self = self.autoWahed(wah: wah, mix: mix, amplitude: amplitude)
 
     }
-    
-    /** autoWah: Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
+
+    /** autoWahed: Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
      - returns: AKOperation
      - Parameter wah: Wah Amount (Default: 0, Minimum: 0, Maximum: 1)
      - Parameter mix: Dry/Wet Mix (Default: 100, Minimum: 0, Maximum: 100)
@@ -38,6 +38,5 @@ extension AKOperation {
         ) -> AKOperation {
             return AKOperation("\(self)\(amplitude)\(wah)\(mix)autowah")
     }
+
 }
-
-
