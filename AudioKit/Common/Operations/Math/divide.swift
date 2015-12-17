@@ -8,47 +8,47 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     /** dividedBy: Division of parameters
-     - returns: AKParameter
+     - returns: AKOperation
      - parameter parameter: The amount to divide
      */
-    public func dividedBy(parameter: AKParameter) -> AKParameter {
-        return AKParameter("\(self)\(parameter)/")
+    public func dividedBy(parameter: AKOperation) -> AKOperation {
+        return AKOperation("\(self)\(parameter)/")
     }
     
     /** dividedBy: Division of parameters
-     - returns: AKParameter
+     - returns: AKOperation
      - parameter parameter: The amount to divide
      */
-    public func dividedBy(parameter: Double) -> AKParameter {
-        return AKParameter("\(self)\(parameter.ak)/")
+    public func dividedBy(parameter: Double) -> AKOperation {
+        return AKOperation("\(self)\(parameter.ak)/")
     }
 }
 
 /** Helper function for Division
- - returns: AKParameter
+ - returns: AKOperation
  - left: 1st parameter
  - right: 2nd parameter
  */
-public func / (left: AKParameter, right: AKParameter) -> AKParameter {
+public func / (left: AKOperation, right: AKOperation) -> AKOperation {
     return left.dividedBy(right)
 }
 
 /** Helper function for Division
- - returns: AKParameter
+ - returns: AKOperation
  - left: 1st parameter
  - right: Constant parameter
  */
-public func / (left: AKParameter, right: Double) -> AKParameter {
+public func / (left: AKOperation, right: Double) -> AKOperation {
     return left.dividedBy(right)
 }
 
 /** Helper function for Division
- - returns: AKParameter
+ - returns: AKOperation
  - left: Constant parameter
  - right: 2nd parameter
  */
-public func / (left: Double, right: AKParameter) -> AKParameter {
+public func / (left: Double, right: AKOperation) -> AKOperation {
     return right.dividedBy(left)
 }

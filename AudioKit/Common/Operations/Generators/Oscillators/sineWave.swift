@@ -8,31 +8,31 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
 
     /** sineWave: Sine wave oscillator - 
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter frequency: Frequency in cycles per second (Default: 440)
      - Parameter amplitude: Amplitude of the output (Default: 1)
      */
     public static func sineWave(
-        frequency frequency: AKParameter = 440.ak,
-        amplitude: AKParameter = 1.ak
-        ) -> AKParameter {
-            return AKParameter("\(frequency)\(amplitude)sine")
+        frequency frequency: AKOperation = 440.ak,
+        amplitude: AKOperation = 1.ak
+        ) -> AKOperation {
+            return AKOperation("\(frequency)\(amplitude)sine")
     }
 }
 
 // Global Helper function
 
 /** sineWave: Sine wave oscillator -
- - returns: AKParameter
+ - returns: AKOperation
  - Parameter frequency: Frequency in cycles per second (Default: 440)
  - Parameter amplitude: Amplitude of the output (Default: 1)
  */
 public func sineWave(
-    frequency frequency: AKParameter = 440.ak,
-    amplitude: AKParameter = 1.ak
-    ) -> AKParameter {
-        return AKParameter.sineWave(frequency: frequency, amplitude: amplitude)
+    frequency frequency: AKOperation = 440.ak,
+    amplitude: AKOperation = 1.ak
+    ) -> AKOperation {
+        return AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
 }

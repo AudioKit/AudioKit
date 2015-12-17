@@ -12,11 +12,11 @@ let audiokit = AKManager.sharedInstance
 let frequency = phasor(frequency: 0.5.ak) * 1600
 let amplitude = phasor(frequency: 0.5.ak) - 1
 
-let oscillator = sineWave(frequency: frequency, amplitude: amplitude)
+var oscillator = sineWave(frequency: frequency, amplitude: amplitude)
+oscillator.lowPassFilter(halfPowerPoint: 1600.ak)
 
-let filteredOscillator = oscillator.lowPassFiltered(halfPowerPoint: 1600.ak)
 //: Set up the nodes
-let generator = AKNode.generator(filteredOscillator)
+let generator = AKNode.generator(oscillator)
 
 audiokit.audioOutput = generator
 audiokit.start()

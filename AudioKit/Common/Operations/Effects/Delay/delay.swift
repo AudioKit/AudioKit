@@ -8,25 +8,25 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
 
     /** delay: Simple audio delay - Add a delay to an incoming signal with optional feedback.
      - Parameter feedback: Feedback amount. (Default: 0.0, Minimum: 0.0, Maximum: 1.0)
      - Parameter delayTime: Delay time, in seconds. (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
      */
-    public mutating func delay(time time: Float = 1.0, feedback: AKParameter = 0.0.ak) {
+    public mutating func delay(time time: Float = 1.0, feedback: AKOperation = 0.0.ak) {
         self = self.delayed(time: time, feedback: feedback)
     }
     
     /** delayed: Simple audio delay - Add a delay to an incoming signal with optional feedback.
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter feedback: Feedback amount. (Default: 0.0, Minimum: 0.0, Maximum: 1.0)
      - Parameter delayTime: Delay time, in seconds. (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
      */
     public func delayed(
         time time: Float = 1.0,
-        feedback: AKParameter = 0.0.ak
-        ) -> AKParameter {
-            return AKParameter("\(self)\(feedback)\(time)delay")
+        feedback: AKOperation = 0.0.ak
+        ) -> AKOperation {
+            return AKOperation("\(self)\(feedback)\(time)delay")
     }
 }

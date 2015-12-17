@@ -9,7 +9,6 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-//: ```AKP``` is basically shorthand for AKParameter, with type methods that return AKParameters that you can use in other operations
 let sinusoid = sineWave(frequency: 1.ak)
 let sampleRate = sinusoid.scaledTo(minimum: 300, maximum: 900)
 let bitDepth   = sinusoid.scaledTo(minimum:   8, maximum:   2)
