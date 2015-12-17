@@ -423,6 +423,7 @@
 		C4E751991C221BD800688A1B /* triangleWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751981C221BD800688A1B /* triangleWave.swift */; };
 		C4E7519B1C221BF300688A1B /* triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E7519A1C221BF300688A1B /* triangle.c */; };
 		C4E751A11C233A3B00688A1B /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A01C233A3B00688A1B /* AKOperation.swift */; };
+		C4E751A51C23540200688A1B /* max.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A41C23540200688A1B /* max.swift */; };
 		C4F52E021C07F59F00F22BD1 /* AKToneComplementFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F52DF91C07F59F00F22BD1 /* AKToneComplementFilter.swift */; };
 		C4F52E031C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F52DFA1C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4F52E041C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4F52DFB1C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.mm */; };
@@ -865,6 +866,7 @@
 		C4E751981C221BD800688A1B /* triangleWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangleWave.swift; sourceTree = "<group>"; };
 		C4E7519A1C221BF300688A1B /* triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = triangle.c; sourceTree = "<group>"; };
 		C4E751A01C233A3B00688A1B /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
+		C4E751A41C23540200688A1B /* max.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = max.swift; sourceTree = "<group>"; };
 		C4F52DF91C07F59F00F22BD1 /* AKToneComplementFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKToneComplementFilter.swift; sourceTree = "<group>"; };
 		C4F52DFA1C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKToneComplementFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4F52DFB1C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKToneComplementFilterAudioUnit.mm; sourceTree = "<group>"; };
@@ -1707,6 +1709,7 @@
 			isa = PBXGroup;
 			children = (
 				C46302EF1C20E8D2009B44D9 /* add.swift */,
+				C4E751A41C23540200688A1B /* max.swift */,
 				C46302F01C20E8D2009B44D9 /* divide.swift */,
 				C46302F11C20E8D2009B44D9 /* multiply.swift */,
 				C46302F21C20E8D2009B44D9 /* scale.swift */,
@@ -2396,6 +2399,7 @@
 				C463017D1C20C6FF009B44D9 /* port.c in Sources */,
 				C437922C1C0C55DE001E9160 /* expon.c in Sources */,
 				C437925D1C0C55DE001E9160 /* tabread.c in Sources */,
+				C4E751A51C23540200688A1B /* max.swift in Sources */,
 				C437921A1C0C55DE001E9160 /* bitcrush.c in Sources */,
 				C48AA6CE1C0FA806006EB131 /* AKBitCrusher.swift in Sources */,
 				C46301561C20C6FF009B44D9 /* atone.c in Sources */,

@@ -63,13 +63,6 @@ public func round(parameter: AKOperation) -> AKOperation {
     return parameter.round()
 }
 
-public func max(parameter1: AKOperation, _ parameter2: AKOperation) -> AKOperation {
-    return AKOperation("\(parameter1)\(parameter2)max")
-}
-public func min(parameter1: AKOperation, _ parameter2: AKOperation) -> AKOperation {
-    return AKOperation("\(parameter1)\(parameter2)min")
-}
-
 public struct AKStereoOperation: CustomStringConvertible {
     var parameterString = ""
     public var description: String {
