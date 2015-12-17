@@ -1,6 +1,7 @@
 installation-directory: "Effects/Filters/"
 
 sp-module: mode
+akalias: modalResonanceFilter
 
 node: AKModalResonanceFilter
 
