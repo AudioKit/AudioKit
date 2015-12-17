@@ -105,7 +105,7 @@
 		C463020E1C20C842009B44D9 /* tseq.c in Sources */ = {isa = PBXBuildFile; fileRef = C46301D01C20C841009B44D9 /* tseq.c */; };
 		C463020F1C20C842009B44D9 /* vdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C46301D11C20C841009B44D9 /* vdelay.c */; };
 		C46302101C20C842009B44D9 /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C46301D21C20C841009B44D9 /* zitarev.c */; };
-		C46303241C20E8E0009B44D9 /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303081C20E8E0009B44D9 /* AKParameter.swift */; };
+		C46303241C20E8E0009B44D9 /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303081C20E8E0009B44D9 /* AKOperation.swift */; };
 		C46303251C20E8E0009B44D9 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463030B1C20E8E0009B44D9 /* delay.swift */; };
 		C46303261C20E8E0009B44D9 /* bitcrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463030D1C20E8E0009B44D9 /* bitcrush.swift */; };
 		C46303271C20E8E0009B44D9 /* clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463030E1C20E8E0009B44D9 /* clip.swift */; };
@@ -524,7 +524,7 @@
 		C46301D01C20C841009B44D9 /* tseq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tseq.c; sourceTree = "<group>"; };
 		C46301D11C20C841009B44D9 /* vdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vdelay.c; sourceTree = "<group>"; };
 		C46301D21C20C841009B44D9 /* zitarev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zitarev.c; sourceTree = "<group>"; };
-		C46303081C20E8E0009B44D9 /* AKParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameter.swift; sourceTree = "<group>"; };
+		C46303081C20E8E0009B44D9 /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
 		C463030B1C20E8E0009B44D9 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		C463030D1C20E8E0009B44D9 /* bitcrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bitcrush.swift; sourceTree = "<group>"; };
 		C463030E1C20E8E0009B44D9 /* clip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = clip.swift; sourceTree = "<group>"; };
@@ -1891,7 +1891,7 @@
 		C4BDE9E61C13004A00207DA9 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				C46303081C20E8E0009B44D9 /* AKParameter.swift */,
+				C46303081C20E8E0009B44D9 /* AKOperation.swift */,
 				C46303091C20E8E0009B44D9 /* Effects */,
 				C46303191C20E8E0009B44D9 /* Generators */,
 				C463031E1C20E8E0009B44D9 /* Math */,
@@ -2371,7 +2371,7 @@
 				C4086A3A1C19828200EF9DED /* EZPlot.m in Sources */,
 				C4086A3C1C19828200EF9DED /* EZRecorder.m in Sources */,
 				C4BDEB121C13004A00207DA9 /* AKBandPassButterworthFilter.swift in Sources */,
-				C46303241C20E8E0009B44D9 /* AKParameter.swift in Sources */,
+				C46303241C20E8E0009B44D9 /* AKOperation.swift in Sources */,
 				C4BDEB0C1C13004A00207DA9 /* AKToneComplementFilterAudioUnit.mm in Sources */,
 				C4BDEA421C13004A00207DA9 /* pluck.c in Sources */,
 				C46301DF1C20C842009B44D9 /* delay.c in Sources */,

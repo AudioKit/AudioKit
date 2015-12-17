@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     /** distort: Distortion using a modified hyperbolic tangent function. -
      - Parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
      - Parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
@@ -16,10 +16,10 @@ extension AKParameter {
      - Parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      */
     public mutating func distort(
-        pregain pregain: AKParameter = 2.0.ak,
-        postgain: AKParameter = 0.5.ak,
-        positiveShapeParameter: AKParameter = 0.0.ak,
-        negativeShapeParameter: AKParameter = 0.0.ak) {
+        pregain pregain: AKOperation = 2.0.ak,
+        postgain: AKOperation = 0.5.ak,
+        positiveShapeParameter: AKOperation = 0.0.ak,
+        negativeShapeParameter: AKOperation = 0.0.ak) {
             self = self.distorted(
                 pregain: pregain,
                 postgain: postgain,
@@ -28,18 +28,18 @@ extension AKParameter {
     }
 
     /** distorted: Distortion using a modified hyperbolic tangent function. -
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
      - Parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
      - Parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      - Parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      */
     public func distorted(
-        pregain pregain: AKParameter = 2.0.ak,
-        postgain: AKParameter = 0.5.ak,
-        positiveShapeParameter: AKParameter = 0.0.ak,
-        negativeShapeParameter: AKParameter = 0.0.ak
-        ) -> AKParameter {
-            return AKParameter("\(self)\(pregain)\(postgain)\(positiveShapeParameter)\(negativeShapeParameter)dist")
+        pregain pregain: AKOperation = 2.0.ak,
+        postgain: AKOperation = 0.5.ak,
+        positiveShapeParameter: AKOperation = 0.0.ak,
+        negativeShapeParameter: AKOperation = 0.0.ak
+        ) -> AKOperation {
+            return AKOperation("\(self)\(pregain)\(postgain)\(positiveShapeParameter)\(negativeShapeParameter)dist")
     }
 }

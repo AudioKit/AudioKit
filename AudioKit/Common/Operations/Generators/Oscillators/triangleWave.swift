@@ -8,31 +8,31 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     
     /** triangleWave: Triangle wave oscillator -
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter frequency: Frequency in cycles per second (Default: 440)
      - Parameter amplitude: Amplitude of the output (Default: 1)
      */
     public static func triangleWave(
-        frequency frequency: AKParameter = 440.ak,
-        amplitude: AKParameter = 1.ak
-        ) -> AKParameter {
-            return AKParameter("\(frequency)\(amplitude)triangle")
+        frequency frequency: AKOperation = 440.ak,
+        amplitude: AKOperation = 1.ak
+        ) -> AKOperation {
+            return AKOperation("\(frequency)\(amplitude)triangle")
     }
 }
 
 // Global Helper function
 
 /** triangleWave: triangle wave oscillator -
-- returns: AKParameter
+- returns: AKOperation
 - Parameter frequency: Frequency in cycles per second (Default: 440)
 - Parameter amplitude: Amplitude of the output (Default: 1)
 */
 public func triangleWave(
-    frequency frequency: AKParameter = 440.ak,
-    amplitude: AKParameter = 1.ak
-    ) -> AKParameter {
-        return AKParameter.triangleWave(frequency: frequency, amplitude: amplitude)
+    frequency frequency: AKOperation = 440.ak,
+    amplitude: AKOperation = 1.ak
+    ) -> AKOperation {
+        return AKOperation.triangleWave(frequency: frequency, amplitude: amplitude)
 }

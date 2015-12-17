@@ -17,7 +17,7 @@ let freq  = sine.scaledTo(minimum: 900, maximum: 200)
 let car   = square.scaledTo(minimum: 1.2, maximum: 1.4)
 let mod   = square.scaledTo(minimum: 1,   maximum: 3)
 let index = square2 * 3 + 5
-let oscillator = AKParameter.fmOscillator(
+let oscillator = fmOscillator(
     baseFrequency: freq,
     carrierMultiplier: car,
     modulatingMultiplier: mod,
