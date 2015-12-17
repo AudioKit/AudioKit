@@ -325,6 +325,8 @@
 		C4E751A31C2344E000688A1B /* autoWah.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A21C2344E000688A1B /* autoWah.swift */; };
 		C4E751A71C2354EE00688A1B /* max.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A61C2354EE00688A1B /* max.swift */; };
 		C4E751A91C23557F00688A1B /* min.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A81C23557F00688A1B /* min.swift */; };
+		C4E751AB1C235CE800688A1B /* reverberateWithChowning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751AA1C235CE800688A1B /* reverberateWithChowning.swift */; };
+		C4E751AD1C2361BE00688A1B /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751AC1C2361BE00688A1B /* jitter.swift */; };
 		C4E958961C0ADBFD00516A6A /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583B1C0ADBFD00516A6A /* allpass.c */; };
 		C4E958971C0ADBFD00516A6A /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583C1C0ADBFD00516A6A /* atone.c */; };
 		C4E958981C0ADBFD00516A6A /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583D1C0ADBFD00516A6A /* autowah.c */; };
@@ -767,6 +769,8 @@
 		C4E751A21C2344E000688A1B /* autoWah.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = autoWah.swift; sourceTree = "<group>"; };
 		C4E751A61C2354EE00688A1B /* max.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = max.swift; sourceTree = "<group>"; };
 		C4E751A81C23557F00688A1B /* min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = min.swift; sourceTree = "<group>"; };
+		C4E751AA1C235CE800688A1B /* reverberateWithChowning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithChowning.swift; sourceTree = "<group>"; };
+		C4E751AC1C2361BE00688A1B /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C4E9583B1C0ADBFD00516A6A /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C4E9583C1C0ADBFD00516A6A /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C4E9583D1C0ADBFD00516A6A /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -1685,6 +1689,7 @@
 		C46302711C20E7A7009B44D9 /* Reverb */ = {
 			isa = PBXGroup;
 			children = (
+				C4E751AA1C235CE800688A1B /* reverberateWithChowning.swift */,
 				C46302721C20E7A7009B44D9 /* reverberatedWithCostello.swift */,
 				C46302731C20E7A7009B44D9 /* reverberateWithFlatFrequencyResponse.swift */,
 			);
@@ -1717,6 +1722,7 @@
 			children = (
 				C463027A1C20E7A7009B44D9 /* add.swift */,
 				C463027B1C20E7A7009B44D9 /* divide.swift */,
+				C4E751AC1C2361BE00688A1B /* jitter.swift */,
 				C4E751A61C2354EE00688A1B /* max.swift */,
 				C463027C1C20E7A7009B44D9 /* multiply.swift */,
 				C4E751A81C23557F00688A1B /* min.swift */,
@@ -2216,6 +2222,7 @@
 				C42F36971C057F4C000E937C /* AKPeakingParametricEqualizerFilter.swift in Sources */,
 				C408699B1C192C5E00EF9DED /* EZAudioPlot.m in Sources */,
 				C42F366F1C057F4C000E937C /* AKCombFilter.swift in Sources */,
+				C4E751AB1C235CE800688A1B /* reverberateWithChowning.swift in Sources */,
 				C4E958FA1C0ADC5800516A6A /* kiss_fftr.c in Sources */,
 				C4E751931C220C1B00688A1B /* triangle.c in Sources */,
 				C4E958D21C0ADBFD00516A6A /* randh.c in Sources */,
@@ -2245,6 +2252,7 @@
 				C4E958A71C0ADBFD00516A6A /* dist.c in Sources */,
 				C46301051C20C342009B44D9 /* square.c in Sources */,
 				C4E958D41C0ADBFD00516A6A /* randmt.c in Sources */,
+				C4E751AD1C2361BE00688A1B /* jitter.swift in Sources */,
 				C4E958C61C0ADBFD00516A6A /* padsynth.c in Sources */,
 				C408699D1C192C5E00EF9DED /* EZAudioPlotGL.m in Sources */,
 				C41702461C1048FB00AB689C /* AKCustomEffectAudioUnit.mm in Sources */,
