@@ -4,6 +4,8 @@ sp-module: pinknoise
 
 node: AKPinkNoise
 
+akalias: pinkNoise
+
 four-letter-code: pink
 
 summary: Pink noise generator

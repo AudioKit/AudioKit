@@ -327,6 +327,10 @@
 		C4E751A91C23557F00688A1B /* min.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A81C23557F00688A1B /* min.swift */; };
 		C4E751AB1C235CE800688A1B /* reverberateWithChowning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751AA1C235CE800688A1B /* reverberateWithChowning.swift */; };
 		C4E751AD1C2361BE00688A1B /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751AC1C2361BE00688A1B /* jitter.swift */; };
+		C4E751B01C23675A00688A1B /* modalResonanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751AE1C23675A00688A1B /* modalResonanceFilter.swift */; };
+		C4E751B11C23675A00688A1B /* moogLadderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751AF1C23675A00688A1B /* moogLadderFilter.swift */; };
+		C4E751B51C236D2D00688A1B /* pinkNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B31C236D2D00688A1B /* pinkNoise.swift */; };
+		C4E751B61C236D2D00688A1B /* whiteNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B41C236D2D00688A1B /* whiteNoise.swift */; };
 		C4E958961C0ADBFD00516A6A /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583B1C0ADBFD00516A6A /* allpass.c */; };
 		C4E958971C0ADBFD00516A6A /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583C1C0ADBFD00516A6A /* atone.c */; };
 		C4E958981C0ADBFD00516A6A /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583D1C0ADBFD00516A6A /* autowah.c */; };
@@ -771,6 +775,10 @@
 		C4E751A81C23557F00688A1B /* min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = min.swift; sourceTree = "<group>"; };
 		C4E751AA1C235CE800688A1B /* reverberateWithChowning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithChowning.swift; sourceTree = "<group>"; };
 		C4E751AC1C2361BE00688A1B /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
+		C4E751AE1C23675A00688A1B /* modalResonanceFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = modalResonanceFilter.swift; sourceTree = "<group>"; };
+		C4E751AF1C23675A00688A1B /* moogLadderFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moogLadderFilter.swift; sourceTree = "<group>"; };
+		C4E751B31C236D2D00688A1B /* pinkNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pinkNoise.swift; sourceTree = "<group>"; };
+		C4E751B41C236D2D00688A1B /* whiteNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = whiteNoise.swift; sourceTree = "<group>"; };
 		C4E9583B1C0ADBFD00516A6A /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C4E9583C1C0ADBFD00516A6A /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C4E9583D1C0ADBFD00516A6A /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -1682,6 +1690,8 @@
 				C463026E1C20E7A7009B44D9 /* highPassFilter.swift */,
 				C463026F1C20E7A7009B44D9 /* lowPassButterworthFilter.swift */,
 				C46302701C20E7A7009B44D9 /* lowPassFilter.swift */,
+				C4E751AE1C23675A00688A1B /* modalResonanceFilter.swift */,
+				C4E751AF1C23675A00688A1B /* moogLadderFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -1699,6 +1709,7 @@
 		C46302741C20E7A7009B44D9 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
+				C4E751B21C236D2D00688A1B /* Noise */,
 				C46302751C20E7A7009B44D9 /* Oscillators */,
 			);
 			path = Generators;
@@ -1935,6 +1946,15 @@
 				C48AA68C1C0FA6C5006EB131 /* AKTanhDistortionDSPKernel.hpp */,
 			);
 			path = AKTanhDistortion;
+			sourceTree = "<group>";
+		};
+		C4E751B21C236D2D00688A1B /* Noise */ = {
+			isa = PBXGroup;
+			children = (
+				C4E751B31C236D2D00688A1B /* pinkNoise.swift */,
+				C4E751B41C236D2D00688A1B /* whiteNoise.swift */,
+			);
+			path = Noise;
 			sourceTree = "<group>";
 		};
 		C4E959061C0B847C00516A6A /* fft */ = {
@@ -2281,6 +2301,7 @@
 				C46781AE1C1C28DD0000BF29 /* AKAudioOutputPlot.swift in Sources */,
 				C40869A51C192C5E00EF9DED /* EZPlot.m in Sources */,
 				C46302901C20E7A7009B44D9 /* multiply.swift in Sources */,
+				C4E751B61C236D2D00688A1B /* whiteNoise.swift in Sources */,
 				C46302D61C20E846009B44D9 /* AKReverb.swift in Sources */,
 				C48AA6951C0FA6C5006EB131 /* AKTanhDistortion.swift in Sources */,
 				C42F36001C057F4C000E937C /* AKManager.swift in Sources */,
@@ -2342,6 +2363,7 @@
 				C4E958D31C0ADBFD00516A6A /* randi.c in Sources */,
 				C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */,
 				C46300DA1C20C342009B44D9 /* buthp.c in Sources */,
+				C4E751B11C23675A00688A1B /* moogLadderFilter.swift in Sources */,
 				C42F36951C057F4C000E937C /* AKMoogLadderAudioUnit.mm in Sources */,
 				C4F52E1D1C080A4400F22BD1 /* AKSquareWaveOscillator.swift in Sources */,
 				C4F52DF61C07F53200F22BD1 /* AKToneFilterAudioUnit.mm in Sources */,
@@ -2399,6 +2421,7 @@
 				C4E958DB1C0ADBFD00516A6A /* samphold.c in Sources */,
 				C46300F51C20C342009B44D9 /* osc.c in Sources */,
 				C4E9589E1C0ADBFD00516A6A /* butbp.c in Sources */,
+				C4E751B51C236D2D00688A1B /* pinkNoise.swift in Sources */,
 				C4E958B41C0ADBFD00516A6A /* fosc.c in Sources */,
 				C42F36B51C057F4C000E937C /* AKLowPassButterworthFilterAudioUnit.mm in Sources */,
 				C43792881C0CEEB0001E9160 /* md5.c in Sources */,
@@ -2512,6 +2535,7 @@
 				C463010F1C20C342009B44D9 /* vdelay.c in Sources */,
 				C46302D21C20E846009B44D9 /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C408698D1C192C5E00EF9DED /* EZAudioDevice.m in Sources */,
+				C4E751B01C23675A00688A1B /* modalResonanceFilter.swift in Sources */,
 				C46302891C20E7A7009B44D9 /* reverberatedWithCostello.swift in Sources */,
 				C4F52DF01C07F53200F22BD1 /* AKToneComplementFilter.swift in Sources */,
 				C4E9589B1C0ADBFD00516A6A /* base.c in Sources */,
