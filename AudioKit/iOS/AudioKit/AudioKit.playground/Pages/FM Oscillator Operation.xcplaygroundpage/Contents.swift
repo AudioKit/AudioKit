@@ -25,7 +25,7 @@ let oscillator = fmOscillator(
     amplitude: 0.5.ak)
 
 //: Set up the nodes
-let generator = AKNode.generator(oscillator)
+let generator = AKNode.generator(oscillator.panned(sine))
 let delay1 = AKDelay(generator,
     time: 0.01, feedback: 99, lowPassCutoff: 0, dryWetMix: 50)
 let delay2 = AKDelay(delay1,

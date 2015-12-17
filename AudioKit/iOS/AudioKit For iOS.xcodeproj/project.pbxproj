@@ -331,6 +331,7 @@
 		C4E751B11C23675A00688A1B /* moogLadderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751AF1C23675A00688A1B /* moogLadderFilter.swift */; };
 		C4E751B51C236D2D00688A1B /* pinkNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B31C236D2D00688A1B /* pinkNoise.swift */; };
 		C4E751B61C236D2D00688A1B /* whiteNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B41C236D2D00688A1B /* whiteNoise.swift */; };
+		C4E751B91C23784400688A1B /* pan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B81C23784400688A1B /* pan.swift */; };
 		C4E958961C0ADBFD00516A6A /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583B1C0ADBFD00516A6A /* allpass.c */; };
 		C4E958971C0ADBFD00516A6A /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583C1C0ADBFD00516A6A /* atone.c */; };
 		C4E958981C0ADBFD00516A6A /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583D1C0ADBFD00516A6A /* autowah.c */; };
@@ -779,6 +780,7 @@
 		C4E751AF1C23675A00688A1B /* moogLadderFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moogLadderFilter.swift; sourceTree = "<group>"; };
 		C4E751B31C236D2D00688A1B /* pinkNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pinkNoise.swift; sourceTree = "<group>"; };
 		C4E751B41C236D2D00688A1B /* whiteNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = whiteNoise.swift; sourceTree = "<group>"; };
+		C4E751B81C23784400688A1B /* pan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pan.swift; sourceTree = "<group>"; };
 		C4E9583B1C0ADBFD00516A6A /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C4E9583C1C0ADBFD00516A6A /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C4E9583D1C0ADBFD00516A6A /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -977,6 +979,7 @@
 				C46302641C20E7A7009B44D9 /* Effects */,
 				C46302741C20E7A7009B44D9 /* Generators */,
 				C46302791C20E7A7009B44D9 /* Math */,
+				C4E751B71C23784400688A1B /* Mixing */,
 			);
 			name = Operations;
 			path = ../../Common/Operations;
@@ -1957,6 +1960,14 @@
 			path = Noise;
 			sourceTree = "<group>";
 		};
+		C4E751B71C23784400688A1B /* Mixing */ = {
+			isa = PBXGroup;
+			children = (
+				C4E751B81C23784400688A1B /* pan.swift */,
+			);
+			path = Mixing;
+			sourceTree = "<group>";
+		};
 		C4E959061C0B847C00516A6A /* fft */ = {
 			isa = PBXGroup;
 			children = (
@@ -2389,6 +2400,7 @@
 				C4E958B01C0ADBFD00516A6A /* fftwrapper.c in Sources */,
 				C4E958BD1C0ADBFD00516A6A /* lpf18.c in Sources */,
 				C42F36A71C057F4C000E937C /* AKBandPassButterworthFilter.swift in Sources */,
+				C4E751B91C23784400688A1B /* pan.swift in Sources */,
 				C463028E1C20E7A7009B44D9 /* add.swift in Sources */,
 				C42F36691C057F4C000E937C /* AKLowShelfFilter.swift in Sources */,
 				C46302981C20E811009B44D9 /* AKClipper.swift in Sources */,
