@@ -65,7 +65,7 @@ puts "output count = " + output_count.to_s
 output_folder = "../AudioKit/Common/Operations/#{output_folder}/"
 FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 
-File.open("templates/AKP.operation.swift.erb") { |template|
+File.open("templates/AKOperation.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{output_folder}/#{akalias}.swift", 'w+') {|f| f.write(erb.result) }
 	puts erb.result
