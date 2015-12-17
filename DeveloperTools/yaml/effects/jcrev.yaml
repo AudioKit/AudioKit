@@ -1,10 +1,12 @@
-installation-directory: "Effects/Reverbs/"
+installation-directory: "Effects/Reverb/"
 
 sp-module: jcrev
 
 node: AKChowningReverb
 
 summary: John Chowning reverberator
+
+akalias: reverberateWithChowning
 
 four-letter-code: jcrv
 

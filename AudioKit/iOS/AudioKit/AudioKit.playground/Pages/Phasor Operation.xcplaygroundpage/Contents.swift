@@ -16,10 +16,7 @@ let frequency = (floor(phasor(frequency: 0.5.ak) * numberOfNotes) * interval  + 
 let amplitude = phasor(frequency: 0.5.ak) - 1
 
 var oscillator = sineWave(frequency: frequency, amplitude: amplitude)
-oscillator.lowPassFilter(halfPowerPoint: 1600.ak)
-
-//: Set up the nodes
-let generator = AKNode.generator(oscillator)
+let reverb = oscillator.reverberatedWithChowning()
 
 audiokit.audioOutput = generator
 audiokit.start()
