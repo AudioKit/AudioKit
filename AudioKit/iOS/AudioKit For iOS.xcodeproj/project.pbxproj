@@ -323,6 +323,8 @@
 		C4E751951C220C4E00688A1B /* triangleWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751941C220C4E00688A1B /* triangleWave.swift */; };
 		C4E7519F1C233A2300688A1B /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7519E1C233A2300688A1B /* AKOperation.swift */; };
 		C4E751A31C2344E000688A1B /* autoWah.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A21C2344E000688A1B /* autoWah.swift */; };
+		C4E751A71C2354EE00688A1B /* max.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A61C2354EE00688A1B /* max.swift */; };
+		C4E751A91C23557F00688A1B /* min.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751A81C23557F00688A1B /* min.swift */; };
 		C4E958961C0ADBFD00516A6A /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583B1C0ADBFD00516A6A /* allpass.c */; };
 		C4E958971C0ADBFD00516A6A /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583C1C0ADBFD00516A6A /* atone.c */; };
 		C4E958981C0ADBFD00516A6A /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583D1C0ADBFD00516A6A /* autowah.c */; };
@@ -763,6 +765,8 @@
 		C4E751941C220C4E00688A1B /* triangleWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangleWave.swift; sourceTree = "<group>"; };
 		C4E7519E1C233A2300688A1B /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
 		C4E751A21C2344E000688A1B /* autoWah.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = autoWah.swift; sourceTree = "<group>"; };
+		C4E751A61C2354EE00688A1B /* max.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = max.swift; sourceTree = "<group>"; };
+		C4E751A81C23557F00688A1B /* min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = min.swift; sourceTree = "<group>"; };
 		C4E9583B1C0ADBFD00516A6A /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C4E9583C1C0ADBFD00516A6A /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C4E9583D1C0ADBFD00516A6A /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -1713,7 +1717,9 @@
 			children = (
 				C463027A1C20E7A7009B44D9 /* add.swift */,
 				C463027B1C20E7A7009B44D9 /* divide.swift */,
+				C4E751A61C2354EE00688A1B /* max.swift */,
 				C463027C1C20E7A7009B44D9 /* multiply.swift */,
+				C4E751A81C23557F00688A1B /* min.swift */,
 				C463027D1C20E7A7009B44D9 /* scale.swift */,
 				C463027E1C20E7A7009B44D9 /* subtract.swift */,
 			);
@@ -2356,6 +2362,7 @@
 				C463028E1C20E7A7009B44D9 /* add.swift in Sources */,
 				C42F36691C057F4C000E937C /* AKLowShelfFilter.swift in Sources */,
 				C46302981C20E811009B44D9 /* AKClipper.swift in Sources */,
+				C4E751A71C2354EE00688A1B /* max.swift in Sources */,
 				C45C35581C08EE5700E3C7F0 /* parse.c in Sources */,
 				C46300DB1C20C342009B44D9 /* butlp.c in Sources */,
 				C4E958E31C0ADBFD00516A6A /* tbvcf.c in Sources */,
@@ -2473,6 +2480,7 @@
 				C46300E51C20C342009B44D9 /* fm.c in Sources */,
 				C42F363E1C057F4C000E937C /* AKFMOscillator.swift in Sources */,
 				C408699F1C192C5E00EF9DED /* EZAudioUtilities.m in Sources */,
+				C4E751A91C23557F00688A1B /* min.swift in Sources */,
 				C40869931C192C5E00EF9DED /* EZAudioFile.m in Sources */,
 				C43792721C0C58B3001E9160 /* AKCustomGeneratorAudioUnit.mm in Sources */,
 				C42F367D1C057F4C000E937C /* AKFormantFilterAudioUnit.mm in Sources */,
