@@ -9,7 +9,10 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-let frequency = phasor(frequency: 0.5.ak) * 1600
+let interval: Double = 2
+let numberOfNotes: Double = 24
+let startingNote: Double = 48 // C
+let frequency = (floor(phasor(frequency: 0.5.ak) * numberOfNotes) * interval  + startingNote).midiNoteNumberToFrequency()
 let amplitude = phasor(frequency: 0.5.ak) - 1
 
 var oscillator = sineWave(frequency: frequency, amplitude: amplitude)

@@ -37,6 +37,9 @@ public struct AKOperation: CustomStringConvertible {
     public func round() -> AKOperation {
         return AKOperation("\(self)round")
     }
+    public func midiNoteNumberToFrequency() -> AKOperation {
+        return AKOperation("\(self)mtof")
+    }
 }
 
 public func abs(parameter: AKOperation) -> AKOperation {
