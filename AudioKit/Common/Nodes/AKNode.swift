@@ -26,7 +26,7 @@ public class AKNode {
         return AKCustomEffect(input, sporth:"\(operation) swap drop dup")
     }
     public static func effect(input: AKNode, operation: AKStereoOperation) -> AKCustomEffect {
-        return AKCustomEffect(input, sporth:"\(operation)")
+        return AKCustomEffect(input, sporth:"\(operation) swap")
     }
     
     public static func stereoEffect(input: AKNode, leftOperation: AKOperation, rightOperation: AKOperation) -> AKCustomEffect {
@@ -35,6 +35,10 @@ public class AKNode {
     
     public static func generator(operation: AKOperation) -> AKCustomGenerator {
         return AKCustomGenerator("\(operation) dup")
+    }
+    
+    public static func generator(operation: AKStereoOperation) -> AKCustomGenerator {
+        return AKCustomGenerator("\(operation) swap")
     }
     
     public static func generator(left: AKOperation, _ right: AKOperation) -> AKCustomGenerator {
