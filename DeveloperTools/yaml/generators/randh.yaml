@@ -1,0 +1,49 @@
+installation-directory: "Math/"
+
+sp-module: randh
+akalias: randomNumberPulse
+
+operation: AK
+
+four-letter-code: AK
+
+summary: Random number generator with hold time.
+
+
+one-word-description: Random
+
+
+description:
+  Loosely based off of the Csound opcode randomh. The design is equivalent
+  to scaled noise sent through a classic sample and hold module.
+
+
+parameters:
+- min: {
+  ak-variable: minimum,
+  comment: "Minimum value to use.",
+  au-name: "Minimum value to use.",
+  au-unit: Hertz,
+  default: 0,
+  minimum: ,
+  maximum:
+}
+- max: {
+  ak-variable: maximum,
+  comment: "Maximum value to use.",
+  au-name: "Maximum value to use.",
+  au-unit: Hertz,
+  default: 1,
+  minimum: ,
+  maximum:
+}
+- freq: {
+  ak-variable: updateFrequency,
+  comment: "Frequency of randomization (in Hz)",
+  au-name: "Frequency of randomization (in Hz)",
+  au-unit: Hertz,
+  default: 10,
+  minimum: ,
+  maximum:
+}
+
