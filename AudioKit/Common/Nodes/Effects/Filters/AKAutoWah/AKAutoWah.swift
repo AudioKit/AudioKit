@@ -12,8 +12,9 @@ import AVFoundation
 public class AKAutoWah: AKNode {
 
     // MARK: - Properties
-
+    
     private var internalAU: AKAutoWahAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var wahParameter: AUParameter?
@@ -73,6 +74,7 @@ public class AKAutoWah: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAutoWahAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

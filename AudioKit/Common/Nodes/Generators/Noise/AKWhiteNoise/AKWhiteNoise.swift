@@ -14,6 +14,7 @@ public class AKWhiteNoise: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKWhiteNoiseAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var amplitudeParameter: AUParameter?
@@ -52,11 +53,13 @@ public class AKWhiteNoise: AKNode {
 
             self.output = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKWhiteNoiseAudioUnit
+            self.internalAudioUnit = avAudioUnitGenerator.audioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.output!)
+            
         }
 
         guard let tree = internalAU?.parameterTree else { return }
-
         amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {

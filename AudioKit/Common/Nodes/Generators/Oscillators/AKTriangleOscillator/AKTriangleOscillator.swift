@@ -15,6 +15,7 @@ public class AKTriangleOscillator: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKTriangleOscillatorAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
@@ -64,6 +65,8 @@ public class AKTriangleOscillator: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTriangleOscillatorAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.output!)
         }
 

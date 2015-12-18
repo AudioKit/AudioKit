@@ -28,6 +28,7 @@ class ViewController: UIViewController {
     var exs2 = AKSampler()
     var seq = AKSequencer(filename:"4tracks")
     var mixer = AKMixer()
+//    var spatMix = AKSpatialMixer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +44,8 @@ class ViewController: UIViewController {
         //getAUParams((limiter?.internalAU)!)
 
         */
-//        exs.loadEXS24("Sounds/sawPiano1")
-//        exs2.loadWav("Sounds/kylebell1-shrt")
+        exs.loadEXS24("Sounds/sawPiano1")
+        exs2.loadWav("Sounds/kylebell1-shrt")
 
         mixer.connect(exs)
         mixer.connect(exs2)
@@ -62,11 +63,12 @@ class ViewController: UIViewController {
 
         //        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
 
-        seq.setGlobalMidiOutput(midi)
+        exs.enableMidi(midi.midiClient)
+        exs2.enableMidi(midi.midiClient)
+        seq.setGlobalMidiOutput(exs.midiIn)
+//        print(seq.numTracks)
         seq.setLength(4)
-        CAShow(seq.sequencePointer)
-        print(seq.length)
-
+//        CAShow(seq.tracks[1].trackPtr)
     }
 
     func midiNotif(notif:NSNotification){
@@ -81,11 +83,13 @@ class ViewController: UIViewController {
 //        exs2.playNote(notif.userInfo?.indexForKey("note"))
     }
     @IBAction func playNote(){
+//        exs.playNote(63)
 //        exs.playNote(Int(arc4random_uniform(127)))
         seq.play()
     }
     @IBAction func playNote2(){
-        seq.rewind()
+                seq.rewind()
+//        exs2.playNote(60)
 //        exs2.playNote(Int(arc4random_uniform(127)))
     }
     @IBAction func playNoteboth(){

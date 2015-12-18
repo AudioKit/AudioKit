@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Non-Audio Tutorial'/>
@@ -24,7 +24,6 @@
         <page name='High Shelf Filter'/>
         <page name='Low Pass Filter'/>
         <page name='Low Shelf Filter'/>
-        <page name='Modal Resonance Filter'/>
         <page name='Moog Ladder Filter'/>
         <page name='Parametric Equalizer'/>
         <page name='Oscillators'/>
@@ -45,16 +44,19 @@
         <page name='Operations Index'/>
         <page name='Bit Crush Operation'/>
         <page name='Clip Operation'/>
-        <page name='Modal Resonance Filter Operation'/>
-        <page name='Moog Ladder Filter Operation'/>
         <page name='Sean Costello Reverb Operation'/>
         <page name='Phasor Operation'/>
         <page name='Flat Frequency Repsonse Reverb Operation'/>
         <page name='FM Oscillator Operation'/>
-        <page name='AutoWah Operation'/>
         <page name='High Pass Filter Operation'/>
         <page name='Low Pass Filter Operation'/>
-        <page name='Sawtooth Wave Oscillator Operation'/>
+        <page name='AutoWah Operation'/>
+        <page name='Modal Resonance Filter'/>
+        <page name='Modal Resonance Filter Operation'/>
+        <page name='Moog Ladder Filter Operation'/>
         <page name='Noise Operations'/>
+        <page name='Sawtooth Wave Oscillator Operation'/>
+        <page name='Sampler Instrument - EXS24'/>
+        <page name='Sampler Instrument - Wav file'/>
     </pages>
 </playground>
