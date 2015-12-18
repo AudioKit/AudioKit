@@ -24,8 +24,6 @@ public class AKSequencer{
         //setup and attach to musicplayer
         NewMusicPlayer(&musicPlayer)
         MusicPlayerSetSequence(musicPlayer, sequence)
-        
-        print("howdy from sequencer")
     }
     
     //inits the sequence with a midi file
