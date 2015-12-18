@@ -4,6 +4,8 @@ sp-module: autowah
 
 node: AKAutoWah
 
+akalias: autoWah
+
 four-letter-code: awah
 
 summary: Automatic wah pedal
@@ -12,6 +14,11 @@ one-word-description: Auto-Wah
 
 description: An automatic wah effect, ported from Guitarix via Faust.
 
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
 
 parameters:
 - wah: {

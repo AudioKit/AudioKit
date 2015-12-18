@@ -1,6 +1,7 @@
-installation-directory: "Generators/Random\ Generators/"
+installation-directory: "Generators/Noise/"
 
 sp-module: noise
+akalias: whiteNoise
 
 node: AKWhiteNoise
 
@@ -10,7 +11,7 @@ four-letter-code: wnoz
 
 one-word-description: noise
 
-description:
+description: ""
 
 parameters:
 - amp: {

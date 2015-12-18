@@ -8,25 +8,25 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
 
     /** bitCrush: Bit Crusher - This will digitally degrade a signal.
 |     - Parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. (Default: 8, Minimum: 1, Maximum: 24)
      - Parameter sampleRate: The sample rate of signal output. (Default: 10000, Minimum: 0.0, Maximum: 20000.0)
      */
-    public mutating func bitCrush(bitDepth bitDepth: AKParameter = 8.ak, sampleRate: AKParameter = 10000.ak) {
+    public mutating func bitCrush(bitDepth bitDepth: AKOperation = 8.ak, sampleRate: AKOperation = 10000.ak) {
         self = self.bitCrushed(bitDepth: bitDepth, sampleRate: sampleRate)
     }
     
     /** bitCrushed: Bit Crusher - This will digitally degrade a signal.
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. (Default: 8, Minimum: 1, Maximum: 24)
      - Parameter sampleRate: The sample rate of signal output. (Default: 10000, Minimum: 0.0, Maximum: 20000.0)
      */
     public func bitCrushed(
-        bitDepth bitDepth: AKParameter = 8.ak,
-        sampleRate: AKParameter = 10000.ak
-        ) -> AKParameter {
-            return AKParameter("\(self)\(bitDepth)\(sampleRate)bitcrush")
+        bitDepth bitDepth: AKOperation = 8.ak,
+        sampleRate: AKOperation = 10000.ak
+        ) -> AKOperation {
+            return AKOperation("\(self)\(bitDepth)\(sampleRate)bitcrush")
     }
 }

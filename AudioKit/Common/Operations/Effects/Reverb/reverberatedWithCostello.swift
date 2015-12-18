@@ -8,19 +8,19 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     
     /** reverberatedWithCostello: 8 delay line stereo FDN reverb - 8 delay line stereo FDN reverb, with feedback matrix based upon physical
      modeling scattering junction of 8 lossless waveguides of equal characteristic
      impedance.
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable. (Default: 0.6, Minimum: 0.0, Maximum: 1.0)
      - Parameter cutoffFrequency: Low-pass cutoff frequency. (Default: 4000, Minimum: 12.0, Maximum: 20000.0)
      */
     public func reverberatedWithCostello(
-        feedback feedback: AKParameter = 0.6.ak,
-        cutoffFrequency: AKParameter = 4000.ak
-        ) -> AKStereoParameter {
-            return AKStereoParameter("\(self)\(feedback)\(cutoffFrequency)revsc")
+        feedback feedback: AKOperation = 0.6.ak,
+        cutoffFrequency: AKOperation = 4000.ak
+        ) -> AKStereoOperation {
+            return AKStereoOperation("\(self)\(feedback)\(cutoffFrequency)revsc")
     }
 }

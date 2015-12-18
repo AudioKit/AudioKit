@@ -2,21 +2,25 @@
 //:
 //: ---
 //:
-//: ## phasor
-//: ### This is an example of building a sound generator from scratch
+//: ## Phasor Operation
+//: ### Here we use the phasor to sweep amplitude and frequencies
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-let frequency = phasor(frequency: 0.5.ak) * 1600
-let amplitude = phasor(frequency: 0.5.ak) - 1
+let interval: Double = 2
+let numberOfNotes: Double = 24
+let startingNote: Double = 48 // C
+let frequency = (floor(phasor(frequency: 0.5.ak) * numberOfNotes) * interval  + startingNote).midiNoteNumberToFrequency()
 
-let oscillator = sine(frequency: frequency, amplitude: amplitude)
+var amplitude = phasor(frequency: 0.5.ak) - 1
+amplitude.applyPortamento() // prevents the click sound
 
-let filteredOscillator = oscillator.lowPassFiltered(halfPowerPoint: 1600.ak)
-//: Set up the nodes
-let generator = AKNode.generator(filteredOscillator)
+var oscillator = sineWave(frequency: frequency, amplitude: amplitude)
+let reverb = oscillator.reverberatedWithChowning()
+let oscillatorReverbMix = mix(oscillator, reverb, t: 0.6)
+let generator = AKNode.generator(oscillatorReverbMix)
 
 audiokit.audioOutput = generator
 audiokit.start()

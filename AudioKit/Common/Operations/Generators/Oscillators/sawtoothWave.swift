@@ -1,0 +1,38 @@
+//
+//  sawtoothWave.swift
+//  AudioKit For iOS
+//
+//  Created by Aurelius Prochazka on 12/16/15.
+//  Copyright © 2015 AudioKit. All rights reserved.
+//
+
+import Foundation
+
+extension AKOperation {
+    
+    /** sawtoothWave: Sawtooth wave oscillator -
+     - returns: AKOperation
+     - Parameter frequency: Frequency in cycles per second (Default: 440)
+     - Parameter amplitude: Amplitude of the output (Default: 1)
+     */
+    public static func sawtoothWave(
+        frequency frequency: AKOperation = 440.ak,
+        amplitude: AKOperation = 1.ak
+        ) -> AKOperation {
+            return AKOperation("\(frequency)\(amplitude)saw")
+    }
+}
+
+// Global Helper function
+
+/** sawtoothWave: Sawtooth wave oscillator -
+- returns: AKOperation
+- Parameter frequency: Frequency in cycles per second (Default: 440)
+- Parameter amplitude: Amplitude of the output (Default: 1)
+*/
+public func sawtoothWave(
+    frequency frequency: AKOperation = 440.ak,
+    amplitude: AKOperation = 1.ak
+    ) -> AKOperation {
+        return AKOperation.sawtoothWave(frequency: frequency, amplitude: amplitude)
+}

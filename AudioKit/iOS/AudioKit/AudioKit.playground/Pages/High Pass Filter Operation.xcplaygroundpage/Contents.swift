@@ -10,7 +10,7 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Filter setup
-let halfPower = sine(frequency: 0.2.ak).scaledTo(minimum: 12000, maximum: 100)
+let halfPower = sineWave(frequency: 0.2.ak).scaledTo(minimum: 12000, maximum: 100)
 let filter = AKInput.highPassFiltered(halfPowerPoint: halfPower)
 
 //: Noise Example
