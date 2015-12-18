@@ -23,6 +23,13 @@ public func randomFloat(minimum: Float, _ maximum: Float) -> Float {
     return Float(arc4random_uniform(UInt32(precision))) / Float(precision) * width + minimum
 }
 
+extension Array {
+    public func randomElement() -> Element {
+        let index = Int(arc4random_uniform(UInt32(self.count)))
+        return self[index]
+    }
+}
+
 public func randomInt(range: Range<Int>) -> Int {
     let width = range.maxElement()! - range.minElement()!
     return Int(arc4random_uniform(UInt32(width))) + range.minElement()!
