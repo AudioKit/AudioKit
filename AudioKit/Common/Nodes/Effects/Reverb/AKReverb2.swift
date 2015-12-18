@@ -20,6 +20,7 @@ public class AKReverb2: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
+    public var internalAudioUnit:AudioUnit?
     
     /** Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100) */
     public var dryWetMix: Float = 100 {
@@ -180,6 +181,7 @@ public class AKReverb2: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
+            internalAudioUnit = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix,            kAudioUnitScope_Global, 0, dryWetMix, 0)
             AudioUnitSetParameter(internalAU, kReverb2Param_Gain,                 kAudioUnitScope_Global, 0, gain, 0)

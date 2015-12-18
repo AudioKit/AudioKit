@@ -14,6 +14,7 @@ public class AKBitCrusher: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKBitCrusherAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var bitDepthParameter: AUParameter?
@@ -64,6 +65,7 @@ public class AKBitCrusher: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBitCrusherAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

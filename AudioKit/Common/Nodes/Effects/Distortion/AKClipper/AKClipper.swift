@@ -15,6 +15,7 @@ public class AKClipper: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKClipperAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var limitParameter: AUParameter?
@@ -74,6 +75,7 @@ public class AKClipper: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKClipperAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

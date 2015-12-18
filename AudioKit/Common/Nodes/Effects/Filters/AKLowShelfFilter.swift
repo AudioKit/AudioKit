@@ -20,6 +20,7 @@ public class AKLowShelfFilter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
+    public var internalAudioUnit:AudioUnit?
     
     /** Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80) */
     public var cutoffFrequency: Float = 80 {
@@ -70,7 +71,8 @@ public class AKLowShelfFilter: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            
+            self.internalAudioUnit = internalEffect.audioUnit
+
             AudioUnitSetParameter(internalAU, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoffFrequency, 0)
             AudioUnitSetParameter(internalAU, kAULowShelfParam_Gain,            kAudioUnitScope_Global, 0, gain, 0)
     }

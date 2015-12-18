@@ -14,6 +14,7 @@ public class AKTester: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKTesterAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
     var totalSamples = 0
 
@@ -53,6 +54,8 @@ public class AKTester: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTesterAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
             self.internalAU?.setSamples(Int32(samples))

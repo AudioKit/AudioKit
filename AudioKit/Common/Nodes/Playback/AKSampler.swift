@@ -21,6 +21,7 @@ public class AKSampler: AKNode {
     // MARK: - Properties
     
     private var internalAU: AUAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
     var samplerUnit = AVAudioUnitSampler()
     public var midiIn = MIDIEndpointRef()
@@ -34,6 +35,8 @@ public class AKSampler: AKNode {
         
         self.output = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
+        self.internalAudioUnit = samplerUnit.audioUnit
+
         AKManager.sharedInstance.engine.attachNode(self.output!)
         //you still need to connect the output, and you must do this before starting the processing graph
     }//end init
@@ -93,7 +96,7 @@ public class AKSampler: AKNode {
             for var i = 0; i < numPackets; ++i {
                 let event = AKMidiEvent(packet: packetPtr.memory)
                 //the next line is unique for midiInstruments - otherwise this function is the same as AKMidi
-                MusicDeviceMIDIEvent(samplerUnit.audioUnit, UInt32(event.internalData[0]), UInt32(event.internalData[1]), UInt32(event.internalData[2]), 0)
+               MusicDeviceMIDIEvent(samplerUnit.audioUnit, UInt32(event.internalData[0]), UInt32(event.internalData[1]), UInt32(event.internalData[2]), 0)
                 packetPtr = MIDIPacketNext(packetPtr)
             }
     }

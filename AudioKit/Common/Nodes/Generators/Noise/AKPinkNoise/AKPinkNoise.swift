@@ -14,6 +14,7 @@ public class AKPinkNoise: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKPinkNoiseAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var amplitudeParameter: AUParameter?
@@ -53,6 +54,7 @@ public class AKPinkNoise: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPinkNoiseAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
         }
 

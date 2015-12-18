@@ -22,6 +22,9 @@ public class AKMusicTrack{
     public func setMidiOutput(endpoint:MIDIEndpointRef){
         MusicTrackSetDestMIDIEndpoint(internalMusicTrack, endpoint)
     }
+    public func setNodeOutput(node:AUNode){
+        MusicTrackSetDestNode(internalMusicTrack,node)
+    }
     
     public func setOutputNode(node:AUNode){
         MusicTrackSetDestNode(internalMusicTrack, node)
