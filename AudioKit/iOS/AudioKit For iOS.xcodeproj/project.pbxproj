@@ -332,6 +332,7 @@
 		C4E751B51C236D2D00688A1B /* pinkNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B31C236D2D00688A1B /* pinkNoise.swift */; };
 		C4E751B61C236D2D00688A1B /* whiteNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B41C236D2D00688A1B /* whiteNoise.swift */; };
 		C4E751B91C23784400688A1B /* pan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751B81C23784400688A1B /* pan.swift */; };
+		C4E751BB1C23864500688A1B /* portamento.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751BA1C23864500688A1B /* portamento.swift */; };
 		C4E958961C0ADBFD00516A6A /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583B1C0ADBFD00516A6A /* allpass.c */; };
 		C4E958971C0ADBFD00516A6A /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583C1C0ADBFD00516A6A /* atone.c */; };
 		C4E958981C0ADBFD00516A6A /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9583D1C0ADBFD00516A6A /* autowah.c */; };
@@ -781,6 +782,7 @@
 		C4E751B31C236D2D00688A1B /* pinkNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pinkNoise.swift; sourceTree = "<group>"; };
 		C4E751B41C236D2D00688A1B /* whiteNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = whiteNoise.swift; sourceTree = "<group>"; };
 		C4E751B81C23784400688A1B /* pan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pan.swift; sourceTree = "<group>"; };
+		C4E751BA1C23864500688A1B /* portamento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = portamento.swift; sourceTree = "<group>"; };
 		C4E9583B1C0ADBFD00516A6A /* allpass.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = allpass.c; sourceTree = "<group>"; };
 		C4E9583C1C0ADBFD00516A6A /* atone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = atone.c; sourceTree = "<group>"; };
 		C4E9583D1C0ADBFD00516A6A /* autowah.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autowah.c; sourceTree = "<group>"; };
@@ -1740,6 +1742,7 @@
 				C4E751A61C2354EE00688A1B /* max.swift */,
 				C463027C1C20E7A7009B44D9 /* multiply.swift */,
 				C4E751A81C23557F00688A1B /* min.swift */,
+				C4E751BA1C23864500688A1B /* portamento.swift */,
 				C463027D1C20E7A7009B44D9 /* scale.swift */,
 				C463027E1C20E7A7009B44D9 /* subtract.swift */,
 			);
@@ -2494,6 +2497,7 @@
 				C4E958E41C0ADBFD00516A6A /* tenv.c in Sources */,
 				C4E958D01C0ADBFD00516A6A /* progress.c in Sources */,
 				C46302801C20E7A7009B44D9 /* delay.swift in Sources */,
+				C4E751BB1C23864500688A1B /* portamento.swift in Sources */,
 				C467816D1C1C0C090000BF29 /* AKNodeOutputPlot.swift in Sources */,
 				C42F36041C057F4C000E937C /* AKDSPKernel.mm in Sources */,
 				C463029A1C20E811009B44D9 /* AKClipperAudioUnit.mm in Sources */,

@@ -13,7 +13,9 @@ let interval: Double = 2
 let numberOfNotes: Double = 24
 let startingNote: Double = 48 // C
 let frequency = (floor(phasor(frequency: 0.5.ak) * numberOfNotes) * interval  + startingNote).midiNoteNumberToFrequency()
-let amplitude = phasor(frequency: 0.5.ak) - 1
+
+var amplitude = phasor(frequency: 0.5.ak) - 1
+amplitude.applyPortamento() // prevents the click sound
 
 var oscillator = sineWave(frequency: frequency, amplitude: amplitude)
 let reverb = oscillator.reverberatedWithChowning()
