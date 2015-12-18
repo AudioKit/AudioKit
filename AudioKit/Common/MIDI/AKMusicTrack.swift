@@ -25,8 +25,4 @@ public class AKMusicTrack{
     public func setNodeOutput(node:AUNode){
         MusicTrackSetDestNode(internalMusicTrack,node)
     }
-    
-    public func setOutputNode(node:AUNode){
-        MusicTrackSetDestNode(internalMusicTrack, node)
-    }
 }
