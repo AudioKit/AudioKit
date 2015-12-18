@@ -16,6 +16,7 @@ public class AKCostelloReverb: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKCostelloReverbAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var feedbackParameter: AUParameter?
@@ -68,6 +69,7 @@ public class AKCostelloReverb: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCostelloReverbAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

@@ -19,7 +19,7 @@ public class AKDecimator: AKNode {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
+    public var internalAudioUnit = AudioUnit()
     
     /** Decimation (Percent) ranges from 0 to 100 (Default: 50) */
     public var decimation: Float = 50 {
@@ -30,7 +30,7 @@ public class AKDecimator: AKNode {
             if decimation > 100 {
                 decimation = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, decimation, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, decimation, 0)
         }
     }
     
@@ -43,7 +43,7 @@ public class AKDecimator: AKNode {
             if rounding > 100 {
                 rounding = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, rounding, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, rounding, 0)
         }
     }
     
@@ -57,7 +57,7 @@ public class AKDecimator: AKNode {
             if mix > 100 {
                 mix = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, mix, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, mix, 0)
         }
     }
     
@@ -77,13 +77,13 @@ public class AKDecimator: AKNode {
             output = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
-            internalAU = internalEffect.audioUnit
+            internalAudioUnit = internalEffect.audioUnit
             
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
-            AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, 100, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, 100, 0)
             
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, decimation, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, rounding, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, mix, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, decimation, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, rounding, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, mix, 0)
     }
 }

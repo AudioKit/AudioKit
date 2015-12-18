@@ -14,6 +14,7 @@ public class AKToneComplementFilter: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKToneComplementFilterAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
@@ -55,6 +56,8 @@ public class AKToneComplementFilter: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKToneComplementFilterAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

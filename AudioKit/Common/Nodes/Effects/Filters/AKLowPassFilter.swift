@@ -20,6 +20,7 @@ public class AKLowPassFilter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
+    public var internalAudioUnit:AudioUnit?
     
     /** Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900) */
     public var cutoffFrequency: Float = 6900 {
@@ -70,7 +71,8 @@ public class AKLowPassFilter: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            
+            self.internalAudioUnit = internalEffect.audioUnit
+
             AudioUnitSetParameter(internalAU, kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoffFrequency, 0)
             AudioUnitSetParameter(internalAU, kLowPassParam_Resonance,       kAudioUnitScope_Global, 0, resonance, 0)
     }

@@ -20,6 +20,7 @@ public class AKChowningReverb: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKChowningReverbAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
 
@@ -50,6 +51,7 @@ public class AKChowningReverb: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKChowningReverbAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

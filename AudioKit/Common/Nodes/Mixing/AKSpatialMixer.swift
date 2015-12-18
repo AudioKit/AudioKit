@@ -20,6 +20,7 @@ public class AKSpatialMixer: AKNode {
     
     private var internalEffect = AVAudioUnit()
     private var internalAU = AudioUnit()
+    public var internalAudioUnit:AudioUnit?
     
     /** Azimuth (Degrees) ranges from -180 to 180 (Default: 0) */
     public var azimuth: Float = 0 {
@@ -90,6 +91,8 @@ public class AKSpatialMixer: AKNode {
                 
                 self.output = avAudioUnit
                 self.internalAU = avAudioUnit.audioUnit
+                self.internalAudioUnit = avAudioUnit.audioUnit
+
                 AKManager.sharedInstance.engine.attachNode(self.output!)
                 AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
             }

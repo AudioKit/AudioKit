@@ -20,6 +20,7 @@ public class AKPeakLimiter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
+    public var internalAudioUnit:AudioUnit?
     
     /** Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012) */
     public var attackTime: Float = 0.012 {
@@ -77,6 +78,7 @@ public class AKPeakLimiter: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
+            internalAudioUnit = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, attackTime, 0)
             AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime,  kAudioUnitScope_Global, 0, decayTime, 0)

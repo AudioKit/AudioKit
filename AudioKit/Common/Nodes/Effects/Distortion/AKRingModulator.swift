@@ -20,6 +20,7 @@ public class AKRingModulator: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
+    public var internalAudioUnit:AudioUnit?
     
     /** Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
     public var frequency1: Float = 100 {
@@ -92,7 +93,8 @@ public class AKRingModulator: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            
+            internalAudioUnit = internalEffect.audioUnit
+
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
             AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
             

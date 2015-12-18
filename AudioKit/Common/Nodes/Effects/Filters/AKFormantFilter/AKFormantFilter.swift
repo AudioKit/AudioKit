@@ -16,6 +16,7 @@ public class AKFormantFilter: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKFormantFilterAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
@@ -75,6 +76,7 @@ public class AKFormantFilter: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFormantFilterAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

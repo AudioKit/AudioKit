@@ -91,7 +91,7 @@
     };
 
     self.maximumFramesToRender = 512;
-
+    
     return self;
 }
 

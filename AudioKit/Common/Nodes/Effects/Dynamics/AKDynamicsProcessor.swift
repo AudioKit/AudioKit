@@ -19,7 +19,7 @@ public class AKDynamicsProcessor: AKNode {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
+    public var internalAudioUnit = AudioUnit()
     
     /** Threshold (dB) ranges from -40 to 20 (Default: -20) */
     public var threshold: Float = -20 {
@@ -31,7 +31,7 @@ public class AKDynamicsProcessor: AKNode {
                 threshold = 20
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_Threshold,
                 kAudioUnitScope_Global, 0,
                 threshold, 0)
@@ -48,7 +48,7 @@ public class AKDynamicsProcessor: AKNode {
                 headRoom = 40.0
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_HeadRoom,
                 kAudioUnitScope_Global, 0,
                 headRoom, 0)
@@ -65,7 +65,7 @@ public class AKDynamicsProcessor: AKNode {
                 expansionRatio = 50.0
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_ExpansionRatio,
                 kAudioUnitScope_Global, 0,
                 expansionRatio, 0)
@@ -82,7 +82,7 @@ public class AKDynamicsProcessor: AKNode {
                 expansionThreshold = 50.0
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_ExpansionThreshold,
                 kAudioUnitScope_Global, 0,
                 expansionThreshold, 0)
@@ -99,7 +99,7 @@ public class AKDynamicsProcessor: AKNode {
                 attackTime = 0.2
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_AttackTime,
                 kAudioUnitScope_Global, 0,
                 attackTime, 0)
@@ -116,7 +116,7 @@ public class AKDynamicsProcessor: AKNode {
                 releaseTime = 3
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_ReleaseTime,
                 kAudioUnitScope_Global, 0,
                 releaseTime, 0)
@@ -133,7 +133,7 @@ public class AKDynamicsProcessor: AKNode {
                 masterGain = 40
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_MasterGain,
                 kAudioUnitScope_Global, 0,
                 masterGain, 0)
@@ -150,7 +150,7 @@ public class AKDynamicsProcessor: AKNode {
                 compressionAmount = 40
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_CompressionAmount,
                 kAudioUnitScope_Global, 0,
                 compressionAmount, 0)
@@ -167,7 +167,7 @@ public class AKDynamicsProcessor: AKNode {
                 inputAmplitude = 40
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_InputAmplitude,
                 kAudioUnitScope_Global, 0,
                 inputAmplitude, 0)
@@ -184,7 +184,7 @@ public class AKDynamicsProcessor: AKNode {
                 outputAmplitude = 40
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDynamicsProcessorParam_OutputAmplitude,
                 kAudioUnitScope_Global, 0,
                 outputAmplitude, 0)
@@ -221,17 +221,17 @@ public class AKDynamicsProcessor: AKNode {
             output = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
-            internalAU = internalEffect.audioUnit
+            internalAudioUnit = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_Threshold,          kAudioUnitScope_Global, 0, threshold, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_HeadRoom,           kAudioUnitScope_Global, 0, headRoom, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionRatio,     kAudioUnitScope_Global, 0, expansionRatio, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionThreshold, kAudioUnitScope_Global, 0, expansionThreshold, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_AttackTime,         kAudioUnitScope_Global, 0, attackTime, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime,        kAudioUnitScope_Global, 0, releaseTime, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain,         kAudioUnitScope_Global, 0, masterGain, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount,  kAudioUnitScope_Global, 0, compressionAmount, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_InputAmplitude,     kAudioUnitScope_Global, 0, inputAmplitude, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_OutputAmplitude,    kAudioUnitScope_Global, 0, outputAmplitude, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_Threshold,          kAudioUnitScope_Global, 0, threshold, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_HeadRoom,           kAudioUnitScope_Global, 0, headRoom, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_ExpansionRatio,     kAudioUnitScope_Global, 0, expansionRatio, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_ExpansionThreshold, kAudioUnitScope_Global, 0, expansionThreshold, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_AttackTime,         kAudioUnitScope_Global, 0, attackTime, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_ReleaseTime,        kAudioUnitScope_Global, 0, releaseTime, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_MasterGain,         kAudioUnitScope_Global, 0, masterGain, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_CompressionAmount,  kAudioUnitScope_Global, 0, compressionAmount, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_InputAmplitude,     kAudioUnitScope_Global, 0, inputAmplitude, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDynamicsProcessorParam_OutputAmplitude,    kAudioUnitScope_Global, 0, outputAmplitude, 0)
     }
 }

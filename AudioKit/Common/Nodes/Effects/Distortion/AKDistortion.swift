@@ -19,7 +19,7 @@ public class AKDistortion: AKNode {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
+    public var internalAudioUnit = AudioUnit()
     
     /** Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1) */
     public var delay: Float = 0.1 {
@@ -31,7 +31,7 @@ public class AKDistortion: AKNode {
                 delay = 500
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_Delay,
                 kAudioUnitScope_Global, 0,
                 delay, 0)
@@ -48,7 +48,7 @@ public class AKDistortion: AKNode {
                 decay = 50
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_Decay,
                 kAudioUnitScope_Global, 0,
                 decay, 0)
@@ -65,7 +65,7 @@ public class AKDistortion: AKNode {
                 delayMix = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_DelayMix,
                 kAudioUnitScope_Global, 0,
                 delayMix, 0)
@@ -82,7 +82,7 @@ public class AKDistortion: AKNode {
                 decimation = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_Decimation,
                 kAudioUnitScope_Global, 0,
                 decimation, 0)
@@ -99,7 +99,7 @@ public class AKDistortion: AKNode {
                 rounding = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_Rounding,
                 kAudioUnitScope_Global, 0,
                 rounding, 0)
@@ -116,7 +116,7 @@ public class AKDistortion: AKNode {
                 decimationMix = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_DecimationMix,
                 kAudioUnitScope_Global, 0,
                 decimationMix, 0)
@@ -133,7 +133,7 @@ public class AKDistortion: AKNode {
                 linearTerm = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_LinearTerm,
                 kAudioUnitScope_Global, 0,
                 linearTerm, 0)
@@ -150,7 +150,7 @@ public class AKDistortion: AKNode {
                 squaredTerm = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_SquaredTerm,
                 kAudioUnitScope_Global, 0,
                 squaredTerm, 0)
@@ -167,7 +167,7 @@ public class AKDistortion: AKNode {
                 cubicTerm = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_CubicTerm,
                 kAudioUnitScope_Global, 0,
                 cubicTerm, 0)
@@ -184,7 +184,7 @@ public class AKDistortion: AKNode {
                 polynomialMix = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_PolynomialMix,
                 kAudioUnitScope_Global, 0,
                 polynomialMix, 0)
@@ -201,7 +201,7 @@ public class AKDistortion: AKNode {
                 ringModFreq1 = 8000
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_RingModFreq1,
                 kAudioUnitScope_Global, 0,
                 ringModFreq1, 0)
@@ -218,7 +218,7 @@ public class AKDistortion: AKNode {
                 ringModFreq2 = 8000
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_RingModFreq2,
                 kAudioUnitScope_Global, 0,
                 ringModFreq2, 0)
@@ -235,7 +235,7 @@ public class AKDistortion: AKNode {
                 ringModBalance = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_RingModBalance,
                 kAudioUnitScope_Global, 0,
                 ringModBalance, 0)
@@ -252,7 +252,7 @@ public class AKDistortion: AKNode {
                 ringModMix = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_RingModMix,
                 kAudioUnitScope_Global, 0,
                 ringModMix, 0)
@@ -269,7 +269,7 @@ public class AKDistortion: AKNode {
                 softClipGain = 20
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_SoftClipGain,
                 kAudioUnitScope_Global, 0,
                 softClipGain, 0)
@@ -286,7 +286,7 @@ public class AKDistortion: AKNode {
                 finalMix = 100
             }
             AudioUnitSetParameter(
-                internalAU,
+                internalAudioUnit,
                 kDistortionParam_FinalMix,
                 kAudioUnitScope_Global, 0,
                 finalMix, 0)
@@ -335,24 +335,24 @@ public class AKDistortion: AKNode {
             output = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
-            internalAU = internalEffect.audioUnit
+            internalAudioUnit = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kDistortionParam_Delay,         kAudioUnitScope_Global, 0, delay, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decay,         kAudioUnitScope_Global, 0, decay, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_DelayMix,      kAudioUnitScope_Global, 0, delayMix, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation,    kAudioUnitScope_Global, 0, decimation, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding,      kAudioUnitScope_Global, 0, rounding, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, decimationMix, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_LinearTerm,    kAudioUnitScope_Global, 0, linearTerm, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_SquaredTerm,   kAudioUnitScope_Global, 0, squaredTerm, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_CubicTerm,     kAudioUnitScope_Global, 0, cubicTerm, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, polynomialMix, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1,  kAudioUnitScope_Global, 0, ringModFreq1, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2,  kAudioUnitScope_Global, 0, ringModFreq2, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance,kAudioUnitScope_Global, 0, ringModBalance, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix,    kAudioUnitScope_Global, 0, ringModMix, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_SoftClipGain,  kAudioUnitScope_Global, 0, softClipGain, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix,      kAudioUnitScope_Global, 0, finalMix, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Delay,         kAudioUnitScope_Global, 0, delay, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Decay,         kAudioUnitScope_Global, 0, decay, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_DelayMix,      kAudioUnitScope_Global, 0, delayMix, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Decimation,    kAudioUnitScope_Global, 0, decimation, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Rounding,      kAudioUnitScope_Global, 0, rounding, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, decimationMix, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_LinearTerm,    kAudioUnitScope_Global, 0, linearTerm, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_SquaredTerm,   kAudioUnitScope_Global, 0, squaredTerm, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_CubicTerm,     kAudioUnitScope_Global, 0, cubicTerm, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, polynomialMix, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModFreq1,  kAudioUnitScope_Global, 0, ringModFreq1, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModFreq2,  kAudioUnitScope_Global, 0, ringModFreq2, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModBalance,kAudioUnitScope_Global, 0, ringModBalance, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModMix,    kAudioUnitScope_Global, 0, ringModMix, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_SoftClipGain,  kAudioUnitScope_Global, 0, softClipGain, 0)
+            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_FinalMix,      kAudioUnitScope_Global, 0, finalMix, 0)
             
     }
 }
