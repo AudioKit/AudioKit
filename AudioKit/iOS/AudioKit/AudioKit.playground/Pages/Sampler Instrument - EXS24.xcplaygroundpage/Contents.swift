@@ -34,11 +34,11 @@ audiokit.start()
 //: The sampler 'playNote' function is very useful here
 let updater = AKPlaygroundLoop(every: pulse) {
     let scale = [0,2,4,5,7,9,11,12]
-    let note = scale.randomElement()
+    var note = scale.randomElement()
     let octave = randomInt(3...7)  * 12
-    let accidental = [1,0,0,0,0,0,0,0,0,0,0].randomElement()
-    if accidental != 0 && !scale.contains(accidental % 12) { print("ACCIDENT!") }
-    sampler.playNote(note + octave + accidental)
+    if randomFloat(0, 10) < 1.0 { note++ }
+    if !scale.contains(note % 12) { print("ACCIDENT!") }
+    if randomFloat(0, 6) > 1.0 { sampler.playNote(note + octave) }
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

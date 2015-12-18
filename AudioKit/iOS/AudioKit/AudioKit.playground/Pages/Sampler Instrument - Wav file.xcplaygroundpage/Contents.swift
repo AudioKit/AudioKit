@@ -19,7 +19,7 @@ let sampler = AKSampler()
 //: Here is where we reference the Wav file as it is in the app bundle
 sampler.loadWav("Sounds/fmpia1")
 
-let ampedSampler = AKGain(sampler, gain: 2.0)
+let ampedSampler = AKGain(sampler, gain: 3.0)
 
 let delay  = AKDelay(ampedSampler)
 delay.time = pulse * 1.5
@@ -37,11 +37,11 @@ audiokit.start()
 //: The sampler 'playNote' function is very useful here
 let updater = AKPlaygroundLoop(every: pulse) {
     let scale = [0,2,4,5,7,9,11,12]
-    let note = scale.randomElement()
+    var note = scale.randomElement()
     let octave = randomInt(3...6)  * 12
-    let accidental = [1,0,0,0,0,0,0,0,0,0,0].randomElement()
-    if accidental != 0 && !scale.contains(accidental % 12) { print("ACCIDENT!") }
-    sampler.playNote(note + octave + accidental)
+    if randomFloat(0, 10) < 1.0 { note++ }
+    if !scale.contains(note % 12) { print("ACCIDENT!") }
+    if randomFloat(0, 6) > 1.0 { sampler.playNote(note + octave) }
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
