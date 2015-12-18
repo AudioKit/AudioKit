@@ -43,9 +43,9 @@ int sporth_randh(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            freq = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
-            freq = sporth_stack_pop_float(stack);
             randh = pd->last->ud;
             randh->freq = freq;
             randh->min = min;
