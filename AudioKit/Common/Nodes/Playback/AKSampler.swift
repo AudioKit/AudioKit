@@ -21,8 +21,11 @@ public class AKSampler: AKNode {
     // MARK: - Properties
     
     private var internalAU: AUAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
     var samplerUnit = AVAudioUnitSampler()
+    public var midiIn = MIDIEndpointRef()
+    var midiClient = MIDIClientRef()
     
     // MARK: - Initializers
     
@@ -32,6 +35,8 @@ public class AKSampler: AKNode {
         
         self.output = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
+        self.internalAudioUnit = samplerUnit.audioUnit
+
         AKManager.sharedInstance.engine.attachNode(self.output!)
         //you still need to connect the output, and you must do this before starting the processing graph
     }//end init
@@ -72,4 +77,5 @@ public class AKSampler: AKNode {
     public func stopNote(note: Int = 60, channel: Int = 0) {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
+    
 }

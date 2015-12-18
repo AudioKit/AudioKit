@@ -14,6 +14,7 @@ public class AKTanhDistortion: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKTanhDistortionAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var pregainParameter: AUParameter?
@@ -83,6 +84,8 @@ public class AKTanhDistortion: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTanhDistortionAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

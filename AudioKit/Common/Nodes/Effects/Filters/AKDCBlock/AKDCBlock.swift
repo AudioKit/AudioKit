@@ -15,6 +15,7 @@ public class AKDCBlock: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKDCBlockAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
 
@@ -45,12 +46,12 @@ public class AKDCBlock: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKDCBlockAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
-
 
         token = tree.tokenByAddingParameterObserver {
             address, value in

@@ -15,6 +15,7 @@ public class AKBandRejectButterworthFilter: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKBandRejectButterworthFilterAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
@@ -65,6 +66,7 @@ public class AKBandRejectButterworthFilter: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBandRejectButterworthFilterAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }

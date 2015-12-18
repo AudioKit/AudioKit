@@ -20,6 +20,7 @@ public class AKCustomGenerator: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKCustomGeneratorAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     // MARK: - Initializers
@@ -48,6 +49,7 @@ public class AKCustomGenerator: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCustomGeneratorAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             self.internalAU?.setSporth(sporth)
         }

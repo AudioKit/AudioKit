@@ -15,6 +15,7 @@ public class AKSawtoothOscillator: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKSawtoothOscillatorAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
@@ -64,6 +65,7 @@ public class AKSawtoothOscillator: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKSawtoothOscillatorAudioUnit
+            self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
         }
 

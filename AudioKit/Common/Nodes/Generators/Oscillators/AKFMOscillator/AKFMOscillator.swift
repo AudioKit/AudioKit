@@ -14,6 +14,7 @@ public class AKFMOscillator: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKFMOscillatorAudioUnit?
+    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var baseFrequencyParameter: AUParameter?
@@ -91,6 +92,7 @@ public class AKFMOscillator: AKNode {
             
             self.output = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
+            self.internalAudioUnit = avAudioUnitGenerator.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             self.internalAU?.setupTable(Int32(table.size))
             for var i = 0; i < table.size; i++ {

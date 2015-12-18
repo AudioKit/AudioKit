@@ -21,6 +21,7 @@ public class AKParametricEQ: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
+    public var internalAudioUnit:AudioUnit?
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000) */
     public var centerFrequency: Float = 2000 {
@@ -90,6 +91,7 @@ public class AKParametricEQ: AKNode {
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
             internalAU = internalEffect.audioUnit
+            internalAudioUnit = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, centerFrequency, 0)
             AudioUnitSetParameter(internalAU, kParametricEQParam_Q,          kAudioUnitScope_Global, 0, q, 0)
