@@ -397,6 +397,9 @@
 		C4BDEB4D1C13004A00207DA9 /* AKTriangleOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BDE9E01C13004A00207DA9 /* AKTriangleOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4BDEB4E1C13004A00207DA9 /* AKTriangleOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE9E11C13004A00207DA9 /* AKTriangleOscillatorAudioUnit.mm */; };
 		C4BDEB4F1C13004A00207DA9 /* AKTriangleOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4BDE9E21C13004A00207DA9 /* AKTriangleOscillatorDSPKernel.hpp */; };
+		C4DA4BEF1C248F3000AA3771 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BEC1C248F3000AA3771 /* jitter.swift */; };
+		C4DA4BF01C248F3000AA3771 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BED1C248F3000AA3771 /* randomNumberPulse.swift */; };
+		C4DA4BF11C248F3000AA3771 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BEE1C248F3000AA3771 /* randomVertexPulse.swift */; };
 		C4E7517F1C220A6D00688A1B /* tphasor.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E7517E1C220A6D00688A1B /* tphasor.c */; };
 		C4E751811C220A7200688A1B /* rms.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E751801C220A7200688A1B /* rms.c */; };
 		C4E7519D1C221C0A00688A1B /* triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E7519C1C221C0A00688A1B /* triangle.c */; };
@@ -426,7 +429,6 @@
 		C4E7524D1C23888700688A1B /* triangleWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E752291C23888700688A1B /* triangleWave.swift */; };
 		C4E7524E1C23888700688A1B /* add.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7522B1C23888700688A1B /* add.swift */; };
 		C4E7524F1C23888700688A1B /* divide.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7522C1C23888700688A1B /* divide.swift */; };
-		C4E752501C23888700688A1B /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7522D1C23888700688A1B /* jitter.swift */; };
 		C4E752511C23888700688A1B /* max.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7522E1C23888700688A1B /* max.swift */; };
 		C4E752521C23888700688A1B /* min.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7522F1C23888700688A1B /* min.swift */; };
 		C4E752531C23888700688A1B /* multiply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E752301C23888700688A1B /* multiply.swift */; };
@@ -829,6 +831,9 @@
 		C4BDE9E01C13004A00207DA9 /* AKTriangleOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTriangleOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C4BDE9E11C13004A00207DA9 /* AKTriangleOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTriangleOscillatorAudioUnit.mm; sourceTree = "<group>"; };
 		C4BDE9E21C13004A00207DA9 /* AKTriangleOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTriangleOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
+		C4DA4BEC1C248F3000AA3771 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
+		C4DA4BED1C248F3000AA3771 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
+		C4DA4BEE1C248F3000AA3771 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
 		C4E7517E1C220A6D00688A1B /* tphasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tphasor.c; sourceTree = "<group>"; };
 		C4E751801C220A7200688A1B /* rms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rms.c; sourceTree = "<group>"; };
 		C4E7519C1C221C0A00688A1B /* triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = triangle.c; sourceTree = "<group>"; };
@@ -858,7 +863,6 @@
 		C4E752291C23888700688A1B /* triangleWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangleWave.swift; sourceTree = "<group>"; };
 		C4E7522B1C23888700688A1B /* add.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = add.swift; sourceTree = "<group>"; };
 		C4E7522C1C23888700688A1B /* divide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = divide.swift; sourceTree = "<group>"; };
-		C4E7522D1C23888700688A1B /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C4E7522E1C23888700688A1B /* max.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = max.swift; sourceTree = "<group>"; };
 		C4E7522F1C23888700688A1B /* min.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = min.swift; sourceTree = "<group>"; };
 		C4E752301C23888700688A1B /* multiply.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multiply.swift; sourceTree = "<group>"; };
@@ -1849,6 +1853,16 @@
 			path = ../../Common/Operations;
 			sourceTree = "<group>";
 		};
+		C4DA4BEB1C248F3000AA3771 /* Random Number Generators */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA4BEC1C248F3000AA3771 /* jitter.swift */,
+				C4DA4BED1C248F3000AA3771 /* randomNumberPulse.swift */,
+				C4DA4BEE1C248F3000AA3771 /* randomVertexPulse.swift */,
+			);
+			path = "Random Number Generators";
+			sourceTree = "<group>";
+		};
 		C4E7520B1C23888700688A1B /* Effects */ = {
 			isa = PBXGroup;
 			children = (
@@ -1937,9 +1951,9 @@
 		C4E7522A1C23888700688A1B /* Math */ = {
 			isa = PBXGroup;
 			children = (
+				C4DA4BEB1C248F3000AA3771 /* Random Number Generators */,
 				C4E7522B1C23888700688A1B /* add.swift */,
 				C4E7522C1C23888700688A1B /* divide.swift */,
-				C4E7522D1C23888700688A1B /* jitter.swift */,
 				C4E7522E1C23888700688A1B /* max.swift */,
 				C4E7522F1C23888700688A1B /* min.swift */,
 				C4E752301C23888700688A1B /* multiply.swift */,
@@ -2158,6 +2172,7 @@
 				C4E752521C23888700688A1B /* min.swift in Sources */,
 				C463020B1C20C842009B44D9 /* tenvx.c in Sources */,
 				C4BDEA1A1C13004A00207DA9 /* count.c in Sources */,
+				C4DA4BF11C248F3000AA3771 /* randomVertexPulse.swift in Sources */,
 				C4BDEAF51C13004A00207DA9 /* AKMoogLadder.swift in Sources */,
 				C4BDEB061C13004A00207DA9 /* AKThreePoleLowpassFilter.swift in Sources */,
 				C4BDEB1A1C13004A00207DA9 /* AKHighPassButterworthFilter.swift in Sources */,
@@ -2264,6 +2279,7 @@
 				C4086A2A1C19828200EF9DED /* EZAudioFloatConverter.m in Sources */,
 				C4BDEAB61C13004A00207DA9 /* AKCustomGenerator.swift in Sources */,
 				C4BDEA5B1C13004A00207DA9 /* tevent.c in Sources */,
+				C4DA4BF01C248F3000AA3771 /* randomNumberPulse.swift in Sources */,
 				C4BDEA101C13004A00207DA9 /* bar.c in Sources */,
 				C46303B91C20EA5F009B44D9 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
 				C4BDEA661C13004A00207DA9 /* test.c in Sources */,
@@ -2271,7 +2287,6 @@
 				C46781AB1C1C277B0000BF29 /* AKNodeOutputPlot.swift in Sources */,
 				C4BDEB321C13004A00207DA9 /* AKPinkNoiseAudioUnit.mm in Sources */,
 				C4E7517F1C220A6D00688A1B /* tphasor.c in Sources */,
-				C4E752501C23888700688A1B /* jitter.swift in Sources */,
 				C4BDEA351C13004A00207DA9 /* mincer.c in Sources */,
 				C4BDEABF1C13004A00207DA9 /* AKBitCrusher.swift in Sources */,
 				C4BDEA681C13004A00207DA9 /* func.c in Sources */,
@@ -2410,6 +2425,7 @@
 				C4BDEA2C1C13004A00207DA9 /* gbuzz.c in Sources */,
 				C4BDEAAE1C13004A00207DA9 /* AKTrackedAmplitude.swift in Sources */,
 				C4BDEB3A1C13004A00207DA9 /* AKFMOscillatorAudioUnit.mm in Sources */,
+				C4DA4BEF1C248F3000AA3771 /* jitter.swift in Sources */,
 				C4BDEB341C13004A00207DA9 /* AKWhiteNoise.swift in Sources */,
 				C4BDEACB1C13004A00207DA9 /* AKPeakLimiter.swift in Sources */,
 				C4E752541C23888700688A1B /* portamento.swift in Sources */,

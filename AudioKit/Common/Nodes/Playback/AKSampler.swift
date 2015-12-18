@@ -24,8 +24,10 @@ public class AKSampler: AKNode {
     public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
     var samplerUnit = AVAudioUnitSampler()
+    #if !os(tvOS)
     public var midiIn = MIDIEndpointRef()
     var midiClient = MIDIClientRef()
+    #endif
     
     // MARK: - Initializers
     
