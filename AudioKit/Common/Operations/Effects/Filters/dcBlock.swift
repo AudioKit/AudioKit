@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
 
     /** dcBlock: A DC blocking filter. - Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based
  on work by Perry Cook.
-     - returns: AKParameter
+     - returns: AKOperation
      */
     public mutating func dcBlock() {
         self = self.dcBlocked()
@@ -20,9 +20,9 @@ extension AKParameter {
     
     /** dcBlocked: A DC blocking filter. - Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based
      on work by Perry Cook.
-     - returns: AKParameter
+     - returns: AKOperation
      */
-    public func dcBlocked() -> AKParameter {
-        return AKParameter("\(self)dcblk")
+    public func dcBlocked() -> AKOperation {
+        return AKOperation("\(self)dcblk")
     }
 }

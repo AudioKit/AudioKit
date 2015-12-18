@@ -8,54 +8,54 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     /** times: Multiplication of parameters
-     - returns: AKParameter
+     - returns: AKOperation
      - parameter parameter: The amount to multiply
      */
-    public func times(parameter: AKParameter) -> AKParameter {
-        return AKParameter("\(self)\(parameter)*")
+    public func times(parameter: AKOperation) -> AKOperation {
+        return AKOperation("\(self)\(parameter)*")
     }
     
     /** scaledBy: Offsetting by way of multiplication
-     - returns: AKParameter
+     - returns: AKOperation
      - parameter parameter: The amount to scale by
      */
-    public func scaledBy(parameter: AKParameter) -> AKParameter {
+    public func scaledBy(parameter: AKOperation) -> AKOperation {
         return self.times(parameter)
     }
     /** scaledBy: Offsetting by way of multiplication
-     - returns: AKParameter
+     - returns: AKOperation
      - parameter parameter: The amount to scale by
      */
-    public func scaledBy(parameter: Double) -> AKParameter {
+    public func scaledBy(parameter: Double) -> AKOperation {
         return self.times(parameter.ak)
     }
 }
 
 /** Helper function for Multiplication
- - returns: AKParameter
+ - returns: AKOperation
  - left: 1st parameter
  - right: 2nd parameter
  */
-public func * (left: AKParameter, right: AKParameter) -> AKParameter {
+public func * (left: AKOperation, right: AKOperation) -> AKOperation {
     return left.times(right)
 }
 
 /** Helper function for Multiplication
- - returns: AKParameter
+ - returns: AKOperation
  - left: 1st parameter
  - right: Constant parameter
  */
-public func * (left: AKParameter, right: Double) -> AKParameter {
+public func * (left: AKOperation, right: Double) -> AKOperation {
     return left.times(right.ak)
 }
 
 /** Helper function for Multiplication
- - returns: AKParameter
+ - returns: AKOperation
  - left: Constant parameter
  - right: 2nd parameter
  */
-public func * (left: Double, right: AKParameter) -> AKParameter {
+public func * (left: Double, right: AKOperation) -> AKOperation {
     return right.times(left.ak)
 }

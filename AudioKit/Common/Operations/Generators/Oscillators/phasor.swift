@@ -8,31 +8,57 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
 
     /** phasor: A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
  often used when building table-lookup oscillators.
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter frequency: Frequency in cycles per second, or Hz. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
      - Parameter phase: Initial phase (Default: 0)
      */
     public static func phasor(
-        frequency frequency: AKParameter = 1.0.ak,
+        frequency frequency: AKOperation = 1.0.ak,
         phase: Double = 0
-        ) -> AKParameter {
-            return AKParameter("\(frequency)\(phase) phasor")
+        ) -> AKOperation {
+            return AKOperation("\(frequency)\(phase) phasor")
+    }
+    
+    /** phasor: A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
+     often used when building table-lookup oscillators.
+     - returns: AKOperation
+     - Parameter frequency: Frequency in cycles per second, or Hz. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
+     - Parameter phase: Initial phase (Default: 0)
+     */
+    public static func phasor(
+        frequency frequency: Double = 1,
+        phase: Double = 0
+        ) -> AKOperation {
+            return AKOperation("\(frequency) \(phase) phasor")
     }
 }
 
 /** phasor: A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
  often used when building table-lookup oscillators.
-- returns: AKParameter
+- returns: AKOperation
 - Parameter frequency: Frequency in cycles per second, or Hz. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
 - Parameter phase: Initial phase (Default: 0, Minimum: , Maximum: )
 */
 public func phasor(
-    frequency frequency: AKParameter = 1.0.ak,
+    frequency frequency: AKOperation = 1.0.ak,
     phase: Double = 0
-    ) -> AKParameter {
-        return AKParameter.phasor(frequency: frequency, phase: phase)
+    ) -> AKOperation {
+        return AKOperation.phasor(frequency: frequency, phase: phase)
+}
+
+/** phasor: A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
+ often used when building table-lookup oscillators.
+ - returns: AKOperation
+ - Parameter frequency: Frequency in cycles per second, or Hz. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
+ - Parameter phase: Initial phase (Default: 0, Minimum: , Maximum: )
+ */
+public func phasor(
+    frequency frequency: Double = 1,
+    phase: Double = 0
+    ) -> AKOperation {
+        return AKOperation.phasor(frequency: frequency, phase: phase)
 }

@@ -1,6 +1,7 @@
 installation-directory: "Effects/Filters/"
 
 sp-module: moogladder
+akalias: moogLadderFilter
 
 node: AKMoogLadder
 

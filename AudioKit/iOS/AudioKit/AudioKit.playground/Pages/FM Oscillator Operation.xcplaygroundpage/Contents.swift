@@ -10,15 +10,14 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Set up the operations that will be used to make a generator node
-let sine1 = sine(frequency: 1.ak)
-let sine2 = sine(frequency: 1.64.ak)
-let scaleFactor = 1.4
-let sine3 = floor(sine1.scaledBy(scaleFactor)).dividedBy(scaleFactor)
-let freq  = sine3.scaledTo(minimum: 900, maximum: 0)
-let car   = sine2.scaledTo(minimum: 1.2, maximum: 1.4)
-let mod   = sine1.scaledTo(minimum: 1,   maximum: 3)
-let index = sine3 * 3 + 5
-let oscillator = AKParameter.fmOscillator(
+let sine = sineWave(frequency: 1.ak)
+let square = squareWave(frequency: 1.64.ak)
+let square2 = squareWave(frequency: sine, amplitude: sine, pulseWidth: sine)
+let freq  = sine.scaledTo(minimum: 900, maximum: 200)
+let car   = square.scaledTo(minimum: 1.2, maximum: 1.4)
+let mod   = square.scaledTo(minimum: 1,   maximum: 3)
+let index = square2 * 3 + 5
+let oscillator = fmOscillator(
     baseFrequency: freq,
     carrierMultiplier: car,
     modulatingMultiplier: mod,
@@ -26,7 +25,7 @@ let oscillator = AKParameter.fmOscillator(
     amplitude: 0.5.ak)
 
 //: Set up the nodes
-let generator = AKNode.generator(oscillator)
+let generator = AKNode.generator(oscillator.panned(sine))
 let delay1 = AKDelay(generator,
     time: 0.01, feedback: 99, lowPassCutoff: 0, dryWetMix: 50)
 let delay2 = AKDelay(delay1,

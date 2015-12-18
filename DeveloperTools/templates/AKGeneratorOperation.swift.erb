@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
 
     /** <%= akalias %>: <%= summary %> - <%= description %>
-     - returns: AKParameter
+     - returns: AKOperation
 <% (inputs+parameters+constants).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 <% if data["ak-variable"] == "input" -%>
@@ -26,14 +26,14 @@ extension AKParameter {
 <% (inputs+parameters+constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 <% if data["ak-variable"] == "input" -%>
-        <%= data["ak-variable"] %>: AKParameter<%= "," if (inputs+parameters+constants).count > 0 %>
+        <%= data["ak-variable"] %>: AKOperation<%= "," if (inputs+parameters+constants).count > 0 %>
 <% else -%>
-        <%= data["ak-variable"] %>: AKParameter = <%= data["default"] %>.ak<%= "," if (inputs+parameters).count > i + 1 %>
+        <%= data["ak-variable"] %>: AKOperation = <%= data["default"] %>.ak<%= "," if (inputs+parameters).count > i + 1 %>
 <% end -%>
 <% end -%>
 <% end -%>
-        ) -> AKParameter {
-            return AKParameter("<% (inputs+parameters+constants).each_with_index do |sp_parameter, i| -%>
+        ) -> AKOperation {
+            return AKOperation("<% (inputs+parameters+constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 \(<%= data["ak-variable"] %>)<% end -%>
 <% end -%><%= sp_module %>")
@@ -41,7 +41,7 @@ extension AKParameter {
 }
 
 /** <%= akalias %>: <%= summary %> - <%= description %>
-- returns: AKParameter
+- returns: AKOperation
 <% (inputs+parameters+constants).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 <% if data["ak-variable"] == "input" -%>
@@ -56,14 +56,14 @@ public func <%= akalias %>(
 <% (inputs+parameters+constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
 <% if data["ak-variable"] == "input" -%>
-    <%= data["ak-variable"] %>: AKParameter<%= "," if (inputs+parameters+constants).count > 0 %>
+    <%= data["ak-variable"] %>: AKOperation<%= "," if (inputs+parameters+constants).count > 0 %>
 <% else -%>
-    <%= data["ak-variable"] %>: AKParameter = <%= data["default"] %>.ak<%= "," if (inputs+parameters).count > i + 1 %>
+    <%= data["ak-variable"] %>: AKOperation = <%= data["default"] %>.ak<%= "," if (inputs+parameters).count > i + 1 %>
 <% end -%>
 <% end -%>
 <% end -%>
-    ) -> AKParameter {
-        return AKParameter.<%= akalias %>(<% (inputs+parameters+constants).each_with_index do |sp_parameter, i| -%>
+    ) -> AKOperation {
+        return AKOperation.<%= akalias %>(<% (inputs+parameters+constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%><%= data["ak-variable"] %>: <%= data["ak-variable"] %><%= ", " if (inputs+parameters).count > i + 1 -%>
 <% end -%>
 <% end -%>)

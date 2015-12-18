@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
 
     /** reverberateWithFlatFrequencyResponse: All-pass filter, often used for the creation of reverb modules. - This filter reiterates the input with an echo density determined by loop time.
      The attenuation rate is independent and is determined by the reverberation time
@@ -19,7 +19,7 @@ extension AKParameter {
      - Parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. (Default: 0.1, Minimum: 0.0, Maximum: 1.0)
      */
     public mutating func reverberateWithFlatFrequencyResponse(
-        reverbDuration reverbDuration: AKParameter = 0.5.ak,
+        reverbDuration reverbDuration: AKOperation = 0.5.ak,
         loopDuration: Double = 0.1) {
             self = self.reverberatedWithFlatFrequencyResponse(reverbDuration: reverbDuration, loopDuration: loopDuration)
     }
@@ -28,14 +28,14 @@ extension AKParameter {
  The attenuation rate is independent and is determined by the reverberation time
  (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down
  from its original amplitude).  Output will begin to appear immediately.
-     - returns: AKParameter
+     - returns: AKOperation
      - Parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
      - Parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. (Default: 0.1, Minimum: 0.0, Maximum: 1.0)
      */
     public func reverberatedWithFlatFrequencyResponse(
-        reverbDuration reverbDuration: AKParameter = 0.5.ak,
+        reverbDuration reverbDuration: AKOperation = 0.5.ak,
         loopDuration: Double = 0.1
-        ) -> AKParameter {
-            return AKParameter("\(self)\(loopDuration) \(reverbDuration)allpass")
+        ) -> AKOperation {
+            return AKOperation("\(self)\(loopDuration) \(reverbDuration)allpass")
     }
 }
