@@ -72,33 +72,10 @@ public class AKSampler: AKNode {
     
     // MARK: - Playback
     public func playNote(note: Int = 60, velocity: Int = 127, channel: Int = 0) {
-//        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
-        MusicDeviceMIDIEvent(samplerUnit.audioUnit, 0x90, UInt32(note), UInt32(velocity), 0)
+        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
     public func stopNote(note: Int = 60, channel: Int = 0) {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
     
-    
-    //the following should be included in any midi instrument
-    public func enableMidi(midiClient: MIDIClientRef, name:String){
-        MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
-    }
-    
-    private func MyMIDIReadBlock(
-        packetList: UnsafePointer<MIDIPacketList>,
-        srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
-            let numPackets = Int(packetList.memory.numPackets)
-            let packet = packetList.memory.packet as MIDIPacket
-            var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
-            packetPtr.initialize(packet)
-            
-            for var i = 0; i < numPackets; ++i {
-                let event = AKMidiEvent(packet: packetPtr.memory)
-                //the next line is unique for midiInstruments - otherwise this function is the same as AKMidi
-               MusicDeviceMIDIEvent(samplerUnit.audioUnit, UInt32(event.internalData[0]), UInt32(event.internalData[1]), UInt32(event.internalData[2]), 0)
-                packetPtr = MIDIPacketNext(packetPtr)
-            }
-    }
-    //end midi functionality
 }
