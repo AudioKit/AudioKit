@@ -10,6 +10,11 @@ import Foundation
 import CoreAudio
 import AudioToolbox
 
+extension Int {
+    public func midiNoteToFrequency() -> Double {
+        return pow(2.0, (Double(self) - 69.0) / 12.0) * 440.0
+    }
+}
 extension Float {
     public mutating func randomize(minimum: Float, _ maximum: Float) {
         self = randomFloat(minimum, maximum)
