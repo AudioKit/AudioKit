@@ -13,7 +13,7 @@ let file = bundle.pathForResource("drumloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
 
-let reverb = AKInput.reverberatedWithCostello(
+let reverb = AKOperation.input.reverberatedWithCostello(
     feedback: 0.9.ak,
     cutoffFrequency: 10000.ak)
 let effect = AKNode.effect(player, operation: reverb)

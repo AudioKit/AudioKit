@@ -11,7 +11,7 @@ let audiokit = AKManager.sharedInstance
 
 //: Filter setup
 let halfPower = sineWave(frequency: 0.2.ak).scaledTo(minimum: 12000, maximum: 100)
-let filter = AKInput.highPassFiltered(halfPowerPoint: halfPower)
+let filter = AKOperation.input.highPassFiltered(halfPowerPoint: halfPower)
 
 //: Noise Example
 let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so that when it is mixed it is not so loud

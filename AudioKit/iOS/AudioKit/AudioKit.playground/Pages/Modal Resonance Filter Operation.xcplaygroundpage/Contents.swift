@@ -16,7 +16,7 @@ let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096), baseFrequency: 100,  
 
 let frequency = sineWave(frequency: 0.3.ak).scaledTo(minimum: 200, maximum: 1200)
 
-let filter  = AKInput.modalResonanceFiltered(frequency: frequency, qualityFactor: 50.ak) * 0.2
+let filter  = AKOperation.input.modalResonanceFiltered(frequency: frequency, qualityFactor: 50.ak) * 0.2
 
 let effect = AKNode.effect(player, operation: filter)
 
