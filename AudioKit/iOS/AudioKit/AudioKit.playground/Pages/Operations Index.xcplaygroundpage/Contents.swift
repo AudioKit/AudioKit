@@ -1,5 +1,5 @@
 //: # Operations
-//: ------------
+//: ---
 //: Operations are used to make the internals of a single node.
 //:
 //: * [Bit Crush](Bit%20Crush%20Operation)
