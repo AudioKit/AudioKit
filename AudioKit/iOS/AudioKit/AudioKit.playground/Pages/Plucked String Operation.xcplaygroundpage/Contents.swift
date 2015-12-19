@@ -18,7 +18,7 @@ let string = pluckedString(
     pickupPosition: 0.1.ak,
     reflectionCoefficent: 0.01.ak,
     amplitude: 0.5.ak)
-let trigger = metronome(3.ak)
+let trigger = metronome(3)
 let pluck = AKOperation("\(trigger) \(string)")
 let generator = AKNode.generator(pluck)
 //: Connect the sampler to the main output

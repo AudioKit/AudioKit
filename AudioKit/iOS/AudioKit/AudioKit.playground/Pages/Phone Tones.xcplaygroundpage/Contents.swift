@@ -19,7 +19,7 @@ let ringingTone1 = sineWave(frequency: 480.ak)
 let ringingTone2 = sineWave(frequency: 440.ak)
 let ringingToneMix = mix(ringingTone1, ringingTone2, t: 0.5)
 
-let ringTrigger = metronome(0.1666.ak) // 1 / 6 seconds
+let ringTrigger = metronome(0.1666) // 1 / 6 seconds
 let ringing = ringingToneMix.triggeredBy(ringTrigger, attack: 0.01.ak, hold: 2.ak, release: 0.01.ak)
 
 
