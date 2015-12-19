@@ -33,15 +33,15 @@ public class AKNode {
         return AKOperationEffect(input, sporth:"\(leftOperation) swap \(rightOperation) swap")
     }
     
-    public static func generator(operation: AKOperation) -> AKOperationGenerator {
-        return AKOperationGenerator("\(operation) dup")
+    public static func generator(operation: AKOperation, triggered: Bool = false) -> AKOperationGenerator {
+        return AKOperationGenerator("\(operation) dup", triggered: triggered)
     }
     
-    public static func generator(operation: AKStereoOperation) -> AKOperationGenerator {
-        return AKOperationGenerator("\(operation) swap")
+    public static func generator(operation: AKStereoOperation, triggered: Bool = false) -> AKOperationGenerator {
+        return AKOperationGenerator("\(operation) swap", triggered: triggered)
     }
     
-    public static func generator(left: AKOperation, _ right: AKOperation) -> AKOperationGenerator {
-        return AKOperationGenerator("\(left) \(right)")
+    public static func generator(left: AKOperation, _ right: AKOperation, triggered: Bool = false) -> AKOperationGenerator {
+        return AKOperationGenerator("\(left) \(right)", triggered: triggered)
     }
 }

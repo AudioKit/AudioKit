@@ -10,20 +10,19 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-let playRate = 3.0
+let playRate = 2.0
 
 let randomNoteNumber = floor(randomNumberPulse(minimum: 12.ak, maximum: 96.ak, updateFrequency: 20.ak))
 let frequency = randomNoteNumber.midiNoteToFrequency()
 let trigger = metronome(playRate)
-let pluck = pluckedStringTriggeredBy(
-    trigger,
+let pluck = pluckedString(
     frequency: frequency,
     position: 0.2.ak,
     pickupPosition: 0.1.ak,
     reflectionCoefficent: 0.01.ak,
     amplitude: 0.5.ak)
 
-let pluckNode = AKNode.generator(pluck)
+let pluckNode = AKNode.generator(pluck, triggered: true)
 
 let distortion = AKDistortion(pluckNode)
 distortion.finalMix = 50
@@ -41,6 +40,10 @@ let reverb = AKReverb(delay)
 //: Connect the sampler to the main output
 audiokit.audioOutput = reverb
 audiokit.start()
+
+let updater = AKPlaygroundLoop(every: 1.0 / playRate) {
+    pluckNode.trigger()
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

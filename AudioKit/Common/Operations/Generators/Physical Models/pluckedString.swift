@@ -10,49 +10,43 @@ import Foundation
 
 extension AKOperation {
 
-    /** pluckedStringTriggeredBy: Physical model of a plucked string - Based on Karplus-Strong algorithm
-     
+    /** pluckedString: Physical model of a plucked string - Based on Karplus-Strong algorithm
      - returns: AKOperation
-     - parameter trigger: An operation that sends a 1 when the pluck should occur.
-     - parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency. (Default: 110, Minimum: 0, Maximum: 22050)
-     - parameter position: Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck.  (Default: 0.2, Minimum: 0, Maximum: 1)
-     - parameter pickupPosition: Proportion along the string to sample the input. Expects a value in the range of 0-1. (Default: 0.2, Minimum: 0, Maximum: 1)
-     - parameter reflectionCoefficent: Coeffecient of reflection, indicating lossiness and rate of decay. Must be between 0 and 1, but not 0 and 1 themselves. (Default: 0.05, Minimum: 0, Maximum: 1)
-     - parameter amplitude: Amplitude (Default: 1.0, Minimum: 0, Maximum: 1)
-     - parameter lowestFrequency: Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using. (Default: 110)
+     - Parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency. (Default: 110, Minimum: 0, Maximum: 22050)
+     - Parameter position: Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck.  (Default: 0.2, Minimum: 0, Maximum: 1)
+     - Parameter pickupPosition: Proportion along the string to sample the input. Expects a value in the range of 0-1. (Default: 0.2, Minimum: 0, Maximum: 1)
+     - Parameter reflectionCoefficent: Coeffecient of reflection, indicating lossiness and rate of decay. Must be between 0 and 1, but not 0 and 1 themselves. (Default: 0.05, Minimum: 0, Maximum: 1)
+     - Parameter amplitude: Amplitude (Default: 1.0, Minimum: 0, Maximum: 1)
+     - Parameter lowestFrequency: Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using. (Default: 110)
      */
-    public static func pluckedStringTriggeredBy(
-        trigger: AKOperation,
-        frequency: AKOperation = 110.ak,
+    public static func pluckedString(
+        frequency frequency: AKOperation = 110.ak,
         position: AKOperation = 0.75.ak,
         pickupPosition: AKOperation = 0.75.ak,
         reflectionCoefficent: AKOperation = 0.05.ak,
         amplitude: AKOperation = 1.0.ak,
         lowestFrequency: Double = 110
         ) -> AKOperation {
-            return AKOperation("\(trigger)\(position)\(frequency)\(amplitude)\(pickupPosition)\(reflectionCoefficent)\(lowestFrequency) pluck")
+            return AKOperation("\(position)\(frequency)\(amplitude)\(pickupPosition)\(reflectionCoefficent)\(lowestFrequency) pluck")
     }
 }
 
 /** pluckedString: Physical model of a plucked string - Based on Karplus-Strong algorithm
- 
- - returns: AKOperation
- - parameter trigger: An operation that sends a 1 when the pluck should occur.
- - parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency. (Default: 110, Minimum: 0, Maximum: 22050)
- - parameter position: Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck.  (Default: 0.2, Minimum: 0, Maximum: 1)
- - parameter pickupPosition: Proportion along the string to sample the input. Expects a value in the range of 0-1. (Default: 0.2, Minimum: 0, Maximum: 1)
- - parameter reflectionCoefficent: Coeffecient of reflection, indicating lossiness and rate of decay. Must be between 0 and 1, but not 0 and 1 themselves. (Default: 0.05, Minimum: 0, Maximum: 1)
- - parameter amplitude: Amplitude (Default: 1.0, Minimum: 0, Maximum: 1)
- - parameter lowestFrequency: Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using. (Default: 110)
- */
-public func pluckedStringTriggeredBy(
-    trigger: AKOperation,
-    frequency: AKOperation = 110.ak,
+- returns: AKOperation
+- Parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency. (Default: 110, Minimum: 0, Maximum: 22050)
+- Parameter position: Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck.  (Default: 0.2, Minimum: 0, Maximum: 1)
+- Parameter pickupPosition: Proportion along the string to sample the input. Expects a value in the range of 0-1. (Default: 0.2, Minimum: 0, Maximum: 1)
+- Parameter reflectionCoefficent: Coeffecient of reflection, indicating lossiness and rate of decay. Must be between 0 and 1, but not 0 and 1 themselves. (Default: 0.05, Minimum: 0, Maximum: 1)
+- Parameter amplitude: Amplitude (Default: 1.0, Minimum: 0, Maximum: 1)
+- Parameter lowestFrequency: Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using. (Default: 110)
+*/
+public func pluckedString(
+    frequency frequency: AKOperation = 110.ak,
     position: AKOperation = 0.2.ak,
     pickupPosition: AKOperation = 0.2.ak,
     reflectionCoefficent: AKOperation = 0.05.ak,
     amplitude: AKOperation = 1.0.ak,
     lowestFrequency: Double = 110
     ) -> AKOperation {
-        return AKOperation.pluckedStringTriggeredBy(trigger, frequency: frequency, position: position, pickupPosition: pickupPosition, reflectionCoefficent: reflectionCoefficent, amplitude: amplitude, lowestFrequency: lowestFrequency)
+        return AKOperation.pluckedString(frequency: frequency, position: position, pickupPosition: pickupPosition, reflectionCoefficent: reflectionCoefficent, amplitude: amplitude, lowestFrequency: lowestFrequency)
 }

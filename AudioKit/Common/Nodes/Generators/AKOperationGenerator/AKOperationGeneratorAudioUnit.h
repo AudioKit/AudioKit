@@ -13,6 +13,7 @@
 
 @interface AKOperationGeneratorAudioUnit : AUAudioUnit
 - (void)setSporth:(NSString *)sporth;
+- (void)trigger;
 @end
 
 #endif /* AKOperationGeneratorAudioUnit_h */
