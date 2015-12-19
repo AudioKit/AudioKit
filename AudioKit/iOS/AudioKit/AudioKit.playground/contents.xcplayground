@@ -56,7 +56,11 @@
         <page name='Moog Ladder Filter Operation'/>
         <page name='Noise Operations'/>
         <page name='Sawtooth Wave Oscillator Operation'/>
+        <page name='Plucked String Operation'/>
         <page name='Sampler Instrument - EXS24'/>
         <page name='Sampler Instrument - Wav file'/>
+        <page name='Pedestrians'/>
+        <page name='Phone Tones'/>
+        <page name='DTMF Tones'/>
     </pages>
 </playground>
