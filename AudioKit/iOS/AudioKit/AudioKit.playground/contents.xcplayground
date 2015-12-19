@@ -58,6 +58,8 @@
         <page name='Pedestrians'/>
         <page name='Phone Tones'/>
         <page name='DTMF Tones'/>
+        <page name='Using Functions'/>
+        <page name='Another Example of Using Functions'/>
         <page name='Sporth Based Effect'/>
         <page name='Sporth Based Generator'/>
         <page name='Sequencer'/>
