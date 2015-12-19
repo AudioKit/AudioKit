@@ -66,16 +66,6 @@ public func round(parameter: AKOperation) -> AKOperation {
     return parameter.round()
 }
 
-public func mix(first: AKOperation, _ second: AKOperation, t: Double) -> AKOperation {
-    let firstRatio = 1.0 - t
-    return AKOperation("\(firstRatio * first)\(t * second)mix")
-}
-
-public func mix(first: AKOperation, _ second: AKOperation, t: AKOperation) -> AKOperation {
-    let firstRatio = 1.0 - t
-    return AKOperation("\(firstRatio * first)\(t * second)mix")
-}
-
 public struct AKStereoOperation: CustomStringConvertible {
     var parameterString = ""
     public var description: String {
