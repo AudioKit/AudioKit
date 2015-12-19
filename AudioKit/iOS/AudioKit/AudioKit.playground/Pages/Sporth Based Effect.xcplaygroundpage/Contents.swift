@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKCustomEffect
+//: ## AKOperationEffect
 //: ### You can also create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth). We'll show you how to do that for an effect node below...
 import XCPlayground
 import AudioKit
@@ -14,9 +14,13 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 player.looping = true
-let modifier = AKCustomEffect(player, sporth:"0 p 1 p 0.1 1 sine 0.5 0.97 biscale 10000 revsc")
 
-audiokit.audioOutput = modifier
+let input  = AKOperation.input
+let zitarev_example = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
+
+let effect = AKOperationEffect(player, sporth: zitarev_example)
+
+audiokit.audioOutput = effect
 audiokit.start()
 
 player.play()
