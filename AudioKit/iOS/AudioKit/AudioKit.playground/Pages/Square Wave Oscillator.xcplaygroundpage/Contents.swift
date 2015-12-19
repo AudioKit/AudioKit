@@ -8,17 +8,23 @@ import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
-let sawtooth = AKSquareWaveOscillator()
-audiokit.audioOutput = sawtooth
+let square = AKSquareWaveOscillator()
+audiokit.audioOutput = square
 audiokit.start()
 
 var t: Float = 0
 
 let updater = AKPlaygroundLoop(every: 0.12) {
-    sawtooth.frequency.randomize(100, 220)
-    sawtooth.pulseWidth = 0.99 - abs(0.9 * cos(t))
+
+    square.pulseWidth = 0.99 - abs(0.9 * cos(t))
     t = t + 0.01
-    sawtooth.amplitude.randomize(0, 0.2)
+    square.amplitude.randomize(0, 0.2)
+    
+    let scale = [0,2,4,5,7,9,11,12]
+    var note = scale.randomElement()
+    let octave = randomInt(3...6)  * 12
+    square.frequency = Float((note + octave).midiNoteToFrequency())
+    square.amplitude.randomize(0, 0.3)
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
