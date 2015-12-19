@@ -25,7 +25,13 @@ let pluck = pluckedStringTriggeredBy(
 
 let pluckNode = AKNode.generator(pluck)
 
-let delay  = AKDelay(pluckNode)
+let distortion = AKDistortion(pluckNode)
+distortion.finalMix = 50
+distortion.decimationMix = 0
+distortion.ringModMix = 0
+distortion.softClipGain = 0
+
+let delay  = AKDelay(distortion)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 30
 delay.feedback = 20
