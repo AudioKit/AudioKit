@@ -33,6 +33,10 @@
     _kernel.setSporth((char*)[sporth UTF8String]);
 }
 
+- (void)trigger {
+    _kernel.trigger();
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {

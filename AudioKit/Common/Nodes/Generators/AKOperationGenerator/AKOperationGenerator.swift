@@ -26,7 +26,7 @@ public class AKOperationGenerator: AKNode {
     // MARK: - Initializers
 
     /** Initialize this reverb node */
-    public init(_ sporth: String) {
+    public init(_ sporth: String, triggered: Bool = false) {
         super.init()
 
         var description = AudioComponentDescription()
@@ -51,7 +51,11 @@ public class AKOperationGenerator: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
             self.internalAudioUnit = avAudioUnitEffect.audioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
-            self.internalAU?.setSporth(sporth)
+            if triggered {
+                self.internalAU?.setSporth("0 p \(sporth)")
+            } else {
+                self.internalAU?.setSporth(sporth)
+            }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -63,6 +67,9 @@ public class AKOperationGenerator: AKNode {
             dispatch_async(dispatch_get_main_queue()) {
             }
         }
-
+    }
+    
+    public func trigger() {
+        self.internalAU!.trigger()
     }
 }
