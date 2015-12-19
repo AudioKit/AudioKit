@@ -15,7 +15,7 @@ player.looping = true
 
 let wahAmount = sineWave(frequency: 0.6.ak).scaledTo(minimum: 1, maximum: 0)
 
-let autowah = AKInput.autoWahed(wah: wahAmount, mix: 100.ak, amplitude: 1.ak)
+let autowah = AKOperation.input.autoWahed(wah: wahAmount, mix: 100.ak, amplitude: 1.ak)
 
 let effect = AKNode.effect(player, operation: autowah)
 

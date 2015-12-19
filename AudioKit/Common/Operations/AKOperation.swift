@@ -9,6 +9,9 @@
 import Foundation
 
 public struct AKOperation: CustomStringConvertible {
+
+    public static var input = AKOperation("0 p 1 p")
+
     var parameterString = ""
     public var description: String {
         return "\(parameterString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
@@ -75,8 +78,6 @@ public struct AKStereoOperation: CustomStringConvertible {
         parameterString = operationString
     }
 }
-
-public let AKInput = AKOperation("0 p 1 p")
 
 public func ak(value: Float) -> AKOperation {
     return AKOperation(value: value)
