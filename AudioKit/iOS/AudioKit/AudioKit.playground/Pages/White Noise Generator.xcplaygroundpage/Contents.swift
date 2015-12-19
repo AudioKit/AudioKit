@@ -26,8 +26,6 @@ let updater = AKPlaygroundLoop(every: timeStep) {
     t = t + timeStep
 }
 
-//: View the timeline in the assistant page to see the live waveform
-let plotView = AKAudioOutputPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

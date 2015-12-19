@@ -22,7 +22,5 @@ audiokit.audioOutput = effect
 audiokit.start()
 player.play()
 
-let plotView = AKAudioOutputPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

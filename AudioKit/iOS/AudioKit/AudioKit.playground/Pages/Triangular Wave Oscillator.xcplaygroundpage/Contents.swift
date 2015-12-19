@@ -17,8 +17,6 @@ let updater = AKPlaygroundLoop(every: 0.12) {
     sawtooth.amplitude.randomize(0, 0.3)
 }
 
-let plotView = AKAudioOutputPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
