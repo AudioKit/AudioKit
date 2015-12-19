@@ -117,6 +117,19 @@ public class AKMidi: AKNode {
         }//end foreach source
     }
     
+    public func listMidiInputs(){
+        let sourceCount = MIDIGetNumberOfSources()
+        print("Midi Inputs:")
+        for var i = 0; i < sourceCount; ++i {
+            let src = MIDIGetSource(i)
+            var inputName: Unmanaged<CFString>?
+            inputName = nil
+            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
+            let inputNameStr = (inputName?.takeRetainedValue())! as String
+            print("midiIn at \(inputNameStr)")
+        }//end foreach source
+
+    }
     /// Open a MIDI Out Port
     public func openMidiOut(namedOutput: String = ""){
         print("Opening Midi Out")
