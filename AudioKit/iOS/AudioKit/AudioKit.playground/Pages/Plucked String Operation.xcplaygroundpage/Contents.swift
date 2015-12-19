@@ -10,21 +10,23 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
+let playRate = 3.0
+
 let randomNoteNumber = floor(randomNumberPulse(minimum: 12.ak, maximum: 96.ak, updateFrequency: 20.ak))
 let frequency = randomNoteNumber.midiNoteToFrequency()
-let string = pluckedString(
+let trigger = metronome(playRate)
+let pluck = pluckedStringTriggeredBy(
+    trigger,
     frequency: frequency,
     position: 0.2.ak,
     pickupPosition: 0.1.ak,
     reflectionCoefficent: 0.01.ak,
     amplitude: 0.5.ak)
-let trigger = metronome(3)
-let pluck = AKOperation("\(trigger) \(string)")
 
 let pluckNode = AKNode.generator(pluck)
 
 let delay  = AKDelay(pluckNode)
-delay.time = 1.0 / 3.0 * 1.5
+delay.time = 1.5 / playRate
 delay.dryWetMix = 30
 delay.feedback = 20
 
@@ -34,6 +36,6 @@ let reverb = AKReverb(delay)
 audiokit.audioOutput = reverb
 audiokit.start()
 
-
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
