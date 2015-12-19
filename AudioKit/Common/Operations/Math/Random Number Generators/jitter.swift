@@ -10,13 +10,12 @@ import Foundation
 
 extension AKOperation {
 
-    /** jitter: A signal with random fluctuations
-This is useful for emulating jitter found in analogue equipment. - A signal with random fluctuations
- This is useful for emulating jitter found in analogue equipment.
+    /** jitter: A signal with random fluctuations. This is useful for emulating jitter found in analogue equipment.
+     
      - returns: AKOperation
-     - Parameter amplitude: The amplitude of the line. Will produce values in the range of (+/-)amp. (Default: 0.5)
-     - Parameter minimumFrequency: The minimum frequency of change in Hz. (Default: 0.5)
-     - Parameter maximumFrequency: The maximum frequency of change in Hz. (Default: 4)
+     - parameter amplitude: The amplitude of the line. Will produce values in the range of (+/-)amp. (Default: 0.5)
+     - parameter minimumFrequency: The minimum frequency of change in Hz. (Default: 0.5)
+     - parameter maximumFrequency: The maximum frequency of change in Hz. (Default: 4)
      */
     public static func jitter(
         amplitude amplitude: AKOperation = 0.5.ak,
@@ -27,13 +26,12 @@ This is useful for emulating jitter found in analogue equipment. - A signal with
     }
 }
 
-/** jitter: A signal with random fluctuations
-This is useful for emulating jitter found in analogue equipment. - A signal with random fluctuations
- This is useful for emulating jitter found in analogue equipment.
+/** jitter: A signal with random fluctuations. This is useful for emulating jitter found in analogue equipment.
+ 
 - returns: AKOperation
-- Parameter amplitude: The amplitude of the line. Will produce values in the range of (+/-)amp. (Default: 0.5)
-- Parameter minimumFrequency: The minimum frequency of change in Hz. (Default: 0.5)
-- Parameter maximumFrequency: The maximum frequency of change in Hz. (Default: 4)
+- parameter amplitude: The amplitude of the line. Will produce values in the range of (+/-)amp. (Default: 0.5)
+- parameter minimumFrequency: The minimum frequency of change in Hz. (Default: 0.5)
+- parameter maximumFrequency: The maximum frequency of change in Hz. (Default: 4)
 */
 public func jitter(
     amplitude amplitude: AKOperation = 0.5.ak,

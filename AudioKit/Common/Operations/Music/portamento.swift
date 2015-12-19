@@ -12,8 +12,9 @@ extension AKOperation {
     
     /** applyPortamento: Portamento-style control signal smoothing
      Useful for smoothing out low-resolution signals and applying glissando to filters.
+     
      - returns: AKOperation
-     - Parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: 0)
+     - parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: 0)
      */
     public mutating func applyPortamento(halfDuration: Double = 0.02) {
         self = self.appliedPortamento(halfDuration)
@@ -21,8 +22,9 @@ extension AKOperation {
     
     /** appliedPortamento: Portamento-style control signal smoothing
      Useful for smoothing out low-resolution signals and applying glissando to filters.
+     
      - returns: AKOperation
-     - Parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: 0)
+     - parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: 0)
      */
     public func appliedPortamento(halfDuration: Double = 0.02) -> AKOperation {
         return AKOperation("\(self)\(halfDuration) port")

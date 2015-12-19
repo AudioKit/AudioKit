@@ -12,15 +12,15 @@ public struct AKOperation: CustomStringConvertible {
 
     public static var input = AKOperation("0 p 1 p")
 
-    var parameterString = ""
+    var operationString = ""
     public var description: String {
-        return "\(parameterString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
+        return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
     }
     public init(_ operationString: String) {
-        parameterString = operationString
+        self.operationString = operationString
     }
     public init(value: Float) {
-        parameterString = "\(value)"
+        operationString = "\(value)"
     }
     public func abs() -> AKOperation {
         return AKOperation("\(self)abs")
@@ -45,37 +45,37 @@ public struct AKOperation: CustomStringConvertible {
     }
 }
 
-public func abs(parameter: AKOperation) -> AKOperation {
-    return parameter.abs()
+public func abs(operation: AKOperation) -> AKOperation {
+    return operation.abs()
 }
 
-public func floor(parameter: AKOperation) -> AKOperation {
-    return parameter.floor()
+public func floor(operation: AKOperation) -> AKOperation {
+    return operation.floor()
 }
 
-public func fract(parameter: AKOperation) -> AKOperation {
-    return parameter.fract()
+public func fract(operation: AKOperation) -> AKOperation {
+    return operation.fract()
 }
 
-public func log(parameter: AKOperation) -> AKOperation {
-    return parameter.log()
+public func log(operation: AKOperation) -> AKOperation {
+    return operation.log()
 }
 
-public func log10(parameter: AKOperation) -> AKOperation {
-    return parameter.log10()
+public func log10(operation: AKOperation) -> AKOperation {
+    return operation.log10()
 }
 
-public func round(parameter: AKOperation) -> AKOperation {
-    return parameter.round()
+public func round(operation: AKOperation) -> AKOperation {
+    return operation.round()
 }
 
 public struct AKStereoOperation: CustomStringConvertible {
-    var parameterString = ""
+    var operationString = ""
     public var description: String {
-        return "\(parameterString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
+        return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
     }
     init(_ operationString: String) {
-        parameterString = operationString
+        self.operationString = operationString
     }
 }
 

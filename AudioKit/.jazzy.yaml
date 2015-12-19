@@ -168,12 +168,10 @@ custom_categories:
     children:
     - metronome(_:)
     - periodicTrigger(_:)
-    - portamento(_:)
 
   - name: Mixing Operations
     children:
     - mix(_:_:t:)
-    - pan(_:)
 
   - name: Plotting Tools
     children:

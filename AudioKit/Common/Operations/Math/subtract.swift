@@ -9,7 +9,8 @@
 import Foundation
 
 extension AKOperation {
-    /** minus: Subtraction of parameters
+    /** minus: Subtraction of operations
+     
      - returns: AKOperation
      - parameter subtrahend: The amount to subtract
      */
@@ -20,27 +21,30 @@ extension AKOperation {
 
 
 /** Helper function for Subtraction
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - left: 1st operation
+ - right: 2nd operation
  */
 public func - (left: AKOperation, right: AKOperation) -> AKOperation {
     return left.minus(right)
 }
 
 /** Helper function for Subtraction
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: Constant parameter
+ - left: Operation
+ - right: Constant value
  */
 public func - (left: AKOperation, right: Double) -> AKOperation {
     return left.minus(right.ak)
 }
 
 /** Helper function for Subtraction
+ 
  - returns: AKOperation
- - left: Constant parameter
- - right: 2nd parameter
+ - left: Constant value
+ - right: Operation
  */
 public func - (left: Double, right: AKOperation) -> AKOperation {
     return left.ak.minus(right)

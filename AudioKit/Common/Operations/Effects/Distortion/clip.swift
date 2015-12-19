@@ -11,15 +11,17 @@ import Foundation
 extension AKOperation {
 
     /** clip: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
-     - Parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
+     
+     - parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
      */
     public mutating func clip(limit limit: AKOperation = 1.0.ak) {
         self = self.clipped(limit: limit)
     }
     
     /** clipped: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
+     
      - returns: AKOperation
-     - Parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
+     - parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
      */
     public  func clipped(limit limit: AKOperation = 1.0.ak) -> AKOperation {
         return AKOperation("\(self)\(limit)clip")

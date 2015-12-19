@@ -10,10 +10,10 @@ import Foundation
 
 extension AKOperation {
     
-    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum
-     point in the input and output domain.
-     - Parameter minimum: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
-     - Parameter maximum: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
+    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
+     
+     - parameter minimum: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
+     - parameter maximum: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
      */
     public mutating func scale(
         minimum minimum: AKOperation = 0.0.ak,
@@ -21,11 +21,11 @@ extension AKOperation {
             self = self.scaledTo(minimum: minimum, maximum: maximum)
     }
     
-    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum
-     point in the input and output domain.
+    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
+     
      - returns: AKOperation
-     - Parameter minimum: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
-     - Parameter maximum: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
+     - parameter minimum: Minimum value to scale to. (Default: 0.0)
+     - parameter maximum: Maximum value to scale to. (Default: 1.0)
      */
     public func scaledTo(
         minimum minimum: AKOperation = 0.0.ak,
@@ -33,11 +33,11 @@ extension AKOperation {
         ) -> AKOperation {
             return AKOperation("\(self)\(minimum)\(maximum)biscale")
     }
-    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum
-     point in the input and output domain.
+    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
+     
      - returns: AKOperation
-     - Parameter minimum: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
-     - Parameter maximum: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
+     - parameter minimum: Minimum value to scale to. (Default: 0.0)
+     - parameter maximum: Maximum value to scale to. (Default: 1.0)
      */
     public func scaledTo(
         minimum minimum: Double = 0.0,
@@ -47,12 +47,12 @@ extension AKOperation {
     }
 }
 
-/** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum
- point in the input and output domain.
+/** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
+ 
  - returns: AKOperation
- - Parameter input: Input signal.
- - Parameter minimum: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
- - Parameter maximum: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
+ - parameter input: Input signal.
+ - parameter minimum: Minimum value to scale to. (Default: 0.0)
+ - parameter maximum: Maximum value to scale to. (Default: 1.0)
  */
 public func scale(
     input: AKOperation,

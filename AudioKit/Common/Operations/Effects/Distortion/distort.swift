@@ -9,11 +9,12 @@
 import Foundation
 
 extension AKOperation {
-    /** distort: Distortion using a modified hyperbolic tangent function. -
-     - Parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
-     - Parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
-     - Parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
-     - Parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+    /** distort: Distortion using a modified hyperbolic tangent function.
+     
+     - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
+     - parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
+     - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+     - parameter negativeShapeParameter: Like the positive shape operation, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      */
     public mutating func distort(
         pregain pregain: AKOperation = 2.0.ak,
@@ -27,12 +28,13 @@ extension AKOperation {
                 negativeShapeParameter: negativeShapeParameter)
     }
 
-    /** distorted: Distortion using a modified hyperbolic tangent function. -
+    /** distorted: Distortion using a modified hyperbolic tangent function.
+     
      - returns: AKOperation
-     - Parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
-     - Parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
-     - Parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
-     - Parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+     - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
+     - parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
+     - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+     - parameter negativeShapeParameter: Like the positive shape operation, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
      */
     public func distorted(
         pregain pregain: AKOperation = 2.0.ak,

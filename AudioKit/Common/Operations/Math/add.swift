@@ -9,60 +9,67 @@
 import Foundation
 
 extension AKOperation {
-    /** plus: Addition/Summation of parameters
+    /** plus: Addition/Summation of operations
+     
      - returns: AKOperation
-     - parameter parameter: The amount to add
+     - parameter operation: The amount to add
      */
-    public func plus(parameter: AKOperation) -> AKOperation {
-        return AKOperation("\(self)\(parameter)+")
+    public func plus(operation: AKOperation) -> AKOperation {
+        return AKOperation("\(self)\(operation)+")
     }
     
-    /** plus: Addition/Summation of parameters
+    /** plus: Addition/Summation of operations
+     
      - returns: AKOperation
-     - parameter parameter: The amount to add
+     - parameter constant: The amount to add
      */
-    public func plus(parameter: Double) -> AKOperation {
-        return AKOperation("\(self)\(parameter.ak)+")
+    public func plus(constant: Double) -> AKOperation {
+        return AKOperation("\(self)\(constant.ak)+")
     }
     
     /** offsetBy: Offsetting by way of addition
+     
      - returns: AKOperation
-     - parameter parameter: The amount to offset by
+     - parameter operation: The amount to offset by
      */
-    public func offsetBy(parameter: AKOperation) -> AKOperation {
-        return self.plus(parameter)
+    public func offsetBy(operation: AKOperation) -> AKOperation {
+        return self.plus(operation)
     }
     /** offsetBy: Offsetting by way of addition
+     
      - returns: AKOperation
-     - parameter parameter: The amount to offset by
+     - parameter constant: The amount to offset by
      */
-    public func offsetBy(parameter: Double) -> AKOperation {
-        return self.plus(parameter.ak)
+    public func offsetBy(constant: Double) -> AKOperation {
+        return self.plus(constant.ak)
     }
 }
 
 /** Helper function for addition
+ 
 - returns: AKOperation
-- left: 1st parameter
-- right: 2nd parameter
+- left: 1st operation
+- right: 2nd operation
 */
 public func + (left: AKOperation, right: AKOperation) -> AKOperation {
     return left.plus(right)
 }
 
 /** Helper function for addition
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: Constant parameter
+ - left: Operation
+ - right: Constant value
  */
 public func + (left: AKOperation, right: Double) -> AKOperation {
     return left.plus(right)
 }
 
 /** Helper function for addition
+ 
  - returns: AKOperation
- - left: Constant parameter
- - right: 2nd parameter
+ - left: Constant value
+ - right: Operation
  */
 public func + (left: Double, right: AKOperation) -> AKOperation {
     return right.plus(left)
