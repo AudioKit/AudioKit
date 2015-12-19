@@ -78,7 +78,7 @@ public struct AKStereoOperation: CustomStringConvertible {
 
 public let AKInput = AKOperation("0 p 1 p")
 
-public func akp(value: Float) -> AKOperation {
+public func ak(value: Float) -> AKOperation {
     return AKOperation(value: value)
 }
 
