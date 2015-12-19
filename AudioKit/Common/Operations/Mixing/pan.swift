@@ -10,8 +10,8 @@ import Foundation
 
 extension AKOperation {
 
-    /** paned: Panner - Panner
-     - returns: AKOperation
+    /** panned: Panner
+     - returns: AKStereoOperation
      - Parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center. (Default: 0, Minimum: -1, Maximum: 1)
      */
     public func panned(pan: AKOperation = 0.ak) -> AKStereoOperation {

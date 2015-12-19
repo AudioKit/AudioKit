@@ -25,6 +25,8 @@ custom_categories:
   - name: Nodes
     children:
     - AKNode
+    - AKOperationEffect
+    - AKOperationGenerator
 
   - name: Analysis Nodes
     children:
@@ -52,14 +54,18 @@ custom_categories:
   - name: Filter Nodes
     children:
     - AKAutoWah
+    - AKBandPassButterworthFilter
     - AKBandPassFilter
+    - AKBandRejectButterworthFilter
     - AKCombFilter
     - AKDCBlock
     - AKEqualizerFilter
     - AKFormantFilter
+    - AKHighPassButterworthFilter
     - AKHighPassFilter
     - AKHighShelfFilter
     - AKHighShelfParametricEqualizerFilter
+    - AKLowPassButterworthFilter
     - AKLowPassFilter
     - AKLowShelfFilter
     - AKLowShelfParametricEqualizerFilter
@@ -72,13 +78,6 @@ custom_categories:
     - AKThreePoleLowpassFilter
     - AKToneFilter
     - AKToneComplementFilter
-
-  - name: Butterworth Filter Nodes
-    children:
-    - AKBandPassButterworthFilter
-    - AKBandRejectButterworthFilter
-    - AKHighPassButterworthFilter
-    - AKLowPassButterworthFilter
 
   - name: Reverb Nodes
     children:
@@ -117,19 +116,67 @@ custom_categories:
     - AKSequencer
     - AKTimePitch
 
-  - name: Operation Nodes
-    children:
-    - AKCustomEffect
-    - AKCustomGenerator
-
   - name: Operations
     children:
-    - AKParameter
-    - AKStereoParameter
+    - AKOperation
+    - AKStereoOperation
+    - ak(_:)
+
+  - name: Math Operations
+    children:
+    - "*(_:_:)"
+    - "+(_:_:)"
+    - "-(_:_:)"
+    - "/(_:_:)"
+    - abs(_:)
+    - floor(_:)
+    - fract(_:)
+    - log(_:)
+    - log10(_:)
+    - max(_:_:)
+    - min(_:_:)
+    - round(_:)
+    - scale(_:minimum:maximum:)
+
+  - name: Random Number Generators
+    children:
+    - jitter(amplitude:minimumFrequency:maximumFrequency:)
+    - randomFloat(_:_:)
+    - randomInt(_:)
+    - randomNumberPulse(minimum:maximum:updateFrequency:)
+    - randomVertexPulse(minimum:maximum:updateFrequency:)
+
+  - name: Noise Generators
+    children:
+    - pinkNoise(amplitude:)
+    - whiteNoise(amplitude:)
+
+  - name: Oscillator Operations
+    children:
+    - fmOscillator(baseFrequency:carrierMultiplier:modulatingMultiplier:modulationIndex:amplitude:)
+    - phasor(frequency:phase:)
+    - sawtoothWave(frequency:amplitude:)
+    - sineWave(frequency:amplitude:)
+    - squareWave(frequency:amplitude:pulseWidth:)
+    - triangleWave(frequency:amplitude:)
+
+  - name: Physical Models
+    children:
+    - pluckedString(frequency:position:pickupPosition:reflectionCoefficent:amplitude:lowestFrequency:)
+
+  - name: Music Operations
+    children:
+    - metronome(_:)
+    - periodicTrigger(_:)
+    - portamento(_:)
+
+  - name: Mixing Operations
+    children:
+    - mix(_:_:t:)
+    - pan(_:)
 
   - name: Plotting Tools
     children:
     - AKAudioOutputPlot
     - AKNodeFFTPlot
     - AKNodeOutputPlot
-
