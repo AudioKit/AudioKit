@@ -1,0 +1,27 @@
+installation-directory: "Math/"
+
+sp-module: metro
+akalias: metronome
+
+operation: AK
+
+four-letter-code: AK
+
+summary: Metronome
+
+one-word-description: Metronome
+
+description:
+    Metro produces a series of 1-sample ticks at a regular rate. Typically, this is used alongside trigger-driven modules.
+
+parameters:
+- freq: {
+  ak-variable: frequency,
+  comment: "The frequency to repeat.",
+  au-name: "The frequency to repeat.",
+  au-unit: Hertz,
+  default: 2.0,
+  minimum: ,
+  maximum:
+}
+
