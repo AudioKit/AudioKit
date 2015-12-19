@@ -17,11 +17,8 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Analysis
 #import <AudioKit/AKTrackedAmplitudeAudioUnit.h>
 
-// Custom
-#import <AudioKit/AKCustomEffectAudioUnit.h>
-#import <AudioKit/AKCustomGeneratorAudioUnit.h>
-
 // Effects
+#import <AudioKit/AKOperationEffectAudioUnit.h>
 
 // Effects / Delay
 #import <AudioKit/AKVariableDelayAudioUnit.h>
@@ -58,6 +55,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKFlatFrequencyResponseReverbAudioUnit.h>
 
 // Generators
+#import <AudioKit/AKOperationGeneratorAudioUnit.h>
 
 // Generators / Oscillators
 #import <AudioKit/AKFMOscillatorAudioUnit.h>

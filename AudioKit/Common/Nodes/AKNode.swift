@@ -20,28 +20,28 @@ public class AKNode {
         // Override in subclass
     }
 
-    public static func effect(input: AKNode, operation: AKOperation) -> AKCustomEffect {
+    public static func effect(input: AKNode, operation: AKOperation) -> AKOperationEffect {
         // Add "swap drop" to discard the right channel input, and then
         // add "dup" to copy the left channel output to the right channel output
-        return AKCustomEffect(input, sporth:"\(operation) swap drop dup")
+        return AKOperationEffect(input, sporth:"\(operation) swap drop dup")
     }
-    public static func effect(input: AKNode, operation: AKStereoOperation) -> AKCustomEffect {
-        return AKCustomEffect(input, sporth:"\(operation) swap")
-    }
-    
-    public static func stereoEffect(input: AKNode, leftOperation: AKOperation, rightOperation: AKOperation) -> AKCustomEffect {
-        return AKCustomEffect(input, sporth:"\(leftOperation) swap \(rightOperation) swap")
+    public static func effect(input: AKNode, operation: AKStereoOperation) -> AKOperationEffect {
+        return AKOperationEffect(input, sporth:"\(operation) swap")
     }
     
-    public static func generator(operation: AKOperation) -> AKCustomGenerator {
-        return AKCustomGenerator("\(operation) dup")
+    public static func stereoEffect(input: AKNode, leftOperation: AKOperation, rightOperation: AKOperation) -> AKOperationEffect {
+        return AKOperationEffect(input, sporth:"\(leftOperation) swap \(rightOperation) swap")
     }
     
-    public static func generator(operation: AKStereoOperation) -> AKCustomGenerator {
-        return AKCustomGenerator("\(operation) swap")
+    public static func generator(operation: AKOperation) -> AKOperationGenerator {
+        return AKOperationGenerator("\(operation) dup")
     }
     
-    public static func generator(left: AKOperation, _ right: AKOperation) -> AKCustomGenerator {
-        return AKCustomGenerator("\(left) \(right)")
+    public static func generator(operation: AKStereoOperation) -> AKOperationGenerator {
+        return AKOperationGenerator("\(operation) swap")
+    }
+    
+    public static func generator(left: AKOperation, _ right: AKOperation) -> AKOperationGenerator {
+        return AKOperationGenerator("\(left) \(right)")
     }
 }
