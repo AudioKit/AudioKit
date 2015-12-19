@@ -13,7 +13,7 @@ import AVFoundation
 public class AKSplitter: AKNode {
     
     private let cd = AudioComponentDescription(
-        componentType: kAudioUnitType_FormatConverter,
+        componentType: kAudioUnitType_Mixer,
         componentSubType: kAudioUnitSubType_MultiSplitter,
         componentManufacturer: kAudioUnitManufacturer_Apple,
         componentFlags: 0,
@@ -30,12 +30,12 @@ public class AKSplitter: AKNode {
             
             AVAudioUnit.instantiateWithComponentDescription(cd, options: []) {
                 avAudioUnit, error in
-//                guard let avAudioUnit = avAudioUnit else { return }
-//
-//                self.output = avAudioUnit
-//                self.internalAU = avAudioUnit.audioUnit
-//                AKManager.sharedInstance.engine.attachNode(self.output!)
-//                AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+                guard let avAudioUnit = avAudioUnit else { return }
+
+                self.output = avAudioUnit
+                self.internalAU = avAudioUnit.audioUnit
+                AKManager.sharedInstance.engine.attachNode(self.output!)
+                AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
             }
     }
 }
