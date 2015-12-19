@@ -10,27 +10,30 @@ import Foundation
 
 
 /** Maximum of two operations
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - parameter left: 1st operation
+ - parameter right: 2nd operation
  */
 public func max(left: AKOperation, _ right: AKOperation) -> AKOperation {
     return AKOperation("\(left)\(right)max")
 }
 
 /** Maximum of two operations
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - parameter left: Constant Value
+ - parameter right: Operation
  */
 public func max(left: Double, _ right: AKOperation) -> AKOperation {
     return max(left.ak, right)
 }
 
 /** Maximum of two operations
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - parameter left: Operation
+ - parameter right: Constant Value
  */
 public func max(left: AKOperation, _ right: Double) -> AKOperation {
     return max(left, right.ak)

@@ -12,8 +12,9 @@ extension AKOperation {
 
     /** metronome: Metronome produces a series of 1-sample ticks at a regular rate. Typically, this is
  used alongside trigger-driven modules.
+     
      - returns: AKOperation
-     - Parameter frequency: The frequency to repeat. (Default: 2.0)
+     - parameter frequency: The frequency to repeat. (Default: 2.0)
      */
     public static func metronome(frequency: AKOperation = 2.0.ak) -> AKOperation {
             return AKOperation("\(frequency)metro")
@@ -22,8 +23,9 @@ extension AKOperation {
 
 /** metronome: Metronome produces a series of 1-sample ticks at a regular rate. Typically, this is
  used alongside trigger-driven modules.
+
 - returns: AKOperation
-- Parameter frequency: The frequency to repeat. (Default: 2.0)
+- parameter frequency: The frequency to repeat. (Default: 2.0)
 */
 public func metronome(frequency: AKOperation = 2.0.ak) -> AKOperation {
         return AKOperation.metronome(frequency)

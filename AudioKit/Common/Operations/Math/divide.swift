@@ -9,45 +9,50 @@
 import Foundation
 
 extension AKOperation {
-    /** dividedBy: Division of parameters
+    /** dividedBy: Division of operations
+     
      - returns: AKOperation
-     - parameter parameter: The amount to divide
+     - parameter operation: The amount to divide
      */
-    public func dividedBy(parameter: AKOperation) -> AKOperation {
-        return AKOperation("\(self)\(parameter)/")
+    public func dividedBy(operation: AKOperation) -> AKOperation {
+        return AKOperation("\(self)\(operation)/")
     }
     
-    /** dividedBy: Division of parameters
+    /** dividedBy: Division of operations
+     
      - returns: AKOperation
-     - parameter parameter: The amount to divide
+     - parameter operation: The amount to divide
      */
-    public func dividedBy(parameter: Double) -> AKOperation {
-        return AKOperation("\(self)\(parameter.ak)/")
+    public func dividedBy(constant: Double) -> AKOperation {
+        return AKOperation("\(self)\(constant.ak)/")
     }
 }
 
 /** Helper function for Division
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - parameter left: 1st operation
+ - parameter right: 2nd operation
  */
 public func / (left: AKOperation, right: AKOperation) -> AKOperation {
     return left.dividedBy(right)
 }
 
 /** Helper function for Division
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: Constant parameter
+ - parameter left: Operation
+ - parameter right: Constant value
  */
 public func / (left: AKOperation, right: Double) -> AKOperation {
     return left.dividedBy(right)
 }
 
 /** Helper function for Division
+ 
  - returns: AKOperation
- - left: Constant parameter
- - right: 2nd parameter
+ - parameter left: Constant value
+ - parameter right: Operation
  */
 public func / (left: Double, right: AKOperation) -> AKOperation {
     return right.dividedBy(left)

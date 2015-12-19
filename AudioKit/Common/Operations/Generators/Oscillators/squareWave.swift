@@ -10,11 +10,12 @@ import Foundation
 
 extension AKOperation {
     
-    /** squareWave: Square wave oscillator -
+    /** squareWave: Square wave oscillator
+     
      - returns: AKOperation
-     - Parameter frequency: Frequency in cycles per second (Default: 440)
-     - Parameter amplitude: Amplitude of the output (Default: 1)
-     - Parameter pulseWidth: Duty cycle width (Default: 0.5, Minimum: 0, Maximum: 1)
+     - parameter frequency: Frequency in cycles per second (Default: 440)
+     - parameter amplitude: Amplitude of the output (Default: 1)
+     - parameter pulseWidth: Duty cycle width (Default: 0.5, Minimum: 0, Maximum: 1)
      */
     public static func squareWave(
         frequency frequency: AKOperation = 440.ak,
@@ -27,11 +28,12 @@ extension AKOperation {
 
 // Global Helper function
 
-/** squareWave: Square wave oscillator -
+/** squareWave: Square wave oscillator
+
 - returns: AKOperation
-- Parameter frequency: Frequency in cycles per second (Default: 440)
-- Parameter amplitude: Amplitude of the output (Default: 1)
-- Parameter pulseWidth: Duty cycle width (Default: 0.5, Minimum: 0, Maximum: 1)
+- parameter frequency: Frequency in cycles per second (Default: 440)
+- parameter amplitude: Amplitude of the output (Default: 1)
+- parameter pulseWidth: Duty cycle width (Default: 0.5, Minimum: 0, Maximum: 1)
 */
 public func squareWave(
     frequency frequency: AKOperation = 440.ak,

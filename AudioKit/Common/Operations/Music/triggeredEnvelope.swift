@@ -10,11 +10,12 @@ import Foundation
 
 extension AKOperation {
     /** triggerEnveloped: Trigger based linear AHD envelope generator
+     
      - returns: AKOperation
-     - Parameter trigger: A triggering operation such as a metronome
-     - Parameter attack: Attack time, in seconds. (Default: 0.1)
-     - Parameter hold: Hold time, in seconds. (Default: 0.3)
-     - Parameter release: Release time, in seconds. (Default: 0.2)
+     - parameter trigger: A triggering operation such as a metronome
+     - parameter attack: Attack time, in seconds. (Default: 0.1)
+     - parameter hold: Hold time, in seconds. (Default: 0.3)
+     - parameter release: Release time, in seconds. (Default: 0.2)
      */
     public func triggeredBy(
         trigger: AKOperation,

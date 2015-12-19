@@ -14,9 +14,10 @@ extension AKOperation {
      The attenuation rate is independent and is determined by the reverberation time
      (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down
      from its original amplitude).  Output will begin to appear immediately.
-     - Parameter input: Input audio signal.
-     - Parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
-     - Parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. (Default: 0.1, Minimum: 0.0, Maximum: 1.0)
+     
+     - parameter input: Input audio signal.
+     - parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
+     - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. (Default: 0.1, Minimum: 0.0, Maximum: 1.0)
      */
     public mutating func reverberateWithFlatFrequencyResponse(
         reverbDuration reverbDuration: AKOperation = 0.5.ak,
@@ -28,9 +29,10 @@ extension AKOperation {
  The attenuation rate is independent and is determined by the reverberation time
  (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down
  from its original amplitude).  Output will begin to appear immediately.
+     
      - returns: AKOperation
-     - Parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
-     - Parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. (Default: 0.1, Minimum: 0.0, Maximum: 1.0)
+     - parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
+     - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. (Default: 0.1, Minimum: 0.0, Maximum: 1.0)
      */
     public func reverberatedWithFlatFrequencyResponse(
         reverbDuration reverbDuration: AKOperation = 0.5.ak,

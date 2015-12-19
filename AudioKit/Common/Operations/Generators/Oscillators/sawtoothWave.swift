@@ -10,10 +10,11 @@ import Foundation
 
 extension AKOperation {
     
-    /** sawtoothWave: Sawtooth wave oscillator -
+    /** sawtoothWave: Sawtooth wave oscillator
+     
      - returns: AKOperation
-     - Parameter frequency: Frequency in cycles per second (Default: 440)
-     - Parameter amplitude: Amplitude of the output (Default: 1)
+     - parameter frequency: Frequency in cycles per second (Default: 440)
+     - parameter amplitude: Amplitude of the output (Default: 1)
      */
     public static func sawtoothWave(
         frequency frequency: AKOperation = 440.ak,
@@ -25,10 +26,11 @@ extension AKOperation {
 
 // Global Helper function
 
-/** sawtoothWave: Sawtooth wave oscillator -
+/** sawtoothWave: Sawtooth wave oscillator
+
 - returns: AKOperation
-- Parameter frequency: Frequency in cycles per second (Default: 440)
-- Parameter amplitude: Amplitude of the output (Default: 1)
+- parameter frequency: Frequency in cycles per second (Default: 440)
+- parameter amplitude: Amplitude of the output (Default: 1)
 */
 public func sawtoothWave(
     frequency frequency: AKOperation = 440.ak,

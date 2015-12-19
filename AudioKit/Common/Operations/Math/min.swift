@@ -10,27 +10,30 @@ import Foundation
 
 
 /** Minimum of two operations
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - parameter left: 1st operation
+ - parameter right: 2nd operation
  */
 public func min(left: AKOperation, _ right: AKOperation) -> AKOperation {
     return AKOperation("\(left)\(right)min")
 }
 
 /** Minimum of two operations
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - parameter left: Constant Value
+ - parameter right: Operation
  */
 public func min(left: Double, _ right: AKOperation) -> AKOperation {
     return min(left.ak, right)
 }
 
 /** Minimum of two operations
+ 
  - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
+ - parameter left: Operation
+ - parameter right: Constant value
  */
 public func min(left: AKOperation, _ right: Double) -> AKOperation {
     return min(left, right.ak)

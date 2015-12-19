@@ -10,11 +10,11 @@ import Foundation
 
 extension AKOperation {
 
-    /** modalResonanceFilter: A modal resonance filter used for modal synthesis. - A modal resonance filter used for modal synthesis. Plucked and bell sounds can
- be created using  passing an impulse through a combination of modal filters.
+    /** A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created using  passing an impulse through a combination of modal filters.
+     
      - returns: AKOperation
-     - Parameter frequency: Resonant frequency of the filter. (Default: 500.0, Minimum: 12.0, Maximum: 20000.0)
-     - Parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
+     - parameter frequency: Resonant frequency of the filter. (Default: 500.0, Minimum: 12.0, Maximum: 20000.0)
+     - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
      */
     public mutating func modalResonanceFilter(
         frequency frequency: AKOperation = 500.0.ak,
@@ -24,11 +24,11 @@ extension AKOperation {
 
     }
 
-    /** modalResonanceFiltered: A modal resonance filter used for modal synthesis. - A modal resonance filter used for modal synthesis. Plucked and bell sounds can
- be created using  passing an impulse through a combination of modal filters.
+    /** A modal resonance filter used for modal synthesis. Plucked and bell sounds can be created using  passing an impulse through a combination of modal filters.
+     
      - returns: AKOperation
-     - Parameter frequency: Resonant frequency of the filter. (Default: 500.0, Minimum: 12.0, Maximum: 20000.0)
-     - Parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
+     - parameter frequency: Resonant frequency of the filter. (Default: 500.0, Minimum: 12.0, Maximum: 20000.0)
+     - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
      */
     public func modalResonanceFiltered(
         frequency frequency: AKOperation = 500.0.ak,
