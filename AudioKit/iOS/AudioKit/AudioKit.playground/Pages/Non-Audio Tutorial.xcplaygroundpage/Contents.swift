@@ -35,6 +35,10 @@ let effect2 = AKMoogLadder.init(player)
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: The other ways we'll keep playgrounds running will by using `sleep` and `usleep` functions and infinite while loops.
 
+//: You can view the waveform on the timeline for any playground page by adding the following lines if they don't exist.  The plot does not usually appear by default because it takes significant power to draw the plots and we don't want your laptop's fan to fire up and drain your battery unnecessarily
+let plotView = AKAudioOutputPlot.createView()
+XCPlaygroundPage.currentPage.liveView = plotView
+
 //: Now that we are near the bottom of the screen (unless you have a majorly tall monitor!) we'd like to call your attention to the playground controls on the bottom left right below the navbar.  
 //:
 //: The first button toggles the console log which can be useful to look at when things go wrong. The second button is your play / stop button which is useful to control playback of the audio in the playground. If you click and hold on this button you will get a pop-up that will allow you choose between automatically running the playground or manually pressing play.  They both have their reason.  Automatic running is great for changing a parameter and quickly hearing the audio results.   Manual Run is better for when you're in the middle of creating an audio system and you don't want to hear results until you're further along in the process.

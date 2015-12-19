@@ -35,8 +35,6 @@ let reverb = AKReverb(delay2, dryWetMix: 50)
 audiokit.audioOutput = reverb
 audiokit.start()
 
-let plotView = AKAudioOutputPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -48,8 +48,6 @@ bass.pan   = 0.0
 guitar.pan = 0.2
 lead.pan   = -0.2
 
-let plotView = AKAudioOutputPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
