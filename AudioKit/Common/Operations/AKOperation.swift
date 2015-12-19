@@ -40,7 +40,7 @@ public struct AKOperation: CustomStringConvertible {
     public func round() -> AKOperation {
         return AKOperation("\(self)round")
     }
-    public func midiNoteNumberToFrequency() -> AKOperation {
+    public func midiNoteToFrequency() -> AKOperation {
         return AKOperation("\(self)mtof")
     }
 }
@@ -76,6 +76,9 @@ public struct AKStereoOperation: CustomStringConvertible {
     }
     init(_ operationString: String) {
         self.operationString = operationString
+    }
+    public func toMono() -> AKOperation {
+        return AKOperation("\(self)drop")
     }
 }
 
