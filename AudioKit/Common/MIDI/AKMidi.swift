@@ -140,7 +140,7 @@ public class AKMidi: AKNode {
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
             let endpointNameStr = (endpointName?.takeRetainedValue())! as String
             if namedOutput.isEmpty || namedOutput == endpointNameStr {
-                print("Destination at \(endpointNameStr)")
+                print("Found destination at \(endpointNameStr)")
                 midiEndpoints.append(MIDIGetDestination(i))
                 foundDest = true
             }
@@ -148,6 +148,19 @@ public class AKMidi: AKNode {
         if(!foundDest){
             print("no midi destination found named \"\(namedOutput)\"")
         }//end if match or no name set
+    }
+    
+    public func listMidiDestinations(){
+        let numOutputs = MIDIGetNumberOfDestinations()
+        print("Midi Destinations:")
+        for var i = 0; i < numOutputs; ++i {
+            let src = MIDIGetDestination(i)
+            var endpointName: Unmanaged<CFString>?
+            endpointName = nil
+            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
+            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
+            print("Destination at \(endpointNameStr)")
+        }//end foreach midi destination
     }
     
     /// Send Message with data

@@ -30,7 +30,9 @@ public class AKMidiInstrumentControl{
         enableMidi(client, name: name)
     }
     public func enableMidi(midiClient: MIDIClientRef, name:String){
-        MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
+        var result:OSStatus
+        result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
+        CheckError(result)
     }
     
     func handleMidi(data1:UInt32,data2:UInt32,data3:UInt32){
@@ -44,7 +46,6 @@ public class AKMidiInstrumentControl{
             let packet = packetList.memory.packet as MIDIPacket
             var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
             packetPtr.initialize(packet)
-            
             for var i = 0; i < numPackets; ++i {
                 let event = AKMidiEvent(packet: packetPtr.memory)
                 //the next line is unique for midiInstruments - otherwise this function is the same as AKMidi
