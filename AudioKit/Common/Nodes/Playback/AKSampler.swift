@@ -23,11 +23,7 @@ public class AKSampler: AKNode {
     private var internalAU: AUAudioUnit?
     public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
-    var samplerUnit = AVAudioUnitSampler()
-    #if !os(tvOS)
-    public var midiIn = MIDIEndpointRef()
-    var midiClient = MIDIClientRef()
-    #endif
+    public var samplerUnit = AVAudioUnitSampler()
     
     // MARK: - Initializers
     
@@ -38,7 +34,6 @@ public class AKSampler: AKNode {
         self.output = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
         self.internalAudioUnit = samplerUnit.audioUnit
-
         AKManager.sharedInstance.engine.attachNode(self.output!)
         //you still need to connect the output, and you must do this before starting the processing graph
     }//end init
