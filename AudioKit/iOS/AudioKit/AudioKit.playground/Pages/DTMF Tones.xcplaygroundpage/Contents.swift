@@ -32,12 +32,13 @@ let generator = AKNode.generator(envelopedTone, triggered: true)
 audiokit.audioOutput = generator
 audiokit.start()
 
-let phoneNumber = "867-5309"
+//: Let's call Jenny and Mary!
+let phoneNumber = "8675309  3212333 222 333 3212333322321"
 for number in phoneNumber.characters {
     if keys.keys.contains(String(number)) {
         generator.trigger(keys[String(number)]!)
-        usleep(250000)
     }
+    usleep(250000)
 }
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

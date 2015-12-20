@@ -55,7 +55,7 @@ page_folders.each_with_index do |folder, i|
                 code_block = ""
             else
                 results << markdown.render(markdown_block) if !markdown_block.empty?
-                code_block << swift_line if !swift_line.strip().empty?
+                code_block << swift_line
                 markdown_block = ""
             end
         }
