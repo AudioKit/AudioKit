@@ -15,7 +15,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let bandPassFilter = AKBandPassFilter(player)
 
-//: Set the parameters of the band pass filter here
+//: Set the parameters of the Band-Pass Filter here
 bandPassFilter.centerFrequency = 5000 // Hz
 bandPassFilter.bandwidth = 600  // Cents
 

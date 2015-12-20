@@ -15,7 +15,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let lowPassFilter = AKLowPassFilter(player)
 
-//: Set the parameters of the low pass filter here
+//: Set the parameters of the Low-Pass Filter here
 lowPassFilter.cutoffFrequency = 1000 // Hz
 lowPassFilter.resonance = 0 // dB
 

@@ -15,7 +15,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let filter = AKCombFilter(player, loopDuration: 0.05)
 
-//: Set the parameters of the delay here
+//: Set the parameters of the Comb Filter here
 filter.reverbDuration = 1
 
 audiokit.audioOutput = filter
