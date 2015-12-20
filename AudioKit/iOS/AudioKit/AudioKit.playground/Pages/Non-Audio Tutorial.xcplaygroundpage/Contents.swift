@@ -42,6 +42,7 @@ XCPlaygroundPage.currentPage.liveView = plotView
 //: Now that we are near the bottom of the screen (unless you have a majorly tall monitor!) we'd like to call your attention to the playground controls on the bottom left right below the navbar.  
 //:
 //: The first button toggles the console log which can be useful to look at when things go wrong. The second button is your play / stop button which is useful to control playback of the audio in the playground. If you click and hold on this button you will get a pop-up that will allow you choose between automatically running the playground or manually pressing play.  They both have their reason.  Automatic running is great for changing a parameter and quickly hearing the audio results.   Manual Run is better for when you're in the middle of creating an audio system and you don't want to hear results until you're further along in the process.
+//:
 //: ![controls](http://audiokit.io/playgrounds/controls.png "controls")
 //: ---
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

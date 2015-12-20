@@ -43,8 +43,12 @@ public:
         sporthCode = sporth;
     }
     
-    void trigger() {
+    void trigger(float params[]) {
         internalTrigger = 1;
+        pd.p[0] = internalTrigger;
+        for (int i = 0; i < 10; i++) {
+            parameters[i] = params[i];
+        }
     }
     
 
@@ -83,6 +87,9 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
             
             pd.p[0] = internalTrigger;
+            for (int i = 0; i < 10; i++) {
+                pd.p[i+1] = parameters[i];
+            }
             
             plumber_compute(&pd, PLUMBER_COMPUTE);
 
@@ -90,9 +97,9 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = sporth_stack_pop_float(&pd.sporth.stack);
             }
-            if (internalTrigger == 1) {
-                internalTrigger = 0;
-            }
+        }
+        if (internalTrigger == 1) {
+            internalTrigger = 0;
         }
     }
 
@@ -103,6 +110,7 @@ private:
     int channels = 2;
     float sampleRate = 44100.0;
     int internalTrigger = 0;
+    float parameters[10] = {0,0,0,0,0,0,0,0,0,0};
 
     AudioBufferList *outBufferListPtr = nullptr;
 

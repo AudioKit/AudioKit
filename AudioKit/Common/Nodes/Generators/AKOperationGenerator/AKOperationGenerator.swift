@@ -69,7 +69,7 @@ public class AKOperationGenerator: AKNode {
         }
     }
     
-    public func trigger() {
-        self.internalAU!.trigger()
+    public func trigger(parameters: [Double] = []) {
+        self.internalAU!.trigger(parameters)
     }
 }
