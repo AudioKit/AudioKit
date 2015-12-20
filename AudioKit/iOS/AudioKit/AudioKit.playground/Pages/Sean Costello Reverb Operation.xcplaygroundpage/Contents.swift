@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## costelloReverb
+//: ## Sean Costello Reverb Operation
 //: ### This is an example of building a sound generator from scratch
 import XCPlayground
 import AudioKit
