@@ -64,5 +64,6 @@
         <page name='Sporth Based Generator'/>
         <page name='Sequencer'/>
         <page name='3D Spatialization'/>
+        <page name='Tracking Amplitude'/>
     </pages>
 </playground>
