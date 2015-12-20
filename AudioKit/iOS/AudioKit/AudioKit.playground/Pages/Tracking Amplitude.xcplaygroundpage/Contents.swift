@@ -1,19 +1,41 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## Tracking Amplitude
+//: ### Tracking the amplitude of one node's output using the AKAmplitudeTracker node.
+
+//: Standard imports and AudioKit setup:
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-let volume = sineWave(frequency:0.2.ak)
-let oscillator = sineWave(frequency: 440.ak, amplitude: volume)
-let testNode = AKNode.generator(oscillator)
+//: Let's set up the volume to be changing in the shape of a sine wave
+let volume = sineWave(frequency:0.2.ak).scaledTo(minimum: 0, maximum: 1)
 
-let trackedAmplitude = AKAmplitudeTracker(testNode)
+//: And let's make the frequency move around to make sure it doesn't affect the amplitude tracking
+let frequency = jitter(amplitude: 200.ak, minimumFrequency: 10.ak, maximumFrequency: 30.ak) + 200.ak
 
+//: So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
+let oscillator = sineWave(frequency: frequency, amplitude: volume)
+
+//: Connect up the the nodes
+let oscillatorNode = AKNode.generator(oscillator)
+let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
+
+//: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom
 audiokit.audioOutput = trackedAmplitude
 audiokit.start()
 
+//: And here's where we monitor the results of tracking the amplitude.
 let updater = AKPlaygroundLoop(every: 0.1) {
     let amp = trackedAmplitude.amplitude
 }
 
+//: This keeps the playground running so that audio can play for a long time
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
+//: You can experiment with this playground by changing the volume function to a phasor or another well-known function to see how well the amplitude tracker can track.  Also, you could change the sound source from an oscillator to a noise generator, or any constant sound source (some things like a physical model would not work because the output has an envelope to its volume).  Instead of just plotting our results, we could use the value to drive other sounds or update an app's user interface.
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
