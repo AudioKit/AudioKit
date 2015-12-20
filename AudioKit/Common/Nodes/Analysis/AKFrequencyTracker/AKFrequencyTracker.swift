@@ -8,42 +8,33 @@
 
 import AVFoundation
 
-/** Performs a "root-mean-square" on a signal to get overall amplitude of a signal.
- The output signal looks similar to that of a classic VU meter. */
+/** This tracks the pitch of signal using the AMDF (Average Magnitude Difference
+ Function) method of Pitch following. */
 public class AKFrequencyTracker: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKFrequencyTrackerAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var halfPowerPointParameter: AUParameter?
 
-    /** Half-power point (in Hz) of internal lowpass filter. */
-    public var halfPowerPoint: Float = 10 {
-        didSet {
-            halfPowerPointParameter?.setValue(halfPowerPoint, originator: token!)
-        }
-    }
-    
     public var amplitude: Double {
         return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
+    }
+    public var frequency: Double {
+        return Double(self.internalAU!.getFrequency())
     }
 
     // MARK: - Initializers
 
-    /** Initialize this amplitude node */
-    public init(
-        _ input: AKNode,
-        halfPowerPoint: Float = 10) {
+    /** Initialize this Pitch-detection node */
+    public init(_ input: AKNode) {
 
-        self.halfPowerPoint = halfPowerPoint
         super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x726d7371 /*'rmsq'*/
+        description.componentSubType      = 0x616d6466 /*'amdf'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
@@ -61,25 +52,8 @@ public class AKFrequencyTracker: AKNode {
 
             self.output = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFrequencyTrackerAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
         }
-
-        guard let tree = internalAU?.parameterTree else { return }
-
-        halfPowerPointParameter = tree.valueForKey("halfPowerPoint") as? AUParameter
-
-        token = tree.tokenByAddingParameterObserver {
-            address, value in
-
-            dispatch_async(dispatch_get_main_queue()) {
-                if address == self.halfPowerPointParameter!.address {
-                    self.halfPowerPoint = value
-                }
-            }
-        }
-        halfPowerPointParameter?.setValue(halfPowerPoint, originator: token!)
     }
 }

@@ -16,9 +16,6 @@ extern "C" {
 #include "soundpipe.h"
 }
 
-enum {
-    halfPowerPointAddress = 0
-};
 
 class AKFrequencyTrackerDSPKernel : public AKDSPKernel {
 public:
@@ -32,13 +29,12 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp_rms_create(&rms);
-        sp_rms_init(sp, rms);
-        rms->ihp = 10;
+        sp_pitchamdf_create(&pitchamdf);
+        sp_pitchamdf_init(sp, pitchamdf, 200, 400);
     }
 
     void destroy() {
-        sp_rms_destroy(&rms);
+        sp_pitchamdf_destroy(&pitchamdf);
         sp_destroy(&sp);
     }
     
@@ -47,28 +43,17 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
-            case halfPowerPointAddress:
-                halfPowerPointRamper.set(clamp(value, (float)0, (float)20000));
-                break;
-
         }
     }
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case halfPowerPointAddress:
-                return halfPowerPointRamper.goal();
-                
             default: return 0.0f;
         }
     }
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
-            case halfPowerPointAddress:
-                halfPowerPointRamper.startRamp(clamp(value, (float)0, (float)20000), duration);
-                break;
-
         }
     }
 
@@ -80,19 +65,16 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double halfPowerPoint = double(halfPowerPointRamper.getStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            rms->ihp = (float)halfPowerPoint;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float temp = *in;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_rms_compute(sp, rms, in, out);
-                trackedAmplitude = *out;
+                sp_pitchamdf_compute(sp, pitchamdf, in, &trackedFrequency, &trackedAmplitude);
                 *out = temp;
             }
         }
@@ -105,15 +87,16 @@ private:
     int channels = 2;
     float sampleRate = 44100.0;
 
-    AudioBufferList *inBufferListPtr = nullptr;
-    AudioBufferList *outBufferListPtr = nullptr;
+    AudioBufferList* inBufferListPtr = nullptr;
+    AudioBufferList* outBufferListPtr = nullptr;
 
     sp_data *sp;
-    sp_rms *rms;
-
+    sp_pitchamdf *pitchamdf;
+    
 public:
-    AKParameterRamper halfPowerPointRamper = 10;
     float trackedAmplitude = 0.0;
+    float trackedFrequency = 0.0;
+
 };
 
 #endif /* AKFrequencyTrackerDSPKernel_hpp */
