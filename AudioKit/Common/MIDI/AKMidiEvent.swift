@@ -31,7 +31,6 @@ public struct AKMidiEvent {
     var internalData = [UInt8](count: 3, repeatedValue: 0)
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
-    
     /// Status
     var status: AKMidiStatus {
         let status = internalData[0] >> 4
@@ -114,6 +113,7 @@ public struct AKMidiEvent {
     init(command: AKMidiSystemCommand, byte1: UInt8, byte2: UInt8) {
         fillWithCommand(command, byte1: byte1, byte2: byte2)
     }
+    
     private mutating func fillWithCommand(command: AKMidiSystemCommand, byte1: UInt8, byte2: UInt8) {
         internalData[0] = command.rawValue
         switch command {
