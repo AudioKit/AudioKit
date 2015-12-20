@@ -33,7 +33,7 @@ let busySignal = busySignalTone.triggeredBy(busyTrigger, attack: 0.01.ak, hold: 
 
 //: Uncomment out the one you would like to hear
 //let generator = AKNode.generator(dialTone)
-let generator = AKNode.generator(ringing)
+//let generator = AKNode.generator(ringing)
 //let generator = AKNode.generator(busySignal)
 
 audiokit.audioOutput = generator
