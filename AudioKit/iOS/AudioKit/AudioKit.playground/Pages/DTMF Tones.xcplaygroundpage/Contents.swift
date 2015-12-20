@@ -25,13 +25,19 @@ keys["0"] = [941, 1336]
 keys["#"] = [941, 1477]
 
 let frequencies = keys["0"]!
-let keyPressTone = sineWave(frequency: frequencies[0].ak) + sineWave(frequency: frequencies[1].ak)
-
-let generator = AKNode.generator(keyPressTone)
+let keyPressTone = sineWave(frequency: AKOperation.parameters(0)) + sineWave(frequency: AKOperation.parameters(1))
+let envelopedTone = AKOperation("0.01 0.1 0.01 tenv \(keyPressTone) mul")
+let generator = AKNode.generator(envelopedTone, triggered: true)
 
 audiokit.audioOutput = generator
 audiokit.start()
 
-sleep(1)
+let phoneNumber = "867-5309"
+for number in phoneNumber.characters {
+    if keys.keys.contains(String(number)) {
+        generator.trigger(keys[String(number)]!)
+        usleep(250000)
+    }
+}
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

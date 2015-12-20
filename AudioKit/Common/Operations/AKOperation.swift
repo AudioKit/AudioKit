@@ -11,6 +11,10 @@ import Foundation
 public struct AKOperation: CustomStringConvertible {
 
     public static var input = AKOperation("0 p 1 p")
+    
+    public static func parameters(i: Int) -> AKOperation {
+        return AKOperation("\(i+1) p ")
+    }
 
     var operationString = ""
     public var description: String {
