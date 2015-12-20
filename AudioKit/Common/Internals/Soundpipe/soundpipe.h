@@ -317,14 +317,6 @@ int sp_delay_create(sp_delay **p);
 int sp_delay_destroy(sp_delay **p);
 int sp_delay_init(sp_data *sp, sp_delay *p, SPFLOAT time);
 int sp_delay_compute(sp_data *sp, sp_delay *p, SPFLOAT *in, SPFLOAT *out);
-typedef struct {
-    SPFLOAT samp;
-} sp_delay1;
-
-int sp_delay1_create(sp_delay1 **p);
-int sp_delay1_destroy(sp_delay1 **p);
-int sp_delay1_init(sp_data *sp, sp_delay1 *p);
-int sp_delay1_compute(sp_data *sp, sp_delay1 *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct sp_dist{
     SPFLOAT pregain, postgain, shape1, shape2, mode;
 } sp_dist;
