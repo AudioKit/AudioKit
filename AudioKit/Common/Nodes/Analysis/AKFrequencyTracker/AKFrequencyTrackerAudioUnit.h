@@ -13,6 +13,7 @@
 
 @interface AKFrequencyTrackerAudioUnit : AUAudioUnit
 - (float)getAmplitude;
+- (float)getFrequency;
 @end
 
 #endif /* AKFrequencyTrackerAudioUnit_h */

@@ -34,6 +34,9 @@
 - (float)getAmplitude {
     return _kernel.trackedAmplitude;
 }
+- (float)getFrequency {
+    return _kernel.trackedFrequency;
+}
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
@@ -50,27 +53,12 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-        // Create a parameter object for the halfPowerPoint.
-    AUParameter *halfPowerPointAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"halfPowerPoint"
-                                              name:@"Half-power point (Hz)"
-                                           address:halfPowerPointAddress
-                                               min:0
-                                               max:20000
-                                              unit:kAudioUnitParameterUnit_Hertz
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
+    
     // Initialize the parameter values.
-    halfPowerPointAUParameter.value = 10;
 
-    _kernel.setParameter(halfPowerPointAddress, halfPowerPointAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        halfPowerPointAUParameter
     ]];
 
     // Create the input and output busses.
