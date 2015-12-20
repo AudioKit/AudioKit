@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Phone Tones
-//: ### An example creating typical telephone sounds with AudioKit
+//: ### AudioKit is great for sound design. Here, we show you how to create some telephone sounds using the sineWave generator.
 import XCPlayground
 import AudioKit
 
