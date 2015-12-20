@@ -15,6 +15,9 @@ public class AKNode {
     /** Output of the node */
     public var output: AVAudioNode?
     
+    /** AVAudioUnit */
+    public var avUnit: AVAudioUnit?
+    
     /** Required initialization method */
     init() {
         // Override in subclass

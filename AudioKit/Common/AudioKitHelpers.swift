@@ -308,6 +308,9 @@ public func CheckError(error: OSStatus) {
     case kMIDIIDNotUnique :
         print( "kMIDIIDNotUnique ")
         
+    case kMIDINotPermitted:
+        print( "kMIDINotPermitted: Have you enabled the audio background mode in your ios app?")
+        
     case kAudioToolboxErr_InvalidSequenceType :
         print( " kAudioToolboxErr_InvalidSequenceType ")
         
