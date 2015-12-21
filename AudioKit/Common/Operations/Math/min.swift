@@ -9,32 +9,32 @@
 import Foundation
 
 
-/** Minimum of two parameters
-
+/** Minimum of two operations
+ 
  - returns: AKOperation
- - parameter left: 1st parameter
- - parameter right: 2nd parameter
+ - parameter x: 1st operation
+ - parameter y: 2nd operation
  */
-public func min(left: AKParameter, _ right: AKParameter) -> AKOperation {
-    return AKOperation("\(left) \(right) min ")
+public func min(x: AKOperation, _ y: AKOperation) -> AKOperation {
+    return AKOperation("\(x) \(y) min ")
 }
 
-/** Minimum of two parameters
-
+/** Minimum of an operation and a parameter
+ 
  - returns: AKOperation
- - parameter left: Constant Value
- - parameter right: Operation
+ - parameter x: parameter
+ - parameter y: operation
  */
-public func min(left: Double, _ right: AKParameter) -> AKOperation {
-    return min(left, right)
+public func min(operation: AKOperation, _ parameter: AKParameter) -> AKOperation {
+    return AKOperation("\(operation) \(parameter) min ")
 }
 
-/** Minimum of two parameters
-
+/** Minimum of an operation and a parameter
+ 
  - returns: AKOperation
- - parameter left: Operation
- - parameter right: Constant value
+ - parameter x: parameter
+ - parameter y: operation
  */
-public func min(left: AKParameter, _ right: Double) -> AKOperation {
-    return min(left, right)
+public func min(parameter: AKParameter, _ operation: AKOperation) -> AKOperation {
+    return min(operation, parameter)
 }
