@@ -8,25 +8,14 @@
 
 import Foundation
 
-/** Mix together two operations
- 
- - returns: AKOperations
- - parameter first: First operation
- - parameter second: Second operation
- - parameter t: Value from zero to one indicating balance between first (0) and second (1) (Default: 0.5)
- */
-public func mix(first: AKOperation, _ second: AKOperation, t: Double = 0.5) -> AKOperation {
-    return mix(first, second, t: t.ak)
-}
+/** Mix together two parameters
 
-/** Mix together two operations
- 
  - returns: AKOperations
- - parameter first: First operation
- - parameter second: Second operation
+ - parameter first: First parameter
+ - parameter second: Second parameter
  - parameter t: Value from zero to one indicating balance between first (0) and second (1) (Default: 0.5)
  */
-public func mix(first: AKOperation, _ second: AKOperation, t: AKOperation = 0.5.ak) -> AKOperation {
-    let firstRatio = 1.0 - t
-    return AKOperation("\(firstRatio * first)\(t * second)+")
+public func mix(first: AKParameter, _ second: AKParameter, t: AKParameter = 0.5) -> AKOperation {
+    let firstRatio = 1 - t
+    return AKOperation("\(firstRatio * first) \(t * second) + ")
 }
