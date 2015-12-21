@@ -117,6 +117,19 @@ public class AKMidi: AKNode {
         }//end foreach source
     }
     
+    public func listMidiInputs(){
+        let sourceCount = MIDIGetNumberOfSources()
+        print("Midi Inputs:")
+        for var i = 0; i < sourceCount; ++i {
+            let src = MIDIGetSource(i)
+            var inputName: Unmanaged<CFString>?
+            inputName = nil
+            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
+            let inputNameStr = (inputName?.takeRetainedValue())! as String
+            print("midiIn at \(inputNameStr)")
+        }//end foreach source
+
+    }
     /// Open a MIDI Out Port
     public func openMidiOut(namedOutput: String = ""){
         print("Opening Midi Out")
@@ -140,7 +153,7 @@ public class AKMidi: AKNode {
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
             let endpointNameStr = (endpointName?.takeRetainedValue())! as String
             if namedOutput.isEmpty || namedOutput == endpointNameStr {
-                print("Destination at \(endpointNameStr)")
+                print("Found destination at \(endpointNameStr)")
                 midiEndpoints.append(MIDIGetDestination(i))
                 foundDest = true
             }
@@ -148,6 +161,19 @@ public class AKMidi: AKNode {
         if(!foundDest){
             print("no midi destination found named \"\(namedOutput)\"")
         }//end if match or no name set
+    }
+    
+    public func listMidiDestinations(){
+        let numOutputs = MIDIGetNumberOfDestinations()
+        print("Midi Destinations:")
+        for var i = 0; i < numOutputs; ++i {
+            let src = MIDIGetDestination(i)
+            var endpointName: Unmanaged<CFString>?
+            endpointName = nil
+            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
+            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
+            print("Destination at \(endpointNameStr)")
+        }//end foreach midi destination
     }
     
     /// Send Message with data
