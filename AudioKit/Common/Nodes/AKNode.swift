@@ -15,15 +15,17 @@ public class AKNode {
     /** Output of the node */
     public var output: AVAudioNode?
     
+    /** AVAudioUnit */
+    public var avUnit: AVAudioUnit?
+    
     /** Required initialization method */
     init() {
         // Override in subclass
     }
 
     public static func effect(input: AKNode, operation: AKOperation) -> AKOperationEffect {
-        // Add "swap drop" to discard the right channel input, and then
         // add "dup" to copy the left channel output to the right channel output
-        return AKOperationEffect(input, sporth:"\(operation) swap drop dup")
+        return AKOperationEffect(input, sporth:"\(operation) dup")
     }
     public static func effect(input: AKNode, operation: AKStereoOperation) -> AKOperationEffect {
         return AKOperationEffect(input, sporth:"\(operation) swap")

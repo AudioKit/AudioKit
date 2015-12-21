@@ -9,24 +9,24 @@
 import Foundation
 
 extension AKOperation {
-    
+
     /** lowPassButterworthFilter: A low-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost
      flat passband and very good precision and stopband attenuation.
-     
-     - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12.0, Maximum: 20000.0)
+
+     - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12, Maximum: 20000)
      */
     public mutating func lowPassButterworthFilter(
-        cutoffFrequency cutoffFrequency: AKOperation = 500.ak) {
+        cutoffFrequency cutoffFrequency: AKParameter = 500) {
             self = self.lowPassButterworthFiltered(cutoffFrequency: cutoffFrequency)
     }
-    
+
     /** lowPassButterworthFiltered: A low-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation.
-     
+
      - returns: AKOperation
-     - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12.0, Maximum: 20000.0)
+     - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12, Maximum: 20000)
      */
     public func lowPassButterworthFiltered(
-        cutoffFrequency cutoffFrequency: AKOperation = 500.ak) -> AKOperation {
-            return AKOperation("\(self)\(cutoffFrequency)buthp")
+        cutoffFrequency cutoffFrequency: AKParameter = 500) -> AKOperation {
+            return AKOperation("\(self) \(cutoffFrequency) buthp ")
     }
 }

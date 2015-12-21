@@ -14,8 +14,8 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096), baseFrequency: 100,  amplitude:0.1)
 
-let frequency = sineWave(frequency: 10.ak).scaledTo(minimum: 500, maximum: 1000)
-let resonance = abs(sineWave(frequency: 0.3.ak)) * 0.95
+let frequency = sineWave(frequency: 10).scaledTo(minimum: 500, maximum: 1000)
+let resonance = abs(sineWave(frequency: 0.3)) * 0.95
 
 let filter  = AKOperation.input.moogLadderFiltered(cutoffFrequency: frequency, resonance: resonance) * 3
 

@@ -11,40 +11,40 @@ import Foundation
 extension AKOperation {
 
     /** fmOscillator: Basic frequency modulated oscillator. - Classic FM Synthesis audio generation.
-     
+
      - returns: AKOperation
-     - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. (Default: 440, Minimum: 0.0, Maximum: 20000.0)
-     - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
-     - parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
-     - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
-     - parameter amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
+     - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. (Default: 440, Minimum: 0, Maximum: 20000)
+     - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency. (Default: 1, Minimum: 0, Maximum: 1000)
+     - parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency. (Default: 1, Minimum: 0, Maximum: 1000)
+     - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude. (Default: 1, Minimum: 0, Maximum: 1000)
+     - parameter amplitude: Output Amplitude. (Default: 0.5, Minimum: 0, Maximum: 10)
      */
     public static func fmOscillator(
-        baseFrequency baseFrequency: AKOperation = 440.ak,
-        carrierMultiplier: AKOperation = 1.0.ak,
-        modulatingMultiplier: AKOperation = 1.0.ak,
-        modulationIndex: AKOperation = 1.0.ak,
-        amplitude: AKOperation = 0.5.ak
+        baseFrequency baseFrequency: AKParameter = 440,
+        carrierMultiplier: AKParameter = 1,
+        modulatingMultiplier: AKParameter = 1,
+        modulationIndex: AKParameter = 1,
+        amplitude: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation("\(baseFrequency)\(amplitude)\(carrierMultiplier)\(modulatingMultiplier)\(modulationIndex)fm")
+            return AKOperation("\(baseFrequency) \(amplitude) \(carrierMultiplier) \(modulatingMultiplier) \(modulationIndex) fm ")
     }
 }
 
 /** fmOscillator: Basic frequency modulated oscillator. - Classic FM Synthesis audio generation.
- 
+
 - returns: AKOperation
-- parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. (Default: 440, Minimum: 0.0, Maximum: 20000.0)
-- parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
-- parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
-- parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude. (Default: 1.0, Minimum: 0.0, Maximum: 1000.0)
-- parameter amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
+- parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. (Default: 440, Minimum: 0, Maximum: 20000)
+- parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency. (Default: 1, Minimum: 0, Maximum: 1000)
+- parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency. (Default: 1, Minimum: 0, Maximum: 1000)
+- parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude. (Default: 1, Minimum: 0, Maximum: 1000)
+- parameter amplitude: Output Amplitude. (Default: 0.5, Minimum: 0, Maximum: 10)
 */
 public func fmOscillator(
-    baseFrequency baseFrequency: AKOperation = 440.ak,
-    carrierMultiplier: AKOperation = 1.0.ak,
-    modulatingMultiplier: AKOperation = 1.0.ak,
-    modulationIndex: AKOperation = 1.0.ak,
-    amplitude: AKOperation = 0.5.ak
+    baseFrequency baseFrequency: AKParameter = 440,
+    carrierMultiplier: AKParameter = 1,
+    modulatingMultiplier: AKParameter = 1,
+    modulationIndex: AKParameter = 1,
+    amplitude: AKParameter = 0.5
     ) -> AKOperation {
         return AKOperation.fmOscillator(baseFrequency: baseFrequency, carrierMultiplier: carrierMultiplier, modulatingMultiplier: modulatingMultiplier, modulationIndex: modulationIndex, amplitude: amplitude)
 }

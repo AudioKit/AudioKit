@@ -12,33 +12,33 @@ extension AKOperation {
 
     /** randomNumberPulse: Random number generator with hold time. - Loosely based off of the Csound opcode randomh. The design is equivalent to
  scaled noise sent through a classic sample and hold module.
-     
+
      - returns: AKOperation
      - parameter minimum: Minimum value to use. (Default: 0)
      - parameter maximum: Maximum value to use. (Default: 1)
      - parameter updateFrequency: Frequency of randomization (in Hz) (Default: 10)
      */
     public static func randomNumberPulse(
-        minimum minimum: AKOperation = 0.ak,
-        maximum: AKOperation = 1.ak,
-        updateFrequency: AKOperation = 10.ak
+        minimum minimum: AKParameter = 0,
+        maximum: AKParameter = 1,
+        updateFrequency: AKParameter = 10
         ) -> AKOperation {
-            return AKOperation("\(minimum)\(maximum)\(updateFrequency)randh")
+            return AKOperation("\(minimum) \(maximum) \(updateFrequency) randh ")
     }
 }
 
 /** randomNumberPulse: Random number generator with hold time. - Loosely based off of the Csound opcode randomh. The design is equivalent to
  scaled noise sent through a classic sample and hold module.
- 
+
 - returns: AKOperation
 - parameter minimum: Minimum value to use. (Default: 0)
 - parameter maximum: Maximum value to use. (Default: 1)
 - parameter updateFrequency: Frequency of randomization (in Hz) (Default: 10)
 */
 public func randomNumberPulse(
-    minimum minimum: AKOperation = 0.ak,
-    maximum: AKOperation = 1.ak,
-    updateFrequency: AKOperation = 10.ak
+    minimum minimum: AKParameter = 0,
+    maximum: AKParameter = 1,
+    updateFrequency: AKParameter = 10
     ) -> AKOperation {
         return AKOperation.randomNumberPulse(minimum: minimum, maximum: maximum, updateFrequency: updateFrequency)
 }

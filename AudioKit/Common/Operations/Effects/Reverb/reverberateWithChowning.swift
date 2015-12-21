@@ -17,7 +17,7 @@ extension AKOperation {
  networks of simple allpass and comb delay filters.  This class implements three
  series allpass units, followed by four parallel comb filters, and two
  decorrelation delay lines in parallel at the output.
-     
+
      - returns: AKOperation
      */
     public mutating func reverberateWithChowning(
@@ -33,12 +33,12 @@ extension AKOperation {
  networks of simple allpass and comb delay filters.  This class implements three
  series allpass units, followed by four parallel comb filters, and two
  decorrelation delay lines in parallel at the output.
-     
+
      - returns: AKOperation
      */
     public func reverberatedWithChowning(
         ) -> AKOperation {
-            return AKOperation("\(self)jcrev")
+            return AKOperation("\(self) jcrev ")
     }
 
 }

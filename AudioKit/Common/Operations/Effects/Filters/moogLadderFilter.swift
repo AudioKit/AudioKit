@@ -9,32 +9,32 @@
 import Foundation
 
 extension AKOperation {
-    
+
     /** Moog Ladder Filter - Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli). This implementation is probably a more accurate digital representation of the original analogue filter.
-     
+
      - returns: AKOperation
-     - parameter cutoffFrequency: Filter cutoff frequency. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
-     - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
+     - parameter cutoffFrequency: Filter cutoff frequency. (Default: 1000, Minimum: 12, Maximum: 20000)
+     - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. (Default: 0.5, Minimum: 0, Maximum: 2)
      */
     public mutating func moogLadderFilter(
-        cutoffFrequency cutoffFrequency: AKOperation = 1000.ak,
-        resonance: AKOperation = 0.5.ak
+        cutoffFrequency cutoffFrequency: AKParameter = 1000,
+        resonance: AKParameter = 0.5
         ) {
             self = self.moogLadderFiltered(cutoffFrequency: cutoffFrequency, resonance: resonance)
-            
+
     }
-    
+
     /** Moog Ladder Filter - Moog Ladder is an new digital implementation of the Moog ladder filter based on the work of Antti Huovilainen, described in the paper "Non-Linear Digital Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of Napoli). This implementation is probably a more accurate digital representation of the original analogue filter.
-     
+
      - returns: AKOperation
-     - parameter cutoffFrequency: Filter cutoff frequency. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
-     - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
+     - parameter cutoffFrequency: Filter cutoff frequency. (Default: 1000, Minimum: 12, Maximum: 20000)
+     - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. (Default: 0.5, Minimum: 0, Maximum: 2)
      */
     public func moogLadderFiltered(
-        cutoffFrequency cutoffFrequency: AKOperation = 1000.ak,
-        resonance: AKOperation = 0.5.ak
+        cutoffFrequency cutoffFrequency: AKParameter = 1000,
+        resonance: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation("\(self)\(cutoffFrequency)\(resonance)moogladder")
+            return AKOperation("\(self) \(cutoffFrequency) \(resonance) moogladder ")
     }
-    
+
 }

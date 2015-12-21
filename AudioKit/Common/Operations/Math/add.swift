@@ -8,69 +8,32 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKParameter {
     /** plus: Addition/Summation of operations
-     
+
      - returns: AKOperation
-     - parameter operation: The amount to add
+     - parameter parameter: The amount to add
      */
-    public func plus(operation: AKOperation) -> AKOperation {
-        return AKOperation("\(self)\(operation)+")
+    public func plus(parameter: AKParameter) -> AKOperation {
+        return AKOperation("\(self) \(parameter) + ")
     }
-    
-    /** plus: Addition/Summation of operations
-     
-     - returns: AKOperation
-     - parameter constant: The amount to add
-     */
-    public func plus(constant: Double) -> AKOperation {
-        return AKOperation("\(self)\(constant.ak)+")
-    }
-    
+
     /** offsetBy: Offsetting by way of addition
-     
+
      - returns: AKOperation
-     - parameter operation: The amount to offset by
+     - parameter parameter: The amount to offset by
      */
-    public func offsetBy(operation: AKOperation) -> AKOperation {
-        return self.plus(operation)
-    }
-    /** offsetBy: Offsetting by way of addition
-     
-     - returns: AKOperation
-     - parameter constant: The amount to offset by
-     */
-    public func offsetBy(constant: Double) -> AKOperation {
-        return self.plus(constant.ak)
+    public func offsetBy(parameter: AKParameter) -> AKOperation {
+        return self.plus(parameter)
     }
 }
 
 /** Helper function for addition
- 
+
 - returns: AKOperation
-- left: 1st operation
-- right: 2nd operation
+- left: 1st parameter
+- right: 2nd parameter
 */
-public func + (left: AKOperation, right: AKOperation) -> AKOperation {
+public func + (left: AKParameter, right: AKParameter) -> AKOperation {
     return left.plus(right)
-}
-
-/** Helper function for addition
- 
- - returns: AKOperation
- - left: Operation
- - right: Constant value
- */
-public func + (left: AKOperation, right: Double) -> AKOperation {
-    return left.plus(right)
-}
-
-/** Helper function for addition
- 
- - returns: AKOperation
- - left: Constant value
- - right: Operation
- */
-public func + (left: Double, right: AKOperation) -> AKOperation {
-    return right.plus(left)
 }
