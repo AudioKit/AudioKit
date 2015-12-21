@@ -14,6 +14,7 @@
 @interface AKFrequencyTrackerAudioUnit : AUAudioUnit
 - (float)getAmplitude;
 - (float)getFrequency;
+- (void)setFrequencyLimitsWithMinimum:(float)minimum maximum:(float)maximum;
 @end
 
 #endif /* AKFrequencyTrackerAudioUnit_h */

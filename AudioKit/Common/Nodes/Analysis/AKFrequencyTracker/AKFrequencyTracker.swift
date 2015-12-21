@@ -28,7 +28,7 @@ public class AKFrequencyTracker: AKNode {
     // MARK: - Initializers
 
     /** Initialize this Pitch-detection node */
-    public init(_ input: AKNode) {
+    public init(_ input: AKNode, minimumFrequency: Double, maximumFrequency: Double) {
 
         super.init()
 
@@ -54,6 +54,7 @@ public class AKFrequencyTracker: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFrequencyTrackerAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            self.internalAU?.setFrequencyLimitsWithMinimum(Float(minimumFrequency), maximum: Float(maximumFrequency))
         }
     }
 }

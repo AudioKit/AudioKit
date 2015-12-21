@@ -37,6 +37,11 @@
 - (float)getFrequency {
     return _kernel.trackedFrequency;
 }
+- (void)setFrequencyLimitsWithMinimum:(float)minimum maximum:(float)maximum {
+    _kernel.setFrequencyLimits(minimum, maximum);
+}
+
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {

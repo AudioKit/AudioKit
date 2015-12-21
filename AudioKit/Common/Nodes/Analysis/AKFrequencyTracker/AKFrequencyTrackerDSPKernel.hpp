@@ -30,7 +30,7 @@ public:
 
         sp_create(&sp);
         sp_pitchamdf_create(&pitchamdf);
-        sp_pitchamdf_init(sp, pitchamdf, 200, 400);
+        sp_pitchamdf_init(sp, pitchamdf, minimumFrequency, maximumFrequency);
     }
 
     void destroy() {
@@ -39,6 +39,11 @@ public:
     }
     
     void reset() {
+    }
+    
+    void setFrequencyLimits(float min, float max) {
+        minimumFrequency = min;
+        maximumFrequency = max;
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -86,6 +91,9 @@ private:
 
     int channels = 2;
     float sampleRate = 44100.0;
+    
+    float minimumFrequency = 20;
+    float maximumFrequency = 4000;
 
     AudioBufferList* inBufferListPtr = nullptr;
     AudioBufferList* outBufferListPtr = nullptr;
@@ -96,6 +104,7 @@ private:
 public:
     float trackedAmplitude = 0.0;
     float trackedFrequency = 0.0;
+
 
 };
 
