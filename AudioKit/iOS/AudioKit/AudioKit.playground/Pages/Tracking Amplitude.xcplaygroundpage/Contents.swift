@@ -12,10 +12,10 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Let's set up the volume to be changing in the shape of a sine wave
-let volume = sineWave(frequency:0.2.ak).scaledTo(minimum: 0, maximum: 1)
+let volume = sineWave(frequency:0.2).scaledTo(minimum: 0, maximum: 1)
 
 //: And let's make the frequency move around to make sure it doesn't affect the amplitude tracking
-let frequency = jitter(amplitude: 200.ak, minimumFrequency: 10.ak, maximumFrequency: 30.ak) + 200.ak
+let frequency = jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
 
 //: So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
 let oscillator = sineWave(frequency: frequency, amplitude: volume)
