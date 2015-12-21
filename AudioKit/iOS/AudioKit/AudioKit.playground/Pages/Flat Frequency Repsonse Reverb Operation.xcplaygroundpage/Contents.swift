@@ -16,7 +16,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 
 // Note this is not currently working correctly...
-let duration = sineWave(frequency: 0.1.ak).scaledTo(minimum: 0.0.ak, maximum: 5.0.ak)
+let duration = sineWave(frequency: 0.1).scaledTo(minimum: 0, maximum: 5)
 
 let reverb = AKOperation.input.reverberatedWithFlatFrequencyResponse(reverbDuration: duration, loopDuration: 0.1)
 let effect = AKNode.effect(player, operation: reverb)

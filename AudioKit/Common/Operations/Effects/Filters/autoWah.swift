@@ -11,34 +11,34 @@ import Foundation
 extension AKOperation {
 
     /** autoWah: Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
-     
+
      - returns: AKOperation
      - parameter wah: Wah Amount (Default: 0, Minimum: 0, Maximum: 1)
      - parameter mix: Dry/Wet Mix (Default: 100, Minimum: 0, Maximum: 100)
      - parameter amplitude: Overall level (Default: 0.1, Minimum: 0, Maximum: 1)
      */
     public mutating func autoWah(
-        wah wah: AKOperation = 0.ak,
-        mix: AKOperation = 100.ak,
-        amplitude: AKOperation = 0.1.ak
+        wah wah: AKParameter = 0,
+        mix: AKParameter = 100,
+        amplitude: AKParameter = 0.1
         ) {
             self = self.autoWahed(wah: wah, mix: mix, amplitude: amplitude)
 
     }
 
     /** autoWahed: Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
-     
+
      - returns: AKOperation
      - parameter wah: Wah Amount (Default: 0, Minimum: 0, Maximum: 1)
      - parameter mix: Dry/Wet Mix (Default: 100, Minimum: 0, Maximum: 100)
      - parameter amplitude: Overall level (Default: 0.1, Minimum: 0, Maximum: 1)
      */
     public func autoWahed(
-        wah wah: AKOperation = 0.ak,
-        mix: AKOperation = 100.ak,
-        amplitude: AKOperation = 0.1.ak
+        wah wah: AKParameter = 0,
+        mix: AKParameter = 100,
+        amplitude: AKParameter = 0.1
         ) -> AKOperation {
-            return AKOperation("\(self)\(amplitude)\(wah)\(mix)autowah")
+            return AKOperation("\(self) \(amplitude) \(wah) \(mix) autowah ")
     }
 
 }

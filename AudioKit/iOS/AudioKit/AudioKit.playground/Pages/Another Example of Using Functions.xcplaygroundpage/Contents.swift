@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 func instrument(noteNumber: Int, rate: Double, amplitude: Double) -> AKOperation {
     let metro = metronome(82.0 / (60.0 * rate))
-    let frequency = noteNumber.ak.midiNoteToFrequency()
-    return fmOscillator(baseFrequency: frequency, amplitude: amplitude.ak)
-        .triggeredBy(metro, attack: 0.5.ak, hold: 1.ak, release: 1.ak)
+    let frequency = noteNumber.midiNoteToFrequency()
+    return fmOscillator(baseFrequency: frequency, amplitude: amplitude)
+        .triggeredBy(metro, attack: 0.5, hold: 1, release: 1)
 }
 
 let instrument1 = instrument(60, rate: 4, amplitude: 0.5)
@@ -23,7 +23,7 @@ let instrument4 = instrument(67, rate: 7, amplitude: 0.125)
 
 let instruments = (instrument1 + instrument2 + instrument3 + instrument4) * 0.13
 
-let reverb = instruments.reverberatedWithCostello(feedback: 0.9.ak, cutoffFrequency: 10000.ak).toMono()
+let reverb = instruments.reverberatedWithCostello(feedback: 0.9, cutoffFrequency: 10000).toMono()
 
 let generator = AKNode.generator(mix(instruments, reverb, t: 0.4))
 

@@ -12,15 +12,15 @@ let audiokit = AKManager.sharedInstance
 
 let playRate = 2.0
 
-let randomNoteNumber = floor(randomNumberPulse(minimum: 12.ak, maximum: 96.ak, updateFrequency: 20.ak))
+let randomNoteNumber = floor(randomNumberPulse(minimum: 12, maximum: 96, updateFrequency: 20))
 let frequency = randomNoteNumber.midiNoteToFrequency()
 let trigger = metronome(playRate)
 let pluck = pluckedString(
     frequency: frequency,
-    position: 0.2.ak,
-    pickupPosition: 0.1.ak,
-    reflectionCoefficent: 0.01.ak,
-    amplitude: 0.5.ak)
+    position: 0.2,
+    pickupPosition: 0.1,
+    reflectionCoefficent: 0.01,
+    amplitude: 0.5)
 
 let pluckNode = AKNode.generator(pluck, triggered: true)
 

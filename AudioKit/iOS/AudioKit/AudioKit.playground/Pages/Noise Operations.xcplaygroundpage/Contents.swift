@@ -12,9 +12,9 @@ let audiokit = AKManager.sharedInstance
 let white = whiteNoise()
 let pink = pinkNoise()
 
-let balance = sineWave(frequency: 0.3.ak).scaledTo(minimum: 0, maximum: 1)
-let noise = mix(white, pink, t: 1.ak)
-let pan = sineWave(frequency: 0.3.ak)
+let balance = sineWave(frequency: 0.3).scaledTo(minimum: 0, maximum: 1)
+let noise = mix(white, pink, t: 1)
+let pan = sineWave(frequency: 0.3)
 
 let generator = AKNode.generator(noise.panned(pan))
 

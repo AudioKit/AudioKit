@@ -8,44 +8,25 @@
 
 import Foundation
 
-extension AKOperation {
-    /** minus: Subtraction of operations
-     
+extension AKParameter {
+    /** minus: Subtraction of parameters
+
      - returns: AKOperation
      - parameter subtrahend: The amount to subtract
      */
-    public func minus(subtrahend: AKOperation) -> AKOperation {
-        return AKOperation("\(self)\(subtrahend)-")
+    public func minus(subtrahend: AKParameter) -> AKOperation {
+        return AKOperation("\(self) \(subtrahend) - ")
     }
 }
 
 
 /** Helper function for Subtraction
- 
+
  - returns: AKOperation
- - left: 1st operation
- - right: 2nd operation
+ - left: 1st parameter
+ - right: 2nd parameter
  */
-public func - (left: AKOperation, right: AKOperation) -> AKOperation {
+public func - (left: AKParameter, right: AKParameter) -> AKOperation {
     return left.minus(right)
 }
 
-/** Helper function for Subtraction
- 
- - returns: AKOperation
- - left: Operation
- - right: Constant value
- */
-public func - (left: AKOperation, right: Double) -> AKOperation {
-    return left.minus(right.ak)
-}
-
-/** Helper function for Subtraction
- 
- - returns: AKOperation
- - left: Constant value
- - right: Operation
- */
-public func - (left: Double, right: AKOperation) -> AKOperation {
-    return left.ak.minus(right)
-}

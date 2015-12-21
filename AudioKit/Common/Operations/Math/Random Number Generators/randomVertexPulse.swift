@@ -11,32 +11,32 @@ import Foundation
 extension AKOperation {
 
     /** randomVertexPulse: Line segments between random values within a range
-     
+
      - returns: AKOperation
      - parameter minimum: Minimum value (Default: 0)
      - parameter maximum: Maximum value (Default: 1)
      - parameter updateFrequency: Frequency to change values. (Default: 3)
      */
     public static func randomVertexPulse(
-        minimum minimum: AKOperation = 0.ak,
-        maximum: AKOperation = 1.ak,
-        updateFrequency: AKOperation = 3.ak
+        minimum minimum: AKParameter = 0,
+        maximum: AKParameter = 1,
+        updateFrequency: AKParameter = 3
         ) -> AKOperation {
-            return AKOperation("\(minimum)\(maximum)\(updateFrequency)randi")
+            return AKOperation("\(minimum) \(maximum) \(updateFrequency) randi ")
     }
 }
 
 /** randomVertexPulse: Line segments between random values within a range
- 
+
 - returns: AKOperation
 - parameter minimum: Minimum value (Default: 0)
 - parameter maximum: Maximum value (Default: 1)
 - parameter updateFrequency: Frequency to change values. (Default: 3)
 */
 public func randomVertexPulse(
-    minimum minimum: AKOperation = 0.ak,
-    maximum: AKOperation = 1.ak,
-    updateFrequency: AKOperation = 3.ak
+    minimum minimum: AKParameter = 0,
+    maximum: AKParameter = 1,
+    updateFrequency: AKParameter = 3
     ) -> AKOperation {
         return AKOperation.randomVertexPulse(minimum: minimum, maximum: maximum, updateFrequency: updateFrequency)
 }

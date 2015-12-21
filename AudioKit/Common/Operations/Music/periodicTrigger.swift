@@ -11,19 +11,19 @@ import Foundation
 extension AKOperation {
 
     /** periodicTrigger: Periodic Trigger - Produce a set of triggers spaced apart by time.
-     
-     - parameter period: Time between triggers (in seconds). This will update at the start of each trigger. (Default: 1.0)
+
+     - parameter period: Time between triggers (in seconds). This will update at the start of each trigger. (Default: 1)
      */
-    public static func periodicTrigger(period: AKOperation = 1.0.ak) -> AKOperation {
-        return AKOperation("\(period)dmetro")
+    public static func periodicTrigger(period: AKParameter = 1) -> AKOperation {
+        return AKOperation("\(period) dmetro ")
     }
 }
 
 /** periodicTrigger: Periodic Trigger - Produce a set of triggers spaced apart by time.
- 
+
 - returns: AKOperation
-- parameter period: Time between triggers (in seconds). This will update at the start of each trigger. (Default: 1.0)
+- parameter period: Time between triggers (in seconds). This will update at the start of each trigger. (Default: 1)
 */
-public func periodicTrigger(period: AKOperation = 1.0.ak) -> AKOperation {
+public func periodicTrigger(period: AKParameter = 1) -> AKOperation {
     return AKOperation.periodicTrigger(period)
 }
