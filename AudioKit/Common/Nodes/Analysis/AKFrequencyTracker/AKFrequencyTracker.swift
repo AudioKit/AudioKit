@@ -22,7 +22,7 @@ public class AKFrequencyTracker: AKNode {
         return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
     }
     public var frequency: Double {
-        return Double(self.internalAU!.getFrequency())
+        return Double(self.internalAU!.getFrequency()) * 2.0
     }
 
     // MARK: - Initializers
@@ -54,7 +54,7 @@ public class AKFrequencyTracker: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFrequencyTrackerAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.output!)
             AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
-            self.internalAU?.setFrequencyLimitsWithMinimum(Float(minimumFrequency), maximum: Float(maximumFrequency))
+            self.internalAU?.setFrequencyLimitsWithMinimum(Float(minimumFrequency/2), maximum: Float(maximumFrequency/2))
         }
     }
 }
