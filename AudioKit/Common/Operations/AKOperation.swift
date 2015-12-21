@@ -42,6 +42,7 @@ extension Int: AKParameter {}
 public struct AKOperation: AKParameter  {
 
     public static var input = AKOperation("0 p ")
+    public static var trigger = AKOperation("")
 
     public static func parameters(i: Int) -> AKOperation {
         return AKOperation("\(i+1)  p  ")
