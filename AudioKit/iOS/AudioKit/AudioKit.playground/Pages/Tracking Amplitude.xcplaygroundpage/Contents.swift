@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Tracking Amplitude
-//: ### Tracking the amplitude of one node's output using the AKAmplitudeTracker node.
+//: ### Here, we show how you can determine the amplitude of an audio signal by outputting the value of a generator node into the AKAmplitudeTracker. This node is great if you want to build an app that does audio monitoring and analysis.
 
 //: Standard imports and AudioKit setup:
 import XCPlayground

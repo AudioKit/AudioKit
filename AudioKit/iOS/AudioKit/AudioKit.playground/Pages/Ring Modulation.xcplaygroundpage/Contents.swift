@@ -15,7 +15,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let ringModulator = AKRingModulator(player)
 
-//: Set the parameters of the ring modulator here
+//: Set the parameters of the Ring Modulator here
 ringModulator.frequency1 = 440 // Hertz
 ringModulator.frequency2 = 660 // Hertz
 ringModulator.balance = 50 // Percent

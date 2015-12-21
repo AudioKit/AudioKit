@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## AKAutoWah
-//: ### Add description
+//: ### One of the most iconic guitar effects is the wah-pedal. Here, we run an audio loop of a guitar through an AKAutoWah node. 
 import XCPlayground
 import AudioKit
 
@@ -15,7 +15,7 @@ let player = AKAudioPlayer(file!)
 let wah = AKAutoWah(player)
 player.looping = true
 
-//: Set the parameters of the band pass filter here
+//: Set the parameters of the auto-wah here
 wah.wah = 1
 wah.amplitude = 1
 

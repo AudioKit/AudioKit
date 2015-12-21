@@ -16,7 +16,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let moogLadder = AKMoogLadder(player)
 
-//: Set the parameters of the low pass filter here. Hertz is a common unit of measurement for a frequency parameter. TODO: find a non-terrible explanation of what "Cents" are.
+//: Set the parameters of the Moog Ladder Filter here. Hertz is a common unit of measurement for a frequency parameter. TODO: find a non-terrible explanation of what "Cents" are.
 
 moogLadder.cutoffFrequency = 300 // Hz
 moogLadder.resonance = 0.6  // Cents
