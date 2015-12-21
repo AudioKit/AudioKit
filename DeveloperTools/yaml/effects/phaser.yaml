@@ -1,0 +1,109 @@
+installation-directory: "Effects/Effects/"
+
+sp-module: phaser
+
+node: AKPhaser
+
+four-letter-code: phas
+
+summary: Stereo Phaser
+
+one-word-description: phaser
+
+description: A stereo phaser
+  This is a stereo phaser, generated from Faust code taken from the
+  Guitarix project.
+
+
+parameters:
+- MinNotch1Freq: {
+  ak-variable: notch1MinimumFrequency,
+  comment: "Notch 1 Minimum Frequency",
+  au-name: "Notch 1 Minimum Frequency",
+  au-unit: Hertz,
+  default: 100,
+  minimum: 20,
+  maximum: 5000
+}
+- MaxNotch1Freq: {
+  ak-variable: notch1MaximumFrequency,
+  comment: "Notch 1 Maximum Frequency",
+  au-name: "Notch 1 Maximum Frequency",
+  au-unit: Hertz,
+  default: 800,
+  minimum: 20,
+  maximum: 10000
+}
+- Notch_width: {
+  ak-variable: Notch_width,
+  comment: "Between 10 and 5000",
+  au-name: "Between 10 and 5000",
+  au-unit: Hertz,
+  default: 1000,
+  minimum: ,
+  maximum:
+}
+- NotchFreq: {
+  ak-variable: NotchFreq,
+  comment: "Between 1.1 and 4",
+  au-name: "Between 1.1 and 4",
+  au-unit: Hertz,
+  default: 1.5,
+  minimum: ,
+  maximum:
+}
+- VibratoMode: {
+  ak-variable: VibratoMode,
+  comment: "1 or 0",
+  au-name: "1 or 0",
+  au-unit: Hertz,
+  default: 1,
+  minimum: ,
+  maximum:
+}
+- depth: {
+  ak-variable: depth,
+  comment: "Between 0 and 1",
+  au-name: "Between 0 and 1",
+  au-unit: Hertz,
+  default: 1,
+  minimum: ,
+  maximum:
+}
+- feedback_gain: {
+  ak-variable: feedback_gain,
+  comment: "Between 0 and 1",
+  au-name: "Between 0 and 1",
+  au-unit: Hertz,
+  default: 0,
+  minimum: ,
+  maximum:
+}
+- invert: {
+  ak-variable: invert,
+  comment: "1 or 0",
+  au-name: "1 or 0",
+  au-unit: Hertz,
+  default: 0,
+  minimum: ,
+  maximum:
+}
+- level: {
+  ak-variable: level,
+  comment: "-60 to 10 dB",
+  au-name: "-60 to 10 dB",
+  au-unit: Hertz,
+  default: 0,
+  minimum: ,
+  maximum:
+}
+- lfobpm: {
+  ak-variable: lfobpm,
+  comment: "Between 24 and 360",
+  au-name: "Between 24 and 360",
+  au-unit: Hertz,
+  default: 30,
+  minimum: ,
+  maximum:
+}
+
