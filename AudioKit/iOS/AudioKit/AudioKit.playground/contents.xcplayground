@@ -24,6 +24,7 @@
         <page name='High Shelf Filter'/>
         <page name='Low Pass Filter'/>
         <page name='Low Shelf Filter'/>
+        <page name='Modal Resonance Filter'/>
         <page name='Moog Ladder Filter'/>
         <page name='Parametric Equalizer'/>
         <page name='Oscillators'/>
@@ -47,7 +48,6 @@
         <page name='High Pass Filter Operation'/>
         <page name='Low Pass Filter Operation'/>
         <page name='AutoWah Operation'/>
-        <page name='Modal Resonance Filter'/>
         <page name='Modal Resonance Filter Operation'/>
         <page name='Moog Ladder Filter Operation'/>
         <page name='Noise Operations'/>
@@ -62,10 +62,10 @@
         <page name='Another Example of Using Functions'/>
         <page name='Sporth Based Effect'/>
         <page name='Sporth Based Generator'/>
-        <page name='Sequencer - single output'/>
-        <page name='Sequencer - Multiple output'/>
         <page name='3D Spatialization'/>
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency'/>
+        <page name='Sequencer - Multiple output'/>
+        <page name='Sequencer - single output'/>
     </pages>
 </playground>

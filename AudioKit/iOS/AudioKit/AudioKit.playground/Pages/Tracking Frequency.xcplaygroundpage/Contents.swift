@@ -12,10 +12,10 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Let's set up the volume to be changing in the shape of a sine wave
-let volume = sineWave(frequency:0.2.ak).scaledTo(minimum: 0.9, maximum: 1)
+let volume = sineWave(frequency:0.2).scaledTo(minimum: 0.9, maximum: 1)
 
 //: And let's make the frequency also be a sineWave
-let frequency = sineWave(frequency: 0.5.ak).scaledTo(minimum: 400, maximum: 700)
+let frequency = sineWave(frequency: 0.5).scaledTo(minimum: 400, maximum: 700)
 
 //: So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
 let oscillator = sineWave(frequency: frequency, amplitude: volume)
