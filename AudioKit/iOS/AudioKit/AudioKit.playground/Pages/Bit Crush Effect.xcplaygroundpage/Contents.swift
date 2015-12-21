@@ -15,7 +15,7 @@ let player = AKAudioPlayer(file!)
 player.looping = true
 let bitcrusher = AKBitCrusher(player)
 
-//: Set the parameters of the band pass filter here
+//: Set the parameters of the bitcrusher here
 bitcrusher.bitDepth = 16
 bitcrusher.sampleRate = 3333
 
