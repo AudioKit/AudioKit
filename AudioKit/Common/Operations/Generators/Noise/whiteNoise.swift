@@ -11,20 +11,20 @@ import Foundation
 extension AKOperation {
 
     /** whiteNoise: White noise generator
-     
+
      - returns: AKOperation
-     - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
+     - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 10)
      */
-    public static func whiteNoise(amplitude amplitude: AKOperation = 1.0.ak) -> AKOperation {
-        return AKOperation("\(amplitude)noise")
+    public static func whiteNoise(amplitude amplitude: AKParameter = 1) -> AKOperation {
+        return AKOperation("\(amplitude) noise ")
     }
 }
 
-/** whiteNoise: White noise generator 
- 
+/** whiteNoise: White noise generator
+
 - returns: AKOperation
-- parameter amplitude: Amplitude. (Value between 0-1). (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
+- parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 10)
 */
-public func whiteNoise(amplitude amplitude: AKOperation = 1.0.ak) -> AKOperation {
+public func whiteNoise(amplitude amplitude: AKParameter = 1) -> AKOperation {
     return AKOperation.whiteNoise(amplitude: amplitude)
 }

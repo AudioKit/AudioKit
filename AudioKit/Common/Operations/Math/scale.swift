@@ -8,56 +8,45 @@
 
 import Foundation
 
-extension AKOperation {
-    
+extension AKParameter {
+
     /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
-     
-     - parameter minimum: Minimum value to scale to. (Default: 0.0, Minimum: -1000000.0, Maximum: 1000000.0)
-     - parameter maximum: Maximum value to scale to. (Default: 1.0, Minimum: -1000000.0, Maximum: 1000000.0)
+
+     - parameter minimum: Minimum value to scale to. (Default: 0, Minimum: -1000000, Maximum: 1000000)
+     - parameter maximum: Maximum value to scale to. (Default: 1, Minimum: -1000000, Maximum: 1000000)
      */
-    public mutating func scale(
-        minimum minimum: AKOperation = 0.0.ak,
-        maximum: AKOperation = 1.0.ak) {
-            self = self.scaledTo(minimum: minimum, maximum: maximum)
-    }
-    
+//    public mutating func scale(
+//        minimum minimum: AKParameter = 0,
+//        maximum: AKParameter = 1) {
+//            self = self.scaledTo(minimum: minimum, maximum: maximum)
+//    }
+
     /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
-     
+
      - returns: AKOperation
-     - parameter minimum: Minimum value to scale to. (Default: 0.0)
-     - parameter maximum: Maximum value to scale to. (Default: 1.0)
+     - parameter minimum: Minimum value to scale to. (Default: 0)
+     - parameter maximum: Maximum value to scale to. (Default: 1)
      */
     public func scaledTo(
-        minimum minimum: AKOperation = 0.0.ak,
-        maximum: AKOperation = 1.0.ak
+        minimum minimum: AKParameter = 0,
+        maximum: AKParameter = 1
         ) -> AKOperation {
-            return AKOperation("\(self)\(minimum)\(maximum)biscale")
+            return AKOperation("\(self) \(minimum) \(maximum) biscale ")
     }
-    /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
-     
-     - returns: AKOperation
-     - parameter minimum: Minimum value to scale to. (Default: 0.0)
-     - parameter maximum: Maximum value to scale to. (Default: 1.0)
-     */
-    public func scaledTo(
-        minimum minimum: Double = 0.0,
-        maximum: Double = 1.0
-        ) -> AKOperation {
-            return  self.scaledTo(minimum: minimum.ak, maximum: maximum.ak)
-    }
+
 }
 
 /** scale: Linear tranformation from one range to another, based on minimum and maximum values. - This module scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
- 
+
  - returns: AKOperation
  - parameter input: Input signal.
- - parameter minimum: Minimum value to scale to. (Default: 0.0)
- - parameter maximum: Maximum value to scale to. (Default: 1.0)
+ - parameter minimum: Minimum value to scale to. (Default: 0)
+ - parameter maximum: Maximum value to scale to. (Default: 1)
  */
 public func scale(
-    input: AKOperation,
-    minimum: AKOperation = 0.0.ak,
-    maximum: AKOperation = 1.0.ak
+    input: AKParameter,
+    minimum: AKParameter = 0,
+    maximum: AKParameter = 1
     ) -> AKOperation {
         return input.scaledTo(minimum: minimum, maximum: maximum)
 }

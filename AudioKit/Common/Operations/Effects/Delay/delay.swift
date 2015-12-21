@@ -11,24 +11,24 @@ import Foundation
 extension AKOperation {
 
     /** Simple audio delay - Add a delay to an incoming signal with optional feedback.
-     
-     - parameter feedback: Feedback amount. (Default: 0.0, Minimum: 0.0, Maximum: 1.0)
-     - parameter delayTime: Delay time, in seconds. (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
+
+     - parameter feedback: Feedback amount. (Default: 0, Minimum: 0, Maximum: 1)
+     - parameter delayTime: Delay time, in seconds. (Default: 1, Minimum: 0, Maximum: 10)
      */
-    public mutating func delay(time time: Float = 1.0, feedback: AKOperation = 0.0.ak) {
+    public mutating func delay(time time: Float = 1, feedback: AKParameter = 0) {
         self = self.delayed(time: time, feedback: feedback)
     }
-    
+
     /** Simple audio delay - Add a delay to an incoming signal with optional feedback.
-     
+
      - returns: AKOperation
-     - parameter feedback: Feedback amount. (Default: 0.0, Minimum: 0.0, Maximum: 1.0)
-     - parameter delayTime: Delay time, in seconds. (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
+     - parameter feedback: Feedback amount. (Default: 0, Minimum: 0, Maximum: 1)
+     - parameter delayTime: Delay time, in seconds. (Default: 1, Minimum: 0, Maximum: 10)
      */
     public func delayed(
-        time time: Float = 1.0,
-        feedback: AKOperation = 0.0.ak
+        time time: Float = 1,
+        feedback: AKParameter = 0
         ) -> AKOperation {
-            return AKOperation("\(self)\(feedback)\(time)delay")
+            return AKOperation("\(self) \(feedback) \(time) delay ")
     }
 }

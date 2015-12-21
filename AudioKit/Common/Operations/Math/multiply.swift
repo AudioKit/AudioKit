@@ -8,60 +8,33 @@
 
 import Foundation
 
-extension AKOperation {
-    /** times: Multiplication of operations
-     
+extension AKParameter {
+    /** times: Multiplication of parameters
+
      - returns: AKOperation
-     - parameter operation: The amount to multiply
+     - parameter parameter: The amount to multiply
      */
-    public func times(operation: AKOperation) -> AKOperation {
-        return AKOperation("\(self)\(operation)*")
+    public func times(parameter: AKParameter) -> AKOperation {
+        return AKOperation("\(self) \(parameter) * ")
     }
-    
+
     /** scaledBy: Offsetting by way of multiplication
-     
+
      - returns: AKOperation
-     - parameter operation: The amount to scale by
+     - parameter parameter: The amount to scale by
      */
-    public func scaledBy(operation: AKOperation) -> AKOperation {
-        return self.times(operation)
-    }
-    /** scaledBy: Offsetting by way of multiplication
-     
-     - returns: AKOperation
-     - parameter constant: The amount to scale by
-     */
-    public func scaledBy(constant: Double) -> AKOperation {
-        return self.times(constant.ak)
+    public func scaledBy(parameter: AKParameter) -> AKOperation {
+        return self.times(parameter)
     }
 }
 
 /** *: Helper function for Multiplication
- 
+
  - returns: AKOperation
- - left: 1st operation
- - right: 2nd operation
+ - left: 1st parameter
+ - right: 2nd parameter
  */
-public func * (left: AKOperation, right: AKOperation) -> AKOperation {
+public func * (left: AKParameter, right: AKParameter) -> AKOperation {
     return left.times(right)
 }
 
-/** *: Helper function for Multiplication
- 
- - returns: AKOperation
- - left: Operation
- - right: Constant value
- */
-public func * (left: AKOperation, right: Double) -> AKOperation {
-    return left.times(right.ak)
-}
-
-/** *: Helper function for Multiplication
- 
- - returns: AKOperation
- - left: Constant value
- - right: Operation
- */
-public func * (left: Double, right: AKOperation) -> AKOperation {
-    return right.times(left.ak)
-}
