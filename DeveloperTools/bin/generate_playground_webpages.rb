@@ -62,7 +62,7 @@ page_folders.each_with_index do |folder, i|
         results << markdown.render(markdown_block) if !markdown_block.empty?
         results << "\n{% highlight ruby %}" + code_block + "{% endhighlight %}\n" if !code_block.empty?
 
-        subfolder = output_folder + "/" + playground_page_title
+        subfolder = output_folder + "/" + subfolder_prefix + "/" + playground_page_title
         FileUtils.mkdir_p(subfolder) unless File.directory?(subfolder)
         File.open("#{subfolder}/index.html", 'w+') {|f| f.write(results) }
     end
