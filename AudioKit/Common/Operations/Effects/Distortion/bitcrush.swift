@@ -29,6 +29,6 @@ extension AKOperation {
         bitDepth bitDepth: AKParameter = 8,
         sampleRate: AKParameter = 10000
         ) -> AKOperation {
-            return AKOperation("\(self) \(bitDepth) \(sampleRate) bitcrush ")
+            return AKOperation("(\(self) \(bitDepth) \(sampleRate) bitcrush)")
     }
 }

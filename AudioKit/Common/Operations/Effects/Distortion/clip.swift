@@ -24,6 +24,6 @@ extension AKOperation {
      - parameter limit: Threshold / limiting value. (Default: 1, Minimum: 0, Maximum: 1)
      */
     public  func clipped(limit limit: AKParameter = 1) -> AKOperation {
-        return AKOperation("\(self) \(limit) clip ")
+        return AKOperation("(\(self) \(limit) clip)")
     }
 }

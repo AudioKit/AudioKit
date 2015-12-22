@@ -38,7 +38,7 @@ extension AKOperation {
         mix: AKParameter = 100,
         amplitude: AKParameter = 0.1
         ) -> AKOperation {
-            return AKOperation("\(self) \(amplitude) \(wah) \(mix) autowah ")
+            return AKOperation("(\(self) \(amplitude) \(wah) \(mix) autowah)")
     }
 
 }

@@ -42,6 +42,6 @@ extension AKOperation {
         positiveShapeParameter: AKParameter = 0,
         negativeShapeParameter: AKParameter = 0
         ) -> AKOperation {
-            return AKOperation("\(self) \(pregain) \(postgain) \(positiveShapeParameter) \(negativeShapeParameter) dist ")
+            return AKOperation("(\(self) \(pregain) \(postgain) \(positiveShapeParameter) \(negativeShapeParameter) dist)")
     }
 }

@@ -25,6 +25,6 @@ extension AKOperation {
      - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12, Maximum: 20000)
      */
     public func lowPassFiltered(halfPowerPoint halfPowerPoint: AKParameter = 1000) -> AKOperation {
-        return AKOperation("\(self) \(halfPowerPoint) tone ")
+        return AKOperation("(\(self) \(halfPowerPoint) tone)")
     }
 }

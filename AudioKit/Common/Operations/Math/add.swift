@@ -15,7 +15,7 @@ extension AKParameter {
      - parameter parameter: The amount to add
      */
     public func plus(parameter: AKParameter) -> AKOperation {
-        return AKOperation("\(self) \(parameter) + ")
+        return AKOperation("(\(self) \(parameter) +)")
     }
 
     /** offsetBy: Offsetting by way of addition

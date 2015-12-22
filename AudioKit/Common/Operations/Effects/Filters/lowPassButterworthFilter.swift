@@ -27,6 +27,6 @@ extension AKOperation {
      */
     public func lowPassButterworthFiltered(
         cutoffFrequency cutoffFrequency: AKParameter = 500) -> AKOperation {
-            return AKOperation("\(self) \(cutoffFrequency) buthp ")
+            return AKOperation("(\(self) \(cutoffFrequency) buthp)")
     }
 }

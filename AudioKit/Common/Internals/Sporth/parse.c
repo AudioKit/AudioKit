@@ -34,6 +34,8 @@ char * sporth_tokenizer(sporth_data *sporth, char *str,
         switch(mode) {
             case SEEK:
                 switch(c) {
+                    case '(':
+                    case ')':
                     case '\n':
                     case ' ':
                         mode = SPACE;

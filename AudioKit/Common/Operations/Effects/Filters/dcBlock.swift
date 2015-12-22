@@ -25,6 +25,6 @@ extension AKOperation {
      - returns: AKOperation
      */
     public func dcBlocked() -> AKOperation {
-        return AKOperation("\(self) dcblk ")
+        return AKOperation("(\(self) dcblk)")
     }
 }

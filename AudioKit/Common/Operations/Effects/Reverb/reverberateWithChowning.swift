@@ -38,7 +38,7 @@ extension AKOperation {
      */
     public func reverberatedWithChowning(
         ) -> AKOperation {
-            return AKOperation("\(self) jcrev ")
+            return AKOperation("(\(self) jcrev)")
     }
 
 }

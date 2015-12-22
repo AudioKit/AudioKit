@@ -17,5 +17,5 @@ import Foundation
  */
 public func mix(first: AKParameter, _ second: AKParameter, t: AKParameter = 0.5) -> AKOperation {
     let firstRatio = 1 - t
-    return AKOperation("\(firstRatio * first) \(t * second) + ")
+    return AKOperation("(\(firstRatio * first) \(t * second) +)")
 }
