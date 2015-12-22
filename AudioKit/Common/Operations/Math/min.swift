@@ -16,7 +16,7 @@ import Foundation
  - parameter y: 2nd operation
  */
 public func min(x: AKOperation, _ y: AKOperation) -> AKOperation {
-    return AKOperation("\(x) \(y) min ")
+    return AKOperation("(\(x) \(y) min)")
 }
 
 /** Minimum of an operation and a parameter
@@ -26,7 +26,7 @@ public func min(x: AKOperation, _ y: AKOperation) -> AKOperation {
  - parameter y: operation
  */
 public func min(operation: AKOperation, _ parameter: AKParameter) -> AKOperation {
-    return AKOperation("\(operation) \(parameter) min ")
+    return AKOperation("(\(operation) \(parameter) min)")
 }
 
 /** Minimum of an operation and a parameter

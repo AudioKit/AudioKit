@@ -34,7 +34,7 @@ extension AKOperation {
         frequency frequency: AKParameter = 500,
         qualityFactor: AKParameter = 50
         ) -> AKOperation {
-            return AKOperation("\(self) \(frequency) \(qualityFactor) mode ")
+            return AKOperation("(\(self) \(frequency) \(qualityFactor) mode)")
     }
 
 }

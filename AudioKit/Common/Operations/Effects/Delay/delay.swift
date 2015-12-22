@@ -29,6 +29,6 @@ extension AKOperation {
         time time: Float = 1,
         feedback: AKParameter = 0
         ) -> AKOperation {
-            return AKOperation("\(self) \(feedback) \(time) delay ")
+            return AKOperation("(\(self) \(feedback) \(time) delay)")
     }
 }

@@ -15,7 +15,7 @@ extension AKParameter {
      - parameter subtrahend: The amount to subtract
      */
     public func minus(subtrahend: AKParameter) -> AKOperation {
-        return AKOperation("\(self) \(subtrahend) - ")
+        return AKOperation("(\(self) \(subtrahend) -)")
     }
 }
 

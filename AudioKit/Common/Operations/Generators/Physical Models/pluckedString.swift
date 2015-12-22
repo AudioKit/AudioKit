@@ -27,7 +27,7 @@ extension AKOperation {
         amplitude: AKParameter = 1,
         lowestFrequency: Double = 110
         ) -> AKOperation {
-            return AKOperation("\(position) \(frequency) \(amplitude) \(pickupPosition) \(reflectionCoefficent) \(lowestFrequency) pluck ")
+            return AKOperation("(\(position) \(frequency) \(amplitude) \(pickupPosition) \(reflectionCoefficent) \(lowestFrequency) pluck)")
     }
 }
 

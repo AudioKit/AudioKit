@@ -38,6 +38,6 @@ extension AKOperation {
         reverbDuration reverbDuration: AKParameter = 0.5,
         loopDuration: Double = 0.1
         ) -> AKOperation {
-            return AKOperation("\(self) \(reverbDuration) \(loopDuration) allpass ")
+            return AKOperation("(\(self) \(reverbDuration) \(loopDuration) allpass)")
     }
 }

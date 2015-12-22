@@ -24,6 +24,6 @@ extension AKOperation {
      - parameter halfPowerPoint: Half-Power Pointin Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12, Maximum: 20000)
      */
     public func highPassFiltered(halfPowerPoint halfPowerPoint: AKParameter = 1000) -> AKOperation {
-        return AKOperation("\(self) \(halfPowerPoint) atone ")
+        return AKOperation("(\(self) \(halfPowerPoint) atone)")
     }
 }

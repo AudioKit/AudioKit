@@ -23,7 +23,7 @@ extension AKOperation {
         hold: AKParameter = 0.3,
         release: AKParameter = 0.2
         ) -> AKOperation {
-            return AKOperation("\(trigger) \(attack) \(hold) \(release) tenv \(self) * ")
+            return AKOperation("((\(trigger) \(attack) \(hold) \(release) tenv) \(self) *)")
     }
 
 }

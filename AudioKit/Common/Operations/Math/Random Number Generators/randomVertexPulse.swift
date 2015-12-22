@@ -22,7 +22,7 @@ extension AKOperation {
         maximum: AKParameter = 1,
         updateFrequency: AKParameter = 3
         ) -> AKOperation {
-            return AKOperation("\(minimum) \(maximum) \(updateFrequency) randi ")
+            return AKOperation("(\(minimum) \(maximum) \(updateFrequency) randi)")
     }
 }
 

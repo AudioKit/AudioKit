@@ -13,25 +13,25 @@ public protocol AKParameter: CustomStringConvertible {
 
 extension AKParameter {
     public func abs() -> AKOperation {
-        return AKOperation("\(self) abs ")
+        return AKOperation("(\(self) abs)")
     }
     public func floor() -> AKOperation {
-        return AKOperation("\(self) floor ")
+        return AKOperation("(\(self) floor)")
     }
     public func fract() -> AKOperation {
-        return AKOperation("\(self) frac ")
+        return AKOperation("(\(self) frac)")
     }
     public func log() -> AKOperation {
-        return AKOperation("\(self) log ")
+        return AKOperation("(\(self) log)")
     }
     public func log10() -> AKOperation {
-        return AKOperation("\(self) log10 ")
+        return AKOperation("(\(self) log10)")
     }
     public func round() -> AKOperation {
-        return AKOperation("\(self) round ")
+        return AKOperation("(\(self) round)")
     }
     public func midiNoteToFrequency() -> AKOperation {
-        return AKOperation("\(self) mtof ")
+        return AKOperation("(\(self) mtof)")
     }
 }
 
@@ -41,11 +41,11 @@ extension Int: AKParameter {}
 
 public struct AKOperation: AKParameter  {
 
-    public static var input = AKOperation("0 p ")
+    public static var input = AKOperation("(0 p)")
     public static var trigger = AKOperation("")
 
     public static func parameters(i: Int) -> AKOperation {
-        return AKOperation("\(i+1)  p  ")
+        return AKOperation("(\(i+1) p)")
     }
 
     var operationString = ""
@@ -85,7 +85,7 @@ public func round(parameter: AKParameter) -> AKOperation {
 }
 
 public struct AKStereoOperation: CustomStringConvertible {
-    public static var input = AKStereoOperation("0 p 1 p ")
+    public static var input = AKStereoOperation("((0 p) (1 p))")
     var operationString = ""
     public var description: String {
         return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
@@ -94,7 +94,7 @@ public struct AKStereoOperation: CustomStringConvertible {
         self.operationString = operationString
     }
     public func toMono() -> AKOperation {
-        return AKOperation("\(self) drop ")
+        return AKOperation("(\(self) drop)")
     }
 }
 
