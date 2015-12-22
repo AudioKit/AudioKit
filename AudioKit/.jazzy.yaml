@@ -21,6 +21,7 @@ custom_categories:
     - AKMidiControl
     - AKMidiStatus
     - AKMidiSystemCommand
+    - AKMusicTrack
 
   - name: Nodes
     children:
@@ -121,7 +122,7 @@ custom_categories:
     children:
     - AKOperation
     - AKStereoOperation
-    - ak(_:)
+    - AKParameter
 
   - name: Math Operations
     children:
@@ -137,7 +138,6 @@ custom_categories:
     - max(_:_:)
     - min(_:_:)
     - round(_:)
-    - scale(_:minimum:maximum:)
 
   - name: Random Number Generators
     children:
