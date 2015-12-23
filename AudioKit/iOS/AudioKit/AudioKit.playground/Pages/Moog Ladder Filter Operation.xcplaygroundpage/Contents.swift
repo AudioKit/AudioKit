@@ -10,7 +10,7 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096), baseFrequency: 100,  amplitude:0.1)
 
@@ -19,7 +19,7 @@ let resonance = abs(sineWave(frequency: 0.3)) * 0.95
 
 let filter  = AKOperation.input.moogLadderFiltered(cutoffFrequency: frequency, resonance: resonance) * 3
 
-let effect = AKNode.effect(player, operation: filter)
+let effect = AKOperationEffect(player, operation: filter)
 
 audiokit.audioOutput = effect
 audiokit.start()

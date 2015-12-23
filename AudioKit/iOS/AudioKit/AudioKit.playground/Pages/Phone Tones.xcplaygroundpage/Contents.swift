@@ -32,9 +32,9 @@ let busyTrigger = metronome(2)
 let busySignal = busySignalTone.triggeredBy(busyTrigger, attack: 0.01, hold: 0.25, release: 0.01)
 
 //: Uncomment out the one you would like to hear
-//let generator = AKNode.generator(dialTone)
-//let generator = AKNode.generator(ringing)
-//let generator = AKNode.generator(busySignal)
+//let generator = AKOperationGenerator(operation: dialTone)
+//let generator = AKOperationGenerator(operation: ringing)
+//let generator = AKOperationGenerator(operation: busySignal)
 
 audiokit.audioOutput = generator
 audiokit.start()

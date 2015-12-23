@@ -16,7 +16,7 @@ let amp  = randomVertexPulse(minimum: 0, maximum: 1, updateFrequency: 1)
 let oscillator = sawtoothWave(frequency: freq, amplitude: amp)
 
 //: Set up the nodes
-let generator = AKNode.generator(oscillator)
+let generator = AKOperationGenerator(operation: oscillator)
 
 audiokit.audioOutput = generator
 audiokit.start()

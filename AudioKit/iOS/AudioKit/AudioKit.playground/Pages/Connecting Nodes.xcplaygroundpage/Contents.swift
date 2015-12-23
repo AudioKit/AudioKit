@@ -13,11 +13,11 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 
 //: Here we set up a player to the loop the file's playback
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 
 //: Next we'll connect the audio to a delay
-let delay = AKDelay(player)
+var delay = AKDelay(player)
 
 //: Set the parameters of the delay here
 delay.time = 0.1 // seconds

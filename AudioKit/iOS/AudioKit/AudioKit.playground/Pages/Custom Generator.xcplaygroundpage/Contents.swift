@@ -18,7 +18,7 @@ let volume   = fastSine.scaledTo(minimum: 0, maximum: 0.5)
 let leftOutput  = sineWave(frequency: 440 + vibrato, amplitude: volume)
 let rightOutput = sineWave(frequency: 220 + vibrato, amplitude: volume)
 
-let generator = AKNode.generator(leftOutput, rightOutput)
+let generator = AKOperationGenerator(left: leftOutput, right:  rightOutput)
 
 audiokit.audioOutput = generator
 audiokit.start()

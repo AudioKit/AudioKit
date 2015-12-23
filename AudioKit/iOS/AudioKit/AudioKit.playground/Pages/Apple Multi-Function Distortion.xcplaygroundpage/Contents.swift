@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let distortion = AKDistortion(player)
+var distortion = AKDistortion(player)
 
 //: Delay parameters
 distortion.delay = 0.1 // Milliseconds

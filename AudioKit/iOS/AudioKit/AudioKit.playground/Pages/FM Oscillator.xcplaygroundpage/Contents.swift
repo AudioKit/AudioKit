@@ -11,7 +11,7 @@ let audiokit = AKManager.sharedInstance
 
 //: Try changing the table type to triangle or another AKTableType
 //: or changing the number of points to a smaller number (has to be a power of 2)
-let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096))
+var fm = AKFMOscillator(table: AKTable(.Sine, size: 4096))
 audiokit.audioOutput = fm
 audiokit.start()
 

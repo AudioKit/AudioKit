@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let bitcrusher = AKBitCrusher(player)
+var bitcrusher = AKBitCrusher(player)
 
 //: Set the parameters of the bitcrusher here
 bitcrusher.bitDepth = 16

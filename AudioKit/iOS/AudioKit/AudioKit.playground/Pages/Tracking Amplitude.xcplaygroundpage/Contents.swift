@@ -21,7 +21,7 @@ let frequency = jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 3
 let oscillator = sineWave(frequency: frequency, amplitude: volume)
 
 //: Connect up the the nodes
-let oscillatorNode = AKNode.generator(oscillator)
+let oscillatorNode = AKOperationGenerator(operation: oscillator)
 let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
 
 //: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom

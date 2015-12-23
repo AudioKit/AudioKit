@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
-let sawtooth = AKSawtoothOscillator()
+var sawtooth = AKSawtoothOscillator()
 audiokit.audioOutput = sawtooth
 audiokit.start()
 

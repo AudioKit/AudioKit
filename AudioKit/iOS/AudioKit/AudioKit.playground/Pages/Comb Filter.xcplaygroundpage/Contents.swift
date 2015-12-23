@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let filter = AKCombFilter(player, loopDuration: 0.05)
+var filter = AKCombFilter(player, loopDuration: 0.05)
 
 //: Set the parameters of the Comb Filter here
 filter.reverbDuration = 1

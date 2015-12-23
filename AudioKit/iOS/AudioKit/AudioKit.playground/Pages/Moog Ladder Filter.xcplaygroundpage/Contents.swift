@@ -12,9 +12,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let moogLadder = AKMoogLadder(player)
+var moogLadder = AKMoogLadder(player)
 
 //: Set the parameters of the Moog Ladder Filter here. Hertz is a common unit of measurement for a frequency parameter. TODO: find a non-terrible explanation of what "Cents" are.
 

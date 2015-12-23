@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let ringModulator = AKRingModulator(player)
+var ringModulator = AKRingModulator(player)
 
 //: Set the parameters of the Ring Modulator here
 ringModulator.frequency1 = 440 // Hertz

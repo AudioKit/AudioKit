@@ -10,7 +10,7 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096), baseFrequency: 100,  amplitude:0.1)
 let sinusoid = sineWave(frequency: 0.3)
@@ -18,7 +18,7 @@ let limitSine = sinusoid.scaledTo(minimum: 0, maximum: 1)
 
 let clip = AKOperation.input.clipped(limit: limitSine)
 
-let effect = AKNode.effect(player, operation: clip)
+let effect = AKOperationEffect(player, operation: clip)
 
 audiokit.audioOutput = effect
 audiokit.start()

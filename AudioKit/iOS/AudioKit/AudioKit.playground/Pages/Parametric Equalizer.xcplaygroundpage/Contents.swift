@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let parametricEQ = AKParametricEQ(player)
+var parametricEQ = AKParametricEQ(player)
 
 //: Set the parameters of the parametric equalizer here
 parametricEQ.centerFrequency = 1000 // Hz

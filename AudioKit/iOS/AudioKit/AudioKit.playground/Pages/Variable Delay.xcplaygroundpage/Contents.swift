@@ -10,9 +10,9 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let delay = AKVariableDelay(player)
+var delay = AKVariableDelay(player)
 
 //: Set the parameters of the delay here delay.time = 0.1 // seconds
 audiokit.audioOutput = delay

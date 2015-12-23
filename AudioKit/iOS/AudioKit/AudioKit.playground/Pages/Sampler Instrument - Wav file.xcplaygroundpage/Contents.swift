@@ -21,7 +21,7 @@ sampler.loadWav("Sounds/fmpia1")
 
 let ampedSampler = AKGain(sampler, gain: 3.0)
 
-let delay  = AKDelay(ampedSampler)
+var delay  = AKDelay(ampedSampler)
 delay.time = pulse * 1.5
 delay.dryWetMix = 30
 delay.feedback = 20
