@@ -10,8 +10,9 @@ import Foundation
 import AVFoundation
 
 /** AudioKit version of Apple's Delay Audio Unit */
-public class AKDelay: AKNode {
-    private let delayAU = AVAudioUnitDelay()
+public struct AKDelay: AKProtocolNode {
+    let delayAU = AVAudioUnitDelay()
+    public var avAudioNode: AVAudioNode
     
     /** Delay time in seconds (Default: 1) */
     public var time: NSTimeInterval = 1 {
@@ -72,10 +73,9 @@ public class AKDelay: AKNode {
             self.lowPassCutoff = lowPassCutoff
             self.dryWetMix = dryWetMix
             
-            super.init()
-            output = delayAU
-            AKManager.sharedInstance.engine.attachNode(output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: AKManager.format)
+            self.avAudioNode = delayAU
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
             
             delayAU.delayTime = self.time
             delayAU.feedback = feedback

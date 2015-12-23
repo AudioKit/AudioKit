@@ -9,12 +9,12 @@
 import AVFoundation
 
 /** A delay line with cubic interpolation. */
-public class AKVariableDelay: AKNode {
+public struct AKVariableDelay: AKProtocolNode {
 
     // MARK: - Properties
+    public var avAudioNode: AVAudioNode
 
     private var internalAU: AKVariableDelayAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var timeParameter: AUParameter?
@@ -44,7 +44,6 @@ public class AKVariableDelay: AKNode {
 
         self.time = time
         self.feedback = feedback
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -59,17 +58,17 @@ public class AKVariableDelay: AKNode {
             name: "Local AKVariableDelay",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKVariableDelayAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
