@@ -9,12 +9,12 @@
 import AVFoundation
 
 
-public class AKTester: AKNode {
+public struct AKTester: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKTesterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     private var token: AUParameterObserverToken?
     var totalSamples = 0
 
@@ -30,7 +30,6 @@ public class AKTester: AKNode {
     
     /** Initialize this test node */
     public init(_ input: AKNode, samples: Int) {
-        super.init()
         
         totalSamples = samples
 
@@ -47,17 +46,17 @@ public class AKTester: AKNode {
             name: "Local AKTester",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTesterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             self.internalAU?.setSamples(Int32(samples))
         }
 
