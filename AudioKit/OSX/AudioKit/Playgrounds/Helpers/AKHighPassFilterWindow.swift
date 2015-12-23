@@ -87,12 +87,12 @@ public class AKHighPassFilterWindow: NSWindow {
     }
     
     internal func updateCutofffrequency() {
-        highPassFilter.cutoffFrequency = cutoffFrequencySlider.floatValue
+        highPassFilter.cutoffFrequency = cutoffFrequencySlider.doubleValue
         cutoffFrequencyTextField.stringValue =
         "Cutoff Frequency \(String(format: "%0.4f", highPassFilter.cutoffFrequency)) Hz"
     }
     internal func updateResonance() {
-        highPassFilter.resonance = resonanceSlider.floatValue
+        highPassFilter.resonance = resonanceSlider.doubleValue
         resonanceTextField.stringValue =
         "Resonance \(String(format: "%0.4f", highPassFilter.resonance)) dB"
     }

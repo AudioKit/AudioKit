@@ -87,12 +87,12 @@ public class AKHighShelfFilterWindow: NSWindow {
     }
     
     internal func updateCutofffrequency() {
-        highShelfFilter.cutOffFrequency = cutOffFrequencySlider.floatValue
+        highShelfFilter.cutOffFrequency = cutOffFrequencySlider.doubleValue
         cutOffFrequencyTextField.stringValue =
         "Cut Off Frequency \(String(format: "%0.4f", highShelfFilter.cutOffFrequency)) Hz"
     }
     internal func updateGain() {
-        highShelfFilter.gain = gainSlider.floatValue
+        highShelfFilter.gain = gainSlider.doubleValue
         gainTextField.stringValue =
         "Gain \(String(format: "%0.4f", highShelfFilter.gain)) dB"
     }

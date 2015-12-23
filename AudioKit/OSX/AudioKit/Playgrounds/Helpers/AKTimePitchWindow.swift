@@ -105,15 +105,15 @@ public class AKTimePitchWindow: NSWindow {
     }
     
     internal func updateRate() {
-        timePitch.rate = rateSlider.floatValue
+        timePitch.rate = rateSlider.doubleValue
         rateTextField.stringValue = "Rate \(String(format: "%0.4f", timePitch.rate)) rate"
     }
     internal func updatePitch() {
-        timePitch.pitch = pitchSlider.floatValue
+        timePitch.pitch = pitchSlider.doubleValue
         pitchTextField.stringValue = "Pitch \(String(format: "%0.4f", timePitch.pitch)) Cents"
     }
     internal func updateOverlap() {
-        timePitch.overlap = overlapSlider.floatValue
+        timePitch.overlap = overlapSlider.doubleValue
         overlapTextField.stringValue = "Overlap \(String(format: "%0.4f", timePitch.overlap)) generic"
     }
     

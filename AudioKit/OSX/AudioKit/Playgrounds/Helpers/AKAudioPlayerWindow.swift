@@ -120,13 +120,13 @@ public class AKAudioPlayerWindow: NSWindow {
     }
     
     internal func updateVolume() {
-        player.volume = volumeSlider.floatValue
+        player.volume = volumeSlider.doubleValue
         volumeTextField.stringValue =
         "Volume \(String(format: "%0.4f", player.volume)) "
     }
     
     internal func updatePan() {
-        player.pan = panSlider.floatValue
+        player.pan = panSlider.doubleValue
         panTextField.stringValue =
         "Pan \(String(format: "%0.4f", player.pan)) "
     }

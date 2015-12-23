@@ -100,15 +100,15 @@ public class AKDecimatorWindow: NSWindow {
     }
     
     internal func updateDecimation() {
-        decimator.decimation = decimationSlider.floatValue
+        decimator.decimation = decimationSlider.doubleValue
         decimationTextField.stringValue = "Decimation \(String(format: "%0.4f", decimator.decimation)) "
     }
     internal func updateRounding() {
-        decimator.rounding = roundingSlider.floatValue
+        decimator.rounding = roundingSlider.doubleValue
         roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", decimator.rounding)) Percent"
     }
     internal func updateFinalmix() {
-        decimator.mix = finalMixSlider.floatValue
+        decimator.mix = finalMixSlider.doubleValue
         finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", decimator.mix)) Percent"
     }
     

@@ -72,7 +72,7 @@ public class AKMicrophoneWindow: NSWindow {
     }
     
     internal func updateVolume() {
-        mic.volume = volumeSlider.floatValue
+        mic.volume = volumeSlider.doubleValue
         volumeTextField.stringValue =
         "Volume \(String(format: "%0.4f", mic.volume)) "
     }
