@@ -10,9 +10,9 @@ import AudioKit
 //: All AudioKit powered apps need a reference to the AKManager
 let audiokit = AKManager.sharedInstance
 
-//: Try Changing "PianoBassDrumLoop" to "808loop"
+//: Try Changing "mixloop" to "drumloop"
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("PianoBassDrumLoop", ofType: "wav")
+let file = bundle.pathForResource("mixloop", ofType: "wav")
 let player = AKAudioPlayer(file!)
 
 //: Next set AudioKit's main audio output to be this player

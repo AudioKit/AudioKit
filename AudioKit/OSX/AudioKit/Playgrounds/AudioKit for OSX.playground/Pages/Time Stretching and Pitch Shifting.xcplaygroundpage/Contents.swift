@@ -12,12 +12,12 @@ let audiokit = AKManager.sharedInstance
 //: This section prepares the player
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow = AKAudioPlayerWindow(player)
 
 //: Next, we'll connect the audio source to a time/pitch effect
-let timePitch = AKTimePitch(player)
+var timePitch = AKTimePitch(player)
 
 //: Set the parameters of the Peak Limiter here
 timePitch.rate = 1.0 // rate
