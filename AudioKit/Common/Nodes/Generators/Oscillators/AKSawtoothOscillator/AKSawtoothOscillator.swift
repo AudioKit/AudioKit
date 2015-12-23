@@ -22,15 +22,15 @@ public struct AKSawtoothOscillator: AKNode {
     private var amplitudeParameter: AUParameter?
 
     /** In cycles per second, or Hz. */
-    public var frequency: Float = 440 {
+    public var frequency: Double = 440 {
         didSet {
-            frequencyParameter?.setValue(frequency, originator: token!)
+            frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
     /** Output Amplitude. */
-    public var amplitude: Float = 0.5 {
+    public var amplitude: Double = 0.5 {
         didSet {
-            amplitudeParameter?.setValue(amplitude, originator: token!)
+            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
@@ -38,8 +38,8 @@ public struct AKSawtoothOscillator: AKNode {
 
     /** Initialize this sawtooth node */
     public init(
-        frequency: Float = 440,
-        amplitude: Float = 0.5) {
+        frequency: Double = 440,
+        amplitude: Double = 0.5) {
 
         self.frequency = frequency
         self.amplitude = amplitude
@@ -78,13 +78,13 @@ public struct AKSawtoothOscillator: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.frequencyParameter!.address {
-                    self.frequency = value
+                    self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = value
+                    self.amplitude = Double(value)
                 }
             }
         }
-        frequencyParameter?.setValue(frequency, originator: token!)
-        amplitudeParameter?.setValue(amplitude, originator: token!)
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 }

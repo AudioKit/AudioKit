@@ -15,7 +15,7 @@ public struct AKReverb: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Dry/Wet Mix (Default 50) */
-    public var dryWetMix: Float = 50.0 {
+    public var dryWetMix: Double = 50.0 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -23,19 +23,19 @@ public struct AKReverb: AKNode {
             if dryWetMix > 100 {
                 dryWetMix = 100
             }
-            reverbAU.wetDryMix = dryWetMix
+            reverbAU.wetDryMix = Float(dryWetMix)
         }
     }
     
     /** Initialize the reverb node */
-    public init(_ input: AKNode, dryWetMix: Float = 50) {
+    public init(_ input: AKNode, dryWetMix: Double = 50) {
         self.dryWetMix = dryWetMix
         
         self.avAudioNode = reverbAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         
-        reverbAU.wetDryMix = dryWetMix
+        reverbAU.wetDryMix = Float(dryWetMix)
     }
     
     /** Load an Apple Factory Preset */

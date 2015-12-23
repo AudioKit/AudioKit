@@ -15,7 +15,7 @@ extension AKOperation {
      - parameter feedback: Feedback amount. (Default: 0, Minimum: 0, Maximum: 1)
      - parameter delayTime: Delay time, in seconds. (Default: 1, Minimum: 0, Maximum: 10)
      */
-    public mutating func delay(time time: Float = 1, feedback: AKParameter = 0) {
+    public mutating func delay(time time: Double = 1, feedback: AKParameter = 0) {
         self = self.delayed(time: time, feedback: feedback)
     }
 
@@ -26,7 +26,7 @@ extension AKOperation {
      - parameter delayTime: Delay time, in seconds. (Default: 1, Minimum: 0, Maximum: 10)
      */
     public func delayed(
-        time time: Float = 1,
+        time time: Double = 1,
         feedback: AKParameter = 0
         ) -> AKOperation {
             return AKOperation("(\(self) \(feedback) \(time) delay)")

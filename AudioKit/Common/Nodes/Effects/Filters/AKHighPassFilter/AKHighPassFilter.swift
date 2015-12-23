@@ -23,7 +23,7 @@ public struct AKHighPassFilter: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900) */
-    public var cutoffFrequency: Float = 6900 {
+    public var cutoffFrequency: Double = 6900 {
         didSet {
             if cutoffFrequency < 10 {
                 cutoffFrequency = 10
@@ -35,12 +35,12 @@ public struct AKHighPassFilter: AKNode {
                 internalAU,
                 kHipassParam_CutoffFrequency,
                 kAudioUnitScope_Global, 0,
-                cutoffFrequency, 0)
+                Float(cutoffFrequency), 0)
         }
     }
     
     /** Resonance (dB) ranges from -20 to 40 (Default: 0) */
-    public var resonance: Float = 0 {
+    public var resonance: Double = 0 {
         didSet {
             if resonance < -20 {
                 resonance = -20
@@ -52,15 +52,15 @@ public struct AKHighPassFilter: AKNode {
                 internalAU,
                 kHipassParam_Resonance,
                 kAudioUnitScope_Global, 0,
-                resonance, 0)
+                Float(resonance), 0)
         }
     }
     
     /** Initialize the high pass filter node */
     public init(
         _ input: AKNode,
-        cutoffFrequency: Float = 6900,
-        resonance: Float = 0) {
+        cutoffFrequency: Double = 6900,
+        resonance: Double = 0) {
             
             self.cutoffFrequency = cutoffFrequency
             self.resonance = resonance
@@ -71,7 +71,7 @@ public struct AKHighPassFilter: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kHipassParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoffFrequency, 0)
-            AudioUnitSetParameter(internalAU, kHipassParam_Resonance,       kAudioUnitScope_Global, 0, resonance, 0)
+            AudioUnitSetParameter(internalAU, kHipassParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)
+            AudioUnitSetParameter(internalAU, kHipassParam_Resonance, kAudioUnitScope_Global, 0, Float(resonance), 0)
     }
 }

@@ -16,12 +16,12 @@ public struct AKMicrophone: AKNode {
     internal let mixer = AVAudioMixerNode()
     
     /** Output Volume (Default 1) */
-    public var volume: Float = 1.0 {
+    public var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
                 volume = 0
             }
-            mixer.outputVolume = volume
+            mixer.outputVolume = Float(volume)
         }
     }
     

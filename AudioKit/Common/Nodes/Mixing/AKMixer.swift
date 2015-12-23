@@ -15,12 +15,12 @@ public struct AKMixer: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Output Volume (Default 1) */
-    public var volume: Float = 1.0 {
+    public var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
                 volume = 0
             }
-            mixerAU.outputVolume = volume
+            mixerAU.outputVolume = Float(volume)
         }
     }
     

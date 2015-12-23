@@ -23,7 +23,7 @@ public struct AKPeakLimiter: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012) */
-    public var attackTime: Float = 0.012 {
+    public var attackTime: Double = 0.012 {
         didSet {
             if attackTime < 0.001 {
                 attackTime = 0.001
@@ -31,12 +31,16 @@ public struct AKPeakLimiter: AKNode {
             if attackTime > 0.03 {
                 attackTime = 0.03
             }
-            AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, attackTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kLimiterParam_AttackTime,
+                kAudioUnitScope_Global, 0,
+                Float(attackTime), 0)
         }
     }
     
     /** Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024) */
-    public var decayTime: Float = 0.024 {
+    public var decayTime: Double = 0.024 {
         didSet {
             if decayTime < 0.001 {
                 decayTime = 0.001
@@ -44,12 +48,16 @@ public struct AKPeakLimiter: AKNode {
             if decayTime > 0.06 {
                 decayTime = 0.06
             }
-            AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, decayTime, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kLimiterParam_DecayTime,
+                kAudioUnitScope_Global, 0,
+                Float(decayTime), 0)
         }
     }
     
     /** Pre Gain (dB) ranges from -40 to 40 (Default: 0) */
-    public var preGain: Float = 0 {
+    public var preGain: Double = 0 {
         didSet {
             if preGain < -40 {
                 preGain = -40
@@ -57,16 +65,20 @@ public struct AKPeakLimiter: AKNode {
             if preGain > 40 {
                 preGain = 40
             }
-            AudioUnitSetParameter(internalAU, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, preGain, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kLimiterParam_PreGain,
+                kAudioUnitScope_Global, 0,
+                Float(preGain), 0)
         }
     }
     
     /** Initialize the peak limiter node */
     public init(
         _ input: AKNode,
-        attackTime: Float = 0.012,
-        decayTime: Float = 0.024,
-        preGain: Float = 0) {
+        attackTime: Double = 0.012,
+        decayTime: Double = 0.024,
+        preGain: Double = 0) {
             
             self.attackTime = attackTime
             self.decayTime = decayTime
@@ -78,8 +90,8 @@ public struct AKPeakLimiter: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, attackTime, 0)
-            AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, decayTime, 0)
-            AudioUnitSetParameter(internalAU, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, preGain, 0)
+            AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)
+            AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, Float(decayTime), 0)
+            AudioUnitSetParameter(internalAU, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, Float(preGain), 0)
     }
 }

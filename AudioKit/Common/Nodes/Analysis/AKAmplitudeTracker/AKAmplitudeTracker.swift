@@ -22,9 +22,9 @@ public struct AKAmplitudeTracker: AKNode {
     private var halfPowerPointParameter: AUParameter?
 
     /** Half-power point (in Hz) of internal lowpass filter. */
-    public var halfPowerPoint: Float = 10 {
+    public var halfPowerPoint: Double = 10 {
         didSet {
-            halfPowerPointParameter?.setValue(halfPowerPoint, originator: token!)
+            halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
         }
     }
     
@@ -37,7 +37,7 @@ public struct AKAmplitudeTracker: AKNode {
     /** Initialize this amplitude node */
     public init(
         _ input: AKNode,
-        halfPowerPoint: Float = 10) {
+        halfPowerPoint: Double = 10) {
 
         self.halfPowerPoint = halfPowerPoint
 
@@ -76,10 +76,10 @@ public struct AKAmplitudeTracker: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.halfPowerPointParameter!.address {
-                    self.halfPowerPoint = value
+                    self.halfPowerPoint = Double(value)
                 }
             }
         }
-        halfPowerPointParameter?.setValue(halfPowerPoint, originator: token!)
+        halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
     }
 }

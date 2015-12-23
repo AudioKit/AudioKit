@@ -20,17 +20,17 @@ public struct AKAudioPlayer: AKNode {
     public var looping = false
     
     /** Output Volume (Default 1) */
-    public var volume: Float = 1.0 {
+    public var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
                 volume = 0
             }
-            internalPlayer.volume = volume
+            internalPlayer.volume = Float(volume)
         }
     }
     
     /** Pan (Default Center = 0) */
-    public var pan: Float = 0.0 {
+    public var pan: Double = 0.0 {
         didSet {
             if pan < -1 {
                 pan = -1
@@ -38,7 +38,7 @@ public struct AKAudioPlayer: AKNode {
             if pan > 1 {
                 pan = 1
             }
-            internalPlayer.pan = pan
+            internalPlayer.pan = Float(pan)
         }
     }
     

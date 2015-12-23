@@ -19,11 +19,11 @@ public struct AKDistortion: AKNode {
         componentFlagsMask: 0)
     
     private var internalEffect = AVAudioUnitEffect()
-    public var internalAudioUnit = AudioUnit()
+    private var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
     
     /** Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1) */
-    public var delay: Float = 0.1 {
+    public var delay: Double = 0.1 {
         didSet {
             if delay < 0.1 {
                 delay = 0.1
@@ -32,15 +32,15 @@ public struct AKDistortion: AKNode {
                 delay = 500
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_Delay,
                 kAudioUnitScope_Global, 0,
-                delay, 0)
+                Float(delay), 0)
         }
     }
     
     /** Decay (Rate) ranges from 0.1 to 50 (Default: 1.0) */
-    public var decay: Float = 1.0 {
+    public var decay: Double = 1.0 {
         didSet {
             if decay < 0.1 {
                 decay = 0.1
@@ -49,15 +49,15 @@ public struct AKDistortion: AKNode {
                 decay = 50
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_Decay,
                 kAudioUnitScope_Global, 0,
-                decay, 0)
+                Float(decay), 0)
         }
     }
     
     /** Delay Mix (Percent) ranges from 0 to 100 (Default: 50) */
-    public var delayMix: Float = 50 {
+    public var delayMix: Double = 50 {
         didSet {
             if delayMix < 0 {
                 delayMix = 0
@@ -66,15 +66,15 @@ public struct AKDistortion: AKNode {
                 delayMix = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_DelayMix,
                 kAudioUnitScope_Global, 0,
-                delayMix, 0)
+                Float(delayMix), 0)
         }
     }
     
     /** Decimation (Percent) ranges from 0 to 100 (Default: 50) */
-    public var decimation: Float = 50 {
+    public var decimation: Double = 50 {
         didSet {
             if decimation < 0 {
                 decimation = 0
@@ -83,15 +83,15 @@ public struct AKDistortion: AKNode {
                 decimation = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_Decimation,
                 kAudioUnitScope_Global, 0,
-                decimation, 0)
+                Float(decimation), 0)
         }
     }
     
     /** Rounding (Percent) ranges from 0 to 100 (Default: 0) */
-    public var rounding: Float = 0 {
+    public var rounding: Double = 0 {
         didSet {
             if rounding < 0 {
                 rounding = 0
@@ -100,15 +100,15 @@ public struct AKDistortion: AKNode {
                 rounding = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_Rounding,
                 kAudioUnitScope_Global, 0,
-                rounding, 0)
+                Float(rounding), 0)
         }
     }
     
     /** Decimation Mix (Percent) ranges from 0 to 100 (Default: 50) */
-    public var decimationMix: Float = 50 {
+    public var decimationMix: Double = 50 {
         didSet {
             if decimationMix < 0 {
                 decimationMix = 0
@@ -117,15 +117,15 @@ public struct AKDistortion: AKNode {
                 decimationMix = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_DecimationMix,
                 kAudioUnitScope_Global, 0,
-                decimationMix, 0)
+                Float(decimationMix), 0)
         }
     }
     
     /** Linear Term (Percent) ranges from 0 to 100 (Default: 50) */
-    public var linearTerm: Float = 50 {
+    public var linearTerm: Double = 50 {
         didSet {
             if linearTerm < 0 {
                 linearTerm = 0
@@ -134,15 +134,15 @@ public struct AKDistortion: AKNode {
                 linearTerm = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_LinearTerm,
                 kAudioUnitScope_Global, 0,
-                linearTerm, 0)
+                Float(linearTerm), 0)
         }
     }
     
     /** Squared Term (Percent) ranges from 0 to 100 (Default: 50) */
-    public var squaredTerm: Float = 50 {
+    public var squaredTerm: Double = 50 {
         didSet {
             if squaredTerm < 0 {
                 squaredTerm = 0
@@ -151,15 +151,15 @@ public struct AKDistortion: AKNode {
                 squaredTerm = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_SquaredTerm,
                 kAudioUnitScope_Global, 0,
-                squaredTerm, 0)
+                Float(squaredTerm), 0)
         }
     }
     
     /** Cubic Term (Percent) ranges from 0 to 100 (Default: 50) */
-    public var cubicTerm: Float = 50 {
+    public var cubicTerm: Double = 50 {
         didSet {
             if cubicTerm < 0 {
                 cubicTerm = 0
@@ -168,15 +168,15 @@ public struct AKDistortion: AKNode {
                 cubicTerm = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_CubicTerm,
                 kAudioUnitScope_Global, 0,
-                cubicTerm, 0)
+                Float(cubicTerm), 0)
         }
     }
     
     /** Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50) */
-    public var polynomialMix: Float = 50 {
+    public var polynomialMix: Double = 50 {
         didSet {
             if polynomialMix < 0 {
                 polynomialMix = 0
@@ -185,15 +185,15 @@ public struct AKDistortion: AKNode {
                 polynomialMix = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_PolynomialMix,
                 kAudioUnitScope_Global, 0,
-                polynomialMix, 0)
+                Float(polynomialMix), 0)
         }
     }
     
     /** Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
-    public var ringModFreq1: Float = 100 {
+    public var ringModFreq1: Double = 100 {
         didSet {
             if ringModFreq1 < 0.5 {
                 ringModFreq1 = 0.5
@@ -202,15 +202,15 @@ public struct AKDistortion: AKNode {
                 ringModFreq1 = 8000
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_RingModFreq1,
                 kAudioUnitScope_Global, 0,
-                ringModFreq1, 0)
+                Float(ringModFreq1), 0)
         }
     }
     
     /** Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
-    public var ringModFreq2: Float = 100 {
+    public var ringModFreq2: Double = 100 {
         didSet {
             if ringModFreq2 < 0.5 {
                 ringModFreq2 = 0.5
@@ -219,15 +219,15 @@ public struct AKDistortion: AKNode {
                 ringModFreq2 = 8000
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_RingModFreq2,
                 kAudioUnitScope_Global, 0,
-                ringModFreq2, 0)
+                Float(ringModFreq2), 0)
         }
     }
     
     /** Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50) */
-    public var ringModBalance: Float = 50 {
+    public var ringModBalance: Double = 50 {
         didSet {
             if ringModBalance < 0 {
                 ringModBalance = 0
@@ -236,15 +236,15 @@ public struct AKDistortion: AKNode {
                 ringModBalance = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_RingModBalance,
                 kAudioUnitScope_Global, 0,
-                ringModBalance, 0)
+                Float(ringModBalance), 0)
         }
     }
     
     /** Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0) */
-    public var ringModMix: Float = 0 {
+    public var ringModMix: Double = 0 {
         didSet {
             if ringModMix < 0 {
                 ringModMix = 0
@@ -253,15 +253,15 @@ public struct AKDistortion: AKNode {
                 ringModMix = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_RingModMix,
                 kAudioUnitScope_Global, 0,
-                ringModMix, 0)
+                Float(ringModMix), 0)
         }
     }
     
     /** Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6) */
-    public var softClipGain: Float = -6 {
+    public var softClipGain: Double = -6 {
         didSet {
             if softClipGain < -80 {
                 softClipGain = -80
@@ -270,15 +270,15 @@ public struct AKDistortion: AKNode {
                 softClipGain = 20
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_SoftClipGain,
                 kAudioUnitScope_Global, 0,
-                softClipGain, 0)
+                Float(softClipGain), 0)
         }
     }
     
     /** Final Mix (Percent) ranges from 0 to 100 (Default: 50) */
-    public var finalMix: Float = 50 {
+    public var finalMix: Double = 50 {
         didSet {
             if finalMix < 0 {
                 finalMix = 0
@@ -287,32 +287,32 @@ public struct AKDistortion: AKNode {
                 finalMix = 100
             }
             AudioUnitSetParameter(
-                internalAudioUnit,
+                internalAU,
                 kDistortionParam_FinalMix,
                 kAudioUnitScope_Global, 0,
-                finalMix, 0)
+                Float(finalMix), 0)
         }
     }
     
     /** Initialize the distortion node */
     public init(
         _ input: AKNode,
-        delay: Float = 0.1,
-        decay: Float = 1.0,
-        delayMix: Float = 50,
-        decimation: Float = 50,
-        rounding: Float = 0,
-        decimationMix: Float = 50,
-        linearTerm: Float = 50,
-        squaredTerm: Float = 50,
-        cubicTerm: Float = 50,
-        polynomialMix: Float = 50,
-        ringModFreq1: Float = 100,
-        ringModFreq2: Float = 100,
-        ringModBalance: Float = 50,
-        ringModMix: Float = 0,
-        softClipGain: Float = -6,
-        finalMix: Float = 50) {
+        delay: Double = 0.1,
+        decay: Double = 1.0,
+        delayMix: Double = 50,
+        decimation: Double = 50,
+        rounding: Double = 0,
+        decimationMix: Double = 50,
+        linearTerm: Double = 50,
+        squaredTerm: Double = 50,
+        cubicTerm: Double = 50,
+        polynomialMix: Double = 50,
+        ringModFreq1: Double = 100,
+        ringModFreq2: Double = 100,
+        ringModBalance: Double = 50,
+        ringModMix: Double = 0,
+        softClipGain: Double = -6,
+        finalMix: Double = 50) {
             
             self.delay = delay
             self.decay = decay
@@ -335,24 +335,23 @@ public struct AKDistortion: AKNode {
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
-            internalAudioUnit = internalEffect.audioUnit
+            internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Delay,         kAudioUnitScope_Global, 0, delay, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Decay,         kAudioUnitScope_Global, 0, decay, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_DelayMix,      kAudioUnitScope_Global, 0, delayMix, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Decimation,    kAudioUnitScope_Global, 0, decimation, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Rounding,      kAudioUnitScope_Global, 0, rounding, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, decimationMix, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_LinearTerm,    kAudioUnitScope_Global, 0, linearTerm, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_SquaredTerm,   kAudioUnitScope_Global, 0, squaredTerm, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_CubicTerm,     kAudioUnitScope_Global, 0, cubicTerm, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, polynomialMix, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModFreq1,  kAudioUnitScope_Global, 0, ringModFreq1, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModFreq2,  kAudioUnitScope_Global, 0, ringModFreq2, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModBalance,kAudioUnitScope_Global, 0, ringModBalance, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_RingModMix,    kAudioUnitScope_Global, 0, ringModMix, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_SoftClipGain,  kAudioUnitScope_Global, 0, softClipGain, 0)
-            AudioUnitSetParameter(internalAudioUnit, kDistortionParam_FinalMix,      kAudioUnitScope_Global, 0, finalMix, 0)
-            
+            AudioUnitSetParameter(internalAU, kDistortionParam_Delay, kAudioUnitScope_Global, 0, Float(delay), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Decay, kAudioUnitScope_Global, 0, Float(decay), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_DelayMix, kAudioUnitScope_Global, 0, Float(delayMix), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, Float(decimation), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, Float(decimationMix), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_LinearTerm, kAudioUnitScope_Global, 0, Float(linearTerm), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_SquaredTerm, kAudioUnitScope_Global, 0, Float(squaredTerm), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_CubicTerm, kAudioUnitScope_Global, 0, Float(cubicTerm), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, Float(polynomialMix), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(ringModFreq1), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(ringModFreq2), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(ringModBalance), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, Float(ringModMix), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_SoftClipGain, kAudioUnitScope_Global, 0, Float(softClipGain), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(finalMix), 0)
     }
 }

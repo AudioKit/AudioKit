@@ -20,9 +20,9 @@ public struct AKGain: AKNode {
     private var gainParameter: AUParameter?
 
     /** Amplification Factor */
-    public var gain: Float = 1.0 {
+    public var gain: Double = 1.0 {
         didSet {
-            gainParameter?.setValue(gain, originator: token!)
+            gainParameter?.setValue(Float(gain), originator: token!)
         }
     }
 
@@ -31,7 +31,7 @@ public struct AKGain: AKNode {
     /** Initialize this amplification node */
     public init(
         _ input: AKNode,
-        gain: Float = 1.0) {
+        gain: Double = 1.0) {
 
         self.gain = gain
 
@@ -69,12 +69,12 @@ public struct AKGain: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.gainParameter!.address {
-                    self.gain = value
+                    self.gain = Double(value)
                 }
             }
         }
 
-        gainParameter?.setValue(gain, originator: token!)
+        gainParameter?.setValue(Float(gain), originator: token!)
 
     }
 }

@@ -23,7 +23,7 @@ public struct AKRingModulator: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
-    public var frequency1: Float = 100 {
+    public var frequency1: Double = 100 {
         didSet {
             if frequency1 < 0.5 {
                 frequency1 = 0.5
@@ -31,12 +31,12 @@ public struct AKRingModulator: AKNode {
             if frequency1 > 8000 {
                 frequency1 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, frequency1, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(frequency1), 0)
         }
     }
     
     /** Frequency2 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
-    public var frequency2: Float = 100 {
+    public var frequency2: Double = 100 {
         didSet {
             if frequency2 < 0.5 {
                 frequency2 = 0.5
@@ -44,12 +44,12 @@ public struct AKRingModulator: AKNode {
             if frequency2 > 8000 {
                 frequency2 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, frequency2, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(frequency2), 0)
         }
     }
     
     /** Balance (Percent) ranges from 0 to 100 (Default: 50) */
-    public var balance: Float = 50 {
+    public var balance: Double = 50 {
         didSet {
             if balance < 0 {
                 balance = 0
@@ -57,12 +57,12 @@ public struct AKRingModulator: AKNode {
             if balance > 100 {
                 balance = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, balance, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance), 0)
         }
     }
     
     /** Mix (Percent) ranges from 0 to 100 (Default: 50) */
-    public var mix: Float = 50 {
+    public var mix: Double = 50 {
         didSet {
             if mix < 0 {
                 mix = 0
@@ -70,17 +70,17 @@ public struct AKRingModulator: AKNode {
             if mix > 100 {
                 mix = 100
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, mix, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix), 0)
         }
     }
     
     /** Initialize the effect node */
     public init(
         _ input: AKNode,
-        frequency1: Float = 100,
-        frequency2: Float = 100,
-        balance: Float = 50,
-        mix: Float = 0) {
+        frequency1: Double = 100,
+        frequency2: Double = 100,
+        balance: Double = 50,
+        mix: Double = 0) {
             
             self.frequency1 = frequency1
             self.frequency2 = frequency2
@@ -96,10 +96,10 @@ public struct AKRingModulator: AKNode {
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
             AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
             
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1,   kAudioUnitScope_Global, 0, frequency1, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2,   kAudioUnitScope_Global, 0, frequency2, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, balance, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix,       kAudioUnitScope_Global, 0, mix, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1,   kAudioUnitScope_Global, 0, Float(frequency1), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2,   kAudioUnitScope_Global, 0, Float(frequency2), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix,       kAudioUnitScope_Global, 0, Float(mix), 0)
             
     }
 }

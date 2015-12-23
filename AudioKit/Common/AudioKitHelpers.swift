@@ -21,6 +21,12 @@ extension Float {
     }
 }
 
+extension Double {
+    public mutating func randomize(minimum: Float, _ maximum: Float) {
+        self = Double(randomFloat(minimum, maximum))
+    }
+}
+
 public func randomFloat(minimum: Float, _ maximum: Float) -> Float {
     let precision = 1000000
     let width = maximum - minimum
