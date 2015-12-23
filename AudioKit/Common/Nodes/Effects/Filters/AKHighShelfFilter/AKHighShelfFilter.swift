@@ -23,7 +23,7 @@ public struct AKHighShelfFilter: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000) */
-    public var cutOffFrequency: Float = 10000 {
+    public var cutOffFrequency: Double = 10000 {
         didSet {
             if cutOffFrequency < 10000 {
                 cutOffFrequency = 10000
@@ -35,12 +35,12 @@ public struct AKHighShelfFilter: AKNode {
                 internalAU,
                 kHighShelfParam_CutOffFrequency,
                 kAudioUnitScope_Global, 0,
-                cutOffFrequency, 0)
+                Float(cutOffFrequency), 0)
         }
     }
     
     /** Gain (dB) ranges from -40 to 40 (Default: 0) */
-    public var gain: Float = 0 {
+    public var gain: Double = 0 {
         didSet {
             if gain < -40 {
                 gain = -40
@@ -52,15 +52,15 @@ public struct AKHighShelfFilter: AKNode {
                 internalAU,
                 kHighShelfParam_Gain,
                 kAudioUnitScope_Global, 0,
-                gain, 0)
+                Float(gain), 0)
         }
     }
     
     /** Initialize the high shelf filter node */
     public init(
         _ input: AKNode,
-        cutOffFrequency: Float = 10000,
-        gain: Float = 0) {
+        cutOffFrequency: Double = 10000,
+        gain: Double = 0) {
             
             self.cutOffFrequency = cutOffFrequency
             self.gain = gain
@@ -71,7 +71,7 @@ public struct AKHighShelfFilter: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kHighShelfParam_CutOffFrequency, kAudioUnitScope_Global, 0, cutOffFrequency, 0)
-            AudioUnitSetParameter(internalAU, kHighShelfParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(internalAU, kHighShelfParam_CutOffFrequency, kAudioUnitScope_Global, 0, Float(cutOffFrequency), 0)
+            AudioUnitSetParameter(internalAU, kHighShelfParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
 }

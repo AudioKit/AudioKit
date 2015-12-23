@@ -23,7 +23,7 @@ public struct AKDynamicsProcessor: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Threshold (dB) ranges from -40 to 20 (Default: -20) */
-    public var threshold: Float = -20 {
+    public var threshold: Double = -20 {
         didSet {
             if threshold < -40 {
                 threshold = -40
@@ -35,12 +35,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_Threshold,
                 kAudioUnitScope_Global, 0,
-                threshold, 0)
+                Float(threshold), 0)
         }
     }
     
     /** Head Room (dB) ranges from 0.1 to 40.0 (Default: 5) */
-    public var headRoom: Float = 5 {
+    public var headRoom: Double = 5 {
         didSet {
             if headRoom < 0.1 {
                 headRoom = 0.1
@@ -52,12 +52,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_HeadRoom,
                 kAudioUnitScope_Global, 0,
-                headRoom, 0)
+                Float(headRoom), 0)
         }
     }
     
     /** Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2) */
-    public var expansionRatio: Float = 2 {
+    public var expansionRatio: Double = 2 {
         didSet {
             if expansionRatio < 1 {
                 expansionRatio = 1
@@ -69,12 +69,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_ExpansionRatio,
                 kAudioUnitScope_Global, 0,
-                expansionRatio, 0)
+                Float(expansionRatio), 0)
         }
     }
     
     /** Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2) */
-    public var expansionThreshold: Float = 2 {
+    public var expansionThreshold: Double = 2 {
         didSet {
             if expansionThreshold < 1 {
                 expansionThreshold = 1
@@ -86,12 +86,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_ExpansionThreshold,
                 kAudioUnitScope_Global, 0,
-                expansionThreshold, 0)
+                Float(expansionThreshold), 0)
         }
     }
     
     /** Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001) */
-    public var attackTime: Float = 0.001 {
+    public var attackTime: Double = 0.001 {
         didSet {
             if attackTime < 0.0001 {
                 attackTime = 0.0001
@@ -103,12 +103,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_AttackTime,
                 kAudioUnitScope_Global, 0,
-                attackTime, 0)
+                Float(attackTime), 0)
         }
     }
     
     /** Release Time (secs) ranges from 0.01 to 3 (Default: 0.05) */
-    public var releaseTime: Float = 0.05 {
+    public var releaseTime: Double = 0.05 {
         didSet {
             if releaseTime < 0.01 {
                 releaseTime = 0.01
@@ -120,12 +120,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_ReleaseTime,
                 kAudioUnitScope_Global, 0,
-                releaseTime, 0)
+                Float(releaseTime), 0)
         }
     }
     
     /** Master Gain (dB) ranges from -40 to 40 (Default: 0) */
-    public var masterGain: Float = 0 {
+    public var masterGain: Double = 0 {
         didSet {
             if masterGain < -40 {
                 masterGain = -40
@@ -137,12 +137,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_MasterGain,
                 kAudioUnitScope_Global, 0,
-                masterGain, 0)
+                Float(masterGain), 0)
         }
     }
     
     /** Compression Amount (dB) ranges from -40 to 40 (Default: 0) */
-    public var compressionAmount: Float = 0 {
+    public var compressionAmount: Double = 0 {
         didSet {
             if compressionAmount < -40 {
                 compressionAmount = -40
@@ -154,12 +154,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_CompressionAmount,
                 kAudioUnitScope_Global, 0,
-                compressionAmount, 0)
+                Float(compressionAmount), 0)
         }
     }
     
     /** Input Amplitude (dB) ranges from -40 to 40 (Default: 0) */
-    public var inputAmplitude: Float = 0 {
+    public var inputAmplitude: Double = 0 {
         didSet {
             if inputAmplitude < -40 {
                 inputAmplitude = -40
@@ -171,12 +171,12 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_InputAmplitude,
                 kAudioUnitScope_Global, 0,
-                inputAmplitude, 0)
+                Float(inputAmplitude), 0)
         }
     }
     
     /** Output Amplitude (dB) ranges from -40 to 40 (Default: 0) */
-    public var outputAmplitude: Float = 0 {
+    public var outputAmplitude: Double = 0 {
         didSet {
             if outputAmplitude < -40 {
                 outputAmplitude = -40
@@ -188,23 +188,23 @@ public struct AKDynamicsProcessor: AKNode {
                 internalAU,
                 kDynamicsProcessorParam_OutputAmplitude,
                 kAudioUnitScope_Global, 0,
-                outputAmplitude, 0)
+                Float(outputAmplitude), 0)
         }
     }
     
     /** Initialize the dynamics processor node */
     public init(
         _ input: AKNode,
-        threshold: Float = -20,
-        headRoom: Float = 5,
-        expansionRatio: Float = 2,
-        expansionThreshold: Float = 2,
-        attackTime: Float = 0.001,
-        releaseTime: Float = 0.05,
-        masterGain: Float = 0,
-        compressionAmount: Float = 0,
-        inputAmplitude: Float = 0,
-        outputAmplitude: Float = 0) {
+        threshold: Double = -20,
+        headRoom: Double = 5,
+        expansionRatio: Double = 2,
+        expansionThreshold: Double = 2,
+        attackTime: Double = 0.001,
+        releaseTime: Double = 0.05,
+        masterGain: Double = 0,
+        compressionAmount: Double = 0,
+        inputAmplitude: Double = 0,
+        outputAmplitude: Double = 0) {
             
             self.threshold = threshold
             self.headRoom = headRoom
@@ -223,15 +223,15 @@ public struct AKDynamicsProcessor: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_Threshold, kAudioUnitScope_Global, 0, threshold, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_HeadRoom, kAudioUnitScope_Global, 0, headRoom, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionRatio, kAudioUnitScope_Global, 0, expansionRatio, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionThreshold, kAudioUnitScope_Global, 0, expansionThreshold, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_AttackTime, kAudioUnitScope_Global, 0, attackTime, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime, kAudioUnitScope_Global, 0, releaseTime, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain, kAudioUnitScope_Global, 0, masterGain, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0, compressionAmount, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_InputAmplitude, kAudioUnitScope_Global, 0, inputAmplitude, 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_OutputAmplitude, kAudioUnitScope_Global, 0, outputAmplitude, 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_Threshold, kAudioUnitScope_Global, 0, Float(threshold), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_HeadRoom, kAudioUnitScope_Global, 0, Float(headRoom), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionRatio, kAudioUnitScope_Global, 0, Float(expansionRatio), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ExpansionThreshold, kAudioUnitScope_Global, 0, Float(expansionThreshold), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime, kAudioUnitScope_Global, 0, Float(releaseTime), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain, kAudioUnitScope_Global, 0, Float(masterGain), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0, Float(compressionAmount), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_InputAmplitude, kAudioUnitScope_Global, 0, Float(inputAmplitude), 0)
+            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_OutputAmplitude, kAudioUnitScope_Global, 0, Float(outputAmplitude), 0)
     }
 }

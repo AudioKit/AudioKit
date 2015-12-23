@@ -24,7 +24,7 @@ public struct AK<%= au_name %>: AKNode {
 
 <% parameters.each do |parameter| -%>
     /** <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>) */
-    public var <%= parameter[:variable] %>: Float = <%= parameter[:default] %> {
+    public var <%= parameter[:variable] %>: Double = <%= parameter[:default] %> {
         didSet {<% if parameter[:min] != "" %>
             if <%= parameter[:variable] %> < <%= parameter[:min] %> {
                 <%= parameter[:variable] %> = <%= parameter[:min] %>
@@ -37,7 +37,7 @@ public struct AK<%= au_name %>: AKNode {
                 internalAU,
                 <%= parameter[:k_prefix] %>_<%= parameter[:name] %>,
                 kAudioUnitScope_<%= parameter[:scope] %>, 0,
-                <%= parameter[:variable] %>, 0)
+                Float(<%= parameter[:variable] %>), 0)
         }
     }
 
@@ -46,7 +46,7 @@ public struct AK<%= au_name %>: AKNode {
     public init(
         _ input: AKNode,
 <% parameters.each_with_index do |parameter, i| -%>
-        <%= parameter[:variable] %>: Float = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 %><% end %>) {
+        <%= parameter[:variable] %>: Double = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 %><% end %>) {
 
 <% parameters.each do |parameter| -%>
             self.<%= parameter[:variable] %> = <%= parameter[:variable] %>
@@ -55,11 +55,11 @@ public struct AK<%= au_name %>: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
 
 <% parameters.each do |parameter| -%>
-            AudioUnitSetParameter(internalAU, <%= parameter[:k_prefix] %>_<%= parameter[:name] %>, kAudioUnitScope_<%= parameter[:scope] %>, 0, <%= parameter[:variable] %>, 0)
+            AudioUnitSetParameter(internalAU, <%= parameter[:k_prefix] %>_<%= parameter[:name] %>, kAudioUnitScope_<%= parameter[:scope] %>, 0, Float(<%= parameter[:variable] %>), 0)
 <% end -%>
     }
 }

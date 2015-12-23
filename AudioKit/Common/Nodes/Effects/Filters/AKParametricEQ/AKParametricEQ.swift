@@ -24,7 +24,7 @@ public struct AKParametricEQ: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000) */
-    public var centerFrequency: Float = 2000 {
+    public var centerFrequency: Double = 2000 {
         didSet {
             if centerFrequency < 20 {
                 centerFrequency = 20
@@ -36,12 +36,12 @@ public struct AKParametricEQ: AKNode {
                 internalAU,
                 kParametricEQParam_CenterFreq,
                 kAudioUnitScope_Global, 0,
-                centerFrequency, 0)
+                Float(centerFrequency), 0)
         }
     }
     
     /** Q (Hz) ranges from 0.1 to 20 (Default: 1.0) */
-    public var q: Float = 1.0 {
+    public var q: Double = 1.0 {
         didSet {
             if q < 0.1 {
                 q = 0.1
@@ -53,12 +53,12 @@ public struct AKParametricEQ: AKNode {
                 internalAU,
                 kParametricEQParam_Q,
                 kAudioUnitScope_Global, 0,
-                q, 0)
+                Float(q), 0)
         }
     }
     
     /** Gain (dB) ranges from -20 to 20 (Default: 0) */
-    public var gain: Float = 0 {
+    public var gain: Double = 0 {
         didSet {
             if gain < -20 {
                 gain = -20
@@ -70,16 +70,16 @@ public struct AKParametricEQ: AKNode {
                 internalAU,
                 kParametricEQParam_Gain,
                 kAudioUnitScope_Global, 0,
-                gain, 0)
+                Float(gain), 0)
         }
     }
     
     /** Initialize the parametric eq node */
     public init(
         _ input: AKNode,
-        centerFrequency: Float = 2000,
-        q: Float = 1.0,
-        gain: Float = 0) {
+        centerFrequency: Double = 2000,
+        q: Double = 1.0,
+        gain: Double = 0) {
             
             self.centerFrequency = centerFrequency
             self.q = q
@@ -91,8 +91,8 @@ public struct AKParametricEQ: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, centerFrequency, 0)
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, q, 0)
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, Float(q), 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
 }

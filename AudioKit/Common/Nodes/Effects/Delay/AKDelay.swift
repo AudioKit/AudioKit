@@ -25,7 +25,7 @@ public struct AKDelay: AKNode {
     }
     
     /** Feedback as a percentage (Default: 50) */
-    public var feedback: Float = 50.0 {
+    public var feedback: Double = 50.0 {
         didSet {
             if feedback < 0 {
                 feedback = 0
@@ -33,22 +33,22 @@ public struct AKDelay: AKNode {
             if feedback > 100 {
                 feedback = 100
             }
-            delayAU.feedback = feedback
+            delayAU.feedback = Float(feedback)
         }
     }
     
     /** Low pass cut-off frequency in Hertz (Default: 15000) */
-    public var lowPassCutoff: Float = 15000.00 {
+    public var lowPassCutoff: Double = 15000.00 {
         didSet {
             if lowPassCutoff < 0 {
                 lowPassCutoff = 0
             }
-            delayAU.lowPassCutoff = lowPassCutoff
+            delayAU.lowPassCutoff = Float(lowPassCutoff)
         }
     }
     
     /** Dry/Wet Mix (Default 50) */
-    public var dryWetMix: Float = 50.0 {
+    public var dryWetMix: Double = 50.0 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -56,17 +56,17 @@ public struct AKDelay: AKNode {
             if dryWetMix > 100 {
                 dryWetMix = 100
             }
-            delayAU.wetDryMix = dryWetMix
+            delayAU.wetDryMix = Float(dryWetMix)
         }
     }
     
     /** Initialize the delay node */
     public init(
         _ input: AKNode,
-        time: Float = 1,
-        feedback: Float = 50,
-        lowPassCutoff: Float = 15000,
-        dryWetMix: Float = 50) {
+        time: Double = 1,
+        feedback: Double = 50,
+        lowPassCutoff: Double = 15000,
+        dryWetMix: Double = 50) {
             
             self.time = NSTimeInterval(Double(time))
             self.feedback = feedback
@@ -78,8 +78,8 @@ public struct AKDelay: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             
             delayAU.delayTime = self.time
-            delayAU.feedback = feedback
-            delayAU.lowPassCutoff = lowPassCutoff
-            delayAU.wetDryMix = dryWetMix
+            delayAU.feedback = Float(feedback)
+            delayAU.lowPassCutoff = Float(lowPassCutoff)
+            delayAU.wetDryMix = Float(dryWetMix)
     }
 }

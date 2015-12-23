@@ -24,33 +24,33 @@ public struct AKFMOscillator: AKNode {
     private var amplitudeParameter: AUParameter?
 
     /** In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. */
-    public var baseFrequency: Float = 440 {
+    public var baseFrequency: Double = 440 {
         didSet {
-            baseFrequencyParameter?.setValue(baseFrequency, originator: token!)
+            baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
         }
     }
     /** This multiplied by the baseFrequency gives the carrier frequency. */
-    public var carrierMultiplier: Float = 1.0 {
+    public var carrierMultiplier: Double = 1.0 {
         didSet {
-            carrierMultiplierParameter?.setValue(carrierMultiplier, originator: token!)
+            carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
         }
     }
     /** This multiplied by the baseFrequency gives the modulating frequency. */
-    public var modulatingMultiplier: Float = 1.0 {
+    public var modulatingMultiplier: Double = 1.0 {
         didSet {
-            modulatingMultiplierParameter?.setValue(modulatingMultiplier, originator: token!)
+            modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
         }
     }
     /** This multiplied by the modulating frequency gives the modulation amplitude. */
-    public var modulationIndex: Float = 1.0 {
+    public var modulationIndex: Double = 1.0 {
         didSet {
-            modulationIndexParameter?.setValue(modulationIndex, originator: token!)
+            modulationIndexParameter?.setValue(Float(modulationIndex), originator: token!)
         }
     }
     /** Output Amplitude. */
-    public var amplitude: Float = 0.5 {
+    public var amplitude: Double = 0.5 {
         didSet {
-            amplitudeParameter?.setValue(amplitude, originator: token!)
+            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
@@ -59,11 +59,11 @@ public struct AKFMOscillator: AKNode {
     /** Initialize this oscillator node */
     public init(
         table: AKTable = AKTable(.Sine),
-        baseFrequency: Float = 440,
-        carrierMultiplier: Float = 1.0,
-        modulatingMultiplier: Float = 1.0,
-        modulationIndex: Float = 1.0,
-        amplitude: Float = 0.5) {
+        baseFrequency: Double = 440,
+        carrierMultiplier: Double = 1.0,
+        modulatingMultiplier: Double = 1.0,
+        modulationIndex: Double = 1.0,
+        amplitude: Double = 0.5) {
 
         self.baseFrequency = baseFrequency
         self.carrierMultiplier = carrierMultiplier
@@ -112,23 +112,23 @@ public struct AKFMOscillator: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.baseFrequencyParameter!.address {
-                    self.baseFrequency = value
+                    self.baseFrequency = Double(value)
                 } else if address == self.carrierMultiplierParameter!.address {
-                    self.carrierMultiplier = value
+                    self.carrierMultiplier = Double(value)
                 } else if address == self.modulatingMultiplierParameter!.address {
-                    self.modulatingMultiplier = value
+                    self.modulatingMultiplier = Double(value)
                 } else if address == self.modulationIndexParameter!.address {
-                    self.modulationIndex = value
+                    self.modulationIndex = Double(value)
                 } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = value
+                    self.amplitude = Double(value)
                 }
             }
         }
         
-        baseFrequencyParameter?.setValue(baseFrequency, originator: token!)
-        carrierMultiplierParameter?.setValue(carrierMultiplier, originator: token!)
-        modulatingMultiplierParameter?.setValue(modulatingMultiplier, originator: token!)
-        modulationIndexParameter?.setValue(modulationIndex, originator: token!)
-        amplitudeParameter?.setValue(amplitude, originator: token!)
+        baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
+        carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
+        modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
+        modulationIndexParameter?.setValue(Float(modulationIndex), originator: token!)
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 }

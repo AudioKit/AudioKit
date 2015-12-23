@@ -23,7 +23,7 @@ public struct AKBandPassFilter: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000) */
-    public var centerFrequency: Float = 5000 {
+    public var centerFrequency: Double = 5000 {
         didSet {
             if centerFrequency < 20 {
                 centerFrequency = 20
@@ -35,12 +35,12 @@ public struct AKBandPassFilter: AKNode {
                 internalAU,
                 kBandpassParam_CenterFrequency,
                 kAudioUnitScope_Global, 0,
-                centerFrequency, 0)
+                Float(centerFrequency), 0)
         }
     }
     
     /** Bandwidth (Cents) ranges from 100 to 12000 (Default: 600) */
-    public var bandwidth: Float = 600 {
+    public var bandwidth: Double = 600 {
         didSet {
             if bandwidth < 100 {
                 bandwidth = 100
@@ -52,15 +52,15 @@ public struct AKBandPassFilter: AKNode {
                 internalAU,
                 kBandpassParam_Bandwidth,
                 kAudioUnitScope_Global, 0,
-                bandwidth, 0)
+                Float(bandwidth), 0)
         }
     }
     
     /** Initialize the band pass filter node */
     public init(
         _ input: AKNode,
-        centerFrequency: Float = 5000,
-        bandwidth: Float = 600) {
+        centerFrequency: Double = 5000,
+        bandwidth: Double = 600) {
             
             self.centerFrequency = centerFrequency
             self.bandwidth = bandwidth
@@ -71,7 +71,7 @@ public struct AKBandPassFilter: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, centerFrequency, 0)
-            AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth,       kAudioUnitScope_Global, 0, bandwidth, 0)
+            AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
+            AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
     }
 }

@@ -23,7 +23,7 @@ public struct AKReverb2: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100) */
-    public var dryWetMix: Float = 100 {
+    public var dryWetMix: Double = 100 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -31,12 +31,16 @@ public struct AKReverb2: AKNode {
             if dryWetMix > 100 {
                 dryWetMix = 100
             }
-            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, dryWetMix, 0)
+            AudioUnitSetParameter(
+                internalAU,
+                kReverb2Param_DryWetMix,
+                kAudioUnitScope_Global, 0,
+                Float(dryWetMix), 0)
         }
     }
     
     /** Gain (Decibels) ranges from -20 to 20 (Default: 0) */
-    public var gain: Float = 0 {
+    public var gain: Double = 0 {
         didSet {
             if gain < -20 {
                 gain = -20
@@ -48,12 +52,12 @@ public struct AKReverb2: AKNode {
                 internalAU,
                 kReverb2Param_Gain,
                 kAudioUnitScope_Global, 0,
-                gain, 0)
+                Float(gain), 0)
         }
     }
     
     /** Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008) */
-    public var minDelayTime: Float = 0.008 {
+    public var minDelayTime: Double = 0.008 {
         didSet {
             if minDelayTime < 0.0001 {
                 minDelayTime = 0.0001
@@ -65,12 +69,12 @@ public struct AKReverb2: AKNode {
                 internalAU,
                 kReverb2Param_MinDelayTime,
                 kAudioUnitScope_Global, 0,
-                minDelayTime, 0)
+                Float(minDelayTime), 0)
         }
     }
     
     /** Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050) */
-    public var maxDelayTime: Float = 0.050 {
+    public var maxDelayTime: Double = 0.050 {
         didSet {
             if maxDelayTime < 0.0001 {
                 maxDelayTime = 0.0001
@@ -82,12 +86,12 @@ public struct AKReverb2: AKNode {
                 internalAU,
                 kReverb2Param_MaxDelayTime,
                 kAudioUnitScope_Global, 0,
-                maxDelayTime, 0)
+                Float(maxDelayTime), 0)
         }
     }
     
     /** Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0) */
-    public var decayTimeAt0Hz: Float = 1.0 {
+    public var decayTimeAt0Hz: Double = 1.0 {
         didSet {
             if decayTimeAt0Hz < 0.001 {
                 decayTimeAt0Hz = 0.001
@@ -99,12 +103,12 @@ public struct AKReverb2: AKNode {
                 internalAU,
                 kReverb2Param_DecayTimeAt0Hz,
                 kAudioUnitScope_Global, 0,
-                decayTimeAt0Hz, 0)
+                Float(decayTimeAt0Hz), 0)
         }
     }
     
     /** Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5) */
-    public var decayTimeAtNyquist: Float = 0.5 {
+    public var decayTimeAtNyquist: Double = 0.5 {
         didSet {
             if decayTimeAtNyquist < 0.001 {
                 decayTimeAtNyquist = 0.001
@@ -112,37 +116,16 @@ public struct AKReverb2: AKNode {
             if decayTimeAtNyquist > 20.0 {
                 decayTimeAtNyquist = 20.0
             }
-            AudioUnitSetParameter(internalAU,
-                kReverb2Param_DecayTimeAtNyquist,
-                kAudioUnitScope_Global, 0,
-                decayTimeAtNyquist, 0)
-        }
-    }
-    /** Decay Time (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-     Sets both atNyquist and at0Hz decay times*/
-    public var decayTime: Float = 0.5 {
-        didSet {
-            if decayTime < 0.001 {
-                decayTime = 0.001
-            }
-            if decayTime > 20.0 {
-                decayTime = 20.0
-            }
             AudioUnitSetParameter(
                 internalAU,
                 kReverb2Param_DecayTimeAtNyquist,
                 kAudioUnitScope_Global, 0,
-                decayTime, 0)
-            AudioUnitSetParameter(
-                internalAU,
-                kReverb2Param_DecayTimeAt0Hz,
-                kAudioUnitScope_Global, 0,
-                decayTime, 0)
+                Float(decayTimeAtNyquist), 0)
         }
     }
     
     /** Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1) */
-    public var randomizeReflections: Float = 1 {
+    public var randomizeReflections: Double = 1 {
         didSet {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
@@ -154,20 +137,20 @@ public struct AKReverb2: AKNode {
                 internalAU,
                 kReverb2Param_RandomizeReflections,
                 kAudioUnitScope_Global, 0,
-                randomizeReflections, 0)
+                Float(randomizeReflections), 0)
         }
     }
     
     /** Initialize the reverb2 node */
     public init(
         _ input: AKNode,
-        dryWetMix: Float = 100,
-        gain: Float = 0,
-        minDelayTime: Float = 0.008,
-        maxDelayTime: Float = 0.050,
-        decayTimeAt0Hz: Float = 1.0,
-        decayTimeAtNyquist: Float = 0.5,
-        randomizeReflections: Float = 1) {
+        dryWetMix: Double = 100,
+        gain: Double = 0,
+        minDelayTime: Double = 0.008,
+        maxDelayTime: Double = 0.050,
+        decayTimeAt0Hz: Double = 1.0,
+        decayTimeAtNyquist: Double = 0.5,
+        randomizeReflections: Double = 1) {
             
             self.dryWetMix = dryWetMix
             self.gain = gain
@@ -183,12 +166,12 @@ public struct AKReverb2: AKNode {
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, dryWetMix, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_Gain, kAudioUnitScope_Global, 0, gain, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, minDelayTime, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, maxDelayTime, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, decayTimeAt0Hz, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, decayTimeAtNyquist, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, randomizeReflections, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, Float(dryWetMix), 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, Float(minDelayTime), 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, Float(maxDelayTime), 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, Float(decayTimeAt0Hz), 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, Float(decayTimeAtNyquist), 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, Float(randomizeReflections), 0)
     }
 }

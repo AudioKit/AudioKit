@@ -21,16 +21,16 @@ public struct AKOscillator: AKNode {
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
-    /** Frequency in cycles per second */
-    public var frequency: Float = 440 {
+    /** In cycles per second, or Hz. */
+    public var frequency: Double = 440 {
         didSet {
-            frequencyParameter?.setValue(frequency, originator: token!)
+            frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
-    /** Amplitude of the output */
-    public var amplitude: Float = 1 {
+    /** Output Amplitude. */
+    public var amplitude: Double = 0.5 {
         didSet {
-            amplitudeParameter?.setValue(amplitude, originator: token!)
+            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
@@ -39,8 +39,8 @@ public struct AKOscillator: AKNode {
     /** Initialize this oscillator node */
     public init(
         table: AKTable = AKTable(.Sine),
-        frequency: Float = 440,
-        amplitude: Float = 1) {
+        frequency: Double = 440,
+        amplitude: Double = 0.5) {
 
         self.frequency = frequency
         self.amplitude = amplitude
@@ -84,15 +84,13 @@ public struct AKOscillator: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.frequencyParameter!.address {
-                    self.frequency = value
+                    self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = value
+                    self.amplitude = Double(value)
                 }
             }
-        }
-
-        frequencyParameter?.setValue(frequency, originator: token!)
-        amplitudeParameter?.setValue(amplitude, originator: token!)
-
+            }
+            frequencyParameter?.setValue(Float(frequency), originator: token!)
+            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 }

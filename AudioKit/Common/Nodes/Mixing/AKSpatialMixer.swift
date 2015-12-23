@@ -23,7 +23,7 @@ public struct AKSpatialMixer: AKNode {
     public var avAudioNode: AVAudioNode
     
     /** Azimuth (Degrees) ranges from -180 to 180 (Default: 0) */
-    public var azimuth: Float = 0 {
+    public var azimuth: Double = 0 {
         didSet {
             if azimuth < -180 {
                 azimuth = -180
@@ -35,12 +35,12 @@ public struct AKSpatialMixer: AKNode {
                 internalAU,
                 kSpatialMixerParam_Azimuth,
                 kAudioUnitScope_Input, 0,
-                azimuth, 0)
+                Float(azimuth), 0)
         }
     }
     
     /** Elevation (Degrees) ranges from -90 to 90 (Default: 0) */
-    public var elevation: Float = 0 {
+    public var elevation: Double = 0 {
         didSet {
             if elevation < -90 {
                 elevation = -90
@@ -52,12 +52,12 @@ public struct AKSpatialMixer: AKNode {
                 internalAU,
                 kSpatialMixerParam_Elevation,
                 kAudioUnitScope_Input, 0,
-                elevation, 0)
+                Float(elevation), 0)
         }
     }
     
     /** Distance (Metres) ranges from 0 to 10000 (Default: 0) */
-    public var distance: Float = 0 {
+    public var distance: Double = 0 {
         didSet {
             if distance < 0 {
                 distance = 0
@@ -69,31 +69,209 @@ public struct AKSpatialMixer: AKNode {
                 internalAU,
                 kSpatialMixerParam_Distance,
                 kAudioUnitScope_Input, 0,
-                distance, 0)
+                Float(distance), 0)
+        }
+    }
+    
+    /** Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var gain: Double = 0 {
+        didSet {
+            if gain < 0 {
+                gain = 0
+            }
+            if gain > 10000 {
+                gain = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_Gain,
+                kAudioUnitScope_Input, 0,
+                Float(gain), 0)
+        }
+    }
+    
+    /** Playback Rate (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var playbackRate: Double = 0 {
+        didSet {
+            if playbackRate < 0 {
+                playbackRate = 0
+            }
+            if playbackRate > 10000 {
+                playbackRate = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_PlaybackRate,
+                kAudioUnitScope_Input, 0,
+                Float(playbackRate), 0)
+        }
+    }
+    
+    /** Enable (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var enable: Double = 0 {
+        didSet {
+            if enable < 0 {
+                enable = 0
+            }
+            if enable > 10000 {
+                enable = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_Enable,
+                kAudioUnitScope_Input, 0,
+                Float(enable), 0)
+        }
+    }
+    
+    /** Min Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var minGain: Double = 0 {
+        didSet {
+            if minGain < 0 {
+                minGain = 0
+            }
+            if minGain > 10000 {
+                minGain = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_MinGain,
+                kAudioUnitScope_Input, 0,
+                Float(minGain), 0)
+        }
+    }
+    
+    /** Max Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var maxGain: Double = 0 {
+        didSet {
+            if maxGain < 0 {
+                maxGain = 0
+            }
+            if maxGain > 10000 {
+                maxGain = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_MaxGain,
+                kAudioUnitScope_Input, 0,
+                Float(maxGain), 0)
+        }
+    }
+    
+    /** Reverb Blend (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var reverbBlend: Double = 0 {
+        didSet {
+            if reverbBlend < 0 {
+                reverbBlend = 0
+            }
+            if reverbBlend > 10000 {
+                reverbBlend = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_ReverbBlend,
+                kAudioUnitScope_Input, 0,
+                Float(reverbBlend), 0)
+        }
+    }
+    
+    /** Global Reverb Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var globalReverbGain: Double = 0 {
+        didSet {
+            if globalReverbGain < 0 {
+                globalReverbGain = 0
+            }
+            if globalReverbGain > 10000 {
+                globalReverbGain = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_GlobalReverbGain,
+                kAudioUnitScope_Input, 0,
+                Float(globalReverbGain), 0)
+        }
+    }
+    
+    /** Occlusion Attenuation (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var occlusionAttenuation: Double = 0 {
+        didSet {
+            if occlusionAttenuation < 0 {
+                occlusionAttenuation = 0
+            }
+            if occlusionAttenuation > 10000 {
+                occlusionAttenuation = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_OcclusionAttenuation,
+                kAudioUnitScope_Input, 0,
+                Float(occlusionAttenuation), 0)
+        }
+    }
+    
+    /** Obstruction Attenuation (Metres) ranges from 0 to 10000 (Default: 0) */
+    public var obstructionAttenuation: Double = 0 {
+        didSet {
+            if obstructionAttenuation < 0 {
+                obstructionAttenuation = 0
+            }
+            if obstructionAttenuation > 10000 {
+                obstructionAttenuation = 10000
+            }
+            AudioUnitSetParameter(
+                internalAU,
+                kSpatialMixerParam_ObstructionAttenuation,
+                kAudioUnitScope_Input, 0,
+                Float(obstructionAttenuation), 0)
         }
     }
     
     /** Initialize the spatial mixer node */
     public init(
         _ input: AKNode,
-        azimuth: Float = 0,
-        elevation: Float = 0,
-        distance: Float = 0) {
+        azimuth: Double = 0,
+        elevation: Double = 0,
+        distance: Double = 0,
+        gain: Double = 0,
+        playbackRate: Double = 0,
+        enable: Double = 0,
+        minGain: Double = 0,
+        maxGain: Double = 0,
+        reverbBlend: Double = 0,
+        globalReverbGain: Double = 0,
+        occlusionAttenuation: Double = 0,
+        obstructionAttenuation: Double = 0) {
             
             self.azimuth = azimuth
             self.elevation = elevation
             self.distance = distance
+            self.gain = gain
+            self.playbackRate = playbackRate
+            self.enable = enable
+            self.minGain = minGain
+            self.maxGain = maxGain
+            self.reverbBlend = reverbBlend
+            self.globalReverbGain = globalReverbGain
+            self.occlusionAttenuation = occlusionAttenuation
+            self.obstructionAttenuation = obstructionAttenuation
             
-            self.avAudioNode = AVAudioNode()
-            AVAudioUnit.instantiateWithComponentDescription(cd, options: []) {
-                avAudioUnit, error in
-                guard let avAudioUnit = avAudioUnit else { return }
-                
-                self.avAudioNode = avAudioUnit
-                self.internalAU = avAudioUnit.audioUnit
-
-                AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-                AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
-            }
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            internalAU = internalEffect.audioUnit
+            
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_Azimuth, kAudioUnitScope_Input, 0, Float(azimuth), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_Elevation, kAudioUnitScope_Input, 0, Float(elevation), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_Distance, kAudioUnitScope_Input, 0, Float(distance), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_Gain, kAudioUnitScope_Input, 0, Float(gain), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_PlaybackRate, kAudioUnitScope_Input, 0, Float(playbackRate), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_Enable, kAudioUnitScope_Input, 0, Float(enable), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_MinGain, kAudioUnitScope_Input, 0, Float(minGain), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_MaxGain, kAudioUnitScope_Input, 0, Float(maxGain), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_ReverbBlend, kAudioUnitScope_Input, 0, Float(reverbBlend), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_GlobalReverbGain, kAudioUnitScope_Input, 0, Float(globalReverbGain), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_OcclusionAttenuation, kAudioUnitScope_Input, 0, Float(occlusionAttenuation), 0)
+            AudioUnitSetParameter(internalAU, kSpatialMixerParam_ObstructionAttenuation, kAudioUnitScope_Input, 0, Float(obstructionAttenuation), 0)
     }
 }
