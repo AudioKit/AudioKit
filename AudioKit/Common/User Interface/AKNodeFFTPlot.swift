@@ -13,7 +13,7 @@ import Foundation
     public var fft: EZAudioFFTRolling?
     public var node: AKNode? {
         didSet {
-            node!.output!.installTapOnBus(0, bufferSize: bufferSize, format: AKManager.format) { [weak self] (buffer, time) -> Void in
+            node!.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AKManager.format) { [weak self] (buffer, time) -> Void in
                 if let strongSelf = self {
                     buffer.frameLength = strongSelf.bufferSize;
                     let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);

@@ -10,7 +10,7 @@ import Foundation
 import CoreMIDI
 
 //// MIDI input and output handler
-public class AKMidi: AKNode {
+public class AKMidi {
     
     /// MIDI Client Reference
     public var midiClient = MIDIClientRef()
@@ -68,8 +68,8 @@ public class AKMidi: AKNode {
     }
     
     /// Initialize the AKMidi system
-    public override init() {
-        super.init()
+    public init() {
+
         print("MIDI Enabled")
         #if os(iOS)
             MIDINetworkSession.defaultSession().enabled = true

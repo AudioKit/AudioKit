@@ -13,7 +13,7 @@ import Foundation
     however, the new system is not as advanced as the old, so we will keep both and have them interact.
     as such, there is some code hanging around while we iron it out.
  */
-public class AKSequencer{
+public class AKSequencer {
     
     public var sequence:MusicSequence = nil
     public var sequencePointer:UnsafeMutablePointer<MusicSequence>

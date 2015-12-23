@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /** Audio from the standard input */
-public class AKGetAUParams {
+public struct AKGetAUParams {
     
     private func getAUParams(inputAU: AudioUnit)->([AudioUnitParameterInfo]) {
         //  Get number of parameters in this unit (size in bytes really):
