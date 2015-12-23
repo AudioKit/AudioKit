@@ -2,7 +2,7 @@ installation-directory: "Effects/Filters/"
 
 sp-module: atone
 
-node: AKHighPassFilter
+node: AKToneComplementFilter
 
 akalias: highPassFilter
 

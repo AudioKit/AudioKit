@@ -1,4 +1,4 @@
-installation-directory: "Effects/Filters/Butterworth\ Filters"
+installation-directory: "Effects/Filters/"
 
 sp-module: butlp
 

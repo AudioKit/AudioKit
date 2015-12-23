@@ -2,7 +2,7 @@ installation-directory: "Effects/Filters/"
 
 sp-module: tone
 
-node: AKLowPassFilter
+node: AKToneFilter
 
 summary: Low-pass filter
 
