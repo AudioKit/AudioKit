@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's <%= au_name %> Audio Unit */
-public class AK<%= au_name %>: AKNode {
+public struct AK<%= au_name %>: AKProtocolNode {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -20,6 +20,7 @@ public class AK<%= au_name %>: AKNode {
 
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
+    public var avAudioNode: AVAudioNode
 
 <% parameters.each do |parameter| -%>
     /** <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>) */
@@ -50,12 +51,15 @@ public class AK<%= au_name %>: AKNode {
 <% parameters.each do |parameter| -%>
             self.<%= parameter[:variable] %> = <%= parameter[:variable] %>
 <% end -%>
-            super.init()
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: nil)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
+
+<% parameters.each do |parameter| -%>
+            AudioUnitSetParameter(internalAU, <%= parameter[:k_prefix] %>_<%= parameter[:name] %>, kAudioUnitScope_<%= parameter[:scope] %>, 0, <%= parameter[:variable] %>, 0)
+<% end -%>
     }
 }
