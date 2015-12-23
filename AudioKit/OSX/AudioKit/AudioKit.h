@@ -15,7 +15,8 @@ FOUNDATION_EXPORT double AudioKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Analysis
-#import <AudioKit/AKTrackedAmplitudeAudioUnit.h>
+#import <AudioKit/AKAmplitudeTrackerAudioUnit.h>
+#import <AudioKit/AKFrequencyTrackerAudioUnit.h>
 
 // Effects
 #import <AudioKit/AKOperationEffectAudioUnit.h>

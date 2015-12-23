@@ -19,7 +19,7 @@ let sampler = AKSampler()
 //: Here is where we reference the EXS24 file as it is in the app bundle
 sampler.loadEXS24("Sounds/sawPiano1")
 
-let delay  = AKDelay(sampler)
+var delay  = AKDelay(sampler)
 delay.time = pulse * 1.5
 delay.dryWetMix = 30
 delay.feedback = 20

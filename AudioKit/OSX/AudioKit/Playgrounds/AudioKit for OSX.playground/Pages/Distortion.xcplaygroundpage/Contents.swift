@@ -10,19 +10,19 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: This section prepares the player and the microphone
-let mic = AKMicrophone()
+var mic = AKMicrophone()
 mic.volume = 0
 let micWindow = AKMicrophoneWindow(mic)
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow = AKAudioPlayerWindow(player)
 
 //: Next, we'll connect the audio sources to distortion
 let inputMix = AKMixer(mic, player)
-let distortion = AKDistortion(inputMix)
+var distortion = AKDistortion(inputMix)
 
 //: Set the parameters of the distortion here
 distortion.delay = 0.1 // Milliseconds

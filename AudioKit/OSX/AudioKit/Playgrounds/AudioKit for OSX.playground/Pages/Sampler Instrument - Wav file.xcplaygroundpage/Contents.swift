@@ -19,7 +19,7 @@ let sampler = AKSampler()
 //: Here is where we reference the Wav file as it is in the app bundle
 sampler.loadWav("Sounds/fmpia1")
 
-let delay  = AKDelay(sampler)
+var delay  = AKDelay(sampler)
 delay.time = pulse * 1.5
 delay.dryWetMix = 30
 delay.feedback = 20
@@ -27,7 +27,7 @@ delay.feedback = 20
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.LargeRoom)
 
-let mixer = AKMixer(reverb)
+var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
 //: Connect the sampler to the main output

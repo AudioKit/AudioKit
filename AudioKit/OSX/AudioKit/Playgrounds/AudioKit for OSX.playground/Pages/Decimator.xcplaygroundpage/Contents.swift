@@ -10,19 +10,19 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: This section prepares the player and the microphone
-let mic = AKMicrophone()
+var mic = AKMicrophone()
 mic.volume = 0
 let micWindow = AKMicrophoneWindow(mic)
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 let playerWindow = AKAudioPlayerWindow(player)
 
 //: Next, we'll connect the audio sources to a decimator
 let inputMix = AKMixer(mic, player)
-let decimator = AKDecimator(inputMix)
+var decimator = AKDecimator(inputMix)
 
 //: Set the parameters of the decimator here
 decimator.decimation =  50 // Percent

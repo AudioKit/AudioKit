@@ -12,11 +12,11 @@ let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file1 = bundle.pathForResource("drumloop", ofType: "wav")
 let file2 = bundle.pathForResource("guitarloop", ofType: "wav")
-let player1 = AKAudioPlayer(file1!)
+var player1 = AKAudioPlayer(file1!)
 player1.looping = true
 let player1Window = AKAudioPlayerWindow(player1, title: "Drums")
 
-let player2 = AKAudioPlayer(file2!)
+var player2 = AKAudioPlayer(file2!)
 player2.looping = true
 let player2Window = AKAudioPlayerWindow(player2, title: "Guitar", xOffset: 640)
 
