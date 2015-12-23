@@ -15,7 +15,7 @@ let crossingSignalTone = sineWave(frequency: 2500)
 let crossingSignalTrigger = periodicTrigger(0.2)
 let crossingSignal = crossingSignalTone.triggeredBy(crossingSignalTrigger, attack: 0.01, hold: 0.1, release: 0.01)
 
-let generator = AKNode.generator(crossingSignal)
+let generator = AKOperationGenerator(operation: crossingSignal)
 
 audiokit.audioOutput = generator
 audiokit.start()

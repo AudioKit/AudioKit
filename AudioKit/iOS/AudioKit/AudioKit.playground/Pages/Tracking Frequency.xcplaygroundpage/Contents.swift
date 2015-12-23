@@ -23,7 +23,7 @@ let frequency = sineWave(frequency: 0.5).scaledTo(minimum: minimum, maximum: max
 let oscillator = sineWave(frequency: frequency, amplitude: volume)
 
 //: Connect up the the nodes
-let oscillatorNode = AKNode.generator(oscillator)
+let oscillatorNode = AKOperationGenerator(operation: oscillator)
 let tracker = AKFrequencyTracker(oscillatorNode, minimumFrequency: minimum, maximumFrequency: maximum)
 
 

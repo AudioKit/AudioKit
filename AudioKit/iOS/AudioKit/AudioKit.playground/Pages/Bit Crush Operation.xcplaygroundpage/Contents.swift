@@ -15,7 +15,7 @@ let bitDepth   = sinusoid.scaledTo(minimum:   8, maximum:   2)
 let oscillator = sineWave(frequency: 440)
 let bitCrush = oscillator.bitCrushed(bitDepth: bitDepth, sampleRate: sampleRate)
 
-let generator = AKNode.generator(bitCrush * 0.2)
+let generator = AKOperationGenerator(operation: bitCrush * 0.2)
 
 audiokit.audioOutput = generator
 audiokit.start()

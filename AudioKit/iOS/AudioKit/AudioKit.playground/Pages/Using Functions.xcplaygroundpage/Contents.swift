@@ -19,7 +19,7 @@ let drone1 = drone(440, rate: 3)
 let drone2 = drone(330, rate: 5)
 let drone3 = drone(450, rate: 7)
 
-let generator = AKNode.generator((drone1 + drone2 + drone3) / 3)
+let generator = AKOperationGenerator(operation: (drone1 + drone2 + drone3) / 3)
 
 audiokit.audioOutput = generator
 audiokit.start()

@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
-let noise = AKWhiteNoise(amplitude: 0.0)
+var noise = AKWhiteNoise(amplitude: 0.0)
 audiokit.audioOutput = noise
 audiokit.start()
 

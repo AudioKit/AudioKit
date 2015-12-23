@@ -27,7 +27,7 @@ keys["#"] = [941, 1477]
 let frequencies = keys["0"]!
 let keyPressTone = sineWave(frequency: AKOperation.parameters(0)) + sineWave(frequency: AKOperation.parameters(1))
 let momentaryPress = keyPressTone.triggeredBy(AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
-let generator = AKNode.generator(momentaryPress, triggered: true)
+let generator = AKOperationGenerator(operation: momentaryPress, triggered: true)
 
 audiokit.audioOutput = generator
 audiokit.start()

@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let dynamicsProcessor = AKDynamicsProcessor(player)
+var dynamicsProcessor = AKDynamicsProcessor(player)
 
 //: Set the parameters of the dynamics processor here
 dynamicsProcessor.threshold = -20 // dB

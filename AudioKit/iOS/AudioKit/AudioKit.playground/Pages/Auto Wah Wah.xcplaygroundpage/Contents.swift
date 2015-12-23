@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
-let wah = AKAutoWah(player)
+var player = AKAudioPlayer(file!)
 player.looping = true
+var wah = AKAutoWah(player)
 
 //: Set the parameters of the auto-wah here
 wah.wah = 1

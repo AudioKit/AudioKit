@@ -10,7 +10,7 @@ import AVFoundation
 
 let audiokit = AKManager.sharedInstance
 let file = NSBundle.mainBundle().pathForResource("guitarloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 
 let spatialMixer = AKSpatialMixer(player, azimuth: 0, elevation: 0, distance: 0)

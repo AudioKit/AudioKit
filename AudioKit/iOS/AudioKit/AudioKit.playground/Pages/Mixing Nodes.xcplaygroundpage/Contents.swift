@@ -16,10 +16,10 @@ let bassFile   = bundle.pathForResource("bassloop",   ofType: "wav")
 let guitarFile = bundle.pathForResource("guitarloop", ofType: "wav")
 let leadFile   = bundle.pathForResource("leadloop",   ofType: "wav")
 
-let drums  = AKAudioPlayer(drumFile!)
-let bass   = AKAudioPlayer(bassFile!)
-let guitar = AKAudioPlayer(guitarFile!)
-let lead   = AKAudioPlayer(leadFile!)
+var drums  = AKAudioPlayer(drumFile!)
+var bass   = AKAudioPlayer(bassFile!)
+var guitar = AKAudioPlayer(guitarFile!)
+var lead   = AKAudioPlayer(leadFile!)
 
 drums.looping  = true
 bass.looping   = true

@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let highShelfFilter = AKHighShelfFilter(player)
+var highShelfFilter = AKHighShelfFilter(player)
 
 //: Set the parameters of the High-Shelf Filter here
 highShelfFilter.cutOffFrequency = 1000 // Hz

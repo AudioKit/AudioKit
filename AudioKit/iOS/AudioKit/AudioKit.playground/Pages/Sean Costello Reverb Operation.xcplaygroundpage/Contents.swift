@@ -10,13 +10,13 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
 
 let reverb = AKStereoOperation.input.reverberatedWithCostello(
     feedback: sineWave(frequency: 0.1).scaledTo(minimum: 0.5, maximum: 0.97),
     cutoffFrequency: 10000)
-let effect = AKNode.effect(player, operation: reverb)
+let effect = AKOperationEffect(player, stereoOperation: reverb)
 
 audiokit.audioOutput = effect
 audiokit.start()

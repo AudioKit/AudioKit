@@ -20,7 +20,7 @@ amplitude.applyPortamento() // prevents the click sound
 var oscillator = sineWave(frequency: frequency, amplitude: amplitude)
 let reverb = oscillator.reverberatedWithChowning()
 let oscillatorReverbMix = mix(oscillator, reverb, t: 0.6)
-let generator = AKNode.generator(oscillatorReverbMix)
+let generator = AKOperationGenerator(operation: oscillatorReverbMix)
 
 audiokit.audioOutput = generator
 audiokit.start()

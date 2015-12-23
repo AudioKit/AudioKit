@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
-let square = AKSquareWaveOscillator()
+var square = AKSquareWaveOscillator()
 audiokit.audioOutput = square
 audiokit.start()
 

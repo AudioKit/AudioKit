@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let decimator = AKDecimator(player)
+var decimator = AKDecimator(player)
 
 //: Set the parameters of the decimator here
 decimator.decimation =  20 // Percent

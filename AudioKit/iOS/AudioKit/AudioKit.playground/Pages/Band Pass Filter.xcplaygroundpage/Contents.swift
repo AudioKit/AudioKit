@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
-let player = AKAudioPlayer(file!)
+var player = AKAudioPlayer(file!)
 player.looping = true
-let bandPassFilter = AKBandPassFilter(player)
+var bandPassFilter = AKBandPassFilter(player)
 
 //: Set the parameters of the Band-Pass Filter here
 bandPassFilter.centerFrequency = 5000 // Hz
