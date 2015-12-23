@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's Reverb2 Audio Unit */
-public class AKReverb2: AKNode {
+public struct AKReverb2: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -20,7 +20,7 @@ public class AKReverb2: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     
     /** Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100) */
     public var dryWetMix: Float = 100 {
@@ -95,7 +95,8 @@ public class AKReverb2: AKNode {
             if decayTimeAt0Hz > 20.0 {
                 decayTimeAt0Hz = 20.0
             }
-            AudioUnitSetParameter(internalAU,
+            AudioUnitSetParameter(
+                internalAU,
                 kReverb2Param_DecayTimeAt0Hz,
                 kAudioUnitScope_Global, 0,
                 decayTimeAt0Hz, 0)
@@ -149,7 +150,8 @@ public class AKReverb2: AKNode {
             if randomizeReflections > 1000 {
                 randomizeReflections = 1000
             }
-            AudioUnitSetParameter(internalAU,
+            AudioUnitSetParameter(
+                internalAU,
                 kReverb2Param_RandomizeReflections,
                 kAudioUnitScope_Global, 0,
                 randomizeReflections, 0)
@@ -174,22 +176,19 @@ public class AKReverb2: AKNode {
             self.decayTimeAt0Hz = decayTimeAt0Hz
             self.decayTimeAtNyquist = decayTimeAtNyquist
             self.randomizeReflections = randomizeReflections
-            super.init()
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            internalAudioUnit = internalEffect.audioUnit
             
-            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix,            kAudioUnitScope_Global, 0, dryWetMix, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_Gain,                 kAudioUnitScope_Global, 0, gain, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime,         kAudioUnitScope_Global, 0, minDelayTime, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime,         kAudioUnitScope_Global, 0, maxDelayTime, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz,       kAudioUnitScope_Global, 0, decayTimeAt0Hz, 0)
-            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist,   kAudioUnitScope_Global, 0, decayTimeAtNyquist, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, dryWetMix, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_Gain, kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, minDelayTime, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, maxDelayTime, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAt0Hz, kAudioUnitScope_Global, 0, decayTimeAt0Hz, 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, decayTimeAtNyquist, 0)
             AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, randomizeReflections, 0)
     }
-    
 }

@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's Distortion Audio Unit */
-public class AKDecimator: AKNode {
+public struct AKDecimator: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -20,6 +20,7 @@ public class AKDecimator: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     public var internalAudioUnit = AudioUnit()
+    public var avAudioNode: AVAudioNode
     
     /** Decimation (Percent) ranges from 0 to 100 (Default: 50) */
     public var decimation: Float = 50 {
@@ -71,12 +72,11 @@ public class AKDecimator: AKNode {
             self.decimation = decimation
             self.rounding = rounding
             self.mix = mix
-            super.init()
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAudioUnit = internalEffect.audioUnit
             
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter

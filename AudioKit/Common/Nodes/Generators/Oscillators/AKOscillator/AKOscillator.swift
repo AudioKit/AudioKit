@@ -10,12 +10,12 @@ import AVFoundation
 
 /** Reads from the table sequentially and repeatedly at given frequency. 
  Linear interpolation is applied for table look up from internal phase values. */
-public class AKOscillator: AKNode {
+public struct AKOscillator: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKOscillatorAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
@@ -44,7 +44,6 @@ public class AKOscillator: AKNode {
 
         self.frequency = frequency
         self.amplitude = amplitude
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -58,17 +57,17 @@ public class AKOscillator: AKNode {
             asComponentDescription: description,
             name: "Local AKOscillator",
             version: UInt32.max)
-
+        
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.output = avAudioUnitGenerator
+            self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKOscillatorAudioUnit
-            self.internalAudioUnit = avAudioUnitGenerator.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupTable(Int32(table.size))
             for var i = 0; i < table.size; i++ {
                 self.internalAU?.setTableValue(table.values[i], atIndex: UInt32(i))

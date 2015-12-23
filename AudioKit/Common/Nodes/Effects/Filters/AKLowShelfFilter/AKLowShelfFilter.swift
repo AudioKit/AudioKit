@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's LowShelfFilter Audio Unit */
-public class AKLowShelfFilter: AKNode {
+public struct AKLowShelfFilter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -20,7 +20,7 @@ public class AKLowShelfFilter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     
     /** Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80) */
     public var cutoffFrequency: Float = 80 {
@@ -64,16 +64,14 @@ public class AKLowShelfFilter: AKNode {
             
             self.cutoffFrequency = cutoffFrequency
             self.gain = gain
-            super.init()
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            self.internalAudioUnit = internalEffect.audioUnit
-
+            
             AudioUnitSetParameter(internalAU, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, cutoffFrequency, 0)
-            AudioUnitSetParameter(internalAU, kAULowShelfParam_Gain,            kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(internalAU, kAULowShelfParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
     }
 }

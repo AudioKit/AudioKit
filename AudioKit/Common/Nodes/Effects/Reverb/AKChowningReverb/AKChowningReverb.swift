@@ -15,21 +15,16 @@ import AVFoundation
  networks of simple allpass and comb delay filters.  This class implements three
  series allpass units, followed by four parallel comb filters, and two
  decorrelation delay lines in parallel at the output. */
-public class AKChowningReverb: AKNode {
+public struct AKChowningReverb: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKChowningReverbAudioUnit?
-    public var internalAudioUnit:AudioUnit?
-    private var token: AUParameterObserverToken?
-
-
 
     // MARK: - Initializers
 
     /** Initialize this reverb node */
     public init(_ input: AKNode) {
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -44,27 +39,17 @@ public class AKChowningReverb: AKNode {
             name: "Local AKChowningReverb",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKChowningReverbAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
-
-        guard let tree = internalAU?.parameterTree else { return }
-
-
-        token = tree.tokenByAddingParameterObserver {
-            address, value in
-
-            dispatch_async(dispatch_get_main_queue()) {
-            }
-        }
-
     }
 }

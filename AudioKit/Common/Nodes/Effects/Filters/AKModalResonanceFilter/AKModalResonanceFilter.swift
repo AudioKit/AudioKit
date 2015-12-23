@@ -10,27 +10,26 @@ import AVFoundation
 
 /** A modal resonance filter used for modal synthesis. Plucked and bell sounds can
  be created using  passing an impulse through a combination of modal filters. */
-public class AKModalResonanceFilter: AKNode {
+public struct AKModalResonanceFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKModalResonanceFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
     private var qualityFactorParameter: AUParameter?
 
     /** Resonant frequency of the filter. */
-    public var frequency: Float = 500.0 {
+    public var frequency: Double = 500.0 {
         didSet {
-            frequencyParameter?.setValue(frequency, originator: token!)
+            frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
     /** Quality factor of the filter. Roughly equal to Q/frequency. */
-    public var qualityFactor: Float = 50.0 {
+    public var qualityFactor: Double = 50.0 {
         didSet {
-            qualityFactorParameter?.setValue(qualityFactor, originator: token!)
+            qualityFactorParameter?.setValue(Float(qualityFactor), originator: token!)
         }
     }
 
@@ -39,12 +38,11 @@ public class AKModalResonanceFilter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        frequency: Float = 500.0,
-        qualityFactor: Float = 50.0) {
+        frequency: Double = 500.0,
+        qualityFactor: Double = 50.0) {
 
         self.frequency = frequency
         self.qualityFactor = qualityFactor
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -59,16 +57,17 @@ public class AKModalResonanceFilter: AKNode {
             name: "Local AKModalResonanceFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKModalResonanceFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -81,15 +80,13 @@ public class AKModalResonanceFilter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.frequencyParameter!.address {
-                    self.frequency = value
+                    self.frequency = Double(value)
                 } else if address == self.qualityFactorParameter!.address {
-                    self.qualityFactor = value
+                    self.qualityFactor = Double(value)
                 }
             }
         }
-
-        frequencyParameter?.setValue(frequency, originator: token!)
-        qualityFactorParameter?.setValue(qualityFactor, originator: token!)
-
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
+        qualityFactorParameter?.setValue(Float(qualityFactor), originator: token!)
     }
 }

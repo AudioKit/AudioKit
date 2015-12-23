@@ -10,10 +10,11 @@ import Foundation
 import AVFoundation
 
 /// Simple audio playback class
-public class AKAudioPlayer: AKNode {
+public struct AKAudioPlayer: AKNode {
     
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
+    public var avAudioNode: AVAudioNode
     
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
@@ -52,11 +53,11 @@ public class AKAudioPlayer: AKNode {
         
         internalPlayer = AVAudioPlayerNode()
         AKManager.sharedInstance.engine.attachNode(internalPlayer)
-        super.init()
+
         let mixer = AVAudioMixerNode()
         AKManager.sharedInstance.engine.attachNode(mixer)
         AKManager.sharedInstance.engine.connect(internalPlayer, to: mixer, format: audioFormat)
-        output = mixer
+        self.avAudioNode = mixer
 
         internalPlayer.scheduleBuffer(
             audioFileBuffer,

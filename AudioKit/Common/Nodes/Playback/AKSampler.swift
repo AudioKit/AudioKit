@@ -16,25 +16,23 @@ import CoreAudio
  3) connect to the avengine: audiokit.audioOutput = sampler
  4) start the avengine audiokit.start()
 */
-public class AKSampler: AKNode {
+public struct AKSampler: AKNode {
     
     // MARK: - Properties
     
     private var internalAU: AUAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     private var token: AUParameterObserverToken?
     public var samplerUnit = AVAudioUnitSampler()
     
     // MARK: - Initializers
     
     /** Initialize the sampler node */
-    public override init() {
-        super.init()
+    public init() {
         
-        self.output = samplerUnit
+        self.avAudioNode = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
-        self.internalAudioUnit = samplerUnit.audioUnit
-        AKManager.sharedInstance.engine.attachNode(self.output!)
+        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }//end init
     

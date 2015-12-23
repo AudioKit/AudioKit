@@ -9,12 +9,12 @@
 import AVFoundation
 
 /** Classic FM Synthesis audio generation. */
-public class AKFMOscillator: AKNode {
+public struct AKFMOscillator: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKFMOscillatorAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     private var token: AUParameterObserverToken?
 
     private var baseFrequencyParameter: AUParameter?
@@ -70,7 +70,6 @@ public class AKFMOscillator: AKNode {
         self.modulatingMultiplier = modulatingMultiplier
         self.modulationIndex = modulationIndex
         self.amplitude = amplitude
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -85,15 +84,15 @@ public class AKFMOscillator: AKNode {
             name: "Local AKFMOscillator",
             version: UInt32.max)
         
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
             
             guard let avAudioUnitGenerator = avAudioUnit else { return }
             
-            self.output = avAudioUnitGenerator
+            self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
-            self.internalAudioUnit = avAudioUnitGenerator.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupTable(Int32(table.size))
             for var i = 0; i < table.size; i++ {
                 self.internalAU?.setTableValue(table.values[i], atIndex: UInt32(i))

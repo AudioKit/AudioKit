@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's HighShelfFilter Audio Unit */
-public struct AKHighShelfFilter: AKProtocolNode {
+public struct AKHighShelfFilter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -68,10 +68,10 @@ public struct AKHighShelfFilter: AKProtocolNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kHighShelfParam_CutOffFrequency, kAudioUnitScope_Global, 0, cutOffFrequency, 0)
-            AudioUnitSetParameter(internalAU, kHighShelfParam_Gain,            kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(internalAU, kHighShelfParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
     }
 }

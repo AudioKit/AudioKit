@@ -9,12 +9,11 @@
 import AVFoundation
 
 /** Emulation of the Roland TB-303 filter */
-public class AKRolandTB303Filter: AKNode {
+public struct AKRolandTB303Filter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKRolandTB303FilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
@@ -23,29 +22,29 @@ public class AKRolandTB303Filter: AKNode {
     private var resonanceAsymmetryParameter: AUParameter?
 
     /** Cutoff frequency. (in Hertz) */
-    public var cutoffFrequency: Float = 500 {
+    public var cutoffFrequency: Double = 500 {
         didSet {
-            cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+            cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
     /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values
      might cause aliasing, analogue synths generally allow resonances to be above 1. */
-    public var resonance: Float = 0.5 {
+    public var resonance: Double = 0.5 {
         didSet {
-            resonanceParameter?.setValue(resonance, originator: token!)
+            resonanceParameter?.setValue(Float(resonance), originator: token!)
         }
     }
     /** Distortion. Value is typically 2.0; deviation from this can cause stability
      issues. */
-    public var distortion: Float = 2.0 {
+    public var distortion: Double = 2.0 {
         didSet {
-            distortionParameter?.setValue(distortion, originator: token!)
+            distortionParameter?.setValue(Float(distortion), originator: token!)
         }
     }
     /** Asymmetry of resonance. Value is between 0-1 */
-    public var resonanceAsymmetry: Float = 0.5 {
+    public var resonanceAsymmetry: Double = 0.5 {
         didSet {
-            resonanceAsymmetryParameter?.setValue(resonanceAsymmetry, originator: token!)
+            resonanceAsymmetryParameter?.setValue(Float(resonanceAsymmetry), originator: token!)
         }
     }
 
@@ -54,16 +53,15 @@ public class AKRolandTB303Filter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        cutoffFrequency: Float = 500,
-        resonance: Float = 0.5,
-        distortion: Float = 2.0,
-        resonanceAsymmetry: Float = 0.5) {
+        cutoffFrequency: Double = 500,
+        resonance: Double = 0.5,
+        distortion: Double = 2.0,
+        resonanceAsymmetry: Double = 0.5) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
         self.distortion = distortion
         self.resonanceAsymmetry = resonanceAsymmetry
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -78,16 +76,17 @@ public class AKRolandTB303Filter: AKNode {
             name: "Local AKRolandTB303Filter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKRolandTB303FilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -102,21 +101,19 @@ public class AKRolandTB303Filter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = value
+                    self.cutoffFrequency = Double(value)
                 } else if address == self.resonanceParameter!.address {
-                    self.resonance = value
+                    self.resonance = Double(value)
                 } else if address == self.distortionParameter!.address {
-                    self.distortion = value
+                    self.distortion = Double(value)
                 } else if address == self.resonanceAsymmetryParameter!.address {
-                    self.resonanceAsymmetry = value
+                    self.resonanceAsymmetry = Double(value)
                 }
             }
         }
-
-        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
-        resonanceParameter?.setValue(resonance, originator: token!)
-        distortionParameter?.setValue(distortion, originator: token!)
-        resonanceAsymmetryParameter?.setValue(resonanceAsymmetry, originator: token!)
-
+        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
+        resonanceParameter?.setValue(Float(resonance), originator: token!)
+        distortionParameter?.setValue(Float(distortion), originator: token!)
+        resonanceAsymmetryParameter?.setValue(Float(resonanceAsymmetry), originator: token!)
     }
 }

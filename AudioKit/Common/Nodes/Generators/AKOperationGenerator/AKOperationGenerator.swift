@@ -15,19 +15,30 @@ import AVFoundation
  networks of simple allpass and comb delay filters.  This class implements three
  series allpass units, followed by four parallel comb filters, and two
  decorrelation delay lines in parallel at the output. */
-public class AKOperationGenerator: AKNode {
+public struct AKOperationGenerator: AKNode {
 
     // MARK: - Properties
 
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKOperationGeneratorAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     // MARK: - Initializers
+    
+    public init(operation: AKOperation, triggered: Bool = false) {
+        self.init("\(operation) dup", triggered: triggered)
+    }
+    
+    public init(stereoOperation: AKStereoOperation, triggered: Bool = false) {
+        self.init("\(stereoOperation) swap", triggered: triggered)
+    }
+    
+    public init(left: AKOperation, right: AKOperation, triggered: Bool = false) {
+        self.init("\(left) \(right)", triggered: triggered)
+    }
 
-    /** Initialize this reverb node */
+    /** Initialize this generator node */
     public init(_ sporth: String, triggered: Bool = false) {
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -42,15 +53,15 @@ public class AKOperationGenerator: AKNode {
             name: "Local AKOperationGenerator",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             if triggered {
                 self.internalAU?.setSporth("0 p \(sporth)")
             } else {

@@ -9,12 +9,11 @@
 import AVFoundation
 
 /** An automatic wah effect, ported from Guitarix via Faust. */
-public class AKAutoWah: AKNode {
+public struct AKAutoWah: AKNode {
 
     // MARK: - Properties
-    
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKAutoWahAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var wahParameter: AUParameter?
@@ -22,21 +21,21 @@ public class AKAutoWah: AKNode {
     private var amplitudeParameter: AUParameter?
 
     /** Wah Amount */
-    public var wah: Float = 0 {
+    public var wah: Double = 0 {
         didSet {
-            wahParameter?.setValue(wah, originator: token!)
+            wahParameter?.setValue(Float(wah), originator: token!)
         }
     }
     /** Dry/Wet Mix */
-    public var mix: Float = 100 {
+    public var mix: Double = 100 {
         didSet {
-            mixParameter?.setValue(mix, originator: token!)
+            mixParameter?.setValue(Float(mix), originator: token!)
         }
     }
     /** Overall level */
-    public var amplitude: Float = 0.1 {
+    public var amplitude: Double = 0.1 {
         didSet {
-            amplitudeParameter?.setValue(amplitude, originator: token!)
+            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
@@ -45,14 +44,13 @@ public class AKAutoWah: AKNode {
     /** Initialize this Auto-Wah node */
     public init(
         _ input: AKNode,
-        wah: Float = 0,
-        mix: Float = 100,
-        amplitude: Float = 0.1) {
+        wah: Double = 0,
+        mix: Double = 100,
+        amplitude: Double = 0.1) {
 
         self.wah = wah
         self.mix = mix
         self.amplitude = amplitude
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -67,16 +65,17 @@ public class AKAutoWah: AKNode {
             name: "Local AKAutoWah",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAutoWahAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -90,18 +89,16 @@ public class AKAutoWah: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.wahParameter!.address {
-                    self.wah = value
+                    self.wah = Double(value)
                 } else if address == self.mixParameter!.address {
-                    self.mix = value
+                    self.mix = Double(value)
                 } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = value
+                    self.amplitude = Double(value)
                 }
             }
         }
-
-        wahParameter?.setValue(wah, originator: token!)
-        mixParameter?.setValue(mix, originator: token!)
-        amplitudeParameter?.setValue(amplitude, originator: token!)
-
+        wahParameter?.setValue(Float(wah), originator: token!)
+        mixParameter?.setValue(Float(mix), originator: token!)
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 }

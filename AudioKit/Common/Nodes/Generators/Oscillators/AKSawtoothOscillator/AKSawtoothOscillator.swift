@@ -10,12 +10,12 @@ import AVFoundation
 
 /** Bandlimited sawtooth oscillator This is a bandlimited sawtooth oscillator ported
  from the "sawtooth" function from the Faust programming language. */
-public class AKSawtoothOscillator: AKNode {
+public struct AKSawtoothOscillator: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKSawtoothOscillatorAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
@@ -43,7 +43,6 @@ public class AKSawtoothOscillator: AKNode {
 
         self.frequency = frequency
         self.amplitude = amplitude
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -58,15 +57,15 @@ public class AKSawtoothOscillator: AKNode {
             name: "Local AKSawtoothOscillator",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKSawtoothOscillatorAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

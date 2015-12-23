@@ -9,12 +9,11 @@
 import AVFoundation
 
 /**  */
-public class AKTanhDistortion: AKNode {
+public struct AKTanhDistortion: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKTanhDistortionAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var pregainParameter: AUParameter?
@@ -24,27 +23,27 @@ public class AKTanhDistortion: AKNode {
 
     /** Determines the amount of gain applied to the signal before waveshaping. A value
      of 1 gives slight distortion. */
-    public var pregain: Float = 2.0 {
+    public var pregain: Double = 2.0 {
         didSet {
-            pregainParameter?.setValue(pregain, originator: token!)
+            pregainParameter?.setValue(Float(pregain), originator: token!)
         }
     }
     /** Gain applied after waveshaping */
-    public var postgain: Float = 0.5 {
+    public var postgain: Double = 0.5 {
         didSet {
-            postgainParameter?.setValue(postgain, originator: token!)
+            postgainParameter?.setValue(Float(postgain), originator: token!)
         }
     }
     /** Shape of the positive part of the signal. A value of 0 gets a flat clip. */
-    public var postiveShapeParameter: Float = 0.0 {
+    public var postiveShapeParameter: Double = 0.0 {
         didSet {
-            postiveShapeParameterParameter?.setValue(postiveShapeParameter, originator: token!)
+            postiveShapeParameterParameter?.setValue(Float(postiveShapeParameter), originator: token!)
         }
     }
     /** Like the positive shape parameter, only for the negative part. */
-    public var negativeShapeParameter: Float = 0.0 {
+    public var negativeShapeParameter: Double = 0.0 {
         didSet {
-            negativeShapeParameterParameter?.setValue(negativeShapeParameter, originator: token!)
+            negativeShapeParameterParameter?.setValue(Float(negativeShapeParameter), originator: token!)
         }
     }
 
@@ -53,16 +52,15 @@ public class AKTanhDistortion: AKNode {
     /** Initialize this distortion node */
     public init(
         _ input: AKNode,
-        pregain: Float = 2.0,
-        postgain: Float = 0.5,
-        postiveShapeParameter: Float = 0.0,
-        negativeShapeParameter: Float = 0.0) {
+        pregain: Double = 2.0,
+        postgain: Double = 0.5,
+        postiveShapeParameter: Double = 0.0,
+        negativeShapeParameter: Double = 0.0) {
 
         self.pregain = pregain
         self.postgain = postgain
         self.postiveShapeParameter = postiveShapeParameter
         self.negativeShapeParameter = negativeShapeParameter
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -77,17 +75,17 @@ public class AKTanhDistortion: AKNode {
             name: "Local AKTanhDistortion",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTanhDistortionAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -102,21 +100,19 @@ public class AKTanhDistortion: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.pregainParameter!.address {
-                    self.pregain = value
+                    self.pregain = Double(value)
                 } else if address == self.postgainParameter!.address {
-                    self.postgain = value
+                    self.postgain = Double(value)
                 } else if address == self.postiveShapeParameterParameter!.address {
-                    self.postiveShapeParameter = value
+                    self.postiveShapeParameter = Double(value)
                 } else if address == self.negativeShapeParameterParameter!.address {
-                    self.negativeShapeParameter = value
+                    self.negativeShapeParameter = Double(value)
                 }
             }
         }
-
-        pregainParameter?.setValue(pregain, originator: token!)
-        postgainParameter?.setValue(postgain, originator: token!)
-        postiveShapeParameterParameter?.setValue(postiveShapeParameter, originator: token!)
-        negativeShapeParameterParameter?.setValue(negativeShapeParameter, originator: token!)
-
+        pregainParameter?.setValue(Float(pregain), originator: token!)
+        postgainParameter?.setValue(Float(postgain), originator: token!)
+        postiveShapeParameterParameter?.setValue(Float(postiveShapeParameter), originator: token!)
+        negativeShapeParameterParameter?.setValue(Float(negativeShapeParameter), originator: token!)
     }
 }

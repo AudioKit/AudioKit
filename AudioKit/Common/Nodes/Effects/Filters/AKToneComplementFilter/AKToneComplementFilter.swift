@@ -9,20 +9,19 @@
 import AVFoundation
 
 /** A complement to the AKToneFilter. */
-public class AKToneComplementFilter: AKNode {
+public struct AKToneComplementFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKToneComplementFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
-    private var cutoffFrequencyParameter: AUParameter?
+    private var halfPowerPointParameter: AUParameter?
 
-    /** Filter cutoff frequency in Hertz. */
-    public var cutoffFrequency: Float = 1000 {
+    /** Half-Power Pointin Hertz. Half power is defined as peak power / root 2. */
+    public var halfPowerPoint: Double = 1000 {
         didSet {
-            cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+            halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
         }
     }
 
@@ -31,10 +30,9 @@ public class AKToneComplementFilter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        cutoffFrequency: Float = 1000) {
+        halfPowerPoint: Double = 1000) {
 
-        self.cutoffFrequency = cutoffFrequency
-        super.init()
+        self.halfPowerPoint = halfPowerPoint
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -49,32 +47,32 @@ public class AKToneComplementFilter: AKNode {
             name: "Local AKToneComplementFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKToneComplementFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
+        halfPowerPointParameter = tree.valueForKey("halfPowerPoint") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
 
             dispatch_async(dispatch_get_main_queue()) {
-                if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = value
+                if address == self.halfPowerPointParameter!.address {
+                    self.halfPowerPoint = Double(value)
                 }
             }
         }
-
+        halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
     }
 }

@@ -10,7 +10,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's ParametricEQ Audio Unit */
-public class AKParametricEQ: AKNode {
+public struct AKParametricEQ: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -21,7 +21,7 @@ public class AKParametricEQ: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000) */
     public var centerFrequency: Float = 2000 {
@@ -84,17 +84,15 @@ public class AKParametricEQ: AKNode {
             self.centerFrequency = centerFrequency
             self.q = q
             self.gain = gain
-            super.init()
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            internalAudioUnit = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, centerFrequency, 0)
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Q,          kAudioUnitScope_Global, 0, q, 0)
-            AudioUnitSetParameter(internalAU, kParametricEQParam_Gain,       kAudioUnitScope_Global, 0, gain, 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, q, 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, gain, 0)
     }
 }

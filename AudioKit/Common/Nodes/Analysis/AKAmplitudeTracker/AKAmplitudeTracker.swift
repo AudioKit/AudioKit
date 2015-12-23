@@ -10,12 +10,13 @@ import AVFoundation
 
 /** Performs a "root-mean-square" on a signal to get overall amplitude of a signal.
  The output signal looks similar to that of a classic VU meter. */
-public class AKAmplitudeTracker: AKNode {
+public struct AKAmplitudeTracker: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKAmplitudeTrackerAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
+    
     private var token: AUParameterObserverToken?
 
     private var halfPowerPointParameter: AUParameter?
@@ -39,7 +40,6 @@ public class AKAmplitudeTracker: AKNode {
         halfPowerPoint: Float = 10) {
 
         self.halfPowerPoint = halfPowerPoint
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -54,17 +54,17 @@ public class AKAmplitudeTracker: AKNode {
             name: "Local AKAmplitudeTracker",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeTrackerAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

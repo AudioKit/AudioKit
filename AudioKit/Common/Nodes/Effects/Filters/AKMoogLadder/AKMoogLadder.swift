@@ -13,28 +13,27 @@ import AVFoundation
  Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of
  Napoli). This implementation is probably a more accurate digital representation
  of the original analogue filter. */
-public class AKMoogLadder: AKNode {
+public struct AKMoogLadder: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKMoogLadderAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
 
     /** Filter cutoff frequency. */
-    public var cutoffFrequency: Float = 1000 {
+    public var cutoffFrequency: Double = 1000 {
         didSet {
-            cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+            cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
     /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values
      might cause aliasing, analogue synths generally allow resonances to be above 1. */
-    public var resonance: Float = 0.5 {
+    public var resonance: Double = 0.5 {
         didSet {
-            resonanceParameter?.setValue(resonance, originator: token!)
+            resonanceParameter?.setValue(Float(resonance), originator: token!)
         }
     }
 
@@ -43,12 +42,11 @@ public class AKMoogLadder: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        cutoffFrequency: Float = 1000,
-        resonance: Float = 0.5) {
+        cutoffFrequency: Double = 1000,
+        resonance: Double = 0.5) {
 
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -63,17 +61,17 @@ public class AKMoogLadder: AKNode {
             name: "Local AKMoogLadder",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -86,15 +84,13 @@ public class AKMoogLadder: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = value
+                    self.cutoffFrequency = Double(value)
                 } else if address == self.resonanceParameter!.address {
-                    self.resonance = value
+                    self.resonance = Double(value)
                 }
             }
         }
-
-        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
-        resonanceParameter?.setValue(resonance, originator: token!)
-
+        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
+        resonanceParameter?.setValue(Float(resonance), originator: token!)
     }
 }

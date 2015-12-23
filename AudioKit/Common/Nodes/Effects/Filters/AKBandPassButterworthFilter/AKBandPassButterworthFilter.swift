@@ -10,27 +10,26 @@ import AVFoundation
 
 /** These filters are Butterworth second-order IIR filters. They offer an almost
  flat passband and very good precision and stopband attenuation. */
-public class AKBandPassButterworthFilter: AKNode {
+public struct AKBandPassButterworthFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKBandPassButterworthFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
     private var bandwidthParameter: AUParameter?
 
     /** Center frequency. (in Hertz) */
-    public var centerFrequency: Float = 2000 {
+    public var centerFrequency: Double = 2000 {
         didSet {
-            centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
+            centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
         }
     }
     /** Bandwidth. (in Hertz) */
-    public var bandwidth: Float = 100 {
+    public var bandwidth: Double = 100 {
         didSet {
-            bandwidthParameter?.setValue(bandwidth, originator: token!)
+            bandwidthParameter?.setValue(Float(bandwidth), originator: token!)
         }
     }
 
@@ -39,12 +38,11 @@ public class AKBandPassButterworthFilter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        centerFrequency: Float = 2000,
-        bandwidth: Float = 100) {
+        centerFrequency: Double = 2000,
+        bandwidth: Double = 100) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -59,16 +57,17 @@ public class AKBandPassButterworthFilter: AKNode {
             name: "Local AKBandPassButterworthFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBandPassButterworthFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -81,15 +80,13 @@ public class AKBandPassButterworthFilter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.centerFrequencyParameter!.address {
-                    self.centerFrequency = value
+                    self.centerFrequency = Double(value)
                 } else if address == self.bandwidthParameter!.address {
-                    self.bandwidth = value
+                    self.bandwidth = Double(value)
                 }
             }
         }
-
-        centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
-        bandwidthParameter?.setValue(bandwidth, originator: token!)
-
+        centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
+        bandwidthParameter?.setValue(Float(bandwidth), originator: token!)
     }
 }

@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's PeakLimiter Audio Unit */
-public class AKPeakLimiter: AKNode {
+public struct AKPeakLimiter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -20,7 +20,7 @@ public class AKPeakLimiter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     
     /** Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012) */
     public var attackTime: Float = 0.012 {
@@ -71,17 +71,15 @@ public class AKPeakLimiter: AKNode {
             self.attackTime = attackTime
             self.decayTime = decayTime
             self.preGain = preGain
-            super.init()
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            internalAudioUnit = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, attackTime, 0)
-            AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime,  kAudioUnitScope_Global, 0, decayTime, 0)
-            AudioUnitSetParameter(internalAU, kLimiterParam_PreGain,    kAudioUnitScope_Global, 0, preGain, 0)
+            AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, decayTime, 0)
+            AudioUnitSetParameter(internalAU, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, preGain, 0)
     }
 }

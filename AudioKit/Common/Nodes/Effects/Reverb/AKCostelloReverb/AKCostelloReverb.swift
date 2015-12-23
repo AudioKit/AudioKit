@@ -11,12 +11,11 @@ import AVFoundation
 /** 8 delay line stereo FDN reverb, with feedback matrix based upon physical
  modeling scattering junction of 8 lossless waveguides of equal characteristic
  impedance. */
-public class AKCostelloReverb: AKNode {
+public struct AKCostelloReverb: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKCostelloReverbAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var feedbackParameter: AUParameter?
@@ -25,15 +24,15 @@ public class AKCostelloReverb: AKNode {
     /** Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound,
      0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite
      length, while higher values will make the opcode unstable. */
-    public var feedback: Float = 0.6 {
+    public var feedback: Double = 0.6 {
         didSet {
-            feedbackParameter?.setValue(feedback, originator: token!)
+            feedbackParameter?.setValue(Float(feedback), originator: token!)
         }
     }
     /** Low-pass cutoff frequency. */
-    public var cutoffFrequency: Float = 4000 {
+    public var cutoffFrequency: Double = 4000 {
         didSet {
-            cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+            cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
 
@@ -42,12 +41,11 @@ public class AKCostelloReverb: AKNode {
     /** Initialize this reverb node */
     public init(
         _ input: AKNode,
-        feedback: Float = 0.6,
-        cutoffFrequency: Float = 4000) {
+        feedback: Double = 0.6,
+        cutoffFrequency: Double = 4000) {
 
         self.feedback = feedback
         self.cutoffFrequency = cutoffFrequency
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -62,16 +60,17 @@ public class AKCostelloReverb: AKNode {
             name: "Local AKCostelloReverb",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCostelloReverbAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -84,15 +83,13 @@ public class AKCostelloReverb: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.feedbackParameter!.address {
-                    self.feedback = value
+                    self.feedback = Double(value)
                 } else if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = value
+                    self.cutoffFrequency = Double(value)
                 }
             }
         }
-
-        feedbackParameter?.setValue(feedback, originator: token!)
-        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
-
+        feedbackParameter?.setValue(Float(feedback), originator: token!)
+        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /** AudioKit version of Apple's Delay Audio Unit */
-public struct AKDelay: AKProtocolNode {
+public struct AKDelay: AKNode {
     let delayAU = AVAudioUnitDelay()
     public var avAudioNode: AVAudioNode
     
@@ -75,7 +75,7 @@ public struct AKDelay: AKProtocolNode {
             
             self.avAudioNode = delayAU
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             
             delayAU.delayTime = self.time
             delayAU.feedback = feedback

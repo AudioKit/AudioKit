@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's Distortion Audio Unit */
-public class AKDistortion: AKNode {
+public struct AKDistortion: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -20,6 +20,7 @@ public class AKDistortion: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     public var internalAudioUnit = AudioUnit()
+    public var avAudioNode: AVAudioNode
     
     /** Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1) */
     public var delay: Float = 0.1 {
@@ -329,12 +330,11 @@ public class AKDistortion: AKNode {
             self.ringModMix = ringModMix
             self.softClipGain = softClipGain
             self.finalMix = finalMix
-            super.init()
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAudioUnit = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAudioUnit, kDistortionParam_Delay,         kAudioUnitScope_Global, 0, delay, 0)

@@ -10,12 +10,12 @@ import AVFoundation
 
 /** Bandlimited triangleoscillator This is a bandlimited triangle oscillator ported
  from the "triangle" function from the Faust programming language. */
-public class AKTriangleOscillator: AKNode {
+public struct AKTriangleOscillator: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKTriangleOscillatorAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
@@ -43,7 +43,6 @@ public class AKTriangleOscillator: AKNode {
 
         self.frequency = frequency
         self.amplitude = amplitude
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -58,16 +57,15 @@ public class AKTriangleOscillator: AKNode {
             name: "Local AKTriangleOscillator",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTriangleOscillatorAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-
-            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

@@ -10,20 +10,19 @@ import AVFoundation
 
 /** These filters are Butterworth second-order IIR filters. They offer an almost
  flat passband and very good precision and stopband attenuation. */
-public class AKHighPassButterworthFilter: AKNode {
+public struct AKHighPassButterworthFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKHighPassButterworthFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
 
     /** Cutoff frequency. (in Hertz) */
-    public var cutoffFrequency: Float = 500 {
+    public var cutoffFrequency: Double = 500 {
         didSet {
-            cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+            cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
 
@@ -32,10 +31,9 @@ public class AKHighPassButterworthFilter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        cutoffFrequency: Float = 500) {
+        cutoffFrequency: Double = 500) {
 
         self.cutoffFrequency = cutoffFrequency
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -50,16 +48,17 @@ public class AKHighPassButterworthFilter: AKNode {
             name: "Local AKHighPassButterworthFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKHighPassButterworthFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -71,12 +70,10 @@ public class AKHighPassButterworthFilter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = value
+                    self.cutoffFrequency = Double(value)
                 }
             }
         }
-
-        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
-
+        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
     }
 }

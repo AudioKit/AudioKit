@@ -10,8 +10,9 @@ import Foundation
 import AVFoundation
 
 /** AudioKit version of Apple's Mixer Node */
-public class AKMixer: AKNode {
+public struct AKMixer: AKNode {
     private let mixerAU = AVAudioMixerNode()
+    public var avAudioNode: AVAudioNode
     
     /** Output Volume (Default 1) */
     public var volume: Float = 1.0 {
@@ -25,15 +26,14 @@ public class AKMixer: AKNode {
     
     /** Initialize the delay node */
     public init(_ inputs: AKNode...) {
-        super.init()
-        output = mixerAU
-        AKManager.sharedInstance.engine.attachNode(output!)
+        self.avAudioNode = mixerAU
+        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         for input in inputs {
             connect(input)
         }
     }
     
     public func connect(input: AKNode) {
-        AKManager.sharedInstance.engine.connect(input.output!, to: output!, format: AKManager.format)
+        AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
     }
 }
