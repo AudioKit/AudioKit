@@ -13,20 +13,20 @@ import AVFoundation
  reverberation duration (defined as the time in seconds for a signal to decay to
  1/1000, or 60dB down from its original amplitude). Output from a comb filter
  will appear only after loopDuration seconds. */
-public class AKCombFilter: AKNode {
+public struct AKCombFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKCombFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var reverbDurationParameter: AUParameter?
 
-    /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60). */
-    public var reverbDuration: Float = 1.0 {
+    /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original
+     amplitude. (aka RT-60). */
+    public var reverbDuration: Double = 1.0 {
         didSet {
-            reverbDurationParameter?.setValue(reverbDuration, originator: token!)
+            reverbDurationParameter?.setValue(Float(reverbDuration), originator: token!)
         }
     }
 
@@ -35,11 +35,10 @@ public class AKCombFilter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        reverbDuration: Float = 1.0,
-        loopDuration: Float = 0.1) {
+        reverbDuration: Double = 1.0,
+        loopDuration: Double = 0.1) {
 
         self.reverbDuration = reverbDuration
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -54,17 +53,18 @@ public class AKCombFilter: AKNode {
             name: "Local AKCombFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
-            self.internalAU!.setLoopDuration(loopDuration)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            self.internalAU!.setLoopDuration(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -76,12 +76,10 @@ public class AKCombFilter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.reverbDurationParameter!.address {
-                    self.reverbDuration = value
+                    self.reverbDuration = Double(value)
                 }
             }
         }
-
-        reverbDurationParameter?.setValue(reverbDuration, originator: token!)
-
+        reverbDurationParameter?.setValue(Float(reverbDuration), originator: token!)
     }
 }

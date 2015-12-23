@@ -10,12 +10,11 @@ import AVFoundation
 
 /** Clips a signal to a predefined limit, in a "soft" manner, using one of three
  methods. */
-public class AKClipper: AKNode {
+public struct AKClipper: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKClipperAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var limitParameter: AUParameter?
@@ -23,21 +22,22 @@ public class AKClipper: AKNode {
     private var methodParameter: AUParameter?
 
     /** Threshold / limiting value. */
-    public var limit: Float = 1.0 {
+    public var limit: Double = 1.0 {
         didSet {
-            limitParameter?.setValue(limit, originator: token!)
+            limitParameter?.setValue(Float(limit), originator: token!)
         }
     }
-    /** When meth is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1. */
-    public var clippingStartPoint: Float = 0.5 {
+    /** When meth is 0 (Bram De Jong), indicates point at which clipping starts in the
+     range 0-1. */
+    public var clippingStartPoint: Double = 0.5 {
         didSet {
-            clippingStartPointParameter?.setValue(clippingStartPoint, originator: token!)
+            clippingStartPointParameter?.setValue(Float(clippingStartPoint), originator: token!)
         }
     }
     /** Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh. */
-    public var method: Float = 0 {
+    public var method: Double = 0 {
         didSet {
-            methodParameter?.setValue(method, originator: token!)
+            methodParameter?.setValue(Float(method), originator: token!)
         }
     }
 
@@ -46,14 +46,13 @@ public class AKClipper: AKNode {
     /** Initialize this clipper node */
     public init(
         _ input: AKNode,
-        limit: Float = 1.0,
-        clippingStartPoint: Float = 0.5,
-        method: Float = 0) {
+        limit: Double = 1.0,
+        clippingStartPoint: Double = 0.5,
+        method: Double = 0) {
 
         self.limit = limit
         self.clippingStartPoint = clippingStartPoint
         self.method = method
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -68,16 +67,17 @@ public class AKClipper: AKNode {
             name: "Local AKClipper",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKClipperAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -91,18 +91,16 @@ public class AKClipper: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.limitParameter!.address {
-                    self.limit = value
+                    self.limit = Double(value)
                 } else if address == self.clippingStartPointParameter!.address {
-                    self.clippingStartPoint = value
+                    self.clippingStartPoint = Double(value)
                 } else if address == self.methodParameter!.address {
-                    self.method = value
+                    self.method = Double(value)
                 }
             }
         }
-
-        limitParameter?.setValue(limit, originator: token!)
-        clippingStartPointParameter?.setValue(clippingStartPoint, originator: token!)
-        methodParameter?.setValue(method, originator: token!)
-
+        limitParameter?.setValue(Float(limit), originator: token!)
+        clippingStartPointParameter?.setValue(Float(clippingStartPoint), originator: token!)
+        methodParameter?.setValue(Float(method), originator: token!)
     }
 }

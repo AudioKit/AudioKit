@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's Ring Modulator from the Distortion Audio Unit */
-public class AKRingModulator: AKNode {
+public struct AKRingModulator: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -20,7 +20,7 @@ public class AKRingModulator: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     
     /** Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
     public var frequency1: Float = 100 {
@@ -86,14 +86,12 @@ public class AKRingModulator: AKNode {
             self.frequency2 = frequency2
             self.balance = balance
             self.mix = mix
-            super.init()
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            output = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            AKManager.sharedInstance.engine.connect(input.output!, to: internalEffect, format: AKManager.format)
+            self.avAudioNode = internalEffect
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             internalAU = internalEffect.audioUnit
-            internalAudioUnit = internalEffect.audioUnit
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
             AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)

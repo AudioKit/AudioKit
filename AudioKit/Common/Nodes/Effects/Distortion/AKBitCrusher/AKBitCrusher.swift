@@ -9,27 +9,27 @@
 import AVFoundation
 
 /** This will digitally degrade a signal. */
-public class AKBitCrusher: AKNode {
+public struct AKBitCrusher: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKBitCrusherAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var bitDepthParameter: AUParameter?
     private var sampleRateParameter: AUParameter?
 
-    /** The bit depth of signal output. Typically in range (1-24). Non-integer values are OK. */
-    public var bitDepth: Float = 8 {
+    /** The bit depth of signal output. Typically in range (1-24). Non-integer values
+     are OK. */
+    public var bitDepth: Double = 8 {
         didSet {
-            bitDepthParameter?.setValue(bitDepth, originator: token!)
+            bitDepthParameter?.setValue(Float(bitDepth), originator: token!)
         }
     }
     /** The sample rate of signal output. */
-    public var sampleRate: Float = 10000 {
+    public var sampleRate: Double = 10000 {
         didSet {
-            sampleRateParameter?.setValue(sampleRate, originator: token!)
+            sampleRateParameter?.setValue(Float(sampleRate), originator: token!)
         }
     }
 
@@ -38,12 +38,11 @@ public class AKBitCrusher: AKNode {
     /** Initialize this bitcrusher node */
     public init(
         _ input: AKNode,
-        bitDepth: Float = 8,
-        sampleRate: Float = 10000) {
+        bitDepth: Double = 8,
+        sampleRate: Double = 10000) {
 
         self.bitDepth = bitDepth
         self.sampleRate = sampleRate
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -58,16 +57,17 @@ public class AKBitCrusher: AKNode {
             name: "Local AKBitCrusher",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBitCrusherAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -80,15 +80,13 @@ public class AKBitCrusher: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.bitDepthParameter!.address {
-                    self.bitDepth = value
+                    self.bitDepth = Double(value)
                 } else if address == self.sampleRateParameter!.address {
-                    self.sampleRate = value
+                    self.sampleRate = Double(value)
                 }
             }
         }
-
-        bitDepthParameter?.setValue(bitDepth, originator: token!)
-        sampleRateParameter?.setValue(sampleRate, originator: token!)
-
+        bitDepthParameter?.setValue(Float(bitDepth), originator: token!)
+        sampleRateParameter?.setValue(Float(sampleRate), originator: token!)
     }
 }

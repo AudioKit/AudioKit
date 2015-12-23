@@ -15,19 +15,30 @@ import AVFoundation
  networks of simple allpass and comb delay filters.  This class implements three
  series allpass units, followed by four parallel comb filters, and two
  decorrelation delay lines in parallel at the output. */
-public class AKOperationEffect: AKNode {
+public struct AKOperationEffect: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKOperationEffectAudioUnit?
-    public var internalAudioUnit:AudioUnit?
-    private var token: AUParameterObserverToken?
+    public var avAudioNode: AVAudioNode
 
     // MARK: - Initializers
 
-    /** Initialize this reverb node */
+    /** Initialize this effect node */
+    
+    public init(_ input: AKNode, operation: AKOperation) {
+        // add "dup" to copy the left channel output to the right channel output
+        self.init(input, sporth:"\(operation) dup")
+    }
+    public init(_ input: AKNode, stereoOperation: AKStereoOperation) {
+        self.init(input, sporth:"\(stereoOperation) swap")
+    }
+    
+    public init(_ input: AKNode, left: AKOperation, right: AKOperation) {
+        self.init(input, sporth:"\(left) swap \(right) swap")
+    }
+    
     public init(_ input: AKNode, sporth: String) {
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -42,27 +53,17 @@ public class AKOperationEffect: AKNode {
             name: "Local AKOperationEffect",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationEffectAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             self.internalAU?.setSporth(sporth)
-        }
-
-        guard let tree = internalAU?.parameterTree else { return }
-
-
-        token = tree.tokenByAddingParameterObserver {
-            address, value in
-
-            dispatch_async(dispatch_get_main_queue()) {
-            }
         }
 
     }

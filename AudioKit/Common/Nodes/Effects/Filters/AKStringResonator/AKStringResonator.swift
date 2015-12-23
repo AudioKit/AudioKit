@@ -13,29 +13,28 @@ import AVFoundation
  Karplus-Strong algorithm, creating a string resonator effect. The fundamental
  frequency of the “string” is controlled by the fundamentalFrequency.  This
  operation can be used to simulate sympathetic resonances to an input signal. */
-public class AKStringResonator: AKNode {
+public struct AKStringResonator: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKStringResonatorAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var fundamentalFrequencyParameter: AUParameter?
     private var feedbackParameter: AUParameter?
 
     /** Fundamental frequency of string. */
-    public var fundamentalFrequency: Float = 100 {
+    public var fundamentalFrequency: Double = 100 {
         didSet {
-            fundamentalFrequencyParameter?.setValue(fundamentalFrequency, originator: token!)
+            fundamentalFrequencyParameter?.setValue(Float(fundamentalFrequency), originator: token!)
         }
     }
     /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay
      and a more pronounced resonance. Small values may leave the input signal
      unaffected. Depending on the filter frequency, typical values are > .9. */
-    public var feedback: Float = 0.95 {
+    public var feedback: Double = 0.95 {
         didSet {
-            feedbackParameter?.setValue(feedback, originator: token!)
+            feedbackParameter?.setValue(Float(feedback), originator: token!)
         }
     }
 
@@ -44,12 +43,11 @@ public class AKStringResonator: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        fundamentalFrequency: Float = 100,
-        feedback: Float = 0.95) {
+        fundamentalFrequency: Double = 100,
+        feedback: Double = 0.95) {
 
         self.fundamentalFrequency = fundamentalFrequency
         self.feedback = feedback
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -64,16 +62,17 @@ public class AKStringResonator: AKNode {
             name: "Local AKStringResonator",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKStringResonatorAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -86,15 +85,13 @@ public class AKStringResonator: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.fundamentalFrequencyParameter!.address {
-                    self.fundamentalFrequency = value
+                    self.fundamentalFrequency = Double(value)
                 } else if address == self.feedbackParameter!.address {
-                    self.feedback = value
+                    self.feedback = Double(value)
                 }
             }
         }
-
-        fundamentalFrequencyParameter?.setValue(fundamentalFrequency, originator: token!)
-        feedbackParameter?.setValue(feedback, originator: token!)
-
+        fundamentalFrequencyParameter?.setValue(Float(fundamentalFrequency), originator: token!)
+        feedbackParameter?.setValue(Float(feedback), originator: token!)
     }
 }

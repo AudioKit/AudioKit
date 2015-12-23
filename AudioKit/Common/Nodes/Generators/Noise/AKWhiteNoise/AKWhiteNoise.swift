@@ -9,12 +9,12 @@
 import AVFoundation
 
 /**  */
-public class AKWhiteNoise: AKNode {
+public struct AKWhiteNoise: AKNode {
 
     // MARK: - Properties
 
     private var internalAU: AKWhiteNoiseAudioUnit?
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     private var token: AUParameterObserverToken?
 
     private var amplitudeParameter: AUParameter?
@@ -30,8 +30,8 @@ public class AKWhiteNoise: AKNode {
 
     /** Initialize this noise node */
     public init(amplitude: Double = 1.0) {
+        
         self.amplitude = amplitude
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -40,6 +40,7 @@ public class AKWhiteNoise: AKNode {
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
+        self.avAudioNode = AVAudioNode()
         AUAudioUnit.registerSubclass(
             AKWhiteNoiseAudioUnit.self,
             asComponentDescription: description,
@@ -51,11 +52,9 @@ public class AKWhiteNoise: AKNode {
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.output = avAudioUnitGenerator
+            self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKWhiteNoiseAudioUnit
-            self.internalAudioUnit = avAudioUnitGenerator.audioUnit
-
-            AKManager.sharedInstance.engine.attachNode(self.output!)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             
         }
 

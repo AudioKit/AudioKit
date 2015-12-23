@@ -9,12 +9,11 @@
 import AVFoundation
 
 /** This is an implementation of Zoelzer's parametric equalizer filter. */
-public class AKLowShelfParametricEqualizerFilter: AKNode {
+public struct AKLowShelfParametricEqualizerFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var cornerFrequencyParameter: AUParameter?
@@ -22,21 +21,22 @@ public class AKLowShelfParametricEqualizerFilter: AKNode {
     private var qParameter: AUParameter?
 
     /** Corner frequency. */
-    public var cornerFrequency: Float = 1000 {
+    public var cornerFrequency: Double = 1000 {
         didSet {
-            cornerFrequencyParameter?.setValue(cornerFrequency, originator: token!)
+            cornerFrequencyParameter?.setValue(Float(cornerFrequency), originator: token!)
         }
     }
-    /** Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response. */
-    public var gain: Float = 1.0 {
+    /** Amount at which the corner frequency value shall be increased or decreased. A
+     value of 1 is a flat response. */
+    public var gain: Double = 1.0 {
         didSet {
-            gainParameter?.setValue(gain, originator: token!)
+            gainParameter?.setValue(Float(gain), originator: token!)
         }
     }
     /** Q of the filter. sqrt(0.5) is no resonance. */
-    public var q: Float = 0.707 {
+    public var q: Double = 0.707 {
         didSet {
-            qParameter?.setValue(q, originator: token!)
+            qParameter?.setValue(Float(q), originator: token!)
         }
     }
 
@@ -45,14 +45,13 @@ public class AKLowShelfParametricEqualizerFilter: AKNode {
     /** Initialize this equalizer node */
     public init(
         _ input: AKNode,
-        cornerFrequency: Float = 1000,
-        gain: Float = 1.0,
-        q: Float = 0.707) {
+        cornerFrequency: Double = 1000,
+        gain: Double = 1.0,
+        q: Double = 0.707) {
 
         self.cornerFrequency = cornerFrequency
         self.gain = gain
         self.q = q
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -67,17 +66,17 @@ public class AKLowShelfParametricEqualizerFilter: AKNode {
             name: "Local AKLowShelfParametricEqualizerFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKLowShelfParametricEqualizerFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -91,18 +90,16 @@ public class AKLowShelfParametricEqualizerFilter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.cornerFrequencyParameter!.address {
-                    self.cornerFrequency = value
+                    self.cornerFrequency = Double(value)
                 } else if address == self.gainParameter!.address {
-                    self.gain = value
+                    self.gain = Double(value)
                 } else if address == self.qParameter!.address {
-                    self.q = value
+                    self.q = Double(value)
                 }
             }
         }
-
-        cornerFrequencyParameter?.setValue(cornerFrequency, originator: token!)
-        gainParameter?.setValue(gain, originator: token!)
-        qParameter?.setValue(q, originator: token!)
-
+        cornerFrequencyParameter?.setValue(Float(cornerFrequency), originator: token!)
+        gainParameter?.setValue(Float(gain), originator: token!)
+        qParameter?.setValue(Float(q), originator: token!)
     }
 }

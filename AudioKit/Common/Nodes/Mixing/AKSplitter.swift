@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /** AudioKit version of Apple's Splitter Audio Unit */
-public class AKSplitter: AKNode {
+public struct AKSplitter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Mixer,
@@ -21,21 +21,21 @@ public class AKSplitter: AKNode {
     
     public var internalEffect = AVAudioUnit()
     public var internalAU = AudioUnit()
+    public var avAudioNode: AVAudioNode
     
-
+    
     /** Initialize the splitter  node */
     public init(_ input: AKNode) {
-
-            super.init()
+        
+        self.avAudioNode = AVAudioNode()
+        AVAudioUnit.instantiateWithComponentDescription(cd, options: []) {
+            avAudioUnit, error in
+            guard let avAudioUnit = avAudioUnit else { return }
             
-            AVAudioUnit.instantiateWithComponentDescription(cd, options: []) {
-                avAudioUnit, error in
-                guard let avAudioUnit = avAudioUnit else { return }
-
-                self.output = avAudioUnit
-                self.internalAU = avAudioUnit.audioUnit
-                AKManager.sharedInstance.engine.attachNode(self.output!)
-                AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
-            }
+            self.avAudioNode = avAudioUnit
+            self.internalAU = avAudioUnit.audioUnit
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+        }
     }
 }

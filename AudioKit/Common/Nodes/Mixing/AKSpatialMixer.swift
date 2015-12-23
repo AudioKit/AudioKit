@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's SpatialMixer Audio Unit */
-public class AKSpatialMixer: AKNode {
+public struct AKSpatialMixer: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Mixer,
@@ -20,7 +20,7 @@ public class AKSpatialMixer: AKNode {
     
     private var internalEffect = AVAudioUnit()
     private var internalAU = AudioUnit()
-    public var internalAudioUnit:AudioUnit?
+    public var avAudioNode: AVAudioNode
     
     /** Azimuth (Degrees) ranges from -180 to 180 (Default: 0) */
     public var azimuth: Float = 0 {
@@ -83,18 +83,17 @@ public class AKSpatialMixer: AKNode {
             self.azimuth = azimuth
             self.elevation = elevation
             self.distance = distance
-            super.init()
             
+            self.avAudioNode = AVAudioNode()
             AVAudioUnit.instantiateWithComponentDescription(cd, options: []) {
                 avAudioUnit, error in
                 guard let avAudioUnit = avAudioUnit else { return }
                 
-                self.output = avAudioUnit
+                self.avAudioNode = avAudioUnit
                 self.internalAU = avAudioUnit.audioUnit
-                self.internalAudioUnit = avAudioUnit.audioUnit
 
-                AKManager.sharedInstance.engine.attachNode(self.output!)
-                AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+                AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+                AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
             }
     }
 }

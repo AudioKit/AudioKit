@@ -9,12 +9,11 @@
 import AVFoundation
 
 /** 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion. */
-public class AKThreePoleLowpassFilter: AKNode {
+public struct AKThreePoleLowpassFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKThreePoleLowpassFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var distortionParameter: AUParameter?
@@ -24,23 +23,23 @@ public class AKThreePoleLowpassFilter: AKNode {
     /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh
      distortion controlled by the filter parameters, in such a way that both low
      cutoff and high resonance increase the distortion amount. */
-    public var distortion: Float = 0.5 {
+    public var distortion: Double = 0.5 {
         didSet {
-            distortionParameter?.setValue(distortion, originator: token!)
+            distortionParameter?.setValue(Float(distortion), originator: token!)
         }
     }
     /** Filter cutoff frequency in Hertz. */
-    public var cutoffFrequency: Float = 1500 {
+    public var cutoffFrequency: Double = 1500 {
         didSet {
-            cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
+            cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
     /** Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate
      at the cutoff frequency. Values slightly greater than 1 are possible for more
      sustained oscillation and an “overdrive” effect. */
-    public var resonance: Float = 0.5 {
+    public var resonance: Double = 0.5 {
         didSet {
-            resonanceParameter?.setValue(resonance, originator: token!)
+            resonanceParameter?.setValue(Float(resonance), originator: token!)
         }
     }
 
@@ -49,14 +48,13 @@ public class AKThreePoleLowpassFilter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        distortion: Float = 0.5,
-        cutoffFrequency: Float = 1500,
-        resonance: Float = 0.5) {
+        distortion: Double = 0.5,
+        cutoffFrequency: Double = 1500,
+        resonance: Double = 0.5) {
 
         self.distortion = distortion
         self.cutoffFrequency = cutoffFrequency
         self.resonance = resonance
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -71,17 +69,17 @@ public class AKThreePoleLowpassFilter: AKNode {
             name: "Local AKThreePoleLowpassFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKThreePoleLowpassFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -95,18 +93,16 @@ public class AKThreePoleLowpassFilter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.distortionParameter!.address {
-                    self.distortion = value
+                    self.distortion = Double(value)
                 } else if address == self.cutoffFrequencyParameter!.address {
-                    self.cutoffFrequency = value
+                    self.cutoffFrequency = Double(value)
                 } else if address == self.resonanceParameter!.address {
-                    self.resonance = value
+                    self.resonance = Double(value)
                 }
             }
         }
-
-        distortionParameter?.setValue(distortion, originator: token!)
-        cutoffFrequencyParameter?.setValue(cutoffFrequency, originator: token!)
-        resonanceParameter?.setValue(resonance, originator: token!)
-
+        distortionParameter?.setValue(Float(distortion), originator: token!)
+        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
+        resonanceParameter?.setValue(Float(resonance), originator: token!)
     }
 }

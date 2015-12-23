@@ -9,9 +9,10 @@
 import AVFoundation
 
 /** AudioKit version of Apple's TimePitch Audio Unit */
-public class AKTimePitch: AKNode {
+public struct AKTimePitch: AKNode {
     
     private let timePitchAU = AVAudioUnitTimePitch()
+    public var avAudioNode: AVAudioNode
     
     /** Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0) */
     public var rate: Float = 1.0 {
@@ -63,10 +64,9 @@ public class AKTimePitch: AKNode {
         self.rate = rate
         self.pitch = pitch
         self.overlap = overlap
-        super.init()
         
-        output = timePitchAU
-        AKManager.sharedInstance.engine.attachNode(timePitchAU)
-        AKManager.sharedInstance.engine.connect(input.output!, to: timePitchAU, format: AKManager.format)
+        self.avAudioNode = timePitchAU
+        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+        AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
     }
 }

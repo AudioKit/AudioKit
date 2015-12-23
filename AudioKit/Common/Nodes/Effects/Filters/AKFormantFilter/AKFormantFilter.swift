@@ -11,12 +11,11 @@ import AVFoundation
 /** When fed with a pulse train, it will generate a series of overlapping grains.
  Overlapping will occur when 1/freq < dec, but there is no upper limit on the
  number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html) */
-public class AKFormantFilter: AKNode {
+public struct AKFormantFilter: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: AKFormantFilterAudioUnit?
-    public var internalAudioUnit:AudioUnit?
     private var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
@@ -24,21 +23,21 @@ public class AKFormantFilter: AKNode {
     private var decayDurationParameter: AUParameter?
 
     /** Center frequency. */
-    public var centerFrequency: Float = 1000 {
+    public var centerFrequency: Double = 1000 {
         didSet {
-            centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
+            centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
         }
     }
     /** Impulse response attack time (in seconds). */
-    public var attackDuration: Float = 0.007 {
+    public var attackDuration: Double = 0.007 {
         didSet {
-            attackDurationParameter?.setValue(attackDuration, originator: token!)
+            attackDurationParameter?.setValue(Float(attackDuration), originator: token!)
         }
     }
     /** Impulse reponse decay time (in seconds) */
-    public var decayDuration: Float = 0.04 {
+    public var decayDuration: Double = 0.04 {
         didSet {
-            decayDurationParameter?.setValue(decayDuration, originator: token!)
+            decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
         }
     }
 
@@ -47,14 +46,13 @@ public class AKFormantFilter: AKNode {
     /** Initialize this filter node */
     public init(
         _ input: AKNode,
-        centerFrequency: Float = 1000,
-        attackDuration: Float = 0.007,
-        decayDuration: Float = 0.04) {
+        centerFrequency: Double = 1000,
+        attackDuration: Double = 0.007,
+        decayDuration: Double = 0.04) {
 
         self.centerFrequency = centerFrequency
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration
-        super.init()
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -69,16 +67,17 @@ public class AKFormantFilter: AKNode {
             name: "Local AKFormantFilter",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnitEffect
+            self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFormantFilterAudioUnit
-            self.internalAudioUnit = avAudioUnitEffect.audioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -92,18 +91,16 @@ public class AKFormantFilter: AKNode {
 
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.centerFrequencyParameter!.address {
-                    self.centerFrequency = value
+                    self.centerFrequency = Double(value)
                 } else if address == self.attackDurationParameter!.address {
-                    self.attackDuration = value
+                    self.attackDuration = Double(value)
                 } else if address == self.decayDurationParameter!.address {
-                    self.decayDuration = value
+                    self.decayDuration = Double(value)
                 }
             }
         }
-
-        centerFrequencyParameter?.setValue(centerFrequency, originator: token!)
-        attackDurationParameter?.setValue(attackDuration, originator: token!)
-        decayDurationParameter?.setValue(decayDuration, originator: token!)
-
+        centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
+        attackDurationParameter?.setValue(Float(attackDuration), originator: token!)
+        decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
     }
 }

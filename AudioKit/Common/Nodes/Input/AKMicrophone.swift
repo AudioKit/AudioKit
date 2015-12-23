@@ -10,8 +10,9 @@ import Foundation
 import AVFoundation
 
 /** Audio from the standard input */
-public class AKMicrophone: AKNode {
+public struct AKMicrophone: AKNode {
     
+    public var avAudioNode: AVAudioNode
     internal let mixer = AVAudioMixerNode()
     
     /** Output Volume (Default 1) */
@@ -25,12 +26,11 @@ public class AKMicrophone: AKNode {
     }
     
     /** Initialize the microphone */
-    public override init() {
-        super.init()
+    public init() {
         #if !os(tvOS)
+            self.avAudioNode = mixer
             AKManager.sharedInstance.engine.attachNode(mixer)
-            AKManager.sharedInstance.engine.connect(AKManager.sharedInstance.engine.inputNode!, to: mixer, format: nil)
-            output = mixer
+            AKManager.sharedInstance.engine.connect(AKManager.sharedInstance.engine.inputNode!, to: self.avAudioNode, format: nil)
         #endif
     }
 }

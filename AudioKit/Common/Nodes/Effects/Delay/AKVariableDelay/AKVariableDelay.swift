@@ -9,11 +9,10 @@
 import AVFoundation
 
 /** A delay line with cubic interpolation. */
-public struct AKVariableDelay: AKProtocolNode {
+public struct AKVariableDelay: AKNode {
 
     // MARK: - Properties
     public var avAudioNode: AVAudioNode
-
     private var internalAU: AKVariableDelayAudioUnit?
     private var token: AUParameterObserverToken?
 
@@ -68,7 +67,7 @@ public struct AKVariableDelay: AKProtocolNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKVariableDelayAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -87,9 +86,7 @@ public struct AKVariableDelay: AKProtocolNode {
                 }
             }
         }
-
         timeParameter?.setValue(Float(time), originator: token!)
         feedbackParameter?.setValue(Float(feedback), originator: token!)
-
     }
 }
