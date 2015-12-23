@@ -1,10 +1,10 @@
 <%= header_partial %>
 
 /** <%= description %> */
-public class <%= node %>: AKNode {
+public struct <%= node %>: AKNode {
 
     // MARK: - Properties
-
+    public var avAudioNode: AVAudioNode
     private var internalAU: <%= node %>AudioUnit?
     private var token: AUParameterObserverToken?
 
@@ -24,7 +24,6 @@ public class <%= node %>: AKNode {
         self.<%= data["ak-variable"] %> = <%= data["ak-variable"] %>
 <% end -%>
 <% end -%>
-        super.init()
 
 <%= description_partial %>
 

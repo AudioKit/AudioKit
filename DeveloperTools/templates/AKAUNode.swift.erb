@@ -9,7 +9,7 @@
 import AVFoundation
 
 /** AudioKit version of Apple's <%= au_name %> Audio Unit */
-public struct AK<%= au_name %>: AKProtocolNode {
+public struct AK<%= au_name %>: AKNode {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,

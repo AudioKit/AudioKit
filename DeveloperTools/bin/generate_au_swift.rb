@@ -64,7 +64,7 @@ end
 
 # puts parameters
 
-File.open("templates/AKAUOperation.swift.erb") { |template|
+File.open("templates/AKAUNode.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
     File.open("output/AK#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
     puts erb.result

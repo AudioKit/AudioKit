@@ -7,7 +7,7 @@
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
     /** <%= wrap(data["comment"],"    ") %> */
-    public var <%= data["ak-variable"] %> = <%= data["default"] %> {
+    public var <%= data["ak-variable"] %>: Double = <%= data["default"] %> {
         didSet {
             <%= data["ak-variable"] %>Parameter?.setValue(Float(<%= data["ak-variable"] %>), originator: token!)
         }

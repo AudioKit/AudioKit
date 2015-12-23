@@ -4,13 +4,15 @@
             name: "Local <%= node %>",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
-            self.output = avAudioUnit<%= au_type %>
+            self.avAudioNode = avAudioUnit<%= au_type %>
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? <%= node %>AudioUnit
-            AKManager.sharedInstance.engine.attachNode(self.output!)
-            AKManager.sharedInstance.engine.connect(input.output!, to: self.output!, format: AKManager.format)
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.sharedInstance.engine.connect(input.output!, to: self.avAudioNode, format: AKManager.format)
         }
