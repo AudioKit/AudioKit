@@ -45,9 +45,9 @@ func makeSlider(
     distance: Int,
     target: AnyObject,
     action: String,
-    currentValue: Float,
-    minimumValue: Float,
-    maximumValue: Float) {
+    currentValue: Double,
+    minimumValue: Double,
+    maximumValue: Double) {
         
         let sliderHeight = 20
         
@@ -55,7 +55,7 @@ func makeSlider(
         slider.action = Selector(action)
         slider.minValue = Double(minimumValue)
         slider.maxValue = Double(maximumValue)
-        slider.floatValue = currentValue
+        slider.doubleValue = currentValue
         slider.frame.origin.y = below.frame.origin.y - CGFloat(distance * sliderHeight)
         view.addSubview(slider)
         

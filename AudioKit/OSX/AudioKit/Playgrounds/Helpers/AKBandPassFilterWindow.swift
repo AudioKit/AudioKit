@@ -87,12 +87,12 @@ public class AKBandPassFilterWindow: NSWindow {
     }
     
     internal func updateCenterfrequency() {
-        bandPassFilter.centerFrequency = centerFrequencySlider.floatValue
+        bandPassFilter.centerFrequency = centerFrequencySlider.doubleValue
         centerFrequencyTextField.stringValue =
         "Center Frequency \(String(format: "%0.4f", bandPassFilter.centerFrequency)) Hz"
     }
     internal func updateBandwidth() {
-        bandPassFilter.bandwidth = bandwidthSlider.floatValue
+        bandPassFilter.bandwidth = bandwidthSlider.doubleValue
         bandwidthTextField.stringValue =
         "Bandwidth \(String(format: "%0.4f", bandPassFilter.bandwidth)) Cents"
     }

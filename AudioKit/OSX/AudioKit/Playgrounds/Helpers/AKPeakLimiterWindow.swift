@@ -100,15 +100,15 @@ public class AKPeakLimiterWindow: NSWindow {
     }
     
     internal func updateAttacktime() {
-        peakLimiter.attackTime = attackTimeSlider.floatValue
+        peakLimiter.attackTime = attackTimeSlider.doubleValue
         attackTimeTextField.stringValue = "Attack Time \(String(format: "%0.4f", peakLimiter.attackTime)) Secs"
     }
     internal func updateDecaytime() {
-        peakLimiter.decayTime = decayTimeSlider.floatValue
+        peakLimiter.decayTime = decayTimeSlider.doubleValue
         decayTimeTextField.stringValue = "Decay Time \(String(format: "%0.4f", peakLimiter.decayTime)) Secs"
     }
     internal func updatePregain() {
-        peakLimiter.preGain = preGainSlider.floatValue
+        peakLimiter.preGain = preGainSlider.doubleValue
         preGainTextField.stringValue = "Pre Gain \(String(format: "%0.4f", peakLimiter.preGain)) dB"
     }
     

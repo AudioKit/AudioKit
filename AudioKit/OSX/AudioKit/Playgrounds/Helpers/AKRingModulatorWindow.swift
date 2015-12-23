@@ -113,19 +113,19 @@ public class AKRingModulatorWindow: NSWindow {
     }
     
     internal func updateRingmodfreq1() {
-        ringModulator.frequency1 = ringModFreq1Slider.floatValue
+        ringModulator.frequency1 = ringModFreq1Slider.doubleValue
         ringModFreq1TextField.stringValue = "Frequency 1 \(String(format: "%0.4f", ringModulator.frequency1)) Hertz"
     }
     internal func updateRingmodfreq2() {
-        ringModulator.frequency2 = ringModFreq2Slider.floatValue
+        ringModulator.frequency2 = ringModFreq2Slider.doubleValue
         ringModFreq2TextField.stringValue = "Frequency 2 \(String(format: "%0.4f", ringModulator.frequency2)) Hertz"
     }
     internal func updateRingmodbalance() {
-        ringModulator.balance = ringModBalanceSlider.floatValue
+        ringModulator.balance = ringModBalanceSlider.doubleValue
         ringModBalanceTextField.stringValue = "Balance \(String(format: "%0.4f", ringModulator.balance)) Percent"
     }
     internal func updateFinalmix() {
-        ringModulator.mix = finalMixSlider.floatValue
+        ringModulator.mix = finalMixSlider.doubleValue
         finalMixTextField.stringValue = "Mix \(String(format: "%0.4f", ringModulator.mix)) Percent"
     }
     

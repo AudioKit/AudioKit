@@ -100,17 +100,17 @@ public class AKParametricEQWindow: NSWindow {
     }
     
     internal func updateCenterfreq() {
-        parametricEQ.centerFrequency = centerFreqSlider.floatValue
+        parametricEQ.centerFrequency = centerFreqSlider.doubleValue
         centerFreqTextField.stringValue =
         "Center Frequency \(String(format: "%0.4f", parametricEQ.centerFrequency)) Hz"
     }
     internal func updateQ() {
-        parametricEQ.q = qSlider.floatValue
+        parametricEQ.q = qSlider.doubleValue
         qTextField.stringValue =
         "Q \(String(format: "%0.4f", parametricEQ.q)) Hz"
     }
     internal func updateGain() {
-        parametricEQ.gain = gainSlider.floatValue
+        parametricEQ.gain = gainSlider.doubleValue
         gainTextField.stringValue =
         "Gain \(String(format: "%0.4f", parametricEQ.gain)) dB"
     }

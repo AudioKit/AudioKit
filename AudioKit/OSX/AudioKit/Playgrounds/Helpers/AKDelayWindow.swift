@@ -87,7 +87,7 @@ public class AKDelayWindow: NSWindow {
         timeSlider.action = "updateTime"
         timeSlider.minValue = 0
         timeSlider.maxValue = 1
-        timeSlider.floatValue = Float(delay.time)
+        timeSlider.doubleValue = delay.time
         timeSlider.frame.origin.y = timeTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(timeSlider)
         
@@ -102,7 +102,7 @@ public class AKDelayWindow: NSWindow {
         feedbackSlider.action = "updateFeedback"
         feedbackSlider.minValue = 0
         feedbackSlider.maxValue = 100
-        feedbackSlider.floatValue = delay.feedback
+        feedbackSlider.doubleValue = delay.feedback
         feedbackSlider.frame.origin.y = feedbackTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(feedbackSlider)
         
@@ -117,7 +117,7 @@ public class AKDelayWindow: NSWindow {
         lowPassCutoffSlider.action = "updateLowPassCutoff"
         lowPassCutoffSlider.minValue = 0
         lowPassCutoffSlider.maxValue = 20000
-        lowPassCutoffSlider.floatValue = delay.lowPassCutoff
+        lowPassCutoffSlider.doubleValue = delay.lowPassCutoff
         lowPassCutoffSlider.frame.origin.y = lowPassCutoffTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(lowPassCutoffSlider)
         
@@ -132,7 +132,7 @@ public class AKDelayWindow: NSWindow {
         dryWetMixSlider.action = "updateDryWetMix"
         dryWetMixSlider.minValue = 0
         dryWetMixSlider.maxValue = 100
-        dryWetMixSlider.floatValue = delay.dryWetMix
+        dryWetMixSlider.doubleValue = delay.dryWetMix
         dryWetMixSlider.frame.origin.y = dryWetMixTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(dryWetMixSlider)
         
@@ -141,22 +141,22 @@ public class AKDelayWindow: NSWindow {
     }
     
     internal func updateTime() {
-        delay.time = Double(timeSlider.floatValue)
+        delay.time = Double(timeSlider.doubleValue)
         timeTextField.stringValue = "Delay Time: \(String(format: "%0.4f", delay.time)) seconds"
     }
     
     internal func updateFeedback() {
-        delay.feedback = feedbackSlider.floatValue
+        delay.feedback = feedbackSlider.doubleValue
         feedbackTextField.stringValue = "Feedback: \(String(format: "%0.1f", delay.feedback))%"
     }
     
     internal func updateLowPassCutoff() {
-        delay.lowPassCutoff = lowPassCutoffSlider.floatValue
+        delay.lowPassCutoff = lowPassCutoffSlider.doubleValue
         lowPassCutoffTextField.stringValue = "Low Pass Cutoff: \(String(format: "%0.0f", delay.lowPassCutoff)) Hz"
     }
     
     internal func updateDryWetMix() {
-        delay.dryWetMix = dryWetMixSlider.floatValue
+        delay.dryWetMix = dryWetMixSlider.doubleValue
         dryWetMixTextField.stringValue = "Dry/Wet Mix: \(String(format: "%0.1f", delay.dryWetMix))%"
     }
     
