@@ -18,7 +18,8 @@
 //: ### Dynamics
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Peak Limiter](Peak%20Limiter)
-//: ### Filters
+//: # Filters
+//: ---
 //: * [Band Pass Filter](Band%20Pass%20Filter)
 //: * [Comb Filter](Comb%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
@@ -27,6 +28,7 @@
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
 //: * [Moog Ladder Filter](Moog%20Ladder)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
+//: ---
 //: ### Reverbs
 //: * [Sean Costello Reverb](Sean%20Costello%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
@@ -41,3 +43,13 @@
 //: ### Noise Generators
 //: * [Pink Noise](Pink%20Noise)
 //: * [White Noise](White%20Noise)
+//: ---
+//: # Operations
+//: ---
+//: Operations are used to make the internals of a single node.
+//:
+//: * [Bit Crush](Bit%20Crush%20Operation)
+//: * [Clip](Clip%20Operation)
+//: * [Sean Costello Reverb](Sean%20Costello%20Reverb%20Operation)
+//: * [FM Oscillator](AKFMOscillator)
+//: * [Oscillator](AKOscillator)
