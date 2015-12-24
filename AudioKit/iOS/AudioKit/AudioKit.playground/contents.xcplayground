@@ -10,14 +10,12 @@
         <page name='Variable Delay'/>
         <page name='Dynamics Processor'/>
         <page name='Peak Limiter'/>
-        <page name='Distortions'/>
         <page name='Auto Wah Wah'/>
         <page name='Bit Crush Effect'/>
         <page name='Decimator'/>
         <page name='Apple Multi-Function Distortion'/>
         <page name='Ring Modulation'/>
         <page name='Time Stretching and Pitch Shifting'/>
-        <page name='Filters'/>
         <page name='Band Pass Filter'/>
         <page name='Comb Filter'/>
         <page name='High Pass Filter'/>
@@ -27,7 +25,6 @@
         <page name='Modal Resonance Filter'/>
         <page name='Moog Ladder Filter'/>
         <page name='Parametric Equalizer'/>
-        <page name='Oscillators'/>
         <page name='FM Oscillator'/>
         <page name='General Purpose Oscillator'/>
         <page name='Sawtooth Oscillator'/>
@@ -38,7 +35,6 @@
         <page name='Sean Costello Reverb'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Custom Generator'/>
-        <page name='Operations Index'/>
         <page name='Bit Crush Operation'/>
         <page name='Clip Operation'/>
         <page name='Sean Costello Reverb Operation'/>
