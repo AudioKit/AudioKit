@@ -15,15 +15,6 @@ extension AKOperation {
      - returns: AKStereoOperation
      - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center. (Default: 0, Minimum: -1, Maximum: 1)
      */
-    public func panned(pan: Double = 0) -> AKStereoOperation {
-        return self.panned(pan)
-    }
-
-    /** panned: Panner
-
-     - returns: AKStereoOperation
-     - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center. (Default: 0, Minimum: -1, Maximum: 1)
-     */
     public func panned(pan: AKParameter = 0) -> AKStereoOperation {
         return AKStereoOperation("(\(self) \(pan) pan)")
     }

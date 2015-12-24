@@ -26,7 +26,7 @@ extension AKParameter {
  - left: 1st parameter
  - right: 2nd parameter
  */
-public func - (left: AKParameter, right: AKParameter) -> AKOperation {
+public func -(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.minus(right)
 }
 
