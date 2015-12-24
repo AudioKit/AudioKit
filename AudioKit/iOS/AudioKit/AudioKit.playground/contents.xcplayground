@@ -65,6 +65,8 @@
         <page name='3D Spatialization'/>
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency'/>
+        <page name='Tracking Frequency of Audio File'/>
+        <page name='Tracking FFT'/>
         <page name='Sequencer - Multiple output'/>
         <page name='Sequencer - single output'/>
     </pages>

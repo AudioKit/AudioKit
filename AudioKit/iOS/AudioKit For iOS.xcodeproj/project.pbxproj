@@ -47,6 +47,7 @@
 		C4261E341C0AD97000E472A8 /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E1C1C0AD97000E472A8 /* CUI.h */; };
 		C4261E3B1C0AD97000E472A8 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E251C0AD97000E472A8 /* ini.h */; };
 		C4261E3D1C0AD97000E472A8 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4261E271C0AD97000E472A8 /* LICENSE.txt */; };
+		C42ADFFC1C2C45A2000CEED2 /* AKFFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFB1C2C45A2000CEED2 /* AKFFT.swift */; };
 		C42F35041C057E03000E937C /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35031C057E03000E937C /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42F36001C057F4C000E937C /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F350B1C057F4C000E937C /* AKManager.swift */; };
 		C42F36011C057F4C000E937C /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F350C1C057F4C000E937C /* AudioKitHelpers.swift */; };
@@ -505,6 +506,7 @@
 		C4261E1C1C0AD97000E472A8 /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C4261E251C0AD97000E472A8 /* ini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
 		C4261E271C0AD97000E472A8 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		C42ADFFB1C2C45A2000CEED2 /* AKFFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFFT.swift; path = ../AKFFT/AKFFT.swift; sourceTree = "<group>"; };
 		C42F35001C057E03000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42F35031C057E03000E937C /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
 		C42F35051C057E03000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1042,6 +1044,15 @@
 			path = kissfft;
 			sourceTree = "<group>";
 		};
+		C42ADFFA1C2C4568000CEED2 /* AKFFT */ = {
+			isa = PBXGroup;
+			children = (
+				C42ADFFB1C2C45A2000CEED2 /* AKFFT.swift */,
+			);
+			name = AKFFT;
+			path = AKFrequencyTracker;
+			sourceTree = "<group>";
+		};
 		C42F34F61C057E03000E937C = {
 			isa = PBXGroup;
 			children = (
@@ -1239,6 +1250,7 @@
 			isa = PBXGroup;
 			children = (
 				C4A917031C264F9E006C1A15 /* AKAmplitudeTracker */,
+				C42ADFFA1C2C4568000CEED2 /* AKFFT */,
 				C4A9170C1C26523A006C1A15 /* AKFrequencyTracker */,
 			);
 			path = Analysis;
@@ -2672,6 +2684,7 @@
 				C46303DE1C2126A2009B44D9 /* AKAudioPlayer.swift in Sources */,
 				C46302AA1C20E821009B44D9 /* AKSpatialMixer.swift in Sources */,
 				C4E958BF1C0ADBFD00516A6A /* metro.c in Sources */,
+				C42ADFFC1C2C45A2000CEED2 /* AKFFT.swift in Sources */,
 				C46303E11C2126A2009B44D9 /* AKTimePitch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
