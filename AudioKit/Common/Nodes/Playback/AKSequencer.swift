@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 /** Basic sequencer */
 /*  note: this file is currently in transistion from old c core audio apis, to the more modern avaudiosequencer setup.
