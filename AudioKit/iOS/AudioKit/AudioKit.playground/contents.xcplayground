@@ -65,5 +65,8 @@
         <page name='Tracking FFT'/>
         <page name='Sequencer - Multiple output'/>
         <page name='Sequencer - single output'/>
+        <page name='Output Waveform Plot'/>
+        <page name='Rolling Plot'/>
+        <page name='Node Audio Plot'/>
     </pages>
 </playground>

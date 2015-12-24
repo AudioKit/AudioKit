@@ -1,5 +1,13 @@
 //
-//  AKAudioOutputPlot.swift
+//  AKRollingOutputPlot.swift
+//  AudioKit For iOS
+//
+//  Created by Aurelius Prochazka on 12/24/15.
+//  Copyright © 2015 AudioKit. All rights reserved.
+//
+
+//
+//  AKOutputWaveformPlot
 //  AudioKit For iOS
 //
 //  Created by Aurelius Prochazka on 12/9/15.
@@ -8,7 +16,7 @@
 
 import Foundation
 
-@objc public class AKAudioOutputPlot: EZAudioPlot {
+@objc public class AKRollingOutputPlot: EZAudioPlot {
     public func setupNode() {
         AKManager.sharedInstance.engine.outputNode.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
@@ -20,7 +28,7 @@ import Foundation
             }
         }
     }
-
+    
     
     let bufferSize: UInt32 = 512
     
@@ -42,17 +50,20 @@ import Foundation
     #endif
     
     public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
-
-        let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
-        let plot = AKAudioOutputPlot(frame: frame)
         
-        plot.plotType = .Buffer
+        let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
+        let plot = AKRollingOutputPlot(frame: frame)
+        
+        plot.plotType = .Rolling
         plot.backgroundColor = AKColor.whiteColor()
+        plot.color = AKColor.greenColor()
+        plot.shouldFill = true
+        plot.shouldMirror = true
         plot.shouldCenterYAxis = true
         
         let containerView = AKView(frame: frame)
         containerView.addSubview(plot)
         return containerView
     }
-
+    
 }
