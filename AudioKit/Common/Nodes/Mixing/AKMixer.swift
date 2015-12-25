@@ -26,7 +26,10 @@ public struct AKMixer: AKNode {
         }
     }
     
-    /** Initialize the delay node */
+    /** Initialize the mixer node 
+     
+     - parameter inputs: A varaiadic list of AKNodes
+     */
     public init(_ inputs: AKNode...) {
         self.avAudioNode = mixerAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
@@ -35,6 +38,10 @@ public struct AKMixer: AKNode {
         }
     }
     
+    /** Connnect another input after initialization
+
+     - parameter input: AKNode to connect
+     */
     public func connect(input: AKNode) {
         AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
     }

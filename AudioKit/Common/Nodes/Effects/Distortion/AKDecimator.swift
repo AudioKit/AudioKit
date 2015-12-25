@@ -18,8 +18,8 @@ public struct AKDecimator: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    public var internalAudioUnit = AudioUnit()
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAudioUnit = AudioUnit()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode

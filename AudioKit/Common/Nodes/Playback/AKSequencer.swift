@@ -9,10 +9,12 @@
 import Foundation
 import AVFoundation
 
-/** Basic sequencer */
-/*  note: this file is currently in transistion from old c core audio apis, to the more modern avaudiosequencer setup.
-    however, the new system is not as advanced as the old, so we will keep both and have them interact.
-    as such, there is some code hanging around while we iron it out.
+/** Basic sequencer 
+
+ This  is currently in transistion from old c core audio apis, to the more 
+ modern avaudiosequencer setup. Hwever, the new system is not as advanced as the 
+ old, so we will keep both and have them interact.  As such, there is some code 
+ hanging around while we iron it out.
  */
 public class AKSequencer {
     
@@ -33,7 +35,7 @@ public class AKSequencer {
         return avSeq.tracks
     }
     
-    /// Musci Player
+    /// Music Player
     var musicPlayer:MusicPlayer = nil
     
     /// Loop control

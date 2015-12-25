@@ -8,11 +8,19 @@
 
 import Foundation
 
+/// AKParameter is a subset of CustomStringConvertible
 public protocol AKParameter: CustomStringConvertible {}
+
+/// Doubles are valid AKParameters
 extension Double: AKParameter {}
+
+/// Floats are valid AKParameters
 extension Float: AKParameter {}
+
+/// Integers are valid AKParameters
 extension Int: AKParameter {}
 
+/// An AKOperation is a block of Sporth code that can be passed to other operations in the same operation node
 public struct AKOperation: AKParameter  {
     
     /// Default input to any operation stack
