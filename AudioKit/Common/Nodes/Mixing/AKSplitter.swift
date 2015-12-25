@@ -19,8 +19,8 @@ public struct AKSplitter: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    public var internalEffect = AVAudioUnit()
-    public var internalAU = AudioUnit()
+    internal var internalEffect = AVAudioUnit()
+    internal var internalAU = AudioUnit()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode

@@ -11,18 +11,33 @@ import Foundation
 /** Wrapper for internal apple MusicTrack */
 public class AKMusicTrack{
     
-    var internalMusicTrack = MusicTrack()
+    internal var internalMusicTrack = MusicTrack()
+    
+    /// Pointer to the Music Track
     public var trackPtr:UnsafeMutablePointer<MusicTrack>
     
-    public init(musicTrack: MusicTrack){
+    /** Initialize with a music track
+     
+     - parameter musicTrack: An Apple Music Track
+     */
+    public init(musicTrack: MusicTrack) {
         internalMusicTrack = musicTrack
         trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
     
-    public func setMidiOutput(endpoint:MIDIEndpointRef){
+    /** Set the MIDI Ouput
+
+     - parameter endpoint: MIDI Endpoint Port
+     */
+    public func setMidiOutput(endpoint:MIDIEndpointRef) {
         MusicTrackSetDestMIDIEndpoint(internalMusicTrack, endpoint)
     }
-    public func setNodeOutput(node:AUNode){
-        MusicTrackSetDestNode(internalMusicTrack,node)
+    
+    /** Set the Node Output
+
+     - parameter node: Apple AUNode for output
+     */
+    public func setNodeOutput(node: AUNode) {
+        MusicTrackSetDestNode(internalMusicTrack, node)
     }
 }

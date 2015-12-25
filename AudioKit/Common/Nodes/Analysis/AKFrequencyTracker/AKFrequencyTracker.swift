@@ -20,9 +20,12 @@ public struct AKFrequencyTracker: AKNode {
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
     
+    /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
     public var amplitude: Double {
         return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
     }
+    
+    /// Detected frequency
     public var frequency: Double {
         return Double(self.internalAU!.getFrequency()) * 2.0
     }

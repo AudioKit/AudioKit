@@ -30,6 +30,7 @@ public struct AKAmplitudeTracker: AKNode {
         }
     }
     
+    /// Detected amplitude
     public var amplitude: Double {
         return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
     }

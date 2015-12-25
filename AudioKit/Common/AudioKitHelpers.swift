@@ -12,6 +12,8 @@ import AudioToolbox
 
 /// Extension to Int to calculate frequency from a MIDI Note Number
 extension Int {
+    
+    /// Calculate frequency from a MIDI Note Number
     public func midiNoteToFrequency() -> Double {
         return pow(2.0, (Double(self) - 69.0) / 12.0) * 440.0
     }
@@ -19,6 +21,11 @@ extension Int {
 
 /// Extension to Double to randomize the value
 extension Double {
+    /** Randomize the value from a minimum to a maximum
+
+     - parameter minimum: Lower bound of randomization
+     - parameter maximum: Upper bound of randomization
+     */
     public mutating func randomize(minimum: Double, _ maximum: Double) {
         self = random(minimum, maximum)
     }
@@ -37,13 +44,21 @@ public func random(minimum: Double, _ maximum: Double) -> Double {
     return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + minimum
 }
 
+/// Extension to Array for Random Element
 extension Array {
+    
+    /// Return a random element from the array
     public func randomElement() -> Element {
         let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
     }
 }
 
+/** Global function for random integers
+ 
+ - returns: Random integer in the range
+ - parameter range: Range of valid integers to choose from
+ */
 public func randomInt(range: Range<Int>) -> Int {
     let width = range.maxElement()! - range.minElement()!
     return Int(arc4random_uniform(UInt32(width))) + range.minElement()!
@@ -253,147 +268,152 @@ public enum AKMidiControl: UInt8 {
     /// Continuous Controller Number 31
     case CC31 = 31
 }
+
+/** Print out a more human readable error message
+
+ - parameter error: OSStatus flag
+*/
 public func CheckError(error: OSStatus) {
     if error == 0 {return}
     switch error {
     // AudioToolbox
     case kAudio_ParamError:
-        print("Error:kAudio_ParamError \n")
+        print("Error: kAudio_ParamError \n")
         
     case kAUGraphErr_NodeNotFound:
-        print("Error:kAUGraphErr_NodeNotFound \n")
+        print("Error: kAUGraphErr_NodeNotFound \n")
         
     case kAUGraphErr_OutputNodeErr:
-        print( "Error:kAUGraphErr_OutputNodeErr \n")
+        print( "Error: kAUGraphErr_OutputNodeErr \n")
         
     case kAUGraphErr_InvalidConnection:
-        print("Error:kAUGraphErr_InvalidConnection \n")
+        print("Error: kAUGraphErr_InvalidConnection \n")
         
     case kAUGraphErr_CannotDoInCurrentContext:
-        print( "Error:kAUGraphErr_CannotDoInCurrentContext \n")
+        print( "Error: kAUGraphErr_CannotDoInCurrentContext \n")
         
     case kAUGraphErr_InvalidAudioUnit:
-        print( "Error:kAUGraphErr_InvalidAudioUnit \n")
+        print( "Error: kAUGraphErr_InvalidAudioUnit \n")
         
     case kMIDIInvalidClient :
         print( "kMIDIInvalidClient ")
         
     case kMIDIInvalidPort :
-        print( "kMIDIInvalidPort ")
+        print( "Error: kMIDIInvalidPort ")
         
     case kMIDIWrongEndpointType :
-        print( "kMIDIWrongEndpointType")
+        print( "Error: kMIDIWrongEndpointType")
         
     case kMIDINoConnection :
-        print( "kMIDINoConnection ")
+        print( "Error: kMIDINoConnection ")
         
     case kMIDIUnknownEndpoint :
-        print( "kMIDIUnknownEndpoint ")
+        print( "Error: kMIDIUnknownEndpoint ")
         
     case kMIDIUnknownProperty :
-        print( "kMIDIUnknownProperty ")
+        print( "Error: kMIDIUnknownProperty ")
         
     case kMIDIWrongPropertyType :
-        print( "kMIDIWrongPropertyType ")
+        print( "Error: kMIDIWrongPropertyType ")
         
     case kMIDINoCurrentSetup :
-        print( "kMIDINoCurrentSetup ")
+        print( "Error: kMIDINoCurrentSetup ")
         
     case kMIDIMessageSendErr :
-        print( "kMIDIMessageSendErr ")
+        print( "kError: MIDIMessageSendErr ")
         
     case kMIDIServerStartErr :
-        print( "kMIDIServerStartErr ")
+        print( "kError: MIDIServerStartErr ")
         
     case kMIDISetupFormatErr :
-        print( "kMIDISetupFormatErr ")
+        print( "Error: kMIDISetupFormatErr ")
         
     case kMIDIWrongThread :
-        print( "kMIDIWrongThread ")
+        print( "Error: kMIDIWrongThread ")
         
     case kMIDIObjectNotFound :
-        print( "kMIDIObjectNotFound ")
+        print( "Error: kMIDIObjectNotFound ")
         
     case kMIDIIDNotUnique :
-        print( "kMIDIIDNotUnique ")
+        print( "Error: kMIDIIDNotUnique ")
         
     case kMIDINotPermitted:
-        print( "kMIDINotPermitted: Have you enabled the audio background mode in your ios app?")
+        print( "Error: kMIDINotPermitted: Have you enabled the audio background mode in your ios app?")
         
     case kAudioToolboxErr_InvalidSequenceType :
-        print( " kAudioToolboxErr_InvalidSequenceType ")
+        print( "Error: kAudioToolboxErr_InvalidSequenceType ")
         
     case kAudioToolboxErr_TrackIndexError :
-        print( " kAudioToolboxErr_TrackIndexError ")
+        print( "Error: kAudioToolboxErr_TrackIndexError ")
         
     case kAudioToolboxErr_TrackNotFound :
-        print( " kAudioToolboxErr_TrackNotFound ")
+        print( "Error: kAudioToolboxErr_TrackNotFound ")
         
     case kAudioToolboxErr_EndOfTrack :
-        print( " kAudioToolboxErr_EndOfTrack ")
+        print( "Error: kAudioToolboxErr_EndOfTrack ")
         
     case kAudioToolboxErr_StartOfTrack :
-        print( " kAudioToolboxErr_StartOfTrack ")
+        print( "Error: kAudioToolboxErr_StartOfTrack ")
         
     case kAudioToolboxErr_IllegalTrackDestination :
-        print( " kAudioToolboxErr_IllegalTrackDestination")
+        print( "Error: kAudioToolboxErr_IllegalTrackDestination")
         
     case kAudioToolboxErr_NoSequence :
-        print( " kAudioToolboxErr_NoSequence ")
+        print( "Error: kAudioToolboxErr_NoSequence ")
         
     case kAudioToolboxErr_InvalidEventType :
-        print( " kAudioToolboxErr_InvalidEventType")
+        print( "Error: kAudioToolboxErr_InvalidEventType")
         
     case kAudioToolboxErr_InvalidPlayerState :
-        print( " kAudioToolboxErr_InvalidPlayerState")
+        print( "Error: kAudioToolboxErr_InvalidPlayerState")
         
     case kAudioUnitErr_InvalidProperty :
-        print( " kAudioUnitErr_InvalidProperty")
+        print( "Error: kAudioUnitErr_InvalidProperty")
         
     case kAudioUnitErr_InvalidParameter :
-        print( " kAudioUnitErr_InvalidParameter")
+        print( "Error: kAudioUnitErr_InvalidParameter")
         
     case kAudioUnitErr_InvalidElement :
-        print( " kAudioUnitErr_InvalidElement")
+        print( "Error: kAudioUnitErr_InvalidElement")
         
     case kAudioUnitErr_NoConnection :
-        print( " kAudioUnitErr_NoConnection")
+        print( "Error: kAudioUnitErr_NoConnection")
         
     case kAudioUnitErr_FailedInitialization :
-        print( " kAudioUnitErr_FailedInitialization")
+        print( "Error: kAudioUnitErr_FailedInitialization")
         
     case kAudioUnitErr_TooManyFramesToProcess :
-        print( " kAudioUnitErr_TooManyFramesToProcess")
+        print( "Error: kAudioUnitErr_TooManyFramesToProcess")
         
     case kAudioUnitErr_InvalidFile :
-        print( " kAudioUnitErr_InvalidFile")
+        print( "Error: kAudioUnitErr_InvalidFile")
         
     case kAudioUnitErr_FormatNotSupported :
-        print( " kAudioUnitErr_FormatNotSupported")
+        print( "Error: kAudioUnitErr_FormatNotSupported")
         
     case kAudioUnitErr_Uninitialized :
-        print( " kAudioUnitErr_Uninitialized")
+        print( "Error: kAudioUnitErr_Uninitialized")
         
     case kAudioUnitErr_InvalidScope :
-        print( " kAudioUnitErr_InvalidScope")
+        print( "Error: kAudioUnitErr_InvalidScope")
         
     case kAudioUnitErr_PropertyNotWritable :
-        print( " kAudioUnitErr_PropertyNotWritable")
+        print( "Error: kAudioUnitErr_PropertyNotWritable")
         
     case kAudioUnitErr_InvalidPropertyValue :
-        print( " kAudioUnitErr_InvalidPropertyValue")
+        print( "Error: kAudioUnitErr_InvalidPropertyValue")
         
     case kAudioUnitErr_PropertyNotInUse :
-        print( " kAudioUnitErr_PropertyNotInUse")
+        print( "Error: kAudioUnitErr_PropertyNotInUse")
         
     case kAudioUnitErr_Initialized :
-        print( " kAudioUnitErr_Initialized")
+        print( "Error: kAudioUnitErr_Initialized")
         
     case kAudioUnitErr_InvalidOfflineRender :
-        print( " kAudioUnitErr_InvalidOfflineRender")
+        print( "Error: kAudioUnitErr_InvalidOfflineRender")
         
     case kAudioUnitErr_Unauthorized :
-        print( " kAudioUnitErr_Unauthorized")
+        print( "Error: kAudioUnitErr_Unauthorized")
         
     default:
         print("Error: \(error)")

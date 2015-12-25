@@ -9,25 +9,29 @@
 import Foundation
 import AVFoundation
 
-/** Top level AudioKit managing class */
+/// Top level AudioKit managing class
 public class AKManager {
     
-    /** Globally accessible singleton */
+    /// Globally accessible singleton
     public static let sharedInstance = AKManager()
     
+    /// Format of AudioKit Nodes
     public static let format = AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)
-    /** Reference to the AV Audio Engine */
+    
+    /// Reference to the AV Audio Engine
     public var engine = AVAudioEngine()
+    
+    /// Testing AKNode
     public var tester: AKTester?
     
-    /** An audio output operation that most applications will need to use last */
+    /// An audio output operation that most applications will need to use last
     public var audioOutput: AKNode? {
         didSet {
             engine.connect(audioOutput!.avAudioNode, to: engine.outputNode, format: AKManager.format)
         }
     }
     
-    /** Start up the audio engine */
+    /// Start up the audio engine
     public func start() {
         // Start the engine.
         do {
@@ -37,13 +41,13 @@ public class AKManager {
         }
     }
     
-    /** Stop the audio engine */
+    /// Stop the audio engine
     public func stop() {
         // Stop the engine.
         self.engine.stop()
     }
 
-    
+    /// Test the output of a given node
     public func testOutput(node: AKNode, samples: Int) {
         tester = AKTester(node, samples: samples)
         audioOutput = tester

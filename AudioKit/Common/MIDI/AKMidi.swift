@@ -46,6 +46,7 @@ public class AKMidi {
         print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
         
     }
+    
     private func MyMIDIReadBlock(
         packetList: UnsafePointer<MIDIPacketList>,
         srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
@@ -87,7 +88,10 @@ public class AKMidi {
         }
     }
     
-    /// Open a MIDI In port
+    /** Open a MIDI Input port
+
+     - parameter namedInput: String containing the name of the MIDI Input
+     */
     public func openMidiIn(namedInput: String = "") {
         print("Opening Midi In")
         var result = OSStatus(noErr)
@@ -113,11 +117,12 @@ public class AKMidi {
                     print("error creating midiInPort : \(result)")
                 }
                 MIDIPortConnectSource(midiInPorts[i], src, nil)
-            }//end if no name provided, or input matches provided name
-        }//end foreach source
+            }
+        }
     }
     
-    public func listMidiInputs(){
+    /// Prints a list of all Midi Inputs
+    public func printMidiInputs() {
         let sourceCount = MIDIGetNumberOfSources()
         print("Midi Inputs:")
         for var i = 0; i < sourceCount; ++i {
@@ -127,11 +132,14 @@ public class AKMidi {
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
             let inputNameStr = (inputName?.takeRetainedValue())! as String
             print("midiIn at \(inputNameStr)")
-        }//end foreach source
-
+        }
     }
-    /// Open a MIDI Out Port
-    public func openMidiOut(namedOutput: String = ""){
+    
+    /** Open a MIDI Output Port
+     
+     - parameter namedOutput: String containing the name of the MIDI Input
+     */
+    public func openMidiOut(namedOutput: String = "") {
         print("Opening Midi Out")
         var result = OSStatus(noErr)
         
@@ -157,13 +165,14 @@ public class AKMidi {
                 midiEndpoints.append(MIDIGetDestination(i))
                 foundDest = true
             }
-        }//end foreach midi destination
+        }
         if(!foundDest){
             print("no midi destination found named \"\(namedOutput)\"")
-        }//end if match or no name set
+        }
     }
     
-    public func listMidiDestinations(){
+    /// Prints a list of all MIDI Destinations
+    public func printMidiDestinations() {
         let numOutputs = MIDIGetNumberOfDestinations()
         print("Midi Destinations:")
         for var i = 0; i < numOutputs; ++i {
@@ -191,11 +200,11 @@ public class AKMidi {
             } else {
                 print("error sending midi : \(result)")
             }
-        }//for each midiEndpoint
+        }
         
         packetListPtr.destroy()
         packetListPtr.dealloc(1)//necessary? wish i could do this without the alloc above
-    }//end sendMessage
+    }
     
     /// Send Messsage from midi event data
     public func sendMidiEvent(event: AKMidiEvent) {
