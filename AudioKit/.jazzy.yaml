@@ -143,7 +143,7 @@ custom_categories:
   - name: Random Number Generators
     children:
     - jitter(amplitude:minimumFrequency:maximumFrequency:)
-    - randomFloat(_:_:)
+    - random(_:_:)
     - randomInt(_:)
     - randomNumberPulse(minimum:maximum:updateFrequency:)
     - randomVertexPulse(minimum:maximum:updateFrequency:)

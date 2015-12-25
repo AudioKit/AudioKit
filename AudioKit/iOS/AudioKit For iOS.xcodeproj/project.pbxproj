@@ -39,7 +39,6 @@
 		C40869A71C192C5E00EF9DED /* EZRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = C40869861C192C5E00EF9DED /* EZRecorder.m */; };
 		C40869A81C192C5E00EF9DED /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = C40869871C192C5E00EF9DED /* TPCircularBuffer.c */; };
 		C40869A91C192C5E00EF9DED /* TPCircularBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = C40869881C192C5E00EF9DED /* TPCircularBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C40869AB1C19687A00EF9DED /* AKPlaygroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40869AA1C19687A00EF9DED /* AKPlaygroundHelpers.swift */; };
 		C40869AF1C197AF200EF9DED /* biscale.c in Sources */ = {isa = PBXBuildFile; fileRef = C40869AE1C197AF200EF9DED /* biscale.c */; };
 		C41863771C23FE6600A06E41 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863741C23FE6600A06E41 /* jitter.swift */; };
 		C41863781C23FE6600A06E41 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863751C23FE6600A06E41 /* randomNumberPulse.swift */; };
@@ -49,6 +48,7 @@
 		C4261E3D1C0AD97000E472A8 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4261E271C0AD97000E472A8 /* LICENSE.txt */; };
 		C42ADFFC1C2C45A2000CEED2 /* AKFFT.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFB1C2C45A2000CEED2 /* AKFFT.swift */; };
 		C42ADFFE1C2C9E37000CEED2 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */; };
+		C42AE0041C2DF604000CEED2 /* AKPlaygroundHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AE0031C2DF604000CEED2 /* AKPlaygroundHelpers.swift */; };
 		C42F35041C057E03000E937C /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35031C057E03000E937C /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42F36001C057F4C000E937C /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F350B1C057F4C000E937C /* AKManager.swift */; };
 		C42F36011C057F4C000E937C /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F350C1C057F4C000E937C /* AudioKitHelpers.swift */; };
@@ -499,7 +499,6 @@
 		C40869861C192C5E00EF9DED /* EZRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZRecorder.m; sourceTree = "<group>"; };
 		C40869871C192C5E00EF9DED /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
 		C40869881C192C5E00EF9DED /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
-		C40869AA1C19687A00EF9DED /* AKPlaygroundHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundHelpers.swift; sourceTree = "<group>"; };
 		C40869AE1C197AF200EF9DED /* biscale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = biscale.c; sourceTree = "<group>"; };
 		C41863741C23FE6600A06E41 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C41863751C23FE6600A06E41 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
@@ -509,6 +508,7 @@
 		C4261E271C0AD97000E472A8 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C42ADFFB1C2C45A2000CEED2 /* AKFFT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFFT.swift; path = ../AKFFT/AKFFT.swift; sourceTree = "<group>"; };
 		C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
+		C42AE0031C2DF604000CEED2 /* AKPlaygroundHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundHelpers.swift; sourceTree = "<group>"; };
 		C42F35001C057E03000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42F35031C057E03000E937C /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
 		C42F35051C057E03000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -946,7 +946,6 @@
 				C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */,
 				C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */,
 				C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */,
-				C40869AA1C19687A00EF9DED /* AKPlaygroundHelpers.swift */,
 				C40869681C192C5E00EF9DED /* EZAudio */,
 			);
 			name = "User Interface";
@@ -1083,6 +1082,7 @@
 				C42F350C1C057F4C000E937C /* AudioKitHelpers.swift */,
 				C42F350B1C057F4C000E937C /* AKManager.swift */,
 				C4DC86F81C07A1F700CA2591 /* AKTable.swift */,
+				C42AE0031C2DF604000CEED2 /* AKPlaygroundHelpers.swift */,
 				C42F350D1C057F4C000E937C /* Internals */,
 				C42F353F1C057F4C000E937C /* MIDI */,
 				C42F35421C057F4C000E937C /* Nodes */,
@@ -2472,7 +2472,6 @@
 				C4E958CA1C0ADBFD00516A6A /* phaser.c in Sources */,
 				C46302A51C20E821009B44D9 /* AKGain.swift in Sources */,
 				C4A917081C264F9E006C1A15 /* AKAmplitudeTracker.swift in Sources */,
-				C40869AB1C19687A00EF9DED /* AKPlaygroundHelpers.swift in Sources */,
 				C4E958EA1C0ADBFD00516A6A /* trand.c in Sources */,
 				C46302821C20E7A7009B44D9 /* clip.swift in Sources */,
 				C46300EF1C20C342009B44D9 /* maygate.c in Sources */,
@@ -2642,6 +2641,7 @@
 				C472F6F31C06F7B2001A65C5 /* AKSawtoothOscillator.swift in Sources */,
 				C46302811C20E7A7009B44D9 /* bitcrush.swift in Sources */,
 				C4A916D41C250D33006C1A15 /* AKOperationEffectAudioUnit.mm in Sources */,
+				C42AE0041C2DF604000CEED2 /* AKPlaygroundHelpers.swift in Sources */,
 				C4E958B61C0ADBFD00516A6A /* gbuzz.c in Sources */,
 				C48AA66E1C0FA382006EB131 /* AKPinkNoise.swift in Sources */,
 				C46300F91C20C342009B44D9 /* pinknoise.c in Sources */,

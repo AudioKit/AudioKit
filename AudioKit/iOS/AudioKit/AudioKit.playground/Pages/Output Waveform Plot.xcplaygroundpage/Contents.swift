@@ -14,11 +14,11 @@ audiokit.audioOutput = fm
 audiokit.start()
 
 let updater = AKPlaygroundLoop(frequency: 5) {
-    fm.baseFrequency.randomize(220, 880)
-    fm.carrierMultiplier.randomize(0, 4)
-    fm.modulationIndex.randomize(0, 5)
-    fm.modulatingMultiplier.randomize(0, 0.3)
-    fm.amplitude.randomize(0, 0.7)
+    fm.baseFrequency = random(220, 880)
+    fm.carrierMultiplier = random(0, 4)
+    fm.modulationIndex = random(0, 5)
+    fm.modulatingMultiplier = random(0, 0.3)
+    fm.amplitude = random(0, 0.7)
 }
 
 let plotView = AKOutputWaveformPlot.createView()
