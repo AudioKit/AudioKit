@@ -12,6 +12,8 @@ import AVFoundation
 /** Audio from the standard input */
 public struct AKMicrophone: AKNode {
     
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
     internal let mixer = AVAudioMixerNode()
     

@@ -20,8 +20,10 @@ public struct AKHighPassFilter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900) */
     public var cutoffFrequency: Double = 6900 {
         didSet {

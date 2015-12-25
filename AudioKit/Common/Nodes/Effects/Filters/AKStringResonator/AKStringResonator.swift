@@ -16,7 +16,10 @@ import AVFoundation
 public struct AKStringResonator: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKStringResonatorAudioUnit?
     private var token: AUParameterObserverToken?
 

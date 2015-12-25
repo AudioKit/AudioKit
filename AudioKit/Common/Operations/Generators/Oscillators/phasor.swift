@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** phasor: A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
+    /** A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
  often used when building table-lookup oscillators.
 
      - returns: AKOperation
@@ -25,7 +25,7 @@ extension AKOperation {
     }
 }
 
-/** phasor: A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
+/** A normalized moving phase value. - Produces a normalized sawtooth wave between the values of 0 and 1. Phasors are
  often used when building table-lookup oscillators.
 
 - returns: AKOperation

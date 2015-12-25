@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKTanhDistortion: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKTanhDistortionAudioUnit?
     private var token: AUParameterObserverToken?
 

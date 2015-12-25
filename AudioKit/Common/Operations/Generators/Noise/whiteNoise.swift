@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** whiteNoise: White noise generator
+    /** White noise generator
 
      - returns: AKOperation
      - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 10)
@@ -20,7 +20,7 @@ extension AKOperation {
     }
 }
 
-/** whiteNoise: White noise generator
+/** White noise generator
 
 - returns: AKOperation
 - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 10)

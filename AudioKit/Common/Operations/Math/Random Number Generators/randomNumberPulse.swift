@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** randomNumberPulse: Random number generator with hold time. - Loosely based off of the Csound opcode randomh. The design is equivalent to
+    /** Random number generator with hold time. - Loosely based off of the Csound opcode randomh. The design is equivalent to
  scaled noise sent through a classic sample and hold module.
 
      - returns: AKOperation
@@ -27,7 +27,7 @@ extension AKOperation {
     }
 }
 
-/** randomNumberPulse: Random number generator with hold time. - Loosely based off of the Csound opcode randomh. The design is equivalent to
+/** Random number generator with hold time. - Loosely based off of the Csound opcode randomh. The design is equivalent to
  scaled noise sent through a classic sample and hold module.
 
 - returns: AKOperation

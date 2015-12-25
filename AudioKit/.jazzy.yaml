@@ -2,7 +2,7 @@ module_name: AudioKit
 author_name: Aurelius Prochazka
 author_url: https://audiokit.io/
 github_url: https://github.com/audiokit/AudioKit
-min_acl: internal
+min_acl: public
 readme: ../README.md
 swift_version: 2.1.1
 
@@ -32,6 +32,7 @@ custom_categories:
   - name: Analysis Nodes
     children:
     - AKAmplitudeTracker
+    - AKFFT
     - AKFrequencyTracker
 
   - name: Delay Nodes
@@ -176,6 +177,7 @@ custom_categories:
 
   - name: Plotting Tools
     children:
-    - AKAudioOutputPlot
+    - AKRollingOutputPlot
     - AKNodeFFTPlot
     - AKNodeOutputPlot
+    - AKOutputWaveformPlot

@@ -14,8 +14,10 @@ public struct AKAudioPlayer: AKNode {
     
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
     

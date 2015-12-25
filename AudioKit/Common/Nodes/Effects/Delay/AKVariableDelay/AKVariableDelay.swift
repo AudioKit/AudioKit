@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKVariableDelay: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKVariableDelayAudioUnit?
     private var token: AUParameterObserverToken?
 

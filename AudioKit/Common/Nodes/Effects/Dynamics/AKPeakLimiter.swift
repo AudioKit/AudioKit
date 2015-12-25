@@ -20,8 +20,10 @@ public struct AKPeakLimiter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012) */
     public var attackTime: Double = 0.012 {
         didSet {

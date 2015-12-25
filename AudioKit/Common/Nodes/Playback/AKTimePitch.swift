@@ -12,8 +12,10 @@ import AVFoundation
 public struct AKTimePitch: AKNode {
     
     private let timePitchAU = AVAudioUnitTimePitch()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0) */
     public var rate: Double = 1.0 {
         didSet {

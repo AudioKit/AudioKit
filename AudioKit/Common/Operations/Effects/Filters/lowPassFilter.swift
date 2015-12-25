@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** lowPassFilter: Low-pass filter - A first-order recursive low-pass filter with variable frequency response.
+    /** Low-pass filter - A first-order recursive low-pass filter with variable frequency response.
 
      - returns: AKOperation
      - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12, Maximum: 20000)
@@ -19,7 +19,7 @@ extension AKOperation {
         self = self.lowPassFiltered(halfPowerPoint: halfPowerPoint)
     }
 
-    /** lowPassFilter: Low-pass filter - A first-order recursive low-pass filter with variable frequency response.
+    /** Low-pass filter - A first-order recursive low-pass filter with variable frequency response.
 
      - returns: AKOperation
      - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2. (Default: 1000, Minimum: 12, Maximum: 20000)

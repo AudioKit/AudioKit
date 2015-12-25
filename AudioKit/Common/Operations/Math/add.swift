@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKParameter {
-    /** plus: Addition/Summation of operations
+    /** Addition/Summation of operations
 
      - returns: AKOperation
      - parameter parameter: The amount to add
@@ -18,7 +18,7 @@ extension AKParameter {
         return AKOperation("(\(self) \(parameter) +)")
     }
 
-    /** offsetBy: Offsetting by way of addition
+    /** Offsetting by way of addition
 
      - returns: AKOperation
      - parameter parameter: The amount to offset by

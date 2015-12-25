@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKOperation {
-    /** distort: Distortion using a modified hyperbolic tangent function.
+    /** Distortion using a modified hyperbolic tangent function.
 
      - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2, Minimum: 0, Maximum: 10)
      - parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0, Maximum: 10)
@@ -28,7 +28,7 @@ extension AKOperation {
                 negativeShapeParameter: negativeShapeParameter)
     }
 
-    /** distorted: Distortion using a modified hyperbolic tangent function.
+    /** Distortion using a modified hyperbolic tangent function.
 
      - returns: AKOperation
      - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2, Minimum: 0, Maximum: 10)

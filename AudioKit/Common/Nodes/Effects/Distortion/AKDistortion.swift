@@ -20,8 +20,10 @@ public struct AKDistortion: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1) */
     public var delay: Double = 0.1 {
         didSet {

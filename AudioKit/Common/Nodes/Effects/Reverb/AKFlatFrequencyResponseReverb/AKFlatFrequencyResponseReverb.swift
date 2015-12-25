@@ -15,7 +15,10 @@ import AVFoundation
 public struct AKFlatFrequencyResponseReverb: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
     private var token: AUParameterObserverToken?
 

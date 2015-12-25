@@ -14,7 +14,10 @@ import AVFoundation
 public struct AKCostelloReverb: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKCostelloReverbAudioUnit?
     private var token: AUParameterObserverToken?
 

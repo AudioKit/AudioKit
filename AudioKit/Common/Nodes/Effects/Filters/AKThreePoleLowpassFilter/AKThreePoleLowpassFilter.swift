@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKThreePoleLowpassFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKThreePoleLowpassFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

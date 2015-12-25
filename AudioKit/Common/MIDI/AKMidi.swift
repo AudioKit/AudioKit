@@ -9,7 +9,7 @@
 import Foundation
 import CoreMIDI
 
-//// MIDI input and output handler
+/// MIDI input and output handler
 public class AKMidi {
     
     /// MIDI Client Reference

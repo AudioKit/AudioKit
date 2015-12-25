@@ -16,7 +16,10 @@ import AVFoundation
 public struct AKMoogLadder: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKMoogLadderAudioUnit?
     private var token: AUParameterObserverToken?
 

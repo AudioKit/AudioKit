@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** applyPortamento: Portamento-style control signal smoothing
+    /** Portamento-style control signal smoothing
      Useful for smoothing out low-resolution signals and applying glissando to filters.
 
      - returns: AKOperation
@@ -20,7 +20,7 @@ extension AKOperation {
         self = self.appliedPortamento(halfDuration)
     }
 
-    /** appliedPortamento: Portamento-style control signal smoothing
+    /** Portamento-style control signal smoothing
      Useful for smoothing out low-resolution signals and applying glissando to filters.
 
      - returns: AKOperation

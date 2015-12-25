@@ -9,6 +9,7 @@
 import Foundation
 
 #if os(iOS)
+    /** Class to handle updating via CADisplayLink */
     public class AKPlaygroundLoop {
         private var internalHandler: () -> () = {}
         private var trigger = 60
@@ -38,7 +39,7 @@ import Foundation
     }
     
 #else
-    
+    /** Class to handle updating via NSTimer */
     public class AKPlaygroundLoop {
         // each instance has it's own handler
         private var handler: (timer: NSTimer) -> () = { (timer: NSTimer) in }

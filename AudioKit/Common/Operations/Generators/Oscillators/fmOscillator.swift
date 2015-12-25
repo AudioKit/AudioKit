@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** fmOscillator: Basic frequency modulated oscillator. - Classic FM Synthesis audio generation.
+    /** Basic frequency modulated oscillator. - Classic FM Synthesis audio generation.
 
      - returns: AKOperation
      - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. (Default: 440, Minimum: 0, Maximum: 20000)
@@ -30,7 +30,7 @@ extension AKOperation {
     }
 }
 
-/** fmOscillator: Basic frequency modulated oscillator. - Classic FM Synthesis audio generation.
+/** Basic frequency modulated oscillator. - Classic FM Synthesis audio generation.
 
 - returns: AKOperation
 - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. (Default: 440, Minimum: 0, Maximum: 20000)

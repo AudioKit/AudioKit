@@ -21,8 +21,10 @@ public struct AKParametricEQ: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000) */
     public var centerFrequency: Double = 2000 {
         didSet {

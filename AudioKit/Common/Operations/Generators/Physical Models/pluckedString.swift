@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** pluckedString: Physical model of a plucked string - Based on Karplus-Strong algorithm
+    /** Physical model of a plucked string - Based on Karplus-Strong algorithm
      - returns: AKOperation
      - Parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency. (Default: 110, Minimum: 0, Maximum: 22050)
      - Parameter position: Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck.  (Default: 0.2, Minimum: 0, Maximum: 1)
@@ -31,7 +31,7 @@ extension AKOperation {
     }
 }
 
-/** pluckedString: Physical model of a plucked string - Based on Karplus-Strong algorithm
+/** Physical model of a plucked string - Based on Karplus-Strong algorithm
 - returns: AKOperation
 - Parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency. (Default: 110, Minimum: 0, Maximum: 22050)
 - Parameter position: Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck.  (Default: 0.2, Minimum: 0, Maximum: 1)

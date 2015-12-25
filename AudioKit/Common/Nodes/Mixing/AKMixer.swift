@@ -12,8 +12,10 @@ import AVFoundation
 /** AudioKit version of Apple's Mixer Node */
 public struct AKMixer: AKNode {
     private let mixerAU = AVAudioMixerNode()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Output Volume (Default 1) */
     public var volume: Double = 1.0 {
         didSet {

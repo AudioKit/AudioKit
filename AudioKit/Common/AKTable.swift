@@ -8,8 +8,22 @@
 
 import Foundation
 
+/** Supported default table types */
 public enum AKTableType: String {
-    case Sine, Triangle, Square, Sawtooth, ReverseSawtooth
+    /// Standard sine waveform
+    case Sine
+    
+    /// Standard triangle waveform
+    case Triangle
+    
+    /// Standard square waveform
+    case Square
+    
+    /// Standard sawtooth waveform
+    case Sawtooth
+    
+    /// Reversed sawtooth waveform
+    case ReverseSawtooth
 }
 
 /** A table of values accessible as a waveform or lookup mechanism */
@@ -17,8 +31,13 @@ public struct AKTable {
     
     // MARK: - Properties
     
+    /// Values stored in the table
     public var values = [Float]()
+    
+    /// Number of values stored in the table
     var size = 4096
+    
+    /// Type of table
     var type: AKTableType
     
     // MARK: - Initializers with Generators

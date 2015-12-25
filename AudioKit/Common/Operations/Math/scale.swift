@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** scale: This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
+    /** This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
 
      - parameter minimum: Minimum value to scale to. (Default: 0, Minimum: -1000000, Maximum: 1000000)
      - parameter maximum: Maximum value to scale to. (Default: 1, Minimum: -1000000, Maximum: 1000000)
@@ -21,7 +21,7 @@ extension AKOperation {
             self = self.scaledTo(minimum: minimum, maximum: maximum)
     }
 
-    /** scale: This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
+    /** This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
 
      - returns: AKOperation
      - parameter minimum: Minimum value to scale to. (Default: 0)

@@ -13,13 +13,18 @@ import AVFoundation
 public struct AKDCBlock: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKDCBlockAudioUnit?
     private var token: AUParameterObserverToken?
 
     // MARK: - Initializers
 
-    /** Initialize this filter node */
+    /** Initialize this filter node 
+    - parameter input: AKNode to process 
+    */
     public init(_ input: AKNode) {
 
         var description = AudioComponentDescription()

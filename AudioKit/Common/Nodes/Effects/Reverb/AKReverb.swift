@@ -12,8 +12,10 @@ import AVFoundation
 /** AudioKit version of Apple's Reverb Audio Unit */
 public struct AKReverb: AKNode {
     private let reverbAU = AVAudioUnitReverb()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Dry/Wet Mix (Default 50) */
     public var dryWetMix: Double = 50.0 {
         didSet {

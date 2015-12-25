@@ -13,7 +13,10 @@ import AVFoundation
 public struct AKModalResonanceFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKModalResonanceFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

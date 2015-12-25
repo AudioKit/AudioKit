@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** randomVertexPulse: Line segments between random values within a range
+    /** Line segments between random values within a range
 
      - returns: AKOperation
      - parameter minimum: Minimum value (Default: 0)
@@ -26,7 +26,7 @@ extension AKOperation {
     }
 }
 
-/** randomVertexPulse: Line segments between random values within a range
+/** Line segments between random values within a range
 
 - returns: AKOperation
 - parameter minimum: Minimum value (Default: 0)

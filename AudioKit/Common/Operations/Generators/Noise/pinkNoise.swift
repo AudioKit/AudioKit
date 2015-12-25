@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** pinkNoise: Pink noise generator - Faust-based pink noise generator
+    /** Pink noise generator - Faust-based pink noise generator
 
      - returns: AKOperation
      - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 1)
@@ -20,7 +20,7 @@ extension AKOperation {
     }
 }
 
-/** pinkNoise: Pink noise generator - Faust-based pink noise generator
+/** Pink noise generator - Faust-based pink noise generator
 
 - returns: AKOperation
 - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 1)

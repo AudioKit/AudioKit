@@ -20,8 +20,10 @@ public struct AKReverb2: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100) */
     public var dryWetMix: Double = 100 {
         didSet {

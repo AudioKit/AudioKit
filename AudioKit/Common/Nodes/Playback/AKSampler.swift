@@ -21,21 +21,29 @@ public struct AKSampler: AKNode {
     // MARK: - Properties
     
     private var internalAU: AUAudioUnit?
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var token: AUParameterObserverToken?
+    
+    /// Sampler AV Audio Unit
     public var samplerUnit = AVAudioUnitSampler()
     
     // MARK: - Initializers
     
-    /** Initialize the sampler node */
+    /// Initialize the sampler node
     public init() {
         
         self.avAudioNode = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         //you still need to connect the output, and you must do this before starting the processing graph
-    }//end init
+    }
     
+    /** Load a wav file
+     - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
+     */
     public func loadWav(file: String) {
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "wav") else {
                 fatalError("file not found.")
@@ -47,13 +55,22 @@ public struct AKSampler: AKNode {
             print("error")
         }
     }
+    
+    /** Load an EXS24 sample data file
+     - parameter file: Name of the EXS24 file without the .exs extension
+     */
     public func loadEXS24(file: String) {
         loadInstrument(file, type: "exs")
     }
+    
+    /** Load a SoundFont SF2 sample data file
+     - parameter file: Name of the SoundFont SF2 file without the .sf2 extension
+     */
     public func loadSoundfont(file: String) {
         loadInstrument(file, type: "sf2")
     }
-    func loadInstrument(file: String, type: String) {
+    
+    internal func loadInstrument(file: String, type: String) {
         print("filename is \(file)")
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: type) else {
                 fatalError("file not found.")
@@ -66,9 +83,20 @@ public struct AKSampler: AKNode {
     }
     
     // MARK: - Playback
+    
+    /** Play a MIDI Note
+    - parameter note: MIDI Note Number to play
+    - parameter velocity: MIDI Velocity
+    - parameter channel: MIDI Channnel
+    */
     public func playNote(note: Int = 60, velocity: Int = 127, channel: Int = 0) {
         samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
+    
+    /** Stop a MIDI Note
+     - parameter note: MIDI Note Number to stop
+     - parameter channel: MIDI Channnel
+     */
     public func stopNote(note: Int = 60, channel: Int = 0) {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }

@@ -12,8 +12,10 @@ import AVFoundation
 /** AudioKit version of Apple's Delay Audio Unit */
 public struct AKDelay: AKNode {
     let delayAU = AVAudioUnitDelay()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Delay time in seconds (Default: 1) */
     public var time: NSTimeInterval = 1 {
         didSet {

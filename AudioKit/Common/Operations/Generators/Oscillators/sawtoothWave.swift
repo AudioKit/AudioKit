@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** sawtoothWave: Sawtooth wave oscillator
+    /** Sawtooth wave oscillator
 
      - returns: AKOperation
      - parameter frequency: Frequency in cycles per second (Default: 440)
@@ -26,7 +26,7 @@ extension AKOperation {
 
 // Global Helper function
 
-/** sawtoothWave: Sawtooth wave oscillator
+/** Sawtooth wave oscillator
 
 - returns: AKOperation
 - parameter frequency: Frequency in cycles per second (Default: 440)

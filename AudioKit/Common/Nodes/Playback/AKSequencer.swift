@@ -49,13 +49,18 @@ public class AKSequencer {
         MusicPlayerSetSequence(musicPlayer, sequence)
     }
     
-    /// Initialize the sequence with a MIDI file
+    /** Initialize the sequence with a MIDI file
+    - parameter filename: Location of the MIDI File
+    */
     public convenience init(filename: String) {
         self.init()
         loadMidiFile(filename)
     }
     
-    /// Initialize the sequence with a midi file and audioengine
+    /** Initialize the sequence with a midi file and audioengine
+     - parameter filename: Location of the MIDI File
+     - parameter engine: reference to the AV Audio Engine
+     */
     public convenience init(filename: String, engine: AVAudioEngine) {
         self.init()
         avSeq = AVAudioSequencer(audioEngine: engine)
@@ -86,7 +91,10 @@ public class AKSequencer {
         loopEnabled = false
     }
     
-    ///  Set looping duration and count for all tracks
+    /**  Set looping duration and count for all tracks
+     - parameter duration: Duration of the loop in seconds
+     - parameter numberOfLoops: The number of time to repeat
+     */
     public func setLoopInfo(duration: Double, numberOfLoops: Int) {
         let size:UInt32 = 0
         let len = MusicTimeStamp(duration)
@@ -97,7 +105,10 @@ public class AKSequencer {
             MusicTrackSetProperty(musicTrack, kSequenceTrackProperty_LoopInfo, &loopInfo, size)
         }
     }
-    /// Set length of all tracks
+    
+    /** Set length of all tracks
+     - parameter length: Length of tracks in seconds
+     */
     public func setLength(length: Double) {
         let size:UInt32 = 0
         var len = MusicTimeStamp(length)

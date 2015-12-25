@@ -15,7 +15,10 @@ import AVFoundation
 public struct AKEqualizerFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKEqualizerFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

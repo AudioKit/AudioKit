@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKParameter {
-    /** times: Multiplication of parameters
+    /** Multiplication of parameters
 
      - returns: AKOperation
      - parameter parameter: The amount to multiply
@@ -18,7 +18,7 @@ extension AKParameter {
         return AKOperation("(\(self) \(parameter) *)")
     }
 
-    /** scaledBy: Offsetting by way of multiplication
+    /** Offsetting by way of multiplication
 
      - returns: AKOperation
      - parameter parameter: The amount to scale by
@@ -28,7 +28,7 @@ extension AKParameter {
     }
 }
 
-/** *: Helper function for Multiplication
+/** Helper function for Multiplication
 
  - returns: AKOperation
  - left: 1st parameter

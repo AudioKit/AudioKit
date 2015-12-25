@@ -20,8 +20,10 @@ public struct AKRingModulator: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
     public var frequency1: Double = 100 {
         didSet {

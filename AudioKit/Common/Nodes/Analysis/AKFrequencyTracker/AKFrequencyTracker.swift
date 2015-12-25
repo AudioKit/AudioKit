@@ -16,8 +16,10 @@ public struct AKFrequencyTracker: AKNode {
 
     private var internalAU: AKFrequencyTrackerAudioUnit?
     private var token: AUParameterObserverToken?
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-
+    
     public var amplitude: Double {
         return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
     }
