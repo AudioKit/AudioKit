@@ -14,7 +14,10 @@ public struct AKGain: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKGainAudioUnit?
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var token: AUParameterObserverToken?
 
     private var gainParameter: AUParameter?

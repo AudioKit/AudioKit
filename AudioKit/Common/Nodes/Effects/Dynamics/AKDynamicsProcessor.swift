@@ -20,8 +20,10 @@ public struct AKDynamicsProcessor: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Threshold (dB) ranges from -40 to 20 (Default: -20) */
     public var threshold: Double = -20 {
         didSet {

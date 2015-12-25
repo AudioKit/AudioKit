@@ -15,7 +15,10 @@ public struct AKTriangleOscillator: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKTriangleOscillatorAudioUnit?
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?

@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKOperation {
-    /** triggerEnveloped: Trigger based linear AHD envelope generator
+    /** Trigger based linear AHD envelope generator
 
      - returns: AKOperation
      - parameter trigger: A triggering operation such as a metronome

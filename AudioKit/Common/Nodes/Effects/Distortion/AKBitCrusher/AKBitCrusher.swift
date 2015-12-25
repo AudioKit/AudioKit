@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKBitCrusher: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKBitCrusherAudioUnit?
     private var token: AUParameterObserverToken?
 

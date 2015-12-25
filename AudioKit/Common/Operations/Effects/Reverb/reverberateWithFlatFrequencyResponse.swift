@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** reverberateWithFlatFrequencyResponse: All-pass filter, often used for the creation of reverb modules. - This filter reiterates the input with an echo density determined by loop time.
+    /** All-pass filter, often used for the creation of reverb modules. - This filter reiterates the input with an echo density determined by loop time.
      The attenuation rate is independent and is determined by the reverberation time
      (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down
      from its original amplitude).  Output will begin to appear immediately.
@@ -25,7 +25,7 @@ extension AKOperation {
             self = self.reverberatedWithFlatFrequencyResponse(reverbDuration: reverbDuration, loopDuration: loopDuration)
     }
 
-    /** reverberatedWithFlatFrequencyResponse: All-pass filter, often used for the creation of reverb modules. - This filter reiterates the input with an echo density determined by loop time.
+    /** All-pass filter, often used for the creation of reverb modules. - This filter reiterates the input with an echo density determined by loop time.
  The attenuation rate is independent and is determined by the reverberation time
  (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down
  from its original amplitude).  Output will begin to appear immediately.

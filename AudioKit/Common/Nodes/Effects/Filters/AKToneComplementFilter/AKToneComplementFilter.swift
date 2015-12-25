@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKToneComplementFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKToneComplementFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

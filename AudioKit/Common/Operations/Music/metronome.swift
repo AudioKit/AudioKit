@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** metronome: Metronome produces a series of 1-sample ticks at a regular rate. Typically, this is
+    /** Metronome produces a series of 1-sample ticks at a regular rate. Typically, this is
  used alongside trigger-driven modules.
 
      - returns: AKOperation
@@ -21,7 +21,7 @@ extension AKOperation {
     }
 }
 
-/** metronome: Metronome produces a series of 1-sample ticks at a regular rate. Typically, this is
+/** Metronome produces a series of 1-sample ticks at a regular rate. Typically, this is
  used alongside trigger-driven modules.
 
 - returns: AKOperation

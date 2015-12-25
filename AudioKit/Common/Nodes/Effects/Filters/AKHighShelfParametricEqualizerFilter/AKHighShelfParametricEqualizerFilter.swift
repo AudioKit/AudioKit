@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKHighShelfParametricEqualizerFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKHighShelfParametricEqualizerFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

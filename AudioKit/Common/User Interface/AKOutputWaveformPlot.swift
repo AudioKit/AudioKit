@@ -8,8 +8,9 @@
 
 import Foundation
 
+/// Wrapper class for plotting audio from the final mix in a waveform plot
 @objc public class AKOutputWaveformPlot: EZAudioPlot {
-    public func setupNode() {
+    internal func setupNode() {
         AKManager.sharedInstance.engine.outputNode.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize;
@@ -21,26 +22,30 @@ import Foundation
         }
     }
 
+    internal let bufferSize: UInt32 = 512
     
-    let bufferSize: UInt32 = 512
-    
+    /** Initialize the plot in a frame
+     - parameter frame: CGRect in which to draw the plot
+     */
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupNode()
     }
+    
+    /** Required coder-based initialization (for use with Interface Builder)
+     - parameter coder: NSCoder
+     */
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupNode()
     }
     
-    #if os(OSX)
-    public typealias AKView = NSView
-    typealias AKColor = NSColor
-    #else
-    public typealias AKView = UIView
-    typealias AKColor = UIColor
-    #endif
-    
+    /** Create a View with the plot (usually for playgrounds)
+     
+     - returns: AKView
+     - parameter width: Width of the view
+     - parameter height: Height of the view
+     */
     public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
 
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
@@ -54,5 +59,4 @@ import Foundation
         containerView.addSubview(plot)
         return containerView
     }
-
 }

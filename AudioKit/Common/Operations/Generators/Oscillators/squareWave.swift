@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** squareWave: Square wave oscillator
+    /** Square wave oscillator
 
      - returns: AKOperation
      - parameter frequency: Frequency in cycles per second (Default: 440)
@@ -28,7 +28,7 @@ extension AKOperation {
 
 // Global Helper function
 
-/** squareWave: Square wave oscillator
+/** Square wave oscillator
 
 - returns: AKOperation
 - parameter frequency: Frequency in cycles per second (Default: 440)

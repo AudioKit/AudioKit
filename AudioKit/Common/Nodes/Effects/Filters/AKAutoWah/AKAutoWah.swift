@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKAutoWah: AKNode {
 
     // MARK: - Properties
+
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+        
     private var internalAU: AKAutoWahAudioUnit?
     private var token: AUParameterObserverToken?
 

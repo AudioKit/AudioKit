@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** periodicTrigger: Periodic Trigger - Produce a set of triggers spaced apart by time.
+    /** Periodic Trigger - Produce a set of triggers spaced apart by time.
 
      - parameter period: Time between triggers (in seconds). This will update at the start of each trigger. (Default: 1)
      */
@@ -19,7 +19,7 @@ extension AKOperation {
     }
 }
 
-/** periodicTrigger: Periodic Trigger - Produce a set of triggers spaced apart by time.
+/** Periodic Trigger - Produce a set of triggers spaced apart by time.
 
 - returns: AKOperation
 - parameter period: Time between triggers (in seconds). This will update at the start of each trigger. (Default: 1)

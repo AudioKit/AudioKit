@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** highPassButterworthFilter: A high-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation.
+    /** A high-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation.
 
      - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12, Maximum: 20000)
      */
@@ -19,7 +19,7 @@ extension AKOperation {
             self = self.highPassButterworthFiltered(cutoffFrequency: cutoffFrequency)
     }
 
-    /** highPassButterworthFiltered: A high-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation.
+    /** A high-pass Butterworth filter. - These filters are Butterworth second-order IIR filters. They offer an almost flat passband and very good precision and stopband attenuation.
 
      - returns: AKOperation
      - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 500, Minimum: 12, Maximum: 20000)

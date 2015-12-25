@@ -20,8 +20,10 @@ public struct AKDecimator: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     public var internalAudioUnit = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Decimation (Percent) ranges from 0 to 100 (Default: 50) */
     public var decimation: Double = 50 {
         didSet {
@@ -62,7 +64,13 @@ public struct AKDecimator: AKNode {
         }
     }
     
-    /** Initialize the effect node */
+    /** Initialize the effect node 
+     
+     - parameter input: AKNode to decimate
+     - parameter decimation: Decimation (Percent) ranges from 0 to 100 (Default: 50)
+     - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
+     - parameter mix: Mix (Percent) ranges from 0 to 100 (Default: 50)
+     */
     public init(
         _ input: AKNode,
         decimation: Double = 50,

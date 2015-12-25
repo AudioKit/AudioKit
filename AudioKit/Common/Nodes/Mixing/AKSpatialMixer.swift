@@ -20,8 +20,10 @@ public struct AKSpatialMixer: AKNode {
     
     private var internalEffect = AVAudioUnit()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Azimuth (Degrees) ranges from -180 to 180 (Default: 0) */
     public var azimuth: Double = 0 {
         didSet {

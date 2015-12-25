@@ -18,7 +18,10 @@ import AVFoundation
 public struct AKChowningReverb: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKChowningReverbAudioUnit?
 
     // MARK: - Initializers

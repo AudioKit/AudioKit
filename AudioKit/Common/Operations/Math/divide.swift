@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKParameter {
-    /** dividedBy: Division of parameters
+    /** Division of parameters
 
      - returns: AKOperation
      - parameter parameter: The amount to divide

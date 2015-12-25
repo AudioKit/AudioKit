@@ -20,8 +20,10 @@ public struct AKBandPassFilter: AKNode {
     
     private var internalEffect = AVAudioUnitEffect()
     private var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000) */
     public var centerFrequency: Double = 5000 {
         didSet {

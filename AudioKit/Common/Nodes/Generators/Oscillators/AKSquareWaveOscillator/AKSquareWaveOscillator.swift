@@ -15,7 +15,10 @@ public struct AKSquareWaveOscillator: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKSquareWaveOscillatorAudioUnit?
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?

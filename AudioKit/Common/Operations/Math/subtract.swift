@@ -9,7 +9,7 @@
 import Foundation
 
 extension AKParameter {
-    /** minus: Subtraction of parameters
+    /** Subtraction of parameters
 
      - returns: AKOperation
      - parameter subtrahend: The amount to subtract

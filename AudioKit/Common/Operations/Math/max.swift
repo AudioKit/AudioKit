@@ -21,8 +21,8 @@ public func max(x: AKOperation, _ y: AKOperation) -> AKOperation {
 /** Maximum of an operation and a parameter
  
  - returns: AKOperation
- - parameter x: parameter
- - parameter y: operation
+ - parameter operation: operation
+ - parameter parameter: parameter
  */
 public func max(operation: AKOperation, _ parameter: AKParameter) -> AKOperation {
     return AKOperation("\(operation) \(parameter) max ")
@@ -31,8 +31,8 @@ public func max(operation: AKOperation, _ parameter: AKParameter) -> AKOperation
 /** Maximum of an operation and a parameter
  
  - returns: AKOperation
- - parameter x: parameter
- - parameter y: operation
+ - parameter parameter: parameter
+ - parameter operation: operation
  */
 public func max(parameter: AKParameter, _ operation: AKOperation) -> AKOperation {
     return max(operation, parameter)

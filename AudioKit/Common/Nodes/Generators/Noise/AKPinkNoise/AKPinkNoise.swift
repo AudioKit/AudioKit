@@ -14,7 +14,10 @@ public struct AKPinkNoise: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKPinkNoiseAudioUnit?
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var token: AUParameterObserverToken?
 
     private var amplitudeParameter: AUParameter?

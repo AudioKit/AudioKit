@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** clip: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
+    /** Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
 
      - parameter limit: Threshold / limiting value. (Default: 1, Minimum: 0, Maximum: 1)
      */
@@ -18,7 +18,7 @@ extension AKOperation {
         self = self.clipped(limit: limit)
     }
 
-    /** clipped: Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
+    /** Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
 
      - returns: AKOperation
      - parameter limit: Threshold / limiting value. (Default: 1, Minimum: 0, Maximum: 1)

@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** autoWah: Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
+    /** Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
 
      - returns: AKOperation
      - parameter wah: Wah Amount (Default: 0, Minimum: 0, Maximum: 1)
@@ -26,7 +26,7 @@ extension AKOperation {
 
     }
 
-    /** autoWahed: Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
+    /** Automatic wah pedal - An automatic wah effect, ported from Guitarix via Faust.
 
      - returns: AKOperation
      - parameter wah: Wah Amount (Default: 0, Minimum: 0, Maximum: 1)

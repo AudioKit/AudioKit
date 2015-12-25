@@ -15,8 +15,10 @@ public struct AKAmplitudeTracker: AKNode {
     // MARK: - Properties
 
     private var internalAU: AKAmplitudeTrackerAudioUnit?
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     private var token: AUParameterObserverToken?
 
     private var halfPowerPointParameter: AUParameter?

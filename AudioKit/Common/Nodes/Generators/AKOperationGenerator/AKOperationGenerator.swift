@@ -19,25 +19,43 @@ public struct AKOperationGenerator: AKNode {
 
     // MARK: - Properties
 
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKOperationGeneratorAudioUnit?
     private var token: AUParameterObserverToken?
 
     // MARK: - Initializers
     
+    /** Initialize the generator with an operation and indicate whether it responds to a trigger
+    - parameter operation: AKOperation stack to use 
+    - parameter triggered: Set to true if this operation requires a trigger (Default: false)
+    */
     public init(operation: AKOperation, triggered: Bool = false) {
         self.init("\(operation) dup", triggered: triggered)
     }
     
+    /** Initialize the generator with a stereo operation and indicate whether it responds to a trigger
+     - parameter stereoOperation: AKStereoOperation stack to use
+     - parameter triggered: Set to true if this operation requires a trigger (Default: false)
+     */
     public init(stereoOperation: AKStereoOperation, triggered: Bool = false) {
         self.init("\(stereoOperation) swap", triggered: triggered)
     }
     
+    /** Initialize the generator with a two mono operations for the left and right channel and indicate whether it responds to a trigger
+     - parameter left: AKOperation to be heard from the left output
+     - parameter right: AKOperation to be heard from the right output
+     - parameter triggered: Set to true if this operation requires a trigger (Default: false)
+     */
     public init(left: AKOperation, right: AKOperation, triggered: Bool = false) {
         self.init("\(left) \(right)", triggered: triggered)
     }
-
-    /** Initialize this generator node */
+    
+    /** Initialize this generator node with a generic sporth stack and a triggering flag
+     - parameter sporth: String of valid Sporth code
+     - parameter triggered: Set to true if this operation requires a trigger (Default: false)
+     */
     public init(_ sporth: String, triggered: Bool = false) {
 
         var description = AudioComponentDescription()
@@ -80,6 +98,9 @@ public struct AKOperationGenerator: AKNode {
         }
     }
     
+    /** Trigger the sound with an optional set of parameters
+    - parameter parameters: An array of doubles to use as parameters
+    */
     public func trigger(parameters: [Double] = []) {
         self.internalAU!.trigger(parameters)
     }

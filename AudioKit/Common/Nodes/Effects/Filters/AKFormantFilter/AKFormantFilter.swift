@@ -14,7 +14,10 @@ import AVFoundation
 public struct AKFormantFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKFormantFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

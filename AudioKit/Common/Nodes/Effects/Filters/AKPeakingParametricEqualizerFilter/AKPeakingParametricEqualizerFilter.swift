@@ -12,7 +12,10 @@ import AVFoundation
 public struct AKPeakingParametricEqualizerFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKPeakingParametricEqualizerFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

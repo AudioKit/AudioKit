@@ -13,7 +13,10 @@ import AVFoundation
 public struct AKHighPassButterworthFilter: AKNode {
 
     // MARK: - Properties
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var internalAU: AKHighPassButterworthFilterAudioUnit?
     private var token: AUParameterObserverToken?
 

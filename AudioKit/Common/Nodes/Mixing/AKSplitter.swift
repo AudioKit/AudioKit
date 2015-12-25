@@ -21,8 +21,10 @@ public struct AKSplitter: AKNode {
     
     public var internalEffect = AVAudioUnit()
     public var internalAU = AudioUnit()
-    public var avAudioNode: AVAudioNode
     
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+        
     
     /** Initialize the splitter  node */
     public init(_ input: AKNode) {

@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /** jitter: A signal with random fluctuations. This is useful for emulating jitter found in analogue equipment.
+    /** A signal with random fluctuations. This is useful for emulating jitter found in analogue equipment.
 
      - returns: AKOperation
      - parameter amplitude: The amplitude of the line. Will produce values in the range of (+/-)amp. (Default: 0.5)
@@ -26,7 +26,7 @@ extension AKOperation {
     }
 }
 
-/** jitter: A signal with random fluctuations. This is useful for emulating jitter found in analogue equipment.
+/** A signal with random fluctuations. This is useful for emulating jitter found in analogue equipment.
 
 - returns: AKOperation
 - parameter amplitude: The amplitude of the line. Will produce values in the range of (+/-)amp. (Default: 0.5)
