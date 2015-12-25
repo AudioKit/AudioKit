@@ -12,23 +12,31 @@ import AVFoundation
 public struct AKTester: AKNode {
 
     // MARK: - Properties
-
+    
     private var internalAU: AKTesterAudioUnit?
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    
     private var token: AUParameterObserverToken?
     var totalSamples = 0
-
-    // MARK: - Initializers
-
-    public func getMD5() -> String {
+    
+    /// Calculate the MD5
+    public var MD5: String {
         return (self.internalAU?.getMD5())!
     }
     
-    public func isTesting() -> Bool {
+    /// Flag on whether or not the test is still in progress
+    public var isTesting: Bool {
         return Int((self.internalAU?.getSamples())!) < totalSamples
     }
-    
-    /** Initialize this test node */
+
+    // MARK: - Initializers
+
+    /** Initialize this test node
+    - parameter input: AKNode to test
+    - parameter sample: Number of sample to product
+    */
     public init(_ input: AKNode, samples: Int) {
         
         totalSamples = samples
