@@ -10,28 +10,31 @@ import Foundation
 import CoreAudio
 import AudioToolbox
 
+/// Extension to Int to calculate frequency from a MIDI Note Number
 extension Int {
     public func midiNoteToFrequency() -> Double {
         return pow(2.0, (Double(self) - 69.0) / 12.0) * 440.0
     }
 }
-extension Float {
-    public mutating func randomize(minimum: Float, _ maximum: Float) {
-        self = randomFloat(minimum, maximum)
-    }
-}
 
+/// Extension to Double to randomize the value
 extension Double {
-    public mutating func randomize(minimum: Float, _ maximum: Float) {
-        self = Double(randomFloat(minimum, maximum))
+    public mutating func randomize(minimum: Double, _ maximum: Double) {
+        self = random(minimum, maximum)
     }
 }
 
-public func randomFloat(minimum: Float, _ maximum: Float) -> Float {
+/** Global function for random Doubles 
+
+- returns: Random double between bounds
+- parameter minimum: Lower bound of randomization
+- parameter maximum: Upper bound of randomization
+*/
+public func random(minimum: Double, _ maximum: Double) -> Double {
     let precision = 1000000
     let width = maximum - minimum
     
-    return Float(arc4random_uniform(UInt32(precision))) / Float(precision) * width + minimum
+    return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + minimum
 }
 
 extension Array {
