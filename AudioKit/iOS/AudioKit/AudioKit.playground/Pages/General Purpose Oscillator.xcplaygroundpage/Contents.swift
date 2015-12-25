@@ -23,7 +23,7 @@ for value in sawtooth.values { value } // Click the eye icon ->
 
 var custom = AKTable(size: 512)
 for i in 0..<custom.values.count {
-    custom.values[i] += randomFloat(-0.3, 0.3) + Float(i)/2048.0
+    custom.values[i] += Float(random(-0.3, 0.3) + Double(i)/2048.0)
 }
 for value in custom.values { value } // Click the eye icon ->
 

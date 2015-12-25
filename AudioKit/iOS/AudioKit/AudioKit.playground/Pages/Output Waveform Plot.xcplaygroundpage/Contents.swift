@@ -21,7 +21,7 @@ let updater = AKPlaygroundLoop(frequency: 5) {
     fm.amplitude.randomize(0, 0.7)
 }
 
-let plotView = AKAudioOutputPlot.createView()
+let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
