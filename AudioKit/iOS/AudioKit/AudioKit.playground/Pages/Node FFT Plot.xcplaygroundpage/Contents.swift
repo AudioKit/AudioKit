@@ -16,7 +16,7 @@ audiokit.audioOutput = mixer
 audiokit.start()
 
 let updater = AKPlaygroundLoop(frequency: 5) {
-    fm.frequency.randomize(220, 20000)
+    fm.frequency = random(220, 20000)
     fm.amplitude = 0.2
 }
 

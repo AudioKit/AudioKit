@@ -17,7 +17,7 @@ let updater = AKPlaygroundLoop(every: 0.12) {
     var note = scale.randomElement()
     let octave = randomInt(3...6)  * 12
     triangle.frequency = (note + octave).midiNoteToFrequency()
-    triangle.amplitude.randomize(0, 0.3)
+    triangle.amplitude = random(0, 0.3)
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
