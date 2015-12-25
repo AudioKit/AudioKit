@@ -8,10 +8,20 @@
 
 import Foundation
 
-public protocol AKParameter: CustomStringConvertible {
-}
+public protocol AKParameter: CustomStringConvertible {}
+extension Double: AKParameter {}
+extension Float: AKParameter {}
+extension Int: AKParameter {}
 
-extension AKParameter {
+public struct AKOperation: AKParameter  {
+    
+    public static var input = AKOperation("(0 p)")
+    public static var trigger = AKOperation("")
+    
+    public static func parameters(i: Int) -> AKOperation {
+        return AKOperation("(\(i+1) p)")
+    }
+
     public func abs() -> AKOperation {
         return AKOperation("(\(self) abs)")
     }
@@ -33,20 +43,7 @@ extension AKParameter {
     public func midiNoteToFrequency() -> AKOperation {
         return AKOperation("(\(self) mtof)")
     }
-}
-
-extension Double: AKParameter {}
-extension Float: AKParameter {}
-extension Int: AKParameter {}
-
-public struct AKOperation: AKParameter  {
-
-    public static var input = AKOperation("(0 p)")
-    public static var trigger = AKOperation("")
-
-    public static func parameters(i: Int) -> AKOperation {
-        return AKOperation("(\(i+1) p)")
-    }
+    
 
     var operationString = ""
     public var description: String {
@@ -60,27 +57,27 @@ public struct AKOperation: AKParameter  {
     }
 }
 
-public func abs(parameter: AKParameter) -> AKOperation {
+public func abs(parameter: AKOperation) -> AKOperation {
     return parameter.abs()
 }
 
-public func floor(parameter: AKParameter) -> AKOperation {
+public func floor(parameter: AKOperation) -> AKOperation {
     return parameter.floor()
 }
 
-public func fract(parameter: AKParameter) -> AKOperation {
+public func fract(parameter: AKOperation) -> AKOperation {
     return parameter.fract()
 }
 
-public func log(parameter: AKParameter) -> AKOperation {
+public func log(parameter: AKOperation) -> AKOperation {
     return parameter.log()
 }
 
-public func log10(parameter: AKParameter) -> AKOperation {
+public func log10(parameter: AKOperation) -> AKOperation {
     return parameter.log10()
 }
 
-public func round(parameter: AKParameter) -> AKOperation {
+public func round(parameter: AKOperation) -> AKOperation {
     return parameter.round()
 }
 
