@@ -1,0 +1,34 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## Node FFT Plot
+//: ### Add description
+import XCPlayground
+import AudioKit
+
+let audiokit = AKManager.sharedInstance
+
+
+var fm = AKOscillator(table: AKTable(.Sine, size: 4096))
+var mixer = AKMixer(fm)
+audiokit.audioOutput = mixer
+audiokit.start()
+
+let updater = AKPlaygroundLoop(frequency: 5) {
+    fm.frequency.randomize(220, 20000)
+    fm.amplitude = 0.2
+}
+
+
+let plot = AKNodeFFTPlot(mixer)
+plot.plot?.shouldFill = true
+plot.plot?.shouldMirror = false
+plot.plot?.shouldCenterYAxis = false
+plot.plot?.color = UIColor.purpleColor()
+let view = plot.containerView
+
+XCPlaygroundPage.currentPage.liveView = plot.containerView
+
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
