@@ -4,6 +4,8 @@ sp-module: pareq
 
 node: AKPeakingParametricEqualizerFilter
 
+akalias: peakingParametricEqualizerFilter
+
 summary: Peaking Parametric Equalizer
 
 four-letter-code: peq0

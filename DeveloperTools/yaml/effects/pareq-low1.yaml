@@ -4,6 +4,8 @@ sp-module: pareq
 
 node: AKLowShelfParametricEqualizerFilter
 
+akalias: lowShelfParametricEqualizerFilter
+
 summary: Low Shelf Parametric Equalizer
 
 four-letter-code: peq1

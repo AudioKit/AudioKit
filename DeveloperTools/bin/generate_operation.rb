@@ -22,7 +22,7 @@ def ak_pad(var)
 end
 
 def wrap(str, indent="")
-	ActionView::Base.new.word_wrap(str).gsub("\n", "\n " + indent)
+	ActionView::Base.new.word_wrap(str, :line_width => 76).gsub("\n", "\n" + indent + "/// " )
 end
 
 ################
@@ -37,7 +37,7 @@ node                = o["node"]
 akalias             = o["akalias"]
 four_letter_code    = o["four-letter-code"]
 one_word_desc       = o["one-word-description"]
-description         = wrap(o["description"])
+description         = wrap(o["description"], "    ")
 summary             = o["summary"]
 inputs	            = o["inputs"].to_a
 tables              = o["tables"].to_a
@@ -68,30 +68,30 @@ FileUtils.mkdir_p(output_folder) unless File.directory?(output_folder)
 File.open("templates/AKOperation.swift.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
 	File.open("#{output_folder}/#{akalias}.swift", 'w+') {|f| f.write(erb.result) }
-	puts erb.result
+	# puts erb.result
 }
 
 
-puts "presets:"
-puts "- name: {"
-puts "  comment: \"\","
+# puts "presets:"
+# puts "- name: {"
+# puts "  comment: \"\","
 
-if parameters.count > 0
-	puts "  parameters: {"
-	parameters.each do |p|
-		p.each do |sp_var, data|
-			puts "    " + data["ak-variable"].to_s + ": value,"
-		end
-	end
-	puts "  },"
-end
-if constants.count > 0
-	puts "  constants: {"
-	constants.each do |p|
-		p.each do |sp_var, data|
-			puts "    " + data["ak-variable"].to_s + ": value,"
-		end
-	end
-	puts "  }"
-end
-puts "}"
+# if parameters.count > 0
+# 	puts "  parameters: {"
+# 	parameters.each do |p|
+# 		p.each do |sp_var, data|
+# 			puts "    " + data["ak-variable"].to_s + ": value,"
+# 		end
+# 	end
+# 	puts "  },"
+# end
+# if constants.count > 0
+# 	puts "  constants: {"
+# 	constants.each do |p|
+# 		p.each do |sp_var, data|
+# 			puts "    " + data["ak-variable"].to_s + ": value,"
+# 		end
+# 	end
+# 	puts "  }"
+# end
+# puts "}"

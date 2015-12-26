@@ -4,6 +4,8 @@ sp-module: vdelay
 
 node: AKVariableDelay
 
+akalias: variableDelay
+
 summary: A variable delay line
 
 four-letter-code: vdla

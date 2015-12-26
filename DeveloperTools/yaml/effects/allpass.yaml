@@ -2,7 +2,7 @@ installation-directory: "Effects/Reverb/"
 
 sp-module: allpass
 
-akalias: flatFrequencyResponseReverb
+akalias: reverberateWithFlatFrequencyResponse
 
 node: AKFlatFrequencyResponseReverb
 
@@ -30,8 +30,8 @@ parameters:
   au-name: "Reverb Duration (Seconds)",
   au-unit: Seconds,
   default: 0.5,
-  minimum: 0.0,
-  maximum: 10.0
+  minimum: 0,
+  maximum: 10
 }
 
 constants:
@@ -41,7 +41,7 @@ constants:
   au-name: "Loop Duration (Seconds)",
   au-unit: Seconds,
   default: 0.1,
-  minimum: 0.0,
-  maximum: 1.0
+  minimum: 0,
+  maximum: 1
 }
 

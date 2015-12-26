@@ -2,7 +2,7 @@ installation-directory: "Effects/Reverb/"
 
 sp-module: revsc
 
-akalias: costelloReverb
+akalias: reverberateWithCostello
 
 inputCount: 2
 outputCount: 2
