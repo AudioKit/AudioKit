@@ -7,7 +7,7 @@ public var kDistortionParam_Decay: AudioUnitParameterID { get }
 // Global, Percent, 0 -> 100, 50
 public var kDistortionParam_DelayMix: AudioUnitParameterID { get }
 
-// Global, Percent, 0 -> 100
+// Global, Percent, 0 -> 100, 50
 public var kDistortionParam_Decimation: AudioUnitParameterID { get }
 // Global, Percent, 0 -> 100, 0
 public var kDistortionParam_Rounding: AudioUnitParameterID { get }

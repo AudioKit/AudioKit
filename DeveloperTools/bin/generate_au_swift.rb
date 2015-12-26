@@ -67,17 +67,17 @@ end
 File.open("templates/AKAUNode.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
     File.open("output/AK#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
-    puts erb.result
+    # puts erb.result
 }
 
 File.open("templates/AKNodeWindow.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    File.open("../AudioKit/OSX/AudioKit/Playgrounds/Helpers/AK#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
-    puts erb.result
+    # File.open("../AudioKit/OSX/AudioKit/Playgrounds/Helpers/AK#{au_name}Window.swift", 'w+') {|f| f.write(erb.result) }
+    # puts erb.result
 }
 
 File.open("templates/AKNode.playground.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    File.open("output/AK#{au_name}.playground", 'w+') {|f| f.write(erb.result) }
-    puts erb.result
+    # File.open("output/AK#{au_name}.playground", 'w+') {|f| f.write(erb.result) }
+    # puts erb.result
 }
