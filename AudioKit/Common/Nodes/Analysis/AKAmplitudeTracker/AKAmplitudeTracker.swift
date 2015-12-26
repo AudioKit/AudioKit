@@ -8,8 +8,8 @@
 
 import AVFoundation
 
-/** Performs a "root-mean-square" on a signal to get overall amplitude of a signal.
- The output signal looks similar to that of a classic VU meter. */
+/// Performs a "root-mean-square" on a signal to get overall amplitude of a signal.
+/// The output signal looks similar to that of a classic VU meter.
 public struct AKAmplitudeTracker: AKNode {
 
     // MARK: - Properties
@@ -23,7 +23,7 @@ public struct AKAmplitudeTracker: AKNode {
 
     private var halfPowerPointParameter: AUParameter?
 
-    /** Half-power point (in Hz) of internal lowpass filter. */
+    /// Half-power point (in Hz) of internal lowpass filter.
     public var halfPowerPoint: Double = 10 {
         didSet {
             halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
@@ -37,7 +37,7 @@ public struct AKAmplitudeTracker: AKNode {
 
     // MARK: - Initializers
 
-    /** Initialize this amplitude node */
+    /// Initialize this amplitude 
     public init(
         _ input: AKNode,
         halfPowerPoint: Double = 10) {

@@ -8,33 +8,47 @@
 
 import AVFoundation
 
-/** This filter reiterates the input with an echo density determined by loop time.
- The attenuation rate is independent and is determined by the reverberation time
- (defined as the time in seconds for a signal to decay to 1/1000, or 60dB down
- from its original amplitude).  Output will begin to appear immediately. */
+/// This filter reiterates the input with an echo density determined by loop
+/// time. The attenuation rate is independent and is determined by the
+/// reverberation time (defined as the time in seconds for a signal to decay to
+/// 1/1000, or 60dB down from its original amplitude).  Output will begin to
+/// appear immediately.
+///
+/// - parameter input: Input node to process
+/// - parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from
+/// its original amplitude.
+/// - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as
+/// the delay time or “echo density” of the reverberation.
+///
 public struct AKFlatFrequencyResponseReverb: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var reverbDurationParameter: AUParameter?
 
-    /** The duration in seconds for a signal to decay to 1/1000, or 60dB down from its
-     original amplitude. */
+    /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
     public var reverbDuration: Double = 0.5 {
         didSet {
             reverbDurationParameter?.setValue(Float(reverbDuration), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this reverb node */
+    /// Initialize this reverb node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from
+    /// its original amplitude.
+    /// - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as
+    /// the delay time or “echo density” of the reverberation.
+    ///
     public init(
         _ input: AKNode,
         reverbDuration: Double = 0.5,

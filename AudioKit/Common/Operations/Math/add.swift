@@ -9,31 +9,25 @@
 import Foundation
 
 extension AKParameter {
-    /** Addition/Summation of operations
-
-     - returns: AKOperation
-     - parameter parameter: The amount to add
-     */
+    /// Addition/Summation of operations
+    ///  - returns: AKOperation
+    ///  - parameter parameter: The amount to add
     public func plus(parameter: AKParameter) -> AKOperation {
         return AKOperation("(\(self) \(parameter) +)")
     }
-
-    /** Offsetting by way of addition
-
-     - returns: AKOperation
-     - parameter parameter: The amount to offset by
-     */
+    
+    /// Offsetting by way of addition
+    /// - returns: AKOperation
+    /// - parameter parameter: The amount to offset by
     public func offsetBy(parameter: AKParameter) -> AKOperation {
         return self.plus(parameter)
     }
 }
 
-/** Helper function for addition
-
-- returns: AKOperation
-- left: 1st parameter
-- right: 2nd parameter
-*/
+/// Helper function for addition
+/// - returns: AKOperation
+/// - left: 1st parameter
+/// - right: 2nd parameter
 public func +(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.plus(right)
 }

@@ -10,21 +10,21 @@ import Foundation
 
 extension AKOperation {
 
-    /** Pink noise generator - Faust-based pink noise generator
-
-     - returns: AKOperation
-     - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 1)
-     */
+    /// Pink noise generator - Faust-based pink noise generator
+    ///
+    /// - returns: AKOperation
+    /// - parameter amplitude: Output amplitude. (Default: 1, Minimum: 0, Maximum: 1)
+    ///
     public static func pinkNoise(amplitude amplitude: AKParameter = 1) -> AKOperation {
             return AKOperation("(\(amplitude) pinknoise)")
     }
 }
 
-/** Pink noise generator - Faust-based pink noise generator
-
-- returns: AKOperation
-- parameter amplitude: Amplitude. (Value between 0-1). (Default: 1, Minimum: 0, Maximum: 1)
-*/
+/// Pink noise generator - Faust-based pink noise generator
+///
+/// - returns: AKOperation
+/// - parameter amplitude: Output amplitude. (Default: 1, Minimum: 0, Maximum: 1)
+///
 public func pinkNoise(amplitude amplitude: AKParameter = 1) -> AKOperation {
         return AKOperation.pinkNoise(amplitude: amplitude)
 }
