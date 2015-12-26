@@ -2,7 +2,7 @@ installation-directory: "Analysis/"
 
 sp-module: rms
 
-node: AKTrackedAmplitude
+node: AKAmplitudeTracker
 
 summary: Tracked Amplitude of an audio signal
 

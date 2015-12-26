@@ -11,7 +11,7 @@ four-letter-code: wnoz
 
 one-word-description: noise
 
-description: ""
+description: White noise generator
 
 parameters:
 - amp: {

@@ -34,7 +34,7 @@ parameters:
 }
 - arg: {
   ak-variable: clippingStartPoint,
-  comment: "When meth is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.",
+  comment: "When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.",
   au-name: "Clip start point",
   au-unit: Generic,
   default: 0.5,

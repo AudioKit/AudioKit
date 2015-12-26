@@ -31,7 +31,7 @@ constants:
   maximum: 20000
 }
 - max: {
-  ak-variable: maximumFrequency ,
+  ak-variable: maximumFrequency,
   comment: "Maximum expected frequency to detect",
   au-name: "Maximum Frequency (Hz)",
   au-unit: Hertz,
