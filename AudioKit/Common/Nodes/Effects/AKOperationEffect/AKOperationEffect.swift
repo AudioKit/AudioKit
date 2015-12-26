@@ -26,40 +26,40 @@ public struct AKOperationEffect: AKNode {
     
     // MARK: - Initializers
     
-    /** Initialize the effect with an input and an operation
-    
-    - parameter input: AKNode to use for processing
-    - parameter operation: AKOperation stack to use
-    */
+    /// Initialize the effect with an input and an operation
+    ///
+    /// - parameter input: AKNode to use for processing
+    /// - parameter operation: AKOperation stack to use
+    ///
     public init(_ input: AKNode, operation: AKOperation) {
         // add "dup" to copy the left channel output to the right channel output
         self.init(input, sporth:"\(operation) dup")
     }
     
-    /** Initialize the effect with an input and a stereo operation
-     
-     - parameter input: AKNode to use for processing
-     - parameter stereoOperation: AKStereoOperation stack to use
-     */
+    /// Initialize the effect with an input and a stereo operation
+    ///
+    /// - parameter input: AKNode to use for processing
+    /// - parameter stereoOperation: AKStereoOperation stack to use
+    ///
     public init(_ input: AKNode, stereoOperation: AKStereoOperation) {
         self.init(input, sporth:"\(stereoOperation) swap")
     }
     
-    /** Initialize the effect with an input and separate operations for each channel
-     
-     - parameter input: AKNode to use for processing
-     - parameter left: AKOperation stack to use on the left
-     - parameter right: AKOperation stack to use on the right
-     */
+    /// Initialize the effect with an input and separate operations for each channel
+    ///
+    /// - parameter input: AKNode to use for processing
+    /// - parameter left: AKOperation stack to use on the left
+    /// - parameter right: AKOperation stack to use on the right
+    ///
     public init(_ input: AKNode, left: AKOperation, right: AKOperation) {
         self.init(input, sporth:"\(left) swap \(right) swap")
     }
     
-    /** Initialize the effect with an input and a valid Sporth string
-     
-     - parameter input: AKNode to use for processing
-     - parameter sporth: String of valid Sporth code
-     */
+    /// Initialize the effect with an input and a valid Sporth string
+    ///
+    /// - parameter input: AKNode to use for processing
+    /// - parameter sporth: String of valid Sporth code
+    ///
     public init(_ input: AKNode, sporth: String) {
 
         var description = AudioComponentDescription()
