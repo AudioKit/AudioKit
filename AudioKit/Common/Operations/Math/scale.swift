@@ -10,24 +10,14 @@ import Foundation
 
 extension AKOperation {
 
-    /** This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
 
-     - parameter minimum: Minimum value to scale to. (Default: 0, Minimum: -1000000, Maximum: 1000000)
-     - parameter maximum: Maximum value to scale to. (Default: 1, Minimum: -1000000, Maximum: 1000000)
-     */
-    public mutating func scale(
-        minimum minimum: AKParameter = 0,
-        maximum: AKParameter = 1) {
-            self = self.scaledTo(minimum: minimum, maximum: maximum)
-    }
-
-    /** This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
-
-     - returns: AKOperation
-     - parameter minimum: Minimum value to scale to. (Default: 0)
-     - parameter maximum: Maximum value to scale to. (Default: 1)
-     */
-    public func scaledTo(
+    /// This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
+    ///
+    /// - returns: AKOperation
+    /// - parameter minimum: Minimum value to scale to. (Default: 0)
+    /// - parameter maximum: Maximum value to scale to. (Default: 1)
+    ///
+    public func scale(
         minimum minimum: AKParameter = 0,
         maximum: AKParameter = 1
         ) -> AKOperation {
