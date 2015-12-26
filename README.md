@@ -12,7 +12,9 @@ If you release an app that uses AudioKit, please feel free to add it to the list
 
 * [Guitar Score Trainer](https://itunes.apple.com/us/app/guitar-score-trainer-lite/id1008613919?mt=8&ign-mpt=uo%3D4)
 * [Well Tempered](https://itunes.apple.com/us/app/well-tempered/id303514313?mt=8#)
-* [VR TOEIC] (https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=975407337)
+* [VR TOEIC](https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=975407337)
+* [Howl: A Formant Synthesizer](https://itunes.apple.com/us/app/howl-a-formant-synthesizer/id1067562312)
+* [Hearing Test & Ear Age Test](https://itunes.apple.com/us/app/hearing-test-ear-age-test/id1067630100?mt=8)
 
 The "AudioKit" subfolder
 ------------------------
