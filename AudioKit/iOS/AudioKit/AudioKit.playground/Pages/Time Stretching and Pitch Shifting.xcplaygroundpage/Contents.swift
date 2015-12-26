@@ -17,7 +17,7 @@ var timePitch = AKTimePitch(player)
 
 //: Set the parameters of the Peak Limiter here
 timePitch.rate = 2.0 // rate
-timePitch.pitch = 0.5 // Cents
+timePitch.pitch = -400 // Cents
 timePitch.overlap = 8.0 // generic
 
 audiokit.audioOutput = timePitch
