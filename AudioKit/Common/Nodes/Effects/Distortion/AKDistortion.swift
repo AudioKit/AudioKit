@@ -8,7 +8,26 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's Distortion Audio Unit */
+/// AudioKit version of Apple's Distortion Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter delay: Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
+/// - parameter decay: Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
+/// - parameter delayMix: Delay Mix (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter decimation: Decimation (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
+/// - parameter decimationMix: Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter linearTerm: Linear Term (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter squaredTerm: Squared Term (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter cubicTerm: Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter polynomialMix: Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter ringModFreq1: Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
+/// - parameter ringModFreq2: Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
+/// - parameter ringModBalance: Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
+/// - parameter ringModMix: Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
+/// - parameter softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
+/// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
+///
 public struct AKDistortion: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +37,11 @@ public struct AKDistortion: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1) */
+    
+    /// Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
     public var delay: Double = 0.1 {
         didSet {
             if delay < 0.1 {
@@ -41,7 +58,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Decay (Rate) ranges from 0.1 to 50 (Default: 1.0) */
+    /// Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
     public var decay: Double = 1.0 {
         didSet {
             if decay < 0.1 {
@@ -58,7 +75,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Delay Mix (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Delay Mix (Percent) ranges from 0 to 100 (Default: 50)
     public var delayMix: Double = 50 {
         didSet {
             if delayMix < 0 {
@@ -75,7 +92,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Decimation (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
     public var decimation: Double = 50 {
         didSet {
             if decimation < 0 {
@@ -92,7 +109,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Rounding (Percent) ranges from 0 to 100 (Default: 0) */
+    /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
     public var rounding: Double = 0 {
         didSet {
             if rounding < 0 {
@@ -109,7 +126,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Decimation Mix (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
     public var decimationMix: Double = 50 {
         didSet {
             if decimationMix < 0 {
@@ -126,7 +143,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Linear Term (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Linear Term (Percent) ranges from 0 to 100 (Default: 50)
     public var linearTerm: Double = 50 {
         didSet {
             if linearTerm < 0 {
@@ -143,7 +160,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Squared Term (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Squared Term (Percent) ranges from 0 to 100 (Default: 50)
     public var squaredTerm: Double = 50 {
         didSet {
             if squaredTerm < 0 {
@@ -160,7 +177,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Cubic Term (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
     public var cubicTerm: Double = 50 {
         didSet {
             if cubicTerm < 0 {
@@ -177,7 +194,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
     public var polynomialMix: Double = 50 {
         didSet {
             if polynomialMix < 0 {
@@ -194,7 +211,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
+    /// Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     public var ringModFreq1: Double = 100 {
         didSet {
             if ringModFreq1 < 0.5 {
@@ -211,7 +228,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100) */
+    /// Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     public var ringModFreq2: Double = 100 {
         didSet {
             if ringModFreq2 < 0.5 {
@@ -228,7 +245,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
     public var ringModBalance: Double = 50 {
         didSet {
             if ringModBalance < 0 {
@@ -245,7 +262,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0) */
+    /// Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
     public var ringModMix: Double = 0 {
         didSet {
             if ringModMix < 0 {
@@ -262,7 +279,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6) */
+    /// Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
     public var softClipGain: Double = -6 {
         didSet {
             if softClipGain < -80 {
@@ -279,7 +296,7 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Final Mix (Percent) ranges from 0 to 100 (Default: 50) */
+    /// Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     public var finalMix: Double = 50 {
         didSet {
             if finalMix < 0 {
@@ -296,7 +313,26 @@ public struct AKDistortion: AKNode {
         }
     }
     
-    /** Initialize the distortion node */
+    /// Initialize the distortion node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter delay: Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
+    /// - parameter decay: Decay (Rate) ranges from 0.1 to 50 (Default: 1.0)
+    /// - parameter delayMix: Delay Mix (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter decimation: Decimation (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
+    /// - parameter decimationMix: Decimation Mix (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter linearTerm: Linear Term (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter squaredTerm: Squared Term (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter cubicTerm: Cubic Term (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter polynomialMix: Polynomial Mix (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter ringModFreq1: Ring Mod Freq1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
+    /// - parameter ringModFreq2: Ring Mod Freq2 (Hertz) ranges from 0.5 to 8000 (Default: 100)
+    /// - parameter ringModBalance: Ring Mod Balance (Percent) ranges from 0 to 100 (Default: 50)
+    /// - parameter ringModMix: Ring Mod Mix (Percent) ranges from 0 to 100 (Default: 0)
+    /// - parameter softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
+    /// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
+    ///
     public init(
         _ input: AKNode,
         delay: Double = 0.1,

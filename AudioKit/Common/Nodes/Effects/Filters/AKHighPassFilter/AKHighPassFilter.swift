@@ -8,7 +8,12 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's HighPassFilter Audio Unit */
+/// AudioKit version of Apple's HighPassFilter Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
+/// - parameter resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
+///
 public struct AKHighPassFilter: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +23,11 @@ public struct AKHighPassFilter: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900) */
+    
+    /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
     public var cutoffFrequency: Double = 6900 {
         didSet {
             if cutoffFrequency < 10 {
@@ -41,7 +44,7 @@ public struct AKHighPassFilter: AKNode {
         }
     }
     
-    /** Resonance (dB) ranges from -20 to 40 (Default: 0) */
+    /// Resonance (dB) ranges from -20 to 40 (Default: 0)
     public var resonance: Double = 0 {
         didSet {
             if resonance < -20 {
@@ -58,7 +61,12 @@ public struct AKHighPassFilter: AKNode {
         }
     }
     
-    /** Initialize the high pass filter node */
+    /// Initialize the high pass filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
+    /// - parameter resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
+    ///
     public init(
         _ input: AKNode,
         cutoffFrequency: Double = 6900,

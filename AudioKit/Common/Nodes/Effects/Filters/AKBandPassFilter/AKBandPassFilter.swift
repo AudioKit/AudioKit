@@ -8,7 +8,12 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's BandPassFilter Audio Unit */
+/// AudioKit version of Apple's BandPassFilter Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
+/// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
+///
 public struct AKBandPassFilter: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +23,11 @@ public struct AKBandPassFilter: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000) */
+    
+    /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
     public var centerFrequency: Double = 5000 {
         didSet {
             if centerFrequency < 20 {
@@ -41,7 +44,7 @@ public struct AKBandPassFilter: AKNode {
         }
     }
     
-    /** Bandwidth (Cents) ranges from 100 to 12000 (Default: 600) */
+    /// Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     public var bandwidth: Double = 600 {
         didSet {
             if bandwidth < 100 {
@@ -58,7 +61,12 @@ public struct AKBandPassFilter: AKNode {
         }
     }
     
-    /** Initialize the band pass filter node */
+    /// Initialize the band pass filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
+    /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
+    ///
     public init(
         _ input: AKNode,
         centerFrequency: Double = 5000,

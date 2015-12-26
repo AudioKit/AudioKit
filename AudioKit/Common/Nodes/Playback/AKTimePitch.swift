@@ -8,15 +8,21 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's TimePitch Audio Unit */
+/// AudioKit version of Apple's TimePitch Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter rate: Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
+/// - parameter pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
+/// - parameter overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
+///
 public struct AKTimePitch: AKNode {
     
     private let timePitchAU = AVAudioUnitTimePitch()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-        
-    /** Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0) */
+    
+    /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     public var rate: Double = 1.0 {
         didSet {
             if rate < 0.03125 {
@@ -29,7 +35,7 @@ public struct AKTimePitch: AKNode {
         }
     }
     
-    /** Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0) */
+    /// Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
     public var pitch: Double = 1.0 {
         didSet {
             if pitch < -2400 {
@@ -42,7 +48,7 @@ public struct AKTimePitch: AKNode {
         }
     }
     
-    /** Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0) */
+    /// Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     public var overlap: Double = 8.0 {
         didSet {
             if overlap < 3.0 {
@@ -55,7 +61,13 @@ public struct AKTimePitch: AKNode {
         }
     }
     
-    /** Initialize the time pitch node */
+    /// Initialize the time pitch node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter rate: Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
+    /// - parameter pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
+    /// - parameter overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
+    ///
     public init(
         _ input: AKNode,
         rate: Double = 1.0,
