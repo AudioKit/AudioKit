@@ -9,31 +9,31 @@
 import Foundation
 
 extension AKParameter {
-    /** Multiplication of parameters
-
-     - returns: AKOperation
-     - parameter parameter: The amount to multiply
-     */
+    /// Multiplication of parameters
+    ///
+    /// - returns: AKOperation
+    /// - parameter parameter: The amount to multiply
+    ///
     public func times(parameter: AKParameter) -> AKOperation {
         return AKOperation("(\(self) \(parameter) *)")
     }
 
-    /** Offsetting by way of multiplication
-
-     - returns: AKOperation
-     - parameter parameter: The amount to scale by
-     */
+    /// Offsetting by way of multiplication
+    ///
+    /// - returns: AKOperation
+    /// - parameter parameter: The amount to scale by
+    ///
     public func scaledBy(parameter: AKParameter) -> AKOperation {
         return self.times(parameter)
     }
 }
 
-/** Helper function for Multiplication
-
- - returns: AKOperation
- - left: 1st parameter
- - right: 2nd parameter
- */
+/// Helper function for Multiplication
+///
+/// - returns: AKOperation
+/// - left: 1st parameter
+/// - right: 2nd parameter
+///
 public func *(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.times(right)
 }

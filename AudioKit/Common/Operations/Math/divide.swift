@@ -9,22 +9,22 @@
 import Foundation
 
 extension AKParameter {
-    /** Division of parameters
-
-     - returns: AKOperation
-     - parameter parameter: The amount to divide
-     */
+    /// Division of parameters
+    ///
+    /// - returns: AKOperation
+    /// - parameter parameter: The amount to divide
+    ///
     public func dividedBy(parameter: AKParameter) -> AKOperation {
         return AKOperation("(\(self) \(parameter) /)")
     }
 }
 
-/** Helper function for Division
-
- - returns: AKOperation
- - parameter left: 1st parameter
- - parameter right: 2nd parameter
- */
+/// Helper function for Division
+///
+/// - returns: AKOperation
+/// - parameter left: 1st parameter
+/// - parameter right: 2nd parameter
+///
 public func /(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.dividedBy(right)
 }
