@@ -8,8 +8,8 @@
 
 import AVFoundation
 
-/** This tracks the pitch of signal using the AMDF (Average Magnitude Difference
- Function) method of Pitch following. */
+/// This tracks the pitch of signal using the 
+/// AMDF (Average Magnitude Difference Function) method of pitch following.
 public struct AKFrequencyTracker: AKNode {
 
     // MARK: - Properties
@@ -30,9 +30,13 @@ public struct AKFrequencyTracker: AKNode {
         return Double(self.internalAU!.getFrequency()) * 2.0
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this Pitch-detection node */
+    /// Initialize this Pitch-detection node 
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter minimumFrequency: Lower bound of frequency detection
+    /// - parameter maximumFrequency: Upper bound of frequency detection
     public init(_ input: AKNode, minimumFrequency: Double, maximumFrequency: Double) {
 
         var description = AudioComponentDescription()

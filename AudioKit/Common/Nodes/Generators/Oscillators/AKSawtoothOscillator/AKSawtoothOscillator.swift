@@ -8,38 +8,45 @@
 
 import AVFoundation
 
-/** Bandlimited sawtooth oscillator This is a bandlimited sawtooth oscillator ported
- from the "sawtooth" function from the Faust programming language. */
+/// Bandlimited sawtooth oscillator This is a bandlimited sawtooth oscillator
+/// ported from the "sawtooth" function from the Faust programming language.
+///
+/// - parameter frequency: In cycles per second, or Hz.
+/// - parameter amplitude: Output Amplitude.
+///
 public struct AKSawtoothOscillator: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AKSawtoothOscillatorAudioUnit?
-    
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKSawtoothOscillatorAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
-    /** In cycles per second, or Hz. */
+    /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         didSet {
             frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
-    /** Output Amplitude. */
+    /// Output Amplitude.
     public var amplitude: Double = 0.5 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this sawtooth node */
+    /// Initialize this sawtooth node
+    ///
+    /// - parameter frequency: In cycles per second, or Hz.
+    /// - parameter amplitude: Output Amplitude.
+    ///
     public init(
         frequency: Double = 440,
         amplitude: Double = 0.5) {
@@ -64,17 +71,18 @@ public struct AKSawtoothOscillator: AKNode {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKSawtoothOscillatorAudioUnit
+            self.avAudioNode = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKSawtoothOscillatorAudioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
         frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-        amplitudeParameter     = tree.valueForKey("amplitude")     as? AUParameter
+        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in

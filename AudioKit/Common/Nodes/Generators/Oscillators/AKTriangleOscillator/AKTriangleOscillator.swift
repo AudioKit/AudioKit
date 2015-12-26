@@ -8,39 +8,45 @@
 
 import AVFoundation
 
-/** Bandlimited triangleoscillator This is a bandlimited triangle oscillator ported
- from the "triangle" function from the Faust programming language. */
+/// Bandlimited triangleoscillator This is a bandlimited triangle oscillator
+/// ported from the "triangle" function from the Faust programming language.
+///
+/// - parameter frequency: In cycles per second, or Hz.
+/// - parameter amplitude: Output Amplitude.
+///
 public struct AKTriangleOscillator: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AKTriangleOscillatorAudioUnit?
-    
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKTriangleOscillatorAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
-    /** In cycles per second, or Hz. */
+    /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         didSet {
             frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
-    /** Output Amplitude. */
+    /// Output Amplitude.
     public var amplitude: Double = 0.5 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
+    // MARK: - Initialization
 
-    // MARK: - Initializers
-
-    /** Initialize this oscillator node */
+    /// Initialize this oscillator node
+    ///
+    /// - parameter frequency: In cycles per second, or Hz.
+    /// - parameter amplitude: Output Amplitude.
+    ///
     public init(
         frequency: Double = 440,
         amplitude: Double = 0.5) {
@@ -65,10 +71,11 @@ public struct AKTriangleOscillator: AKNode {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTriangleOscillatorAudioUnit
+            self.avAudioNode = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKTriangleOscillatorAudioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         }
 
@@ -87,8 +94,8 @@ public struct AKTriangleOscillator: AKNode {
                     self.amplitude = Double(value)
                 }
             }
-            }
-            frequencyParameter?.setValue(Float(frequency), originator: token!)
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+        }
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 }

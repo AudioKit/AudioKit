@@ -8,32 +8,37 @@
 
 import AVFoundation
 
-/**  */
+/// White noise generator
+///
+/// - parameter amplitude: Amplitude. (Value between 0-1).
+///
 public struct AKWhiteNoise: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AKWhiteNoiseAudioUnit?
-    
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKWhiteNoiseAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var amplitudeParameter: AUParameter?
 
-    /** Amplitude. (Value between 0-1). */
-    public var amplitude = 1.0 {
+    /// Amplitude. (Value between 0-1).
+    public var amplitude: Double = 1.0 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this noise node */
+    /// Initialize this noise node
+    ///
+    /// - parameter amplitude: Amplitude. (Value between 0-1).
+    ///
     public init(amplitude: Double = 1.0) {
-        
+
         self.amplitude = amplitude
 
         var description = AudioComponentDescription()
@@ -43,13 +48,13 @@ public struct AKWhiteNoise: AKNode {
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
-        self.avAudioNode = AVAudioNode()
         AUAudioUnit.registerSubclass(
             AKWhiteNoiseAudioUnit.self,
             asComponentDescription: description,
             name: "Local AKWhiteNoise",
             version: UInt32.max)
 
+        self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
@@ -57,11 +62,12 @@ public struct AKWhiteNoise: AKNode {
 
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKWhiteNoiseAudioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            
         }
 
         guard let tree = internalAU?.parameterTree else { return }
+
         amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {

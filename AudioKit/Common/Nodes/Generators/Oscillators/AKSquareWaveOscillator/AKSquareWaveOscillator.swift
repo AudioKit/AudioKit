@@ -8,45 +8,54 @@
 
 import AVFoundation
 
-/** This is a bandlimited square oscillator ported from the "square" function from
- the Faust programming language. */
+/// This is a bandlimited square oscillator ported from the "square" function
+/// from the Faust programming language.
+///
+/// - parameter frequency: In cycles per second, or Hz.
+/// - parameter amplitude: Output amplitude
+/// - parameter pulseWidth: Duty cycle width (range 0-1).
+///
 public struct AKSquareWaveOscillator: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AKSquareWaveOscillatorAudioUnit?
-    
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKSquareWaveOscillatorAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
     private var pulseWidthParameter: AUParameter?
 
-    /** In cycles per second, or Hz. */
+    /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         didSet {
             frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
-    /** Output amplitude */
+    /// Output amplitude
     public var amplitude: Double = 1.0 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
-    /** Duty cycle width (range 0-1). */
+    /// Duty cycle width (range 0-1).
     public var pulseWidth: Double = 0.5 {
         didSet {
             pulseWidthParameter?.setValue(Float(pulseWidth), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this oscillator node */
+    /// Initialize this oscillator node
+    ///
+    /// - parameter frequency: In cycles per second, or Hz.
+    /// - parameter amplitude: Output amplitude
+    /// - parameter pulseWidth: Duty cycle width (range 0-1).
+    ///
     public init(
         frequency: Double = 440,
         amplitude: Double = 1.0,
@@ -73,10 +82,11 @@ public struct AKSquareWaveOscillator: AKNode {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKSquareWaveOscillatorAudioUnit
+            self.avAudioNode = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKSquareWaveOscillatorAudioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         }
 

@@ -8,17 +8,23 @@
 
 import AVFoundation
 
-/** Classic FM Synthesis audio generation. */
+/// Classic FM Synthesis audio generation.
+///
+/// - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+/// - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
+/// - parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
+/// - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
+/// - parameter amplitude: Output Amplitude.
+///
 public struct AKFMOscillator: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AKFMOscillatorAudioUnit?
-    
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKFMOscillatorAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var baseFrequencyParameter: AUParameter?
     private var carrierMultiplierParameter: AUParameter?
@@ -26,40 +32,47 @@ public struct AKFMOscillator: AKNode {
     private var modulationIndexParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
-    /** In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies. */
+    /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
     public var baseFrequency: Double = 440 {
         didSet {
             baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
         }
     }
-    /** This multiplied by the baseFrequency gives the carrier frequency. */
+    /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
         didSet {
             carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
         }
     }
-    /** This multiplied by the baseFrequency gives the modulating frequency. */
+    /// This multiplied by the baseFrequency gives the modulating frequency.
     public var modulatingMultiplier: Double = 1.0 {
         didSet {
             modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
         }
     }
-    /** This multiplied by the modulating frequency gives the modulation amplitude. */
+    /// This multiplied by the modulating frequency gives the modulation amplitude.
     public var modulationIndex: Double = 1.0 {
         didSet {
             modulationIndexParameter?.setValue(Float(modulationIndex), originator: token!)
         }
     }
-    /** Output Amplitude. */
+    /// Output Amplitude.
     public var amplitude: Double = 0.5 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this oscillator node */
+    /// Initialize this oscillator node
+    ///
+    /// - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+    /// - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
+    /// - parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
+    /// - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
+    /// - parameter amplitude: Output Amplitude.
+    ///
     public init(
         table: AKTable = AKTable(.Sine),
         baseFrequency: Double = 440,
@@ -86,15 +99,16 @@ public struct AKFMOscillator: AKNode {
             asComponentDescription: description,
             name: "Local AKFMOscillator",
             version: UInt32.max)
-        
+
         self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
-            
+
             guard let avAudioUnitGenerator = avAudioUnit else { return }
-            
+
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupTable(Int32(table.size))
             for var i = 0; i < table.size; i++ {
@@ -103,7 +117,7 @@ public struct AKFMOscillator: AKNode {
         }
 
         guard let tree = internalAU?.parameterTree else { return }
-            
+
         baseFrequencyParameter        = tree.valueForKey("baseFrequency")        as? AUParameter
         carrierMultiplierParameter    = tree.valueForKey("carrierMultiplier")    as? AUParameter
         modulatingMultiplierParameter = tree.valueForKey("modulatingMultiplier") as? AUParameter
@@ -127,7 +141,6 @@ public struct AKFMOscillator: AKNode {
                 }
             }
         }
-        
         baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
         carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
         modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
