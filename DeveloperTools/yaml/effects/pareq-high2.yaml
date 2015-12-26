@@ -4,6 +4,8 @@ sp-module: pareq
 
 node: AKHighShelfParametricEqualizerFilter
 
+akalias: highShelfParametricEqualizerFilter
+
 summary: High Shelf Parametric Equalizer
 
 four-letter-code: peq2

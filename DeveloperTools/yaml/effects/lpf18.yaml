@@ -4,6 +4,8 @@ sp-module: lpf18
 
 node: AKThreePoleLowpassFilter
 
+akalias: threePoleLowPassFilter
+
 summary: A 3-pole sweepable resonant lowpass filter.
 
 four-letter-code: lp18

@@ -6,6 +6,8 @@ node: AKFormantFilter
 
 summary: Formant filter
 
+akalias: formantFilter
+
 four-letter-code: fofi
 
 one-word-description: filter

@@ -6,6 +6,8 @@ node: AKRolandTB303Filter
 
 summary: "Emulation of the Roland TB-303 filter"
 
+akalias: rolandTB303Filter
+
 four-letter-code: tb3f
 
 one-word-description: filter

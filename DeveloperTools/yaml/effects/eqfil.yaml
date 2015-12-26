@@ -4,6 +4,8 @@ sp-module: eqfil
 
 node: AKEqualizerFilter
 
+akalias: equalizerFilter
+
 summary: A 2nd order tunable equalization filter
 
 four-letter-code: eqfl
