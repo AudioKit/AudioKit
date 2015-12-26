@@ -13,11 +13,13 @@ let audiokit = AKManager.sharedInstance
 let sine = sineWave(frequency: 1)
 let square = squareWave(frequency: 1.64)
 let square2 = squareWave(frequency: sine, amplitude: sine, pulseWidth: sine)
+
 let freq  = sine.scaledTo(minimum: 900, maximum: 200)
 let car   = square.scaledTo(minimum: 1.2, maximum: 1.4)
 let mod   = square.scaledTo(minimum: 1,   maximum: 3)
 let index = square2 * 3 + 5
-let oscillator = fmOscillator(
+
+let oscillator = AKOperation.fmOscillator(
     baseFrequency: freq,
     carrierMultiplier: car,
     modulatingMultiplier: mod,
@@ -25,7 +27,7 @@ let oscillator = fmOscillator(
     amplitude: 0.5)
 
 //: Set up the nodes
-let generator = AKOperationGenerator(stereoOperation: oscillator.panned(sine))
+let generator = AKOperationGenerator(stereoOperation: oscillator.pan(sine))
 let delay1 = AKDelay(generator,
     time: 0.01, feedback: 99, lowPassCutoff: 0, dryWetMix: 50)
 let delay2 = AKDelay(delay1,
