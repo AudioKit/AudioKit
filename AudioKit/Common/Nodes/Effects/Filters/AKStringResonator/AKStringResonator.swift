@@ -8,42 +8,51 @@
 
 import AVFoundation
 
-/** AKStringResonator passes the input through a network composed of comb, low-pass
- and all-pass filters, similar to the one used in some versions of the
- Karplus-Strong algorithm, creating a string resonator effect. The fundamental
- frequency of the “string” is controlled by the fundamentalFrequency.  This
- operation can be used to simulate sympathetic resonances to an input signal. */
+/// AKStringResonator passes the input through a network composed of comb,
+/// low-pass and all-pass filters, similar to the one used in some versions of
+/// the Karplus-Strong algorithm, creating a string resonator effect. The
+/// fundamental frequency of the “string” is controlled by the
+/// fundamentalFrequency.  This operation can be used to simulate sympathetic
+/// resonances to an input signal.
+///
+/// - parameter input: Input node to process
+/// - parameter fundamentalFrequency: Fundamental frequency of string.
+/// - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+///
 public struct AKStringResonator: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKStringResonatorAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKStringResonatorAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var fundamentalFrequencyParameter: AUParameter?
     private var feedbackParameter: AUParameter?
 
-    /** Fundamental frequency of string. */
+    /// Fundamental frequency of string.
     public var fundamentalFrequency: Double = 100 {
         didSet {
             fundamentalFrequencyParameter?.setValue(Float(fundamentalFrequency), originator: token!)
         }
     }
-    /** Feedback amount (value between 0-1). A value close to 1 creates a slower decay
-     and a more pronounced resonance. Small values may leave the input signal
-     unaffected. Depending on the filter frequency, typical values are > .9. */
+    /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     public var feedback: Double = 0.95 {
         didSet {
             feedbackParameter?.setValue(Float(feedback), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter fundamentalFrequency: Fundamental frequency of string.
+    /// - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+    ///
     public init(
         _ input: AKNode,
         fundamentalFrequency: Double = 100,

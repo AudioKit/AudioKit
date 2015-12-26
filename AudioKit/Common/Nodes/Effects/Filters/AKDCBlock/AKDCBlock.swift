@@ -8,23 +8,29 @@
 
 import AVFoundation
 
-/** Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])  Based
- on work by Perry Cook. */
+/// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1]) 
+/// Based on work by Perry Cook.
+///
+/// - parameter input: Input node to process
+///
 public struct AKDCBlock: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKDCBlockAudioUnit?
-    private var token: AUParameterObserverToken?
 
-    // MARK: - Initializers
+    internal var internalAU: AKDCBlockAudioUnit?
+    internal var token: AUParameterObserverToken?
 
-    /** Initialize this filter node 
-    - parameter input: AKNode to process 
-    */
+
+
+    // MARK: - Initialization
+
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    ///
     public init(_ input: AKNode) {
 
         var description = AudioComponentDescription()

@@ -8,30 +8,37 @@
 
 import AVFoundation
 
-/** A first-order recursive low-pass filter with variable frequency response. */
+/// A first-order recursive low-pass filter with variable frequency response.
+///
+/// - parameter input: Input node to process
+/// - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
+///
 public struct AKToneFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKToneFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKToneFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var halfPowerPointParameter: AUParameter?
 
-    /** The response curve's half-power point, in Hertz. Half power is defined as peak
-     power / root 2. */
+    /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     public var halfPowerPoint: Double = 1000 {
         didSet {
             halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
+    ///
     public init(
         _ input: AKNode,
         halfPowerPoint: Double = 1000) {

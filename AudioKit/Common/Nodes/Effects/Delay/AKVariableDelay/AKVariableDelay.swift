@@ -8,37 +8,45 @@
 
 import AVFoundation
 
-/** A delay line with cubic interpolation. */
+/// A delay line with cubic interpolation.
+///
+/// - parameter input: Input node to process
+/// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+/// - parameter feedback: Feedback amount. Should be a value between 0-1.
+///
 public struct AKVariableDelay: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKVariableDelayAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKVariableDelayAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var timeParameter: AUParameter?
     private var feedbackParameter: AUParameter?
 
-    /** Delay time (in seconds) that can be changed during performance. This value must
-     not exceed the maximum delay time. */
-    public var time = 1.0 {
+    /// Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+    public var time: Double = 1.0 {
         didSet {
             timeParameter?.setValue(Float(time), originator: token!)
         }
     }
-    /** Feedback amount. Should be a value between 0-1. */
-    public var feedback = 0.0 {
+    /// Feedback amount. Should be a value between 0-1.
+    public var feedback: Double = 0.0 {
         didSet {
             feedbackParameter?.setValue(Float(feedback), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this delay node */
+    /// Initialize this delay node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+    /// - parameter feedback: Feedback amount. Should be a value between 0-1.
     public init(
         _ input: AKNode,
         time: Double = 1.0,

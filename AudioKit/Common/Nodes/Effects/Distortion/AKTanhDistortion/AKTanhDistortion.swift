@@ -8,51 +8,64 @@
 
 import AVFoundation
 
-/**  */
+/// Distortion using a modified hyperbolic tangent function.
+///
+/// - parameter input: Input node to process
+/// - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
+/// - parameter postgain: Gain applied after waveshaping
+/// - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
+/// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part.
+///
 public struct AKTanhDistortion: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKTanhDistortionAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKTanhDistortionAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var pregainParameter: AUParameter?
     private var postgainParameter: AUParameter?
     private var postiveShapeParameterParameter: AUParameter?
     private var negativeShapeParameterParameter: AUParameter?
 
-    /** Determines the amount of gain applied to the signal before waveshaping. A value
-     of 1 gives slight distortion. */
+    /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     public var pregain: Double = 2.0 {
         didSet {
             pregainParameter?.setValue(Float(pregain), originator: token!)
         }
     }
-    /** Gain applied after waveshaping */
+    /// Gain applied after waveshaping
     public var postgain: Double = 0.5 {
         didSet {
             postgainParameter?.setValue(Float(postgain), originator: token!)
         }
     }
-    /** Shape of the positive part of the signal. A value of 0 gets a flat clip. */
+    /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     public var postiveShapeParameter: Double = 0.0 {
         didSet {
             postiveShapeParameterParameter?.setValue(Float(postiveShapeParameter), originator: token!)
         }
     }
-    /** Like the positive shape parameter, only for the negative part. */
+    /// Like the positive shape parameter, only for the negative part.
     public var negativeShapeParameter: Double = 0.0 {
         didSet {
             negativeShapeParameterParameter?.setValue(Float(negativeShapeParameter), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this distortion node */
+    /// Initialize this distortion node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
+    /// - parameter postgain: Gain applied after waveshaping
+    /// - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
+    /// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part.
+    ///
     public init(
         _ input: AKNode,
         pregain: Double = 2.0,

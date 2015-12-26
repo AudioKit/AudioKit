@@ -8,37 +8,48 @@
 
 import AVFoundation
 
-/** A modal resonance filter used for modal synthesis. Plucked and bell sounds can
- be created using  passing an impulse through a combination of modal filters. */
+/// A modal resonance filter used for modal synthesis. Plucked and bell sounds
+/// can be created using  passing an impulse through a combination of modal
+/// filters.
+///
+/// - parameter input: Input node to process
+/// - parameter frequency: Resonant frequency of the filter.
+/// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
+///
 public struct AKModalResonanceFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKModalResonanceFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKModalResonanceFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
     private var qualityFactorParameter: AUParameter?
 
-    /** Resonant frequency of the filter. */
+    /// Resonant frequency of the filter.
     public var frequency: Double = 500.0 {
         didSet {
             frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
-    /** Quality factor of the filter. Roughly equal to Q/frequency. */
+    /// Quality factor of the filter. Roughly equal to Q/frequency.
     public var qualityFactor: Double = 50.0 {
         didSet {
             qualityFactorParameter?.setValue(Float(qualityFactor), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter frequency: Resonant frequency of the filter.
+    /// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
+    ///
     public init(
         _ input: AKNode,
         frequency: Double = 500.0,

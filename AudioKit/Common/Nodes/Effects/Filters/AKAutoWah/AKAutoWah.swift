@@ -8,43 +8,55 @@
 
 import AVFoundation
 
-/** An automatic wah effect, ported from Guitarix via Faust. */
+/// An automatic wah effect, ported from Guitarix via Faust.
+///
+/// - parameter input: Input node to process
+/// - parameter wah: Wah Amount
+/// - parameter mix: Dry/Wet Mix
+/// - parameter amplitude: Overall level
+///
 public struct AKAutoWah: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-        
-    private var internalAU: AKAutoWahAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKAutoWahAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var wahParameter: AUParameter?
     private var mixParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
-    /** Wah Amount */
+    /// Wah Amount
     public var wah: Double = 0 {
         didSet {
             wahParameter?.setValue(Float(wah), originator: token!)
         }
     }
-    /** Dry/Wet Mix */
+    /// Dry/Wet Mix
     public var mix: Double = 100 {
         didSet {
             mixParameter?.setValue(Float(mix), originator: token!)
         }
     }
-    /** Overall level */
+    /// Overall level
     public var amplitude: Double = 0.1 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this Auto-Wah node */
+    /// Initialize this Auto-Wah node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter wah: Wah Amount
+    /// - parameter mix: Dry/Wet Mix
+    /// - parameter amplitude: Overall level
+    ///
     public init(
         _ input: AKNode,
         wah: Double = 0,

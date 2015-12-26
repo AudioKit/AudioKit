@@ -8,37 +8,47 @@
 
 import AVFoundation
 
-/** These filters are Butterworth second-order IIR filters. They offer an almost
- flat passband and very good precision and stopband attenuation. */
+/// These filters are Butterworth second-order IIR filters. They offer an almost
+/// flat passband and very good precision and stopband attenuation.
+///
+/// - parameter input: Input node to process
+/// - parameter centerFrequency: Center frequency. (in Hertz)
+/// - parameter bandwidth: Bandwidth. (in Hertz)
+///
 public struct AKBandRejectButterworthFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKBandRejectButterworthFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKBandRejectButterworthFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
     private var bandwidthParameter: AUParameter?
 
-    /** Center frequency. (in Hertz) */
+    /// Center frequency. (in Hertz)
     public var centerFrequency: Double = 3000 {
         didSet {
             centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
         }
     }
-    /** Bandwidth. (in Hertz) */
+    /// Bandwidth. (in Hertz)
     public var bandwidth: Double = 2000 {
         didSet {
             bandwidthParameter?.setValue(Float(bandwidth), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter centerFrequency: Center frequency. (in Hertz)
+    /// - parameter bandwidth: Bandwidth. (in Hertz)
+    ///
     public init(
         _ input: AKNode,
         centerFrequency: Double = 3000,

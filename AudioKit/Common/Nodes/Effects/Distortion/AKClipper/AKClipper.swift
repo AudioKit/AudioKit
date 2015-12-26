@@ -8,45 +8,56 @@
 
 import AVFoundation
 
-/** Clips a signal to a predefined limit, in a "soft" manner, using one of three
- methods. */
+/// Clips a signal to a predefined limit, in a "soft" manner, using one of three
+/// methods.
+///
+/// - parameter input: Input node to process
+/// - parameter limit: Threshold / limiting value.
+/// - parameter clippingStartPoint: When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
+/// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
+///
 public struct AKClipper: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKClipperAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKClipperAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var limitParameter: AUParameter?
     private var clippingStartPointParameter: AUParameter?
     private var methodParameter: AUParameter?
 
-    /** Threshold / limiting value. */
+    /// Threshold / limiting value.
     public var limit: Double = 1.0 {
         didSet {
             limitParameter?.setValue(Float(limit), originator: token!)
         }
     }
-    /** When meth is 0 (Bram De Jong), indicates point at which clipping starts in the
-     range 0-1. */
+    /// When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
     public var clippingStartPoint: Double = 0.5 {
         didSet {
             clippingStartPointParameter?.setValue(Float(clippingStartPoint), originator: token!)
         }
     }
-    /** Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh. */
+    /// Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
     public var method: Double = 0 {
         didSet {
             methodParameter?.setValue(Float(method), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this clipper node */
+    /// Initialize this clipper node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter limit: Threshold / limiting value.
+    /// - parameter clippingStartPoint: When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
+    /// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
+    ///
     public init(
         _ input: AKNode,
         limit: Double = 1.0,

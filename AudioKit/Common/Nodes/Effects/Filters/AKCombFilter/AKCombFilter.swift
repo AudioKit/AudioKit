@@ -8,34 +8,43 @@
 
 import AVFoundation
 
-/** This filter reiterates input with an echo density determined by loopDuration.
- The attenuation rate is independent and is determined by reverbDuration, the
- reverberation duration (defined as the time in seconds for a signal to decay to
- 1/1000, or 60dB down from its original amplitude). Output from a comb filter
- will appear only after loopDuration seconds. */
+/// This filter reiterates input with an echo density determined by
+/// loopDuration. The attenuation rate is independent and is determined by
+/// reverbDuration, the reverberation duration (defined as the time in seconds
+/// for a signal to decay to 1/1000, or 60dB down from its original amplitude).
+/// Output from a comb filter will appear only after loopDuration seconds.
+///
+/// - parameter input: Input node to process
+/// - parameter reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
+/// - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
+///
 public struct AKCombFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKCombFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKCombFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var reverbDurationParameter: AUParameter?
 
-    /** The time in seconds for a signal to decay to 1/1000, or 60dB from its original
-     amplitude. (aka RT-60). */
+    /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
     public var reverbDuration: Double = 1.0 {
         didSet {
             reverbDurationParameter?.setValue(Float(reverbDuration), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
+    /// - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
+    ///
     public init(
         _ input: AKNode,
         reverbDuration: Double = 1.0,
@@ -67,7 +76,6 @@ public struct AKCombFilter: AKNode {
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
-            self.internalAU!.setLoopDuration(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else { return }

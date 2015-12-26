@@ -8,29 +8,37 @@
 
 import AVFoundation
 
-/** A complement to the AKToneFilter. */
+/// A complement to the AKLowPassFilter.
+///
+/// - parameter input: Input node to process
+/// - parameter halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
+///
 public struct AKToneComplementFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKToneComplementFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKToneComplementFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var halfPowerPointParameter: AUParameter?
 
-    /** Half-Power Pointin Hertz. Half power is defined as peak power / root 2. */
+    /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     public var halfPowerPoint: Double = 1000 {
         didSet {
             halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
+    ///
     public init(
         _ input: AKNode,
         halfPowerPoint: Double = 1000) {
