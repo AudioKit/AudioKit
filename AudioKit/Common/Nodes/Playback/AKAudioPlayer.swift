@@ -21,7 +21,7 @@ public struct AKAudioPlayer: AKNode {
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
     
-    /** Output Volume (Default 1) */
+    /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
@@ -31,7 +31,7 @@ public struct AKAudioPlayer: AKNode {
         }
     }
     
-    /** Pan (Default Center = 0) */
+    /// Pan (Default Center = 0)
     public var pan: Double = 0.0 {
         didSet {
             if pan < -1 {
@@ -45,6 +45,9 @@ public struct AKAudioPlayer: AKNode {
     }
     
     /// Initialize the player
+    ///
+    /// - parameter file: Path to the audio file
+    ///
     public init(_ file: String) {
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
         let audioFile = try! AVAudioFile(forReading: url)
