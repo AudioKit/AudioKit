@@ -9,7 +9,13 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's ParametricEQ Audio Unit */
+/// AudioKit version of Apple's ParametricEQ Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter centerFrequency: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
+/// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
+/// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
+///
 public struct AKParametricEQ: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -19,13 +25,11 @@ public struct AKParametricEQ: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000) */
+    
+    /// Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
     public var centerFrequency: Double = 2000 {
         didSet {
             if centerFrequency < 20 {
@@ -42,7 +46,7 @@ public struct AKParametricEQ: AKNode {
         }
     }
     
-    /** Q (Hz) ranges from 0.1 to 20 (Default: 1.0) */
+    /// Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
     public var q: Double = 1.0 {
         didSet {
             if q < 0.1 {
@@ -59,7 +63,7 @@ public struct AKParametricEQ: AKNode {
         }
     }
     
-    /** Gain (dB) ranges from -20 to 20 (Default: 0) */
+    /// Gain (dB) ranges from -20 to 20 (Default: 0)
     public var gain: Double = 0 {
         didSet {
             if gain < -20 {
@@ -76,7 +80,13 @@ public struct AKParametricEQ: AKNode {
         }
     }
     
-    /** Initialize the parametric eq node */
+    /// Initialize the parametric eq node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter centerFrequency: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
+    /// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
+    /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
+    ///
     public init(
         _ input: AKNode,
         centerFrequency: Double = 2000,

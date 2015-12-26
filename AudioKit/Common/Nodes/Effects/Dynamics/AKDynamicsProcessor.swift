@@ -8,7 +8,20 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's DynamicsProcessor Audio Unit */
+/// AudioKit version of Apple's DynamicsProcessor Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
+/// - parameter headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
+/// - parameter expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
+/// - parameter expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
+/// - parameter attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
+/// - parameter releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
+/// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
+/// - parameter compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0)
+/// - parameter inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
+/// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
+///
 public struct AKDynamicsProcessor: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +31,11 @@ public struct AKDynamicsProcessor: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Threshold (dB) ranges from -40 to 20 (Default: -20) */
+    
+    /// Threshold (dB) ranges from -40 to 20 (Default: -20)
     public var threshold: Double = -20 {
         didSet {
             if threshold < -40 {
@@ -41,7 +52,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Head Room (dB) ranges from 0.1 to 40.0 (Default: 5) */
+    /// Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
     public var headRoom: Double = 5 {
         didSet {
             if headRoom < 0.1 {
@@ -58,7 +69,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2) */
+    /// Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
     public var expansionRatio: Double = 2 {
         didSet {
             if expansionRatio < 1 {
@@ -75,7 +86,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2) */
+    /// Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
     public var expansionThreshold: Double = 2 {
         didSet {
             if expansionThreshold < 1 {
@@ -92,7 +103,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001) */
+    /// Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
     public var attackTime: Double = 0.001 {
         didSet {
             if attackTime < 0.0001 {
@@ -109,7 +120,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Release Time (secs) ranges from 0.01 to 3 (Default: 0.05) */
+    /// Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
     public var releaseTime: Double = 0.05 {
         didSet {
             if releaseTime < 0.01 {
@@ -126,7 +137,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Master Gain (dB) ranges from -40 to 40 (Default: 0) */
+    /// Master Gain (dB) ranges from -40 to 40 (Default: 0)
     public var masterGain: Double = 0 {
         didSet {
             if masterGain < -40 {
@@ -143,7 +154,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Compression Amount (dB) ranges from -40 to 40 (Default: 0) */
+    /// Compression Amount (dB) ranges from -40 to 40 (Default: 0)
     public var compressionAmount: Double = 0 {
         didSet {
             if compressionAmount < -40 {
@@ -160,7 +171,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Input Amplitude (dB) ranges from -40 to 40 (Default: 0) */
+    /// Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
     public var inputAmplitude: Double = 0 {
         didSet {
             if inputAmplitude < -40 {
@@ -177,7 +188,7 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Output Amplitude (dB) ranges from -40 to 40 (Default: 0) */
+    /// Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
     public var outputAmplitude: Double = 0 {
         didSet {
             if outputAmplitude < -40 {
@@ -194,7 +205,20 @@ public struct AKDynamicsProcessor: AKNode {
         }
     }
     
-    /** Initialize the dynamics processor node */
+    /// Initialize the dynamics processor node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
+    /// - parameter headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
+    /// - parameter expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
+    /// - parameter expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
+    /// - parameter attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
+    /// - parameter releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
+    /// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
+    /// - parameter compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0)
+    /// - parameter inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
+    /// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
+    ///
     public init(
         _ input: AKNode,
         threshold: Double = -20,

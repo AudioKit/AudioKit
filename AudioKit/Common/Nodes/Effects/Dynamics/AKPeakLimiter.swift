@@ -8,7 +8,13 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's PeakLimiter Audio Unit */
+/// AudioKit version of Apple's PeakLimiter Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+/// - parameter decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+/// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
+///
 public struct AKPeakLimiter: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +24,11 @@ public struct AKPeakLimiter: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012) */
+    
+    /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
     public var attackTime: Double = 0.012 {
         didSet {
             if attackTime < 0.001 {
@@ -41,7 +45,7 @@ public struct AKPeakLimiter: AKNode {
         }
     }
     
-    /** Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024) */
+    /// Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
     public var decayTime: Double = 0.024 {
         didSet {
             if decayTime < 0.001 {
@@ -58,7 +62,7 @@ public struct AKPeakLimiter: AKNode {
         }
     }
     
-    /** Pre Gain (dB) ranges from -40 to 40 (Default: 0) */
+    /// Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     public var preGain: Double = 0 {
         didSet {
             if preGain < -40 {
@@ -75,7 +79,13 @@ public struct AKPeakLimiter: AKNode {
         }
     }
     
-    /** Initialize the peak limiter node */
+    /// Initialize the peak limiter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+    /// - parameter decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+    /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
+    ///
     public init(
         _ input: AKNode,
         attackTime: Double = 0.012,

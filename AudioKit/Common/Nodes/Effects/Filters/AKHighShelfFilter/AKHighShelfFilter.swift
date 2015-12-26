@@ -8,7 +8,12 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's HighShelfFilter Audio Unit */
+/// AudioKit version of Apple's HighShelfFilter Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter cutOffFrequency: Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
+/// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
+///
 public struct AKHighShelfFilter: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +23,11 @@ public struct AKHighShelfFilter: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000) */
+    
+    /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
     public var cutOffFrequency: Double = 10000 {
         didSet {
             if cutOffFrequency < 10000 {
@@ -41,7 +44,7 @@ public struct AKHighShelfFilter: AKNode {
         }
     }
     
-    /** Gain (dB) ranges from -40 to 40 (Default: 0) */
+    /// Gain (dB) ranges from -40 to 40 (Default: 0)
     public var gain: Double = 0 {
         didSet {
             if gain < -40 {
@@ -58,7 +61,12 @@ public struct AKHighShelfFilter: AKNode {
         }
     }
     
-    /** Initialize the high shelf filter node */
+    /// Initialize the high shelf filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter cutOffFrequency: Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
+    /// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
+    ///
     public init(
         _ input: AKNode,
         cutOffFrequency: Double = 10000,

@@ -8,7 +8,22 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's SpatialMixer Audio Unit */
+/// AudioKit version of Apple's SpatialMixer Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter azimuth: Azimuth (Degrees) ranges from -180 to 180 (Default: 0)
+/// - parameter elevation: Elevation (Degrees) ranges from -90 to 90 (Default: 0)
+/// - parameter distance: Distance (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter gain: Gain (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter playbackRate: Playback Rate (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter enable: Enable (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter minGain: Min Gain (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter maxGain: Max Gain (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter reverbBlend: Reverb Blend (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter globalReverbGain: Global Reverb Gain (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter occlusionAttenuation: Occlusion Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
+/// - parameter obstructionAttenuation: Obstruction Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
+///
 public struct AKSpatialMixer: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +33,11 @@ public struct AKSpatialMixer: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnit()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Azimuth (Degrees) ranges from -180 to 180 (Default: 0) */
+    
+    /// Azimuth (Degrees) ranges from -180 to 180 (Default: 0)
     public var azimuth: Double = 0 {
         didSet {
             if azimuth < -180 {
@@ -41,7 +54,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Elevation (Degrees) ranges from -90 to 90 (Default: 0) */
+    /// Elevation (Degrees) ranges from -90 to 90 (Default: 0)
     public var elevation: Double = 0 {
         didSet {
             if elevation < -90 {
@@ -58,7 +71,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Distance (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Distance (Metres) ranges from 0 to 10000 (Default: 0)
     public var distance: Double = 0 {
         didSet {
             if distance < 0 {
@@ -75,7 +88,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Gain (Metres) ranges from 0 to 10000 (Default: 0)
     public var gain: Double = 0 {
         didSet {
             if gain < 0 {
@@ -92,7 +105,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Playback Rate (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Playback Rate (Metres) ranges from 0 to 10000 (Default: 0)
     public var playbackRate: Double = 0 {
         didSet {
             if playbackRate < 0 {
@@ -109,7 +122,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Enable (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Enable (Metres) ranges from 0 to 10000 (Default: 0)
     public var enable: Double = 0 {
         didSet {
             if enable < 0 {
@@ -126,7 +139,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Min Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Min Gain (Metres) ranges from 0 to 10000 (Default: 0)
     public var minGain: Double = 0 {
         didSet {
             if minGain < 0 {
@@ -143,7 +156,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Max Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Max Gain (Metres) ranges from 0 to 10000 (Default: 0)
     public var maxGain: Double = 0 {
         didSet {
             if maxGain < 0 {
@@ -160,7 +173,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Reverb Blend (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Reverb Blend (Metres) ranges from 0 to 10000 (Default: 0)
     public var reverbBlend: Double = 0 {
         didSet {
             if reverbBlend < 0 {
@@ -177,7 +190,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Global Reverb Gain (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Global Reverb Gain (Metres) ranges from 0 to 10000 (Default: 0)
     public var globalReverbGain: Double = 0 {
         didSet {
             if globalReverbGain < 0 {
@@ -194,7 +207,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Occlusion Attenuation (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Occlusion Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
     public var occlusionAttenuation: Double = 0 {
         didSet {
             if occlusionAttenuation < 0 {
@@ -211,7 +224,7 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Obstruction Attenuation (Metres) ranges from 0 to 10000 (Default: 0) */
+    /// Obstruction Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
     public var obstructionAttenuation: Double = 0 {
         didSet {
             if obstructionAttenuation < 0 {
@@ -228,7 +241,22 @@ public struct AKSpatialMixer: AKNode {
         }
     }
     
-    /** Initialize the spatial mixer node */
+    /// Initialize the spatial mixer node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter azimuth: Azimuth (Degrees) ranges from -180 to 180 (Default: 0)
+    /// - parameter elevation: Elevation (Degrees) ranges from -90 to 90 (Default: 0)
+    /// - parameter distance: Distance (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter gain: Gain (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter playbackRate: Playback Rate (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter enable: Enable (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter minGain: Min Gain (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter maxGain: Max Gain (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter reverbBlend: Reverb Blend (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter globalReverbGain: Global Reverb Gain (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter occlusionAttenuation: Occlusion Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
+    /// - parameter obstructionAttenuation: Obstruction Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
+    ///
     public init(
         _ input: AKNode,
         azimuth: Double = 0,

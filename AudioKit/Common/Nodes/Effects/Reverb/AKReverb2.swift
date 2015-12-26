@@ -8,7 +8,17 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's Reverb2 Audio Unit */
+/// AudioKit version of Apple's Reverb2 Audio Unit
+///
+/// - parameter input: Input node to process
+/// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100)
+/// - parameter gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
+/// - parameter minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
+/// - parameter maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
+/// - parameter decayTimeAt0Hz: Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
+/// - parameter decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
+/// - parameter randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
+///
 public struct AKReverb2: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -18,13 +28,11 @@ public struct AKReverb2: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
     
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
-    
-    /// Required property for AKNode
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
-        
-    /** Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100) */
+    
+    /// Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100)
     public var dryWetMix: Double = 100 {
         didSet {
             if dryWetMix < 0 {
@@ -41,7 +49,7 @@ public struct AKReverb2: AKNode {
         }
     }
     
-    /** Gain (Decibels) ranges from -20 to 20 (Default: 0) */
+    /// Gain (Decibels) ranges from -20 to 20 (Default: 0)
     public var gain: Double = 0 {
         didSet {
             if gain < -20 {
@@ -58,7 +66,7 @@ public struct AKReverb2: AKNode {
         }
     }
     
-    /** Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008) */
+    /// Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
     public var minDelayTime: Double = 0.008 {
         didSet {
             if minDelayTime < 0.0001 {
@@ -75,7 +83,7 @@ public struct AKReverb2: AKNode {
         }
     }
     
-    /** Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050) */
+    /// Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
     public var maxDelayTime: Double = 0.050 {
         didSet {
             if maxDelayTime < 0.0001 {
@@ -92,7 +100,7 @@ public struct AKReverb2: AKNode {
         }
     }
     
-    /** Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0) */
+    /// Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
     public var decayTimeAt0Hz: Double = 1.0 {
         didSet {
             if decayTimeAt0Hz < 0.001 {
@@ -109,7 +117,7 @@ public struct AKReverb2: AKNode {
         }
     }
     
-    /** Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5) */
+    /// Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
     public var decayTimeAtNyquist: Double = 0.5 {
         didSet {
             if decayTimeAtNyquist < 0.001 {
@@ -126,7 +134,7 @@ public struct AKReverb2: AKNode {
         }
     }
     
-    /** Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1) */
+    /// Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     public var randomizeReflections: Double = 1 {
         didSet {
             if randomizeReflections < 1 {
@@ -143,7 +151,17 @@ public struct AKReverb2: AKNode {
         }
     }
     
-    /** Initialize the reverb2 node */
+    /// Initialize the reverb2 node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100)
+    /// - parameter gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
+    /// - parameter minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
+    /// - parameter maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
+    /// - parameter decayTimeAt0Hz: Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
+    /// - parameter decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
+    /// - parameter randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
+    ///
     public init(
         _ input: AKNode,
         dryWetMix: Double = 100,
