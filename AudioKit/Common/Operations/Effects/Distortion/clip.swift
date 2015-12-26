@@ -10,20 +10,14 @@ import Foundation
 
 extension AKOperation {
 
-    /** Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
-
-     - parameter limit: Threshold / limiting value. (Default: 1, Minimum: 0, Maximum: 1)
-     */
-    public mutating func clip(limit limit: AKParameter = 1) {
-        self = self.clipped(limit: limit)
-    }
-
-    /** Applies clip-limiting to a signal - Clips a signal to a predefined limit, in a "soft" manner.
-
-     - returns: AKOperation
-     - parameter limit: Threshold / limiting value. (Default: 1, Minimum: 0, Maximum: 1)
-     */
-    public  func clipped(limit limit: AKParameter = 1) -> AKOperation {
-        return AKOperation("(\(self) \(limit) clip)")
+    /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
+    /// methods.
+    ///
+    /// - returns: AKOperation
+    /// - parameter input: Input audio signal
+    /// - parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
+     ///
+    public func clip(limit: AKParameter = 1.0) -> AKOperation {
+            return AKOperation("(\(self) \(limit) clip)")
     }
 }

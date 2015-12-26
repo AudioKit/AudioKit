@@ -10,24 +10,17 @@ import Foundation
 
 extension AKOperation {
 
-    /** Portamento-style control signal smoothing
-     Useful for smoothing out low-resolution signals and applying glissando to filters.
-
-     - returns: AKOperation
-     - parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: 0)
-     */
-    public mutating func applyPortamento(halfDuration: Double = 0.02) {
-        self = self.appliedPortamento(halfDuration)
+    /// Portamento-style control signal smoothing
+    /// Useful for smoothing out low-resolution signals and applying glissando to
+    /// filters.
+    ///
+    /// - returns: AKOperation
+    /// - parameter input: Input audio signal
+    /// - parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: , Maximum: )
+     ///
+    public func portamento(
+        halfDuration halfDuration: AKParameter = 0.02
+        ) -> AKOperation {
+            return AKOperation("(\(self) \(halfDuration) port)")
     }
-
-    /** Portamento-style control signal smoothing
-     Useful for smoothing out low-resolution signals and applying glissando to filters.
-
-     - returns: AKOperation
-     - parameter halfDuration: Duration which the curve will traverse half the distance towards the new value, then half as much again, etc., theoretically never reaching its asymptote. (Default: 0.02, Minimum: 0)
-     */
-    public func appliedPortamento(halfDuration: Double = 0.02) -> AKOperation {
-        return AKOperation("(\(self) \(halfDuration) port)")
-    }
-
 }
