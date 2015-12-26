@@ -8,7 +8,13 @@
 
 import AVFoundation
 
-/** AudioKit version of Apple's <%= au_name %> Audio Unit */
+/// AudioKit version of Apple's <%= au_name %> Audio Unit
+///
+/// - parameter input: Input node to process
+<% parameters.each do |parameter| -%>
+/// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
+<% end -%>
+///
 public struct AK<%= au_name %>: AKNode {
 
     private let cd = AudioComponentDescription(
@@ -18,12 +24,12 @@ public struct AK<%= au_name %>: AKNode {
         componentFlags: 0,
         componentFlagsMask: 0)
 
-    private var internalEffect = AVAudioUnitEffect()
-    private var internalAU = AudioUnit()
+    internal var internalEffect = AVAudioUnitEffect()
+    internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
 
 <% parameters.each do |parameter| -%>
-    /** <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>) */
+    /// <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
     public var <%= parameter[:variable] %>: Double = <%= parameter[:default] %> {
         didSet {<% if parameter[:min] != "" %>
             if <%= parameter[:variable] %> < <%= parameter[:min] %> {
@@ -42,11 +48,18 @@ public struct AK<%= au_name %>: AKNode {
     }
 
 <% end -%>
-    /** Initialize the <%= au_name.underscore.humanize.uncapitalize %> node */
+    /// Initialize the <%= au_name.underscore.humanize.uncapitalize %> node
+    ///
+    /// - parameter input: Input node to process
+<% parameters.each do |parameter| -%>
+    /// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
+<% end -%>
+    ///
     public init(
         _ input: AKNode,
 <% parameters.each_with_index do |parameter, i| -%>
-        <%= parameter[:variable] %>: Double = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 %><% end %>) {
+        <%= parameter[:variable] %>: Double = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 -%>
+<% end %>) {
 
 <% parameters.each do |parameter| -%>
             self.<%= parameter[:variable] %> = <%= parameter[:variable] %>
