@@ -52,8 +52,10 @@
         <page name='Sampler Instrument - EXS24'/>
         <page name='Sampler Instrument - Wav file'/>
         <page name='Pedestrians'/>
-        <page name='Phone Tones'/>
+        <page name='Dial Tone'/>
         <page name='DTMF Tones'/>
+        <page name='Telelphone Ringing'/>
+        <page name='Busy Signal'/>
         <page name='Using Functions'/>
         <page name='Another Example of Using Functions'/>
         <page name='Sporth Based Effect'/>
@@ -64,7 +66,7 @@
         <page name='Tracking Frequency of Audio File'/>
         <page name='Tracking FFT'/>
         <page name='Sequencer - Multiple output'/>
-        <page name='Sequencer - single output'/>
+        <page name='Sequencer - Single output'/>
         <page name='Output Waveform Plot'/>
         <page name='Rolling Plot'/>
         <page name='Node Audio Plot'/>
