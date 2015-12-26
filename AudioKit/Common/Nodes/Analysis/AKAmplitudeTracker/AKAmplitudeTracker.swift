@@ -32,6 +32,11 @@ public struct AKAmplitudeTracker: AKNode {
             halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
         }
     }
+    
+    /// Detected amplitude
+    public var amplitude: Double {
+        return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
+    }
 
     // MARK: - Initialization
 
