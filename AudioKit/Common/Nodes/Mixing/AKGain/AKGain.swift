@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-/** This module lowers or raises the volume of an input. */
+/// This module lowers or raises the volume of an input.
 public struct AKGain: AKNode {
 
     // MARK: - Properties
@@ -22,16 +22,20 @@ public struct AKGain: AKNode {
 
     private var gainParameter: AUParameter?
 
-    /** Amplification Factor */
+    /// Amplification Factor
     public var gain: Double = 1.0 {
         didSet {
             gainParameter?.setValue(Float(gain), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this amplification node */
+    /// Initialize this amplification node
+    ///
+    /// - parameter input: AKNode whose output will be amplified
+    /// - parameter gain: Amplification factor (Default: 1, Minimum: 0)
+    ///
     public init(
         _ input: AKNode,
         gain: Double = 1.0) {

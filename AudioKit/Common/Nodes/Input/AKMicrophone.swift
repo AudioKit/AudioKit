@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-/** Audio from the standard input */
+/// Audio from the standard input
 public struct AKMicrophone: AKNode {
     
     
@@ -17,7 +17,7 @@ public struct AKMicrophone: AKNode {
     public var avAudioNode: AVAudioNode
     internal let mixer = AVAudioMixerNode()
     
-    /** Output Volume (Default 1) */
+    /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
@@ -27,7 +27,7 @@ public struct AKMicrophone: AKNode {
         }
     }
     
-    /** Initialize the microphone */
+    /// Initialize the microphone 
     public init() {
         #if !os(tvOS)
             self.avAudioNode = mixer

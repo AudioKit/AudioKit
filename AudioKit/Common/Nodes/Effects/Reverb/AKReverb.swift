@@ -9,14 +9,14 @@
 import Foundation
 import AVFoundation
 
-/** AudioKit version of Apple's Reverb Audio Unit */
+/// AudioKit version of Apple's Reverb Audio Unit
 public struct AKReverb: AKNode {
     private let reverbAU = AVAudioUnitReverb()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
         
-    /** Dry/Wet Mix (Default 50) */
+    /// Dry/Wet Mix (Default 50) 
     public var dryWetMix: Double = 50.0 {
         didSet {
             if dryWetMix < 0 {
@@ -29,7 +29,11 @@ public struct AKReverb: AKNode {
         }
     }
     
-    /** Initialize the reverb node */
+    /// Initialize the reverb node
+    ///
+    /// - parameter input: AKNode to reverberate
+    /// - parameter dryWetMix: Percentage of processed signal (Default: 50, Minimum: 0, Maximum: 100)
+    ///
     public init(_ input: AKNode, dryWetMix: Double = 50) {
         self.dryWetMix = dryWetMix
         
@@ -40,7 +44,7 @@ public struct AKReverb: AKNode {
         reverbAU.wetDryMix = Float(dryWetMix)
     }
     
-    /** Load an Apple Factory Preset */
+    /// Load an Apple Factory Preset
     public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
         reverbAU.loadFactoryPreset(preset)
     }

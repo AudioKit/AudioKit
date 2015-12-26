@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-/** AudioKit version of Apple's Splitter Audio Unit */
+/// AudioKit version of Apple's Splitter Audio Unit
 public struct AKSplitter: AKNode {
     
     private let cd = AudioComponentDescription(
@@ -26,7 +26,7 @@ public struct AKSplitter: AKNode {
     public var avAudioNode: AVAudioNode
         
     
-    /** Initialize the splitter  node */
+    /// Initialize the splitter  node 
     public init(_ input: AKNode) {
         
         self.avAudioNode = AVAudioNode()

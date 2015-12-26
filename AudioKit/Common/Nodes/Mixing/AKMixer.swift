@@ -9,14 +9,14 @@
 import Foundation
 import AVFoundation
 
-/** AudioKit version of Apple's Mixer Node */
+/// AudioKit version of Apple's Mixer Node
 public struct AKMixer: AKNode {
     private let mixerAU = AVAudioMixerNode()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
         
-    /** Output Volume (Default 1) */
+    /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
         didSet {
             if volume < 0 {
@@ -26,10 +26,10 @@ public struct AKMixer: AKNode {
         }
     }
     
-    /** Initialize the mixer node 
-     
-     - parameter inputs: A varaiadic list of AKNodes
-     */
+    /// Initialize the mixer node
+    ///
+    /// - parameter inputs: A varaiadic list of AKNodes
+    ///
     public init(_ inputs: AKNode...) {
         self.avAudioNode = mixerAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
@@ -38,10 +38,10 @@ public struct AKMixer: AKNode {
         }
     }
     
-    /** Connnect another input after initialization
-
-     - parameter input: AKNode to connect
-     */
+    /// Connnect another input after initialization
+    ///
+    /// - parameter input: AKNode to connect
+    ///
     public func connect(input: AKNode) {
         AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
     }
