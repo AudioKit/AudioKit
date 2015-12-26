@@ -10,10 +10,10 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 func instrument(noteNumber: Int, rate: Double, amplitude: Double) -> AKOperation {
-    let metro = metronome(82.0 / (60.0 * rate))
+    let metro = AKOperation.metronome(82.0 / (60.0 * rate))
     let frequency = noteNumber.midiNoteToFrequency()
     return AKOperation.fmOscillator(baseFrequency: frequency, amplitude: amplitude)
-        .triggeredBy(metro, attack: 0.5, hold: 1, release: 1)
+        .triggeredWithEnvelope(metro, attack: 0.5, hold: 1, release: 1)
 }
 
 let instrument1 = instrument(60, rate: 4, amplitude: 0.5)

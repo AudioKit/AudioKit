@@ -9,10 +9,11 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-let sinusoid = sineWave(frequency: 1)
-let sampleRate = sinusoid.scaledTo(minimum: 300, maximum: 900)
-let bitDepth   = sinusoid.scaledTo(minimum:   8, maximum:   2)
-let oscillator = sineWave(frequency: 440)
+let sinusoid = AKOperation.sineWave(frequency: 1)
+let sampleRate = sinusoid.scale(minimum: 300, maximum: 900)
+let bitDepth   = sinusoid.scale(minimum:   8, maximum:   2)
+let oscillator = AKOperation.sineWave(frequency: 440)
+
 let bitCrush = oscillator.bitCrush(bitDepth: bitDepth, sampleRate: sampleRate)
 
 let generator = AKOperationGenerator(operation: bitCrush * 0.2)

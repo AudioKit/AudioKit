@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 //: Set up the operations that will be used to make a generator node
 
-let freq = jitter(amplitude: 200, minimumFrequency: 1, maximumFrequency: 10) + 200
-let amp  = randomVertexPulse(minimum: 0, maximum: 1, updateFrequency: 1)
-let oscillator = sawtoothWave(frequency: freq, amplitude: amp)
+let freq = AKOperation.jitter(amplitude: 200, minimumFrequency: 1, maximumFrequency: 10) + 200
+let amp  = AKOperation.randomVertexPulse(minimum: 0, maximum: 1, updateFrequency: 1)
+let oscillator = AKOperation.sawtoothWave(frequency: freq, amplitude: amp)
 
 //: Set up the nodes
 let generator = AKOperationGenerator(operation: oscillator)

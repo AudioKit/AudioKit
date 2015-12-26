@@ -10,8 +10,8 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: A dial tone is simply two sine waves at different frequencies
-let dialTone1 = sineWave(frequency: 350)
-let dialTone2 = sineWave(frequency: 440)
+let dialTone1 = AKOperation.sineWave(frequency: 350)
+let dialTone2 = AKOperation.sineWave(frequency: 440)
 let dialTone = mix(dialTone1, dialTone2, t: 0.5)
 
 let generator = AKOperationGenerator(operation: dialTone)

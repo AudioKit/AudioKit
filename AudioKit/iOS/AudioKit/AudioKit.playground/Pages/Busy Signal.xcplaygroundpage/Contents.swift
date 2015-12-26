@@ -10,12 +10,12 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: The busy signal is similar as well
-let busySignalTone1 = sineWave(frequency: 480)
-let busySignalTone2 = sineWave(frequency: 620)
+let busySignalTone1 = AKOperation.sineWave(frequency: 480)
+let busySignalTone2 = AKOperation.sineWave(frequency: 620)
 let busySignalTone = mix(busySignalTone1, busySignalTone2, t: 0.5)
 
-let busyTrigger = metronome(2)
-let busySignal = busySignalTone.triggeredBy(busyTrigger, attack: 0.01, hold: 0.25, release: 0.01)
+let busyTrigger = AKOperation.metronome(2)
+let busySignal = busySignalTone.triggeredWithEnvelope(busyTrigger, attack: 0.01, hold: 0.25, release: 0.01)
 
 let generator = AKOperationGenerator(operation: busySignal)
 
