@@ -14,11 +14,11 @@ public class AKPlaygroundLoop {
     // each instance has it's own handler
     private var handler: (timer: NSTimer) -> () = { (timer: NSTimer) in }
     
-    /** Repeat this loop at a given period with a code block
-     
-     - parameter every: Period, or interval between block executions
-     - parameter handle: Code block to execute
-     */
+    /// Repeat this loop at a given period with a code block
+    ///
+    /// - parameter every: Period, or interval between block executions
+    /// - parameter handle: Code block to execute
+    ///
     public class func start(every duration: NSTimeInterval, handler:(timer: NSTimer)->()) {
         let t = AKPlaygroundLoop()
         t.handler = handler
