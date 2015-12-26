@@ -9,39 +9,22 @@
 import Foundation
 
 extension AKOperation {
-    /** Distortion using a modified hyperbolic tangent function.
 
-     - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2, Minimum: 0, Maximum: 10)
-     - parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0, Maximum: 10)
-     - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0, Minimum: -10, Maximum: 10)
-     - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0, Minimum: -10, Maximum: 10)
-     */
-    public mutating func distort(
-        pregain pregain: AKParameter = 2,
+    /// Distortion using a modified hyperbolic tangent function.
+    ///
+    /// - returns: AKOperation
+    /// - parameter input: Input audio signal
+    /// - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
+    /// - parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
+    /// - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+    /// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0.0, Minimum: -10.0, Maximum: 10.0)
+     ///
+    public func distort(
+        pregain pregain: AKParameter = 2.0,
         postgain: AKParameter = 0.5,
-        positiveShapeParameter: AKParameter = 0,
-        negativeShapeParameter: AKParameter = 0) {
-            self = self.distorted(
-                pregain: pregain,
-                postgain: postgain,
-                positiveShapeParameter: positiveShapeParameter,
-                negativeShapeParameter: negativeShapeParameter)
-    }
-
-    /** Distortion using a modified hyperbolic tangent function.
-
-     - returns: AKOperation
-     - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2, Minimum: 0, Maximum: 10)
-     - parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0, Maximum: 10)
-     - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip. (Default: 0, Minimum: -10, Maximum: 10)
-     - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part. (Default: 0, Minimum: -10, Maximum: 10)
-     */
-    public func distorted(
-        pregain pregain: AKParameter = 2,
-        postgain: AKParameter = 0.5,
-        positiveShapeParameter: AKParameter = 0,
-        negativeShapeParameter: AKParameter = 0
+        postiveShapeParameter: AKParameter = 0.0,
+        negativeShapeParameter: AKParameter = 0.0
         ) -> AKOperation {
-            return AKOperation("(\(self) \(pregain) \(postgain) \(positiveShapeParameter) \(negativeShapeParameter) dist)")
+            return AKOperation("(\(self) \(pregain) \(postgain) \(postiveShapeParameter) \(negativeShapeParameter) dist)")
     }
 }
