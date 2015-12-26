@@ -16,7 +16,7 @@ extension AKOperation {
     /// - parameter input: Input audio signal
     /// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center. (Default: 0, Minimum: , Maximum: )
      ///
-    public func pan(pan pan: AKParameter = 0) -> AKStereoOperation {
-        return AKStereoOperation("(\(self) \(pan) pan2)")
+    public func pan(pan: AKParameter = 0) -> AKStereoOperation {
+        return AKStereoOperation("(\(self) \(pan) pan)")
     }
 }
