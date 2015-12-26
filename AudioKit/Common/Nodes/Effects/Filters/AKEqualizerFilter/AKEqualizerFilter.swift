@@ -8,46 +8,58 @@
 
 import AVFoundation
 
-/** A 2nd order tunable equalization filter that provides a peak/notch filter for
- building parametric/graphic equalizers. With gain above 1, there will be a peak
- at the center frequency with a width dependent on bandwidth. If gain is less
- than 1, a notch is formed around the center frequency. */
+/// A 2nd order tunable equalization filter that provides a peak/notch filter
+/// for building parametric/graphic equalizers. With gain above 1, there will be
+/// a peak at the center frequency with a width dependent on bandwidth. If gain
+/// is less than 1, a notch is formed around the center frequency.
+///
+/// - parameter input: Input node to process
+/// - parameter centerFrequency: Center frequency. (in Hertz)
+/// - parameter bandwidth: The peak/notch bandwidth in Hertz
+/// - parameter gain: The peak/notch gain
+///
 public struct AKEqualizerFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKEqualizerFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKEqualizerFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
     private var bandwidthParameter: AUParameter?
     private var gainParameter: AUParameter?
 
-    /** Center frequency. (in Hertz) */
+    /// Center frequency. (in Hertz)
     public var centerFrequency: Double = 1000 {
         didSet {
             centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
         }
     }
-    /** The peak/notch bandwidth in Hertz */
+    /// The peak/notch bandwidth in Hertz
     public var bandwidth: Double = 100 {
         didSet {
             bandwidthParameter?.setValue(Float(bandwidth), originator: token!)
         }
     }
-    /** The peak/notch gain */
+    /// The peak/notch gain
     public var gain: Double = 10 {
         didSet {
             gainParameter?.setValue(Float(gain), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter centerFrequency: Center frequency. (in Hertz)
+    /// - parameter bandwidth: The peak/notch bandwidth in Hertz
+    /// - parameter gain: The peak/notch gain
+    ///
     public init(
         _ input: AKNode,
         centerFrequency: Double = 1000,

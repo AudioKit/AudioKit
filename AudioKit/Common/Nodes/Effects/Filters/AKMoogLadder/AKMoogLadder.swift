@@ -8,41 +8,50 @@
 
 import AVFoundation
 
-/** Moog Ladder is an new digital implementation of the Moog ladder filter based on
- the work of Antti Huovilainen, described in the paper "Non-Linear Digital
- Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of
- Napoli). This implementation is probably a more accurate digital representation
- of the original analogue filter. */
+/// Moog Ladder is an new digital implementation of the Moog ladder filter based
+/// on the work of Antti Huovilainen, described in the paper "Non-Linear Digital
+/// Implementation of the Moog Ladder Filter" (Proceedings of DaFX04, Univ of
+/// Napoli). This implementation is probably a more accurate digital
+/// representation of the original analogue filter.
+///
+/// - parameter input: Input node to process
+/// - parameter cutoffFrequency: Filter cutoff frequency.
+/// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+///
 public struct AKMoogLadder: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKMoogLadderAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKMoogLadderAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
 
-    /** Filter cutoff frequency. */
+    /// Filter cutoff frequency.
     public var cutoffFrequency: Double = 1000 {
         didSet {
             cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
-    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values
-     might cause aliasing, analogue synths generally allow resonances to be above 1. */
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     public var resonance: Double = 0.5 {
         didSet {
             resonanceParameter?.setValue(Float(resonance), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter cutoffFrequency: Filter cutoff frequency.
+    /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///
     public init(
         _ input: AKNode,
         cutoffFrequency: Double = 1000,

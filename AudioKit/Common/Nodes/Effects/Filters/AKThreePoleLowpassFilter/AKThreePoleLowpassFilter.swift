@@ -8,47 +8,55 @@
 
 import AVFoundation
 
-/** 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion. */
+/// 3-pole (18 db/oct slope) Low-Pass filter with resonance and tanh distortion.
+///
+/// - parameter input: Input node to process
+/// - parameter distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+/// - parameter cutoffFrequency: Filter cutoff frequency in Hertz.
+/// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+///
 public struct AKThreePoleLowpassFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKThreePoleLowpassFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKThreePoleLowpassFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var distortionParameter: AUParameter?
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
 
-    /** Distortion amount.  Zero gives a clean output. Greater than zero adds tanh
-     distortion controlled by the filter parameters, in such a way that both low
-     cutoff and high resonance increase the distortion amount. */
+    /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     public var distortion: Double = 0.5 {
         didSet {
             distortionParameter?.setValue(Float(distortion), originator: token!)
         }
     }
-    /** Filter cutoff frequency in Hertz. */
+    /// Filter cutoff frequency in Hertz.
     public var cutoffFrequency: Double = 1500 {
         didSet {
             cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
-    /** Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate
-     at the cutoff frequency. Values slightly greater than 1 are possible for more
-     sustained oscillation and an “overdrive” effect. */
+    /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     public var resonance: Double = 0.5 {
         didSet {
             resonanceParameter?.setValue(Float(resonance), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter distortion: Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
+    /// - parameter cutoffFrequency: Filter cutoff frequency in Hertz.
+    /// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
+    ///
     public init(
         _ input: AKNode,
         distortion: Double = 0.5,

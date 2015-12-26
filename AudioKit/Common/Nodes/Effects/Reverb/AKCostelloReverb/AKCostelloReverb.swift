@@ -8,40 +8,48 @@
 
 import AVFoundation
 
-/** 8 delay line stereo FDN reverb, with feedback matrix based upon physical
- modeling scattering junction of 8 lossless waveguides of equal characteristic
- impedance. */
+/// 8 delay line stereo FDN reverb, with feedback matrix based upon physical
+/// modeling scattering junction of 8 lossless waveguides of equal
+/// characteristic impedance.
+///
+/// - parameter input: Input node to process
+/// - parameter feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+/// - parameter cutoffFrequency: Low-pass cutoff frequency.
+///
 public struct AKCostelloReverb: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKCostelloReverbAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKCostelloReverbAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var feedbackParameter: AUParameter?
     private var cutoffFrequencyParameter: AUParameter?
 
-    /** Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound,
-     0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite
-     length, while higher values will make the opcode unstable. */
+    /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     public var feedback: Double = 0.6 {
         didSet {
             feedbackParameter?.setValue(Float(feedback), originator: token!)
         }
     }
-    /** Low-pass cutoff frequency. */
+    /// Low-pass cutoff frequency.
     public var cutoffFrequency: Double = 4000 {
         didSet {
             cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this reverb node */
+    /// Initialize this reverb node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
+    /// - parameter cutoffFrequency: Low-pass cutoff frequency.
+    ///
     public init(
         _ input: AKNode,
         feedback: Double = 0.6,

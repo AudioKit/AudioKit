@@ -8,45 +8,57 @@
 
 import AVFoundation
 
-/** When fed with a pulse train, it will generate a series of overlapping grains.
- Overlapping will occur when 1/freq < dec, but there is no upper limit on the
- number of overlaps. (cited from www.csounds.com/manual/html/fofilter.html) */
+/// When fed with a pulse train, it will generate a series of overlapping
+/// grains. Overlapping will occur when 1/freq < dec, but there is no upper
+/// limit on the number of overlaps.
+///
+/// - parameter input: Input node to process
+/// - parameter centerFrequency: Center frequency.
+/// - parameter attackDuration: Impulse response attack time (in seconds).
+/// - parameter decayDuration: Impulse reponse decay time (in seconds)
+///
 public struct AKFormantFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKFormantFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKFormantFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
     private var attackDurationParameter: AUParameter?
     private var decayDurationParameter: AUParameter?
 
-    /** Center frequency. */
+    /// Center frequency.
     public var centerFrequency: Double = 1000 {
         didSet {
             centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
         }
     }
-    /** Impulse response attack time (in seconds). */
+    /// Impulse response attack time (in seconds).
     public var attackDuration: Double = 0.007 {
         didSet {
             attackDurationParameter?.setValue(Float(attackDuration), originator: token!)
         }
     }
-    /** Impulse reponse decay time (in seconds) */
+    /// Impulse reponse decay time (in seconds)
     public var decayDuration: Double = 0.04 {
         didSet {
             decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter centerFrequency: Center frequency.
+    /// - parameter attackDuration: Impulse response attack time (in seconds).
+    /// - parameter decayDuration: Impulse reponse decay time (in seconds)
+    ///
     public init(
         _ input: AKNode,
         centerFrequency: Double = 1000,

@@ -8,44 +8,55 @@
 
 import AVFoundation
 
-/** This is an implementation of Zoelzer's parametric equalizer filter. */
+/// This is an implementation of Zoelzer's parametric equalizer filter.
+///
+/// - parameter input: Input node to process
+/// - parameter centerFrequency: Center frequency.
+/// - parameter gain: Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
+/// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+///
 public struct AKPeakingParametricEqualizerFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKPeakingParametricEqualizerFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKPeakingParametricEqualizerFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
     private var gainParameter: AUParameter?
     private var qParameter: AUParameter?
 
-    /** Center frequency. */
+    /// Center frequency.
     public var centerFrequency: Double = 1000 {
         didSet {
             centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
         }
     }
-    /** Amount at which the center frequency value shall be increased or decreased. A
-     value of 1 is a flat response. */
+    /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
     public var gain: Double = 1.0 {
         didSet {
             gainParameter?.setValue(Float(gain), originator: token!)
         }
     }
-    /** Q of the filter. sqrt(0.5) is no resonance. */
+    /// Q of the filter. sqrt(0.5) is no resonance.
     public var q: Double = 0.707 {
         didSet {
             qParameter?.setValue(Float(q), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this equalizer node */
+    /// Initialize this equalizer node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter centerFrequency: Center frequency.
+    /// - parameter gain: Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
+    /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+    ///
     public init(
         _ input: AKNode,
         centerFrequency: Double = 1000,

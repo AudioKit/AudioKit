@@ -8,52 +8,64 @@
 
 import AVFoundation
 
-/** Emulation of the Roland TB-303 filter */
+/// Emulation of the Roland TB-303 filter
+///
+/// - parameter input: Input node to process
+/// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
+/// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+/// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
+/// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
+///
 public struct AKRolandTB303Filter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKRolandTB303FilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKRolandTB303FilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
     private var distortionParameter: AUParameter?
     private var resonanceAsymmetryParameter: AUParameter?
 
-    /** Cutoff frequency. (in Hertz) */
+    /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 500 {
         didSet {
             cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
-    /** Resonance, generally < 1, but not limited to it. Higher than 1 resonance values
-     might cause aliasing, analogue synths generally allow resonances to be above 1. */
+    /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     public var resonance: Double = 0.5 {
         didSet {
             resonanceParameter?.setValue(Float(resonance), originator: token!)
         }
     }
-    /** Distortion. Value is typically 2.0; deviation from this can cause stability
-     issues. */
+    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     public var distortion: Double = 2.0 {
         didSet {
             distortionParameter?.setValue(Float(distortion), originator: token!)
         }
     }
-    /** Asymmetry of resonance. Value is between 0-1 */
+    /// Asymmetry of resonance. Value is between 0-1
     public var resonanceAsymmetry: Double = 0.5 {
         didSet {
             resonanceAsymmetryParameter?.setValue(Float(resonanceAsymmetry), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
+    /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
+    /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
+    ///
     public init(
         _ input: AKNode,
         cutoffFrequency: Double = 500,

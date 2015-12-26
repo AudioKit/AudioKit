@@ -8,44 +8,55 @@
 
 import AVFoundation
 
-/** This is an implementation of Zoelzer's parametric equalizer filter. */
+/// This is an implementation of Zoelzer's parametric equalizer filter.
+///
+/// - parameter input: Input node to process
+/// - parameter cornerFrequency: Corner frequency.
+/// - parameter gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+/// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+///
 public struct AKLowShelfParametricEqualizerFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var cornerFrequencyParameter: AUParameter?
     private var gainParameter: AUParameter?
     private var qParameter: AUParameter?
 
-    /** Corner frequency. */
+    /// Corner frequency.
     public var cornerFrequency: Double = 1000 {
         didSet {
             cornerFrequencyParameter?.setValue(Float(cornerFrequency), originator: token!)
         }
     }
-    /** Amount at which the corner frequency value shall be increased or decreased. A
-     value of 1 is a flat response. */
+    /// Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
     public var gain: Double = 1.0 {
         didSet {
             gainParameter?.setValue(Float(gain), originator: token!)
         }
     }
-    /** Q of the filter. sqrt(0.5) is no resonance. */
+    /// Q of the filter. sqrt(0.5) is no resonance.
     public var q: Double = 0.707 {
         didSet {
             qParameter?.setValue(Float(q), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this equalizer node */
+    /// Initialize this equalizer node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter cornerFrequency: Corner frequency.
+    /// - parameter gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+    /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+    ///
     public init(
         _ input: AKNode,
         cornerFrequency: Double = 1000,

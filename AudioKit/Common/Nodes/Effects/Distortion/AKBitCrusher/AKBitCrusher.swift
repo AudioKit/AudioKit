@@ -8,37 +8,46 @@
 
 import AVFoundation
 
-/** This will digitally degrade a signal. */
+/// This will digitally degrade a signal.
+///
+/// - parameter input: Input node to process
+/// - parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
+/// - parameter sampleRate: The sample rate of signal output.
+///
 public struct AKBitCrusher: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKBitCrusherAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKBitCrusherAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var bitDepthParameter: AUParameter?
     private var sampleRateParameter: AUParameter?
 
-    /** The bit depth of signal output. Typically in range (1-24). Non-integer values
-     are OK. */
+    /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     public var bitDepth: Double = 8 {
         didSet {
             bitDepthParameter?.setValue(Float(bitDepth), originator: token!)
         }
     }
-    /** The sample rate of signal output. */
+    /// The sample rate of signal output.
     public var sampleRate: Double = 10000 {
         didSet {
             sampleRateParameter?.setValue(Float(sampleRate), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this bitcrusher node */
+    /// Initialize this bitcrusher node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
+    /// - parameter sampleRate: The sample rate of signal output.
+    ///
     public init(
         _ input: AKNode,
         bitDepth: Double = 8,

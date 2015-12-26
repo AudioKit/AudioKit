@@ -8,30 +8,38 @@
 
 import AVFoundation
 
-/** These filters are Butterworth second-order IIR filters. They offer an almost
- flat passband and very good precision and stopband attenuation. */
+/// These filters are Butterworth second-order IIR filters. They offer an almost
+/// flat passband and very good precision and stopband attenuation.
+///
+/// - parameter input: Input node to process
+/// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
+///
 public struct AKHighPassButterworthFilter: AKNode {
 
     // MARK: - Properties
-    
+
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var internalAU: AKHighPassButterworthFilterAudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKHighPassButterworthFilterAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
 
-    /** Cutoff frequency. (in Hertz) */
+    /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 500 {
         didSet {
             cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this filter node */
+    /// Initialize this filter node
+    ///
+    /// - parameter input: Input node to process
+    /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
+    ///
     public init(
         _ input: AKNode,
         cutoffFrequency: Double = 500) {
