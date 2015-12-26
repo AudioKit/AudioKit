@@ -9,13 +9,13 @@
 import Foundation
 import AVFoundation
 
-/** Basic sequencer 
-
- This  is currently in transistion from old c core audio apis, to the more 
- modern avaudiosequencer setup. Hwever, the new system is not as advanced as the 
- old, so we will keep both and have them interact.  As such, there is some code 
- hanging around while we iron it out.
- */
+/// Basic sequencer
+///
+/// This  is currently in transistion from old c core audio apis, to the more
+/// modern avaudiosequencer setup. Hwever, the new system is not as advanced as the
+/// old, so we will keep both and have them interact.  As such, there is some code
+/// hanging around while we iron it out.
+///
 public class AKSequencer {
     
     /// Music sequence
@@ -51,18 +51,20 @@ public class AKSequencer {
         MusicPlayerSetSequence(musicPlayer, sequence)
     }
     
-    /** Initialize the sequence with a MIDI file
-    - parameter filename: Location of the MIDI File
-    */
+    /// Initialize the sequence with a MIDI file
+    ///
+    /// - parameter filename: Location of the MIDI File
+    ///
     public convenience init(filename: String) {
         self.init()
         loadMidiFile(filename)
     }
     
-    /** Initialize the sequence with a midi file and audioengine
-     - parameter filename: Location of the MIDI File
-     - parameter engine: reference to the AV Audio Engine
-     */
+    /// Initialize the sequence with a midi file and audioengine
+    ///
+    /// - parameter filename: Location of the MIDI File
+    /// - parameter engine: reference to the AV Audio Engine
+    ///
     public convenience init(filename: String, engine: AVAudioEngine) {
         self.init()
         avSeq = AVAudioSequencer(audioEngine: engine)
@@ -93,10 +95,11 @@ public class AKSequencer {
         loopEnabled = false
     }
     
-    /**  Set looping duration and count for all tracks
-     - parameter duration: Duration of the loop in seconds
-     - parameter numberOfLoops: The number of time to repeat
-     */
+    ///  Set looping duration and count for all tracks
+    ///
+    /// - parameter duration: Duration of the loop in seconds
+    /// - parameter numberOfLoops: The number of time to repeat
+    ///
     public func setLoopInfo(duration: Double, numberOfLoops: Int) {
         let size:UInt32 = 0
         let len = MusicTimeStamp(duration)
@@ -108,9 +111,10 @@ public class AKSequencer {
         }
     }
     
-    /** Set length of all tracks
-     - parameter length: Length of tracks in seconds
-     */
+    /// Set length of all tracks
+    ///
+    /// - parameter length: Length of tracks in seconds
+    ///
     public func setLength(length: Double) {
         let size:UInt32 = 0
         var len = MusicTimeStamp(length)
@@ -214,4 +218,4 @@ public class AKSequencer {
         }
     }
     
-}//end AKSequencer
+}

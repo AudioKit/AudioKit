@@ -8,7 +8,7 @@
 
 import Foundation
 
-/** FFT Calculation for any node */
+/// FFT Calculation for any node
 @objc public class AKFFT: NSObject, EZAudioFFTDelegate {
     
     internal let bufferSize: UInt32 = 512
@@ -17,9 +17,10 @@ import Foundation
     /// Array of FFT data
     public var fftData = [Double](count: 512, repeatedValue: 0.0)
     
-    /** Initialze the FFT calculation on a given node
-     - parameter input: Node on whose output the FFT will be computed
-     */
+    /// Initialze the FFT calculation on a given node
+    ///
+    /// - parameter input: Node on whose output the FFT will be computed
+    ///
     public init(_ input: AKNode) {
         super.init()
         fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: 44100.0, delegate: self)

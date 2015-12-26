@@ -9,14 +9,14 @@
 import Foundation
 import AVFoundation
 
-/** AudioKit version of Apple's Delay Audio Unit */
+/// AudioKit version of Apple's Delay Audio Unit
 public struct AKDelay: AKNode {
     let delayAU = AVAudioUnitDelay()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
         
-    /** Delay time in seconds (Default: 1) */
+    /// Delay time in seconds (Default: 1)
     public var time: NSTimeInterval = 1 {
         didSet {
             if time < 0 {
@@ -26,7 +26,7 @@ public struct AKDelay: AKNode {
         }
     }
     
-    /** Feedback as a percentage (Default: 50) */
+    /// Feedback as a percentage (Default: 50)
     public var feedback: Double = 50.0 {
         didSet {
             if feedback < 0 {
@@ -39,7 +39,7 @@ public struct AKDelay: AKNode {
         }
     }
     
-    /** Low pass cut-off frequency in Hertz (Default: 15000) */
+    /// Low pass cut-off frequency in Hertz (Default: 15000)
     public var lowPassCutoff: Double = 15000.00 {
         didSet {
             if lowPassCutoff < 0 {
@@ -49,7 +49,7 @@ public struct AKDelay: AKNode {
         }
     }
     
-    /** Dry/Wet Mix (Default 50) */
+    /// Dry/Wet Mix (Default 50)
     public var dryWetMix: Double = 50.0 {
         didSet {
             if dryWetMix < 0 {
@@ -62,7 +62,14 @@ public struct AKDelay: AKNode {
         }
     }
     
-    /** Initialize the delay node */
+    /// Initialize the delay node 
+    ///
+    /// - parameter input: Input audio AKNode to process
+    /// - parameter time: Delay time in seconds (Default: 1)
+    /// - parameter feedback: Percentage amount of feedback (Default: 50)
+    /// - parameter lowPassCutoff: Low-pass cutoff frequency in Hz (Default 15000)
+    /// - parameter dryWetMix: Percentage of unprocessed (dry) to delayed (wet) audio (Default: 50)
+    ///
     public init(
         _ input: AKNode,
         time: Double = 1,

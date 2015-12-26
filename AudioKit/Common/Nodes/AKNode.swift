@@ -9,9 +9,9 @@
 import Foundation
 import AVFoundation
 
-/** Protocol for all AudioKit Nodes */
+/// Protocol for all AudioKit Nodes
 public protocol AKNode {
     
-    /** Output of the node */
+    /// Output of the node 
     var avAudioNode: AVAudioNode { get set }
 }
