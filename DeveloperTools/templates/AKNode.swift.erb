@@ -1,23 +1,46 @@
 <%= header_partial %>
 
-/** <%= description %> */
+/// <%= description %>
+///
+<% if inputs.count > 0 -%>
+/// - parameter input: Input node to process
+<% end -%>
+<% (parameters + constants).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+/// - parameter <%= data["ak-variable"] %>: <%= wrap(data["comment"],"") %>
+<% end -%>
+<% end -%>
+///
 public struct <%= node %>: AKNode {
 
     // MARK: - Properties
+
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    private var internalAU: <%= node %>AudioUnit?
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: <%= node %>AudioUnit?
+    internal var token: AUParameterObserverToken?
 
 <%= parameters_partial -%>
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this <%= one_word_desc %> node */
+    /// Initialize this <%= one_word_desc %> node
+    ///
+<% if inputs.count > 0 -%>
+    /// - parameter input: Input node to process
+<% end -%>
+<% (parameters + constants).each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    /// - parameter <%= data["ak-variable"] %>: <%= wrap(data["comment"],"    ") %>
+<% end -%>
+<% end -%>
+    ///
     public init(
         _ input: AKNode,
-<% parameters.each_with_index do |sp_parameter, i| -%>
+<% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-        <%= data["ak-variable"] %>: Double = <%= data["default"] %><%= ",\n" if i < parameters.count - 1 %><% end %><% end %>) {
+        <%= data["ak-variable"] %>: Double = <%= data["default"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>) {
 
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>

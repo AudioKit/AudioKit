@@ -47,7 +47,11 @@ public class AKManager {
         self.engine.stop()
     }
 
-    /// Test the output of a given node
+    /** Test the output of a given node
+
+     - parameter node: AKNode to test
+     - parameter samples: Number of samples to generate in the test
+     */
     public func testOutput(node: AKNode, samples: Int) {
         tester = AKTester(node, samples: samples)
         audioOutput = tester
