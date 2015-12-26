@@ -7,7 +7,7 @@
 <% end -%>
 <% (parameters + constants).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-/// - parameter <%= data["ak-variable"] %>: <%= wrap(data["comment"],"") %>
+/// - parameter <%= data["ak-variable"] %>: <%= data["comment"] %>
 <% end -%>
 <% end -%>
 ///
@@ -32,12 +32,14 @@ public struct <%= node %>: AKNode {
 <% end -%>
 <% (parameters + constants).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-    /// - parameter <%= data["ak-variable"] %>: <%= wrap(data["comment"],"    ") %>
+    /// - parameter <%= data["ak-variable"] %>: <%= data["comment"] %>
 <% end -%>
 <% end -%>
     ///
     public init(
+<% if inputs.count > 0 -%>
         _ input: AKNode,
+<% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
         <%= data["ak-variable"] %>: Double = <%= data["default"] %><%= ",\n" if i < (parameters + constants).count - 1 %><% end %><% end %>) {

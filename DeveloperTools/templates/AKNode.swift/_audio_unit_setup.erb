@@ -8,11 +8,13 @@
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let avAudioUnit<%= au_type %> = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnit<%= au_type %>
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? <%= node %>AudioUnit
+            self.internalAU = avAudioUnit<%= au_type %>.AUAudioUnit as? <%= node %>AudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+<% if inputs.count > 0 -%>
             AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+<% end -%>
         }
