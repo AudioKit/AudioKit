@@ -27,12 +27,12 @@ public class AKNodeOutputPlot {
     /// View with the plot
     public var containerView: AKView?
     
-    /** Initialize the plot with the output from a given node and optional plot size
-     
-     - parameter input: AKNode from which to get the plot data
-     - parameter width: Width of the view
-     - parameter height: Height of the view
-     */
+    /// Initialize the plot with the output from a given node and optional plot size
+    ///
+    /// - parameter input: AKNode from which to get the plot data
+    /// - parameter width: Width of the view
+    /// - parameter height: Height of the view
+    ///
     public init(_ input: AKNode, width: CGFloat = 1000.0, height: CGFloat = 500.0) {
         print("fdsa")
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)

@@ -88,10 +88,10 @@ public class AKMidi {
         }
     }
     
-    /** Open a MIDI Input port
-
-     - parameter namedInput: String containing the name of the MIDI Input
-     */
+    /// Open a MIDI Input port
+    ///
+    /// - parameter namedInput: String containing the name of the MIDI Input
+    ///
     public func openMidiIn(namedInput: String = "") {
         print("Opening Midi In")
         var result = OSStatus(noErr)
@@ -135,10 +135,10 @@ public class AKMidi {
         }
     }
     
-    /** Open a MIDI Output Port
-     
-     - parameter namedOutput: String containing the name of the MIDI Input
-     */
+    /// Open a MIDI Output Port
+    ///
+    /// - parameter namedOutput: String containing the name of the MIDI Input
+    ///
     public func openMidiOut(namedOutput: String = "") {
         print("Opening Midi Out")
         var result = OSStatus(noErr)

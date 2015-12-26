@@ -8,7 +8,7 @@
 
 import Foundation
 
-/** Supported default table types */
+/// Supported default table types
 public enum AKTableType: String {
     /// Standard sine waveform
     case Sine
@@ -26,7 +26,7 @@ public enum AKTableType: String {
     case ReverseSawtooth
 }
 
-/** A table of values accessible as a waveform or lookup mechanism */
+/// A table of values accessible as a waveform or lookup mechanism
 public struct AKTable {
     
     // MARK: - Properties
@@ -41,9 +41,12 @@ public struct AKTable {
     var type: AKTableType
     
     // MARK: - Initializers with Generators
-    /** Initialize and set up the default table 
-    - parameter size: Size of the table (multiple of 2)
-    */
+    
+    /// Initialize and set up the default table 
+    ///
+    /// - parameter tableType: AKTableType of teh new table
+    /// - parameter size: Size of the table (multiple of 2)
+    ///
     public init(_ tableType: AKTableType = .Sine, size tableSize: Int = 4096) {
         type = tableType
         size = tableSize
@@ -61,7 +64,7 @@ public struct AKTable {
         }
     }
     
-    /** Instantiate the table as a triangle wave */
+    /// Instantiate the table as a triangle wave
     mutating func standardTriangleWave() {
         values = [Float]()
         let slope = Float(4.0) / Float(size)
@@ -74,7 +77,7 @@ public struct AKTable {
         }
     }
 
-    /** Instantiate the table as a square wave */
+    /// Instantiate the table as a square wave
     mutating func standardSquareWave() {
         values = [Float]()
         for i in 0..<size {
@@ -86,7 +89,7 @@ public struct AKTable {
         }
     }
     
-    /** Instantiate the table as a sawtooth wave */
+    /// Instantiate the table as a sawtooth wave
     mutating func standardSawtoothWave() {
         values = [Float]()
         for i in 0..<size {
@@ -94,7 +97,7 @@ public struct AKTable {
         }
     }
 
-    /** Instantiate the table as a reverse sawtooth wave */
+    /// Instantiate the table as a reverse sawtooth wave
     mutating func standardReverseSawtoothWave() {
         values = [Float]()
         for i in 0..<size {
@@ -102,7 +105,7 @@ public struct AKTable {
         }
     }
 
-    /** Instantiate the table as a sine wave */
+    /// Instantiate the table as a sine wave 
     mutating func standardSineWave() {
         values = [Float]()
         for i in 0..<size {
