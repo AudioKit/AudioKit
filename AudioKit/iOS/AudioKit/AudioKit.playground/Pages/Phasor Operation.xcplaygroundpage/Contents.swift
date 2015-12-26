@@ -14,11 +14,10 @@ let numberOfNotes: Double = 24
 let startingNote: Double = 48 // C
 let frequency = (floor(phasor(frequency: 0.5) * numberOfNotes) * interval  + startingNote).midiNoteToFrequency()
 
-var amplitude = phasor(frequency: 0.5) - 1
-amplitude.applyPortamento() // prevents the click sound
+var amplitude = (phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
 
 var oscillator = sineWave(frequency: frequency, amplitude: amplitude)
-let reverb = oscillator.reverberatedWithChowning()
+let reverb = oscillator.reverberateWithChowning()
 let oscillatorReverbMix = mix(oscillator, reverb, t: 0.6)
 let generator = AKOperationGenerator(operation: oscillatorReverbMix)
 

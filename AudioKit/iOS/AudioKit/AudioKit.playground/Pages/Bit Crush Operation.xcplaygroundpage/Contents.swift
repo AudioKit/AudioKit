@@ -13,7 +13,7 @@ let sinusoid = sineWave(frequency: 1)
 let sampleRate = sinusoid.scaledTo(minimum: 300, maximum: 900)
 let bitDepth   = sinusoid.scaledTo(minimum:   8, maximum:   2)
 let oscillator = sineWave(frequency: 440)
-let bitCrush = oscillator.bitCrushed(bitDepth: bitDepth, sampleRate: sampleRate)
+let bitCrush = oscillator.bitCrush(bitDepth: bitDepth, sampleRate: sampleRate)
 
 let generator = AKOperationGenerator(operation: bitCrush * 0.2)
 

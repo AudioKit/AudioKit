@@ -16,7 +16,7 @@ let balance = sineWave(frequency: 0.3).scaledTo(minimum: 0, maximum: 1)
 let noise = mix(white, pink, t: 1)
 let pan = sineWave(frequency: 0.3)
 
-let generator = AKOperationGenerator(stereoOperation: noise.panned(pan))
+let generator = AKOperationGenerator(stereoOperation: noise.pan(pan))
 
 audiokit.audioOutput = generator
 audiokit.start()

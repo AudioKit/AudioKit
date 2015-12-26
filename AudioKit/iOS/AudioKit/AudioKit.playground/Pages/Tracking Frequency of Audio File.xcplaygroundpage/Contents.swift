@@ -4,7 +4,7 @@
 //:
 //: ## Tracking Frequency of an Audio File
 //: ### Here is a more real-world example of tracking the pitch of an audio stream
-x
+
 //: Standard imports and AudioKit setup:
 import XCPlayground
 import AudioKit
