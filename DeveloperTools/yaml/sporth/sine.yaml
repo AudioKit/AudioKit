@@ -1,6 +1,6 @@
-installation-directory: ""
+installation-directory: "Generators/Oscillators/"
 
-sp-module:
+sp-module: sine
 
 node:
 
@@ -10,7 +10,7 @@ four-letter-code:
 
 one-word-description: sine
 
-akalias: sine
+akalias: sineWave
 
 description: ""
 

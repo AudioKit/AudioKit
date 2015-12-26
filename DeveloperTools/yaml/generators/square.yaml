@@ -9,7 +9,7 @@ four-letter-code: sqro
 summary: Band-limited square oscillator
 
 one-word-description: oscillator
-
+akalias: squareWave
 description:
   This is a bandlimited square oscillator ported from the "square" function from the Faust
   programming language.
