@@ -12,15 +12,15 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Let's set up the volume to be changing in the shape of a sine wave
-let volume = sineWave(frequency:0.2).scaledTo(minimum: 0.3, maximum: 1)
+let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0.3, maximum: 1)
 
 //: And let's make the frequency also be a sineWave
 let minimum = Double(200)
 let maximum = Double(800)
-let frequency = sineWave(frequency: 0.5).scaledTo(minimum: minimum, maximum: maximum)
+let frequency = AKOperation.sineWave(frequency: 0.5).scale(minimum: minimum, maximum: maximum)
 
 //: So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
-let oscillator = sineWave(frequency: frequency, amplitude: volume)
+let oscillator = AKOperation.sineWave(frequency: frequency, amplitude: volume)
 
 //: Connect up the the nodes
 let oscillatorNode = AKOperationGenerator(operation: oscillator)

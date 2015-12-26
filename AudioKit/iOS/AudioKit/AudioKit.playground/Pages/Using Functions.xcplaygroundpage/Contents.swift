@@ -10,9 +10,9 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 func drone(frequency: Double, rate: Double) -> AKOperation {
-    let metro = metronome(rate)
-    let tone = sineWave(frequency: frequency, amplitude: 0.2)
-    return tone.triggeredBy(metro, attack: 0.01, hold: 0.1, release: 0.1)
+    let metro = AKOperation.metronome(rate)
+    let tone = AKOperation.sineWave(frequency: frequency, amplitude: 0.2)
+    return tone.triggeredWithEnvelope(metro, attack: 0.01, hold: 0.1, release: 0.1)
 }
 
 let drone1 = drone(440, rate: 3)

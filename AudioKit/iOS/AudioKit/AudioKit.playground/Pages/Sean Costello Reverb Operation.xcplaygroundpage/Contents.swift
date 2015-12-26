@@ -14,7 +14,7 @@ var player = AKAudioPlayer(file!)
 player.looping = true
 
 let reverb = AKOperation.input.reverberateWithCostello(
-    feedback: sineWave(frequency: 0.1).scaledTo(minimum: 0.5, maximum: 0.97),
+    feedback: AKOperation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
     cutoffFrequency: 10000)
 let effect = AKOperationEffect(player, stereoOperation: reverb)
 

@@ -10,10 +10,10 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: The busy signal is similar as well
-let crossingSignalTone = sineWave(frequency: 2500)
+let crossingSignalTone = AKOperation.sineWave(frequency: 2500)
 
-let crossingSignalTrigger = periodicTrigger(0.2)
-let crossingSignal = crossingSignalTone.triggeredBy(crossingSignalTrigger, attack: 0.01, hold: 0.1, release: 0.01)
+let crossingSignalTrigger = AKOperation.periodicTrigger(0.2)
+let crossingSignal = crossingSignalTone.triggeredWithEnvelope(crossingSignalTrigger, attack: 0.01, hold: 0.1, release: 0.01)
 
 let generator = AKOperationGenerator(operation: crossingSignal)
 

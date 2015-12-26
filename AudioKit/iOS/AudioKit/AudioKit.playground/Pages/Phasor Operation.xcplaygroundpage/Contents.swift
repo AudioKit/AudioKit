@@ -12,11 +12,11 @@ let audiokit = AKManager.sharedInstance
 let interval: Double = 2
 let numberOfNotes: Double = 24
 let startingNote: Double = 48 // C
-let frequency = (floor(phasor(frequency: 0.5) * numberOfNotes) * interval  + startingNote).midiNoteToFrequency()
+let frequency = (floor(AKOperation.phasor(frequency: 0.5) * numberOfNotes) * interval  + startingNote).midiNoteToFrequency()
 
-var amplitude = (phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
+var amplitude = (AKOperation.phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
 
-var oscillator = sineWave(frequency: frequency, amplitude: amplitude)
+var oscillator = AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
 let reverb = oscillator.reverberateWithChowning()
 let oscillatorReverbMix = mix(oscillator, reverb, t: 0.6)
 let generator = AKOperationGenerator(operation: oscillatorReverbMix)

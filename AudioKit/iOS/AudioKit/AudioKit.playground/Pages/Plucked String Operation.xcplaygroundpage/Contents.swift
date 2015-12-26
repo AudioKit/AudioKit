@@ -12,10 +12,10 @@ let audiokit = AKManager.sharedInstance
 
 let playRate = 2.0
 
-let randomNoteNumber = floor(randomNumberPulse(minimum: 12, maximum: 96, updateFrequency: 20))
+let randomNoteNumber = floor(AKOperation.randomNumberPulse(minimum: 12, maximum: 96, updateFrequency: 20))
 let frequency = randomNoteNumber.midiNoteToFrequency()
-let trigger = metronome(playRate)
-let pluck = pluckedString(
+let trigger = AKOperation.metronome(playRate)
+let pluck = AKOperation.pluckedString(
     frequency: frequency,
     position: 0.2,
     pickupPosition: 0.1,

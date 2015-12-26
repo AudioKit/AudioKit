@@ -3,14 +3,14 @@
 //: ---
 //:
 //: ## highPassFilter
-//: ### Just as you can create custom generators, you can also create custom effects. Here, we demonstrate how to make a high-pass filter. 
+//: ### Just as you can create custom generators, you can also create custom effects. Here, we demonstrate how to make a high-pass filter.
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
 //: Filter setup
-let halfPower = sineWave(frequency: 0.2).scaledTo(minimum: 12000, maximum: 100)
+let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12000, maximum: 100)
 let filter = AKOperation.input.highPassFilter(halfPowerPoint: halfPower)
 
 //: Noise Example

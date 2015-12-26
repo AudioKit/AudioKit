@@ -10,13 +10,13 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 //: Set up the operations that will be used to make a generator node
-let sine = sineWave(frequency: 1)
-let square = squareWave(frequency: 1.64)
-let square2 = squareWave(frequency: sine, amplitude: sine, pulseWidth: sine)
+let sine = AKOperation.sineWave(frequency: 1)
+let square = AKOperation.squareWave(frequency: 1.64)
+let square2 = AKOperation.squareWave(frequency: sine, amplitude: sine, pulseWidth: sine)
 
-let freq  = sine.scaledTo(minimum: 900, maximum: 200)
-let car   = square.scaledTo(minimum: 1.2, maximum: 1.4)
-let mod   = square.scaledTo(minimum: 1,   maximum: 3)
+let freq  = sine.scale(minimum: 900, maximum: 200)
+let car   = square.scale(minimum: 1.2, maximum: 1.4)
+let mod   = square.scale(minimum: 1,   maximum: 3)
 let index = square2 * 3 + 5
 
 let oscillator = AKOperation.fmOscillator(
