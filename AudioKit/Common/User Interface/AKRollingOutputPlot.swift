@@ -24,28 +24,30 @@ import Foundation
     
     internal let bufferSize: UInt32 = 512
     
-    /** Initialize the plot in a frame
-    - parameter frame: CGRect in which to draw the plot
-    */
+    /// Initialize the plot in a frame
+    ///
+    /// - parameter frame: CGRect in which to draw the plot
+    ///
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupNode()
     }
 
-    /** Required coder-based initialization (for use with Interface Builder)
-     - parameter coder: NSCoder
-     */
+    /// Required coder-based initialization (for use with Interface Builder)
+    ///
+    /// - parameter coder: NSCoder
+    ///
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupNode()
     }
 
-    /** Create a View with the plot (usually for playgrounds)
-     
-     - returns: AKView
-     - parameter width: Width of the view
-     - parameter height: Height of the view
-     */
+    /// Create a View with the plot (usually for playgrounds)
+    ///
+    /// - returns: AKView
+    /// - parameter width: Width of the view
+    /// - parameter height: Height of the view
+    ///
     public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
         
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)

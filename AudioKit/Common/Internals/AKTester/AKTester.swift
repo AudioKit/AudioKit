@@ -33,10 +33,11 @@ public struct AKTester: AKNode {
 
     // MARK: - Initializers
 
-    /** Initialize this test node
-    - parameter input: AKNode to test
-    - parameter sample: Number of sample to product
-    */
+    /// Initialize this test node
+    ///
+    /// - parameter input: AKNode to test
+    /// - parameter sample: Number of sample to product
+    ///
     public init(_ input: AKNode, samples: Int) {
         
         totalSamples = samples
