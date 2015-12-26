@@ -1,7 +1,7 @@
-installation-directory: "Math/"
+installation-directory: "Music/"
 
 sp-module: tenv
-akalias: envelope
+akalias: triggeredEnvelope
 
 operation: AK
 

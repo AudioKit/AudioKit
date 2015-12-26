@@ -11,6 +11,7 @@ summary: Band-limited triangle oscillator
 
 one-word-description: oscillator
 
+akalias: triangleWave
 
 description: Bandlimited triangleoscillator
   This is a bandlimited triangle oscillator ported from the "triangle" function from the Faust
