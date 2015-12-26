@@ -134,6 +134,8 @@
 		C42F38AA1C0587B6000E937C /* AKPeakLimiterWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F389B1C0585C2000E937C /* AKPeakLimiterWindow.swift */; };
 		C42F38AB1C0587B9000E937C /* AKRingModulatorWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F389C1C0585C2000E937C /* AKRingModulatorWindow.swift */; };
 		C42F38AC1C0587BC000E937C /* AKTimePitchWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F389D1C0585C2000E937C /* AKTimePitchWindow.swift */; };
+		C4362F101C2F5E8F00D17352 /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F0F1C2F5E8F00D17352 /* variableDelay.swift */; };
+		C4362F121C2F5EA600D17352 /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F111C2F5EA600D17352 /* reverberateWithCostello.swift */; };
 		C437910A1C0C4CD3001E9160 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43791091C0C4CD3001E9160 /* AKTable.swift */; };
 		C437915D1C0C5592001E9160 /* func.c in Sources */ = {isa = PBXBuildFile; fileRef = C43791201C0C5592001E9160 /* func.c */; };
 		C437915E1C0C5592001E9160 /* plumber.h in Headers */ = {isa = PBXBuildFile; fileRef = C43791221C0C5592001E9160 /* plumber.h */; };
@@ -425,7 +427,6 @@
 		C4E751F21C23885400688A1B /* lowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751CA1C23885400688A1B /* lowPassFilter.swift */; };
 		C4E751F31C23885400688A1B /* modalResonanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751CB1C23885400688A1B /* modalResonanceFilter.swift */; };
 		C4E751F41C23885400688A1B /* moogLadderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751CC1C23885400688A1B /* moogLadderFilter.swift */; };
-		C4E751F51C23885400688A1B /* reverberatedWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751CE1C23885400688A1B /* reverberatedWithCostello.swift */; };
 		C4E751F61C23885400688A1B /* reverberateWithChowning.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751CF1C23885400688A1B /* reverberateWithChowning.swift */; };
 		C4E751F71C23885400688A1B /* reverberateWithFlatFrequencyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751D01C23885400688A1B /* reverberateWithFlatFrequencyResponse.swift */; };
 		C4E751F81C23885400688A1B /* pinkNoise.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751D31C23885400688A1B /* pinkNoise.swift */; };
@@ -597,6 +598,8 @@
 		C42F389C1C0585C2000E937C /* AKRingModulatorWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKRingModulatorWindow.swift; sourceTree = "<group>"; };
 		C42F389D1C0585C2000E937C /* AKTimePitchWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKTimePitchWindow.swift; sourceTree = "<group>"; };
 		C42F389E1C0585C2000E937C /* AKOSXPlaygroundHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKOSXPlaygroundHelpers.swift; sourceTree = "<group>"; };
+		C4362F0F1C2F5E8F00D17352 /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
+		C4362F111C2F5EA600D17352 /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
 		C43791091C0C4CD3001E9160 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTable.swift; path = ../../Common/AKTable.swift; sourceTree = "<group>"; };
 		C43791201C0C5592001E9160 /* func.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = func.c; sourceTree = "<group>"; };
 		C43791221C0C5592001E9160 /* plumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plumber.h; sourceTree = "<group>"; };
@@ -888,7 +891,6 @@
 		C4E751CA1C23885400688A1B /* lowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lowPassFilter.swift; sourceTree = "<group>"; };
 		C4E751CB1C23885400688A1B /* modalResonanceFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = modalResonanceFilter.swift; sourceTree = "<group>"; };
 		C4E751CC1C23885400688A1B /* moogLadderFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moogLadderFilter.swift; sourceTree = "<group>"; };
-		C4E751CE1C23885400688A1B /* reverberatedWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberatedWithCostello.swift; sourceTree = "<group>"; };
 		C4E751CF1C23885400688A1B /* reverberateWithChowning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithChowning.swift; sourceTree = "<group>"; };
 		C4E751D01C23885400688A1B /* reverberateWithFlatFrequencyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithFlatFrequencyResponse.swift; sourceTree = "<group>"; };
 		C4E751D31C23885400688A1B /* pinkNoise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pinkNoise.swift; sourceTree = "<group>"; };
@@ -1992,6 +1994,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E751BF1C23885400688A1B /* delay.swift */,
+				C4362F0F1C2F5E8F00D17352 /* variableDelay.swift */,
 			);
 			path = Delay;
 			sourceTree = "<group>";
@@ -2024,8 +2027,8 @@
 		C4E751CD1C23885400688A1B /* Reverb */ = {
 			isa = PBXGroup;
 			children = (
-				C4E751CE1C23885400688A1B /* reverberatedWithCostello.swift */,
 				C4E751CF1C23885400688A1B /* reverberateWithChowning.swift */,
+				C4362F111C2F5EA600D17352 /* reverberateWithCostello.swift */,
 				C4E751D01C23885400688A1B /* reverberateWithFlatFrequencyResponse.swift */,
 			);
 			path = Reverb;
@@ -2400,7 +2403,6 @@
 				C40869E11C197F7200EF9DED /* EZAudioFloatConverter.m in Sources */,
 				C463015C1C20C6FF009B44D9 /* buthp.c in Sources */,
 				C40869ED1C197F7200EF9DED /* EZMicrophone.m in Sources */,
-				C4E751F51C23885400688A1B /* reverberatedWithCostello.swift in Sources */,
 				C4E751FD1C23885400688A1B /* sineWave.swift in Sources */,
 				C42F38A01C058725000E937C /* AKDelayWindow.swift in Sources */,
 				C43792201C0C55DE001E9160 /* comb.c in Sources */,
@@ -2510,6 +2512,7 @@
 				C4A917011C250EC9006C1A15 /* AKOperationEffectAudioUnit.mm in Sources */,
 				C4F52E491C08107000F22BD1 /* AKSquareWaveOscillatorAudioUnit.mm in Sources */,
 				C469603A1C0F946300A65FBF /* test.c in Sources */,
+				C4362F121C2F5EA600D17352 /* reverberateWithCostello.swift in Sources */,
 				C4A9165A1C2504F2006C1A15 /* triggeredEnvelope.swift in Sources */,
 				C437924F1C0C55DE001E9160 /* randi.c in Sources */,
 				C42AE0021C2DF59D000CEED2 /* AKRollingOutputPlot.swift in Sources */,
@@ -2590,6 +2593,7 @@
 				C4F52E041C07F59F00F22BD1 /* AKToneComplementFilterAudioUnit.mm in Sources */,
 				C43791641C0C5592001E9160 /* stack.c in Sources */,
 				C4A916831C250643006C1A15 /* AKBandPassButterworthFilterAudioUnit.mm in Sources */,
+				C4362F101C2F5E8F00D17352 /* variableDelay.swift in Sources */,
 				C4E752041C23885400688A1B /* min.swift in Sources */,
 				C42F383D1C058442000E937C /* AKCombFilterAudioUnit.mm in Sources */,
 				C42F38241C058442000E937C /* AKPeakLimiter.swift in Sources */,
