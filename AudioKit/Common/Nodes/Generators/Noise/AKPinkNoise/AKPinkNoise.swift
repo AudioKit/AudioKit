@@ -8,30 +8,35 @@
 
 import AVFoundation
 
-/** Faust-based pink noise generator */
+/// Faust-based pink noise generator
+///
+/// - parameter amplitude: Amplitude. (Value between 0-1).
+///
 public struct AKPinkNoise: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AKPinkNoiseAudioUnit?
-    
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKPinkNoiseAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var amplitudeParameter: AUParameter?
 
-    /** Amplitude. (Value between 0-1). */
-    public var amplitude = 1.0 {
+    /// Amplitude. (Value between 0-1).
+    public var amplitude: Double = 1.0 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this noise node */
+    /// Initialize this noise node
+    ///
+    /// - parameter amplitude: Amplitude. (Value between 0-1).
+    ///
     public init(amplitude: Double = 1.0) {
 
         self.amplitude = amplitude
@@ -53,10 +58,11 @@ public struct AKPinkNoise: AKNode {
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
-            guard let avAudioUnitEffect = avAudioUnit else { return }
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
 
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPinkNoiseAudioUnit
+            self.avAudioNode = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPinkNoiseAudioUnit
+
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         }
 

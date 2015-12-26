@@ -8,38 +8,47 @@
 
 import AVFoundation
 
-/** Reads from the table sequentially and repeatedly at given frequency. 
- Linear interpolation is applied for table look up from internal phase values. */
+/// Reads from the table sequentially and repeatedly at given frequency. Linear
+/// interpolation is applied for table look up from internal phase values.
+///
+/// - parameter frequency: Frequency in cycles per second
+/// - parameter amplitude: Amplitude of the output
+/// - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).
+///
 public struct AKOscillator: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AKOscillatorAudioUnit?
-    
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-    
-    private var token: AUParameterObserverToken?
+
+    internal var internalAU: AKOscillatorAudioUnit?
+    internal var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
-    /** In cycles per second, or Hz. */
+    /// Frequency in cycles per second
     public var frequency: Double = 440 {
         didSet {
             frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
-    /** Output Amplitude. */
-    public var amplitude: Double = 0.5 {
+    /// Amplitude of the output
+    public var amplitude: Double = 1 {
         didSet {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
 
-    // MARK: - Initializers
+    // MARK: - Initialization
 
-    /** Initialize this oscillator node */
+    /// Initialize this oscillator node
+    ///
+    /// - parameter frequency: Frequency in cycles per second
+    /// - parameter amplitude: Amplitude of the output
+    /// - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).
+    ///
     public init(
         table: AKTable = AKTable(.Sine),
         frequency: Double = 440,
@@ -54,13 +63,13 @@ public struct AKOscillator: AKNode {
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
-            
+
         AUAudioUnit.registerSubclass(
             AKOscillatorAudioUnit.self,
             asComponentDescription: description,
             name: "Local AKOscillator",
             version: UInt32.max)
-        
+
         self.avAudioNode = AVAudioNode()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
@@ -92,8 +101,8 @@ public struct AKOscillator: AKNode {
                     self.amplitude = Double(value)
                 }
             }
-            }
-            frequencyParameter?.setValue(Float(frequency), originator: token!)
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+        }
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 }
