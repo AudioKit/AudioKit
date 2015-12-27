@@ -12,9 +12,9 @@ import AudioKit
 class ViewController: UIViewController {
 
     let audiokit = AKManager.sharedInstance
-    let oscillator = AKOscillator()
+    var oscillator = AKOscillator()
 
-    @IBOutlet var plot: AKAudioOutputPlot!
+    @IBOutlet var plot: AKOutputWaveformPlot!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +26,11 @@ class ViewController: UIViewController {
     @IBAction func toggleSound(sender: UIButton) {
         if oscillator.amplitude >  0 {
             oscillator.amplitude = 0
-            sender.setTitle("Play Sine Wave at 440Hz", forState: .Normal)
+            sender.setTitle("Play Sine Wave", forState: .Normal)
         } else {
-            oscillator.amplitude = 1
-            sender.setTitle("Stop Sine Wave at 440Hz", forState: .Normal)
+            oscillator.amplitude = random(0.5, 1)
+            oscillator.frequency = random(220, 880)
+            sender.setTitle("Stop Sine Wave at \(Int(oscillator.frequency))Hz", forState: .Normal)
         }
         sender.setNeedsDisplay()
     }
