@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     /// Subtraction of parameters
     ///
     /// - returns: AKOperation
@@ -27,6 +27,6 @@ extension AKParameter {
 /// - right: 2nd parameter
 ///
 public func -(left: AKParameter, right: AKParameter) -> AKOperation {
-    return left.minus(right)
+    return left.toMono().minus(right)
 }
 

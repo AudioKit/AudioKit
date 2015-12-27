@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// Add a delay to an incoming signal with optional feedback.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
     /// - parameter time: Delay time, in seconds. (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
     /// - parameter feedback: Feedback amount. (Default: 0.0, Minimum: 0.0, Maximum: 1.0)
@@ -21,6 +21,6 @@ extension AKOperation {
         time time: Double = 1.0,
         feedback: AKParameter = 0.0
         ) -> AKOperation {
-            return AKOperation("(\(self) \(feedback) \(time) delay)")
+            return AKOperation("(\(self.toMono()) \(feedback) \(time) delay)")
     }
 }

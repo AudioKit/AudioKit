@@ -121,11 +121,12 @@ custom_categories:
 
   - name: Operations
     children:
+    - AKParameter
+    - AKComputedParameter
     - AKOperation
     - AKStereoOperation
-    - AKParameter
 
-  - name: Math Operations
+  - name: Function Operations
     children:
     - "*(_:_:)"
     - "+(_:_:)"
@@ -138,42 +139,13 @@ custom_categories:
     - log10(_:)
     - max(_:_:)
     - min(_:_:)
+    - mix(_:_:t:)
     - round(_:)
 
   - name: Random Number Generators
     children:
-    - jitter(amplitude:minimumFrequency:maximumFrequency:)
     - random(_:_:)
     - randomInt(_:)
-    - randomNumberPulse(minimum:maximum:updateFrequency:)
-    - randomVertexPulse(minimum:maximum:updateFrequency:)
-
-  - name: Noise Generators
-    children:
-    - pinkNoise(amplitude:)
-    - whiteNoise(amplitude:)
-
-  - name: Oscillator Operations
-    children:
-    - fmOscillator(baseFrequency:carrierMultiplier:modulatingMultiplier:modulationIndex:amplitude:)
-    - phasor(frequency:phase:)
-    - sawtoothWave(frequency:amplitude:)
-    - sineWave(frequency:amplitude:)
-    - squareWave(frequency:amplitude:pulseWidth:)
-    - triangleWave(frequency:amplitude:)
-
-  - name: Physical Models
-    children:
-    - pluckedString(frequency:position:pickupPosition:reflectionCoefficent:amplitude:lowestFrequency:)
-
-  - name: Music Operations
-    children:
-    - metronome(_:)
-    - periodicTrigger(_:)
-
-  - name: Mixing Operations
-    children:
-    - mix(_:_:t:)
 
   - name: Plotting Tools
     children:

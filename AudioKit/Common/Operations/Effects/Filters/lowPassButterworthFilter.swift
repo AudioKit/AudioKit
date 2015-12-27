@@ -8,18 +8,18 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// These filters are Butterworth second-order IIR filters. They offer an almost
     /// flat passband and very good precision and stopband attenuation.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
     /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz) (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
      ///
     public func lowPassButterworthFilter(
         cutoffFrequency cutoffFrequency: AKParameter = 1000
         ) -> AKOperation {
-            return AKOperation("(\(self) \(cutoffFrequency) butlp)")
+            return AKOperation("(\(self.toMono()) \(cutoffFrequency) butlp)")
     }
 }

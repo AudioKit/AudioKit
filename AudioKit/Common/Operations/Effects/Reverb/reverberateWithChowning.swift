@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// This is was built using the JC reverb implentation found in FAUST. According
     /// to the source code, the specifications for this implementation were found on
@@ -18,11 +18,11 @@ extension AKOperation {
     /// three series allpass units, followed by four parallel comb filters, and two
     /// decorrelation delay lines in parallel at the output.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
      ///
     public func reverberateWithChowning(
         ) -> AKOperation {
-            return AKOperation("(\(self) jcrev)")
+            return AKOperation("(\(self.toMono()) jcrev)")
     }
 }

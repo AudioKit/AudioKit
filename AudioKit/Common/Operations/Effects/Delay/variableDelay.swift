@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// A delay line with cubic interpolation.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
     /// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time. (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
     /// - parameter feedback: Feedback amount. Should be a value between 0-1. (Default: 0.0, Minimum: 0.0, Maximum: 1.0)
@@ -23,6 +23,6 @@ extension AKOperation {
         feedback: AKParameter = 0.0,
         maximumDelayTime: Double = 5.0
         ) -> AKOperation {
-            return AKOperation("(\(self) \(feedback) \(time) \(maximumDelayTime) vdelay)")
+            return AKOperation("(\(self.toMono()) \(feedback) \(time) \(maximumDelayTime) vdelay)")
     }
 }

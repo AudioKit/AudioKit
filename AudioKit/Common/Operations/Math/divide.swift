@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     /// Division of parameters
     ///
     /// - returns: AKOperation
@@ -26,6 +26,6 @@ extension AKParameter {
 /// - parameter right: 2nd parameter
 ///
 public func /(left: AKParameter, right: AKParameter) -> AKOperation {
-    return left.dividedBy(right)
+    return left.toMono().dividedBy(right)
 }
 

@@ -8,17 +8,17 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// A complement to the AKLowPassFilter.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
     /// - parameter halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
      ///
     public func highPassFilter(
         halfPowerPoint halfPowerPoint: AKParameter = 1000
         ) -> AKOperation {
-            return AKOperation("(\(self) \(halfPowerPoint) atone)")
+            return AKOperation("(\(self.toMono()) \(halfPowerPoint) atone)")
     }
 }

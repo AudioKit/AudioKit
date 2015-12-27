@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /// 
+    /// Standard Sine Wave 
     ///
     /// - returns: AKOperation
     /// - parameter frequency: Frequency in cycles per second (Default: 440)

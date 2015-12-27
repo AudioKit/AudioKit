@@ -8,8 +8,9 @@
 
 import Foundation
 
-extension AKParameter {
+extension AKOperation {
     /// Addition/Summation of operations
+    ///
     ///  - returns: AKOperation
     ///  - parameter parameter: The amount to add
     public func plus(parameter: AKParameter) -> AKOperation {
@@ -17,6 +18,7 @@ extension AKParameter {
     }
     
     /// Offsetting by way of addition
+    ///
     /// - returns: AKOperation
     /// - parameter parameter: The amount to offset by
     public func offsetBy(parameter: AKParameter) -> AKOperation {
@@ -25,9 +27,10 @@ extension AKParameter {
 }
 
 /// Helper function for addition
+///
 /// - returns: AKOperation
 /// - left: 1st parameter
 /// - right: 2nd parameter
 public func +(left: AKParameter, right: AKParameter) -> AKOperation {
-    return left.plus(right)
+    return left.toMono().plus(right)
 }
