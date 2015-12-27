@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /// 
+    /// Line segments with vertices at random points
     ///
     /// - returns: AKOperation
     /// - parameter minimum: Minimum value (Default: 0)

@@ -12,7 +12,7 @@ extension AKOperation {
 
     /// White noise generator
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter amplitude: Amplitude. (Value between 0-1). (Default: 1.0, Minimum: 0.0, Maximum: 10.0)
      ///
     public static func whiteNoise(

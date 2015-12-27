@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// An automatic wah effect, ported from Guitarix via Faust.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
     /// - parameter wah: Wah Amount (Default: 0, Minimum: 0, Maximum: 1)
     /// - parameter mix: Dry/Wet Mix (Default: 100, Minimum: 0, Maximum: 100)
@@ -23,6 +23,6 @@ extension AKOperation {
         mix: AKParameter = 100,
         amplitude: AKParameter = 0.1
         ) -> AKOperation {
-            return AKOperation("(\(self) \(wah) \(mix) \(amplitude) autowah)")
+            return AKOperation("(\(self.toMono()) \(amplitude) \(wah) \(mix) autowah)")
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// Moog Ladder is an new digital implementation of the Moog ladder filter based
     /// on the work of Antti Huovilainen, described in the paper "Non-Linear Digital
@@ -16,7 +16,7 @@ extension AKOperation {
     /// Napoli). This implementation is probably a more accurate digital
     /// representation of the original analogue filter.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
     /// - parameter cutoffFrequency: Filter cutoff frequency. (Default: 1000, Minimum: 12.0, Maximum: 20000.0)
     /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
@@ -25,6 +25,6 @@ extension AKOperation {
         cutoffFrequency cutoffFrequency: AKParameter = 1000,
         resonance: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation("(\(self) \(cutoffFrequency) \(resonance) moogladder)")
+            return AKOperation("(\(self.toMono()) \(cutoffFrequency) \(resonance) moogladder)")
     }
 }

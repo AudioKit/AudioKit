@@ -1,5 +1,5 @@
 //
-//  AKOperation.swift
+//  AKComputedParameter.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/3/15.
@@ -8,20 +8,11 @@
 
 import Foundation
 
-/// AKParameter is a subset of CustomStringConvertible
-public protocol AKParameter: CustomStringConvertible {}
+/// A computed parameter differs from a regular parameter in that it only exists within an operation (unlike float, doubles, and ints which have a value outside of an operation)
+public protocol AKComputedParameter: AKParameter {}
 
-/// Doubles are valid AKParameters
-extension Double: AKParameter {}
-
-/// Floats are valid AKParameters
-extension Float: AKParameter {}
-
-/// Integers are valid AKParameters
-extension Int: AKParameter {}
-
-/// An AKOperation is a block of Sporth code that can be passed to other operations in the same operation node
-public struct AKOperation: AKParameter  {
+/// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
+public struct AKOperation: AKComputedParameter  {
     
     /// Default input to any operation stack
     public static var input = AKOperation("(0 p)")
@@ -31,7 +22,7 @@ public struct AKOperation: AKParameter  {
     
     /// Call up a numbered parameter to the internal operation
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter i: Number of the parameter to recall
     ///
     public static func parameters(i: Int) -> AKOperation {
@@ -40,7 +31,7 @@ public struct AKOperation: AKParameter  {
     
     /// Performs absolute value on the operation
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     ///
     public func abs() -> AKOperation {
         return AKOperation("(\(self) abs)")
@@ -48,7 +39,7 @@ public struct AKOperation: AKParameter  {
     
     /// Performs floor calculation on the operation
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     ///
     public func floor() -> AKOperation {
         return AKOperation("(\(self) floor)")
@@ -56,7 +47,7 @@ public struct AKOperation: AKParameter  {
     
     /// Returns the fractional part of the operation (as opposed to the integer part)
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     ///
     public func fract() -> AKOperation {
         return AKOperation("(\(self) frac)")
@@ -64,7 +55,7 @@ public struct AKOperation: AKParameter  {
     
     /// Performs natural logarithm on the operation
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     ///
     public func log() -> AKOperation {
         return AKOperation("(\(self) log)")
@@ -72,7 +63,7 @@ public struct AKOperation: AKParameter  {
     
     /// Performs Base 10 logarithm on the operation
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     ///
     public func log10() -> AKOperation {
         return AKOperation("(\(self) log10)")
@@ -80,7 +71,7 @@ public struct AKOperation: AKParameter  {
     
     /// Rounds the operation to the nearest integer
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     ///
     public func round() -> AKOperation {
         return AKOperation("(\(self) round)")
@@ -88,7 +79,7 @@ public struct AKOperation: AKParameter  {
     
     /// Returns a frequency for a given midi note number
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     ///
     public func midiNoteToFrequency() -> AKOperation {
         return AKOperation("(\(self) mtof)")
@@ -113,8 +104,8 @@ public struct AKOperation: AKParameter  {
 
 /// Performs absolute value on the operation
 ///
-/// - returns: AKOperation
-/// - parameter operation: AKOperation to operate on
+/// - returns: AKComputedParameter
+/// - parameter operation: AKComputedParameter to operate on
 ///
 public func abs(parameter: AKOperation) -> AKOperation {
     return parameter.abs()
@@ -122,8 +113,8 @@ public func abs(parameter: AKOperation) -> AKOperation {
 
 /// Performs floor calculation on the operation
 ///
-/// - returns: AKOperation
-/// - parameter operation: AKOperation to operate on
+/// - returns: AKComputedParameter
+/// - parameter operation: AKComputedParameter to operate on
 ///
 public func floor(operation: AKOperation) -> AKOperation {
     return operation.floor()
@@ -131,8 +122,8 @@ public func floor(operation: AKOperation) -> AKOperation {
 
 /// Returns the fractional part of the operation (as opposed to the integer part)
 ///
-/// - returns: AKOperation
-/// - parameter operation: AKOperation to operate on
+/// - returns: AKComputedParameter
+/// - parameter operation: AKComputedParameter to operate on
 ///
 public func fract(operation: AKOperation) -> AKOperation {
     return operation.fract()
@@ -140,8 +131,8 @@ public func fract(operation: AKOperation) -> AKOperation {
 
 /// Performs natural logarithm on the operation
 ///
-/// - returns: AKOperation
-/// - parameter operation: AKOperation to operate on
+/// - returns: AKComputedParameter
+/// - parameter operation: AKComputedParameter to operate on
 ///
 public func log(operation: AKOperation) -> AKOperation {
     return operation.log()
@@ -149,8 +140,8 @@ public func log(operation: AKOperation) -> AKOperation {
 
 /// Performs Base 10 logarithm on the operation
 ///
-/// - returns: AKOperation
-/// - parameter operation: AKOperation to operate on
+/// - returns: AKComputedParameter
+/// - parameter operation: AKComputedParameter to operate on
 ///
 public func log10(operation: AKOperation) -> AKOperation {
     return operation.log10()
@@ -159,38 +150,10 @@ public func log10(operation: AKOperation) -> AKOperation {
 
 /// Rounds the operation to the nearest integer
 ///
-/// - returns: AKOperation
-/// - parameter operation: AKOperation to operate on
+/// - returns: AKComputedParameter
+/// - parameter operation: AKComputedParameter to operate on
 ///
 public func round(operation: AKOperation) -> AKOperation {
     return operation.round()
-}
-
-/// Stereo version of AKOperation
-public struct AKStereoOperation: CustomStringConvertible {
-    
-    /// Default stereo input to any operation stack
-    public static var input = AKStereoOperation("((0 p) (1 p))")
-    
-    /// Sporth representation of the stereo operation
-    var operationString = ""
-    
-    /// Redefining description to return the operation string
-    public var description: String {
-        return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
-    }
-    
-    /// Initialize the stereo operation with a Sporth string
-    ///
-    /// - parameter operationString: Valid Sporth string (proceed with caution
-    ///
-    init(_ operationString: String) {
-        self.operationString = operationString
-    }
-    
-    /// Create a mono signal by droppigng the right channel
-    public func toMono() -> AKOperation {
-        return AKOperation("(\(self) drop)")
-    }
 }
 

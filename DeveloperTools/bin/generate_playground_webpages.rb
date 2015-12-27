@@ -49,8 +49,9 @@ page_folders.each_with_index do |folder, i|
                 results << "\n{% highlight ruby %}" + code_block + "{% endhighlight %}\n" if !code_block.empty?
                 renderable_line = swift_line[3..-1]
                 pp
-                renderable_line = "<h3>#{renderable_line[4..-1]}</h2>" if renderable_line[0..3] == " ## "
-                renderable_line = "<h4>#{renderable_line[5..-1]}</h3>" if renderable_line[0..4] == " ### "
+                renderable_line = "<h2>#{renderable_line[3..-1]}</h2>" if renderable_line[0..2] == " # "
+                renderable_line = "<h3>#{renderable_line[4..-1]}</h3>" if renderable_line[0..3] == " ## "
+                renderable_line = "<h4>#{renderable_line[5..-1]}</h4>" if renderable_line[0..4] == " ### "
                 markdown_block << renderable_line
                 code_block = ""
             else

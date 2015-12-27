@@ -8,11 +8,11 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// Distortion using a modified hyperbolic tangent function.
     ///
-    /// - returns: AKOperation
+    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
     /// - parameter pregain: Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion. (Default: 2.0, Minimum: 0.0, Maximum: 10.0)
     /// - parameter postgain: Gain applied after waveshaping (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
@@ -25,6 +25,6 @@ extension AKOperation {
         postiveShapeParameter: AKParameter = 0.0,
         negativeShapeParameter: AKParameter = 0.0
         ) -> AKOperation {
-            return AKOperation("(\(self) \(pregain) \(postgain) \(postiveShapeParameter) \(negativeShapeParameter) dist)")
+            return AKOperation("(\(self.toMono()) \(pregain) \(postgain) \(postiveShapeParameter) \(negativeShapeParameter) dist)")
     }
 }
