@@ -8,7 +8,7 @@
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
-#endif  
+#endif
 
 float fmodf(float dummy0, float dummy1);
 float faustpower2_f(float value) {
@@ -28,19 +28,19 @@ typedef struct {
 	float fConst1;
 	float fConst2;
 	int IOTA;
-} square;
+} blsquare;
 
-square* newsquare() { 
-	square* dsp = (square*)malloc(sizeof(square));
+blsquare* newblsquare() {
+	blsquare* dsp = (blsquare*)malloc(sizeof(blsquare));
 	return dsp;
 }
 
-void deletesquare(square* dsp) { 
+void deleteblsquare(blsquare* dsp) {
 	free(dsp);
 }
 
 
-void instanceInitsquare(square* dsp, int samplingFreq) {
+void instanceInitblsquare(blsquare* dsp, int samplingFreq) {
 	dsp->fSamplingFreq = samplingFreq;
 	dsp->fHslider0 = (FAUSTFLOAT)1.;
 	/* C99 loop */
@@ -48,9 +48,9 @@ void instanceInitsquare(square* dsp, int samplingFreq) {
 		int i0;
 		for (i0 = 0; (i0 < 2); i0 = (i0 + 1)) {
 			dsp->iVec0[i0] = 0;
-			
+
 		}
-		
+
 	}
 	dsp->fConst0 = (float)min(192000, max(1, dsp->fSamplingFreq));
 	dsp->fHslider1 = (FAUSTFLOAT)0.5;
@@ -62,18 +62,18 @@ void instanceInitsquare(square* dsp, int samplingFreq) {
 		int i1;
 		for (i1 = 0; (i1 < 2); i1 = (i1 + 1)) {
 			dsp->fRec0[i1] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i2;
 		for (i2 = 0; (i2 < 2); i2 = (i2 + 1)) {
 			dsp->fVec1[i2] = 0.f;
-			
+
 		}
-		
+
 	}
 	dsp->IOTA = 0;
 	/* C99 loop */
@@ -81,24 +81,24 @@ void instanceInitsquare(square* dsp, int samplingFreq) {
 		int i3;
 		for (i3 = 0; (i3 < 4096); i3 = (i3 + 1)) {
 			dsp->fVec2[i3] = 0.f;
-			
+
 		}
-		
+
 	}
-	
+
 }
 
-void initsquare(square* dsp, int samplingFreq) {
-	instanceInitsquare(dsp, samplingFreq);
+void initblsquare(blsquare* dsp, int samplingFreq) {
+	instanceInitblsquare(dsp, samplingFreq);
 }
 
-void buildUserInterfacesquare(square* dsp, UIGlue* interface) {
+void buildUserInterfaceblsquare(blsquare* dsp, UIGlue* interface) {
 	interface->addHorizontalSlider(interface->uiInterface, "frequency", &dsp->fHslider2, 440.f, 0.f, 20000.f, 0.0001f);
 	interface->addHorizontalSlider(interface->uiInterface, "amp", &dsp->fHslider0, 1.f, 0.f, 1.f, 1e-05f);
 	interface->addHorizontalSlider(interface->uiInterface, "width", &dsp->fHslider1, 0.5f, 0.f, 1.f, 0.f);
 }
 
-void computesquare(square* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+void computeblsquare(blsquare* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 	FAUSTFLOAT* output0 = outputs[0];
 	float fSlow0 = (float)dsp->fHslider0;
 	float fSlow1 = max((float)dsp->fHslider2, 23.4489f);
@@ -124,61 +124,61 @@ void computesquare(square* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** out
 			dsp->fRec0[1] = dsp->fRec0[0];
 			dsp->fVec1[1] = dsp->fVec1[0];
 			dsp->IOTA = (dsp->IOTA + 1);
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_square *p = ui_interface;
+    sp_blsquare *p = ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
-int sp_square_create(sp_square **p)
+int sp_blsquare_create(sp_blsquare **p)
 {
-    *p = malloc(sizeof(sp_square));
+    *p = malloc(sizeof(sp_blsquare));
     return SP_OK;
 }
 
-int sp_square_destroy(sp_square **p)
+int sp_blsquare_destroy(sp_blsquare **p)
 {
-    sp_square *pp = *p;
-    square *dsp = pp->ud;
-    deletesquare (dsp);
+    sp_blsquare *pp = *p;
+    blsquare *dsp = pp->ud;
+    deleteblsquare (dsp);
     free(*p);
     return SP_OK;
 }
 
-int sp_square_init(sp_data *sp, sp_square *p)
+int sp_blsquare_init(sp_data *sp, sp_blsquare *p)
 {
-    square *dsp = newsquare(); UIGlue UI;
+    blsquare *dsp = newblsquare(); UIGlue UI;
     p->argpos = 0;
     UI.addHorizontalSlider= addHorizontalSlider;
     UI.uiInterface = p;
-    buildUserInterfacesquare(dsp, &UI);
-    initsquare(dsp, sp->sr);
+    buildUserInterfaceblsquare(dsp, &UI);
+    initblsquare(dsp, sp->sr);
 
-     
-    p->freq = p->args[0]; 
-    p->amp = p->args[1]; 
+
+    p->freq = p->args[0];
+    p->amp = p->args[1];
     p->width = p->args[2];
 
     p->ud = dsp;
     return SP_OK;
 }
 
-int sp_square_compute(sp_data *sp, sp_square *p, SPFLOAT *in, SPFLOAT *out) 
+int sp_blsquare_compute(sp_data *sp, sp_blsquare *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    square *dsp = p->ud;
+    blsquare *dsp = p->ud;
     SPFLOAT out1 = 0;
     SPFLOAT *faust_out[] = {&out1};
     SPFLOAT *faust_in[] = {in};
-    computesquare(dsp, 1, faust_in, faust_out);
+    computeblsquare(dsp, 1, faust_in, faust_out);
 
     *out = out1;
     return SP_OK;

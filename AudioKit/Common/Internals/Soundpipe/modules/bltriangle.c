@@ -8,16 +8,16 @@
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT float
-#endif  
+#endif
 
 float fmodf(float dummy0, float dummy1);
 static float faustpower2_f(float value) {
 	return (value * value);
-	
+
 }
 
 typedef struct {
-	
+
 	float fVec2[4096];
 	int iVec0[2];
 	float fRec1[2];
@@ -33,28 +33,28 @@ typedef struct {
 	float fConst4;
 	float fConst5;
 	int IOTA;
-	
-} triangle;
 
-triangle* newtriangle() { 
-	triangle* dsp = (triangle*)malloc(sizeof(triangle));
+} bltriangle;
+
+bltriangle* newbltriangle() {
+	bltriangle* dsp = (bltriangle*)malloc(sizeof(bltriangle));
 	return dsp;
 }
 
-void deletetriangle(triangle* dsp) { 
+void deletebltriangle(bltriangle* dsp) {
 	free(dsp);
 }
 
-void instanceInittriangle(triangle* dsp, int samplingFreq) {
+void instanceInitbltriangle(bltriangle* dsp, int samplingFreq) {
 	dsp->fSamplingFreq = samplingFreq;
 	/* C99 loop */
 	{
 		int i0;
 		for (i0 = 0; (i0 < 2); i0 = (i0 + 1)) {
 			dsp->iVec0[i0] = 0;
-			
+
 		}
-		
+
 	}
 	dsp->iConst0 = min(192000, max(1, dsp->fSamplingFreq));
 	dsp->fConst1 = (4.f / (float)dsp->iConst0);
@@ -69,18 +69,18 @@ void instanceInittriangle(triangle* dsp, int samplingFreq) {
 		int i1;
 		for (i1 = 0; (i1 < 2); i1 = (i1 + 1)) {
 			dsp->fRec1[i1] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i2;
 		for (i2 = 0; (i2 < 2); i2 = (i2 + 1)) {
 			dsp->fVec1[i2] = 0.f;
-			
+
 		}
-		
+
 	}
 	dsp->IOTA = 0;
 	/* C99 loop */
@@ -88,32 +88,32 @@ void instanceInittriangle(triangle* dsp, int samplingFreq) {
 		int i3;
 		for (i3 = 0; (i3 < 4096); i3 = (i3 + 1)) {
 			dsp->fVec2[i3] = 0.f;
-			
+
 		}
-		
+
 	}
 	/* C99 loop */
 	{
 		int i4;
 		for (i4 = 0; (i4 < 2); i4 = (i4 + 1)) {
 			dsp->fRec0[i4] = 0.f;
-			
+
 		}
-		
+
 	}
-	
+
 }
 
-void inittriangle(triangle* dsp, int samplingFreq) {
-	instanceInittriangle(dsp, samplingFreq);
+void initbltriangle(bltriangle* dsp, int samplingFreq) {
+	instanceInitbltriangle(dsp, samplingFreq);
 }
 
-void buildUserInterfacetriangle(triangle* dsp, UIGlue* interface) {
+void buildUserInterfacebltriangle(bltriangle* dsp, UIGlue* interface) {
 	interface->addHorizontalSlider(interface->uiInterface, "freq", &dsp->fHslider0, 440.f, 0.f, 20000.f, 0.0001f);
 	interface->addHorizontalSlider(interface->uiInterface, "amp", &dsp->fHslider1, 1.f, 0.f, 1.f, 1e-05f);
 }
 
-void computetriangle(triangle* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
+void computebltriangle(bltriangle* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 	FAUSTFLOAT* output0 = outputs[0];
 	float fSlow0 = (float)dsp->fHslider0;
 	float fSlow1 = (dsp->fConst1 * (fSlow0 * (float)dsp->fHslider1));
@@ -142,60 +142,60 @@ void computetriangle(triangle* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT**
 			dsp->fVec1[1] = dsp->fVec1[0];
 			dsp->IOTA = (dsp->IOTA + 1);
 			dsp->fRec0[1] = dsp->fRec0[0];
-			
+
 		}
-		
+
 	}
-	
+
 }
 
 static void addHorizontalSlider(void* ui_interface, const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
 {
-    sp_triangle *p = ui_interface;
+    sp_bltriangle *p = ui_interface;
     p->args[p->argpos] = zone;
     p->argpos++;
 }
 
-int sp_triangle_create(sp_triangle **p)
+int sp_bltriangle_create(sp_bltriangle **p)
 {
-    *p = malloc(sizeof(sp_triangle));
+    *p = malloc(sizeof(sp_bltriangle));
     return SP_OK;
 }
 
-int sp_triangle_destroy(sp_triangle **p)
+int sp_bltriangle_destroy(sp_bltriangle **p)
 {
-    sp_triangle *pp = *p;
-    triangle *dsp = pp->ud;
-    deletetriangle (dsp);
+    sp_bltriangle *pp = *p;
+    bltriangle *dsp = pp->ud;
+    deletebltriangle (dsp);
     free(*p);
     return SP_OK;
 }
 
-int sp_triangle_init(sp_data *sp, sp_triangle *p)
+int sp_bltriangle_init(sp_data *sp, sp_bltriangle *p)
 {
-    triangle *dsp = newtriangle(); UIGlue UI;
+    bltriangle *dsp = newbltriangle(); UIGlue UI;
     p->argpos = 0;
     UI.addHorizontalSlider= addHorizontalSlider;
     UI.uiInterface = p;
-    buildUserInterfacetriangle(dsp, &UI);
-    inittriangle(dsp, sp->sr);
+    buildUserInterfacebltriangle(dsp, &UI);
+    initbltriangle(dsp, sp->sr);
 
-     
-    p->freq = p->args[0]; 
+
+    p->freq = p->args[0];
     p->amp = p->args[1];
 
     p->ud = dsp;
     return SP_OK;
 }
 
-int sp_triangle_compute(sp_data *sp, sp_triangle *p, SPFLOAT *in, SPFLOAT *out) 
+int sp_bltriangle_compute(sp_data *sp, sp_bltriangle *p, SPFLOAT *in, SPFLOAT *out)
 {
 
-    triangle *dsp = p->ud;
+    bltriangle *dsp = p->ud;
     SPFLOAT out1 = 0;
     SPFLOAT *faust_out[] = {&out1};
     SPFLOAT *faust_in[] = {in};
-    computetriangle(dsp, 1, faust_in, faust_out);
+    computebltriangle(dsp, 1, faust_in, faust_out);
 
     *out = out1;
     return SP_OK;

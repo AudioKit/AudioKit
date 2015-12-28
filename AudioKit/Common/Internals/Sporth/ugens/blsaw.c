@@ -1,60 +1,60 @@
 #include "plumber.h"
 
-int sporth_saw(sporth_stack *stack, void *ud)
+int sporth_blsaw(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
     SPFLOAT out;
     SPFLOAT freq;
     SPFLOAT amp;
-    sp_saw *saw;
+    sp_blsaw *blsaw;
 
     switch(pd->mode) {
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "saw: Creating\n");
+            fprintf(stderr, "blsaw: Creating\n");
 #endif
 
-            sp_saw_create(&saw);
-            plumber_add_ugen(pd, SPORTH_SAW, saw);
+            sp_blsaw_create(&blsaw);
+            plumber_add_ugen(pd, SPORTH_BLSAW, blsaw);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
-            fprintf(stderr, "saw: Initialising\n");
+            fprintf(stderr, "blsaw: Initialising\n");
 #endif
 
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for saw\n");
+                fprintf(stderr,"Not enough arguments for blsaw\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             amp = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
-            saw = pd->last->ud;
-            sp_saw_init(pd->sp, saw);
+            blsaw = pd->last->ud;
+            sp_blsaw_init(pd->sp, blsaw);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for saw\n");
+                fprintf(stderr,"Not enough arguments for blsaw\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             amp = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
-            saw = pd->last->ud;
-            *saw->freq = freq;
-            *saw->amp = amp;
-            sp_saw_compute(pd->sp, saw, NULL, &out);
+            blsaw = pd->last->ud;
+            *blsaw->freq = freq;
+            *blsaw->amp = amp;
+            sp_blsaw_compute(pd->sp, blsaw, NULL, &out);
             sporth_stack_push_float(stack, out);
             break;
         case PLUMBER_DESTROY:
-            saw = pd->last->ud;
-            sp_saw_destroy(&saw);
+            blsaw = pd->last->ud;
+            sp_blsaw_destroy(&blsaw);
             break;
         default:
-            fprintf(stderr, "saw: Uknown mode!\n");
+            fprintf(stderr, "blsaw: Uknown mode!\n");
             break;
     }
     return PLUMBER_OK;

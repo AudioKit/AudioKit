@@ -33,14 +33,14 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp_saw_create(&saw);
-        sp_saw_init(sp, saw);
+        sp_blsaw_create(&saw);
+        sp_blsaw_init(sp, saw);
         *saw->freq = 440;
         *saw->amp = 0.5;
     }
 
     void destroy() {
-        sp_saw_destroy(&saw);
+        sp_blsaw_destroy(&saw);
         sp_destroy(&sp);
     }
     
@@ -104,7 +104,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (channel == 0) {
-                    sp_saw_compute(sp, saw, nil, &temp);
+                    sp_blsaw_compute(sp, saw, nil, &temp);
                 }
                 *out = temp;
             }
@@ -121,7 +121,7 @@ private:
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
-    sp_saw *saw;
+    sp_blsaw *saw;
 
 public:
     AKParameterRamper frequencyRamper = 440;

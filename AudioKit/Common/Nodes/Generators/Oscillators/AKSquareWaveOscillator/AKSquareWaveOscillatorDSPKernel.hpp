@@ -34,15 +34,15 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp_square_create(&square);
-        sp_square_init(sp, square);
+        sp_blsquare_create(&square);
+        sp_blsquare_init(sp, square);
         *square->freq = 440;
         *square->amp = 1.0;
         *square->width = 0.5;
     }
 
     void destroy() {
-        sp_square_destroy(&square);
+        sp_blsquare_destroy(&square);
         sp_destroy(&sp);
     }
     
@@ -119,7 +119,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (channel == 0) {
-                    sp_square_compute(sp, square, nil, &temp);
+                    sp_blsquare_compute(sp, square, nil, &temp);
                 }
                 *out = temp;
             }
@@ -136,7 +136,7 @@ private:
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
-    sp_square *square;
+    sp_blsquare *square;
 
 public:
     AKParameterRamper frequencyRamper = 440;
