@@ -18,8 +18,11 @@ class ViewController: UIViewController {
     var particleLab: ParticleLab!
     var fft: AKFFT!
     
-    var fftMax: Float = 0
-    var fftMaxIndex: Float = 0
+    var lowMax: Float = 0
+    var lowMaxIndex: Float = 0
+    
+    var hiMax: Float = 0
+    var hiMaxIndex: Float = 0
 
     override func viewDidLoad()
     {
@@ -28,22 +31,32 @@ class ViewController: UIViewController {
         let audiokit = AKManager.sharedInstance
 
         var mic = AKMicrophone()
-        mic.volume = 10
+        mic.volume = 0.5
+       
         fft = AKFFT(mic)
         
         audiokit.start()
         
         let _ = AKPlaygroundLoop(every: 1 / 60) {
-            let max = self.fft.fftData.maxElement()!
-            let maxIndex = self.fft.fftData.indexOf(max)
+            let fftData = self.fft.fftData
+            let count = 250
+            
+            let lowMax = fftData[0 ... (count / 2) - 1].maxElement() ?? 0
+            let hiMax = fftData[count / 2 ... count - 1].maxElement() ?? 0
+            
+            let lowMaxIndex = fftData.indexOf(lowMax) ?? 0
+            let hiMaxIndex = fftData.indexOf(hiMax) ?? 0
     
-            self.fftMax = Float(max * 1000)
-            self.fftMaxIndex = Float(maxIndex ?? 0)
+            self.lowMax = Float(lowMax * 250)
+            self.hiMax = Float(hiMax * 250_000)
+            
+            self.lowMaxIndex = Float(lowMaxIndex)
+            self.hiMaxIndex = Float(hiMaxIndex - count / 2)
         }
         
         // ----
         
-        view.backgroundColor = UIColor.blackColor()
+        view.backgroundColor = UIColor.whiteColor()
         
         let numParticles = ParticleCount.TwoMillion
         
@@ -71,7 +84,7 @@ class ViewController: UIViewController {
         }
         
         particleLab.particleLabDelegate = self
-        particleLab.dragFactor = 0.5
+        particleLab.dragFactor = 0.9
         particleLab.clearOnStep = false
         particleLab.respawnOutOfBoundsParticles = true
         
@@ -85,31 +98,35 @@ class ViewController: UIViewController {
     
     func particleLabStep()
     {
-        gravityWellAngle = gravityWellAngle + 0.02
+        gravityWellAngle = gravityWellAngle + 0.01
+        
+        let radiusLow = 0.1 + (lowMaxIndex / 256)
         
         particleLab.setGravityWellProperties(gravityWell: .One,
-            normalisedPositionX: 0.5 + 0.1 * sin(gravityWellAngle + floatPi * 0.5),
-            normalisedPositionY: 0.5 + 0.1 * cos(gravityWellAngle + floatPi * 0.5),
-            mass: 1 + (fftMax * fftMaxIndex) * sin(gravityWellAngle / 1.9),
-            spin: (fftMax * fftMax * fftMaxIndex) * cos(gravityWellAngle / 2.1))
+            normalisedPositionX: 0.5 + radiusLow * sin(gravityWellAngle + floatPi * 0.5),
+            normalisedPositionY: 0.5 + radiusLow * cos(gravityWellAngle + floatPi * 0.5),
+            mass: (lowMaxIndex * lowMax * 3),
+            spin: (lowMaxIndex * lowMax))
         
         particleLab.setGravityWellProperties(gravityWell: .Four,
-            normalisedPositionX: 0.5 + 0.1 * sin(gravityWellAngle + floatPi * 1.5),
-            normalisedPositionY: 0.5 + 0.1 * cos(gravityWellAngle + floatPi * 1.5),
-            mass: 1 + (fftMax * fftMaxIndex) * sin(gravityWellAngle / 1.9),
-            spin: (fftMax * fftMax * fftMaxIndex) * cos(gravityWellAngle / 2.1))
+            normalisedPositionX: 0.5 + radiusLow * sin(gravityWellAngle + floatPi * 1.5),
+            normalisedPositionY: 0.5 + radiusLow * cos(gravityWellAngle + floatPi * 1.5),
+            mass: (lowMaxIndex * lowMax * 3),
+            spin: (lowMaxIndex * lowMax))
+        
+        let radiusHi = 0.1 + (0.25 + (hiMaxIndex / 512))
         
         particleLab.setGravityWellProperties(gravityWell: .Two,
-            normalisedPositionX: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * cos(gravityWellAngle / 1.3),
-            normalisedPositionY: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * sin(gravityWellAngle / 1.3),
-            mass: 2 + (fftMax * fftMax * fftMaxIndex),
-            spin: -(fftMax * fftMaxIndex) * sin(gravityWellAngle * 1.5))
+            normalisedPositionX: particleLab.getGravityWellNormalisedPosition(gravityWell: .One).x + (0.25 + radiusHi * cos(gravityWellAngle / 1.3)),
+            normalisedPositionY: particleLab.getGravityWellNormalisedPosition(gravityWell: .One).y + (0.25 + radiusHi * sin(gravityWellAngle / 1.3)),
+            mass: (hiMaxIndex * hiMax * 5),
+            spin: (hiMaxIndex * hiMax))
         
         particleLab.setGravityWellProperties(gravityWell: .Three,
-            normalisedPositionX: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * cos(gravityWellAngle / 1.3 + floatPi),
-            normalisedPositionY: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * sin(gravityWellAngle / 1.3 + floatPi),
-            mass: 2 + (fftMax * fftMax * fftMaxIndex),
-            spin: -(fftMax * fftMaxIndex) * sin(gravityWellAngle * 1.5))
+            normalisedPositionX: particleLab.getGravityWellNormalisedPosition(gravityWell: .Four).x + (0.25 + radiusHi * cos(gravityWellAngle / 1.3 + floatPi)),
+            normalisedPositionY: particleLab.getGravityWellNormalisedPosition(gravityWell: .Four).y + (0.25 + radiusHi * sin(gravityWellAngle / 1.3 + floatPi)),
+            mass: (hiMaxIndex * hiMax * 5),
+            spin: (hiMaxIndex * hiMax))
     }
     
     // MARK: Layout

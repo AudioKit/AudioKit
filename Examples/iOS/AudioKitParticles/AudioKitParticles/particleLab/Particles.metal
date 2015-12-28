@@ -23,6 +23,16 @@
 #include <metal_stdlib>
 using namespace metal;
 
+float rand(int x, int y, int z);
+
+// Generate a random float in the range [0.0f, 1.0f] using x, y, and z (based on the xor128 algorithm)
+float rand(int x, int y, int z)
+{
+    int seed = x + y * 57 + z * 241;
+    seed = (seed<< 13) ^ seed;
+    return (( 1.0 - ( (seed * (seed * seed * 15731 + 789221) + 1376312589) & 2147483647) / 1073741824.0f) + 1.0f) / 2.0f;
+}
+
 kernel void particleRendererShader(texture2d<float, access::write> outTexture [[texture(0)]],
                                    // texture2d<float, access::read> inTexture [[texture(1)]],
                                    
@@ -43,11 +53,9 @@ kernel void particleRendererShader(texture2d<float, access::write> outTexture [[
                                    uint id [[thread_position_in_grid]])
 {
     const float4x4 inParticle = inParticles[id];
-    
-    const float spawnSpeedMultipler = 2.0;
-    
+
     const uint type = id % 3;
-    const float typeTweak = 1 + type;
+    const float typeTweak = 2 + type * 2;
     
     const float4 outColor = float4(type == 0 ? particleColor.r : type == 1 ? particleColor.g : particleColor.b,
                                    type == 0 ? particleColor.b : type == 1 ? particleColor.r : particleColor.g,
@@ -80,11 +88,11 @@ kernel void particleRendererShader(texture2d<float, access::write> outTexture [[
     }
     else if (respawnOutOfBoundsParticles)
     {
-        inParticle[0].z = spawnSpeedMultipler * fast::sin(inParticle[0].x + inParticle[0].y);
-        inParticle[0].w = spawnSpeedMultipler * fast::cos(inParticle[0].x + inParticle[0].y);
+        inParticle[0].z = 0;
+        inParticle[0].w = 0;
         
-        inParticle[0].x = imageWidth / 2;
-        inParticle[0].y = imageHeight / 2;
+        inParticle[0].x = rand(id, inParticle[0].x, inParticle[0].y) * imageWidth;
+        inParticle[0].y  = rand(id, inParticle[0].y, inParticle[0].x) * imageWidth;
     }
     
     const float2 particlePositionAFloat(inParticle[0].x, inParticle[0].y);
@@ -114,11 +122,11 @@ kernel void particleRendererShader(texture2d<float, access::write> outTexture [[
     }
     else if (respawnOutOfBoundsParticles)
     {
-        inParticle[1].z = spawnSpeedMultipler * fast::sin(inParticle[1].x + inParticle[1].y);
-        inParticle[1].w = spawnSpeedMultipler * fast::cos(inParticle[1].x + inParticle[1].y);
+        inParticle[1].z = 0;
+        inParticle[1].w = 0;
         
-        inParticle[1].x = imageWidth / 2;
-        inParticle[1].y = imageHeight / 2;
+        inParticle[1].x = rand(id, inParticle[1].x, inParticle[1].y) * imageWidth;
+        inParticle[1].y = rand(id, inParticle[1].y, inParticle[1].x) * imageWidth;
     }
     
     const float2 particlePositionBFloat(inParticle[1].x, inParticle[1].y);
@@ -149,11 +157,11 @@ kernel void particleRendererShader(texture2d<float, access::write> outTexture [[
     }
     else if (respawnOutOfBoundsParticles)
     {
-        inParticle[2].z = spawnSpeedMultipler * fast::sin(inParticle[2].x + inParticle[2].y);
-        inParticle[2].w = spawnSpeedMultipler * fast::cos(inParticle[2].x + inParticle[2].y);
+        inParticle[2].z = 0;
+        inParticle[2].w = 0;
         
-        inParticle[2].x = imageWidth / 2;
-        inParticle[2].y = imageHeight / 2;
+        inParticle[2].x = rand(id, inParticle[2].x, inParticle[2].y) * imageWidth;
+        inParticle[2].y = rand(id, inParticle[2].y, inParticle[2].x) * imageWidth;
     }
     
     const float2 particlePositionCFloat(inParticle[2].x, inParticle[2].y);
@@ -184,11 +192,11 @@ kernel void particleRendererShader(texture2d<float, access::write> outTexture [[
     }
     else if (respawnOutOfBoundsParticles)
     {
-        inParticle[3].z = spawnSpeedMultipler * fast::sin(inParticle[3].x + inParticle[3].y);
-        inParticle[3].w = spawnSpeedMultipler * fast::cos(inParticle[3].x + inParticle[3].y);
+        inParticle[3].z = 0;
+        inParticle[3].w = 0;
         
-        inParticle[3].x = imageWidth / 2;
-        inParticle[3].y = imageHeight / 2;
+        inParticle[3].x = rand(id, inParticle[3].x, inParticle[3].y) * imageWidth;
+        inParticle[3].y = rand(id, inParticle[3].y, inParticle[3].x) * imageWidth;
     }
     
     const float2 particlePositionDFloat(inParticle[3].x, inParticle[3].y);
