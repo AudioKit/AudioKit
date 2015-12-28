@@ -33,14 +33,14 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp_triangle_create(&triangle);
-        sp_triangle_init(sp, triangle);
+        sp_bltriangle_create(&triangle);
+        sp_bltriangle_init(sp, triangle);
         *triangle->freq = 440;
         *triangle->amp = 0.5;
     }
 
     void destroy() {
-        sp_triangle_destroy(&triangle);
+        sp_bltriangle_destroy(&triangle);
         sp_destroy(&sp);
     }
     
@@ -104,7 +104,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (channel == 0) {
-                    sp_triangle_compute(sp, triangle, nil, &temp);
+                    sp_bltriangle_compute(sp, triangle, nil, &temp);
                 }
                 *out = temp;
             }
@@ -121,7 +121,7 @@ private:
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
-    sp_triangle *triangle;
+    sp_bltriangle *triangle;
 
 public:
     AKParameterRamper frequencyRamper = 440;

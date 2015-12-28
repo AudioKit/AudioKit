@@ -23,6 +23,6 @@ extension AKOperation {
         amplitude: AKParameter = 1.0,
         pulseWidth: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation("(\(frequency) \(amplitude) \(pulseWidth) square)")
+            return AKOperation("(\(frequency) \(amplitude) \(pulseWidth) blsquare)")
     }
 }
