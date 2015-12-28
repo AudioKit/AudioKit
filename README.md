@@ -13,7 +13,7 @@ The third major revision of AudioKit has been completely rewritten to offer the 
 * Integrated with CoreAudio audio units from Apple
 * Many included Xcode Swift playgrounds
 
-and quite a bit more. There are things that version 2 had that are not yet part of version 3, so you should compare and contrast your options at7 http://audiokit.io/v3/
+and quite a bit more. There are things that version 2 had that are not yet part of version 3, so you should compare and contrast your options at http://audiokit.io/v3/
 
 ## Key Concepts
 
