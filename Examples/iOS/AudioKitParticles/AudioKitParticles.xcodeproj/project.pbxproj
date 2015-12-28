@@ -391,6 +391,7 @@
 				3E5105A31C310A4100CEC622 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
