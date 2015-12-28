@@ -15,6 +15,8 @@
 		3E5105AE1C310ABA00CEC622 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5105AA1C310A7600CEC622 /* AudioKit.framework */; };
 		3E5105AF1C310B5200CEC622 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5105AA1C310A7600CEC622 /* AudioKit.framework */; };
 		3E5105B01C310B5200CEC622 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5105AA1C310A7600CEC622 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3E5105B61C310BFC00CEC622 /* Particles.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E5105B51C310BFC00CEC622 /* Particles.metal */; };
+		3E5105B81C310C4200CEC622 /* ParticleLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5105B71C310C4200CEC622 /* ParticleLab.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		3E51059C1C310A4100CEC622 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E51059E1C310A4100CEC622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E5105A41C310A7500CEC622 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
+		3E5105B51C310BFC00CEC622 /* Particles.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Particles.metal; path = particleLab/Particles.metal; sourceTree = "<group>"; };
+		3E5105B71C310C4200CEC622 /* ParticleLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParticleLab.swift; path = particleLab/ParticleLab.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,7 @@
 		3E5105911C310A4100CEC622 /* AudioKitParticles */ = {
 			isa = PBXGroup;
 			children = (
+				3E5105B41C310BDA00CEC622 /* particleLab */,
 				3E5105921C310A4100CEC622 /* AppDelegate.swift */,
 				3E5105941C310A4100CEC622 /* ViewController.swift */,
 				3E5105961C310A4100CEC622 /* Main.storyboard */,
@@ -116,6 +121,15 @@
 				3E5105AC1C310A7600CEC622 /* AudioKitTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3E5105B41C310BDA00CEC622 /* particleLab */ = {
+			isa = PBXGroup;
+			children = (
+				3E5105B51C310BFC00CEC622 /* Particles.metal */,
+				3E5105B71C310C4200CEC622 /* ParticleLab.swift */,
+			);
+			name = particleLab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,6 +230,8 @@
 			files = (
 				3E5105951C310A4100CEC622 /* ViewController.swift in Sources */,
 				3E5105931C310A4100CEC622 /* AppDelegate.swift in Sources */,
+				3E5105B61C310BFC00CEC622 /* Particles.metal in Sources */,
+				3E5105B81C310C4200CEC622 /* ParticleLab.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
