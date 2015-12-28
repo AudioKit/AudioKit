@@ -63,8 +63,8 @@ class ParticleLab: MTKView
     
     weak var particleLabDelegate: ParticleLabDelegate?
     
-    var particleColor = ParticleColor(R: 1, G: 0.8, B: 0.4, A: 1)
-    var dragFactor: Float = 0.97
+    var particleColor = ParticleColor(R: 1, G: 0.2, B: 0.1, A: 1)
+    var dragFactor: Float = 0.95
     var respawnOutOfBoundsParticles = true
     
     lazy var blur: MPSImageGaussianBlur =
@@ -73,10 +73,10 @@ class ParticleLab: MTKView
         return MPSImageGaussianBlur(device: self.device!, sigma: 3)
         }()
     
-    lazy var erode: MPSImageAreaMin =
+    lazy var dilate: MPSImageAreaMax =
     {
         [unowned self] in
-        return MPSImageAreaMin(device: self.device!, kernelWidth: 5, kernelHeight: 5)
+        return MPSImageAreaMax(device: self.device!, kernelWidth: 5, kernelHeight: 5)
         }()
     
     var clearOnStep = true
@@ -134,7 +134,7 @@ class ParticleLab: MTKView
         particlesParticlePtr = UnsafeMutablePointer<Particle>(particlesVoidPtr)
         particlesParticleBufferPtr = UnsafeMutableBufferPointer(start: particlesParticlePtr, count: particleCount)
         
-        resetParticles(false)
+        resetParticles(true)
     }
     
     func resetGravityWells()
@@ -333,7 +333,7 @@ class ParticleLab: MTKView
                 inPlaceTexture: inPlaceTexture,
                 fallbackCopyAllocator: nil)
             
-            erode.encodeToCommandBuffer(commandBuffer,
+            dilate.encodeToCommandBuffer(commandBuffer,
                 inPlaceTexture: inPlaceTexture,
                 fallbackCopyAllocator: nil)
         }
