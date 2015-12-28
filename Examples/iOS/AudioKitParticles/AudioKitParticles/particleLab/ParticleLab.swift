@@ -65,7 +65,7 @@ class ParticleLab: MTKView
     
     var particleColor = ParticleColor(R: 1, G: 0.8, B: 0.4, A: 1)
     var dragFactor: Float = 0.97
-    var respawnOutOfBoundsParticles = false
+    var respawnOutOfBoundsParticles = true
     
     lazy var blur: MPSImageGaussianBlur =
     {
@@ -134,7 +134,7 @@ class ParticleLab: MTKView
         particlesParticlePtr = UnsafeMutablePointer<Particle>(particlesVoidPtr)
         particlesParticleBufferPtr = UnsafeMutableBufferPointer(start: particlesParticlePtr, count: particleCount)
         
-        resetParticles(true)
+        resetParticles(false)
     }
     
     func resetGravityWells()
@@ -145,7 +145,7 @@ class ParticleLab: MTKView
         setGravityWellProperties(gravityWell: .Four, normalisedPositionX: 0.5, normalisedPositionY: 0.5, mass: 0, spin: 0)
     }
     
-    func resetParticles(edgesOnly: Bool = false)
+    func resetParticles(edgesOnly: Bool)
     {
         func rand() -> Float32
         {

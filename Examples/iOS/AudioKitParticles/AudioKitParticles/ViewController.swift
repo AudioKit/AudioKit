@@ -13,25 +13,39 @@ class ViewController: UIViewController {
 
     let statusLabel = UILabel()
     let floatPi = Float(M_PI)
-    var particleLab: ParticleLab!
     var gravityWellAngle: Float = 0
     
+    var particleLab: ParticleLab!
+    var fft: AKFFT!
+    
+    var fftMax: Float = 0
+    var fftMaxIndex: Float = 0
+
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         let audiokit = AKManager.sharedInstance
-        var oscillator = AKOscillator()
+
+        var mic = AKMicrophone()
+        mic.volume = 10
+        fft = AKFFT(mic)
         
-        audiokit.audioOutput = oscillator
         audiokit.start()
+        
+        let _ = AKPlaygroundLoop(every: 1 / 60) {
+            let max = self.fft.fftData.maxElement()!
+            let maxIndex = self.fft.fftData.indexOf(max)
+    
+            self.fftMax = Float(max * 1000)
+            self.fftMaxIndex = Float(maxIndex ?? 0)
+        }
         
         // ----
         
         view.backgroundColor = UIColor.blackColor()
         
-        let numParticles = ParticleCount.FourMillion
+        let numParticles = ParticleCount.TwoMillion
         
         if view.frame.height < view.frame.width
         {
@@ -59,12 +73,12 @@ class ViewController: UIViewController {
         particleLab.particleLabDelegate = self
         particleLab.dragFactor = 0.5
         particleLab.clearOnStep = false
-        particleLab.respawnOutOfBoundsParticles = false
+        particleLab.respawnOutOfBoundsParticles = true
         
         view.addSubview(particleLab)
     
-        statusLabel.text = "http://flexmonkey.blogspot.co.uk"
         statusLabel.textColor = UIColor.darkGrayColor()
+        statusLabel.text = "AudioKit Particles"
         
         view.addSubview(statusLabel)
     }
@@ -76,24 +90,26 @@ class ViewController: UIViewController {
         particleLab.setGravityWellProperties(gravityWell: .One,
             normalisedPositionX: 0.5 + 0.1 * sin(gravityWellAngle + floatPi * 0.5),
             normalisedPositionY: 0.5 + 0.1 * cos(gravityWellAngle + floatPi * 0.5),
-            mass: 11 * sin(gravityWellAngle / 1.9),
-            spin: 23 * cos(gravityWellAngle / 2.1))
+            mass: 1 + (fftMax * fftMaxIndex) * sin(gravityWellAngle / 1.9),
+            spin: (fftMax * fftMax * fftMaxIndex) * cos(gravityWellAngle / 2.1))
         
         particleLab.setGravityWellProperties(gravityWell: .Four,
             normalisedPositionX: 0.5 + 0.1 * sin(gravityWellAngle + floatPi * 1.5),
             normalisedPositionY: 0.5 + 0.1 * cos(gravityWellAngle + floatPi * 1.5),
-            mass: 11 * sin(gravityWellAngle / 1.9),
-            spin: 23 * cos(gravityWellAngle / 2.1))
+            mass: 1 + (fftMax * fftMaxIndex) * sin(gravityWellAngle / 1.9),
+            spin: (fftMax * fftMax * fftMaxIndex) * cos(gravityWellAngle / 2.1))
         
         particleLab.setGravityWellProperties(gravityWell: .Two,
             normalisedPositionX: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * cos(gravityWellAngle / 1.3),
             normalisedPositionY: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * sin(gravityWellAngle / 1.3),
-            mass: 26, spin: -19 * sin(gravityWellAngle * 1.5))
+            mass: 2 + (fftMax * fftMax * fftMaxIndex),
+            spin: -(fftMax * fftMaxIndex) * sin(gravityWellAngle * 1.5))
         
         particleLab.setGravityWellProperties(gravityWell: .Three,
             normalisedPositionX: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * cos(gravityWellAngle / 1.3 + floatPi),
             normalisedPositionY: 0.5 + (0.35 + sin(gravityWellAngle * 2.7)) * sin(gravityWellAngle / 1.3 + floatPi),
-            mass: 26, spin: -19 * sin(gravityWellAngle * 1.5))
+            mass: 2 + (fftMax * fftMax * fftMaxIndex),
+            spin: -(fftMax * fftMaxIndex) * sin(gravityWellAngle * 1.5))
     }
     
     // MARK: Layout
@@ -127,7 +143,7 @@ extension ViewController: ParticleLabDelegate
     
     func particleLabDidUpdate(status: String)
     {
-        statusLabel.text = "http://flexmonkey.blogspot.co.uk  |  " + status
+        statusLabel.text = status
         
         particleLab.resetGravityWells()
         
