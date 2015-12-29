@@ -41,7 +41,8 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
             del = sporth_stack_pop_float(stack);
             feedback = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
-            vd= pd->last->ud;
+            vd = pd->last->ud;
+            vd->prev = 0;
             sp_vdelay_init(pd->sp, vd->vdelay, maxdel);
             sporth_stack_push_float(stack, 0);
             break;
