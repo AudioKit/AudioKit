@@ -46,6 +46,7 @@ public:
     void trigger(float params[]) {
         internalTrigger = 1;
         pd.p[0] = internalTrigger;
+        pd.p[1] = internalTrigger;
         for (int i = 0; i < 10; i++) {
             parameters[i] = params[i];
         }
@@ -87,8 +88,9 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
             
             pd.p[0] = internalTrigger;
+            pd.p[1] = internalTrigger;
             for (int i = 0; i < 10; i++) {
-                pd.p[i+1] = parameters[i];
+                pd.p[i+2] = parameters[i];
             }
             
             plumber_compute(&pd, PLUMBER_COMPUTE);

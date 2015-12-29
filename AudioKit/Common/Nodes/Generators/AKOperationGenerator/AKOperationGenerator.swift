@@ -34,7 +34,11 @@ public struct AKOperationGenerator: AKNode {
     /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
     public init(operation: AKOperation, triggered: Bool = false) {
-        self.init("\(operation) dup", triggered: triggered)
+        var operationString = "\(operation) dup"
+        if triggered {
+            operationString = "\(operation) swap drop dup"
+        }
+        self.init(operationString, triggered: triggered)
     }
     
     /// Initialize the generator with a stereo operation and indicate whether it responds to a trigger
@@ -43,7 +47,11 @@ public struct AKOperationGenerator: AKNode {
     /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
     public init(stereoOperation: AKStereoOperation, triggered: Bool = false) {
-        self.init("\(stereoOperation) swap", triggered: triggered)
+        var operationString = "\(stereoOperation) swap"
+        if triggered {
+            operationString = "drop \(stereoOperation) swap"
+        }
+        self.init(operationString, triggered: triggered)
     }
     
     /// Initialize the generator with a two mono operations for the left and right channel and indicate whether it responds to a trigger
@@ -53,7 +61,11 @@ public struct AKOperationGenerator: AKNode {
     /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
     public init(left: AKOperation, right: AKOperation, triggered: Bool = false) {
-        self.init("\(left) \(right)", triggered: triggered)
+        var operationString = "\(left) \(right)"
+        if triggered {
+            operationString = "\(left) swap \(right)"
+        }
+        self.init(operationString, triggered: triggered)
     }
     
     /// Initialize this generator node with a generic sporth stack and a triggering flag
@@ -86,7 +98,7 @@ public struct AKOperationGenerator: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             if triggered {
-                self.internalAU?.setSporth("0 p \(sporth)")
+                self.internalAU?.setSporth("0 p 1 p\(sporth)")
             } else {
                 self.internalAU?.setSporth(sporth)
             }
