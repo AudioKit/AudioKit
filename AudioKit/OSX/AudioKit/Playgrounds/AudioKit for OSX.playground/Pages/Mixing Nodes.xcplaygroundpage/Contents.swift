@@ -26,7 +26,7 @@ let mixer = AKMixer(player1, player2)
 audiokit.audioOutput = mixer
 audiokit.start()
 
-let plotView = AKAudioOutputPlot.createView()
+let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
