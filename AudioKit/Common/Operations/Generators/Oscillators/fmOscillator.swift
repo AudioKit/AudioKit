@@ -26,6 +26,6 @@ extension AKOperation {
         modulationIndex: AKParameter = 1.0,
         amplitude: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation("(\(baseFrequency) \(carrierMultiplier) \(modulatingMultiplier) \(modulationIndex) \(amplitude) fm)")
+            return AKOperation("(\(baseFrequency) \(amplitude) \(carrierMultiplier) \(modulatingMultiplier) \(modulationIndex) fm)")
     }
 }
