@@ -2220,7 +2220,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit FortvOS" */;
+			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -2717,7 +2717,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit FortvOS" */ = {
+		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4BDE83F1C12FFBC00207DA9 /* Debug */,
