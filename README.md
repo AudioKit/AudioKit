@@ -1,6 +1,6 @@
 AudioKit V3
 ===
-*This document was last updated: December 27, 2007*
+*This document was last updated: December 29, 2015*
 
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. It was primarily written by Aurelius Prochazka with major contributions from Nicholas Arner, Stephane Peter, and Jeff Cooper as well as minor contributions from others.  This document serves as a one-page introduction guide to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
@@ -8,9 +8,9 @@ AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS,
 The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
 
 * Installation as a framework
+* Integrated with CoreAudio audio units from Apple
 * No dependencies on Csound or libsndfile
 * Can use opcodes from Faust, Chuck, STK, Csound, and others
-* Integrated with CoreAudio audio units from Apple
 * Many included Xcode Swift playgrounds
 
 and quite a bit more. There are things that version 2 had that are not yet part of version 3, so you should compare and contrast your options at http://audiokit.io/v3/
@@ -55,7 +55,7 @@ And then responding to the UI by changing the oscillator:
 
 ## Playgrounds
 
-Because OSX Playgrounds have very different capabilities from iOS Playgrounds, we have two sets of playgrounds for each OS.  At this point tvOS behaves very much like iOS so there is no set of playgrounds explicitly for tvOS.
+Because Playgrounds have very different capabilities depending on whether they are for OSX or iOS, we have two sets of playgrounds for each OS.  At this point tvOS behaves very much like iOS so there is no set of playgrounds explicitly for tvOS.
 
 ### AudioKit for iOS Playgrounds
 There are many playground pages within the AudioKit for iOS Playground.  Each playground includes a demo of a node or operation or an example of sound design.  The first playground is a Table of Contents and the second one is just a Hello World to prove whether or not you have things set up correctly on your machine.  After the first few playgrounds, you should consider jumping around to whatever interests you.  Since Apple doesn't provide much of a way to organize playgrounds, the best place to see how playgrounds are grouped together is to look at the http://audiokit.io/playgrounds/ where you can also see videos of the playgrounds in action.
