@@ -10,11 +10,13 @@ import Foundation
 import AVFoundation
 
 /// AudioKit version of Apple's Reverb Audio Unit
-public struct AKReverb: AKNode {
+public class AKReverb: AKNode {
     private let reverbAU = AVAudioUnitReverb()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
         
     /// Dry/Wet Mix (Default 50) 
     public var dryWetMix: Double = 50.0 {
@@ -34,12 +36,12 @@ public struct AKReverb: AKNode {
     /// - parameter input: AKNode to reverberate
     /// - parameter dryWetMix: Percentage of processed signal (Default: 50, Minimum: 0, Maximum: 100)
     ///
-    public init(_ input: AKNode, dryWetMix: Double = 50) {
+    public init(var _ input: AKNode, dryWetMix: Double = 50) {
         self.dryWetMix = dryWetMix
         
         self.avAudioNode = reverbAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-        AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+        input.addConnectionPoint(self)
         
         reverbAU.wetDryMix = Float(dryWetMix)
     }

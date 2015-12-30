@@ -10,11 +10,13 @@ import Foundation
 import AVFoundation
 
 /// AudioKit version of Apple's Delay Audio Unit
-public struct AKDelay: AKNode {
+public class AKDelay: AKNode {
     let delayAU = AVAudioUnitDelay()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
         
     /// Delay time in seconds (Default: 1)
     public var time: NSTimeInterval = 1 {
@@ -71,7 +73,7 @@ public struct AKDelay: AKNode {
     /// - parameter dryWetMix: Percentage of unprocessed (dry) to delayed (wet) audio (Default: 50)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         time: Double = 1,
         feedback: Double = 50,
         lowPassCutoff: Double = 15000,
@@ -84,7 +86,7 @@ public struct AKDelay: AKNode {
             
             self.avAudioNode = delayAU
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             
             delayAU.delayTime = self.time
             delayAU.feedback = Float(feedback)

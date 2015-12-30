@@ -16,12 +16,14 @@ import AVFoundation
 /// - parameter frequency: Resonant frequency of the filter.
 /// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
 ///
-public struct AKModalResonanceFilter: AKNode {
+public class AKModalResonanceFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKModalResonanceFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -51,7 +53,7 @@ public struct AKModalResonanceFilter: AKNode {
     /// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         frequency: Double = 500.0,
         qualityFactor: Double = 50.0) {
 
@@ -81,7 +83,7 @@ public struct AKModalResonanceFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKModalResonanceFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

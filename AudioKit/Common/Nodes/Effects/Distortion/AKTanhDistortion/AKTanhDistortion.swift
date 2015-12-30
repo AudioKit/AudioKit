@@ -16,12 +16,14 @@ import AVFoundation
 /// - parameter postiveShapeParameter: Shape of the positive part of the signal. A value of 0 gets a flat clip.
 /// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part.
 ///
-public struct AKTanhDistortion: AKNode {
+public class AKTanhDistortion: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKTanhDistortionAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -67,7 +69,7 @@ public struct AKTanhDistortion: AKNode {
     /// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         pregain: Double = 2.0,
         postgain: Double = 0.5,
         postiveShapeParameter: Double = 0.0,
@@ -101,7 +103,7 @@ public struct AKTanhDistortion: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTanhDistortionAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

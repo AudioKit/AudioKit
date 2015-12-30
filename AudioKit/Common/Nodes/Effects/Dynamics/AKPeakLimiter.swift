@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
 /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-public struct AKPeakLimiter: AKNode {
+public class AKPeakLimiter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -27,6 +27,8 @@ public struct AKPeakLimiter: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
     public var attackTime: Double = 0.012 {
@@ -87,7 +89,7 @@ public struct AKPeakLimiter: AKNode {
     /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         attackTime: Double = 0.012,
         decayTime: Double = 0.024,
         preGain: Double = 0) {
@@ -99,7 +101,7 @@ public struct AKPeakLimiter: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)

@@ -12,12 +12,14 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-public struct AKPinkNoise: AKNode {
+public class AKPinkNoise: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKPinkNoiseAudioUnit?
     internal var token: AUParameterObserverToken?

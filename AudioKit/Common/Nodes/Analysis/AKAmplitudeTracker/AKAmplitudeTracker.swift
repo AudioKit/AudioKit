@@ -14,12 +14,14 @@ import AVFoundation
 /// - parameter input: Input node to process
 /// - parameter halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
 ///
-public struct AKAmplitudeTracker: AKNode {
+public class AKAmplitudeTracker: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKAmplitudeTrackerAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -46,7 +48,7 @@ public struct AKAmplitudeTracker: AKNode {
     /// - parameter halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         halfPowerPoint: Double = 10) {
 
         self.halfPowerPoint = halfPowerPoint
@@ -74,7 +76,7 @@ public struct AKAmplitudeTracker: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeTrackerAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

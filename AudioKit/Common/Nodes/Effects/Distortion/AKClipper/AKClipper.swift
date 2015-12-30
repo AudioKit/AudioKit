@@ -16,12 +16,14 @@ import AVFoundation
 /// - parameter clippingStartPoint: When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
 /// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
 ///
-public struct AKClipper: AKNode {
+public class AKClipper: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKClipperAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -59,7 +61,7 @@ public struct AKClipper: AKNode {
     /// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         limit: Double = 1.0,
         clippingStartPoint: Double = 0.5,
         method: Double = 0) {
@@ -91,7 +93,7 @@ public struct AKClipper: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKClipperAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

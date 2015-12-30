@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
 /// - parameter mix: Mix (Percent) ranges from 0 to 100 (Default: 50)
 ///
-public struct AKDecimator: AKNode {
+public class AKDecimator: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -27,6 +27,8 @@ public struct AKDecimator: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
     public var decimation: Double = 50 {
@@ -87,7 +89,7 @@ public struct AKDecimator: AKNode {
     /// - parameter mix: Mix (Percent) ranges from 0 to 100 (Default: 50)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         decimation: Double = 50,
         rounding: Double = 0,
         mix: Double = 50) {
@@ -99,7 +101,7 @@ public struct AKDecimator: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter

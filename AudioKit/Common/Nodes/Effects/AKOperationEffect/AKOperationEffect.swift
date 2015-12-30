@@ -9,7 +9,7 @@
 import AVFoundation
 
 /// Operation-based efffect
-public struct AKOperationEffect: AKNode {
+public class AKOperationEffect: AKNode {
 
     // MARK: - Properties
 
@@ -17,6 +17,8 @@ public struct AKOperationEffect: AKNode {
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     // MARK: - Initializers
     
@@ -25,7 +27,7 @@ public struct AKOperationEffect: AKNode {
     /// - parameter input: AKNode to use for processing
     /// - parameter operation: AKOperation stack to use
     ///
-    public init(_ input: AKNode, operation: AKOperation) {
+    public convenience init(_ input: AKNode, operation: AKOperation) {
         // add "dup" to copy the left channel output to the right channel output
         self.init(input, sporth:"\(operation) dup")
     }
@@ -35,7 +37,7 @@ public struct AKOperationEffect: AKNode {
     /// - parameter input: AKNode to use for processing
     /// - parameter stereoOperation: AKStereoOperation stack to use
     ///
-    public init(_ input: AKNode, stereoOperation: AKStereoOperation) {
+    public convenience init(_ input: AKNode, stereoOperation: AKStereoOperation) {
         self.init(input, sporth:"\(stereoOperation) swap")
     }
     
@@ -44,8 +46,8 @@ public struct AKOperationEffect: AKNode {
     /// - parameter input: AKNode to use for processing
     /// - parameter left: AKOperation stack to use on the left
     /// - parameter right: AKOperation stack to use on the right
-    ///
-    public init(_ input: AKNode, left: AKOperation, right: AKOperation) {
+    ///  
+    public convenience init(_ input: AKNode, left: AKOperation, right: AKOperation) {
         self.init(input, sporth:"\(left) swap \(right) swap")
     }
     
@@ -54,7 +56,7 @@ public struct AKOperationEffect: AKNode {
     /// - parameter input: AKNode to use for processing
     /// - parameter sporth: String of valid Sporth code
     ///
-    public init(_ input: AKNode, sporth: String) {
+    public init(var _ input: AKNode, sporth: String) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -78,7 +80,7 @@ public struct AKOperationEffect: AKNode {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationEffectAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             self.internalAU?.setSporth(sporth)
         }
 

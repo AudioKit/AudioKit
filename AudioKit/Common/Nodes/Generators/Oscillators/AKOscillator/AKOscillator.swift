@@ -15,12 +15,14 @@ import AVFoundation
 /// - parameter amplitude: Amplitude of the output
 /// - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).
 ///
-public struct AKOscillator: AKNode {
+public class AKOscillator: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?

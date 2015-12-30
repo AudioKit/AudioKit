@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
 /// - parameter resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
 ///
-public struct AKLowPassFilter: AKNode {
+public class AKLowPassFilter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -26,6 +26,8 @@ public struct AKLowPassFilter: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
     public var cutoffFrequency: Double = 6900 {
@@ -68,7 +70,7 @@ public struct AKLowPassFilter: AKNode {
     /// - parameter resonance: Resonance (dB) ranges from -20 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         cutoffFrequency: Double = 6900,
         resonance: Double = 0) {
             
@@ -78,7 +80,7 @@ public struct AKLowPassFilter: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kLowPassParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)

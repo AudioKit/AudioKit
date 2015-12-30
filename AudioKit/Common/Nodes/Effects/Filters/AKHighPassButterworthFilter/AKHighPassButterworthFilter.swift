@@ -14,12 +14,14 @@ import AVFoundation
 /// - parameter input: Input node to process
 /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
 ///
-public struct AKHighPassButterworthFilter: AKNode {
+public class AKHighPassButterworthFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKHighPassButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -41,7 +43,7 @@ public struct AKHighPassButterworthFilter: AKNode {
     /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         cutoffFrequency: Double = 500) {
 
         self.cutoffFrequency = cutoffFrequency
@@ -69,7 +71,7 @@ public struct AKHighPassButterworthFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKHighPassButterworthFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

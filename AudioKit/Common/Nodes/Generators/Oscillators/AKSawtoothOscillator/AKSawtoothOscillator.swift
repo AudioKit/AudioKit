@@ -14,12 +14,14 @@ import AVFoundation
 /// - parameter frequency: In cycles per second, or Hz.
 /// - parameter amplitude: Output Amplitude.
 ///
-public struct AKSawtoothOscillator: AKNode {
+public class AKSawtoothOscillator: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKSawtoothOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?

@@ -20,12 +20,14 @@ import AVFoundation
 /// - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as
 /// the delay time or “echo density” of the reverberation.
 ///
-public struct AKFlatFrequencyResponseReverb: AKNode {
+public class AKFlatFrequencyResponseReverb: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -50,7 +52,7 @@ public struct AKFlatFrequencyResponseReverb: AKNode {
     /// the delay time or “echo density” of the reverberation.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         reverbDuration: Double = 0.5,
         loopDuration: Double = 0.1) {
 
@@ -79,7 +81,7 @@ public struct AKFlatFrequencyResponseReverb: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             self.internalAU!.setLoopDuration(Float(loopDuration))
         }
 

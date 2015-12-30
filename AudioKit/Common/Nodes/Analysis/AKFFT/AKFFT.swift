@@ -21,7 +21,7 @@ import Foundation
     ///
     /// - parameter input: Node on whose output the FFT will be computed
     ///
-    public init(_ input: AKNode) {
+    public init(var _ input: AKNode) {
         super.init()
         fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: 44100.0, delegate: self)
         input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AKManager.format) { [weak self] (buffer, time) -> Void in

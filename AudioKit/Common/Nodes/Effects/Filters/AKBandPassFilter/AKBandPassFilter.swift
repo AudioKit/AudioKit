@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
 /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
-public struct AKBandPassFilter: AKNode {
+public class AKBandPassFilter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -26,6 +26,8 @@ public struct AKBandPassFilter: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
     public var centerFrequency: Double = 5000 {
@@ -68,7 +70,7 @@ public struct AKBandPassFilter: AKNode {
     /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         centerFrequency: Double = 5000,
         bandwidth: Double = 600) {
             
@@ -78,7 +80,7 @@ public struct AKBandPassFilter: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)

@@ -19,7 +19,7 @@ import AVFoundation
 /// - parameter decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
 /// - parameter randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
 ///
-public struct AKReverb2: AKNode {
+public class AKReverb2: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -30,7 +30,11 @@ public struct AKReverb2: AKNode {
     
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
+    
+    /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 100)
     public var dryWetMix: Double = 100 {
@@ -163,7 +167,7 @@ public struct AKReverb2: AKNode {
     /// - parameter randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         dryWetMix: Double = 100,
         gain: Double = 0,
         minDelayTime: Double = 0.008,
@@ -183,7 +187,7 @@ public struct AKReverb2: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, Float(dryWetMix), 0)

@@ -28,7 +28,7 @@ import AVFoundation
 /// - parameter softClipGain: Soft Clip Gain (dB) ranges from -80 to 20 (Default: -6)
 /// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
 ///
-public struct AKDistortion: AKNode {
+public class AKDistortion: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -40,6 +40,8 @@ public struct AKDistortion: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
     public var delay: Double = 0.1 {
@@ -334,7 +336,7 @@ public struct AKDistortion: AKNode {
     /// - parameter finalMix: Final Mix (Percent) ranges from 0 to 100 (Default: 50)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         delay: Double = 0.1,
         decay: Double = 1.0,
         delayMix: Double = 50,
@@ -372,7 +374,7 @@ public struct AKDistortion: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kDistortionParam_Delay, kAudioUnitScope_Global, 0, Float(delay), 0)

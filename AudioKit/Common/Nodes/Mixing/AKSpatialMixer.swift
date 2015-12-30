@@ -24,7 +24,7 @@ import AVFoundation
 /// - parameter occlusionAttenuation: Occlusion Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
 /// - parameter obstructionAttenuation: Obstruction Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
 ///
-public struct AKSpatialMixer: AKNode {
+public class AKSpatialMixer: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Mixer,
@@ -36,6 +36,8 @@ public struct AKSpatialMixer: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Azimuth (Degrees) ranges from -180 to 180 (Default: 0)
     public var azimuth: Double = 0 {
@@ -258,7 +260,7 @@ public struct AKSpatialMixer: AKNode {
     /// - parameter obstructionAttenuation: Obstruction Attenuation (Metres) ranges from 0 to 10000 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         azimuth: Double = 0,
         elevation: Double = 0,
         distance: Double = 0,
@@ -288,7 +290,7 @@ public struct AKSpatialMixer: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kSpatialMixerParam_Azimuth, kAudioUnitScope_Input, 0, Float(azimuth), 0)

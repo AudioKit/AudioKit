@@ -18,12 +18,14 @@ import AVFoundation
 /// - parameter reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
 /// - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
 ///
-public struct AKCombFilter: AKNode {
+public class AKCombFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKCombFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -46,7 +48,7 @@ public struct AKCombFilter: AKNode {
     /// - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         reverbDuration: Double = 1.0,
         loopDuration: Double = 0.1) {
 
@@ -75,7 +77,7 @@ public struct AKCombFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

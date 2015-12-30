@@ -9,7 +9,7 @@
 import AVFoundation
 
 /// This module lowers or raises the volume of an input.
-public struct AKGain: AKNode {
+public class AKGain: AKNode {
 
     // MARK: - Properties
 
@@ -17,6 +17,8 @@ public struct AKGain: AKNode {
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var token: AUParameterObserverToken?
 
@@ -37,7 +39,7 @@ public struct AKGain: AKNode {
     /// - parameter gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         gain: Double = 1.0) {
 
         self.gain = gain
@@ -64,7 +66,7 @@ public struct AKGain: AKNode {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKGainAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

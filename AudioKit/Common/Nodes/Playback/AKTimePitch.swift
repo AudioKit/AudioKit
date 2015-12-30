@@ -15,12 +15,14 @@ import AVFoundation
 /// - parameter pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
 /// - parameter overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
 ///
-public struct AKTimePitch: AKNode {
+public class AKTimePitch: AKNode {
     
     private let timePitchAU = AVAudioUnitTimePitch()
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Rate (rate) ranges from 0.03125 to 32.0 (Default: 1.0)
     public var rate: Double = 1.0 {
@@ -69,7 +71,7 @@ public struct AKTimePitch: AKNode {
     /// - parameter overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         rate: Double = 1.0,
         pitch: Double = 1.0,
         overlap: Double = 8.0) {
@@ -80,6 +82,6 @@ public struct AKTimePitch: AKNode {
         
         self.avAudioNode = timePitchAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-        AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+        input.addConnectionPoint(self)
     }
 }

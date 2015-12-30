@@ -13,12 +13,14 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-public struct AKDCBlock: AKNode {
+public class AKDCBlock: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKDCBlockAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -31,7 +33,7 @@ public struct AKDCBlock: AKNode {
     ///
     /// - parameter input: Input node to process
     ///
-    public init(_ input: AKNode) {
+    public init(var _ input: AKNode) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -56,7 +58,7 @@ public struct AKDCBlock: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKDCBlockAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
     }
 }

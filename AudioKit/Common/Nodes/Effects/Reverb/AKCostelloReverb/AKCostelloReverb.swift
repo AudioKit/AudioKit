@@ -16,12 +16,14 @@ import AVFoundation
 /// - parameter feedback: Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
 /// - parameter cutoffFrequency: Low-pass cutoff frequency.
 ///
-public struct AKCostelloReverb: AKNode {
+public class AKCostelloReverb: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKCostelloReverbAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -51,7 +53,7 @@ public struct AKCostelloReverb: AKNode {
     /// - parameter cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         feedback: Double = 0.6,
         cutoffFrequency: Double = 4000) {
 
@@ -81,7 +83,7 @@ public struct AKCostelloReverb: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCostelloReverbAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
