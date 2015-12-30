@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='osx' display-mode='rendered'>
+<playground version='6.0' target-platform='osx' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Non-Audio Tutorial'/>
         <page name='Intro'/>
         <page name='Connecting Nodes'/>
+        <page name='Splitting Nodes'/>
         <page name='Mixing Nodes'/>
         <page name='Band Pass Filter'/>
         <page name='Decimator'/>
