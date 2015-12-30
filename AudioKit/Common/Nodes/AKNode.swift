@@ -14,4 +14,15 @@ public protocol AKNode {
     
     /// Output of the node 
     var avAudioNode: AVAudioNode { get set }
+    var connectionPoints: [AVAudioConnectionPoint] { get set }
+}
+
+public extension AKNode {
+    public mutating func addConnectionPoint(node: AKNode) {
+        connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
+        AKManager.sharedInstance.engine.connect(avAudioNode,
+            toConnectionPoints: connectionPoints,
+            fromBus: 0,
+            format: AKManager.format)
+    }
 }

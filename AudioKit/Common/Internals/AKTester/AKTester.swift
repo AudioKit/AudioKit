@@ -17,6 +17,8 @@ public struct AKTester: AKNode {
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var token: AUParameterObserverToken?
     var totalSamples = 0
@@ -38,7 +40,7 @@ public struct AKTester: AKNode {
     /// - parameter input: AKNode to test
     /// - parameter sample: Number of sample to product
     ///
-    public init(_ input: AKNode, samples: Int) {
+    public init(var _ input: AKNode, samples: Int) {
         
         totalSamples = samples
 
@@ -65,7 +67,7 @@ public struct AKTester: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTesterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             self.internalAU?.setSamples(Int32(samples))
         }
 

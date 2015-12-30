@@ -15,12 +15,14 @@ import AVFoundation
 /// - parameter amplitude: Output amplitude
 /// - parameter pulseWidth: Duty cycle width (range 0-1).
 ///
-public struct AKSquareWaveOscillator: AKNode {
+public class AKSquareWaveOscillator: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKSquareWaveOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?

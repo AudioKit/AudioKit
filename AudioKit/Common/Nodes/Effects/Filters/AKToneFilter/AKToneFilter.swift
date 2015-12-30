@@ -13,12 +13,14 @@ import AVFoundation
 /// - parameter input: Input node to process
 /// - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
 ///
-public struct AKToneFilter: AKNode {
+public class AKToneFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKToneFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -40,7 +42,7 @@ public struct AKToneFilter: AKNode {
     /// - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         halfPowerPoint: Double = 1000) {
 
         self.halfPowerPoint = halfPowerPoint
@@ -68,7 +70,7 @@ public struct AKToneFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKToneFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

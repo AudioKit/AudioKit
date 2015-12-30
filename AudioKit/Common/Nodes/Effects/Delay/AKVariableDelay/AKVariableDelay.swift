@@ -14,12 +14,14 @@ import AVFoundation
 /// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
 /// - parameter feedback: Feedback amount. Should be a value between 0-1.
 ///
-public struct AKVariableDelay: AKNode {
+public class AKVariableDelay: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKVariableDelayAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -48,7 +50,7 @@ public struct AKVariableDelay: AKNode {
     /// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
     /// - parameter feedback: Feedback amount. Should be a value between 0-1.
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         time: Double = 1.0,
         feedback: Double = 0.0) {
 
@@ -78,7 +80,7 @@ public struct AKVariableDelay: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKVariableDelayAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

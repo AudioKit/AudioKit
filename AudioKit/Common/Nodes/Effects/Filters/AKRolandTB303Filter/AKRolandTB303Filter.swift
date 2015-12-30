@@ -16,12 +16,14 @@ import AVFoundation
 /// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
 /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
-public struct AKRolandTB303Filter: AKNode {
+public class AKRolandTB303Filter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKRolandTB303FilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -67,7 +69,7 @@ public struct AKRolandTB303Filter: AKNode {
     /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         cutoffFrequency: Double = 500,
         resonance: Double = 0.5,
         distortion: Double = 2.0,
@@ -101,7 +103,7 @@ public struct AKRolandTB303Filter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKRolandTB303FilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

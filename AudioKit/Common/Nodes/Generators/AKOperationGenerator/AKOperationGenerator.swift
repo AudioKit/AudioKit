@@ -16,12 +16,14 @@ import AVFoundation
 /// series allpass units, followed by four parallel comb filters, and two
 /// decorrelation delay lines in parallel at the output.
 ///
-public struct AKOperationGenerator: AKNode {
+public class AKOperationGenerator: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var internalAU: AKOperationGeneratorAudioUnit?
     private var token: AUParameterObserverToken?
@@ -33,7 +35,7 @@ public struct AKOperationGenerator: AKNode {
     /// - parameter operation: AKOperation stack to use
     /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
-    public init(operation: AKOperation, triggered: Bool = false) {
+    public convenience init(operation: AKOperation, triggered: Bool = false) {
         var operationString = "\(operation) dup"
         if triggered {
             operationString = "\(operation) swap drop dup"
@@ -46,7 +48,7 @@ public struct AKOperationGenerator: AKNode {
     /// - parameter stereoOperation: AKStereoOperation stack to use
     /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
-    public init(stereoOperation: AKStereoOperation, triggered: Bool = false) {
+    public convenience init(stereoOperation: AKStereoOperation, triggered: Bool = false) {
         var operationString = "\(stereoOperation) swap"
         if triggered {
             operationString = "drop \(stereoOperation) swap"
@@ -60,7 +62,7 @@ public struct AKOperationGenerator: AKNode {
     /// - parameter right: AKOperation to be heard from the right output
     /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
-    public init(left: AKOperation, right: AKOperation, triggered: Bool = false) {
+    public convenience init(left: AKOperation, right: AKOperation, triggered: Bool = false) {
         var operationString = "\(left) \(right)"
         if triggered {
             operationString = "\(left) swap \(right)"

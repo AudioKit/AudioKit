@@ -16,7 +16,7 @@ import AVFoundation
 /// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
 /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
 ///
-public struct AKParametricEQ: AKNode {
+public class AKParametricEQ: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -28,6 +28,8 @@ public struct AKParametricEQ: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
     public var centerFrequency: Double = 2000 {
@@ -88,7 +90,7 @@ public struct AKParametricEQ: AKNode {
     /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         centerFrequency: Double = 2000,
         q: Double = 1.0,
         gain: Double = 0) {
@@ -100,7 +102,7 @@ public struct AKParametricEQ: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)

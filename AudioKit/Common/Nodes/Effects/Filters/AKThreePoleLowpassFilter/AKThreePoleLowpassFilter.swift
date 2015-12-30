@@ -15,12 +15,14 @@ import AVFoundation
 /// - parameter cutoffFrequency: Filter cutoff frequency in Hertz.
 /// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
 ///
-public struct AKThreePoleLowpassFilter: AKNode {
+public class AKThreePoleLowpassFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKThreePoleLowpassFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -58,7 +60,7 @@ public struct AKThreePoleLowpassFilter: AKNode {
     /// - parameter resonance: Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         distortion: Double = 0.5,
         cutoffFrequency: Double = 1500,
         resonance: Double = 0.5) {
@@ -90,7 +92,7 @@ public struct AKThreePoleLowpassFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKThreePoleLowpassFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

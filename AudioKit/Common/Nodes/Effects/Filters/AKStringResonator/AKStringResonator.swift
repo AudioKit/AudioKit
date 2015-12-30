@@ -19,12 +19,14 @@ import AVFoundation
 /// - parameter fundamentalFrequency: Fundamental frequency of string.
 /// - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
 ///
-public struct AKStringResonator: AKNode {
+public class AKStringResonator: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKStringResonatorAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -54,7 +56,7 @@ public struct AKStringResonator: AKNode {
     /// - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         fundamentalFrequency: Double = 100,
         feedback: Double = 0.95) {
 
@@ -84,7 +86,7 @@ public struct AKStringResonator: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKStringResonatorAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

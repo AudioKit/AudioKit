@@ -10,13 +10,15 @@ import Foundation
 import AVFoundation
 
 /// Simple audio playback class
-public struct AKAudioPlayer: AKNode {
+public class AKAudioPlayer: AKNode {
     
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
         
     /// Boolean indicating whether or not to loop the playback
     public var looping = false

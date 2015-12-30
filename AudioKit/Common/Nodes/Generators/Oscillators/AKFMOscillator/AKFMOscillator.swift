@@ -16,12 +16,14 @@ import AVFoundation
 /// - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
 /// - parameter amplitude: Output Amplitude.
 ///
-public struct AKFMOscillator: AKNode {
+public class AKFMOscillator: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKFMOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?

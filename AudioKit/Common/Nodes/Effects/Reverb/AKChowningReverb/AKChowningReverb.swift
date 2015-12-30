@@ -18,12 +18,14 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-public struct AKChowningReverb: AKNode {
+public class AKChowningReverb: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKChowningReverbAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -36,7 +38,7 @@ public struct AKChowningReverb: AKNode {
     ///
     /// - parameter input: Input node to process
     ///
-    public init(_ input: AKNode) {
+    public init(var _ input: AKNode) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -61,7 +63,7 @@ public struct AKChowningReverb: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKChowningReverbAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
     }
 }

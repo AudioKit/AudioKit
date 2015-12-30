@@ -22,7 +22,7 @@ import AVFoundation
 /// - parameter inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
 /// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
 ///
-public struct AKDynamicsProcessor: AKNode {
+public class AKDynamicsProcessor: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -34,6 +34,8 @@ public struct AKDynamicsProcessor: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
     public var threshold: Double = -20 {
@@ -220,7 +222,7 @@ public struct AKDynamicsProcessor: AKNode {
     /// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         threshold: Double = -20,
         headRoom: Double = 5,
         expansionRatio: Double = 2,
@@ -246,7 +248,7 @@ public struct AKDynamicsProcessor: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_Threshold, kAudioUnitScope_Global, 0, Float(threshold), 0)

@@ -16,7 +16,7 @@ import CoreAudio
 /// 3) connect to the avengine: audiokit.audioOutput = sampler
 /// 4) start the avengine audiokit.start()
 ///
-public struct AKSampler: AKNode {
+public class AKSampler: AKNode {
     
     // MARK: - Properties
     
@@ -24,6 +24,8 @@ public struct AKSampler: AKNode {
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var token: AUParameterObserverToken?
     

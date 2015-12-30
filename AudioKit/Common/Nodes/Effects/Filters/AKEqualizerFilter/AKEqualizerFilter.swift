@@ -18,12 +18,14 @@ import AVFoundation
 /// - parameter bandwidth: The peak/notch bandwidth in Hertz
 /// - parameter gain: The peak/notch gain
 ///
-public struct AKEqualizerFilter: AKNode {
+public class AKEqualizerFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -61,7 +63,7 @@ public struct AKEqualizerFilter: AKNode {
     /// - parameter gain: The peak/notch gain
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         centerFrequency: Double = 1000,
         bandwidth: Double = 100,
         gain: Double = 10) {
@@ -93,7 +95,7 @@ public struct AKEqualizerFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKEqualizerFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

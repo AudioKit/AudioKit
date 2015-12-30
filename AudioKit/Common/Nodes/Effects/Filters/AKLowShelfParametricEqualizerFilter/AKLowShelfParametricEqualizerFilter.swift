@@ -15,12 +15,14 @@ import AVFoundation
 /// - parameter gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
 /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
 ///
-public struct AKLowShelfParametricEqualizerFilter: AKNode {
+public class AKLowShelfParametricEqualizerFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -58,7 +60,7 @@ public struct AKLowShelfParametricEqualizerFilter: AKNode {
     /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         cornerFrequency: Double = 1000,
         gain: Double = 1.0,
         q: Double = 0.707) {
@@ -90,7 +92,7 @@ public struct AKLowShelfParametricEqualizerFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKLowShelfParametricEqualizerFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

@@ -14,12 +14,14 @@ import AVFoundation
 /// - parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
 /// - parameter sampleRate: The sample rate of signal output.
 ///
-public struct AKBitCrusher: AKNode {
+public class AKBitCrusher: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKBitCrusherAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -49,7 +51,7 @@ public struct AKBitCrusher: AKNode {
     /// - parameter sampleRate: The sample rate of signal output.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         bitDepth: Double = 8,
         sampleRate: Double = 10000) {
 
@@ -79,7 +81,7 @@ public struct AKBitCrusher: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBitCrusherAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

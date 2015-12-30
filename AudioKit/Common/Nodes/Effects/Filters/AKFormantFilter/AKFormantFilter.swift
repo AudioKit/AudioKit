@@ -17,12 +17,14 @@ import AVFoundation
 /// - parameter attackDuration: Impulse response attack time (in seconds).
 /// - parameter decayDuration: Impulse reponse decay time (in seconds)
 ///
-public struct AKFormantFilter: AKNode {
+public class AKFormantFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKFormantFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -60,7 +62,7 @@ public struct AKFormantFilter: AKNode {
     /// - parameter decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         centerFrequency: Double = 1000,
         attackDuration: Double = 0.007,
         decayDuration: Double = 0.04) {
@@ -92,7 +94,7 @@ public struct AKFormantFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFormantFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

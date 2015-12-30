@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter cutoffFrequency: Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
 /// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-public struct AKLowShelfFilter: AKNode {
+public class AKLowShelfFilter: AKNode {
     
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -26,6 +26,8 @@ public struct AKLowShelfFilter: AKNode {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
     public var cutoffFrequency: Double = 80 {
@@ -68,7 +70,7 @@ public struct AKLowShelfFilter: AKNode {
     /// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         cutoffFrequency: Double = 80,
         gain: Double = 0) {
             
@@ -78,7 +80,7 @@ public struct AKLowShelfFilter: AKNode {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
             AudioUnitSetParameter(internalAU, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)

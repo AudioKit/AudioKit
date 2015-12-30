@@ -15,12 +15,14 @@ import AVFoundation
 /// - parameter centerFrequency: Center frequency. (in Hertz)
 /// - parameter bandwidth: Bandwidth. (in Hertz)
 ///
-public struct AKBandRejectButterworthFilter: AKNode {
+public class AKBandRejectButterworthFilter: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKBandRejectButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -50,7 +52,7 @@ public struct AKBandRejectButterworthFilter: AKNode {
     /// - parameter bandwidth: Bandwidth. (in Hertz)
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         centerFrequency: Double = 3000,
         bandwidth: Double = 2000) {
 
@@ -80,7 +82,7 @@ public struct AKBandRejectButterworthFilter: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBandRejectButterworthFilterAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

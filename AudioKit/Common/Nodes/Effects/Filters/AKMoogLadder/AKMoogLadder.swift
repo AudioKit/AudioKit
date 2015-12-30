@@ -18,12 +18,14 @@ import AVFoundation
 /// - parameter cutoffFrequency: Filter cutoff frequency.
 /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
 ///
-public struct AKMoogLadder: AKNode {
+public class AKMoogLadder: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKMoogLadderAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -53,7 +55,7 @@ public struct AKMoogLadder: AKNode {
     /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         cutoffFrequency: Double = 1000,
         resonance: Double = 0.5) {
 
@@ -83,7 +85,7 @@ public struct AKMoogLadder: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

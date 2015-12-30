@@ -10,7 +10,7 @@ import AVFoundation
 
 /// This tracks the pitch of signal using the 
 /// AMDF (Average Magnitude Difference Function) method of pitch following.
-public struct AKFrequencyTracker: AKNode {
+public class AKFrequencyTracker: AKNode {
 
     // MARK: - Properties
 
@@ -19,6 +19,8 @@ public struct AKFrequencyTracker: AKNode {
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
     public var amplitude: Double {
@@ -37,7 +39,7 @@ public struct AKFrequencyTracker: AKNode {
     /// - parameter input: Input node to process
     /// - parameter minimumFrequency: Lower bound of frequency detection
     /// - parameter maximumFrequency: Upper bound of frequency detection
-    public init(_ input: AKNode, minimumFrequency: Double, maximumFrequency: Double) {
+    public init(var _ input: AKNode, minimumFrequency: Double, maximumFrequency: Double) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -61,7 +63,7 @@ public struct AKFrequencyTracker: AKNode {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFrequencyTrackerAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
             self.internalAU?.setFrequencyLimitsWithMinimum(Float(minimumFrequency/2), maximum: Float(maximumFrequency/2))
         }
     }

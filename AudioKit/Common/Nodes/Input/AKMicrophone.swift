@@ -10,11 +10,13 @@ import Foundation
 import AVFoundation
 
 /// Audio from the standard input
-public struct AKMicrophone: AKNode {
+public class AKMicrophone: AKNode {
     
     
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     internal let mixer = AVAudioMixerNode()
     
     /// Output Volume (Default 1)

@@ -15,13 +15,15 @@ import AVFoundation
 /// - parameter mix: Dry/Wet Mix
 /// - parameter amplitude: Overall level
 ///
-public struct AKAutoWah: AKNode {
+public class AKAutoWah: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
-
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
+    
     internal var internalAU: AKAutoWahAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -58,7 +60,7 @@ public struct AKAutoWah: AKNode {
     /// - parameter amplitude: Overall level
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
         wah: Double = 0,
         mix: Double = 100,
         amplitude: Double = 0.1) {
@@ -90,7 +92,8 @@ public struct AKAutoWah: AKNode {
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAutoWahAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
+
         }
 
         guard let tree = internalAU?.parameterTree else { return }
