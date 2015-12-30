@@ -119,7 +119,6 @@
 		C463038D1C20EA4E009B44D9 /* AKGainDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C46303861C20EA4E009B44D9 /* AKGainDSPKernel.hpp */; };
 		C463038E1C20EA4E009B44D9 /* AKMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303871C20EA4E009B44D9 /* AKMixer.swift */; };
 		C463038F1C20EA4E009B44D9 /* AKSpatialMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303881C20EA4E009B44D9 /* AKSpatialMixer.swift */; };
-		C46303901C20EA4E009B44D9 /* AKSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303891C20EA4E009B44D9 /* AKSplitter.swift */; };
 		C46303981C20EA57009B44D9 /* AKDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303921C20EA57009B44D9 /* AKDelay.swift */; };
 		C46303991C20EA57009B44D9 /* AKVariableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303941C20EA57009B44D9 /* AKVariableDelay.swift */; };
 		C463039A1C20EA57009B44D9 /* AKVariableDelayAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C46303951C20EA57009B44D9 /* AKVariableDelayAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -566,7 +565,6 @@
 		C46303861C20EA4E009B44D9 /* AKGainDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKGainDSPKernel.hpp; sourceTree = "<group>"; };
 		C46303871C20EA4E009B44D9 /* AKMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixer.swift; sourceTree = "<group>"; };
 		C46303881C20EA4E009B44D9 /* AKSpatialMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSpatialMixer.swift; sourceTree = "<group>"; };
-		C46303891C20EA4E009B44D9 /* AKSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSplitter.swift; sourceTree = "<group>"; };
 		C46303921C20EA57009B44D9 /* AKDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDelay.swift; sourceTree = "<group>"; };
 		C46303941C20EA57009B44D9 /* AKVariableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariableDelay.swift; sourceTree = "<group>"; };
 		C46303951C20EA57009B44D9 /* AKVariableDelayAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableDelayAudioUnit.h; sourceTree = "<group>"; };
@@ -993,7 +991,6 @@
 				C46303821C20EA4E009B44D9 /* AKGain */,
 				C46303871C20EA4E009B44D9 /* AKMixer.swift */,
 				C46303881C20EA4E009B44D9 /* AKSpatialMixer.swift */,
-				C46303891C20EA4E009B44D9 /* AKSplitter.swift */,
 			);
 			path = Mixing;
 			sourceTree = "<group>";
@@ -2560,7 +2557,6 @@
 				C4BDEAC81C13004A00207DA9 /* AKTanhDistortionAudioUnit.mm in Sources */,
 				C4BDEA5D1C13004A00207DA9 /* tone.c in Sources */,
 				C42ADFF61C2AA6BE000CEED2 /* AKFrequencyTrackerAudioUnit.mm in Sources */,
-				C46303901C20EA4E009B44D9 /* AKSplitter.swift in Sources */,
 				C4BDEAAA1C13004A00207DA9 /* AKNode.swift in Sources */,
 				C4BDEA201C13004A00207DA9 /* drip.c in Sources */,
 				C4E752421C23888700688A1B /* moogLadderFilter.swift in Sources */,
