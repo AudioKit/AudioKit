@@ -224,7 +224,6 @@
 		C46302A81C20E821009B44D9 /* AKGainDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C46302A11C20E821009B44D9 /* AKGainDSPKernel.hpp */; };
 		C46302A91C20E821009B44D9 /* AKMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302A21C20E821009B44D9 /* AKMixer.swift */; };
 		C46302AA1C20E821009B44D9 /* AKSpatialMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302A31C20E821009B44D9 /* AKSpatialMixer.swift */; };
-		C46302AB1C20E821009B44D9 /* AKSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302A41C20E821009B44D9 /* AKSplitter.swift */; };
 		C46302B31C20E838009B44D9 /* AKDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302AD1C20E838009B44D9 /* AKDelay.swift */; };
 		C46302B41C20E838009B44D9 /* AKVariableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46302AF1C20E838009B44D9 /* AKVariableDelay.swift */; };
 		C46302B51C20E838009B44D9 /* AKVariableDelayAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C46302B01C20E838009B44D9 /* AKVariableDelayAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -697,7 +696,6 @@
 		C46302A11C20E821009B44D9 /* AKGainDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKGainDSPKernel.hpp; sourceTree = "<group>"; };
 		C46302A21C20E821009B44D9 /* AKMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixer.swift; sourceTree = "<group>"; };
 		C46302A31C20E821009B44D9 /* AKSpatialMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSpatialMixer.swift; sourceTree = "<group>"; };
-		C46302A41C20E821009B44D9 /* AKSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSplitter.swift; sourceTree = "<group>"; };
 		C46302AD1C20E838009B44D9 /* AKDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDelay.swift; sourceTree = "<group>"; };
 		C46302AF1C20E838009B44D9 /* AKVariableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariableDelay.swift; sourceTree = "<group>"; };
 		C46302B01C20E838009B44D9 /* AKVariableDelayAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableDelayAudioUnit.h; sourceTree = "<group>"; };
@@ -1751,7 +1749,6 @@
 				C463029D1C20E821009B44D9 /* AKGain */,
 				C46302A21C20E821009B44D9 /* AKMixer.swift */,
 				C46302A31C20E821009B44D9 /* AKSpatialMixer.swift */,
-				C46302A41C20E821009B44D9 /* AKSplitter.swift */,
 			);
 			path = Mixing;
 			sourceTree = "<group>";
@@ -2418,7 +2415,6 @@
 				C46301061C20C342009B44D9 /* switch.c in Sources */,
 				C4E958CD1C0ADBFD00516A6A /* pluck.c in Sources */,
 				C4E958C81C0ADBFD00516A6A /* panst.c in Sources */,
-				C46302AB1C20E821009B44D9 /* AKSplitter.swift in Sources */,
 				C4E958981C0ADBFD00516A6A /* autowah.c in Sources */,
 				C40869951C192C5E00EF9DED /* EZAudioFloatConverter.m in Sources */,
 				C4E958EE1C0ADBFD00516A6A /* zitarev.c in Sources */,
@@ -2856,7 +2852,6 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
-					"DEBUG_MODE=0",
 					"NO_LIBSNDFILE=1",
 				);
 				INFOPLIST_FILE = AudioKit/Info.plist;

@@ -311,7 +311,6 @@
 		C46303591C20E966009B44D9 /* AKGainDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C46303521C20E966009B44D9 /* AKGainDSPKernel.hpp */; };
 		C463035A1C20E966009B44D9 /* AKMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303531C20E966009B44D9 /* AKMixer.swift */; };
 		C463035B1C20E966009B44D9 /* AKSpatialMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303541C20E966009B44D9 /* AKSpatialMixer.swift */; };
-		C463035C1C20E966009B44D9 /* AKSplitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303551C20E966009B44D9 /* AKSplitter.swift */; };
 		C463036F1C20E980009B44D9 /* AKChowningReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463035F1C20E980009B44D9 /* AKChowningReverb.swift */; };
 		C46303701C20E980009B44D9 /* AKChowningReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C46303601C20E980009B44D9 /* AKChowningReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C46303711C20E980009B44D9 /* AKChowningReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C46303611C20E980009B44D9 /* AKChowningReverbAudioUnit.mm */; };
@@ -783,7 +782,6 @@
 		C46303521C20E966009B44D9 /* AKGainDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKGainDSPKernel.hpp; sourceTree = "<group>"; };
 		C46303531C20E966009B44D9 /* AKMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMixer.swift; sourceTree = "<group>"; };
 		C46303541C20E966009B44D9 /* AKSpatialMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSpatialMixer.swift; sourceTree = "<group>"; };
-		C46303551C20E966009B44D9 /* AKSplitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSplitter.swift; sourceTree = "<group>"; };
 		C463035F1C20E980009B44D9 /* AKChowningReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKChowningReverb.swift; sourceTree = "<group>"; };
 		C46303601C20E980009B44D9 /* AKChowningReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKChowningReverbAudioUnit.h; sourceTree = "<group>"; };
 		C46303611C20E980009B44D9 /* AKChowningReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKChowningReverbAudioUnit.mm; sourceTree = "<group>"; };
@@ -1689,7 +1687,6 @@
 				C463034E1C20E966009B44D9 /* AKGain */,
 				C46303531C20E966009B44D9 /* AKMixer.swift */,
 				C46303541C20E966009B44D9 /* AKSpatialMixer.swift */,
-				C46303551C20E966009B44D9 /* AKSplitter.swift */,
 			);
 			path = Mixing;
 			sourceTree = "<group>";
@@ -2452,7 +2449,6 @@
 				C48AA6D41C0FA806006EB131 /* AKRingModulator.swift in Sources */,
 				C437922D1C0C55DE001E9160 /* fftwrapper.c in Sources */,
 				C43792541C0C55DE001E9160 /* rms.c in Sources */,
-				C463035C1C20E966009B44D9 /* AKSplitter.swift in Sources */,
 				C40869DB1C197F7200EF9DED /* EZAudioDisplayLink.m in Sources */,
 				C437921C1C0C55DE001E9160 /* butbr.c in Sources */,
 				C42F37D11C058442000E937C /* AKGetAUParams.swift in Sources */,
