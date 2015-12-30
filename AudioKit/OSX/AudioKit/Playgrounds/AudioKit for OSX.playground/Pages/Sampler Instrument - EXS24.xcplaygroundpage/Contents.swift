@@ -36,9 +36,9 @@ AKPlaygroundLoop.start(every: pulse) { timer in
     let scale = [0,2,4,5,7,9,11,12]
     var note = scale.randomElement()
     let octave = randomInt(3...7)  * 12
-    if randomFloat(0, 10) < 1.0 { note++ }
+    if random(0, 10) < 1.0 { note++ }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
-    if randomFloat(0, 6) > 1.0 { sampler.playNote(note + octave) }
+    if random(0, 6) > 1.0 { sampler.playNote(note + octave) }
 }
 
 
