@@ -6,6 +6,7 @@
         <page name='Introduction and Hello World'/>
         <page name='Connecting Nodes'/>
         <page name='Mixing Nodes'/>
+        <page name='Splitting Nodes'/>
         <page name='Delay'/>
         <page name='Variable Delay'/>
         <page name='Dynamics Processor'/>
