@@ -70,6 +70,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKWhiteNoiseAudioUnit.h>
 
 // Mixing
+#import <AudioKit/AKBalanceAudioUnit.h>
 #import <AudioKit/AKGainAudioUnit.h>
 
 // Testing
