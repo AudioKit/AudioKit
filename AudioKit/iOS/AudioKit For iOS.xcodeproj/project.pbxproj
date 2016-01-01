@@ -462,6 +462,8 @@
 		C4F52E241C080A4400F22BD1 /* AKTriangleOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4F52E1C1C080A4400F22BD1 /* AKTriangleOscillatorDSPKernel.hpp */; };
 		FE0929931C23AA6F00845CC6 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */; };
 		FE0929951C23ABC700845CC6 /* AKMidiInstrumentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0929941C23ABC700845CC6 /* AKMidiInstrumentControl.swift */; };
+		FE26E5C91C37194300A09C0C /* AKMidiInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */; };
+		FE26EA231C36DC9400C8D3B8 /* AKPolyOsc.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE26EA221C36DC9400C8D3B8 /* AKPolyOsc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -934,6 +936,8 @@
 		C4F52E1C1C080A4400F22BD1 /* AKTriangleOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTriangleOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
 		FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
 		FE0929941C23ABC700845CC6 /* AKMidiInstrumentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrumentControl.swift; sourceTree = "<group>"; };
+		FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrument.swift; sourceTree = "<group>"; };
+		FE26EA221C36DC9400C8D3B8 /* AKPolyOsc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyOsc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1282,6 +1286,8 @@
 				C4A916D61C250D5C006C1A15 /* AKOperationGenerator */,
 				C48AA6631C0FA382006EB131 /* Noise */,
 				C42F35561C057F4C000E937C /* Oscillators */,
+				FE26EA221C36DC9400C8D3B8 /* AKPolyOsc.swift */,
+				FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -2457,6 +2463,7 @@
 				C42F362E1C057F4C000E937C /* AKMidi.swift in Sources */,
 				C4E958AF1C0ADBFD00516A6A /* expon.c in Sources */,
 				C4F52E211C080A4400F22BD1 /* AKTriangleOscillator.swift in Sources */,
+				FE26E5C91C37194300A09C0C /* AKMidiInstrument.swift in Sources */,
 				C4E958961C0ADBFD00516A6A /* allpass.c in Sources */,
 				C463010B1C20C342009B44D9 /* tenvx.c in Sources */,
 				C46300FB1C20C342009B44D9 /* port.c in Sources */,
@@ -2689,6 +2696,7 @@
 				C4A916311C24F7AD006C1A15 /* AKHighPassButterworthFilterAudioUnit.mm in Sources */,
 				C48AA67B1C0FA6AB006EB131 /* AKAutoWah.swift in Sources */,
 				C4E958CF1C0ADBFD00516A6A /* posc3.c in Sources */,
+				FE26EA231C36DC9400C8D3B8 /* AKPolyOsc.swift in Sources */,
 				C42F369D1C057F4C000E937C /* AKRolandTB303FilterAudioUnit.mm in Sources */,
 				C4E9589A1C0ADBFD00516A6A /* bar.c in Sources */,
 				C46300E51C20C342009B44D9 /* fm.c in Sources */,

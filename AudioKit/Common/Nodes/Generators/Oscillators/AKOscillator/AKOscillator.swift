@@ -8,6 +8,7 @@
 
 import AVFoundation
 
+
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
@@ -21,6 +22,7 @@ public class AKOscillator: AKNode {
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    public var internalAvAudioUnit: AVAudioUnit
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
@@ -73,11 +75,12 @@ public class AKOscillator: AKNode {
             version: UInt32.max)
 
         self.avAudioNode = AVAudioNode()
+        self.internalAvAudioUnit = AVAudioUnit()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
-
+            self.internalAvAudioUnit = avAudioUnit!
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKOscillatorAudioUnit
 
