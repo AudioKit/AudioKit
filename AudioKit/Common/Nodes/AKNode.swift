@@ -1,6 +1,6 @@
 //
 //  AKNode.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/2/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
