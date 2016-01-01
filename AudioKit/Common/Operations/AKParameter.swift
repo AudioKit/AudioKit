@@ -1,6 +1,6 @@
 //
 //  AKParameter.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/26/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
