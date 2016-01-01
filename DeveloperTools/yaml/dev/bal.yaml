@@ -1,10 +1,10 @@
-installation-directory: "Effects/Volume\ and\ Spatialization/"
+installation-directory: "Mixing/"
 
 sp-module: bal
 
 node: AKBalance
 
-four-letter-code:
+four-letter-code: blnc
 
 one-word-description: balance
 
