@@ -103,7 +103,7 @@ File.open("templates/AKNode.swift.erb") { |template|
 #####################
 File.open("templates/AKNodeAudioUnit.h.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	# File.open("#{output_folder}/#{node}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}AudioUnit.h", 'w+') {|f| f.write(erb.result) }
 	# puts erb.result
 }
 
@@ -115,7 +115,7 @@ parameter_creation_partial = new_partial("AKNodeAudioUnit.mm", "parameter_creati
 
 File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	# File.open("#{output_folder}/#{node}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}AudioUnit.mm", 'w+') {|f| f.write(erb.result) }
 	# puts erb.result
 }
 
@@ -124,7 +124,7 @@ File.open("templates/AKNodeAudioUnit.mm.erb") { |template|
 #######################
 File.open("templates/AKNodeDSPKernel.hpp.erb") { |template|
 	erb = ERB.new( template.read, nil, '-' )
-	# File.open("#{output_folder}/#{node}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
+	File.open("#{output_folder}/#{node}DSPKernel.hpp", 'w+') {|f| f.write(erb.result) }
 	# puts erb.result
 }
 

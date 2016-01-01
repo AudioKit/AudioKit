@@ -11,12 +11,14 @@
 <% end -%>
 <% end -%>
 ///
-public struct <%= node %>: AKNode {
+public class <%= node %>: AKNode {
 
     // MARK: - Properties
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: <%= node %>AudioUnit?
     internal var token: AUParameterObserverToken?
