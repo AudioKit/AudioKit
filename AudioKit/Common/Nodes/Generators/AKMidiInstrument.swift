@@ -81,6 +81,7 @@ public class AKMidiInstrument: AKNode {
         
         internalOscs[voicePlaying].frequency = frequency
         internalOscs[voicePlaying].amplitude = amplitude
+        internalOscs[voicePlaying].start()
         notesPlayed[voicePlaying] = Int(note)
         print("Voice playing is \(voicePlaying) - note:\(note) - freq:\(internalOscs[voicePlaying].frequency)")
         
@@ -93,7 +94,7 @@ public class AKMidiInstrument: AKNode {
         var voiceToStop = notesPlayed.indexOf(Int(note))
         print("voiceToStop: \(voiceToStop) - note:\(note)")
         while(voiceToStop != nil){
-            internalOscs[voiceToStop!].amplitude = 0
+            internalOscs[voiceToStop!].stop()
             notesPlayed[voiceToStop!] = 0
             voiceToStop = notesPlayed.indexOf(Int(note))
         }
