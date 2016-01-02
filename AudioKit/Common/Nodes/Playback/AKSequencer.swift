@@ -33,7 +33,7 @@ public class AKSequencer {
     public var tracks:[AKMusicTrack] = []
     
     /// Array of AVMusicTracks
-    public var rawTracks:[AVMusicTrack] {
+    public var avTracks:[AVMusicTrack] {
         if(isAvSeq){
             return avSeq.tracks
         }else{
@@ -89,24 +89,28 @@ public class AKSequencer {
     
     /// Enable looping for all tracks
     public func loopOn() {
-        setLoopInfo(length, numberOfLoops: 0)
         if(isAvSeq){
             for track in avSeq.tracks{
                 track.loopingEnabled = true
                 track.loopRange = AVMakeBeatRange(0, self.length)
             }
         }//only for avSeq
+        else{
+            setLoopInfo(length, numberOfLoops: 0)
+        }
         loopEnabled = true
     }
     
     /// Disable looping for all tracks
     public func loopOff() {
-        setLoopInfo(0, numberOfLoops: 0)
         if(isAvSeq){
             for track in avSeq.tracks{
                 track.loopingEnabled = false
             }
         }//only for avSeq
+        else{
+            setLoopInfo(0, numberOfLoops: 0)
+        }
         loopEnabled = false
     }
     
@@ -196,8 +200,8 @@ public class AKSequencer {
                 track.destinationMIDIEndpoint = midiEndpoint
             }
         }else{
-            for trackInd in tracks{
-                MusicTrackSetDestMIDIEndpoint(trackInd.internalMusicTrack, midiEndpoint)
+            for track in tracks{
+                track.setMidiOutput(midiEndpoint)
             }
         }
     }

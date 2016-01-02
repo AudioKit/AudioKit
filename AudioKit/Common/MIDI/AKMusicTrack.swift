@@ -80,6 +80,7 @@ public class AKMusicTrack{
         MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
         MusicTrackCopyInsert(tmpTrack, 0, len, internalMusicTrack, 0)
         MusicSequenceDisposeTrack(tmpSeq, tmpTrack)
+        DisposeMusicSequence(tmpSeq)
     }
     
     /// Clear all events from the track
