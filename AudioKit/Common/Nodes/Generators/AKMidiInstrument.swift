@@ -28,7 +28,7 @@ public class AKMidiInstrument: AKNode {
     let subMixer = AKMixer()
     
     public init(osc:AKOscillator, numVoicesInit:Int = 1) {
-    //public init(AKNode(???), numVoicesInit:Int = 1, midiClient: MIDIClientRef, name: String) {
+    //public init(AKNode(???), numVoicesInit:Int = 1) {
         
         print("creating akmidiinstrument with \(numVoicesInit) voices")
         
@@ -82,7 +82,7 @@ public class AKMidiInstrument: AKNode {
         internalOscs[voicePlaying].frequency = frequency
         internalOscs[voicePlaying].amplitude = amplitude
         notesPlayed[voicePlaying] = Int(note)
-        //print("Voice playing is \(voicePlaying) - note:\(note) - freq:\(internalOscs[voicePlaying].frequency)")
+        print("Voice playing is \(voicePlaying) - note:\(note) - freq:\(internalOscs[voicePlaying].frequency)")
         
         voicePlaying = (voicePlaying + 1) % numVoices
     }
@@ -91,7 +91,7 @@ public class AKMidiInstrument: AKNode {
         //print("note:\(note) - chan:\(channel)")
         
         var voiceToStop = notesPlayed.indexOf(Int(note))
-        //print("voiceToStop: \(voiceToStop) - note:\(note)")
+        print("voiceToStop: \(voiceToStop) - note:\(note)")
         while(voiceToStop != nil){
             internalOscs[voiceToStop!].amplitude = 0
             notesPlayed[voiceToStop!] = 0
