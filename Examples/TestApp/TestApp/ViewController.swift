@@ -51,8 +51,7 @@ class ViewController: UIViewController {
         
         let sawtooth = AKTable(.Sawtooth, size: 16)
         for value in sawtooth.values { value }
-        osc = AKOscillator(table: sawtooth)
-        midiInst = AKMidiInstrument(osc: osc, numVoicesInit: 4)
+        midiInst = AKMidiInstrument(osc: AKOscillator(table: sawtooth), numVoicesInit: 4)
         mixer.connect(midiInst!)
 //        mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
