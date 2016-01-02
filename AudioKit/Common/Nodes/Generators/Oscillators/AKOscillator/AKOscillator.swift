@@ -31,6 +31,8 @@ public class AKOscillator: AKNode {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
+    
+    private var table:AKTable?
 
     /// Frequency in cycles per second
     public var frequency: Double = 440 {
@@ -60,6 +62,7 @@ public class AKOscillator: AKNode {
 
         self.frequency = frequency
         self.amplitude = amplitude
+        self.table = table
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -109,5 +112,11 @@ public class AKOscillator: AKNode {
         }
         frequencyParameter?.setValue(Float(frequency), originator: token!)
         amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+    }
+    
+    //consider making this copy function part of the AKNode protocol to allow easier creationg of multi-voiced instruments
+    public func copy() -> AKOscillator {
+        let copy = AKOscillator(table: self.table!, frequency: self.frequency, amplitude: self.amplitude)
+        return copy
     }
 }
