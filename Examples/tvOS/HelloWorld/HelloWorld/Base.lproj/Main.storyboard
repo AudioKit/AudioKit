@@ -27,16 +27,16 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-8O-zZG">
-                                <rect key="frame" x="702" y="539" width="516" height="86"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-8O-zZG">
+                                <rect key="frame" x="791" y="539" width="338" height="86"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="40" minY="20" maxX="40" maxY="20"/>
-                                <state key="normal" title="Stop Sine Wave at 440Hz"/>
+                                <state key="normal" title="Play Sine Wave"/>
                                 <connections>
                                     <action selector="toggleSound:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="H2C-g8-5Y6"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-rS-84i">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="AudioKitMan" translatesAutoresizingMaskIntoConstraints="NO" id="QoR-rS-84i">
                                 <rect key="frame" x="702" y="72" width="516" height="440"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="QoR-rS-84i" secondAttribute="height" multiplier="169:144" id="v4j-2y-Xgy"/>

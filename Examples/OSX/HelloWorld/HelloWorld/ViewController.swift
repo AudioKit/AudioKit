@@ -24,12 +24,13 @@ class ViewController: NSViewController {
     }
     
     @IBAction func toggleSound(sender: NSButton) {
-        if oscillator.amplitude >  0 {
-            oscillator.amplitude = 0.0
+        if oscillator.isPlaying {
+            oscillator.stop()
             sender.title = "Play Sine Wave"
         } else {
             oscillator.amplitude = random(0.5, 1)
             oscillator.frequency = random(220, 880)
+            oscillator.start()
             sender.title = "Stop Sine Wave at \(Int(oscillator.frequency))Hz"
         }
         sender.setNeedsDisplay()

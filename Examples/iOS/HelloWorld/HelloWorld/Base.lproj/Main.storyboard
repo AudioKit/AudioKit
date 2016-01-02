@@ -28,7 +28,7 @@
                                     <constraint firstAttribute="height" constant="90" id="yqP-w4-Jdb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Stop Sine Wave at 440Hz">
+                                <state key="normal" title="Play Sine Wave">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
