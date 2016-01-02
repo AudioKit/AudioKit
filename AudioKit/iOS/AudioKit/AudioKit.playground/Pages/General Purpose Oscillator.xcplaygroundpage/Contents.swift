@@ -32,6 +32,8 @@ var oscillator = AKOscillator(table: custom)
 audiokit.audioOutput = oscillator
 audiokit.start()
 
+oscillator.start()
+
 let updater = AKPlaygroundLoop(frequency: 5) {
     oscillator.frequency = random(220,440)
     oscillator.amplitude = random(0, 0.5)
