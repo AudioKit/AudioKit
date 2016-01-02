@@ -46,6 +46,10 @@ public class AKOscillator: AKNode {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
         }
     }
+    
+    public var isPlaying: Bool {
+        return internalAU!.isPlaying()
+    }
 
     // MARK: - Initialization
 
@@ -118,5 +122,13 @@ public class AKOscillator: AKNode {
     public func copy() -> AKOscillator {
         let copy = AKOscillator(table: self.table!, frequency: self.frequency, amplitude: self.amplitude)
         return copy
+    }
+    
+    public func start() {
+        self.internalAU!.start()
+    }
+    
+    public func stop() {
+        self.internalAU!.stop()
     }
 }

@@ -48,6 +48,14 @@ public:
         ftbl->tbl[index] = value;
     }
     
+    void start() {
+        started = true;
+    }
+    
+    void stop() {
+        started = false;
+    }
+    
     void destroy() {
         sp_osc_destroy(&osc);
         sp_destroy(&sp);
@@ -100,22 +108,28 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
+        
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             double frequency = double(frequencyRamper.getStep());
             double amplitude = double(amplitudeRamper.getStep());
-
+            
             int frameOffset = int(frameIndex + bufferOffset);
-
+            
             osc->freq = (float)frequency;
             osc->amp = (float)amplitude;
             
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
+                
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (channel == 0) {
-                    sp_osc_compute(sp, osc, nil, &temp);
+                if (started) {
+                    if (channel == 0) {
+                        sp_osc_compute(sp, osc, nil, &temp);
+                    }
+                    *out = temp;
+                } else {
+                    *out = 0.0;
                 }
-                *out = temp;
             }
         }
     }
@@ -135,6 +149,7 @@ private:
     UInt32 ftbl_size = 4096;
 
 public:
+    bool started = false;
     AKParameterRamper frequencyRamper = 440;
     AKParameterRamper amplitudeRamper = 1;
 };
