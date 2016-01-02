@@ -684,7 +684,7 @@
                                     <constraint firstAttribute="height" constant="54" id="mqm-nn-QTk"/>
                                     <constraint firstAttribute="width" constant="440" id="qmP-pr-JiF"/>
                                 </constraints>
-                                <buttonCell key="cell" type="smallSquare" title="Stop Sine Wave at 440Hz" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Ko-4P-vZR">
+                                <buttonCell key="cell" type="smallSquare" title="Play Sine Wave" bezelStyle="smallSquare" imagePosition="overlaps" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Ko-4P-vZR">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="systemBold"/>
                                 </buttonCell>
