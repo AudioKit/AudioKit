@@ -14,6 +14,9 @@
 @interface AKOscillatorAudioUnit : AUAudioUnit
 - (void)setupTable:(int)size;
 - (void)setTableValue:(float)value atIndex:(UInt32)index;
+- (void)start;
+- (void)stop;
+- (BOOL)isPlaying;
 @end
 
 #endif /* AKOscillatorAudioUnit_h */

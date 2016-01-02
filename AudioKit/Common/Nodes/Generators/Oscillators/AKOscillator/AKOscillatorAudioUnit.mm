@@ -37,6 +37,18 @@
     _kernel.setTableValue(index, value);
 }
 
+- (void)start {
+    _kernel.start();
+}
+
+- (void)stop {
+    _kernel.stop();
+}
+
+- (BOOL)isPlaying {
+    return _kernel.started;
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
