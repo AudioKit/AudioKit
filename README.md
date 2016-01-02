@@ -50,8 +50,13 @@ Starting AudioKit:
 
 And then responding to the UI by changing the oscillator:
 
-        oscillator.amplitude = random(0.5, 1)
-        oscillator.frequency = random(220, 880)
+        if oscillator.isPlaying {
+            oscillator.stop()
+        } else {
+            oscillator.amplitude = random(0.5, 1)
+            oscillator.frequency = random(220, 880)
+            oscillator.start()
+        }
 
 ## Playgrounds
 
