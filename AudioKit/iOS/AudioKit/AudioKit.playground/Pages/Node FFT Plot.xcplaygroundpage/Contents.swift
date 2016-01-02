@@ -9,15 +9,16 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-
-var fm = AKOscillator(table: AKTable(.Sine, size: 4096))
-var mixer = AKMixer(fm)
+var oscillator = AKOscillator(table: AKTable(.Sine, size: 4096))
+var mixer = AKMixer(oscillator)
 audiokit.audioOutput = mixer
 audiokit.start()
 
+oscillator.start()
+
 let updater = AKPlaygroundLoop(frequency: 5) {
-    fm.frequency = random(220, 20000)
-    fm.amplitude = 0.2
+    oscillator.frequency = random(220, 20000)
+    oscillator.amplitude = 0.2
 }
 
 
