@@ -258,4 +258,11 @@ public class AKSequencer {
         }
     }
     
+    public func debugSeq(){
+        if(isAvSeq){
+            //do nothing
+        }else{
+            CAShow(sequencePointer)
+        }
+    }
 }
