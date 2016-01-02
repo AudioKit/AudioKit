@@ -116,13 +116,12 @@ public class AKSequencer {
     /// - parameter numberOfLoops: The number of time to repeat
     ///
     public func setLoopInfo(duration: Double, numberOfLoops: Int) {
-        let size:UInt32 = 0
-        let len = MusicTimeStamp(duration)
-        var loopInfo = MusicTrackLoopInfo(loopDuration: len, numberOfLoops: Int32(numberOfLoops))
-        for( var i = 0; i < self.numberOfTracks; ++i){
-            var musicTrack = MusicTrack()
-            MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
-            MusicTrackSetProperty(musicTrack, kSequenceTrackProperty_LoopInfo, &loopInfo, size)
+        if(isAvSeq){
+            //nothing yet
+        }else{
+            for track in tracks{
+                track.setLoopInfo(duration, numberOfLoops: numberOfLoops)
+            }
         }
     }
     
@@ -131,16 +130,12 @@ public class AKSequencer {
     /// - parameter length: Length of tracks in seconds
     ///
     public func setLength(length: Double) {
-        let size:UInt32 = 0
-        var len = MusicTimeStamp(length)
-        for( var i = 0; i < self.numberOfTracks; ++i){
-            var musicTrack = MusicTrack()
-            MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
-            MusicTrackSetProperty(musicTrack, kSequenceTrackProperty_TrackLength, &len, size)
+        for track in tracks{
+            track.setLength(length)
         }
         if(isAvSeq){
             for track in avSeq.tracks{
-                track.lengthInBeats = len
+                track.lengthInBeats = length
                 track.loopRange = AVMakeBeatRange(0, self.length)
             }
         }//only for avseq
@@ -150,11 +145,8 @@ public class AKSequencer {
     public var length: Double {
         var length:MusicTimeStamp = 0
         var tmpLength:MusicTimeStamp = 0
-        var size:UInt32 = 0
-        for( var i = 0; i < self.numberOfTracks; ++i){
-            var musicTrack = MusicTrack()
-            MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
-            MusicTrackGetProperty(musicTrack, kSequenceTrackProperty_TrackLength, &tmpLength, &size)
+        for track in tracks{
+            tmpLength = track.length
             if(tmpLength >= length){ length = tmpLength }
         }
         if(isAvSeq){
@@ -249,6 +241,9 @@ public class AKSequencer {
     }
     
     /// Initialize all tracks
+    ///
+    /// Clears the AKMusicTrack array, and rebuilds it based on actual contents of music sequence
+    ///
     func initTracks() {
         tracks.removeAll()
         for( var i = 0; i < self.numberOfTracks; ++i){
@@ -258,7 +253,7 @@ public class AKSequencer {
         }
     }
     
-    public func debugSeq(){
+    public func debug(){
         if(isAvSeq){
             //do nothing
         }else{
