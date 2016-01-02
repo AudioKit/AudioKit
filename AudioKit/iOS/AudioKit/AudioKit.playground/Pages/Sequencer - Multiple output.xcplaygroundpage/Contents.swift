@@ -1,5 +1,4 @@
 //: [Previous](@previous)
-/* in progress - dealing with sequencer
 import XCPlayground
 import AudioKit
 
@@ -38,5 +37,5 @@ audiokit.start()
 seq!.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-*/
+
 //: [Next](@next)
