@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         seq.setGlobalMidiOutput((midiInst?.midiIn)!)
 //        print(seq.numTracks)
         seq.setLength(4)
-        CAShow(seq.tracks[1].trackPtr)
+        seq.debugSeq()
     }
 
     func midiNotif(notif:NSNotification){
