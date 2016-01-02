@@ -26,6 +26,8 @@ class ViewController: UIViewController {
     var fmOsc = AKFMOscillator()
     var exs = AKSampler()
     var exs2 = AKSampler()
+    var osc = AKOscillator()
+    var midiInst:AKMidiInstrument?
     var seq = AKSequencer(filename:"4tracks")
     var mixer = AKMixer()
 //    var spatMix = AKSpatialMixer()
@@ -44,11 +46,15 @@ class ViewController: UIViewController {
         //getAUParams((limiter?.internalAU)!)
 
         */
-        exs.loadEXS24("Sounds/sawPiano1")
-        exs2.loadWav("Sounds/kylebell1-shrt")
-
-        mixer.connect(exs)
-        mixer.connect(exs2)
+//        exs.loadEXS24("Sounds/sawPiano1")
+//        exs2.loadWav("Sounds/kylebell1-shrt")
+        
+        let sawtooth = AKTable(.Sawtooth, size: 16)
+        for value in sawtooth.values { value }
+        osc = AKOscillator(table: sawtooth)
+        midiInst = AKMidiInstrument(osc: osc, numVoicesInit: 4)
+        mixer.connect(midiInst!)
+//        mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
         verb2  = AKReverb2(moog!)
         audiokit.audioOutput = verb2
@@ -59,13 +65,12 @@ class ViewController: UIViewController {
         midi.openMidiIn("Session 1")
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
-        //        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
+        defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
 
-        //        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
+        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
 
-        exs.enableMidi(midi.midiClient)
-        exs2.enableMidi(midi.midiClient)
-        seq.setGlobalMidiOutput(exs.midiIn)
+        midiInst!.enableMidi(midi.midiClient, name: "PolyOsc")
+        seq.setGlobalMidiOutput(midiInst!.midiIn)
 //        print(seq.numTracks)
         seq.setLength(4)
 //        CAShow(seq.tracks[1].trackPtr)
@@ -78,8 +83,9 @@ class ViewController: UIViewController {
     }
 
     func midiNoteNotif(notif:NSNotification){
-        exs.playNote(Int((notif.userInfo?["note"])! as! NSNumber))
-        exs2.playNote(Int((notif.userInfo?["note"])! as! NSNumber))
+        midiInst?.handleMidiNotif(notif)
+        //exs.playNote(Int((notif.userInfo?["note"])! as! NSNumber))
+        //exs2.playNote(Int((notif.userInfo?["note"])! as! NSNumber))
 //        exs2.playNote(notif.userInfo?.indexForKey("note"))
     }
     @IBAction func playNote(){
@@ -98,6 +104,9 @@ class ViewController: UIViewController {
 //        exs.playNote(Int(arc4random_uniform(127)))
 //        exs2.playNote(Int(arc4random_uniform(127)))
     }
+    @IBAction func midiPanic(){
+        midiInst?.panic()
+    }
     @IBAction func connectMidi(){
         midi.openMidiOut("Session 1")
     }
@@ -111,24 +120,25 @@ class ViewController: UIViewController {
     }
     @IBAction func changeReverb(sender: UISlider) {
         guard let reverb = verb2 else { return }
-        reverb.dryWetMix = 100.0 * sender.value
+        reverb.dryWetMix = Double(100.0 * sender.value)
     }
     @IBAction func changeDelayTime(sender: UISlider) {
         //if let delay = delay { delay.delayTime = NSTimeInterval(sender.value) }
     }
     @IBAction func changeCutoff(sender: UISlider) {
         guard let moog = moog else { return }
-        moog.cutoffFrequency = sender.value * 10000.0
+        moog.cutoffFrequency = Double(sender.value * 10000.0)
     }
     @IBAction func changeResonance(sender: UISlider) {
         guard let moog = moog else { return }
-        moog.resonance = sender.value * 0.98
+        moog.resonance = Double(sender.value * 0.98)
     }
     @IBAction func changeReverbDuration(sender: UISlider) {
 //        guard let allpass = allpass else { return }
 //        allpass.reverbDuration = sender.value * 5.0
         guard let verb = verb2 else {return}
-        verb.decayTime = sender.value * 20.0
+        verb.decayTimeAt0Hz = Double(sender.value * 20.0)
+        verb.decayTimeAtNyquist = Double(sender.value * 20.0)
     }
     func getAUParams(inputAU: AudioUnit)->([AudioUnitParameterInfo]){
         //  Get number of parameters in this unit (size in bytes really):
