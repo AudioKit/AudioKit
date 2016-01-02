@@ -1,6 +1,6 @@
 //
 //  AKSequencer.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 11/27/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
