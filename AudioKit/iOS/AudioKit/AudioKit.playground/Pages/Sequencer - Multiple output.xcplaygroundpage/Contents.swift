@@ -27,10 +27,10 @@ seq!.setLength(4)
 seq!.loopOn()
 //: Here we set each alternating track to a different instrument
 //: (Note that track 0 in our case is just meta information...not actual notes)
-seq!.rawTracks[1].destinationAudioUnit = sampler1.samplerUnit
-seq!.rawTracks[2].destinationAudioUnit = sampler2.samplerUnit
-seq!.rawTracks[3].destinationAudioUnit = sampler1.samplerUnit
-seq!.rawTracks[4].destinationAudioUnit = sampler2.samplerUnit
+seq!.avTracks[1].destinationAudioUnit = sampler1.samplerUnit
+seq!.avTracks[2].destinationAudioUnit = sampler2.samplerUnit
+seq!.avTracks[3].destinationAudioUnit = sampler1.samplerUnit
+seq!.avTracks[4].destinationAudioUnit = sampler2.samplerUnit
 
 //: Hear it go
 audiokit.start()
