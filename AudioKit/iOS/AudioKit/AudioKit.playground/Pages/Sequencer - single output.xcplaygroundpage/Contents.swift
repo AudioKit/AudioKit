@@ -10,6 +10,7 @@ var seq:AKSequencer?
 
 //: Create a sampler, load a sound, and connect it to the output
 var sampler = AKSampler()
+
 sampler.loadEXS24("Sounds/sawPiano1")
 audiokit.audioOutput = sampler
 

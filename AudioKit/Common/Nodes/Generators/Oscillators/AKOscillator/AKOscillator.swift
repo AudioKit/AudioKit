@@ -8,6 +8,7 @@
 
 import AVFoundation
 
+
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
@@ -21,6 +22,7 @@ public class AKOscillator: AKNode {
 
     /// Required property for AKNode
     public var avAudioNode: AVAudioNode
+    public var internalAvAudioUnit: AVAudioUnit
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
@@ -29,6 +31,8 @@ public class AKOscillator: AKNode {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
+    
+    private var table:AKTable?
 
     /// Frequency in cycles per second
     public var frequency: Double = 440 {
@@ -58,6 +62,7 @@ public class AKOscillator: AKNode {
 
         self.frequency = frequency
         self.amplitude = amplitude
+        self.table = table
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -73,11 +78,12 @@ public class AKOscillator: AKNode {
             version: UInt32.max)
 
         self.avAudioNode = AVAudioNode()
+        self.internalAvAudioUnit = AVAudioUnit()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
-
+            self.internalAvAudioUnit = avAudioUnit!
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKOscillatorAudioUnit
 
@@ -106,5 +112,11 @@ public class AKOscillator: AKNode {
         }
         frequencyParameter?.setValue(Float(frequency), originator: token!)
         amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+    }
+    
+    //consider making this copy function part of the AKNode protocol to allow easier creationg of multi-voiced instruments
+    public func copy() -> AKOscillator {
+        let copy = AKOscillator(table: self.table!, frequency: self.frequency, amplitude: self.amplitude)
+        return copy
     }
 }
