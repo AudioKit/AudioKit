@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9527.1" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9525.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -118,24 +118,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rM4-EV-fBb">
-                                <rect key="frame" x="66" y="493" width="60" height="30"/>
-                                <state key="normal" title="playInst1"/>
+                                <rect key="frame" x="69" y="493" width="55" height="30"/>
+                                <state key="normal" title="playSeq"/>
                                 <connections>
                                     <action selector="playNote" destination="BYZ-38-t0r" eventType="touchUpInside" id="jhL-m6-T8T"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnU-2A-pgR">
-                                <rect key="frame" x="161" y="493" width="62" height="30"/>
-                                <state key="normal" title="playInst2"/>
+                                <rect key="frame" x="156" y="493" width="73" height="30"/>
+                                <state key="normal" title="rewindSeq"/>
                                 <connections>
                                     <action selector="playNote2" destination="BYZ-38-t0r" eventType="touchUpInside" id="8rM-1i-jaL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dby-Hu-S8o">
-                                <rect key="frame" x="257" y="493" width="86" height="30"/>
-                                <state key="normal" title="playBothInst"/>
+                                <rect key="frame" x="261" y="493" width="78" height="30"/>
+                                <state key="normal" title="toggleLoop"/>
                                 <connections>
                                     <action selector="playNoteboth" destination="BYZ-38-t0r" eventType="touchUpInside" id="b6K-Xa-53h"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IST-Qy-V8S">
+                                <rect key="frame" x="170" y="531" width="44" height="30"/>
+                                <state key="normal" title="PANIC"/>
+                                <connections>
+                                    <action selector="midiPanic" destination="BYZ-38-t0r" eventType="touchUpInside" id="o70-vr-O2Q"/>
                                 </connections>
                             </button>
                         </subviews>
