@@ -1,6 +1,6 @@
 //
 //  add.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/6/15.
 //  Copyright © 2015 AudioKit. All rights reserved.
