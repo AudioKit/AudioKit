@@ -11,9 +11,9 @@ let audiokit = AKManager.sharedInstance
 
 let sawtooth = AKTable(.Sawtooth, size: 16)
 for value in sawtooth.values { value } // Click the eye icon ->
-
-var oscillator = AKPolyOsc(table: sawtooth, numVoicesInit: 4)
-audiokit.audioOutput = oscillator
+var oscBase = AKOscillator(table: sawtooth)
+var oscillatorPoly = AKMidiInstrument(osc: oscBase, numVoicesInit: 4)
+audiokit.audioOutput = oscillatorPoly
 
 audiokit.start()
 
@@ -38,7 +38,7 @@ let major = [0, 4, 7]
 //let updater = AKPlaygroundLoop(frequency: 1) {
     AKPlaygroundLoop(frequency: 5) {
         let note = UInt8(randomInt(40...100))
-        oscillator.startNote(note, withVelocity: UInt8(randomInt(90...120)), onChannel: 0)
+        oscillatorPoly.startNote(note, withVelocity: UInt8(randomInt(90...120)), onChannel: 0)
     }
 //}
 

@@ -15,6 +15,7 @@ public protocol AKNode {
     /// Output of the node 
     var avAudioNode: AVAudioNode { get set }
     var connectionPoints: [AVAudioConnectionPoint] { get set }
+    
 }
 
 public extension AKNode {
