@@ -47,8 +47,18 @@ public class AKOscillator: AKNode {
         }
     }
     
+    public var isStarted: Bool {
+        return internalAU!.isPlaying()
+    }
     public var isPlaying: Bool {
         return internalAU!.isPlaying()
+    }
+
+    public var isStopped: Bool {
+        return !internalAU!.isPlaying()
+    }
+    public var isBypassed: Bool {
+        return !internalAU!.isPlaying()
     }
 
     // MARK: - Initialization
@@ -129,6 +139,14 @@ public class AKOscillator: AKNode {
     }
     
     public func stop() {
+        self.internalAU!.stop()
+    }
+    
+    public func play() {
+        self.internalAU!.start()
+    }
+    
+    public func bypass() {
         self.internalAU!.stop()
     }
 }
