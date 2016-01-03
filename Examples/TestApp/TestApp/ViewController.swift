@@ -58,10 +58,11 @@ class ViewController: UIViewController {
         verb2  = AKReverb2(moog!)
         audiokit.audioOutput = verb2
 
+//        seq = AKSequencer(filename: "4tracks", engine: audiokit.engine)
         audiokit.start()
 
         midi.openMidiOut("Session 1")
-        midi.openMidiIn("Session 1")
+//        midi.openMidiIn("Session 1")
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
         defaultCenter.addObserverForName(AKMidiStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: midiNotif)
@@ -69,10 +70,12 @@ class ViewController: UIViewController {
         defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
 
         midiInst!.enableMidi(midi.midiClient, name: "PolyOsc")
-        seq.setGlobalMidiOutput(midiInst!.midiIn)
+        seq.setGlobalMidiOutput((midiInst?.midiIn)!)
 //        print(seq.numTracks)
-        seq.setLength(4)
-//        CAShow(seq.tracks[1].trackPtr)
+        seq.tracks[1].addNote(36, vel: 127, position: 0, dur: 1.1) //purposefully adding a note that is too long to show it gets truncated
+        seq.setLength(1) //truncates above note
+        //seq.debug()
+        print(seq.tracks[1].length)
     }
 
     func midiNotif(notif:NSNotification){
