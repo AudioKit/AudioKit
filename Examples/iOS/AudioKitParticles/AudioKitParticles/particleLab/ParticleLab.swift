@@ -66,7 +66,7 @@ class ParticleLab: MTKView
     var particleColor = ParticleColor(R: 1, G: 0.2, B: 0.1, A: 1)
     var dragFactor: Float = 0.95
     var respawnOutOfBoundsParticles = true
-    
+   
     lazy var blur: MPSImageGaussianBlur =
     {
         [unowned self] in
