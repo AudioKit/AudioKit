@@ -12,6 +12,8 @@ var square = AKSquareWaveOscillator()
 audiokit.audioOutput = square
 audiokit.start()
 
+square.start()
+
 var t: Double = 0
 
 let updater = AKPlaygroundLoop(every: 0.12) {

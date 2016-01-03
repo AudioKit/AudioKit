@@ -11,6 +11,7 @@ let audiokit = AKManager.sharedInstance
 var noise = AKPinkNoise(amplitude: 0.0)
 audiokit.audioOutput = noise
 audiokit.start()
+noise.start()
 
 //: This is a timer that will change the amplitude of the pink noise
 

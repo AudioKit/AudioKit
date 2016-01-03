@@ -15,6 +15,8 @@ var fm = AKFMOscillator(table: AKTable(.Sine, size: 4096))
 audiokit.audioOutput = fm
 audiokit.start()
 
+fm.start()
+
 let updater = AKPlaygroundLoop(frequency: 5) {
     fm.baseFrequency = random(220, 880)
     fm.carrierMultiplier = random(0, 4)
