@@ -34,7 +34,7 @@ public:
         sp_create(&sp);
         sp_pinknoise_create(&pinknoise);
         sp_pinknoise_init(sp, pinknoise);
-        pinknoise->amp = 1;
+        *pinknoise->amp = 1;
     }
 
     void start() {
@@ -91,7 +91,7 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            pinknoise->amp = (float)amplitude;
+            *pinknoise->amp = (float)amplitude;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {

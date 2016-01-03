@@ -34,7 +34,6 @@ public class AKNodeOutputPlot {
     /// - parameter height: Height of the view
     ///
     public init(_ input: AKNode, width: CGFloat = 1000.0, height: CGFloat = 500.0) {
-        print("fdsa")
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         plot = EZAudioPlot(frame: frame)
         plot!.plotType = .Buffer
