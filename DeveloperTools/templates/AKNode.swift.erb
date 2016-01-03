@@ -25,6 +25,26 @@ public class <%= node %>: AKNode {
 
 <%= parameters_partial -%>
 
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted: Bool {
+        return internalAU!.isPlaying()
+    }
+
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isPlaying: Bool {
+        return internalAU!.isPlaying()
+    }
+
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isStopped: Bool {
+        return !internalAU!.isPlaying()
+    }
+
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isBypassed: Bool {
+        return !internalAU!.isPlaying()
+    }
+
     // MARK: - Initialization
 
     /// Initialize this <%= one_word_desc %> node
@@ -40,7 +60,7 @@ public class <%= node %>: AKNode {
     ///
     public init(
 <% if inputs.count > 0 -%>
-        _ input: AKNode,
+        var _ input: AKNode,
 <% end -%>
 <% (parameters + constants).each_with_index do |sp_parameter, i| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
@@ -62,5 +82,33 @@ public class <%= node %>: AKNode {
         <%= data["ak-variable"] %>Parameter?.setValue(Float(<%= data["ak-variable"] %>), originator: token!)
 <% end -%>
 <% end -%>
+    }
+
+<% if inputs.count == 0 -%>
+    /// Function create an identical new node for use in creating polyphonic instruments
+    public func copy() -> <%= node %> {
+        let copy = <%= node %>(<% (parameters + constants).each_with_index do |sp_parameter, i| -%>
+<% sp_parameter.each do  |sp_var, data| -%><%= data["ak-variable"] %>: self.<%= data["ak-variable"] %><%= ", " if i < (parameters + constants).count - 1 %><% end %><% end %>)
+        return copy
+    }
+<% end -%>
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        self.internalAU!.start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        self.internalAU!.stop()
+    }
+
+    /// Function to start, play, or activate the node, all do the same thing
+    public func play() {
+        self.internalAU!.start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    public func bypass() {
+        self.internalAU!.stop()
     }
 }

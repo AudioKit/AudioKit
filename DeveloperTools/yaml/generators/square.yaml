@@ -1,6 +1,6 @@
 installation-directory: "Generators/Oscillators/"
 
-sp-module: square
+sp-module: blsquare
 
 node: AKSquareWaveOscillator
 
@@ -14,6 +14,7 @@ description:
   This is a bandlimited square oscillator ported from the "square" function from the Faust
   programming language.
 
+type: generator
 
 parameters:
 - freq: {

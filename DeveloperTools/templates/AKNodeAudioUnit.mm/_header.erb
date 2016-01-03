@@ -15,7 +15,7 @@
 @interface <%= node %>AudioUnit()
 
 @property AUAudioUnitBus *outputBus;
-@property AUAudioUnitBusArray *inputBusArray;
+<% if type != "generator" -%>@property AUAudioUnitBusArray *inputBusArray;<% end %>
 @property AUAudioUnitBusArray *outputBusArray;
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;

@@ -44,6 +44,7 @@ parameters          = o["parameters"].to_a
 constants           = o["constants"].to_a
 constant_parameters = o["constant-parameters"].to_a
 presets             = o["presets"].to_a
+type                = o["type"]
 
 ############################
 # Set Up Helpful Variables #

@@ -12,6 +12,9 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface <%= node %>AudioUnit : AUAudioUnit
+- (void)start;
+- (void)stop;
+- (BOOL)isPlaying;
 @end
 
 #endif /* <%= node %>AudioUnit_h */

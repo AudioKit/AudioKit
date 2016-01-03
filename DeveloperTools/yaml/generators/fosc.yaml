@@ -13,6 +13,8 @@ akalias: fmOscillator
 
 one-word-description: oscillator
 
+type: generator
+
 description:
   Classic FM Synthesis audio generation.
 
@@ -47,27 +49,27 @@ parameters:
 	comment: "This multiplied by the baseFrequency gives the modulating frequency.",
   au-name: "Modulating Multiplier",
   au-unit: Generic,
-  default: 1.0,
-  minimum: 0.0,
-  maximum: 1000.0
+  default: 1,
+  minimum: 0,
+  maximum: 1000
 }
 - indx: {
 	ak-variable: modulationIndex,
 	comment: "This multiplied by the modulating frequency gives the modulation amplitude.",
   au-name: "Modulation Index",
   au-unit: Generic,
-  default: 1.0,
-  minimum: 0.0,
-  maximum: 1000.0
+  default: 1,
+  minimum: 0,
+  maximum: 1000
 }
 - amp: {
 	ak-variable: amplitude,
 	comment: "Output Amplitude.",
   au-name: "Amplitude",
   au-unit: Generic,
-  default: 0.5,
-  minimum: 0.0,
-  maximum: 10.0
+  default: 1,
+  minimum: 0,
+  maximum: 10
 }
 
 presets:

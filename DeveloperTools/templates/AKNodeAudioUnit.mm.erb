@@ -8,6 +8,18 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)start {
+    _kernel.start();
+}
+
+- (void)stop {
+    _kernel.stop();
+}
+
+- (BOOL)isPlaying {
+    return _kernel.started;
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
@@ -30,10 +42,12 @@
     _inputBus.init(defaultFormat, 8);
     _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
 
-    // Create the input and output bus arrays.
+    // Create the <% if type != "generator" -%>input and <% end %>output bus array<% if type != "generator" -%>s<% end %>.
+<% if type != "generator" -%>
     _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeInput
                                                               busses: @[_inputBus.bus]];
+<% end -%>
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[_outputBus]];
@@ -58,10 +72,11 @@
 
 #pragma mark - AUAudioUnit Overrides
 
+<% if type != "generator" -%>
 - (AUAudioUnitBusArray *)inputBusses {
     return _inputBusArray;
 }
-
+<% end -%>
 - (AUAudioUnitBusArray *)outputBusses {
     return _outputBusArray;
 }
@@ -70,7 +85,7 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
-
+<% if type != "generator" -%>
     if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
         if (outError) {
             *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
@@ -82,7 +97,7 @@
 
         return NO;
     }
-
+<% end -%>
     _inputBus.allocateRenderResources(self.maximumFramesToRender);
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
@@ -106,6 +121,7 @@
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
+    _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
 
@@ -134,6 +150,7 @@
                               AudioBufferList            *outputData,
                               const AURenderEvent        *realtimeEventListHead,
                               AURenderPullInputBlock      pullInputBlock) {
+<% if type != "generator" -%>
         AudioUnitRenderActionFlags pullFlags = 0;
 
         AUAudioUnitStatus err = input->pullInput(&pullFlags, timestamp, frameCount, 0, pullInputBlock);
@@ -141,7 +158,7 @@
         if (err != 0) {
             return err;
         }
-
+<% end %>
         AudioBufferList *inAudioBufferList = input->mutableAudioBufferList;
 
         /*
@@ -157,7 +174,7 @@
             }
         }
 
-        state->setBuffers(inAudioBufferList, outAudioBufferList);
+        state->setBuffer<% if type != "generator" -%>s<% end %>(<% if type != "generator" -%>inAudioBufferList, <% end %>outAudioBufferList);
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
 
         return noErr;

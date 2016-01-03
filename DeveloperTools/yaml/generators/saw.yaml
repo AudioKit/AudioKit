@@ -1,6 +1,6 @@
 installation-directory: "Generators/Oscillators/"
 
-sp-module: saw
+sp-module: blsaw
 
 node: AKSawtoothOscillator
 
@@ -15,6 +15,7 @@ one-word-description: sawtooth
 description: Bandlimited sawtooth oscillator
   This is a bandlimited sawtooth oscillator ported from the "sawtooth" function from the Faust programming language.
 
+type: generator
 
 parameters:
 - freq: {
