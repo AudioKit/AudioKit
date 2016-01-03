@@ -15,6 +15,6 @@
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
 <% if inputs.count > 0 -%>
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            input.addConnectionPoint(self)
 <% end -%>
         }

@@ -10,6 +10,8 @@ four-letter-code: oscl
 
 one-word-description: oscillator
 
+type: generator
+
 description:
  Reads from the table sequentially and repeatedly at given frequency.
  Linear interpolation is applied for table look up from internal phase values.
@@ -25,12 +27,21 @@ parameters:
 - freq: {
 	ak-variable: frequency,
 	comment: "Frequency in cycles per second",
-	default: 440
+    au-name: "Frequency (Hz)",
+    au-unit: Hertz,
+    default: 440,
+    minimum: 0,
+    maximum: 20000
 }
+
 - amp: {
-	ak-variable: amplitude,
-	comment: "Amplitude of the output",
-	default: 1
+    ak-variable: amplitude,
+    comment: "Output Amplitude.",
+    au-name: "Amplitude",
+    au-unit: Generic,
+    default: 1,
+    minimum: 0,
+    maximum: 10
 }
 
 constants:

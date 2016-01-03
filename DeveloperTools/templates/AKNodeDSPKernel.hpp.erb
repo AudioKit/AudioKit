@@ -47,6 +47,19 @@ public:
 <% end -%>
     }
 
+    void start() {
+        started = true;
+    }
+
+    void stop() {
+        started = false;
+    }
+
+    void destroy() {
+        sp_<%= sp_module %>_destroy(&<%= sp_module %>);
+        sp_destroy(&sp);
+    }
+
     void reset() {
     }
 
@@ -89,8 +102,10 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList* inBufferList, AudioBufferList* outBufferList) {
+    void setBuffer<% if type != "generator" -%>s<% end %>(<% if type != "generator" -%>AudioBufferList *inBufferList, <% end %>AudioBufferList *outBufferList) {
+<% if type != "generator" -%>
         inBufferListPtr = inBufferList;
+<% end -%>
         outBufferListPtr = outBufferList;
     }
 
@@ -111,12 +126,32 @@ public:
 <% end -%>
 <% end -%>
 
+<% if type == "generator" -%>
+            float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
-                float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+                if (started) {
+                    if (channel == 0) {
+                        sp_<%= sp_module %>_compute(sp, <%= sp_module %>, nil, &temp);
+                    }
+                    *out = temp;
+                } else {
+                    *out = 0.0;
+                }
+            }
+<% else -%>
+            if (!started) {
+                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
+                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
+                return;
+            }
+            for (int channel = 0; channel < channels; ++channel) {
+                float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 sp_<%= sp_module %>_compute(sp, <%= sp_module %>, in, out);
             }
+<% end -%>
         }
     }
 
@@ -127,14 +162,21 @@ private:
     int channels = 2;
     float sampleRate = 44100.0;
 
-    AudioBufferList* inBufferListPtr = nullptr;
-    AudioBufferList* outBufferListPtr = nullptr;
+<% if type != "generator" -%>
+    AudioBufferList *inBufferListPtr = nullptr;
+<% end -%>
+    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_<%= sp_module %> *<%= sp_module %>;
 
-<% if parameters.count > 0 -%>
 public:
+<% if type == "generator" -%>
+    bool started = false;
+<% else -%>
+    bool started = true;
+<% end -%>
+<% if parameters.count > 0 -%>
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
     AKParameterRamper <%= data["ak-variable"] %>Ramper = <%= data["default"] %>;

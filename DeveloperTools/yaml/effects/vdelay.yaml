@@ -27,9 +27,9 @@ parameters:
   comment: "Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.",
   au-name: "Delay time (Seconds)",
   au-unit: Seconds,
-  default: 1.0,
-  minimum: 0.0,
-  maximum: 10.0
+  default: 1,
+  minimum: 0,
+  maximum: 10
 }
 
 - feedback: {
@@ -37,9 +37,9 @@ parameters:
   comment: "Feedback amount. Should be a value between 0-1.",
   au-name: "Feedback (%)",
   au-unit: Generic,
-  default: 0.0,
-  minimum: 0.0,
-  maximum: 1.0
+  default: 0,
+  minimum: 0,
+  maximum: 1
 }
 
 constants:
@@ -48,8 +48,8 @@ constants:
   comment: "The maximum delay time, in seconds.",
   au-name: "Maximum Delay time (Seconds)",
   au-unit: Seconds,
-  default: 5.0,
-  minimum: 0.0,
-  maximum: 10.0
+  default: 5,
+  minimum: 0,
+  maximum: 10
 }
 

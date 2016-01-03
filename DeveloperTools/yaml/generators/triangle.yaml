@@ -1,6 +1,6 @@
 installation-directory: "Generators/Oscillators/"
 
-sp-module: triangle
+sp-module: bltriangle
 
 node: AKTriangleOscillator
 
@@ -17,6 +17,7 @@ description: Bandlimited triangleoscillator
   This is a bandlimited triangle oscillator ported from the "triangle" function from the Faust
   programming language.
 
+type: generator
 
 parameters:
 - freq: {
