@@ -12,6 +12,8 @@ var sawtooth = AKSawtoothOscillator()
 audiokit.audioOutput = sawtooth
 audiokit.start()
 
+sawtooth.start()
+
 let updater = AKPlaygroundLoop(every: 0.12) {
     sawtooth.amplitude = random(0, 0.3)
     
