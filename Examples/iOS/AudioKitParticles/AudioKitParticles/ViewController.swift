@@ -36,7 +36,11 @@ class ViewController: UIViewController {
         fft = AKFFT(mic)
         
         amplitudeTracker = AKAmplitudeTracker(mic)
-        audiokit.audioOutput = amplitudeTracker
+        
+        // Turn the volume all the way down on the output of amplitude tracker
+        let noAudioOutput = AKGain(amplitudeTracker, gain: 0)
+        
+        audiokit.audioOutput = noAudioOutput
     
         audiokit.start()
         
