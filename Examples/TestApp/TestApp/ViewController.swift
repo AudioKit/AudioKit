@@ -72,8 +72,9 @@ class ViewController: UIViewController {
         midiInst!.enableMidi(midi.midiClient, name: "PolyOsc")
         seq.setGlobalMidiOutput((midiInst?.midiIn)!)
 //        print(seq.numTracks)
+        seq.tracks[1].addNote(36, vel: 127, position: 0, dur: 1.1)
         seq.setLength(1)
-        seq.debug()
+        //seq.debug()
         print(seq.tracks[1].length)
     }
 
