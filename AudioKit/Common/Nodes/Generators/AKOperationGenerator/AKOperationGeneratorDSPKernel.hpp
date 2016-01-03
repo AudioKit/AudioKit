@@ -52,6 +52,14 @@ public:
         }
     }
     
+    void start() {
+        started = true;
+    }
+    
+    void stop() {
+        started = false;
+    }
+    
 
     void destroy() {
         plumber_clean(&pd);
@@ -119,6 +127,9 @@ private:
     sp_data *sp;
     plumber_data pd;
     char *sporthCode = nil;
+    
+public:
+    bool started = false;
 };
 
 #endif /* AKOperationGeneratorDSPKernel_hpp */
