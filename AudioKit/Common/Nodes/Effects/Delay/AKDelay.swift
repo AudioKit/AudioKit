@@ -17,6 +17,8 @@ public class AKDelay: AKNode {
     public var avAudioNode: AVAudioNode
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
+    
+    private var input: AKNode?
         
     /// Delay time in seconds (Default: 1)
     public var time: NSTimeInterval = 1 {
@@ -64,6 +66,24 @@ public class AKDelay: AKNode {
         }
     }
     
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted = true
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isPlaying: Bool {
+        return isStarted
+    }
+    
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isStopped: Bool {
+        return !isStarted
+    }
+    
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isBypassed: Bool {
+        return !isStarted
+    }
+    
     /// Initialize the delay node 
     ///
     /// - parameter input: Input audio AKNode to process
@@ -79,6 +99,7 @@ public class AKDelay: AKNode {
         lowPassCutoff: Double = 15000,
         dryWetMix: Double = 50) {
             
+            self.input = input
             self.time = NSTimeInterval(Double(time))
             self.feedback = feedback
             self.lowPassCutoff = lowPassCutoff
@@ -92,5 +113,31 @@ public class AKDelay: AKNode {
             delayAU.feedback = Float(feedback)
             delayAU.lowPassCutoff = Float(lowPassCutoff)
             delayAU.wetDryMix = Float(dryWetMix)
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        if isStopped {
+            self.avAudioNode = delayAU
+            isStarted = true
+        }
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func play() {
+        start()
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        if isPlaying {
+            self.avAudioNode = self.input!.avAudioNode
+            isStarted = false
+        }
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func bypass() {
+        stop()
     }
 }
