@@ -36,9 +36,9 @@ public:
         sp_create(&sp);
         sp_blsquare_create(&blsquare);
         sp_blsquare_init(sp, blsquare);
-        blsquare->freq = 440;
-        blsquare->amp = 1.0;
-        blsquare->width = 0.5;
+        *blsquare->freq = 440;
+        *blsquare->amp = 1.0;
+        *blsquare->width = 0.5;
     }
 
     void start() {
@@ -119,9 +119,9 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            blsquare->freq = (float)frequency;
-            blsquare->amp = (float)amplitude;
-            blsquare->width = (float)pulseWidth;
+            *blsquare->freq = (float)frequency;
+            *blsquare->amp = (float)amplitude;
+            *blsquare->width = (float)pulseWidth;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
