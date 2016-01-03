@@ -29,6 +29,8 @@ public class AKBandPassFilter: AKNode {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
     
+    private var input: AKNode?
+    
     /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
     public var centerFrequency: Double = 5000 {
         didSet {
@@ -63,6 +65,24 @@ public class AKBandPassFilter: AKNode {
         }
     }
     
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted = true
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isPlaying: Bool {
+        return isStarted
+    }
+    
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isStopped: Bool {
+        return !isStarted
+    }
+    
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isBypassed: Bool {
+        return !isStarted
+    }
+    
     /// Initialize the band pass filter node
     ///
     /// - parameter input: Input node to process
@@ -73,7 +93,7 @@ public class AKBandPassFilter: AKNode {
         var _ input: AKNode,
         centerFrequency: Double = 5000,
         bandwidth: Double = 600) {
-            
+            self.input = input
             self.centerFrequency = centerFrequency
             self.bandwidth = bandwidth
             
@@ -85,5 +105,31 @@ public class AKBandPassFilter: AKNode {
             
             AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
             AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        if isStopped {
+            self.avAudioNode = internalEffect
+            isStarted = true
+        }
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func play() {
+        start()
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        if isPlaying {
+            self.avAudioNode = self.input!.avAudioNode
+            isStarted = false
+        }
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func bypass() {
+        stop()
     }
 }
