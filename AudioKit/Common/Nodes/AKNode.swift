@@ -24,10 +24,10 @@ public protocol AKNode {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isPlaying: Bool { get }
     
-    /// Tells whether the node is note processing (ie. stopped or bypassed)
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
     var isStopped: Bool { get }
 
-    /// Tells whether the node is note processing (ie. stopped or bypassed)
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
     var isBypassed: Bool { get }
     
     /// Function to start, play, or activate the node, all do the same thing
