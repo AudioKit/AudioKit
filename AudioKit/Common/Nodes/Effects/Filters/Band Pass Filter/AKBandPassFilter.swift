@@ -96,7 +96,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
     /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         centerFrequency: Double = 5000,
         bandwidth: Double = 600) {
 
@@ -106,14 +106,13 @@ public class AKBandPassFilter: AKNode, AKToggleable {
             inputGain = AKGain(input, gain: 0)
             mixer = AKMixer(inputGain!)
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            self.avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            input.addConnectionPoint(self)
-            internalAU = internalEffect.audioUnit
+            effectGain = AKGain(input, gain: 1)
 
-            effectGain = AKGain(self, gain: 1)
-            mixer.connect(effectGain!)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            internalAU = internalEffect.audioUnit
+            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
             self.avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)

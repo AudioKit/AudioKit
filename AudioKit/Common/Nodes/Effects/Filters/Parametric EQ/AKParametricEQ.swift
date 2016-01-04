@@ -115,7 +115,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
     /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         centerFreq: Double = 2000,
         q: Double = 1.0,
         gain: Double = 0) {
@@ -127,14 +127,13 @@ public class AKParametricEQ: AKNode, AKToggleable {
             inputGain = AKGain(input, gain: 0)
             mixer = AKMixer(inputGain!)
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            self.avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            input.addConnectionPoint(self)
-            internalAU = internalEffect.audioUnit
+            effectGain = AKGain(input, gain: 1)
 
-            effectGain = AKGain(self, gain: 1)
-            mixer.connect(effectGain!)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            internalAU = internalEffect.audioUnit
+            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
             self.avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFreq), 0)
