@@ -16,7 +16,7 @@ audiokit.start()
 
 oscillator.start()
 
-let updater = AKPlaygroundLoop(frequency: 5) {
+AKPlaygroundLoop(frequency: 5) {
     oscillator.frequency = random(220, 20000)
     oscillator.amplitude = 0.2
 }
