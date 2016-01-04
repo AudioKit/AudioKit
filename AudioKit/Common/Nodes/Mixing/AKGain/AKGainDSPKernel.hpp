@@ -34,7 +34,6 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case gainAddress:
-                gainRamper.set(clamp(value, (float)0, (float)1000000.0));
                 break;
 
         }
@@ -42,9 +41,6 @@ public:
 
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
-            case gainAddress:
-                return gainRamper.goal();
-
             default: return 0.0f;
         }
     }
@@ -52,7 +48,6 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case gainAddress:
-                gainRamper.startRamp(clamp(value, (float)0, (float)1000000.0), duration);
                 break;
 
         }
@@ -66,7 +61,6 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double gain = double(gainRamper.getStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -74,7 +68,7 @@ public:
                 float* in  = (float*)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float* out = (float*)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                *out = *in * (float)gain;
+                *out = *in * gain;
             }
         }
     }
@@ -90,7 +84,7 @@ private:
     AudioBufferList* outBufferListPtr = nullptr;
 
 public:
-    AKParameterRamper gainRamper = 1.0;
+    float gain = 1.0;
 };
 
 #endif /* AKGainDSPKernel_hpp */

@@ -12,6 +12,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKGainAudioUnit : AUAudioUnit
+- (void)setGain:(float)gain;
 @end
 
 #endif /* AKGainAudioUnit_h */

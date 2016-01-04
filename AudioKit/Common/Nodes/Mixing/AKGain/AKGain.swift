@@ -20,14 +20,10 @@ public class AKGain: AKNode {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
     
-    private var token: AUParameterObserverToken?
-
-    private var gainParameter: AUParameter?
-
     /// Amplification Factor
     public var gain: Double = 1.0 {
         didSet {
-            gainParameter?.setValue(Float(gain), originator: token!)
+            internalAU?.setGain(Float(gain))
         }
     }
 
@@ -68,22 +64,6 @@ public class AKGain: AKNode {
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
-
-        guard let tree = internalAU?.parameterTree else { return }
-
-        gainParameter  = tree.valueForKey("gain")  as? AUParameter
-
-        token = tree.tokenByAddingParameterObserver {
-            address, value in
-
-            dispatch_async(dispatch_get_main_queue()) {
-                if address == self.gainParameter!.address {
-                    self.gain = Double(value)
-                }
-            }
-        }
-
-        gainParameter?.setValue(Float(gain), originator: token!)
-
+        internalAU?.setGain(Float(gain))
     }
 }
