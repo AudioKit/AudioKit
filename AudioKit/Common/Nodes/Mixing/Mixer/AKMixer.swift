@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// AudioKit version of Apple's Mixer Node
-public class AKMixer: AKNode {
+public class AKMixer: AKNode, AKToggleable {
     private let mixerAU = AVAudioMixerNode()
     
     /// Required property for AKNode
@@ -26,6 +26,12 @@ public class AKMixer: AKNode {
             }
             mixerAU.outputVolume = Float(volume)
         }
+    }
+    
+    private var lastKnownVolume: Double = 1.0
+    
+    public var isStarted: Bool {
+        return volume != 0.0
     }
     
     /// Initialize the mixer node
@@ -47,5 +53,20 @@ public class AKMixer: AKNode {
     public func connect(var input: AKNode) {
         input.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU, bus: mixerAU.numberOfInputs))
         AKManager.sharedInstance.engine.connect(input.avAudioNode, toConnectionPoints: input.connectionPoints, fromBus: 0, format: AKManager.format)
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        if isStopped {
+            volume = lastKnownVolume
+        }
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        if isPlaying {
+            lastKnownVolume = volume
+            volume = 0
+        }
     }
 }

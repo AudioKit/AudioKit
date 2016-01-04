@@ -9,7 +9,7 @@
 import AVFoundation
 
 /// This module lowers or raises the volume of an input.
-public class AKGain: AKNode {
+public class AKGain: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -25,6 +25,12 @@ public class AKGain: AKNode {
         didSet {
             internalAU?.setGain(Float(gain))
         }
+    }
+    
+    private var lastKnownGain: Double = 1.0
+    
+    public var isStarted: Bool {
+        return gain != 1.0
     }
 
     // MARK: - Initialization
@@ -65,5 +71,20 @@ public class AKGain: AKNode {
             input.addConnectionPoint(self)
         }
         internalAU?.setGain(Float(gain))
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        if isStopped {
+            gain = lastKnownGain
+        }
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        if isPlaying {
+            lastKnownGain = gain
+            gain = 0
+        }
     }
 }
