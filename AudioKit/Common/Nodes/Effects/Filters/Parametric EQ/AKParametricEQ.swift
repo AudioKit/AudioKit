@@ -11,7 +11,7 @@ import AVFoundation
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
 /// - parameter input: Input node to process
-/// - parameter centerFreq: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
+/// - parameter centerFrequency: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
 /// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
 /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
 ///
@@ -36,19 +36,19 @@ public class AKParametricEQ: AKNode, AKToggleable {
     private var mixer: AKMixer
 
     /// Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
-    public var centerFreq: Double = 2000 {
+    public var centerFrequency: Double = 2000 {
         didSet {
-            if centerFreq < 20 {
-                centerFreq = 20
+            if centerFrequency < 20 {
+                centerFrequency = 20
             }            
-            if centerFreq > 22050 {
-                centerFreq = 22050
+            if centerFrequency > 22050 {
+                centerFrequency = 22050
             }
             AudioUnitSetParameter(
                 internalAU,
                 kParametricEQParam_CenterFreq,
                 kAudioUnitScope_Global, 0,
-                Float(centerFreq), 0)
+                Float(centerFrequency), 0)
         }
     }
 
@@ -110,17 +110,17 @@ public class AKParametricEQ: AKNode, AKToggleable {
     /// Initialize the parametric eq node
     ///
     /// - parameter input: Input node to process
-    /// - parameter centerFreq: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
+    /// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000)
     /// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
     /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
     ///
     public init(
         _ input: AKNode,
-        centerFreq: Double = 2000,
+        centerFrequency: Double = 2000,
         q: Double = 1.0,
         gain: Double = 0) {
 
-            self.centerFreq = centerFreq
+            self.centerFrequency = centerFrequency
             self.q = q
             self.gain = gain
 
@@ -136,7 +136,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
             AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
             self.avAudioNode = mixer.avAudioNode
 
-            AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFreq), 0)
+            AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
             AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, Float(q), 0)
             AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
