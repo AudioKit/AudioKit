@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// AudioKit version of Apple's Delay Audio Unit
-public class AKDelay: AKNode {
+public class AKDelay: AKNode, AKToggleable {
     let delayAU = AVAudioUnitDelay()
     
     /// Required property for AKNode
@@ -19,7 +19,8 @@ public class AKDelay: AKNode {
     public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var input: AKNode?
-        
+    private var lastKnownMix: Double = 50
+    
     /// Delay time in seconds (Default: 1)
     public var time: NSTimeInterval = 1 {
         didSet {
@@ -69,21 +70,6 @@ public class AKDelay: AKNode {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
     
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return isStarted
-    }
-    
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !isStarted
-    }
-    
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !isStarted
-    }
-    
     /// Initialize the delay node 
     ///
     /// - parameter input: Input audio AKNode to process
@@ -118,26 +104,17 @@ public class AKDelay: AKNode {
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         if isStopped {
-            self.avAudioNode = delayAU
+            dryWetMix = lastKnownMix
             isStarted = true
         }
     }
-    
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        start()
-    }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
-            self.avAudioNode = self.input!.avAudioNode
+            lastKnownMix = dryWetMix
+            dryWetMix = 0
             isStarted = false
         }
-    }
-    
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
-        stop()
     }
 }

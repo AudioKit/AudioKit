@@ -17,31 +17,45 @@ public protocol AKNode {
     
     /// Array of all connection points (effectively split output signal)
     var connectionPoints: [AVAudioConnectionPoint] { get set }
+}
 
-//    /// Tells whether the node is processing (ie. started, playing, or active)
-//    var isStarted: Bool { get }
-//
-//    /// Tells whether the node is processing (ie. started, playing, or active)
-//    var isPlaying: Bool { get }
-//    
-//    /// Tells whether the node is not processing (ie. stopped or bypassed)
-//    var isStopped: Bool { get }
-//
-//    /// Tells whether the node is not processing (ie. stopped or bypassed)
-//    var isBypassed: Bool { get }
-//    
-//    /// Function to start, play, or activate the node, all do the same thing
-//    func start()
-//    
-//    /// Function to start, play, or activate the node, all do the same thing
-//    func play()
-//    
-//    /// Function to stop or bypass the node, both are equivalent
-//    func stop()
-//
-//    /// Function to stop or bypass the node, both are equivalent
-//    func bypass()
+public protocol AKToggleable {
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    var isStarted: Bool { get }
+
+    /// Function to start, play, or activate the node, all do the same thing
+    func start()
     
+    /// Function to stop or bypass the node, both are equivalent
+    func stop()
+}
+
+public extension AKToggleable {
+    
+    /// Synonym for isStarted that may make more sense with musical instruments
+    public var isPlaying: Bool {
+        return isStarted
+    }
+    
+    /// Antonym for isStarted
+    public var isStopped: Bool {
+        return !isStarted
+    }
+    
+    /// Antonym for isStarted that may make more sense with effects
+    public var isBypassed: Bool {
+        return !isStarted
+    }
+    
+    /// Synonym to start that may more more sense with musical instruments
+    public func play() {
+        start()
+    }
+    
+    /// Synonym for stop that may make more sense with effects
+    public func bypass() {
+        stop()
+    }
 }
 
 public extension AKNode {
