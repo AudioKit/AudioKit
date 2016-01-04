@@ -2,7 +2,7 @@ AudioKit V3
 ===
 *This document was last updated: January 2, 2016*
 
-AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. It was primarily written by Aurelius Prochazka with major contributions from Nicholas Arner, Stephane Peter, and Jeff Cooper as well as minor contributions from others.  This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
+AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
 ### Version 3.0
 The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
@@ -75,3 +75,13 @@ These are tools for the developers of AudioKit itself, not tools for developers 
 ## Tests
 
 So far, the only testing that we do automatically through Travis is to ensure that all of the projects included with AudioKit build successfully.  AudioKit version 2 was heavily tested, but at the time of this writing AudioKit 3 does not have a test suite in place.  This is high on our priority list after an initial release.
+
+## About Us
+
+AudioKit was primarily written by Aurelius Prochazka with major contributions from others whose contributions are fully chronicled in Github, and summarized below in alphabetical order by last name:
+
+* Nicholas Arner: Wrote many tests and presets as well as tutorials for AudioKit 2.
+* Paul Batchelor: The author of Soundpipe, and Sporth, which serve as two primary audio engines in AudioKit 3.
+* Jeff Cooper: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
+* Simon Gladman: Contributed his AudioKitParticles example project, previously built using AudioKit 2, to the repo for AudioKit 3.
+* Stephane Peter: Vastly improved AudioKit 2 to be a dynamic framework and many other improvements to the code.
