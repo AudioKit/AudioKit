@@ -23,7 +23,7 @@ let major = [0, 4, 7]
 
 //: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here
-//let updater = AKPlaygroundLoop(every: 2) {
+//AKPlaygroundLoop(every: 2) {
 //    let scale = [0,2,4,5,7,9,11,12]
 //    var note = scale.randomElement()
 //    let octave = randomInt(3...7)  * 12
@@ -35,7 +35,7 @@ let major = [0, 4, 7]
 //    print("")
 //}
 
-//let updater = AKPlaygroundLoop(frequency: 1) {
+//AKPlaygroundLoop(frequency: 1) {
     AKPlaygroundLoop(frequency: 5) {
         let note = UInt8(randomInt(40...100))
         oscillatorPoly.startNote(note, withVelocity: UInt8(randomInt(90...120)), onChannel: 0)

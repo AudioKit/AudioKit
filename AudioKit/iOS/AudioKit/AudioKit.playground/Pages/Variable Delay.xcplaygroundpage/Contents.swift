@@ -22,7 +22,7 @@ player.play()
 var t = 0.0
 let timeStep = 0.02
 
-let updater = AKPlaygroundLoop(every: timeStep) {
+AKPlaygroundLoop(every: timeStep) {
     
 //: Vary the delay time between 0.0 and 0. 4 in a sinusoid at 0.5 hz
     let delayModulationHz = 0.5

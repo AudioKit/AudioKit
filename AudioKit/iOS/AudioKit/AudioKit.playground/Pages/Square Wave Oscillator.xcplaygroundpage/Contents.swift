@@ -16,7 +16,7 @@ square.start()
 
 var t: Double = 0
 
-let updater = AKPlaygroundLoop(every: 0.12) {
+AKPlaygroundLoop(every: 0.12) {
 
     square.pulseWidth = 0.99 -  abs(0.9 * cos(t))
     t = t + 0.01

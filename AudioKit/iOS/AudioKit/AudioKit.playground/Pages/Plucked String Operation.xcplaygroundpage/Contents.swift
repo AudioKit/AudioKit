@@ -41,7 +41,7 @@ let reverb = AKReverb(delay)
 audiokit.audioOutput = reverb
 audiokit.start()
 
-let updater = AKPlaygroundLoop(every: 1.0 / playRate) {
+AKPlaygroundLoop(every: 1.0 / playRate) {
     pluckNode.trigger()
 }
 

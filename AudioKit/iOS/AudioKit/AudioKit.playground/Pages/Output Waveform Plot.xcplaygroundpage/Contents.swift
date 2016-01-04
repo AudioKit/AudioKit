@@ -14,7 +14,7 @@ audiokit.audioOutput = fm
 audiokit.start()
 fm.start()
 
-let updater = AKPlaygroundLoop(frequency: 5) {
+AKPlaygroundLoop(frequency: 5) {
     fm.baseFrequency = random(220, 880)
     fm.carrierMultiplier = random(0, 4)
     fm.modulationIndex = random(0, 5)

@@ -24,10 +24,9 @@ audiokit.start()
 player.play()
 
 //: And here's where we monitor the results of tracking the amplitude.
-let updater = AKPlaygroundLoop(every: 0.1) {
+AKPlaygroundLoop(every: 0.1) {
     let amp = tracker.amplitude
     let freq = tracker.frequency
-    
 }
 
 //: This keeps the playground running so that audio can play for a long time

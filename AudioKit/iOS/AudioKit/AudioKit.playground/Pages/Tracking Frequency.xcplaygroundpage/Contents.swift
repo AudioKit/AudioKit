@@ -32,7 +32,7 @@ audiokit.audioOutput = tracker
 audiokit.start()
 
 //: And here's where we monitor the results of tracking the amplitude.
-let updater = AKPlaygroundLoop(every: 0.1) {
+AKPlaygroundLoop(every: 0.1) {
     let amp = tracker.amplitude
     let freq = tracker.frequency
 
