@@ -17,7 +17,7 @@ int sporth_blsquare(sporth_stack *stack, void *ud)
 #endif
 
             sp_blsquare_create(&blsquare);
-            plumber_add_ugen(pd, SPORTH_BLSQUARE, blsquare);
+            plumber_add_ugen(pd, SPORTH_SQUARE, blsquare);
             break;
         case PLUMBER_INIT:
 

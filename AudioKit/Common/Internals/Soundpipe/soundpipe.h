@@ -8,7 +8,7 @@
 #define SP_BUFSIZE 4096
 #ifndef SPFLOAT
 #define SPFLOAT float
-#endif
+#endif 
 #define SP_OK 1
 #define SP_NOT_OK 0
 
@@ -25,7 +25,7 @@ typedef struct sp_auxdata {
     void *ptr;
 } sp_auxdata;
 
-typedef struct sp_data {
+typedef struct sp_data { 
     SPFLOAT *out;
     int sr;
     int nchan;
@@ -34,7 +34,7 @@ typedef struct sp_data {
     char filename[200];
     int k;
     uint32_t rand;
-} sp_data;
+} sp_data; 
 
 typedef struct {
     char state;
@@ -117,8 +117,8 @@ typedef struct{
 
 int sp_tevent_create(sp_tevent **te);
 int sp_tevent_destroy(sp_tevent **te);
-int sp_tevent_init(sp_data *sp, sp_tevent *te,
-                   void (*reinit)(void*), void (*compute)(void *, SPFLOAT *out), void *ud);
+int sp_tevent_init(sp_data *sp, sp_tevent *te, 
+        void (*reinit)(void*), void (*compute)(void *, SPFLOAT *out), void *ud);
 int sp_tevent_compute(sp_data *sp, sp_tevent *te, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT revtime, looptime;
@@ -167,7 +167,7 @@ int sp_bal_compute(sp_data *sp, sp_bal *p, SPFLOAT *sig, SPFLOAT *comp, SPFLOAT 
 typedef struct {
     SPFLOAT bcL, bcR, iK, ib, scan, T30;
     SPFLOAT pos, vel, wid;
-    
+
     SPFLOAT *w, *w1, *w2;
     int step, first;
     SPFLOAT s0, s1, s2, t0, t1;
@@ -331,6 +331,31 @@ int sp_count_destroy(sp_count **p);
 int sp_count_init(sp_data *sp, sp_count *p);
 int sp_count_compute(sp_data *sp, sp_count *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    SPFLOAT aOut[1];
+    SPFLOAT aIn;
+    SPFLOAT iPartLen;
+    SPFLOAT iSkipSamples;
+    SPFLOAT iTotLen;
+    int initDone;
+    int nChannels;
+    int cnt;
+    int nPartitions;
+    int partSize;
+    int rbCnt;
+    SPFLOAT *tmpBuf;
+    SPFLOAT *ringBuf;
+    SPFLOAT *IR_Data[1];
+    SPFLOAT *outBuffers[1];
+    sp_auxdata auxData;
+    sp_ftbl *ftbl;
+    sp_fft fft;
+} sp_conv;
+
+int sp_conv_create(sp_conv **p);
+int sp_conv_destroy(sp_conv **p);
+int sp_conv_init(sp_data *sp, sp_conv *p, sp_ftbl *ft, SPFLOAT iPartLen);
+int sp_conv_compute(sp_data *sp, sp_conv *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
     SPFLOAT gg;
     SPFLOAT outputs;
     SPFLOAT inputs;
@@ -373,7 +398,7 @@ int sp_dmetro_destroy(sp_dmetro **p);
 int sp_dmetro_init(sp_data *sp, sp_dmetro *p);
 int sp_dmetro_compute(sp_data *sp, sp_dmetro *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct sp_drip{
-    
+
     SPFLOAT amp; /* How loud */
     SPFLOAT dettack; /* How loud */
     SPFLOAT num_tubes;
@@ -382,7 +407,7 @@ typedef struct sp_drip{
     SPFLOAT freq;
     SPFLOAT freq1;
     SPFLOAT freq2;
-    
+
     SPFLOAT num_objectsSave;
     SPFLOAT shake_maxSave;
     SPFLOAT shakeEnergy;
@@ -438,7 +463,7 @@ int sp_dtrig_destroy(sp_dtrig **p);
 int sp_dtrig_init(sp_data *sp, sp_dtrig *p, sp_ftbl *ft);
 int sp_dtrig_compute(sp_data *sp, sp_dtrig *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct sp_dust{
-    SPFLOAT amp, density;
+    SPFLOAT amp, density; 
     SPFLOAT density0, thresh, scale;
     SPFLOAT onedsr;
     int bipolar; /* 1 = bipolar 0 = unipolar */
@@ -452,10 +477,10 @@ int sp_dust_compute(sp_data *sp, sp_dust *p, SPFLOAT *in, SPFLOAT *out);
 
 
 typedef struct {
-    SPFLOAT freq, bw, gain;
-    SPFLOAT z1,z2, sr;
-    SPFLOAT frv, bwv;
-    SPFLOAT c,d;
+  SPFLOAT freq, bw, gain;
+  SPFLOAT z1,z2, sr;
+  SPFLOAT frv, bwv;
+  SPFLOAT c,d;
 } sp_eqfil;
 
 int sp_eqfil_create(sp_eqfil **p);
@@ -464,7 +489,7 @@ int sp_eqfil_init(sp_data *sp, sp_eqfil *p);
 int sp_eqfil_compute(sp_data *sp, sp_eqfil *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT ia, idur, ib;
-    SPFLOAT val, incr;
+    SPFLOAT val, incr; 
     uint32_t sdur, stime;
 } sp_expon;
 
@@ -503,13 +528,13 @@ int sp_fosc_destroy(sp_fosc **p);
 int sp_fosc_init(sp_data *sp, sp_fosc *p, sp_ftbl *ft);
 int sp_fosc_compute(sp_data *sp, sp_fosc *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
-    SPFLOAT amp, freq, nharm, lharm, mul, iphs;
-    int16_t ampcod, cpscod, prvn;
-    SPFLOAT prvr, twor, rsqp1, rtn, rtnp1, rsumr;
-    int32_t lphs;
-    int reported;
-    SPFLOAT last;
-    sp_ftbl *ft;
+        SPFLOAT amp, freq, nharm, lharm, mul, iphs;
+        int16_t ampcod, cpscod, prvn;
+        SPFLOAT prvr, twor, rsqp1, rtn, rtnp1, rsumr;
+        int32_t lphs;
+        int reported;
+        SPFLOAT last;
+        sp_ftbl *ft;
 } sp_gbuzz;
 
 int sp_gbuzz_create(sp_gbuzz **p);
@@ -546,7 +571,7 @@ int sp_jitter_init(sp_data *sp, sp_jitter *p);
 int sp_jitter_compute(sp_data *sp, sp_jitter *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT ia, idur, ib;
-    SPFLOAT val, incr;
+    SPFLOAT val, incr; 
     uint32_t sdur, stime;
 } sp_line;
 
@@ -586,7 +611,7 @@ int sp_metro_init(sp_data *sp, sp_metro *p);
 int sp_metro_compute(sp_data *sp, sp_metro *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT time, amp, pitch, lock, iN,
-    idecim, onset, offset, dbthresh;
+        idecim, onset, offset, dbthresh;
     int cnt, hsize, curframe, N, decim,tscale;
     SPFLOAT pos;
     SPFLOAT accum;
@@ -616,7 +641,7 @@ typedef struct {
     SPFLOAT freq;
     SPFLOAT res;
     SPFLOAT istor;
-    
+
     SPFLOAT delay[6];
     SPFLOAT tanhstg[3];
     SPFLOAT oldfreq;
@@ -668,7 +693,7 @@ int sp_panst_init(sp_data *sp, sp_panst *p);
 int sp_panst_compute(sp_data *sp, sp_panst *p, SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2);
 typedef struct {
     SPFLOAT fc, v, q, mode;
-    
+
     SPFLOAT xnm1, xnm2, ynm1, ynm2;
     SPFLOAT prv_fc, prv_v, prv_q;
     SPFLOAT b0, b1, b2, a1, a2;
@@ -699,8 +724,8 @@ typedef struct {
 int sp_phaser_create(sp_phaser **p);
 int sp_phaser_destroy(sp_phaser **p);
 int sp_phaser_init(sp_data *sp, sp_phaser *p);
-int sp_phaser_compute(sp_data *sp, sp_phaser *p,
-                      SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2);
+int sp_phaser_compute(sp_data *sp, sp_phaser *p, 
+	SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2);
 typedef struct sp_phasor{
     SPFLOAT freq, phs;
     SPFLOAT curphs, onedsr;
@@ -750,23 +775,16 @@ int sp_pitchamdf_destroy(sp_pitchamdf **p);
 int sp_pitchamdf_init(sp_data *sp, sp_pitchamdf *p, SPFLOAT imincps, SPFLOAT imaxcps);
 int sp_pitchamdf_compute(sp_data *sp, sp_pitchamdf *p, SPFLOAT *in, SPFLOAT *cps, SPFLOAT *rms);
 typedef struct {
-    SPFLOAT plk, amp, freq, pick, reflect;
-    sp_auxdata upper;
-    sp_auxdata lower;
-    sp_auxdata up_data;
-    sp_auxdata down_data;
-    SPFLOAT ifreq;
-    SPFLOAT state;
-    int scale;
-    int rail_len;
-    int irail_len;
-    int plucked;
+    SPFLOAT amp, freq, ifreq;
+    SPFLOAT sicps;
+    int32_t phs256, npts, maxpts;
+    sp_auxdata auxch;
 } sp_pluck;
 
 int sp_pluck_create(sp_pluck **p);
 int sp_pluck_destroy(sp_pluck **p);
 int sp_pluck_init(sp_data *sp, sp_pluck *p, SPFLOAT ifreq);
-int sp_pluck_compute(sp_data *sp, sp_pluck *p, SPFLOAT *trig, SPFLOAT *in, SPFLOAT *out);
+int sp_pluck_compute(sp_data *sp, sp_pluck *p, SPFLOAT *trig, SPFLOAT *out);
 typedef struct{
     SPFLOAT htime;
     SPFLOAT c1, c2, yt1, prvhtim;
@@ -804,6 +822,7 @@ typedef struct prop_event {
     char type;
     uint32_t pos;
     uint32_t val;
+    uint32_t cons;
     struct prop_event *next;
 } prop_event;
 
@@ -812,6 +831,8 @@ typedef struct {
     uint32_t div;
     uint32_t tmp;
     uint32_t num;
+    uint32_t cons_mul;
+    uint32_t cons_div;
     SPFLOAT scale;
     int mode;
     uint32_t pos;
@@ -821,11 +842,11 @@ typedef struct {
 } prop_data;
 
 typedef struct {
-    prop_data *prp;
-    prop_event evt;
-    uint32_t count;
-    SPFLOAT bpm;
-    SPFLOAT lbpm;
+   prop_data *prp;
+   prop_event evt;
+   uint32_t count;
+   SPFLOAT bpm;
+   SPFLOAT lbpm;
 } sp_prop;
 
 
@@ -870,10 +891,10 @@ typedef struct {
 } sp_randmt;
 
 void sp_randmt_seed(sp_randmt *p,
-                    const uint32_t *initKey, uint32_t keyLength);
+    const uint32_t *initKey, uint32_t keyLength);
 
 uint32_t sp_randmt_compute(sp_randmt *p);
-typedef struct {
+typedef struct { 
     SPFLOAT min;
     SPFLOAT max;
 } sp_random;
@@ -890,12 +911,12 @@ typedef struct  {
 } sp_reverse;
 
 int sp_reverse_create(sp_reverse **p);
-int sp_reverse_destroy(sp_reverse **p);
+int sp_reverse_destroy(sp_reverse **p); 
 int sp_reverse_init(sp_data *sp, sp_reverse *p, SPFLOAT delay);
 int sp_reverse_compute(sp_data *sp, sp_reverse *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct{
-    size_t size;
-    void *auxp;
+size_t size;
+void *auxp;
 }auxData;
 typedef struct {
     int     writePos;
@@ -949,8 +970,8 @@ typedef struct sp_rpt{
 int sp_rpt_create(sp_rpt **p);
 int sp_rpt_destroy(sp_rpt **p);
 int sp_rpt_init(sp_data *sp, sp_rpt *p, SPFLOAT maxdur);
-int sp_rpt_compute(sp_data *sp, sp_rpt *p, SPFLOAT *trig,
-                   SPFLOAT *in, SPFLOAT *out);
+int sp_rpt_compute(sp_data *sp, sp_rpt *p, SPFLOAT *trig, 
+        SPFLOAT *in, SPFLOAT *out);
 
 int sp_rpt_set(sp_rpt *p, SPFLOAT bpm, int div, int rep);
 typedef struct {
@@ -989,7 +1010,7 @@ int sp_switch_create(sp_switch **p);
 int sp_switch_destroy(sp_switch **p);
 int sp_switch_init(sp_data *sp, sp_switch *p);
 int sp_switch_compute(sp_data *sp, sp_switch *p, SPFLOAT *trig,
-                      SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out);
+    SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out);
 typedef struct {
     SPFLOAT sig;
     SPFLOAT index, mode, offset, wrap;
@@ -1004,12 +1025,32 @@ int sp_tabread_create(sp_tabread **p);
 int sp_tabread_destroy(sp_tabread **p);
 int sp_tabread_init(sp_data *sp, sp_tabread *p, sp_ftbl *ft);
 int sp_tabread_compute(sp_data *sp, sp_tabread *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    SPFLOAT value;
+    SPFLOAT target;
+    SPFLOAT rate;
+    int state;
+    SPFLOAT attackRate;
+    SPFLOAT decayRate;
+    SPFLOAT sustainLevel;
+    SPFLOAT releaseRate;
+    SPFLOAT atk;
+    SPFLOAT rel;
+    SPFLOAT sus;
+    SPFLOAT dec;
+    int mode;
+} sp_tadsr;
+
+int sp_tadsr_create(sp_tadsr **p);
+int sp_tadsr_destroy(sp_tadsr **p);
+int sp_tadsr_init(sp_data *sp, sp_tadsr *p);
+int sp_tadsr_compute(sp_data *sp, sp_tadsr *p, SPFLOAT *trig, SPFLOAT *out);
 typedef struct{
     SPFLOAT fco, res, dist, asym, iskip, y, y1, y2;
     int fcocod, rezcod;
     SPFLOAT sr;
     SPFLOAT onedsr;
-    
+
 }sp_tbvcf;
 
 int sp_tbvcf_create(sp_tbvcf **p);
@@ -1057,6 +1098,15 @@ int sp_tenvx_create(sp_tenvx **p);
 int sp_tenvx_destroy(sp_tenvx **p);
 int sp_tenvx_init(sp_data *sp, sp_tenvx *p);
 int sp_tenvx_compute(sp_data *sp, sp_tenvx *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    int mode, init;
+    SPFLOAT prev, thresh;
+} sp_thresh;
+
+int sp_thresh_create(sp_thresh **p);
+int sp_thresh_destroy(sp_thresh **p);
+int sp_thresh_init(sp_data *sp, sp_thresh *p);
+int sp_thresh_compute(sp_data *sp, sp_thresh *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     FILE *fp;
     SPFLOAT val;
@@ -1126,7 +1176,8 @@ typedef struct {
 int sp_zitarev_create(sp_zitarev **p);
 int sp_zitarev_destroy(sp_zitarev **p);
 int sp_zitarev_init(sp_data *sp, sp_zitarev *p);
-int sp_zitarev_compute(sp_data *sp, sp_zitarev *p, SPFLOAT *inL, SPFLOAT *inR, SPFLOAT *outL, SPFLOAT *outR);
+int sp_zitarev_compute(sp_data *sp, sp_zitarev *p, SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out1, SPFLOAT *out2);
+
 #ifdef USE_FFTW3
 #include <fftw3.h>
 #endif
@@ -1168,7 +1219,7 @@ int sp_gen_padsynth(sp_data *sp, sp_ftbl *ps, sp_ftbl *amps, SPFLOAT f, SPFLOAT 
 
 SPFLOAT sp_padsynth_profile(SPFLOAT fi, SPFLOAT bwi);
 
-int sp_padsynth_ifft(int N, SPFLOAT *freq_amp,
-                     SPFLOAT *freq_phase, SPFLOAT *smp); 
+int sp_padsynth_ifft(int N, SPFLOAT *freq_amp, 
+        SPFLOAT *freq_phase, SPFLOAT *smp); 
 
 int sp_padsynth_normalize(int N, SPFLOAT *smp);

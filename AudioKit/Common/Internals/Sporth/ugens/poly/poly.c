@@ -44,7 +44,7 @@ poly_event * poly_itr_next(poly_data *cd)
     return evt;
 }
 
-int poly_add(poly_data *cd, uint32_t delta, uint32_t nvals)
+int poly_add(poly_data *cd, uint32_t delta, uint16_t nvals)
 {
     uint32_t n;
     poly_event *evt = malloc(sizeof(poly_event));
@@ -260,12 +260,12 @@ int poly_binary_close(poly_data *cd)
     return 0;
 }
 
-int poly_binary_write(poly_data *cd, float delta, uint32_t nvals, float *vals)
+int poly_binary_write(poly_data *cd, float delta, uint16_t nvals, float *vals)
 {
     float *dp = &delta;
-    uint32_t *np = &nvals;
+    uint16_t *np = &nvals;
     fwrite(dp, sizeof(float), 1, cd->fp);
-    fwrite(np, sizeof(uint32_t), 1, cd->fp);
+    fwrite(np, sizeof(uint16_t), 1, cd->fp);
     fwrite(vals, sizeof(float), nvals, cd->fp);
     return 0;
 }
@@ -277,7 +277,7 @@ int poly_binary_parse(poly_data *cd, char *filename, float scale)
         return 1;
     }
     float delta, val;
-    uint32_t nvals;
+    uint16_t nvals;
     uint32_t n;
     while(1){
 
@@ -289,7 +289,7 @@ int poly_binary_parse(poly_data *cd, char *filename, float scale)
 #ifdef POLY_DEBUG
         printf("reading delta value of %g\n", delta);
 #endif
-        fread(&nvals, sizeof(uint32_t), 1, fp);
+        fread(&nvals, sizeof(uint16_t), 1, fp);
 #ifdef POLY_DEBUG
         printf("reading %d nvals\n", nvals);
 #endif
