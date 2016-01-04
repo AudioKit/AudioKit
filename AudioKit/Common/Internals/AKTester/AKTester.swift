@@ -70,16 +70,5 @@ public struct AKTester: AKNode {
             input.addConnectionPoint(self)
             self.internalAU?.setSamples(Int32(samples))
         }
-
-        guard let tree = internalAU?.parameterTree else { return }
-
-
-        token = tree.tokenByAddingParameterObserver {
-            address, value in
-
-            dispatch_async(dispatch_get_main_queue()) {
-            }
-        }
-
     }
 }
