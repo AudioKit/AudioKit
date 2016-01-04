@@ -26,6 +26,7 @@ custom_categories:
   - name: Nodes
     children:
     - AKNode
+    - AKToggleable
     - AKOperationEffect
     - AKOperationGenerator
 
@@ -109,6 +110,7 @@ custom_categories:
 
   - name: Mixing Nodes
     children:
+    - AKBalance
     - AKGain
     - AKMixer
 
