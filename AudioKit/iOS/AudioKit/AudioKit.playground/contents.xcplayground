@@ -69,7 +69,7 @@
         <page name='Tracking Frequency'/>
         <page name='Tracking Frequency of Audio File'/>
         <page name='Tracking FFT'/>
-        <page name='Sequencer - single output'/>
+        <page name='Sequencer - Single output'/>
         <page name='Sequencer - Multiple output'/>
         <page name='Output Waveform Plot'/>
         <page name='Rolling Plot'/>

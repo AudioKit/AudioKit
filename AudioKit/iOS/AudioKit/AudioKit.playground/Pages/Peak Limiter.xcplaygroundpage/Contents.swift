@@ -25,6 +25,16 @@ audiokit.start()
 
 player.play()
 
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
+    if peakLimiter.isBypassed {
+        peakLimiter.start()
+    } else {
+        peakLimiter.bypass()
+    }
+    peakLimiter.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+}
+
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
