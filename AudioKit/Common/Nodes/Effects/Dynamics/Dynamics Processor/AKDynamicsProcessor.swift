@@ -225,7 +225,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
             effectGain?.gain = dryWetMix / 100
         }
     }
-    
+
     private var lastKnownMix: Double = 100
     private var inputGain: AKGain?
     private var effectGain: AKGain?
