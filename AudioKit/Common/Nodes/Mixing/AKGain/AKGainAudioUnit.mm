@@ -30,6 +30,9 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setGain:(float)gain {
+    _kernel.gain = gain;
+}
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
@@ -80,19 +83,6 @@
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[_outputBus]];
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKGainDSPKernel *blockKernel = &_kernel;
-
-    // implementorValueObserver is called when a parameter changes value.
-    _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
-
-    // implementorValueProvider is called when the value needs to be refreshed.
-    _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
-    };
 
     self.maximumFramesToRender = 512;
 
@@ -149,16 +139,7 @@
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
-
     _inputBus.deallocateRenderResources();
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKGainDSPKernel *blockKernel = &_kernel;
-
-    // Go back to setting parameters instead of scheduling them.
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {
