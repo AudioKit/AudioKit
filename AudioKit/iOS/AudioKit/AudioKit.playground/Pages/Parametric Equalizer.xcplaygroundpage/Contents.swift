@@ -16,7 +16,7 @@ player.looping = true
 var parametricEQ = AKParametricEQ(player)
 
 //: Set the parameters of the parametric equalizer here
-parametricEQ.centerFreq = 1000 // Hz
+parametricEQ.centerFrequency = 1000 // Hz
 parametricEQ.q = 1 // Hz
 parametricEQ.gain = 10 // dB
 
