@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Simple audio playback class
-public class AKAudioPlayer: AKNode {
+public class AKAudioPlayer: AKNode, AKToggleable {
     
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
@@ -46,6 +46,10 @@ public class AKAudioPlayer: AKNode {
         }
     }
     
+    public var isStarted: Bool {
+        return  internalPlayer.playing
+    }
+    
     /// Initialize the player
     ///
     /// - parameter file: Path to the audio file
@@ -75,7 +79,7 @@ public class AKAudioPlayer: AKNode {
     }
     
     /// Start playback
-    public func play() {
+    public func start() {
         if !internalPlayer.playing {
             var options: AVAudioPlayerNodeBufferOptions = AVAudioPlayerNodeBufferOptions.Interrupts
             if looping {
