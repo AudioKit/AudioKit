@@ -16,7 +16,7 @@ int sporth_blsaw(sporth_stack *stack, void *ud)
 #endif
 
             sp_blsaw_create(&blsaw);
-            plumber_add_ugen(pd, SPORTH_BLSAW, blsaw);
+            plumber_add_ugen(pd, SPORTH_SAW, blsaw);
             break;
         case PLUMBER_INIT:
 

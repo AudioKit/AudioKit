@@ -21,7 +21,7 @@ int sp_reverse_init(sp_data *sp, sp_reverse *p, SPFLOAT delay)
     size_t size = delay * sp->sr * sizeof(SPFLOAT) * 2;
     p->bufpos = 0;
     sp_auxdata_alloc(&p->buf, size);
-    p->bufsize = (int) p->buf.size / sizeof(SPFLOAT);
+    p->bufsize = (uint32_t)p->buf.size / sizeof(SPFLOAT);
     return SP_OK;
 }
 

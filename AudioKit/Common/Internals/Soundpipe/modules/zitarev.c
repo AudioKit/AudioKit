@@ -1,3 +1,15 @@
+/*
+ * Zitarev
+ *
+ * This code has been generated FAUST.
+ * It uses the zitarev module included in the FAUST 
+ * standard library (FAUST port by Julius Smith).
+ * It has been modified to work as a Soundpipe module.
+ *
+ * Original Author: Fons Adriaensen
+ *
+ */
+
 #include <stdlib.h>
 #include <math.h>
 #include "soundpipe.h"

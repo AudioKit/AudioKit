@@ -9,10 +9,6 @@
 
     This implementation is tested under GCC/Linux, but it's 
     very easy to port to other compiler/OS.
-    
-    P.S.
-    Please note, that IFFT function depends on the FFTW library, so if you want 
-    to use into commercial products, you must replace it with your IFFT routine
 */
 
 #include <stdlib.h>

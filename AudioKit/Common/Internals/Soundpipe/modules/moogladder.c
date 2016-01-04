@@ -1,12 +1,12 @@
 /*
  * Moogladder
  *
- * This code has been extracted from the Csound opcode "moogladder".
+ * This code has been extracted from the Csound opcode "pitchamdf".
  * It has been modified to work as a Soundpipe module.
  *
- * Original Author(s): Victor Lazzarini
- * Year: 2001
- * Location: Opcodes/newfils.c
+ * Original Author(s): Peter Neubacker
+ * Year: 1999
+ * Location: Opcodes/pitch.c
  *
  */
 
@@ -18,6 +18,8 @@
 #ifndef M_PI
 #define M_PI		3.14159265358979323846	/* pi */
 #endif
+
+#define SPFLOAT2LONG(x) lrintf(x)
 
 int sp_moogladder_create(sp_moogladder **t){
     *t = malloc(sizeof(sp_moogladder));

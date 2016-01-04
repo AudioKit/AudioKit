@@ -4,7 +4,7 @@ typedef struct poly_event {
     uint32_t pos;
     struct poly_event *next;
     float *p;
-    uint32_t nvals;
+    uint16_t nvals;
 } poly_event;
 
 typedef struct {
@@ -48,13 +48,13 @@ poly_event * poly_itr_next(poly_data *cd);
 int poly_end(poly_data *cd);
 int poly_compute(poly_data *cd);
 uint32_t poly_nevents(poly_data *cd);
-int poly_add(poly_data *cd, uint32_t delta, uint32_t nvals);
+int poly_add(poly_data *cd, uint32_t delta, uint16_t nvals);
 int poly_pset(poly_data *cd, uint32_t pos, float val);
 
 /* Binary file operations */
 int poly_binary_open(poly_data *cd, char *filename);
 int poly_binary_close(poly_data *cd);
-int poly_binary_write(poly_data *cd, float delta, uint32_t nvals, float *vals);
+int poly_binary_write(poly_data *cd, float delta, uint16_t nvals, float *vals);
 int poly_binary_parse(poly_data *cd, char *filename, float scale);
 
 int poly_cluster_init(poly_cluster *clust, int nvals);

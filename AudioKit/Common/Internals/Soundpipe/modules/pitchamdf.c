@@ -57,20 +57,19 @@ int sp_pitchamdf_init(sp_data *sp, sp_pitchamdf *p, SPFLOAT imincps, SPFLOAT ima
     if (downs < (-1.9)) {
         upsamp = (int)lrintf((-downs));
         downsamp = 0;
-        srate = (SPFLOAT)upsamp;
+        srate = sp->sr * (SPFLOAT)upsamp;
     } else {
         downsamp = (int)lrintf(downs);
-        if (downsamp < 1)
-        downsamp = 1;
+        if (downsamp < 1) downsamp = 1;
         srate = sp->sr / (SPFLOAT)downsamp;
         upsamp = 0;
     }
 
     minperi = (int32_t)(srate / p->imaxcps);
-    maxperi = (int32_t)(0.5 +srate / p->imincps);
+    maxperi = (int32_t)(0.5 + srate / p->imincps);
     if (maxperi <= minperi) {
         p->inerr = 1;
-        /*TODO: better error handling here */
+        return SP_NOT_OK;
     }
 
     if (p->iexcps < 1)
@@ -200,7 +199,7 @@ int sp_pitchamdf_compute(sp_data *sp, sp_pitchamdf *p, SPFLOAT *in,
     int i;
     int32_t i1, i2;
     SPFLOAT val, rms;
-    double sum;
+    SPFLOAT sum;
     SPFLOAT acc, accmin, diff;
 
     if (upsamp) {
@@ -311,12 +310,12 @@ int sp_pitchamdf_compute(sp_data *sp, sp_pitchamdf *p, SPFLOAT *in,
     sum = 0.0;
     for (i1=0; i1<peri; i1++) {
         val = buffer[i1];
-        sum += (double)(val * val);
+        sum += (SPFLOAT)(val * val);
     }
     if (peri==0)      
         rms = 0.0;
     else
-        rms = (SPFLOAT)sqrt(sum / (double)peri);
+        rms = (SPFLOAT)sqrt(sum / (SPFLOAT)peri);
     if (rmsmedisize) {
         rmsmedian[rmsmediptr] = rms;
         for (i1 = 0; i1 < rmsmedisize; i1++) {

@@ -77,6 +77,7 @@ static void mode_insert(prop_data *pd, char type)
     evt->type = type;
     evt->val = pd->mul;
     evt->pos = pd->num;
+    evt->cons = pd->cons_mul;
     pd->last->next = evt;
     pd->last = evt;
     pd->num++;
@@ -102,6 +103,18 @@ static void mode_unsetmul(prop_data *pd)
     if(pd->div > 0) pd->mul /= pd->div;
 }
 
+static void mode_setcons(prop_data *pd)
+{
+    pd->cons_mul *= pd->tmp;
+    pd->cons_div = pd->tmp;
+    pd->tmp = 0;
+}
+
+static void mode_unsetcons(prop_data *pd)
+{
+    if(pd->cons_div > 0) pd->cons_mul /= pd->cons_div;
+}
+
 int prop_create(prop_data **pd)
 {
     *pd = malloc(sizeof(prop_data));
@@ -111,6 +124,8 @@ int prop_create(prop_data **pd)
     pdp->mul = 1;
     pdp->div = 0;
     pdp->scale = 1;
+    pdp->cons_mul = 1;
+    pdp->cons_div = 0;
     pdp->mode = PMODE_INIT;
     pdp->pos = 1;
     pdp->evtpos = 0;
@@ -170,6 +185,12 @@ int prop_parse(prop_data *pd, const char *str)
             case ')':
                 mode_unsetmul(pd);
                 break;
+            case '[':
+                mode_setcons(pd);
+                break;
+            case ']':
+                mode_unsetcons(pd);
+                break;
             case ' ': break;
             case '\n': break;
             case '\t': break;
@@ -198,7 +219,7 @@ prop_event prop_next(prop_data *pd)
 
 float prop_time(prop_data *pd, prop_event evt)
 {
-    return 1.0 * (pd->scale / evt.val);
+    return evt.cons * (pd->scale / evt.val);
 }
 
 int prop_destroy(prop_data **pd)

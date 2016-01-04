@@ -109,7 +109,7 @@ int sp_mincer_compute(sp_data *sp, sp_mincer *p, SPFLOAT *in2, SPFLOAT *out)
 
     if (cnt == hsize) {
         tab = ft->tbl;
-        size = (int) ft->size;
+        size = (int)ft->size;
 
         /* spos is the reading position in samples, hsize is hopsize,
         time[n] is current read position in secs

@@ -16,7 +16,7 @@ int sporth_bltriangle(sporth_stack *stack, void *ud)
 #endif
             
             sp_bltriangle_create(&bltriangle);
-            plumber_add_ugen(pd, SPORTH_BLTRIANGLE, bltriangle);
+            plumber_add_ugen(pd, SPORTH_TRIANGLE, bltriangle);
             break;
         case PLUMBER_INIT:
             
