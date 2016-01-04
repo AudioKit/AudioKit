@@ -14,14 +14,24 @@ let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 var highShelfFilter = AKHighShelfFilter(player)
-
+var h2 = AKHighShelfFilter(highShelfFilter)
 //: Set the parameters of the High-Shelf Filter here
-highShelfFilter.cutOffFrequency = 1000 // Hz
-highShelfFilter.gain = -10 // dB
+highShelfFilter.cutOffFrequency = 2000 // Hz
+highShelfFilter.gain = 40 // dB
 
-audiokit.audioOutput = highShelfFilter
+audiokit.audioOutput = h2
 audiokit.start()
 player.play()
+
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
+    if highShelfFilter.isBypassed {
+        highShelfFilter.start()
+    } else {
+        highShelfFilter.bypass()
+    }
+    highShelfFilter.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

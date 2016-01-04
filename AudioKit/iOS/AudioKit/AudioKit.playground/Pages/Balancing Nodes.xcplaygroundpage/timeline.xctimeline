@@ -3,7 +3,12 @@
    version = "3.0">
    <TimelineItems>
       <LoggerValueHistoryTimelineItem
-         documentLocation = "file:///Users/aure/Developer/AudioKit3/AudioKit/iOS/AudioKit/AudioKit.playground/Pages/Balancing%20Nodes.xcplaygroundpage#CharacterRangeLen=12&amp;CharacterRangeLoc=1224&amp;EndingLineNumber=30&amp;StartingLineNumber=30&amp;Timestamp=473317797.012399"
+         documentLocation = "file:///Users/aure/Developer/AudioKit3/AudioKit/iOS/AudioKit/AudioKit.playground/Pages/Balancing%20Nodes.xcplaygroundpage#CharacterRangeLen=12&amp;CharacterRangeLoc=1517&amp;EndingLineNumber=39&amp;StartingLineNumber=39&amp;Timestamp=473633937.016247"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "#CharacterRangeLen=59&amp;CharacterRangeLoc=1191&amp;EndingColumnNumber=64&amp;EndingLineNumber=34&amp;StartingColumnNumber=5&amp;StartingLineNumber=34&amp;Timestamp=473633937.020906"
          selectedRepresentationIndex = "0"
          shouldTrackSuperviewWidth = "NO">
       </LoggerValueHistoryTimelineItem>
