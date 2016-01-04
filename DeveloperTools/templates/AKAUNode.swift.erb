@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
 <% end -%>
 ///
-public struct AK<%= au_name %>: AKNode {
+public class AK<%= au_name %>: AKNode {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -26,7 +26,15 @@ public struct AK<%= au_name %>: AKNode {
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
+
+    /// Required property for AKNode containing the output node
     public var avAudioNode: AVAudioNode
+
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
+
+    private var input: AKNode?
+    private var mixer: AKMixer
 
 <% parameters.each do |parameter| -%>
     /// <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
@@ -48,6 +56,41 @@ public struct AK<%= au_name %>: AKNode {
     }
 
 <% end -%>
+    /// Dry/Wet Mix (Default 100)
+    public var dryWetMix: Double = 100 {
+        didSet {
+            if dryWetMix < 0 {
+                dryWetMix = 0
+            }
+            if dryWetMix > 100 {
+                dryWetMix = 100
+            }
+            inputGain?.gain = 1 - dryWetMix / 100
+            effectGain?.gain = dryWetMix / 100
+        }
+    }
+
+    private var inputGain: AKGain?
+    private var effectGain: AKGain?
+
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted = true
+
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isPlaying: Bool {
+        return isStarted
+    }
+
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isStopped: Bool {
+        return !isStarted
+    }
+
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isBypassed: Bool {
+        return !isStarted
+    }
+
     /// Initialize the <%= au_name.underscore.humanize.uncapitalize %> node
     ///
     /// - parameter input: Input node to process
@@ -56,23 +99,58 @@ public struct AK<%= au_name %>: AKNode {
 <% end -%>
     ///
     public init(
-        _ input: AKNode,
+        var _ input: AKNode,
 <% parameters.each_with_index do |parameter, i| -%>
         <%= parameter[:variable] %>: Double = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 -%>
 <% end %>) {
-
+            self.input = input
 <% parameters.each do |parameter| -%>
             self.<%= parameter[:variable] %> = <%= parameter[:variable] %>
 <% end -%>
 
+            inputGain = AKGain(input, gain: 0)
+            mixer = AKMixer(inputGain!)
+
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             self.avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            AKManager.sharedInstance.engine.connect(input.avAudioNode, to: self.avAudioNode, format: AKManager.format)
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
+
+            effectGain = AKGain(self, gain: 1)
+            mixer.connect(effectGain!)
+            self.avAudioNode = mixer.avAudioNode
 
 <% parameters.each do |parameter| -%>
             AudioUnitSetParameter(internalAU, <%= parameter[:k_prefix] %>_<%= parameter[:name] %>, kAudioUnitScope_<%= parameter[:scope] %>, 0, Float(<%= parameter[:variable] %>), 0)
 <% end -%>
+    }
+
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        if isStopped {
+            inputGain?.gain = 0
+            effectGain?.gain = 1
+            isStarted = true
+        }
+    }
+
+    /// Function to start, play, or activate the node, all do the same thing
+    public func play() {
+        start()
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        if isPlaying {
+            inputGain?.gain = 1
+            effectGain?.gain = 0
+            isStarted = false
+        }
+    }
+
+    /// Function to stop or bypass the node, both are equivalent
+    public func bypass() {
+        stop()
     }
 }

@@ -64,10 +64,12 @@ end
 
 # puts parameters
 
+# output_folder = "../AudioKit/Common/Nodes/Effects/Distortion/AK#{au_name}/"
+
 File.open("templates/AKAUNode.swift.erb") { |template|
     erb = ERB.new( template.read, nil, '-' )
-    File.open("output/AK#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
-    # puts erb.result
+    # File.open("#{output_folder}/AK#{au_name}.swift", 'w+') {|f| f.write(erb.result) }
+    puts erb.result
 }
 
 File.open("templates/AKNodeWindow.swift.erb") { |template|
