@@ -19,12 +19,21 @@ var ringModulator = AKRingModulator(player)
 ringModulator.frequency1 = 440 // Hertz
 ringModulator.frequency2 = 660 // Hertz
 ringModulator.balance = 50 // Percent
-ringModulator.mix = 50 // Percent
 
 audiokit.audioOutput = ringModulator
 audiokit.start()
 
 player.play()
+
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
+    if ringModulator.isBypassed {
+        ringModulator.start()
+    } else {
+        ringModulator.bypass()
+    }
+    ringModulator.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

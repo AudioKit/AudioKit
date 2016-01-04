@@ -45,6 +45,15 @@ audiokit.audioOutput = distortion
 audiokit.start()
 player.play()
 
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
+    if distortion.isBypassed {
+        distortion.start()
+    } else {
+        distortion.bypass()
+    }
+    distortion.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
