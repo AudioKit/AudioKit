@@ -100,6 +100,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
         }
     }
 
+    private var lastKnownMix: Double = 100
     private var inputGain: AKGain?
     private var effectGain: AKGain?
 
@@ -144,8 +145,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         if isStopped {
-            inputGain?.gain = 0
-            effectGain?.gain = 1
+            dryWetMix = lastKnownMix
             isStarted = true
         }
     }
@@ -153,8 +153,8 @@ public class AKPeakLimiter: AKNode, AKToggleable {
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
-            inputGain?.gain = 1
-            effectGain?.gain = 0
+            lastKnownMix = dryWetMix
+            dryWetMix = 0
             isStarted = false
         }
     }
