@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter gain: Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
 /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
 ///
-public class AKPeakingParametricEqualizerFilter: AKNode {
+public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -54,22 +54,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
-    }
-
+    
     // MARK: - Initialization
 
     /// Initialize this equalizer node
@@ -146,16 +131,6 @@ public class AKPeakingParametricEqualizerFilter: AKNode {
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        self.internalAU!.stop()
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        self.internalAU!.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
         self.internalAU!.stop()
     }
 }

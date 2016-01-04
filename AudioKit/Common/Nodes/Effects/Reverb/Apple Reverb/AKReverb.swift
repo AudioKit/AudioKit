@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// AudioKit version of Apple's Reverb Audio Unit
-public class AKReverb: AKNode {
+public class AKReverb: AKNode, AKToggleable {
     private let reverbAU = AVAudioUnitReverb()
     
     /// Required property for AKNode
@@ -35,21 +35,6 @@ public class AKReverb: AKNode {
     
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
-    
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return isStarted
-    }
-    
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !isStarted
-    }
-    
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !isStarted
-    }
     
     /// Initialize the reverb node
     ///
@@ -78,12 +63,7 @@ public class AKReverb: AKNode {
             isStarted = true
         }
     }
-    
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        start()
-    }
-    
+        
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
@@ -91,10 +71,5 @@ public class AKReverb: AKNode {
             dryWetMix = 0
             isStarted = false
         }
-    }
-    
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
-        stop()
     }
 }

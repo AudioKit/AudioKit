@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
 /// - parameter mix: Mix (Percent) ranges from 0 to 100 (Default: 100)
 ///
-public class AKDecimator: AKNode {
+public class AKDecimator: AKNode, AKToggleable {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -87,21 +87,6 @@ public class AKDecimator: AKNode {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !isStarted
-    }
-
     /// Initialize the decimator node
     ///
     /// - parameter input: Input node to process
@@ -141,21 +126,11 @@ public class AKDecimator: AKNode {
         }
     }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        start()
-    }
-
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
             mix = 0
             isStarted = false
         }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
-        stop()
     }
 }
