@@ -33,6 +33,8 @@ public class AKDecimator: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
     
+    private var lastKnownMix: Double = 100
+    
     /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
     public var decimation: Double = 50 {
         didSet {
@@ -117,18 +119,19 @@ public class AKDecimator: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding), 0)
             AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix), 0)
     }
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         if isStopped {
-            mix = 100
+            mix = lastKnownMix
             isStarted = true
         }
     }
-
+    
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
+            lastKnownMix = mix
             mix = 0
             isStarted = false
         }
