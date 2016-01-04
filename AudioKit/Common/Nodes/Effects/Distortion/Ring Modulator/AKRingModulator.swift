@@ -33,6 +33,8 @@ public class AKRingModulator: AKNode, AKToggleable {
 
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
+    
+    private var lastKnownMix: Double = 100
         
     /// Frequency1 (Hertz) ranges from 0.5 to 8000 (Default: 100)
     public var frequency1: Double = 100 {
@@ -129,14 +131,15 @@ public class AKRingModulator: AKNode, AKToggleable {
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         if isStopped {
-            mix = 100
+            mix = lastKnownMix
             isStarted = true
         }
     }
-        
+    
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
+            lastKnownMix = mix
             mix = 0
             isStarted = false
         }

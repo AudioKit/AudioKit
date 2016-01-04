@@ -45,6 +45,8 @@ public class AKDistortion: AKNode, AKToggleable {
 
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
+    
+    private var lastKnownMix: Double = 50
 
     /// Delay (Milliseconds) ranges from 0.1 to 500 (Default: 0.1)
     public var delay: Double = 0.1 {
@@ -404,7 +406,7 @@ public class AKDistortion: AKNode, AKToggleable {
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         if isStopped {
-            self.finalMix = 100
+            finalMix = lastKnownMix
             isStarted = true
         }
     }
@@ -412,7 +414,8 @@ public class AKDistortion: AKNode, AKToggleable {
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
-            self.finalMix = 0
+            lastKnownMix = finalMix
+            finalMix = 0
             isStarted = false
         }
     }
