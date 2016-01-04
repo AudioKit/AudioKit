@@ -107,7 +107,7 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
             mixer = AKMixer(inputGain!)
 
             effectGain = AKGain(input, gain: 1)
-            
+
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit

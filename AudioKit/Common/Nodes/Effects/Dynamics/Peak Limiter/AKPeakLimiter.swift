@@ -115,7 +115,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
     /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         attackTime: Double = 0.012,
         decayTime: Double = 0.024,
         preGain: Double = 0) {
@@ -127,14 +127,13 @@ public class AKPeakLimiter: AKNode, AKToggleable {
             inputGain = AKGain(input, gain: 0)
             mixer = AKMixer(inputGain!)
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            self.avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            input.addConnectionPoint(self)
-            internalAU = internalEffect.audioUnit
+            effectGain = AKGain(input, gain: 1)
 
-            effectGain = AKGain(self, gain: 1)
-            mixer.connect(effectGain!)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            internalAU = internalEffect.audioUnit
+            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
             self.avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)
