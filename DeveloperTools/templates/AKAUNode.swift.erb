@@ -84,7 +84,7 @@ public class AK<%= au_name %>: AKNode, AKToggleable {
 <% end -%>
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
 <% parameters.each_with_index do |parameter, i| -%>
         <%= parameter[:variable] %>: Double = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 -%>
 <% end %>) {
@@ -96,14 +96,13 @@ public class AK<%= au_name %>: AKNode, AKToggleable {
             inputGain = AKGain(input, gain: 0)
             mixer = AKMixer(inputGain!)
 
-            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            self.avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
-            input.addConnectionPoint(self)
-            internalAU = internalEffect.audioUnit
+            effectGain = AKGain(input, gain: 1)
 
-            effectGain = AKGain(self, gain: 1)
-            mixer.connect(effectGain!)
+            internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            internalAU = internalEffect.audioUnit
+            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
             self.avAudioNode = mixer.avAudioNode
 
 <% parameters.each do |parameter| -%>
