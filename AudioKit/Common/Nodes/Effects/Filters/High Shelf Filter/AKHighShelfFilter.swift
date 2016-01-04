@@ -96,7 +96,7 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
     /// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         cutOffFrequency: Double = 10000,
         gain: Double = 0) {
 
@@ -106,14 +106,13 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
             inputGain = AKGain(input, gain: 0)
             mixer = AKMixer(inputGain!)
 
+            effectGain = AKGain(input, gain: 1)
+            
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(internalEffect)
-            input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
-
-            effectGain = AKGain(self, gain: 1)
-            mixer.connect(effectGain!)
+            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
+            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
             self.avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kHighShelfParam_CutOffFrequency, kAudioUnitScope_Global, 0, Float(cutOffFrequency), 0)
