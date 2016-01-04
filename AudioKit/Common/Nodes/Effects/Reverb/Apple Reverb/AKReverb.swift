@@ -17,9 +17,11 @@ public class AKReverb: AKNode {
     public var avAudioNode: AVAudioNode
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
-        
+    
+    private var lastKnownMix: Double = 50
+    
     /// Dry/Wet Mix (Default 50) 
-    public var dryWetMix: Double = 50.0 {
+    public var dryWetMix: Double = 50 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -29,6 +31,24 @@ public class AKReverb: AKNode {
             }
             reverbAU.wetDryMix = Float(dryWetMix)
         }
+    }
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted = true
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isPlaying: Bool {
+        return isStarted
+    }
+    
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isStopped: Bool {
+        return !isStarted
+    }
+    
+    /// Tells whether the node is not processing (ie. stopped or bypassed)
+    public var isBypassed: Bool {
+        return !isStarted
     }
     
     /// Initialize the reverb node
@@ -49,5 +69,32 @@ public class AKReverb: AKNode {
     /// Load an Apple Factory Preset
     public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
         reverbAU.loadFactoryPreset(preset)
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        if isStopped {
+            dryWetMix = lastKnownMix
+            isStarted = true
+        }
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func play() {
+        start()
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        if isPlaying {
+            lastKnownMix = dryWetMix
+            dryWetMix = 0
+            isStarted = false
+        }
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func bypass() {
+        stop()
     }
 }
