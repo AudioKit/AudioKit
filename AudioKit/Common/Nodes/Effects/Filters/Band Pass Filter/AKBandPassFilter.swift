@@ -32,7 +32,6 @@ public class AKBandPassFilter: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
-    private var input: AKNode?
     private var mixer: AKMixer
 
     /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
@@ -99,7 +98,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
         var _ input: AKNode,
         centerFrequency: Double = 5000,
         bandwidth: Double = 600) {
-            self.input = input
+
             self.centerFrequency = centerFrequency
             self.bandwidth = bandwidth
 

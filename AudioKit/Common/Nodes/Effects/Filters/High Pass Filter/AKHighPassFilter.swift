@@ -32,7 +32,6 @@ public class AKHighPassFilter: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
-    private var input: AKNode?
     private var mixer: AKMixer
 
     /// Cutoff Frequency (Hz) ranges from 10 to 22050 (Default: 6900)
@@ -99,7 +98,7 @@ public class AKHighPassFilter: AKNode, AKToggleable {
         var _ input: AKNode,
         cutoffFrequency: Double = 6900,
         resonance: Double = 0) {
-            self.input = input
+
             self.cutoffFrequency = cutoffFrequency
             self.resonance = resonance
 

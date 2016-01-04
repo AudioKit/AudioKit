@@ -32,7 +32,6 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
-    private var input: AKNode?
     private var mixer: AKMixer
 
     /// Cutoff Frequency (Hz) ranges from 10 to 200 (Default: 80)
@@ -99,7 +98,7 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
         var _ input: AKNode,
         cutoffFrequency: Double = 80,
         gain: Double = 0) {
-            self.input = input
+
             self.cutoffFrequency = cutoffFrequency
             self.gain = gain
 
