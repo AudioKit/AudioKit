@@ -17,12 +17,23 @@ var highPassFilter = AKHighPassFilter(player)
 
 //: Set the parameters of the High-Pass Filter here
 highPassFilter.cutoffFrequency = 1000 // Hz
-highPassFilter.resonance = 0 // dB
+highPassFilter.resonance = 10 // dB
 
 audiokit.audioOutput = highPassFilter
 audiokit.start()
 
 player.play()
+
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
+    if highPassFilter.isBypassed {
+        highPassFilter.start()
+    } else {
+        highPassFilter.bypass()
+    }
+    highPassFilter.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+}
+
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

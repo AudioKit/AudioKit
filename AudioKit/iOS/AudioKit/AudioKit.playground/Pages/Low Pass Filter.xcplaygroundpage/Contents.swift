@@ -19,10 +19,23 @@ var lowPassFilter = AKLowPassFilter(player)
 lowPassFilter.cutoffFrequency = 1000 // Hz
 lowPassFilter.resonance = 0 // dB
 
-audiokit.audioOutput = lowPassFilter
+let lp2 = AKLowPassFilter(lowPassFilter)
+
+audiokit.audioOutput = lp2
 audiokit.start()
 
 player.play()
+
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
+    if lowPassFilter.isBypassed {
+        lowPassFilter.start()
+    } else {
+        lowPassFilter.bypass()
+    }
+    lowPassFilter.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+}
+
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

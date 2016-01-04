@@ -38,7 +38,7 @@ let major = [0, 4, 7]
 //AKPlaygroundLoop(frequency: 1) {
     AKPlaygroundLoop(frequency: 5) {
         let note = UInt8(randomInt(40...100))
-        oscillatorPoly.startNote(note, withVelocity: UInt8(randomInt(90...120)), onChannel: 0)
+        oscillatorPoly.startNote(note, withVelocity: UInt8(randomInt(10...30)), onChannel: 0)
     }
 //}
 

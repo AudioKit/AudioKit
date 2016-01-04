@@ -19,12 +19,21 @@ let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
 let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
 
 //: At this point you don't have much signal left, so you balance it against the original signal!
-
 let rebalancedWithSource = AKBalance(lowPassFiltering,  comparator: source)
 
 audiokit.audioOutput = rebalancedWithSource
 audiokit.start()
 source.play()
+
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
+    if rebalancedWithSource.isBypassed {
+        rebalancedWithSource.start()
+    } else {
+        rebalancedWithSource.bypass()
+    }
+    rebalancedWithSource.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

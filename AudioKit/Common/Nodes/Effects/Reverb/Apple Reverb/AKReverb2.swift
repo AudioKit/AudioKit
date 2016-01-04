@@ -174,7 +174,7 @@ public class AKReverb2: AKNode, AKToggleable {
     ///
     public init(
         var _ input: AKNode,
-        dryWetMix: Double = 100,
+        dryWetMix: Double = 50,
         gain: Double = 0,
         minDelayTime: Double = 0.008,
         maxDelayTime: Double = 0.050,
