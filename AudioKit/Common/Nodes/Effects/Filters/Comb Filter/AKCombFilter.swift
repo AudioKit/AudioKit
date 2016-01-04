@@ -18,7 +18,7 @@ import AVFoundation
 /// - parameter reverbDuration: The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
 /// - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
 ///
-public class AKCombFilter: AKNode {
+public class AKCombFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -43,22 +43,7 @@ public class AKCombFilter: AKNode {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
-    }
-
+    
     // MARK: - Initialization
 
     /// Initialize this filter node
@@ -123,16 +108,6 @@ public class AKCombFilter: AKNode {
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        self.internalAU!.stop()
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        self.internalAU!.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
         self.internalAU!.stop()
     }
 }

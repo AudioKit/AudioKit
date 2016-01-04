@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter bitDepth: The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
 /// - parameter sampleRate: The sample rate of signal output.
 ///
-public class AKBitCrusher: AKNode {
+public class AKBitCrusher: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -46,22 +46,7 @@ public class AKBitCrusher: AKNode {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
-    }
-
+    
     // MARK: - Initialization
 
     /// Initialize this bitcrusher node
@@ -131,16 +116,6 @@ public class AKBitCrusher: AKNode {
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        self.internalAU!.stop()
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        self.internalAU!.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
         self.internalAU!.stop()
     }
 }

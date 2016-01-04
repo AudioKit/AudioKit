@@ -16,7 +16,7 @@ import AVFoundation
 /// - parameter clippingStartPoint: When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
 /// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
 ///
-public class AKClipper: AKNode {
+public class AKClipper: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -55,22 +55,7 @@ public class AKClipper: AKNode {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
-    }
-
+    
     // MARK: - Initialization
 
     /// Initialize this clipper node
@@ -147,16 +132,6 @@ public class AKClipper: AKNode {
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        self.internalAU!.stop()
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        self.internalAU!.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
         self.internalAU!.stop()
     }
 }

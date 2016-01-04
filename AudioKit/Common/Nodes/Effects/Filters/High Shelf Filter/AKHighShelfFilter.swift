@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter cutOffFrequency: Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
 /// - parameter gain: Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-public class AKHighShelfFilter: AKNode {
+public class AKHighShelfFilter: AKNode, AKToggleable {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -89,21 +89,6 @@ public class AKHighShelfFilter: AKNode {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !isStarted
-    }
-
     /// Initialize the high shelf filter node
     ///
     /// - parameter input: Input node to process
@@ -144,11 +129,6 @@ public class AKHighShelfFilter: AKNode {
         }
     }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        start()
-    }
-
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
@@ -156,10 +136,5 @@ public class AKHighShelfFilter: AKNode {
             effectGain?.gain = 0
             isStarted = false
         }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
-        stop()
     }
 }

@@ -18,7 +18,7 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 ///
-public class AKChowningReverb: AKNode {
+public class AKChowningReverb: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -36,22 +36,7 @@ public class AKChowningReverb: AKNode {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
-    }
-
+    
     // MARK: - Initialization
 
     /// Initialize this reverb node
@@ -95,16 +80,6 @@ public class AKChowningReverb: AKNode {
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        self.internalAU!.stop()
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        self.internalAU!.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
         self.internalAU!.stop()
     }
 }

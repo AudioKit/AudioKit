@@ -16,7 +16,7 @@ import AVFoundation
 /// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
 /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
-public class AKRolandTB303Filter: AKNode {
+public class AKRolandTB303Filter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -62,22 +62,7 @@ public class AKRolandTB303Filter: AKNode {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
-    }
-
+    
     // MARK: - Initialization
 
     /// Initialize this filter node
@@ -161,16 +146,6 @@ public class AKRolandTB303Filter: AKNode {
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        self.internalAU!.stop()
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        self.internalAU!.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
         self.internalAU!.stop()
     }
 }

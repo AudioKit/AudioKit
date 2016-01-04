@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
 /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
-public class AKBandPassFilter: AKNode {
+public class AKBandPassFilter: AKNode, AKToggleable {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -89,21 +89,6 @@ public class AKBandPassFilter: AKNode {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !isStarted
-    }
-
     /// Initialize the band pass filter node
     ///
     /// - parameter input: Input node to process
@@ -144,11 +129,6 @@ public class AKBandPassFilter: AKNode {
         }
     }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        start()
-    }
-
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
@@ -156,10 +136,5 @@ public class AKBandPassFilter: AKNode {
             effectGain?.gain = 0
             isStarted = false
         }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
-        stop()
     }
 }

@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
 /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
-public class AKPeakLimiter: AKNode {
+public class AKPeakLimiter: AKNode, AKToggleable {
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -107,21 +107,6 @@ public class AKPeakLimiter: AKNode {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !isStarted
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !isStarted
-    }
-
     /// Initialize the peak limiter node
     ///
     /// - parameter input: Input node to process
@@ -166,11 +151,6 @@ public class AKPeakLimiter: AKNode {
         }
     }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        start()
-    }
-
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
@@ -178,10 +158,5 @@ public class AKPeakLimiter: AKNode {
             effectGain?.gain = 0
             isStarted = false
         }
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
-        stop()
     }
 }
