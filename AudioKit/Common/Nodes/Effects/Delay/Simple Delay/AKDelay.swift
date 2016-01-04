@@ -18,7 +18,6 @@ public class AKDelay: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
     
-    private var input: AKNode?
     private var lastKnownMix: Double = 50
     
     /// Delay time in seconds (Default: 1)
@@ -84,8 +83,7 @@ public class AKDelay: AKNode, AKToggleable {
         feedback: Double = 50,
         lowPassCutoff: Double = 15000,
         dryWetMix: Double = 50) {
-            
-            self.input = input
+
             self.time = NSTimeInterval(Double(time))
             self.feedback = feedback
             self.lowPassCutoff = lowPassCutoff

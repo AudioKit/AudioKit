@@ -34,7 +34,6 @@ public class AKParametricEQ: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
-    private var input: AKNode?
     private var mixer: AKMixer
 
     /// Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
@@ -120,7 +119,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
         centerFrequency: Double = 2000,
         q: Double = 1.0,
         gain: Double = 0) {
-            self.input = input
+
             self.centerFrequency = centerFrequency
             self.q = q
             self.gain = gain

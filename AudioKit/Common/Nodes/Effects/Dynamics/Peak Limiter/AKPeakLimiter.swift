@@ -33,7 +33,6 @@ public class AKPeakLimiter: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
-    private var input: AKNode?
     private var mixer: AKMixer
 
     /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
@@ -119,7 +118,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
         attackTime: Double = 0.012,
         decayTime: Double = 0.024,
         preGain: Double = 0) {
-            self.input = input
+
             self.attackTime = attackTime
             self.decayTime = decayTime
             self.preGain = preGain

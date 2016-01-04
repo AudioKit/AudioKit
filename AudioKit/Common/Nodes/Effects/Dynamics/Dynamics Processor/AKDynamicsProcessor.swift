@@ -40,7 +40,6 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
 
-    private var input: AKNode?
     private var mixer: AKMixer
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
@@ -259,7 +258,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         compressionAmount: Double = 0,
         inputAmplitude: Double = 0,
         outputAmplitude: Double = 0) {
-            self.input = input
+
             self.threshold = threshold
             self.headRoom = headRoom
             self.expansionRatio = expansionRatio
