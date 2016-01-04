@@ -41,10 +41,10 @@ distortion.polynomialMix = 50 // Percent
 //: Gain and mix parameters
 distortion.softClipGain = -6 // dB
 distortion.finalMix = 50 // Percent
-
 audiokit.audioOutput = distortion
 audiokit.start()
 player.play()
+
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
