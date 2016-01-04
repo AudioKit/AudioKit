@@ -12,6 +12,9 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKBalanceAudioUnit : AUAudioUnit
+- (void)start;
+- (void)stop;
+- (BOOL)isPlaying;
 @end
 
 #endif /* AKBalanceAudioUnit_h */

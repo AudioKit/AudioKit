@@ -18,7 +18,7 @@ import AVFoundation
 /// - parameter input: Input node to process
 /// - parameter comparator: Audio to match power with
 ///
-public class AKBalance: AKNode {
+public class AKBalance: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -28,6 +28,11 @@ public class AKBalance: AKNode {
     public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKBalanceAudioUnit?
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted: Bool {
+        return internalAU!.isPlaying()
+    }
 
     // MARK: - Initialization
 
@@ -66,5 +71,15 @@ public class AKBalance: AKNode {
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self.avAudioNode, bus: 1))
             AKManager.sharedInstance.engine.connect(comparator.avAudioNode, toConnectionPoints: comparator.connectionPoints, fromBus: 0, format: nil)
         }
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        self.internalAU!.start()
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        self.internalAU!.stop()
     }
 }

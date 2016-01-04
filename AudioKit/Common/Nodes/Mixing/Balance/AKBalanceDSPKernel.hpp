@@ -33,6 +33,19 @@ public:
         sp_bal_init(sp, bal);
     }
 
+    void start() {
+        started = true;
+    }
+    
+    void stop() {
+        started = false;
+    }
+    
+    void destroy() {
+        sp_bal_destroy(&bal);
+        sp_destroy(&sp);
+    }
+    
     void reset() {
     }
 
@@ -91,6 +104,8 @@ private:
     sp_data *sp;
     sp_bal *bal;
 
+public:
+    bool started = true;
 };
 
 #endif /* AKBalanceDSPKernel_hpp */
