@@ -34,7 +34,7 @@ public class AKBandPassFilter: AKNode {
 
     private var input: AKNode?
     private var mixer: AKMixer
-    
+
     /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
     public var centerFrequency: Double = 5000 {
         didSet {
@@ -68,9 +68,9 @@ public class AKBandPassFilter: AKNode {
                 Float(bandwidth), 0)
         }
     }
-    
-    /// Dry/Wet Mix (Default 50)
-    public var dryWetMix: Double = 50.0 {
+
+    /// Dry/Wet Mix (Default 100)
+    public var dryWetMix: Double = 100 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
@@ -78,11 +78,11 @@ public class AKBandPassFilter: AKNode {
             if dryWetMix > 100 {
                 dryWetMix = 100
             }
-            inputGain?.gain = 1 - dryWetMix / 100.0
-            effectGain?.gain = dryWetMix / 100.0
+            inputGain?.gain = 1 - dryWetMix / 100
+            effectGain?.gain = dryWetMix / 100
         }
     }
-    
+
     private var inputGain: AKGain?
     private var effectGain: AKGain?
 
@@ -117,7 +117,7 @@ public class AKBandPassFilter: AKNode {
             self.input = input
             self.centerFrequency = centerFrequency
             self.bandwidth = bandwidth
-            
+
             inputGain = AKGain(input, gain: 0)
             mixer = AKMixer(inputGain!)
 
