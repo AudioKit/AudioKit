@@ -18,6 +18,7 @@ var decimator = AKDecimator(player)
 //: Set the parameters of the decimator here
 decimator.decimation =  20 // Percent
 decimator.rounding = 2 // Percent
+decimator.mix = 50 // Percent
 
 audiokit.audioOutput = decimator
 audiokit.start()

@@ -19,6 +19,7 @@ var ringModulator = AKRingModulator(player)
 ringModulator.frequency1 = 440 // Hertz
 ringModulator.frequency2 = 660 // Hertz
 ringModulator.balance = 50 // Percent
+ringModulator.mix = 50 // Percent
 
 audiokit.audioOutput = ringModulator
 audiokit.start()
