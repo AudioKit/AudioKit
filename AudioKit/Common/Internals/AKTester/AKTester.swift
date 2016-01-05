@@ -9,7 +9,7 @@
 import AVFoundation
 
 /// Testing node
-public struct AKTester: AKNode {
+public struct AKTester: AKNode, AKToggleable {
 
     // MARK: - Properties
     
@@ -29,7 +29,7 @@ public struct AKTester: AKNode {
     }
     
     /// Flag on whether or not the test is still in progress
-    public var isTesting: Bool {
+    public var isStarted: Bool {
         return Int((self.internalAU?.getSamples())!) < totalSamples
     }
 
@@ -70,5 +70,15 @@ public struct AKTester: AKNode {
             input.addConnectionPoint(self)
             self.internalAU?.setSamples(Int32(samples))
         }
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        self.internalAU!.start()
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        self.internalAU!.stop()
     }
 }
