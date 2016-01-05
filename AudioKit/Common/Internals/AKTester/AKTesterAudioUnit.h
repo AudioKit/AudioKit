@@ -15,6 +15,8 @@
 - (void)setSamples:(int)samples;
 - (NSString *)getMD5;
 - (int)getSamples;
+- (void)start;
+- (void)stop;
 @end
 
 #endif /* AKTesterAudioUnit_h */

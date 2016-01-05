@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter pitch: Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
 /// - parameter overlap: Overlap (generic) ranges from 3.0 to 32.0 (Default: 8.0)
 ///
-public class AKTimePitch: AKNode {
+public class AKTimePitch: AKNode, AKToggleable {
     
     private let timePitchAU = AVAudioUnitTimePitch()
     
@@ -35,6 +35,11 @@ public class AKTimePitch: AKNode {
             }
             timePitchAU.rate = Float(rate)
         }
+    }
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted: Bool {
+        return pitch != 0.0 || rate != 1.0
     }
     
     /// Pitch (Cents) ranges from -2400 to 2400 (Default: 1.0)
@@ -63,6 +68,9 @@ public class AKTimePitch: AKNode {
         }
     }
     
+    private var lastKnownRate: Double = 1.0
+    private var lastKnownPitch: Double = 0.0
+    
     /// Initialize the time pitch node
     ///
     /// - parameter input: Input node to process
@@ -73,15 +81,32 @@ public class AKTimePitch: AKNode {
     public init(
         var _ input: AKNode,
         rate: Double = 1.0,
-        pitch: Double = 1.0,
+        pitch: Double = 0.0,
         overlap: Double = 8.0) {
             
         self.rate = rate
         self.pitch = pitch
         self.overlap = overlap
+            
+        lastKnownPitch = pitch
+        lastKnownRate = rate
         
         self.avAudioNode = timePitchAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        rate = lastKnownRate
+        pitch = lastKnownPitch
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        lastKnownPitch = pitch
+        lastKnownRate = rate
+        pitch = 0.0
+        rate = 1.0
     }
 }

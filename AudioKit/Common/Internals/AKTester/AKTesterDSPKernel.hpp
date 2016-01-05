@@ -45,6 +45,14 @@ public:
         return samples;
     }
     
+    void start() {
+        started = true;
+    }
+    
+    void stop() {
+        started = false;
+    }
+    
     void destroy() {
         sp_test_destroy(&sp_test);
     }
@@ -83,7 +91,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if (samples < totalSamples) {
+                if (started && samples < totalSamples) {
                     sp_test_add_sample(sp_test, (SPFLOAT)*in);
                     samples++;
                 }
@@ -107,6 +115,9 @@ private:
     UInt32 samples = 0;
     UInt32 totalSamples = 0;
     const char *md5;
+    
+public:
+    bool started = true;
 };
 
 #endif /* AKTesterDSPKernel_hpp */

@@ -42,6 +42,14 @@
     return _kernel.getSamples();
 }
 
+- (void)start {
+    _kernel.start();
+}
+
+- (void)stop {
+    _kernel.stop();
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
