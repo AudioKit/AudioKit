@@ -26,7 +26,6 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var internalAU: AKOperationGeneratorAudioUnit?
-    private var token: AUParameterObserverToken?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
@@ -108,16 +107,6 @@ public class AKOperationGenerator: AKNode, AKToggleable {
                 self.internalAU?.setSporth("0 p 1 p\(sporth)")
             } else {
                 self.internalAU?.setSporth(sporth)
-            }
-        }
-
-        guard let tree = internalAU?.parameterTree else { return }
-
-
-        token = tree.tokenByAddingParameterObserver {
-            address, value in
-
-            dispatch_async(dispatch_get_main_queue()) {
             }
         }
     }

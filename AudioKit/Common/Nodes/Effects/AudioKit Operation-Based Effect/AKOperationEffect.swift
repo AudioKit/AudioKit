@@ -20,6 +20,11 @@ public class AKOperationEffect: AKNode {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
     
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    public var isStarted: Bool {
+        return internalAU!.isPlaying()
+    }
+    
     // MARK: - Initializers
     
     /// Initialize the effect with an input and an operation
@@ -84,5 +89,15 @@ public class AKOperationEffect: AKNode {
             self.internalAU?.setSporth(sporth)
         }
 
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        internalAU!.start()
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        internalAU!.stop()
     }
 }

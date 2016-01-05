@@ -34,6 +34,18 @@
     _kernel.setSporth((char *)[sporth UTF8String]);
 }
 
+- (void)start {
+    _kernel.start();
+}
+
+- (void)stop {
+    _kernel.stop();
+}
+
+- (BOOL)isPlaying {
+    return _kernel.started;
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
