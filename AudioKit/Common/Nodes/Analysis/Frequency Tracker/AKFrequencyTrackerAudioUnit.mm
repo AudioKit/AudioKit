@@ -30,6 +30,17 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)start {
+    _kernel.start();
+}
+
+- (void)stop {
+    _kernel.stop();
+}
+
+- (BOOL)isPlaying {
+    return _kernel.started;
+}
 
 - (float)getAmplitude {
     return _kernel.trackedAmplitude;

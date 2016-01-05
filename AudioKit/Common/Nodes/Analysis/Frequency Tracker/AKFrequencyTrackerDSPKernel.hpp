@@ -32,6 +32,14 @@ public:
         sp_pitchamdf_create(&pitchamdf);
         sp_pitchamdf_init(sp, pitchamdf, minimumFrequency, maximumFrequency);
     }
+    
+    void start() {
+        started = true;
+    }
+    
+    void stop() {
+        started = false;
+    }
 
     void destroy() {
         sp_pitchamdf_destroy(&pitchamdf);
@@ -78,8 +86,12 @@ public:
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float temp = *in;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                sp_pitchamdf_compute(sp, pitchamdf, in, &trackedFrequency, &trackedAmplitude);
+                if (started) {
+                    sp_pitchamdf_compute(sp, pitchamdf, in, &trackedFrequency, &trackedAmplitude);
+                } else {
+                    trackedAmplitude = 0;
+                    trackedFrequency = 0;
+                }
                 *out = temp;
             }
         }
@@ -104,8 +116,7 @@ private:
 public:
     float trackedAmplitude = 0.0;
     float trackedFrequency = 0.0;
-
-
+    bool started = true;
 };
 
 #endif /* AKFrequencyTrackerDSPKernel_hpp */
