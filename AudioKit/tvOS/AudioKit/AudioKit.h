@@ -29,6 +29,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKClipperAudioUnit.h>
 #import <AudioKit/AKTanhDistortionAudioUnit.h>
 
+// Effects / Envelopes
+#import <AudioKit/AKAmplitudeEnvelopeAudioUnit.h>
+
 // Efffects / Filters
 #import <AudioKit/AKAutoWahAudioUnit.h>
 #import <AudioKit/AKBandPassButterworthFilterAudioUnit.h>

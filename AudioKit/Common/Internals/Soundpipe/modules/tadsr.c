@@ -27,7 +27,7 @@ static void make_ADSR(sp_tadsr *a)
     a->value = 0.0;
     a->attackRate = 0.001;
     a->decayRate = 0.001;
-    a->sustainLevel = 0.5;
+    a->sustainLevel = 0.0;
     a->releaseRate = 0.01;
     a->state = ATTACK;
 }
@@ -170,9 +170,9 @@ int sp_tadsr_destroy(sp_tadsr **p)
 int sp_tadsr_init(sp_data *sp, sp_tadsr *p)
 {
     make_ADSR(p);
-    p->atk = 0.5;
-    p->dec = 0.5;
-    p->sus = 0.5;
+    p->atk = 0.1;
+    p->dec = 0.1;
+    p->sus = 0.0;
     p->rel = 0.5;
     p->mode = KEY_OFF;
     return SP_OK;

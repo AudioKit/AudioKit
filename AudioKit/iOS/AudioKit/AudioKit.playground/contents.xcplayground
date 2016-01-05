@@ -78,5 +78,6 @@
         <page name='Node Audio Plot'/>
         <page name='Node FFT Plot'/>
         <page name='Polyphonic Osc'/>
+        <page name='Amplitude Envelope'/>
     </pages>
 </playground>
