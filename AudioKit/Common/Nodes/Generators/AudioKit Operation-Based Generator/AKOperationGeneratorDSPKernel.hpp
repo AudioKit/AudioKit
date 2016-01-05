@@ -90,6 +90,7 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
+
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
@@ -100,12 +101,17 @@ public:
             for (int i = 0; i < 10; i++) {
                 pd.p[i+2] = parameters[i];
             }
-            
-            plumber_compute(&pd, PLUMBER_COMPUTE);
+            if (started) {
+                plumber_compute(&pd, PLUMBER_COMPUTE);
+            }
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                *out = sporth_stack_pop_float(&pd.sporth.stack);
+                if (started) {
+                    *out = sporth_stack_pop_float(&pd.sporth.stack);
+                } else {
+                    *out = 0;
+                }
             }
         }
         if (internalTrigger == 1) {

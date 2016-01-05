@@ -13,6 +13,9 @@
 
 @interface AKOperationEffectAudioUnit : AUAudioUnit
 - (void)setSporth:(NSString *)sporth;
+- (void)start;
+- (void)stop;
+- (BOOL)isPlaying;
 @end
 
 #endif /* AKOperationEffectAudioUnit_h */
