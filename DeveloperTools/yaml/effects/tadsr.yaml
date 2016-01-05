@@ -1,0 +1,59 @@
+installation-directory: "Effects/Envelopes/"
+
+sp-module: tadsr
+
+node: AKAmplitudeEnvelope
+
+four-letter-code: adsr
+
+summary:
+
+one-word-description: envelope
+
+description: Triggerable classic ADSR envelope
+
+inputs:
+- source: {
+  ak-variable: input,
+  comment: "Input audio signal."
+}
+
+
+parameters:
+- atk: {
+  ak-variable: attackDuration,
+  comment: "Attack time",
+  au-name: "Attack time",
+  au-unit: Seconds,
+  default: 0.1,
+  minimum: 0,
+  maximum: 99
+}
+- dec: {
+  ak-variable: decayDuration,
+  comment: "Decay time",
+  au-name: "Decay time",
+  au-unit: Seconds,
+  default: 0.1,
+  minimum: 0,
+  maximum: 99
+}
+- sus: {
+  ak-variable: sustainLevel,
+  comment: "Sustain Level",
+  au-name: "Sustain Level",
+  au-unit: Generic,
+  default: 0.5,
+  minimum: 0,
+  maximum: 99
+}
+- rel: {
+  ak-variable: releaseDuration,
+  comment: "Release time",
+  au-name: "Release time",
+  au-unit: Seconds,
+  default: 0.5,
+  minimum: 0,
+  maximum: 99
+}
+
