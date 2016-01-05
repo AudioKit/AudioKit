@@ -81,7 +81,7 @@ So far, the only testing that we do automatically through Travis is to ensure th
 AudioKit was primarily written by Aurelius Prochazka with major contributions from others whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
 
 * Jeff Cooper: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
-* Nicholas Arner: Wrote many tests and presets as well as tutorials for AudioKit 2.
+* Nicholas Arner: Wrote many tests and presets as well as tutorials for AudioKit Versions 1 and 2.
 * Paul Batchelor: The author of Soundpipe, and Sporth, which serve as two primary audio engines in AudioKit 3.
 * Simon Gladman: Contributed his AudioKitParticles example project, previously built using AudioKit 2, to the repo for AudioKit 3.
 * Stephane Peter: Vastly improved AudioKit 2 to be a dynamic framework and many other improvements to the code.
