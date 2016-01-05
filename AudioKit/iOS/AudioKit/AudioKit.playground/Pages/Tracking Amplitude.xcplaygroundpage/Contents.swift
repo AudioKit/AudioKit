@@ -27,6 +27,7 @@ let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
 //: The amplitude tracker passes its input to the output, so we can insert into the signal chain at the bottom
 audiokit.audioOutput = trackedAmplitude
 audiokit.start()
+oscillatorNode.start()
 
 //: And here's where we monitor the results of tracking the amplitude.
 AKPlaygroundLoop(every: 0.1) {

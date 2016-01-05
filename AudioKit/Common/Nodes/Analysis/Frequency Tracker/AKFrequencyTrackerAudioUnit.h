@@ -15,6 +15,9 @@
 - (float)getAmplitude;
 - (float)getFrequency;
 - (void)setFrequencyLimitsWithMinimum:(float)minimum maximum:(float)maximum;
+- (void)start;
+- (void)stop;
+- (BOOL)isPlaying;
 @end
 
 #endif /* AKFrequencyTrackerAudioUnit_h */

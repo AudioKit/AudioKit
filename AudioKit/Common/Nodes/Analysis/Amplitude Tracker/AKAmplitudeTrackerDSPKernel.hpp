@@ -100,8 +100,10 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     sp_rms_compute(sp, rms, in, out);
+                    trackedAmplitude = *out;
+                } else {
+                    trackedAmplitude = 0;
                 }
-                trackedAmplitude = *out;
                 *out = temp;
             }
         }
