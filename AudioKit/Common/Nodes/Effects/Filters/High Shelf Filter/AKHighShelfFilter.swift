@@ -77,14 +77,14 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
             if dryWetMix > 100 {
                 dryWetMix = 100
             }
-            inputGain?.gain = 1 - dryWetMix / 100
-            effectGain?.gain = dryWetMix / 100
+            inputGain?.volume = 1 - dryWetMix / 100
+            effectGain?.volume = dryWetMix / 100
         }
     }
 
     private var lastKnownMix: Double = 100
-    private var inputGain: AKBooster?
-    private var effectGain: AKBooster?
+    private var inputGain: AKMixer?
+    private var effectGain: AKMixer?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -103,10 +103,12 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
             self.cutOffFrequency = cutOffFrequency
             self.gain = gain
 
-            inputGain = AKBooster(input, gain: 0)
+            inputGain = AKMixer(input)
+            inputGain!.volume = 0
             mixer = AKMixer(inputGain!)
 
-            effectGain = AKBooster(input, gain: 1)
+            effectGain = AKMixer(input)
+            effectGain!.volume = 1
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             AKManager.sharedInstance.engine.attachNode(internalEffect)
