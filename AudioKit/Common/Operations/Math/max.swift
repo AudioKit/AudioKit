@@ -1,6 +1,6 @@
 //
 //  max.swift
-//  AudioKit For OSX
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 12/17/15.
 //  Copyright © 2015 AudioKit. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  AKMidiInstrument.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 1/1/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
