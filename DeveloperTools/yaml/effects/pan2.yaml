@@ -2,17 +2,17 @@ installation-directory: "Mixing"
 
 sp-module: pan2
 
-operation: AK
+node: AKPanner
 
 akalias: pan
 
-four-letter-code: AK
+four-letter-code: pan2
 
-summary: Panner
+summary:
 
-one-word-description: Panner
+one-word-description: panner
 
-description: Panner
+description: Stereo Panner
 
 inputs:
 - source: {
@@ -25,9 +25,9 @@ parameters:
   ak-variable: pan,
   comment: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
   au-name: "Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.",
-  au-unit: Hertz,
+  au-unit: Generic,
   default: 0,
-  minimum: ,
-  maximum:
+  minimum: -1,
+  maximum: 1
 }
 

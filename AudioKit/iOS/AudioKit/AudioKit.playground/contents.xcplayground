@@ -8,6 +8,7 @@
         <page name='Mixing Nodes'/>
         <page name='Splitting Nodes'/>
         <page name='Balancing Nodes'/>
+        <page name='Stereo Panning'/>
         <page name='Delay'/>
         <page name='Multi-tap Delay'/>
         <page name='Variable Delay'/>
