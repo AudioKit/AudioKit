@@ -80,5 +80,7 @@
         <page name='Node FFT Plot'/>
         <page name='Polyphonic Osc'/>
         <page name='Amplitude Envelope'/>
+        <page name='Fatten Effect'/>
+        <page name='Filter Section Example'/>
     </pages>
 </playground>
