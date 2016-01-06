@@ -59,6 +59,10 @@
 		C42F362D1C057F4C000E937C /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F353E1C057F4C000E937C /* soundpipe.h */; };
 		C42F362E1C057F4C000E937C /* AKMidi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35401C057F4C000E937C /* AKMidi.swift */; };
 		C42F362F1C057F4C000E937C /* AKMidiEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F35411C057F4C000E937C /* AKMidiEvent.swift */; };
+		C42FFB921C3CF6AC00823BD4 /* AKDryWetMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFB8E1C3CF6AC00823BD4 /* AKDryWetMixer.swift */; };
+		C42FFB931C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42FFB8F1C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C42FFB941C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFB901C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.mm */; };
+		C42FFB951C3CF6AC00823BD4 /* AKDryWetMixerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFB911C3CF6AC00823BD4 /* AKDryWetMixerDSPKernel.hpp */; };
 		C437927B1C0CE2E0001E9160 /* AudioKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437927A1C0CE2E0001E9160 /* AudioKitTests.swift */; };
 		C437927D1C0CE2E0001E9160 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		C43792881C0CEEB0001E9160 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = C43792841C0CEEB0001E9160 /* md5.c */; };
@@ -551,6 +555,10 @@
 		C42F35401C057F4C000E937C /* AKMidi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidi.swift; sourceTree = "<group>"; };
 		C42F35411C057F4C000E937C /* AKMidiEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiEvent.swift; sourceTree = "<group>"; };
 		C42F36C11C05807A000E937C /* AudioKit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AudioKit.playground; path = AudioKit/AudioKit.playground; sourceTree = "<group>"; };
+		C42FFB8E1C3CF6AC00823BD4 /* AKDryWetMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDryWetMixer.swift; sourceTree = "<group>"; };
+		C42FFB8F1C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDryWetMixerAudioUnit.h; sourceTree = "<group>"; };
+		C42FFB901C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDryWetMixerAudioUnit.mm; sourceTree = "<group>"; };
+		C42FFB911C3CF6AC00823BD4 /* AKDryWetMixerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDryWetMixerDSPKernel.hpp; sourceTree = "<group>"; };
 		C43792781C0CE2E0001E9160 /* AudioKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C437927A1C0CE2E0001E9160 /* AudioKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKitTests.swift; sourceTree = "<group>"; };
 		C437927C1C0CE2E0001E9160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1389,6 +1397,17 @@
 			path = Filters;
 			sourceTree = "<group>";
 		};
+		C42FFB8D1C3CF6AC00823BD4 /* Dry Wet Mixer */ = {
+			isa = PBXGroup;
+			children = (
+				C42FFB8E1C3CF6AC00823BD4 /* AKDryWetMixer.swift */,
+				C42FFB8F1C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.h */,
+				C42FFB901C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.mm */,
+				C42FFB911C3CF6AC00823BD4 /* AKDryWetMixerDSPKernel.hpp */,
+			);
+			path = "Dry Wet Mixer";
+			sourceTree = "<group>";
+		};
 		C43792791C0CE2E0001E9160 /* AudioKitTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -2155,6 +2174,7 @@
 			children = (
 				C49352011C3CBA6C00A28D7F /* Balancer */,
 				C49352061C3CBA6C00A28D7F /* Booster */,
+				C42FFB8D1C3CF6AC00823BD4 /* Dry Wet Mixer */,
 				C45380241C3A592300A51738 /* Mixer */,
 				C49351F81C3CB93300A28D7F /* Panner */,
 			);
@@ -2403,6 +2423,7 @@
 				C4537FB81C3A438D00A51738 /* AKCombFilterDSPKernel.hpp in Headers */,
 				C40869981C192C5E00EF9DED /* EZAudioPlayer.h in Headers */,
 				C45380111C3A4CCE00A51738 /* AKChowningReverbDSPKernel.hpp in Headers */,
+				C42FFB951C3CF6AC00823BD4 /* AKDryWetMixerDSPKernel.hpp in Headers */,
 				C49352001C3CB93300A28D7F /* AKPannerDSPKernel.hpp in Headers */,
 				C4537FC81C3A438D00A51738 /* AKHighPassButterworthFilterDSPKernel.hpp in Headers */,
 				C408698E1C192C5E00EF9DED /* EZAudioDisplayLink.h in Headers */,
@@ -2419,6 +2440,7 @@
 				C453804C1C3A59EA00A51738 /* AKOperationEffectDSPKernel.hpp in Headers */,
 				C45380741C3A5BDA00A51738 /* AKOscillatorAudioUnit.h in Headers */,
 				C453807A1C3A5BDA00A51738 /* AKSawtoothOscillatorDSPKernel.hpp in Headers */,
+				C42FFB931C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.h in Headers */,
 				C45380431C3A599F00A51738 /* AKFrequencyTrackerDSPKernel.hpp in Headers */,
 				C4537F341C39D2A300A51738 /* AKTanhDistortionAudioUnit.h in Headers */,
 				C4537FE01C3A438D00A51738 /* AKMoogLadderDSPKernel.hpp in Headers */,
@@ -2737,6 +2759,7 @@
 				C4537F091C39D07100A51738 /* AKDelay.swift in Sources */,
 				C4E751A71C2354EE00688A1B /* max.swift in Sources */,
 				C45C35581C08EE5700E3C7F0 /* parse.c in Sources */,
+				C42FFB941C3CF6AC00823BD4 /* AKDryWetMixerAudioUnit.mm in Sources */,
 				C46300DB1C20C342009B44D9 /* butlp.c in Sources */,
 				C4E958E31C0ADBFD00516A6A /* tbvcf.c in Sources */,
 				C46300EE1C20C342009B44D9 /* line.c in Sources */,
@@ -2776,6 +2799,7 @@
 				C4E958B41C0ADBFD00516A6A /* fosc.c in Sources */,
 				C43792881C0CEEB0001E9160 /* md5.c in Sources */,
 				C46300F01C20C342009B44D9 /* metro.c in Sources */,
+				C42FFB921C3CF6AC00823BD4 /* AKDryWetMixer.swift in Sources */,
 				C45380121C3A4CCE00A51738 /* AKCostelloReverb.swift in Sources */,
 				C46302851C20E7A7009B44D9 /* highPassButterworthFilter.swift in Sources */,
 				C4E958A11C0ADBFD00516A6A /* butlp.c in Sources */,
