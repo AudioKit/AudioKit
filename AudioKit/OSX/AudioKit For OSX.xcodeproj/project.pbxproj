@@ -71,13 +71,7 @@
 		C42FFBAC1C3CFC3000823BD4 /* AKBalancerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFB991C3CFC3000823BD4 /* AKBalancerAudioUnit.mm */; };
 		C42FFBAD1C3CFC3000823BD4 /* AKBalancerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFB9A1C3CFC3000823BD4 /* AKBalancerDSPKernel.hpp */; };
 		C42FFBAE1C3CFC3000823BD4 /* AKBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFB9C1C3CFC3000823BD4 /* AKBooster.swift */; };
-		C42FFBAF1C3CFC3000823BD4 /* AKBoosterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42FFB9D1C3CFC3000823BD4 /* AKBoosterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C42FFBB01C3CFC3000823BD4 /* AKBoosterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFB9E1C3CFC3000823BD4 /* AKBoosterAudioUnit.mm */; };
-		C42FFBB11C3CFC3000823BD4 /* AKBoosterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFB9F1C3CFC3000823BD4 /* AKBoosterDSPKernel.hpp */; };
 		C42FFBB21C3CFC3000823BD4 /* AKDryWetMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBA11C3CFC3000823BD4 /* AKDryWetMixer.swift */; };
-		C42FFBB31C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBA21C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C42FFBB41C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBA31C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.mm */; };
-		C42FFBB51C3CFC3000823BD4 /* AKDryWetMixerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBA41C3CFC3000823BD4 /* AKDryWetMixerDSPKernel.hpp */; };
 		C42FFBB61C3CFC3000823BD4 /* AKPanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBA61C3CFC3000823BD4 /* AKPanner.swift */; };
 		C42FFBB71C3CFC3000823BD4 /* AKPannerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBA71C3CFC3000823BD4 /* AKPannerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C42FFBB81C3CFC3000823BD4 /* AKPannerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBA81C3CFC3000823BD4 /* AKPannerAudioUnit.mm */; };
@@ -570,13 +564,7 @@
 		C42FFB991C3CFC3000823BD4 /* AKBalancerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBalancerAudioUnit.mm; sourceTree = "<group>"; };
 		C42FFB9A1C3CFC3000823BD4 /* AKBalancerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBalancerDSPKernel.hpp; sourceTree = "<group>"; };
 		C42FFB9C1C3CFC3000823BD4 /* AKBooster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBooster.swift; sourceTree = "<group>"; };
-		C42FFB9D1C3CFC3000823BD4 /* AKBoosterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBoosterAudioUnit.h; sourceTree = "<group>"; };
-		C42FFB9E1C3CFC3000823BD4 /* AKBoosterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBoosterAudioUnit.mm; sourceTree = "<group>"; };
-		C42FFB9F1C3CFC3000823BD4 /* AKBoosterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBoosterDSPKernel.hpp; sourceTree = "<group>"; };
 		C42FFBA11C3CFC3000823BD4 /* AKDryWetMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDryWetMixer.swift; sourceTree = "<group>"; };
-		C42FFBA21C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDryWetMixerAudioUnit.h; sourceTree = "<group>"; };
-		C42FFBA31C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDryWetMixerAudioUnit.mm; sourceTree = "<group>"; };
-		C42FFBA41C3CFC3000823BD4 /* AKDryWetMixerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDryWetMixerDSPKernel.hpp; sourceTree = "<group>"; };
 		C42FFBA61C3CFC3000823BD4 /* AKPanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPanner.swift; sourceTree = "<group>"; };
 		C42FFBA71C3CFC3000823BD4 /* AKPannerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPannerAudioUnit.h; sourceTree = "<group>"; };
 		C42FFBA81C3CFC3000823BD4 /* AKPannerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPannerAudioUnit.mm; sourceTree = "<group>"; };
@@ -1205,9 +1193,6 @@
 			isa = PBXGroup;
 			children = (
 				C42FFB9C1C3CFC3000823BD4 /* AKBooster.swift */,
-				C42FFB9D1C3CFC3000823BD4 /* AKBoosterAudioUnit.h */,
-				C42FFB9E1C3CFC3000823BD4 /* AKBoosterAudioUnit.mm */,
-				C42FFB9F1C3CFC3000823BD4 /* AKBoosterDSPKernel.hpp */,
 			);
 			path = Booster;
 			sourceTree = "<group>";
@@ -1216,9 +1201,6 @@
 			isa = PBXGroup;
 			children = (
 				C42FFBA11C3CFC3000823BD4 /* AKDryWetMixer.swift */,
-				C42FFBA21C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.h */,
-				C42FFBA31C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.mm */,
-				C42FFBA41C3CFC3000823BD4 /* AKDryWetMixerDSPKernel.hpp */,
 			);
 			path = "Dry Wet Mixer";
 			sourceTree = "<group>";
@@ -2399,7 +2381,6 @@
 				C453838A1C3A5E4300A51738 /* AKThreePoleLowpassFilterDSPKernel.hpp in Headers */,
 				C453831F1C3A5E4300A51738 /* AKAmplitudeTrackerAudioUnit.h in Headers */,
 				C453832A1C3A5E4300A51738 /* AKOperationEffectDSPKernel.hpp in Headers */,
-				C42FFBB51C3CFC3000823BD4 /* AKDryWetMixerDSPKernel.hpp in Headers */,
 				C40869F01C197F7200EF9DED /* EZPlot.h in Headers */,
 				C453838E1C3A5E4300A51738 /* AKToneComplementFilterDSPKernel.hpp in Headers */,
 				C45383511C3A5E4300A51738 /* AKCombFilterDSPKernel.hpp in Headers */,
@@ -2410,7 +2391,6 @@
 				C45383711C3A5E4300A51738 /* AKLowShelfParametricEqualizerFilterDSPKernel.hpp in Headers */,
 				C45383B71C3A5E4300A51738 /* AKSawtoothOscillatorAudioUnit.h in Headers */,
 				C45383A71C3A5E4300A51738 /* AKPinkNoiseAudioUnit.h in Headers */,
-				C42FFBAF1C3CFC3000823BD4 /* AKBoosterAudioUnit.h in Headers */,
 				C40869E61C197F7200EF9DED /* EZAudioPlot.h in Headers */,
 				C4B190E01C3B340400C0F330 /* sporth.h in Headers */,
 				C45383961C3A5E4300A51738 /* AKChowningReverbAudioUnit.h in Headers */,
@@ -2428,7 +2408,6 @@
 				C40869F51C197F7200EF9DED /* TPCircularBuffer.h in Headers */,
 				C45383481C3A5E4300A51738 /* AKBandPassButterworthFilterDSPKernel.hpp in Headers */,
 				C453834D1C3A5E4300A51738 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
-				C42FFBB11C3CFC3000823BD4 /* AKBoosterDSPKernel.hpp in Headers */,
 				C42F36D01C0582E6000E937C /* AudioKit.h in Headers */,
 				C45383611C3A5E4300A51738 /* AKHighPassButterworthFilterDSPKernel.hpp in Headers */,
 				C45383421C3A5E4300A51738 /* AKAutoWahAudioUnit.h in Headers */,
@@ -2446,7 +2425,6 @@
 				C45383A91C3A5E4300A51738 /* AKPinkNoiseDSPKernel.hpp in Headers */,
 				C45383731C3A5E4300A51738 /* AKModalResonanceFilterAudioUnit.h in Headers */,
 				C45383821C3A5E4300A51738 /* AKRolandTB303FilterDSPKernel.hpp in Headers */,
-				C42FFBB31C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.h in Headers */,
 				C453839A1C3A5E4300A51738 /* AKCostelloReverbAudioUnit.h in Headers */,
 				C4B1907B1C3B340400C0F330 /* _kiss_fft_guts.h in Headers */,
 				C40869EC1C197F7200EF9DED /* EZMicrophone.h in Headers */,
@@ -2649,7 +2627,6 @@
 				C48444F31C3702F8007BE794 /* square.swift in Sources */,
 				C4B190A91C3B340400C0F330 /* line.c in Sources */,
 				C40869DB1C197F7200EF9DED /* EZAudioDisplayLink.m in Sources */,
-				C42FFBB41C3CFC3000823BD4 /* AKDryWetMixerAudioUnit.mm in Sources */,
 				C4B190781C3B340400C0F330 /* ini.c in Sources */,
 				C4B191271C3B340400C0F330 /* tenvx.c in Sources */,
 				C45383471C3A5E4300A51738 /* AKBandPassButterworthFilterAudioUnit.mm in Sources */,
@@ -2682,7 +2659,6 @@
 				C4B191041C3B340400C0F330 /* jitter.c in Sources */,
 				C4B190D41C3B340400C0F330 /* tone.c in Sources */,
 				C4B190A41C3B340400C0F330 /* ftbl.c in Sources */,
-				C42FFBB01C3CFC3000823BD4 /* AKBoosterAudioUnit.mm in Sources */,
 				C40869DF1C197F7200EF9DED /* EZAudioFile.m in Sources */,
 				C4B190B41C3B340400C0F330 /* panst.c in Sources */,
 				C453837D1C3A5E4300A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
