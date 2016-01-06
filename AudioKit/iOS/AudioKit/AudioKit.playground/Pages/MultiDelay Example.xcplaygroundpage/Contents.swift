@@ -1,0 +1,53 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## MultiDelay Example
+//: ### From the Swift Synth
+
+import XCPlayground
+import AudioKit
+
+let audiokit = AKManager.sharedInstance
+
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("drumloop", ofType: "wav")
+
+//: Here we set up a player to the loop the file's playback
+var player = AKAudioPlayer(file!)
+player.looping = true
+
+func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
+    let mix = AKMixer(input)
+    zip(times, gains).forEach { (time, gain) -> () in
+        let delay = AKDelay(input, time: time, feedback: 0.0, dryWetMix: 100)
+        mix.connect(AKBooster(delay, gain: gain))
+    }
+    return mix
+}
+
+// Delay Properties
+var delayTime = 0.2 // Seconds
+var delayMix  = 0.4 // 0 (dry) - 1 (wet)
+let gains = [0.5, 0.25, 0.15].map { g -> Double in g * delayMix }
+let input = player
+
+// Delay Definition
+let leftDelay = multitapDelay(input,
+    times: [1.5, 2.5, 3.5].map { t -> Double in t * delayTime },
+    gains: gains)
+let rightDelay = multitapDelay(input,
+    times: [1, 2, 3].map { t -> Double in t * delayTime },
+    gains: gains)
+let delayPannedLeft = AKPanner(leftDelay, pan: -1)
+let delayPannedRight = AKPanner(rightDelay, pan: 1)
+
+let mix = AKMixer(delayPannedLeft, delayPannedRight)
+
+audiokit.audioOutput = mix
+audiokit.start()
+player.play()
+
+
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
