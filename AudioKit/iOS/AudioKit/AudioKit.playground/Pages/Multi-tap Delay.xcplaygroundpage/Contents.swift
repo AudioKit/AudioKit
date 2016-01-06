@@ -17,10 +17,10 @@ player.looping = true
 
 //: ### In AudioKit, you can create a multitap easily through creating a function that mixes together several delays and gains.
 func multitapDelay(source: AKNode, times: [Double], gains: [Double]) -> AKMixer {
-    let mix = AKMixer(player)
+    let mix = AKMixer(source)
     zip(times, gains).forEach { (time, gain) -> () in
         let delay = AKDelay(source, time: time, feedback: 0.0, dryWetMix: 100)
-        mix.connect(AKGain(delay, gain: gain))
+        mix.connect(AKBooster(delay, gain: gain))
     }
     return mix
 }
@@ -31,4 +31,4 @@ audiokit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@nex

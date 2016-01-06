@@ -101,8 +101,8 @@ public class AKPeakLimiter: AKNode, AKToggleable {
     }
 
     private var lastKnownMix: Double = 100
-    private var inputGain: AKGain?
-    private var effectGain: AKGain?
+    private var inputGain: AKBooster?
+    private var effectGain: AKBooster?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
@@ -124,10 +124,10 @@ public class AKPeakLimiter: AKNode, AKToggleable {
             self.decayTime = decayTime
             self.preGain = preGain
 
-            inputGain = AKGain(input, gain: 0)
+            inputGain = AKBooster(input, gain: 0)
             mixer = AKMixer(inputGain!)
 
-            effectGain = AKGain(input, gain: 1)
+            effectGain = AKBooster(input, gain: 1)
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             AKManager.sharedInstance.engine.attachNode(internalEffect)
