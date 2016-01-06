@@ -19,7 +19,7 @@ let sampler = AKSampler()
 //: Here is where we reference the Wav file as it is in the app bundle
 sampler.loadWav("Sounds/fmpia1")
 
-let ampedSampler = AKGain(sampler, gain: 3.0)
+let ampedSampler = AKBooster(sampler, gain: 3.0)
 
 var delay  = AKDelay(ampedSampler)
 delay.time = pulse * 1.5
@@ -45,4 +45,4 @@ AKPlaygroundLoop(every: pulse) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@nex

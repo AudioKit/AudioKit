@@ -16,7 +16,7 @@ let filter = AKOperation.input.lowPassFilter(halfPowerPoint: halfPower)
 //: Noise Example
 let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so that when it is mixed it is not so loud
 let noise = AKOperationEffect(whiteNoise, operation: filter)
-var noiseExample = AKGain(noise)
+var noiseExample = AKBooster(noise)
 
 //: Music Example
 let bundle = NSBundle.mainBundle()
@@ -24,7 +24,7 @@ let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 let filteredPlayer = AKOperationEffect(player, operation: filter)
-var musicExample = AKGain(filteredPlayer)
+var musicExample = AKBooster(filteredPlayer)
 
 //: Change the gains below to hear the examples
 noiseExample.gain = 1
@@ -38,4 +38,4 @@ player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@

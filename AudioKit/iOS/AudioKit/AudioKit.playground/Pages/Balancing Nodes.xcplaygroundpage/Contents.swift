@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Balancing Nodes
-//: ### Sometimes you want to ensure that an audio signal that you're processing remains at a volume similar to where it started.  Such an application is perfect for the AKBalance node.
+//: ### Sometimes you want to ensure that an audio signal that you're processing remains at a volume similar to where it started.  Such an application is perfect for the AKBalancer node.
 import XCPlayground
 import AudioKit
 
@@ -19,7 +19,7 @@ let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
 let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
 
 //: At this point you don't have much signal left, so you balance it against the original signal!
-let rebalancedWithSource = AKBalance(lowPassFiltering,  comparator: source)
+let rebalancedWithSource = AKBalancer(lowPassFiltering,  comparator: source)
 
 audiokit.audioOutput = rebalancedWithSource
 audiokit.start()
@@ -37,4 +37,4 @@ AKPlaygroundLoop(every: 3.428) { () -> () in
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next
