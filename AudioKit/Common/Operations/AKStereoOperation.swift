@@ -26,7 +26,7 @@ public struct AKStereoOperation: AKComputedParameter {
     ///
     /// - parameter operationString: Valid Sporth string (proceed with caution
     ///
-    init(_ operationString: String) {
+    public init(_ operationString: String) {
         self.operationString = operationString
     }
     
