@@ -9,6 +9,7 @@
         <page name='Splitting Nodes'/>
         <page name='Balancing Nodes'/>
         <page name='Stereo Panning'/>
+        <page name='Dry Wet Mixer'/>
         <page name='Delay'/>
         <page name='Multi-tap Delay'/>
         <page name='Variable Delay'/>
@@ -82,5 +83,6 @@
         <page name='Amplitude Envelope'/>
         <page name='Fatten Effect'/>
         <page name='Filter Section Example'/>
+        <page name='MultiDelay Example'/>
     </pages>
 </playground>
