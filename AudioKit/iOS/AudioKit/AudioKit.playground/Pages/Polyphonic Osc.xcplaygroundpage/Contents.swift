@@ -12,7 +12,7 @@ let audiokit = AKManager.sharedInstance
 let sawtooth = AKTable(.Sawtooth, size: 16)
 for value in sawtooth.values { value } // Click the eye icon ->
 var oscBase = AKOscillator(table: sawtooth)
-var oscillatorPoly = AKMidiInstrument(osc: oscBase, numVoicesInit: 4)
+var oscillatorPoly = AKMidiInstrument(voice: oscBase, voiceCount: 4)
 audiokit.audioOutput = oscillatorPoly
 
 audiokit.start()
