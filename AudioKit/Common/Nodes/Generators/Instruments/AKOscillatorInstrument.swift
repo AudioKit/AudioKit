@@ -9,6 +9,24 @@
 import Foundation
 import AVFoundation
 
+public class AKOscillatorInstrument: AKMidiInstrument{
+    public init(table: AKTable, numVoicesInit: Int) {
+        super.init(inst: BaseInstrument(table: table), numVoicesInit: numVoicesInit)
+    }
+    public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
+        let frequency = Int(note).midiNoteToFrequency()
+        let amplitude = Double(velocity)/127.0 * 0.3
+        let voiceEntity = voices[voice] as! BaseInstrument //you'll need to cast the voice to it's original form
+        voiceEntity.instrument.frequency = frequency
+        voiceEntity.instrument.amplitude = amplitude
+        voiceEntity.start()
+    }
+    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
+        let voiceEntity = voices[voice] as! BaseInstrument //you'll need to cast the voice to it's original form
+        voiceEntity.stop()
+    }
+}
+
 internal class BaseInstrument: AKVoice {
     
     /// Required property for AKNode
@@ -47,24 +65,4 @@ internal class BaseInstrument: AKVoice {
     func stop() {
         adsr.stop()
     }
-}
-
-public class AKOscillatorInstrument: AKMidiInstrument{
-    public init(table: AKTable, numVoicesInit: Int) {
-        super.init(inst: BaseInstrument(table: table), numVoicesInit: numVoicesInit)
-    }
-    public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
-        let frequency = Int(note).midiNoteToFrequency()
-        let amplitude = Double(velocity)/127.0 * 0.3
-        let voiceEntity = voices[voice] as! BaseInstrument //you'll need to cast the voice to it's original form
-        voiceEntity.instrument.frequency = frequency
-        voiceEntity.instrument.amplitude = amplitude
-        voiceEntity.start()
-    }
-    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
-        let voiceEntity = voices[voice] as! BaseInstrument //you'll need to cast the voice to it's original form
-        voiceEntity.stop()
-    }
-    
-    
 }
