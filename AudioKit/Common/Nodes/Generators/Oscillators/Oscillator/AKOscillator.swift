@@ -35,7 +35,8 @@ public class AKOscillator: AKVoice {
     /// Frequency in cycles per second
     public var frequency: Double = 440 {
         didSet {
-            frequencyParameter?.setValue(Float(frequency), originator: token!)
+            internalAU?.frequency = Float(frequency)
+//            frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
     /// Output Amplitude.

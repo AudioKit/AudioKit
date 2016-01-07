@@ -29,6 +29,10 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setFrequency:(float)frequency {
+    _kernel.actualFrequency = frequency;
+}
+
 - (void)setupTable:(int)size {
     _kernel.setupTable((uint32_t)size);
 }
