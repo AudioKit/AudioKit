@@ -1,5 +1,5 @@
 //
-//  AKOscInstrument.swift
+//  AKOscillatorInstrument.swift
 //  AudioKit For iOS
 //
 //  Created by Jeff Cooper on 1/6/16.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKOscIsntrument: AKMidiInstrument{
+public class AKOscillatorInstrument: AKMidiInstrument{
     public init(table:AKTable, numVoicesInit: Int) {
         super.init(inst: AKOscillator(table: table), numVoicesInit: numVoicesInit)
     }

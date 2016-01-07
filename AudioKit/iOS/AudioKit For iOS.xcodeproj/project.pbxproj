@@ -483,8 +483,8 @@
 		FE26E5C91C37194300A09C0C /* AKMidiInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */; };
 		FE2ECDA11C3E16B200DB41A1 /* AKNoiseInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2ECDA01C3E16B200DB41A1 /* AKNoiseInstrument.swift */; };
 		FEEB8EEB1C3DF09600626558 /* AKVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EEA1C3DF09600626558 /* AKVoice.swift */; };
-		FEEB8EEE1C3E0C7E00626558 /* AKOscInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */; };
-		FEEB8EF21C3E10F500626558 /* AKFMOscInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF11C3E10F500626558 /* AKFMOscInstrument.swift */; };
+		FEEB8EEE1C3E0C7E00626558 /* AKOscillatorInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EED1C3E0C7E00626558 /* AKOscillatorInstrument.swift */; };
+		FEEB8EF21C3E10F500626558 /* AKFMOscillatorInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF11C3E10F500626558 /* AKFMOscillatorInstrument.swift */; };
 		FEEB8EF41C3E130700626558 /* AKTriangleInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */; };
 		FEEB8EF61C3E136D00626558 /* AKSquareInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */; };
 		FEEB8EF81C3E13B000626558 /* AKSawInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF71C3E13B000626558 /* AKSawInstrument.swift */; };
@@ -981,8 +981,8 @@
 		FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrument.swift; sourceTree = "<group>"; };
 		FE2ECDA01C3E16B200DB41A1 /* AKNoiseInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKNoiseInstrument.swift; path = Instruments/AKNoiseInstrument.swift; sourceTree = "<group>"; };
 		FEEB8EEA1C3DF09600626558 /* AKVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKVoice.swift; path = ../AKVoice.swift; sourceTree = "<group>"; };
-		FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscInstrument.swift; path = Instruments/AKOscInstrument.swift; sourceTree = "<group>"; };
-		FEEB8EF11C3E10F500626558 /* AKFMOscInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFMOscInstrument.swift; path = Instruments/AKFMOscInstrument.swift; sourceTree = "<group>"; };
+		FEEB8EED1C3E0C7E00626558 /* AKOscillatorInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscillatorInstrument.swift; path = Instruments/AKOscillatorInstrument.swift; sourceTree = "<group>"; };
+		FEEB8EF11C3E10F500626558 /* AKFMOscillatorInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFMOscillatorInstrument.swift; path = Instruments/AKFMOscillatorInstrument.swift; sourceTree = "<group>"; };
 		FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTriangleInstrument.swift; path = Instruments/AKTriangleInstrument.swift; sourceTree = "<group>"; };
 		FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSquareInstrument.swift; path = Instruments/AKSquareInstrument.swift; sourceTree = "<group>"; };
 		FEEB8EF71C3E13B000626558 /* AKSawInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSawInstrument.swift; path = Instruments/AKSawInstrument.swift; sourceTree = "<group>"; };
@@ -2349,8 +2349,8 @@
 		FEEB8EEC1C3E0C5800626558 /* Instruments */ = {
 			isa = PBXGroup;
 			children = (
-				FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */,
-				FEEB8EF11C3E10F500626558 /* AKFMOscInstrument.swift */,
+				FEEB8EED1C3E0C7E00626558 /* AKOscillatorInstrument.swift */,
+				FEEB8EF11C3E10F500626558 /* AKFMOscillatorInstrument.swift */,
 				FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */,
 				FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */,
 				FEEB8EF71C3E13B000626558 /* AKSawInstrument.swift */,
@@ -2695,7 +2695,7 @@
 				C45380101C3A4CCE00A51738 /* AKChowningReverbAudioUnit.mm in Sources */,
 				C46300FA1C20C342009B44D9 /* pluck.c in Sources */,
 				C46300DE1C20C342009B44D9 /* dcblock.c in Sources */,
-				FEEB8EEE1C3E0C7E00626558 /* AKOscInstrument.swift in Sources */,
+				FEEB8EEE1C3E0C7E00626558 /* AKOscillatorInstrument.swift in Sources */,
 				C4537FDD1C3A438D00A51738 /* AKMoogLadder.swift in Sources */,
 				C463028B1C20E7A7009B44D9 /* fmOscillator.swift in Sources */,
 				C4537FF41C3A438D00A51738 /* AKToneComplementFilterAudioUnit.mm in Sources */,
@@ -2853,7 +2853,7 @@
 				C46300E11C20C342009B44D9 /* dist.c in Sources */,
 				C46302841C20E7A7009B44D9 /* dcBlock.swift in Sources */,
 				C4DC86F91C07A1F700CA2591 /* AKTable.swift in Sources */,
-				FEEB8EF21C3E10F500626558 /* AKFMOscInstrument.swift in Sources */,
+				FEEB8EF21C3E10F500626558 /* AKFMOscillatorInstrument.swift in Sources */,
 				C4E958A01C0ADBFD00516A6A /* buthp.c in Sources */,
 				C4E958A41C0ADBFD00516A6A /* count.c in Sources */,
 				C46300F11C20C342009B44D9 /* mincer.c in Sources */,

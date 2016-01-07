@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKTriangleIsntrument: AKMidiInstrument{
+public class AKTriangleInstrument: AKMidiInstrument{
     public init(numVoicesInit: Int) {
         super.init(inst: AKTriangleOscillator(), numVoicesInit: numVoicesInit)
     }

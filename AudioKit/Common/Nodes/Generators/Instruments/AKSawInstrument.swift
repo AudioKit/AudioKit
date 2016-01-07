@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKSawIsntrument: AKMidiInstrument{
+public class AKSawInstrument: AKMidiInstrument{
     public init(numVoicesInit: Int) {
         super.init(inst: AKSawtoothOscillator(), numVoicesInit: numVoicesInit)
     }
