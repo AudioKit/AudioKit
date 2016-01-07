@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter amplitude: Output amplitude
 /// - parameter pulseWidth: Duty cycle width (range 0-1).
 ///
-public class AKSquareWaveOscillator: AKNode, AKToggleable {
+public class AKSquareWaveOscillator: AKVoice {
 
     // MARK: - Properties
 
@@ -122,7 +122,7 @@ public class AKSquareWaveOscillator: AKNode, AKToggleable {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKSquareWaveOscillator {
+    public func copy() -> AKVoice {
         let copy = AKSquareWaveOscillator(frequency: self.frequency, amplitude: self.amplitude, pulseWidth: self.pulseWidth)
         return copy
     }

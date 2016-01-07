@@ -22,7 +22,7 @@ public protocol AKNode {
 public protocol AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
-
+    
     /// Function to start, play, or activate the node, all do the same thing
     func start()
     
