@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 /// Protocol for all AudioKit Nodes
-public protocol AKMusicVoice: AKNode, AKCopyableVoice, AKToggleable{
+public protocol AKVoice: AKNode, AKCopyableVoice, AKToggleable{
     
     //Combines these two protocols to allow for things like the midi instrument to work
 }
@@ -17,5 +17,5 @@ public protocol AKMusicVoice: AKNode, AKCopyableVoice, AKToggleable{
 //make sure these voices can be replicated by making them have a copy function
 public protocol AKCopyableVoice {
     /// Function to duplicate this oscillator
-    func copy() -> AKMusicVoice
+    func copy() -> AKVoice
 }

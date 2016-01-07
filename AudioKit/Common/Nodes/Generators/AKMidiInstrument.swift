@@ -20,13 +20,13 @@ public class AKMidiInstrument: AKNode {
     public var midiIn = MIDIEndpointRef()
     
     public var name = "AKMidiInstrument"
-    public var voices:[AKMusicVoice] = []
+    public var voices:[AKVoice] = []
     var notesPlayed:[Int] = []
     var voicePlaying = 0
     var numVoices = 1
     let subMixer = AKMixer()
     
-    public init(inst:AKMusicVoice, numVoicesInit:Int = 1) {
+    public init(inst:AKVoice, numVoicesInit:Int = 1) {
         
         print("creating akmidiinstrument with \(numVoicesInit) voices")
         

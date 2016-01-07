@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter frequency: In cycles per second, or Hz.
 /// - parameter amplitude: Output Amplitude.
 ///
-public class AKSawtoothOscillator: AKMusicVoice {
+public class AKSawtoothOscillator: AKVoice {
 
     // MARK: - Properties
 
@@ -107,7 +107,7 @@ public class AKSawtoothOscillator: AKMusicVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKMusicVoice {
+    public func copy() -> AKVoice {
         let copy = AKSawtoothOscillator(frequency: self.frequency, amplitude: self.amplitude)
         return copy
     }

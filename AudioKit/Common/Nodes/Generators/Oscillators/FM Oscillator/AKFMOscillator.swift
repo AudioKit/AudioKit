@@ -16,7 +16,7 @@ import AVFoundation
 /// - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
 /// - parameter amplitude: Output Amplitude.
 ///
-public class AKFMOscillator: AKMusicVoice {
+public class AKFMOscillator: AKVoice {
 
     // MARK: - Properties
 
@@ -156,7 +156,7 @@ public class AKFMOscillator: AKMusicVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKMusicVoice {
+    public func copy() -> AKVoice {
         let copy = AKFMOscillator(baseFrequency: self.baseFrequency, carrierMultiplier: self.carrierMultiplier, modulatingMultiplier: self.modulatingMultiplier, modulationIndex: self.modulationIndex, amplitude: self.amplitude)
         return copy
     }
