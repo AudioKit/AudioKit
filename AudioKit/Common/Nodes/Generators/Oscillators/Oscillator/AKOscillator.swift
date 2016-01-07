@@ -15,7 +15,7 @@ import AVFoundation
 /// - parameter amplitude: Output Amplitude.
 /// - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).
 ///
-public class AKOscillator: AKMusicVoice {
+public class AKOscillator: AKVoice {
 
     // MARK: - Properties
 
@@ -117,7 +117,7 @@ public class AKOscillator: AKMusicVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKMusicVoice {
+    public func copy() -> AKVoice {
         let copy = AKOscillator(table: self.table!, frequency: self.frequency, amplitude: self.amplitude)
         return copy
     }

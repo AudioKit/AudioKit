@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter frequency: In cycles per second, or Hz.
 /// - parameter amplitude: Output Amplitude.
 ///
-public class AKTriangleOscillator: AKMusicVoice {
+public class AKTriangleOscillator: AKVoice {
 
     // MARK: - Properties
 
@@ -107,7 +107,7 @@ public class AKTriangleOscillator: AKMusicVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKMusicVoice {
+    public func copy() -> AKVoice {
         let copy = AKTriangleOscillator(frequency: self.frequency, amplitude: self.amplitude)
         return copy
     }

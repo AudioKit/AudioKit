@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-public class AKWhiteNoise: AKMusicVoice {
+public class AKWhiteNoise: AKVoice {
 
     // MARK: - Properties
 
@@ -90,7 +90,7 @@ public class AKWhiteNoise: AKMusicVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKMusicVoice {
+    public func copy() -> AKVoice {
         let copy = AKWhiteNoise(amplitude: self.amplitude)
         return copy
     }
