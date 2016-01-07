@@ -10,8 +10,8 @@ import Foundation
 import AVFoundation
 
 public class AKTriangleInstrument: AKMidiInstrument{
-    public init(numVoicesInit: Int) {
-        super.init(inst: AKTriangleOscillator(), numVoicesInit: numVoicesInit)
+    public init(voiceCount: Int) {
+        super.init(voice: AKTriangleOscillator(), voiceCount: voiceCount)
     }
     public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
         let frequency = Int(note).midiNoteToFrequency()

@@ -96,7 +96,7 @@ public:
             
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
-                if(channel < 2) {
+                if (channel < 2) {
                     pd.p[channel] = *in;
                 }
             }

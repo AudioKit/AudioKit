@@ -15,13 +15,13 @@ public class AKMidiInstrumentControl {
     public var midiIn = MIDIEndpointRef()
     
     /// Output Node
-    public var audioUnit:AudioUnit?
+    public var audioUnit: AudioUnit?
     
     /// Name
-    public var name:String?
+    public var name:  String?
     
     /// Initialize the MIDI Instrument Controller
-    public init(){
+    public init() {
         audioUnit = AudioUnit()
         name = "MidiInstrument"
     }
@@ -34,7 +34,7 @@ public class AKMidiInstrumentControl {
     }
     
     /// Initialize the MIDI Instrument Controller with an audio unit and a midi client
-    public convenience init(audioUnit:AudioUnit, client: MIDIClientRef, name: String) {
+    public convenience init(audioUnit: AudioUnit, client: MIDIClientRef, name: String) {
         self.init()
         self.audioUnit = audioUnit
         self.name = name
@@ -43,7 +43,7 @@ public class AKMidiInstrumentControl {
     
     /// Enable MIDI input from a given MIDI client
     public func enableMidi(midiClient: MIDIClientRef, name: String) {
-        var result:OSStatus
+        var result: OSStatus
         result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
         CheckError(result)
     }

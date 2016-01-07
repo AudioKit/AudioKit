@@ -21,35 +21,35 @@ import AVFoundation
 public class AKSequencer {
     
     /// Music sequence
-    public var sequence:MusicSequence = nil
+    public var sequence: MusicSequence = nil
     
     /// Pointer to Music Sequence
-    public var sequencePointer:UnsafeMutablePointer<MusicSequence>
+    public var sequencePointer: UnsafeMutablePointer<MusicSequence>
     
     /// AVAudioSequencer - on hold while technology is still unstable
     public var avSeq = AVAudioSequencer()
     
     /// Array of AudioKit Music Tracks
-    public var tracks:[AKMusicTrack] = []
+    public var tracks: [AKMusicTrack] = []
     
     /// Array of AVMusicTracks
-    public var avTracks:[AVMusicTrack] {
-        if(isAvSeq){
+    public var avTracks: [AVMusicTrack] {
+        if isAvSeq {
             return avSeq.tracks
-        }else{
+        } else {
             //this won't do anything if not using an AVSeq
-            let tracks:[AVMusicTrack] = []
+            let tracks: [AVMusicTrack] = []
             return tracks
         }
     }
     
     /// Music Player
-    var musicPlayer:MusicPlayer = nil
+    var musicPlayer: MusicPlayer = nil
     
     /// Loop control
-    public var loopEnabled:Bool = false
+    public var loopEnabled: Bool = false
     
-    public var isAvSeq:Bool = false
+    public var isAvSeq: Bool = false
     
     /// Sequencer Initialization
     public init() {
@@ -83,19 +83,18 @@ public class AKSequencer {
     }
     
     /// Set loop functionality of entire sequence
-    public func loopToggle(){
+    public func loopToggle() {
         (loopEnabled ? loopOff() : loopOn())
     }
     
     /// Enable looping for all tracks
     public func loopOn() {
-        if(isAvSeq){
+        if isAvSeq {
             for track in avSeq.tracks{
                 track.loopingEnabled = true
                 track.loopRange = AVMakeBeatRange(0, self.length)
             }
-        }//only for avSeq
-        else{
+        } else {
             setLoopInfo(length, numberOfLoops: 0)
         }
         loopEnabled = true
@@ -103,12 +102,11 @@ public class AKSequencer {
     
     /// Disable looping for all tracks
     public func loopOff() {
-        if(isAvSeq){
+        if isAvSeq {
             for track in avSeq.tracks{
                 track.loopingEnabled = false
             }
-        }//only for avSeq
-        else{
+        } else {
             setLoopInfo(0, numberOfLoops: 0)
         }
         loopEnabled = false
@@ -120,9 +118,9 @@ public class AKSequencer {
     /// - parameter numberOfLoops: The number of time to repeat
     ///
     public func setLoopInfo(duration: Double, numberOfLoops: Int) {
-        if(isAvSeq){
+        if isAvSeq {
             //nothing yet
-        }else{
+        } else {
             for track in tracks{
                 track.setLoopInfo(duration, numberOfLoops: numberOfLoops)
             }
@@ -137,69 +135,71 @@ public class AKSequencer {
         for track in tracks{
             track.setLength(length)
         }
-        if(isAvSeq){
+        if isAvSeq {
             for track in avSeq.tracks{
                 track.lengthInBeats = length
                 track.loopRange = AVMakeBeatRange(0, self.length)
             }
-        }//only for avseq
+        }
     }
     
     /// Length of longest track in the sequence
     public var length: Double {
         var length:MusicTimeStamp = 0
         var tmpLength:MusicTimeStamp = 0
+        
         for track in tracks{
             tmpLength = track.length
-            if(tmpLength >= length){ length = tmpLength }
+            if(tmpLength >= length) { length = tmpLength }
         }
-        if(isAvSeq){
+        
+        if isAvSeq {
             for track in avSeq.tracks{
                 tmpLength = track.lengthInBeats
-                if(tmpLength >= length){ length = tmpLength }
+                if(tmpLength >= length) { length = tmpLength }
             }
-        }//only for avSeq
+        }
         return Double(length)
     }
     
     /// Play the sequence
     public func play() {
-        if(isAvSeq){
+        if isAvSeq {
             do{
                 try avSeq.start()
             }catch _{
                 print("could not start avSeq")
             }
-        }else{
+        } else {
             MusicPlayerStart(musicPlayer)
         }
     }
     
     /// Stop the sequence
     public func stop() {
-        if(isAvSeq){
+        if isAvSeq {
             avSeq.stop()
-        }else{
+        } else {
             MusicPlayerStop(musicPlayer)
         }
     }
     
     /// Rewind the sequence
     public func rewind() {
-        if(isAvSeq){
+        if isAvSeq {
             avSeq.currentPositionInBeats = 0
-        }else{
+        } else {
             MusicPlayerSetTime(musicPlayer, 0)
         }
     }
     
     /// Set the midi output for all tracks
     public func setGlobalMidiOutput(midiEndpoint: MIDIEndpointRef) {
-        if(isAvSeq){
+        if isAvSeq {
             for track in avSeq.tracks{
                 track.destinationMIDIEndpoint = midiEndpoint
             }
-        }else{
+        } else {
             for track in tracks{
                 track.setMidiOutput(midiEndpoint)
             }
@@ -208,20 +208,20 @@ public class AKSequencer {
     
     /// Set the Audio Unit output for all tracks - on hold while technology is still unstable
     public func setGlobalAVAudioUnitOutput(audioUnit: AVAudioUnit) {
-        if(isAvSeq){
+        if isAvSeq {
             for track in avSeq.tracks{
                 track.destinationAudioUnit = audioUnit
             }
-        }else{
+        } else {
            //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
         }
     }
     
     /// Track count
     public var numberOfTracks: Int {
-        if(isAvSeq){
+        if isAvSeq {
             return avSeq.tracks.count
-        }else{
+        } else {
             var count:UInt32 = 0
             MusicSequenceGetTrackCount(sequence, &count)
             return Int(count)
@@ -234,7 +234,7 @@ public class AKSequencer {
         let file = bundle.pathForResource(filename, ofType: "mid")
         let fileURL = NSURL.fileURLWithPath(file!)
         MusicSequenceFileLoad(sequence, fileURL, MusicSequenceFileTypeID.MIDIType, MusicSequenceLoadFlags.SMF_PreserveTracks)
-        if(isAvSeq){
+        if isAvSeq {
             do {
                try avSeq.loadFromURL(fileURL, options: AVMusicSequenceLoadOptions.SMF_PreserveTracks)
             }catch _ {
@@ -250,17 +250,18 @@ public class AKSequencer {
     ///
     func initTracks() {
         tracks.removeAll()
-        for( var i = 0; i < self.numberOfTracks; ++i){
+        
+        for( var i = 0; i < self.numberOfTracks; ++i) {
             var musicTrack = MusicTrack()
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
             tracks.append(AKMusicTrack(musicTrack: musicTrack))
         }
     }
     
-    public func debug(){
-        if(isAvSeq){
+    public func debug() {
+        if isAvSeq {
             //do nothing
-        }else{
+        } else {
             CAShow(sequencePointer)
         }
     }
