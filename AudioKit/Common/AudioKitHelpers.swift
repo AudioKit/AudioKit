@@ -56,33 +56,38 @@ public func random(minimum: Double, _ maximum: Double) -> Double {
     return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + minimum
 }
 
+// MARK: - Normalization Helpers
 
-// convert knob on [0,1] to value in [loLimit,hiLimit] according to taper
-public func norm2value(knob: Double, loLimit: Double, hiLimit: Double, taper: Double) -> Double
-{
-    let value:Double
-    if (taper > 0.0) {
-        // algebraic taper
-        value = loLimit + (hiLimit - loLimit) * pow(knob, taper);
-    }else {
-        // exponential taper
-        value = loLimit * exp(log(hiLimit / loLimit) * knob);
+extension Double {
+    /// Convert a value on [min, max] to a [0, 1] range, according to a taper
+    ///
+    /// - parameter min: Minimum of the source range (cannot be zero if taper is not positive)
+    /// - parameter max: Maximum of the source range
+    /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    public mutating func normalize(min: Double, max: Double, taper: Double) {
+        if taper > 0 {
+            // algebraic taper
+            self = pow(((self - min) / (max - min)), (1.0 / taper));
+        } else {
+            // exponential taper
+            self = log(self / min) / log(max / min);
+        }
     }
-    return value;
-};
-
-//-----------------------------------------------------------------------------------------
-public func value2norm(val: Double, loLimit: Double, hiLimit: Double, taper: Double) -> Double
-// convert value in [loLimit,hiLimt] to knob on [0,1] according to taper
-{
-    let knob:Double
-    if (taper > 0.0) {
-        // algebraic taper
-        knob = pow(((val - loLimit) / (hiLimit - loLimit)), (1.0 / taper));
-    }else {
-        // exponential taper
-        knob = log(val / loLimit) / log(hiLimit / loLimit);
+    
+    /// Convert a value on [0, 1] to a [min, max] range, according to a taper
+    ///
+    /// - parameter min: Minimum of the target range (cannot be zero if taper is not positive)
+    /// - parameter max: Maximum of the target range
+    /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    public mutating func denormalize(min: Double, max: Double, taper: Double) {
+        if taper > 0 {
+            // algebraic taper
+            self = min + (max - min) * pow(self, taper);
+        } else {
+            // exponential taper
+            self = min * exp(log(max / min) * self);
+        }
     }
-    return knob;
-};
+    
 
+}
