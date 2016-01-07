@@ -11,53 +11,56 @@ import AVFoundation
 
 public class AKOscillatorInstrument: AKMidiInstrument{
     public init(table: AKTable, voiceCount: Int) {
-        super.init(voice: BaseInstrument(table: table), voiceCount: voiceCount)
+        super.init(voice: AKOscillatorVoice(table: table), voiceCount: voiceCount)
     }
     public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
         let frequency = Int(note).midiNoteToFrequency()
-        let amplitude = Double(velocity)/127.0 * 0.3
-        let voiceEntity = voices[voice] as! BaseInstrument //you'll need to cast the voice to it's original form
-        voiceEntity.instrument.frequency = frequency
-        voiceEntity.instrument.amplitude = amplitude
-        voiceEntity.start()
+        let amplitude = Double(velocity) / 127.0 * 0.3
+        let oscillatorVoice = voices[voice] as! AKOscillatorVoice //you'll need to cast the voice to it's original form
+        oscillatorVoice.oscillator.frequency = frequency
+        oscillatorVoice.oscillator.amplitude = amplitude
+        oscillatorVoice.start()
     }
     public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
-        let voiceEntity = voices[voice] as! BaseInstrument //you'll need to cast the voice to it's original form
-        voiceEntity.stop()
+        let oscillatorVoice = voices[voice] as! AKOscillatorVoice //you'll need to cast the voice to its original form
+        oscillatorVoice.stop()
     }
 }
 
-internal class BaseInstrument: AKVoice {
+internal class AKOscillatorVoice: AKVoice {
     
     /// Required property for AKNode
     var avAudioNode: AVAudioNode
     /// Required property for AKNode containing all the node's connections
     var connectionPoints = [AVAudioConnectionPoint]()
     
-    var instrument: AKOscillator
+    var oscillator: AKOscillator
     var adsr: AKAmplitudeEnvelope
+
     var table: AKTable
+    
     init(table: AKTable) {
-        instrument = AKOscillator(table: table)
-        adsr = AKAmplitudeEnvelope(instrument, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+        oscillator = AKOscillator(table: table)
+        adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+
         self.table = table
         self.avAudioNode = adsr.avAudioNode
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
     func copy() -> AKVoice {
-        let copy = BaseInstrument(table: self.table)
+        let copy = AKOscillatorVoice(table: self.table)
         return copy
     }
     
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool {
-        return instrument.isPlaying
+        return oscillator.isPlaying
     }
     
     /// Function to start, play, or activate the node, all do the same thing
     func start() {
-        instrument.start()
+        oscillator.start()
         adsr.start()
     }
     
