@@ -27,7 +27,7 @@ public class AKMidiInstrument: AKNode {
     var voicePlaying = 0
     var voiceCount = 1
     
-    let subMixer = AKMixer()
+    public let output = AKMixer()
     
     public init(voice: AKVoice, voiceCount: Int = 1) {
         
@@ -35,11 +35,11 @@ public class AKMidiInstrument: AKNode {
         notesPlayed = [Int](count: voiceCount, repeatedValue: 0)
         self.voiceCount = voiceCount
         
-        self.avAudioNode = subMixer.avAudioNode
+        self.avAudioNode = output.avAudioNode
         
         for (var i = 0 ; i < voiceCount; ++i) {
             voices.append(voice.copy())
-            subMixer.connect(voices[i])
+            output.connect(voices[i])
             voices[i].stop()
         }
         

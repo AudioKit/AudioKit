@@ -11,41 +11,81 @@ import AVFoundation
 
 public class AKNoiseInstrument: AKMidiInstrument{
     
-    public var white:Bool = true
-    public var pink:Bool{
-        return !white
+    public var whitePinkMix: Double = 0 {
+        didSet {
+            for voice in voices {
+                let noise = voice as! AKNoiseVoice
+                noise.whitePinkMix = whitePinkMix
+            }
+        }
     }
     
-    public init(white: Bool = true, voiceCount: Int) {
-        //by default will init as white noise, pass in false to convert to pink
-        self.white = white
-        if white {
-            super.init(voice: AKWhiteNoise(), voiceCount: voiceCount)
-        } else {
-            super.init(voice: AKPinkNoise(), voiceCount: voiceCount)
-        }
+    public init(whitePinkMix: Double, voiceCount: Int) {
+        super.init(voice: AKNoiseVoice(whitePinkMix: whitePinkMix), voiceCount: voiceCount)
     }
+    
     public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
-        let amplitude = Double(velocity)/127.0
-        if white {
-            let voiceEntity = voices[voice] as! AKWhiteNoise
-            voiceEntity.amplitude = amplitude
-            voiceEntity.start()
-        } else {
-            let voiceEntity = voices[voice] as! AKPinkNoise
-            voiceEntity.amplitude = amplitude
-            voiceEntity.start()
+        let noiseVoice = voices[voice] as! AKNoiseVoice
+        noiseVoice.whiteNoise.amplitude = Double(velocity) / 127.0
+        noiseVoice.pinkNoise.amplitude = Double(velocity) / 127.0
+        noiseVoice.start()
+    }
+    
+    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
+
+        let noise = voices[voice] as! AKNoiseVoice
+        noise.stop()
+    }
+}
+
+internal class AKNoiseVoice: AKVoice {
+    
+    /// Required property for AKNode
+    var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    var connectionPoints = [AVAudioConnectionPoint]()
+    
+    var whiteNoise: AKWhiteNoise
+    var pinkNoise: AKPinkNoise
+    var noiseMix: AKDryWetMixer
+    var adsr: AKAmplitudeEnvelope
+    
+    var whitePinkMix: Double = 0 {
+        didSet {
+            noiseMix.balance = whitePinkMix
         }
     }
-    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
-        if white {
-            let voiceEntity = voices[voice] as! AKWhiteNoise
-            voiceEntity.amplitude = 0
-            voiceEntity.stop()
-        } else {
-            let voiceEntity = voices[voice] as! AKPinkNoise
-            voiceEntity.amplitude = 0
-            voiceEntity.stop()
-        }
+    
+    init(whitePinkMix: Double) {
+        whiteNoise = AKWhiteNoise()
+        pinkNoise = AKPinkNoise()
+        noiseMix = AKDryWetMixer(whiteNoise, pinkNoise, t: whitePinkMix)
+        adsr = AKAmplitudeEnvelope(noiseMix, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+        
+        self.whitePinkMix = whitePinkMix
+        self.avAudioNode = adsr.avAudioNode
+    }
+    
+    /// Function create an identical new node for use in creating polyphonic instruments
+    func copy() -> AKVoice {
+        let copy = AKNoiseVoice(whitePinkMix: whitePinkMix)
+        return copy
+    }
+    
+    /// Tells whether the node is processing (ie. started, playing, or active)
+    var isStarted: Bool {
+        return whiteNoise.isPlaying
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    func start() {
+        whiteNoise.start()
+        pinkNoise.start()
+        adsr.start()
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    func stop() {
+        adsr.stop()
     }
 }
