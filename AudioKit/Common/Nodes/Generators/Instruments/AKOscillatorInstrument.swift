@@ -10,8 +10,8 @@ import Foundation
 import AVFoundation
 
 public class AKOscillatorInstrument: AKMidiInstrument{
-    public init(table: AKTable, numVoicesInit: Int) {
-        super.init(inst: BaseInstrument(table: table), numVoicesInit: numVoicesInit)
+    public init(table: AKTable, voiceCount: Int) {
+        super.init(voice: BaseInstrument(table: table), voiceCount: voiceCount)
     }
     public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
         let frequency = Int(note).midiNoteToFrequency()

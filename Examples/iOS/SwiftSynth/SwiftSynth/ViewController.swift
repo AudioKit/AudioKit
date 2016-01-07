@@ -19,9 +19,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        midiInst = AKFMOscillatorInstrument(numVoicesInit: 12)
-        midiInst = AKOscillatorInstrument(table: AKTable(.Sine), numVoicesInit: 12)
-        //AKMidiInstrument(inst: AKOscillator(), numVoicesInit: 12)
+//        midiInst = AKFMOscillatorInstrument(voiceCount: 12)
+        midiInst = AKOscillatorInstrument(table: AKTable(.Sine), voiceCount: 12)
+        //AKMidiInstrument(voice: AKOscillator(), voiceCount: 12)
         
         midi.openMidiIn("Session 1")
         midiInst!.enableMidi(midi.midiClient, name: "PolyOsc")
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         
     }
     
-    func midiNoteNotif(notif:NSNotification){
+    func midiNoteNotif(notif: NSNotification) {
         dump(notif)
         midiInst?.handleMidiNotif(notif)
     }

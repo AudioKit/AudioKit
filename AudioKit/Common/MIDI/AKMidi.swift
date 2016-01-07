@@ -25,7 +25,7 @@ public class AKMidi {
     var midiInName: CFString = "Midi In Port"
     
     /// MIDI End Point
-    public var midiEndpoint:MIDIEndpointRef{
+    public var midiEndpoint: MIDIEndpointRef{
         return midiEndpoints[0]
     }
     
@@ -166,7 +166,7 @@ public class AKMidi {
                 foundDest = true
             }
         }
-        if(!foundDest){
+        if !foundDest {
             print("no midi destination found named \"\(namedOutput)\"")
         }
     }
@@ -604,13 +604,13 @@ AKMidi *m = (__bridge AKMidi *)refCon;
 @autoreleasepool {
 MIDIPacket *packet = (MIDIPacket *)pktlist->packet;
 for (uint i = 0; i < pktlist->numPackets; i++) {
-NSArray<AKMidiEvent *> *events = [AKMidiEvent midiEventsFromPacket:packet];
+NSArray<AKMidiEvent *> *events = [AKMidiEvent midiEventsFromPacket: packet];
 
 for (AKMidiEvent *event in events) {
 if (event.command == AKMidiCommandClock)
 continue;
 if (m.forwardEvents) {
-[m sendEvent:event];
+[m sendEvent: event];
 }
 [event postNotification];
 }

@@ -20,7 +20,7 @@ defaultCenter.addObserverForName(
 YourNotifFunction takes an NSNotifcation as an argument, 
 and then all the good stuff is contained in the userInfo part of the notification
 
-func myNotifFunction(notif:NSNotification) {
+func myNotifFunction(notif: NSNotification) {
     print(notif.userInfo)
 }
 */
@@ -43,7 +43,7 @@ public struct AKMidiEvent {
         if status < 15 {
             return .None
         }
-        return AKMidiSystemCommand(rawValue:internalData[0])!
+        return AKMidiSystemCommand(rawValue: internalData[0])!
     }
     
     /// MIDI Channel
@@ -140,22 +140,22 @@ public struct AKMidiEvent {
         switch status {
             
         case .NoteOn, .NoteOff:
-            ret = ["note":byte1, "velocity":byte2, "channel":c]
+            ret = ["note": byte1, "velocity": byte2, "channel": c]
             
         case .PolyphonicAftertouch:
-            ret = ["note":byte1, "pressure":byte2, "channel":c]
+            ret = ["note": byte1, "pressure": byte2, "channel": c]
             
         case .ControllerChange:
-            ret = ["control":byte1, "value":byte2, "channel":c]
+            ret = ["control": byte1, "value": byte2, "channel": c]
 
         case .ChannelAftertouch:
-            ret = ["pressure":byte1, "channel":c]
+            ret = ["pressure": byte1, "channel": c]
             
         case .ProgramChange:
-            ret = ["program":byte1, "channel":c]
+            ret = ["program": byte1, "channel": c]
             
         case .PitchWheel:
-            ret = ["pitchWheel":NSInteger(data), "channel":c]
+            ret = ["pitchWheel": NSInteger(data), "channel": c]
 
         case .SystemCommand:
             switch self.command {
@@ -186,19 +186,19 @@ public struct AKMidiEvent {
     
     /// Create note on event
     static public func eventWithNoteOn(note: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMidiEvent {
-        return AKMidiEvent(status:.NoteOn, channel: channel, byte1: note, byte2: velocity)
+        return AKMidiEvent(status: .NoteOn, channel: channel, byte1: note, byte2: velocity)
     }
     /// Create note off event
     static public func eventWithNoteOff(note: UInt8, velocity: UInt8, channel: UInt8) -> AKMidiEvent {
-        return AKMidiEvent(status:.NoteOff, channel: channel, byte1: note, byte2: velocity)
+        return AKMidiEvent(status: .NoteOff, channel: channel, byte1: note, byte2: velocity)
     }
     /// Create program change event
     static public func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMidiEvent {
-        return AKMidiEvent(status:.ProgramChange, channel: channel, byte1: program, byte2: 0)
+        return AKMidiEvent(status: .ProgramChange, channel: channel, byte1: program, byte2: 0)
     }
     /// Create controller event
     static public func eventWithController(control: UInt8, val: UInt8, channel: UInt8) -> AKMidiEvent {
-        return AKMidiEvent(status:.ControllerChange, channel: channel, byte1: control, byte2: val)
+        return AKMidiEvent(status: .ControllerChange, channel: channel, byte1: control, byte2: val)
     }
 
 }

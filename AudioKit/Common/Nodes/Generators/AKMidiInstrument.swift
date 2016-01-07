@@ -25,20 +25,20 @@ public class AKMidiInstrument: AKNode {
     var notesPlayed: [Int] = []
     
     var voicePlaying = 0
-    var numVoices = 1
+    var voiceCount = 1
     
     let subMixer = AKMixer()
     
-    public init(inst:AKVoice, numVoicesInit:Int = 1) {
-        
-        print("creating akmidiinstrument with \(numVoicesInit) voices")
+    public init(voice: AKVoice, voiceCount: Int = 1) {
         
         //set up the voices
-        notesPlayed = [Int](count: numVoicesInit, repeatedValue: 0)
-        numVoices = numVoicesInit
+        notesPlayed = [Int](count: voiceCount, repeatedValue: 0)
+        self.voiceCount = voiceCount
+        
         self.avAudioNode = subMixer.avAudioNode
-        for (var i = 0 ; i < numVoices; ++i){
-            voices.append(inst.copy())
+        
+        for (var i = 0 ; i < voiceCount; ++i) {
+            voices.append(voice.copy())
             subMixer.connect(voices[i])
             voices[i].stop()
         }
@@ -57,20 +57,20 @@ public class AKMidiInstrument: AKNode {
     func handleMidi(data1: UInt32, data2: UInt32, data3: UInt32) {
         let status = data1 >> 4
         let channel = data1 & 0xF
-        if(Int(status) == AKMidiStatus.NoteOn.rawValue && data3 > 0){
+        if Int(status) == AKMidiStatus.NoteOn.rawValue && data3 > 0 {
             handleNoteOn(UInt8(data2), withVelocity: UInt8(data3), onChannel: UInt8(channel))
-        }else if(Int(status) == AKMidiStatus.NoteOn.rawValue && data3 == 0){
+        } else if Int(status) == AKMidiStatus.NoteOn.rawValue && data3 == 0 {
             handleNoteOff(UInt8(data2), onChannel: UInt8(channel))
         }
     }
     
-    public func handleMidiNotif(notif:NSNotification){
+    public func handleMidiNotif(notif: NSNotification) {
         let note = Int((notif.userInfo?["note"])! as! NSNumber)
         let vel = Int((notif.userInfo?["velocity"])! as! NSNumber)
         let chan = Int((notif.userInfo?["channel"])! as! NSNumber)
-        if(notif.name == AKMidiStatus.NoteOn.name() && vel > 0){
+        if notif.name == AKMidiStatus.NoteOn.name() && vel > 0 {
             handleNoteOn(UInt8(note), withVelocity: UInt8(vel), onChannel: UInt8(chan))
-        } else if ((notif.name == AKMidiStatus.NoteOn.name() && vel == 0) || notif.name == AKMidiStatus.NoteOff.name()){
+        } else if (notif.name == AKMidiStatus.NoteOn.name() && vel == 0) || notif.name == AKMidiStatus.NoteOff.name() {
             handleNoteOff(UInt8(note), onChannel: UInt8(chan))
         }
     }
@@ -78,7 +78,7 @@ public class AKMidiInstrument: AKNode {
     public func handleNoteOn(note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
         notesPlayed[voicePlaying] = Int(note)
         startVoice(voicePlaying, note: note, withVelocity: velocity, onChannel: channel)
-        voicePlaying = (voicePlaying + 1) % numVoices
+        voicePlaying = (voicePlaying + 1) % voiceCount
     }
     
     public func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
@@ -98,7 +98,7 @@ public class AKMidiInstrument: AKNode {
     
     public func handleNoteOff(note: UInt8, onChannel channel: UInt8) {
         var voiceToStop = notesPlayed.indexOf(Int(note))
-        while(voiceToStop != nil){
+        while(voiceToStop != nil) {
             stopVoice(voiceToStop!, note: note, onChannel: channel)
             notesPlayed[voiceToStop!] = 0
             voiceToStop = notesPlayed.indexOf(Int(note))
@@ -117,8 +117,8 @@ public class AKMidiInstrument: AKNode {
         
     }
     
-    public func panic(){
-        for(var i = 0; i < numVoices; i++){
+    public func panic() {
+        for(var i = 0; i < voiceCount; i++) {
             voices[i].stop()
         }
     }

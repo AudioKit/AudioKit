@@ -106,7 +106,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                if(channel < 2) {
+                if (channel < 2) {
                     tmpin[channel] = in;
                     tmpout[channel] = out;
                 }
