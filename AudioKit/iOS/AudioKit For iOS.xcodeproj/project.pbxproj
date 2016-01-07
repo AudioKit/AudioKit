@@ -482,6 +482,7 @@
 		FE0929931C23AA6F00845CC6 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */; };
 		FE26E5C91C37194300A09C0C /* AKMidiInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */; };
 		FEEB8EEB1C3DF09600626558 /* AKVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EEA1C3DF09600626558 /* AKVoice.swift */; };
+		FEEB8EEE1C3E0C7E00626558 /* AKOscInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -974,6 +975,7 @@
 		FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
 		FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrument.swift; sourceTree = "<group>"; };
 		FEEB8EEA1C3DF09600626558 /* AKVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKVoice.swift; path = ../AKVoice.swift; sourceTree = "<group>"; };
+		FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscInstrument.swift; path = Instruments/AKOscInstrument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1317,6 +1319,7 @@
 				C42F35561C057F4C000E937C /* Oscillators */,
 				FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */,
 				FEEB8EEA1C3DF09600626558 /* AKVoice.swift */,
+				FEEB8EEC1C3E0C5800626558 /* Instruments */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -2333,6 +2336,14 @@
 			path = fft;
 			sourceTree = "<group>";
 		};
+		FEEB8EEC1C3E0C5800626558 /* Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */,
+			);
+			name = Instruments;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2667,6 +2678,7 @@
 				C45380101C3A4CCE00A51738 /* AKChowningReverbAudioUnit.mm in Sources */,
 				C46300FA1C20C342009B44D9 /* pluck.c in Sources */,
 				C46300DE1C20C342009B44D9 /* dcblock.c in Sources */,
+				FEEB8EEE1C3E0C7E00626558 /* AKOscInstrument.swift in Sources */,
 				C4537FDD1C3A438D00A51738 /* AKMoogLadder.swift in Sources */,
 				C463028B1C20E7A7009B44D9 /* fmOscillator.swift in Sources */,
 				C4537FF41C3A438D00A51738 /* AKToneComplementFilterAudioUnit.mm in Sources */,
