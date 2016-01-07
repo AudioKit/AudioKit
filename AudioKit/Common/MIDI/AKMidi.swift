@@ -581,6 +581,20 @@ public func CheckError(error: OSStatus) {
     }
 }
 
+// MARK: - MIDI Helpers
+
+/// Extension to Int to calculate frequency from a MIDI Note Number
+extension Int {
+    
+    /// Calculate frequency from a MIDI Note Number
+    ///
+    /// - returns: Frequency (Double) in Hz
+    ///
+    public func midiNoteToFrequency() -> Double {
+        return pow(2.0, (Double(self) - 69.0) / 12.0) * 440.0
+    }
+}
+
 
 /*
 static void AKMIDIReadProc(const MIDIPacketList *pktlist, void *refCon, void *connRefCon)

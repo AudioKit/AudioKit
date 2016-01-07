@@ -10,17 +10,7 @@ import Foundation
 import CoreAudio
 import AudioToolbox
 
-/// Extension to Int to calculate frequency from a MIDI Note Number
-extension Int {
-    
-    /// Calculate frequency from a MIDI Note Number
-    ///
-    /// - returns: Frequency (Double) in Hz
-    ///
-    public func midiNoteToFrequency() -> Double {
-        return pow(2.0, (Double(self) - 69.0) / 12.0) * 440.0
-    }
-}
+// MARK: - Randomization Helpers
 
 /// Global function for random integers
 ///
@@ -31,7 +21,6 @@ public func randomInt(range: Range<Int>) -> Int {
     let width = range.maxElement()! - range.minElement()!
     return Int(arc4random_uniform(UInt32(width))) + range.minElement()!
 }
-
 
 /// Extension to Array for Random Element
 extension Array {
