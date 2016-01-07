@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     var exs = AKSampler()
     var exs2 = AKSampler()
     var osc = AKOscillator()
-    var midiInst:AKOscIsntrument?
+    var midiInst:AKNoiseIsntrument?
     var seq = AKSequencer(filename:"4tracks")
     var mixer = AKMixer()
 //    var spatMix = AKSpatialMixer()
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         
         let sawtooth = AKTable(.Sawtooth, size: 16)
         for value in sawtooth.values { value }
-        midiInst = AKOscIsntrument(table: sawtooth, numVoicesInit: 4)
+        midiInst = AKNoiseIsntrument(white: false, numVoicesInit: 4)
         mixer.connect(midiInst!)
 //        mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
