@@ -20,10 +20,13 @@ public class AKMidiInstrument: AKNode {
     public var midiIn = MIDIEndpointRef()
     
     public var name = "AKMidiInstrument"
-    public var voices:[AKVoice] = []
-    var notesPlayed:[Int] = []
+    
+    public var voices: [AKVoice] = []
+    var notesPlayed: [Int] = []
+    
     var voicePlaying = 0
     var numVoices = 1
+    
     let subMixer = AKMixer()
     
     public init(inst:AKVoice, numVoicesInit:Int = 1) {
@@ -67,7 +70,7 @@ public class AKMidiInstrument: AKNode {
         let chan = Int((notif.userInfo?["channel"])! as! NSNumber)
         if(notif.name == AKMidiStatus.NoteOn.name() && vel > 0){
             handleNoteOn(UInt8(note), withVelocity: UInt8(vel), onChannel: UInt8(chan))
-        }else if(notif.name == AKMidiStatus.NoteOn.name() && vel == 0){
+        } else if ((notif.name == AKMidiStatus.NoteOn.name() && vel == 0) || notif.name == AKMidiStatus.NoteOff.name()){
             handleNoteOff(UInt8(note), onChannel: UInt8(chan))
         }
     }
