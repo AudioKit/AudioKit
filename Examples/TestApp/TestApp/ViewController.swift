@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     var exs = AKSampler()
     var exs2 = AKSampler()
     var osc = AKOscillator()
-    var midiInst:AKNoiseIsntrument?
+    var midiInst:AKFMOscillatorInstrument?
     var seq = AKSequencer(filename:"4tracks")
     var mixer = AKMixer()
 //    var spatMix = AKSpatialMixer()
@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         
         let sawtooth = AKTable(.Sawtooth, size: 16)
         for value in sawtooth.values { value }
-        midiInst = AKNoiseIsntrument(white: false, numVoicesInit: 4)
+        midiInst = AKFMOscillatorInstrument(numVoicesInit: 4)
         mixer.connect(midiInst!)
 //        mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
@@ -122,10 +122,12 @@ class ViewController: UIViewController {
     }
     @IBAction func changeReverb(sender: UISlider) {
         guard let reverb = verb2 else { return }
-        reverb.dryWetMix = Double(100.0 * sender.value)
+//        reverb.dryWetMix = Double(100.0 * sender.value)
+        midiInst?.modulationIndex = Double(10.0*sender.value)
     }
     @IBAction func changeDelayTime(sender: UISlider) {
         //if let delay = delay { delay.delayTime = NSTimeInterval(sender.value) }
+        print("\(norm2value(Double(sender.value), loLimit: 0.001, hiLimit: 20000, taper: 10))")
     }
     @IBAction func changeCutoff(sender: UISlider) {
         guard let moog = moog else { return }

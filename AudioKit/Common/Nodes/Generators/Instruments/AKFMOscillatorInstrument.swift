@@ -23,7 +23,6 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
         let amplitude = Double(velocity)/127.0
         let fmVoice = voices[voice] as! AKFMOscillator //you'll need to cast the voice to it's original form
         fmVoice.baseFrequency = frequency
-        fmVoice.modulatingMultiplier = amplitude * 10.0
         fmVoice.amplitude = amplitude
         fmVoice.start()
     }
@@ -33,10 +32,50 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
         fmVoice.stop()
     }
     
-    public func setModAmount(amt: Double){
-        for voice in voices{
-            let fmVoice = voice as! AKFMOscillator
-            fmVoice.modulationIndex = amt
+    /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+    public var baseFrequency: Double = 440 {
+        didSet {
+            for voice in voices{
+                let fmVoice = voice as! AKFMOscillator
+                fmVoice.baseFrequency = baseFrequency
+            }
         }
     }
+    /// This multiplied by the baseFrequency gives the carrier frequency.
+    public var carrierMultiplier: Double = 1.0 {
+        didSet {
+            for voice in voices{
+                let fmVoice = voice as! AKFMOscillator
+                fmVoice.carrierMultiplier = carrierMultiplier
+            }
+        }
+    }
+    /// This multiplied by the baseFrequency gives the modulating frequency.
+    public var modulatingMultiplier: Double = 1 {
+        didSet {
+            for voice in voices{
+                let fmVoice = voice as! AKFMOscillator
+                fmVoice.modulatingMultiplier = modulatingMultiplier
+            }
+        }
+    }
+    /// This multiplied by the modulating frequency gives the modulation amplitude.
+    public var modulationIndex: Double = 1 {
+        didSet {
+            for voice in voices{
+                let fmVoice = voice as! AKFMOscillator
+                fmVoice.modulationIndex = modulationIndex
+            }
+        }
+    }
+    /// Output Amplitude.
+    public var amplitude: Double = 1 {
+        didSet {
+            for voice in voices{
+                let fmVoice = voice as! AKFMOscillator
+                fmVoice.amplitude = amplitude
+            }
+        }
+    }
+
 }

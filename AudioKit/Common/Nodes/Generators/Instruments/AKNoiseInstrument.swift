@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKNoiseIsntrument: AKMidiInstrument{
+public class AKNoiseInstrument: AKMidiInstrument{
     
     public var white:Bool = true
     public var pink:Bool{

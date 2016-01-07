@@ -57,3 +57,32 @@ public func random(minimum: Double, _ maximum: Double) -> Double {
 }
 
 
+// convert knob on [0,1] to value in [loLimit,hiLimit] according to taper
+public func norm2value(knob: Double, loLimit: Double, hiLimit: Double, taper: Double) -> Double
+{
+    let value:Double
+    if (taper > 0.0) {
+        // algebraic taper
+        value = loLimit + (hiLimit - loLimit) * pow(knob, taper);
+    }else {
+        // exponential taper
+        value = loLimit * exp(log(hiLimit / loLimit) * knob);
+    }
+    return value;
+};
+
+//-----------------------------------------------------------------------------------------
+public func value2norm(val: Double, loLimit: Double, hiLimit: Double, taper: Double) -> Double
+// convert value in [loLimit,hiLimt] to knob on [0,1] according to taper
+{
+    let knob:Double
+    if (taper > 0.0) {
+        // algebraic taper
+        knob = pow(((val - loLimit) / (hiLimit - loLimit)), (1.0 / taper));
+    }else {
+        // exponential taper
+        knob = log(val / loLimit) / log(hiLimit / loLimit);
+    }
+    return knob;
+};
+
