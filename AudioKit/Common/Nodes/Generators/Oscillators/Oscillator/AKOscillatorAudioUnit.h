@@ -12,6 +12,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKOscillatorAudioUnit : AUAudioUnit
+@property float frequency;
+
 - (void)setupTable:(int)size;
 - (void)setTableValue:(float)value atIndex:(UInt32)index;
 - (void)start;

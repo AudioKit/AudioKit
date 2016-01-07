@@ -111,7 +111,10 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             double frequency = double(frequencyRamper.getStep());
             double amplitude = double(amplitudeRamper.getStep());
-
+            
+            if (actualFrequency > 0) {
+                frequency = actualFrequency;
+            }
             int frameOffset = int(frameIndex + bufferOffset);
 
             osc->freq = (float)frequency;
@@ -147,6 +150,7 @@ private:
     UInt32 ftbl_size = 4096;
 
 public:
+    double actualFrequency = 0;
     bool started = false;
     AKParameterRamper frequencyRamper = 440;
     AKParameterRamper amplitudeRamper = 1;
