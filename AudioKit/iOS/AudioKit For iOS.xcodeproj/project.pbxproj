@@ -481,6 +481,7 @@
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
 		FE0929931C23AA6F00845CC6 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */; };
 		FE26E5C91C37194300A09C0C /* AKMidiInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */; };
+		FEEB8EEB1C3DF09600626558 /* AKMusicVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EEA1C3DF09600626558 /* AKMusicVoice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -972,6 +973,7 @@
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
 		FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrument.swift; sourceTree = "<group>"; };
+		FEEB8EEA1C3DF09600626558 /* AKMusicVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMusicVoice.swift; path = ../AKMusicVoice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1314,6 +1316,7 @@
 				C48AA6631C0FA382006EB131 /* Noise */,
 				C42F35561C057F4C000E937C /* Oscillators */,
 				FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */,
+				FEEB8EEA1C3DF09600626558 /* AKMusicVoice.swift */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -2898,6 +2901,7 @@
 				C408698D1C192C5E00EF9DED /* EZAudioDevice.m in Sources */,
 				C42FFBE41C3D195000823BD4 /* AKBooster.swift in Sources */,
 				C4E751B01C23675A00688A1B /* modalResonanceFilter.swift in Sources */,
+				FEEB8EEB1C3DF09600626558 /* AKMusicVoice.swift in Sources */,
 				C4E9589B1C0ADBFD00516A6A /* base.c in Sources */,
 				C4537FB71C3A438D00A51738 /* AKCombFilterAudioUnit.mm in Sources */,
 				C42FFBEC1C3D1FD100823BD4 /* AKDryWetMixer.swift in Sources */,
