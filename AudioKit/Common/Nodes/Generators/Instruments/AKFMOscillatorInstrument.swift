@@ -1,5 +1,5 @@
 //
-//  AKFMOscInstrument.swift
+//  AKFMOscillatorInstrument.swift
 //  AudioKit For iOS
 //
 //  Created by Jeff Cooper on 1/6/16.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKFMOscIsntrument: AKMidiInstrument{
+public class AKFMOscillatorInstrument: AKMidiInstrument{
     public init(numVoicesInit: Int) {
         super.init(inst: AKFMOscillator(), numVoicesInit: numVoicesInit)
         for voice in voices{
@@ -23,6 +23,7 @@ public class AKFMOscIsntrument: AKMidiInstrument{
         let amplitude = Double(velocity)/127.0
         let fmVoice = voices[voice] as! AKFMOscillator //you'll need to cast the voice to it's original form
         fmVoice.baseFrequency = frequency
+        fmVoice.modulatingMultiplier = amplitude * 10.0
         fmVoice.amplitude = amplitude
         fmVoice.start()
     }
