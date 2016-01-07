@@ -14,13 +14,13 @@ class ViewController: UIViewController {
     let audiokit = AKManager.sharedInstance
     var midi = AKMidi()
    
-    var midiInst:AKFMOscillatorInstrument?
+    var midiInst:AKOscillatorInstrument?
     var mixer = AKMixer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        midiInst = AKFMOscillatorInstrument(numVoicesInit: 12)
-//        midiInst = AKOscillatorInstrument(table: AKTable(.Sine), numVoicesInit: 12)
+//        midiInst = AKFMOscillatorInstrument(numVoicesInit: 12)
+        midiInst = AKOscillatorInstrument(table: AKTable(.Sine), numVoicesInit: 12)
         //AKMidiInstrument(inst: AKOscillator(), numVoicesInit: 12)
         
         midi.openMidiIn("Session 1")
