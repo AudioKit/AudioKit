@@ -481,8 +481,13 @@
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
 		FE0929931C23AA6F00845CC6 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */; };
 		FE26E5C91C37194300A09C0C /* AKMidiInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */; };
+		FE2ECDA11C3E16B200DB41A1 /* AKNoiseInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2ECDA01C3E16B200DB41A1 /* AKNoiseInstrument.swift */; };
 		FEEB8EEB1C3DF09600626558 /* AKVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EEA1C3DF09600626558 /* AKVoice.swift */; };
 		FEEB8EEE1C3E0C7E00626558 /* AKOscInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */; };
+		FEEB8EF21C3E10F500626558 /* AKFMOscInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF11C3E10F500626558 /* AKFMOscInstrument.swift */; };
+		FEEB8EF41C3E130700626558 /* AKTriangleInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */; };
+		FEEB8EF61C3E136D00626558 /* AKSquareInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */; };
+		FEEB8EF81C3E13B000626558 /* AKSawInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEB8EF71C3E13B000626558 /* AKSawInstrument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -974,8 +979,13 @@
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
 		FE26E5C81C37194300A09C0C /* AKMidiInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrument.swift; sourceTree = "<group>"; };
+		FE2ECDA01C3E16B200DB41A1 /* AKNoiseInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKNoiseInstrument.swift; path = Instruments/AKNoiseInstrument.swift; sourceTree = "<group>"; };
 		FEEB8EEA1C3DF09600626558 /* AKVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKVoice.swift; path = ../AKVoice.swift; sourceTree = "<group>"; };
 		FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscInstrument.swift; path = Instruments/AKOscInstrument.swift; sourceTree = "<group>"; };
+		FEEB8EF11C3E10F500626558 /* AKFMOscInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFMOscInstrument.swift; path = Instruments/AKFMOscInstrument.swift; sourceTree = "<group>"; };
+		FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTriangleInstrument.swift; path = Instruments/AKTriangleInstrument.swift; sourceTree = "<group>"; };
+		FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSquareInstrument.swift; path = Instruments/AKSquareInstrument.swift; sourceTree = "<group>"; };
+		FEEB8EF71C3E13B000626558 /* AKSawInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKSawInstrument.swift; path = Instruments/AKSawInstrument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2340,6 +2350,11 @@
 			isa = PBXGroup;
 			children = (
 				FEEB8EED1C3E0C7E00626558 /* AKOscInstrument.swift */,
+				FEEB8EF11C3E10F500626558 /* AKFMOscInstrument.swift */,
+				FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */,
+				FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */,
+				FEEB8EF71C3E13B000626558 /* AKSawInstrument.swift */,
+				FE2ECDA01C3E16B200DB41A1 /* AKNoiseInstrument.swift */,
 			);
 			name = Instruments;
 			sourceTree = "<group>";
@@ -2601,6 +2616,7 @@
 				C4E958CE1C0ADBFD00516A6A /* port.c in Sources */,
 				C48443651C3117D7007BE794 /* tblrec.c in Sources */,
 				C45380181C3A4CCE00A51738 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
+				FEEB8EF61C3E136D00626558 /* AKSquareInstrument.swift in Sources */,
 				C46300FE1C20C342009B44D9 /* randi.c in Sources */,
 				C45380731C3A5BDA00A51738 /* AKOscillator.swift in Sources */,
 				C46300E21C20C342009B44D9 /* dmetro.c in Sources */,
@@ -2663,6 +2679,7 @@
 				C40869971C192C5E00EF9DED /* EZAudioFloatData.m in Sources */,
 				C46301081C20C342009B44D9 /* tabread.c in Sources */,
 				C4E958D61C0ADBFD00516A6A /* reverse.c in Sources */,
+				FEEB8EF41C3E130700626558 /* AKTriangleInstrument.swift in Sources */,
 				C4537FE81C3A438D00A51738 /* AKRolandTB303FilterAudioUnit.mm in Sources */,
 				C46300E91C20C342009B44D9 /* gen_sinesum.c in Sources */,
 				C4E958BE1C0ADBFD00516A6A /* maygate.c in Sources */,
@@ -2814,6 +2831,7 @@
 				C4A9164F1C24F95E006C1A15 /* periodicTrigger.swift in Sources */,
 				C4537FEE1C3A438D00A51738 /* AKThreePoleLowpassFilter.swift in Sources */,
 				C4537FAC1C3A438D00A51738 /* AKBandPassButterworthFilter.swift in Sources */,
+				FEEB8EF81C3E13B000626558 /* AKSawInstrument.swift in Sources */,
 				C4E958DD1C0ADBFD00516A6A /* scale.c in Sources */,
 				C4537F0F1C39D0B400A51738 /* AKVariableDelay.swift in Sources */,
 				C46300D81C20C342009B44D9 /* biscale.c in Sources */,
@@ -2835,6 +2853,7 @@
 				C46300E11C20C342009B44D9 /* dist.c in Sources */,
 				C46302841C20E7A7009B44D9 /* dcBlock.swift in Sources */,
 				C4DC86F91C07A1F700CA2591 /* AKTable.swift in Sources */,
+				FEEB8EF21C3E10F500626558 /* AKFMOscInstrument.swift in Sources */,
 				C4E958A01C0ADBFD00516A6A /* buthp.c in Sources */,
 				C4E958A41C0ADBFD00516A6A /* count.c in Sources */,
 				C46300F11C20C342009B44D9 /* mincer.c in Sources */,
@@ -2857,6 +2876,7 @@
 				C46302801C20E7A7009B44D9 /* delay.swift in Sources */,
 				C467816D1C1C0C090000BF29 /* AKNodeOutputPlot.swift in Sources */,
 				C4537FE41C3A438D00A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
+				FE2ECDA11C3E16B200DB41A1 /* AKNoiseInstrument.swift in Sources */,
 				C42F36041C057F4C000E937C /* AKDSPKernel.mm in Sources */,
 				C46301101C20C342009B44D9 /* zitarev.c in Sources */,
 				C4537FB31C3A438D00A51738 /* AKBandRejectButterworthFilterAudioUnit.mm in Sources */,
