@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         
         let sawtooth = AKTable(.Sawtooth, size: 16)
         for value in sawtooth.values { value }
-        midiInst = AKMidiInstrument(osc: AKOscillator(table: sawtooth), numVoicesInit: 4)
+        midiInst = AKMidiInstrument(inst: AKOscillator(table: sawtooth), numVoicesInit: 4)
         mixer.connect(midiInst!)
 //        mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
@@ -72,8 +72,8 @@ class ViewController: UIViewController {
         midiInst!.enableMidi(midi.midiClient, name: "PolyOsc")
         seq.setGlobalMidiOutput((midiInst?.midiIn)!)
 //        print(seq.numTracks)
-        seq.tracks[1].addNote(36, vel: 127, position: 0, dur: 1.1) //purposefully adding a note that is too long to show it gets truncated
-        seq.setLength(1) //truncates above note
+        //seq.tracks[1].addNote(36, vel: 127, position: 0, dur: 1.1) //purposefully adding a note that is too long to show it gets truncated
+        seq.setLength(4) //truncates above note
         //seq.debug()
         print(seq.tracks[1].length)
     }

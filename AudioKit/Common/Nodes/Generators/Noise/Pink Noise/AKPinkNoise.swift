@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-public class AKPinkNoise: AKNode, AKToggleable {
+public class AKPinkNoise: AKMusicVoice {
 
     // MARK: - Properties
 
@@ -90,7 +90,7 @@ public class AKPinkNoise: AKNode, AKToggleable {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKPinkNoise {
+    public func copy() -> AKMusicVoice {
         let copy = AKPinkNoise(amplitude: self.amplitude)
         return copy
     }
