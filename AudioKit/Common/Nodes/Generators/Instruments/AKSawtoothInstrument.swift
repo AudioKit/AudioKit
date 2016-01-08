@@ -1,5 +1,5 @@
 //
-//  AKSquareInstrument.swift
+//  AKSawtoothInstrument.swift
 //  AudioKit For iOS
 //
 //  Created by Aurelius Prochazka on 1/8/16.
@@ -9,24 +9,13 @@
 import Foundation
 import AVFoundation
 
-public class AKSquareInstrument: AKMidiInstrument{
-    
-    /// Duty cycle width (range 0-1).
-    public var pulseWidth: Double = 0.5 {
-        didSet {
-            for voice in voices {
-                let squareVoice = voice as! AKSquareVoice
-                squareVoice.oscillator.pulseWidth = pulseWidth
-            }
-        }
-    }
-    
+public class AKSawtoothInstrument: AKMidiInstrument{
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
             for voice in voices {
-                let squareVoice = voice as! AKSquareVoice
-                squareVoice.adsr.attackDuration = attackDuration
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.attackDuration = attackDuration
             }
         }
     }
@@ -34,8 +23,8 @@ public class AKSquareInstrument: AKMidiInstrument{
     public var decayDuration: Double = 0.1 {
         didSet {
             for voice in voices {
-                let squareVoice = voice as! AKSquareVoice
-                squareVoice.adsr.decayDuration = decayDuration
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.decayDuration = decayDuration
             }
         }
     }
@@ -43,8 +32,8 @@ public class AKSquareInstrument: AKMidiInstrument{
     public var sustainLevel: Double = 0.66 {
         didSet {
             for voice in voices {
-                let squareVoice = voice as! AKSquareVoice
-                squareVoice.adsr.sustainLevel = sustainLevel
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.sustainLevel = sustainLevel
             }
         }
     }
@@ -52,42 +41,42 @@ public class AKSquareInstrument: AKMidiInstrument{
     public var releaseDuration: Double = 0.5 {
         didSet {
             for voice in voices {
-                let squareVoice = voice as! AKSquareVoice
-                squareVoice.adsr.releaseDuration = releaseDuration
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.releaseDuration = releaseDuration
             }
         }
     }
     
     public init(voiceCount: Int) {
-        super.init(voice: AKSquareVoice(), voiceCount: voiceCount)
+        super.init(voice: AKSawtoothVoice(), voiceCount: voiceCount)
     }
     
     public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
         let frequency = Int(note).midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let squareVoice = voices[voice] as! AKSquareVoice //you'll need to cast the voice to it's original form
-        squareVoice.oscillator.frequency = frequency
-        squareVoice.oscillator.amplitude = amplitude
-        squareVoice.start()
+        let sawtoothVoice = voices[voice] as! AKSawtoothVoice //you'll need to cast the voice to it's original form
+        sawtoothVoice.oscillator.frequency = frequency
+        sawtoothVoice.oscillator.amplitude = amplitude
+        sawtoothVoice.start()
     }
     public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
-        let squareVoice = voices[voice] as! AKSquareVoice //you'll need to cast the voice to its original form
-        squareVoice.stop()
+        let sawtoothVoice = voices[voice] as! AKSawtoothVoice //you'll need to cast the voice to its original form
+        sawtoothVoice.stop()
     }
 }
 
-internal class AKSquareVoice: AKVoice {
+internal class AKSawtoothVoice: AKVoice {
     
     /// Required property for AKNode
     var avAudioNode: AVAudioNode
     /// Required property for AKNode containing all the node's connections
     var connectionPoints = [AVAudioConnectionPoint]()
     
-    var oscillator: AKSquareWaveOscillator
+    var oscillator: AKSawtoothOscillator
     var adsr: AKAmplitudeEnvelope
     
     init() {
-        oscillator = AKSquareWaveOscillator()
+        oscillator = AKSawtoothOscillator()
         adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
         
         self.avAudioNode = adsr.avAudioNode
@@ -95,7 +84,7 @@ internal class AKSquareVoice: AKVoice {
     
     /// Function create an identical new node for use in creating polyphonic instruments
     func copy() -> AKVoice {
-        let copy = AKSquareVoice()
+        let copy = AKSawtoothVoice()
         return copy
     }
     
