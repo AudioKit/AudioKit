@@ -42,11 +42,21 @@
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qdp-4k-Wkm">
                                 <rect key="frame" x="18" y="512" width="564" height="31"/>
                             </slider>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gyW-Ib-s3E">
+                                <rect key="frame" x="20" y="201" width="560" height="29"/>
+                                <segments>
+                                    <segment title="Sine"/>
+                                    <segment title="Triangle"/>
+                                    <segment title="Saw"/>
+                                    <segment title="Square"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="qiG-nj-t82" secondAttribute="leading" id="1yO-6b-xBf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qiG-nj-t82" secondAttribute="trailing" id="5vS-ny-EMe"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="gyW-Ib-s3E" secondAttribute="leading" id="76M-ac-L1s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eQ8-Sl-dvn" secondAttribute="trailing" id="7cu-lw-Xla"/>
                             <constraint firstItem="iba-6B-m6O" firstAttribute="top" secondItem="eQ8-Sl-dvn" secondAttribute="bottom" constant="8" id="9Gs-OG-8lA"/>
                             <constraint firstAttribute="leadingMargin" secondItem="qdp-4k-Wkm" secondAttribute="leading" id="BVd-Ef-pmu"/>
@@ -62,8 +72,10 @@
                             <constraint firstAttribute="leadingMargin" secondItem="fQL-EZ-l7t" secondAttribute="leading" id="hbA-xO-BPc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CGb-Bw-1I9" secondAttribute="trailing" id="jDR-LF-1Xg"/>
                             <constraint firstAttribute="leadingMargin" secondItem="w0g-iO-gBO" secondAttribute="leading" id="oTs-oi-bpH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gyW-Ib-s3E" secondAttribute="trailing" id="pbd-72-2RE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fQL-EZ-l7t" secondAttribute="trailing" id="pfD-uL-hux"/>
                             <constraint firstItem="eQ8-Sl-dvn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="qDi-FM-vS4"/>
+                            <constraint firstItem="gyW-Ib-s3E" firstAttribute="top" secondItem="fQL-EZ-l7t" secondAttribute="bottom" constant="8" id="wwM-D3-Usr"/>
                             <constraint firstItem="fQL-EZ-l7t" firstAttribute="top" secondItem="CGb-Bw-1I9" secondAttribute="bottom" constant="8" id="yic-pe-ODd"/>
                             <constraint firstItem="CGb-Bw-1I9" firstAttribute="top" secondItem="qiG-nj-t82" secondAttribute="bottom" constant="8" id="zbt-Un-bFi"/>
                         </constraints>
@@ -76,6 +88,7 @@
                         <outlet property="slider3" destination="CGb-Bw-1I9" id="rDf-5M-9He"/>
                         <outlet property="slider4" destination="fQL-EZ-l7t" id="uVo-b5-K2a"/>
                         <outlet property="statusLabel" destination="eQ8-Sl-dvn" id="ykq-7K-t37"/>
+                        <outlet property="waveformSegmentedControl" destination="gyW-Ib-s3E" id="SF2-UY-svK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
