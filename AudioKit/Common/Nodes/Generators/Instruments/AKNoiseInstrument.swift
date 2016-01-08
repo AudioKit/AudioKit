@@ -20,6 +20,43 @@ public class AKNoiseInstrument: AKMidiInstrument{
         }
     }
     
+    /// Attack time
+    public var attackDuration: Double = 0.1 {
+        didSet {
+            for voice in voices {
+                let noiseVoice = voice as! AKNoiseVoice
+                noiseVoice.adsr.attackDuration = attackDuration
+            }
+        }
+    }
+    /// Decay time
+    public var decayDuration: Double = 0.1 {
+        didSet {
+            for voice in voices {
+                let noiseVoice = voice as! AKNoiseVoice
+                noiseVoice.adsr.decayDuration = decayDuration
+            }
+        }
+    }
+    /// Sustain Level
+    public var sustainLevel: Double = 0.66 {
+        didSet {
+            for voice in voices {
+                let noiseVoice = voice as! AKNoiseVoice
+                noiseVoice.adsr.sustainLevel = sustainLevel
+            }
+        }
+    }
+    /// Release time
+    public var releaseDuration: Double = 0.5 {
+        didSet {
+            for voice in voices {
+                let noiseVoice = voice as! AKNoiseVoice
+                noiseVoice.adsr.releaseDuration = releaseDuration
+            }
+        }
+    }
+    
     public init(whitePinkMix: Double, voiceCount: Int) {
         super.init(voice: AKNoiseVoice(whitePinkMix: whitePinkMix), voiceCount: voiceCount)
     }
@@ -55,6 +92,7 @@ internal class AKNoiseVoice: AKVoice {
             noiseMix.balance = whitePinkMix
         }
     }
+
     
     init(whitePinkMix: Double) {
         whiteNoise = AKWhiteNoise()
