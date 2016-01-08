@@ -11,7 +11,7 @@ import AVFoundation
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
 /// - parameter input: Input node to process
-/// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 50)
+/// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to  (Default: 0.5)
 /// - parameter gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
 /// - parameter minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
 /// - parameter maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
@@ -39,20 +39,20 @@ public class AKReverb2: AKNode, AKToggleable {
 
     private var lastKnownMix: Double = 50
     
-    /// Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 50)
-    public var dryWetMix: Double = 50 {
+    /// Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
+    public var dryWetMix: Double = 0.5 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
             }            
-            if dryWetMix > 100 {
-                dryWetMix = 100
+            if dryWetMix > 1 {
+                dryWetMix = 1
             }
             AudioUnitSetParameter(
                 internalAU,
                 kReverb2Param_DryWetMix,
                 kAudioUnitScope_Global, 0,
-                Float(dryWetMix), 0)
+                Float(dryWetMix * 100.0), 0)
         }
     }
 
@@ -164,7 +164,7 @@ public class AKReverb2: AKNode, AKToggleable {
     /// Initialize the reverb2 node
     ///
     /// - parameter input: Input node to process
-    /// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to 100 (Default: 50)
+    /// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
     /// - parameter gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
     /// - parameter minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
     /// - parameter maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
@@ -174,7 +174,7 @@ public class AKReverb2: AKNode, AKToggleable {
     ///
     public init(
         var _ input: AKNode,
-        dryWetMix: Double = 50,
+        dryWetMix: Double = 0.5,
         gain: Double = 0,
         minDelayTime: Double = 0.008,
         maxDelayTime: Double = 0.050,
@@ -196,7 +196,7 @@ public class AKReverb2: AKNode, AKToggleable {
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 
-            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, Float(dryWetMix), 0)
+            AudioUnitSetParameter(internalAU, kReverb2Param_DryWetMix, kAudioUnitScope_Global, 0, Float(dryWetMix * 100.0), 0)
             AudioUnitSetParameter(internalAU, kReverb2Param_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
             AudioUnitSetParameter(internalAU, kReverb2Param_MinDelayTime, kAudioUnitScope_Global, 0, Float(minDelayTime), 0)
             AudioUnitSetParameter(internalAU, kReverb2Param_MaxDelayTime, kAudioUnitScope_Global, 0, Float(maxDelayTime), 0)
