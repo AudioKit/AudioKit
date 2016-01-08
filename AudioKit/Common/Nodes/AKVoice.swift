@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 /// Protocol for all AudioKit Nodes
-public protocol AKVoice: AKNode, AKCopyableVoice, AKToggleable{
+public protocol AKVoice: AKNode, AKCopyableVoice, AKToggleable {
     
     //Combines these two protocols to allow for things like the midi instrument to work
 }

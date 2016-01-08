@@ -2354,9 +2354,9 @@
 			children = (
 				FEEB8EED1C3E0C7E00626558 /* AKOscillatorInstrument.swift */,
 				FEEB8EF11C3E10F500626558 /* AKFMOscillatorInstrument.swift */,
-				FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */,
-				FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */,
 				FEEB8EF71C3E13B000626558 /* AKSawInstrument.swift */,
+				FEEB8EF51C3E136D00626558 /* AKSquareInstrument.swift */,
+				FEEB8EF31C3E130700626558 /* AKTriangleInstrument.swift */,
 				FE2ECDA01C3E16B200DB41A1 /* AKNoiseInstrument.swift */,
 			);
 			name = Instruments;

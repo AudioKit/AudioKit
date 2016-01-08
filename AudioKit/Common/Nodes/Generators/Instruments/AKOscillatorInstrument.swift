@@ -13,7 +13,8 @@ public class AKOscillatorInstrument: AKMidiInstrument{
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
-            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+            for voice in voices {
+                let oscillatorVoice = voice as! AKOscillatorVoice
                 oscillatorVoice.adsr.attackDuration = attackDuration
             }
         }
@@ -21,7 +22,8 @@ public class AKOscillatorInstrument: AKMidiInstrument{
     /// Decay time
     public var decayDuration: Double = 0.1 {
         didSet {
-            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+            for voice in voices {
+                let oscillatorVoice = voice as! AKOscillatorVoice
                 oscillatorVoice.adsr.decayDuration = decayDuration
             }
         }
@@ -29,7 +31,8 @@ public class AKOscillatorInstrument: AKMidiInstrument{
     /// Sustain Level
     public var sustainLevel: Double = 0.66 {
         didSet {
-            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+            for voice in voices {
+                let oscillatorVoice = voice as! AKOscillatorVoice
                 oscillatorVoice.adsr.sustainLevel = sustainLevel
             }
         }
@@ -37,7 +40,8 @@ public class AKOscillatorInstrument: AKMidiInstrument{
     /// Release time
     public var releaseDuration: Double = 0.5 {
         didSet {
-            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+            for voice in voices {
+                let oscillatorVoice = voice as! AKOscillatorVoice
                 oscillatorVoice.adsr.releaseDuration = releaseDuration
             }
         }
@@ -69,13 +73,13 @@ internal class AKOscillatorVoice: AKVoice {
     
     var oscillator: AKOscillator
     var adsr: AKAmplitudeEnvelope
-
+    
     var table: AKTable
     
     init(table: AKTable) {
         oscillator = AKOscillator(table: table)
         adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
-
+        
         self.table = table
         self.avAudioNode = adsr.avAudioNode
     }
