@@ -12,7 +12,8 @@ import AVFoundation
 public class AKFMOscillatorInstrument: AKMidiInstrument{
     public init(voiceCount: Int) {
         super.init(voice: AKFMOscillatorVoice(), voiceCount: voiceCount)
-        for fmVoice in voices as! [AKFMOscillatorVoice] {
+        for voice in voices {
+            let fmVoice = voice as! AKFMOscillatorVoice
             fmVoice.oscillator.modulatingMultiplier = 4 //just some arbitrary default values
             fmVoice.oscillator.modulationIndex = 10
         }
@@ -31,7 +32,8 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
         didSet {
-            for fmVoice in voices as! [AKFMOscillatorVoice] {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
                 fmVoice.oscillator.carrierMultiplier = carrierMultiplier
             }
         }
@@ -39,7 +41,8 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
     /// This multiplied by the baseFrequency gives the modulating frequency.
     public var modulatingMultiplier: Double = 1 {
         didSet {
-            for fmVoice in voices as! [AKFMOscillatorVoice] {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
                 fmVoice.oscillator.modulatingMultiplier = modulatingMultiplier
             }
         }
@@ -47,7 +50,8 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     public var modulationIndex: Double = 1 {
         didSet {
-            for fmVoice in voices as! [AKFMOscillatorVoice] {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
                 fmVoice.oscillator.modulationIndex = modulationIndex
             }
         }
@@ -56,7 +60,8 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
-            for fmVoice in voices as! [AKFMOscillatorVoice] {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
                 fmVoice.adsr.attackDuration = attackDuration
             }
         }
@@ -64,7 +69,8 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
     /// Decay time
     public var decayDuration: Double = 0.1 {
         didSet {
-            for fmVoice in voices as! [AKFMOscillatorVoice] {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
                 fmVoice.adsr.decayDuration = decayDuration
             }
         }
@@ -72,7 +78,8 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
     /// Sustain Level
     public var sustainLevel: Double = 0.66 {
         didSet {
-            for fmVoice in voices as! [AKFMOscillatorVoice] {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
                 fmVoice.adsr.sustainLevel = sustainLevel
             }
         }
@@ -80,7 +87,8 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
     /// Release time
     public var releaseDuration: Double = 0.5 {
         didSet {
-            for fmVoice in voices as! [AKFMOscillatorVoice] {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
                 fmVoice.adsr.releaseDuration = releaseDuration
             }
         }
