@@ -10,6 +10,39 @@ import Foundation
 import AVFoundation
 
 public class AKOscillatorInstrument: AKMidiInstrument{
+    /// Attack time
+    public var attackDuration: Double = 0.1 {
+        didSet {
+            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+                oscillatorVoice.adsr.attackDuration = attackDuration
+            }
+        }
+    }
+    /// Decay time
+    public var decayDuration: Double = 0.1 {
+        didSet {
+            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+                oscillatorVoice.adsr.decayDuration = decayDuration
+            }
+        }
+    }
+    /// Sustain Level
+    public var sustainLevel: Double = 0.66 {
+        didSet {
+            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+                oscillatorVoice.adsr.sustainLevel = sustainLevel
+            }
+        }
+    }
+    /// Release time
+    public var releaseDuration: Double = 0.5 {
+        didSet {
+            for oscillatorVoice in voices as! [AKOscillatorVoice] {
+                oscillatorVoice.adsr.releaseDuration = releaseDuration
+            }
+        }
+    }
+    
     public init(table: AKTable, voiceCount: Int) {
         super.init(voice: AKOscillatorVoice(table: table), voiceCount: voiceCount)
     }
