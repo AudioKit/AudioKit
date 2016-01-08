@@ -13,9 +13,8 @@ public class AKNoiseInstrument: AKMidiInstrument{
     
     public var whitePinkMix: Double = 0 {
         didSet {
-            for voice in voices {
-                let noise = voice as! AKNoiseVoice
-                noise.whitePinkMix = whitePinkMix
+            for noiseVoice in voices as! [AKNoiseVoice] {
+                noiseVoice.whitePinkMix = whitePinkMix
             }
         }
     }
@@ -23,8 +22,7 @@ public class AKNoiseInstrument: AKMidiInstrument{
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
-            for voice in voices {
-                let noiseVoice = voice as! AKNoiseVoice
+            for noiseVoice in voices as! [AKNoiseVoice] {
                 noiseVoice.adsr.attackDuration = attackDuration
             }
         }
@@ -32,8 +30,7 @@ public class AKNoiseInstrument: AKMidiInstrument{
     /// Decay time
     public var decayDuration: Double = 0.1 {
         didSet {
-            for voice in voices {
-                let noiseVoice = voice as! AKNoiseVoice
+            for noiseVoice in voices as! [AKNoiseVoice] {
                 noiseVoice.adsr.decayDuration = decayDuration
             }
         }
@@ -41,8 +38,7 @@ public class AKNoiseInstrument: AKMidiInstrument{
     /// Sustain Level
     public var sustainLevel: Double = 0.66 {
         didSet {
-            for voice in voices {
-                let noiseVoice = voice as! AKNoiseVoice
+            for noiseVoice in voices as! [AKNoiseVoice] {
                 noiseVoice.adsr.sustainLevel = sustainLevel
             }
         }
@@ -50,8 +46,7 @@ public class AKNoiseInstrument: AKMidiInstrument{
     /// Release time
     public var releaseDuration: Double = 0.5 {
         didSet {
-            for voice in voices {
-                let noiseVoice = voice as! AKNoiseVoice
+            for noiseVoice in voices as! [AKNoiseVoice] {
                 noiseVoice.adsr.releaseDuration = releaseDuration
             }
         }
@@ -69,7 +64,6 @@ public class AKNoiseInstrument: AKMidiInstrument{
     }
     
     public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
-
         let noise = voices[voice] as! AKNoiseVoice
         noise.stop()
     }
