@@ -18,35 +18,37 @@ var distortion = AKDistortion(player)
 //: Delay parameters
 distortion.delay = 0.1 // Milliseconds
 distortion.decay = 1.0 // Rate
-distortion.delayMix = 50 // Percent
+distortion.delayMix = 0.1 // Normalized Value: 0 - 1
 
 //: Decimator parameters
-distortion.decimation = 50 // Percent
-distortion.rounding = 0 // Percent
-distortion.decimationMix = 50 // Percent
+distortion.decimation = 0.1    // Normalized Value: 0 - 1
+distortion.rounding = 0.1      // Normalized Value: 0 - 1
+distortion.decimationMix = 0.1 // Normalized Value: 0 - 1
 
 //: Ring modulator parameters
 distortion.ringModFreq1 = 100 // Hertz
 distortion.ringModFreq2 = 100 // Hertz
-distortion.ringModBalance = 50 // Percent
-distortion.ringModMix = 0 // Percent
+distortion.ringModBalance = 0.5 // Normalized Value: 0 - 1
+distortion.ringModMix = 0.5       // Normalized Value: 0 - 1
 
 
 //: Polynomial parameters
-distortion.linearTerm = 50 // Percent
-distortion.squaredTerm = 50 // Percent
-distortion.cubicTerm = 50 // Percent
-distortion.polynomialMix = 50 // Percent
+distortion.linearTerm    = 0.5 // Normalized Value: 0 - 1
+distortion.squaredTerm   = 0.5 // Normalized Value: 0 - 1
+distortion.cubicTerm     = 0.5 // Normalized Value: 0 - 1
+distortion.polynomialMix = 0.5 // Normalized Value: 0 - 1
 
 //: Gain and mix parameters
 distortion.softClipGain = -6 // dB
-distortion.finalMix = 50 // Percent
+distortion.finalMix = 0.2    // Normalized Value: 0 - 1
+
 audiokit.audioOutput = distortion
 audiokit.start()
 player.play()
 
 //: Toggle processing on every loop
 AKPlaygroundLoop(every: 3.428) { () -> () in
+
     if distortion.isBypassed {
         distortion.start()
     } else {
