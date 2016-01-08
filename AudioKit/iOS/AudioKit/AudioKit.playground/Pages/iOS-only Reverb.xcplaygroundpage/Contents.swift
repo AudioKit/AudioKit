@@ -17,7 +17,7 @@ player.looping = true
 var reverb2 = AKReverb2(player)
 
 //: Set the parameters here
-reverb2.dryWetMix = 100 // CrossFade
+reverb2.dryWetMix = 1 // CrossFade
 reverb2.gain = 0 // Decibels
 reverb2.minDelayTime = 0.008 // Secs
 reverb2.maxDelayTime = 0.050 // Secs
