@@ -15,9 +15,14 @@ class ViewController: UIViewController {
     var midi = AKMidi()
    
     var fm = AKFMOscillatorInstrument(voiceCount: 12)
-    var sine = AKOscillatorInstrument(table: AKTable(.Sine), voiceCount: 12)
+    
+    var sine     = AKOscillatorInstrument(table: AKTable(.Sine), voiceCount: 12)
     var triangle = AKTriangleInstrument(voiceCount: 12)
+    var sawtooth = AKSawtoothInstrument(voiceCount: 12)
+    var square   = AKSquareInstrument(voiceCount: 12)
+    
     var noise = AKNoiseInstrument(whitePinkMix: 0.5, voiceCount: 12)
+    
     var sourceMixer = AKMixer()
     var bitCrusher: AKBitCrusher?
     var bitCrushMixer: AKDryWetMixer?
@@ -46,9 +51,12 @@ class ViewController: UIViewController {
         fm.enableMidi(midi.midiClient, name: "fm")
         sine.enableMidi(midi.midiClient, name: "sine")
         triangle.enableMidi(midi.midiClient, name: "triangle")
+        sawtooth.enableMidi(midi.midiClient, name: "sawtooth")
+        square.enableMidi(midi.midiClient, name: "square")
+        
         noise.enableMidi(midi.midiClient, name: "noise")
         
-        sourceMixer = AKMixer(sine, triangle, fm, noise)
+        sourceMixer = AKMixer(sine, triangle, sawtooth, square, fm, noise)
         
         bitCrusher = AKBitCrusher(sourceMixer)
         bitCrushMixer = AKDryWetMixer(sourceMixer, bitCrusher!, t: 0.5)
@@ -90,8 +98,12 @@ class ViewController: UIViewController {
         switch waveformSegmentedControl.selectedSegmentIndex {
         case 0:
             sine.handleMidiNotif(notif)
-        case 0:
+        case 1:
             triangle.handleMidiNotif(notif)
+        case 2:
+            sawtooth.handleMidiNotif(notif)
+        case 3:
+            square.handleMidiNotif(notif)
         default:
             break
             // do nothing
@@ -104,6 +116,8 @@ class ViewController: UIViewController {
     @IBAction func updateOscillatorVolume(sender: UISlider) {
         sine.output.volume = Double(sender.value)
         triangle.output.volume = Double(sender.value)
+        sawtooth.output.volume = Double(sender.value)
+        square.output.volume = Double(sender.value)
         let status = String(format: "%0.2f", sine.output.volume)
         statusLabel.text = "Oscillator: Volume: \(status)"
     }
