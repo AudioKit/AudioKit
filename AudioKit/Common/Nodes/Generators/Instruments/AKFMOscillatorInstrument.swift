@@ -29,15 +29,6 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
         fmVoice.stop()
     }
     
-    /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    public var baseFrequency: Double = 440 {
-        didSet {
-            for voice in voices {
-                let fmVoice = voice as! AKFMOscillatorVoice
-                fmVoice.oscillator.baseFrequency = baseFrequency
-            }
-        }
-    }
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
         didSet {
@@ -65,12 +56,40 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
             }
         }
     }
-    /// Output Amplitude.
-    public var amplitude: Double = 1 {
+    
+    /// Attack time
+    public var attackDuration: Double = 0.1 {
         didSet {
             for voice in voices {
                 let fmVoice = voice as! AKFMOscillatorVoice
-                fmVoice.oscillator.amplitude = amplitude
+                fmVoice.adsr.attackDuration = attackDuration
+            }
+        }
+    }
+    /// Decay time
+    public var decayDuration: Double = 0.1 {
+        didSet {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
+                fmVoice.adsr.decayDuration = decayDuration
+            }
+        }
+    }
+    /// Sustain Level
+    public var sustainLevel: Double = 0.66 {
+        didSet {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
+                fmVoice.adsr.sustainLevel = sustainLevel
+            }
+        }
+    }
+    /// Release time
+    public var releaseDuration: Double = 0.5 {
+        didSet {
+            for voice in voices {
+                let fmVoice = voice as! AKFMOscillatorVoice
+                fmVoice.adsr.releaseDuration = releaseDuration
             }
         }
     }
