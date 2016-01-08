@@ -24,14 +24,23 @@
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qiG-nj-t82">
                                 <rect key="frame" x="18" y="87" width="564" height="31"/>
                             </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CGb-Bw-1I9">
+                                <rect key="frame" x="18" y="125" width="564" height="31"/>
+                            </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Output" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQ8-Sl-dvn">
                                 <rect key="frame" x="20" y="20" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CGb-Bw-1I9">
-                                <rect key="frame" x="18" y="125" width="564" height="31"/>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fQL-EZ-l7t">
+                                <rect key="frame" x="18" y="163" width="564" height="31"/>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="w0g-iO-gBO">
+                                <rect key="frame" x="18" y="550" width="564" height="31"/>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qdp-4k-Wkm">
+                                <rect key="frame" x="18" y="512" width="564" height="31"/>
                             </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -40,20 +49,32 @@
                             <constraint firstAttribute="trailingMargin" secondItem="qiG-nj-t82" secondAttribute="trailing" id="5vS-ny-EMe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eQ8-Sl-dvn" secondAttribute="trailing" id="7cu-lw-Xla"/>
                             <constraint firstItem="iba-6B-m6O" firstAttribute="top" secondItem="eQ8-Sl-dvn" secondAttribute="bottom" constant="8" id="9Gs-OG-8lA"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="qdp-4k-Wkm" secondAttribute="leading" id="BVd-Ef-pmu"/>
                             <constraint firstAttribute="leadingMargin" secondItem="CGb-Bw-1I9" secondAttribute="leading" id="N5L-ld-mHi"/>
+                            <constraint firstItem="w0g-iO-gBO" firstAttribute="top" secondItem="qdp-4k-Wkm" secondAttribute="bottom" constant="8" id="P3W-jl-TZI"/>
                             <constraint firstAttribute="leadingMargin" secondItem="iba-6B-m6O" secondAttribute="leading" id="QoE-ZT-mUk"/>
                             <constraint firstAttribute="leadingMargin" secondItem="eQ8-Sl-dvn" secondAttribute="leading" id="R7i-Ak-teh"/>
                             <constraint firstItem="qiG-nj-t82" firstAttribute="top" secondItem="iba-6B-m6O" secondAttribute="bottom" constant="8" id="Tts-48-cDA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iba-6B-m6O" secondAttribute="trailing" id="VmM-i8-6wu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="w0g-iO-gBO" secondAttribute="trailing" id="Z4a-Uc-E41"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qdp-4k-Wkm" secondAttribute="trailing" id="bzY-oR-VEx"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="w0g-iO-gBO" secondAttribute="bottom" constant="20" id="ehk-PE-FVv"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="fQL-EZ-l7t" secondAttribute="leading" id="hbA-xO-BPc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CGb-Bw-1I9" secondAttribute="trailing" id="jDR-LF-1Xg"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="w0g-iO-gBO" secondAttribute="leading" id="oTs-oi-bpH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fQL-EZ-l7t" secondAttribute="trailing" id="pfD-uL-hux"/>
                             <constraint firstItem="eQ8-Sl-dvn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="qDi-FM-vS4"/>
+                            <constraint firstItem="fQL-EZ-l7t" firstAttribute="top" secondItem="CGb-Bw-1I9" secondAttribute="bottom" constant="8" id="yic-pe-ODd"/>
                             <constraint firstItem="CGb-Bw-1I9" firstAttribute="top" secondItem="qiG-nj-t82" secondAttribute="bottom" constant="8" id="zbt-Un-bFi"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomSlider1" destination="w0g-iO-gBO" id="d6v-O0-4AU"/>
+                        <outlet property="bottomSlider2" destination="qdp-4k-Wkm" id="fdp-Z7-DFw"/>
                         <outlet property="slider1" destination="iba-6B-m6O" id="U95-gx-4hV"/>
                         <outlet property="slider2" destination="qiG-nj-t82" id="pFA-Wo-rea"/>
                         <outlet property="slider3" destination="CGb-Bw-1I9" id="rDf-5M-9He"/>
+                        <outlet property="slider4" destination="fQL-EZ-l7t" id="uVo-b5-K2a"/>
                         <outlet property="statusLabel" destination="eQ8-Sl-dvn" id="ykq-7K-t37"/>
                     </connections>
                 </viewController>
