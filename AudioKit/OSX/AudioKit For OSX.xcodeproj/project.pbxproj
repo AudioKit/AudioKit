@@ -462,7 +462,6 @@
 		C4DA4BE41C248EC200AA3771 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE11C248EC200AA3771 /* jitter.swift */; };
 		C4DA4BE51C248EC200AA3771 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE21C248EC200AA3771 /* randomNumberPulse.swift */; };
 		C4DA4BE61C248EC200AA3771 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE31C248EC200AA3771 /* randomVertexPulse.swift */; };
-		C4DA4BE91C248EFF00AA3771 /* AKMidiInstrumentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE71C248EFF00AA3771 /* AKMidiInstrumentControl.swift */; };
 		C4DA4BEA1C248EFF00AA3771 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE81C248EFF00AA3771 /* AKMusicTrack.swift */; };
 		C4E751E81C23885400688A1B /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751BC1C23885400688A1B /* AKOperation.swift */; };
 		C4E751E91C23885400688A1B /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751BF1C23885400688A1B /* delay.swift */; };
@@ -956,7 +955,6 @@
 		C4DA4BE11C248EC200AA3771 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C4DA4BE21C248EC200AA3771 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
 		C4DA4BE31C248EC200AA3771 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
-		C4DA4BE71C248EFF00AA3771 /* AKMidiInstrumentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrumentControl.swift; sourceTree = "<group>"; };
 		C4DA4BE81C248EFF00AA3771 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
 		C4E751BC1C23885400688A1B /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
 		C4E751BF1C23885400688A1B /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
@@ -1125,7 +1123,6 @@
 			children = (
 				C42F370C1C058442000E937C /* AKMidi.swift */,
 				C42F370D1C058442000E937C /* AKMidiEvent.swift */,
-				C4DA4BE71C248EFF00AA3771 /* AKMidiInstrumentControl.swift */,
 				C4DA4BE81C248EFF00AA3771 /* AKMusicTrack.swift */,
 			);
 			name = MIDI;
@@ -2895,7 +2892,6 @@
 				C4B1911E1C3B340400C0F330 /* scale.c in Sources */,
 				C4B1907D1C3B340400C0F330 /* kiss_fft.c in Sources */,
 				C42FFBAA1C3CFC3000823BD4 /* AKBalancer.swift in Sources */,
-				C4DA4BE91C248EFF00AA3771 /* AKMidiInstrumentControl.swift in Sources */,
 				C4E751ED1C23885400688A1B /* autoWah.swift in Sources */,
 				C45383741C3A5E4300A51738 /* AKModalResonanceFilterAudioUnit.mm in Sources */,
 				C4DA4BE41C248EC200AA3771 /* jitter.swift in Sources */,
@@ -3036,6 +3032,7 @@
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -3057,6 +3054,7 @@
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
