@@ -79,12 +79,10 @@
         <page name='Rolling Plot'/>
         <page name='Node Audio Plot'/>
         <page name='Node FFT Plot'/>
-        <page name='Polyphonic Osc'/>
         <page name='Amplitude Envelope'/>
         <page name='FM Oscillator Instrument'/>
         <page name='Fatten Effect'/>
         <page name='Filter Section Example'/>
         <page name='MultiDelay Example'/>
-        <page name='MIDI'/>
     </pages>
 </playground>

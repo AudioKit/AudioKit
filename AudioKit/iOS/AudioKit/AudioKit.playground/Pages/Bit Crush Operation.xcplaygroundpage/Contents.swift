@@ -21,6 +21,8 @@ let generator = AKOperationGenerator(operation: bitCrush * 0.2)
 audiokit.audioOutput = generator
 audiokit.start()
 
+generator.start()
+
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

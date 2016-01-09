@@ -22,6 +22,7 @@ let generator = AKOperationGenerator(left: leftOutput, right:  rightOutput)
 
 audiokit.audioOutput = generator
 audiokit.start()
+generator.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

@@ -19,7 +19,7 @@ var moogLadder = AKMoogLadder(player)
 //: Set the parameters of the Moog Ladder Filter here. Hertz is a common unit of measurement for a frequency parameter. TODO: find a non-terrible explanation of what "Cents" are.
 
 moogLadder.cutoffFrequency = 300 // Hz
-moogLadder.resonance = 0.6  // Cents
+moogLadder.resonance = 0.6  
 
 audiokit.audioOutput = moogLadder
 audiokit.start()

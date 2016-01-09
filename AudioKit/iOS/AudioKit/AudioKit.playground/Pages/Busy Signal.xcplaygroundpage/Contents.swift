@@ -22,6 +22,8 @@ let generator = AKOperationGenerator(operation: busySignal)
 audiokit.audioOutput = generator
 audiokit.start()
 
+generator.start()
+
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

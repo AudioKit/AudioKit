@@ -23,8 +23,8 @@ let ampedSampler = AKBooster(sampler, gain: 3.0)
 
 var delay  = AKDelay(ampedSampler)
 delay.time = pulse * 1.5
-delay.dryWetMix = 30
-delay.feedback = 20
+delay.dryWetMix = 0.3
+delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.LargeRoom)
