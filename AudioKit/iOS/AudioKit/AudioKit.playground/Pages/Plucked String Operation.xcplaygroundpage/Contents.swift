@@ -25,15 +25,15 @@ let pluck = AKOperation.pluckedString(
 let pluckNode = AKOperationGenerator(operation: pluck, triggered: true)
 
 var distortion = AKDistortion(pluckNode)
-distortion.finalMix = 50
+distortion.finalMix = 0.5
 distortion.decimationMix = 0
 distortion.ringModMix = 0
 distortion.softClipGain = 0
 
 var delay  = AKDelay(distortion)
 delay.time = 1.5 / playRate
-delay.dryWetMix = 30
-delay.feedback = 20
+delay.dryWetMix = 0.3
+delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 

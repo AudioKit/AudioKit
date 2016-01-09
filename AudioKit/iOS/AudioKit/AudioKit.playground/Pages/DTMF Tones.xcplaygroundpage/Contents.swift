@@ -25,12 +25,14 @@ keys["0"] = [941, 1336]
 keys["#"] = [941, 1477]
 
 let frequencies = keys["0"]!
-let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(0)) + AKOperation.sineWave(frequency: AKOperation.parameters(1))
+let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(1)) + AKOperation.sineWave(frequency: AKOperation.parameters(2))
 let momentaryPress = keyPressTone.triggeredWithEnvelope(AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
 let generator = AKOperationGenerator(operation: momentaryPress, triggered: true)
 
 audiokit.audioOutput = generator
 audiokit.start()
+
+generator.start()
 
 //: Let's call Jenny and Mary!
 let phoneNumber = "8675309  3212333 222 333 3212333322321"

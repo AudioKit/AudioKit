@@ -18,7 +18,7 @@ var reverb = AKReverb(player)
 
 //: Load factory preset and give the dry/wet mix amount here
 reverb.loadFactoryPreset(.Cathedral)
-reverb.dryWetMix = 50
+reverb.dryWetMix = 0.5
 
 audiokit.audioOutput = reverb
 audiokit.start()

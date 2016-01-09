@@ -18,8 +18,8 @@ player.looping = true
 var delay = AKDelay(player)
 
 delay.time = 0.01 // seconds
-delay.feedback  = 90 // Percent
-delay.dryWetMix = 60 // Percent
+delay.feedback  = 0.9 // Normalized Value 0 - 1
+delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
 audiokit.audioOutput = delay
 audiokit.start()

@@ -23,6 +23,7 @@ let generator = AKOperationGenerator(operation: oscillatorReverbMix)
 
 audiokit.audioOutput = generator
 audiokit.start()
+generator.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

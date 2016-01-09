@@ -24,6 +24,8 @@ let generator = AKOperationGenerator(operation: (drone1 + drone2 + drone3) / 3)
 audiokit.audioOutput = generator
 audiokit.start()
 
+generator.start()
+
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

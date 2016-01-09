@@ -31,6 +31,8 @@ let tracker = AKFrequencyTracker(oscillatorNode, minimumFrequency: minimum, maxi
 audiokit.audioOutput = tracker
 audiokit.start()
 
+oscillatorNode.start()
+
 //: And here's where we monitor the results of tracking the amplitude.
 AKPlaygroundLoop(every: 0.1) {
     let amp = tracker.amplitude
