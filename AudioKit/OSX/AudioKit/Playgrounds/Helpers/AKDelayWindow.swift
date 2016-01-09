@@ -101,7 +101,7 @@ public class AKDelayWindow: NSWindow {
         feedbackSlider.target = self
         feedbackSlider.action = "updateFeedback"
         feedbackSlider.minValue = 0
-        feedbackSlider.maxValue = 100
+        feedbackSlider.maxValue = 1
         feedbackSlider.doubleValue = delay.feedback
         feedbackSlider.frame.origin.y = feedbackTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(feedbackSlider)
@@ -121,7 +121,7 @@ public class AKDelayWindow: NSWindow {
         lowPassCutoffSlider.frame.origin.y = lowPassCutoffTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(lowPassCutoffSlider)
         
-        dryWetMixTextField.stringValue = "Dry/Wet Mix: \(delay.dryWetMix)%"
+        dryWetMixTextField.stringValue = "Dry/Wet Mix: \(delay.dryWetMix)"
         dryWetMixTextField.editable = false
         dryWetMixTextField.drawsBackground = false
         dryWetMixTextField.bezeled = false
@@ -131,7 +131,7 @@ public class AKDelayWindow: NSWindow {
         dryWetMixSlider.target = self
         dryWetMixSlider.action = "updateDryWetMix"
         dryWetMixSlider.minValue = 0
-        dryWetMixSlider.maxValue = 100
+        dryWetMixSlider.maxValue = 1
         dryWetMixSlider.doubleValue = delay.dryWetMix
         dryWetMixSlider.frame.origin.y = dryWetMixTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(dryWetMixSlider)
@@ -147,7 +147,7 @@ public class AKDelayWindow: NSWindow {
     
     internal func updateFeedback() {
         delay.feedback = feedbackSlider.doubleValue
-        feedbackTextField.stringValue = "Feedback: \(String(format: "%0.1f", delay.feedback))%"
+        feedbackTextField.stringValue = "Feedback: \(String(format: "%0.3f", delay.feedback))"
     }
     
     internal func updateLowPassCutoff() {
@@ -157,7 +157,7 @@ public class AKDelayWindow: NSWindow {
     
     internal func updateDryWetMix() {
         delay.dryWetMix = dryWetMixSlider.doubleValue
-        dryWetMixTextField.stringValue = "Dry/Wet Mix: \(String(format: "%0.1f", delay.dryWetMix))%"
+        dryWetMixTextField.stringValue = "Dry/Wet Mix: \(String(format: "%0.3f", delay.dryWetMix))"
     }
     
     /// Required Initializer
