@@ -10,6 +10,10 @@ import Foundation
 import AVFoundation
 
 /// AudioKit version of Apple's Reverb Audio Unit
+///
+/// - parameter input: AKNode to reverberate
+/// - parameter dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
+///
 public class AKReverb: AKNode, AKToggleable {
     private let reverbAU = AVAudioUnitReverb()
     
@@ -18,18 +22,18 @@ public class AKReverb: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
     
-    private var lastKnownMix: Double = 50
+    private var lastKnownMix: Double = 0.5
     
-    /// Dry/Wet Mix (Default 50) 
-    public var dryWetMix: Double = 50 {
+    /// Dry/Wet Mix (Default 0.5)
+    public var dryWetMix: Double = 0.5 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
             }
-            if dryWetMix > 100 {
-                dryWetMix = 100
+            if dryWetMix > 1 {
+                dryWetMix = 1
             }
-            reverbAU.wetDryMix = Float(dryWetMix)
+            reverbAU.wetDryMix = Float(dryWetMix) * 100
         }
     }
     
@@ -39,16 +43,16 @@ public class AKReverb: AKNode, AKToggleable {
     /// Initialize the reverb node
     ///
     /// - parameter input: AKNode to reverberate
-    /// - parameter dryWetMix: Percentage of processed signal (Default: 50, Minimum: 0, Maximum: 100)
+    /// - parameter dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
-    public init(var _ input: AKNode, dryWetMix: Double = 50) {
+    public init(var _ input: AKNode, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix
         
         self.avAudioNode = reverbAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)
         
-        reverbAU.wetDryMix = Float(dryWetMix)
+        reverbAU.wetDryMix = Float(dryWetMix) * 100.0
     }
     
     /// Load an Apple Factory Preset
