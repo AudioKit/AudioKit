@@ -16,12 +16,12 @@ class ViewController: UIViewController {
    
     var fm = AKFMOscillatorInstrument(voiceCount: 12)
     
-    var sine1     = AKOscillatorInstrument(table: AKTable(.Sine), voiceCount: 12)
+    var sine1     = AKOscillatorInstrument(waveform: AKTable(.Sine), voiceCount: 12)
     var triangle1 = AKTriangleInstrument(voiceCount: 12)
     var sawtooth1 = AKSawtoothInstrument(voiceCount: 12)
     var square1   = AKSquareInstrument(voiceCount: 12)
     
-    var sine2     = AKOscillatorInstrument(table: AKTable(.Sine), voiceCount: 12)
+    var sine2     = AKOscillatorInstrument(waveform: AKTable(.Sine), voiceCount: 12)
     var triangle2 = AKTriangleInstrument(voiceCount: 12)
     var sawtooth2 = AKSawtoothInstrument(voiceCount: 12)
     var square2   = AKSquareInstrument(voiceCount: 12)
