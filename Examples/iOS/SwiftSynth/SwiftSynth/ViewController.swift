@@ -67,8 +67,8 @@ class ViewController: UIViewController {
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
         
-        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
-        defaultCenter.addObserverForName(AKMidiStatus.NoteOff.name(), object: nil, queue: mainQueue, usingBlock: midiNoteNotif)
+        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: handleMidiNotification)
+        defaultCenter.addObserverForName(AKMidiStatus.NoteOff.name(), object: nil, queue: mainQueue, usingBlock: handleMidiNotification)
 
         slider1.value = Float(sine1.output.volume)
         slider1.addTarget(self, action: "updateOscillatorVolume:", forControlEvents: .ValueChanged)
@@ -90,23 +90,23 @@ class ViewController: UIViewController {
         
     }
     
-    func midiNoteNotif(notif: NSNotification) {
-        dump(notif)
+    func handleMidiNotification(notification: NSNotification) {
+        
         switch waveformSegmentedControl.selectedSegmentIndex {
         case 0:
-            sine1.handleMidiNotif(notif)
+            sine1.handleMidiNotification(notification)
         case 1:
-            triangle1.handleMidiNotif(notif)
+            triangle1.handleMidiNotification(notification)
         case 2:
-            sawtooth1.handleMidiNotif(notif)
+            sawtooth1.handleMidiNotification(notification)
         case 3:
-            square1.handleMidiNotif(notif)
+            square1.handleMidiNotification(notification)
         default:
             break
             // do nothing
         }
-        fm.handleMidiNotif(notif)
-        noise.handleMidiNotif(notif)
+        fm.handleMidiNotification(notification)
+        noise.handleMidiNotification(notification)
     }
 
     @IBAction func updateOscillatorVolume(sender: UISlider) {
