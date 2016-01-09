@@ -39,6 +39,7 @@ public:
         *blsaw->amp = 0.5;
     }
 
+
     void start() {
         started = true;
     }
@@ -54,6 +55,17 @@ public:
 
     void reset() {
     }
+
+    void setFrequency(float freq) {
+        frequency = freq;
+        frequencyRamper.set(clamp(freq, (float)0.0, (float)20000.0));
+    }
+
+    void setAmplitude(float amp) {
+        amplitude = amp;
+        amplitudeRamper.set(clamp(amp, (float)0.0, (float)1.0));
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -100,13 +112,13 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double frequency = double(frequencyRamper.getStep());
-            double amplitude = double(amplitudeRamper.getStep());
-
             int frameOffset = int(frameIndex + bufferOffset);
 
-            *blsaw->freq = (float)frequency;
-            *blsaw->amp = (float)amplitude;
+            frequency = double(frequencyRamper.getStep());
+            amplitude = double(amplitudeRamper.getStep());
+
+            *blsaw->freq = frequency;
+            *blsaw->amp = amplitude;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
@@ -134,6 +146,10 @@ private:
 
     sp_data *sp;
     sp_blsaw *blsaw;
+
+
+    float frequency = 440;
+    float amplitude = 0.5;
 
 public:
     bool started = false;

@@ -12,6 +12,10 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKSquareWaveOscillatorAudioUnit : AUAudioUnit
+@property (nonatomic) float frequency;
+@property (nonatomic) float amplitude;
+@property (nonatomic) float pulseWidth;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;

@@ -15,6 +15,7 @@
 @interface AKSawtoothOscillatorAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
+
 @property AUAudioUnitBusArray *outputBusArray;
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;
@@ -28,6 +29,14 @@
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
+
+- (void)setFrequency:(float)frequency {
+    _kernel.setFrequency(frequency);
+}
+- (void)setAmplitude:(float)amplitude {
+    _kernel.setAmplitude(amplitude);
+}
+
 
 - (void)start {
     _kernel.start();
