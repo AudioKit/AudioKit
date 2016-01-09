@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/"
+installation-directory: "Generators/Oscillators/Sawtooth/"
 
 sp-module: blsaw
 

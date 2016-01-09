@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/"
+installation-directory: "Generators/Oscillators/Oscillator/"
 
 sp-module: osc
 
@@ -17,7 +17,7 @@ description:
  Linear interpolation is applied for table look up from internal phase values.
 
 tables:
-- tbl: {
+- ftbl: {
   ak-variable: waveform,
   comment: "Shape of the table to oscillate.",
   default: sine
@@ -44,9 +44,9 @@ parameters:
     maximum: 10
 }
 
-constants:
-- iphs: {
-	ak-variable: phase,
-	comment: "Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).",
-	default: 0
-}
+# constants:
+# - iphs: {
+# 	ak-variable: phase,
+# 	comment: "Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).",
+# 	default: 0
+# }

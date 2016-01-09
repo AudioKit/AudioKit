@@ -9,12 +9,7 @@
 import AVFoundation
 
 /// AudioKit version of Apple's <%= au_name %> Audio Unit
-///
-/// - parameter input: Input node to process
-<% parameters.each do |parameter| -%>
-/// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
-<% end -%>
-///
+<%= parameter_docs_partial %>
 public class AK<%= au_name %>: AKNode, AKToggleable {
 
     private let cd = AudioComponentDescription(
@@ -36,6 +31,25 @@ public class AK<%= au_name %>: AKNode, AKToggleable {
     private var mixer: AKMixer
 
 <% parameters.each do |parameter| -%>
+<% if parameter[:type] == "Percent" -%>
+    /// <%= parameter[:variable].underscore.humanize.titlecase %> (Normalized Value) ranges from 0 to 1 (Default: <%= parameter[:default].to_f/100 %>)
+    public var <%= parameter[:variable] %>: Double = <%= parameter[:default].to_f/100 %> {
+        didSet {<% if parameter[:min] != "" %>
+            if <%= parameter[:variable] %> < 0 {
+                <%= parameter[:variable] %> = 0
+            }<% end -%>
+            <% if parameter[:max] != "" %>
+            if <%= parameter[:variable] %> > 1 {
+                <%= parameter[:variable] %> = 1
+            }<% end %>
+            AudioUnitSetParameter(
+                internalAU,
+                <%= parameter[:k_prefix] %>_<%= parameter[:name] %>,
+                kAudioUnitScope_<%= parameter[:scope] %>, 0,
+                Float(<%= parameter[:variable] %>) * 100.0, 0)
+        }
+    }
+<% else -%>
     /// <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
     public var <%= parameter[:variable] %>: Double = <%= parameter[:default] %> {
         didSet {<% if parameter[:min] != "" %>
@@ -53,23 +67,24 @@ public class AK<%= au_name %>: AKNode, AKToggleable {
                 Float(<%= parameter[:variable] %>), 0)
         }
     }
+<% end -%>
 
 <% end -%>
-    /// Dry/Wet Mix (Default 100)
-    public var dryWetMix: Double = 100 {
+    /// Dry/Wet Mix (Default 1, Minimum: 0, Maximum: 1)
+    public var dryWetMix: Double = 1 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
             }
-            if dryWetMix > 100 {
-                dryWetMix = 100
+            if dryWetMix > 1 {
+                dryWetMix = 1
             }
-            inputGain?.gain = 1 - dryWetMix / 100
-            effectGain?.gain = dryWetMix / 100
+            inputGain?.gain = 1 - dryWetMix
+            effectGain?.gain = dryWetMix
         }
     }
 
-    private var lastKnownMix: Double = 100
+    private var lastKnownMix: Double = 1
     private var inputGain: AKGain?
     private var effectGain: AKGain?
 
@@ -80,13 +95,21 @@ public class AK<%= au_name %>: AKNode, AKToggleable {
     ///
     /// - parameter input: Input node to process
 <% parameters.each do |parameter| -%>
+<% if parameter[:type] == "Percent" -%>
+    /// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (Normalized Value) ranges from 0 to 1 (Default: <%= parameter[:default].to_f/100 %>)
+<% else -%>
     /// - parameter <%= parameter[:variable] %>: <%= parameter[:variable].underscore.humanize.titlecase %> (<%= parameter[:type] %>) ranges from <%= parameter[:min] %> to <%= parameter[:max] %> (Default: <%= parameter[:default] %>)
+<% end -%>
 <% end -%>
     ///
     public init(
         _ input: AKNode,
 <% parameters.each_with_index do |parameter, i| -%>
+<% if parameter[:type] == "Percent" -%>
+        <%= parameter[:variable] %>: Double = <%= parameter[:default].to_f/100 %><%= ",\n" if i < parameters.count - 1 -%>
+<% else -%>
         <%= parameter[:variable] %>: Double = <%= parameter[:default] %><%= ",\n" if i < parameters.count - 1 -%>
+<% end -%>
 <% end %>) {
 
 <% parameters.each do |parameter| -%>
@@ -106,7 +129,11 @@ public class AK<%= au_name %>: AKNode, AKToggleable {
             self.avAudioNode = mixer.avAudioNode
 
 <% parameters.each do |parameter| -%>
+<% if parameter[:type] == "Percent" -%>
+            AudioUnitSetParameter(internalAU, <%= parameter[:k_prefix] %>_<%= parameter[:name] %>, kAudioUnitScope_<%= parameter[:scope] %>, 0, Float(<%= parameter[:variable] %>) * 100.0, 0)
+<% else -%>
             AudioUnitSetParameter(internalAU, <%= parameter[:k_prefix] %>_<%= parameter[:name] %>, kAudioUnitScope_<%= parameter[:scope] %>, 0, Float(<%= parameter[:variable] %>), 0)
+<% end -%>
 <% end -%>
     }
 

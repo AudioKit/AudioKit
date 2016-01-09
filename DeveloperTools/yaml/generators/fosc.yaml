@@ -1,4 +1,4 @@
-installation-directory: "Generators/Oscillators/"
+installation-directory: "Generators/Oscillators/FM Oscillator/"
 
 sp-module: fosc
 sporth-module: fm
@@ -19,7 +19,7 @@ description:
   Classic FM Synthesis audio generation.
 
 tables:
-- ft: {
+- ftbl: {
   ak-variable: waveform,
   comment: "Shape of the table to oscillate.",
   default: sine
