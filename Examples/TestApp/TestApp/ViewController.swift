@@ -51,7 +51,7 @@ class ViewController: UIViewController {
         
         let sawtooth = AKTable(.Sawtooth, size: 16)
         for value in sawtooth.values { value }
-        midiInst = AKFMOscillatorInstrument(numVoicesInit: 4)
+        midiInst = AKFMOscillatorInstrument(voiceCount: 4)
         mixer.connect(midiInst!)
 //        mixer.connect(exs2)
         moog    = AKMoogLadder(mixer)
@@ -121,13 +121,13 @@ class ViewController: UIViewController {
         midi.sendMidiEvent(event)
     }
     @IBAction func changeReverb(sender: UISlider) {
-        guard let reverb = verb2 else { return }
+        guard let _ = verb2 else { return }
 //        reverb.dryWetMix = Double(100.0 * sender.value)
         midiInst?.modulationIndex = Double(10.0*sender.value)
     }
     @IBAction func changeDelayTime(sender: UISlider) {
         //if let delay = delay { delay.delayTime = NSTimeInterval(sender.value) }
-        print("\(norm2value(Double(sender.value), loLimit: 0.001, hiLimit: 20000, taper: 10))")
+        //print("\(norm2value(Double(sender.value), loLimit: 0.001, hiLimit: 20000, taper: 10))")
     }
     @IBAction func changeCutoff(sender: UISlider) {
         guard let moog = moog else { return }
