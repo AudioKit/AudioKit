@@ -36,14 +36,24 @@ public class AKOscillator: AKVoice {
     public var frequency: Double = 440 {
         didSet {
             internalAU?.frequency = Float(frequency)
-//            frequencyParameter?.setValue(Float(frequency), originator: token!)
         }
     }
+    
+    /// Ramp to frequency over 20 ms (avoids clicking)
+    public func ramp(frequency freq: Double) {
+        frequencyParameter?.setValue(Float(freq), originator: token!)
+    }
+
     /// Output Amplitude.
     public var amplitude: Double = 1 {
         didSet {
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+            internalAU?.amplitude = Float(amplitude)
         }
+    }
+
+    /// Ramp to amplitude over 20 ms (avoids clicking)
+    public func ramp(amplitude amp: Double) {
+        amplitudeParameter?.setValue(Float(amp), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -113,8 +123,9 @@ public class AKOscillator: AKVoice {
                 }
             }
         }
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+            
+        internalAU?.frequency = Float(frequency)
+        internalAU?.amplitude = Float(amplitude)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
