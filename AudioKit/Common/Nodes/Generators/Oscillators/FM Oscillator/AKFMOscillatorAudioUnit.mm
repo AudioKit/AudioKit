@@ -15,6 +15,7 @@
 @interface AKFMOscillatorAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
+
 @property AUAudioUnitBusArray *outputBusArray;
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;
@@ -29,12 +30,27 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setupTable:(int)size {
-    _kernel.setupTable((uint32_t)size);
+- (void)setBaseFrequency:(float)baseFrequency {
+    _kernel.setBaseFrequency(baseFrequency);
+}
+- (void)setCarrierMultiplier:(float)carrierMultiplier {
+    _kernel.setCarrierMultiplier(carrierMultiplier);
+}
+- (void)setModulatingMultiplier:(float)modulatingMultiplier {
+    _kernel.setModulatingMultiplier(modulatingMultiplier);
+}
+- (void)setModulationIndex:(float)modulationIndex {
+    _kernel.setModulationIndex(modulationIndex);
+}
+- (void)setAmplitude:(float)amplitude {
+    _kernel.setAmplitude(amplitude);
 }
 
-- (void)setTableValue:(float)value atIndex:(UInt32)index {
-    _kernel.setTableValue(index, value);
+- (void)setupWaveform:(int)size {
+    _kernel.setupWaveform((uint32_t)size);
+}
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
+    _kernel.setWaveformValue(index, value);
 }
 
 - (void)start {

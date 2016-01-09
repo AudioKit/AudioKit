@@ -46,15 +46,15 @@ public:
         fosc->amp = 1;
     }
 
-    void setupTable(uint32_t size) {
+    void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-    
-    void setTableValue(uint32_t index, float value) {
+
+    void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-    
+
     void start() {
         started = true;
     }
@@ -70,6 +70,32 @@ public:
 
     void reset() {
     }
+
+    void setBaseFrequency(float freq) {
+        baseFrequency = freq;
+        baseFrequencyRamper.set(clamp(freq, (float)0.0, (float)20000.0));
+    }
+
+    void setCarrierMultiplier(float car) {
+        carrierMultiplier = car;
+        carrierMultiplierRamper.set(clamp(car, (float)0.0, (float)1000.0));
+    }
+
+    void setModulatingMultiplier(float mod) {
+        modulatingMultiplier = mod;
+        modulatingMultiplierRamper.set(clamp(mod, (float)0, (float)1000));
+    }
+
+    void setModulationIndex(float indx) {
+        modulationIndex = indx;
+        modulationIndexRamper.set(clamp(indx, (float)0, (float)1000));
+    }
+
+    void setAmplitude(float amp) {
+        amplitude = amp;
+        amplitudeRamper.set(clamp(amp, (float)0, (float)10));
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -149,19 +175,19 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double baseFrequency = double(baseFrequencyRamper.getStep());
-            double carrierMultiplier = double(carrierMultiplierRamper.getStep());
-            double modulatingMultiplier = double(modulatingMultiplierRamper.getStep());
-            double modulationIndex = double(modulationIndexRamper.getStep());
-            double amplitude = double(amplitudeRamper.getStep());
-
             int frameOffset = int(frameIndex + bufferOffset);
 
-            fosc->freq = (float)baseFrequency;
-            fosc->car = (float)carrierMultiplier;
-            fosc->mod = (float)modulatingMultiplier;
-            fosc->indx = (float)modulationIndex;
-            fosc->amp = (float)amplitude;
+            baseFrequency = double(baseFrequencyRamper.getStep());
+            carrierMultiplier = double(carrierMultiplierRamper.getStep());
+            modulatingMultiplier = double(modulatingMultiplierRamper.getStep());
+            modulationIndex = double(modulationIndexRamper.getStep());
+            amplitude = double(amplitudeRamper.getStep());
+
+            fosc->freq = baseFrequency;
+            fosc->car = carrierMultiplier;
+            fosc->mod = modulatingMultiplier;
+            fosc->indx = modulationIndex;
+            fosc->amp = amplitude;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
@@ -189,12 +215,19 @@ private:
 
     sp_data *sp;
     sp_fosc *fosc;
+
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
-    
+
+    float baseFrequency = 440;
+    float carrierMultiplier = 1.0;
+    float modulatingMultiplier = 1;
+    float modulationIndex = 1;
+    float amplitude = 1;
+
 public:
     bool started = false;
-    AKParameterRamper baseFrequencyRamper = 440;
+    AKParameterRamper baseFrequencyRamper = 220;
     AKParameterRamper carrierMultiplierRamper = 1.0;
     AKParameterRamper modulatingMultiplierRamper = 1;
     AKParameterRamper modulationIndexRamper = 1;
