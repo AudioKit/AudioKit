@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKNoiseInstrument: AKMidiInstrument{
+public class AKNoiseInstrument: AKMidiInstrument {
     
     public var whitePinkMix: Double = 0 {
         didSet {
@@ -87,7 +87,6 @@ internal class AKNoiseVoice: AKVoice {
         }
     }
 
-    
     init(whitePinkMix: Double) {
         whiteNoise = AKWhiteNoise()
         pinkNoise = AKPinkNoise()
