@@ -64,6 +64,16 @@ public:
     void reset() {
     }
 
+    void setFrequency(float freq) {
+        frequency = freq;
+        frequencyRamper.set(clamp(freq, (float)0, (float)20000));
+    }
+
+    void setAmplitude(float amp) {
+        amplitude = amp;
+        amplitudeRamper.set(clamp(amp, (float)0, (float)10));
+    }
+
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case frequencyAddress:
@@ -109,16 +119,12 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double frequency = double(frequencyRamper.getStep());
-            double amplitude = double(amplitudeRamper.getStep());
+            amplitude = double(amplitudeRamper.getStep());
             
-            if (actualFrequency > 0) {
-                frequency = actualFrequency;
-            }
             int frameOffset = int(frameIndex + bufferOffset);
 
-            osc->freq = (float)frequency;
-            osc->amp = (float)amplitude;
+            osc->freq = frequency;
+            osc->amp = amplitude;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
@@ -149,8 +155,10 @@ private:
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 
+    double frequency = 0;
+    double amplitude = 1;
+
 public:
-    double actualFrequency = 0;
     bool started = false;
     AKParameterRamper frequencyRamper = 440;
     AKParameterRamper amplitudeRamper = 1;

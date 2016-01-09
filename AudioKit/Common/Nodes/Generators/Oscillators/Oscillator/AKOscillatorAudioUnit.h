@@ -13,6 +13,7 @@
 
 @interface AKOscillatorAudioUnit : AUAudioUnit
 @property (nonatomic) float frequency;
+@property (nonatomic) float amplitude;
 
 - (void)setupTable:(int)size;
 - (void)setTableValue:(float)value atIndex:(UInt32)index;
