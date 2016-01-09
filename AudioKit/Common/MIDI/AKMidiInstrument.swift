@@ -83,17 +83,6 @@ public class AKMidiInstrument: AKNode {
     
     public func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity) - chan:\(channel)")
-        
-        ///Override this function in your subclass of AKMidiInstrument
-        /*
-        //an example using a basic oscillator
-        let frequency = Int(note).midiNoteToFrequency()
-        let amplitude = Double(velocity)/127.0
-        let voiceEntity = voices[voice] as! AKOscillator //you'll need to cast the voice to it's original form
-        voiceEntity.frequency = frequency
-        voiceEntity.amplitude = amplitude
-        voiceEntity.start()
-        */
     }
     
     public func handleNoteOff(note: UInt8, onChannel channel: UInt8) {
@@ -107,14 +96,6 @@ public class AKMidiInstrument: AKNode {
     
     public func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
         print("Stopping voice\(voice) - note:\(note) - chan:\(channel)")
-        
-        ///Override this function in your subclass of AKMidiInstrument
-        /*
-        //an example using a basic oscillator
-        let voiceEntity = voices[voice] as! AKOscillator //you'll need to cast the voice to it's original form
-        voiceEntity.stop()
-        */
-        
     }
     
     public func panic() {
