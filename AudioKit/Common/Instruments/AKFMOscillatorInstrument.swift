@@ -1,6 +1,6 @@
 //
 //  AKFMOscillatorInstrument.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 1/6/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKFMOscillatorInstrument: AKMidiInstrument{
+public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
     public init(voiceCount: Int) {
         super.init(voice: AKFMOscillatorVoice(), voiceCount: voiceCount)
         for voice in voices {
@@ -18,13 +18,13 @@ public class AKFMOscillatorInstrument: AKMidiInstrument{
             fmVoice.oscillator.modulationIndex = 10
         }
     }
-    public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
+    public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let fmVoice = voices[voice] as! AKFMOscillatorVoice //you'll need to cast the voice to it's original form
-        fmVoice.oscillator.baseFrequency = Int(note).midiNoteToFrequency()
+        fmVoice.oscillator.baseFrequency = note.midiNoteToFrequency()
         fmVoice.oscillator.amplitude = Double(velocity) / 127.0
         fmVoice.start()
     }
-    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
+    public override func stopVoice(voice: Int, note: Int) {
         let fmVoice = voices[voice] as! AKFMOscillatorVoice //you'll need to cast the voice to it's original form
         fmVoice.stop()
     }

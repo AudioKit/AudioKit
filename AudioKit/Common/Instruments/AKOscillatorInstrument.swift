@@ -1,6 +1,6 @@
 //
 //  AKOscillatorInstrument.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 1/6/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKOscillatorInstrument: AKMidiInstrument{
+public class AKOscillatorInstrument: AKPolyphonicInstrument {
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
@@ -50,15 +50,15 @@ public class AKOscillatorInstrument: AKMidiInstrument{
     public init(waveform: AKTable, voiceCount: Int) {
         super.init(voice: AKOscillatorVoice(waveform: waveform), voiceCount: voiceCount)
     }
-    public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
-        let frequency = Int(note).midiNoteToFrequency()
+    public override func startVoice(voice: Int, note: Int, velocity: Int) {
+        let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
         let oscillatorVoice = voices[voice] as! AKOscillatorVoice //you'll need to cast the voice to it's original form
         oscillatorVoice.oscillator.frequency = frequency
         oscillatorVoice.oscillator.amplitude = amplitude
         oscillatorVoice.start()
     }
-    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
+    public override func stopVoice(voice: Int, note: Int) {
         let oscillatorVoice = voices[voice] as! AKOscillatorVoice //you'll need to cast the voice to its original form
         oscillatorVoice.stop()
     }
@@ -78,7 +78,11 @@ internal class AKOscillatorVoice: AKVoice {
     
     init(waveform: AKTable) {
         oscillator = AKOscillator(waveform: waveform)
-        adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+        adsr = AKAmplitudeEnvelope(oscillator,
+            attackDuration: 0.2,
+            decayDuration: 0.2,
+            sustainLevel: 0.8,
+            releaseDuration: 1.0)
         
         self.waveform = waveform
         self.avAudioNode = adsr.avAudioNode
