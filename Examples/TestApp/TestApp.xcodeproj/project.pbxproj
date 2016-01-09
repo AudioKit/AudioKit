@@ -12,30 +12,12 @@
 		C4341E631BC0E27300CB83C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E611BC0E27300CB83C1 /* Main.storyboard */; };
 		C4341E651BC0E27300CB83C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4341E641BC0E27300CB83C1 /* Assets.xcassets */; };
 		C4341E681BC0E27300CB83C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4341E661BC0E27300CB83C1 /* LaunchScreen.storyboard */; };
-		C49E2D0C1C10027B0051C445 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F38B31C058A05000E937C /* AudioKit.framework */; };
+		EAB365521C40AF140084F42A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB365511C40AF140084F42A /* AudioKit.framework */; };
 		FEBD3F021C09688E009BC7F1 /* 4tracks.mid in Resources */ = {isa = PBXBuildFile; fileRef = FEBD3F011C09688E009BC7F1 /* 4tracks.mid */; };
 		FEE41DB51C17BFE500054865 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FEE41DB41C17BFE500054865 /* Sounds */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C42F38B21C058A05000E937C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C42F38AE1C058A05000E937C /* AudioKit For iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F35001C057E03000E937C;
-			remoteInfo = AudioKit;
-		};
-		C49E2D0A1C10027B0051C445 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C42F38AE1C058A05000E937C /* AudioKit For iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C43792781C0CE2E0001E9160;
-			remoteInfo = AudioKitTests;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		C42F38AE1C058A05000E937C /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		C4341E5A1BC0E27300CB83C1 /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4341E5D1BC0E27300CB83C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4341E5F1BC0E27300CB83C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +25,7 @@
 		C4341E641BC0E27300CB83C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4341E671BC0E27300CB83C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4341E691BC0E27300CB83C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAB365511C40AF140084F42A /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = ../../Frameworks/iOS/AudioKit.framework; sourceTree = SOURCE_ROOT; };
 		FEBD3F011C09688E009BC7F1 /* 4tracks.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = 4tracks.mid; sourceTree = "<group>"; };
 		FEE41DB41C17BFE500054865 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,28 +35,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C49E2D0C1C10027B0051C445 /* AudioKit.framework in Frameworks */,
+				EAB365521C40AF140084F42A /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C42F38AF1C058A05000E937C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C42F38B31C058A05000E937C /* AudioKit.framework */,
-				C49E2D0B1C10027B0051C445 /* AudioKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C4341E511BC0E27300CB83C1 = {
 			isa = PBXGroup;
 			children = (
-				C42F38AE1C058A05000E937C /* AudioKit For iOS.xcodeproj */,
 				C4341E5C1BC0E27300CB83C1 /* TestApp */,
 				C4341E5B1BC0E27300CB83C1 /* Products */,
+				EAB365531C40B0C30084F42A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -98,6 +72,14 @@
 				C4341E691BC0E27300CB83C1 /* Info.plist */,
 			);
 			path = TestApp;
+			sourceTree = "<group>";
+		};
+		EAB365531C40B0C30084F42A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAB365511C40AF140084F42A /* AudioKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,35 +133,12 @@
 			mainGroup = C4341E511BC0E27300CB83C1;
 			productRefGroup = C4341E5B1BC0E27300CB83C1 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C42F38AF1C058A05000E937C /* Products */;
-					ProjectRef = C42F38AE1C058A05000E937C /* AudioKit For iOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C4341E591BC0E27300CB83C1 /* TestApp */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C42F38B31C058A05000E937C /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = C42F38B21C058A05000E937C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C49E2D0B1C10027B0051C445 /* AudioKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AudioKitTests.xctest;
-			remoteRef = C49E2D0A1C10027B0051C445 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C4341E581BC0E27300CB83C1 /* Resources */ = {
