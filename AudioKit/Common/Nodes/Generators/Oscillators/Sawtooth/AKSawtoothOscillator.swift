@@ -26,27 +26,45 @@ public class AKSawtoothOscillator: AKVoice {
     internal var internalAU: AKSawtoothOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
+
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         didSet {
-            frequencyParameter?.setValue(Float(frequency), originator: token!)
+            internalAU?.frequency = Float(frequency)
         }
     }
+
+    /// Ramp to frequency over 20 ms
+    ///
+    /// - parameter frequency: Target In cycles per second, or Hz.
+    ///
+    public func ramp(frequency frequency: Double) {
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
+    }
+
     /// Output Amplitude.
     public var amplitude: Double = 0.5 {
         didSet {
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+            internalAU?.amplitude = Float(amplitude)
         }
+    }
+
+    /// Ramp to amplitude over 20 ms
+    ///
+    /// - parameter amplitude: Target Output Amplitude.
+    ///
+    public func ramp(amplitude amplitude: Double) {
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this sawtooth node
@@ -57,6 +75,7 @@ public class AKSawtoothOscillator: AKVoice {
     public init(
         frequency: Double = 440,
         amplitude: Double = 0.5) {
+
 
         self.frequency = frequency
         self.amplitude = amplitude
@@ -102,8 +121,8 @@ public class AKSawtoothOscillator: AKVoice {
                 }
             }
         }
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+        internalAU?.frequency = Float(frequency)
+        internalAU?.amplitude = Float(amplitude)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments

@@ -12,6 +12,9 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKSawtoothOscillatorAudioUnit : AUAudioUnit
+@property (nonatomic) float frequency;
+@property (nonatomic) float amplitude;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;

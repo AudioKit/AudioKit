@@ -27,6 +27,7 @@ public class AKSquareWaveOscillator: AKVoice {
     internal var internalAU: AKSquareWaveOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
+
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
     private var pulseWidthParameter: AUParameter?
@@ -34,27 +35,53 @@ public class AKSquareWaveOscillator: AKVoice {
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         didSet {
-            frequencyParameter?.setValue(Float(frequency), originator: token!)
+            internalAU?.frequency = Float(frequency)
         }
     }
+
+    /// Ramp to frequency over 20 ms
+    ///
+    /// - parameter frequency: Target In cycles per second, or Hz.
+    ///
+    public func ramp(frequency frequency: Double) {
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
+    }
+
     /// Output amplitude
     public var amplitude: Double = 1.0 {
         didSet {
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+            internalAU?.amplitude = Float(amplitude)
         }
     }
+
+    /// Ramp to amplitude over 20 ms
+    ///
+    /// - parameter amplitude: Target Output amplitude
+    ///
+    public func ramp(amplitude amplitude: Double) {
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+    }
+
     /// Duty cycle width (range 0-1).
     public var pulseWidth: Double = 0.5 {
         didSet {
-            pulseWidthParameter?.setValue(Float(pulseWidth), originator: token!)
+            internalAU?.pulseWidth = Float(pulseWidth)
         }
+    }
+
+    /// Ramp to pulseWidth over 20 ms
+    ///
+    /// - parameter pulseWidth: Target Duty cycle width (range 0-1).
+    ///
+    public func ramp(pulseWidth pulseWidth: Double) {
+        pulseWidthParameter?.setValue(Float(pulseWidth), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this oscillator node
@@ -67,6 +94,7 @@ public class AKSquareWaveOscillator: AKVoice {
         frequency: Double = 440,
         amplitude: Double = 1.0,
         pulseWidth: Double = 0.5) {
+
 
         self.frequency = frequency
         self.amplitude = amplitude
@@ -116,9 +144,9 @@ public class AKSquareWaveOscillator: AKVoice {
                 }
             }
         }
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
-        pulseWidthParameter?.setValue(Float(pulseWidth), originator: token!)
+        internalAU?.frequency = Float(frequency)
+        internalAU?.amplitude = Float(amplitude)
+        internalAU?.pulseWidth = Float(pulseWidth)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments

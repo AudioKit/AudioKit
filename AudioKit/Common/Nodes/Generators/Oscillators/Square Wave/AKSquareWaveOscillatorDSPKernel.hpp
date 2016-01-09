@@ -41,6 +41,7 @@ public:
         *blsquare->width = 0.5;
     }
 
+
     void start() {
         started = true;
     }
@@ -56,6 +57,22 @@ public:
 
     void reset() {
     }
+
+    void setFrequency(float freq) {
+        frequency = freq;
+        frequencyRamper.set(clamp(freq, (float)0, (float)20000));
+    }
+
+    void setAmplitude(float amp) {
+        amplitude = amp;
+        amplitudeRamper.set(clamp(amp, (float)0, (float)10));
+    }
+
+    void setPulsewidth(float width) {
+        pulseWidth = width;
+        pulseWidthRamper.set(clamp(width, (float)0, (float)1));
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -113,15 +130,15 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double frequency = double(frequencyRamper.getStep());
-            double amplitude = double(amplitudeRamper.getStep());
-            double pulseWidth = double(pulseWidthRamper.getStep());
-
             int frameOffset = int(frameIndex + bufferOffset);
 
-            *blsquare->freq = (float)frequency;
-            *blsquare->amp = (float)amplitude;
-            *blsquare->width = (float)pulseWidth;
+            frequency = double(frequencyRamper.getStep());
+            amplitude = double(amplitudeRamper.getStep());
+            pulseWidth = double(pulseWidthRamper.getStep());
+
+            *blsquare->freq = frequency;
+            *blsquare->amp = amplitude;
+            *blsquare->width = pulseWidth;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
@@ -149,6 +166,11 @@ private:
 
     sp_data *sp;
     sp_blsquare *blsquare;
+
+
+    float frequency = 440;
+    float amplitude = 1.0;
+    float pulseWidth = 0.5;
 
 public:
     bool started = false;
