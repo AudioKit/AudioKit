@@ -39,15 +39,15 @@ public:
         osc->amp = 1;
     }
 
-    void setupTable(uint32_t size) {
+    void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-    
-    void setTableValue(uint32_t index, float value) {
+
+    void setWaveformValue(uint32_t index, float value) {
         ftbl->tbl[index] = value;
     }
-    
+
     void start() {
         started = true;
     }
@@ -73,6 +73,7 @@ public:
         amplitude = amp;
         amplitudeRamper.set(clamp(amp, (float)0, (float)10));
     }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -119,9 +120,10 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            amplitude = double(amplitudeRamper.getStep());
-            
             int frameOffset = int(frameIndex + bufferOffset);
+
+            frequency = double(frequencyRamper.getStep());
+            amplitude = double(amplitudeRamper.getStep());
 
             osc->freq = frequency;
             osc->amp = amplitude;
@@ -152,11 +154,12 @@ private:
 
     sp_data *sp;
     sp_osc *osc;
+
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 
-    double frequency = 0;
-    double amplitude = 1;
+    float frequency = 440;
+    float amplitude = 1;
 
 public:
     bool started = false;

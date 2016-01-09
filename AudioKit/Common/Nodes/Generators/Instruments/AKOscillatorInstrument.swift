@@ -47,8 +47,8 @@ public class AKOscillatorInstrument: AKMidiInstrument{
         }
     }
     
-    public init(table: AKTable, voiceCount: Int) {
-        super.init(voice: AKOscillatorVoice(table: table), voiceCount: voiceCount)
+    public init(waveform: AKTable, voiceCount: Int) {
+        super.init(voice: AKOscillatorVoice(waveform: waveform), voiceCount: voiceCount)
     }
     public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
         let frequency = Int(note).midiNoteToFrequency()
@@ -74,19 +74,19 @@ internal class AKOscillatorVoice: AKVoice {
     var oscillator: AKOscillator
     var adsr: AKAmplitudeEnvelope
     
-    var table: AKTable
+    var waveform: AKTable
     
-    init(table: AKTable) {
-        oscillator = AKOscillator(table: table)
+    init(waveform: AKTable) {
+        oscillator = AKOscillator(waveform: waveform)
         adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
         
-        self.table = table
+        self.waveform = waveform
         self.avAudioNode = adsr.avAudioNode
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
     func copy() -> AKVoice {
-        let copy = AKOscillatorVoice(table: self.table)
+        let copy = AKOscillatorVoice(waveform: self.waveform)
         return copy
     }
     

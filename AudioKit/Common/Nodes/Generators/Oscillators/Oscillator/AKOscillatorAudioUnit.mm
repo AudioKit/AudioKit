@@ -15,6 +15,7 @@
 @interface AKOscillatorAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
+
 @property AUAudioUnitBusArray *outputBusArray;
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;
@@ -36,12 +37,11 @@
     _kernel.setAmplitude(amplitude);
 }
 
-- (void)setupTable:(int)size {
-    _kernel.setupTable((uint32_t)size);
+- (void)setupWaveform:(int)size {
+    _kernel.setupWaveform((uint32_t)size);
 }
-
-- (void)setTableValue:(float)value atIndex:(UInt32)index {
-    _kernel.setTableValue(index, value);
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
+    _kernel.setWaveformValue(index, value);
 }
 
 - (void)start {

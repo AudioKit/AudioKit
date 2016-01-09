@@ -12,7 +12,7 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
-let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096), baseFrequency: 100,  amplitude:0.1)
+let fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096), baseFrequency: 100,  amplitude:0.1)
 let sinusoid = AKOperation.sineWave(frequency: 0.3)
 let limitSine = sinusoid.scale(minimum: 0, maximum: 1)
 

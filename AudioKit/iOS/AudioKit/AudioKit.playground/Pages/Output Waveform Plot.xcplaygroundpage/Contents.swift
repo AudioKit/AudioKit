@@ -9,7 +9,7 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-var fm = AKFMOscillator(table: AKTable(.Sine, size: 4096))
+var fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
 audiokit.audioOutput = fm
 audiokit.start()
 fm.start()
@@ -19,7 +19,7 @@ AKPlaygroundLoop(frequency: 5) {
     fm.carrierMultiplier = random(0, 4)
     fm.modulationIndex = random(0, 5)
     fm.modulatingMultiplier = random(0, 0.3)
-    fm.amplitude = random(0, 0.7)
+    fm.ramp(amplitude: random(0, 0.7))
 }
 
 let plotView = AKOutputWaveformPlot.createView()
