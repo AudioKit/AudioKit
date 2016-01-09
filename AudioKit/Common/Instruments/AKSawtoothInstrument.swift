@@ -1,6 +1,6 @@
 //
 //  AKSawtoothInstrument.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 1/8/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKSawtoothInstrument: AKMidiInstrument{
+public class AKSawtoothInstrument: AKPolyphonicInstrument {
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
@@ -51,15 +51,15 @@ public class AKSawtoothInstrument: AKMidiInstrument{
         super.init(voice: AKSawtoothVoice(), voiceCount: voiceCount)
     }
     
-    public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
-        let frequency = Int(note).midiNoteToFrequency()
+    public override func startVoice(voice: Int, note: Int, velocity: Int) {
+        let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
         let sawtoothVoice = voices[voice] as! AKSawtoothVoice //you'll need to cast the voice to it's original form
         sawtoothVoice.oscillator.frequency = frequency
         sawtoothVoice.oscillator.amplitude = amplitude
         sawtoothVoice.start()
     }
-    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
+    public override func stopVoice(voice: Int, note: Int) {
         let sawtoothVoice = voices[voice] as! AKSawtoothVoice //you'll need to cast the voice to its original form
         sawtoothVoice.stop()
     }
@@ -77,7 +77,11 @@ internal class AKSawtoothVoice: AKVoice {
     
     init() {
         oscillator = AKSawtoothOscillator()
-        adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+        adsr = AKAmplitudeEnvelope(oscillator,
+            attackDuration: 0.2,
+            decayDuration: 0.2,
+            sustainLevel: 0.8,
+            releaseDuration: 1.0)
         
         self.avAudioNode = adsr.avAudioNode
     }

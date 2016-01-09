@@ -1,6 +1,6 @@
 //
 //  AKInstrument.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 1/8/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -56,36 +56,36 @@ public class AKPolyphonicInstrument: AKNode {
         }
     }
     
-    public func handleMidiNotification(notif: NSNotification) {
-        let note = Int((notif.userInfo?["note"])! as! NSNumber)
-        let vel = Int((notif.userInfo?["velocity"])! as! NSNumber)
-        if notif.name == AKMidiStatus.NoteOn.name() && vel > 0 {
-            handleNoteOn(UInt8(note), withVelocity: UInt8(vel))
-        } else if (notif.name == AKMidiStatus.NoteOn.name() && vel == 0) || notif.name == AKMidiStatus.NoteOff.name() {
-            handleNoteOff(UInt8(note))
+    public func handleMidiNotification(notification: NSNotification) {
+        let note = Int((notification.userInfo?["note"])! as! NSNumber)
+        let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
+        if notification.name == AKMidiStatus.NoteOn.name() && velocity > 0 {
+            handleNoteOn(note, velocity: velocity)
+        } else if (notification.name == AKMidiStatus.NoteOn.name() && velocity == 0) || notification.name == AKMidiStatus.NoteOff.name() {
+            handleNoteOff(note)
         }
     }
     
-    public func handleNoteOn(note: UInt8, withVelocity velocity: UInt8) {
-        notesPlayed[voicePlaying] = Int(note)
-        startVoice(voicePlaying, note: note, withVelocity: velocity)
+    public func handleNoteOn(note: Int, velocity: Int) {
+        notesPlayed[voicePlaying] = note
+        startVoice(voicePlaying, note: note, velocity: velocity)
         voicePlaying = (voicePlaying + 1) % voiceCount
     }
     
-    public func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8) {
+    public func startVoice(voice: Int, note: Int, velocity: Int) {
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
     
-    public func handleNoteOff(note: UInt8) {
-        var voiceToStop = notesPlayed.indexOf(Int(note))
+    public func handleNoteOff(note: Int) {
+        var voiceToStop = notesPlayed.indexOf(note)
         while(voiceToStop != nil) {
             stopVoice(voiceToStop!, note: note)
             notesPlayed[voiceToStop!] = 0
-            voiceToStop = notesPlayed.indexOf(Int(note))
+            voiceToStop = notesPlayed.indexOf(note)
         }
     }
     
-    public func stopVoice(voice: Int, note: UInt8) {
+    public func stopVoice(voice: Int, note: Int) {
         print("Stopping voice\(voice) - note:\(note)")
     }
     

@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  AudioKit For iOS
+//  AKNoiseInstrument.swift
+//  AudioKit
 //
 //  Created by Jeff Cooper on 1/6/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKNoiseInstrument: AKMidiInstrument {
+public class AKNoiseInstrument: AKPolyphonicInstrument {
     
     public var whitePinkMix: Double = 0 {
         didSet {
@@ -56,14 +56,14 @@ public class AKNoiseInstrument: AKMidiInstrument {
         super.init(voice: AKNoiseVoice(whitePinkMix: whitePinkMix), voiceCount: voiceCount)
     }
     
-    public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
+    public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let noiseVoice = voices[voice] as! AKNoiseVoice
         noiseVoice.whiteNoise.amplitude = Double(velocity) / 127.0
         noiseVoice.pinkNoise.amplitude = Double(velocity) / 127.0
         noiseVoice.start()
     }
     
-    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
+    public override func stopVoice(voice: Int, note: Int) {
         let noise = voices[voice] as! AKNoiseVoice
         noise.stop()
     }
@@ -91,7 +91,11 @@ internal class AKNoiseVoice: AKVoice {
         whiteNoise = AKWhiteNoise()
         pinkNoise = AKPinkNoise()
         noiseMix = AKDryWetMixer(whiteNoise, pinkNoise, t: whitePinkMix)
-        adsr = AKAmplitudeEnvelope(noiseMix, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+        adsr = AKAmplitudeEnvelope(noiseMix,
+            attackDuration: 0.2,
+            decayDuration: 0.2,
+            sustainLevel: 0.8,
+            releaseDuration: 1.0)
         
         self.whitePinkMix = whitePinkMix
         self.avAudioNode = adsr.avAudioNode

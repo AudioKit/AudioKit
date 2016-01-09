@@ -1,6 +1,6 @@
 //
 //  AKSquareInstrument.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 1/8/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class AKSquareInstrument: AKMidiInstrument{
+public class AKSquareInstrument: AKPolyphonicInstrument {
     
     /// Duty cycle width (range 0-1).
     public var pulseWidth: Double = 0.5 {
@@ -62,15 +62,15 @@ public class AKSquareInstrument: AKMidiInstrument{
         super.init(voice: AKSquareVoice(), voiceCount: voiceCount)
     }
     
-    public override func startVoice(voice: Int, note: UInt8, withVelocity velocity: UInt8, onChannel channel: UInt8) {
-        let frequency = Int(note).midiNoteToFrequency()
+    public override func startVoice(voice: Int, note: Int, velocity: Int) {
+        let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
         let squareVoice = voices[voice] as! AKSquareVoice //you'll need to cast the voice to it's original form
         squareVoice.oscillator.frequency = frequency
         squareVoice.oscillator.amplitude = amplitude
         squareVoice.start()
     }
-    public override func stopVoice(voice: Int, note: UInt8, onChannel channel: UInt8) {
+    public override func stopVoice(voice: Int, note: Int) {
         let squareVoice = voices[voice] as! AKSquareVoice //you'll need to cast the voice to its original form
         squareVoice.stop()
     }
@@ -88,7 +88,11 @@ internal class AKSquareVoice: AKVoice {
     
     init() {
         oscillator = AKSquareWaveOscillator()
-        adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+        adsr = AKAmplitudeEnvelope(oscillator,
+            attackDuration: 0.2,
+            decayDuration: 0.2,
+            sustainLevel: 0.8,
+            releaseDuration: 1.0)
         
         self.avAudioNode = adsr.avAudioNode
     }
