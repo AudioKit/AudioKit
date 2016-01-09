@@ -11,7 +11,8 @@ let audiokit = AKManager.sharedInstance
 
 //: Try changing the table type to triangle or another AKTableType
 //: or changing the number of points to a smaller number (has to be a power of 2)
-var fm = AKFMOscillator(table: AKTable(.Sine, size: 4096))
+var fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
+fm.amplitude = 0
 audiokit.audioOutput = fm
 audiokit.start()
 
@@ -22,7 +23,7 @@ AKPlaygroundLoop(frequency: 5) {
     fm.carrierMultiplier = random(0, 4)
     fm.modulationIndex = random(0, 5)
     fm.modulatingMultiplier = random(0, 0.3)
-    fm.amplitude = random(0, 0.3)
+    fm.ramp(amplitude: random(0, 0.3))
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

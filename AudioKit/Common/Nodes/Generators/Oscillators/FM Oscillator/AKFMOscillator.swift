@@ -28,6 +28,8 @@ public class AKFMOscillator: AKVoice {
     internal var internalAU: AKFMOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
+    private var waveform: AKTable?
+
     private var baseFrequencyParameter: AUParameter?
     private var carrierMultiplierParameter: AUParameter?
     private var modulatingMultiplierParameter: AUParameter?
@@ -37,39 +39,83 @@ public class AKFMOscillator: AKVoice {
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
     public var baseFrequency: Double = 440 {
         didSet {
-            baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
+            internalAU?.baseFrequency = Float(baseFrequency)
         }
     }
+
+    /// Ramp to baseFrequency over 20 ms
+    ///
+    /// - parameter baseFrequency: Target In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+    ///
+    public func ramp(baseFrequency baseFrequency: Double) {
+        baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
+    }
+
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
         didSet {
-            carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
+            internalAU?.carrierMultiplier = Float(carrierMultiplier)
         }
     }
+
+    /// Ramp to carrierMultiplier over 20 ms
+    ///
+    /// - parameter carrierMultiplier: Target This multiplied by the baseFrequency gives the carrier frequency.
+    ///
+    public func ramp(carrierMultiplier carrierMultiplier: Double) {
+        carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
+    }
+
     /// This multiplied by the baseFrequency gives the modulating frequency.
     public var modulatingMultiplier: Double = 1 {
         didSet {
-            modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
+            internalAU?.modulatingMultiplier = Float(modulatingMultiplier)
         }
     }
+
+    /// Ramp to modulatingMultiplier over 20 ms
+    ///
+    /// - parameter modulatingMultiplier: Target This multiplied by the baseFrequency gives the modulating frequency.
+    ///
+    public func ramp(modulatingMultiplier modulatingMultiplier: Double) {
+        modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
+    }
+
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     public var modulationIndex: Double = 1 {
         didSet {
-            modulationIndexParameter?.setValue(Float(modulationIndex), originator: token!)
+            internalAU?.modulationIndex = Float(modulationIndex)
         }
     }
+
+    /// Ramp to modulationIndex over 20 ms
+    ///
+    /// - parameter modulationIndex: Target This multiplied by the modulating frequency gives the modulation amplitude.
+    ///
+    public func ramp(modulationIndex modulationIndex: Double) {
+        modulationIndexParameter?.setValue(Float(modulationIndex), originator: token!)
+    }
+
     /// Output Amplitude.
     public var amplitude: Double = 1 {
         didSet {
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+            internalAU?.amplitude = Float(amplitude)
         }
+    }
+
+    /// Ramp to amplitude over 20 ms
+    ///
+    /// - parameter amplitude: Target Output Amplitude.
+    ///
+    public func ramp(amplitude amplitude: Double) {
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this oscillator node
@@ -81,13 +127,15 @@ public class AKFMOscillator: AKVoice {
     /// - parameter amplitude: Output Amplitude.
     ///
     public init(
-        table: AKTable = AKTable(.Sine),
+        waveform: AKTable = AKTable(.Sine),
         baseFrequency: Double = 440,
         carrierMultiplier: Double = 1.0,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,
         amplitude: Double = 1) {
 
+
+        self.waveform = waveform
         self.baseFrequency = baseFrequency
         self.carrierMultiplier = carrierMultiplier
         self.modulatingMultiplier = modulatingMultiplier
@@ -117,9 +165,9 @@ public class AKFMOscillator: AKVoice {
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            self.internalAU?.setupTable(Int32(table.size))
-            for var i = 0; i < table.size; i++ {
-                self.internalAU?.setTableValue(table.values[i], atIndex: UInt32(i))
+            self.internalAU?.setupWaveform(Int32(waveform.size))
+            for var i = 0; i < waveform.size; i++ {
+                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
             }
         }
 
@@ -148,16 +196,16 @@ public class AKFMOscillator: AKVoice {
                 }
             }
         }
-        baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
-        carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
-        modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
-        modulationIndexParameter?.setValue(Float(modulationIndex), originator: token!)
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+        internalAU?.baseFrequency = Float(baseFrequency)
+        internalAU?.carrierMultiplier = Float(carrierMultiplier)
+        internalAU?.modulatingMultiplier = Float(modulatingMultiplier)
+        internalAU?.modulationIndex = Float(modulationIndex)
+        internalAU?.amplitude = Float(amplitude)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public func copy() -> AKVoice {
-        let copy = AKFMOscillator(baseFrequency: self.baseFrequency, carrierMultiplier: self.carrierMultiplier, modulatingMultiplier: self.modulatingMultiplier, modulationIndex: self.modulationIndex, amplitude: self.amplitude)
+        let copy = AKFMOscillator(waveform: self.waveform!, baseFrequency: self.baseFrequency, carrierMultiplier: self.carrierMultiplier, modulatingMultiplier: self.modulatingMultiplier, modulationIndex: self.modulationIndex, amplitude: self.amplitude)
         return copy
     }
 

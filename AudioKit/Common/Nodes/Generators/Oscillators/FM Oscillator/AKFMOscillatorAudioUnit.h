@@ -12,8 +12,14 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKFMOscillatorAudioUnit : AUAudioUnit
-- (void)setupTable:(int)size;
-- (void)setTableValue:(float)value atIndex:(UInt32)index;
+@property (nonatomic) float baseFrequency;
+@property (nonatomic) float carrierMultiplier;
+@property (nonatomic) float modulatingMultiplier;
+@property (nonatomic) float modulationIndex;
+@property (nonatomic) float amplitude;
+
+- (void)setupWaveform:(int)size;
+- (void)setWaveformValue:(float)value atIndex:(UInt32)index;
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
