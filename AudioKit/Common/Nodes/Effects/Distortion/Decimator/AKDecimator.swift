@@ -11,9 +11,9 @@ import AVFoundation
 /// AudioKit version of Apple's Decimator from the Distortion Audio Unit
 ///
 /// - parameter input: Input node to process
-/// - parameter decimation: Decimation (Percent) ranges from 0 to 100 (Default: 50)
-/// - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
-/// - parameter mix: Mix (Percent) ranges from 0 to 100 (Default: 100)
+/// - parameter decimation: Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+/// - parameter rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
+/// - parameter mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
 ///
 public class AKDecimator: AKNode, AKToggleable {
 
@@ -33,56 +33,56 @@ public class AKDecimator: AKNode, AKToggleable {
     /// Required property for AKNode containing all the node's connections
     public var connectionPoints = [AVAudioConnectionPoint]()
     
-    private var lastKnownMix: Double = 100
+    private var lastKnownMix: Double = 1
     
-    /// Decimation (Percent) ranges from 0 to 100 (Default: 50)
-    public var decimation: Double = 50 {
+    /// Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+    public var decimation: Double = 0.5 {
         didSet {
             if decimation < 0 {
                 decimation = 0
             }            
-            if decimation > 100 {
-                decimation = 100
+            if decimation > 1 {
+                decimation = 1
             }
             AudioUnitSetParameter(
                 internalAU,
                 kDistortionParam_Decimation,
                 kAudioUnitScope_Global, 0,
-                Float(decimation), 0)
+                Float(decimation) * 100.0, 0)
         }
     }
 
-    /// Rounding (Percent) ranges from 0 to 100 (Default: 0)
+    /// Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
     public var rounding: Double = 0 {
         didSet {
             if rounding < 0 {
                 rounding = 0
             }            
-            if rounding > 100 {
-                rounding = 100
+            if rounding > 1 {
+                rounding = 1
             }
             AudioUnitSetParameter(
                 internalAU,
                 kDistortionParam_Rounding,
                 kAudioUnitScope_Global, 0,
-                Float(rounding), 0)
+                Float(rounding) * 100.0, 0)
         }
     }
     
-    /// Mix (Percent) ranges from 0 to 100 (Default: 100)
-    public var mix: Double = 100 {
+    /// Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
+    public var mix: Double = 1 {
         didSet {
             if mix < 0 {
                 mix = 0
             }
-            if mix > 100 {
-                mix = 100
+            if mix > 1 {
+                mix = 1
             }
             AudioUnitSetParameter(
                 internalAU,
                 kDistortionParam_FinalMix,
                 kAudioUnitScope_Global, 0,
-                Float(mix), 0)
+                Float(mix) * 100.0, 0)
         }
     }
 
@@ -92,15 +92,15 @@ public class AKDecimator: AKNode, AKToggleable {
     /// Initialize the decimator node
     ///
     /// - parameter input: Input node to process
-    /// - parameter decimation: Decimation (Percent) ranges from 0 to 100 (Default: 50)
-    /// - parameter rounding: Rounding (Percent) ranges from 0 to 100 (Default: 0)
-    /// - parameter mix: Mix (Percent) ranges from 0 to 100 (Default: 100)
+    /// - parameter decimation: Decimation (Normalized Value) ranges from 0 to 1 (Default: 0.5)
+    /// - parameter rounding: Rounding (Normalized Value) ranges from 0 to 1 (Default: 0)
+    /// - parameter mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
         var _ input: AKNode,
-        decimation: Double = 50,
+        decimation: Double = 0.5,
         rounding: Double = 0,
-        mix: Double = 100) {
+        mix: Double = 1) {
             
             self.decimation = decimation
             self.rounding = rounding
@@ -115,9 +115,9 @@ public class AKDecimator: AKNode, AKToggleable {
             // Since this is the Decimator, mix it to 100% and use the final mix as the mix parameter
             AudioUnitSetParameter(internalAU, kDistortionParam_DecimationMix, kAudioUnitScope_Global, 0, 100, 0)
             
-            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, Float(decimation), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix), 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, Float(decimation) * 100.0, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding) * 100.0, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
     }
     
     /// Function to start, play, or activate the node, all do the same thing
