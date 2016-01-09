@@ -151,7 +151,6 @@ private:
     sp_data *sp;
     sp_pluck *pluck;
 
-
     float frequency = 110;
     float amplitude = 0.5;
 
