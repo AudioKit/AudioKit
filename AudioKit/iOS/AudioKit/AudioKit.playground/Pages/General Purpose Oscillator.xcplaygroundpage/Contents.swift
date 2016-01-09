@@ -28,7 +28,7 @@ for i in 0..<custom.values.count {
 for value in custom.values { value } // Click the eye icon ->
 
 //: Try changing the table to triangle, square, sine, or sawtooth. This will change the shape of the oscillator's waveform.
-var oscillator = AKOscillator(table: custom)
+var oscillator = AKOscillator(waveform: custom)
 audiokit.audioOutput = oscillator
 audiokit.start()
 
@@ -37,7 +37,7 @@ oscillator.start()
 AKPlaygroundLoop(frequency: 5) {
 //: Notice how we change the frequency directly but let the amplitude be ramped to its new value.  This is because abrupt changes in amplitude produces clicking sounds.  Frequency can also be ramped, but it is not as important.  Try setting the amplitude without the ramp to hear the difference.
     oscillator.frequency = randomInt(50...74).midiNoteToFrequency()
-    oscillator.ramp(amplitude: random(0.5, 1))
+    oscillator.ramp(amplitude: random(0, 0.4))
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

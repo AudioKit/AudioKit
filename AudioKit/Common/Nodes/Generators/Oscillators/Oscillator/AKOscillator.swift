@@ -13,7 +13,6 @@ import AVFoundation
 ///
 /// - parameter frequency: Frequency in cycles per second
 /// - parameter amplitude: Output Amplitude.
-/// - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).
 ///
 public class AKOscillator: AKVoice {
 
@@ -27,10 +26,10 @@ public class AKOscillator: AKVoice {
     internal var internalAU: AKOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
+    private var waveform: AKTable?
+
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-    
-    private var table:AKTable?
 
     /// Frequency in cycles per second
     public var frequency: Double = 440 {
@@ -38,10 +37,13 @@ public class AKOscillator: AKVoice {
             internalAU?.frequency = Float(frequency)
         }
     }
-    
-    /// Ramp to frequency over 20 ms (avoids clicking)
-    public func ramp(frequency freq: Double) {
-        frequencyParameter?.setValue(Float(freq), originator: token!)
+
+    /// Ramp to frequency over 20 ms
+    ///
+    /// - parameter frequency: Target Frequency in cycles per second
+    ///
+    public func ramp(frequency frequency: Double) {
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
     }
 
     /// Output Amplitude.
@@ -51,32 +53,35 @@ public class AKOscillator: AKVoice {
         }
     }
 
-    /// Ramp to amplitude over 20 ms (avoids clicking)
-    public func ramp(amplitude amp: Double) {
-        amplitudeParameter?.setValue(Float(amp), originator: token!)
+    /// Ramp to amplitude over 20 ms
+    ///
+    /// - parameter amplitude: Target Output Amplitude.
+    ///
+    public func ramp(amplitude amplitude: Double) {
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this oscillator node
     ///
     /// - parameter frequency: Frequency in cycles per second
     /// - parameter amplitude: Output Amplitude.
-    /// - parameter phase: Initial phase of waveform in functionTable, expressed as a fraction of a cycle (0 to 1).
     ///
     public init(
-        table: AKTable = AKTable(.Sine),
+        waveform: AKTable = AKTable(.Sine),
         frequency: Double = 440,
         amplitude: Double = 1) {
 
+
+        self.waveform = waveform
         self.frequency = frequency
         self.amplitude = amplitude
-        self.table = table
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -101,9 +106,9 @@ public class AKOscillator: AKVoice {
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKOscillatorAudioUnit
 
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            self.internalAU?.setupTable(Int32(table.size))
-            for var i = 0; i < table.size; i++ {
-                self.internalAU?.setTableValue(table.values[i], atIndex: UInt32(i))
+            self.internalAU?.setupWaveform(Int32(waveform.size))
+            for var i = 0; i < waveform.size; i++ {
+                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
             }
         }
 
@@ -123,14 +128,13 @@ public class AKOscillator: AKVoice {
                 }
             }
         }
-            
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public func copy() -> AKVoice {
-        let copy = AKOscillator(table: self.table!, frequency: self.frequency, amplitude: self.amplitude)
+        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude)
         return copy
     }
 

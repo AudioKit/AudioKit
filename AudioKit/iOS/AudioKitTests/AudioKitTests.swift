@@ -30,7 +30,7 @@ class AKTestCase: XCTestCase {
         
         //: Try changing the table type to triangle or another AKTableType
         //: or changing the number of points to a smaller number (has to be a power of 2)
-        let fm = AKFMOscillator(table: AKTable(.Sine, size: 4096))
+        let fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
         audiokit.testOutput(fm, samples: samples)
         audiokit.start()
         print("IS testing %@", AKManager.sharedInstance.tester!.isTesting())
