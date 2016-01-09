@@ -56,17 +56,17 @@ public class AKPolyphonicInstrument: AKNode {
         }
     }
     
-    public func handleMidiNotification(notification: NSNotification) {
+    public func handleMIDIEvent(notification: NSNotification) {
         let note = Int((notification.userInfo?["note"])! as! NSNumber)
         let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
         if notification.name == AKMidiStatus.NoteOn.name() && velocity > 0 {
-            handleNoteOn(note, velocity: velocity)
+            startNote(note, velocity: velocity)
         } else if (notification.name == AKMidiStatus.NoteOn.name() && velocity == 0) || notification.name == AKMidiStatus.NoteOff.name() {
-            handleNoteOff(note)
+            stopNote(note)
         }
     }
     
-    public func handleNoteOn(note: Int, velocity: Int) {
+    public func startNote(note: Int, velocity: Int) {
         notesPlayed[voicePlaying] = note
         startVoice(voicePlaying, note: note, velocity: velocity)
         voicePlaying = (voicePlaying + 1) % voiceCount
@@ -76,7 +76,7 @@ public class AKPolyphonicInstrument: AKNode {
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
     
-    public func handleNoteOff(note: Int) {
+    public func stopNote(note: Int) {
         var voiceToStop = notesPlayed.indexOf(note)
         while(voiceToStop != nil) {
             stopVoice(voiceToStop!, note: note)

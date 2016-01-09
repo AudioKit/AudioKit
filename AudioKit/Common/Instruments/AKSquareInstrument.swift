@@ -65,7 +65,7 @@ public class AKSquareInstrument: AKPolyphonicInstrument {
     public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let squareVoice = voices[voice] as! AKSquareVoice //you'll need to cast the voice to it's original form
+        let squareVoice = voices[voice] as! AKSquareVoice 
         squareVoice.oscillator.frequency = frequency
         squareVoice.oscillator.amplitude = amplitude
         squareVoice.start()

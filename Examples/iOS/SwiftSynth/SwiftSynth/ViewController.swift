@@ -94,19 +94,19 @@ class ViewController: UIViewController {
         
         switch waveformSegmentedControl.selectedSegmentIndex {
         case 0:
-            sine1.handleMidiNotification(notification)
+            sine1.handleMIDIEvent(notification)
         case 1:
-            triangle1.handleMidiNotification(notification)
+            triangle1.handleMIDIEvent(notification)
         case 2:
-            sawtooth1.handleMidiNotification(notification)
+            sawtooth1.handleMIDIEvent(notification)
         case 3:
-            square1.handleMidiNotification(notification)
+            square1.handleMIDIEvent(notification)
         default:
             break
             // do nothing
         }
-        fm.handleMidiNotification(notification)
-        noise.handleMidiNotification(notification)
+        fm.handleMIDIEvent(notification)
+        noise.handleMIDIEvent(notification)
     }
 
     @IBAction func updateOscillatorVolume(sender: UISlider) {
