@@ -93,20 +93,20 @@ public class AKRingModulatorWindow: NSWindow {
             maximumValue: 8000)
         
         makeTextField(ringModBalanceTextField, view: view, below: topTitle, distance: 8,
-            stringValue: "Balance: \(ringModulator.balance) Percent")
+            stringValue: "Balance: \(ringModulator.balance)")
         makeSlider(ringModBalanceSlider, view: view, below: topTitle, distance: 9, target: self,
             action: "updateRingmodbalance",
             currentValue: ringModulator.balance,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue: 1)
         
         makeTextField(finalMixTextField, view: view, below: topTitle, distance: 11,
-            stringValue: "Mix: \(ringModulator.mix) Percent")
+            stringValue: "Mix: \(ringModulator.mix)")
         makeSlider(finalMixSlider, view: view, below: topTitle, distance: 12, target: self,
             action: "updateFinalmix",
             currentValue: ringModulator.mix,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue: 1)
         
         self.contentView!.addSubview(view)
         self.makeKeyAndOrderFront(nil)
@@ -122,11 +122,11 @@ public class AKRingModulatorWindow: NSWindow {
     }
     internal func updateRingmodbalance() {
         ringModulator.balance = ringModBalanceSlider.doubleValue
-        ringModBalanceTextField.stringValue = "Balance \(String(format: "%0.4f", ringModulator.balance)) Percent"
+        ringModBalanceTextField.stringValue = "Balance \(String(format: "%0.4f", ringModulator.balance))"
     }
     internal func updateFinalmix() {
         ringModulator.mix = finalMixSlider.doubleValue
-        finalMixTextField.stringValue = "Mix \(String(format: "%0.4f", ringModulator.mix)) Percent"
+        finalMixTextField.stringValue = "Mix \(String(format: "%0.4f", ringModulator.mix))"
     }
     
     /// Required initializer

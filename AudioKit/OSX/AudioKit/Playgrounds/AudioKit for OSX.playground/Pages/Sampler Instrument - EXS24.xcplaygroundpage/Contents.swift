@@ -21,8 +21,8 @@ sampler.loadEXS24("Sounds/sawPiano1")
 
 var delay  = AKDelay(sampler)
 delay.time = pulse * 1.5
-delay.dryWetMix = 30
-delay.feedback = 20
+delay.dryWetMix = 0.3
+delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 

@@ -77,23 +77,23 @@ public class AKDecimatorWindow: NSWindow {
             action: "updateDecimation",
             currentValue: decimator.decimation,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue: 1)
         
         makeTextField(roundingTextField, view: view, below: topTitle, distance: 5,
-            stringValue: "Rounding: \(decimator.rounding) Percent")
+            stringValue: "Rounding: \(decimator.rounding)")
         makeSlider(roundingSlider, view: view, below: topTitle, distance: 6, target: self,
             action: "updateRounding",
             currentValue: decimator.rounding,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue: 1)
         
         makeTextField(finalMixTextField, view: view, below: topTitle, distance: 8,
-            stringValue: "Final Mix: \(decimator.mix) Percent")
+            stringValue: "Final Mix: \(decimator.mix)")
         makeSlider(finalMixSlider, view: view, below: topTitle, distance: 9, target: self,
             action: "updateFinalmix",
             currentValue: decimator.mix,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue: 1)
         
         self.contentView!.addSubview(view)
         self.makeKeyAndOrderFront(nil)
@@ -105,11 +105,11 @@ public class AKDecimatorWindow: NSWindow {
     }
     internal func updateRounding() {
         decimator.rounding = roundingSlider.doubleValue
-        roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", decimator.rounding)) Percent"
+        roundingTextField.stringValue = "Rounding \(String(format: "%0.4f", decimator.rounding))"
     }
     internal func updateFinalmix() {
         decimator.mix = finalMixSlider.doubleValue
-        finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", decimator.mix)) Percent"
+        finalMixTextField.stringValue = "Final Mix \(String(format: "%0.4f", decimator.mix))"
     }
     
     /// Required initializer

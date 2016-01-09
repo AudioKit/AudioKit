@@ -153,68 +153,68 @@ public class AKDistortionWindow: NSWindow {
             maximumValue: 50)
         
         makeTextField(delayMixTextField, view: view, below: topTitle, distance: 8,
-            stringValue: "Delay Mix: \(distortion.delayMix) Percent")
+            stringValue: "Delay Mix: \(distortion.delayMix)")
         makeSlider(delayMixSlider, view: view, below: topTitle, distance: 9, target: self,
             action: "updateDelaymix",
             currentValue: distortion.delayMix,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(decimationTextField, view: view, below: topTitle, distance: 11,
-            stringValue: "Decimation: \(distortion.decimation) Percent")
+            stringValue: "Decimation: \(distortion.decimation)")
         makeSlider(decimationSlider, view: view, below: topTitle, distance: 12, target: self,
             action: "updateDecimation",
             currentValue: distortion.decimation,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(roundingTextField, view: view, below: topTitle, distance: 14,
-            stringValue: "Rounding: \(distortion.rounding) Percent")
+            stringValue: "Rounding: \(distortion.rounding)")
         makeSlider(roundingSlider, view: view, below: topTitle, distance: 15, target: self,
             action: "updateRounding",
             currentValue: distortion.rounding,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(decimationMixTextField, view: view, below: topTitle, distance: 17,
-            stringValue: "Decimation Mix: \(distortion.decimationMix) Percent")
+            stringValue: "Decimation Mix: \(distortion.decimationMix)")
         makeSlider(decimationMixSlider, view: view, below: topTitle, distance: 18, target: self,
             action: "updateDecimationmix",
             currentValue: distortion.decimationMix,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(linearTermTextField, view: view, below: topTitle, distance: 20,
-            stringValue: "Linear Term: \(distortion.linearTerm) Percent")
+            stringValue: "Linear Term: \(distortion.linearTerm)")
         makeSlider(linearTermSlider, view: view, below: topTitle, distance: 21, target: self,
             action: "updateLinearterm",
             currentValue: distortion.linearTerm,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(squaredTermTextField, view: view, below: topTitle, distance: 23,
-            stringValue: "Squared Term: \(distortion.squaredTerm) Percent")
+            stringValue: "Squared Term: \(distortion.squaredTerm)")
         makeSlider(squaredTermSlider, view: view, below: topTitle, distance: 24, target: self,
             action: "updateSquaredterm",
             currentValue: distortion.squaredTerm,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(cubicTermTextField, view: view, below: topTitle, distance: 26,
-            stringValue: "Cubic Term: \(distortion.cubicTerm) Percent")
+            stringValue: "Cubic Term: \(distortion.cubicTerm)")
         makeSlider(cubicTermSlider, view: view, below: topTitle, distance: 27, target: self,
             action: "updateCubicterm",
             currentValue: distortion.cubicTerm,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(polynomialMixTextField, view: view, below: topTitle, distance: 29,
-            stringValue: "Polynomial Mix: \(distortion.polynomialMix) Percent")
+            stringValue: "Polynomial Mix: \(distortion.polynomialMix)")
         makeSlider(polynomialMixSlider, view: view, below: topTitle, distance: 30, target: self,
             action: "updatePolynomialmix",
             currentValue: distortion.polynomialMix,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(ringModFreq1TextField, view: view, below: topTitle, distance: 32,
             stringValue: "Ring Mod Freq1: \(distortion.ringModFreq1) Hertz")
@@ -233,20 +233,20 @@ public class AKDistortionWindow: NSWindow {
             maximumValue: 8000)
         
         makeTextField(ringModBalanceTextField, view: view, below: topTitle, distance: 38,
-            stringValue: "Ring Mod Balance: \(distortion.ringModBalance) Percent")
+            stringValue: "Ring Mod Balance: \(distortion.ringModBalance)")
         makeSlider(ringModBalanceSlider, view: view, below: topTitle, distance: 39, target: self,
             action: "updateRingmodbalance",
             currentValue: distortion.ringModBalance,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(ringModMixTextField, view: view, below: topTitle, distance: 41,
-            stringValue: "Ring Mod Mix: \(distortion.ringModMix) Percent")
+            stringValue: "Ring Mod Mix: \(distortion.ringModMix)")
         makeSlider(ringModMixSlider, view: view, below: topTitle, distance: 42, target: self,
             action: "updateRingmodmix",
             currentValue: distortion.ringModMix,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         makeTextField(softClipGainTextField, view: view, below: topTitle, distance: 44,
             stringValue: "Soft Clip Gain: \(distortion.softClipGain) dB")
@@ -257,12 +257,12 @@ public class AKDistortionWindow: NSWindow {
             maximumValue: 20)
         
         makeTextField(finalMixTextField, view: view, below: topTitle, distance: 47,
-            stringValue: "Final Mix: \(distortion.finalMix) Percent")
+            stringValue: "Final Mix: \(distortion.finalMix)")
         makeSlider(finalMixSlider, view: view, below: topTitle, distance: 48, target: self,
             action: "updateFinalmix",
             currentValue: distortion.finalMix,
             minimumValue: 0,
-            maximumValue: 100)
+            maximumValue:1)
         
         self.contentView!.addSubview(view)
         self.makeKeyAndOrderFront(nil)
@@ -281,42 +281,42 @@ public class AKDistortionWindow: NSWindow {
     internal func updateDelaymix() {
         distortion.delayMix = delayMixSlider.doubleValue
         delayMixTextField.stringValue =
-        "Delay Mix \(String(format: "%0.4f", distortion.delayMix)) Percent"
+        "Delay Mix \(String(format: "%0.4f", distortion.delayMix))"
     }
     internal func updateDecimation() {
         distortion.decimation = decimationSlider.doubleValue
         decimationTextField.stringValue =
-        "Decimation \(String(format: "%0.4f", distortion.decimation)) Percent"
+        "Decimation \(String(format: "%0.4f", distortion.decimation))"
     }
     internal func updateRounding() {
         distortion.rounding = roundingSlider.doubleValue
         roundingTextField.stringValue =
-        "Rounding \(String(format: "%0.4f", distortion.rounding)) Percent"
+        "Rounding \(String(format: "%0.4f", distortion.rounding))"
     }
     internal func updateDecimationmix() {
         distortion.decimationMix = decimationMixSlider.doubleValue
         decimationMixTextField.stringValue =
-        "Decimation Mix \(String(format: "%0.4f", distortion.decimationMix)) Percent"
+        "Decimation Mix \(String(format: "%0.4f", distortion.decimationMix))"
     }
     internal func updateLinearterm() {
         distortion.linearTerm = linearTermSlider.doubleValue
         linearTermTextField.stringValue =
-        "Linear Term \(String(format: "%0.4f", distortion.linearTerm)) Percent"
+        "Linear Term \(String(format: "%0.4f", distortion.linearTerm))"
     }
     internal func updateSquaredterm() {
         distortion.squaredTerm = squaredTermSlider.doubleValue
         squaredTermTextField.stringValue =
-        "Squared Term \(String(format: "%0.4f", distortion.squaredTerm)) Percent"
+        "Squared Term \(String(format: "%0.4f", distortion.squaredTerm))"
     }
     internal func updateCubicterm() {
         distortion.cubicTerm = cubicTermSlider.doubleValue
         cubicTermTextField.stringValue =
-        "Cubic Term \(String(format: "%0.4f", distortion.cubicTerm)) Percent"
+        "Cubic Term \(String(format: "%0.4f", distortion.cubicTerm))"
     }
     internal func updatePolynomialmix() {
         distortion.polynomialMix = polynomialMixSlider.doubleValue
         polynomialMixTextField.stringValue =
-        "Polynomial Mix \(String(format: "%0.4f", distortion.polynomialMix)) Percent"
+        "Polynomial Mix \(String(format: "%0.4f", distortion.polynomialMix))"
     }
     internal func updateRingmodfreq1() {
         distortion.ringModFreq1 = ringModFreq1Slider.doubleValue
@@ -331,12 +331,12 @@ public class AKDistortionWindow: NSWindow {
     internal func updateRingmodbalance() {
         distortion.ringModBalance = ringModBalanceSlider.doubleValue
         ringModBalanceTextField.stringValue =
-        "Ring Mod Balance \(String(format: "%0.4f", distortion.ringModBalance)) Percent"
+        "Ring Mod Balance \(String(format: "%0.4f", distortion.ringModBalance))"
     }
     internal func updateRingmodmix() {
         distortion.ringModMix = ringModMixSlider.doubleValue
         ringModMixTextField.stringValue =
-        "Ring Mod Mix \(String(format: "%0.4f", distortion.ringModMix)) Percent"
+        "Ring Mod Mix \(String(format: "%0.4f", distortion.ringModMix))"
     }
     internal func updateSoftclipgain() {
         distortion.softClipGain = softClipGainSlider.doubleValue
@@ -346,7 +346,7 @@ public class AKDistortionWindow: NSWindow {
     internal func updateFinalmix() {
         distortion.finalMix = finalMixSlider.doubleValue
         finalMixTextField.stringValue =
-        "Final Mix \(String(format: "%0.4f", distortion.finalMix)) Percent"
+        "Final Mix \(String(format: "%0.4f", distortion.finalMix))"
     }
     
     /// Required initializer

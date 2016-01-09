@@ -27,22 +27,22 @@ var distortion = AKDistortion(inputMix)
 //: Set the parameters of the distortion here
 distortion.delay = 0.1 // Milliseconds
 distortion.decay = 1.0 // Rate
-distortion.delayMix = 50 // Percent
+distortion.delayMix = 0.5 // Normalized Value 0 - 1
 
 //: These are the decimator-specific parameters
-distortion.decimation = 50 // Percent
-distortion.rounding = 0 // Percent
-distortion.decimationMix = 50 // Percent
-distortion.linearTerm = 50 // Percent
-distortion.squaredTerm = 50 // Percent
-distortion.cubicTerm = 50 // Percent
-distortion.polynomialMix = 50 // Percent
+distortion.decimation = 0.5 // Normalized Value 0 - 1
+distortion.rounding = 0.0 // Normalized Value 0 - 1
+distortion.decimationMix = 0.5 // Normalized Value 0 - 1
+distortion.linearTerm = 0.5 // Normalized Value 0 - 1
+distortion.squaredTerm = 0.5 // Normalized Value 0 - 1
+distortion.cubicTerm = 0.5 // Normalized Value 0 - 1
+distortion.polynomialMix = 0.5 // Normalized Value 0 - 1
 distortion.ringModFreq1 = 100 // Hertz
 distortion.ringModFreq2 = 100 // Hertz
-distortion.ringModBalance = 50 // Percent
+distortion.ringModBalance = 0.5 // Normalized Value 0 - 1
 distortion.ringModMix = 0 // Percent
 distortion.softClipGain = -6 // dB
-distortion.finalMix = 50 // Percent
+distortion.finalMix = 0.5 // Normalized Value 0 - 1
 
 var distortionWindow = AKDistortionWindow(distortion)
 

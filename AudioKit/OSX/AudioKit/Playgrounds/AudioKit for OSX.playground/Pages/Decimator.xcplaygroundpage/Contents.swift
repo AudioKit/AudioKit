@@ -25,9 +25,9 @@ let inputMix = AKMixer(mic, player)
 var decimator = AKDecimator(inputMix)
 
 //: Set the parameters of the decimator here
-decimator.decimation =  50 // Percent
-decimator.rounding = 50 // Percent
-decimator.mix = 50 // Percent
+decimator.decimation =  0.5 // Normalized Value 0 - 1
+decimator.rounding = 0.5 // Normalized Value 0 - 1
+decimator.mix = 0.5 // Normalized Value 0 - 1
 
 var decimatorWindow = AKDecimatorWindow(decimator)
 
