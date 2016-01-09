@@ -32,6 +32,7 @@
         <page name='Simple Reverb'/>
         <page name='iOS-only Reverb'/>
         <page name='Parametric Equalizer'/>
+        <page name='Plucked String'/>
         <page name='FM Oscillator'/>
         <page name='General Purpose Oscillator'/>
         <page name='Sawtooth Oscillator'/>
