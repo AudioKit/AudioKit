@@ -1,68 +1,40 @@
-installation-directory: "Generators/Physical\ Models/"
+installation-directory: "Generators/Physical Models/Plucked String/"
 
 sp-module: pluck
-akalias: pluckedString
 
-operation: AKPluckedString
+node: AKPluckedString
 
 four-letter-code: pluk
 
-summary: Physical model of a plucked string
+summary:
 
 one-word-description: pluck
 
-description: Based on Karplus-Strong algorithm
+description: Karplus-Strong plucked string instrument.
 
 parameters:
 - freq: {
   ak-variable: frequency,
-  comment: "Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency.",
-  au-name: "Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency.",
+  comment: "Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.",
+  au-name: "Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that.",
   au-unit: Hertz,
-  default: ifreq,
+  default: 110,
   minimum: 0,
-  maximum: 22050
-}
-- plk: {
-  ak-variable: position,
-  comment: "Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck. ",
-  au-name: "Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck. ",
-  au-unit: Hertz,
-  default: 0.75,
-  minimum: 0,
-  maximum: 1
-}
-- pick: {
-  ak-variable: pickupPosition,
-  comment: "Proportion along the string to sample the input. Expects a value in the range of 0-1.",
-  au-name: "Proportion along the string to sample the input. Expects a value in the range of 0-1.",
-  au-unit: Hertz,
-  default: 0.75,
-  minimum: 0,
-  maximum: 1
-}
-- reflect: {
-  ak-variable: reflectionCoefficent,
-  comment: "Coeffecient of reflection, indicating lossiness and rate of decay. Must be between 0 and 1, but not 0 and 1 themselves.",
-  au-name: "Coeffecient of reflection, indicating lossiness and rate of decay. Must be between 0 and 1, but not 0 and 1 themselves.",
-  au-unit: Hertz,
-  default: 0.95,
-  minimum: 0,
-  maximum: 1
+  maximum: 22000
 }
 - amp: {
   ak-variable: amplitude,
   comment: "Amplitude",
   au-name: "Amplitude",
-  au-unit: Hertz,
-  default: 0.8,
+  au-unit: Generic,
+  default: 0.5,
   minimum: 0,
   maximum: 1
 }
 
 constants:
 - ifreq: {
-  ak-variable: lowestFrequency,
+  ak-variable: ifreq ,
   comment: "Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.",
   default: 110
 }

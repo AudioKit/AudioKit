@@ -12,6 +12,18 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface <%= node %>AudioUnit : AUAudioUnit
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+@property (nonatomic) float <%= data["ak-variable"] %>;
+<% end -%>
+<% end -%>
+
+<% tables.each do |table| -%>
+<% table.each do |sp_var, data| -%>
+- (void)setup<%= data["ak-variable"].capitalize %>:(int)size;
+- (void)set<%= data["ak-variable"].capitalize %>Value:(float)value atIndex:(UInt32)index;
+<% end -%>
+<% end -%>
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;

@@ -40,12 +40,25 @@ public:
         sp_create(&sp);
         sp_<%= sp_module %>_create(&<%= sp_module %>);
         sp_<%= sp_module %>_init(sp, <%= sp_module %>);
-<% (parameters+constant_parameters).each do |sp_parameter| -%>
+<% (parameters + constant_parameters).each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
         <%= sp_module %>-><%= sp_var %> = <%= data["default"] %>;
 <% end -%>
 <% end -%>
     }
+
+<% tables.each do |table| -%>
+<% table.each do |sp_var, data| -%>
+    void setup<%= data["ak-variable"].capitalize %>(uint32_t size) {
+        <%= sp_var %>_size = size;
+        sp_ftbl_create(sp, &<%= sp_var %>, <%= sp_var %>_size);
+    }
+
+    void set<%= data["ak-variable"].capitalize %>Value(uint32_t index, float value) {
+        <%= sp_var %>->tbl[index] = value;
+    }
+<% end -%>
+<% end -%>
 
     void start() {
         started = true;
@@ -62,6 +75,16 @@ public:
 
     void reset() {
     }
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    void set<%= data["ak-variable"].capitalize %>(float <%= sp_var %>) {
+        <%= data["ak-variable"] %> = <%= sp_var %>;
+        <%= data["ak-variable"] %>Ramper.set(clamp(<%= sp_var %>, (float)<%= data["minimum"] %>, (float)<%= data["maximum"] %>));
+    }
+
+<% end -%>
+<% end -%>
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -112,17 +135,17 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-<% parameters.each do |sp_parameter| -%>
-<% sp_parameter.each do  |sp_var, data| -%>
-            double <%= data["ak-variable"] %> = double(<%= data["ak-variable"] %>Ramper.getStep());
-<% end -%>
-<% end -%>
-
             int frameOffset = int(frameIndex + bufferOffset);
 
 <% parameters.each do |sp_parameter| -%>
 <% sp_parameter.each do  |sp_var, data| -%>
-            <%= sp_module %>-><%= sp_var %> = (float)<%= data["ak-variable"] %>;
+            <%= data["ak-variable"] %> = double(<%= data["ak-variable"] %>Ramper.getStep());
+<% end -%>
+<% end -%>
+
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+            <%= sp_module %>-><%= sp_var %> = <%= data["ak-variable"] %>;
 <% end -%>
 <% end -%>
 
@@ -169,6 +192,21 @@ private:
 
     sp_data *sp;
     sp_<%= sp_module %> *<%= sp_module %>;
+
+<% tables.each do |table| -%>
+<% table.each do |sp_var, data| -%>
+    sp_ftbl *<%= sp_var %>;
+    UInt32 <%= sp_var %>_size = 4096;
+<% end -%>
+<% end -%>
+
+<% if parameters.count > 0 -%>
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+    float <%= data["ak-variable"] %> = <%= data["default"] %>;
+<% end -%>
+<% end -%>
+<% end -%>
 
 public:
 <% if type == "generator" -%>

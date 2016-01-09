@@ -8,6 +8,25 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+<% parameters.each do |sp_parameter| -%>
+<% sp_parameter.each do  |sp_var, data| -%>
+- (void)set<%= data["ak-variable"].capitalize %>:(float)<%= data["ak-variable"] %> {
+    _kernel.set<%= data["ak-variable"].capitalize %>(<%= data["ak-variable"] %>);
+}
+<% end -%>
+<% end -%>
+
+<% tables.each do |table| -%>
+<% table.each do |sp_var, data| -%>
+- (void)setup<%= data["ak-variable"].capitalize %>:(int)size {
+    _kernel.setup<%= data["ak-variable"].capitalize %>((uint32_t)size);
+}
+- (void)set<%= data["ak-variable"].capitalize %>Value:(float)value atIndex:(UInt32)index; {
+    _kernel.set<%= data["ak-variable"].capitalize %>Value(index, value);
+}
+<% end -%>
+<% end -%>
+
 - (void)start {
     _kernel.start();
 }
