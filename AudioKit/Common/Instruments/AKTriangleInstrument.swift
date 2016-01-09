@@ -54,7 +54,7 @@ public class AKTriangleInstrument: AKPolyphonicInstrument {
     public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let triangleVoice = voices[voice] as! AKTriangleVoice //you'll need to cast the voice to it's original form
+        let triangleVoice = voices[voice] as! AKTriangleVoice 
         triangleVoice.oscillator.frequency = frequency
         triangleVoice.oscillator.amplitude = amplitude
         triangleVoice.start()

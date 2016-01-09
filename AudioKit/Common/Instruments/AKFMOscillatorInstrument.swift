@@ -10,25 +10,6 @@ import Foundation
 import AVFoundation
 
 public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
-    public init(voiceCount: Int) {
-        super.init(voice: AKFMOscillatorVoice(), voiceCount: voiceCount)
-        for voice in voices {
-            let fmVoice = voice as! AKFMOscillatorVoice
-            fmVoice.oscillator.modulatingMultiplier = 4 //just some arbitrary default values
-            fmVoice.oscillator.modulationIndex = 10
-        }
-    }
-    public override func startVoice(voice: Int, note: Int, velocity: Int) {
-        let fmVoice = voices[voice] as! AKFMOscillatorVoice //you'll need to cast the voice to it's original form
-        fmVoice.oscillator.baseFrequency = note.midiNoteToFrequency()
-        fmVoice.oscillator.amplitude = Double(velocity) / 127.0
-        fmVoice.start()
-    }
-    public override func stopVoice(voice: Int, note: Int) {
-        let fmVoice = voices[voice] as! AKFMOscillatorVoice //you'll need to cast the voice to it's original form
-        fmVoice.stop()
-    }
-    
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
         didSet {
@@ -93,6 +74,25 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
             }
         }
     }
+    
+    public init(voiceCount: Int) {
+        super.init(voice: AKFMOscillatorVoice(), voiceCount: voiceCount)
+        for voice in voices {
+            let fmVoice = voice as! AKFMOscillatorVoice
+            fmVoice.oscillator.modulatingMultiplier = 4 //just some arbitrary default values
+            fmVoice.oscillator.modulationIndex = 10
+        }
+    }
+    public override func startVoice(voice: Int, note: Int, velocity: Int) {
+        let fmVoice = voices[voice] as! AKFMOscillatorVoice 
+        fmVoice.oscillator.baseFrequency = note.midiNoteToFrequency()
+        fmVoice.oscillator.amplitude = Double(velocity) / 127.0
+        fmVoice.start()
+    }
+    public override func stopVoice(voice: Int, note: Int) {
+        let fmVoice = voices[voice] as! AKFMOscillatorVoice 
+        fmVoice.stop()
+    }
 }
 
 internal class AKFMOscillatorVoice: AKVoice {
@@ -107,7 +107,11 @@ internal class AKFMOscillatorVoice: AKVoice {
     
     init() {
         oscillator = AKFMOscillator()
-        adsr = AKAmplitudeEnvelope(oscillator, attackDuration: 0.2, decayDuration: 0.2, sustainLevel: 0.8, releaseDuration: 1.0)
+        adsr = AKAmplitudeEnvelope(oscillator,
+            attackDuration: 0.2,
+            decayDuration: 0.2,
+            sustainLevel: 0.8,
+            releaseDuration: 1.0)
         self.avAudioNode = adsr.avAudioNode
     }
     

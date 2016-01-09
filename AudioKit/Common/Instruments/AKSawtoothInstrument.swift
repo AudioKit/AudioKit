@@ -54,7 +54,7 @@ public class AKSawtoothInstrument: AKPolyphonicInstrument {
     public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let sawtoothVoice = voices[voice] as! AKSawtoothVoice //you'll need to cast the voice to it's original form
+        let sawtoothVoice = voices[voice] as! AKSawtoothVoice 
         sawtoothVoice.oscillator.frequency = frequency
         sawtoothVoice.oscillator.amplitude = amplitude
         sawtoothVoice.start()
