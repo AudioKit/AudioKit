@@ -73,6 +73,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKTriangleOscillatorAudioUnit.h>
 
 // Generators / Physical Models
+#import <AudioKit/AKDripAudioUnit.h>
 #import <AudioKit/AKPluckedStringAudioUnit.h>
 
 // Mixing
