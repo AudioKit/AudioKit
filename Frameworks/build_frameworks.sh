@@ -24,7 +24,9 @@ create_universal_framework()
 	OUTPUT="$DIR/${PROJECT_NAME}.framework"
 	rm -rf "$OUTPUT"
 	mkdir -p "$DIR"
-	ln -sf "$DIR" "AudioKit-$1"
+	if ! test -L "AudioKit-$1"; then
+		ln -sf "$DIR" "AudioKit-$1"
+	fi
 	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY
 	cp -a "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "$OUTPUT"
 	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk $3 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY
@@ -38,7 +40,9 @@ create_osx_framework()
 	OUTPUT="$DIR/${PROJECT_NAME}.framework"
 	rm -rf "$OUTPUT"
 	mkdir -p "$DIR"
-	ln -sf "$DIR" "AudioKit-$1"
+	if ! test -L "AudioKit-$1"; then
+		ln -sf "$DIR" "AudioKit-$1"
+	fi
 	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY
 	cp -a "${BUILD_DIR}/${CONFIGURATION}/${PROJECT_NAME}.framework" "$OUTPUT"
 }
