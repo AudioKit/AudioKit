@@ -9,25 +9,19 @@
 import Foundation
 
 extension AKOperation {
-
-    /// Physical model of a plucked string based on Karplus-Strong algorithm
+    
+    /// Karplus-Strong plucked string instrument.
     ///
     /// - returns: AKOperation
-    /// - parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than or equal to lowestFrequency. (Default: ifreq, Minimum: 0, Maximum: 22050)
-    /// - parameter position: Point of pluck. Expects value in the rnage of 0-1. A value of 0 is no initial pluck.  (Default: 0.75, Minimum: 0, Maximum: 1)
-    /// - parameter pickupPosition: Proportion along the string to sample the input. Expects a value in the range of 0-1. (Default: 0.75, Minimum: 0, Maximum: 1)
-    /// - parameter reflectionCoefficent: Coeffecient of reflection, indicating lossiness and rate of decay. Must be between 0 and 1, but not 0 and 1 themselves. (Default: 0.95, Minimum: 0, Maximum: 1)
-    /// - parameter amplitude: Amplitude (Default: 0.8, Minimum: 0, Maximum: 1)
-    /// - parameter lowestFrequency: Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using. (Default: 110)
-     ///
+    /// - parameter frequency: Variable frequency. Values less than the lowest frequency will be doubled until it is greater than that. (Default: 110, Minimum: 0, Maximum: 22000)
+    /// - parameter amplitude: Amplitude (Default: 0.5, Minimum: 0, Maximum: 1)
+    /// - parameter ifreq: Sets the initial frequency. This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using. (Default: 110)
+    ///
     public static func pluckedString(
         frequency frequency: AKParameter = 110,
-        position: AKParameter = 0.75,
-        pickupPosition: AKParameter = 0.75,
-        reflectionCoefficent: AKParameter = 0.05,
-        amplitude: AKParameter = 1,
+        amplitude: AKParameter = 0.5,
         lowestFrequency: Double = 110
         ) -> AKOperation {
-            return AKOperation("(\(position) \(frequency) \(amplitude) \(pickupPosition) \(reflectionCoefficent) \(lowestFrequency) pluck)")
+            return AKOperation("(\(frequency) \(amplitude) \(lowestFrequency) pluck)")
     }
 }
