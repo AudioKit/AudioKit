@@ -5,6 +5,7 @@
 set -o pipefail
 
 VERSION=$(cat ../VERSION)
+PLATFORMS=${PLATFORMS:-"iOS tvOS OSX"}
 
 if ! test -d iOS;
 then
@@ -26,7 +27,7 @@ create_package()
 	zip -9yr ${DIR}.zip $DIR
 }
 
-for os in iOS tvOS OSX;
+for os in $PLATFORMS;
 do
 	create_package $os
 done
