@@ -255,14 +255,11 @@
 		C4B191FB1C3B342800C0F330 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B191371C3B342800C0F330 /* fft.c */; };
 		C4B191FC1C3B342800C0F330 /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B191391C3B342800C0F330 /* ini.c */; };
 		C4B191FD1C3B342800C0F330 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B1913A1C3B342800C0F330 /* ini.h */; };
-		C4B191FE1C3B342800C0F330 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4B1913B1C3B342800C0F330 /* LICENSE.txt */; };
 		C4B191FF1C3B342800C0F330 /* _kiss_fft_guts.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B1913D1C3B342800C0F330 /* _kiss_fft_guts.h */; };
-		C4B192001C3B342800C0F330 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = C4B1913E1C3B342800C0F330 /* COPYING */; };
 		C4B192011C3B342800C0F330 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B1913F1C3B342800C0F330 /* kiss_fft.c */; };
 		C4B192021C3B342800C0F330 /* kiss_fft.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B191401C3B342800C0F330 /* kiss_fft.h */; };
 		C4B192031C3B342800C0F330 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B191411C3B342800C0F330 /* kiss_fftr.c */; };
 		C4B192041C3B342800C0F330 /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B191421C3B342800C0F330 /* kiss_fftr.h */; };
-		C4B192051C3B342800C0F330 /* README in Resources */ = {isa = PBXBuildFile; fileRef = C4B191431C3B342800C0F330 /* README */; };
 		C4B192061C3B342800C0F330 /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B191451C3B342800C0F330 /* allpass.c */; };
 		C4B192071C3B342800C0F330 /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B191461C3B342800C0F330 /* atone.c */; };
 		C4B192081C3B342800C0F330 /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B191471C3B342800C0F330 /* autowah.c */; };
@@ -919,7 +916,7 @@
 		C4B192D71C3B639B00C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAmplitudeEnvelopeAudioUnit.mm; sourceTree = "<group>"; };
 		C4B192D81C3B639B00C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKAmplitudeEnvelopeDSPKernel.hpp; sourceTree = "<group>"; };
 		C4BDE8391C12FFBC00207DA9 /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
+		C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioKit.h; path = ../../Common/Internals/AudioKit.h; sourceTree = "<group>"; };
 		C4BDE83E1C12FFBC00207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4BDE90B1C13004A00207DA9 /* AKNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNode.swift; sourceTree = "<group>"; };
 		C4DA4BEC1C248F3000AA3771 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
@@ -2475,9 +2472,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B192051C3B342800C0F330 /* README in Resources */,
-				C4B192001C3B342800C0F330 /* COPYING in Resources */,
-				C4B191FE1C3B342800C0F330 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

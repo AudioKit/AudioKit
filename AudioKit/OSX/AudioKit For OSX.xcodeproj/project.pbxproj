@@ -276,14 +276,11 @@
 		C4B190771C3B340400C0F330 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FB31C3B340400C0F330 /* fft.c */; };
 		C4B190781C3B340400C0F330 /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FB51C3B340400C0F330 /* ini.c */; };
 		C4B190791C3B340400C0F330 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B18FB61C3B340400C0F330 /* ini.h */; };
-		C4B1907A1C3B340400C0F330 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C4B18FB71C3B340400C0F330 /* LICENSE.txt */; };
 		C4B1907B1C3B340400C0F330 /* _kiss_fft_guts.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B18FB91C3B340400C0F330 /* _kiss_fft_guts.h */; };
-		C4B1907C1C3B340400C0F330 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = C4B18FBA1C3B340400C0F330 /* COPYING */; };
 		C4B1907D1C3B340400C0F330 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FBB1C3B340400C0F330 /* kiss_fft.c */; };
 		C4B1907E1C3B340400C0F330 /* kiss_fft.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B18FBC1C3B340400C0F330 /* kiss_fft.h */; };
 		C4B1907F1C3B340400C0F330 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FBD1C3B340400C0F330 /* kiss_fftr.c */; };
 		C4B190801C3B340400C0F330 /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B18FBE1C3B340400C0F330 /* kiss_fftr.h */; };
-		C4B190811C3B340400C0F330 /* README in Resources */ = {isa = PBXBuildFile; fileRef = C4B18FBF1C3B340400C0F330 /* README */; };
 		C4B190821C3B340400C0F330 /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FC11C3B340400C0F330 /* allpass.c */; };
 		C4B190831C3B340400C0F330 /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FC21C3B340400C0F330 /* atone.c */; };
 		C4B190841C3B340400C0F330 /* autowah.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FC31C3B340400C0F330 /* autowah.c */; };
@@ -1136,7 +1133,6 @@
 			isa = PBXGroup;
 			children = (
 				C42F36D11C0582E6000E937C /* Info.plist */,
-				C42F36CF1C0582E6000E937C /* AudioKit.h */,
 				C40C41D21C40E59E009D870B /* Instruments */,
 				C42F36D91C058442000E937C /* Internals */,
 				C42F370B1C058442000E937C /* MIDI */,
@@ -1150,6 +1146,7 @@
 		C42F36D91C058442000E937C /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				C42F36CF1C0582E6000E937C /* AudioKit.h */,
 				C40C416E1C40E3EF009D870B /* AKManager.swift */,
 				C40C416F1C40E3EF009D870B /* AKTable.swift */,
 				C40C41701C40E3EF009D870B /* AudioKitHelpers.swift */,
@@ -2571,9 +2568,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B190811C3B340400C0F330 /* README in Resources */,
-				C4B1907C1C3B340400C0F330 /* COPYING in Resources */,
-				C4B1907A1C3B340400C0F330 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
