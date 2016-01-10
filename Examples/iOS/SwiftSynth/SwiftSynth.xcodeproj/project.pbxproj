@@ -7,6 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		949B1C3C1C431E5400BFFA10 /* knob120_base.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C1F1C431E5400BFFA10 /* knob120_base.png */; };
+		949B1C3D1C431E5400BFFA10 /* knob120_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C201C431E5400BFFA10 /* knob120_base@2x.png */; };
+		949B1C3E1C431E5400BFFA10 /* knob120_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C211C431E5400BFFA10 /* knob120_indicator.png */; };
+		949B1C3F1C431E5400BFFA10 /* knob120_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C221C431E5400BFFA10 /* knob120_indicator@2x.png */; };
+		949B1C401C431E5400BFFA10 /* knob140_base.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C231C431E5400BFFA10 /* knob140_base.png */; };
+		949B1C411C431E5400BFFA10 /* knob140_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C241C431E5400BFFA10 /* knob140_base@2x.png */; };
+		949B1C421C431E5400BFFA10 /* knob140_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C251C431E5400BFFA10 /* knob140_indicator.png */; };
+		949B1C431C431E5400BFFA10 /* knob140_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C261C431E5400BFFA10 /* knob140_indicator@2x.png */; };
+		949B1C441C431E5400BFFA10 /* knob212_base.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C271C431E5400BFFA10 /* knob212_base.png */; };
+		949B1C451C431E5400BFFA10 /* knob212_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C281C431E5400BFFA10 /* knob212_base@2x.png */; };
+		949B1C461C431E5400BFFA10 /* knob212_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C291C431E5400BFFA10 /* knob212_indicator.png */; };
+		949B1C471C431E5400BFFA10 /* knob212_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C2A1C431E5400BFFA10 /* knob212_indicator@2x.png */; };
+		949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */; };
+		949B1C491C431E5400BFFA10 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2C1C431E5400BFFA10 /* Knob.swift */; };
+		949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */; };
+		949B1C4B1C431E5400BFFA10 /* KnobMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */; };
+		949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */; };
+		949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C301C431E5400BFFA10 /* RoundedButton.swift */; };
+		949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */; };
+		949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C331C431E5400BFFA10 /* Float+Extensions.swift */; };
+		949B1C501C431E5400BFFA10 /* SMSegmentView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C341C431E5400BFFA10 /* SMSegmentView+Extensions.swift */; };
+		949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */; };
+		949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */; };
+		949B1C531C431E5400BFFA10 /* SMBasicSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C381C431E5400BFFA10 /* SMBasicSegmentView.swift */; };
+		949B1C541C431E5400BFFA10 /* SMSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C391C431E5400BFFA10 /* SMSegment.swift */; };
+		949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C3A1C431E5400BFFA10 /* SMSegmentView.swift */; };
+		949B1C561C431E5400BFFA10 /* SynthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */; };
 		C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */; };
 		C42FFBFC1C3DDAAC00823BD4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */; };
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
@@ -31,6 +58,33 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		949B1C1F1C431E5400BFFA10 /* knob120_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob120_base.png; sourceTree = "<group>"; };
+		949B1C201C431E5400BFFA10 /* knob120_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob120_base@2x.png"; sourceTree = "<group>"; };
+		949B1C211C431E5400BFFA10 /* knob120_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob120_indicator.png; sourceTree = "<group>"; };
+		949B1C221C431E5400BFFA10 /* knob120_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob120_indicator@2x.png"; sourceTree = "<group>"; };
+		949B1C231C431E5400BFFA10 /* knob140_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob140_base.png; sourceTree = "<group>"; };
+		949B1C241C431E5400BFFA10 /* knob140_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob140_base@2x.png"; sourceTree = "<group>"; };
+		949B1C251C431E5400BFFA10 /* knob140_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob140_indicator.png; sourceTree = "<group>"; };
+		949B1C261C431E5400BFFA10 /* knob140_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob140_indicator@2x.png"; sourceTree = "<group>"; };
+		949B1C271C431E5400BFFA10 /* knob212_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob212_base.png; sourceTree = "<group>"; };
+		949B1C281C431E5400BFFA10 /* knob212_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob212_base@2x.png"; sourceTree = "<group>"; };
+		949B1C291C431E5400BFFA10 /* knob212_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob212_indicator.png; sourceTree = "<group>"; };
+		949B1C2A1C431E5400BFFA10 /* knob212_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob212_indicator@2x.png"; sourceTree = "<group>"; };
+		949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Knob+Touches.swift"; sourceTree = "<group>"; };
+		949B1C2C1C431E5400BFFA10 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
+		949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobLarge.swift; sourceTree = "<group>"; };
+		949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobMedium.swift; sourceTree = "<group>"; };
+		949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobSmall.swift; sourceTree = "<group>"; };
+		949B1C301C431E5400BFFA10 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthStyleKit.swift; sourceTree = "<group>"; };
+		949B1C331C431E5400BFFA10 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
+		949B1C341C431E5400BFFA10 /* SMSegmentView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SMSegmentView+Extensions.swift"; sourceTree = "<group>"; };
+		949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMAlphaImageSegment.swift; sourceTree = "<group>"; };
+		949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMBasicSegment.swift; sourceTree = "<group>"; };
+		949B1C381C431E5400BFFA10 /* SMBasicSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMBasicSegmentView.swift; sourceTree = "<group>"; };
+		949B1C391C431E5400BFFA10 /* SMSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSegment.swift; sourceTree = "<group>"; };
+		949B1C3A1C431E5400BFFA10 /* SMSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSegmentView.swift; sourceTree = "<group>"; };
+		949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthViewController.swift; sourceTree = "<group>"; };
 		C42FFBF61C3DDAAC00823BD4 /* SwiftSynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftSynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +107,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		949B1C1D1C431E5400BFFA10 /* CustomControls */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C1E1C431E5400BFFA10 /* images */,
+				949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */,
+				949B1C2C1C431E5400BFFA10 /* Knob.swift */,
+				949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */,
+				949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */,
+				949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */,
+				949B1C301C431E5400BFFA10 /* RoundedButton.swift */,
+				949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */,
+			);
+			path = CustomControls;
+			sourceTree = "<group>";
+		};
+		949B1C1E1C431E5400BFFA10 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C1F1C431E5400BFFA10 /* knob120_base.png */,
+				949B1C201C431E5400BFFA10 /* knob120_base@2x.png */,
+				949B1C211C431E5400BFFA10 /* knob120_indicator.png */,
+				949B1C221C431E5400BFFA10 /* knob120_indicator@2x.png */,
+				949B1C231C431E5400BFFA10 /* knob140_base.png */,
+				949B1C241C431E5400BFFA10 /* knob140_base@2x.png */,
+				949B1C251C431E5400BFFA10 /* knob140_indicator.png */,
+				949B1C261C431E5400BFFA10 /* knob140_indicator@2x.png */,
+				949B1C271C431E5400BFFA10 /* knob212_base.png */,
+				949B1C281C431E5400BFFA10 /* knob212_base@2x.png */,
+				949B1C291C431E5400BFFA10 /* knob212_indicator.png */,
+				949B1C2A1C431E5400BFFA10 /* knob212_indicator@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		949B1C321C431E5400BFFA10 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C331C431E5400BFFA10 /* Float+Extensions.swift */,
+				949B1C341C431E5400BFFA10 /* SMSegmentView+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		949B1C351C431E5400BFFA10 /* SMSegmentView */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */,
+				949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */,
+				949B1C381C431E5400BFFA10 /* SMBasicSegmentView.swift */,
+				949B1C391C431E5400BFFA10 /* SMSegment.swift */,
+				949B1C3A1C431E5400BFFA10 /* SMSegmentView.swift */,
+			);
+			path = SMSegmentView;
+			sourceTree = "<group>";
+		};
+		949B1C571C431E5B00BFFA10 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */,
+				C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
 		C42FFBED1C3DDAAC00823BD4 = {
 			isa = PBXGroup;
 			children = (
@@ -73,8 +191,11 @@
 		C42FFBF81C3DDAAC00823BD4 /* SwiftSynth */ = {
 			isa = PBXGroup;
 			children = (
+				949B1C1D1C431E5400BFFA10 /* CustomControls */,
+				949B1C321C431E5400BFFA10 /* Extensions */,
+				949B1C351C431E5400BFFA10 /* SMSegmentView */,
+				949B1C571C431E5B00BFFA10 /* ViewControllers */,
 				C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */,
-				C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */,
 				C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */,
 				C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */,
 				C42FFC021C3DDAAC00823BD4 /* LaunchScreen.storyboard */,
@@ -156,9 +277,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949B1C411C431E5400BFFA10 /* knob140_base@2x.png in Resources */,
+				949B1C461C431E5400BFFA10 /* knob212_indicator.png in Resources */,
+				949B1C3D1C431E5400BFFA10 /* knob120_base@2x.png in Resources */,
 				C42FFC041C3DDAAC00823BD4 /* LaunchScreen.storyboard in Resources */,
+				949B1C471C431E5400BFFA10 /* knob212_indicator@2x.png in Resources */,
 				C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */,
+				949B1C431C431E5400BFFA10 /* knob140_indicator@2x.png in Resources */,
+				949B1C3C1C431E5400BFFA10 /* knob120_base.png in Resources */,
+				949B1C421C431E5400BFFA10 /* knob140_indicator.png in Resources */,
+				949B1C401C431E5400BFFA10 /* knob140_base.png in Resources */,
+				949B1C441C431E5400BFFA10 /* knob212_base.png in Resources */,
 				C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */,
+				949B1C3F1C431E5400BFFA10 /* knob120_indicator@2x.png in Resources */,
+				949B1C3E1C431E5400BFFA10 /* knob120_indicator.png in Resources */,
+				949B1C451C431E5400BFFA10 /* knob212_base@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,8 +302,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */,
+				949B1C531C431E5400BFFA10 /* SMBasicSegmentView.swift in Sources */,
+				949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */,
+				949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */,
+				949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */,
 				C42FFBFC1C3DDAAC00823BD4 /* ViewController.swift in Sources */,
+				949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */,
 				C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */,
+				949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */,
+				949B1C501C431E5400BFFA10 /* SMSegmentView+Extensions.swift in Sources */,
+				949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */,
+				949B1C491C431E5400BFFA10 /* Knob.swift in Sources */,
+				949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */,
+				949B1C4B1C431E5400BFFA10 /* KnobMedium.swift in Sources */,
+				949B1C561C431E5400BFFA10 /* SynthViewController.swift in Sources */,
+				949B1C541C431E5400BFFA10 /* SMSegment.swift in Sources */,
+				949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
