@@ -1,0 +1,83 @@
+installation-directory: "Generators/Physical Models/Drip/"
+
+sp-module: drip
+
+node: AKDrip
+
+four-letter-code: drip
+
+summary: Water drop physical model
+
+one-word-description: drip
+
+
+description:
+    Physical model of the sound of dripping water. When triggered, it will produce a droplet of water.
+
+parameters:
+- num_tubes: {
+  ak-variable: intensity,
+  comment: "The intensity of the dripping sound.",
+  au-name: "The intensity of the dripping sounds.",
+  au-unit: Generic,
+  default: 10,
+  minimum: 0,
+  maximum: 100
+}
+- damp: {
+  ak-variable: dampingFactor,
+  comment: "The damping factor. Maximum value is 2.0.",
+  au-name: "The damping factor. Maximum value is 2.0.",
+  au-unit: Generic,
+  default: 0.2,
+  minimum: 0.0,
+  maximum: 2.0
+}
+- shake_max: {
+  ak-variable: energyReturn,
+  comment: "The amount of energy to add back into the system.",
+  au-name: "The amount of energy to add back into the system.",
+  au-unit: Generic,
+  default: 0,
+  minimum: 0,
+  maximum: 100
+}
+- freq: {
+  ak-variable: mainResonantFrequency,
+  comment: "Main resonant frequency.",
+  au-name: "Main resonant frequency.",
+  au-unit: Hertz,
+  default: 450,
+  minimum: 0,
+  maximum: 22000
+}
+- freq1: {
+  ak-variable: firstResonantFrequency,
+  comment: "The first resonant frequency.",
+  au-name: "The first resonant frequency.",
+  au-unit: Hertz,
+  default: 600,
+  minimum: 0,
+  maximum: 22000
+}
+- freq2: {
+  ak-variable: secondResonantFrequency,
+  comment: "The second resonant frequency.",
+  au-name: "The second resonant frequency.",
+  au-unit: Hertz,
+  default: 750,
+  minimum: 0,
+  maximum: 22000
+}
+- amp: {
+  ak-variable: amplitude,
+  comment: "Amplitude.",
+  au-name: "Amplitude.",
+  au-unit: Generic,
+  default: 0.3,
+  minimum: 0,
+  maximum: 1
+}
+
+
+

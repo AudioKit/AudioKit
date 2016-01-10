@@ -12,7 +12,7 @@ import AVFoundation
 public class AKOperationEffect: AKNode, AKToggleable {
 
     // MARK: - Properties
-
+    
     private var internalAU: AKOperationEffectAudioUnit?
     
     /// Required property for AKNode
@@ -23,6 +23,13 @@ public class AKOperationEffect: AKNode, AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
+    }
+    
+    /// Parameters for changing internal operations
+    public var parameters: [Double] = [] {
+        didSet {
+            internalAU?.setParameters(parameters)
+        }
     }
     
     // MARK: - Initializers

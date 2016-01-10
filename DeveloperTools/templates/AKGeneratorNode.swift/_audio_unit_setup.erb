@@ -1,0 +1,25 @@
+        AUAudioUnit.registerSubclass(
+            <%= node %>AudioUnit.self,
+            asComponentDescription: description,
+            name: "Local <%= node %>",
+            version: UInt32.max)
+
+        self.avAudioNode = AVAudioNode()
+        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+            avAudioUnit, error in
+
+            guard let avAudioUnit<%= au_type %> = avAudioUnit else { return }
+
+            self.avAudioNode = avAudioUnit<%= au_type %>
+            self.internalAU = avAudioUnit<%= au_type %>.AUAudioUnit as? <%= node %>AudioUnit
+
+            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+<% tables.each do |table| -%>
+<% table.each do |sp_var, data| -%>
+            self.internalAU?.setup<%= data["ak-variable"].capitalize %>(Int32(<%= data["ak-variable"] %>.size))
+            for var i = 0; i < <%= data["ak-variable"] %>.size; i++ {
+                self.internalAU?.set<%= data["ak-variable"].capitalize %>Value(<%= data["ak-variable"] %>.values[i], atIndex: UInt32(i))
+            }
+<% end -%>
+<% end -%>
+        }

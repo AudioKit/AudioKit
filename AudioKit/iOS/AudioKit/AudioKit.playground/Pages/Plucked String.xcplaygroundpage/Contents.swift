@@ -2,23 +2,20 @@
 //:
 //: ---
 //:
-//: ## Plucked String Operation
+//: ## Plucked String
 //: ### Experimenting with a physical model of a string
 
-import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
+import XCPlayground
 
 let playRate = 2.0
 
-let frequency = (AKOperation.parameters(0) + 40).midiNoteToFrequency()
-let trigger = AKOperation.metronome(playRate)
-let pluck = AKOperation.pluckedString(frequency: frequency, amplitude: 0.5, lowestFrequency: 50)
+let audiokit = AKManager.sharedInstance
 
-let pluckNode = AKOperationGenerator(operation: pluck, triggered: true)
+let pluckedString = AKPluckedString()
 
-var delay  = AKDelay(pluckNode)
+var delay  = AKDelay(pluckedString)
 delay.time = 1.5 / playRate
 delay.dryWetMix = 0.3
 delay.feedback = 0.2
@@ -28,21 +25,19 @@ let reverb = AKReverb(delay)
 //: Connect the sampler to the main output
 audiokit.audioOutput = reverb
 audiokit.start()
-pluckNode.start()
-
 let scale = [0,2,4,5,7,9,11,12]
 
 AKPlaygroundLoop(frequency: playRate) {
     var note = scale.randomElement()
-    let octave = randomInt(0...3)  * 12
+    let octave = randomInt(2...5)  * 12
     if random(0, 10) < 1.0 { note++ }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
-
+    
+    let frequency = (note+octave).midiNoteToFrequency()
     if random(0, 6) > 1.0 {
-        pluckNode.trigger([Double(note + octave)])
+        pluckedString.trigger(frequency: frequency)
     }
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
