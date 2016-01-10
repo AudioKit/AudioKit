@@ -16,9 +16,9 @@ let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 
-let input = AKStereoOperation.input
 
 //: Define parameters that will be required
+let input = AKStereoOperation.input
 let fattenTimeParameter = AKOperation.parameters(0)
 let fattenMixParameter = AKOperation.parameters(1)
 
