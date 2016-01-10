@@ -14,6 +14,7 @@
 @interface AKOperationGeneratorAudioUnit : AUAudioUnit
 - (void)setSporth:(NSString *)sporth;
 - (void)trigger:(NSArray *)parameters;
+- (void)setParameters:(NSArray *)parameters;
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
