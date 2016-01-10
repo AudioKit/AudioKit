@@ -970,8 +970,8 @@
                                         <state key="highlighted" image="blackkey_pressed"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="WV8-im-nrZ"/>
                                                 <exclude reference="RyL-tQ-4Os"/>
+                                                <exclude reference="WV8-im-nrZ"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -1001,8 +1001,8 @@
                                         <state key="highlighted" image="blackkey_pressed"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="kC6-xL-n9c"/>
                                                 <exclude reference="g3H-hK-R2V"/>
+                                                <exclude reference="kC6-xL-n9c"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -1032,8 +1032,8 @@
                                         <state key="highlighted" image="blackkey_pressed"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="YgU-UH-wZn"/>
                                                 <exclude reference="Gd7-2T-W7X"/>
+                                                <exclude reference="YgU-UH-wZn"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -1063,8 +1063,8 @@
                                         <state key="highlighted" image="blackkey_pressed"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="ysU-tA-OyB"/>
                                                 <exclude reference="R0b-er-wL3"/>
+                                                <exclude reference="ysU-tA-OyB"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">
@@ -1218,8 +1218,8 @@
                                         <state key="highlighted" image="blackkey_pressed"/>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="VMS-eb-2kc"/>
                                                 <exclude reference="4oH-Nn-wte"/>
+                                                <exclude reference="VMS-eb-2kc"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular">

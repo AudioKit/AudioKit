@@ -384,8 +384,6 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
     }
 }
 
-
-
 //*****************************************************************
 // MARK: - SegmentView Delegate (waveform selector)
 //*****************************************************************
