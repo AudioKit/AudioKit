@@ -61,6 +61,10 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 // Generators
 #import "AKOperationGeneratorAudioUnit.h"
 
+// Generators / Noise
+#import "AKPinkNoiseAudioUnit.h"
+#import "AKWhiteNoiseAudioUnit.h"
+
 // Generators / Oscillators
 #import "AKFMOscillatorAudioUnit.h"
 #import "AKOscillatorAudioUnit.h"
@@ -68,13 +72,16 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKSquareWaveOscillatorAudioUnit.h"
 #import "AKTriangleOscillatorAudioUnit.h"
 
-// Generators / Noise
-#import "AKPinkNoiseAudioUnit.h"
-#import "AKWhiteNoiseAudioUnit.h"
+// Generators / Physical Models
+#import "AKPluckedStringAudioUnit.h"
+#import "AKDripAudioUnit.h"
 
 // Mixing
 #import "AKBalancerAudioUnit.h"
 #import "AKPannerAudioUnit.h"
+
+// Playback
+#import "AKPhaseLockedVocoderAudioUnit.h"
 
 // Testing
 #import "AKTesterAudioUnit.h"
