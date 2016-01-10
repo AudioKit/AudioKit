@@ -68,6 +68,12 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKSquareWaveOscillatorAudioUnit.h"
 #import "AKTriangleOscillatorAudioUnit.h"
 
+//Generators / Physical Models
+#import "AKPluckedStringAudioUnit.h"
+#import "AKDripAudioUnit.h"
+
+#import "AKPhaseLockedVocoderAudioUnit.h"
+
 // Generators / Noise
 #import "AKPinkNoiseAudioUnit.h"
 #import "AKWhiteNoiseAudioUnit.h"
