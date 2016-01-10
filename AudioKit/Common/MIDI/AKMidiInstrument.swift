@@ -9,15 +9,23 @@
 import AVFoundation
 import CoreAudio
 
-public class AKMidiInstrument: AKPolyphonicInstrument {
+public class AKMidiInstrument: AKNode {
+    
+    /// Required property for AKNode
+    public var avAudioNode: AVAudioNode
+    /// Required property for AKNode containing all the node's connections
+    public var connectionPoints = [AVAudioConnectionPoint]()
     
     /// MIDI Input
     public var midiIn = MIDIEndpointRef()
     
     public var name = "AKMidiInstrument"
     
-    public override init(voice: AKVoice, voiceCount: Int) {
-        super.init(voice: voice, voiceCount: voiceCount)
+    public var internalInst:AKPolyphonicInstrument?
+    
+    public init(inst: AKPolyphonicInstrument) {
+        internalInst = inst;
+        avAudioNode = (internalInst?.avAudioNode)!
     }
     
     /// Enable MIDI input from a given MIDI client
@@ -51,21 +59,11 @@ public class AKMidiInstrument: AKPolyphonicInstrument {
     }
     
     public func handleNoteOn(note: Int, withVelocity velocity: Int, onChannel channel: UInt8) {
-        startNote(note, velocity: velocity)
+        internalInst!.startNote(note, velocity: velocity)
     }
     
     public func handleNoteOff(note: Int, onChannel channel: UInt8) {
-        stopNote(note)
-    }
-    
-    public override func startVoice(voice: Int, note: Int, velocity: Int) {
-        /* OVERRIDE ME */
-        print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
-    }
-    public override func stopVoice(voice: Int, note: Int) {
-        /* OVERRIDE ME */
-        //you'll need to cast the voice to its original form
-        print("Stopping voice\(voice) - note:\(note)")
+        internalInst!.stopNote(note)
     }
     
     private func MyMIDIReadBlock(
