@@ -495,6 +495,8 @@
 		C4E958FB1C0ADC5800516A6A /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E958F41C0ADC5800516A6A /* kiss_fftr.h */; };
 		C4E959081C0B847C00516A6A /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E959071C0B847C00516A6A /* fft.c */; };
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
+		FE087CE31C432395007A6033 /* AKMusicTrackMidi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE087CE11C432330007A6033 /* AKMusicTrackMidi.swift */; };
+		FE087CE51C4323A6007A6033 /* AKSequencerMidi.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE087CE41C4323A6007A6033 /* AKSequencerMidi.swift */; };
 		FE0929931C23AA6F00845CC6 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */; };
 		FE7B7BEA1C42FC9A00E373E5 /* AKMidiInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7B7BE91C42FC9A00E373E5 /* AKMidiInstrument.swift */; };
 /* End PBXBuildFile section */
@@ -1005,7 +1007,9 @@
 		C4E958F51C0ADC5800516A6A /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C4E959071C0B847C00516A6A /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
-		FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
+		FE087CE11C432330007A6033 /* AKMusicTrackMidi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrackMidi.swift; sourceTree = "<group>"; };
+		FE087CE41C4323A6007A6033 /* AKSequencerMidi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencerMidi.swift; sourceTree = "<group>"; };
+		FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKMusicTrack.swift; path = ../../../MIDI/AKMusicTrack.swift; sourceTree = "<group>"; };
 		FE7B7BE91C42FC9A00E373E5 /* AKMidiInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1168,6 +1172,7 @@
 			children = (
 				C40C42B01C420C1D009D870B /* AKSampler.swift */,
 				C40C42B11C420C1D009D870B /* AKSequencer.swift */,
+				FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -1409,8 +1414,9 @@
 			children = (
 				C42F35401C057F4C000E937C /* AKMidi.swift */,
 				C42F35411C057F4C000E937C /* AKMidiEvent.swift */,
-				FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */,
 				FE7B7BE91C42FC9A00E373E5 /* AKMidiInstrument.swift */,
+				FE087CE11C432330007A6033 /* AKMusicTrackMidi.swift */,
+				FE087CE41C4323A6007A6033 /* AKSequencerMidi.swift */,
 			);
 			name = MIDI;
 			path = ../../Common/MIDI;
@@ -2827,6 +2833,7 @@
 				C46300DD1C20C342009B44D9 /* count.c in Sources */,
 				C4537F351C39D2A300A51738 /* AKTanhDistortionAudioUnit.mm in Sources */,
 				C4E958A61C0ADBFD00516A6A /* delay.c in Sources */,
+				FE087CE31C432395007A6033 /* AKMusicTrackMidi.swift in Sources */,
 				C4E958CB1C0ADBFD00516A6A /* phasor.c in Sources */,
 				C4E958B31C0ADBFD00516A6A /* foo.c in Sources */,
 				FE7B7BEA1C42FC9A00E373E5 /* AKMidiInstrument.swift in Sources */,
@@ -2963,6 +2970,7 @@
 				C4537FB51C3A438D00A51738 /* AKCombFilter.swift in Sources */,
 				C45380911C3A5C0C00A51738 /* AKWhiteNoise.swift in Sources */,
 				C45380711C3A5BDA00A51738 /* AKFMOscillatorAudioUnit.mm in Sources */,
+				FE087CE51C4323A6007A6033 /* AKSequencerMidi.swift in Sources */,
 				C4E958C91C0ADBFD00516A6A /* pareq.c in Sources */,
 				C4C136FF1C3100FB0026FD7A /* poly.c in Sources */,
 				C4E958EC1C0ADBFD00516A6A /* tseq.c in Sources */,

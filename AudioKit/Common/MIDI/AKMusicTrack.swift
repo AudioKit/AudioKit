@@ -32,14 +32,6 @@ public class AKMusicTrack{
         trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
     
-    /// Set the MIDI Ouput
-    ///
-    /// - parameter endpoint: MIDI Endpoint Port
-    ///
-    public func setMidiOutput(endpoint: MIDIEndpointRef) {
-        MusicTrackSetDestMIDIEndpoint(internalMusicTrack, endpoint)
-    }
-    
     /// Set the Node Output
     ///
     /// - parameter node: Apple AUNode for output
