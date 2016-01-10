@@ -36,6 +36,9 @@
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fQL-EZ-l7t">
                                 <rect key="frame" x="18" y="163" width="564" height="31"/>
                             </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qe7-ck-Nnd">
+                                <rect key="frame" x="18" y="237" width="564" height="31"/>
+                            </slider>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="w0g-iO-gBO">
                                 <rect key="frame" x="18" y="550" width="564" height="31"/>
                             </slider>
@@ -51,15 +54,20 @@
                                     <segment title="Square"/>
                                 </segments>
                             </segmentedControl>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ceN-Xa-2ep">
+                                <rect key="frame" x="18" y="275" width="564" height="31"/>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="qiG-nj-t82" secondAttribute="leading" id="1yO-6b-xBf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qiG-nj-t82" secondAttribute="trailing" id="5vS-ny-EMe"/>
+                            <constraint firstItem="ceN-Xa-2ep" firstAttribute="top" secondItem="Qe7-ck-Nnd" secondAttribute="bottom" constant="8" id="6r7-bY-Ygq"/>
                             <constraint firstAttribute="leadingMargin" secondItem="gyW-Ib-s3E" secondAttribute="leading" id="76M-ac-L1s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eQ8-Sl-dvn" secondAttribute="trailing" id="7cu-lw-Xla"/>
                             <constraint firstItem="iba-6B-m6O" firstAttribute="top" secondItem="eQ8-Sl-dvn" secondAttribute="bottom" constant="8" id="9Gs-OG-8lA"/>
                             <constraint firstAttribute="leadingMargin" secondItem="qdp-4k-Wkm" secondAttribute="leading" id="BVd-Ef-pmu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ceN-Xa-2ep" secondAttribute="trailing" id="MSI-xf-qcP"/>
                             <constraint firstAttribute="leadingMargin" secondItem="CGb-Bw-1I9" secondAttribute="leading" id="N5L-ld-mHi"/>
                             <constraint firstItem="w0g-iO-gBO" firstAttribute="top" secondItem="qdp-4k-Wkm" secondAttribute="bottom" constant="8" id="P3W-jl-TZI"/>
                             <constraint firstAttribute="leadingMargin" secondItem="iba-6B-m6O" secondAttribute="leading" id="QoE-ZT-mUk"/>
@@ -70,14 +78,18 @@
                             <constraint firstAttribute="trailingMargin" secondItem="qdp-4k-Wkm" secondAttribute="trailing" id="bzY-oR-VEx"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="w0g-iO-gBO" secondAttribute="bottom" constant="20" id="ehk-PE-FVv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="fQL-EZ-l7t" secondAttribute="leading" id="hbA-xO-BPc"/>
+                            <constraint firstItem="Qe7-ck-Nnd" firstAttribute="top" secondItem="gyW-Ib-s3E" secondAttribute="bottom" constant="8" id="iWv-uC-g4c"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Qe7-ck-Nnd" secondAttribute="leading" id="ix6-Es-s50"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CGb-Bw-1I9" secondAttribute="trailing" id="jDR-LF-1Xg"/>
                             <constraint firstAttribute="leadingMargin" secondItem="w0g-iO-gBO" secondAttribute="leading" id="oTs-oi-bpH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gyW-Ib-s3E" secondAttribute="trailing" id="pbd-72-2RE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fQL-EZ-l7t" secondAttribute="trailing" id="pfD-uL-hux"/>
                             <constraint firstItem="eQ8-Sl-dvn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="qDi-FM-vS4"/>
                             <constraint firstItem="gyW-Ib-s3E" firstAttribute="top" secondItem="fQL-EZ-l7t" secondAttribute="bottom" constant="8" id="wwM-D3-Usr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qe7-ck-Nnd" secondAttribute="trailing" id="xJ3-Es-M9y"/>
                             <constraint firstItem="fQL-EZ-l7t" firstAttribute="top" secondItem="CGb-Bw-1I9" secondAttribute="bottom" constant="8" id="yic-pe-ODd"/>
                             <constraint firstItem="CGb-Bw-1I9" firstAttribute="top" secondItem="qiG-nj-t82" secondAttribute="bottom" constant="8" id="zbt-Un-bFi"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="ceN-Xa-2ep" secondAttribute="leading" id="zr4-1E-yJh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -87,6 +99,8 @@
                         <outlet property="slider2" destination="qiG-nj-t82" id="pFA-Wo-rea"/>
                         <outlet property="slider3" destination="CGb-Bw-1I9" id="rDf-5M-9He"/>
                         <outlet property="slider4" destination="fQL-EZ-l7t" id="uVo-b5-K2a"/>
+                        <outlet property="slider5" destination="Qe7-ck-Nnd" id="Gnf-sz-Ks2"/>
+                        <outlet property="slider6" destination="ceN-Xa-2ep" id="x6B-4U-kDD"/>
                         <outlet property="statusLabel" destination="eQ8-Sl-dvn" id="ykq-7K-t37"/>
                         <outlet property="waveformSegmentedControl" destination="gyW-Ib-s3E" id="SF2-UY-svK"/>
                     </connections>

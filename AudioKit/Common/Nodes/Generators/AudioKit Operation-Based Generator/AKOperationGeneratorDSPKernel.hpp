@@ -47,10 +47,14 @@ public:
         internalTrigger = 1;
         pd.p[0] = internalTrigger;
         pd.p[1] = internalTrigger;
+        setParameters(params);
+    }
+    
+    void setParameters(float params[]) {
         for (int i = 0; i < 10; i++) {
             parameters[i] = params[i];
         }
-    }
+    };
     
     void start() {
         started = true;
