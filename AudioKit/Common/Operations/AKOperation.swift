@@ -26,7 +26,7 @@ public struct AKOperation: AKComputedParameter  {
     /// - parameter i: Number of the parameter to recall
     ///
     public static func parameters(i: Int) -> AKOperation {
-        return AKOperation("(\(i+1) p)")
+        return AKOperation("(\(i+2) p)")
     }
     
     /// Performs absolute value on the operation

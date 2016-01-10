@@ -34,6 +34,14 @@
     _kernel.setSporth((char *)[sporth UTF8String]);
 }
 
+- (void)setParameters:(NSArray *)parameters {
+    float params[10] = {0,0,0,0,0,0,0,0,0,0};
+    for (int i = 0; i < parameters.count; i++) {
+        params[i] =[parameters[i] floatValue];
+    }
+    _kernel.setParameters(params);
+}
+
 - (void)start {
     _kernel.start();
 }

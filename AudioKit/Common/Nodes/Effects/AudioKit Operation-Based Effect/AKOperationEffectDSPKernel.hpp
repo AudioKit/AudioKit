@@ -40,9 +40,14 @@ public:
     }
     
     void setSporth(char *sporth) {
-        NSLog(@"Set Sporth to %s", sporth);
         sporthCode = sporth;
     }
+    
+    void setParameters(float params[]) {
+        for (int i = 0; i < 10; i++) {
+            parameters[i] = params[i];
+        }
+    };
     
     void start() {
         started = true;
@@ -100,7 +105,11 @@ public:
                     pd.p[channel] = *in;
                 }
             }
-
+            
+            for (int i = 0; i < 10; i++) {
+                pd.p[i+2] = parameters[i];
+            }
+            
             plumber_compute(&pd, PLUMBER_COMPUTE);
 
             for (int channel = 0; channel < channels; ++channel) {
@@ -116,7 +125,8 @@ private:
 
     int channels = 2;
     float sampleRate = 44100.0;
-
+    float parameters[10] = {0,0,0,0,0,0,0,0,0,0};
+    
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
 
