@@ -32,6 +32,13 @@ public class AKOperationGenerator: AKNode, AKToggleable {
         return internalAU!.isPlaying()
     }
     
+    /// Parameters for changing internal operations
+    public var parameters: [Double] = [] {
+        didSet {
+            internalAU?.setParameters(parameters)
+        }
+    }
+    
     // MARK: - Initializers
     
     /// Initialize the generator with an operation and indicate whether it responds to a trigger
