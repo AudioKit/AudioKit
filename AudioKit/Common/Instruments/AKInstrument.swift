@@ -17,7 +17,7 @@ public protocol AKKeyboardPlayable {
 
 /// Protocol for all AudioKit Nodes
 public protocol AKVoice: AKNode, AKCopyableVoice, AKToggleable {
-    // Combines these two protocols to allow for things like the midi instrument to work
+    // Combines these protocols to allow for things like the midi instrument to work
 }
 
 //make sure these voices can be replicated by making them have a copy function

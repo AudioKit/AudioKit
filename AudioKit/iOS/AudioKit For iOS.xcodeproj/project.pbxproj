@@ -496,6 +496,7 @@
 		C4E959081C0B847C00516A6A /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E959071C0B847C00516A6A /* fft.c */; };
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
 		FE0929931C23AA6F00845CC6 /* AKMusicTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */; };
+		FE7B7BEA1C42FC9A00E373E5 /* AKMidiInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7B7BE91C42FC9A00E373E5 /* AKMidiInstrument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1005,6 +1006,7 @@
 		C4E959071C0B847C00516A6A /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMusicTrack.swift; sourceTree = "<group>"; };
+		FE7B7BE91C42FC9A00E373E5 /* AKMidiInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMidiInstrument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1408,6 +1410,7 @@
 				C42F35401C057F4C000E937C /* AKMidi.swift */,
 				C42F35411C057F4C000E937C /* AKMidiEvent.swift */,
 				FE0929921C23AA6F00845CC6 /* AKMusicTrack.swift */,
+				FE7B7BE91C42FC9A00E373E5 /* AKMidiInstrument.swift */,
 			);
 			name = MIDI;
 			path = ../../Common/MIDI;
@@ -2826,6 +2829,7 @@
 				C4E958A61C0ADBFD00516A6A /* delay.c in Sources */,
 				C4E958CB1C0ADBFD00516A6A /* phasor.c in Sources */,
 				C4E958B31C0ADBFD00516A6A /* foo.c in Sources */,
+				FE7B7BEA1C42FC9A00E373E5 /* AKMidiInstrument.swift in Sources */,
 				C4E958F81C0ADC5800516A6A /* kiss_fft.c in Sources */,
 				C4B18FA51C3B313F00C0F330 /* thresh.c in Sources */,
 				C40C41531C40E3A5009D870B /* EZAudioDisplayLink.m in Sources */,
