@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Protocol for sounds that could be played on a traditional keyboard
-protocol AKKeyboardPlayable {
+public protocol AKKeyboardPlayable {
     func start(note: Int, velocity: Int)
     func stop(note: Int)
 }
