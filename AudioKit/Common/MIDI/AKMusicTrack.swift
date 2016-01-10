@@ -112,7 +112,7 @@ public class AKMusicTrack{
             }
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-            print(hasNextEvent)
+            //print(hasNextEvent)
         }
         DisposeMusicEventIterator(iterator)
     }
