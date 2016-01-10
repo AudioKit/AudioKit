@@ -21,6 +21,7 @@
         <page name='Complex Distortion'/>
         <page name='Ring Modulation'/>
         <page name='Time Stretching and Pitch Shifting'/>
+        <page name='Phase-Locked Vocoder'/>
         <page name='Band Pass Filter'/>
         <page name='Comb Filter'/>
         <page name='High Pass Filter'/>
