@@ -7,18 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		949B1C3C1C431E5400BFFA10 /* knob120_base.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C1F1C431E5400BFFA10 /* knob120_base.png */; };
-		949B1C3D1C431E5400BFFA10 /* knob120_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C201C431E5400BFFA10 /* knob120_base@2x.png */; };
-		949B1C3E1C431E5400BFFA10 /* knob120_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C211C431E5400BFFA10 /* knob120_indicator.png */; };
-		949B1C3F1C431E5400BFFA10 /* knob120_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C221C431E5400BFFA10 /* knob120_indicator@2x.png */; };
-		949B1C401C431E5400BFFA10 /* knob140_base.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C231C431E5400BFFA10 /* knob140_base.png */; };
-		949B1C411C431E5400BFFA10 /* knob140_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C241C431E5400BFFA10 /* knob140_base@2x.png */; };
-		949B1C421C431E5400BFFA10 /* knob140_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C251C431E5400BFFA10 /* knob140_indicator.png */; };
-		949B1C431C431E5400BFFA10 /* knob140_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C261C431E5400BFFA10 /* knob140_indicator@2x.png */; };
-		949B1C441C431E5400BFFA10 /* knob212_base.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C271C431E5400BFFA10 /* knob212_base.png */; };
-		949B1C451C431E5400BFFA10 /* knob212_base@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C281C431E5400BFFA10 /* knob212_base@2x.png */; };
-		949B1C461C431E5400BFFA10 /* knob212_indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C291C431E5400BFFA10 /* knob212_indicator.png */; };
-		949B1C471C431E5400BFFA10 /* knob212_indicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 949B1C2A1C431E5400BFFA10 /* knob212_indicator@2x.png */; };
 		949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */; };
 		949B1C491C431E5400BFFA10 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2C1C431E5400BFFA10 /* Knob.swift */; };
 		949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */; };
@@ -39,8 +27,8 @@
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
 		C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */; };
 		C42FFC041C3DDAAC00823BD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC021C3DDAAC00823BD4 /* LaunchScreen.storyboard */; };
-		EA127F431C42093F00289567 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F421C42093F00289567 /* AudioKit.framework */; };
-		EA127F451C42094300289567 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F421C42093F00289567 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA127F431C42093F00289567 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F421C42093F00289567 /* AudioKit */; };
+		EA127F451C42094300289567 /* AudioKit in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F421C42093F00289567 /* AudioKit */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -50,7 +38,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA127F451C42094300289567 /* AudioKit.framework in Embed Frameworks */,
+				EA127F451C42094300289567 /* AudioKit in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,18 +46,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		949B1C1F1C431E5400BFFA10 /* knob120_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob120_base.png; sourceTree = "<group>"; };
-		949B1C201C431E5400BFFA10 /* knob120_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob120_base@2x.png"; sourceTree = "<group>"; };
-		949B1C211C431E5400BFFA10 /* knob120_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob120_indicator.png; sourceTree = "<group>"; };
-		949B1C221C431E5400BFFA10 /* knob120_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob120_indicator@2x.png"; sourceTree = "<group>"; };
-		949B1C231C431E5400BFFA10 /* knob140_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob140_base.png; sourceTree = "<group>"; };
-		949B1C241C431E5400BFFA10 /* knob140_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob140_base@2x.png"; sourceTree = "<group>"; };
-		949B1C251C431E5400BFFA10 /* knob140_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob140_indicator.png; sourceTree = "<group>"; };
-		949B1C261C431E5400BFFA10 /* knob140_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob140_indicator@2x.png"; sourceTree = "<group>"; };
-		949B1C271C431E5400BFFA10 /* knob212_base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob212_base.png; sourceTree = "<group>"; };
-		949B1C281C431E5400BFFA10 /* knob212_base@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob212_base@2x.png"; sourceTree = "<group>"; };
-		949B1C291C431E5400BFFA10 /* knob212_indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = knob212_indicator.png; sourceTree = "<group>"; };
-		949B1C2A1C431E5400BFFA10 /* knob212_indicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "knob212_indicator@2x.png"; sourceTree = "<group>"; };
 		949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Knob+Touches.swift"; sourceTree = "<group>"; };
 		949B1C2C1C431E5400BFFA10 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
 		949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobLarge.swift; sourceTree = "<group>"; };
@@ -92,7 +68,7 @@
 		C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42FFC031C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42FFC051C3DDAAC00823BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA127F421C42093F00289567 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		EA127F421C42093F00289567 /* AudioKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AudioKit; path = ../../../../AudioKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA127F431C42093F00289567 /* AudioKit.framework in Frameworks */,
+				EA127F431C42093F00289567 /* AudioKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +86,6 @@
 		949B1C1D1C431E5400BFFA10 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
-				949B1C1E1C431E5400BFFA10 /* images */,
 				949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */,
 				949B1C2C1C431E5400BFFA10 /* Knob.swift */,
 				949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */,
@@ -120,25 +95,6 @@
 				949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */,
 			);
 			path = CustomControls;
-			sourceTree = "<group>";
-		};
-		949B1C1E1C431E5400BFFA10 /* images */ = {
-			isa = PBXGroup;
-			children = (
-				949B1C1F1C431E5400BFFA10 /* knob120_base.png */,
-				949B1C201C431E5400BFFA10 /* knob120_base@2x.png */,
-				949B1C211C431E5400BFFA10 /* knob120_indicator.png */,
-				949B1C221C431E5400BFFA10 /* knob120_indicator@2x.png */,
-				949B1C231C431E5400BFFA10 /* knob140_base.png */,
-				949B1C241C431E5400BFFA10 /* knob140_base@2x.png */,
-				949B1C251C431E5400BFFA10 /* knob140_indicator.png */,
-				949B1C261C431E5400BFFA10 /* knob140_indicator@2x.png */,
-				949B1C271C431E5400BFFA10 /* knob212_base.png */,
-				949B1C281C431E5400BFFA10 /* knob212_base@2x.png */,
-				949B1C291C431E5400BFFA10 /* knob212_indicator.png */,
-				949B1C2A1C431E5400BFFA10 /* knob212_indicator@2x.png */,
-			);
-			path = images;
 			sourceTree = "<group>";
 		};
 		949B1C321C431E5400BFFA10 /* Extensions */ = {
@@ -207,7 +163,7 @@
 		EA127F471C42097600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA127F421C42093F00289567 /* AudioKit.framework */,
+				EA127F421C42093F00289567 /* AudioKit */,
 			);
 			name = Frameworks;
 			path = SwiftSynth;
@@ -277,21 +233,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				949B1C411C431E5400BFFA10 /* knob140_base@2x.png in Resources */,
-				949B1C461C431E5400BFFA10 /* knob212_indicator.png in Resources */,
-				949B1C3D1C431E5400BFFA10 /* knob120_base@2x.png in Resources */,
 				C42FFC041C3DDAAC00823BD4 /* LaunchScreen.storyboard in Resources */,
-				949B1C471C431E5400BFFA10 /* knob212_indicator@2x.png in Resources */,
 				C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */,
-				949B1C431C431E5400BFFA10 /* knob140_indicator@2x.png in Resources */,
-				949B1C3C1C431E5400BFFA10 /* knob120_base.png in Resources */,
-				949B1C421C431E5400BFFA10 /* knob140_indicator.png in Resources */,
-				949B1C401C431E5400BFFA10 /* knob140_base.png in Resources */,
-				949B1C441C431E5400BFFA10 /* knob212_base.png in Resources */,
 				C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */,
-				949B1C3F1C431E5400BFFA10 /* knob120_indicator@2x.png in Resources */,
-				949B1C3E1C431E5400BFFA10 /* knob120_indicator.png in Resources */,
-				949B1C451C431E5400BFFA10 /* knob212_base@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,11 +375,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = SwiftSynth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SwiftSynth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -443,11 +389,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = SwiftSynth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SwiftSynth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
