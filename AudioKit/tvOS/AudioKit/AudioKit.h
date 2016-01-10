@@ -80,6 +80,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import <AudioKit/AKBalancerAudioUnit.h>
 #import <AudioKit/AKPannerAudioUnit.h>
 
+// Playback
+#import <AudioKit/AKPhaseLockedVocoderAudioUnit.h>
+
 // Testing
 #import <AudioKit/AKTesterAudioUnit.h>
 
