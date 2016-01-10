@@ -7,31 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C4BD21631C13099100CC1615 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4BD21621C13098600CC1615 /* AudioKit.framework */; };
 		C4BDE8171C12FF3D00207DA9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8161C12FF3D00207DA9 /* AppDelegate.swift */; };
 		C4BDE8191C12FF3D00207DA9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDE8181C12FF3D00207DA9 /* ViewController.swift */; };
 		C4BDE81C1C12FF3D00207DA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE81A1C12FF3D00207DA9 /* Main.storyboard */; };
 		C4BDE81E1C12FF3D00207DA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4BDE81D1C12FF3D00207DA9 /* Assets.xcassets */; };
+		EA127F4B1C420CAD00289567 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F4A1C420CAD00289567 /* AudioKit.framework */; };
+		EA127F4C1C420CAD00289567 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F4A1C420CAD00289567 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		C4BD21611C13098600CC1615 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4BDE8391C12FFBC00207DA9;
-			remoteInfo = AudioKit;
+/* Begin PBXCopyFilesBuildPhase section */
+		EA127F4D1C420CAD00289567 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EA127F4C1C420CAD00289567 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit for tvOS.xcodeproj"; path = "../../../AudioKit/tvOS/AudioKit for tvOS.xcodeproj"; sourceTree = "<group>"; };
 		C4BDE8131C12FF3D00207DA9 /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4BDE8161C12FF3D00207DA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4BDE8181C12FF3D00207DA9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C4BDE81B1C12FF3D00207DA9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4BDE81D1C12FF3D00207DA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4BDE81F1C12FF3D00207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA127F4A1C420CAD00289567 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-tvOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,26 +44,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4BD21631C13099100CC1615 /* AudioKit.framework in Frameworks */,
+				EA127F4B1C420CAD00289567 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C4BD215E1C13098600CC1615 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C4BD21621C13098600CC1615 /* AudioKit.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		C4BDE80A1C12FF3D00207DA9 = {
 			isa = PBXGroup;
 			children = (
-				C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */,
 				C4BDE8151C12FF3D00207DA9 /* HelloWorld */,
+				EA127F4E1C420CBF00289567 /* Frameworks */,
 				C4BDE8141C12FF3D00207DA9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,6 +80,14 @@
 			path = HelloWorld;
 			sourceTree = "<group>";
 		};
+		EA127F4E1C420CBF00289567 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA127F4A1C420CAD00289567 /* AudioKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -93,6 +98,7 @@
 				C4BDE80F1C12FF3D00207DA9 /* Sources */,
 				C4BDE8101C12FF3D00207DA9 /* Frameworks */,
 				C4BDE8111C12FF3D00207DA9 /* Resources */,
+				EA127F4D1C420CAD00289567 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,28 +135,12 @@
 			mainGroup = C4BDE80A1C12FF3D00207DA9;
 			productRefGroup = C4BDE8141C12FF3D00207DA9 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C4BD215E1C13098600CC1615 /* Products */;
-					ProjectRef = C4BD215D1C13098600CC1615 /* AudioKit for tvOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C4BDE8121C12FF3D00207DA9 /* HelloWorld */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C4BD21621C13098600CC1615 /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = C4BD21611C13098600CC1615 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C4BDE8111C12FF3D00207DA9 /* Resources */ = {
@@ -274,6 +264,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-tvOS";
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
@@ -286,6 +277,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-tvOS";
 				INFOPLIST_FILE = HelloWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.HelloWorld;
