@@ -1,0 +1,53 @@
+installation-directory: "Playback/Phase-Locked Vocoder/"
+
+sp-module: mincer
+
+node: AKPhaseLockedVocoder
+
+four-letter-code: minc
+
+summary: Phase-locked vocoder.
+
+one-word-description: vocoder
+
+description:
+  Mincer is a phase locked vocoder. It has the ability to play back an audio
+  file loaded into an ftable like a sampler would. Unlike a typical sampler, mincer allows
+  time and pitch to be controlled separately.
+
+
+tables:
+- ft: {
+  ak-variable: audioFileTable,
+  comment: "Table containing an audio file.",
+}
+
+parameters:
+- time: {
+  ak-variable: position,
+  comment: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
+  au-name: "Position in time. When non-changing it will do a spectral freeze of a the current point in time.",
+  au-unit: Generic,
+  default: 0,
+  minimum: 0,
+  maximum: 1
+}
+- amp: {
+  ak-variable: amplitude,
+  comment: "Amplitude.",
+  au-name: "Amplitude.",
+  au-unit: Generic,
+  default: 1,
+  minimum: 0,
+  maximum: 1
+}
+- pitch: {
+  ak-variable: pitchRatio,
+  comment: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
+  au-name: "Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.",
+  au-unit: Hertz,
+  default: 1,
+  minimum: 0,
+  maximum: 1000
+}
+
