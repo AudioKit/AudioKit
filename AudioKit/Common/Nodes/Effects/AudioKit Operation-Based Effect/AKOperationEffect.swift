@@ -12,7 +12,14 @@ import AVFoundation
 public class AKOperationEffect: AKNode, AKToggleable {
 
     // MARK: - Properties
-
+    
+    /// Parameters for changing internal operations
+    public var parameters: [Double] = [] {
+        didSet {
+            internalAU?.setParameters(parameters)
+        }
+    }
+    
     private var internalAU: AKOperationEffectAudioUnit?
     
     /// Required property for AKNode

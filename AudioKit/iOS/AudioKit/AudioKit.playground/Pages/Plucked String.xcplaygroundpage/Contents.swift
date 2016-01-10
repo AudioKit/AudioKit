@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## Plucked String Operation
+//: ## Plucked String
 //: ### Experimenting with a physical model of a string
 
 import AudioKit
