@@ -5,8 +5,9 @@
 set -o pipefail
 
 VERSION=$(cat ../VERSION)
+PLATFORMS=${PLATFORMS:-"iOS tvOS OSX"}
 
-if ! test -d iOS;
+if ! test -d AudioKit-iOS;
 then
 	./build_frameworks.sh
 fi
@@ -17,16 +18,16 @@ fi
 create_package()
 {
 	echo "Packaging AudioKit version $VERSION for $1 ..."
-	DIR="AudioKit-$1-$VERSION"
+	DIR="AudioKit-$1"
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
-	cp ../../README.md .
+	cp ../../README.md ../../VERSION .
 	cd ..
-	zip -9yr ${DIR}.zip $DIR
+	zip -9yr ${DIR}-${VERSION}.zip $DIR
 }
 
-for os in iOS tvOS OSX;
+for os in $PLATFORMS;
 do
 	create_package $os
 done

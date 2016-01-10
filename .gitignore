@@ -7,7 +7,6 @@ build/
 *.perspectivev3
 *.xcuserstate
 *.xccheckout
-*.xcworkspacedata
 project.xcworkspace/
 xcuserdata/
 xcodebuild
