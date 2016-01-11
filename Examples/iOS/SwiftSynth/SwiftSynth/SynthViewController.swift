@@ -72,8 +72,7 @@ class SynthViewController: UIViewController {
     var monoMode: Bool = false
     var holdMode: Bool = false
     var keysHeld = [UIButton]()
-    let blackKeys = [49, 51, 54, 56, 58
-        61, 63, 66, 68, 70]
+    let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
     
     // *********************************************************
     // MARK: - viewDidLoad
@@ -307,7 +306,7 @@ class SynthViewController: UIViewController {
             }
         }
         // conductor.play(key.tag)
-        key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
+        turnOnKey(key)
         statusLabel.text = "Key Pressed: \(sender.tag)"
         lastKey = key
     }
@@ -328,8 +327,18 @@ class SynthViewController: UIViewController {
     }
     
     // *********************************************************
-    // MARK - Turn Keys Off
+    // MARK - Keys UI/UX Helpers
     // *********************************************************
+    
+    func turnOnKey(key: UIButton) {
+        let index = key.tag - 200
+        
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
+        }
+    }
     
     func turnOffKey(key: UIButton) {
         let index = key.tag - 200
