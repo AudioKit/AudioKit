@@ -179,8 +179,6 @@ public class AKPhaseLockedVocoder: AKNode {
                 err = ExtAudioFileRead(extRef, &ioNumberFrames, &theDataBuffer)
                 if err == noErr {
                     // success
-                    dump(ioNumberFrames)
-                    dump(theDataBuffer)
                     let data=UnsafeMutablePointer<Float>(theDataBuffer.mBuffers.mData)
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
                     internalAU!.start()
