@@ -1,9 +1,9 @@
 //
 //  SynthViewController.swift
-//  Synth UI Spike
+//  Swift Synth
 //
 //  Created by Matthew Fecher on 1/8/16.
-//  Copyright © 2016 AudioKitizzle for Shizzle. All rights reserved.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import UIKit
@@ -68,6 +68,11 @@ class SynthViewController: UIViewController {
     }
     
     var keyboardOctavePosition: Int = 0
+    var lastKey: UIButton?
+    var monoMode: Bool = false
+    var holdMode: Bool = false
+    var keysHeld = [UIButton]()
+    let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
     
     // *********************************************************
     // MARK: - viewDidLoad
@@ -114,14 +119,11 @@ class SynthViewController: UIViewController {
     
     func setDefaultValues() {
         
-         statusLabel.text = "Welcome to Swift Synth"
-        
         // Initial Values
+        statusLabel.text = "Welcome to Swift Synth"
+        
         cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, rangeMin: 150.0, rangeMax: 24000.0))
-        
         osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, rangeMin: -12, rangeMax: 24))
-        
-        print(osc1SemitonesKnob.knobValue)
         
         // Set Osc Waveform Defaults
     }
@@ -251,9 +253,12 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Hold Mode Off"
+            holdMode = false
+            turnOffHeldKeys()
         } else {
             sender.selected = true
             statusLabel.text = "Hold Mode On"
+            holdMode = true
         }
     }
     
@@ -261,39 +266,109 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Mono Mode Off"
+            monoMode = false
         } else {
             sender.selected = true
             statusLabel.text = "Mono Mode On"
+            monoMode = true
+            turnOffHeldKeys()
         }
     }
     
+    @IBAction func midiPanicPressed(sender: RoundedButton) {
+        statusLabel.text = "All Notes Off"
+    }
     
-    // Utility
+    // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
-        
+        if let url = NSURL(string: "http://audiokit.io") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     @IBAction func buildThisSynth(sender: RoundedButton) {
-        
+        // TODO: link to tutorial
+        if let url = NSURL(string: "http://audiokit.io") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     //*****************************************************************
     // MARK: - 🎹 Key presses
     //*****************************************************************
     
-    // Keys
     @IBAction func keyPressed(sender: UIButton) {
-        statusLabel.text = "Key Pressed: \(sender.tag)"
+        let key = sender
+        let index = sender.tag - 200
+        let midiNote = index + (keyboardOctavePosition * 12)
         
+        if monoMode {
+            if let lastKey = lastKey where lastKey != key {
+                turnOffKey(lastKey)
+            }
+        }
+        
+        // conductor.play(midiNote)
+        turnOnKey(key)
+        lastKey = key
     }
     
     @IBAction func keyReleased(sender: UIButton) {
-        statusLabel.text = "Key Released"
+        let key = sender
+        
+        if holdMode && monoMode {
+            if let lastKey = lastKey where lastKey != key {
+                turnOffKey(lastKey)
+            }
+        } else if holdMode && !monoMode {
+            keysHeld.append(key)
+        } else {
+            turnOffKey(key)
+        }
+        lastKey = key
     }
     
+    // *********************************************************
+    // MARK - Keys UI/UX Helpers
+    // *********************************************************
+    
+    func turnOnKey(key: UIButton) {
+        let index = key.tag - 200
+        
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
+        }
+        
+        let midiNote = index + (keyboardOctavePosition * 12)
+        statusLabel.text = "Key Pressed: \(midiNote)"
+    }
+    
+    func turnOffKey(key: UIButton) {
+        let index = key.tag - 200
+        
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey"), forState: .Normal)
+        }
+        
+        statusLabel.text = "Key Released"
+        //conductor.release(index)
+    }
+    
+    func turnOffHeldKeys() {
+        for key in keysHeld {
+            turnOffKey(key)
+        }
+        if let lastKey = lastKey {
+            turnOffKey(lastKey)
+        }
+        statusLabel.text = "Key(s) Released"
+        keysHeld.removeAll(keepCapacity: false)
+    }
 }
-
-
 
 //*****************************************************************
 // MARK: - 🎛 Knob Delegates

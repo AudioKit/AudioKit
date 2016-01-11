@@ -161,6 +161,14 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		94F234F01C43FC0200072159 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C351C431E5400BFFA10 /* SMSegmentView */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 		C42FFBED1C3DDAAC00823BD4 = {
 			isa = PBXGroup;
 			children = (
@@ -185,13 +193,13 @@
 				C4E8ED251C43AD650041965F /* AudioSystem */,
 				949B1C1D1C431E5400BFFA10 /* CustomControls */,
 				949B1C321C431E5400BFFA10 /* Extensions */,
-				949B1C351C431E5400BFFA10 /* SMSegmentView */,
 				949B1C571C431E5B00BFFA10 /* ViewControllers */,
 				C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */,
 				C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */,
 				C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */,
 				C42FFC021C3DDAAC00823BD4 /* LaunchScreen.storyboard */,
 				C42FFC051C3DDAAC00823BD4 /* Info.plist */,
+				94F234F01C43FC0200072159 /* Libraries */,
 			);
 			path = SwiftSynth;
 			sourceTree = "<group>";

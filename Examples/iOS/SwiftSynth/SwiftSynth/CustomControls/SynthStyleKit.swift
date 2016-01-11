@@ -17,7 +17,6 @@ public class SynthStyleKit : NSObject {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
-
         //// Image Declarations
         let knob140_base = UIImage(named: "knob140_base.png")!
         let knob140_indicator = UIImage(named: "knob140_indicator.png")!
@@ -31,7 +30,6 @@ public class SynthStyleKit : NSObject {
         knobBasePath.addClip()
         knob140_base.drawInRect(CGRectMake(5, 5, knob140_base.size.width, knob140_base.size.height))
         CGContextRestoreGState(context)
-
 
         //// Indicator Drawing
         CGContextSaveGState(context)
@@ -51,7 +49,6 @@ public class SynthStyleKit : NSObject {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
-
         //// Image Declarations
         let knob212_base = UIImage(named: "knob212_base.png")!
         let knob212_indicator = UIImage(named: "knob212_indicator.png")!
@@ -65,7 +62,6 @@ public class SynthStyleKit : NSObject {
         picturePath.addClip()
         knob212_base.drawInRect(CGRectMake(10, 10, knob212_base.size.width, knob212_base.size.height))
         CGContextRestoreGState(context)
-
 
         //// Picture 2 Drawing
         CGContextSaveGState(context)
