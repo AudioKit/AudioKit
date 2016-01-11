@@ -164,9 +164,26 @@
                                             <constraint firstAttribute="height" constant="33" id="I6B-ME-2b4"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcu-W9-Pl6" userLabel="Panic Btn" customClass="RoundedButton" customModule="SwiftSynth" customModuleProvider="target">
+                                        <rect key="frame" x="745" y="8" width="68" height="30"/>
+                                        <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="6US-ac-90X"/>
+                                            <constraint firstAttribute="width" constant="68" id="Jgc-Vb-PNy"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
+                                        <state key="normal" title="Panic"/>
+                                        <state key="highlighted">
+                                            <color key="titleColor" red="0.90196078430000004" green="0.53333333329999999" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="midiPanicPressed:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="Gni-Ij-MJc"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.066666666669999999" green="0.066666666669999999" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="bcu-W9-Pl6" secondAttribute="bottom" constant="6" id="1W6-LV-OXe"/>
                                     <constraint firstItem="tf5-gm-MpM" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="8" id="5Pi-l8-j1y"/>
                                     <constraint firstAttribute="bottom" secondItem="tf5-gm-MpM" secondAttribute="bottom" constant="6" id="7Y3-3C-0VG"/>
                                     <constraint firstItem="JKQ-oU-stT" firstAttribute="leading" secondItem="Ijd-H8-GXr" secondAttribute="leading" constant="346" id="8Te-qR-kdz"/>
@@ -179,9 +196,12 @@
                                     <constraint firstItem="9EV-yy-X47" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="9" id="eDZ-cD-kVR"/>
                                     <constraint firstAttribute="height" constant="44" id="fIV-ex-tTc"/>
                                     <constraint firstItem="CFv-jp-acF" firstAttribute="leading" secondItem="Ijd-H8-GXr" secondAttribute="leading" constant="6" id="hME-kt-1RC"/>
+                                    <constraint firstItem="tf5-gm-MpM" firstAttribute="leading" secondItem="bcu-W9-Pl6" secondAttribute="trailing" constant="8" id="ity-7N-GhT"/>
                                     <constraint firstAttribute="trailing" secondItem="tf5-gm-MpM" secondAttribute="trailing" constant="10" id="khl-bK-t7i"/>
+                                    <constraint firstItem="bcu-W9-Pl6" firstAttribute="leading" secondItem="9EV-yy-X47" secondAttribute="trailing" constant="534" id="nzh-Hl-Tif"/>
                                     <constraint firstAttribute="bottom" secondItem="CFv-jp-acF" secondAttribute="bottom" constant="6" id="pCs-yZ-4ww"/>
                                     <constraint firstAttribute="bottom" secondItem="9EV-yy-X47" secondAttribute="bottom" constant="5" id="sMk-HN-fM2"/>
+                                    <constraint firstItem="bcu-W9-Pl6" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="8" id="slq-2S-PDf"/>
                                     <constraint firstItem="CFv-jp-acF" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="5" id="xux-uA-2JY"/>
                                     <constraint firstItem="JKQ-oU-stT" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="8" id="yxD-FD-nQ3"/>
                                 </constraints>
@@ -1547,7 +1567,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R81-rT-xUF" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="458" y="593"/>
+            <point key="canvasLocation" x="468" y="603"/>
         </scene>
     </scenes>
     <resources>
