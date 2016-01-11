@@ -68,6 +68,10 @@ class SynthViewController: UIViewController {
     }
     
     var keyboardOctavePosition: Int = 0
+    var lastKey: UIButton?
+    var monoMode: Bool = false
+    var holdMode: Bool = false
+    var keysHeld = [UIButton]()
     
     // *********************************************************
     // MARK: - viewDidLoad
@@ -114,14 +118,11 @@ class SynthViewController: UIViewController {
     
     func setDefaultValues() {
         
-         statusLabel.text = "Welcome to Swift Synth"
-        
         // Initial Values
+        statusLabel.text = "Welcome to Swift Synth"
+        
         cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, rangeMin: 150.0, rangeMax: 24000.0))
-        
         osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, rangeMin: -12, rangeMax: 24))
-        
-        print(osc1SemitonesKnob.knobValue)
         
         // Set Osc Waveform Defaults
     }
@@ -251,9 +252,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Hold Mode Off"
+            holdMode = false
         } else {
             sender.selected = true
             statusLabel.text = "Hold Mode On"
+            holdMode = true
         }
     }
     
@@ -261,20 +264,30 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Mono Mode Off"
+            monoMode = false
         } else {
             sender.selected = true
             statusLabel.text = "Mono Mode On"
+            monoMode = true
         }
     }
     
+    @IBAction func midiPanicPressed(sender: RoundedButton) {
+        statusLabel.text = "All Notes Off"
+    }
     
-    // Utility
+    // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
-        
+        if let url = NSURL(string: "http://audiokit.io") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     @IBAction func buildThisSynth(sender: RoundedButton) {
-        
+        // TODO: link to tutorial
+        if let url = NSURL(string: "http://audiokit.io") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     //*****************************************************************
@@ -283,12 +296,37 @@ class SynthViewController: UIViewController {
     
     // Keys
     @IBAction func keyPressed(sender: UIButton) {
-        statusLabel.text = "Key Pressed: \(sender.tag)"
+        let key = sender
         
+        if monoMode {
+            if let lastKey = lastKey where lastKey != key {
+                turnOffKey(lastKey.tag)
+            }
+        }
+        
+        // conductor.play(key.tag)
+        statusLabel.text = "Key Pressed: \(sender.tag)"
+        lastKey = key
     }
     
     @IBAction func keyReleased(sender: UIButton) {
+        let key = sender
+        
+        if holdMode && monoMode {
+            if let lastKey = lastKey where lastKey != key {
+                turnOffKey(lastKey.tag)
+            }
+        } else if holdMode && !monoMode {
+            keysHeld.append(key)
+        } else {
+            turnOffKey(key.tag)
+        }
+        lastKey = key
+    }
+    
+    func turnOffKey(index: Int) {
         statusLabel.text = "Key Released"
+        //conductor.release(index)
     }
     
 }
