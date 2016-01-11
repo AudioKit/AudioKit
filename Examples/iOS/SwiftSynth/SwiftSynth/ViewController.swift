@@ -109,7 +109,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func updateFatten(sender: UISlider) {
-        conductor.fatten.parameters = [Double(sender.value), 0.5]
+        conductor.fatten.time = Double(sender.value)
         let status = String(format: "%0f", Double(sender.value))
         statusLabel.text = "Fatten: Time: \(status)"
     }

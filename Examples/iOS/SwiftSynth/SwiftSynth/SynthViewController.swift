@@ -191,12 +191,10 @@ class SynthViewController: UIViewController {
             sender.selected = false
             statusLabel.text = "Bitcrush Off"
             conductor.bitCrushMixer?.balance = 0
-            print(conductor.bitCrushMixer?.balance)
         } else {
             sender.selected = true
             statusLabel.text = "Bitcrush On"
             conductor.bitCrushMixer?.balance = 1
-            print(conductor.bitCrushMixer?.balance)
         }
     }
     
@@ -204,9 +202,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Filter Off"
+            conductor.filterSection.mix = 0
         } else {
             sender.selected = true
             statusLabel.text = "Filter On"
+            conductor.filterSection.mix = 1
         }
     }
     
@@ -233,10 +233,12 @@ class SynthViewController: UIViewController {
     @IBAction func StereoFattenToggled(sender: UIButton) {
         if sender.selected {
             sender.selected = false
-            statusLabel.text = "Stereo Fatten On"
+            statusLabel.text = "Stereo Fatten Off"
+            conductor.fatten.mix = 0
         } else {
             sender.selected = true
-            statusLabel.text = "Stereo Fatten Off"
+            statusLabel.text = "Stereo Fatten On"
+            conductor.fatten.mix = 1
         }
     }
     
@@ -422,9 +424,11 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // LFO
         case ControlTag.LfoAmt.rawValue:
             statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
+            conductor.filterSection.lfoAmplitude = Double(1000*value)
             
         case ControlTag.LfoRate.rawValue:
             statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
+            conductor.filterSection.lfoRate = Double(5*value)
        
         // Filter
         case ControlTag.Cutoff.rawValue:
@@ -433,14 +437,17 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             let scaledValue = Float.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
             let cutOffFrequency = Float(scaledValue) * 4
             statusLabel.text = "Cutoff: \(cutOffFrequency.decimalFormattedString)"
+            conductor.filterSection.cutoffFrequency = Double(cutOffFrequency)
             
         case ControlTag.Rez.rawValue:
             statusLabel.text = "Rez: \(value.decimalFormattedString)"
+            conductor.filterSection.resonance = Double(value)
             
         // Crusher
         case ControlTag.CrushAmt.rawValue:
             statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
-            conductor.bitCrusher?.sampleRate = Double(24000.0 * (1.0 - value))
+            conductor.bitCrusher?.sampleRate = Double(16000.0 * (1.0 - value))
+            conductor.bitCrusher?.bitDepth = Double(12 * (1.0 - value))
             
         // Delay
         case ControlTag.DelayTime.rawValue:
