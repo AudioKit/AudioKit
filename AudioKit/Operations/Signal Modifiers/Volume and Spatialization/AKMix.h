@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param balancePoint A number from 0 (all input 1) to 1 (all input 2).
 - (instancetype)initWithInput1:(AKParameter *)input1
                         input2:(AKParameter *)input2
-                        balance:(AKParameter *)balancePoint;
+                       balance:(AKParameter *)balancePoint;
 
 /// Create a mono audio from equal parts of the left and right channels of a stereo input
 /// @param stereoInput Stereo audio source to be mixed down to mono

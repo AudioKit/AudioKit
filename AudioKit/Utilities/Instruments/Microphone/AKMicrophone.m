@@ -14,9 +14,11 @@
 {
     self = [super init];
     if (self) {
+        _amplitude = [self createPropertyWithValue:1 minimum:0 maximum:1000];
+
         AKAudioInput *microphone = [[AKAudioInput alloc] init];
         _output = [AKAudio globalParameter];
-        [self assignOutput:_output to:microphone];
+        [self assignOutput:_output to:[microphone scaledBy:_amplitude]];
     }
     return self;
 }
