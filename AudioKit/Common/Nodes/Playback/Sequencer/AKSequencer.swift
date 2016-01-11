@@ -193,19 +193,6 @@ public class AKSequencer {
         }
     }
     
-    /// Set the midi output for all tracks
-    public func setGlobalMidiOutput(midiEndpoint: MIDIEndpointRef) {
-        if isAvSeq {
-            for track in avSeq.tracks{
-                track.destinationMIDIEndpoint = midiEndpoint
-            }
-        } else {
-            for track in tracks{
-                track.setMidiOutput(midiEndpoint)
-            }
-        }
-    }
-    
     /// Set the Audio Unit output for all tracks - on hold while technology is still unstable
     public func setGlobalAVAudioUnitOutput(audioUnit: AVAudioUnit) {
         if isAvSeq {
