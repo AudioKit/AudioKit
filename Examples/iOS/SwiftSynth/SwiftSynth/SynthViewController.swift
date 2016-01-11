@@ -299,15 +299,17 @@ class SynthViewController: UIViewController {
     
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
+        let index = sender.tag - 200
+        let midiNote = index + (keyboardOctavePosition * 12)
         
         if monoMode {
             if let lastKey = lastKey where lastKey != key {
                 turnOffKey(lastKey)
             }
         }
-        // conductor.play(key.tag)
+        
+        // conductor.play(midiNote)
         turnOnKey(key)
-        statusLabel.text = "Key Pressed: \(sender.tag)"
         lastKey = key
     }
     
@@ -338,6 +340,9 @@ class SynthViewController: UIViewController {
         } else {
             key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
         }
+        
+        let midiNote = index + (keyboardOctavePosition * 12)
+        statusLabel.text = "Key Pressed: \(midiNote)"
     }
     
     func turnOffKey(key: UIButton) {
