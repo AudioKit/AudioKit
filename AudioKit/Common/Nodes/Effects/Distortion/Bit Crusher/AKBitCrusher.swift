@@ -18,10 +18,6 @@ public class AKBitCrusher: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKBitCrusherAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -56,7 +52,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
     /// - parameter sampleRate: The sample rate of signal output.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         bitDepth: Double = 8,
         sampleRate: Double = 10000) {
 
@@ -76,7 +72,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
             name: "Local AKBitCrusher",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

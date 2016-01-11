@@ -20,10 +20,6 @@ public class AKClipper: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKClipperAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -66,7 +62,7 @@ public class AKClipper: AKNode, AKToggleable {
     /// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         limit: Double = 1.0,
         clippingStartPoint: Double = 0.5,
         method: Double = 0) {
@@ -88,7 +84,7 @@ public class AKClipper: AKNode, AKToggleable {
             name: "Local AKClipper",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

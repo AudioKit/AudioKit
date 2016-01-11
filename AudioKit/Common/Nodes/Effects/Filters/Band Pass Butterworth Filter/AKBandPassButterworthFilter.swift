@@ -19,10 +19,6 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKBandPassButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -57,7 +53,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
     /// - parameter bandwidth: Bandwidth. (in Hertz)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         centerFrequency: Double = 2000,
         bandwidth: Double = 100) {
 
@@ -77,7 +73,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
             name: "Local AKBandPassButterworthFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

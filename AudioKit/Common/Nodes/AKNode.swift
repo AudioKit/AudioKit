@@ -9,14 +9,21 @@
 import Foundation
 import AVFoundation
 
-/// Protocol for all AudioKit Nodes
-public protocol AKNode {
+public class AKNode {
+    public var avAudioNode: AVAudioNode
+    public var connectionPoints = [AVAudioConnectionPoint]()
+
+    public init() {
+        self.avAudioNode = AVAudioNode()
+    }
     
-    /// Output of the node 
-    var avAudioNode: AVAudioNode { get set }
-    
-    /// Array of all connection points (effectively split output signal)
-    var connectionPoints: [AVAudioConnectionPoint] { get set }
+    public func addConnectionPoint(node: AKNode) {
+        connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
+        AKManager.sharedInstance.engine.connect(avAudioNode,
+            toConnectionPoints: connectionPoints,
+            fromBus: 0,
+            format: AKManager.format)
+    }
 }
 
 public protocol AKToggleable {
@@ -55,15 +62,5 @@ public extension AKToggleable {
     /// Synonym for stop that may make more sense with effects
     public func bypass() {
         stop()
-    }
-}
-
-public extension AKNode {
-    public mutating func addConnectionPoint(node: AKNode) {
-        connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
-        AKManager.sharedInstance.engine.connect(avAudioNode,
-            toConnectionPoints: connectionPoints,
-            fromBus: 0,
-            format: AKManager.format)
     }
 }

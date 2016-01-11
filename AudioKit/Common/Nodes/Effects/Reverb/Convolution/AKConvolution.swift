@@ -19,10 +19,6 @@ public class AKConvolution: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKConvolutionAudioUnit?
 
@@ -43,7 +39,7 @@ public class AKConvolution: AKNode, AKToggleable {
     /// - parameter partitionLength: Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         impulseResponseFileURL: NSURL,
         partitionLength: Int = 2048) {
         
@@ -63,7 +59,7 @@ public class AKConvolution: AKNode, AKToggleable {
             name: "Local AKConvolution",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

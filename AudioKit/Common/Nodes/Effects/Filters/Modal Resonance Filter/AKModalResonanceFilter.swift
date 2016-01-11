@@ -20,10 +20,6 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKModalResonanceFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -58,7 +54,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
     /// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         frequency: Double = 500.0,
         qualityFactor: Double = 50.0) {
 
@@ -78,7 +74,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
             name: "Local AKModalResonanceFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

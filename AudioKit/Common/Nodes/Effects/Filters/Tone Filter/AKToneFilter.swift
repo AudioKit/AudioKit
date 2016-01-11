@@ -17,10 +17,6 @@ public class AKToneFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKToneFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -47,7 +43,7 @@ public class AKToneFilter: AKNode, AKToggleable {
     /// - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         halfPowerPoint: Double = 1000) {
 
         self.halfPowerPoint = halfPowerPoint
@@ -65,7 +61,7 @@ public class AKToneFilter: AKNode, AKToggleable {
             name: "Local AKToneFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

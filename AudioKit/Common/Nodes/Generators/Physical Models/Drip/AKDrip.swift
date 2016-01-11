@@ -19,14 +19,10 @@ import AVFoundation
 /// - parameter secondResonantFrequency: The second resonant frequency.
 /// - parameter amplitude: Amplitude.
 ///
-public class AKDrip: AKVoice {
+public class AKDrip: AKNode {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKDripAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -193,7 +189,7 @@ public class AKDrip: AKVoice {
             name: "Local AKDrip",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
@@ -243,12 +239,6 @@ public class AKDrip: AKVoice {
         internalAU?.firstResonantFrequency = Float(firstResonantFrequency)
         internalAU?.secondResonantFrequency = Float(secondResonantFrequency)
         internalAU?.amplitude = Float(amplitude)
-    }
-
-    /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKVoice {
-        let copy = AKDrip(intensity: self.intensity, dampingFactor: self.dampingFactor, energyReturn: self.energyReturn, mainResonantFrequency: self.mainResonantFrequency, firstResonantFrequency: self.firstResonantFrequency, secondResonantFrequency: self.secondResonantFrequency, amplitude: self.amplitude)
-        return copy
     }
     
     /// Trigger the sound with an optional set of parameters

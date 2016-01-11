@@ -22,10 +22,6 @@ public class AKBalancer: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKBalancerAudioUnit?
     
@@ -41,7 +37,7 @@ public class AKBalancer: AKNode, AKToggleable {
     /// - parameter input: Input node to process
     /// - parameter comparator: Audio to match power with
     ///
-    public init(var _ input: AKNode, var comparator: AKNode) {
+    public init( _ input: AKNode, comparator: AKNode) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Mixer
@@ -56,7 +52,7 @@ public class AKBalancer: AKNode, AKToggleable {
             name: "Local AKBalancer",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

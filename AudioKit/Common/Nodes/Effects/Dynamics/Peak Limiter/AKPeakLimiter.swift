@@ -27,12 +27,6 @@ public class AKPeakLimiter: AKNode, AKToggleable {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
 
-    /// Required property for AKNode containing the output node
-    public var avAudioNode: AVAudioNode
-
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-
     private var mixer: AKMixer
 
     /// Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
@@ -132,6 +126,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
             effectGain!.volume = 1
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            super.init()
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
             AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)

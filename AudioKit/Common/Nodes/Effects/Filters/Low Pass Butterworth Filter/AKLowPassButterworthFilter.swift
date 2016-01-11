@@ -18,10 +18,6 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKLowPassButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -48,7 +44,7 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
     /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         cutoffFrequency: Double = 1000) {
 
         self.cutoffFrequency = cutoffFrequency
@@ -66,7 +62,7 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
             name: "Local AKLowPassButterworthFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

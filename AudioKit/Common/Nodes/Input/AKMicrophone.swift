@@ -12,12 +12,7 @@ import AVFoundation
 /// Audio from the standard input
 public class AKMicrophone: AKNode, AKToggleable {
     
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    internal let mixer = AVAudioMixerNode()
+internal let mixer = AVAudioMixerNode()
     
     /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
@@ -36,8 +31,9 @@ public class AKMicrophone: AKNode, AKToggleable {
     }
     
     /// Initialize the microphone 
-    public init() {
+    public override init() {
         #if !os(tvOS)
+            super.init()
             self.avAudioNode = mixer
             AKManager.sharedInstance.engine.attachNode(mixer)
             AKManager.sharedInstance.engine.connect(AKManager.sharedInstance.engine.inputNode!, to: self.avAudioNode, format: nil)

@@ -12,12 +12,6 @@ import AVFoundation
 public class AKDryWetMixer: AKNode {
     private let mixer = AKMixer()
     
-    /// Required property for AKNode containing the output node
-    public var avAudioNode: AVAudioNode
-    
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
     /// Balance (Default 0.5)
     public var balance: Double = 0.5 {
         didSet {
@@ -48,7 +42,9 @@ public class AKDryWetMixer: AKNode {
     public init(_ dry: AKNode, _ wet: AKNode, t balance: Double) {
 
         self.balance = balance
-        self.avAudioNode = mixer.avAudioNode
+        
+        super.init()
+        avAudioNode = mixer.avAudioNode
 
         dryGain = AKMixer(dry)
         dryGain!.volume = 1 - balance

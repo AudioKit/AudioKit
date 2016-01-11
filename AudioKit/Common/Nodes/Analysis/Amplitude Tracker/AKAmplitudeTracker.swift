@@ -19,10 +19,6 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKAmplitudeTrackerAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -54,7 +50,7 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
     /// - parameter halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         halfPowerPoint: Double = 10) {
 
         self.halfPowerPoint = halfPowerPoint
@@ -72,7 +68,7 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
             name: "Local AKAmplitudeTracker",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
