@@ -21,7 +21,7 @@ let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")
 var stairwellConvolution = AKConvolution.init(player, impulseResponseFileURL: stairwell, partitionLength: 8192)
 var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, partitionLength: 8192)
 
-var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, t: 1)
+var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 1)
 
 audiokit.audioOutput = mixer
 audiokit.start()
