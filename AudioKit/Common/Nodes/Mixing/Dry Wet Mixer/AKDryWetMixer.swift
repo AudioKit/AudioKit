@@ -47,6 +47,7 @@ public class AKDryWetMixer: AKNode {
     ///
     public init(_ dry: AKNode, _ wet: AKNode, t balance: Double) {
 
+        self.balance = balance
         self.avAudioNode = mixer.avAudioNode
 
         dryGain = AKMixer(dry)
