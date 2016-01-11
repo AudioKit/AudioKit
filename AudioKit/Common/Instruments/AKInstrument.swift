@@ -10,14 +10,14 @@ import Foundation
 import AVFoundation
 
 /// Protocol for sounds that could be played on a traditional keyboard
-protocol AKKeyboardPlayable {
+public protocol AKKeyboardPlayable {
     func start(note: Int, velocity: Int)
     func stop(note: Int)
 }
 
 /// Protocol for all AudioKit Nodes
 public protocol AKVoice: AKNode, AKCopyableVoice, AKToggleable {
-    // Combines these two protocols to allow for things like the midi instrument to work
+    // Combines these protocols to allow for things like the midi instrument to work
 }
 
 //make sure these voices can be replicated by making them have a copy function
@@ -53,16 +53,6 @@ public class AKPolyphonicInstrument: AKNode {
             voices.append(voice.copy())
             output.connect(voices[i])
             voices[i].stop()
-        }
-    }
-    
-    public func handleMIDIEvent(notification: NSNotification) {
-        let note = Int((notification.userInfo?["note"])! as! NSNumber)
-        let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
-        if notification.name == AKMidiStatus.NoteOn.name() && velocity > 0 {
-            startNote(note, velocity: velocity)
-        } else if (notification.name == AKMidiStatus.NoteOn.name() && velocity == 0) || notification.name == AKMidiStatus.NoteOff.name() {
-            stopNote(note)
         }
     }
     
