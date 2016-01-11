@@ -32,6 +32,7 @@
         <page name='Moog Ladder Filter'/>
         <page name='Simple Reverb'/>
         <page name='iOS-only Reverb'/>
+        <page name='Convolution'/>
         <page name='Parametric Equalizer'/>
         <page name='Plucked String'/>
         <page name='Dripping Sounds'/>
