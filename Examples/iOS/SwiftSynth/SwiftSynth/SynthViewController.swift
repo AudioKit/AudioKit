@@ -253,6 +253,7 @@ class SynthViewController: UIViewController {
             sender.selected = false
             statusLabel.text = "Hold Mode Off"
             holdMode = false
+            turnOffHeldKeys()
         } else {
             sender.selected = true
             statusLabel.text = "Hold Mode On"
@@ -269,6 +270,7 @@ class SynthViewController: UIViewController {
             sender.selected = true
             statusLabel.text = "Mono Mode On"
             monoMode = true
+            turnOffHeldKeys()
         }
     }
     
@@ -295,16 +297,19 @@ class SynthViewController: UIViewController {
     //*****************************************************************
     
     // Keys
+    
+
+    
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
         
         if monoMode {
             if let lastKey = lastKey where lastKey != key {
-                turnOffKey(lastKey.tag)
+                turnOffKey(lastKey)
             }
         }
-        
         // conductor.play(key.tag)
+        key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
         statusLabel.text = "Key Pressed: \(sender.tag)"
         lastKey = key
     }
@@ -314,24 +319,37 @@ class SynthViewController: UIViewController {
         
         if holdMode && monoMode {
             if let lastKey = lastKey where lastKey != key {
-                turnOffKey(lastKey.tag)
+                turnOffKey(lastKey)
             }
         } else if holdMode && !monoMode {
             keysHeld.append(key)
         } else {
-            turnOffKey(key.tag)
+            turnOffKey(key)
         }
         lastKey = key
     }
     
-    func turnOffKey(index: Int) {
+    // *********************************************************
+    // MARK - Turn Keys Off
+    // *********************************************************
+    
+    func turnOffKey(key: UIButton) {
+        key.setImage(UIImage(named: "whitekey"), forState: .Normal)
         statusLabel.text = "Key Released"
         //conductor.release(index)
     }
     
+    func turnOffHeldKeys() {
+        for key in keysHeld {
+            turnOffKey(key)
+        }
+        if let lastKey = lastKey {
+            turnOffKey(lastKey)
+        }
+        statusLabel.text = "Key(s) Released"
+        keysHeld.removeAll(keepCapacity: false)
+    }
 }
-
-
 
 //*****************************************************************
 // MARK: - 🎛 Knob Delegates

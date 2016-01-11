@@ -837,8 +837,8 @@
                                         </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="5bj-Dh-m6z"/>
+                                            <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="2wQ-4C-EoB"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="sJY-gr-zwX"/>
-                                            <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="z70-e1-0dX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="218" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDp-C6-xAr" userLabel="F2">
@@ -864,7 +864,7 @@
                                         </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="ivq-IX-vE2"/>
-                                            <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="0cM-BI-rg4"/>
+                                            <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="Ot8-wJ-MeC"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="dMx-PL-N3J"/>
                                         </connections>
                                     </button>
