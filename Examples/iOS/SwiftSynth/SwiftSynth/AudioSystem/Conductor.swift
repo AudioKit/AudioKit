@@ -52,9 +52,9 @@ class Conductor {
         sourceMixer = AKMixer(sine1, triangle1, sawtooth1, square1, fm, noise)
         
         bitCrusher = AKBitCrusher(sourceMixer)
-        bitCrushMixer = AKDryWetMixer(sourceMixer, bitCrusher!, t: 0.5)
+        bitCrushMixer = AKDryWetMixer(sourceMixer, bitCrusher!, t: 0)
         
-        filterSection = FilterSection(bitCrusher!)
+        filterSection = FilterSection(bitCrushMixer!)
         fatten = Fatten(filterSection.output)
         multiDelay = MultiDelay(fatten.output!)
         
@@ -63,6 +63,7 @@ class Conductor {
         reverb!.decayTimeAt0Hz = 2.0
         audiokit.audioOutput = reverb
         audiokit.start()
+        sine1.startNote(60, velocity: 127)
         
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
