@@ -13,9 +13,9 @@ import Foundation
 /// - returns: AKOperation
 /// - parameter first: First parameter
 /// - parameter second: Second parameter
-/// - parameter t: Value from zero to one indicating balance between first (0) and second (1) (Default: 0.5)
+/// - parameter balance: Value from zero to one indicating balance between first (0) and second (1) (Default: 0.5)
 ///
-public func mix(first: AKParameter, _ second: AKParameter, t: AKParameter = 0.5) -> AKOperation {
-    let firstRatio = 1 - t
-    return AKOperation("(\(firstRatio * first) \(t * second) +)")
+public func mixer(first: AKParameter, _ second: AKParameter, balance: AKParameter = 0.5) -> AKOperation {
+    let firstRatio = 1 - balance
+    return AKOperation("(\(firstRatio * first) \(balance * second) +)")
 }

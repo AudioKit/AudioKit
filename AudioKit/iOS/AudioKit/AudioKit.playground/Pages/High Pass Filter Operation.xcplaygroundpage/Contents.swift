@@ -25,7 +25,7 @@ player.looping = true
 let filteredPlayer = AKOperationEffect(player, operation: filter)
 
 //: Mixdown and playback
-let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, t: 0.5)
+let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, balance: 0.5)
 audiokit.audioOutput = mixer
 audiokit.start()
 
