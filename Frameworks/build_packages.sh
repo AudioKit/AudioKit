@@ -22,7 +22,9 @@ create_package()
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
+	find Examples -name project.pbxproj -exec sed -i -f ../fix_paths.sed {} \;
 	cp ../../README.md ../../VERSION .
+	find . -name .DS_Store -exec rm -f {} \;
 	cd ..
 	zip -9yr ${DIR}-${VERSION}.zip $DIR
 }
