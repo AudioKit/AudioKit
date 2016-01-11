@@ -74,6 +74,8 @@ class SynthViewController: UIViewController {
     var keysHeld = [UIButton]()
     let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
     
+    var conductor = Conductor.sharedInstance
+    
     // *********************************************************
     // MARK: - viewDidLoad
     // *********************************************************
@@ -188,9 +190,13 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Bitcrush Off"
+            conductor.bitCrushMixer?.balance = 0
+            print(conductor.bitCrushMixer?.balance)
         } else {
             sender.selected = true
             statusLabel.text = "Bitcrush On"
+            conductor.bitCrushMixer?.balance = 1
+            print(conductor.bitCrushMixer?.balance)
         }
     }
     
@@ -434,6 +440,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Crusher
         case ControlTag.CrushAmt.rawValue:
             statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
+            conductor.bitCrusher?.sampleRate = Double(24000.0 * (1.0 - value))
             
         // Delay
         case ControlTag.DelayTime.rawValue:
@@ -452,6 +459,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Master
         case ControlTag.MasterVol.rawValue:
             statusLabel.text = "Master Vol: \(value.decimalFormattedString)"
+            conductor.masterVolume.volume = Double(value)
             
         default:
             break
