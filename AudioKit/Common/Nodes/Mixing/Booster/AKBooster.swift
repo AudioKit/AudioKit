@@ -12,12 +12,7 @@ import AVFoundation
 /// AudioKit version of Apple's Mixer Node
 public class AKBooster: AKNode, AKToggleable {
     private let mixer = AVAudioMixerNode()
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     
     /// Amplification Factor
     public var gain: Double = 1.0 {
@@ -37,10 +32,9 @@ public class AKBooster: AKNode, AKToggleable {
     /// - parameter input: AKNode whose output will be amplified
     /// - parameter gain: Amplification factor (Default: 1, Minimum: 0)
     ///
-    public init(
-        var _ input: AKNode,
-        gain: Double = 1.0) {
+    public init(_ input: AKNode, gain: Double = 1.0) {
             
+        super.init()
         self.avAudioNode = mixer
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)

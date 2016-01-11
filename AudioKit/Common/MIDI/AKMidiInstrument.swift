@@ -10,12 +10,7 @@ import AVFoundation
 import CoreAudio
 
 public class AKMidiInstrument: AKNode {
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     /// MIDI Input
     public var midiIn = MIDIEndpointRef()
     
@@ -25,6 +20,7 @@ public class AKMidiInstrument: AKNode {
     
     public init(inst: AKPolyphonicInstrument) {
         internalInst = inst;
+        super.init()
         avAudioNode = (internalInst?.avAudioNode)!
     }
     

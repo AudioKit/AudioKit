@@ -66,11 +66,6 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
 
 internal class AKOscillatorVoice: AKVoice {
     
-    /// Required property for AKNode
-    var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    var connectionPoints = [AVAudioConnectionPoint]()
-    
     var oscillator: AKOscillator
     var adsr: AKAmplitudeEnvelope
     
@@ -85,28 +80,30 @@ internal class AKOscillatorVoice: AKVoice {
             releaseDuration: 1.0)
         
         self.waveform = waveform
-        self.avAudioNode = adsr.avAudioNode
+        super.init()
+        
+        avAudioNode = adsr.avAudioNode
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    func copy() -> AKVoice {
+    override func copy() -> AKVoice {
         let copy = AKOscillatorVoice(waveform: self.waveform)
         return copy
     }
     
     /// Tells whether the node is processing (ie. started, playing, or active)
-    var isStarted: Bool {
+    override var isStarted: Bool {
         return oscillator.isPlaying
     }
     
     /// Function to start, play, or activate the node, all do the same thing
-    func start() {
+    override func start() {
         oscillator.start()
         adsr.start()
     }
     
     /// Function to stop or bypass the node, both are equivalent
-    func stop() {
+    override func stop() {
         adsr.stop()
     }
 }

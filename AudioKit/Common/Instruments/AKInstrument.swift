@@ -15,24 +15,34 @@ public protocol AKKeyboardPlayable {
     func stop(note: Int)
 }
 
-/// Protocol for all AudioKit Nodes
-public protocol AKVoice: AKNode, AKCopyableVoice, AKToggleable {
-    // Combines these protocols to allow for things like the midi instrument to work
-}
 
-//make sure these voices can be replicated by making them have a copy function
-public protocol AKCopyableVoice {
-    /// Function to duplicate this oscillator
-    func copy() -> AKVoice
+/// Protocol for all AudioKit Nodes
+public class AKVoice: AKNode, AKToggleable {
+    // Combines these protocols to allow for things like the midi instrument to work
+    
+    public var isStarted: Bool {
+        return false
+        // override in subclass
+    }
+    
+    /// Function to start, play, or activate the node, all do the same thing
+    public func start() {
+        // override in subclass
+    }
+    
+    /// Function to stop or bypass the node, both are equivalent
+    public func stop() {
+        // override in subclass
+    }
+    
+    public func copy() -> AKVoice {
+        return AKVoice()
+        // override in subclass
+    }
 }
 
 public class AKPolyphonicInstrument: AKNode {
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     public var voices: [AKVoice] = []
     var notesPlayed: [Int] = []
     
@@ -47,7 +57,8 @@ public class AKPolyphonicInstrument: AKNode {
         notesPlayed = [Int](count: voiceCount, repeatedValue: 0)
         self.voiceCount = voiceCount
         
-        self.avAudioNode = output.avAudioNode
+        super.init()
+        avAudioNode = output.avAudioNode
         
         for (var i = 0 ; i < voiceCount; ++i) {
             voices.append(voice.copy())

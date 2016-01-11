@@ -26,12 +26,6 @@ public class AKBandPassFilter: AKNode, AKToggleable {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
 
-    /// Required property for AKNode containing the output node
-    public var avAudioNode: AVAudioNode
-
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-
     private var mixer: AKMixer
 
     /// Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
@@ -111,11 +105,13 @@ public class AKBandPassFilter: AKNode, AKToggleable {
             effectGain!.volume = 1
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            super.init()
+            
             AKManager.sharedInstance.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
             AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
             AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
-            self.avAudioNode = mixer.avAudioNode
+            avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
             AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)

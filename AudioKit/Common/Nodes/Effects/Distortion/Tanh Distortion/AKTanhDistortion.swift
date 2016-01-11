@@ -20,10 +20,6 @@ public class AKTanhDistortion: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKTanhDistortionAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -74,7 +70,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     /// - parameter negativeShapeParameter: Like the positive shape parameter, only for the negative part.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         pregain: Double = 2.0,
         postgain: Double = 0.5,
         postiveShapeParameter: Double = 0.0,
@@ -98,7 +94,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
             name: "Local AKTanhDistortion",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

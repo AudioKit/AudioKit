@@ -20,10 +20,6 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKRolandTB303FilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -74,7 +70,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         cutoffFrequency: Double = 500,
         resonance: Double = 0.5,
         distortion: Double = 2.0,
@@ -98,7 +94,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
             name: "Local AKRolandTB303Filter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

@@ -14,12 +14,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
     // MARK: - Properties
     
     private var internalAU: AKOperationEffectAudioUnit?
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -68,7 +63,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
     /// - parameter input: AKNode to use for processing
     /// - parameter sporth: String of valid Sporth code
     ///
-    public init(var _ input: AKNode, sporth: String) {
+    public init(_ input: AKNode, sporth: String) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -83,7 +78,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
             name: "Local AKOperationEffect",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

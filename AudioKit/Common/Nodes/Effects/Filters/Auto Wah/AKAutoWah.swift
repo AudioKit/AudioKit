@@ -19,10 +19,6 @@ public class AKAutoWah: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKAutoWahAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -65,7 +61,7 @@ public class AKAutoWah: AKNode, AKToggleable {
     /// - parameter amplitude: Overall level
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         wah: Double = 0,
         mix: Double = 100,
         amplitude: Double = 0.1) {
@@ -87,7 +83,7 @@ public class AKAutoWah: AKNode, AKToggleable {
             name: "Local AKAutoWah",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

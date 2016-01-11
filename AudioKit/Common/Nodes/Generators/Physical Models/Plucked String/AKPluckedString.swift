@@ -18,10 +18,6 @@ public class AKPluckedString: AKVoice {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKPluckedStringAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -61,7 +57,7 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isStarted: Bool {
+    override public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -95,7 +91,7 @@ public class AKPluckedString: AKVoice {
             name: "Local AKPluckedString",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
@@ -128,7 +124,7 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public func copy() -> AKVoice {
+    public override func copy() -> AKVoice {
         let copy = AKPluckedString(frequency: self.frequency, amplitude: self.amplitude, lowestFrequency: self.lowestFrequency)
         return copy
     }
@@ -144,12 +140,12 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public func start() {
+    public override func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public func stop() {
+  override   public func stop() {
         self.internalAU!.stop()
     }
 }

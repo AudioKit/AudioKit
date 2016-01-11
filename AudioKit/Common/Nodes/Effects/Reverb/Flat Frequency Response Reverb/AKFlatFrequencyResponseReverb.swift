@@ -22,10 +22,6 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -53,7 +49,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
     /// - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         reverbDuration: Double = 0.5,
         loopDuration: Double = 0.1) {
 
@@ -72,7 +68,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
             name: "Local AKFlatFrequencyResponseReverb",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

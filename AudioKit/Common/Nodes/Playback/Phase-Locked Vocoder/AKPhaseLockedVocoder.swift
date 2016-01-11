@@ -20,12 +20,7 @@ import AVFoundation
 public class AKPhaseLockedVocoder: AKNode {
     
     // MARK: - Properties
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     internal var internalAU: AKPhaseLockedVocoderAudioUnit?
     internal var token: AUParameterObserverToken?
     
@@ -91,7 +86,7 @@ public class AKPhaseLockedVocoder: AKNode {
                 name: "Local AKPhaseLockedVocoder",
                 version: UInt32.max)
             
-            self.avAudioNode = AVAudioNode()
+            super.init()
         
             AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
                 avAudioUnit, error in
