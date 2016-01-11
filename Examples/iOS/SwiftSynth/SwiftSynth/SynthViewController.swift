@@ -72,6 +72,8 @@ class SynthViewController: UIViewController {
     var monoMode: Bool = false
     var holdMode: Bool = false
     var keysHeld = [UIButton]()
+    let blackKeys = [49, 51, 54, 56, 58
+        61, 63, 66, 68, 70]
     
     // *********************************************************
     // MARK: - viewDidLoad
@@ -296,10 +298,6 @@ class SynthViewController: UIViewController {
     // MARK: - 🎹 Key presses
     //*****************************************************************
     
-    // Keys
-    
-
-    
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
         
@@ -334,7 +332,14 @@ class SynthViewController: UIViewController {
     // *********************************************************
     
     func turnOffKey(key: UIButton) {
-        key.setImage(UIImage(named: "whitekey"), forState: .Normal)
+        let index = key.tag - 200
+        
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey"), forState: .Normal)
+        }
+        
         statusLabel.text = "Key Released"
         //conductor.release(index)
     }
