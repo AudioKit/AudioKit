@@ -29,6 +29,10 @@
 		C42FFC041C3DDAAC00823BD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC021C3DDAAC00823BD4 /* LaunchScreen.storyboard */; };
 		C4E8ED001C4354700041965F /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E8ECFD1C43545F0041965F /* AudioKit.framework */; };
 		C4E8ED021C43570C0041965F /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4E8ECFD1C43545F0041965F /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED211C43AA8E0041965F /* Conductor.swift */; };
+		C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED281C43ADA10041965F /* FilterSection.swift */; };
+		C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */; };
+		C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2C1C43B2540041965F /* Fatten.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +99,10 @@
 		C42FFC031C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42FFC051C3DDAAC00823BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
+		C4E8ED211C43AA8E0041965F /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conductor.swift; path = AudioSystem/Conductor.swift; sourceTree = "<group>"; };
+		C4E8ED281C43ADA10041965F /* FilterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterSection.swift; path = AudioSystem/FilterSection.swift; sourceTree = "<group>"; };
+		C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiDelay.swift; path = AudioSystem/MultiDelay.swift; sourceTree = "<group>"; };
+		C4E8ED2C1C43B2540041965F /* Fatten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fatten.swift; path = AudioSystem/Fatten.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +182,7 @@
 		C42FFBF81C3DDAAC00823BD4 /* SwiftSynth */ = {
 			isa = PBXGroup;
 			children = (
+				C4E8ED251C43AD650041965F /* AudioSystem */,
 				949B1C1D1C431E5400BFFA10 /* CustomControls */,
 				949B1C321C431E5400BFFA10 /* Extensions */,
 				949B1C351C431E5400BFFA10 /* SMSegmentView */,
@@ -194,6 +203,17 @@
 				C4E8ECFF1C43545F0041965F /* AudioKitTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C4E8ED251C43AD650041965F /* AudioSystem */ = {
+			isa = PBXGroup;
+			children = (
+				C4E8ED211C43AA8E0041965F /* Conductor.swift */,
+				C4E8ED2C1C43B2540041965F /* Fatten.swift */,
+				C4E8ED281C43ADA10041965F /* FilterSection.swift */,
+				C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */,
+			);
+			name = AudioSystem;
 			sourceTree = "<group>";
 		};
 		EA127F471C42097600289567 /* Frameworks */ = {
@@ -306,7 +326,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */,
+				C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */,
 				949B1C531C431E5400BFFA10 /* SMBasicSegmentView.swift in Sources */,
+				C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */,
 				949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */,
 				949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */,
 				949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */,
@@ -318,7 +340,9 @@
 				949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */,
 				949B1C491C431E5400BFFA10 /* Knob.swift in Sources */,
 				949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */,
+				C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */,
 				949B1C4B1C431E5400BFFA10 /* KnobMedium.swift in Sources */,
+				C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */,
 				949B1C561C431E5400BFFA10 /* SynthViewController.swift in Sources */,
 				949B1C541C431E5400BFFA10 /* SMSegment.swift in Sources */,
 				949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */,
