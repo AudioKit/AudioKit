@@ -1,0 +1,32 @@
+installation-directory: "/Effects/Reverb/Convolution/"
+
+sp-module: conv
+
+node: AKConvolution
+
+type: Effect
+
+four-letter-code: conv
+
+summary: Partioned convolution.
+
+one-word-description: convolution
+
+description:
+    This module will perform partitioned convolution on an input signal using
+    an ftable as an impulse response.
+
+tables:
+- ft: {
+  ak-variable: impulseResponseTable,
+  comment: "Audio file used as the impulse response.",
+  default:
+}
+
+constants:
+- iPartLen: {
+  ak-variable: partitionLength,
+  comment: "Partition length (in samples). Must be a power of 2. Lower values will add less latency, at the cost of requiring more CPU power.",
+  default: 2048
+}
+
