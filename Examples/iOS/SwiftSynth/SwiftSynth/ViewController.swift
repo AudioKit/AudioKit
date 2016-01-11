@@ -173,22 +173,53 @@ class ViewController: UIViewController {
     }
     
     func handleMidiNotification(notification: NSNotification) {
-        
-        switch waveformSegmentedControl.selectedSegmentIndex {
-        case 0:
-            sine1.handleMIDIEvent(notification)
-        case 1:
-            triangle1.handleMIDIEvent(notification)
-        case 2:
-            sawtooth1.handleMIDIEvent(notification)
-        case 3:
-            square1.handleMIDIEvent(notification)
-        default:
-            break
-            // do nothing
+        let note = Int((notification.userInfo?["note"])! as! NSNumber)
+        let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
+        if notification.name == AKMidiStatus.NoteOn.name() && velocity > 0 {
+            
+            switch waveformSegmentedControl.selectedSegmentIndex {
+            case 0:
+                sine1.startNote(note, velocity: velocity)
+            case 1:
+                triangle1.startNote(note, velocity: velocity)
+            case 2:
+                sawtooth1.startNote(note, velocity: velocity)
+            case 3:
+                square1.startNote(note, velocity: velocity)
+            default:
+                break
+                // do nothing
+            }
+            fm.startNote(note, velocity: velocity)
+            noise.startNote(note, velocity: velocity)
+            
+        } else if (notification.name == AKMidiStatus.NoteOn.name() && velocity == 0) || notification.name == AKMidiStatus.NoteOff.name() {
+            
+            
+            switch waveformSegmentedControl.selectedSegmentIndex {
+            case 0:
+                sine1.stopNote(note)
+            case 1:
+                triangle1.stopNote(note)
+            case 2:
+                sawtooth1.stopNote(note)
+            case 3:
+                square1.stopNote(note)
+            default:
+                break
+                // do nothing
+            }
+            fm.stopNote(note)
+            noise.stopNote(note)
+            
+            
+            
         }
-        fm.handleMIDIEvent(notification)
-        noise.handleMIDIEvent(notification)
+        
+        
+        
+
+
     }
 
     @IBAction func updateOscillatorVolume(sender: UISlider) {
