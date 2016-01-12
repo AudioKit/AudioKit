@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "slider_top.png",
       "scale" : "1x"
     },
     {
