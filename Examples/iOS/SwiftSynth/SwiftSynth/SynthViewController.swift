@@ -388,19 +388,19 @@ class SynthViewController: UIViewController {
 
 extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeDelegate {
     
-    func updateKnobValue(value: Float, tag: Int) {
+    func updateKnobValue(value: Double, tag: Int) {
         
         switch (tag) {
             
         // VCOs
         case ControlTag.Vco1Semitones.rawValue:
-            let scaledValue = Float.scaleRange(value, rangeMin: -24, rangeMax: 25)
-            let intValue = Int(floorf(scaledValue))
+            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
+            let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
             
         case ControlTag.Vco2Semitones.rawValue:
-            let scaledValue = Float.scaleRange(value, rangeMin: -24, rangeMax: 25)
-            let intValue = Int(floorf(scaledValue))
+            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
+            let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
             
         case ControlTag.Vco2Detune.rawValue:
@@ -428,24 +428,24 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // LFO
         case ControlTag.LfoAmt.rawValue:
             statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoAmplitude = Double(1000*value)
+            conductor.filterSection.lfoAmplitude = 1000*value
             
         case ControlTag.LfoRate.rawValue:
             statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoRate = Double(5*value)
+            conductor.filterSection.lfoRate = 5*value
        
         // Filter
         case ControlTag.Cutoff.rawValue:
             
             // Logarithmic scale to frequency
-            let scaledValue = Float.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
-            let cutOffFrequency = Float(scaledValue) * 4
+            let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
+            let cutOffFrequency = scaledValue * 4
             statusLabel.text = "Cutoff: \(cutOffFrequency.decimalFormattedString)"
-            conductor.filterSection.cutoffFrequency = Double(cutOffFrequency)
+            conductor.filterSection.cutoffFrequency = cutOffFrequency
             
         case ControlTag.Rez.rawValue:
             statusLabel.text = "Rez: \(value.decimalFormattedString)"
-            conductor.filterSection.resonance = Double(value)
+            conductor.filterSection.resonance = value
             
         // Crusher
         case ControlTag.CrushAmt.rawValue:
@@ -456,25 +456,25 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Delay
         case ControlTag.DelayTime.rawValue:
             statusLabel.text = "Delay Time: \(value.decimalFormattedString)"
-            conductor.multiDelay.time = Double(value)
+            conductor.multiDelay.time = value
         
         case ControlTag.DelayMix.rawValue:
             statusLabel.text = "Delay Mix: \(value.decimalFormattedString)"
-            conductor.multiDelay.mix = Double(value)
+            conductor.multiDelay.mix = value
         
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
-            conductor.reverb?.decayTimeAt0Hz = Double(value)
+            conductor.reverb?.decayTimeAt0Hz = value
         
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
-            conductor.reverb?.dryWetMix = Double(value)
+            conductor.reverb?.dryWetMix = value
             
         // Master
         case ControlTag.MasterVol.rawValue:
             statusLabel.text = "Master Vol: \(value.decimalFormattedString)"
-            conductor.masterVolume.volume = Double(value)
+            conductor.masterVolume.volume = value
             
         default:
             break
