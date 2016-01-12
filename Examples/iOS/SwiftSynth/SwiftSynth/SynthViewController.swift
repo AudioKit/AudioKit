@@ -8,11 +8,8 @@
 
 import UIKit
 
-// TODO: 
-// * ADSR Sliders
-// * Make Knobs appear
+// TODO:
 // * Appropriate scales for Knobs
-// * 1x images
 // * Set sensible initial preset
 
 class SynthViewController: UIViewController {

@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "UpperKeyPanel.png",
       "scale" : "1x"
     },
     {
