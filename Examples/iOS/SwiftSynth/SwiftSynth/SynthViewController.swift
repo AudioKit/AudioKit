@@ -8,11 +8,8 @@
 
 import UIKit
 
-// TODO: 
-// * ADSR Sliders
-// * Make Knobs appear
+// TODO:
 // * Appropriate scales for Knobs
-// * 1x images
 // * Set sensible initial preset
 
 class SynthViewController: UIViewController {
@@ -135,7 +132,7 @@ class SynthViewController: UIViewController {
     func setDefaultValues() {
         
         // Initial Values
-        statusLabel.text = "Welcome to Swift Synth"
+        statusLabel.text = String.randomGreeting()
         
         cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, rangeMin: 150.0, rangeMax: 24000.0))
         osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, rangeMin: -12, rangeMax: 24))
