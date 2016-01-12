@@ -26,7 +26,12 @@ class Knob: UIView {
         if touchPoint.x > 0 && touchPoint.x < self.bounds.size.width &&
             touchPoint.y > 0 && touchPoint.y < self.bounds.size.height {
             setPercentagesWithTouchPoint(touchPoint)
+        } else if touchPoint.y < self.bounds.size.height {
+            setMaximumValue()
+        } else if touchPoint.y > self.bounds.size.height {
+            setMinimumValue()
         }
+
     }
     
     func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
@@ -39,7 +44,14 @@ class Knob: UIView {
         } else {
             knobValue = verticalPercentage
         }
-
+    }
+    
+    func setMaximumValue() {
+        knobValue = 1.0
+    }
+    
+    func setMinimumValue() {
+        knobValue = 0.0
     }
     
     // Scale any range to 0.0-1.0 for Knob position
