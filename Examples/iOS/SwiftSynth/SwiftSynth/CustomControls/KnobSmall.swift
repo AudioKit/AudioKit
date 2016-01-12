@@ -9,7 +9,7 @@
 import UIKit
 
 protocol KnobSmallDelegate {
-    func updateKnobValue(value: Float, tag: Int)
+    func updateKnobValue(value: Double, tag: Int)
 }
 
 @IBDesignable
@@ -21,17 +21,24 @@ class KnobSmall: Knob {
         SynthStyleKit.drawKnobSmall(knobValue: knobValue)
     }
     
-    // MARK: - Update from ViewController Slider
-    func updatePressure(newPressure: Float) {
-        knobValue = CGFloat(newPressure)
-        setNeedsDisplay()
-    }
-    
     // MARK: - Set Percentages
     override func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
         super.setPercentagesWithTouchPoint(touchPoint)
-        
-        delegate?.updateKnobValue(Float(knobValue), tag: self.tag)
+        updateKnob()
+    }
+    
+    override func setMaximumValue() {
+        super.setMaximumValue()
+        updateKnob()
+    }
+    
+    override func setMinimumValue() {
+        super.setMinimumValue()
+        updateKnob()
+    }
+    
+    func updateKnob() {
+        delegate?.updateKnobValue(Double(knobValue), tag: self.tag)
         setNeedsDisplay()
     }
 }
