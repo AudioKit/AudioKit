@@ -2,14 +2,14 @@
 //:
 //: ---
 //:
-//: ## DTMF Tones
-//: ### An example creating typical telephone sounds with AudioKit
+//: ## Telephone Digits
+//: ### The dial tone is not the only sound on your phone that is just two sine waves, so are all the digits.
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-//: Now we can move on to dialing sounds
+//: Here is the canonical specification of DTMF Tones
 var keys = [String: [Double]]()
 keys["1"] = [697, 1209]
 keys["2"] = [697, 1336]
@@ -24,10 +24,14 @@ keys["*"] = [941, 1209]
 keys["0"] = [941, 1336]
 keys["#"] = [941, 1477]
 
-let frequencies = keys["0"]!
-let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(0)) + AKOperation.sineWave(frequency: AKOperation.parameters(1))
-let momentaryPress = keyPressTone.triggeredWithEnvelope(AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
-let generator = AKOperationGenerator(operation: momentaryPress, triggered: true)
+let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(0)) +
+    AKOperation.sineWave(frequency: AKOperation.parameters(1))
+
+let momentaryPress = keyPressTone.triggeredWithEnvelope(
+    AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
+
+let generator = AKOperationGenerator(
+    operation: momentaryPress * 0.4, triggered: true)
 
 audiokit.audioOutput = generator
 audiokit.start()
@@ -35,7 +39,7 @@ audiokit.start()
 generator.start()
 
 //: Let's call Jenny and Mary!
-let phoneNumber = "8675309  3212333 222 333 3212333322321"
+let phoneNumber = "8675309   3212333 222 333 3212333322321"
 for number in phoneNumber.characters {
     if keys.keys.contains(String(number)) {
         generator.trigger(keys[String(number)]!)
