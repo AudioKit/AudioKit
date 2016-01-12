@@ -4,8 +4,6 @@
 //
 //  Created by Matthew Fecher on 1/9/16.
 //  Copyright (c) 2016 AudioKit. All rights reserved.
-//
-
 
 import UIKit
 
@@ -81,7 +79,6 @@ public class SynthStyleKit : NSObject {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
-
         //// Image Declarations
         let knob120_base = UIImage(named: "knob120_base.png")!
         let knob120_indicator = UIImage(named: "knob120_indicator.png")!
@@ -95,7 +92,6 @@ public class SynthStyleKit : NSObject {
         picturePath.addClip()
         knob120_base.drawInRect(CGRectMake(5, 5, knob120_base.size.width, knob120_base.size.height))
         CGContextRestoreGState(context)
-
 
         //// Indicator Drawing
         CGContextSaveGState(context)

@@ -3,7 +3,7 @@
 //  Swift Synth
 //
 //  Created by Matthew Fecher on 1/8/16.
-//  Copyright © 2016 CodeMarket. All rights reserved.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import UIKit
