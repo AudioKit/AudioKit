@@ -2,22 +2,22 @@
 //:
 //: ---
 //:
-//: ## Phone Tones
-//: ### AudioKit is great for sound design. Here, we show you how to create some telephone sounds using the sineWave generator.
+//: ## Busy Signal
+//: ### The busy signal is similar as well, just a different set of parameters.
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-//: The busy signal is similar as well
 let busySignalTone1 = AKOperation.sineWave(frequency: 480)
 let busySignalTone2 = AKOperation.sineWave(frequency: 620)
 let busySignalTone = mixer(busySignalTone1, busySignalTone2, balance: 0.5)
 
 let busyTrigger = AKOperation.metronome(2)
-let busySignal = busySignalTone.triggeredWithEnvelope(busyTrigger, attack: 0.01, hold: 0.25, release: 0.01)
+let busySignal = busySignalTone.triggeredWithEnvelope(busyTrigger,
+    attack: 0.01, hold: 0.25, release: 0.01)
 
-let generator = AKOperationGenerator(operation: busySignal)
+let generator = AKOperationGenerator(operation: busySignal * 0.4)
 
 audiokit.audioOutput = generator
 audiokit.start()
