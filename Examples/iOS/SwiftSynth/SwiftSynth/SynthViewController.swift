@@ -214,9 +214,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Delay Off"
+            conductor.multiDelayMixer?.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Delay On"
+            conductor.multiDelayMixer?.balance = 1
         }
     }
     
@@ -224,9 +226,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Reverb Off"
+            conductor.reverb?.dryWetMix = 0
         } else {
             sender.selected = true
             statusLabel.text = "Reverb On"
+            conductor.reverb?.dryWetMix = 1
         }
     }
     
@@ -452,16 +456,20 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Delay
         case ControlTag.DelayTime.rawValue:
             statusLabel.text = "Delay Time: \(value.decimalFormattedString)"
+            conductor.multiDelay.time = Double(value)
         
         case ControlTag.DelayMix.rawValue:
             statusLabel.text = "Delay Mix: \(value.decimalFormattedString)"
+            conductor.multiDelay.mix = Double(value)
         
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
+            conductor.reverb?.decayTimeAt0Hz = Double(value)
         
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
+            conductor.reverb?.dryWetMix = Double(value)
             
         // Master
         case ControlTag.MasterVol.rawValue:

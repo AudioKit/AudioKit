@@ -36,6 +36,8 @@ class Conductor {
     var fatten: Fatten
     var filterSection: FilterSection
     var multiDelay: MultiDelay
+    var multiDelayMixer: AKDryWetMixer?
+    
     var filterSectionParameters: [Double] = []
     
     var masterVolume = AKMixer()
@@ -58,8 +60,9 @@ class Conductor {
         
         fatten = Fatten(filterSection)
         multiDelay = MultiDelay(fatten)
+        multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0)
         
-        masterVolume = AKMixer(multiDelay.output)
+        masterVolume = AKMixer(multiDelayMixer!)
         reverb = AKReverb2(masterVolume)
         reverb!.decayTimeAt0Hz = 2.0
         audiokit.audioOutput = reverb

@@ -6,38 +6,68 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-import Foundation
 import AudioKit
 
-struct MultiDelay {
+
+
+class MultiDelay: AKNode {
     
-    var output = AKMixer()
-    
-    func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
-        let mix = AKMixer(input)
-        zip(times, gains).forEach { (time, gain) -> () in
-            let delay = AKDelay(input, time: time, feedback: 0.0, dryWetMix: 100)
-            mix.connect(AKBooster(delay, gain: gain))
+    var time: Double = 0.0 {
+        didSet {
+            leftTimes = [1, 2, 3].map { t -> Double in t * time }
+            updateDelays(leftDelays, boosters: leftBoosters, times: leftTimes, gains: gains)
+            
+            rightTimes = [1.5, 2.5, 3.5].map { t -> Double in t * time }
+            updateDelays(rightDelays, boosters: rightBoosters, times: rightTimes, gains: gains)
         }
-        return mix
+    }
+    
+    var mix: Double = 0 {
+        didSet {
+            gains = [0.5, 0.25, 0.15].map { g -> Double in g * mix }
+            updateDelays(leftDelays, boosters: leftBoosters, times: leftTimes, gains: gains)
+            updateDelays(rightDelays, boosters: rightBoosters, times: rightTimes, gains: gains)
+        }
+    }
+
+    private var leftDelays: [AKDelay] = []
+    private var rightDelays: [AKDelay] = []
+    private var leftBoosters: [AKBooster] = []
+    private var rightBoosters: [AKBooster] = []
+    private var gains = [0.5, 0.25, 0.15]
+    private var leftTimes = [1.0, 2.0, 3.0]
+    private var rightTimes = [1.5, 2.5, 3.5]
+    
+    func updateDelays(delays: [AKDelay], boosters: [AKBooster], times: [Double], gains: [Double]) {
+        for i in 0..<gains.count {
+            delays[i].time = times[i]
+            boosters[i].gain = gains[i]
+        }
     }
     
     init(_ input: AKNode) {
-        // Delay Properties
-        let delayTime = 1.0 // Seconds
-        let delayMix  = 0.4 // 0 (dry) - 1 (wet)
-        let gains = [0.5, 0.25, 0.15].map { g -> Double in g * delayMix }
         
-        // Delay Definition
-        let leftDelay = multitapDelay(input,
-            times: [1.5, 2.5, 3.5].map { t -> Double in t * delayTime },
-            gains: gains)
-        let rightDelay = multitapDelay(input,
-            times: [1, 2, 3].map { t -> Double in t * delayTime },
-            gains: gains)
-        let delayPannedLeft = AKPanner(leftDelay, pan: -1)
-        let delayPannedRight = AKPanner(rightDelay, pan: 1)
+        let leftDelayMix = AKMixer()
+        let rightDelayMix = AKMixer()
         
-        output = AKMixer(delayPannedLeft, delayPannedRight)
+        for i in 0..<gains.count {
+            leftDelays.append(AKDelay(input, time: leftTimes[i], feedback: 0.0, dryWetMix: 100))
+            rightDelays.append(AKDelay(input, time: rightTimes[i], feedback: 0.0, dryWetMix: 100))
+            leftBoosters.append(AKBooster(leftDelays[i], gain: gains[i]))
+            rightBoosters.append(AKBooster(rightDelays[i], gain: gains[i]))
+
+            leftDelayMix.connect(leftBoosters[i])
+            rightDelayMix.connect(rightBoosters[i])
+        }
+        
+        let delayPannedLeft = AKPanner(leftDelayMix, pan: -1)
+        let delayPannedRight = AKPanner(rightDelayMix, pan: 1)
+        
+        let mix = AKMixer(delayPannedLeft, delayPannedRight)
+        
+        super.init()
+        self.avAudioNode = mix.avAudioNode
+        input.addConnectionPoint(self)
+        
     }
 }

@@ -15,7 +15,6 @@ class FilterSection: AKNode {
         didSet {
             parameters[0] = cutoffFrequency
             output.parameters = parameters
-            dump(parameters)
         }
     }
     
