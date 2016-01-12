@@ -14,11 +14,24 @@ custom_categories:
     - AKTable
     - AKTableType
 
+  - name: Instruments
+    children:
+    - AKInstrument
+    - AKPolyphonicInstrument
+    - AKVoice
+    - AKFMOscillatorInstrument
+    - AKNoiseInstrument
+    - AKOscillatorInstrument
+    - AKSawtoothInstrument
+    - AKSquareInstrument
+    - AKTriangleInstrument
+
   - name: MIDI
     children:
     - AKMidi
     - AKMidiEvent
     - AKMidiControl
+    - AKMidiInstrument
     - AKMidiStatus
     - AKMidiSystemCommand
     - AKMusicTrack
@@ -55,6 +68,10 @@ custom_categories:
     - AKDynamicsProcessor
     - AKPeakLimiter
 
+  - name: Envelopes
+    children:
+    - AKAmplitudeEnvelope
+
   - name: Filter Nodes
     children:
     - AKAutoWah
@@ -87,9 +104,15 @@ custom_categories:
     children:
     - AKChowningReverb
     - AKCostelloReverb
+    - AKConvolution
     - AKFlatFrequencyResponseReverb
     - AKReverb
     - AKReverb2
+
+  - name: Noise Generator Nodes
+    children:
+    - AKPinkNoise
+    - AKWhiteNoise
 
   - name: Oscillator Nodes
     children:
@@ -99,10 +122,10 @@ custom_categories:
     - AKSquareWaveOscillator
     - AKTriangleOscillator
 
-  - name: Noise Generator Nodes
+  - name: Physical Models
     children:
-    - AKPinkNoise
-    - AKWhiteNoise
+    - AKDrip
+    - AKPluckedString
 
   - name: Input Node
     children:
@@ -110,13 +133,16 @@ custom_categories:
 
   - name: Mixing Nodes
     children:
-    - AKBalance
-    - AKGain
+    - AKBalancer
+    - AKBooster
+    - AKDryWetMixer
     - AKMixer
+    - AKPanner
 
   - name: Playback Nodes
     children:
     - AKAudioPlayer
+    - AKPhaseLockedVocoder
     - AKSampler
     - AKSequencer
     - AKTimePitch
@@ -141,7 +167,7 @@ custom_categories:
     - log10(_:)
     - max(_:_:)
     - min(_:_:)
-    - mix(_:_:t:)
+    - mixer(_:_:t:)
     - round(_:)
 
   - name: Random Number Generators
@@ -155,3 +181,7 @@ custom_categories:
     - AKNodeFFTPlot
     - AKNodeOutputPlot
     - AKOutputWaveformPlot
+
+
+
+
