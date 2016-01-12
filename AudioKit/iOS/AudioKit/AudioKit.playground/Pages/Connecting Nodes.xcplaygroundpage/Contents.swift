@@ -16,13 +16,13 @@ let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 
-//: Next we'll connect the audio to a delay
+//: Next we'll connect the audio player to a delay effect
 var delay = AKDelay(player)
 
 //: Set the parameters of the delay here
 delay.time = 0.1 // seconds
 delay.feedback  = 0.8 // Normalized Value 0 - 1
-delay.dryWetMix = 0.6 // Normalized Value 0 - 1
+delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 
 //: You can continue add more nodes as you wish, and here we add a reverb
 let reverb = AKReverb(delay)
