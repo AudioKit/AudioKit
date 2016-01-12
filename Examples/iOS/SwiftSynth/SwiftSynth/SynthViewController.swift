@@ -10,6 +10,7 @@ import UIKit
 
 // TODO: 
 // * ADSR Sliders
+// * Make Knobs appear
 // * Appropriate scales for Knobs
 // * 1x images
 // * Set sensible initial preset
@@ -41,6 +42,10 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var pwmKnob: KnobSmall!
     @IBOutlet weak var noiseMixKnob: KnobSmall!
     @IBOutlet weak var masterVolKnob: KnobSmall!
+    @IBOutlet weak var attackSlider: VerticalSlider!
+    @IBOutlet weak var decaySlider: VerticalSlider!
+    @IBOutlet weak var sustainSlider: VerticalSlider!
+    @IBOutlet weak var releaseSlider: VerticalSlider!
     
     enum ControlTag: Int {
         case Cutoff = 101
@@ -65,6 +70,10 @@ class SynthViewController: UIViewController {
         case ReverbAmt = 120
         case ReverbMix = 121
         case MasterVol = 122
+        case adsrAttack = 123
+        case adsrDecay = 124
+        case adsrSustain = 125
+        case adsrRelease = 126
     }
     
     var keyboardOctavePosition: Int = 0
@@ -113,6 +122,10 @@ class SynthViewController: UIViewController {
         pwmKnob.delegate = self
         noiseMixKnob.delegate = self
         masterVolKnob.delegate = self
+        attackSlider.delegate = self
+        decaySlider.delegate = self
+        sustainSlider.delegate = self
+        releaseSlider.delegate = self
     }
 
     // *********************************************************
@@ -475,6 +488,32 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         case ControlTag.MasterVol.rawValue:
             statusLabel.text = "Master Vol: \(value.decimalFormattedString)"
             conductor.masterVolume.volume = value
+            
+        default:
+            break
+        }
+    }
+}
+
+//*****************************************************************
+// MARK: - Slider Delegate (ADSR)
+//*****************************************************************
+
+extension SynthViewController: VerticalSliderDelegate {
+    func sliderValueDidChange(value: Double, tag: Int) {
+        
+        switch (tag) {
+        case ControlTag.adsrAttack.rawValue:
+            statusLabel.text = "Attack: \(value.decimalFormattedString)"
+            
+        case ControlTag.adsrDecay.rawValue:
+            statusLabel.text = "Decay: \(value.decimalFormattedString)"
+            
+        case ControlTag.adsrSustain.rawValue:
+            statusLabel.text = "Sustain: \(value.decimalFormattedString)"
+        
+        case ControlTag.adsrRelease.rawValue:
+            statusLabel.text = "Release: \(value.decimalFormattedString)"
             
         default:
             break

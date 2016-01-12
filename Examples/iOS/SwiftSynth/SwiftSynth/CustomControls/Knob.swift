@@ -31,7 +31,6 @@ class Knob: UIView {
         } else if touchPoint.y > self.bounds.size.height {
             setMinimumValue()
         }
-
     }
     
     func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
@@ -55,7 +54,7 @@ class Knob: UIView {
     }
     
     // Scale any range to 0.0-1.0 for Knob position
-    func scaleForKnobValue(value: Float, rangeMin: Float, rangeMax: Float) -> Float {
+    func scaleForKnobValue(value: Double, rangeMin: Double, rangeMax: Double) -> Double {
         return abs((value - rangeMin) / (rangeMin - rangeMax))
     }
 
