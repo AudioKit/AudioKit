@@ -1630,7 +1630,7 @@
         <image name="controls_guide" width="1024" height="486"/>
         <image name="roundbtn_off" width="31" height="31"/>
         <image name="roundbtn_on" width="31" height="31"/>
-        <image name="swiftbird" width="37" height="33"/>
+        <image name="swiftbird" width="38" height="33"/>
         <image name="whitekey" width="67" height="184"/>
         <image name="whitekey_pressed" width="67" height="184"/>
     </resources>
