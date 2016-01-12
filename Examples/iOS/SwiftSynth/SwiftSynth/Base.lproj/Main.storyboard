@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D9c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Z3O-nk-rpn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Z3O-nk-rpn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -449,6 +449,18 @@
                                             <constraint firstAttribute="height" constant="116" id="9Hq-J8-bnw"/>
                                             <constraint firstAttribute="width" constant="116" id="b5K-gw-6L5"/>
                                         </constraints>
+                                    </view>
+                                    <view opaque="NO" tag="123" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mwk-FU-bNw" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                        <rect key="frame" x="671" y="34" width="42" height="164"/>
+                                    </view>
+                                    <view opaque="NO" tag="124" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUb-xS-52W" userLabel="Decay Slider" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                        <rect key="frame" x="757" y="34" width="42" height="164"/>
+                                    </view>
+                                    <view opaque="NO" tag="125" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tbf-ak-gFV" userLabel="Sustain Slider" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                        <rect key="frame" x="852" y="34" width="42" height="164"/>
+                                    </view>
+                                    <view opaque="NO" tag="126" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozb-GC-i5H" userLabel="Release Slider" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                        <rect key="frame" x="942" y="34" width="42" height="164"/>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -1542,8 +1554,10 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="attackSlider" destination="Mwk-FU-bNw" id="Wwt-oR-h4x"/>
                         <outlet property="crushAmtKnob" destination="zlr-Av-4V5" id="BdA-DU-j0N"/>
                         <outlet property="cutoffKnob" destination="QcX-GL-sr0" id="f4d-92-eWX"/>
+                        <outlet property="decaySlider" destination="gUb-xS-52W" id="RMa-2K-Yzh"/>
                         <outlet property="delayMixKnob" destination="rr9-Rn-niD" id="y3E-qk-51J"/>
                         <outlet property="delayTimeKnob" destination="pRy-Wi-Jgx" id="f0P-Hi-hY9"/>
                         <outlet property="fmMixKnob" destination="nk5-8a-iP4" id="k1J-vv-llW"/>
@@ -1558,11 +1572,13 @@
                         <outlet property="osc2SemitonesKnob" destination="RhI-1x-viL" id="TD8-SG-25z"/>
                         <outlet property="oscMixKnob" destination="F1H-Yq-qu3" id="xzn-8i-NAx"/>
                         <outlet property="pwmKnob" destination="WR9-wM-ZDg" id="avH-8I-quH"/>
+                        <outlet property="releaseSlider" destination="ozb-GC-i5H" id="nIv-zH-oPm"/>
                         <outlet property="reverbAmtKnob" destination="Say-Mi-dCy" id="9rs-MP-cjR"/>
                         <outlet property="reverbMixKnob" destination="35Z-L3-mdG" id="8uR-Zv-9wf"/>
                         <outlet property="rezKnob" destination="M0a-nf-wee" id="kTy-tT-zjD"/>
                         <outlet property="statusLabel" destination="JKQ-oU-stT" id="OpK-rA-WeZ"/>
                         <outlet property="subMixKnob" destination="x1t-hx-AuC" id="7bz-3Z-DkT"/>
+                        <outlet property="sustainSlider" destination="Tbf-ak-gFV" id="Iz5-Q7-B5k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R81-rT-xUF" sceneMemberID="firstResponder"/>
