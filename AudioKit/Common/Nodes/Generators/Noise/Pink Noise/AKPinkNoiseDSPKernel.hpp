@@ -52,6 +52,11 @@ public:
 
     void reset() {
     }
+    
+    void setAmplitude(float amp) {
+        amplitude = amp;
+        amplitudeRamper.set(clamp(amp, (float)0, (float)10));
+    }
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -119,6 +124,8 @@ private:
 
     sp_data *sp;
     sp_pinknoise *pinknoise;
+    
+    float amplitude = 1;
 
 public:
     bool started = false;
