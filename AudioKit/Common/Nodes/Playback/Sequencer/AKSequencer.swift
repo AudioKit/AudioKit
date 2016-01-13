@@ -162,6 +162,32 @@ public class AKSequencer {
         return Double(length)
     }
     
+    // BPM
+    public func setRate(rate:Float){
+        if isAvSeq {
+            avSeq.rate = rate
+        } else {
+            //not applicable
+        }
+    }
+    public func setBpm(bpm:Float){
+        if isAvSeq {
+            //not applicable
+        } else {
+            var newTempo = bpm;
+            if(newTempo > 280){ newTempo = 180;} //bpm limits
+            if(newTempo < 10){ newTempo = 60;}
+            var tempoTrack = MusicTrack()
+            var currTime:MusicTimeStamp = 0;
+            MusicPlayerGetTime(musicPlayer, &currTime);
+            currTime = fmod(currTime, length);
+            MusicSequenceGetTempoTrack(sequence, &tempoTrack);
+            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo));
+            MusicTrackClear(tempoTrack, 0, length);
+            MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo));
+        }
+    }
+    
     /// Play the sequence
     public func play() {
         if isAvSeq {
