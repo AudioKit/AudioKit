@@ -238,11 +238,23 @@ public class AKSequencer {
     func initTracks() {
         tracks.removeAll()
         
-        for( var i = 0; i < self.numberOfTracks; ++i) {
+        var count:UInt32 = 0
+        MusicSequenceGetTrackCount(sequence, &count)
+        //print("\(count) - \(numberOfTracks)") //why is this different? the computed variable runs the same code
+        for( var i = 0; i < Int(count); ++i) {
             var musicTrack = MusicTrack()
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
             tracks.append(AKMusicTrack(musicTrack: musicTrack))
         }
+    }
+    
+    public func newTrack(){
+        var newMusTrack = MusicTrack()
+        MusicSequenceNewTrack(sequence, &newMusTrack)
+        var count:UInt32 = 0
+        MusicSequenceGetTrackCount(sequence, &count)
+        tracks.append(AKMusicTrack(musicTrack: newMusTrack))
+        initTracks()
     }
     
     public func debug() {

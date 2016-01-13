@@ -23,11 +23,21 @@ public class AKMusicTrack{
         return len
     }
     
+    /// Initialize with nothing
+    ///
+    /// - parameter musicTrack: An Apple Music Track
+    ///
+    public init() {
+        internalMusicTrack = MusicTrack()
+        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+    }
+    
     /// Initialize with a music track
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public init(musicTrack: MusicTrack) {
+    public convenience init(musicTrack: MusicTrack) {
+        self.init()
         internalMusicTrack = musicTrack
         trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
