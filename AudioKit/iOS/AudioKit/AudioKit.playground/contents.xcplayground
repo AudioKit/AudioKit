@@ -30,6 +30,7 @@
         <page name='Low Shelf Filter'/>
         <page name='Modal Resonance Filter'/>
         <page name='Moog Ladder Filter'/>
+        <page name='Roland TB-303 Filter'/>
         <page name='Simple Reverb'/>
         <page name='iOS-only Reverb'/>
         <page name='Convolution'/>
