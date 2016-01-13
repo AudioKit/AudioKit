@@ -30,6 +30,10 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setLoopDuration:(float)duration {
+    _kernel.setLoopDuration(duration);
+}
+
 - (void)start {
     _kernel.start();
 }

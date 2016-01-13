@@ -9,13 +9,6 @@
 import Foundation
 import AVFoundation
 
-/// Protocol for sounds that could be played on a traditional keyboard
-public protocol AKKeyboardPlayable {
-    func start(note: Int, velocity: Int)
-    func stop(note: Int)
-}
-
-
 /// Protocol for all AudioKit Nodes
 public class AKVoice: AKNode, AKToggleable {
     // Combines these protocols to allow for things like the midi instrument to work

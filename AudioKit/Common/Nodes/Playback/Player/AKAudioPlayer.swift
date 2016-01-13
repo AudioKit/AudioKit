@@ -41,6 +41,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
+    /// Whether or not the audio player is currently playing
     public var isStarted: Bool {
         return  internalPlayer.playing
     }
