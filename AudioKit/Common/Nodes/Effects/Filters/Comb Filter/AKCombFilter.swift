@@ -76,9 +76,9 @@ public class AKCombFilter: AKNode, AKToggleable {
 
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterAudioUnit
-
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
+            self.internalAU!.setLoopDuration(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else { return }
