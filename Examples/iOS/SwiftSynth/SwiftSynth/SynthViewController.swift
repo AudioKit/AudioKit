@@ -1,17 +1,15 @@
 //
 //  SynthViewController.swift
-//  Synth UI Spike
+//  Swift Synth
 //
 //  Created by Matthew Fecher on 1/8/16.
-//  Copyright © 2016 AudioKitizzle for Shizzle. All rights reserved.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import UIKit
 
-// TODO: 
-// * ADSR Sliders
+// TODO:
 // * Appropriate scales for Knobs
-// * 1x images
 // * Set sensible initial preset
 
 class SynthViewController: UIViewController {
@@ -41,6 +39,10 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var pwmKnob: KnobSmall!
     @IBOutlet weak var noiseMixKnob: KnobSmall!
     @IBOutlet weak var masterVolKnob: KnobSmall!
+    @IBOutlet weak var attackSlider: VerticalSlider!
+    @IBOutlet weak var decaySlider: VerticalSlider!
+    @IBOutlet weak var sustainSlider: VerticalSlider!
+    @IBOutlet weak var releaseSlider: VerticalSlider!
     
     enum ControlTag: Int {
         case Cutoff = 101
@@ -65,9 +67,20 @@ class SynthViewController: UIViewController {
         case ReverbAmt = 120
         case ReverbMix = 121
         case MasterVol = 122
+        case adsrAttack = 123
+        case adsrDecay = 124
+        case adsrSustain = 125
+        case adsrRelease = 126
     }
     
     var keyboardOctavePosition: Int = 0
+    var lastKey: UIButton?
+    var monoMode: Bool = false
+    var holdMode: Bool = false
+    var keysHeld = [UIButton]()
+    let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
+    
+    var conductor = Conductor.sharedInstance
     
     // *********************************************************
     // MARK: - viewDidLoad
@@ -106,6 +119,10 @@ class SynthViewController: UIViewController {
         pwmKnob.delegate = self
         noiseMixKnob.delegate = self
         masterVolKnob.delegate = self
+        attackSlider.delegate = self
+        decaySlider.delegate = self
+        sustainSlider.delegate = self
+        releaseSlider.delegate = self
     }
 
     // *********************************************************
@@ -114,14 +131,11 @@ class SynthViewController: UIViewController {
     
     func setDefaultValues() {
         
-         statusLabel.text = "Welcome to Swift Synth"
-        
         // Initial Values
+        statusLabel.text = String.randomGreeting()
+        
         cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, rangeMin: 150.0, rangeMax: 24000.0))
-        
         osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, rangeMin: -12, rangeMax: 24))
-        
-        print(osc1SemitonesKnob.knobValue)
         
         // Set Osc Waveform Defaults
     }
@@ -186,9 +200,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Bitcrush Off"
+            conductor.bitCrushMixer?.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Bitcrush On"
+            conductor.bitCrushMixer?.balance = 1
         }
     }
     
@@ -196,9 +212,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Filter Off"
+            conductor.filterSection.mix = 0
         } else {
             sender.selected = true
             statusLabel.text = "Filter On"
+            conductor.filterSection.mix = 1
         }
     }
     
@@ -206,9 +224,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Delay Off"
+            conductor.multiDelayMixer?.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Delay On"
+            conductor.multiDelayMixer?.balance = 1
         }
     }
     
@@ -216,19 +236,23 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Reverb Off"
+            conductor.reverb?.dryWetMix = 0
         } else {
             sender.selected = true
             statusLabel.text = "Reverb On"
+            conductor.reverb?.dryWetMix = 1
         }
     }
     
     @IBAction func StereoFattenToggled(sender: UIButton) {
         if sender.selected {
             sender.selected = false
-            statusLabel.text = "Stereo Fatten On"
+            statusLabel.text = "Stereo Fatten Off"
+            conductor.fatten.mix = 0
         } else {
             sender.selected = true
-            statusLabel.text = "Stereo Fatten Off"
+            statusLabel.text = "Stereo Fatten On"
+            conductor.fatten.mix = 1
         }
     }
     
@@ -251,9 +275,12 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Hold Mode Off"
+            holdMode = false
+            turnOffHeldKeys()
         } else {
             sender.selected = true
             statusLabel.text = "Hold Mode On"
+            holdMode = true
         }
     }
     
@@ -261,39 +288,109 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Mono Mode Off"
+            monoMode = false
         } else {
             sender.selected = true
             statusLabel.text = "Mono Mode On"
+            monoMode = true
+            turnOffHeldKeys()
         }
     }
     
+    @IBAction func midiPanicPressed(sender: RoundedButton) {
+        statusLabel.text = "All Notes Off"
+    }
     
-    // Utility
+    // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
-        
+        if let url = NSURL(string: "http://audiokit.io") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     @IBAction func buildThisSynth(sender: RoundedButton) {
-        
+        // TODO: link to tutorial
+        if let url = NSURL(string: "http://audiokit.io") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     //*****************************************************************
     // MARK: - 🎹 Key presses
     //*****************************************************************
     
-    // Keys
     @IBAction func keyPressed(sender: UIButton) {
-        statusLabel.text = "Key Pressed: \(sender.tag)"
+        let key = sender
+        let index = sender.tag - 200
+        let midiNote = index + (keyboardOctavePosition * 12)
         
+        if monoMode {
+            if let lastKey = lastKey where lastKey != key {
+                turnOffKey(lastKey)
+            }
+        }
+        
+        // conductor.play(midiNote)
+        turnOnKey(key)
+        lastKey = key
     }
     
     @IBAction func keyReleased(sender: UIButton) {
-        statusLabel.text = "Key Released"
+        let key = sender
+        
+        if holdMode && monoMode {
+            if let lastKey = lastKey where lastKey != key {
+                turnOffKey(lastKey)
+            }
+        } else if holdMode && !monoMode {
+            keysHeld.append(key)
+        } else {
+            turnOffKey(key)
+        }
+        lastKey = key
     }
     
+    // *********************************************************
+    // MARK - Keys UI/UX Helpers
+    // *********************************************************
+    
+    func turnOnKey(key: UIButton) {
+        let index = key.tag - 200
+        
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
+        }
+        
+        let midiNote = index + (keyboardOctavePosition * 12)
+        statusLabel.text = "Key Pressed: \(midiNote)"
+    }
+    
+    func turnOffKey(key: UIButton) {
+        let index = key.tag - 200
+        
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey"), forState: .Normal)
+        }
+        
+        statusLabel.text = "Key Released"
+        //conductor.release(index)
+    }
+    
+    func turnOffHeldKeys() {
+        for key in keysHeld {
+            turnOffKey(key)
+        }
+        if let lastKey = lastKey {
+            turnOffKey(lastKey)
+        }
+        statusLabel.text = "Key(s) Released"
+        keysHeld.removeAll(keepCapacity: false)
+    }
 }
-
-
 
 //*****************************************************************
 // MARK: - 🎛 Knob Delegates
@@ -301,19 +398,19 @@ class SynthViewController: UIViewController {
 
 extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeDelegate {
     
-    func updateKnobValue(value: Float, tag: Int) {
+    func updateKnobValue(value: Double, tag: Int) {
         
         switch (tag) {
             
         // VCOs
         case ControlTag.Vco1Semitones.rawValue:
-            let scaledValue = Float.scaleRange(value, rangeMin: -24, rangeMax: 25)
-            let intValue = Int(floorf(scaledValue))
+            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
+            let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
             
         case ControlTag.Vco2Semitones.rawValue:
-            let scaledValue = Float.scaleRange(value, rangeMin: -24, rangeMax: 25)
-            let intValue = Int(floorf(scaledValue))
+            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
+            let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
             
         case ControlTag.Vco2Detune.rawValue:
@@ -341,42 +438,79 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // LFO
         case ControlTag.LfoAmt.rawValue:
             statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
+            conductor.filterSection.lfoAmplitude = 1000*value
             
         case ControlTag.LfoRate.rawValue:
             statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
+            conductor.filterSection.lfoRate = 5*value
        
         // Filter
         case ControlTag.Cutoff.rawValue:
             
             // Logarithmic scale to frequency
-            let scaledValue = Float.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
-            let cutOffFrequency = Float(scaledValue) * 4
+            let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
+            let cutOffFrequency = scaledValue * 4
             statusLabel.text = "Cutoff: \(cutOffFrequency.decimalFormattedString)"
+            conductor.filterSection.cutoffFrequency = cutOffFrequency
             
         case ControlTag.Rez.rawValue:
             statusLabel.text = "Rez: \(value.decimalFormattedString)"
+            conductor.filterSection.resonance = value
             
         // Crusher
         case ControlTag.CrushAmt.rawValue:
             statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
+            conductor.bitCrusher?.sampleRate = Double(16000.0 * (1.0 - value))
+            conductor.bitCrusher?.bitDepth = Double(12 * (1.0 - value))
             
         // Delay
         case ControlTag.DelayTime.rawValue:
             statusLabel.text = "Delay Time: \(value.decimalFormattedString)"
+            conductor.multiDelay.time = value
         
         case ControlTag.DelayMix.rawValue:
             statusLabel.text = "Delay Mix: \(value.decimalFormattedString)"
+            conductor.multiDelay.mix = value
         
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
+            conductor.reverb?.decayTimeAt0Hz = value
         
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
+            conductor.reverb?.dryWetMix = value
             
         // Master
         case ControlTag.MasterVol.rawValue:
             statusLabel.text = "Master Vol: \(value.decimalFormattedString)"
+            conductor.masterVolume.volume = value
+            
+        default:
+            break
+        }
+    }
+}
+
+//*****************************************************************
+// MARK: - Slider Delegate (ADSR)
+//*****************************************************************
+
+extension SynthViewController: VerticalSliderDelegate {
+    func sliderValueDidChange(value: Double, tag: Int) {
+        
+        switch (tag) {
+        case ControlTag.adsrAttack.rawValue:
+            statusLabel.text = "Attack: \(value.decimalFormattedString)"
+            
+        case ControlTag.adsrDecay.rawValue:
+            statusLabel.text = "Decay: \(value.decimalFormattedString)"
+            
+        case ControlTag.adsrSustain.rawValue:
+            statusLabel.text = "Sustain: \(value.decimalFormattedString)"
+        
+        case ControlTag.adsrRelease.rawValue:
+            statusLabel.text = "Release: \(value.decimalFormattedString)"
             
         default:
             break

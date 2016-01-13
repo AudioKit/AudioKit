@@ -1,6 +1,6 @@
 //
 //  Knob+Touches.swift
-//  Synth UI Spike
+//  Swift Synth
 //
 //  Created by Matthew Fecher on 1/9/16.
 //  Copyright © 2016 AudioKit. All rights reserved.

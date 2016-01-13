@@ -29,7 +29,6 @@ public:
     AKPhaseLockedVocoderDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
-        NSLog(@"initPLV()");
         channels = channelCount;
 
         sampleRate = float(inSampleRate);
@@ -39,7 +38,6 @@ public:
     }
 
     void start() {
-        NSLog(@"start()");
         started = true;
         sp_mincer_init(sp, mincer, ftbl);
         mincer->time = 0;
@@ -52,12 +50,9 @@ public:
     }
     
     void setUpTable(float *table, UInt32 size) {
-        NSLog(@"setUpTable()");
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
         ftbl->tbl = table;
-        NSLog(@"SIZE: %d", size);
-        NSLog(@"random: %f", ftbl->tbl[3110]);
     }
 
     void destroy() {

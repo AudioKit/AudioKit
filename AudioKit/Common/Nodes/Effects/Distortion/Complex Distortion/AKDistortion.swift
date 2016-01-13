@@ -39,12 +39,6 @@ public class AKDistortion: AKNode, AKToggleable {
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
-
-    /// Required property for AKNode containing the output node
-    public var avAudioNode: AVAudioNode
-
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var lastKnownMix: Double = 0.5
 
@@ -345,7 +339,7 @@ public class AKDistortion: AKNode, AKToggleable {
     /// - parameter finalMix: Final Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         delay: Double = 0.1,
         decay: Double = 1.0,
         delayMix: Double = 0.5,
@@ -381,7 +375,8 @@ public class AKDistortion: AKNode, AKToggleable {
             self.finalMix = finalMix
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            self.avAudioNode = internalEffect
+            super.init()
+            avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit

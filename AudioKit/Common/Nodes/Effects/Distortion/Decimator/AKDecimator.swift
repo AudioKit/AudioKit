@@ -26,12 +26,6 @@ public class AKDecimator: AKNode, AKToggleable {
 
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
-
-    /// Required property for AKNode containing the output node
-    public var avAudioNode: AVAudioNode
-
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var lastKnownMix: Double = 1
     
@@ -97,7 +91,7 @@ public class AKDecimator: AKNode, AKToggleable {
     /// - parameter mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         decimation: Double = 0.5,
         rounding: Double = 0,
         mix: Double = 1) {
@@ -107,7 +101,9 @@ public class AKDecimator: AKNode, AKToggleable {
             self.mix = mix
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            self.avAudioNode = internalEffect
+            super.init()
+            
+            avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit

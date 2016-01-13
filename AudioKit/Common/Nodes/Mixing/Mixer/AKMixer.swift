@@ -13,11 +13,6 @@ import AVFoundation
 public class AKMixer: AKNode, AKToggleable {
     private let mixerAU = AVAudioMixerNode()
     
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-        
     /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
         didSet {
@@ -39,6 +34,7 @@ public class AKMixer: AKNode, AKToggleable {
     /// - parameter inputs: A varaiadic list of AKNodes
     ///
     public init(_ inputs: AKNode...) {
+        super.init()
         self.avAudioNode = mixerAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
         for input in inputs {
@@ -50,7 +46,7 @@ public class AKMixer: AKNode, AKToggleable {
     ///
     /// - parameter input: AKNode to connect
     ///
-    public func connect(var input: AKNode) {
+    public func connect(input: AKNode) {
         input.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU, bus: mixerAU.numberOfInputs))
         AKManager.sharedInstance.engine.connect(input.avAudioNode, toConnectionPoints: input.connectionPoints, fromBus: 0, format: AKManager.format)
     }

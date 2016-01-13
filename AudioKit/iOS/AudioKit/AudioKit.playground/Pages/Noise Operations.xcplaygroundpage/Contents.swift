@@ -13,7 +13,7 @@ let white = AKOperation.whiteNoise()
 let pink = AKOperation.pinkNoise()
 
 let balance = AKOperation.sineWave(frequency: 0.3).scale(minimum: 0, maximum: 1)
-let noise = mix(white, pink, t: 1)
+let noise = mixer(white, pink, balance: 1)
 let pan = AKOperation.sineWave(frequency: 0.3)
 
 let generator = AKOperationGenerator(stereoOperation: noise.pan(pan))

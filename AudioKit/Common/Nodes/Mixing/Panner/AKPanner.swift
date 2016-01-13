@@ -17,10 +17,6 @@ public class AKPanner: AKNode {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKPannerAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -62,7 +58,7 @@ public class AKPanner: AKNode {
     /// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         pan: Double = 0) {
 
         self.pan = pan
@@ -80,7 +76,7 @@ public class AKPanner: AKNode {
             name: "Local AKPanner",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

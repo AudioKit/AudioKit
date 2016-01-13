@@ -23,9 +23,9 @@ delay.feedback = 0.8
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.LargeChamber)
 
-//: Now let's mix the result of those two processor back with the original
+//: Now let's mix the result of those two processors back with the original
 
-let mixture = AKDryWetMixer(drums, reverb, t: 0.5)
+let mixture = AKDryWetMixer(drums, reverb, balance: 0.5)
 
 audiokit.audioOutput = mixture
 audiokit.start()

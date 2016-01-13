@@ -31,12 +31,6 @@ public class AKReverb2: AKNode, AKToggleable {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
 
-    /// Required property for AKNode containing the output node
-    public var avAudioNode: AVAudioNode
-
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-
     private var lastKnownMix: Double = 50
     
     /// Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
@@ -173,7 +167,7 @@ public class AKReverb2: AKNode, AKToggleable {
     /// - parameter randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         dryWetMix: Double = 0.5,
         gain: Double = 0,
         minDelayTime: Double = 0.008,
@@ -191,6 +185,8 @@ public class AKReverb2: AKNode, AKToggleable {
             self.randomizeReflections = randomizeReflections
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
+            
+            super.init()
             self.avAudioNode = internalEffect
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)

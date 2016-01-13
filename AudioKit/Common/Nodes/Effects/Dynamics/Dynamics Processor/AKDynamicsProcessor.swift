@@ -34,12 +34,6 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
     internal var internalEffect = AVAudioUnitEffect()
     internal var internalAU = AudioUnit()
 
-    /// Required property for AKNode containing the output node
-    public var avAudioNode: AVAudioNode
-
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-
     private var mixer: AKMixer
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
@@ -283,7 +277,9 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
             internalAU = internalEffect.audioUnit
             AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
             AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
-            self.avAudioNode = mixer.avAudioNode
+            
+            super.init()
+            avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_Threshold, kAudioUnitScope_Global, 0, Float(threshold), 0)
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_HeadRoom, kAudioUnitScope_Global, 0, Float(headRoom), 0)

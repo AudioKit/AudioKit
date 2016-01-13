@@ -9,17 +9,12 @@
 import AVFoundation
 
 /// Testing node
-public struct AKTester: AKNode, AKToggleable {
+public class AKTester: AKNode, AKToggleable {
 
     // MARK: - Properties
     
     private var internalAU: AKTesterAudioUnit?
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     private var token: AUParameterObserverToken?
     var totalSamples = 0
     
@@ -40,7 +35,7 @@ public struct AKTester: AKNode, AKToggleable {
     /// - parameter input: AKNode to test
     /// - parameter sample: Number of sample to product
     ///
-    public init(var _ input: AKNode, samples: Int) {
+    public init(_ input: AKNode, samples: Int) {
         
         totalSamples = samples
 
@@ -57,7 +52,7 @@ public struct AKTester: AKNode, AKToggleable {
             name: "Local AKTester",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

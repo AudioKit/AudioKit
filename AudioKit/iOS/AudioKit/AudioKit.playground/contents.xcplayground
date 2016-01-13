@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='rendered' timelineScrubberEnabled='true'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Non-Audio Tutorial'/>
@@ -32,6 +32,7 @@
         <page name='Moog Ladder Filter'/>
         <page name='Simple Reverb'/>
         <page name='iOS-only Reverb'/>
+        <page name='Convolution'/>
         <page name='Parametric Equalizer'/>
         <page name='Plucked String'/>
         <page name='Dripping Sounds'/>
@@ -64,7 +65,7 @@
         <page name='Sampler Instrument - Wav file'/>
         <page name='Pedestrians'/>
         <page name='Dial Tone'/>
-        <page name='DTMF Tones'/>
+        <page name='Telephone Digits'/>
         <page name='Telelphone Ringing'/>
         <page name='Busy Signal'/>
         <page name='Using Functions'/>

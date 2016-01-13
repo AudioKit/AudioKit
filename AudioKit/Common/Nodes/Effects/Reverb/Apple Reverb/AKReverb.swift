@@ -16,12 +16,7 @@ import AVFoundation
 ///
 public class AKReverb: AKNode, AKToggleable {
     private let reverbAU = AVAudioUnitReverb()
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     private var lastKnownMix: Double = 0.5
     
     /// Dry/Wet Mix (Default 0.5)
@@ -45,8 +40,9 @@ public class AKReverb: AKNode, AKToggleable {
     /// - parameter input: AKNode to reverberate
     /// - parameter dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
-    public init(var _ input: AKNode, dryWetMix: Double = 0.5) {
+    public init(_ input: AKNode, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix
+        super.init()
         
         self.avAudioNode = reverbAU
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)

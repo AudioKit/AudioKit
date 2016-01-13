@@ -4,8 +4,6 @@
 //
 //  Created by Matthew Fecher on 1/9/16.
 //  Copyright (c) 2016 AudioKit. All rights reserved.
-//
-
 
 import UIKit
 
@@ -16,7 +14,6 @@ public class SynthStyleKit : NSObject {
     public class func drawKnobMedium(knobValue knobValue: CGFloat = 0.332) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-
 
         //// Image Declarations
         let knob140_base = UIImage(named: "knob140_base.png")!
@@ -31,7 +28,6 @@ public class SynthStyleKit : NSObject {
         knobBasePath.addClip()
         knob140_base.drawInRect(CGRectMake(5, 5, knob140_base.size.width, knob140_base.size.height))
         CGContextRestoreGState(context)
-
 
         //// Indicator Drawing
         CGContextSaveGState(context)
@@ -51,7 +47,6 @@ public class SynthStyleKit : NSObject {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
-
         //// Image Declarations
         let knob212_base = UIImage(named: "knob212_base.png")!
         let knob212_indicator = UIImage(named: "knob212_indicator.png")!
@@ -65,7 +60,6 @@ public class SynthStyleKit : NSObject {
         picturePath.addClip()
         knob212_base.drawInRect(CGRectMake(10, 10, knob212_base.size.width, knob212_base.size.height))
         CGContextRestoreGState(context)
-
 
         //// Picture 2 Drawing
         CGContextSaveGState(context)
@@ -85,7 +79,6 @@ public class SynthStyleKit : NSObject {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
-
         //// Image Declarations
         let knob120_base = UIImage(named: "knob120_base.png")!
         let knob120_indicator = UIImage(named: "knob120_indicator.png")!
@@ -99,7 +92,6 @@ public class SynthStyleKit : NSObject {
         picturePath.addClip()
         knob120_base.drawInRect(CGRectMake(5, 5, knob120_base.size.width, knob120_base.size.height))
         CGContextRestoreGState(context)
-
 
         //// Indicator Drawing
         CGContextSaveGState(context)

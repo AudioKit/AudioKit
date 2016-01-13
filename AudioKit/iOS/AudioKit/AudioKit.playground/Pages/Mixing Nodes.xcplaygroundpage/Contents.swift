@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Mixing Nodes
-//: ### So, what about connecting two operations to the output instead of feeding operations into each other in sequential order? To do that, you'll need a mixer.
+//: ### So, what about connecting multiple sources to the output instead of feeding operations into each other in sequential order? To do that, you'll need a mixer.
 import XCPlayground
 import AudioKit
 
@@ -40,7 +40,7 @@ lead.play()
 //: Adjust the individual track volumes here
 drums.volume  = 0.9
 bass.volume   = 0.9
-guitar.volume = 0.8
+guitar.volume = 0.6
 lead.volume   = 0.7
 
 drums.pan  = 0.0
