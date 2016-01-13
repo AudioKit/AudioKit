@@ -1,5 +1,5 @@
 //
-//  AKMusicTrackMidi.swift
+//  AKMusicTrack+MIDI.swift
 //  AudioKit For iOS
 //
 //  Created by Jeff Cooper on 1/10/16.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-extension AKMusicTrack{
+extension AKMusicTrack {
     
     /// Set the MIDI Ouput
     ///
     /// - parameter endpoint: MIDI Endpoint Port
     ///
-    public func setMidiOutput(endpoint: MIDIEndpointRef) {
+    public func setMIDIOutput(endpoint: MIDIEndpointRef) {
         MusicTrackSetDestMIDIEndpoint(internalMusicTrack, endpoint)
     }
     

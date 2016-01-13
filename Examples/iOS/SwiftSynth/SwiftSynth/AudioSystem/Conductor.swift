@@ -13,7 +13,7 @@ class Conductor {
     static let sharedInstance = Conductor()
     
     let audiokit = AKManager.sharedInstance
-    var midi = AKMidi()
+    var midi = AKMIDI()
     
     var fm = AKFMOscillatorInstrument(voiceCount: 12)
     
@@ -49,7 +49,7 @@ class Conductor {
         fm.output.volume = 0.4
         noise.output.volume = 0.2
         
-        midi.openMidiIn("Session 1")
+        midi.openMIDIIn("Session 1")
         
         sourceMixer = AKMixer(sine1, triangle1, sawtooth1, square1, fm, noise)
         
@@ -74,15 +74,15 @@ class Conductor {
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
         
-        defaultCenter.addObserverForName(AKMidiStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: handleMidiNotification)
-        defaultCenter.addObserverForName(AKMidiStatus.NoteOff.name(), object: nil, queue: mainQueue, usingBlock: handleMidiNotification)
+        defaultCenter.addObserverForName(AKMIDIStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: handleMIDINotification)
+        defaultCenter.addObserverForName(AKMIDIStatus.NoteOff.name(), object: nil, queue: mainQueue, usingBlock: handleMIDINotification)
 
     }
     
-    func handleMidiNotification(notification: NSNotification) {
+    func handleMIDINotification(notification: NSNotification) {
         let note = Int((notification.userInfo?["note"])! as! NSNumber)
         let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
-        if notification.name == AKMidiStatus.NoteOn.name() && velocity > 0 {
+        if notification.name == AKMIDIStatus.NoteOn.name() && velocity > 0 {
             
             switch 0 { // presumably something else
             case 0:
@@ -100,7 +100,7 @@ class Conductor {
             fm.startNote(note, velocity: velocity)
             noise.startNote(note, velocity: velocity)
             
-        } else if (notification.name == AKMidiStatus.NoteOn.name() && velocity == 0) || notification.name == AKMidiStatus.NoteOff.name() {
+        } else if (notification.name == AKMIDIStatus.NoteOn.name() && velocity == 0) || notification.name == AKMIDIStatus.NoteOff.name() {
             
             
             switch 0 { // presumeably something else

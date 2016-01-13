@@ -1,5 +1,5 @@
 //
-//  AKMidi.swift
+//  AKMIDI.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper on 11/5/15.
@@ -10,7 +10,7 @@ import Foundation
 import CoreMIDI
 
 /// MIDI input and output handler
-public class AKMidi {
+public class AKMIDI {
     
     /// MIDI Client Reference
     public var midiClient = MIDIClientRef()
@@ -19,10 +19,10 @@ public class AKMidi {
     public var midiInPorts: [MIDIPortRef] = []
     
     /// MIDI Client Name
-    var midiClientName: CFString = "Midi Client"
+    var midiClientName: CFString = "MIDI Client"
     
     /// MIDI In Port Name
-    var midiInName: CFString = "Midi In Port"
+    var midiInName: CFString = "MIDI In Port"
     
     /// MIDI End Point
     public var midiEndpoint: MIDIEndpointRef{
@@ -39,7 +39,7 @@ public class AKMidi {
     public var midiEndpoints: [MIDIEndpointRef] = []
     
     /// MIDI Out Port Name
-    var midiOutName: CFString = "Midi Out Port"
+    var midiOutName: CFString = "MIDI Out Port"
     
     private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
         let notification = midiNotification.memory
@@ -62,13 +62,13 @@ public class AKMidi {
         packetPtr.initialize(packet)
         
         for var i = 0; i < numPackets; ++i {
-            let event = AKMidiEvent(packet: packetPtr.memory)
+            let event = AKMIDIEvent(packet: packetPtr.memory)
             event.postNotification()
             packetPtr = MIDIPacketNext(packetPtr)
         }
     }
     
-    /// Initialize the AKMidi system
+    /// Initialize the AKMIDI system
     public init() {
 
         print("MIDI Enabled")
@@ -92,8 +92,8 @@ public class AKMidi {
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
-    public func openMidiIn(namedInput: String = "") {
-        print("Opening Midi In")
+    public func openMIDIIn(namedInput: String = "") {
+        print("Opening MIDI In")
         var result = OSStatus(noErr)
         
         let sourceCount = MIDIGetNumberOfSources()
@@ -121,10 +121,10 @@ public class AKMidi {
         }
     }
     
-    /// Prints a list of all Midi Inputs
-    public func printMidiInputs() {
+    /// Prints a list of all MIDI Inputs
+    public func printMIDIInputs() {
         let sourceCount = MIDIGetNumberOfSources()
-        print("Midi Inputs:")
+        print("MIDI Inputs:")
         for var i = 0; i < sourceCount; ++i {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
@@ -139,8 +139,8 @@ public class AKMidi {
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
-    public func openMidiOut(namedOutput: String = "") {
-        print("Opening Midi Out")
+    public func openMIDIOut(namedOutput: String = "") {
+        print("Opening MIDI Out")
         var result = OSStatus(noErr)
         
         let numOutputs = MIDIGetNumberOfDestinations()
@@ -172,9 +172,9 @@ public class AKMidi {
     }
     
     /// Prints a list of all MIDI Destinations
-    public func printMidiDestinations() {
+    public func printMIDIDestinations() {
         let numOutputs = MIDIGetNumberOfDestinations()
-        print("Midi Destinations:")
+        print("MIDI Destinations:")
         for var i = 0; i < numOutputs; ++i {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>?
@@ -207,7 +207,7 @@ public class AKMidi {
     }
     
     /// Send Messsage from midi event data
-    public func sendMidiEvent(event: AKMidiEvent) {
+    public func sendMIDIEvent(event: AKMIDIEvent) {
         sendMessage(event.internalData)
     }
     
