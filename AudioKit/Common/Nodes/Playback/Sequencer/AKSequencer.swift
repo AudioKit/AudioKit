@@ -162,6 +162,32 @@ public class AKSequencer {
         return Double(length)
     }
     
+    // BPM
+    public func setRate(rate:Float){
+        if isAvSeq {
+            avSeq.rate = rate
+        } else {
+            //not applicable
+        }
+    }
+    public func setBpm(bpm:Float){
+        if isAvSeq {
+            //not applicable
+        } else {
+            var newTempo = bpm;
+            if(newTempo > 280){ newTempo = 180;} //bpm limits
+            if(newTempo < 10){ newTempo = 60;}
+            var tempoTrack = MusicTrack()
+            var currTime:MusicTimeStamp = 0;
+            MusicPlayerGetTime(musicPlayer, &currTime);
+            currTime = fmod(currTime, length);
+            MusicSequenceGetTempoTrack(sequence, &tempoTrack);
+            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo));
+            MusicTrackClear(tempoTrack, 0, length);
+            MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo));
+        }
+    }
+    
     /// Play the sequence
     public func play() {
         if isAvSeq {
@@ -238,11 +264,23 @@ public class AKSequencer {
     func initTracks() {
         tracks.removeAll()
         
-        for( var i = 0; i < self.numberOfTracks; ++i) {
+        var count:UInt32 = 0
+        MusicSequenceGetTrackCount(sequence, &count)
+        //print("\(count) - \(numberOfTracks)") //why is this different? the computed variable runs the same code
+        for( var i = 0; i < Int(count); ++i) {
             var musicTrack = MusicTrack()
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
             tracks.append(AKMusicTrack(musicTrack: musicTrack))
         }
+    }
+    
+    public func newTrack(){
+        var newMusTrack = MusicTrack()
+        MusicSequenceNewTrack(sequence, &newMusTrack)
+        var count:UInt32 = 0
+        MusicSequenceGetTrackCount(sequence, &count)
+        tracks.append(AKMusicTrack(musicTrack: newMusTrack))
+        initTracks()
     }
     
     public func debug() {
