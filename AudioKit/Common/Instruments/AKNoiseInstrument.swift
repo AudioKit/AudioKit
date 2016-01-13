@@ -69,7 +69,7 @@ public class AKNoiseInstrument: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public override func startVoice(voice: Int, note: Int, velocity: Int) {
+    public override func playVoice(voice: Int, note: Int, velocity: Int) {
         let noiseVoice = voices[voice] as! AKNoiseVoice
         noiseVoice.whiteNoise.amplitude = Double(velocity) / 127.0
         noiseVoice.pinkNoise.amplitude = Double(velocity) / 127.0

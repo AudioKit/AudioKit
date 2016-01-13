@@ -74,7 +74,7 @@ public class AKMIDIInstrument: AKNode {
     
     /// Start a note
     public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
-        internalInstrument!.startNote(note, velocity: velocity)
+        internalInstrument!.playNote(note, velocity: velocity)
     }
     
     /// Stop a note
