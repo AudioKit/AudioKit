@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+/// A wrapper for AKFMOscillator to make it a playable as a polyphonic instrument.
 public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
@@ -75,6 +76,10 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
         }
     }
     
+    /// Instantiate the FM Oscillator Instrument
+    ///
+    /// - voiceCount: Maximum number of voices that will be required
+    ///
     public init(voiceCount: Int) {
         super.init(voice: AKFMOscillatorVoice(), voiceCount: voiceCount)
         for voice in voices {
@@ -83,12 +88,25 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
             fmVoice.oscillator.modulationIndex = 10
         }
     }
+    
+    /// Start a given voice playing a note.
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number to start
+    /// - parameter velocity: MIDI Velocity (0-127) to trigger the note at
+    ///
     public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let fmVoice = voices[voice] as! AKFMOscillatorVoice 
         fmVoice.oscillator.baseFrequency = note.midiNoteToFrequency()
         fmVoice.oscillator.amplitude = Double(velocity) / 127.0
         fmVoice.start()
     }
+    
+    /// Stop a given voice playing a note.
+    ///
+    /// - parameter voice: Voice to stop
+    /// - parameter note: MIDI Note Number to stop
+    ///
     public override func stopVoice(voice: Int, note: Int) {
         let fmVoice = voices[voice] as! AKFMOscillatorVoice 
         fmVoice.stop()

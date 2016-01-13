@@ -12,7 +12,7 @@ let audiokit = AKManager.sharedInstance
 let triangle = AKTable(.Triangle, size: 128)
 for value in triangle.values { value } // Click the eye icon ->
 
-let square = AKTable(.Square, size: 16)
+let square = AKTable(.Square, size: 256)
 for value in square.values { value } // Click the eye icon ->
 
 let sine = AKTable(.Sine, size: 32)
