@@ -21,10 +21,6 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKFormantFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -67,7 +63,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
     /// - parameter decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         centerFrequency: Double = 1000,
         attackDuration: Double = 0.007,
         decayDuration: Double = 0.04) {
@@ -89,7 +85,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
             name: "Local AKFormantFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

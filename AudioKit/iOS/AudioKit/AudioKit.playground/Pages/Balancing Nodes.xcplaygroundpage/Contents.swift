@@ -37,4 +37,5 @@ AKPlaygroundLoop(every: 3.428) { () -> () in
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+

@@ -23,10 +23,6 @@ public class AKStringResonator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKStringResonatorAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -61,7 +57,7 @@ public class AKStringResonator: AKNode, AKToggleable {
     /// - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         fundamentalFrequency: Double = 100,
         feedback: Double = 0.95) {
 
@@ -81,7 +77,7 @@ public class AKStringResonator: AKNode, AKToggleable {
             name: "Local AKStringResonator",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

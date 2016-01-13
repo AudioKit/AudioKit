@@ -1,6 +1,6 @@
 //
 //  Knob.swift
-//  Synth UI Spike
+//  Swift Synth
 //
 //  Created by Matthew Fecher on 1/9/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -26,6 +26,10 @@ class Knob: UIView {
         if touchPoint.x > 0 && touchPoint.x < self.bounds.size.width &&
             touchPoint.y > 0 && touchPoint.y < self.bounds.size.height {
             setPercentagesWithTouchPoint(touchPoint)
+        } else if touchPoint.y < self.bounds.size.height {
+            setMaximumValue()
+        } else if touchPoint.y > self.bounds.size.height {
+            setMinimumValue()
         }
     }
     
@@ -39,11 +43,18 @@ class Knob: UIView {
         } else {
             knobValue = verticalPercentage
         }
-
+    }
+    
+    func setMaximumValue() {
+        knobValue = 1.0
+    }
+    
+    func setMinimumValue() {
+        knobValue = 0.0
     }
     
     // Scale any range to 0.0-1.0 for Knob position
-    func scaleForKnobValue(value: Float, rangeMin: Float, rangeMax: Float) -> Float {
+    func scaleForKnobValue(value: Double, rangeMin: Double, rangeMax: Double) -> Double {
         return abs((value - rangeMin) / (rangeMin - rangeMax))
     }
 

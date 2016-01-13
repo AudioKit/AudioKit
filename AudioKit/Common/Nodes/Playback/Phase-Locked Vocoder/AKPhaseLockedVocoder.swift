@@ -12,19 +12,15 @@ import AVFoundation
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
+/// - parameter audioFileURL: Location of the audio file to use.
 /// - parameter position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
 /// - parameter amplitude: Amplitude.
 /// - parameter pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
 ///
-public class AKPhaseLockedVocoder: NSObject, AKNode {
+public class AKPhaseLockedVocoder: AKNode {
     
     // MARK: - Properties
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     internal var internalAU: AKPhaseLockedVocoderAudioUnit?
     internal var token: AUParameterObserverToken?
     
@@ -56,26 +52,12 @@ public class AKPhaseLockedVocoder: NSObject, AKNode {
         return internalAU!.isPlaying()
     }
     
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-    
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-    
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
-    }
-    
     private var audioFileURL: CFURL
     // MARK: - Initialization
     
-    /// Initialize this vocoder node
+    /// Initialize this Phase-Locked Vocoder node
     ///
+    /// - parameter audioFileURL: Location of the audio file to use.
     /// - parameter position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     /// - parameter amplitude: Amplitude.
     /// - parameter pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
@@ -104,9 +86,7 @@ public class AKPhaseLockedVocoder: NSObject, AKNode {
                 name: "Local AKPhaseLockedVocoder",
                 version: UInt32.max)
             
-            self.avAudioNode = AVAudioNode()
             super.init()
-
         
             AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
                 avAudioUnit, error in
@@ -194,8 +174,6 @@ public class AKPhaseLockedVocoder: NSObject, AKNode {
                 err = ExtAudioFileRead(extRef, &ioNumberFrames, &theDataBuffer)
                 if err == noErr {
                     // success
-                    dump(ioNumberFrames)
-                    dump(theDataBuffer)
                     let data=UnsafeMutablePointer<Float>(theDataBuffer.mBuffers.mData)
                     internalAU?.setupAudioFileTable(data, size: ioNumberFrames)
                     internalAU!.start()

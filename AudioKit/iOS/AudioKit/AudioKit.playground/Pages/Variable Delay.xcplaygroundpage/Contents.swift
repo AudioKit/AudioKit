@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKVariableDelay
-//: ### Exploring the powerful effect of repeating sounds after varying length delay times
+//: ## Variable Delay
+//: ### When you smooth vary effect parameters, you get completely new kinds of effects.  
 import XCPlayground
 import AudioKit
 
@@ -14,7 +14,8 @@ var player = AKAudioPlayer(file!)
 player.looping = true
 var delay = AKVariableDelay(player)
 
-//: Set the parameters of the delay here delay.time = 0.1 // seconds
+//: Set the parameters of the delay here 
+delay.time = 0.1 // seconds
 audiokit.audioOutput = delay
 audiokit.start()
 player.play()

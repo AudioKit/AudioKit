@@ -22,10 +22,6 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKMoogLadderAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -60,7 +56,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
     /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         cutoffFrequency: Double = 1000,
         resonance: Double = 0.5) {
 
@@ -80,7 +76,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
             name: "Local AKMoogLadder",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

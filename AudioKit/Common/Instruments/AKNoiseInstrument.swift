@@ -71,11 +71,6 @@ public class AKNoiseInstrument: AKPolyphonicInstrument {
 
 internal class AKNoiseVoice: AKVoice {
     
-    /// Required property for AKNode
-    var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    var connectionPoints = [AVAudioConnectionPoint]()
-    
     var whiteNoise: AKWhiteNoise
     var pinkNoise: AKPinkNoise
     var noiseMix: AKDryWetMixer
@@ -90,7 +85,7 @@ internal class AKNoiseVoice: AKVoice {
     init(whitePinkMix: Double) {
         whiteNoise = AKWhiteNoise()
         pinkNoise = AKPinkNoise()
-        noiseMix = AKDryWetMixer(whiteNoise, pinkNoise, t: whitePinkMix)
+        noiseMix = AKDryWetMixer(whiteNoise, pinkNoise, balance: whitePinkMix)
         adsr = AKAmplitudeEnvelope(noiseMix,
             attackDuration: 0.2,
             decayDuration: 0.2,
@@ -98,29 +93,31 @@ internal class AKNoiseVoice: AKVoice {
             releaseDuration: 1.0)
         
         self.whitePinkMix = whitePinkMix
-        self.avAudioNode = adsr.avAudioNode
+        
+        super.init()
+        avAudioNode = adsr.avAudioNode
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    func copy() -> AKVoice {
+    override func copy() -> AKVoice {
         let copy = AKNoiseVoice(whitePinkMix: whitePinkMix)
         return copy
     }
     
     /// Tells whether the node is processing (ie. started, playing, or active)
-    var isStarted: Bool {
+    override var isStarted: Bool {
         return whiteNoise.isPlaying
     }
     
     /// Function to start, play, or activate the node, all do the same thing
-    func start() {
+    override func start() {
         whiteNoise.start()
         pinkNoise.start()
         adsr.start()
     }
     
     /// Function to stop or bypass the node, both are equivalent
-    func stop() {
+    override func stop() {
         adsr.stop()
     }
 }

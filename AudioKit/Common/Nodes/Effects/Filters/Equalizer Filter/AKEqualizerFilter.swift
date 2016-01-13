@@ -22,10 +22,6 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -68,7 +64,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
     /// - parameter gain: The peak/notch gain
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         centerFrequency: Double = 1000,
         bandwidth: Double = 100,
         gain: Double = 10) {
@@ -90,7 +86,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
             name: "Local AKEqualizerFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

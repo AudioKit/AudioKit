@@ -16,12 +16,7 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
 
     private var internalAU: AKFrequencyTrackerAudioUnit?
     private var token: AUParameterObserverToken?
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -44,7 +39,7 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
     /// - parameter input: Input node to process
     /// - parameter minimumFrequency: Lower bound of frequency detection
     /// - parameter maximumFrequency: Upper bound of frequency detection
-    public init(var _ input: AKNode, minimumFrequency: Double, maximumFrequency: Double) {
+    public init(_ input: AKNode, minimumFrequency: Double, maximumFrequency: Double) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -59,7 +54,7 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
             name: "Local AKFrequencyTracker",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

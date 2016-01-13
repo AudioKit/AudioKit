@@ -19,12 +19,7 @@ import AVFoundation
 ///
 public class AKDelay: AKNode, AKToggleable {
     let delayAU = AVAudioUnitDelay()
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     private var lastKnownMix: Double = 0.5
     
     /// Delay time in seconds (Default: 1)
@@ -89,7 +84,7 @@ public class AKDelay: AKNode, AKToggleable {
     /// - parameter dryWetMix: Amount of unprocessed (dry) to delayed (wet) audio (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         time: Double = 1,
         feedback: Double = 0.5,
         lowPassCutoff: Double = 15000,
@@ -100,6 +95,7 @@ public class AKDelay: AKNode, AKToggleable {
             self.lowPassCutoff = lowPassCutoff
             self.dryWetMix = dryWetMix
             
+            super.init()
             self.avAudioNode = delayAU
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)

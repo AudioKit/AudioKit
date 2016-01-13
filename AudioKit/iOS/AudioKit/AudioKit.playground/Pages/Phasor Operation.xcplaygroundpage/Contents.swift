@@ -18,7 +18,7 @@ var amplitude = (AKOperation.phasor(frequency: 0.5) - 1).portamento() // prevent
 
 var oscillator = AKOperation.sineWave(frequency: frequency, amplitude: amplitude)
 let reverb = oscillator.reverberateWithChowning()
-let oscillatorReverbMix = mix(oscillator, reverb, t: 0.6)
+let oscillatorReverbMix = mixer(oscillator, reverb, balance: 0.6)
 let generator = AKOperationGenerator(operation: oscillatorReverbMix)
 
 audiokit.audioOutput = generator

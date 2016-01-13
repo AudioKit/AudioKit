@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94453BC31C4499BD00608231 /* String+RandomGreeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94453BC21C4499BD00608231 /* String+RandomGreeting.swift */; };
 		949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */; };
 		949B1C491C431E5400BFFA10 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2C1C431E5400BFFA10 /* Knob.swift */; };
 		949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */; };
@@ -22,23 +23,55 @@
 		949B1C541C431E5400BFFA10 /* SMSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C391C431E5400BFFA10 /* SMSegment.swift */; };
 		949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C3A1C431E5400BFFA10 /* SMSegmentView.swift */; };
 		949B1C561C431E5400BFFA10 /* SynthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */; };
+		94FBB47E1C4483AE00E14C86 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */; };
+		94FBB4821C44868000E14C86 /* VerticalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4811C44868000E14C86 /* VerticalSlider.swift */; };
+		94FBB4841C4487D000E14C86 /* VerticalSliderStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */; };
 		C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */; };
 		C42FFBFC1C3DDAAC00823BD4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */; };
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
 		C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */; };
-		C42FFC041C3DDAAC00823BD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC021C3DDAAC00823BD4 /* LaunchScreen.storyboard */; };
-		EA127F431C42093F00289567 /* AudioKit in Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F421C42093F00289567 /* AudioKit */; };
-		EA127F451C42094300289567 /* AudioKit in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F421C42093F00289567 /* AudioKit */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4E8ED001C4354700041965F /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E8ECFD1C43545F0041965F /* AudioKit.framework */; };
+		C4E8ED021C43570C0041965F /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4E8ECFD1C43545F0041965F /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED211C43AA8E0041965F /* Conductor.swift */; };
+		C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED281C43ADA10041965F /* FilterSection.swift */; };
+		C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */; };
+		C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED2C1C43B2540041965F /* Fatten.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C4E8ECFC1C43545F0041965F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C42F35001C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
+		C4E8ECFE1C43545F0041965F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C43792781C0CE2E0001E9160;
+			remoteInfo = AudioKitTests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		C4E8ED011C4357040041965F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4E8ED021C43570C0041965F /* AudioKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA127F461C42094300289567 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA127F451C42094300289567 /* AudioKit in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,6 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		94453BC21C4499BD00608231 /* String+RandomGreeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RandomGreeting.swift"; sourceTree = "<group>"; };
 		949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Knob+Touches.swift"; sourceTree = "<group>"; };
 		949B1C2C1C431E5400BFFA10 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
 		949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobLarge.swift; sourceTree = "<group>"; };
@@ -61,14 +95,20 @@
 		949B1C391C431E5400BFFA10 /* SMSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSegment.swift; sourceTree = "<group>"; };
 		949B1C3A1C431E5400BFFA10 /* SMSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSegmentView.swift; sourceTree = "<group>"; };
 		949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthViewController.swift; sourceTree = "<group>"; };
+		94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		94FBB4811C44868000E14C86 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
+		94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSliderStyles.swift; sourceTree = "<group>"; };
 		C42FFBF61C3DDAAC00823BD4 /* SwiftSynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftSynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C42FFC031C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42FFC051C3DDAAC00823BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA127F421C42093F00289567 /* AudioKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AudioKit; path = ../../../../AudioKit; sourceTree = "<group>"; };
+		C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
+		C4E8ED211C43AA8E0041965F /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conductor.swift; path = AudioSystem/Conductor.swift; sourceTree = "<group>"; };
+		C4E8ED281C43ADA10041965F /* FilterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterSection.swift; path = AudioSystem/FilterSection.swift; sourceTree = "<group>"; };
+		C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiDelay.swift; path = AudioSystem/MultiDelay.swift; sourceTree = "<group>"; };
+		C4E8ED2C1C43B2540041965F /* Fatten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Fatten.swift; path = AudioSystem/Fatten.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA127F431C42093F00289567 /* AudioKit in Frameworks */,
+				C4E8ED001C4354700041965F /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +133,8 @@
 				949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */,
 				949B1C301C431E5400BFFA10 /* RoundedButton.swift */,
 				949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */,
+				94FBB4811C44868000E14C86 /* VerticalSlider.swift */,
+				94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -100,8 +142,10 @@
 		949B1C321C431E5400BFFA10 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */,
 				949B1C331C431E5400BFFA10 /* Float+Extensions.swift */,
 				949B1C341C431E5400BFFA10 /* SMSegmentView+Extensions.swift */,
+				94453BC21C4499BD00608231 /* String+RandomGreeting.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -127,9 +171,28 @@
 			name = ViewControllers;
 			sourceTree = "<group>";
 		};
+		94F234F01C43FC0200072159 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C351C431E5400BFFA10 /* SMSegmentView */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		94FBB4851C44886000E14C86 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */,
+				C42FFC051C3DDAAC00823BD4 /* Info.plist */,
+				949B1C321C431E5400BFFA10 /* Extensions */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C42FFBED1C3DDAAC00823BD4 = {
 			isa = PBXGroup;
 			children = (
+				C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */,
 				C42FFBF81C3DDAAC00823BD4 /* SwiftSynth */,
 				EA127F471C42097600289567 /* Frameworks */,
 				C42FFBF71C3DDAAC00823BD4 /* Products */,
@@ -147,23 +210,40 @@
 		C42FFBF81C3DDAAC00823BD4 /* SwiftSynth */ = {
 			isa = PBXGroup;
 			children = (
+				C4E8ED251C43AD650041965F /* AudioSystem */,
 				949B1C1D1C431E5400BFFA10 /* CustomControls */,
-				949B1C321C431E5400BFFA10 /* Extensions */,
-				949B1C351C431E5400BFFA10 /* SMSegmentView */,
 				949B1C571C431E5B00BFFA10 /* ViewControllers */,
-				C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */,
-				C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */,
 				C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */,
-				C42FFC021C3DDAAC00823BD4 /* LaunchScreen.storyboard */,
-				C42FFC051C3DDAAC00823BD4 /* Info.plist */,
+				C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */,
+				94FBB4851C44886000E14C86 /* Supporting Files */,
+				94F234F01C43FC0200072159 /* Libraries */,
 			);
 			path = SwiftSynth;
+			sourceTree = "<group>";
+		};
+		C4E8ECF81C43545F0041965F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4E8ECFD1C43545F0041965F /* AudioKit.framework */,
+				C4E8ECFF1C43545F0041965F /* AudioKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C4E8ED251C43AD650041965F /* AudioSystem */ = {
+			isa = PBXGroup;
+			children = (
+				C4E8ED211C43AA8E0041965F /* Conductor.swift */,
+				C4E8ED2C1C43B2540041965F /* Fatten.swift */,
+				C4E8ED281C43ADA10041965F /* FilterSection.swift */,
+				C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */,
+			);
+			name = AudioSystem;
 			sourceTree = "<group>";
 		};
 		EA127F471C42097600289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA127F421C42093F00289567 /* AudioKit */,
 			);
 			name = Frameworks;
 			path = SwiftSynth;
@@ -180,6 +260,7 @@
 				C42FFBF31C3DDAAC00823BD4 /* Frameworks */,
 				C42FFBF41C3DDAAC00823BD4 /* Resources */,
 				EA127F461C42094300289567 /* Embed Frameworks */,
+				C4E8ED011C4357040041965F /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -221,6 +302,12 @@
 			mainGroup = C42FFBED1C3DDAAC00823BD4;
 			productRefGroup = C42FFBF71C3DDAAC00823BD4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C4E8ECF81C43545F0041965F /* Products */;
+					ProjectRef = C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C42FFBF51C3DDAAC00823BD4 /* SwiftSynth */,
@@ -228,12 +315,28 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		C4E8ECFD1C43545F0041965F /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = C4E8ECFC1C43545F0041965F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4E8ECFF1C43545F0041965F /* AudioKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AudioKitTests.xctest;
+			remoteRef = C4E8ECFE1C43545F0041965F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		C42FFBF41C3DDAAC00823BD4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C42FFC041C3DDAAC00823BD4 /* LaunchScreen.storyboard in Resources */,
 				C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */,
 				C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */,
 			);
@@ -247,21 +350,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */,
+				C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */,
 				949B1C531C431E5400BFFA10 /* SMBasicSegmentView.swift in Sources */,
+				C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */,
 				949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */,
 				949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */,
 				949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */,
 				C42FFBFC1C3DDAAC00823BD4 /* ViewController.swift in Sources */,
 				949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */,
+				94453BC31C4499BD00608231 /* String+RandomGreeting.swift in Sources */,
 				C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */,
 				949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */,
 				949B1C501C431E5400BFFA10 /* SMSegmentView+Extensions.swift in Sources */,
 				949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */,
 				949B1C491C431E5400BFFA10 /* Knob.swift in Sources */,
 				949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */,
+				C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */,
 				949B1C4B1C431E5400BFFA10 /* KnobMedium.swift in Sources */,
+				C4E8ED2D1C43B2540041965F /* Fatten.swift in Sources */,
 				949B1C561C431E5400BFFA10 /* SynthViewController.swift in Sources */,
 				949B1C541C431E5400BFFA10 /* SMSegment.swift in Sources */,
+				94FBB4821C44868000E14C86 /* VerticalSlider.swift in Sources */,
+				94FBB47E1C4483AE00E14C86 /* Double+Extensions.swift in Sources */,
+				94FBB4841C4487D000E14C86 /* VerticalSliderStyles.swift in Sources */,
 				949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,14 +386,6 @@
 				C42FFBFE1C3DDAAC00823BD4 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C42FFC021C3DDAAC00823BD4 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C42FFC031C3DDAAC00823BD4 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -376,7 +479,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SwiftSynth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SwiftSynth;
@@ -390,7 +493,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SwiftSynth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SwiftSynth;

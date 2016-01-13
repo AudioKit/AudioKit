@@ -20,10 +20,6 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKAmplitudeEnvelopeAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -74,7 +70,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     /// - parameter releaseDuration: Release time
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
         sustainLevel: Double = 0.9,
@@ -98,7 +94,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
             name: "Local AKAmplitudeEnvelope",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

@@ -20,10 +20,6 @@ public class AKCostelloReverb: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKCostelloReverbAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -58,7 +54,7 @@ public class AKCostelloReverb: AKNode, AKToggleable {
     /// - parameter cutoffFrequency: Low-pass cutoff frequency.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         feedback: Double = 0.6,
         cutoffFrequency: Double = 4000) {
 
@@ -78,7 +74,7 @@ public class AKCostelloReverb: AKNode, AKToggleable {
             name: "Local AKCostelloReverb",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

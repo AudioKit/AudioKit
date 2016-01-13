@@ -17,10 +17,6 @@ public class AKDCBlock: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKDCBlockAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -38,7 +34,7 @@ public class AKDCBlock: AKNode, AKToggleable {
     ///
     /// - parameter input: Input node to process
     ///
-    public init(var _ input: AKNode) {
+    public init( _ input: AKNode) {
 
 
         var description = AudioComponentDescription()
@@ -54,7 +50,7 @@ public class AKDCBlock: AKNode, AKToggleable {
             name: "Local AKDCBlock",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

@@ -22,10 +22,6 @@ public class AKCombFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKCombFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -53,7 +49,7 @@ public class AKCombFilter: AKNode, AKToggleable {
     /// - parameter loopDuration: The loop time of the filter, in seconds. This can also be thought of as the delay time. Determines frequency response curve, loopDuration * sr/2 peaks spaced evenly between 0 and sr/2.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         reverbDuration: Double = 1.0,
         loopDuration: Double = 0.1) {
 
@@ -72,7 +68,7 @@ public class AKCombFilter: AKNode, AKToggleable {
             name: "Local AKCombFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

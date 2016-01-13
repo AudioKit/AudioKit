@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "wave_sine.png",
       "scale" : "1x"
     },
     {

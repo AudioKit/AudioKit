@@ -20,10 +20,6 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
     
     private var internalAU: AKOperationGeneratorAudioUnit?
 
@@ -101,7 +97,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
             name: "Local AKOperationGenerator",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

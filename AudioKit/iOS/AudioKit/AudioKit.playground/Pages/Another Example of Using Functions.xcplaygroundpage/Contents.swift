@@ -25,7 +25,7 @@ let instruments = (instrument1 + instrument2 + instrument3 + instrument4) * 0.13
 
 let reverb = instruments.reverberateWithCostello(feedback: 0.9, cutoffFrequency: 10000).toMono()
 
-let generator = AKOperationGenerator(operation: mix(instruments, reverb, t: 0.4))
+let generator = AKOperationGenerator(operation: mixer(instruments, reverb, balance: 0.4))
 
 audiokit.audioOutput = generator
 audiokit.start()

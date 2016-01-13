@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "knob120_base.png",
       "scale" : "1x"
     },
     {

@@ -15,11 +15,6 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
     
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-        
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
     
@@ -63,6 +58,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         try! audioFile.readIntoBuffer(audioFileBuffer)
         
         internalPlayer = AVAudioPlayerNode()
+        super.init()
         AKManager.sharedInstance.engine.attachNode(internalPlayer)
 
         let mixer = AVAudioMixerNode()

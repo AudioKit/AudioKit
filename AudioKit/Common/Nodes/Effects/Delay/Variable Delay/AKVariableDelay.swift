@@ -19,10 +19,6 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKVariableDelayAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -58,7 +54,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
     /// - parameter maximumDelayTime: The maximum delay time, in seconds.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         time: Double = 1,
         feedback: Double = 0,
         maximumDelayTime: Double = 5) {
@@ -79,7 +75,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
             name: "Local AKVariableDelay",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 

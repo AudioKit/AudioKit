@@ -28,7 +28,7 @@ var lfoMix = 1.0
 
 let lfo = AKOperation.sawtooth(frequency: lfoRate, amplitude: lfoAmplitude * lfoMix)
 let moog = AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency, resonance: resonance)
-let mixed = mix(AKOperation.input, moog, t: filterMix)
+let mixed = mixer(AKOperation.input, moog, balance: filterMix)
 let filterSectionEffect = AKOperationEffect(player, operation: mixed)
 
 

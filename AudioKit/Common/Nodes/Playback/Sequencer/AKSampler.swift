@@ -21,12 +21,7 @@ public class AKSampler: AKNode {
     // MARK: - Properties
     
     private var internalAU: AUAudioUnit?
-    
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
-    
+
     private var token: AUParameterObserverToken?
     
     /// Sampler AV Audio Unit
@@ -35,8 +30,8 @@ public class AKSampler: AKNode {
     // MARK: - Initializers
     
     /// Initialize the sampler node
-    public init() {
-        
+    public override init() {
+        super.init()
         self.avAudioNode = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
         AKManager.sharedInstance.engine.attachNode(self.avAudioNode)

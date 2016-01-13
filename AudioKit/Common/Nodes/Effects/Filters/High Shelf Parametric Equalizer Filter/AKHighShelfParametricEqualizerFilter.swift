@@ -19,10 +19,6 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    /// Required property for AKNode
-    public var avAudioNode: AVAudioNode
-    /// Required property for AKNode containing all the node's connections
-    public var connectionPoints = [AVAudioConnectionPoint]()
 
     internal var internalAU: AKHighShelfParametricEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -65,7 +61,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
     /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
-        var _ input: AKNode,
+        _ input: AKNode,
         centerFrequency: Double = 1000,
         gain: Double = 1.0,
         q: Double = 0.707) {
@@ -87,7 +83,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
             name: "Local AKHighShelfParametricEqualizerFilter",
             version: UInt32.max)
 
-        self.avAudioNode = AVAudioNode()
+        super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
 
