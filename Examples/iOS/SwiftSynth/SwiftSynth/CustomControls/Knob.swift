@@ -22,13 +22,13 @@ class Knob: UIView {
             }
         }
     }
-    let knobSensitivity: CGFloat = 0.005 // Value change per pt I think
+    let knobSensitivity: CGFloat = 0.005 // Value change per pt
     var lastX: CGFloat = 0
     var lastY: CGFloat = 0
     
     func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
         
-        // Knobs assume up or right is increasing, and down or lef is decreasing
+        // Knobs assume up or right is increasing, and down or left is decreasing
         
         let horizontalChange = (touchPoint.x - lastX) * knobSensitivity
         knobValue += horizontalChange
@@ -38,14 +38,6 @@ class Knob: UIView {
 
         lastX = touchPoint.x
         lastY = touchPoint.y
-    }
-    
-    func setMaximumValue() {
-        knobValue = 1.0
-    }
-    
-    func setMinimumValue() {
-        knobValue = 0.0
     }
     
     // Scale any range to 0.0-1.0 for Knob position
