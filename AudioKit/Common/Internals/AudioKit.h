@@ -36,7 +36,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKAutoWahAudioUnit.h"
 #import "AKBandPassButterworthFilterAudioUnit.h"
 #import "AKBandRejectButterworthFilterAudioUnit.h"
-#import "AKCombFilterAudioUnit.h"
+#import "AKCombFilterReverbAudioUnit.h"
 #import "AKDCBlockAudioUnit.h"
 #import "AKEqualizerFilterAudioUnit.h"
 #import "AKHighPassButterworthFilterAudioUnit.h"

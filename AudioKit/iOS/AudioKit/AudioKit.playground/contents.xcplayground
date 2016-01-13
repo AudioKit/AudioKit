@@ -23,7 +23,6 @@
         <page name='Time Stretching and Pitch Shifting'/>
         <page name='Phase-Locked Vocoder'/>
         <page name='Band Pass Filter'/>
-        <page name='Comb Filter'/>
         <page name='High Pass Filter'/>
         <page name='High Shelf Filter'/>
         <page name='Low Pass Filter'/>
@@ -45,6 +44,7 @@
         <page name='Pink Noise Generator'/>
         <page name='White Noise Generator'/>
         <page name='Sean Costello Reverb'/>
+        <page name='Comb Filter Reverb'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Custom Generator'/>
         <page name='Bit Crush Operation'/>
