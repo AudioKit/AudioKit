@@ -34,16 +34,26 @@ public class AKVoice: AKNode, AKToggleable {
     }
 }
 
+/// This class is for generator nodes that consist of a number of voices that 
+/// can be played simultaneously for polyphony
 public class AKPolyphonicInstrument: AKNode {
 
+    /// Array of available voices
     public var voices: [AKVoice] = []
+    
     var notesPlayed: [Int] = []
     
     var voicePlaying = 0
     var voiceCount = 1
     
+    /// Ouput mixer
     public let output = AKMixer()
     
+    /// Initialize the polyphonic instrument with a voice and a count
+    ///
+    /// - parameter voice: Template voice which will be copied
+    /// - parameter voiceCount: Maximum number of simultaneous voices
+    ///
     public init(voice: AKVoice, voiceCount: Int = 1) {
         
         //set up the voices
@@ -60,16 +70,31 @@ public class AKPolyphonicInstrument: AKNode {
         }
     }
     
+    /// Start playback with MIDI style note and velocity
+    ///
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
     public func startNote(note: Int, velocity: Int) {
         notesPlayed[voicePlaying] = note
         startVoice(voicePlaying, note: note, velocity: velocity)
         voicePlaying = (voicePlaying + 1) % voiceCount
     }
     
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Index of voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
     public func startVoice(voice: Int, note: Int, velocity: Int) {
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
     
+    /// Stop playback of a particular note
+    ///
+    /// - parameter note: MIDI Note Number
+    ///
     public func stopNote(note: Int) {
         var voiceToStop = notesPlayed.indexOf(note)
         while(voiceToStop != nil) {
@@ -79,10 +104,17 @@ public class AKPolyphonicInstrument: AKNode {
         }
     }
     
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Index of voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
     public func stopVoice(voice: Int, note: Int) {
+        /// Override in subclass
         print("Stopping voice\(voice) - note:\(note)")
     }
     
+    /// Stop all voices
     public func panic() {
         for(var i = 0; i < voiceCount; i++) {
             voices[i].stop()

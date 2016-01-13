@@ -9,8 +9,10 @@
 import Foundation
 import AVFoundation
 
+/// Noise generator that can be played polyphonically as a mix of pink and white noise
 public class AKNoiseInstrument: AKPolyphonicInstrument {
     
+    /// Balance of white to pink noise
     public var whitePinkMix: Double = 0 {
         didSet {
             for noiseVoice in voices as! [AKNoiseVoice] {
@@ -52,10 +54,21 @@ public class AKNoiseInstrument: AKPolyphonicInstrument {
         }
     }
     
+    /// Initial the noise generator instrument
+    ///
+    /// - parameter whitePinkMix: Balance of white to pink noise
+    /// - parameter voiceCount: Maximum number of simultaneous voices
+    ///
     public init(whitePinkMix: Double, voiceCount: Int) {
         super.init(voice: AKNoiseVoice(whitePinkMix: whitePinkMix), voiceCount: voiceCount)
     }
     
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Index of voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
     public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let noiseVoice = voices[voice] as! AKNoiseVoice
         noiseVoice.whiteNoise.amplitude = Double(velocity) / 127.0
@@ -63,6 +76,11 @@ public class AKNoiseInstrument: AKPolyphonicInstrument {
         noiseVoice.start()
     }
     
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Index of voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
     public override func stopVoice(voice: Int, note: Int) {
         let noise = voices[voice] as! AKNoiseVoice
         noise.stop()

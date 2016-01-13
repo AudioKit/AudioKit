@@ -78,7 +78,7 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
     
     /// Instantiate the FM Oscillator Instrument
     ///
-    /// - voiceCount: Maximum number of voices that will be required
+    /// - parameter voiceCount: Maximum number of voices that will be required
     ///
     public init(voiceCount: Int) {
         super.init(voice: AKFMOscillatorVoice(), voiceCount: voiceCount)
@@ -118,6 +118,7 @@ internal class AKFMOscillatorVoice: AKVoice {
     var oscillator: AKFMOscillator
     var adsr: AKAmplitudeEnvelope
     
+    /// Instantiate the FM Oscillator Voice
     override init() {
         oscillator = AKFMOscillator()
         adsr = AKAmplitudeEnvelope(oscillator,
