@@ -23,6 +23,7 @@ public class AKBooster: AKNode, AKToggleable {
     
     private var lastKnownGain: Double = 1.0
     
+    /// Tells whether or not the booster is actually changing the volume of its source.
     public var isStarted: Bool {
         return gain != 1.0
     }
