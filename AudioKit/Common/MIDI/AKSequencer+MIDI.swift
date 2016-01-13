@@ -1,5 +1,5 @@
 //
-//  AKSequencerMidi.swift
+//  AKSequencer+MIDI.swift
 //  AudioKit For iOS
 //
 //  Created by Jeff Cooper on 1/10/16.
@@ -8,17 +8,17 @@
 
 import Foundation
 
-extension AKSequencer{
+extension AKSequencer {
     
     /// Set the midi output for all tracks
-    public func setGlobalMidiOutput(midiEndpoint: MIDIEndpointRef) {
+    public func setGlobalMIDIOutput(midiEndpoint: MIDIEndpointRef) {
         if isAvSeq {
             for track in avSeq.tracks{
                 track.destinationMIDIEndpoint = midiEndpoint
             }
         } else {
             for track in tracks{
-                track.setMidiOutput(midiEndpoint)
+                track.setMIDIOutput(midiEndpoint)
             }
         }
     }

@@ -113,7 +113,7 @@ extension Int {
 /// - SystemCommand:
 ///    differ from system to system
 ///
-public enum AKMidiStatus: Int {
+public enum AKMIDIStatus: Int {
     /// Note off is something resembling a keyboard key release
     case NoteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -137,7 +137,7 @@ public enum AKMidiStatus: Int {
     
     /// Return a unique string for use as broadcasted name in NSNotificationCenter
     public func name() -> String {
-        return "AudioKit Midi Status: \(self)"
+        return "AudioKit MIDI Status: \(self)"
     }
 }
 
@@ -156,7 +156,7 @@ public enum AKMidiStatus: Int {
 /// - ActiveSensing: Active Sensing
 /// - SysReset: System Reset
 ///
-public enum AKMidiSystemCommand: UInt8 {
+public enum AKMIDISystemCommand: UInt8 {
     /// Trivial Case of None
     case None = 0
     /// System Exclusive
@@ -183,7 +183,7 @@ public enum AKMidiSystemCommand: UInt8 {
     case SysReset = 255
 }
 
-/// Value of byte 2 in conjunction with AKMidiStatusControllerChange
+/// Value of byte 2 in conjunction with AKMIDIStatusControllerChange
 ///
 /// - ModulationWheel: Modulation Control
 /// - BreathControl: Breath Control (in MIDI Saxophones for example)
@@ -205,7 +205,7 @@ public enum AKMidiSystemCommand: UInt8 {
 /// - AllNotesOff: MIDI Panic
 /// - CC# (0, 3, 9, 12-31) Unnamed Continuous Controllers
 ///
-public enum AKMidiControl: UInt8 {
+public enum AKMIDIControl: UInt8 {
     /// Modulation Control
     case ModulationWheel = 1
     /// Breath Control (in MIDI Saxophones for example)

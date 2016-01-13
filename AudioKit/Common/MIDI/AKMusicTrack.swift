@@ -9,7 +9,7 @@
 import Foundation
 
 /// Wrapper for internal Apple MusicTrack
-public class AKMusicTrack{
+public class AKMusicTrack {
     
     internal var internalMusicTrack = MusicTrack()
     
@@ -130,7 +130,7 @@ public class AKMusicTrack{
     /// - parameter vel:    The velocity to insert note at
     /// - parameter position: Where in the sequence to start the note (expressed in beats)
     /// - parameter dur: How long to hold the note (would be better if they let us just use noteOffs...oh well)
-    /// - parameter chan: Midi channel for this note
+    /// - parameter chan: MIDI channel for this note
     ///
     public func addNote(note: Int, vel: Int, position: Double, dur: Double, chan: Int = 0) {
         var noteMessage = MIDINoteMessage(channel: UInt8(chan), note: UInt8(note), velocity: UInt8(vel), releaseVelocity: 0, duration: Float32(dur))

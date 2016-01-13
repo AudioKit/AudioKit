@@ -1830,7 +1830,6 @@
 			children = (
 				C4E13D301C42703C008F0A3C /* Phase-Locked Vocoder */,
 				C4E13D351C42703C008F0A3C /* Player */,
-				C4E13D371C42703C008F0A3C /* Sampler */,
 				C4E13D3B1C42703C008F0A3C /* Time Pitch Stretching */,
 			);
 			path = Playback;
@@ -2259,13 +2258,6 @@
 				C4E13D361C42703C008F0A3C /* AKAudioPlayer.swift */,
 			);
 			path = Player;
-			sourceTree = "<group>";
-		};
-		C4E13D371C42703C008F0A3C /* Sampler */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sampler;
 			sourceTree = "<group>";
 		};
 		C4E13D3B1C42703C008F0A3C /* Time Pitch Stretching */ = {
