@@ -91,7 +91,7 @@ public class AKDelayWindow: NSWindow {
         timeSlider.frame.origin.y = timeTextField.frame.origin.y - CGFloat(sliderHeight)
         view.addSubview(timeSlider)
         
-        feedbackTextField.stringValue = "Feedback: \(delay.feedback)%"
+        feedbackTextField.stringValue = "Feedback: \(delay.feedback)"
         feedbackTextField.editable = false
         feedbackTextField.drawsBackground = false
         feedbackTextField.bezeled = false

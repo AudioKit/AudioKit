@@ -33,7 +33,7 @@ var delayWindow  = AKDelayWindow(delay)
 
 //: You can also set the bounds of the sliders here
 delayWindow.timeSlider.maxValue = 0.2 // seconds
-delayWindow.feedbackSlider.maxValue = 99
+delayWindow.feedbackSlider.maxValue = 0.99
 audiokit.audioOutput = delay
 audiokit.start()
 
