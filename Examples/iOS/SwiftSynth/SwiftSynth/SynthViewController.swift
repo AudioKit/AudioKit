@@ -299,6 +299,10 @@ class SynthViewController: UIViewController {
     
     @IBAction func midiPanicPressed(sender: RoundedButton) {
         statusLabel.text = "All Notes Off"
+        
+        conductor.fm.panic()
+        conductor.sine1.panic()
+        conductor.noise.panic()
     }
     
     // About App
@@ -329,10 +333,13 @@ class SynthViewController: UIViewController {
                 turnOffKey(lastKey)
             }
         }
-        
-        // conductor.play(midiNote)
         turnOnKey(key)
         lastKey = key
+
+        conductor.sine1.startNote(midiNote, velocity: 127)
+        conductor.fm.startNote(midiNote, velocity: 127)
+        conductor.noise.startNote(midiNote, velocity: 127)
+
     }
     
     @IBAction func keyReleased(sender: UIButton) {
@@ -348,6 +355,13 @@ class SynthViewController: UIViewController {
             turnOffKey(key)
         }
         lastKey = key
+        
+        let index = sender.tag - 200
+        let midiNote = index + (keyboardOctavePosition * 12)
+
+        conductor.sine1.stopNote(midiNote)
+        conductor.fm.stopNote(midiNote)
+        conductor.noise.stopNote(midiNote)
     }
     
     // *********************************************************
@@ -418,9 +432,12 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalFormattedString)"
+            conductor.sine1.output.volume = value
             
         case ControlTag.Pwm.rawValue:
             statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
+            conductor.square1.pulseWidth = value
+            conductor.square2.pulseWidth = value
             
         // Additional Oscillators
         case ControlTag.SubMix.rawValue:
@@ -428,21 +445,24 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
+            conductor.fm.output.volume = value
             
         case ControlTag.FmMod.rawValue:
             statusLabel.text = "FM Mod: \(value.decimalFormattedString)"
+            conductor.fm.modulatingMultiplier = value
         
         case ControlTag.NoiseMix.rawValue:
             statusLabel.text = "Noise Amt: \(value.decimalFormattedString)"
+            conductor.noise.output.volume = value
             
         // LFO
         case ControlTag.LfoAmt.rawValue:
             statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoAmplitude = 1000*value
+            conductor.filterSection.lfoAmplitude = 1000 * value
             
         case ControlTag.LfoRate.rawValue:
             statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoRate = 5*value
+            conductor.filterSection.lfoRate = 5 * value
        
         // Filter
         case ControlTag.Cutoff.rawValue:
@@ -502,15 +522,27 @@ extension SynthViewController: VerticalSliderDelegate {
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
             statusLabel.text = "Attack: \(value.decimalFormattedString)"
+            conductor.sine1.attackDuration = value
+            conductor.fm.attackDuration = value
+            conductor.noise.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
             statusLabel.text = "Decay: \(value.decimalFormattedString)"
+            conductor.sine1.decayDuration = value
+            conductor.fm.decayDuration = value
+            conductor.noise.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
             statusLabel.text = "Sustain: \(value.decimalFormattedString)"
+            conductor.sine1.sustainLevel = value
+            conductor.fm.sustainLevel = value
+            conductor.noise.sustainLevel = value
         
         case ControlTag.adsrRelease.rawValue:
             statusLabel.text = "Release: \(value.decimalFormattedString)"
+            conductor.sine1.releaseDuration = value
+            conductor.fm.releaseDuration = value
+            conductor.noise.releaseDuration = value
             
         default:
             break

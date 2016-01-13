@@ -67,9 +67,6 @@ class Conductor {
         reverb!.decayTimeAt0Hz = 2.0
         audiokit.audioOutput = reverb
         audiokit.start()
-        sine1.startNote(60, velocity: 30)
-        sine1.startNote(64, velocity: 30)
-        sine1.startNote(67, velocity: 30)
         
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
