@@ -41,8 +41,8 @@ class Knob: UIView {
     }
     
     // Scale any range to 0.0-1.0 for Knob position
-    func scaleForKnobValue(value: Double, rangeMin: Double, rangeMax: Double) -> Double {
-        return abs((value - rangeMin) / (rangeMin - rangeMax))
+    func scaleForKnobValue(value: Double, min: Double, max: Double) -> Double {
+        return abs((value - min) / (max - min))
     }
 
 }
