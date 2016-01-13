@@ -41,7 +41,8 @@ class Conductor {
     var filterSectionParameters: [Double] = []
     
     var masterVolume = AKMixer()
-    var reverb: AKReverb2?
+    var reverb: AKCostelloReverb?
+    var reverbMixer: AKDryWetMixer?
 
     
     init() {
@@ -63,9 +64,10 @@ class Conductor {
         multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0)
         
         masterVolume = AKMixer(multiDelayMixer!)
-        reverb = AKReverb2(masterVolume)
-        reverb!.decayTimeAt0Hz = 2.0
-        audiokit.audioOutput = reverb
+        reverb = AKCostelloReverb(masterVolume)
+        reverbMixer = AKDryWetMixer(masterVolume, reverb!, balance: 0.5)
+        
+        audiokit.audioOutput = reverbMixer
         audiokit.start()
         
         let defaultCenter = NSNotificationCenter.defaultCenter()

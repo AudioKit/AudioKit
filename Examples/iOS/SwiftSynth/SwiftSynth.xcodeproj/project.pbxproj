@@ -27,7 +27,6 @@
 		94FBB4821C44868000E14C86 /* VerticalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4811C44868000E14C86 /* VerticalSlider.swift */; };
 		94FBB4841C4487D000E14C86 /* VerticalSliderStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */; };
 		C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */; };
-		C42FFBFC1C3DDAAC00823BD4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */; };
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
 		C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */; };
 		C4E8ED001C4354700041965F /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E8ECFD1C43545F0041965F /* AudioKit.framework */; };
@@ -100,7 +99,6 @@
 		94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSliderStyles.swift; sourceTree = "<group>"; };
 		C42FFBF61C3DDAAC00823BD4 /* SwiftSynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftSynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42FFC051C3DDAAC00823BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -166,7 +164,6 @@
 			isa = PBXGroup;
 			children = (
 				949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */,
-				C42FFBFB1C3DDAAC00823BD4 /* ViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -356,7 +353,6 @@
 				949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */,
 				949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */,
 				949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */,
-				C42FFBFC1C3DDAAC00823BD4 /* ViewController.swift in Sources */,
 				949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */,
 				94453BC31C4499BD00608231 /* String+RandomGreeting.swift in Sources */,
 				C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */,
