@@ -236,11 +236,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Reverb Off"
-            conductor.reverb?.dryWetMix = 0
+            conductor.reverbMixer?.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Reverb On"
-            conductor.reverb?.dryWetMix = 1
+            conductor.reverbMixer?.balance = 1
         }
     }
     
@@ -495,11 +495,11 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
-            conductor.reverb?.decayTimeAt0Hz = value
+            conductor.reverb?.feedback = value
         
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
-            conductor.reverb?.dryWetMix = value
+            conductor.reverbMixer!.balance = value
             
         // Master
         case ControlTag.MasterVol.rawValue:
