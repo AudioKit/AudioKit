@@ -134,8 +134,8 @@ class SynthViewController: UIViewController {
         // Initial Values
         statusLabel.text = String.randomGreeting()
         
-        cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, rangeMin: 150.0, rangeMax: 24000.0))
-        osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, rangeMin: -12, rangeMax: 24))
+        cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, min: 150.0, max: 24000.0))
+        osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, min: -12, max: 24))
         
         // Set Osc Waveform Defaults
     }
@@ -336,9 +336,9 @@ class SynthViewController: UIViewController {
         turnOnKey(key)
         lastKey = key
 
-        conductor.sine1.startNote(midiNote, velocity: 127)
-        conductor.fm.startNote(midiNote, velocity: 127)
-        conductor.noise.startNote(midiNote, velocity: 127)
+        conductor.sine1.playNote(midiNote, velocity: 127)
+        conductor.fm.playNote(midiNote, velocity: 127)
+        conductor.noise.playNote(midiNote, velocity: 127)
 
     }
     
