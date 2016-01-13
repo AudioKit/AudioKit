@@ -21,10 +21,10 @@ AKPlaygroundLoop(frequency: 1) {
     fm.modulatingMultiplier = random(1, 3)
     fm.attackDuration = random(0,1)
     fm.releaseDuration = random(0,1)
-    let note = UInt8(randomInt(40...80))
-    fm.startVoice(0, note: note, withVelocity: 10, onChannel: 0)
+    let note = randomInt(40...80)
+    fm.playNote(note, velocity: 10)
     sleep(1)
-    fm.stopVoice(0, note: note, onChannel: 0)
+    fm.stopNote(note)
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
