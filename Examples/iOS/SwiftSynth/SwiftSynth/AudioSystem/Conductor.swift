@@ -83,19 +83,19 @@ class Conductor {
             
             switch 0 { // presumably something else
             case 0:
-                sine1.startNote(note, velocity: velocity)
+                sine1.playNote(note, velocity: velocity)
             case 1:
-                triangle1.startNote(note, velocity: velocity)
+                triangle1.playNote(note, velocity: velocity)
             case 2:
-                sawtooth1.startNote(note, velocity: velocity)
+                sawtooth1.playNote(note, velocity: velocity)
             case 3:
-                square1.startNote(note, velocity: velocity)
+                square1.playNote(note, velocity: velocity)
             default:
                 break
                 // do nothing
             }
-            fm.startNote(note, velocity: velocity)
-            noise.startNote(note, velocity: velocity)
+            fm.playNote(note, velocity: velocity)
+            noise.playNote(note, velocity: velocity)
             
         } else if (notification.name == AKMIDIStatus.NoteOn.name() && velocity == 0) || notification.name == AKMIDIStatus.NoteOff.name() {
             

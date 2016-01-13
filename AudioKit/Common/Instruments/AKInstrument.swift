@@ -75,9 +75,9 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public func startNote(note: Int, velocity: Int) {
+    public func playNote(note: Int, velocity: Int) {
         notesPlayed[voicePlaying] = note
-        startVoice(voicePlaying, note: note, velocity: velocity)
+        playVoice(voicePlaying, note: note, velocity: velocity)
         voicePlaying = (voicePlaying + 1) % voiceCount
     }
     
@@ -87,7 +87,8 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public func startVoice(voice: Int, note: Int, velocity: Int) {
+    public func playVoice(voice: Int, note: Int, velocity: Int) {
+        // Override in subclass
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
     
