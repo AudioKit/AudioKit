@@ -15,42 +15,44 @@ class Knob: UIView {
     let directionHorizontal = false
     
     // Knob properties
-    var knobValue: CGFloat = 0.5
+    var knobValue: CGFloat = 0.5 {
+        didSet {
+            horizontalPercentage = knobValue
+            verticalPercentage = knobValue
+        }
+    }
+    let knobSensitivity: CGFloat = 0.005
     var horizontalPercentage: CGFloat = 0.0
     var verticalPercentage: CGFloat = 0.0
     var lastX: CGFloat = 0
     var lastY: CGFloat = 0
     
-    // Check to see if touchpoint is within custom view
-    func checkKnobBounds(touchPoint: CGPoint) {
-        if touchPoint.x > 0 && touchPoint.x < self.bounds.size.width &&
-            touchPoint.y > 0 && touchPoint.y < self.bounds.size.height {
-            setPercentagesWithTouchPoint(touchPoint)
-        } else if touchPoint.y < self.bounds.size.height {
-            setMaximumValue()
-        } else if touchPoint.y > self.bounds.size.height {
-            setMinimumValue()
-        }
-    }
-    
     func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
-        horizontalPercentage = touchPoint.x / self.bounds.size.width
-        verticalPercentage = touchPoint.y / self.bounds.size.height
-        verticalPercentage = 1 - verticalPercentage
+        let horizontalChange = (touchPoint.x - lastX) * knobSensitivity
+        horizontalPercentage += horizontalChange
+        horizontalPercentage = max(0, min(horizontalPercentage, 1))
+        
+        let verticalChange = (touchPoint.y - lastY) * knobSensitivity
+        verticalPercentage -= verticalChange
+        verticalPercentage = max(0, min(verticalPercentage, 1))
         
         if directionHorizontal {
             knobValue = horizontalPercentage
         } else {
             knobValue = verticalPercentage
         }
+        lastX = touchPoint.x
+        lastY = touchPoint.y
     }
     
     func setMaximumValue() {
         knobValue = 1.0
+        verticalPercentage = 0
     }
     
     func setMinimumValue() {
         knobValue = 0.0
+        verticalPercentage = 1.0
     }
     
     // Scale any range to 0.0-1.0 for Knob position
