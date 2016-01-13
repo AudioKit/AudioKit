@@ -29,6 +29,10 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setAmplitude:(float)amplitude {
+    _kernel.setAmplitude(amplitude);
+}
+
 - (void)start {
     _kernel.start();
 }

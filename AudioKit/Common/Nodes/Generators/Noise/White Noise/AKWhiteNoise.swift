@@ -25,8 +25,16 @@ public class AKWhiteNoise: AKVoice {
     /// Amplitude. (Value between 0-1).
     public var amplitude: Double = 1 {
         didSet {
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+            internalAU?.amplitude = Float(amplitude)
         }
+    }
+    
+    /// Ramp to amplitude over 20 ms
+    ///
+    /// - parameter amplitude: Target Output Amplitude.
+    ///
+    public func ramp(amplitude amplitude: Double) {
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)

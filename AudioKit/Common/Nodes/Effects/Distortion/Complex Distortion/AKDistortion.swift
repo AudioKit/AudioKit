@@ -238,7 +238,6 @@ public class AKDistortion: AKNode, AKToggleable {
             if ringModFreq2 > 8000 {
                 ringModFreq2 = 8000
             }
-            print("setting ring mod 2 to \(ringModFreq2)")
             AudioUnitSetParameter(
                 internalAU,
                 kDistortionParam_RingModFreq2,
