@@ -9,57 +9,77 @@
 import AVFoundation
 import CoreAudio
 
+/// A version of AKInstrument specifically targeted to instruments that 
+/// should be triggerable via MIDI or sequenced with the sequencer.
 public class AKMidiInstrument: AKNode {
 
     /// MIDI Input
     public var midiIn = MIDIEndpointRef()
     
+    /// Name of the instrument
     public var name = "AKMidiInstrument"
     
-    public var internalInst:AKPolyphonicInstrument?
+    internal var internalInstrument: AKPolyphonicInstrument?
     
-    public init(inst: AKPolyphonicInstrument) {
-        internalInst = inst;
+    /// Initialize the MIDI instrument
+    ///
+    /// - parameter instrument: A polyphonic instrument that will be triggered via MIDI
+    ///
+    public init(instrument: AKPolyphonicInstrument) {
+        internalInstrument = instrument;
         super.init()
-        avAudioNode = (internalInst?.avAudioNode)!
+        avAudioNode = (internalInstrument?.avAudioNode)!
     }
     
     /// Enable MIDI input from a given MIDI client
     /// This is not in the init function because it must be called AFTER you start audiokit
+    ///
+    /// - parameter midiClient: A refernce to the midi client
+    /// - parameter name: Name to connect with
+    ///
     public func enableMidi(midiClient: MIDIClientRef, name: String) {
         var result:OSStatus
         result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
         CheckError(result)
     }
     
-    /// Send MIDI data to the audio unit
+    // Send MIDI data to the audio unit
     func handleMidi(data1: UInt32, data2: UInt32, data3: UInt32) {
         let status = data1 >> 4
         let channel = data1 & 0xF
-        if(Int(status) == AKMidiStatus.NoteOn.rawValue && data3 > 0){
-            handleNoteOn(Int(data2), withVelocity: Int(data3), onChannel: UInt8(channel))
-        }else if(Int(status) == AKMidiStatus.NoteOn.rawValue && data3 == 0){
-            handleNoteOff(Int(data2), onChannel: UInt8(channel))
+        if(Int(status) == AKMidiStatus.NoteOn.rawValue && data3 > 0) {
+            startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
+        }else if(Int(status) == AKMidiStatus.NoteOn.rawValue && data3 == 0) {
+            stopNote(Int(data2), onChannel: Int(channel))
         }
     }
     
-    public func handleMidiNotif(notif:NSNotification){
-        let note = Int((notif.userInfo?["note"])! as! NSNumber)
-        let vel = Int((notif.userInfo?["velocity"])! as! NSNumber)
-        let chan = Int((notif.userInfo?["channel"])! as! NSNumber)
-        if(notif.name == AKMidiStatus.NoteOn.name() && vel > 0){
-            handleNoteOn(note, withVelocity: vel, onChannel: UInt8(chan))
-        } else if ((notif.name == AKMidiStatus.NoteOn.name() && vel == 0) || notif.name == AKMidiStatus.NoteOff.name()){
-            handleNoteOff(note, onChannel: UInt8(chan))
+    /// Handle MIDI commands that come in through NSNotificationCenter
+    ///
+    /// - parameter notification: Notification fo a note on or off event
+    ///
+    public func handleMidiNotification(notification: NSNotification) {
+        let note     = Int((notification.userInfo?["note"])!     as! NSNumber)
+        let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
+        let channel  = Int((notification.userInfo?["channel"])!  as! NSNumber)
+        
+        if(notification.name == AKMidiStatus.NoteOn.name() && velocity > 0) {
+            startNote(note, withVelocity: velocity, onChannel: channel)
+        } else if ((
+            notification.name == AKMidiStatus.NoteOn.name() && velocity == 0) ||
+            notification.name == AKMidiStatus.NoteOff.name()) {
+            stopNote(note, onChannel: channel)
         }
     }
     
-    public func handleNoteOn(note: Int, withVelocity velocity: Int, onChannel channel: UInt8) {
-        internalInst!.startNote(note, velocity: velocity)
+    /// Start a note
+    public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
+        internalInstrument!.startNote(note, velocity: velocity)
     }
     
-    public func handleNoteOff(note: Int, onChannel channel: UInt8) {
-        internalInst!.stopNote(note)
+    /// Stop a note
+    public func stopNote(note: Int, onChannel channel: Int) {
+        internalInstrument!.stopNote(note)
     }
     
     private func MyMIDIReadBlock(
