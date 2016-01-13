@@ -28,12 +28,12 @@ custom_categories:
 
   - name: MIDI
     children:
-    - AKMidi
-    - AKMidiEvent
-    - AKMidiControl
-    - AKMidiInstrument
-    - AKMidiStatus
-    - AKMidiSystemCommand
+    - AKMIDI
+    - AKMIDIEvent
+    - AKMIDIControl
+    - AKMIDIInstrument
+    - AKMIDIStatus
+    - AKMIDISystemCommand
     - AKMusicTrack
 
   - name: Nodes

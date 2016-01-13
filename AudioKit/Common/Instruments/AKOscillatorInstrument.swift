@@ -47,9 +47,21 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
         }
     }
     
+    /// Instantiate the Oscillator Instrument
+    ///
+    /// - parameter waveform: Shape of the waveform to oscillate
+    /// - parameter voiceCount: Maximum number of voices that will be required
+    ///
     public init(waveform: AKTable, voiceCount: Int) {
         super.init(voice: AKOscillatorVoice(waveform: waveform), voiceCount: voiceCount)
     }
+    
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Index of voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
     public override func startVoice(voice: Int, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
@@ -58,6 +70,12 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
         oscillatorVoice.oscillator.amplitude = amplitude
         oscillatorVoice.start()
     }
+    
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Index of voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
     public override func stopVoice(voice: Int, note: Int) {
         let oscillatorVoice = voices[voice] as! AKOscillatorVoice //you'll need to cast the voice to its original form
         oscillatorVoice.stop()
