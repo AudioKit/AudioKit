@@ -82,6 +82,13 @@ public class AKSampler: AKNode {
         }
     }
     
+    /// Output Amplitude.
+    public var amplitude: Double = 1 {
+        didSet {
+            samplerUnit.masterGain = Float(amplitude)
+            print(samplerUnit.masterGain)
+        }
+    }
     // MARK: - Playback
     
     /// Play a MIDI Note
