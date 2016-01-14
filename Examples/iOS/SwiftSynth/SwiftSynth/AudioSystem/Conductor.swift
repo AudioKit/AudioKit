@@ -47,8 +47,8 @@ class Conductor {
     
     init() {
         
-        fm.output.volume = 0.4
-        noise.output.volume = 0.2
+        fm.volume = 0.4
+        noise.volume = 0.2
         
         midi.openMIDIIn("Session 1")
         
