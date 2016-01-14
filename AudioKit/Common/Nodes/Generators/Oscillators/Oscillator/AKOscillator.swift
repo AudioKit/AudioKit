@@ -13,12 +13,11 @@ import AVFoundation
 ///
 /// - parameter frequency: Frequency in cycles per second
 /// - parameter amplitude: Output Amplitude.
-/// - parameter detuning: Frequency offset in Hz, Default: 0
+/// - parameter detuning: Frequency offset in Hz.
 ///
 public class AKOscillator: AKVoice {
 
     // MARK: - Properties
-
 
     internal var internalAU: AKOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -27,7 +26,7 @@ public class AKOscillator: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-    private var detuningParameter:  AUParameter?
+    private var detuningParameter: AUParameter?
 
     /// Frequency in cycles per second
     public var frequency: Double = 440 {
@@ -42,15 +41,6 @@ public class AKOscillator: AKVoice {
     ///
     public func ramp(frequency frequency: Double) {
         frequencyParameter?.setValue(Float(frequency), originator: token!)
-    }
-    
-    /// Detuning frequency in Hz, Default: 0
-    public var detuning: Double = 0 {
-        willSet(newValue) {
-            if detuning != newValue {
-                detuningParameter?.setValue(Float(newValue), originator: token!)
-            }
-        }
     }
 
     /// Output Amplitude.
@@ -68,6 +58,21 @@ public class AKOscillator: AKVoice {
         amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
+    /// Frequency offset in Hz.
+    public var detuning: Double = 0 {
+        didSet {
+            internalAU?.detuning = Float(detuning)
+        }
+    }
+
+    /// Ramp to detuning over 20 ms
+    ///
+    /// - parameter detuning: Target Frequency offset in Hz.
+    ///
+    public func ramp(detuning detuning: Double) {
+        detuningParameter?.setValue(Float(detuning), originator: token!)
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     override public var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -79,7 +84,7 @@ public class AKOscillator: AKVoice {
     ///
     /// - parameter frequency: Frequency in cycles per second
     /// - parameter amplitude: Output Amplitude.
-    /// - parameter detuning: Frequency offset in Hz, Default: 0
+    /// - parameter detuning: Frequency offset in Hz.
     ///
     public init(
         waveform: AKTable = AKTable(.Sine),
@@ -143,12 +148,12 @@ public class AKOscillator: AKVoice {
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
-        internalAU?.detuning  = Float(detuning)
+        internalAU?.detuning = Float(detuning)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public override func copy() -> AKVoice {
-        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude, detuning:  self.detuning)
+        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude, detuning: self.detuning)
         return copy
     }
 

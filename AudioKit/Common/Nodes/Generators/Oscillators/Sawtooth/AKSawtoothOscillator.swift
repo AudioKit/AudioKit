@@ -13,11 +13,11 @@ import AVFoundation
 ///
 /// - parameter frequency: In cycles per second, or Hz.
 /// - parameter amplitude: Output Amplitude.
+/// - parameter detuning: Frequency offset in Hz.
 ///
 public class AKSawtoothOscillator: AKVoice {
 
     // MARK: - Properties
-
 
     internal var internalAU: AKSawtoothOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -25,6 +25,7 @@ public class AKSawtoothOscillator: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
+    private var detuningParameter: AUParameter?
 
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
@@ -56,6 +57,21 @@ public class AKSawtoothOscillator: AKVoice {
         amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
+    /// Frequency offset in Hz.
+    public var detuning: Double = 0 {
+        didSet {
+            internalAU?.detuning = Float(detuning)
+        }
+    }
+
+    /// Ramp to detuning over 20 ms
+    ///
+    /// - parameter detuning: Target Frequency offset in Hz.
+    ///
+    public func ramp(detuning detuning: Double) {
+        detuningParameter?.setValue(Float(detuning), originator: token!)
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     override public var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -67,14 +83,17 @@ public class AKSawtoothOscillator: AKVoice {
     ///
     /// - parameter frequency: In cycles per second, or Hz.
     /// - parameter amplitude: Output Amplitude.
+    /// - parameter detuning: Frequency offset in Hz.
     ///
     public init(
         frequency: Double = 440,
-        amplitude: Double = 0.5) {
+        amplitude: Double = 0.5,
+        detuning: Double = 0) {
 
 
         self.frequency = frequency
         self.amplitude = amplitude
+        self.detuning = detuning
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -105,6 +124,7 @@ public class AKSawtoothOscillator: AKVoice {
 
         frequencyParameter = tree.valueForKey("frequency") as? AUParameter
         amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        detuningParameter  = tree.valueForKey("detuning")  as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -114,16 +134,19 @@ public class AKSawtoothOscillator: AKVoice {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
+                } else if address == self.detuningParameter!.address {
+                    self.detuning = Double(value)
                 }
             }
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
+        internalAU?.detuning = Float(detuning)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public override func copy() -> AKVoice {
-        let copy = AKSawtoothOscillator(frequency: self.frequency, amplitude: self.amplitude)
+        let copy = AKSawtoothOscillator(frequency: self.frequency, amplitude: self.amplitude, detuning: self.detuning)
         return copy
     }
 

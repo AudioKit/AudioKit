@@ -14,6 +14,7 @@
 @interface AKTriangleOscillatorAudioUnit : AUAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
+@property (nonatomic) float detuning;
 
 - (void)start;
 - (void)stop;
