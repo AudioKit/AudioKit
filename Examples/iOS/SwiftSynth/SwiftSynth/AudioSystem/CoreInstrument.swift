@@ -179,5 +179,24 @@ class CoreInstrument: AKPolyphonicInstrument {
         coreVoice.stop()
     }
     
+    override func panic() {
+        for voice in voices {
+            let coreVoice = voice as! CoreVoice
+            coreVoice.stop()
+            coreVoice.fmOscillator.stop()
+            coreVoice.sawtoothVCO1.stop()
+            coreVoice.sineVCO1.stop()
+            coreVoice.squareVCO1.stop()
+            coreVoice.triangleVCO1.stop()
+            coreVoice.sawtoothVCO2.stop()
+            coreVoice.sineVCO2.stop()
+            coreVoice.squareVCO2.stop()
+            coreVoice.triangleVCO2.stop()
+            coreVoice.noise.stop()
+            coreVoice.subOsc.stop()
+            coreVoice.adsr.stop()
+        }
+    }
+    
 }
 
