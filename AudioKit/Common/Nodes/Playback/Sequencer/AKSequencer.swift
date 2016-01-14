@@ -2,7 +2,7 @@
 //  AKSequencer.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 11/27/15.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -165,7 +165,7 @@ public class AKSequencer {
         return Double(length)
     }
     
-    /// Set the rate, presumably as BPM?
+    /// Set the rate relative to the the default BPM of the track
     public func setRate(rate: Float) {
         if isAvSeq {
             avSeq.rate = rate
@@ -180,8 +180,8 @@ public class AKSequencer {
             //not applicable
         } else {
             var newTempo = bpm;
-            if newTempo > 280 { newTempo = 180 } //bpm limits
-            if newTempo < 10  { newTempo = 60  }
+            if newTempo > 280 { newTempo = 280 } //bpm limits
+            if newTempo < 10  { newTempo = 10  }
             
             var tempoTrack = MusicTrack()
             var currTime: MusicTimeStamp = 0
@@ -273,7 +273,7 @@ public class AKSequencer {
         
         var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
-        //print("\(count) - \(numberOfTracks)") //why is this different? the computed variable runs the same code
+
         for( var i = 0; i < Int(count); ++i) {
             var musicTrack = MusicTrack()
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
@@ -291,10 +291,10 @@ public class AKSequencer {
         initTracks()
     }
     
-    /// Show the sequence pointer
+    /// Print sequence to console
     public func debug() {
         if isAvSeq {
-            //do nothing
+            print("No debug information available for AVAudioEngine's sequencer.")
         } else {
             CAShow(sequencePointer)
         }
