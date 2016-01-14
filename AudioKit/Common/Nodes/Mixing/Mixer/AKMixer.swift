@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka on 11/19/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
