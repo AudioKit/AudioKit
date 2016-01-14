@@ -438,20 +438,20 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // VCOs
         case ControlTag.Vco1Semitones.rawValue:
-            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
+            let scaledValue = Double.scaleRange(value, rangeMin: -12, rangeMax: 12)
             let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
             conductor.core.offset1 = intValue
             
         case ControlTag.Vco2Semitones.rawValue:
-            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
+            let scaledValue = Double.scaleRange(value, rangeMin: -12, rangeMax: 12)
             let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
             conductor.core.offset2 = intValue
             
         case ControlTag.Vco2Detune.rawValue:
             statusLabel.text = "Detune: \(value.decimalFormattedString)"
-            conductor.core.detune = value
+            conductor.core.detune = (value - 0.5) * 50
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalFormattedString)"
@@ -464,7 +464,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Additional Oscillators
         case ControlTag.SubMix.rawValue:
             statusLabel.text = "Sub Osc: \(value.decimalFormattedString)"
-            conductor.core.subOscMix = value
+            conductor.core.subOscMix = value * 5
             
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
@@ -481,11 +481,11 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // LFO
         case ControlTag.LfoAmt.rawValue:
             statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoAmplitude = value
+            conductor.filterSection.lfoAmplitude = value * 1000
             
         case ControlTag.LfoRate.rawValue:
             statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoRate = value
+            conductor.filterSection.lfoRate = value * 5
        
         // Filter
         case ControlTag.Cutoff.rawValue:
