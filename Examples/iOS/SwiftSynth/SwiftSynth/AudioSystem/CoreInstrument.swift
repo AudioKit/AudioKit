@@ -11,8 +11,34 @@ import AudioKit
 /// A wrapper for AKCore to make it a playable as a polyphonic instrument.
 class CoreInstrument: AKPolyphonicInstrument {
     
-    var offset1 = 0 // semitones
-    var offset2 = 0 // semitones
+    var offset1 = 0 {
+        didSet {
+            for i in 0..<voices.count {
+                print(i)
+                let coreVoice = voices[i] as! CoreVoice
+                let note = notesPlayed[i] + offset1
+                coreVoice.sineVCO1.ramp(frequency: note.midiNoteToFrequency())
+                coreVoice.sawtoothVCO1.ramp(frequency: note.midiNoteToFrequency())
+                coreVoice.squareVCO1.ramp(frequency: note.midiNoteToFrequency())
+                coreVoice.triangleVCO1.ramp(frequency: note.midiNoteToFrequency())
+            }
+        }
+    }
+    
+    var offset2 = 0 {
+        didSet {
+            for i in 0..<voices.count {
+                let coreVoice = voices[i] as! CoreVoice
+                let note = notesPlayed[i] + offset2
+                coreVoice.sineVCO2.ramp(frequency: note.midiNoteToFrequency())
+                coreVoice.sawtoothVCO2.ramp(frequency: note.midiNoteToFrequency())
+                coreVoice.squareVCO2.ramp(frequency: note.midiNoteToFrequency())
+                coreVoice.triangleVCO2.ramp(frequency: note.midiNoteToFrequency())
+            }
+        }
+    }
+    
+    
     var subOscMix = 0.0 {
         didSet {
             for voice in voices {
@@ -187,7 +213,7 @@ class CoreInstrument: AKPolyphonicInstrument {
     ///
     init(voiceCount: Int) {
         super.init(voice: CoreVoice(), voiceCount: voiceCount)
-        
+
         let sourceCount = 11
         amplitude = 1.0 /  Double(sourceCount * voiceCount)
         
