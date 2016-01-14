@@ -2,7 +2,7 @@
 //  AKCombFilterReverb.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka, last edited January 13, 2016.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 

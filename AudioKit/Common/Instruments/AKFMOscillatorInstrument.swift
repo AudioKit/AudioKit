@@ -2,7 +2,7 @@
 //  AKFMOscillatorInstrument.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 1/6/16.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
