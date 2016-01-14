@@ -180,9 +180,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "VCO 1 Off"
+            conductor.core.vco1On = false
         } else {
             sender.selected = true
             statusLabel.text = "VCO 1 On"
+            conductor.core.vco1On = true
         }
     }
     
@@ -190,9 +192,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "VCO 2 Off"
+            conductor.core.vco2On = false
         } else {
             sender.selected = true
             statusLabel.text = "VCO 2 On"
+            conductor.core.vco2On = true
         }
     }
 
@@ -437,6 +441,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Additional Oscillators
         case ControlTag.SubMix.rawValue:
             statusLabel.text = "Sub Osc: \(value.decimalFormattedString)"
+            conductor.core.subOscMix = value * 10
             
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
@@ -549,9 +554,11 @@ extension SynthViewController: SMSegmentViewDelegate {
         switch (segmentView.tag) {
         case ControlTag.Vco1Waveform.rawValue:
             statusLabel.text = "VCO1 Waveform Changed"
+            conductor.core.selectedVCO1Waveform = index
             
         case ControlTag.Vco2Waveform.rawValue:
             statusLabel.text = "VCO2 Waveform Changed"
+            conductor.core.selectedVCO2Waveform = index
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
