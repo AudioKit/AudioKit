@@ -13,9 +13,32 @@ class CoreInstrument: AKPolyphonicInstrument {
     
     var offset1 = 0 // semitones
     var offset2 = 0 // semitones
-    var subOscMix = 0.0
-    var fmOscMix  = 0.0
-    var noiseMix  = 0.0
+    var subOscMix = 0.0 {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.subOscMixer.volume = subOscMix
+            }
+        }
+    }
+    
+    var fmOscMix = 0.0 {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.fmOscMixer.volume = fmOscMix
+            }
+        }
+    }
+    
+    var noiseMix = 0.0 {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.noiseMixer.volume = noiseMix
+            }
+        }
+    }
 
     var detune: Double = 0.0 {
         didSet {
@@ -99,11 +122,63 @@ class CoreInstrument: AKPolyphonicInstrument {
         }
     }
 
-    var selectedVCO1Waveform = 1
-    var selectedVCO2Waveform = 1
+    var selectedVCO1Waveform = 0 {
+        didSet {
+            vco1Amplitudes = [0.0,0,0,0]
+            vco1Amplitudes[selectedVCO1Waveform] = 1.0
+            
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.sawtoothVCO1Mixer.volume = vco1Amplitudes[0]
+                coreVoice.squareVCO1Mixer.volume   = vco1Amplitudes[1]
+                coreVoice.sineVCO1Mixer.volume     = vco1Amplitudes[2]
+                coreVoice.triangleVCO1Mixer.volume = vco1Amplitudes[3]
+            }
+        }
+    }
     
-    var vco1On = false
-    var vco2On = false
+    var selectedVCO2Waveform = 0 {
+        didSet {
+            vco2Amplitudes = [0.0,0,0,0]
+            vco2Amplitudes[selectedVCO2Waveform] = 1.0
+            
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.sawtoothVCO2Mixer.volume = vco2Amplitudes[0]
+                coreVoice.squareVCO2Mixer.volume   = vco2Amplitudes[1]
+                coreVoice.sineVCO2Mixer.volume     = vco2Amplitudes[2]
+                coreVoice.triangleVCO2Mixer.volume = vco2Amplitudes[3]
+            }
+        }
+    }
+    
+    var vco1Amplitudes = [1.0,0,0,0]
+    var vco2Amplitudes = [1.0,0,0,0]
+    
+    var vco1On = false {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                if vco1On {
+                    coreVoice.vco1Mixer.volume = 1
+                } else {
+                    coreVoice.vco1Mixer.volume = 0
+                }
+            }
+        }
+    }
+    var vco2On = false {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                if vco2On {
+                    coreVoice.vco2Mixer.volume = 1
+                } else {
+                    coreVoice.vco2Mixer.volume = 0
+                }
+            }
+        }
+    }
 
     
     /// Instantiate the Instrument
@@ -129,25 +204,20 @@ class CoreInstrument: AKPolyphonicInstrument {
         
         let commonAmplitude = Double(velocity)/127.0
         
-        var vco1Amplitudes = [0.0,0,0,0]
-        if vco1On { vco1Amplitudes[selectedVCO1Waveform] = 1.0 }
+        coreVoice.sawtoothVCO1.amplitude = commonAmplitude
+        coreVoice.squareVCO1.amplitude   = commonAmplitude
+        coreVoice.sineVCO1.amplitude     = commonAmplitude
+        coreVoice.triangleVCO1.amplitude = commonAmplitude
         
-        coreVoice.sawtoothVCO1.amplitude = commonAmplitude * vco1Amplitudes[0]
-        coreVoice.squareVCO1.amplitude   = commonAmplitude * vco1Amplitudes[1]
-        coreVoice.sineVCO1.amplitude     = commonAmplitude * vco1Amplitudes[2]
-        coreVoice.triangleVCO1.amplitude = commonAmplitude * vco1Amplitudes[3]
-        
-        var vco2Amplitudes = [0.0,0,0,0]
-        if vco2On { vco2Amplitudes[selectedVCO2Waveform] = 1.0 }
 
-        coreVoice.sawtoothVCO2.amplitude = commonAmplitude * vco2Amplitudes[0]
-        coreVoice.squareVCO2.amplitude   = commonAmplitude * vco2Amplitudes[1]
-        coreVoice.sineVCO2.amplitude     = commonAmplitude * vco2Amplitudes[2]
-        coreVoice.triangleVCO2.amplitude = commonAmplitude * vco2Amplitudes[3]
+        coreVoice.sawtoothVCO2.amplitude = commonAmplitude
+        coreVoice.squareVCO2.amplitude   = commonAmplitude
+        coreVoice.sineVCO2.amplitude     = commonAmplitude
+        coreVoice.triangleVCO2.amplitude = commonAmplitude
         
-        coreVoice.subOsc.amplitude       = commonAmplitude * subOscMix
-        coreVoice.fmOscillator.amplitude = commonAmplitude * fmOscMix
-        coreVoice.noise.amplitude        = commonAmplitude * noiseMix
+        coreVoice.subOsc.amplitude       = commonAmplitude
+        coreVoice.fmOscillator.amplitude = commonAmplitude
+        coreVoice.noise.amplitude        = commonAmplitude
         
         let vco1Frequency = (note + offset1).midiNoteToFrequency()
         
