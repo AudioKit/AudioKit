@@ -350,8 +350,6 @@ class SynthViewController: UIViewController {
     
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
-        let index = sender.tag - 200
-        let midiNote = index + (keyboardOctavePosition * 12)
         
         if monoMode {
             if let lastKey = lastKey where lastKey != key {
@@ -360,8 +358,6 @@ class SynthViewController: UIViewController {
         }
         turnOnKey(key)
         lastKey = key
-
-        conductor.core.playNote(midiNote, velocity: 127)
     }
     
     @IBAction func keyReleased(sender: UIButton) {
@@ -377,11 +373,6 @@ class SynthViewController: UIViewController {
             turnOffKey(key)
         }
         lastKey = key
-        
-        let index = sender.tag - 200
-        let midiNote = index + (keyboardOctavePosition * 12)
-
-        conductor.core.stopNote(midiNote)
     }
     
     // *********************************************************
@@ -398,6 +389,7 @@ class SynthViewController: UIViewController {
         }
         
         let midiNote = index + (keyboardOctavePosition * 12)
+        conductor.core.playNote(midiNote, velocity: 127)
         statusLabel.text = "Key Pressed: \(midiNote)"
     }
     
@@ -411,12 +403,16 @@ class SynthViewController: UIViewController {
         }
         
         statusLabel.text = "Key Released"
-        //conductor.release(index)
+        let midiNote = index + (keyboardOctavePosition * 12)
+        conductor.core.stopNote(midiNote)
     }
     
     func turnOffHeldKeys() {
         for key in keysHeld {
             turnOffKey(key)
+            let index = key.tag - 200
+            let midiNote = index + (keyboardOctavePosition * 12)
+            conductor.core.stopNote(midiNote)
         }
         if let lastKey = lastKey {
             turnOffKey(lastKey)
