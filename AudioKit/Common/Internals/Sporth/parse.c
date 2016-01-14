@@ -20,8 +20,8 @@ enum {
     LEX_DASH
 };
 
-char * sporth_tokenizer(sporth_data *sporth, char *str,
-                        uint32_t size, uint32_t *pos)
+char * sporth_tokenizer(char *str,
+        uint32_t size, uint32_t *pos)
 {
     char c;
     uint32_t offset = 0;
@@ -94,7 +94,7 @@ char * sporth_tokenizer(sporth_data *sporth, char *str,
     return out;
 }
 
-int sporth_lexer(sporth_data *sporth, char *str, int32_t size)
+int sporth_lexer(char *str, int32_t size)
 {
     char c;
     int mode = LEX_START;
@@ -198,7 +198,7 @@ int sporth_lexer(sporth_data *sporth, char *str, int32_t size)
                 return LEX_ERROR;
         }
     }
-    
+
     switch(mode) {
         case LEX_FLOAT:
         case LEX_FLOAT_DOT:

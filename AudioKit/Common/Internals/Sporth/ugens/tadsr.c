@@ -20,13 +20,6 @@ int sporth_tadsr(sporth_stack *stack, void *ud)
 
             sp_tadsr_create(&tadsr);
             plumber_add_ugen(pd, SPORTH_TADSR, tadsr);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "tadsr: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for tadsr\n");
                 stack->error++;
@@ -37,16 +30,24 @@ int sporth_tadsr(sporth_stack *stack, void *ud)
             dec = sporth_stack_pop_float(stack);
             atk = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "tadsr: Initialising\n");
+#endif
+
+            rel = sporth_stack_pop_float(stack);
+            sus = sporth_stack_pop_float(stack);
+            dec = sporth_stack_pop_float(stack);
+            atk = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
             tadsr = pd->last->ud;
             sp_tadsr_init(pd->sp, tadsr);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for tadsr\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             rel = sporth_stack_pop_float(stack);
             sus = sporth_stack_pop_float(stack);
             dec = sporth_stack_pop_float(stack);

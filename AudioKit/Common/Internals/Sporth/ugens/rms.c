@@ -16,18 +16,19 @@ int sporth_rms(sporth_stack *stack, void *ud)
 
             sp_rms_create(&rms);
             plumber_add_ugen(pd, SPORTH_RMS, rms);
+            if(sporth_check_args(stack, "f") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for rms\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            in = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "rms: Initialising\n");
 #endif
-
-            if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for rms\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             in = sporth_stack_pop_float(stack);
             rms = pd->last->ud;
             sp_rms_init(pd->sp, rms);

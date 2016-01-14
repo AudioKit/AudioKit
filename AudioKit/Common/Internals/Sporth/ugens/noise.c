@@ -11,13 +11,15 @@ int sporth_noise(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             sp_noise_create(&data);
             plumber_add_ugen(pd, SPORTH_NOISE, data);
-            break;
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
                 fprintf(stderr, "Not enough arguments for noise\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            amp = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
             data = pd->last->ud;
             amp = sporth_stack_pop_float(stack);
             if(sp_noise_init(pd->sp, data) == SP_NOT_OK) {
@@ -27,11 +29,6 @@ int sporth_noise(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr, "Not enough arguments for noise\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             amp = sporth_stack_pop_float(stack);
             data = pd->last->ud;
             data->amp = amp;
@@ -46,5 +43,5 @@ int sporth_noise(sporth_stack *stack, void *ud)
            printf("Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

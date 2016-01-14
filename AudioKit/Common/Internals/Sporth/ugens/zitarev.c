@@ -29,18 +29,32 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
 
             sp_zitarev_create(&zitarev);
             plumber_add_ugen(pd, SPORTH_ZITAREV, zitarev);
+            if(sporth_check_args(stack, "fffffffffffff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for zitarev\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            level = sporth_stack_pop_float(stack);
+            mix = sporth_stack_pop_float(stack);
+            eq2_level = sporth_stack_pop_float(stack);
+            eq2_freq = sporth_stack_pop_float(stack);
+            eq1_level = sporth_stack_pop_float(stack);
+            eq1_freq = sporth_stack_pop_float(stack);
+            hf_damping = sporth_stack_pop_float(stack);
+            rt60_mid = sporth_stack_pop_float(stack);
+            rt60_low = sporth_stack_pop_float(stack);
+            lf_x = sporth_stack_pop_float(stack);
+            in_delay = sporth_stack_pop_float(stack);
+            input_2 = sporth_stack_pop_float(stack);
+            input_1 = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "zitarev: Initialising\n");
 #endif
-
-            if(sporth_check_args(stack, "fffffffffffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for zitarev\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             level = sporth_stack_pop_float(stack);
             mix = sporth_stack_pop_float(stack);
             eq2_level = sporth_stack_pop_float(stack);
@@ -60,11 +74,6 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fffffffffffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for zitarev\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             level = sporth_stack_pop_float(stack);
             mix = sporth_stack_pop_float(stack);
             eq2_level = sporth_stack_pop_float(stack);
@@ -126,6 +135,18 @@ int sporth_zrev(sporth_stack *stack, void *ud)
 
             sp_zitarev_create(&zitarev);
             plumber_add_ugen(pd, SPORTH_ZREV, zitarev);
+            if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for zitarev\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            hf_damping = sporth_stack_pop_float(stack);
+            rt60_mid = sporth_stack_pop_float(stack);
+            rt60_low = sporth_stack_pop_float(stack);
+            input_2 = sporth_stack_pop_float(stack);
+            input_1 = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 

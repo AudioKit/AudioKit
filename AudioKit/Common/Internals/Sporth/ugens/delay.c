@@ -18,13 +18,6 @@ int sporth_delay(sporth_stack *stack, void *ud)
 
             sp_delay_create(&delay);
             plumber_add_ugen(pd, SPORTH_DELAY, delay);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "delay: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for delay\n");
                 stack->error++;
@@ -33,16 +26,22 @@ int sporth_delay(sporth_stack *stack, void *ud)
             time = sporth_stack_pop_float(stack);
             feedback = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "delay: Initialising\n");
+#endif
+
+            time = sporth_stack_pop_float(stack);
+            feedback = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             delay = pd->last->ud;
             sp_delay_init(pd->sp, delay, time);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for delay\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             time = sporth_stack_pop_float(stack);
             feedback = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);

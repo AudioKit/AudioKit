@@ -18,6 +18,8 @@
 		C40BB08A1C471799004C138D /* AKCombFilterReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40BB0861C471799004C138D /* AKCombFilterReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40BB08B1C471799004C138D /* AKCombFilterReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40BB0871C471799004C138D /* AKCombFilterReverbAudioUnit.mm */; };
 		C40BB08C1C471799004C138D /* AKCombFilterReverbDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40BB0881C471799004C138D /* AKCombFilterReverbDSPKernel.hpp */; };
+		C40BB0A11C471C9A004C138D /* gen_padsynth.c in Sources */ = {isa = PBXBuildFile; fileRef = C40BB0A01C471C9A004C138D /* gen_padsynth.c */; };
+		C40BB0A31C471CA5004C138D /* maytrig.c in Sources */ = {isa = PBXBuildFile; fileRef = C40BB0A21C471CA5004C138D /* maytrig.c */; };
 		C40C41981C40E3EF009D870B /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C416E1C40E3EF009D870B /* AKManager.swift */; };
 		C40C41991C40E3EF009D870B /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C416F1C40E3EF009D870B /* AKTable.swift */; };
 		C40C419A1C40E3EF009D870B /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41701C40E3EF009D870B /* AudioKitHelpers.swift */; };
@@ -529,6 +531,8 @@
 		C40BB0861C471799004C138D /* AKCombFilterReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCombFilterReverbAudioUnit.h; sourceTree = "<group>"; };
 		C40BB0871C471799004C138D /* AKCombFilterReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCombFilterReverbAudioUnit.mm; sourceTree = "<group>"; };
 		C40BB0881C471799004C138D /* AKCombFilterReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCombFilterReverbDSPKernel.hpp; sourceTree = "<group>"; };
+		C40BB0A01C471C9A004C138D /* gen_padsynth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gen_padsynth.c; sourceTree = "<group>"; };
+		C40BB0A21C471CA5004C138D /* maytrig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = maytrig.c; sourceTree = "<group>"; };
 		C40C416E1C40E3EF009D870B /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
 		C40C416F1C40E3EF009D870B /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C40C41701C40E3EF009D870B /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitHelpers.swift; sourceTree = "<group>"; };
@@ -2257,6 +2261,7 @@
 				C4B1903F1C3B340400C0F330 /* fm.c */,
 				C4B190401C3B340400C0F330 /* gbuzz.c */,
 				C4B190411C3B340400C0F330 /* gen_line.c */,
+				C40BB0A01C471C9A004C138D /* gen_padsynth.c */,
 				C4B190421C3B340400C0F330 /* gen_sine.c */,
 				C4B190431C3B340400C0F330 /* gen_sinesum.c */,
 				C4B190441C3B340400C0F330 /* gen_vals.c */,
@@ -2265,6 +2270,7 @@
 				C4B190471C3B340400C0F330 /* jitter.c */,
 				C4B190481C3B340400C0F330 /* line.c */,
 				C4B190491C3B340400C0F330 /* maygate.c */,
+				C40BB0A21C471CA5004C138D /* maytrig.c */,
 				C4B1904A1C3B340400C0F330 /* metro.c */,
 				C4B1904B1C3B340400C0F330 /* mincer.c */,
 				C4B1904C1C3B340400C0F330 /* mode.c */,
@@ -2793,6 +2799,7 @@
 				C4B191191C3B340400C0F330 /* reverse.c in Sources */,
 				C4B190CB1C3B340400C0F330 /* tabread.c in Sources */,
 				C42FFBAE1C3CFC3000823BD4 /* AKBooster.swift in Sources */,
+				C40BB0A11C471C9A004C138D /* gen_padsynth.c in Sources */,
 				C42FFBB81C3CFC3000823BD4 /* AKPannerAudioUnit.mm in Sources */,
 				C453839D1C3A5E4300A51738 /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C48444F31C3702F8007BE794 /* square.swift in Sources */,
@@ -2901,6 +2908,7 @@
 				C42AE0021C2DF59D000CEED2 /* AKRollingOutputPlot.swift in Sources */,
 				C4B190BC1C3B340400C0F330 /* posc3.c in Sources */,
 				C48443671C3118E3007BE794 /* triggeredWithEnvelope.swift in Sources */,
+				C40BB0A31C471CA5004C138D /* maytrig.c in Sources */,
 				C4B190981C3B340400C0F330 /* dist.c in Sources */,
 				C40C42981C41CB3E009D870B /* AKDripAudioUnit.mm in Sources */,
 				C4B190B61C3B340400C0F330 /* phaser.c in Sources */,

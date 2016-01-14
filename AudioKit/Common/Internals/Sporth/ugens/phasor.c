@@ -17,18 +17,20 @@ int sporth_phasor(sporth_stack *stack, void *ud)
 
             sp_phasor_create(&phasor);
             plumber_add_ugen(pd, SPORTH_PHASOR, phasor);
+            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for phasor\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            iphs = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "phasor: Initialising\n");
 #endif
-
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for phasor\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             iphs = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
             phasor = pd->last->ud;
