@@ -13,11 +13,21 @@ class CoreInstrument: AKPolyphonicInstrument {
     
     var offset1 = 0 // semitones
     var offset2 = 0 // semitones
-    var detune  = 0.0  // Hz
     var subOscMix = 0.0
     var fmOscMix  = 0.0
     var noiseMix  = 0.0
 
+    var detune: Double = 0.0 {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.sawtoothVCO2.detuning = detune
+                coreVoice.sineVCO2.detuning     = detune
+                coreVoice.squareVCO2.detuning   = detune
+                coreVoice.triangleVCO2.detuning = detune
+            }
+        }
+    }
     var fmMod: Double = 1 {
         didSet {
             for voice in voices {
@@ -146,7 +156,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         coreVoice.squareVCO1.frequency   = vco1Frequency
         coreVoice.triangleVCO1.frequency = vco1Frequency
         
-        let vco2Frequency = (note + offset2).midiNoteToFrequency() + detune
+        let vco2Frequency = (note + offset2).midiNoteToFrequency()
         
         coreVoice.sawtoothVCO2.frequency = vco2Frequency
         coreVoice.sineVCO2.frequency     = vco2Frequency

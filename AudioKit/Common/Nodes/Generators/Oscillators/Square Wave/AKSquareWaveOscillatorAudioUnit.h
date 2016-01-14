@@ -14,6 +14,7 @@
 @interface AKSquareWaveOscillatorAudioUnit : AUAudioUnit
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
+@property (nonatomic) float detuning;
 @property (nonatomic) float pulseWidth;
 
 - (void)start;
