@@ -13,7 +13,7 @@ import AVFoundation
 public class AKNode {
     
     /// The internal AVAudioEngine AVAudioNode
-    internal var avAudioNode: AVAudioNode
+    public var avAudioNode: AVAudioNode
     
     /// An array of all connections
     internal var connectionPoints = [AVAudioConnectionPoint]()
