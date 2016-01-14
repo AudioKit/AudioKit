@@ -12,34 +12,31 @@ import AudioKit
 class CoreInstrument: AKPolyphonicInstrument {
     
     var offset1 = 0 {
-        willSet(newValue) {
-            if newValue != offset1 {
-                for i in 0..<voices.count {
-                    let coreVoice = voices[i] as! CoreVoice
-                    let note = notesPlayed[i] + offset1
-                    coreVoice.sineVCO1.ramp(frequency: note.midiNoteToFrequency())
-                    coreVoice.sawtoothVCO1.ramp(frequency: note.midiNoteToFrequency())
-                    coreVoice.squareVCO1.ramp(frequency: note.midiNoteToFrequency())
-                    coreVoice.triangleVCO1.ramp(frequency: note.midiNoteToFrequency())
-                }
+        didSet {
+            for i in 0..<voices.count {
+                let coreVoice = voices[i] as! CoreVoice
+                let note = notesPlayed[i] + offset1
+                coreVoice.sineVCO1.frequency = note.midiNoteToFrequency()
+                coreVoice.sawtoothVCO1.frequency = note.midiNoteToFrequency()
+                coreVoice.squareVCO1.frequency = note.midiNoteToFrequency()
+                coreVoice.triangleVCO1.frequency = note.midiNoteToFrequency()
             }
         }
     }
     
     var offset2 = 0 {
-        willSet(newValue) {
-            if newValue != offset2 {
-                for i in 0..<voices.count {
-                    let coreVoice = voices[i] as! CoreVoice
-                    let note = notesPlayed[i] + offset2
-                    coreVoice.sineVCO2.ramp(frequency: note.midiNoteToFrequency())
-                    coreVoice.sawtoothVCO2.ramp(frequency: note.midiNoteToFrequency())
-                    coreVoice.squareVCO2.ramp(frequency: note.midiNoteToFrequency())
-                    coreVoice.triangleVCO2.ramp(frequency: note.midiNoteToFrequency())
-                }
+        didSet {
+            for i in 0..<voices.count {
+                let coreVoice = voices[i] as! CoreVoice
+                let note = notesPlayed[i] + offset2
+                coreVoice.sineVCO2.frequency = note.midiNoteToFrequency()
+                coreVoice.sawtoothVCO2.frequency = note.midiNoteToFrequency()
+                coreVoice.squareVCO2.frequency = note.midiNoteToFrequency()
+                coreVoice.triangleVCO2.frequency = note.midiNoteToFrequency()
             }
         }
     }
+    
     
     var subOscMix = 0.0 {
         didSet {
