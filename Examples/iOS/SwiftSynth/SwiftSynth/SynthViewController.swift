@@ -134,8 +134,31 @@ class SynthViewController: UIViewController {
         // Initial Values
         statusLabel.text = String.randomGreeting()
         
-        cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, min: 150.0, max: 24000.0))
-        osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, min: -12, max: 24))
+        
+        osc1SemitonesKnob.knobValue = CGFloat(osc1SemitonesKnob.scaleForKnobValue(Double(conductor.core.offset1), min: -12, max: 12))
+        osc2SemitonesKnob.knobValue = CGFloat(osc2SemitonesKnob.scaleForKnobValue(Double(conductor.core.offset2), min: -12, max: 12))
+        osc2DetuneKnob.knobValue    = CGFloat(osc2DetuneKnob.scaleForKnobValue(Double(conductor.core.detune), min: -50, max: 50))
+        subMixKnob.knobValue        = CGFloat(subMixKnob.scaleForKnobValue(Double(conductor.core.subOscMix), min: 0, max: 5))
+        fmMixKnob.knobValue         = CGFloat(fmMixKnob.scaleForKnobValue(Double(conductor.core.fmOscMix), min: 0, max: 1))
+        fmModKnob.knobValue         = CGFloat(fmModKnob.scaleForKnobValue(Double(conductor.core.fmMod), min: 0, max: 1))
+        pwmKnob.knobValue           = CGFloat(pwmKnob.scaleForKnobValue(Double(conductor.core.pulseWidth), min: 0, max: 1))
+        noiseMixKnob.knobValue      = CGFloat(noiseMixKnob.scaleForKnobValue(Double(conductor.core.noiseMix), min: 0, max: 1))
+        oscMixKnob.knobValue        = CGFloat(oscMixKnob.scaleForKnobValue(Double(conductor.core.vco12Mix), min: 0, max: 1))
+        
+        lfoAmtKnob.knobValue        = CGFloat(lfoAmtKnob.scaleForKnobValue(Double(conductor.filterSection.lfoAmplitude), min: 0, max: 1000))
+        lfoRateKnob.knobValue       = CGFloat(lfoRateKnob.scaleForKnobValue(Double(conductor.filterSection.lfoRate), min: 0, max: 5))
+        
+        crushAmtKnob.knobValue      = CGFloat(crushAmtKnob.scaleForKnobValue(0, min: 0, max: 1))
+
+        cutoffKnob.knobValue        = CGFloat(cutoffKnob.scaleForKnobValue(conductor.filterSection.cutoffFrequency, min: 150.0, max: 24000.0))
+        rezKnob.knobValue           = CGFloat(rezKnob.scaleForKnobValue(Double(conductor.filterSection.resonance), min: 0, max: 0.99))
+
+        delayTimeKnob.knobValue     = CGFloat(delayTimeKnob.scaleForKnobValue(conductor.multiDelay.time, min: 0, max: 1))
+        delayMixKnob.knobValue      = CGFloat(delayMixKnob.scaleForKnobValue(conductor.multiDelay.mix, min: 0, max: 1))
+        
+        reverbAmtKnob.knobValue     = CGFloat(reverbAmtKnob.scaleForKnobValue(conductor.reverb.feedback, min: 0, max: 0.99))
+        reverbMixKnob.knobValue     = CGFloat(reverbMixKnob.scaleForKnobValue(conductor.reverbMixer.balance, min: 0, max: 1))
+        
         
         // Set Osc Waveform Defaults
     }
@@ -150,9 +173,9 @@ class SynthViewController: UIViewController {
     }
     
     func createWaveFormSegmentViews() {
-        setupOscSegmentView(8, y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
+        setupOscSegmentView(8,   y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
         setupOscSegmentView(212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.Vco2Waveform.rawValue, type: 0)
-        setupOscSegmentView(10, y: 377, width: 255, height: 46.0, tag: ControlTag.LfoWaveform.rawValue, type: 1)
+        setupOscSegmentView(10,  y: 377,  width: 255, height: 46.0, tag: ControlTag.LfoWaveform.rawValue,  type: 1)
     }
     
     func setupOscSegmentView(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, tag: Int, type: Int) {
@@ -228,11 +251,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Delay Off"
-            conductor.multiDelayMixer?.balance = 0
+            conductor.multiDelayMixer.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Delay On"
-            conductor.multiDelayMixer?.balance = 1
+            conductor.multiDelayMixer.balance = 1
         }
     }
     
@@ -240,11 +263,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Reverb Off"
-            conductor.reverbMixer?.balance = 0
+            conductor.reverb.bypass()
         } else {
             sender.selected = true
             statusLabel.text = "Reverb On"
-            conductor.reverbMixer?.balance = 1
+            conductor.reverb.start()
         }
     }
     
@@ -428,7 +451,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         case ControlTag.Vco2Detune.rawValue:
             statusLabel.text = "Detune: \(value.decimalFormattedString)"
-            conductor.core.detune = value * 50.0 // Magic Number
+            conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalFormattedString)"
@@ -441,7 +464,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Additional Oscillators
         case ControlTag.SubMix.rawValue:
             statusLabel.text = "Sub Osc: \(value.decimalFormattedString)"
-            conductor.core.subOscMix = value * 10
+            conductor.core.subOscMix = value
             
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
@@ -458,11 +481,11 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // LFO
         case ControlTag.LfoAmt.rawValue:
             statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoAmplitude = 1000 * value
+            conductor.filterSection.lfoAmplitude = value
             
         case ControlTag.LfoRate.rawValue:
             statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoRate = 5 * value
+            conductor.filterSection.lfoRate = value
        
         // Filter
         case ControlTag.Cutoff.rawValue:
@@ -495,11 +518,11 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
-            conductor.reverb?.feedback = value
+            conductor.reverb.feedback = value
         
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
-            conductor.reverbMixer!.balance = value
+            conductor.reverbMixer.balance = value
             
         // Master
         case ControlTag.MasterVol.rawValue:
