@@ -8,8 +8,6 @@
 
 import AudioKit
 
-
-
 /// A wrapper for AKCore to make it a playable as a polyphonic instrument.
 class CoreInstrument: AKPolyphonicInstrument {
     
@@ -19,14 +17,14 @@ class CoreInstrument: AKPolyphonicInstrument {
     var subOscMix = 0.0
     var fmOscMix = 0.0
     var noiseMix = 0.0
-    
+
     var fmMod: Double = 1 {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
                 // Matt Fecher: Do what you'd like to do with this value, I have no clue
-//                coreVoice.fmOscillator.carrierMultiplier = carrierMultiplier
-//                coreVoice.fmOscillator.modulatingMultiplier = modulatingMultiplier
+                //                coreVoice.fmOscillator.carrierMultiplier = carrierMultiplier
+                //                coreVoice.fmOscillator.modulatingMultiplier = modulatingMultiplier
                 coreVoice.fmOscillator.modulationIndex = fmMod
             }
         }
@@ -87,6 +85,13 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
+
+    var selectedVCO1Waveform = 1
+    var selectedVCO2Waveform = 1
+    
+    var vco1On = false
+    var vco2On = false
+
     
     /// Instantiate the Instrument
     ///
@@ -97,7 +102,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         
         let sourceCount = 11
         amplitude = 1.0 /  Double(sourceCount * voiceCount)
-
+        
     }
     
     /// Start a given voice playing a note.
@@ -111,14 +116,21 @@ class CoreInstrument: AKPolyphonicInstrument {
         
         let commonAmplitude = Double(velocity)/127.0
         
-        coreVoice.sawtoothVCO1.amplitude = commonAmplitude
-        coreVoice.sineVCO1.amplitude     = commonAmplitude
-        coreVoice.squareVCO1.amplitude   = commonAmplitude
-        coreVoice.triangleVCO1.amplitude = commonAmplitude
-        coreVoice.sawtoothVCO2.amplitude = commonAmplitude
-        coreVoice.sineVCO2.amplitude     = commonAmplitude
-        coreVoice.squareVCO2.amplitude   = commonAmplitude
-        coreVoice.triangleVCO2.amplitude = commonAmplitude
+        var vco1Amplitudes = [0.0,0,0,0]
+        if vco1On { vco1Amplitudes[selectedVCO1Waveform] = 1.0 }
+        
+        coreVoice.sawtoothVCO1.amplitude = commonAmplitude * vco1Amplitudes[0]
+        coreVoice.squareVCO1.amplitude   = commonAmplitude * vco1Amplitudes[1]
+        coreVoice.sineVCO1.amplitude     = commonAmplitude * vco1Amplitudes[2]
+        coreVoice.triangleVCO1.amplitude = commonAmplitude * vco1Amplitudes[3]
+        
+        var vco2Amplitudes = [0.0,0,0,0]
+        if vco2On { vco2Amplitudes[selectedVCO2Waveform] = 1.0 }
+
+        coreVoice.sawtoothVCO2.amplitude = commonAmplitude * vco2Amplitudes[0]
+        coreVoice.squareVCO2.amplitude   = commonAmplitude * vco2Amplitudes[1]
+        coreVoice.sineVCO2.amplitude     = commonAmplitude * vco2Amplitudes[2]
+        coreVoice.triangleVCO2.amplitude = commonAmplitude * vco2Amplitudes[3]
         
         coreVoice.subOsc.amplitude       = commonAmplitude * subOscMix
         coreVoice.fmOscillator.amplitude = commonAmplitude * fmOscMix
@@ -132,7 +144,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         coreVoice.triangleVCO1.frequency = vco1Frequency
         
         let vco2Frequency = (note + offset2).midiNoteToFrequency() + detune
-    
+        
         coreVoice.sawtoothVCO2.frequency = vco2Frequency
         coreVoice.sineVCO2.frequency     = vco2Frequency
         coreVoice.squareVCO2.frequency   = vco2Frequency
