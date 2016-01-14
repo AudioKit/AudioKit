@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+/// A wrapper for AKSquareOscillator to make it a playable as a polyphonic instrument.
 public class AKSquareInstrument: AKPolyphonicInstrument {
     
     /// Duty cycle width (range 0-1).

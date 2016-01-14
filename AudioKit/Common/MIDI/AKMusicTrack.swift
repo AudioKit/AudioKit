@@ -16,6 +16,7 @@ public class AKMusicTrack {
     /// Pointer to the Music Track
     public var trackPtr: UnsafeMutablePointer<MusicTrack>
     
+    /// Total duration of the music track
     public var length: MusicTimeStamp {
         var size: UInt32 = 0
         var len = MusicTimeStamp(0)
@@ -137,6 +138,7 @@ public class AKMusicTrack {
         MusicTrackNewMIDINoteEvent(internalMusicTrack, MusicTimeStamp(position), &noteMessage)
     }
     
+    /// Debug by showing the track pointer.
     public func debug() {
         CAShow(trackPtr)
     }

@@ -12,7 +12,7 @@ import AVFoundation
 /// Audio from the standard input
 public class AKMicrophone: AKNode, AKToggleable {
     
-internal let mixer = AVAudioMixerNode()
+    internal let mixer = AVAudioMixerNode()
     
     /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
@@ -26,6 +26,7 @@ internal let mixer = AVAudioMixerNode()
     
     private var lastKnownVolume: Double = 1.0
     
+    /// Determine if the microphone is currently on.
     public var isStarted: Bool {
         return volume != 0.0
     }
