@@ -13,6 +13,7 @@ import AVFoundation
 ///
 /// - parameter frequency: Frequency in cycles per second
 /// - parameter amplitude: Output Amplitude.
+/// - parameter detuning: Frequency offset in Hz, Default: 0
 ///
 public class AKOscillator: AKVoice {
 
@@ -26,6 +27,7 @@ public class AKOscillator: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
+    private var detuningParameter:  AUParameter?
 
     /// Frequency in cycles per second
     public var frequency: Double = 440 {
@@ -40,6 +42,15 @@ public class AKOscillator: AKVoice {
     ///
     public func ramp(frequency frequency: Double) {
         frequencyParameter?.setValue(Float(frequency), originator: token!)
+    }
+    
+    /// Detuning frequency in Hz, Default: 0
+    public var detuning: Double = 0 {
+        willSet(newValue) {
+            if detuning != newValue {
+                detuningParameter?.setValue(Float(newValue), originator: token!)
+            }
+        }
     }
 
     /// Output Amplitude.
@@ -68,16 +79,19 @@ public class AKOscillator: AKVoice {
     ///
     /// - parameter frequency: Frequency in cycles per second
     /// - parameter amplitude: Output Amplitude.
+    /// - parameter detuning: Frequency offset in Hz, Default: 0
     ///
     public init(
         waveform: AKTable = AKTable(.Sine),
         frequency: Double = 440,
-        amplitude: Double = 1) {
+        amplitude: Double = 1,
+        detuning: Double = 0) {
 
 
         self.waveform = waveform
         self.frequency = frequency
         self.amplitude = amplitude
+        self.detuning = detuning
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -112,6 +126,7 @@ public class AKOscillator: AKVoice {
 
         frequencyParameter = tree.valueForKey("frequency") as? AUParameter
         amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        detuningParameter  = tree.valueForKey("detuning")  as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -121,16 +136,19 @@ public class AKOscillator: AKVoice {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
+                } else if address == self.detuningParameter!.address {
+                    self.detuning = Double(value)
                 }
             }
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
+        internalAU?.detuning  = Float(detuning)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public override func copy() -> AKVoice {
-        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude)
+        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude, detuning:  self.detuning)
         return copy
     }
 
