@@ -11,12 +11,12 @@ import AudioKit
 /// A wrapper for AKCore to make it a playable as a polyphonic instrument.
 class CoreInstrument: AKPolyphonicInstrument {
     
-    var offset1 = 0 // semitones, from a the knob
-    var offset2 = 7 // semitones, presumably we'll get from a knob
-    var detune = -50.0 // Hz, again, presumably from a knob
+    var offset1 = 0 // semitones
+    var offset2 = 0 // semitones
+    var detune  = 0.0  // Hz
     var subOscMix = 0.0
-    var fmOscMix = 0.0
-    var noiseMix = 0.0
+    var fmOscMix  = 0.0
+    var noiseMix  = 0.0
 
     var fmMod: Double = 1 {
         didSet {
@@ -52,6 +52,7 @@ class CoreInstrument: AKPolyphonicInstrument {
     /// Attack time
     var attackDuration: Double = 0.1 {
         didSet {
+            if attackDuration < 0.02 { attackDuration = 0.02 }
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
                 coreVoice.adsr.attackDuration = attackDuration
@@ -61,6 +62,7 @@ class CoreInstrument: AKPolyphonicInstrument {
     /// Decay time
     var decayDuration: Double = 0.1 {
         didSet {
+            if decayDuration < 0.02 { decayDuration = 0.02 }
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
                 coreVoice.adsr.decayDuration = decayDuration
@@ -79,6 +81,7 @@ class CoreInstrument: AKPolyphonicInstrument {
     /// Release time
     var releaseDuration: Double = 0.5 {
         didSet {
+            if releaseDuration < 0.02 { releaseDuration = 0.02 }
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
                 coreVoice.adsr.releaseDuration = releaseDuration
