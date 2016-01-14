@@ -16,7 +16,6 @@ custom_categories:
 
   - name: Instruments
     children:
-    - AKInstrument
     - AKPolyphonicInstrument
     - AKVoice
     - AKFMOscillatorInstrument
@@ -78,7 +77,7 @@ custom_categories:
     - AKBandPassButterworthFilter
     - AKBandPassFilter
     - AKBandRejectButterworthFilter
-    - AKCombFilter
+    - AKCombFilterReverb
     - AKDCBlock
     - AKEqualizerFilter
     - AKFormantFilter
@@ -167,7 +166,7 @@ custom_categories:
     - log10(_:)
     - max(_:_:)
     - min(_:_:)
-    - mixer(_:_:t:)
+    - mixer(_:_:balance:)
     - round(_:)
 
   - name: Random Number Generators

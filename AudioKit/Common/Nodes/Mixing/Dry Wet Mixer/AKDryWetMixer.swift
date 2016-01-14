@@ -9,6 +9,12 @@
 import Foundation
 import AVFoundation
 
+/// Balanceable Mix between two signals, usually used for a dry signal and wet signal
+///
+/// - parameter dry: Dry Input (or just input 1)
+/// - parameter wet: Wet Input (or just input 2)
+/// - parameter balance: Balance Point (0 = all dry, 1 = all wet)
+///
 public class AKDryWetMixer: AKNode {
     private let mixer = AKMixer()
     

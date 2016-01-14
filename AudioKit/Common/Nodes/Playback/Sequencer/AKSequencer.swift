@@ -49,6 +49,7 @@ public class AKSequencer {
     /// Loop control
     public var loopEnabled: Bool = false
     
+    /// Are we using the AVAudioEngineSequencer?
     public var isAvSeq: Bool = false
     
     /// Sequencer Initialization
@@ -75,6 +76,7 @@ public class AKSequencer {
     /// - parameter filename: Location of the MIDI File
     /// - parameter engine: reference to the AV Audio Engine
     /// - on hold while technology is still unstable
+    ///
     public convenience init(filename: String, engine: AVAudioEngine) {
         self.init()
         isAvSeq = true
@@ -163,7 +165,7 @@ public class AKSequencer {
         return Double(length)
     }
     
-    // BPM
+    /// Set the rate, presumably as BPM?
     public func setRate(rate: Float) {
         if isAvSeq {
             avSeq.rate = rate
@@ -172,23 +174,24 @@ public class AKSequencer {
         }
     }
     
+    /// Set the tempo of the sequencer
     public func setBPM(bpm: Float) {
         if isAvSeq {
             //not applicable
         } else {
             var newTempo = bpm;
-            if newTempo > 280 { newTempo = 180;} //bpm limits
-            if newTempo < 10  { newTempo = 60; }
+            if newTempo > 280 { newTempo = 180 } //bpm limits
+            if newTempo < 10  { newTempo = 60  }
             
             var tempoTrack = MusicTrack()
-            var currTime: MusicTimeStamp = 0;
-            MusicPlayerGetTime(musicPlayer, &currTime);
-            currTime = fmod(currTime, length);
+            var currTime: MusicTimeStamp = 0
+            MusicPlayerGetTime(musicPlayer, &currTime)
+            currTime = fmod(currTime, length)
             
-            MusicSequenceGetTempoTrack(sequence, &tempoTrack);
-            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo));
-            MusicTrackClear(tempoTrack, 0, length);
-            MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo));
+            MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo))
+            MusicTrackClear(tempoTrack, 0, length)
+            MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo))
         }
     }
     
@@ -268,7 +271,7 @@ public class AKSequencer {
     func initTracks() {
         tracks.removeAll()
         
-        var count:UInt32 = 0
+        var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
         //print("\(count) - \(numberOfTracks)") //why is this different? the computed variable runs the same code
         for( var i = 0; i < Int(count); ++i) {
@@ -278,7 +281,8 @@ public class AKSequencer {
         }
     }
     
-    public func newTrack(){
+    /// Get a new track
+    public func newTrack() {
         var newMusTrack = MusicTrack()
         MusicSequenceNewTrack(sequence, &newMusTrack)
         var count: UInt32 = 0
@@ -287,6 +291,7 @@ public class AKSequencer {
         initTracks()
     }
     
+    /// Show the sequence pointer
     public func debug() {
         if isAvSeq {
             //do nothing

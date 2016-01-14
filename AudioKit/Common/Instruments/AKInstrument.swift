@@ -11,8 +11,8 @@ import AVFoundation
 
 /// Protocol for all AudioKit Nodes
 public class AKVoice: AKNode, AKToggleable {
-    // Combines these protocols to allow for things like the midi instrument to work
     
+    /// Required for the AKToggleable protocol
     public var isStarted: Bool {
         return false
         // override in subclass
@@ -28,6 +28,7 @@ public class AKVoice: AKNode, AKToggleable {
         // override in subclass
     }
     
+    /// Return a duplication of this voice
     public func copy() -> AKVoice {
         return AKVoice()
         // override in subclass

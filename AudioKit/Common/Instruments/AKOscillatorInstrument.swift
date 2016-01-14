@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+/// A wrapper for AKOscillator to make it a playable as a polyphonic instrument.
 public class AKOscillatorInstrument: AKPolyphonicInstrument {
     /// Attack time
     public var attackDuration: Double = 0.1 {

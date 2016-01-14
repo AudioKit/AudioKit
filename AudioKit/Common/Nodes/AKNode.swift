@@ -9,14 +9,21 @@
 import Foundation
 import AVFoundation
 
+/// Parent class for all nodes in AudioKit
 public class AKNode {
-    public var avAudioNode: AVAudioNode
-    public var connectionPoints = [AVAudioConnectionPoint]()
+    
+    /// The internal AVAudioEngine AVAudioNode
+    internal var avAudioNode: AVAudioNode
+    
+    /// An array of all connections
+    internal var connectionPoints = [AVAudioConnectionPoint]()
 
+    /// Create the node
     public init() {
         self.avAudioNode = AVAudioNode()
     }
     
+    /// Connect this node to another
     public func addConnectionPoint(node: AKNode) {
         connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
         AKManager.sharedInstance.engine.connect(avAudioNode,
@@ -26,6 +33,7 @@ public class AKNode {
     }
 }
 
+/// Protocol for dictating that a node can be in a started or stopped state
 public protocol AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     var isStarted: Bool { get }
@@ -37,6 +45,7 @@ public protocol AKToggleable {
     func stop()
 }
 
+/// Default functions for nodes that conform to AKToggleable
 public extension AKToggleable {
     
     /// Synonym for isStarted that may make more sense with musical instruments

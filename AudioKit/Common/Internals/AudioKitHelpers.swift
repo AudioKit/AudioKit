@@ -47,12 +47,15 @@ public func random(minimum: Double, _ maximum: Double) -> Double {
 
 // MARK: - Normalization Helpers
 
+/// Extension to calculate scaling factors, useful for UI controls
 extension Double {
+    
     /// Convert a value on [min, max] to a [0, 1] range, according to a taper
     ///
     /// - parameter min: Minimum of the source range (cannot be zero if taper is not positive)
     /// - parameter max: Maximum of the source range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
     public mutating func normalize(min: Double, max: Double, taper: Double) {
         if taper > 0 {
             // algebraic taper
@@ -68,6 +71,7 @@ extension Double {
     /// - parameter min: Minimum of the target range (cannot be zero if taper is not positive)
     /// - parameter max: Maximum of the target range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
     public mutating func denormalize(min: Double, max: Double, taper: Double) {
         if taper > 0 {
             // algebraic taper

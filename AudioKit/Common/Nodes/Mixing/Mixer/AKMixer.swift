@@ -25,6 +25,7 @@ public class AKMixer: AKNode, AKToggleable {
     
     private var lastKnownVolume: Double = 1.0
     
+    /// Determine if the mixer is serving any output or if it is stopped.
     public var isStarted: Bool {
         return volume != 0.0
     }

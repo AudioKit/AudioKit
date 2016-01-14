@@ -13,7 +13,10 @@ import Foundation
 /// Since parameters can be audio in mono or stereo format, the protocol 
 /// requires that an AKParameter defines method to switch between stereo and mono
 public protocol AKParameter: CustomStringConvertible {
+    /// Require a function to produce a mono operation regarless of the mono/stereo nature of the parameter
     func toMono() -> AKOperation
+    
+    /// Require a function to produce a stereo operation regardless of the mono/stereo nature of the parameter
     func toStereo() -> AKStereoOperation
 }
 
