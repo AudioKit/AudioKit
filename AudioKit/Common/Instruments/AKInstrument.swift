@@ -42,7 +42,7 @@ public class AKPolyphonicInstrument: AKNode {
     /// Array of available voices
     public var voices: [AKVoice] = []
     
-    var notesPlayed: [Int] = []
+    public var notesPlayed: [Int] = []
     
     var voicePlaying = 0
     var voiceCount = 1
