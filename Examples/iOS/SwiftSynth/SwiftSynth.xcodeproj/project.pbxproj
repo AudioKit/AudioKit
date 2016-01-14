@@ -54,6 +54,13 @@
 			remoteGlobalIDString = C43792781C0CE2E0001E9160;
 			remoteInfo = AudioKitTests;
 		};
+		EAF006501C479CC800ECD392 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F34FF1C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -268,6 +275,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EAF006511C479CC800ECD392 /* PBXTargetDependency */,
 			);
 			name = SwiftSynth;
 			productName = SwiftSynth;
@@ -382,6 +390,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EAF006511C479CC800ECD392 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AudioKit;
+			targetProxy = EAF006501C479CC800ECD392 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */ = {
