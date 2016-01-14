@@ -432,7 +432,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalFormattedString)"
-            conductor.sine1.output.volume = value
+            conductor.sine1.volume = value
             
         case ControlTag.Pwm.rawValue:
             statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
@@ -445,7 +445,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
-            conductor.fm.output.volume = value
+            conductor.fm.volume = value
             
         case ControlTag.FmMod.rawValue:
             statusLabel.text = "FM Mod: \(value.decimalFormattedString)"
@@ -453,7 +453,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         
         case ControlTag.NoiseMix.rawValue:
             statusLabel.text = "Noise Amt: \(value.decimalFormattedString)"
-            conductor.noise.output.volume = value
+            conductor.noise.volume = value
             
         // LFO
         case ControlTag.LfoAmt.rawValue:

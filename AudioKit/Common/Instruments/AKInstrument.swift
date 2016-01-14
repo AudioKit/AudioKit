@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-/// Protocol for all AudioKit Nodes
+/// Parent class for nodes that can be included in a polyphonic instrument
 public class AKVoice: AKNode, AKToggleable {
     
     /// Required for the AKToggleable protocol
@@ -46,9 +46,21 @@ public class AKPolyphonicInstrument: AKNode {
     
     var voicePlaying = 0
     var voiceCount = 1
+    private let output = AKMixer()
     
-    /// Ouput mixer
-    public let output = AKMixer()
+    /// Output level
+    public var volume: Double = 1.0 {
+        didSet {
+            output.volume = volume
+        }
+    }
+
+    /// Alias for volume
+    public var amplitude: Double = 1.0 {
+        didSet {
+            output.volume = volume
+        }
+    }
     
     /// Initialize the polyphonic instrument with a voice and a count
     ///
