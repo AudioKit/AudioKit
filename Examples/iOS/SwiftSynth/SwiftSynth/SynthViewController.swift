@@ -585,6 +585,7 @@ extension SynthViewController: SMSegmentViewDelegate {
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
+            conductor.filterSection.selectedWaveform = index
             
         default:
             break
