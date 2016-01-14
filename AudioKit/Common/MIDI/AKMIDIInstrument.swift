@@ -2,7 +2,7 @@
 //  AKMIDIInstrument.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 1/1/16.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

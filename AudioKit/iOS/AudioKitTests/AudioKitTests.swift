@@ -2,7 +2,7 @@
 //  AudioKitTests.swift
 //  AudioKitTests
 //
-//  Created by Aurelius Prochazka on 11/30/15.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

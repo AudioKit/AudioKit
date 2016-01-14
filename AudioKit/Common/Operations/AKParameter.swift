@@ -2,7 +2,7 @@
 //  AKParameter.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/26/15.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

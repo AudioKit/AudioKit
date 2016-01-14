@@ -2,7 +2,7 @@
 //  AKGetAUParams.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 11/2/15.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
