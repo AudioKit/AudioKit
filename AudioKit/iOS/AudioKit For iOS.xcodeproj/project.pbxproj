@@ -19,6 +19,8 @@
 		C40BB0811C4716E0004C138D /* AKCombFilterReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40BB07D1C4716E0004C138D /* AKCombFilterReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40BB0821C4716E0004C138D /* AKCombFilterReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40BB07E1C4716E0004C138D /* AKCombFilterReverbAudioUnit.mm */; };
 		C40BB0831C4716E0004C138D /* AKCombFilterReverbDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40BB07F1C4716E0004C138D /* AKCombFilterReverbDSPKernel.hpp */; };
+		C40BB0971C471AA9004C138D /* maytrig.c in Sources */ = {isa = PBXBuildFile; fileRef = C40BB0961C471AA9004C138D /* maytrig.c */; };
+		C40BB09B1C471AB6004C138D /* gen_padsynth.c in Sources */ = {isa = PBXBuildFile; fileRef = C40BB0991C471AB6004C138D /* gen_padsynth.c */; };
 		C40C410F1C40DF67009D870B /* AKFMOscillatorInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41071C40DF67009D870B /* AKFMOscillatorInstrument.swift */; };
 		C40C41111C40DF67009D870B /* AKNoiseInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41091C40DF67009D870B /* AKNoiseInstrument.swift */; };
 		C40C41121C40DF67009D870B /* AKOscillatorInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C410A1C40DF67009D870B /* AKOscillatorInstrument.swift */; };
@@ -528,6 +530,8 @@
 		C40BB07D1C4716E0004C138D /* AKCombFilterReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCombFilterReverbAudioUnit.h; sourceTree = "<group>"; };
 		C40BB07E1C4716E0004C138D /* AKCombFilterReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCombFilterReverbAudioUnit.mm; sourceTree = "<group>"; };
 		C40BB07F1C4716E0004C138D /* AKCombFilterReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCombFilterReverbDSPKernel.hpp; sourceTree = "<group>"; };
+		C40BB0961C471AA9004C138D /* maytrig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = maytrig.c; sourceTree = "<group>"; };
+		C40BB0991C471AB6004C138D /* gen_padsynth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gen_padsynth.c; sourceTree = "<group>"; };
 		C40C41071C40DF67009D870B /* AKFMOscillatorInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorInstrument.swift; sourceTree = "<group>"; };
 		C40C41091C40DF67009D870B /* AKNoiseInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNoiseInstrument.swift; sourceTree = "<group>"; };
 		C40C410A1C40DF67009D870B /* AKOscillatorInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOscillatorInstrument.swift; sourceTree = "<group>"; };
@@ -2140,6 +2144,7 @@
 				C46300A71C20C342009B44D9 /* fm.c */,
 				C46300A81C20C342009B44D9 /* gbuzz.c */,
 				C46300A91C20C342009B44D9 /* gen_line.c */,
+				C40BB0991C471AB6004C138D /* gen_padsynth.c */,
 				C46300AA1C20C342009B44D9 /* gen_sine.c */,
 				C46300AB1C20C342009B44D9 /* gen_sinesum.c */,
 				C46300AC1C20C342009B44D9 /* gen_vals.c */,
@@ -2148,6 +2153,7 @@
 				C46300AF1C20C342009B44D9 /* jitter.c */,
 				C46300B01C20C342009B44D9 /* line.c */,
 				C46300B11C20C342009B44D9 /* maygate.c */,
+				C40BB0961C471AA9004C138D /* maytrig.c */,
 				C46300B21C20C342009B44D9 /* metro.c */,
 				C46300B31C20C342009B44D9 /* mincer.c */,
 				C46300B41C20C342009B44D9 /* mode.c */,
@@ -2814,6 +2820,7 @@
 				C4E958ED1C0ADBFD00516A6A /* vdelay.c in Sources */,
 				C46301081C20C342009B44D9 /* tabread.c in Sources */,
 				C4E958D61C0ADBFD00516A6A /* reverse.c in Sources */,
+				C40BB0971C471AA9004C138D /* maytrig.c in Sources */,
 				C4537FE81C3A438D00A51738 /* AKRolandTB303FilterAudioUnit.mm in Sources */,
 				C46300E91C20C342009B44D9 /* gen_sinesum.c in Sources */,
 				C4E958BE1C0ADBFD00516A6A /* maygate.c in Sources */,
@@ -3075,6 +3082,7 @@
 				C4537F3B1C39FCF700A51738 /* AKDynamicsProcessor.swift in Sources */,
 				C4E751A31C2344E000688A1B /* autoWah.swift in Sources */,
 				C46302881C20E7A7009B44D9 /* lowPassFilter.swift in Sources */,
+				C40BB09B1C471AB6004C138D /* gen_padsynth.c in Sources */,
 				C453808D1C3A5C0C00A51738 /* AKPinkNoise.swift in Sources */,
 				C46301001C20C342009B44D9 /* revsc.c in Sources */,
 				C4E958D71C0ADBFD00516A6A /* revsc.c in Sources */,

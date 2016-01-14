@@ -18,13 +18,6 @@ int sporth_streson(sporth_stack *stack, void *ud)
 
             sp_streson_create(&streson);
             plumber_add_ugen(pd, SPORTH_STRESON, streson);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "streson: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for streson\n");
                 stack->error++;
@@ -33,16 +26,22 @@ int sporth_streson(sporth_stack *stack, void *ud)
             fdbgain = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "streson: Initialising\n");
+#endif
+
+            fdbgain = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             streson = pd->last->ud;
             sp_streson_init(pd->sp, streson);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for streson\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             fdbgain = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);

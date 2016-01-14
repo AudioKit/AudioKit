@@ -29,9 +29,10 @@ DRIVER_RAW
 };
 
 typedef struct plumber_ftbl {
-    sp_ftbl *ft;
+    void *ud;
     char *name;
     char to_delete;
+    char type;
     struct plumber_ftbl *next;
 } plumber_ftbl;
 
@@ -100,8 +101,11 @@ int plumber_parse(plumber_data *plumb);
 int plumber_parse_string(plumber_data *plumb, char *str);
 
 int plumber_recompile(plumber_data *plumb);
+int plumber_recompile_string(plumber_data *plumb, char *str);
 int plumber_reinit(plumber_data *plumb);
 int plumber_reparse(plumber_data *plumb);
+int plumber_reparse_string(plumber_data *plumb, char *str);
+int plumber_recompile_string(plumber_data *plumb, char *str);
 int plumber_swap(plumber_data *plumb, int error);
 
 int plumber_gettype(plumber_data *plumb, char *str, int mode);
@@ -124,3 +128,4 @@ int plumbing_destroy(plumbing *pipes);
 int plumbing_add_pipe(plumbing *pipes, plumber_pipe *pipe);
 int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode);
 int plumbing_parse(plumber_data *plumb, plumbing *pipes);
+int plumbing_parse_string(plumber_data *plumb, plumbing *pipes, char *str);

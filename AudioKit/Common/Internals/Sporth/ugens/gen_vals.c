@@ -14,17 +14,17 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
             plumber_add_ugen(pd, SPORTH_GEN_VALS, NULL);
-            break;
 
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "ss") != SPORTH_OK) {
                fprintf(stderr,"Init: not enough arguments for gen_vals\n");
                 return PLUMBER_NOTOK;
             }
+
             args = sporth_stack_pop_string(stack);
             str = sporth_stack_pop_string(stack);
+
 #ifdef DEBUG_MODE
-            fprintf(stderr,"Creating value table %s\n", str);
+            fprintf(stderr,"Creating value table %s\n", str + 1);
 #endif
             sp_ftbl_create(pd->sp, &ft, 1);
 
@@ -33,7 +33,19 @@ int sporth_gen_vals(sporth_stack *stack, void *ud)
 #endif
             sp_gen_vals(pd->sp, ft, args);
 
+#ifdef DEBUG_MODE
+            fprintf(stderr,"Adding ftable\n");
+#endif
+
             plumber_ftmap_add(pd, str, ft);
+
+            free(args);
+            free(str);
+            break;
+
+        case PLUMBER_INIT:
+            args = sporth_stack_pop_string(stack);
+            str = sporth_stack_pop_string(stack);
             free(str);
             free(args);
             break;

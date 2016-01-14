@@ -29,5 +29,5 @@ int sporth_in(sporth_stack *stack, void *ud)
            printf("Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

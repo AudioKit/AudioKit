@@ -4,15 +4,15 @@
 int sporth_tick(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;
-    SPFLOAT out;
-    char *tick;
+    SPFLOAT out = 0;
+    int *tick;
     switch(pd->mode) {
         case PLUMBER_CREATE:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "tick: Creating\n");
 #endif
-            tick = malloc(sizeof(char));    
+            tick = malloc(sizeof(int));    
             plumber_add_ugen(pd, SPORTH_TICK, tick);
             break;
         case PLUMBER_INIT:
@@ -26,7 +26,7 @@ int sporth_tick(sporth_stack *stack, void *ud)
             break;
         case PLUMBER_COMPUTE:
             tick = pd->last->ud;
-            if(*tick) {
+            if(*tick == 1) {
                 *tick = 0;
                 out = 1.0;
             } else {

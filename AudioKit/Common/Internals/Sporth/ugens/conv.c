@@ -21,6 +21,16 @@ int sporth_conv(sporth_stack *stack, void *ud)
 
             sp_conv_create(&conv);
             plumber_add_ugen(pd, SPORTH_CONV, conv);
+            if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for conv\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            ftname = sporth_stack_pop_string(stack);
+            iPartLen = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            free(ftname);
             break;
         case PLUMBER_INIT:
 
@@ -28,11 +38,6 @@ int sporth_conv(sporth_stack *stack, void *ud)
             fprintf(stderr, "conv: Initialising\n");
 #endif
 
-            if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for conv\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             ftname = sporth_stack_pop_string(stack);
             iPartLen = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);

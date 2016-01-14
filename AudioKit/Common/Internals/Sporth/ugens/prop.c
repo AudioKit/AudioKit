@@ -15,14 +15,11 @@ int sporth_prop(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             sp_prop_create(&data);
             plumber_add_ugen(pd, SPORTH_PROP, data);
-            break;
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "fs") != SPORTH_OK) {
                 fprintf(stderr, "Not enough arguments for prop\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            data = pd->last->ud;
             str = sporth_stack_pop_string(stack);
             bpm = sporth_stack_pop_float(stack);
             if(sp_prop_init(pd->sp, data, str) == SP_NOT_OK) {
@@ -30,6 +27,13 @@ int sporth_prop(sporth_stack *stack, void *ud)
                 free(str);
                 return PLUMBER_NOTOK;
             }
+            sporth_stack_push_float(stack, 0);
+            free(str);
+            break;
+        case PLUMBER_INIT:
+            data = pd->last->ud;
+            str = sporth_stack_pop_string(stack);
+            bpm = sporth_stack_pop_float(stack);
             sporth_stack_push_float(stack, 0);
             free(str);
             break;
@@ -53,5 +57,5 @@ int sporth_prop(sporth_stack *stack, void *ud)
            printf("Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

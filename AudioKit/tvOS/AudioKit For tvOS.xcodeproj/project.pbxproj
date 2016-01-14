@@ -11,6 +11,8 @@
 		C40BB0931C4717C2004C138D /* AKCombFilterReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40BB08F1C4717C2004C138D /* AKCombFilterReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40BB0941C4717C2004C138D /* AKCombFilterReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40BB0901C4717C2004C138D /* AKCombFilterReverbAudioUnit.mm */; };
 		C40BB0951C4717C2004C138D /* AKCombFilterReverbDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40BB0911C4717C2004C138D /* AKCombFilterReverbDSPKernel.hpp */; };
+		C40BB09D1C471C6F004C138D /* gen_padsynth.c in Sources */ = {isa = PBXBuildFile; fileRef = C40BB09C1C471C6F004C138D /* gen_padsynth.c */; };
+		C40BB09F1C471C7B004C138D /* maytrig.c in Sources */ = {isa = PBXBuildFile; fileRef = C40BB09E1C471C7B004C138D /* maytrig.c */; };
 		C40C42101C40E5C2009D870B /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41E11C40E5C2009D870B /* AKManager.swift */; };
 		C40C42111C40E5C2009D870B /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41E21C40E5C2009D870B /* AKTable.swift */; };
 		C40C42121C40E5C2009D870B /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41E31C40E5C2009D870B /* AudioKitHelpers.swift */; };
@@ -498,6 +500,8 @@
 		C40BB08F1C4717C2004C138D /* AKCombFilterReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCombFilterReverbAudioUnit.h; sourceTree = "<group>"; };
 		C40BB0901C4717C2004C138D /* AKCombFilterReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCombFilterReverbAudioUnit.mm; sourceTree = "<group>"; };
 		C40BB0911C4717C2004C138D /* AKCombFilterReverbDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKCombFilterReverbDSPKernel.hpp; sourceTree = "<group>"; };
+		C40BB09C1C471C6F004C138D /* gen_padsynth.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gen_padsynth.c; sourceTree = "<group>"; };
+		C40BB09E1C471C7B004C138D /* maytrig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = maytrig.c; sourceTree = "<group>"; };
 		C40C41E11C40E5C2009D870B /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
 		C40C41E21C40E5C2009D870B /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C40C41E31C40E5C2009D870B /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitHelpers.swift; sourceTree = "<group>"; };
@@ -2073,6 +2077,7 @@
 				C4B191C31C3B342800C0F330 /* fm.c */,
 				C4B191C41C3B342800C0F330 /* gbuzz.c */,
 				C4B191C51C3B342800C0F330 /* gen_line.c */,
+				C40BB09C1C471C6F004C138D /* gen_padsynth.c */,
 				C4B191C61C3B342800C0F330 /* gen_sine.c */,
 				C4B191C71C3B342800C0F330 /* gen_sinesum.c */,
 				C4B191C81C3B342800C0F330 /* gen_vals.c */,
@@ -2081,6 +2086,7 @@
 				C4B191CB1C3B342800C0F330 /* jitter.c */,
 				C4B191CC1C3B342800C0F330 /* line.c */,
 				C4B191CD1C3B342800C0F330 /* maygate.c */,
+				C40BB09E1C471C7B004C138D /* maytrig.c */,
 				C4B191CE1C3B342800C0F330 /* metro.c */,
 				C4B191CF1C3B342800C0F330 /* mincer.c */,
 				C4B191D01C3B342800C0F330 /* mode.c */,
@@ -2651,6 +2657,7 @@
 				C4E752511C23888700688A1B /* max.swift in Sources */,
 				C4B1927C1C3B342800C0F330 /* dist.c in Sources */,
 				C42AE0081C2DF681000CEED2 /* AKRollingOutputPlot.swift in Sources */,
+				C40BB09D1C471C6F004C138D /* gen_padsynth.c in Sources */,
 				C4B192581C3B342800C0F330 /* tone.c in Sources */,
 				C40C42351C40E5C2009D870B /* EZRecorder.m in Sources */,
 				C4B192A81C3B342800C0F330 /* tblrec.c in Sources */,
@@ -2805,6 +2812,7 @@
 				C40C42831C41BF00009D870B /* AKPluckedString.swift in Sources */,
 				C4B192361C3B342800C0F330 /* padsynth.c in Sources */,
 				C4E752411C23888700688A1B /* modalResonanceFilter.swift in Sources */,
+				C40BB09F1C471C7B004C138D /* maytrig.c in Sources */,
 				C4B192811C3B342800C0F330 /* gbuzz.c in Sources */,
 				C45382131C3A5CBD00A51738 /* AKFMOscillator.swift in Sources */,
 				C4B192351C3B342800C0F330 /* osc.c in Sources */,
