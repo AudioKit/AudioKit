@@ -40,7 +40,7 @@ public struct AKTable {
     /// Type of table
     var type: AKTableType
     
-    // MARK: - Initializers with Generators
+    // MARK: - Initialization
     
     /// Initialize and set up the default table 
     ///
