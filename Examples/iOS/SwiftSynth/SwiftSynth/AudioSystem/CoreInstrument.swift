@@ -14,7 +14,6 @@ class CoreInstrument: AKPolyphonicInstrument {
     var offset1 = 0 {
         didSet {
             for i in 0..<voices.count {
-                print(i)
                 let coreVoice = voices[i] as! CoreVoice
                 let note = notesPlayed[i] + offset1
                 coreVoice.sineVCO1.ramp(frequency: note.midiNoteToFrequency())
