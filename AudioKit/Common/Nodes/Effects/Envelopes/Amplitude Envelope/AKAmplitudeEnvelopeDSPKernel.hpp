@@ -67,7 +67,6 @@ public:
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
-        NSLog(@"here");
         return;
         switch (address) {
             case attackDurationAddress:

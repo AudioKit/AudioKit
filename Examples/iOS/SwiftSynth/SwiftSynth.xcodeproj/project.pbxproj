@@ -29,6 +29,8 @@
 		C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */; };
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
 		C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */; };
+		C4B5B8171C4769AF00CE0168 /* CoreInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B5B8161C4769AF00CE0168 /* CoreInstrument.swift */; };
+		C4B5B8191C476A2100CE0168 /* CoreVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B5B8181C476A2100CE0168 /* CoreVoice.swift */; };
 		C4E8ED001C4354700041965F /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4E8ECFD1C43545F0041965F /* AudioKit.framework */; };
 		C4E8ED021C43570C0041965F /* AudioKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = C4E8ECFD1C43545F0041965F /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED211C43AA8E0041965F /* Conductor.swift */; };
@@ -102,6 +104,8 @@
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42FFC051C3DDAAC00823BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4B5B8161C4769AF00CE0168 /* CoreInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreInstrument.swift; path = AudioSystem/CoreInstrument.swift; sourceTree = "<group>"; };
+		C4B5B8181C476A2100CE0168 /* CoreVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreVoice.swift; path = AudioSystem/CoreVoice.swift; sourceTree = "<group>"; };
 		C4E8ECF71C43545F0041965F /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		C4E8ED211C43AA8E0041965F /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conductor.swift; path = AudioSystem/Conductor.swift; sourceTree = "<group>"; };
 		C4E8ED281C43ADA10041965F /* FilterSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterSection.swift; path = AudioSystem/FilterSection.swift; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				C4E8ED211C43AA8E0041965F /* Conductor.swift */,
+				C4B5B8161C4769AF00CE0168 /* CoreInstrument.swift */,
+				C4B5B8181C476A2100CE0168 /* CoreVoice.swift */,
 				C4E8ED2C1C43B2540041965F /* Fatten.swift */,
 				C4E8ED281C43ADA10041965F /* FilterSection.swift */,
 				C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */,
@@ -359,7 +365,9 @@
 				949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */,
 				949B1C501C431E5400BFFA10 /* SMSegmentView+Extensions.swift in Sources */,
 				949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */,
+				C4B5B8171C4769AF00CE0168 /* CoreInstrument.swift in Sources */,
 				949B1C491C431E5400BFFA10 /* Knob.swift in Sources */,
+				C4B5B8191C476A2100CE0168 /* CoreVoice.swift in Sources */,
 				949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */,
 				C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */,
 				949B1C4B1C431E5400BFFA10 /* KnobMedium.swift in Sources */,

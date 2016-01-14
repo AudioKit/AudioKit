@@ -200,11 +200,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Bitcrush Off"
-            conductor.bitCrushMixer?.balance = 0
+            conductor.bitCrusher.bypass()
         } else {
             sender.selected = true
             statusLabel.text = "Bitcrush On"
-            conductor.bitCrushMixer?.balance = 1
+            conductor.bitCrusher.start()
         }
     }
     
@@ -300,9 +300,7 @@ class SynthViewController: UIViewController {
     @IBAction func midiPanicPressed(sender: RoundedButton) {
         statusLabel.text = "All Notes Off"
         
-        conductor.fm.panic()
-        conductor.sine1.panic()
-        conductor.noise.panic()
+        conductor.core.panic()
     }
     
     // About App
@@ -336,10 +334,7 @@ class SynthViewController: UIViewController {
         turnOnKey(key)
         lastKey = key
 
-        conductor.sine1.playNote(midiNote, velocity: 127)
-        conductor.fm.playNote(midiNote, velocity: 127)
-        conductor.noise.playNote(midiNote, velocity: 127)
-
+        conductor.core.playNote(midiNote, velocity: 127)
     }
     
     @IBAction func keyReleased(sender: UIButton) {
@@ -359,9 +354,7 @@ class SynthViewController: UIViewController {
         let index = sender.tag - 200
         let midiNote = index + (keyboardOctavePosition * 12)
 
-        conductor.sine1.stopNote(midiNote)
-        conductor.fm.stopNote(midiNote)
-        conductor.noise.stopNote(midiNote)
+        conductor.core.stopNote(midiNote)
     }
     
     // *********************************************************
@@ -421,23 +414,25 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
             let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
+            conductor.core.offset1 = intValue
             
         case ControlTag.Vco2Semitones.rawValue:
             let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
             let intValue = Int(floor(scaledValue))
             statusLabel.text = "Semitones: \(intValue)"
+            conductor.core.offset2 = intValue
             
         case ControlTag.Vco2Detune.rawValue:
             statusLabel.text = "Detune: \(value.decimalFormattedString)"
+            conductor.core.detune = value * 50.0 // Magic Number
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalFormattedString)"
-            conductor.sine1.volume = value
+            conductor.core.vco12Mix = value
             
         case ControlTag.Pwm.rawValue:
             statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
-            conductor.square1.pulseWidth = value
-            conductor.square2.pulseWidth = value
+            conductor.core.pulseWidth = value
             
         // Additional Oscillators
         case ControlTag.SubMix.rawValue:
@@ -445,15 +440,15 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
-            conductor.fm.volume = value
+            conductor.core.fmOscMix = value
             
         case ControlTag.FmMod.rawValue:
             statusLabel.text = "FM Mod: \(value.decimalFormattedString)"
-            conductor.fm.modulatingMultiplier = value
+            conductor.core.fmMod = value
         
         case ControlTag.NoiseMix.rawValue:
             statusLabel.text = "Noise Amt: \(value.decimalFormattedString)"
-            conductor.noise.volume = value
+            conductor.core.noiseMix = value
             
         // LFO
         case ControlTag.LfoAmt.rawValue:
@@ -480,8 +475,8 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Crusher
         case ControlTag.CrushAmt.rawValue:
             statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
-            conductor.bitCrusher?.sampleRate = Double(16000.0 * (1.0 - value))
-            conductor.bitCrusher?.bitDepth = Double(12 * (1.0 - value))
+            conductor.bitCrusher.sampleRate = Double(16000.0 * (1.0 - value))
+            conductor.bitCrusher.bitDepth = Double(12 * (1.0 - value))
             
         // Delay
         case ControlTag.DelayTime.rawValue:
@@ -522,27 +517,19 @@ extension SynthViewController: VerticalSliderDelegate {
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
             statusLabel.text = "Attack: \(value.decimalFormattedString)"
-            conductor.sine1.attackDuration = value
-            conductor.fm.attackDuration = value
-            conductor.noise.attackDuration = value
+            conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
             statusLabel.text = "Decay: \(value.decimalFormattedString)"
-            conductor.sine1.decayDuration = value
-            conductor.fm.decayDuration = value
-            conductor.noise.decayDuration = value
+            conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
             statusLabel.text = "Sustain: \(value.decimalFormattedString)"
-            conductor.sine1.sustainLevel = value
-            conductor.fm.sustainLevel = value
-            conductor.noise.sustainLevel = value
+            conductor.core.sustainLevel = value
         
         case ControlTag.adsrRelease.rawValue:
             statusLabel.text = "Release: \(value.decimalFormattedString)"
-            conductor.sine1.releaseDuration = value
-            conductor.fm.releaseDuration = value
-            conductor.noise.releaseDuration = value
+            conductor.core.releaseDuration = value
             
         default:
             break

@@ -1326,6 +1326,7 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="PhA-ZY-R4J"/>
+                                        <exclude reference="N2s-qs-TFo"/>
                                     </mask>
                                 </variation>
                             </view>
