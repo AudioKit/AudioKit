@@ -43,6 +43,15 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var decaySlider: VerticalSlider!
     @IBOutlet weak var sustainSlider: VerticalSlider!
     @IBOutlet weak var releaseSlider: VerticalSlider!
+    @IBOutlet weak var vco1Toggle: UIButton!
+    @IBOutlet weak var vco2Toggle: UIButton!
+    @IBOutlet weak var bitcrushToggle: UIButton!
+    @IBOutlet weak var filterToggle: UIButton!
+    @IBOutlet weak var delayToggle: UIButton!
+    @IBOutlet weak var reverbToggle: UIButton!
+    @IBOutlet weak var fattenToggle: UIButton!
+    @IBOutlet weak var holdToggle: UIButton!
+    @IBOutlet weak var monoToggle: UIButton!
     
     enum ControlTag: Int {
         case Cutoff = 101
@@ -131,9 +140,10 @@ class SynthViewController: UIViewController {
     
     func setDefaultValues() {
         
-        // Initial Values
+        // Greeting
         statusLabel.text = String.randomGreeting()
         
+        // Initial Knob Values
         osc1SemitonesKnob.value = 0
         osc1SemitonesKnob.minimum = -12
         osc1SemitonesKnob.maximum = 12
@@ -182,38 +192,12 @@ class SynthViewController: UIViewController {
         reverbAmtKnob.value = 0
         reverbMixKnob.value = 0
         
-    }
-
-
-    //*****************************************************************
-    // MARK: - UI Helpers
-    //*****************************************************************
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
-    func createWaveFormSegmentViews() {
-        setupOscSegmentView(8,   y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
-        setupOscSegmentView(212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.Vco2Waveform.rawValue, type: 0)
-        setupOscSegmentView(10,  y: 377,  width: 255, height: 46.0, tag: ControlTag.LfoWaveform.rawValue,  type: 1)
-    }
-    
-    func setupOscSegmentView(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, tag: Int, type: Int) {
-        let segmentFrame = CGRect(x: x, y: y, width: width, height: height)
-        let segmentView = SMSegmentView(frame: segmentFrame)
-        
-        if type == 0 {
-            segmentView.createOscSegmentView(tag)
-        } else {
-            segmentView.createLfoSegmentView(tag)
-        }
-        
-        segmentView.delegate = self
-        
-        // Set segment with index 0 as selected by default
-        segmentView.selectSegmentAtIndex(0)
-        self.view.addSubview(segmentView)
+        // Initial toggle switch settings
+        // Turn on:
+        vco1Toggled(vco1Toggle)
+        vco2Toggled(vco2Toggle)
+        reverbToggled(reverbToggle)
+        filterToggled(filterToggle)
     }
 
     //*****************************************************************
@@ -280,7 +264,7 @@ class SynthViewController: UIViewController {
         }
     }
     
-    @IBAction func ReverbToggled(sender: UIButton) {
+    @IBAction func reverbToggled(sender: UIButton) {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Reverb Off"
@@ -292,7 +276,7 @@ class SynthViewController: UIViewController {
         }
     }
     
-    @IBAction func StereoFattenToggled(sender: UIButton) {
+    @IBAction func stereoFattenToggled(sender: UIButton) {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Stereo Fatten Off"
@@ -366,7 +350,7 @@ class SynthViewController: UIViewController {
     }
     
     //*****************************************************************
-    // MARK: - 🎹 Key presses
+    // MARK: - 🎹 Key Presses
     //*****************************************************************
     
     @IBAction func keyPressed(sender: UIButton) {
@@ -441,6 +425,38 @@ class SynthViewController: UIViewController {
         statusLabel.text = "Key(s) Released"
         keysHeld.removeAll(keepCapacity: false)
     }
+    
+    //*****************************************************************
+    // MARK: - Synth UI Helpers
+    //*****************************************************************
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    func createWaveFormSegmentViews() {
+        setupOscSegmentView(8,   y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
+        setupOscSegmentView(212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.Vco2Waveform.rawValue, type: 0)
+        setupOscSegmentView(10,  y: 377,  width: 255, height: 46.0, tag: ControlTag.LfoWaveform.rawValue,  type: 1)
+    }
+    
+    func setupOscSegmentView(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, tag: Int, type: Int) {
+        let segmentFrame = CGRect(x: x, y: y, width: width, height: height)
+        let segmentView = SMSegmentView(frame: segmentFrame)
+        
+        if type == 0 {
+            segmentView.createOscSegmentView(tag)
+        } else {
+            segmentView.createLfoSegmentView(tag)
+        }
+        
+        segmentView.delegate = self
+        
+        // Set segment with index 0 as selected by default
+        segmentView.selectSegmentAtIndex(0)
+        self.view.addSubview(segmentView)
+    }
+
 }
 
 //*****************************************************************
