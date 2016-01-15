@@ -13,8 +13,8 @@ class CoreInstrument: AKPolyphonicInstrument {
     
     var offset1 = 0 {
         didSet {
-            for i in 0..<voices.count {
-                let coreVoice = voices[i] as! CoreVoice
+            for i in 0..<activeVoices.count {
+                let coreVoice = activeVoices[i] as! CoreVoice
                 let note = activeNotes[i] + offset1
                 coreVoice.sineVCO1.frequency     = note.midiNoteToFrequency()
                 coreVoice.sawtoothVCO1.frequency = note.midiNoteToFrequency()
@@ -26,8 +26,8 @@ class CoreInstrument: AKPolyphonicInstrument {
     
     var offset2 = 0 {
         didSet {
-            for i in 0..<voices.count {
-                let coreVoice = voices[i] as! CoreVoice
+            for i in 0..<activeVoices.count {
+                let coreVoice = activeVoices[i] as! CoreVoice
                 let note = activeNotes[i] + offset2
                 coreVoice.sineVCO2.frequency     = note.midiNoteToFrequency()
                 coreVoice.sawtoothVCO2.frequency = note.midiNoteToFrequency()
@@ -226,9 +226,6 @@ class CoreInstrument: AKPolyphonicInstrument {
     ///
     override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let coreVoice = voice as! CoreVoice
-        print(activeNotes)
-        print(availableVoices.count)
-        print(activeVoices.count)
         
         let commonAmplitude = Double(velocity)/127.0
         
@@ -277,24 +274,27 @@ class CoreInstrument: AKPolyphonicInstrument {
         coreVoice.stop()
     }
     
-    override func panic() {
-        for voice in voices {
-            let coreVoice = voice as! CoreVoice
-            coreVoice.stop()
-            coreVoice.fmOscillator.stop()
-            coreVoice.sawtoothVCO1.stop()
-            coreVoice.sineVCO1.stop()
-            coreVoice.squareVCO1.stop()
-            coreVoice.triangleVCO1.stop()
-            coreVoice.sawtoothVCO2.stop()
-            coreVoice.sineVCO2.stop()
-            coreVoice.squareVCO2.stop()
-            coreVoice.triangleVCO2.stop()
-            coreVoice.noise.stop()
-            coreVoice.subOsc.stop()
-            coreVoice.adsr.stop()
-        }
-    }
+//    override func panic() {
+//        for voice in voices {
+//            let coreVoice = voice as! CoreVoice
+//            coreVoice.stop()
+//            coreVoice.fmOscillator.stop()
+//            coreVoice.sawtoothVCO1.stop()
+//            coreVoice.sineVCO1.stop()
+//            coreVoice.squareVCO1.stop()
+//            coreVoice.triangleVCO1.stop()
+//            coreVoice.sawtoothVCO2.stop()
+//            coreVoice.sineVCO2.stop()
+//            coreVoice.squareVCO2.stop()
+//            coreVoice.triangleVCO2.stop()
+//            coreVoice.noise.stop()
+//            coreVoice.subOsc.stop()
+//            coreVoice.adsr.stop()
+//            active
+//            activeNotes.removeAll()
+//            activeVoices.removeAll()
+//        }
+//    }
     
 }
 

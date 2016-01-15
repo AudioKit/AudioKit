@@ -11,38 +11,45 @@ import UIKit
 @IBDesignable
 class Knob: UIView {
     
-    // Knob properties
-    var knobValue: CGFloat = 0.5 {
+    var minimum = 0.0 {
         didSet {
-            if knobValue > 1 {
-                knobValue = 1
-            }
-            if knobValue < 0 {
-                knobValue = 0
-            }
+            self.knobValue = CGFloat((value - minimum) / (maximum - minimum))
         }
     }
-    let knobSensitivity: CGFloat = 0.005 // Value change per pt
+    var maximum = 1.0 {
+        didSet {
+            self.knobValue = CGFloat((value - minimum) / (maximum - minimum))
+        }
+    }
+    
+    var value: Double = 0 {
+        didSet {
+            if value > maximum {
+                value = maximum
+            }
+            if value < minimum {
+                value = minimum
+            }
+            self.knobValue = CGFloat((value - minimum) / (maximum - minimum))
+        }
+    }
+    
+    // Knob properties
+    var knobValue: CGFloat = 0.5 
+    var knobSensitivity = 0.005
     var lastX: CGFloat = 0
     var lastY: CGFloat = 0
     
     func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
-        
         // Knobs assume up or right is increasing, and down or left is decreasing
         
-        let horizontalChange = (touchPoint.x - lastX) * knobSensitivity
-        knobValue += horizontalChange
+        let horizontalChange = Double(touchPoint.x - lastX) * knobSensitivity
+        value += horizontalChange * (maximum - minimum)
         
-        let verticalChange = (touchPoint.y - lastY) * knobSensitivity
-        knobValue -= verticalChange
+        let verticalChange = Double(touchPoint.y - lastY) * knobSensitivity
+        value -= verticalChange * (maximum - minimum)
 
         lastX = touchPoint.x
         lastY = touchPoint.y
     }
-    
-    // Scale any range to 0.0-1.0 for Knob position
-    func scaleForKnobValue(value: Double, min: Double, max: Double) -> Double {
-        return abs((value - min) / (max - min))
-    }
-
 }
