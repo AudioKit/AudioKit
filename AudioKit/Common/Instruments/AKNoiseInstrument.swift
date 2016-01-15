@@ -65,7 +65,7 @@ public class AKNoiseInstrument: AKPolyphonicInstrument {
     
     /// Start playback of a particular voice with MIDI style note and velocity
     ///
-    /// - parameter voice: Index of voice to start
+    /// - parameter voice: Voice to start
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
@@ -78,7 +78,7 @@ public class AKNoiseInstrument: AKPolyphonicInstrument {
     
     /// Stop playback of a particular voice
     ///
-    /// - parameter voice: Index of voice to stop
+    /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number
     ///
     public override func stopVoice(voice: AKVoice, note: Int) {
