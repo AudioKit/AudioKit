@@ -48,7 +48,7 @@ class Conductor {
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
         
-        defaultCenter.addObserverForName(AKMIDIStatus.NoteOn.name(), object: nil, queue: mainQueue, usingBlock: handleMIDINotification)
+        defaultCenter.addObserverForName(AKMIDIStatus.NoteOn.name(), object:  nil, queue: mainQueue, usingBlock: handleMIDINotification)
         defaultCenter.addObserverForName(AKMIDIStatus.NoteOff.name(), object: nil, queue: mainQueue, usingBlock: handleMIDINotification)
 
     }

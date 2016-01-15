@@ -95,8 +95,8 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number to start
     /// - parameter velocity: MIDI Velocity (0-127) to trigger the note at
     ///
-    public override func playVoice(voice: Int, note: Int, velocity: Int) {
-        let fmVoice = voices[voice] as! AKFMOscillatorVoice 
+    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+        let fmVoice = voice as! AKFMOscillatorVoice
         fmVoice.oscillator.baseFrequency = note.midiNoteToFrequency()
         fmVoice.oscillator.amplitude = Double(velocity) / 127.0
         fmVoice.start()
@@ -107,8 +107,8 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
     /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number to stop
     ///
-    public override func stopVoice(voice: Int, note: Int) {
-        let fmVoice = voices[voice] as! AKFMOscillatorVoice 
+    public override func stopVoice(voice: AKVoice, note: Int) {
+        let fmVoice = voice as! AKFMOscillatorVoice 
         fmVoice.stop()
     }
 }

@@ -15,10 +15,10 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for i in 0..<voices.count {
                 let coreVoice = voices[i] as! CoreVoice
-                let note = notesPlayed[i] + offset1
-                coreVoice.sineVCO1.frequency = note.midiNoteToFrequency()
+                let note = activeNotes[i] + offset1
+                coreVoice.sineVCO1.frequency     = note.midiNoteToFrequency()
                 coreVoice.sawtoothVCO1.frequency = note.midiNoteToFrequency()
-                coreVoice.squareVCO1.frequency = note.midiNoteToFrequency()
+                coreVoice.squareVCO1.frequency   = note.midiNoteToFrequency()
                 coreVoice.triangleVCO1.frequency = note.midiNoteToFrequency()
             }
         }
@@ -28,10 +28,10 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for i in 0..<voices.count {
                 let coreVoice = voices[i] as! CoreVoice
-                let note = notesPlayed[i] + offset2
-                coreVoice.sineVCO2.frequency = note.midiNoteToFrequency()
+                let note = activeNotes[i] + offset2
+                coreVoice.sineVCO2.frequency     = note.midiNoteToFrequency()
                 coreVoice.sawtoothVCO2.frequency = note.midiNoteToFrequency()
-                coreVoice.squareVCO2.frequency = note.midiNoteToFrequency()
+                coreVoice.squareVCO2.frequency   = note.midiNoteToFrequency()
                 coreVoice.triangleVCO2.frequency = note.midiNoteToFrequency()
             }
         }
@@ -224,8 +224,11 @@ class CoreInstrument: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number to start
     /// - parameter velocity: MIDI Velocity (0-127) to trigger the note at
     ///
-    override func playVoice(voice: Int, note: Int, velocity: Int) {
-        let coreVoice = voices[voice] as! CoreVoice
+    override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+        let coreVoice = voice as! CoreVoice
+        print(activeNotes)
+        print(availableVoices.count)
+        print(activeVoices.count)
         
         let commonAmplitude = Double(velocity)/127.0
         
@@ -269,8 +272,8 @@ class CoreInstrument: AKPolyphonicInstrument {
     /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number to stop
     ///
-    override func stopVoice(voice: Int, note: Int) {
-        let coreVoice = voices[voice] as! CoreVoice
+    override func stopVoice(voice: AKVoice, note: Int) {
+        let coreVoice = voice as! CoreVoice
         coreVoice.stop()
     }
     
