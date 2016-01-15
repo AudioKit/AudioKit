@@ -15,7 +15,7 @@ class Conductor {
     let audiokit = AKManager.sharedInstance
     var midi = AKMIDI()
     
-    var core = CoreInstrument(voiceCount: 10)
+    var core = CoreInstrument(voiceCount: 6)
     var bitCrusher: AKBitCrusher
     var fatten: Fatten
     var filterSection: FilterSection
