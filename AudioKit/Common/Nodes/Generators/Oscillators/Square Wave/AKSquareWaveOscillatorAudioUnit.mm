@@ -39,7 +39,7 @@
 - (void)setDetuning:(float)detuning {
     _kernel.setDetuning(detuning);
 }
-- (void)setPulsewidth:(float)pulseWidth {
+- (void)setPulseWidth:(float)pulseWidth {
     _kernel.setPulsewidth(pulseWidth);
 }
 
