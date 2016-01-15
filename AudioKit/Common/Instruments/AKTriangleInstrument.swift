@@ -62,10 +62,10 @@ public class AKTriangleInstrument: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public override func playVoice(voice: Int, note: Int, velocity: Int) {
+    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let triangleVoice = voices[voice] as! AKTriangleVoice 
+        let triangleVoice = voice as! AKTriangleVoice
         triangleVoice.oscillator.frequency = frequency
         triangleVoice.oscillator.amplitude = amplitude
         triangleVoice.start()
@@ -76,8 +76,8 @@ public class AKTriangleInstrument: AKPolyphonicInstrument {
     /// - parameter voice: Index of voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    public override func stopVoice(voice: Int, note: Int) {
-        let triangleVoice = voices[voice] as! AKTriangleVoice //you'll need to cast the voice to its original form
+    public override func stopVoice(voice: AKVoice, note: Int) {
+        let triangleVoice = voice as! AKTriangleVoice //you'll need to cast the voice to its original form
         triangleVoice.stop()
     }
 }

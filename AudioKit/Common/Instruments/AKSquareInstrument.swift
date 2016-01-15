@@ -73,10 +73,10 @@ public class AKSquareInstrument: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public override func playVoice(voice: Int, note: Int, velocity: Int) {
+    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let squareVoice = voices[voice] as! AKSquareVoice 
+        let squareVoice = voice as! AKSquareVoice
         squareVoice.oscillator.frequency = frequency
         squareVoice.oscillator.amplitude = amplitude
         squareVoice.start()
@@ -87,8 +87,8 @@ public class AKSquareInstrument: AKPolyphonicInstrument {
     /// - parameter voice: Index of voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    public override func stopVoice(voice: Int, note: Int) {
-        let squareVoice = voices[voice] as! AKSquareVoice //you'll need to cast the voice to its original form
+    public override func stopVoice(voice: AKVoice, note: Int) {
+        let squareVoice = voice as! AKSquareVoice //you'll need to cast the voice to its original form
         squareVoice.stop()
     }
 }

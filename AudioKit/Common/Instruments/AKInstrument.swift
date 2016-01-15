@@ -40,12 +40,14 @@ public class AKVoice: AKNode, AKToggleable {
 public class AKPolyphonicInstrument: AKNode {
 
     /// Array of available voices
-    public var voices: [AKVoice] = []
+    public var voices: [AKVoice] {
+        return activeVoices + availableVoices
+    }
+    public var availableVoices: [AKVoice] = []
+    public var activeVoices: [AKVoice] = []
+    public var activeNotes: [Int] = []
     
-    public var notesPlayed: [Int] = []
-    
-    var voicePlaying = 0
-    var voiceCount = 1
+    var voiceCount: Int
     private let output = AKMixer()
     
     /// Output level
@@ -69,17 +71,15 @@ public class AKPolyphonicInstrument: AKNode {
     ///
     public init(voice: AKVoice, voiceCount: Int = 1) {
         
-        //set up the voices
-        notesPlayed = [Int](count: voiceCount, repeatedValue: 0)
         self.voiceCount = voiceCount
         
         super.init()
         avAudioNode = output.avAudioNode
         
-        for (var i = 0 ; i < voiceCount; ++i) {
-            voices.append(voice.copy())
-            output.connect(voices[i])
-            voices[i].stop()
+        for (var i = 0; i < voiceCount; ++i) {
+            let voice = voice.copy()
+            availableVoices.append(voice)
+            output.connect(voice)
         }
     }
     
@@ -89,9 +89,11 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
     public func playNote(note: Int, velocity: Int) {
-        notesPlayed[voicePlaying] = note
-        playVoice(voicePlaying, note: note, velocity: velocity)
-        voicePlaying = (voicePlaying + 1) % voiceCount
+        if let voice = availableVoices.popLast()  {
+            activeVoices.append(voice)
+            activeNotes.append(note)
+            playVoice(voice, note: note, velocity: velocity)
+        }
     }
     
     /// Start playback of a particular voice with MIDI style note and velocity
@@ -100,7 +102,7 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public func playVoice(voice: Int, note: Int, velocity: Int) {
+    public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         // Override in subclass
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
@@ -110,11 +112,11 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter note: MIDI Note Number
     ///
     public func stopNote(note: Int) {
-        var voiceToStop = notesPlayed.indexOf(note)
-        while(voiceToStop != nil) {
-            stopVoice(voiceToStop!, note: note)
-            notesPlayed[voiceToStop!] = 0
-            voiceToStop = notesPlayed.indexOf(note)
+        if let index  = activeNotes.indexOf(note) {
+            let voice = activeVoices.removeAtIndex(index)
+            voice.stop()
+            availableVoices.append(voice)
+            activeNotes.removeAtIndex(index)
         }
     }
     
@@ -123,15 +125,17 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter voice: Index of voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    public func stopVoice(voice: Int, note: Int) {
+    public func stopVoice(voice: AKVoice, note: Int) {
         /// Override in subclass
         print("Stopping voice\(voice) - note:\(note)")
     }
     
     /// Stop all voices
     public func panic() {
-        for(var i = 0; i < voiceCount; i++) {
-            voices[i].stop()
+        for voice in voices {
+            voice.stop()
+            availableVoices.append(voice)
         }
+        activeVoices.removeAll()
     }    
 }
