@@ -138,7 +138,7 @@ public class AKSequencer {
         if isAvSeq {
             for track in avSeq.tracks{
                 track.lengthInBeats = length
-                track.loopRange = AVMakeBeatRange(0, self.length)
+                track.loopRange = AVMakeBeatRange(0, length)
             }
         }
     }
