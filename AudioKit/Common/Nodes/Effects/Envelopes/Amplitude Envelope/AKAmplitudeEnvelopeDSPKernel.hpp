@@ -52,7 +52,7 @@ public:
 
     void stop() {
         if (started) {
-            internalTrigger = 1;
+            internalTrigger = 2;
             started = false;
         }
         

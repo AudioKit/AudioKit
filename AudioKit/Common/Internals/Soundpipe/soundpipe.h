@@ -1039,6 +1039,8 @@ typedef struct {
     SPFLOAT sus;
     SPFLOAT dec;
     int mode;
+    SPFLOAT atkbuf[1024];
+    SPFLOAT decbuf[1024];
 } sp_tadsr;
 
 int sp_tadsr_create(sp_tadsr **p);
