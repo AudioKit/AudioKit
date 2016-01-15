@@ -98,7 +98,7 @@ public class AKPolyphonicInstrument: AKNode {
     
     /// Start playback of a particular voice with MIDI style note and velocity
     ///
-    /// - parameter voice: Index of voice to start
+    /// - parameter voice: Voice to start
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
@@ -115,14 +115,14 @@ public class AKPolyphonicInstrument: AKNode {
         if let index  = activeNotes.indexOf(note) {
             let voice = activeVoices.removeAtIndex(index)
             voice.stop()
-            availableVoices.append(voice)
+            availableVoices.insert(voice, atIndex: 0)
             activeNotes.removeAtIndex(index)
         }
     }
     
     /// Stop playback of a particular voice
     ///
-    /// - parameter voice: Index of voice to stop
+    /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number
     ///
     public func stopVoice(voice: AKVoice, note: Int) {
