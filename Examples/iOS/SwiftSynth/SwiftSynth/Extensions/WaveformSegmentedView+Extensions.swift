@@ -8,27 +8,7 @@
 
 import UIKit
 
-extension SMSegmentView {
-    
-    func createOscSegmentView(tag: Int) {
-        self.setOscColors()
-        self.tag = tag
-        self.addOscWaveforms()
-    }
-    
-    func createLfoSegmentView(tag: Int) {
-        self.setOscColors()
-        self.tag = tag
-        self.addLfoWaveforms()
-    }
-    
-    func setOscColors() {
-        separatorColour = UIColor.clearColor()
-        separatorWidth = 0.5
-        segmentOnSelectionColour = UIColor(red: 34.0/255.0, green: 34.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-        segmentOffSelectionColour = UIColor.clearColor()
-        segmentVerticalMargin = CGFloat(10.0)
-    }
+extension WaveformSegmentedView {
     
     func addOscWaveforms() {
         // Add segments
