@@ -11,14 +11,16 @@ int sporth_tog(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             val = malloc(sizeof(SPFLOAT));
             plumber_add_ugen(pd, SPORTH_TOG, val);
-            break;
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
                 stack->error++;
                 fprintf(stderr,"Invalid arguments for tog.\n");
                 return PLUMBER_NOTOK;
             }
 
+            trig = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
             val = pd->last->ud;
             trig = sporth_stack_pop_float(stack);
 
@@ -41,5 +43,5 @@ int sporth_tog(sporth_stack *stack, void *ud)
            printf("Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

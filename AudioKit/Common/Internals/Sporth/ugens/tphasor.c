@@ -18,18 +18,21 @@ int sporth_tphasor(sporth_stack *stack, void *ud)
 
             sp_phasor_create(&tphasor);
             plumber_add_ugen(pd, SPORTH_TPHASOR, tphasor);
+            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for tphasor\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            iphs = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "tphasor: Initialising\n");
 #endif
-
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for tphasor\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             iphs = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);

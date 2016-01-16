@@ -19,13 +19,6 @@ int sporth_tenvx(sporth_stack *stack, void *ud)
 
             sp_tenvx_create(&tenvx);
             plumber_add_ugen(pd, SPORTH_TENVX, tenvx);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "tenvx: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for tenvx\n");
                 stack->error++;
@@ -35,16 +28,23 @@ int sporth_tenvx(sporth_stack *stack, void *ud)
             hold = sporth_stack_pop_float(stack);
             atk = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "tenvx: Initialising\n");
+#endif
+
+            rel = sporth_stack_pop_float(stack);
+            hold = sporth_stack_pop_float(stack);
+            atk = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
             tenvx = pd->last->ud;
             sp_tenvx_init(pd->sp, tenvx);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for tenvx\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             rel = sporth_stack_pop_float(stack);
             hold = sporth_stack_pop_float(stack);
             atk = sporth_stack_pop_float(stack);

@@ -18,18 +18,21 @@ int sporth_pan2(sporth_stack *stack, void *ud)
 
             sp_pan2_create(&pan2);
             plumber_add_ugen(pd, SPORTH_PAN, pan2);
+            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for pan2\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            pan = sporth_stack_pop_float(stack);
+            in = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "pan2: Initialising\n");
 #endif
-
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for pan2\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             pan = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
             pan2 = pd->last->ud;
@@ -38,11 +41,6 @@ int sporth_pan2(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for pan2\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             pan = sporth_stack_pop_float(stack);
             in = sporth_stack_pop_float(stack);
             pan2 = pd->last->ud;

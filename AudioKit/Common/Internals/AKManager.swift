@@ -2,8 +2,8 @@
 //  AKManager.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/4/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -15,14 +15,15 @@ public class AKManager {
     /// Globally accessible singleton
     public static let sharedInstance = AKManager()
     
+    // MARK: Global audio format (44.1K, Stereo)
+    
     /// Format of AudioKit Nodes
     public static let format = AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)
+
+    // MARK: - Internal audio engine mechanics
     
     /// Reference to the AV Audio Engine
     public var engine = AVAudioEngine()
-    
-    /// Testing AKNode
-    public var tester: AKTester?
     
     /// An audio output operation that most applications will need to use last
     public var audioOutput: AKNode? {
@@ -36,6 +37,10 @@ public class AKManager {
         // Start the engine.
         do {
             try self.engine.start()
+            #if !os(OSX)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+            #endif
         } catch {
             fatalError("Could not start engine. error: \(error).")
         }
@@ -46,6 +51,11 @@ public class AKManager {
         // Stop the engine.
         self.engine.stop()
     }
+    
+    // MARK: Testing
+    
+    /// Testing AKNode
+    public var tester: AKTester?
 
     /// Test the output of a given node
     ///

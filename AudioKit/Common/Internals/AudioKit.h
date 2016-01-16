@@ -2,8 +2,8 @@
 //  AudioKit.h
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/4/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -36,7 +36,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKAutoWahAudioUnit.h"
 #import "AKBandPassButterworthFilterAudioUnit.h"
 #import "AKBandRejectButterworthFilterAudioUnit.h"
-#import "AKCombFilterAudioUnit.h"
+#import "AKCombFilterReverbAudioUnit.h"
 #import "AKDCBlockAudioUnit.h"
 #import "AKEqualizerFilterAudioUnit.h"
 #import "AKHighPassButterworthFilterAudioUnit.h"

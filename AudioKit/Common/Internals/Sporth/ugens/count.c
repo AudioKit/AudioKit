@@ -18,13 +18,6 @@ int sporth_count(sporth_stack *stack, void *ud)
 
             sp_count_create(&cnt);
             plumber_add_ugen(pd, SPORTH_COUNT, cnt);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "count: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for count\n");
                 stack->error++;
@@ -33,16 +26,21 @@ int sporth_count(sporth_stack *stack, void *ud)
             mode = sporth_stack_pop_float(stack);
             count = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "count: Initialising\n");
+#endif
+            mode = sporth_stack_pop_float(stack);
+            count = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
             cnt = pd->last->ud;
             sp_count_init(pd->sp, cnt);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for count\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             mode = sporth_stack_pop_float(stack);
             count = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);

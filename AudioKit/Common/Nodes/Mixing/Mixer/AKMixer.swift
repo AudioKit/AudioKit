@@ -2,8 +2,8 @@
 //  AKMixer.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/19/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -25,6 +25,7 @@ public class AKMixer: AKNode, AKToggleable {
     
     private var lastKnownVolume: Double = 1.0
     
+    /// Determine if the mixer is serving any output or if it is stopped.
     public var isStarted: Bool {
         return volume != 0.0
     }

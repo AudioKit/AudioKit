@@ -25,12 +25,20 @@ int sporth_fm(sporth_stack *stack, void *ud)
             sp_ftbl_create(pd->sp, &fm->ft, 4096);
             sp_fosc_create(&fm->osc);
             plumber_add_ugen(pd, SPORTH_FM, fm);
-            break;
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+
+            index = sporth_stack_pop_float(stack);
+            mod = sporth_stack_pop_float(stack);
+            car = sporth_stack_pop_float(stack);
+            amp = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+
+            sporth_stack_push_float(stack, 0.0);
+            break;
+        case PLUMBER_INIT:
             fm = pd->last->ud;
 
             index = sporth_stack_pop_float(stack);

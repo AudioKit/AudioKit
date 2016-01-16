@@ -29,6 +29,18 @@ int sporth_pluck(sporth_stack *stack, void *ud)
 #endif
             sp_pluck_create(&pluck);
             plumber_add_ugen(pd, SPORTH_PLUCK, pluck);
+            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for pluck\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+
+            ifreq = sporth_stack_pop_float(stack);
+            amp = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
+
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
@@ -36,11 +48,6 @@ int sporth_pluck(sporth_stack *stack, void *ud)
             fprintf(stderr, "pluck: Initialising\n");
 #endif
 
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for pluck\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             pluck = pd->last->ud;
 
             ifreq = sporth_stack_pop_float(stack);

@@ -17,6 +17,14 @@ int sporth_bal(sporth_stack *stack, void *ud)
 
             sp_bal_create(&bal);
             plumber_add_ugen(pd, SPORTH_BAL, bal);
+            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for bal\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            sig = sporth_stack_pop_float(stack);
+            comp = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
@@ -24,11 +32,6 @@ int sporth_bal(sporth_stack *stack, void *ud)
             fprintf(stderr, "bal: Initialising\n");
 #endif
 
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for bal\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             sig = sporth_stack_pop_float(stack);
             comp = sporth_stack_pop_float(stack);
             bal = pd->last->ud;

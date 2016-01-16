@@ -2,15 +2,17 @@
 //  AKNoiseInstrument.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 1/6/16.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
 import AVFoundation
 
+/// Noise generator that can be played polyphonically as a mix of pink and white noise
 public class AKNoiseInstrument: AKPolyphonicInstrument {
     
+    /// Balance of white to pink noise
     public var whitePinkMix: Double = 0 {
         didSet {
             for noiseVoice in voices as! [AKNoiseVoice] {
@@ -52,19 +54,35 @@ public class AKNoiseInstrument: AKPolyphonicInstrument {
         }
     }
     
+    /// Initial the noise generator instrument
+    ///
+    /// - parameter whitePinkMix: Balance of white to pink noise
+    /// - parameter voiceCount: Maximum number of simultaneous voices
+    ///
     public init(whitePinkMix: Double, voiceCount: Int) {
         super.init(voice: AKNoiseVoice(whitePinkMix: whitePinkMix), voiceCount: voiceCount)
     }
     
-    public override func startVoice(voice: Int, note: Int, velocity: Int) {
-        let noiseVoice = voices[voice] as! AKNoiseVoice
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
+    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+        let noiseVoice = voice as! AKNoiseVoice
         noiseVoice.whiteNoise.amplitude = Double(velocity) / 127.0
         noiseVoice.pinkNoise.amplitude = Double(velocity) / 127.0
         noiseVoice.start()
     }
     
-    public override func stopVoice(voice: Int, note: Int) {
-        let noise = voices[voice] as! AKNoiseVoice
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
+    public override func stopVoice(voice: AKVoice, note: Int) {
+        let noise = voice as! AKNoiseVoice
         noise.stop()
     }
 }

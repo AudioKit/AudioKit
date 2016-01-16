@@ -17,13 +17,6 @@ int sporth_bltriangle(sporth_stack *stack, void *ud)
             
             sp_bltriangle_create(&bltriangle);
             plumber_add_ugen(pd, SPORTH_TRIANGLE, bltriangle);
-            break;
-        case PLUMBER_INIT:
-            
-#ifdef DEBUG_MODE
-            fprintf(stderr, "bltriangle: Initialising\n");
-#endif
-            
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for bltriangle\n");
                 stack->error++;
@@ -31,16 +24,20 @@ int sporth_bltriangle(sporth_stack *stack, void *ud)
             }
             amp = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+            
+#ifdef DEBUG_MODE
+            fprintf(stderr, "bltriangle: Initialising\n");
+#endif
+            amp = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
             bltriangle = pd->last->ud;
             sp_bltriangle_init(pd->sp, bltriangle);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for bltriangle\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             amp = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
             bltriangle = pd->last->ud;

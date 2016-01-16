@@ -13,14 +13,22 @@ int sporth_revsc(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             sp_revsc_create(&data);
             plumber_add_ugen(pd, SPORTH_REVSC, data);
-            break;
-
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
                fprintf(stderr,"Init: not enough arguments for revsc!\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+
+            lpfreq = sporth_stack_pop_float(stack);
+            feedback = sporth_stack_pop_float(stack);
+            in2 = sporth_stack_pop_float(stack);
+            in1 = sporth_stack_pop_float(stack);
+
+            sporth_stack_push_float(stack, 0);
+            sporth_stack_push_float(stack, 0);
+            break;
+
+        case PLUMBER_INIT:
             data = pd->last->ud;
 
             lpfreq = sporth_stack_pop_float(stack);
@@ -35,12 +43,6 @@ int sporth_revsc(sporth_stack *stack, void *ud)
             break;
 
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-               fprintf(stderr,"Compute: Not enough arguments for revsc!\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
-
             data = pd->last->ud;
 
             lpfreq = sporth_stack_pop_float(stack);
@@ -68,5 +70,5 @@ int sporth_revsc(sporth_stack *stack, void *ud)
           fprintf(stderr,"Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

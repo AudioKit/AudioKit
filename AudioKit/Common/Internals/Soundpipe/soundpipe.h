@@ -121,6 +121,24 @@ int sp_tevent_init(sp_data *sp, sp_tevent *te,
         void (*reinit)(void*), void (*compute)(void *, SPFLOAT *out), void *ud);
 int sp_tevent_compute(sp_data *sp, sp_tevent *te, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    SPFLOAT atk;
+    SPFLOAT dec;
+    SPFLOAT sus;
+    SPFLOAT rel;
+    uint32_t timer;
+    uint32_t atk_time;
+    SPFLOAT a;
+    SPFLOAT b;
+    SPFLOAT y;
+    SPFLOAT x;
+    int mode;
+} sp_adsr;
+
+int sp_adsr_create(sp_adsr **p);
+int sp_adsr_destroy(sp_adsr **p);
+int sp_adsr_init(sp_data *sp, sp_adsr *p);
+int sp_adsr_compute(sp_data *sp, sp_adsr *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
     SPFLOAT revtime, looptime;
     SPFLOAT coef, prvt;
     sp_auxdata aux;
@@ -779,6 +797,7 @@ typedef struct {
     SPFLOAT sicps;
     int32_t phs256, npts, maxpts;
     sp_auxdata auxch;
+    char init;
 } sp_pluck;
 
 int sp_pluck_create(sp_pluck **p);
@@ -1039,6 +1058,8 @@ typedef struct {
     SPFLOAT sus;
     SPFLOAT dec;
     int mode;
+    SPFLOAT atkbuf[1024];
+    SPFLOAT decbuf[1024];
 } sp_tadsr;
 
 int sp_tadsr_create(sp_tadsr **p);

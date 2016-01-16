@@ -22,7 +22,7 @@ let generator = AKOperationGenerator(operation: busySignal * 0.4)
 audiokit.audioOutput = generator
 audiokit.start()
 
-generator.start()
+generator.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

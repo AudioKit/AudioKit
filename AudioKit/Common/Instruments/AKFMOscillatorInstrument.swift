@@ -2,13 +2,14 @@
 //  AKFMOscillatorInstrument.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 1/6/16.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
 import AVFoundation
 
+/// A wrapper for AKFMOscillator to make it a playable as a polyphonic instrument.
 public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
@@ -75,6 +76,10 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
         }
     }
     
+    /// Instantiate the FM Oscillator Instrument
+    ///
+    /// - parameter voiceCount: Maximum number of voices that will be required
+    ///
     public init(voiceCount: Int) {
         super.init(voice: AKFMOscillatorVoice(), voiceCount: voiceCount)
         for voice in voices {
@@ -83,14 +88,27 @@ public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
             fmVoice.oscillator.modulationIndex = 10
         }
     }
-    public override func startVoice(voice: Int, note: Int, velocity: Int) {
-        let fmVoice = voices[voice] as! AKFMOscillatorVoice 
+    
+    /// Start a given voice playing a note.
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number to start
+    /// - parameter velocity: MIDI Velocity (0-127) to trigger the note at
+    ///
+    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+        let fmVoice = voice as! AKFMOscillatorVoice
         fmVoice.oscillator.baseFrequency = note.midiNoteToFrequency()
         fmVoice.oscillator.amplitude = Double(velocity) / 127.0
         fmVoice.start()
     }
-    public override func stopVoice(voice: Int, note: Int) {
-        let fmVoice = voices[voice] as! AKFMOscillatorVoice 
+    
+    /// Stop a given voice playing a note.
+    ///
+    /// - parameter voice: Voice to stop
+    /// - parameter note: MIDI Note Number to stop
+    ///
+    public override func stopVoice(voice: AKVoice, note: Int) {
+        let fmVoice = voice as! AKFMOscillatorVoice 
         fmVoice.stop()
     }
 }
@@ -100,6 +118,7 @@ internal class AKFMOscillatorVoice: AKVoice {
     var oscillator: AKFMOscillator
     var adsr: AKAmplitudeEnvelope
     
+    /// Instantiate the FM Oscillator Voice
     override init() {
         oscillator = AKFMOscillator()
         adsr = AKAmplitudeEnvelope(oscillator,

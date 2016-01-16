@@ -13,14 +13,15 @@ extension Knob {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
             let touchPoint = touch.locationInView(self)
-            checkKnobBounds(touchPoint)
+            lastX = touchPoint.x
+            lastY = touchPoint.y
         }
     }
 
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
             let touchPoint = touch.locationInView(self)
-            checkKnobBounds(touchPoint)
+            setPercentagesWithTouchPoint(touchPoint)
         }
     }
 

@@ -2,8 +2,8 @@
 //  AKComputedParameter.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/3/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -18,7 +18,7 @@ public struct AKOperation: AKComputedParameter  {
     public static var input = AKOperation("(0 p)")
     
     /// Dummy trigger
-    public static var trigger = AKOperation("")
+    public static var trigger = AKOperation("0 p")
     
     /// Call up a numbered parameter to the internal operation
     ///
