@@ -83,10 +83,10 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.sawtoothVCO2.detuning = detune
-                coreVoice.sineVCO2.detuning     = detune
-                coreVoice.squareVCO2.detuning   = detune
-                coreVoice.triangleVCO2.detuning = detune
+                coreVoice.sawtoothVCO2.detuningOffset = detune
+                coreVoice.sineVCO2.detuningOffset     = detune
+                coreVoice.squareVCO2.detuningOffset   = detune
+                coreVoice.triangleVCO2.detuningOffset = detune
             }
         }
     }

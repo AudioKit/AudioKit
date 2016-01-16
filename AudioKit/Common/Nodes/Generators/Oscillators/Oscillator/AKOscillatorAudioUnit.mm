@@ -36,8 +36,11 @@
 - (void)setAmplitude:(float)amplitude {
     _kernel.setAmplitude(amplitude);
 }
-- (void)setDetuning:(float)detuning {
-    _kernel.setDetuning(detuning);
+- (void)setDetuningoffset:(float)detuningOffset {
+    _kernel.setDetuningoffset(detuningOffset);
+}
+- (void)setDetuningmultiplier:(float)detuningMultiplier {
+    _kernel.setDetuningmultiplier(detuningMultiplier);
 }
 
 - (void)setupWaveform:(int)size {
@@ -99,14 +102,26 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the detuning.
-    AUParameter *detuningAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"detuning"
+    // Create a parameter object for the detuningOffset.
+    AUParameter *detuningOffsetAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
                                               name:@"Frequency offset (Hz)"
-                                           address:detuningAddress
+                                           address:detuningOffsetAddress
                                                min:-1000
                                                max:1000
                                               unit:kAudioUnitParameterUnit_Hertz
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    // Create a parameter object for the detuningMultiplier.
+    AUParameter *detuningMultiplierAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"detuningMultiplier"
+                                              name:@"Frequency detuning multiplier"
+                                           address:detuningMultiplierAddress
+                                               min:0.9
+                                               max:1.11
+                                              unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
@@ -115,17 +130,20 @@
     // Initialize the parameter values.
     frequencyAUParameter.value = 440;
     amplitudeAUParameter.value = 1;
-    detuningAUParameter.value = 0;
+    detuningOffsetAUParameter.value = 0;
+    detuningMultiplierAUParameter.value = 1;
 
-    _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
-    _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
-    _kernel.setParameter(detuningAddress,  detuningAUParameter.value);
+    _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
+    _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);
+    _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
+    _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         frequencyAUParameter,
         amplitudeAUParameter,
-        detuningAUParameter
+        detuningOffsetAUParameter,
+        detuningMultiplierAUParameter
     ]];
 
     // Create the input and output busses.
