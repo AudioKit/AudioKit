@@ -1,5 +1,5 @@
 //
-//  SynthVC+UIHelpers.swift
+//  SynthViewController+UIHelpers.swift
 //  SwiftSynth
 //
 //  Created by Matthew Fecher on 1/15/16.
