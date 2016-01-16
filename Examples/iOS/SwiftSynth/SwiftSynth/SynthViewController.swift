@@ -166,11 +166,12 @@ class SynthViewController: UIViewController {
         reverbAmtKnob.value = 0
         reverbMixKnob.value = 0
         
-        // Initial toggle switch settings
+        // Turn on initial toggle switches
         vco1Toggled(vco1Toggle)
         vco2Toggled(vco2Toggle)
-        reverbToggled(reverbToggle)
         filterToggled(filterToggle)
+        delayToggled(delayToggle)
+      
     }
 
     //*****************************************************************
