@@ -18,13 +18,6 @@ int sporth_trand(sporth_stack *stack, void *ud)
 
             sp_trand_create(&trand);
             plumber_add_ugen(pd, SPORTH_TRAND, trand);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "trand: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for trand\n");
                 stack->error++;
@@ -33,16 +26,21 @@ int sporth_trand(sporth_stack *stack, void *ud)
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "trand: Initialising\n");
+#endif
+            max = sporth_stack_pop_float(stack);
+            min = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
             trand = pd->last->ud;
             sp_trand_init(pd->sp, trand);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for trand\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);

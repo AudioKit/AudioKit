@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKCombFilter
+//: ## AKCombFilterReverb
 //: ### Write description
 import XCPlayground
 import AudioKit
@@ -13,7 +13,7 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
-var filter = AKCombFilter(player, loopDuration: 0.05)
+var filter = AKCombFilterReverb(player, loopDuration: 0.1)
 
 //: Set the parameters of the Comb Filter here
 filter.reverbDuration = 1
@@ -24,4 +24,4 @@ player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [N

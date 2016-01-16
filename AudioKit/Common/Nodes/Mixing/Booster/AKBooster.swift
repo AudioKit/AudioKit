@@ -2,7 +2,7 @@
 //  AKBooster.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 1/6/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -23,6 +23,7 @@ public class AKBooster: AKNode, AKToggleable {
     
     private var lastKnownGain: Double = 1.0
     
+    /// Tells whether or not the booster is actually changing the volume of its source.
     public var isStarted: Bool {
         return gain != 1.0
     }

@@ -2,13 +2,14 @@
 //  AKSquareInstrument.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 1/8/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
 import AVFoundation
 
+/// A wrapper for AKSquareOscillator to make it a playable as a polyphonic instrument.
 public class AKSquareInstrument: AKPolyphonicInstrument {
     
     /// Duty cycle width (range 0-1).
@@ -58,20 +59,36 @@ public class AKSquareInstrument: AKPolyphonicInstrument {
         }
     }
     
+    /// Instantiate the Square Instrument
+    ///
+    /// - parameter voiceCount: Maximum number of voices that will be required
+    ///
     public init(voiceCount: Int) {
         super.init(voice: AKSquareVoice(), voiceCount: voiceCount)
     }
     
-    public override func startVoice(voice: Int, note: Int, velocity: Int) {
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
+    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let squareVoice = voices[voice] as! AKSquareVoice 
+        let squareVoice = voice as! AKSquareVoice
         squareVoice.oscillator.frequency = frequency
         squareVoice.oscillator.amplitude = amplitude
         squareVoice.start()
     }
-    public override func stopVoice(voice: Int, note: Int) {
-        let squareVoice = voices[voice] as! AKSquareVoice //you'll need to cast the voice to its original form
+    
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
+    public override func stopVoice(voice: AKVoice, note: Int) {
+        let squareVoice = voice as! AKSquareVoice //you'll need to cast the voice to its original form
         squareVoice.stop()
     }
 }

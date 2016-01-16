@@ -18,13 +18,6 @@ int sporth_randi(sporth_stack *stack, void *ud)
 
             sp_randi_create(&randi);
             plumber_add_ugen(pd, SPORTH_RANDI, randi);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "randi: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for randi\n");
                 stack->error++;
@@ -33,16 +26,21 @@ int sporth_randi(sporth_stack *stack, void *ud)
             cps = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "randi: Initialising\n");
+#endif
+            cps = sporth_stack_pop_float(stack);
+            max = sporth_stack_pop_float(stack);
+            min = sporth_stack_pop_float(stack);
             randi = pd->last->ud;
             sp_randi_init(pd->sp, randi);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for randi\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             cps = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);

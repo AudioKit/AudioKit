@@ -11,13 +11,18 @@ int sporth_port(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             sp_port_create(&data);
             plumber_add_ugen(pd, SPORTH_PORT, data);
-            break;
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
                fprintf(stderr,"Not enough arguments for port\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+
+            htime = sporth_stack_pop_float(stack);
+            in = sporth_stack_pop_float(stack);
+
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
             data = pd->last->ud;
 
             htime = sporth_stack_pop_float(stack);
@@ -27,11 +32,6 @@ int sporth_port(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for port\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             data = pd->last->ud;
 
             htime = sporth_stack_pop_float(stack);
@@ -50,5 +50,5 @@ int sporth_port(sporth_stack *stack, void *ud)
           fprintf(stderr,"Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

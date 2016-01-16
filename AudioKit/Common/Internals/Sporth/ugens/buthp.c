@@ -17,13 +17,6 @@ int sporth_buthp(sporth_stack *stack, void *ud)
 
             sp_buthp_create(&buthp);
             plumber_add_ugen(pd, SPORTH_BUTHP, buthp);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "buthp: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for buthp\n");
                 stack->error++;
@@ -31,16 +24,20 @@ int sporth_buthp(sporth_stack *stack, void *ud)
             }
             freq = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "buthp: Initialising\n");
+#endif
+            freq = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             buthp = pd->last->ud;
             sp_buthp_init(pd->sp, buthp);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for buthp\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             freq = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
             buthp = pd->last->ud;

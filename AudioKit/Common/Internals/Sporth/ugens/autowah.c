@@ -19,13 +19,6 @@ int sporth_autowah(sporth_stack *stack, void *ud)
 
             sp_autowah_create(&autowah);
             plumber_add_ugen(pd, SPORTH_AUTOWAH, autowah);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "autowah: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for autowah\n");
                 stack->error++;
@@ -35,16 +28,22 @@ int sporth_autowah(sporth_stack *stack, void *ud)
             wah = sporth_stack_pop_float(stack);
             level = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "autowah: Initialising\n");
+#endif
+            mix = sporth_stack_pop_float(stack);
+            wah = sporth_stack_pop_float(stack);
+            level = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             autowah = pd->last->ud;
             sp_autowah_init(pd->sp, autowah);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for autowah\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             mix = sporth_stack_pop_float(stack);
             wah = sporth_stack_pop_float(stack);
             level = sporth_stack_pop_float(stack);

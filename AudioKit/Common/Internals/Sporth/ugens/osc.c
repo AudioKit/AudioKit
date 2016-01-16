@@ -24,13 +24,21 @@ int sporth_osc(sporth_stack *stack, void *ud)
 #endif
             sp_osc_create(&osc);
             plumber_add_ugen(pd, SPORTH_OSC, osc);
-            break;
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "fffs") != SPORTH_OK) {
                 stack->error++;
-               fprintf(stderr,"Invalid arguments for osc.\n");
+                fprintf(stderr,"Invalid arguments for osc.\n");
                 return PLUMBER_NOTOK;
             }
+
+            ftname = sporth_stack_pop_string(stack);
+            phs = sporth_stack_pop_float(stack);
+            amp = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+
+            sporth_stack_push_float(stack, 0.0);
+            free(ftname);
+            break;
+        case PLUMBER_INIT:
             osc = pd->last->ud;
 
             ftname = sporth_stack_pop_string(stack);

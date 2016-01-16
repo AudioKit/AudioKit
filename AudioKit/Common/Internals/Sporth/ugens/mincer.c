@@ -21,6 +21,20 @@ int sporth_mincer(sporth_stack *stack, void *ud)
 
             sp_mincer_create(&mincer);
             plumber_add_ugen(pd, SPORTH_MINCER, mincer);
+
+            if(sporth_check_args(stack, "fffs") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for mincer\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+
+            ftname = sporth_stack_pop_string(stack);
+            pitch = sporth_stack_pop_float(stack);
+            amp = sporth_stack_pop_float(stack);
+            time = sporth_stack_pop_float(stack);
+            free(ftname);
+
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
@@ -28,11 +42,6 @@ int sporth_mincer(sporth_stack *stack, void *ud)
             fprintf(stderr, "mincer: Initialising\n");
 #endif
 
-            if(sporth_check_args(stack, "fffs") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for mincer\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             ftname = sporth_stack_pop_string(stack);
             pitch = sporth_stack_pop_float(stack);
             amp = sporth_stack_pop_float(stack);
@@ -43,6 +52,7 @@ int sporth_mincer(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+
             free(ftname);
             sp_mincer_init(pd->sp, mincer, ft);
             sporth_stack_push_float(stack, 0);

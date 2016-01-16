@@ -2,8 +2,8 @@
 //  AKParameter.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 12/26/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -13,7 +13,10 @@ import Foundation
 /// Since parameters can be audio in mono or stereo format, the protocol 
 /// requires that an AKParameter defines method to switch between stereo and mono
 public protocol AKParameter: CustomStringConvertible {
+    /// Require a function to produce a mono operation regarless of the mono/stereo nature of the parameter
     func toMono() -> AKOperation
+    
+    /// Require a function to produce a stereo operation regardless of the mono/stereo nature of the parameter
     func toStereo() -> AKStereoOperation
 }
 

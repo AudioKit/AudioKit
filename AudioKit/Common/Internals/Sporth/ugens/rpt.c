@@ -21,13 +21,6 @@ int sporth_rpt(sporth_stack *stack, void *ud)
 
             sp_rpt_create(&rpt);
             plumber_add_ugen(pd, SPORTH_RPT, rpt);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "rpt: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ffffff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for rpt\n");
                 stack->error++;
@@ -39,16 +32,25 @@ int sporth_rpt(sporth_stack *stack, void *ud)
             bpm = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "rpt: Initialising\n");
+#endif
+
+            maxdur = sporth_stack_pop_float(stack);
+            rep = (int)sporth_stack_pop_float(stack);
+            div = (int)sporth_stack_pop_float(stack);
+            bpm = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             rpt = pd->last->ud;
             sp_rpt_init(pd->sp, rpt, maxdur);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ffffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for rpt\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             maxdur = sporth_stack_pop_float(stack);
             rep = (int)sporth_stack_pop_float(stack);
             div = (int)sporth_stack_pop_float(stack);

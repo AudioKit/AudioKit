@@ -2,8 +2,8 @@
 //  AKMicrophone.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 10/4/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -12,7 +12,7 @@ import AVFoundation
 /// Audio from the standard input
 public class AKMicrophone: AKNode, AKToggleable {
     
-internal let mixer = AVAudioMixerNode()
+    internal let mixer = AVAudioMixerNode()
     
     /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
@@ -26,6 +26,7 @@ internal let mixer = AVAudioMixerNode()
     
     private var lastKnownVolume: Double = 1.0
     
+    /// Determine if the microphone is currently on.
     public var isStarted: Bool {
         return volume != 0.0
     }

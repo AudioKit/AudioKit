@@ -24,22 +24,9 @@ class KnobLarge: Knob {
     // MARK: - Set Percentages
     override func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
         super.setPercentagesWithTouchPoint(touchPoint)
-        updateKnob()
-    }
-    
-    override func setMaximumValue() {
-        super.setMaximumValue()
-        updateKnob()
-    }
-    
-    override func setMinimumValue() {
-        super.setMinimumValue()
-        updateKnob()
-    }
-    
-    func updateKnob() {
-        delegate?.updateKnobValue(Double(knobValue), tag: self.tag)
+        delegate?.updateKnobValue(value, tag: self.tag)
         setNeedsDisplay()
     }
+ 
 }
 

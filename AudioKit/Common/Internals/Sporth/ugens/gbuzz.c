@@ -28,18 +28,24 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
             sp_ftbl_create(pd->sp, &gbuzz->ft, 4096);
             sp_gbuzz_create(&gbuzz->gbuzz);
             plumber_add_ugen(pd, SPORTH_GBUZZ, gbuzz);
+            if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for gbuzz\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            mul = sporth_stack_pop_float(stack);
+            lharm = sporth_stack_pop_float(stack);
+            nharm = sporth_stack_pop_float(stack);
+            amp = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "gbuzz: Initialising\n");
 #endif
-
-            if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for gbuzz\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             mul = sporth_stack_pop_float(stack);
             lharm = sporth_stack_pop_float(stack);
             nharm = sporth_stack_pop_float(stack);
@@ -52,11 +58,6 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for gbuzz\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             mul = sporth_stack_pop_float(stack);
             lharm = sporth_stack_pop_float(stack);
             nharm = sporth_stack_pop_float(stack);

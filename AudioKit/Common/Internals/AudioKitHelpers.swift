@@ -2,8 +2,8 @@
 //  AudioKitHelpers.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/14/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -47,12 +47,15 @@ public func random(minimum: Double, _ maximum: Double) -> Double {
 
 // MARK: - Normalization Helpers
 
+/// Extension to calculate scaling factors, useful for UI controls
 extension Double {
+    
     /// Convert a value on [min, max] to a [0, 1] range, according to a taper
     ///
     /// - parameter min: Minimum of the source range (cannot be zero if taper is not positive)
     /// - parameter max: Maximum of the source range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
     public mutating func normalize(min: Double, max: Double, taper: Double) {
         if taper > 0 {
             // algebraic taper
@@ -68,6 +71,7 @@ extension Double {
     /// - parameter min: Minimum of the target range (cannot be zero if taper is not positive)
     /// - parameter max: Maximum of the target range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
     public mutating func denormalize(min: Double, max: Double, taper: Double) {
         if taper > 0 {
             // algebraic taper
@@ -113,7 +117,7 @@ extension Int {
 /// - SystemCommand:
 ///    differ from system to system
 ///
-public enum AKMidiStatus: Int {
+public enum AKMIDIStatus: Int {
     /// Note off is something resembling a keyboard key release
     case NoteOff = 8
     /// Note on is triggered when a new note is created, or a keyboard key press
@@ -137,7 +141,7 @@ public enum AKMidiStatus: Int {
     
     /// Return a unique string for use as broadcasted name in NSNotificationCenter
     public func name() -> String {
-        return "AudioKit Midi Status: \(self)"
+        return "AudioKit MIDI Status: \(self)"
     }
 }
 
@@ -156,7 +160,7 @@ public enum AKMidiStatus: Int {
 /// - ActiveSensing: Active Sensing
 /// - SysReset: System Reset
 ///
-public enum AKMidiSystemCommand: UInt8 {
+public enum AKMIDISystemCommand: UInt8 {
     /// Trivial Case of None
     case None = 0
     /// System Exclusive
@@ -183,7 +187,7 @@ public enum AKMidiSystemCommand: UInt8 {
     case SysReset = 255
 }
 
-/// Value of byte 2 in conjunction with AKMidiStatusControllerChange
+/// Value of byte 2 in conjunction with AKMIDIStatusControllerChange
 ///
 /// - ModulationWheel: Modulation Control
 /// - BreathControl: Breath Control (in MIDI Saxophones for example)
@@ -205,7 +209,7 @@ public enum AKMidiSystemCommand: UInt8 {
 /// - AllNotesOff: MIDI Panic
 /// - CC# (0, 3, 9, 12-31) Unnamed Continuous Controllers
 ///
-public enum AKMidiControl: UInt8 {
+public enum AKMIDIControl: UInt8 {
     /// Modulation Control
     case ModulationWheel = 1
     /// Breath Control (in MIDI Saxophones for example)
