@@ -509,7 +509,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
 }
 
 //*****************************************************************
-// MARK: - Slider Delegate (ADSR)
+// MARK: - 🎚Slider Delegate (ADSR)
 //*****************************************************************
 
 extension SynthViewController: VerticalSliderDelegate {
