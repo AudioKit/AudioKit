@@ -149,36 +149,57 @@ class CoreInstrument: AKPolyphonicInstrument {
 
     var selectedVCO1Waveform = 0 {
         didSet {
-            vco1Amplitudes = [0.0,0,0,0]
-            vco1Amplitudes[selectedVCO1Waveform] = 1.0
-            
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.sawtoothVCO1Mixer.volume = vco1Amplitudes[0]
-                coreVoice.squareVCO1Mixer.volume   = vco1Amplitudes[1]
-                coreVoice.sineVCO1Mixer.volume     = vco1Amplitudes[2]
-                coreVoice.triangleVCO1Mixer.volume = vco1Amplitudes[3]
+                
+                coreVoice.sawtoothVCO1.stop()
+                coreVoice.squareVCO1.stop()
+                coreVoice.sineVCO1.stop()
+                coreVoice.triangleVCO1.stop()
+                
+                switch selectedVCO1Waveform {
+                case 0:
+                    coreVoice.sawtoothVCO1.start()
+                case 1:
+                    coreVoice.squareVCO1.start()
+                case 2:
+                    coreVoice.sineVCO1.start()
+                case 3:
+                    coreVoice.triangleVCO1.start()
+                default:
+                    break
+                }
+
             }
         }
     }
     
     var selectedVCO2Waveform = 0 {
         didSet {
-            vco2Amplitudes = [0.0,0,0,0]
-            vco2Amplitudes[selectedVCO2Waveform] = 1.0
-            
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.sawtoothVCO2Mixer.volume = vco2Amplitudes[0]
-                coreVoice.squareVCO2Mixer.volume   = vco2Amplitudes[1]
-                coreVoice.sineVCO2Mixer.volume     = vco2Amplitudes[2]
-                coreVoice.triangleVCO2Mixer.volume = vco2Amplitudes[3]
+                
+                coreVoice.sawtoothVCO2.stop()
+                coreVoice.squareVCO2.stop()
+                coreVoice.sineVCO2.stop()
+                coreVoice.triangleVCO2.stop()
+                
+                switch selectedVCO2Waveform {
+                case 0:
+                    coreVoice.sawtoothVCO2.start()
+                case 1:
+                    coreVoice.squareVCO2.start()
+                case 2:
+                    coreVoice.sineVCO2.start()
+                case 3:
+                    coreVoice.triangleVCO2.start()
+                default:
+                    break
+                }
+                
             }
         }
     }
-    
-    var vco1Amplitudes = [1.0,0,0,0]
-    var vco2Amplitudes = [1.0,0,0,0]
     
     var vco1On = false {
         didSet {
@@ -273,28 +294,6 @@ class CoreInstrument: AKPolyphonicInstrument {
         let coreVoice = voice as! CoreVoice
         coreVoice.stop()
     }
-    
-//    override func panic() {
-//        for voice in voices {
-//            let coreVoice = voice as! CoreVoice
-//            coreVoice.stop()
-//            coreVoice.fmOscillator.stop()
-//            coreVoice.sawtoothVCO1.stop()
-//            coreVoice.sineVCO1.stop()
-//            coreVoice.squareVCO1.stop()
-//            coreVoice.triangleVCO1.stop()
-//            coreVoice.sawtoothVCO2.stop()
-//            coreVoice.sineVCO2.stop()
-//            coreVoice.squareVCO2.stop()
-//            coreVoice.triangleVCO2.stop()
-//            coreVoice.noise.stop()
-//            coreVoice.subOsc.stop()
-//            coreVoice.adsr.stop()
-//            active
-//            activeNotes.removeAll()
-//            activeVoices.removeAll()
-//        }
-//    }
     
 }
 
