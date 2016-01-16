@@ -13,7 +13,8 @@ import AVFoundation
 ///
 /// - parameter frequency: Frequency in cycles per second
 /// - parameter amplitude: Output Amplitude.
-/// - parameter detuning: Frequency offset in Hz.
+/// - parameter detuningOffset: Frequency offset in Hz.
+/// - parameter detuningMultiplier: Frequency detuning multiplier
 ///
 public class AKOscillator: AKVoice {
 
@@ -26,7 +27,8 @@ public class AKOscillator: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-    private var detuningParameter: AUParameter?
+    private var detuningOffsetParameter: AUParameter?
+    private var detuningMultiplierParameter: AUParameter?
 
     /// Frequency in cycles per second
     public var frequency: Double = 440 {
@@ -59,18 +61,33 @@ public class AKOscillator: AKVoice {
     }
 
     /// Frequency offset in Hz.
-    public var detuning: Double = 0 {
+    public var detuningOffset: Double = 0 {
         didSet {
-            internalAU?.detuning = Float(detuning)
+            internalAU?.detuningOffset = Float(detuningOffset)
         }
     }
 
-    /// Ramp to detuning over 20 ms
+    /// Ramp to detuningOffset over 20 ms
     ///
-    /// - parameter detuning: Target Frequency offset in Hz.
+    /// - parameter detuningOffset: Target Frequency offset in Hz.
     ///
-    public func ramp(detuning detuning: Double) {
-        detuningParameter?.setValue(Float(detuning), originator: token!)
+    public func ramp(detuningOffset detuningOffset: Double) {
+        detuningOffsetParameter?.setValue(Float(detuningOffset), originator: token!)
+    }
+
+    /// Frequency detuning multiplier
+    public var detuningMultiplier: Double = 1 {
+        didSet {
+            internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        }
+    }
+
+    /// Ramp to detuningMultiplier over 20 ms
+    ///
+    /// - parameter detuningMultiplier: Target Frequency detuning multiplier
+    ///
+    public func ramp(detuningMultiplier detuningMultiplier: Double) {
+        detuningMultiplierParameter?.setValue(Float(detuningMultiplier), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -84,19 +101,22 @@ public class AKOscillator: AKVoice {
     ///
     /// - parameter frequency: Frequency in cycles per second
     /// - parameter amplitude: Output Amplitude.
-    /// - parameter detuning: Frequency offset in Hz.
+    /// - parameter detuningOffset: Frequency offset in Hz.
+    /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
         waveform: AKTable = AKTable(.Sine),
         frequency: Double = 440,
         amplitude: Double = 1,
-        detuning: Double = 0) {
+        detuningOffset: Double = 0,
+        detuningMultiplier: Double = 1) {
 
 
         self.waveform = waveform
         self.frequency = frequency
         self.amplitude = amplitude
-        self.detuning = detuning
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -129,9 +149,10 @@ public class AKOscillator: AKVoice {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
-        detuningParameter  = tree.valueForKey("detuning")  as? AUParameter
+        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
+        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
+        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -141,19 +162,22 @@ public class AKOscillator: AKVoice {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
-                } else if address == self.detuningParameter!.address {
-                    self.detuning = Double(value)
+                } else if address == self.detuningOffsetParameter!.address {
+                    self.detuningOffset = Double(value)
+                } else if address == self.detuningMultiplierParameter!.address {
+                    self.detuningMultiplier = Double(value)
                 }
             }
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
-        internalAU?.detuning = Float(detuning)
+        internalAU?.detuningOffset = Float(detuningOffset)
+        internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public override func copy() -> AKVoice {
-        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude, detuning: self.detuning)
+        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
         return copy
     }
 
