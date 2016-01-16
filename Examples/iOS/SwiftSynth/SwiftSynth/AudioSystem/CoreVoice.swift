@@ -80,15 +80,8 @@ class CoreVoice: AKVoice {
     
     /// Function to start, play, or activate the node, all do the same thing
     override func start() {
-        
-        sineVCO1.start()
-        sineVCO2.start()
-        sawtoothVCO1.start()
-        sawtoothVCO2.start()
-        squareVCO1.start()
-        squareVCO2.start()
-        triangleVCO1.start()
-        triangleVCO2.start()
+
+        // Do not automatically start the VCOs because the logic about that is higher up
         subOsc.start()
         fmOscillator.start()
         noise.start()
