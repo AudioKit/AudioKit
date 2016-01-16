@@ -37,6 +37,10 @@ public class AKManager {
         // Start the engine.
         do {
             try self.engine.start()
+            #if !os(OSX)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+            #endif
         } catch {
             fatalError("Could not start engine. error: \(error).")
         }
