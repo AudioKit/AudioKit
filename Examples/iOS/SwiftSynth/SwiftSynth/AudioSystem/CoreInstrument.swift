@@ -270,6 +270,10 @@ class CoreInstrument: AKPolyphonicInstrument {
         coreVoice.subOsc.frequency = (note - 12).midiNoteToFrequency()
         coreVoice.fmOscillator.baseFrequency = note.midiNoteToFrequency()
         
+        
+        // Intelligently start only what we need to:
+        updateVCO1()
+        updateVCO2()
         coreVoice.start()
     }
     
