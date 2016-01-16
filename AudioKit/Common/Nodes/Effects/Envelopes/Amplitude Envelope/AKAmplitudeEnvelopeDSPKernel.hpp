@@ -35,31 +35,31 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp_tadsr_create(&tadsr);
-        sp_tadsr_init(sp, tadsr);
-        tadsr->atk = 0.1;
-        tadsr->dec = 0.1;
-        tadsr->sus = 0.8;
-        tadsr->rel = 0.7;
+        sp_adsr_create(&adsr);
+        sp_adsr_init(sp, adsr);
+        adsr->atk = 0.1;
+        adsr->dec = 0.1;
+        adsr->sus = 0.8;
+        adsr->rel = 0.7;
     }
 
     void start() {
         if (!started) {
-            internalTrigger = 1;
+            internalGate = 1;
             started = true;
         }
     }
 
     void stop() {
         if (started) {
-            internalTrigger = 2;
+            internalGate = 0;
             started = false;
         }
         
     }
 
     void destroy() {
-        sp_tadsr_destroy(&tadsr);
+        sp_adsr_destroy(&adsr);
         sp_destroy(&sp);
     }
 
@@ -142,13 +142,12 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
-            tadsr->atk = (float)attackDuration;
-            tadsr->dec = (float)decayDuration;
-            tadsr->sus = (float)sustainLevel;
-            tadsr->rel = (float)releaseDuration;
+            adsr->atk = (float)attackDuration;
+            adsr->dec = (float)decayDuration;
+            adsr->sus = (float)sustainLevel;
+            adsr->rel = (float)releaseDuration;
 
-            sp_tadsr_compute(sp, tadsr, &internalTrigger, &amp);
-            internalTrigger = 0;
+            sp_adsr_compute(sp, adsr, &internalGate, &amp);
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
@@ -164,14 +163,14 @@ private:
 
     int channels = 2;
     float sampleRate = 44100.0;
-    float internalTrigger = 0;
+    float internalGate = 0;
     float amp = 0;
     
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
-    sp_tadsr *tadsr;
+    sp_adsr *adsr;
 
 public:
     bool started = false;
