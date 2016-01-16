@@ -54,9 +54,6 @@ class CoreVoice: AKVoice {
         triangleVCO1.stop()
         triangleVCO2.stop()
 
-        vco1Mixer.volume = 0
-        vco2Mixer.volume = 0
-        
         subOscMixer.volume = 0
         fmOscMixer.volume  = 0
         noiseMixer.volume  = 0

@@ -550,11 +550,11 @@ extension SynthViewController: SMSegmentViewDelegate {
         switch (segmentView.tag) {
         case ControlTag.Vco1Waveform.rawValue:
             statusLabel.text = "VCO1 Waveform Changed"
-            conductor.core.selectedVCO1Waveform = index
+            conductor.core.selectedVCO1Waveform.changeWaveformFromIndex(index)
             
         case ControlTag.Vco2Waveform.rawValue:
             statusLabel.text = "VCO2 Waveform Changed"
-            conductor.core.selectedVCO2Waveform = index
+            conductor.core.selectedVCO2Waveform.changeWaveformFromIndex(index)
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
