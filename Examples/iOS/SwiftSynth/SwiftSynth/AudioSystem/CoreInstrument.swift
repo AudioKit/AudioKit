@@ -162,7 +162,6 @@ class CoreInstrument: AKPolyphonicInstrument {
     }
     
     func updateVCO1() {
-        print(selectedVCO1Waveform)
         for voice in voices {
             let coreVoice = voice as! CoreVoice
             
@@ -174,7 +173,6 @@ class CoreInstrument: AKPolyphonicInstrument {
             if vco1On {
                 switch selectedVCO1Waveform {
                 case .Sawtooth:
-                    print("Should Start Sawtooth")
                     coreVoice.sawtoothVCO1.start()
                 case .Square:
                     coreVoice.squareVCO1.start()
@@ -188,7 +186,6 @@ class CoreInstrument: AKPolyphonicInstrument {
     }
     
     func updateVCO2() {
-        print(selectedVCO2Waveform)
         for voice in voices {
             let coreVoice = voice as! CoreVoice
             
