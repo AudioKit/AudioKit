@@ -43,6 +43,15 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var decaySlider: VerticalSlider!
     @IBOutlet weak var sustainSlider: VerticalSlider!
     @IBOutlet weak var releaseSlider: VerticalSlider!
+    @IBOutlet weak var vco1Toggle: UIButton!
+    @IBOutlet weak var vco2Toggle: UIButton!
+    @IBOutlet weak var bitcrushToggle: UIButton!
+    @IBOutlet weak var filterToggle: UIButton!
+    @IBOutlet weak var delayToggle: UIButton!
+    @IBOutlet weak var reverbToggle: UIButton!
+    @IBOutlet weak var fattenToggle: UIButton!
+    @IBOutlet weak var holdToggle: UIButton!
+    @IBOutlet weak var monoToggle: UIButton!
     
     enum ControlTag: Int {
         case Cutoff = 101
@@ -89,7 +98,7 @@ class SynthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Create Waveform Segment Views
+        // Create WaveformSegmentedViews
         createWaveFormSegmentViews()
         
         // Set Delegates
@@ -99,77 +108,70 @@ class SynthViewController: UIViewController {
         setDefaultValues()
     }
     
-    func setDelegates() {
-        oscMixKnob.delegate = self
-        cutoffKnob.delegate = self
-        rezKnob.delegate = self
-        osc1SemitonesKnob.delegate = self
-        osc2SemitonesKnob.delegate = self
-        osc2DetuneKnob.delegate = self
-        lfoAmtKnob.delegate = self
-        lfoRateKnob.delegate = self
-        crushAmtKnob.delegate = self
-        delayTimeKnob.delegate = self
-        delayMixKnob.delegate = self
-        reverbAmtKnob.delegate = self
-        reverbMixKnob.delegate = self
-        subMixKnob.delegate = self
-        fmMixKnob.delegate = self
-        fmModKnob.delegate = self
-        pwmKnob.delegate = self
-        noiseMixKnob.delegate = self
-        masterVolKnob.delegate = self
-        attackSlider.delegate = self
-        decaySlider.delegate = self
-        sustainSlider.delegate = self
-        releaseSlider.delegate = self
-    }
-
     // *********************************************************
     // MARK: - Defaults/Presets
     // *********************************************************
     
     func setDefaultValues() {
         
-        // Initial Values
+        // Greeting
         statusLabel.text = String.randomGreeting()
         
-        cutoffKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(3000.0, rangeMin: 150.0, rangeMax: 24000.0))
-        osc1SemitonesKnob.knobValue = CGFloat(cutoffKnob.scaleForKnobValue(20, rangeMin: -12, rangeMax: 24))
-        
-        // Set Osc Waveform Defaults
-    }
+        // Initial Knob Values
+        osc1SemitonesKnob.value = 0
+        osc1SemitonesKnob.minimum = -12
+        osc1SemitonesKnob.maximum = 12
 
+        osc2SemitonesKnob.value = 0
+        osc2SemitonesKnob.minimum = -12
+        osc2SemitonesKnob.maximum = 12
 
-    //*****************************************************************
-    // MARK: - UI Helpers
-    //*****************************************************************
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
-    func createWaveFormSegmentViews() {
-        setupOscSegmentView(8, y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
-        setupOscSegmentView(212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.Vco2Waveform.rawValue, type: 0)
-        setupOscSegmentView(10, y: 377, width: 255, height: 46.0, tag: ControlTag.LfoWaveform.rawValue, type: 1)
-    }
-    
-    func setupOscSegmentView(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, tag: Int, type: Int) {
-        let segmentFrame = CGRect(x: x, y: y, width: width, height: height)
-        let segmentView = SMSegmentView(frame: segmentFrame)
+        osc2DetuneKnob.value = 0
+        osc2DetuneKnob.minimum = -20
+        osc2DetuneKnob.maximum = 20
         
-        if type == 0 {
-            segmentView.createOscSegmentView(tag)
-        } else {
-            segmentView.createLfoSegmentView(tag)
-        }
+        subMixKnob.value = 0
+        subMixKnob.maximum = 5
+        print("fdsa \(subMixKnob.knobValue)")
+
+        fmMixKnob.value = 0
+        fmMixKnob.maximum = 2
+
+        fmModKnob.value = 0
+
+        pwmKnob.value = 0.5
+        pwmKnob.minimum = 0.5
+
+        noiseMixKnob.value = 0
+
+        oscMixKnob.value = 0.5
+
+        lfoAmtKnob.value = 0
+        lfoAmtKnob.maximum = 1000
+
+        lfoRateKnob.value = 0
+        lfoRateKnob.maximum = 5
+
+        crushAmtKnob.value = 0
+        crushAmtKnob.maximum = 0.8
         
-        segmentView.delegate = self
+        cutoffKnob.value = 0
+
+        rezKnob.value = 0
+        rezKnob.maximum = 0.99
+
+        delayTimeKnob.value = 0
+        delayMixKnob.value = 0
+
+        reverbAmtKnob.value = 0
+        reverbMixKnob.value = 0
         
-        // Set segment with index 0 as selected by default
-        segmentView.selectSegmentAtIndex(0)
-        self.view.addSubview(segmentView)
+        // Turn on initial toggle switches
+        vco1Toggled(vco1Toggle)
+        vco2Toggled(vco2Toggle)
+        filterToggled(filterToggle)
+        delayToggled(delayToggle)
+      
     }
 
     //*****************************************************************
@@ -180,9 +182,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "VCO 1 Off"
+            conductor.core.vco1On = false
         } else {
             sender.selected = true
             statusLabel.text = "VCO 1 On"
+            conductor.core.vco1On = true
         }
     }
     
@@ -190,9 +194,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "VCO 2 Off"
+            conductor.core.vco2On = false
         } else {
             sender.selected = true
             statusLabel.text = "VCO 2 On"
+            conductor.core.vco2On = true
         }
     }
 
@@ -200,11 +206,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Bitcrush Off"
-            conductor.bitCrushMixer?.balance = 0
+            conductor.bitCrusher.bypass()
         } else {
             sender.selected = true
             statusLabel.text = "Bitcrush On"
-            conductor.bitCrushMixer?.balance = 1
+            conductor.bitCrusher.start()
         }
     }
     
@@ -224,27 +230,27 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Delay Off"
-            conductor.multiDelayMixer?.balance = 0
+            conductor.multiDelayMixer.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Delay On"
-            conductor.multiDelayMixer?.balance = 1
+            conductor.multiDelayMixer.balance = 1
         }
     }
     
-    @IBAction func ReverbToggled(sender: UIButton) {
+    @IBAction func reverbToggled(sender: UIButton) {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Reverb Off"
-            conductor.reverb?.dryWetMix = 0
+            conductor.reverb.bypass()
         } else {
             sender.selected = true
             statusLabel.text = "Reverb On"
-            conductor.reverb?.dryWetMix = 1
+            conductor.reverb.start()
         }
     }
     
-    @IBAction func StereoFattenToggled(sender: UIButton) {
+    @IBAction func stereoFattenToggled(sender: UIButton) {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Stereo Fatten Off"
@@ -299,6 +305,8 @@ class SynthViewController: UIViewController {
     
     @IBAction func midiPanicPressed(sender: RoundedButton) {
         statusLabel.text = "All Notes Off"
+        
+        conductor.core.panic()
     }
     
     // About App
@@ -316,21 +324,17 @@ class SynthViewController: UIViewController {
     }
     
     //*****************************************************************
-    // MARK: - 🎹 Key presses
+    // MARK: - 🎹 Key Presses
     //*****************************************************************
     
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
-        let index = sender.tag - 200
-        let midiNote = index + (keyboardOctavePosition * 12)
         
         if monoMode {
             if let lastKey = lastKey where lastKey != key {
                 turnOffKey(lastKey)
             }
         }
-        
-        // conductor.play(midiNote)
         turnOnKey(key)
         lastKey = key
     }
@@ -351,7 +355,7 @@ class SynthViewController: UIViewController {
     }
     
     // *********************************************************
-    // MARK - Keys UI/UX Helpers
+    // MARK: - 🎹 Key UI/UX Helpers
     // *********************************************************
     
     func turnOnKey(key: UIButton) {
@@ -364,6 +368,7 @@ class SynthViewController: UIViewController {
         }
         
         let midiNote = index + (keyboardOctavePosition * 12)
+        conductor.core.playNote(midiNote, velocity: 127)
         statusLabel.text = "Key Pressed: \(midiNote)"
     }
     
@@ -377,12 +382,16 @@ class SynthViewController: UIViewController {
         }
         
         statusLabel.text = "Key Released"
-        //conductor.release(index)
+        let midiNote = index + (keyboardOctavePosition * 12)
+        conductor.core.stopNote(midiNote)
     }
     
     func turnOffHeldKeys() {
         for key in keysHeld {
             turnOffKey(key)
+            let index = key.tag - 200
+            let midiNote = index + (keyboardOctavePosition * 12)
+            conductor.core.stopNote(midiNote)
         }
         if let lastKey = lastKey {
             turnOffKey(lastKey)
@@ -390,6 +399,7 @@ class SynthViewController: UIViewController {
         statusLabel.text = "Key(s) Released"
         keysHeld.removeAll(keepCapacity: false)
     }
+   
 }
 
 //*****************************************************************
@@ -402,49 +412,56 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         
         switch (tag) {
             
-        // VCOs
+            // VCOs
         case ControlTag.Vco1Semitones.rawValue:
-            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
-            let intValue = Int(floor(scaledValue))
+            let intValue = Int(floor(value))
             statusLabel.text = "Semitones: \(intValue)"
+            conductor.core.offset1 = intValue
             
         case ControlTag.Vco2Semitones.rawValue:
-            let scaledValue = Double.scaleRange(value, rangeMin: -24, rangeMax: 24)
-            let intValue = Int(floor(scaledValue))
+            let intValue = Int(floor(value))
             statusLabel.text = "Semitones: \(intValue)"
+            conductor.core.offset2 = intValue
             
         case ControlTag.Vco2Detune.rawValue:
             statusLabel.text = "Detune: \(value.decimalFormattedString)"
+            conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalFormattedString)"
+            conductor.core.vco12Mix = value
             
         case ControlTag.Pwm.rawValue:
             statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
+            conductor.core.pulseWidth = value
             
-        // Additional Oscillators
+            // Additional OSCs
         case ControlTag.SubMix.rawValue:
             statusLabel.text = "Sub Osc: \(value.decimalFormattedString)"
+            conductor.core.subOscMix = value
             
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
+            conductor.core.fmOscMix = value
             
         case ControlTag.FmMod.rawValue:
             statusLabel.text = "FM Mod: \(value.decimalFormattedString)"
-        
+            conductor.core.fmMod = value
+            
         case ControlTag.NoiseMix.rawValue:
             statusLabel.text = "Noise Amt: \(value.decimalFormattedString)"
+            conductor.core.noiseMix = value
             
-        // LFO
+            // LFO
         case ControlTag.LfoAmt.rawValue:
             statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoAmplitude = 1000*value
+            conductor.filterSection.lfoAmplitude = value
             
         case ControlTag.LfoRate.rawValue:
             statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
-            conductor.filterSection.lfoRate = 5*value
-       
-        // Filter
+            conductor.filterSection.lfoRate = value
+            
+            // Filter
         case ControlTag.Cutoff.rawValue:
             
             // Logarithmic scale to frequency
@@ -457,31 +474,31 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             statusLabel.text = "Rez: \(value.decimalFormattedString)"
             conductor.filterSection.resonance = value
             
-        // Crusher
+            // Crusher
         case ControlTag.CrushAmt.rawValue:
             statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
-            conductor.bitCrusher?.sampleRate = Double(16000.0 * (1.0 - value))
-            conductor.bitCrusher?.bitDepth = Double(12 * (1.0 - value))
+            conductor.bitCrusher.sampleRate = Double(16000.0 * (1.0 - value))
+            conductor.bitCrusher.bitDepth = Double(12 * (1.0 - value))
             
-        // Delay
+            // Delay
         case ControlTag.DelayTime.rawValue:
             statusLabel.text = "Delay Time: \(value.decimalFormattedString)"
             conductor.multiDelay.time = value
-        
+            
         case ControlTag.DelayMix.rawValue:
             statusLabel.text = "Delay Mix: \(value.decimalFormattedString)"
             conductor.multiDelay.mix = value
-        
-        // Reverb
+            
+            // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
-            conductor.reverb?.decayTimeAt0Hz = value
-        
+            conductor.reverb.decayTimeAt0Hz = value
+            
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
-            conductor.reverb?.dryWetMix = value
+            conductor.reverbMixer.balance = value
             
-        // Master
+            // Master
         case ControlTag.MasterVol.rawValue:
             statusLabel.text = "Master Vol: \(value.decimalFormattedString)"
             conductor.masterVolume.volume = value
@@ -493,7 +510,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
 }
 
 //*****************************************************************
-// MARK: - Slider Delegate (ADSR)
+// MARK: - 🎚Slider Delegate (ADSR)
 //*****************************************************************
 
 extension SynthViewController: VerticalSliderDelegate {
@@ -502,15 +519,19 @@ extension SynthViewController: VerticalSliderDelegate {
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
             statusLabel.text = "Attack: \(value.decimalFormattedString)"
+            conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
             statusLabel.text = "Decay: \(value.decimalFormattedString)"
+            conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
             statusLabel.text = "Sustain: \(value.decimalFormattedString)"
-        
+            conductor.core.sustainLevel = value
+            
         case ControlTag.adsrRelease.rawValue:
             statusLabel.text = "Release: \(value.decimalFormattedString)"
+            conductor.core.releaseDuration = value
             
         default:
             break
@@ -519,7 +540,7 @@ extension SynthViewController: VerticalSliderDelegate {
 }
 
 //*****************************************************************
-// MARK: - SegmentView Delegate (waveform selector)
+// MARK: - WaveformSegmentedView Delegate
 //*****************************************************************
 
 extension SynthViewController: SMSegmentViewDelegate {
@@ -529,17 +550,22 @@ extension SynthViewController: SMSegmentViewDelegate {
         
         switch (segmentView.tag) {
         case ControlTag.Vco1Waveform.rawValue:
-            statusLabel.text = "VCO1 Waveform Changed"
+            conductor.core.selectedVCO1Waveform.changeWaveformFromIndex(index)
+            statusLabel.text = "VCO1 Waveform: \(conductor.core.selectedVCO1Waveform)"
             
         case ControlTag.Vco2Waveform.rawValue:
-            statusLabel.text = "VCO2 Waveform Changed"
+            conductor.core.selectedVCO2Waveform.changeWaveformFromIndex(index)
+            statusLabel.text = "VCO2 Waveform: \(conductor.core.selectedVCO2Waveform)"
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
+            conductor.filterSection.selectedWaveform = index
             
         default:
             break
         }
     }
 }
+
+
 

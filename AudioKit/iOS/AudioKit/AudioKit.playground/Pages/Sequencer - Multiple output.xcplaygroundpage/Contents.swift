@@ -1,4 +1,9 @@
-//: [Previous](@previous)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## Sequencer - Multiple output
+//: ### Add description
 import XCPlayground
 import AudioKit
 
@@ -38,4 +43,4 @@ seq!.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

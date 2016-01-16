@@ -17,13 +17,6 @@ int sporth_reverse(sporth_stack *stack, void *ud)
 
             sp_reverse_create(&reverse);
             plumber_add_ugen(pd, SPORTH_REVERSE, reverse);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "reverse: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for reverse\n");
                 stack->error++;
@@ -31,16 +24,20 @@ int sporth_reverse(sporth_stack *stack, void *ud)
             }
             delay = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "reverse: Initialising\n");
+#endif
+            delay = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             reverse = pd->last->ud;
             sp_reverse_init(pd->sp, reverse, delay);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for reverse\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             delay = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
             reverse = pd->last->ud;

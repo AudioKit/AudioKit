@@ -22,14 +22,10 @@ int sporth_tget(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             td = malloc(sizeof(sporth_tbl_d));
             plumber_add_ugen(pd, SPORTH_TGET, td);
-            break;
-
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "fs") != SPORTH_OK) {
                fprintf(stderr,"Init: not enough arguments for tget\n");
                 return PLUMBER_NOTOK;
             }
-            td = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
             td->index = floor(sporth_stack_pop_float(stack));
             if(plumber_ftmap_search(pd, ftname, &td->ft) == PLUMBER_NOTOK) {
@@ -37,6 +33,14 @@ int sporth_tget(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            free(ftname);
+            sporth_stack_push_float(stack, 0.0);
+            break;
+
+        case PLUMBER_INIT:
+            td = pd->last->ud;
+            ftname = sporth_stack_pop_string(stack);
+            td->index = floor(sporth_stack_pop_float(stack));
             free(ftname);
             sporth_stack_push_float(stack, 0.0);
             break;
@@ -70,14 +74,10 @@ int sporth_tset(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             td = malloc(sizeof(sporth_tbl_d));
             plumber_add_ugen(pd, SPORTH_TSET, td);
-            break;
-
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
                fprintf(stderr,"Init: not enough arguments for tset\n");
                 return PLUMBER_NOTOK;
             }
-            td = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
             td->index = floor(sporth_stack_pop_float(stack));
             td->val = sporth_stack_pop_float(stack);
@@ -86,6 +86,14 @@ int sporth_tset(sporth_stack *stack, void *ud)
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            free(ftname);
+            break;
+
+        case PLUMBER_INIT:
+            td = pd->last->ud;
+            ftname = sporth_stack_pop_string(stack);
+            td->index = floor(sporth_stack_pop_float(stack));
+            td->val = sporth_stack_pop_float(stack);
             free(ftname);
             break;
 
@@ -120,20 +128,24 @@ int sporth_tblsize(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             tsize = malloc(sizeof(uint32_t));
             plumber_add_ugen(pd, SPORTH_TBLSIZE, tsize);
-            break;
-
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
                fprintf(stderr,"Init: not enough arguments for tblsize\n");
                 return PLUMBER_NOTOK;
             }
-            tsize = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
                 fprintf(stderr, "tblsize: could not find table '%s'\n", ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
+            *tsize = ft->size;
+            free(ftname);
+            sporth_stack_push_float(stack, *tsize);
+            break;
+
+        case PLUMBER_INIT:
+            tsize = pd->last->ud;
+            ftname = sporth_stack_pop_string(stack);
             *tsize = ft->size;
             free(ftname);
             sporth_stack_push_float(stack, *tsize);
@@ -168,14 +180,10 @@ int sporth_tbldur(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             tlen = malloc(sizeof(SPFLOAT));
             plumber_add_ugen(pd, SPORTH_TBLDUR, tlen);
-            break;
-
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "s") != SPORTH_OK) {
                fprintf(stderr,"Init: not enough arguments for tget\n");
                 return PLUMBER_NOTOK;
             }
-            tlen = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
                 fprintf(stderr, "tblen: could not find table '%s'\n", ftname);
@@ -183,6 +191,13 @@ int sporth_tbldur(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             *tlen = (SPFLOAT) ft->size / pd->sp->sr;
+            free(ftname);
+            sporth_stack_push_float(stack, (SPFLOAT) *tlen);
+            break;
+
+        case PLUMBER_INIT:
+            tlen = pd->last->ud;
+            ftname = sporth_stack_pop_string(stack);
             free(ftname);
             sporth_stack_push_float(stack, (SPFLOAT) *tlen);
             break;

@@ -18,18 +18,21 @@ int sporth_jitter(sporth_stack *stack, void *ud)
 
             sp_jitter_create(&jitter);
             plumber_add_ugen(pd, SPORTH_JITTER, jitter);
+            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for jitter\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            cpsMax = sporth_stack_pop_float(stack);
+            cpsMin = sporth_stack_pop_float(stack);
+            amp = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
 #ifdef DEBUG_MODE
             fprintf(stderr, "jitter: Initialising\n");
 #endif
-
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for jitter\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             cpsMax = sporth_stack_pop_float(stack);
             cpsMin = sporth_stack_pop_float(stack);
             amp = sporth_stack_pop_float(stack);

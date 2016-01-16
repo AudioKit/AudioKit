@@ -20,13 +20,6 @@ int sporth_dist(sporth_stack *stack, void *ud)
 
             sp_dist_create(&dist);
             plumber_add_ugen(pd, SPORTH_DIST, dist);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "dist: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for dist\n");
                 stack->error++;
@@ -37,16 +30,23 @@ int sporth_dist(sporth_stack *stack, void *ud)
             postgain = sporth_stack_pop_float(stack);
             pregain = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "dist: Initialising\n");
+#endif
+            shape2 = sporth_stack_pop_float(stack);
+            shape1 = sporth_stack_pop_float(stack);
+            postgain = sporth_stack_pop_float(stack);
+            pregain = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             dist = pd->last->ud;
             sp_dist_init(pd->sp, dist);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for dist\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             shape2 = sporth_stack_pop_float(stack);
             shape1 = sporth_stack_pop_float(stack);
             postgain = sporth_stack_pop_float(stack);

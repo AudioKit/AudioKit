@@ -2,8 +2,8 @@
 //  AKSequencer.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 11/27/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Jeff Cooper, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -49,6 +49,7 @@ public class AKSequencer {
     /// Loop control
     public var loopEnabled: Bool = false
     
+    /// Are we using the AVAudioEngineSequencer?
     public var isAvSeq: Bool = false
     
     /// Sequencer Initialization
@@ -67,7 +68,7 @@ public class AKSequencer {
     ///
     public convenience init(filename: String) {
         self.init()
-        loadMidiFile(filename)
+        loadMIDIFile(filename)
     }
     
     /// Initialize the sequence with a midi file and audioengine
@@ -75,11 +76,12 @@ public class AKSequencer {
     /// - parameter filename: Location of the MIDI File
     /// - parameter engine: reference to the AV Audio Engine
     /// - on hold while technology is still unstable
+    ///
     public convenience init(filename: String, engine: AVAudioEngine) {
         self.init()
         isAvSeq = true
         avSeq = AVAudioSequencer(audioEngine: engine)
-        loadMidiFile(filename)
+        loadMIDIFile(filename)
     }
     
     /// Set loop functionality of entire sequence
@@ -132,11 +134,11 @@ public class AKSequencer {
     /// - parameter length: Length of tracks in seconds
     ///
     public func setLength(length: Double) {
-        for track in tracks{
+        for track in tracks {
             track.setLength(length)
         }
         if isAvSeq {
-            for track in avSeq.tracks{
+            for track in avSeq.tracks {
                 track.lengthInBeats = length
                 track.loopRange = AVMakeBeatRange(0, length)
             }
@@ -145,16 +147,17 @@ public class AKSequencer {
     
     /// Length of longest track in the sequence
     public var length: Double {
-        var length:MusicTimeStamp = 0
-        var tmpLength:MusicTimeStamp = 0
         
-        for track in tracks{
+        var length:    MusicTimeStamp = 0
+        var tmpLength: MusicTimeStamp = 0
+        
+        for track in tracks {
             tmpLength = track.length
             if(tmpLength >= length) { length = tmpLength }
         }
         
         if isAvSeq {
-            for track in avSeq.tracks{
+            for track in avSeq.tracks {
                 tmpLength = track.lengthInBeats
                 if(tmpLength >= length) { length = tmpLength }
             }
@@ -162,29 +165,33 @@ public class AKSequencer {
         return Double(length)
     }
     
-    // BPM
-    public func setRate(rate:Float){
+    /// Set the rate relative to the the default BPM of the track
+    public func setRate(rate: Float) {
         if isAvSeq {
             avSeq.rate = rate
         } else {
             //not applicable
         }
     }
-    public func setBpm(bpm:Float){
+    
+    /// Set the tempo of the sequencer
+    public func setBPM(bpm: Float) {
         if isAvSeq {
             //not applicable
         } else {
             var newTempo = bpm;
-            if(newTempo > 280){ newTempo = 180;} //bpm limits
-            if(newTempo < 10){ newTempo = 60;}
+            if newTempo > 280 { newTempo = 280 } //bpm limits
+            if newTempo < 10  { newTempo = 10  }
+            
             var tempoTrack = MusicTrack()
-            var currTime:MusicTimeStamp = 0;
-            MusicPlayerGetTime(musicPlayer, &currTime);
-            currTime = fmod(currTime, length);
-            MusicSequenceGetTempoTrack(sequence, &tempoTrack);
-            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo));
-            MusicTrackClear(tempoTrack, 0, length);
-            MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo));
+            var currTime: MusicTimeStamp = 0
+            MusicPlayerGetTime(musicPlayer, &currTime)
+            currTime = fmod(currTime, length)
+            
+            MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo))
+            MusicTrackClear(tempoTrack, 0, length)
+            MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo))
         }
     }
     
@@ -193,7 +200,7 @@ public class AKSequencer {
         if isAvSeq {
             do{
                 try avSeq.start()
-            }catch _{
+            } catch _ {
                 print("could not start avSeq")
             }
         } else {
@@ -231,7 +238,7 @@ public class AKSequencer {
     }
     
     /// Track count
-    public var numberOfTracks: Int {
+    public var trackCount: Int {
         if isAvSeq {
             return avSeq.tracks.count
         } else {
@@ -242,7 +249,7 @@ public class AKSequencer {
     }
     
     /// Load a MIDI file
-    public func loadMidiFile(filename:String) {
+    public func loadMIDIFile(filename:String) {
         let bundle = NSBundle.mainBundle()
         let file = bundle.pathForResource(filename, ofType: "mid")
         let fileURL = NSURL.fileURLWithPath(file!)
@@ -264,9 +271,9 @@ public class AKSequencer {
     func initTracks() {
         tracks.removeAll()
         
-        var count:UInt32 = 0
+        var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
-        //print("\(count) - \(numberOfTracks)") //why is this different? the computed variable runs the same code
+
         for( var i = 0; i < Int(count); ++i) {
             var musicTrack = MusicTrack()
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
@@ -274,18 +281,20 @@ public class AKSequencer {
         }
     }
     
-    public func newTrack(){
+    /// Get a new track
+    public func newTrack() {
         var newMusTrack = MusicTrack()
         MusicSequenceNewTrack(sequence, &newMusTrack)
-        var count:UInt32 = 0
+        var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
         tracks.append(AKMusicTrack(musicTrack: newMusTrack))
         initTracks()
     }
     
+    /// Print sequence to console
     public func debug() {
         if isAvSeq {
-            //do nothing
+            print("No debug information available for AVAudioEngine's sequencer.")
         } else {
             CAShow(sequencePointer)
         }

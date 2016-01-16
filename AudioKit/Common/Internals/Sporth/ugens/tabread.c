@@ -23,13 +23,6 @@ int sporth_tabread(sporth_stack *stack, void *ud)
 
             sp_tabread_create(&tabread);
             plumber_add_ugen(pd, SPORTH_TABREAD, tabread);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "tabread: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ffffs") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for tabread\n");
                 stack->error++;
@@ -40,7 +33,6 @@ int sporth_tabread(sporth_stack *stack, void *ud)
             offset = sporth_stack_pop_float(stack);
             mode = sporth_stack_pop_float(stack);
             index = sporth_stack_pop_float(stack);
-            tabread = pd->last->ud;
 
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
                 stack->error++;
@@ -48,6 +40,21 @@ int sporth_tabread(sporth_stack *stack, void *ud)
             }
 
             sp_tabread_init(pd->sp, tabread, ft);
+            sporth_stack_push_float(stack, 0);
+            free(ftname);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "tabread: Initialising\n");
+#endif
+            ftname = sporth_stack_pop_string(stack);
+            wrap = sporth_stack_pop_float(stack);
+            offset = sporth_stack_pop_float(stack);
+            mode = sporth_stack_pop_float(stack);
+            index = sporth_stack_pop_float(stack);
+            tabread = pd->last->ud;
+
             sporth_stack_push_float(stack, 0);
             free(ftname);
             break;

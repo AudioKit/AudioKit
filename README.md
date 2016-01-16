@@ -1,6 +1,6 @@
 AudioKit V3
 ===
-*This document was last updated: January 2, 2016*
+*This document was last updated: January 16, 2016*
 
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
@@ -78,12 +78,13 @@ So far, the only testing that we do automatically through Travis is to ensure th
 
 ## About Us
 
-AudioKit was primarily written by Aurelius Prochazka with major contributions from others whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
+AudioKit was created by the follow team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
 
+* Aurelius Prochazka: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
 * Jeff Cooper: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
-* Matthew Fecher: Sound design, graphic design, and programming of the Swift Synth example (as well as AK2's Swift examples).
-* Nicholas Arner: Wrote many tests and presets as well as tutorials for AudioKit Versions 1 and 2.
+* Matthew Fecher: Sound design, graphic design, and programming of the Swift Synth example.
+* Nicholas Arner: Longtime contributor to AudioKit and AudioKit's web site.
 * Paul Batchelor: The author of Soundpipe, and Sporth, which serve as two primary audio engines in AudioKit 3.
-* Simon Gladman: Contributed his AudioKitParticles example project, previously built using AudioKit 2, to the repo for AudioKit 3.
-* Stephane Peter: Vastly improved AudioKit 2 to be a dynamic framework and many other improvements to the code.
+* Simon Gladman: Contributed his AudioKitParticles project and PencilSynth which appears as part of TouchPlayer.
+* Stephane Peter: Installation and configuration czar and code reviewer.
 * Syed Haris Ali: The author of EZAudio which is AudioKit's included waveform plotter and FFT analysis engine.

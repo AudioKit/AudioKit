@@ -13,27 +13,29 @@ int sporth_tenv(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             sp_tenv_create(&data);
             plumber_add_ugen(pd, SPORTH_TENV, data);
-            break;
-
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
                 fprintf(stderr, "Init: not enough arguments for tenv\n");
                 return PLUMBER_NOTOK;
             }
-            data = pd->last->ud;
             release = sporth_stack_pop_float(stack);
             hold = sporth_stack_pop_float(stack);
             attack = sporth_stack_pop_float(stack);
             trig = sporth_stack_pop_float(stack);
+
+            sporth_stack_push_float(stack, 0);
+            break;
+
+        case PLUMBER_INIT:
+            release = sporth_stack_pop_float(stack);
+            hold = sporth_stack_pop_float(stack);
+            attack = sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
+            data = pd->last->ud;
             sp_tenv_init(pd->sp, data);
             sporth_stack_push_float(stack, 0);
             break;
 
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr, "Compute: Not enough arguments for tenv\n");
-                return PLUMBER_NOTOK;
-            }
             release = sporth_stack_pop_float(stack);
             hold = sporth_stack_pop_float(stack);
             attack = sporth_stack_pop_float(stack);
@@ -48,6 +50,9 @@ int sporth_tenv(sporth_stack *stack, void *ud)
             break;
 
         case PLUMBER_DESTROY:
+#ifdef DEBUG_MODE
+            fprintf(stderr, "Destroying tenv\n");
+#endif
             data = pd->last->ud;
             sp_tenv_destroy(&data);
             break;
@@ -56,5 +61,5 @@ int sporth_tenv(sporth_stack *stack, void *ud)
            fprintf(stderr, "Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

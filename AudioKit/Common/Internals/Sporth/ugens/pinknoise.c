@@ -16,6 +16,13 @@ int sporth_pinknoise(sporth_stack *stack, void *ud)
 
             sp_pinknoise_create(&pinknoise);
             plumber_add_ugen(pd, SPORTH_PINKNOISE, pinknoise);
+            if(sporth_check_args(stack, "f") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for pinknoise\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            amp = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
@@ -23,22 +30,12 @@ int sporth_pinknoise(sporth_stack *stack, void *ud)
             fprintf(stderr, "pinknoise: Initialising\n");
 #endif
 
-            if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for pinknoise\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             amp = sporth_stack_pop_float(stack);
             pinknoise = pd->last->ud;
             sp_pinknoise_init(pd->sp, pinknoise);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for pinknoise\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             amp = sporth_stack_pop_float(stack);
             pinknoise = pd->last->ud;
             *pinknoise->amp = amp;

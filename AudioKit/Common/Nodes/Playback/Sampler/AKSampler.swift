@@ -2,8 +2,8 @@
 //  AKSampler.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 11/22/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Jeff Cooper, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import AVFoundation

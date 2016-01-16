@@ -18,13 +18,6 @@ int sporth_comb(sporth_stack *stack, void *ud)
 
             sp_comb_create(&comb);
             plumber_add_ugen(pd, SPORTH_COMB, comb);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "comb: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for comb\n");
                 stack->error++;
@@ -33,16 +26,22 @@ int sporth_comb(sporth_stack *stack, void *ud)
             looptime = sporth_stack_pop_float(stack);
             revtime = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "comb: Initialising\n");
+#endif
+
+            looptime = sporth_stack_pop_float(stack);
+            revtime = sporth_stack_pop_float(stack);
+            input = sporth_stack_pop_float(stack);
             comb = pd->last->ud;
             sp_comb_init(pd->sp, comb, looptime);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for comb\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             looptime = sporth_stack_pop_float(stack);
             revtime = sporth_stack_pop_float(stack);
             input = sporth_stack_pop_float(stack);

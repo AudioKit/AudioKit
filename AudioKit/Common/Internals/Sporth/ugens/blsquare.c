@@ -18,6 +18,15 @@ int sporth_blsquare(sporth_stack *stack, void *ud)
 
             sp_blsquare_create(&blsquare);
             plumber_add_ugen(pd, SPORTH_SQUARE, blsquare);
+            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for blsquare\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            width = sporth_stack_pop_float(stack);
+            amp = sporth_stack_pop_float(stack);
+            freq = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
@@ -25,11 +34,6 @@ int sporth_blsquare(sporth_stack *stack, void *ud)
             fprintf(stderr, "blsquare: Initialising\n");
 #endif
 
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for blsquare\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             width = sporth_stack_pop_float(stack);
             amp = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
