@@ -58,11 +58,11 @@ int sp_comb_compute(sp_data *sp, sp_comb *p, SPFLOAT *in, SPFLOAT *out)
         }
     }
     sp_auxdata_getbuf(&p->aux, p->bufpos, &outsamp);
-    *out = outsamp;
     tmp = outsamp;
     tmp *= coef;
     tmp += *in;
     sp_auxdata_setbuf(&p->aux, p->bufpos, &tmp);
+    *out = outsamp;
     
 
     p->bufpos++;

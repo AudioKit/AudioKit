@@ -2,5 +2,33 @@
 <Timeline
    version = "3.0">
    <TimelineItems>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "#CharacterRangeLen=5&amp;CharacterRangeLoc=155&amp;EndingColumnNumber=37&amp;EndingLineNumber=6&amp;StartingColumnNumber=32&amp;StartingLineNumber=6&amp;Timestamp=474319409.424043"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "#CharacterRangeLen=5&amp;CharacterRangeLoc=259&amp;EndingColumnNumber=35&amp;EndingLineNumber=9&amp;StartingColumnNumber=30&amp;StartingLineNumber=9&amp;Timestamp=474319444.445981"
+         lockedSize = "{737, 178}"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "#CharacterRangeLen=5&amp;CharacterRangeLoc=356&amp;EndingColumnNumber=33&amp;EndingLineNumber=12&amp;StartingColumnNumber=28&amp;StartingLineNumber=12&amp;Timestamp=474319444.44608"
+         lockedSize = "{750, 188}"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "#CharacterRangeLen=5&amp;CharacterRangeLoc=465&amp;EndingColumnNumber=37&amp;EndingLineNumber=15&amp;StartingColumnNumber=32&amp;StartingLineNumber=15&amp;Timestamp=474319471.523618"
+         lockedSize = "{786, 278}"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "#CharacterRangeLen=5&amp;CharacterRangeLoc=665&amp;EndingColumnNumber=35&amp;EndingLineNumber=21&amp;StartingColumnNumber=30&amp;StartingLineNumber=21&amp;Timestamp=474319471.527768"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "NO">
+      </LoggerValueHistoryTimelineItem>
    </TimelineItems>
 </Timeline>

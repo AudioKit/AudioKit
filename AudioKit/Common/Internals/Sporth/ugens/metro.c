@@ -11,24 +11,20 @@ int sporth_metro(sporth_stack *stack, void *ud)
         case PLUMBER_CREATE:
             sp_metro_create(&data);
             plumber_add_ugen(pd, SPORTH_METRO, data);
-            break;
-        case PLUMBER_INIT:
             if(sporth_check_args(stack, "f") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for metro\n");
+                fprintf(stderr,"Not enough arguments for metro\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            data = pd->last->ud;
             freq = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+            data = pd->last->ud;
             sp_metro_init(pd->sp, data);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "f") != SPORTH_OK) {
-               fprintf(stderr,"Not enough arguments for metro\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             freq = sporth_stack_pop_float(stack);
             data = pd->last->ud;
             data->freq = freq;
@@ -43,5 +39,5 @@ int sporth_metro(sporth_stack *stack, void *ud)
           fprintf(stderr,"Error: Unknown mode!");
            break;
     }
-    return PLUMBER_NOTOK;
+    return PLUMBER_OK;
 }

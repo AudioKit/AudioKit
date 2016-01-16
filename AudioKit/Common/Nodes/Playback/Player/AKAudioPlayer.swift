@@ -2,8 +2,8 @@
 //  AKAudioPlayer.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 11/5/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Aurelius Prochazka, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
@@ -41,6 +41,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
+    /// Whether or not the audio player is currently playing
     public var isStarted: Bool {
         return  internalPlayer.playing
     }

@@ -2,20 +2,21 @@
 //  AKMusicTrack.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 12/8/15.
-//  Copyright © 2015 AudioKit. All rights reserved.
+//  Created by Jeff Cooper, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
 
 /// Wrapper for internal Apple MusicTrack
-public class AKMusicTrack{
+public class AKMusicTrack {
     
     internal var internalMusicTrack = MusicTrack()
     
     /// Pointer to the Music Track
     public var trackPtr: UnsafeMutablePointer<MusicTrack>
     
+    /// Total duration of the music track
     public var length: MusicTimeStamp {
         var size: UInt32 = 0
         var len = MusicTimeStamp(0)
@@ -23,11 +24,21 @@ public class AKMusicTrack{
         return len
     }
     
+    /// Initialize with nothing
+    ///
+    /// - parameter musicTrack: An Apple Music Track
+    ///
+    public init() {
+        internalMusicTrack = MusicTrack()
+        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+    }
+    
     /// Initialize with a music track
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public init(musicTrack: MusicTrack) {
+    public convenience init(musicTrack: MusicTrack) {
+        self.init()
         internalMusicTrack = musicTrack
         trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
@@ -120,13 +131,14 @@ public class AKMusicTrack{
     /// - parameter vel:    The velocity to insert note at
     /// - parameter position: Where in the sequence to start the note (expressed in beats)
     /// - parameter dur: How long to hold the note (would be better if they let us just use noteOffs...oh well)
-    /// - parameter chan: Midi channel for this note
+    /// - parameter chan: MIDI channel for this note
     ///
     public func addNote(note: Int, vel: Int, position: Double, dur: Double, chan: Int = 0) {
         var noteMessage = MIDINoteMessage(channel: UInt8(chan), note: UInt8(note), velocity: UInt8(vel), releaseVelocity: 0, duration: Float32(dur))
         MusicTrackNewMIDINoteEvent(internalMusicTrack, MusicTimeStamp(position), &noteMessage)
     }
     
+    /// Debug by showing the track pointer.
     public func debug() {
         CAShow(trackPtr)
     }

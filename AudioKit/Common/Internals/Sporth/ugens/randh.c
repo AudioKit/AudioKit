@@ -18,13 +18,6 @@ int sporth_randh(sporth_stack *stack, void *ud)
 
             sp_randh_create(&randh);
             plumber_add_ugen(pd, SPORTH_RANDH, randh);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "randh: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
                 fprintf(stderr,"Not enough arguments for randh\n");
                 stack->error++;
@@ -33,16 +26,22 @@ int sporth_randh(sporth_stack *stack, void *ud)
             freq = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "randh: Initialising\n");
+#endif
+
+            freq = sporth_stack_pop_float(stack);
+            max = sporth_stack_pop_float(stack);
+            min = sporth_stack_pop_float(stack);
             randh = pd->last->ud;
             sp_randh_init(pd->sp, randh);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for randh\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             freq = sporth_stack_pop_float(stack);
             max = sporth_stack_pop_float(stack);
             min = sporth_stack_pop_float(stack);

@@ -25,6 +25,17 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
             vd = malloc(sizeof(sporth_vdelay_d));
             sp_vdelay_create(&vd->vdelay);
             plumber_add_ugen(pd, SPORTH_VDELAY, vd);
+            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
+                fprintf(stderr,"Not enough arguments for vdelay\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            maxdel = sporth_stack_pop_float(stack);
+            del = sporth_stack_pop_float(stack);
+            feedback = sporth_stack_pop_float(stack);
+            in = sporth_stack_pop_float(stack);
+            vd->prev = 0;
+            sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
 
@@ -32,11 +43,6 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
             fprintf(stderr, "vdelay: Initialising\n");
 #endif
 
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for vdelay\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             maxdel = sporth_stack_pop_float(stack);
             del = sporth_stack_pop_float(stack);
             feedback = sporth_stack_pop_float(stack);
@@ -47,11 +53,6 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "ffff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for vdelay\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             vd = pd->last->ud;
             maxdel = sporth_stack_pop_float(stack);
             del = sporth_stack_pop_float(stack);

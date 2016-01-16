@@ -2,13 +2,14 @@
 //  AKSawtoothInstrument.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 1/8/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
 import AVFoundation
 
+/// A wrapper for AKSawtoothOscillator to make it a playable as a polyphonic instrument.
 public class AKSawtoothInstrument: AKPolyphonicInstrument {
     /// Attack time
     public var attackDuration: Double = 0.1 {
@@ -47,20 +48,36 @@ public class AKSawtoothInstrument: AKPolyphonicInstrument {
         }
     }
     
+    /// Instantiate the Sawtooth Instrument
+    ///
+    /// - parameter voiceCount: Maximum number of voices that will be required
+    ///
     public init(voiceCount: Int) {
         super.init(voice: AKSawtoothVoice(), voiceCount: voiceCount)
     }
     
-    public override func startVoice(voice: Int, note: Int, velocity: Int) {
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
+    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let sawtoothVoice = voices[voice] as! AKSawtoothVoice 
+        let sawtoothVoice = voice as! AKSawtoothVoice
         sawtoothVoice.oscillator.frequency = frequency
         sawtoothVoice.oscillator.amplitude = amplitude
         sawtoothVoice.start()
     }
-    public override func stopVoice(voice: Int, note: Int) {
-        let sawtoothVoice = voices[voice] as! AKSawtoothVoice //you'll need to cast the voice to its original form
+    
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
+    public override func stopVoice(voice: AKVoice, note: Int) {
+        let sawtoothVoice = voice as! AKSawtoothVoice //you'll need to cast the voice to its original form
         sawtoothVoice.stop()
     }
 }

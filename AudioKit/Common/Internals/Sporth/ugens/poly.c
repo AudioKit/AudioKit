@@ -32,19 +32,11 @@ int sporth_poly(sporth_stack *stack, void *ud)
 #endif
             poly = malloc(sizeof(sporth_poly_d));
             plumber_add_ugen(pd, SPORTH_POLY, poly);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "poly: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "ffss") != SPORTH_OK) {
                 fprintf(stderr,"Invalid arguments for poly\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            poly = pd->last->ud;
 
             ftname = sporth_stack_pop_string(stack);
             file = sporth_stack_pop_string(stack);
@@ -66,6 +58,20 @@ int sporth_poly(sporth_stack *stack, void *ud)
             memset(poly->ft->tbl, 0, poly->ft->size * sizeof(SPFLOAT));
             poly->ft->tbl[0] = poly->max_params;
             plumber_ftmap_add(pd, ftname, poly->ft);
+            free(ftname);
+            free(file);
+            break;
+
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "poly: Initialising\n");
+#endif
+
+            ftname = sporth_stack_pop_string(stack);
+            file = sporth_stack_pop_string(stack);
+            poly->max_params = (uint32_t)sporth_stack_pop_float(stack);
+            poly->max_voices = (uint32_t)sporth_stack_pop_float(stack);
             free(ftname);
             free(file);
             break;
@@ -141,19 +147,11 @@ int sporth_tpoly(sporth_stack *stack, void *ud)
 #endif
             poly = malloc(sizeof(sporth_poly_d));
             plumber_add_ugen(pd, SPORTH_TPOLY, poly);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "poly: Initialising\n");
-#endif
-
             if(sporth_check_args(stack, "fffss") != SPORTH_OK) {
                 fprintf(stderr,"Invalid arguments for tpoly\n");
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            poly = pd->last->ud;
 
             poly_ft = sporth_stack_pop_string(stack);
             arg_ft = sporth_stack_pop_string(stack);
@@ -163,6 +161,8 @@ int sporth_tpoly(sporth_stack *stack, void *ud)
 
             if(plumber_ftmap_search(pd, arg_ft, &poly->arg_ft) == PLUMBER_NOTOK) {
                 fprintf(stderr, "Could not find table %s\n", arg_ft);
+                free(poly_ft);
+                free(arg_ft);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -177,6 +177,22 @@ int sporth_tpoly(sporth_stack *stack, void *ud)
             poly->ft->tbl[0] = poly->max_params;
 
             plumber_ftmap_add(pd, poly_ft, poly->ft);
+
+            free(poly_ft);
+            free(arg_ft);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "poly: Initialising\n");
+#endif
+
+            poly = pd->last->ud;
+            poly_ft = sporth_stack_pop_string(stack);
+            arg_ft = sporth_stack_pop_string(stack);
+            poly->max_params = (uint32_t)sporth_stack_pop_float(stack);
+            poly->max_voices = (uint32_t)sporth_stack_pop_float(stack);
+            trig = sporth_stack_pop_float(stack);
 
             free(poly_ft);
             free(arg_ft);
@@ -254,13 +270,6 @@ int sporth_polyget(sporth_stack *stack, void *ud)
 #endif
             poly = malloc(sizeof(sporth_poly_d));
             plumber_add_ugen(pd, SPORTH_POLYGET, poly);
-            break;
-        case PLUMBER_INIT:
-
-#ifdef DEBUG_MODE
-            fprintf(stderr, "polyget: Initialising\n");
-#endif
-            poly = pd->last->ud;
             if(sporth_check_args(stack, "ffs") != SPORTH_OK) {
                 fprintf(stderr,"Invalid arguments for polyget\n");
                 stack->error++;
@@ -269,11 +278,23 @@ int sporth_polyget(sporth_stack *stack, void *ud)
             ftname = sporth_stack_pop_string(stack);
             voice = (int)sporth_stack_pop_float(stack);
             param = (uint32_t)sporth_stack_pop_float(stack);
-
             if(plumber_ftmap_search(pd, ftname, &poly->ft) == PLUMBER_NOTOK) {
                 stack->error++;
+                free(ftname);
                 return PLUMBER_NOTOK;
             }
+            free(ftname);
+            sporth_stack_push_float(stack, 0);
+            break;
+        case PLUMBER_INIT:
+
+#ifdef DEBUG_MODE
+            fprintf(stderr, "polyget: Initialising\n");
+#endif
+            poly = pd->last->ud;
+            ftname = sporth_stack_pop_string(stack);
+            voice = (int)sporth_stack_pop_float(stack);
+            param = (uint32_t)sporth_stack_pop_float(stack);
             free(ftname);
             sporth_stack_push_float(stack, 0);
             break;
