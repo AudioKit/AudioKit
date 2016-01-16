@@ -22,15 +22,6 @@ class CoreVoice: AKVoice {
     var fmOscillator = AKFMOscillator()
     var noise        = AKWhiteNoise()
 
-    // Adding a mixer for every source because we want both an amplitude, set by a velocity, and an overall volume and on/off controlled by UI elements
-    var sineVCO1Mixer:     AKMixer
-    var sineVCO2Mixer:     AKMixer
-    var sawtoothVCO1Mixer: AKMixer
-    var sawtoothVCO2Mixer: AKMixer
-    var squareVCO1Mixer:   AKMixer
-    var squareVCO2Mixer:   AKMixer
-    var triangleVCO1Mixer: AKMixer
-    var triangleVCO2Mixer: AKMixer
     var subOscMixer:       AKMixer
     var fmOscMixer:        AKMixer
     var noiseMixer:        AKMixer
@@ -45,17 +36,8 @@ class CoreVoice: AKVoice {
     /// Instantiate the FM Oscillator Voice
     override init() {
         
-        sineVCO1Mixer     = AKMixer(sineVCO1)
-        sineVCO2Mixer     = AKMixer(sineVCO2)
-        sawtoothVCO1Mixer = AKMixer(sawtoothVCO1)
-        sawtoothVCO2Mixer = AKMixer(sawtoothVCO2)
-        squareVCO1Mixer   = AKMixer(squareVCO1)
-        squareVCO2Mixer   = AKMixer(squareVCO2)
-        triangleVCO1Mixer = AKMixer(triangleVCO1)
-        triangleVCO2Mixer = AKMixer(triangleVCO2)
-        
-        vco1Mixer = AKMixer(sineVCO1Mixer, sawtoothVCO1Mixer, squareVCO1Mixer, triangleVCO1Mixer)
-        vco2Mixer = AKMixer(sineVCO2Mixer, sawtoothVCO2Mixer, squareVCO2Mixer, triangleVCO2Mixer)
+        vco1Mixer = AKMixer(sineVCO1, sawtoothVCO1, squareVCO1, triangleVCO1)
+        vco2Mixer = AKMixer(sineVCO2, sawtoothVCO2, squareVCO2, triangleVCO2)
         vco12Mixer = AKDryWetMixer(vco1Mixer, vco2Mixer, balance: 0.5)
         
         subOscMixer = AKMixer(subOsc)
@@ -63,14 +45,14 @@ class CoreVoice: AKVoice {
         noiseMixer  = AKMixer(noise)
         
         // Defaults
-        sawtoothVCO1Mixer.volume = 1
-        sawtoothVCO2Mixer.volume = 1
-        sineVCO1Mixer.volume     = 0
-        sineVCO2Mixer.volume     = 0
-        squareVCO1Mixer.volume   = 0
-        squareVCO2Mixer.volume   = 0
-        triangleVCO1Mixer.volume = 0
-        triangleVCO2Mixer.volume = 0
+        sawtoothVCO1.start()
+        sawtoothVCO2.start()
+        sineVCO1.stop()
+        sineVCO2.stop()
+        squareVCO1.stop()
+        squareVCO2.stop()
+        triangleVCO1.stop()
+        triangleVCO2.stop()
 
         vco1Mixer.volume = 0
         vco2Mixer.volume = 0

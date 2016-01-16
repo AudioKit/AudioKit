@@ -491,7 +491,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
-            conductor.reverb.feedback = value
+            conductor.reverb.decayTimeAt0Hz = value
             
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
