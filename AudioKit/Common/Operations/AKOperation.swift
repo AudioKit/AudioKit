@@ -18,7 +18,7 @@ public struct AKOperation: AKComputedParameter  {
     public static var input = AKOperation("(0 p)")
     
     /// Dummy trigger
-    public static var trigger = AKOperation("")
+    public static var trigger = AKOperation("0 p")
     
     /// Call up a numbered parameter to the internal operation
     ///
