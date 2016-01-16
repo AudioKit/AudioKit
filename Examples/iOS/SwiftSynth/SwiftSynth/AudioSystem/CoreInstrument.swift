@@ -90,6 +90,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
+    
     var fmMod: Double = 1 {
         didSet {
             for voice in voices {
@@ -150,6 +151,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
+    
     /// Release time
     var releaseDuration: Double = 0.5 {
         didSet {

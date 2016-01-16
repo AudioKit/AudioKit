@@ -22,9 +22,9 @@ class CoreVoice: AKVoice {
     var fmOscillator = AKFMOscillator()
     var noise        = AKWhiteNoise()
 
-    var subOscMixer:       AKMixer
-    var fmOscMixer:        AKMixer
-    var noiseMixer:        AKMixer
+    var subOscMixer: AKMixer
+    var fmOscMixer: AKMixer
+    var noiseMixer: AKMixer
     
     var vco1Mixer: AKMixer
     var vco2Mixer: AKMixer
