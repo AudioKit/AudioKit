@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Z3O-nk-rpn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E27e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Z3O-nk-rpn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -373,6 +373,13 @@
                                             <constraint firstAttribute="width" constant="42" id="xY5-JB-Pl2"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UJk-4U-hhF" customClass="AKOutputWaveformPlot" customModule="AudioKit">
+                                        <rect key="frame" x="442" y="80" width="197" height="94"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="94" id="odX-bN-Ub0"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="RIV-6A-HIE" firstAttribute="leading" secondItem="ogn-C2-H7i" secondAttribute="trailing" constant="187" id="0HB-jZ-Cvh"/>
@@ -399,11 +406,13 @@
                                     <constraint firstAttribute="bottom" secondItem="zEz-py-yva" secondAttribute="bottom" constant="16" id="CEO-vH-Cp1"/>
                                     <constraint firstItem="M0a-nf-wee" firstAttribute="leading" secondItem="F1H-Yq-qu3" secondAttribute="trailing" constant="199" id="CO2-A8-xNN"/>
                                     <constraint firstItem="7Dg-ZX-e7h" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="top" id="CkR-zT-xlv"/>
+                                    <constraint firstItem="UJk-4U-hhF" firstAttribute="leading" secondItem="vhc-nf-ACm" secondAttribute="trailing" constant="8" id="Cla-mH-UX1"/>
                                     <constraint firstItem="Y6r-D0-hzD" firstAttribute="top" secondItem="vhc-nf-ACm" secondAttribute="bottom" constant="42" id="Cmd-nw-RVA"/>
                                     <constraint firstAttribute="trailing" secondItem="ozb-GC-i5H" secondAttribute="trailing" constant="40" id="Czw-FI-Yzg"/>
                                     <constraint firstItem="Nfd-4g-6lo" firstAttribute="leading" secondItem="7Dg-ZX-e7h" secondAttribute="trailing" id="DRH-Ya-ewF"/>
                                     <constraint firstItem="z6P-WU-WnB" firstAttribute="leading" secondItem="xur-qx-kBj" secondAttribute="leading" constant="470" id="DwA-Gj-6tc"/>
                                     <constraint firstItem="gUb-xS-52W" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="top" constant="34" id="E0b-sS-erv"/>
+                                    <constraint firstItem="UJk-4U-hhF" firstAttribute="top" secondItem="z6P-WU-WnB" secondAttribute="bottom" constant="8" id="EZE-YR-zXQ"/>
                                     <constraint firstItem="pRy-Wi-Jgx" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="top" constant="235" id="Eku-lp-Glg"/>
                                     <constraint firstItem="Tbf-ak-gFV" firstAttribute="top" secondItem="xur-qx-kBj" secondAttribute="top" constant="34" id="EpO-fF-ych"/>
                                     <constraint firstAttribute="bottom" secondItem="rye-rM-8x2" secondAttribute="bottom" constant="16" id="ExG-06-byH"/>
@@ -496,6 +505,7 @@
                                     <constraint firstItem="WR9-wM-ZDg" firstAttribute="leading" secondItem="xO4-Ns-PxZ" secondAttribute="trailing" constant="29" id="u0X-5v-888"/>
                                     <constraint firstItem="x1t-hx-AuC" firstAttribute="leading" secondItem="xur-qx-kBj" secondAttribute="leading" constant="18" id="uIZ-P2-RoP"/>
                                     <constraint firstAttribute="trailing" secondItem="vhc-nf-ACm" secondAttribute="trailing" constant="590" id="wWj-51-yOs"/>
+                                    <constraint firstItem="Mwk-FU-bNw" firstAttribute="leading" secondItem="UJk-4U-hhF" secondAttribute="trailing" constant="32" id="wc7-RG-1a8"/>
                                     <constraint firstItem="Mop-oI-FMc" firstAttribute="top" secondItem="F1H-Yq-qu3" secondAttribute="bottom" constant="27" id="wls-vS-HTr"/>
                                     <constraint firstItem="xO4-Ns-PxZ" firstAttribute="leading" secondItem="nk5-8a-iP4" secondAttribute="trailing" constant="11" id="wus-gR-WyA"/>
                                     <constraint firstItem="zEz-py-yva" firstAttribute="leading" secondItem="rye-rM-8x2" secondAttribute="trailing" constant="130" id="xDO-cQ-nER"/>
@@ -1362,7 +1372,7 @@
                                         <color key="textColor" red="0.73333333329999995" green="0.73333333329999995" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHv-M8-3cw" userLabel="Mono Toggle">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHv-M8-3cw" userLabel="Mono Toggle">
                                         <rect key="frame" x="103" y="10" width="31" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="55b-nj-UIx"/>
