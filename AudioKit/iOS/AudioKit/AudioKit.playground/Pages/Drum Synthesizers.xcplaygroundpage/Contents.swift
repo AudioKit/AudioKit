@@ -12,8 +12,11 @@ let audiokit = AKManager.sharedInstance
 var kick = AKSynthKick(voiceCount: 1)
 var snare = AKSynthSnare(voiceCount: 1, duration: 0.07)
 var mix = AKMixer(kick, snare)
+var reverb = AKReverb(mix)
+reverb.loadFactoryPreset(.MediumRoom)
+reverb.dryWetMix = 0.5
 
-audiokit.audioOutput = mix
+audiokit.audioOutput = reverb
 audiokit.start()
 
 var i = 0
