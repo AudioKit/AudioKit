@@ -19,7 +19,9 @@ extern "C" {
 enum {
     frequencyAddress = 0,
     amplitudeAddress = 1,
-    indexAddress = 2
+    indexAddress = 2,
+    detuningOffsetAddress = 3,
+    detuningMultiplierAddress = 4
 };
 
 class AKMorphingOscillatorDSPKernel : public AKDSPKernel {
@@ -32,17 +34,33 @@ public:
         channels = channelCount;
 
         sampleRate = float(inSampleRate);
-        NSLog(@"INITTING");
+
         sp_create(&sp);
         sp_oscmorph_create(&oscmorph);
-
+        
+        // Override custom tables that aren't quite working yet
+        sp_ftbl_create(sp, &ftbl0, tbl_size);
+        sp_ftbl_create(sp, &ftbl1, tbl_size);
+        sp_ftbl_create(sp, &ftbl2, tbl_size);
+        sp_ftbl_create(sp, &ftbl3, tbl_size);
+        sp_gen_line(sp, ftbl0, "0 1 4095 -1");
+        sp_gen_line(sp, ftbl1, "0 1 2047 1 2048 -1 4095 -1");
+        sp_gen_sine(sp, ftbl2);
+        sp_gen_line(sp, ftbl3, "0 0 1023 1 3071 -1 4095 0");
+        ft_array[0] = ftbl0;
+        ft_array[1] = ftbl1;
+        ft_array[2] = ftbl2;
+        ft_array[3] = ftbl3;
+        sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
+        
+        oscmorph->freq = 440;
+        oscmorph->amp = 0.5;
+        oscmorph->wtpos = 0.0;
     }
     
     void finalize() {
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
         NSLog(@"nft %d", oscmorph->nft);
-//        sp_ftbl *ft_array2[] = {ftbl0, ftbl1};
-//        sp_oscmorph_init(sp, oscmorph, ft_array2, 2, 0);
         oscmorph->freq = 440;
         oscmorph->amp = 0.5;
         oscmorph->wtpos = 0.0;
@@ -51,47 +69,10 @@ public:
     void setupWaveform(uint32_t waveform, uint32_t size) {
         tbl_size = size;
         sp_ftbl_create(sp, &ft_array[waveform], tbl_size);
-        switch (waveform) {
-            case 0:
-                sp_ftbl_create(sp, &ftbl0, tbl_size);
-                NSLog(@"0");
-                break;
-            case 1:
-                sp_ftbl_create(sp, &ftbl1, tbl_size);
-                NSLog(@"1");
-                break;
-            case 2:
-                sp_ftbl_create(sp, &ftbl2, tbl_size);
-                NSLog(@"2");
-                break;
-            case 3:
-                sp_ftbl_create(sp, &ftbl3, tbl_size);
-                NSLog(@"3");
-
-                break;
-            default:
-                break;
-        }
     }
 
     void setWaveformValue(uint32_t waveform, uint32_t index, float value) {
         ft_array[waveform]->tbl[index] = value;
-        switch (waveform) {
-            case 0:
-                ftbl0->tbl[index] = value;
-                break;
-            case 1:
-                ftbl1->tbl[index] = value;
-                break;
-            case 2:
-                ftbl2->tbl[index] = value;
-                break;
-            case 3:
-                ftbl3->tbl[index] = value;
-                break;
-            default:
-                break;
-        }
     }
 
     void start() {
@@ -125,6 +106,16 @@ public:
         indexRamper.set(clamp(wtpos, (float)0.0, (float)1000.0));
     }
 
+    void setDetuningOffset(float detuneOffset) {
+        detuningOffset = detuneOffset;
+        detuningOffsetRamper.set(clamp(detuneOffset, (float)-1000, (float)1000));
+    }
+
+    void setDetuningMultiplier(float detuneScale) {
+        detuningMultiplier = detuneScale;
+        detuningMultiplierRamper.set(clamp(detuneScale, (float)0.9, (float)1.11));
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -140,6 +131,14 @@ public:
                 indexRamper.set(clamp(value, (float)0.0, (float)1000.0));
                 break;
 
+            case detuningOffsetAddress:
+                detuningOffsetRamper.set(clamp(value, (float)-1000, (float)1000));
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.set(clamp(value, (float)0.9, (float)1.11));
+                break;
+
         }
     }
 
@@ -153,6 +152,12 @@ public:
 
             case indexAddress:
                 return indexRamper.goal();
+
+            case detuningOffsetAddress:
+                return detuningOffsetRamper.goal();
+
+            case detuningMultiplierAddress:
+                return detuningMultiplierRamper.goal();
 
             default: return 0.0f;
         }
@@ -172,6 +177,14 @@ public:
                 indexRamper.startRamp(clamp(value, (float)0.0, (float)1000.0), duration);
                 break;
 
+            case detuningOffsetAddress:
+                detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.startRamp(clamp(value, (float)0.9, (float)1.11), duration);
+                break;
+
         }
     }
 
@@ -185,7 +198,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            oscmorph->freq = frequencyRamper.getStep();
+            oscmorph->freq = frequencyRamper.getStep() * detuningMultiplier + detuningOffset;
             oscmorph->amp = amplitudeRamper.getStep();
             oscmorph->wtpos = indexRamper.getStep();
             
@@ -194,8 +207,6 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        NSLog(@"CHecking");
-                        NSLog(@"%d", oscmorph->nft);
                         sp_oscmorph_compute(sp, oscmorph, nil, &temp);
                     }
                     *out = temp;
@@ -228,12 +239,16 @@ private:
     float frequency = 440;
     float amplitude = 0.5;
     float index = 0.0;
+    float detuningOffset = 0.0;
+    float detuningMultiplier = 1.0;
 
 public:
     bool started = true;
     AKParameterRamper frequencyRamper = 440;
     AKParameterRamper amplitudeRamper = 0.5;
     AKParameterRamper indexRamper = 0.0;
+    AKParameterRamper detuningOffsetRamper = 0.0;
+    AKParameterRamper detuningMultiplierRamper = 1.0;
 };
 
 #endif /* AKMorphingOscillatorDSPKernel_hpp */
