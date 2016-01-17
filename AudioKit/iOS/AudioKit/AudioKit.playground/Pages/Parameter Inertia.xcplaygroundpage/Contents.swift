@@ -8,7 +8,7 @@ var noise = AKWhiteNoise(amplitude: 1)
 var filt = AKMoogLadder(noise)
 
 filt.resonance = 0.94
-filt.inertia = 0.0002 //try changing this to 0.2 to hear how this works
+filt.inertia = 0.0002
 
 audiokit.audioOutput = filt
 
@@ -25,6 +25,12 @@ AKPlaygroundLoop(frequency: 2.66) {
     }else{
         filt.cutoffFrequency = 666
     }
+    if(inertiaToggle > 8){
+        filt.inertia = 0.2
+    }else{
+        filt.inertia = 0.0002
+    }
+    
     i++
 }
 

@@ -33,6 +33,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
         willSet(newValue){
             if(inertia != newValue){
                 internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
             }
         }
     }

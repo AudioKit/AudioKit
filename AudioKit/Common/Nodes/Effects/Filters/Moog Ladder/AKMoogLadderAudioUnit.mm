@@ -163,7 +163,7 @@
     return YES;
 }
 
--(void)setUpParameterRamp{
+- (void)setUpParameterRamp{
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
