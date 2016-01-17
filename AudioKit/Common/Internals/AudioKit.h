@@ -68,6 +68,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Generators / Oscillators
 #import "AKFMOscillatorAudioUnit.h"
+#import "AKMorphingOscillatorAudioUnit.h"
 #import "AKOscillatorAudioUnit.h"
 #import "AKSawtoothOscillatorAudioUnit.h"
 #import "AKSquareWaveOscillatorAudioUnit.h"
