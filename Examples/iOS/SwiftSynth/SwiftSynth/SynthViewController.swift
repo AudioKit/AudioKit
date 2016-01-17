@@ -128,7 +128,7 @@ class SynthViewController: UIViewController {
         conductor.core.subOscMix = 0.0 // SubOsc Mix
         conductor.core.fmOscMix = 0.0 // FM Mix
         conductor.core.fmMod = 0.0 // FM Modulation Amt
-        conductor.core.pulseWidth = 0.5 // PWM
+        conductor.core.morph = 0.0 // Morphing between waveforms
         conductor.core.noiseMix = 0.0 // Noise Mix
         conductor.filterSection.lfoAmplitude = 300.0 // LFO Amp (Hz)
         conductor.filterSection.lfoRate = 0.3 // LFO Rate
@@ -157,8 +157,9 @@ class SynthViewController: UIViewController {
         fmModKnob.value = conductor.core.fmMod
         fmModKnob.maximum = 15
 
-        pwmKnob.value = conductor.core.pulseWidth
-        pwmKnob.minimum = 0.5
+        pwmKnob.value = conductor.core.morph
+        pwmKnob.minimum = -0.99
+        pwmKnob.maximum = 0.99
 
         noiseMixKnob.value = conductor.core.noiseMix
 
@@ -472,8 +473,8 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             conductor.core.vcoBalance = value
             
         case ControlTag.Pwm.rawValue:
-            statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
-            conductor.core.pulseWidth = value
+            statusLabel.text = "Morph: \(value.decimalFormattedString)"
+            conductor.core.morph = value
             
         // Additional OSCs
         case ControlTag.SubMix.rawValue:
