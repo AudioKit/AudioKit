@@ -8,14 +8,7 @@
 
 import AVFoundation
 
-/// This is was built using the JC reverb implentation found in FAUST. According to
-/// the source code, the specifications for this implementation were found on an old
-/// SAIL DART backup tape.
-/// This class is derived from the CLM JCRev function, which is based on the use of
-/// networks of simple allpass and comb delay filters.  This class implements three
-/// series allpass units, followed by four parallel comb filters, and two
-/// decorrelation delay lines in parallel at the output.
-///
+/// Operation-based generator
 public class AKOperationGenerator: AKNode, AKToggleable {
 
     // MARK: - Properties
@@ -72,7 +65,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     public init(_ sporth: String) {
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
+        description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x63737467 /*'cstg'*/ 
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
