@@ -95,9 +95,8 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                // Matt Fecher: Do what you'd like to do with this value, I have no clue
-                //                coreVoice.fmOscillator.carrierMultiplier = carrierMultiplier
-                //                coreVoice.fmOscillator.modulatingMultiplier = modulatingMultiplier
+                // coreVoice.fmOscillator.modulatingMultiplier = 1 + fmMod / 4
+                coreVoice.fmOscillator.carrierMultiplier = 1 + (fmMod / 2)
                 coreVoice.fmOscillator.modulationIndex = fmMod
             }
         }
