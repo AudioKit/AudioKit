@@ -170,18 +170,6 @@ class SynthViewController: UIViewController {
         fmMixKnob.value = conductor.core.fmOscMix
         
         fmModKnob.maximum = 15
-<<<<<<< HEAD
-        fmModKnob.value = conductor.core.fmMod
-        
-        pwmKnob.minimum = 0.5
-        pwmKnob.value = conductor.core.pulseWidth
-        
-        noiseMixKnob.value = conductor.core.noiseMix
-        
-        oscMixKnob.value = conductor.core.vco12Mix
-        
-        lfoAmtKnob.maximum = 2000
-=======
 
         pwmKnob.value = conductor.core.morph
         pwmKnob.minimum = -0.99
@@ -191,8 +179,7 @@ class SynthViewController: UIViewController {
 
         oscMixKnob.value = conductor.core.vcoBalance
 
-        lfoAmtKnob.maximum = 3000
->>>>>>> 2ae253aba079d102fd58ee79ae4585bc9284d516
+        lfoAmtKnob.maximum = 2000
         lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
         
         lfoRateKnob.maximum = 5
@@ -215,13 +202,6 @@ class SynthViewController: UIViewController {
         
         masterVolKnob.maximum = 30.0
         masterVolKnob.value = conductor.masterVolume.volume
-        
-<<<<<<< HEAD
-=======
-        // Set toggle switches (Start simple)
-        vco1Toggled(vco1Toggle)
-      
->>>>>>> 2ae253aba079d102fd58ee79ae4585bc9284d516
     }
 
     //*****************************************************************
@@ -355,7 +335,6 @@ class SynthViewController: UIViewController {
     }
     
     // Universal
-    
     @IBAction func midiPanicPressed(sender: RoundedButton) {
         statusLabel.text = "All Notes Off"
         conductor.core.panic()
@@ -493,21 +472,12 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
-<<<<<<< HEAD
             statusLabel.text = "OscMix: \(value.decimalString)"
-            conductor.core.vco12Mix = value
-            
-        case ControlTag.Pwm.rawValue:
-            statusLabel.text = "Pulse Width: \(value.decimalString)"
-            conductor.core.pulseWidth = value
-=======
-            statusLabel.text = "OscMix: \(value.decimalFormattedString)"
             conductor.core.vcoBalance = value
             
         case ControlTag.Pwm.rawValue:
-            statusLabel.text = "Morph: \(value.decimalFormattedString)"
+            statusLabel.text = "Morph: \(value.decimalString)"
             conductor.core.morph = value
->>>>>>> 2ae253aba079d102fd58ee79ae4585bc9284d516
             
         // Additional OSCs
         case ControlTag.SubMix.rawValue:
