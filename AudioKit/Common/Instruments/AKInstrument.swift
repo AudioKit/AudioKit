@@ -54,13 +54,14 @@ public class AKPolyphonicInstrument: AKNode {
     public var volume: Double = 1.0 {
         didSet {
             output.volume = volume
+            amplitude = volume
         }
     }
 
     /// Alias for volume
     public var amplitude: Double = 1.0 {
         didSet {
-            output.volume = volume
+            output.volume = amplitude
         }
     }
     
