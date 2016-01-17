@@ -17,5 +17,5 @@
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
 //: * [Peak Limiter](Peak%20Limiter)
-//: * [Ring Modulator](Ring%20Modulatr)
+//: * [Ring Modulator](Ring%20Modulator)
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
