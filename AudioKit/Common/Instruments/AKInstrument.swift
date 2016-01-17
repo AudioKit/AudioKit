@@ -96,17 +96,6 @@ public class AKPolyphonicInstrument: AKNode {
         }
     }
     
-    /// Start playback of a particular voice with MIDI style note and velocity
-    ///
-    /// - parameter voice: Voice to start
-    /// - parameter note: MIDI Note Number
-    /// - parameter velocity: MIDI Velocity (0-127)
-    ///
-    public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
-        // Override in subclass
-        print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
-    }
-    
     /// Stop playback of a particular note
     ///
     /// - parameter note: MIDI Note Number
@@ -118,6 +107,17 @@ public class AKPolyphonicInstrument: AKNode {
             availableVoices.insert(voice, atIndex: 0)
             activeNotes.removeAtIndex(index)
         }
+    }
+    
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
+    public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+        // Override in subclass
+        print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
     
     /// Stop playback of a particular voice
