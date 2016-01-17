@@ -10,23 +10,31 @@ import AudioKit
 let audiokit = AKManager.sharedInstance
 
 var bd = AKDrumSynthKickInst(voiceCount: 1)
-var sd = AKDrumSynthSnareInst(voiceCount: 1)
+var sd = AKDrumSynthSnareInst(voiceCount: 1, dur: 0.07)
 var mx = AKMixer()
 audiokit.audioOutput = mx
 mx.connect(bd)
 mx.connect(sd)
 audiokit.start()
 
+var i = 0
 
-AKPlaygroundLoop(frequency: 2) {
-    print("boom")
-    bd.playNote(60, velocity: 100)
-    bd.stopNote(60)
-    usleep(500000)
-    sd.stopNote(60)
-    let vel = Int(random(1,100))
-    print("chik")
-    sd.playNote(60, velocity: vel)
+//generate cheap electro
+AKPlaygroundLoop(frequency: 4.44) {
+    let bdOrNot = randomInt(0...3)
+    if(bdOrNot == 0 || i == 0){
+        //print("boom")
+        bd.playNote(60, velocity: 100)
+        bd.stopNote(60)
+    }
+    let snrOrNot = i % 4
+    if(snrOrNot == 2){
+        sd.stopNote(60)
+        let vel = Int(random(1,100))
+        //print("chik")
+        sd.playNote(60, velocity: vel)
+    }
+    i++
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
