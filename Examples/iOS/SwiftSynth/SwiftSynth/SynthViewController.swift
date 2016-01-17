@@ -124,7 +124,7 @@ class SynthViewController: UIViewController {
         conductor.core.offset1 = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
         conductor.core.detune = 0.0 // VCO2 Detune (Hz)
-        conductor.core.vco12Mix = 0.5 // VCO1/VCO2 Mix
+        conductor.core.vcoBalance = 0.5 // VCO1/VCO2 Mix
         conductor.core.subOscMix = 0.0 // SubOsc Mix
         conductor.core.fmOscMix = 0.0 // FM Mix
         conductor.core.fmMod = 0.0 // FM Modulation Amt
@@ -162,7 +162,7 @@ class SynthViewController: UIViewController {
 
         noiseMixKnob.value = conductor.core.noiseMix
 
-        oscMixKnob.value = conductor.core.vco12Mix
+        oscMixKnob.value = conductor.core.vcoBalance
 
         lfoAmtKnob.maximum = 3000
         lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
@@ -469,7 +469,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalFormattedString)"
-            conductor.core.vco12Mix = value
+            conductor.core.vcoBalance = value
             
         case ControlTag.Pwm.rawValue:
             statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
@@ -590,12 +590,12 @@ extension SynthViewController: SMSegmentViewDelegate {
         
         switch (segmentView.tag) {
         case ControlTag.Vco1Waveform.rawValue:
-            conductor.core.selectedVCO1Waveform.changeWaveformFromIndex(index)
-            statusLabel.text = "VCO1 Waveform: \(conductor.core.selectedVCO1Waveform)"
+            conductor.core.waveform1 = Double(index)
+            statusLabel.text = "VCO1 Waveform Changed"
             
         case ControlTag.Vco2Waveform.rawValue:
-            conductor.core.selectedVCO2Waveform.changeWaveformFromIndex(index)
-            statusLabel.text = "VCO2 Waveform: \(conductor.core.selectedVCO2Waveform)"
+            conductor.core.waveform2 = Double(index)
+            statusLabel.text = "VCO2 Waveform Changed"
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
