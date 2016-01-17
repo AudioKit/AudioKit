@@ -20,6 +20,7 @@
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;
 
+
 @end
 
 @implementation AKMoogLadderAudioUnit {
@@ -86,6 +87,8 @@
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 1000;
     resonanceAUParameter.value = 0.5;
+    
+    _inertia = 0.0002;
 
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
     _kernel.setParameter(resonanceAddress,       resonanceAUParameter.value);
@@ -161,8 +164,8 @@
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over 0.2 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.0002 * self.outputBus.format.sampleRate);
+    // Ramp over inertia time in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_inertia * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);

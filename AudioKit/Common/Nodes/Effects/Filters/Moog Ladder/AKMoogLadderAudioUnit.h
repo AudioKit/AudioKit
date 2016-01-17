@@ -15,6 +15,9 @@
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+
+@property double inertia;
+
 @end
 
 #endif /* AKMoogLadderAudioUnit_h */
