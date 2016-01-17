@@ -11,10 +11,10 @@ let audiokit = AKManager.sharedInstance
 
 //: Try changing the table type to triangle or another AKTableType
 //: or changing the number of points to a smaller number (has to be a power of 2)
-var morph = AKOscillator(waveform: AKTable(.Square))
+var morph = AKMorphingOscillator()
 morph.frequency = 400
 morph.amplitude = 0.77
-//morph.index = 0.25
+morph.index = 0.8
 
 audiokit.audioOutput = morph
 audiokit.start()
@@ -23,8 +23,13 @@ morph.start()
 let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
-AKPlaygroundLoop(every:3) {
-//    morph.frequency = 900
+var t = 0.0
+let timeStep = 0.02
+
+AKPlaygroundLoop(every: timeStep) {
+    morph.index = 1.5 * ( 1.0 + sin(t) )
+    
+    t = t + timeStep
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
