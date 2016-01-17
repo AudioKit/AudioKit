@@ -8,32 +8,34 @@
 
 import AudioKit
 
-enum VCOWaveform {
-    case Sawtooth, Square, Sine, Triangle
-    
-    mutating func changeWaveformFromIndex(index: Int) {
-        switch index {
-        case 0: self = .Sawtooth
-        case 1: self = .Square
-        case 2: self = .Sine
-        case 3: self = .Triangle
-        default: break
-        }
-    }
-}
-
 /// A wrapper for AKCore to make it a playable as a polyphonic instrument.
 class CoreInstrument: AKPolyphonicInstrument {
     
+    
+    var waveform1 = 0.0 {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.vco1.index = waveform1
+            }
+        }
+    }
+
+    var waveform2 = 0.0 {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.vco2.index = waveform2
+            }
+        }
+    }
+
     var offset1 = 0 {
         didSet {
             for i in 0..<activeVoices.count {
                 let coreVoice = activeVoices[i] as! CoreVoice
                 let note = activeNotes[i] + offset1
-                coreVoice.sineVCO1.frequency     = note.midiNoteToFrequency()
-                coreVoice.sawtoothVCO1.frequency = note.midiNoteToFrequency()
-                coreVoice.squareVCO1.frequency   = note.midiNoteToFrequency()
-                coreVoice.triangleVCO1.frequency = note.midiNoteToFrequency()
+                coreVoice.vco1.frequency = note.midiNoteToFrequency()
             }
         }
     }
@@ -43,10 +45,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             for i in 0..<activeVoices.count {
                 let coreVoice = activeVoices[i] as! CoreVoice
                 let note = activeNotes[i] + offset2
-                coreVoice.sineVCO2.frequency     = note.midiNoteToFrequency()
-                coreVoice.sawtoothVCO2.frequency = note.midiNoteToFrequency()
-                coreVoice.squareVCO2.frequency   = note.midiNoteToFrequency()
-                coreVoice.triangleVCO2.frequency = note.midiNoteToFrequency()
+                coreVoice.vco2.frequency = note.midiNoteToFrequency()
             }
         }
     }
@@ -83,10 +82,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.sawtoothVCO2.detuningOffset = detune
-                coreVoice.sineVCO2.detuningOffset     = detune
-                coreVoice.squareVCO2.detuningOffset   = detune
-                coreVoice.triangleVCO2.detuningOffset = detune
+//                coreVoice.vco2.detuningOffset = detune
             }
         }
     }
@@ -102,11 +98,11 @@ class CoreInstrument: AKPolyphonicInstrument {
         }
     }
     
-    var vco12Mix: Double = 0.5 {
+    var vcoBalance: Double = 0.5 {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.vco12Mixer.balance = vco12Mix
+                coreVoice.vcoBalancer.balance = vcoBalance
             }
         }
     }
@@ -115,8 +111,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.squareVCO1.pulseWidth = pulseWidth
-                coreVoice.squareVCO2.pulseWidth = pulseWidth
+                // Deprecated, need to think of another solution
             }
         }
     }
@@ -162,58 +157,23 @@ class CoreInstrument: AKPolyphonicInstrument {
         }
     }
     
-    func updateVCO1() {
-        for voice in voices {
-            let coreVoice = voice as! CoreVoice
-            
-            coreVoice.sawtoothVCO1.stop()
-            coreVoice.squareVCO1.stop()
-            coreVoice.sineVCO1.stop()
-            coreVoice.triangleVCO1.stop()
-            
-            if vco1On {
-                switch selectedVCO1Waveform {
-                case .Sawtooth:
-                    coreVoice.sawtoothVCO1.start()
-                case .Square:
-                    coreVoice.squareVCO1.start()
-                case .Sine:
-                    coreVoice.sineVCO1.start()
-                case .Triangle:
-                    coreVoice.triangleVCO1.start()
-                }
+    var vco1On = true {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.vco1Mixer.volume = vco1On ? 1.0 : 0.0
             }
         }
     }
     
-    func updateVCO2() {
-        for voice in voices {
-            let coreVoice = voice as! CoreVoice
-            
-            coreVoice.sawtoothVCO2.stop()
-            coreVoice.squareVCO2.stop()
-            coreVoice.sineVCO2.stop()
-            coreVoice.triangleVCO2.stop()
-            
-            if vco2On {
-                switch selectedVCO2Waveform {
-                case .Sawtooth:
-                    coreVoice.sawtoothVCO2.start()
-                case .Square:
-                    coreVoice.squareVCO2.start()
-                case .Sine:
-                    coreVoice.sineVCO2.start()
-                case .Triangle:
-                    coreVoice.triangleVCO2.start()
-                }
+    var vco2On = true {
+        didSet {
+            for voice in voices {
+                let coreVoice = voice as! CoreVoice
+                coreVoice.vco2Mixer.volume = vco2On ? 1.0 : 0.0
             }
-            
         }
     }
-    var selectedVCO1Waveform = VCOWaveform.Sawtooth { didSet { updateVCO1() } }
-    var selectedVCO2Waveform = VCOWaveform.Sawtooth { didSet { updateVCO2() } }
-    var vco1On = true { didSet { updateVCO1() } }
-    var vco2On = true { didSet { updateVCO2() } }
     
     
     /// Instantiate the Instrument
@@ -239,42 +199,18 @@ class CoreInstrument: AKPolyphonicInstrument {
         
         let commonAmplitude = Double(velocity)/127.0
         
-        coreVoice.sawtoothVCO1.amplitude = commonAmplitude
-        coreVoice.squareVCO1.amplitude   = commonAmplitude
-        coreVoice.sineVCO1.amplitude     = commonAmplitude
-        coreVoice.triangleVCO1.amplitude = commonAmplitude
-        
-        
-        coreVoice.sawtoothVCO2.amplitude = commonAmplitude
-        coreVoice.squareVCO2.amplitude   = commonAmplitude
-        coreVoice.sineVCO2.amplitude     = commonAmplitude
-        coreVoice.triangleVCO2.amplitude = commonAmplitude
-        
+        coreVoice.vco1.amplitude         = commonAmplitude
+        coreVoice.vco2.amplitude         = commonAmplitude
         coreVoice.subOsc.amplitude       = commonAmplitude
         coreVoice.fmOscillator.amplitude = commonAmplitude
         coreVoice.noise.amplitude        = commonAmplitude
         
-        let vco1Frequency = (note + offset1).midiNoteToFrequency()
-        
-        coreVoice.sawtoothVCO1.frequency = vco1Frequency
-        coreVoice.sineVCO1.frequency     = vco1Frequency
-        coreVoice.squareVCO1.frequency   = vco1Frequency
-        coreVoice.triangleVCO1.frequency = vco1Frequency
-        
-        let vco2Frequency = (note + offset2).midiNoteToFrequency()
-        
-        coreVoice.sawtoothVCO2.frequency = vco2Frequency
-        coreVoice.sineVCO2.frequency     = vco2Frequency
-        coreVoice.squareVCO2.frequency   = vco2Frequency
-        coreVoice.triangleVCO2.frequency = vco2Frequency
-        
+        coreVoice.vco1.frequency = (note + offset1).midiNoteToFrequency()
+        coreVoice.vco2.frequency = (note + offset2).midiNoteToFrequency()
+
         coreVoice.subOsc.frequency = (note - 12).midiNoteToFrequency()
         coreVoice.fmOscillator.baseFrequency = note.midiNoteToFrequency()
         
-        
-        // Intelligently start only what we need to:
-        updateVCO1()
-        updateVCO2()
         coreVoice.start()
     }
     
