@@ -9,56 +9,40 @@
 import AudioKit
 
 class CoreVoice: AKVoice {
-
-    var sineVCO1     = AKOscillator()
-    var sineVCO2     = AKOscillator()
-    var sawtoothVCO1 = AKSawtoothOscillator()
-    var sawtoothVCO2 = AKSawtoothOscillator()
-    var squareVCO1   = AKSquareWaveOscillator()
-    var squareVCO2   = AKSquareWaveOscillator()
-    var triangleVCO1 = AKTriangleOscillator()
-    var triangleVCO2 = AKTriangleOscillator()
+    var vco1 = AKMorphingOscillator()
+    var vco2 = AKMorphingOscillator()
     var subOsc       = AKOscillator()
     var fmOscillator = AKFMOscillator()
     var noise        = AKWhiteNoise()
 
+    // We'll be using these simply to control volume independent of velocity
+    var vco1Mixer:   AKMixer
+    var vco2Mixer:   AKMixer
     var subOscMixer: AKMixer
-    var fmOscMixer: AKMixer
-    var noiseMixer: AKMixer
-    
-    var vco1Mixer: AKMixer
-    var vco2Mixer: AKMixer
-    
-    var vco12Mixer: AKDryWetMixer
+    var fmOscMixer:  AKMixer
+    var noiseMixer:  AKMixer
+
+    var vcoBalancer: AKDryWetMixer
     var sourceMixer: AKMixer
     var adsr: AKAmplitudeEnvelope
     
     /// Instantiate the FM Oscillator Voice
     override init() {
         
-        vco1Mixer = AKMixer(sineVCO1, sawtoothVCO1, squareVCO1, triangleVCO1)
-        vco2Mixer = AKMixer(sineVCO2, sawtoothVCO2, squareVCO2, triangleVCO2)
-        vco12Mixer = AKDryWetMixer(vco1Mixer, vco2Mixer, balance: 0.5)
-        
+        vco1Mixer   = AKMixer(vco1)
+        vco2Mixer   = AKMixer(vco2)
         subOscMixer = AKMixer(subOsc)
         fmOscMixer  = AKMixer(fmOscillator)
         noiseMixer  = AKMixer(noise)
-        
-        // Defaults
-        sawtoothVCO1.start()
-        sawtoothVCO2.start()
-        sineVCO1.stop()
-        sineVCO2.stop()
-        squareVCO1.stop()
-        squareVCO2.stop()
-        triangleVCO1.stop()
-        triangleVCO2.stop()
 
+        // Default non-VCO's off
         subOscMixer.volume = 0
         fmOscMixer.volume  = 0
         noiseMixer.volume  = 0
-        
-        sourceMixer = AKMixer(vco12Mixer, fmOscMixer, subOscMixer, noiseMixer)
+
+        vcoBalancer = AKDryWetMixer(vco1Mixer, vco2Mixer, balance: 0.5)
+
+        sourceMixer = AKMixer(vcoBalancer, fmOscMixer, subOscMixer, noiseMixer)
         
         adsr = AKAmplitudeEnvelope(sourceMixer)
         

@@ -39,8 +39,8 @@ public:
         sp_adsr_init(sp, adsr);
         adsr->atk = 0.1;
         adsr->dec = 0.1;
-        adsr->sus = 0.8;
-        adsr->rel = 0.7;
+        adsr->sus = 1.0;
+        adsr->rel = 0.1;
     }
 
     void start() {
@@ -135,17 +135,14 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double attackDuration = double(attackDurationRamper.getStep());
-            double decayDuration = double(decayDurationRamper.getStep());
-            double sustainLevel = double(sustainLevelRamper.getStep());
-            double releaseDuration = double(releaseDurationRamper.getStep());
-
             int frameOffset = int(frameIndex + bufferOffset);
-
-            adsr->atk = (float)attackDuration;
-            adsr->dec = (float)decayDuration;
-            adsr->sus = (float)sustainLevel;
-            adsr->rel = (float)releaseDuration;
+            
+            adsr->atk = attackDurationRamper.getStep();
+            adsr->dec = decayDurationRamper.getStep();
+            adsr->sus = sustainLevelRamper.getStep();
+            adsr->rel = releaseDurationRamper.getStep();
+            
+//            NSLog(@"%f %f", adsr->atk, adsr->rel);
 
             sp_adsr_compute(sp, adsr, &internalGate, &amp);
 
@@ -176,8 +173,8 @@ public:
     bool started = false;
     AKParameterRamper attackDurationRamper = 0.1;
     AKParameterRamper decayDurationRamper = 0.1;
-    AKParameterRamper sustainLevelRamper = 0.55;
-    AKParameterRamper releaseDurationRamper = 0.77;
+    AKParameterRamper sustainLevelRamper = 1.0;
+    AKParameterRamper releaseDurationRamper = 0.1;
 };
 
 #endif /* AKAmplitudeEnvelopeDSPKernel_hpp */

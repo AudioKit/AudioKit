@@ -62,7 +62,7 @@ class FilterSection: AKNode {
     }
     
 
-    private var output: AKOperationEffect
+    var output: AKOperationEffect
     
     init(_ input: AKNode) {
         

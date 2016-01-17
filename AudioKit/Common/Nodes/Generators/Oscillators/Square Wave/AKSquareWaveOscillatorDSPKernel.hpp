@@ -75,12 +75,12 @@ public:
         pulseWidthRamper.set(clamp(width, (float)0, (float)1));
     }
 
-    void setDetuningoffset(float detuneOffset) {
+    void setDetuningOffset(float detuneOffset) {
         detuningOffset = detuneOffset;
         detuningOffsetRamper.set(clamp(detuneOffset, (float)-1000, (float)1000));
     }
 
-    void setDetuningmultiplier(float detuneScale) {
+    void setDetuningMultiplier(float detuneScale) {
         detuningMultiplier = detuneScale;
         detuningMultiplierRamper.set(clamp(detuneScale, (float)0.9, (float)1.11));
     }

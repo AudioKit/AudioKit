@@ -36,11 +36,11 @@
 - (void)setAmplitude:(float)amplitude {
     _kernel.setAmplitude(amplitude);
 }
-- (void)setDetuningoffset:(float)detuningOffset {
-    _kernel.setDetuningoffset(detuningOffset);
+- (void)setDetuningOffset:(float)detuningOffset {
+    _kernel.setDetuningOffset(detuningOffset);
 }
-- (void)setDetuningmultiplier:(float)detuningMultiplier {
-    _kernel.setDetuningmultiplier(detuningMultiplier);
+- (void)setDetuningMultiplier:(float)detuningMultiplier {
+    _kernel.setDetuningMultiplier(detuningMultiplier);
 }
 
 - (void)setupWaveform:(int)size {
