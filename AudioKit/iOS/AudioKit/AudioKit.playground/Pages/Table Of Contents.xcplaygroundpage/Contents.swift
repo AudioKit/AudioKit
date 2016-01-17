@@ -17,8 +17,8 @@
 //: ### Distortion
 //:
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
+//: * [Complex Distortion](Complex%20Distortion)
 //: * [Decimator](Decimator)
-//: * [Apple Multi-Function Distortion](Apple%20Multi-Function%20Distortion)
 //: * [Ring Modulation](Ring%20Modulation)
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //:
@@ -30,16 +30,16 @@
 //: ## Filters
 //:
 //: * [Band Pass Filter](Band%20Pass%20Filter)
-//: * [Comb Filter](Comb%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
-//: * [Moog Ladder Filter](Moog%20Ladder)
+//: * [Moog Ladder Filter](Moog%20Ladder%20Filter)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
 //:
 //: ### Reverb
 //:
+//: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
 //: * [Sean Costello Reverb](Sean%20Costello%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
 //:
@@ -47,8 +47,8 @@
 //:
 //: ### Noise Generators
 //:
-//: * [Pink Noise](Pink%20Noise)
-//: * [White Noise](White%20Noise)
+//: * [Pink Noise Generator](Pink%20Noise%20Generator)
+//: * [White Noise Generator](White%20Noise%20Generator)
 //:
 //: ### Oscillators
 //:
@@ -56,7 +56,7 @@
 //: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
 //: * [Sawtooth Oscillator](Sawtooth%20Oscillator)
 //: * [Square Wave Oscillator](Square%20Wave%20Oscillator)
-//: * [Triangle Oscillator](Triangle%20Oscillator)
+//: * [Triangular Wave Oscillator](Triangular%20Wave%20Oscillator)
 //:
 //: ## Operations
 //:
@@ -65,9 +65,5 @@
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Clip](Clip%20Operation)
 //: * [Sean Costello Reverb](Sean%20Costello%20Reverb%20Operation)
-//: * [FM Oscillator](AKFMOscillator)
-//: * [Oscillator](AKOscillator)
-var f = [34,2,15]
-let x = f.reverse()
-x
-f
+
+
