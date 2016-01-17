@@ -409,9 +409,7 @@ class SynthViewController: UIViewController {
         
         let midiNote = index + (keyboardOctavePosition * 12)
         conductor.core.playNote(midiNote, velocity: 127)
-        if let noteName = noteNames[midiNote] {
-            statusLabel.text = "Key Pressed: \(noteName)"
-        }
+        statusLabel.text = "Key Pressed: \(returnNoteName(midiNote))"
     }
     
     func turnOffKey(key: UIButton) {
