@@ -153,7 +153,7 @@ public:
             detuningOffset = double(detuningOffsetRamper.getStep());
             detuningMultiplier = double(detuningMultiplierRamper.getStep());
 
-            *bltriangle->freq = frequency;
+            *bltriangle->freq = frequency * detuningMultiplier + detuningOffset;
             *bltriangle->amp = amplitude;
 
             float temp = 0;
