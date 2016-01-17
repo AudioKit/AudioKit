@@ -39,11 +39,11 @@
 - (void)setPulseWidth:(float)pulseWidth {
     _kernel.setPulsewidth(pulseWidth);
 }
-- (void)setDetuningoffset:(float)detuningOffset {
-    _kernel.setDetuningoffset(detuningOffset);
+- (void)setDetuningOffset:(float)detuningOffset {
+    _kernel.setDetuningOffset(detuningOffset);
 }
-- (void)setDetuningmultiplier:(float)detuningMultiplier {
-    _kernel.setDetuningmultiplier(detuningMultiplier);
+- (void)setDetuningMultiplier:(float)detuningMultiplier {
+    _kernel.setDetuningMultiplier(detuningMultiplier);
 }
 
 
