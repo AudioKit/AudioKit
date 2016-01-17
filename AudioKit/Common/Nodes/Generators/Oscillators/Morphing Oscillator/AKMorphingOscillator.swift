@@ -28,7 +28,6 @@ public class AKMorphingOscillator: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-    private var indexParameter: AUParameter?
 
     /// Frequency (in Hz)
     public var frequency: Double = 440 {
@@ -63,16 +62,8 @@ public class AKMorphingOscillator: AKVoice {
     /// Index of the wavetable to use (fractional are okay).
     public var index: Double = 0.0 {
         didSet {
-            internalAU?.index = Float(index)
+            internalAU?.index = Float(index) / Float(waveformArray.count - 1)
         }
-    }
-
-    /// Ramp to index over 20 ms
-    ///
-    /// - parameter index: Target Index of the wavetable to use (fractional are okay).
-    ///
-    public func ramp(index index: Double) {
-        indexParameter?.setValue(Float(index), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -141,7 +132,6 @@ public class AKMorphingOscillator: AKVoice {
 
         frequencyParameter     = tree.valueForKey("frequency")     as? AUParameter
         amplitudeParameter     = tree.valueForKey("amplitude")     as? AUParameter
-        indexParameter         = tree.valueForKey("index")         as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -151,14 +141,12 @@ public class AKMorphingOscillator: AKVoice {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
-                } else if address == self.indexParameter!.address {
-                    self.index = Double(value)
                 }
             }
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
-        internalAU?.index = Float(index)
+        internalAU?.index = Float(index) / Float(waveformArray.count - 1)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments

@@ -32,17 +32,32 @@ public:
         channels = channelCount;
 
         sampleRate = float(inSampleRate);
-        NSLog(@"INITTING");
         sp_create(&sp);
         sp_oscmorph_create(&oscmorph);
-
+        
+        // Override custom tables that aren't quite working yet
+        sp_ftbl_create(sp, &ftbl0, tbl_size);
+        sp_ftbl_create(sp, &ftbl1, tbl_size);
+        sp_ftbl_create(sp, &ftbl2, tbl_size);
+        sp_ftbl_create(sp, &ftbl3, tbl_size);
+        sp_gen_line(sp, ftbl0, "0 1 4095 -1");
+        sp_gen_line(sp, ftbl1, "0 1 2047 1 2048 -1 4095 -1");
+        sp_gen_sine(sp, ftbl2);
+        sp_gen_line(sp, ftbl3, "0 0 1023 1 3071 -1 4095 0");
+        ft_array[0] = ftbl0;
+        ft_array[1] = ftbl1;
+        ft_array[2] = ftbl2;
+        ft_array[3] = ftbl3;
+        sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
+        
+        oscmorph->freq = 440;
+        oscmorph->amp = 0.5;
+        oscmorph->wtpos = 0.0;
     }
     
     void finalize() {
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
         NSLog(@"nft %d", oscmorph->nft);
-//        sp_ftbl *ft_array2[] = {ftbl0, ftbl1};
-//        sp_oscmorph_init(sp, oscmorph, ft_array2, 2, 0);
         oscmorph->freq = 440;
         oscmorph->amp = 0.5;
         oscmorph->wtpos = 0.0;
@@ -51,47 +66,10 @@ public:
     void setupWaveform(uint32_t waveform, uint32_t size) {
         tbl_size = size;
         sp_ftbl_create(sp, &ft_array[waveform], tbl_size);
-        switch (waveform) {
-            case 0:
-                sp_ftbl_create(sp, &ftbl0, tbl_size);
-                NSLog(@"0");
-                break;
-            case 1:
-                sp_ftbl_create(sp, &ftbl1, tbl_size);
-                NSLog(@"1");
-                break;
-            case 2:
-                sp_ftbl_create(sp, &ftbl2, tbl_size);
-                NSLog(@"2");
-                break;
-            case 3:
-                sp_ftbl_create(sp, &ftbl3, tbl_size);
-                NSLog(@"3");
-
-                break;
-            default:
-                break;
-        }
     }
 
     void setWaveformValue(uint32_t waveform, uint32_t index, float value) {
         ft_array[waveform]->tbl[index] = value;
-        switch (waveform) {
-            case 0:
-                ftbl0->tbl[index] = value;
-                break;
-            case 1:
-                ftbl1->tbl[index] = value;
-                break;
-            case 2:
-                ftbl2->tbl[index] = value;
-                break;
-            case 3:
-                ftbl3->tbl[index] = value;
-                break;
-            default:
-                break;
-        }
     }
 
     void start() {
@@ -194,8 +172,6 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        NSLog(@"CHecking");
-                        NSLog(@"%d", oscmorph->nft);
                         sp_oscmorph_compute(sp, oscmorph, nil, &temp);
                     }
                     *out = temp;
@@ -222,7 +198,7 @@ private:
     sp_ftbl *ftbl1;
     sp_ftbl *ftbl2;
     sp_ftbl *ftbl3;
-    sp_ftbl *ft_array[4];
+    sp_ftbl *ft_array[4] = {ftbl0, ftbl1, ftbl2, ftbl3};
     UInt32 tbl_size = 4096;
 
     float frequency = 440;
