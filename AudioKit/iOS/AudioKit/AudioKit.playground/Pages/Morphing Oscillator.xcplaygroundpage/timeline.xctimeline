@@ -2,5 +2,11 @@
 <Timeline
    version = "3.0">
    <TimelineItems>
+      <LoggerValueHistoryTimelineItem
+         documentLocation = "file:///Users/aure/Developer/AudioKit3/AudioKit/iOS/AudioKit/AudioKit.playground/Pages/Morphing%20Oscillator.xcplaygroundpage#CharacterRangeLen=53&amp;CharacterRangeLoc=401&amp;EndingLineNumber=13&amp;StartingLineNumber=13&amp;Timestamp=474718346.057197"
+         lockedSize = "{1522, 1134}"
+         selectedRepresentationIndex = "0"
+         shouldTrackSuperviewWidth = "YES">
+      </LoggerValueHistoryTimelineItem>
    </TimelineItems>
 </Timeline>

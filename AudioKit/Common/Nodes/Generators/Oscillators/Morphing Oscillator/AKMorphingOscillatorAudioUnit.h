@@ -16,6 +16,7 @@
 @property (nonatomic) float amplitude;
 @property (nonatomic) float index;
 
+- (void)finalize;
 - (void)setupWaveform:(UInt32)waveform size:(int)size;
 - (void)setWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index;
 - (void)start;

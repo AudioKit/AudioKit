@@ -115,26 +115,26 @@ public class AKMorphingOscillator: AKVoice {
             asComponentDescription: description,
             name: "Local AKMorphingOscillator",
             version: UInt32.max)
-print("got here")          
+
         super.init()
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
-print("got here")
+
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorAudioUnit
-print("got here")
+
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
             
             /// AOP need to set up phase
             for i in 0..<waveformArray.count {
-print("got here")
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
                 for var j = 0; j < waveformArray[i].size; j++ {
-                    self.internalAU?.setWaveform(UInt32(i), withValue:waveformArray[i].values[i], atIndex: UInt32(i))
+                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
                 }
             }
+            self.internalAU?.finalize()
         }
 
         guard let tree = internalAU?.parameterTree else { return }

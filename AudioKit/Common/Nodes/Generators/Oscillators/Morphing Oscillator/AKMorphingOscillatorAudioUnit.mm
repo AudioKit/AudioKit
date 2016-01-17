@@ -30,6 +30,10 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+-(void)finalize {
+    _kernel.finalize();
+}
+
 - (void)setFrequency:(float)frequency {
     _kernel.setFrequency(frequency);
 }
@@ -233,7 +237,7 @@
             }
         }
 
-        state->setBuffers(outAudioBufferList);
+        state->setBuffer(outAudioBufferList);
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
 
         return noErr;
