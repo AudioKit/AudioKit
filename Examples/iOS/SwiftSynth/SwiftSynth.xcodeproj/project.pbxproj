@@ -175,7 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */,
-				940D15121C49A9E200C88CA6 /* SynthViewController+UIHelpers.swift */,
+				94B009E81C4B61EB000CF18E /* Helpers */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -184,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				94B009E61C4B61BD000CF18E /* NoteNames.swift */,
+				940D15121C49A9E200C88CA6 /* SynthViewController+UIHelpers.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -279,7 +280,6 @@
 				C4E8ED251C43AD650041965F /* AudioSystem */,
 				94B798911C4AA6B30020727B /* AudioProcessors */,
 				949B1C1D1C431E5400BFFA10 /* CustomControls */,
-				94B009E81C4B61EB000CF18E /* Helpers */,
 				949B1C571C431E5B00BFFA10 /* ViewControllers */,
 				C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */,
 				C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */,
