@@ -14,6 +14,9 @@ import AVFoundation
 /// - parameter frequency: Frequency (in Hz)
 /// - parameter amplitude: Amplitude (typically a value between 0 and 1).
 /// - parameter index: Index of the wavetable to use (fractional are okay).
+/// - parameter detuningOffset: Frequency offset in Hz.
+/// - parameter detuningMultiplier: Frequency detuning multiplier
+/// - parameter waveformCount: Number of waveforms.
 /// - parameter phase: Initial phase of waveform, expects a value 0-1
 ///
 public class AKMorphingOscillator: AKVoice {
@@ -29,6 +32,8 @@ public class AKMorphingOscillator: AKVoice {
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
     private var indexParameter: AUParameter?
+    private var detuningOffsetParameter: AUParameter?
+    private var detuningMultiplierParameter: AUParameter?
 
     /// Frequency (in Hz)
     public var frequency: Double = 440 {
@@ -63,7 +68,7 @@ public class AKMorphingOscillator: AKVoice {
     /// Index of the wavetable to use (fractional are okay).
     public var index: Double = 0.0 {
         didSet {
-            internalAU?.index = Float(index)
+            internalAU?.index = Float(index) / Float(waveformArray.count - 1)
         }
     }
 
@@ -73,6 +78,36 @@ public class AKMorphingOscillator: AKVoice {
     ///
     public func ramp(index index: Double) {
         indexParameter?.setValue(Float(index), originator: token!)
+    }
+
+    /// Frequency offset in Hz.
+    public var detuningOffset: Double = 0 {
+        didSet {
+            internalAU?.detuningOffset = Float(detuningOffset)
+        }
+    }
+
+    /// Ramp to detuningOffset over 20 ms
+    ///
+    /// - parameter detuningOffset: Target Frequency offset in Hz.
+    ///
+    public func ramp(detuningOffset detuningOffset: Double) {
+        detuningOffsetParameter?.setValue(Float(detuningOffset), originator: token!)
+    }
+
+    /// Frequency detuning multiplier
+    public var detuningMultiplier: Double = 1 {
+        didSet {
+            internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        }
+    }
+
+    /// Ramp to detuningMultiplier over 20 ms
+    ///
+    /// - parameter detuningMultiplier: Target Frequency detuning multiplier
+    ///
+    public func ramp(detuningMultiplier detuningMultiplier: Double) {
+        detuningMultiplierParameter?.setValue(Float(detuningMultiplier), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -87,6 +122,9 @@ public class AKMorphingOscillator: AKVoice {
     /// - parameter frequency: Frequency (in Hz)
     /// - parameter amplitude: Amplitude (typically a value between 0 and 1).
     /// - parameter index: Index of the wavetable to use (fractional are okay).
+    /// - parameter detuningOffset: Frequency offset in Hz.
+    /// - parameter detuningMultiplier: Frequency detuning multiplier
+    /// - parameter waveformCount: Number of waveforms.
     /// - parameter phase: Initial phase of waveform, expects a value 0-1
     ///
     public init(
@@ -94,6 +132,8 @@ public class AKMorphingOscillator: AKVoice {
         frequency: Double = 440,
         amplitude: Double = 0.5,
         index: Double = 0.0,
+        detuningOffset: Double = 0,
+        detuningMultiplier: Double = 1,
         phase: Double = 0) {
 
 
@@ -102,6 +142,8 @@ public class AKMorphingOscillator: AKVoice {
         self.amplitude = amplitude
         self.phase = phase
         self.index = index
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -139,9 +181,11 @@ public class AKMorphingOscillator: AKVoice {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter     = tree.valueForKey("frequency")     as? AUParameter
-        amplitudeParameter     = tree.valueForKey("amplitude")     as? AUParameter
-        indexParameter         = tree.valueForKey("index")         as? AUParameter
+        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
+        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
+        indexParameter              = tree.valueForKey("index")              as? AUParameter
+        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -153,17 +197,23 @@ public class AKMorphingOscillator: AKVoice {
                     self.amplitude = Double(value)
                 } else if address == self.indexParameter!.address {
                     self.index = Double(value)
+                } else if address == self.detuningOffsetParameter!.address {
+                    self.detuningOffset = Double(value)
+                } else if address == self.detuningMultiplierParameter!.address {
+                    self.detuningMultiplier = Double(value)
                 }
             }
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
-        internalAU?.index = Float(index)
+        internalAU?.index = Float(index) / Float(waveformArray.count - 1)
+        internalAU?.detuningOffset = Float(detuningOffset)
+        internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public override func copy() -> AKVoice {
-        let copy = AKMorphingOscillator(waveformArray: self.waveformArray, frequency: self.frequency, amplitude: self.amplitude, index: self.index, phase: self.phase)
+        let copy = AKMorphingOscillator(waveformArray: self.waveformArray, frequency: self.frequency, amplitude: self.amplitude, index: self.index, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier, phase: self.phase)
         return copy
     }
 

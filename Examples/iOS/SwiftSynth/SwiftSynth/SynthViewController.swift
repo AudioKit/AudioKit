@@ -124,11 +124,11 @@ class SynthViewController: UIViewController {
         conductor.core.offset1 = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
         conductor.core.detune = 0.0 // VCO2 Detune (Hz)
-        conductor.core.vco12Mix = 0.5 // VCO1/VCO2 Mix
+        conductor.core.vcoBalance = 0.5 // VCO1/VCO2 Mix
         conductor.core.subOscMix = 0.0 // SubOsc Mix
         conductor.core.fmOscMix = 0.0 // FM Mix
         conductor.core.fmMod = 0.0 // FM Modulation Amt
-        conductor.core.pulseWidth = 0.5 // PWM
+        conductor.core.morph = 0.0 // Morphing between waveforms
         conductor.core.noiseMix = 0.0 // Noise Mix
         conductor.filterSection.lfoAmplitude = 300.0 // LFO Amp (Hz)
         conductor.filterSection.lfoRate = 0.3 // LFO Rate
@@ -170,6 +170,7 @@ class SynthViewController: UIViewController {
         fmMixKnob.value = conductor.core.fmOscMix
         
         fmModKnob.maximum = 15
+<<<<<<< HEAD
         fmModKnob.value = conductor.core.fmMod
         
         pwmKnob.minimum = 0.5
@@ -180,6 +181,18 @@ class SynthViewController: UIViewController {
         oscMixKnob.value = conductor.core.vco12Mix
         
         lfoAmtKnob.maximum = 2000
+=======
+
+        pwmKnob.value = conductor.core.morph
+        pwmKnob.minimum = -0.99
+        pwmKnob.maximum = 0.99
+
+        noiseMixKnob.value = conductor.core.noiseMix
+
+        oscMixKnob.value = conductor.core.vcoBalance
+
+        lfoAmtKnob.maximum = 3000
+>>>>>>> 2ae253aba079d102fd58ee79ae4585bc9284d516
         lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
         
         lfoRateKnob.maximum = 5
@@ -203,6 +216,12 @@ class SynthViewController: UIViewController {
         masterVolKnob.maximum = 30.0
         masterVolKnob.value = conductor.masterVolume.volume
         
+<<<<<<< HEAD
+=======
+        // Set toggle switches (Start simple)
+        vco1Toggled(vco1Toggle)
+      
+>>>>>>> 2ae253aba079d102fd58ee79ae4585bc9284d516
     }
 
     //*****************************************************************
@@ -249,11 +268,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Filter Off"
-            conductor.filterSection.mix = 0
+            conductor.filterSection.output.stop()
         } else {
             sender.selected = true
             statusLabel.text = "Filter On"
-            conductor.filterSection.mix = 1
+            conductor.filterSection.output.start()
         }
     }
     
@@ -474,12 +493,21 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
+<<<<<<< HEAD
             statusLabel.text = "OscMix: \(value.decimalString)"
             conductor.core.vco12Mix = value
             
         case ControlTag.Pwm.rawValue:
             statusLabel.text = "Pulse Width: \(value.decimalString)"
             conductor.core.pulseWidth = value
+=======
+            statusLabel.text = "OscMix: \(value.decimalFormattedString)"
+            conductor.core.vcoBalance = value
+            
+        case ControlTag.Pwm.rawValue:
+            statusLabel.text = "Morph: \(value.decimalFormattedString)"
+            conductor.core.morph = value
+>>>>>>> 2ae253aba079d102fd58ee79ae4585bc9284d516
             
         // Additional OSCs
         case ControlTag.SubMix.rawValue:
@@ -596,12 +624,12 @@ extension SynthViewController: SMSegmentViewDelegate {
         
         switch (segmentView.tag) {
         case ControlTag.Vco1Waveform.rawValue:
-            conductor.core.selectedVCO1Waveform.changeWaveformFromIndex(index)
-            statusLabel.text = "VCO1 Waveform: \(conductor.core.selectedVCO1Waveform)"
+            conductor.core.waveform1 = Double(index)
+            statusLabel.text = "VCO1 Waveform Changed"
             
         case ControlTag.Vco2Waveform.rawValue:
-            conductor.core.selectedVCO2Waveform.changeWaveformFromIndex(index)
-            statusLabel.text = "VCO2 Waveform: \(conductor.core.selectedVCO2Waveform)"
+            conductor.core.waveform2 = Double(index)
+            statusLabel.text = "VCO2 Waveform Changed"
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
