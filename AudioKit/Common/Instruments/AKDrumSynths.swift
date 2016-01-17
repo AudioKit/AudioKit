@@ -67,7 +67,6 @@ public class AKDrumSynthKickVoice:AKVoice{
 /// Snare Drum Synthesizer Instrument
 public class AKDrumSynthSnareInst: AKPolyphonicInstrument {
     public init(voiceCount: Int, dur: Double = 0.143, res:Double = 0.9) {
-        print("dur \(dur)")
         super.init(voice: AKDrumSynthSnareVoice(dur: dur, res:res), voiceCount: voiceCount)
     }
     override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
