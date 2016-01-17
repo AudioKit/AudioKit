@@ -86,7 +86,6 @@ public class AKDrumSynthSnareVoice:AKVoice{
     var len = 0.143
     
     public init(dur:Double = 0.143, res:Double = 0.9) {
-        print("dur \(dur)")
         len = dur
         let volSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: len)
         
