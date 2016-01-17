@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AudioKit
 // TODO:
 // * Appropriate scales for Knobs
 // * Set sensible initial preset
@@ -52,6 +52,8 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var fattenToggle: UIButton!
     @IBOutlet weak var holdToggle: UIButton!
     @IBOutlet weak var monoToggle: UIButton!
+    @IBOutlet weak var audioPlot: AKOutputWaveformPlot!
+    @IBOutlet weak var plotToggle: UIButton!
     
     enum ControlTag: Int {
         case Cutoff = 101
@@ -118,14 +120,20 @@ class SynthViewController: UIViewController {
         statusLabel.text = String.randomGreeting()
         
         // Set Values
+        conductor.masterVolume.volume = 10.0 // Master Volume
         conductor.core.offset1 = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
-        conductor.core.detune = 0 // VCO2 Detune
+        conductor.core.detune = 0.0 // VCO2 Detune (Hz)
         conductor.core.vco12Mix = 0.5 // VCO1/VCO2 Mix
-        conductor.core.subOscMix = 0 // SubOsc Mix
-        conductor.core.fmOscMix = 0 // FM Mix
-        conductor.core.fmMod = 0 // FM Modulation Amt
-        conductor.masterVolume.volume = 0.5 // Master Volume
+        conductor.core.subOscMix = 0.0 // SubOsc Mix
+        conductor.core.fmOscMix = 0.0 // FM Mix
+        conductor.core.fmMod = 0.0 // FM Modulation Amt
+        conductor.core.pulseWidth = 0.5 // PWM
+        conductor.core.noiseMix = 0.0 // Noise Mix
+        conductor.filterSection.lfoAmplitude = 300.0 // LFO Amp (Hz)
+        conductor.filterSection.lfoRate = 0.3 // LFO Rate
+        conductor.filterSection.cutoffFrequency = 6000.0 // Filter Cutoff (Hz)
+        conductor.filterSection.resonance = 0.6 // Filter Q/Rez
         
         // Set Knob Values
         osc1SemitonesKnob.value = Double(conductor.core.offset1)
@@ -149,27 +157,28 @@ class SynthViewController: UIViewController {
         fmModKnob.value = conductor.core.fmMod
         fmModKnob.maximum = 15
 
-        pwmKnob.value = 0.5
+        pwmKnob.value = conductor.core.pulseWidth
         pwmKnob.minimum = 0.5
 
-        noiseMixKnob.value = 0
+        noiseMixKnob.value = conductor.core.noiseMix
 
         oscMixKnob.value = conductor.core.vco12Mix
 
-        lfoAmtKnob.maximum = 1000
-        lfoAmtKnob.value = 100
+        lfoAmtKnob.maximum = 3000
+        lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
 
         lfoRateKnob.maximum = 5
-        lfoRateKnob.value = 5
+        lfoRateKnob.value = conductor.filterSection.lfoRate
+        
+        cutoffKnob.value = conductor.filterSection.cutoffFrequency
+        
+        rezKnob.maximum = 0.99
+        rezKnob.value = conductor.filterSection.resonance
+      
    
         crushAmtKnob.minimum = 160
         crushAmtKnob.maximum = 5000
         crushAmtKnob.value = 2000
-        
-        cutoffKnob.value = 0
-
-        rezKnob.value = 0
-        rezKnob.maximum = 0.99
 
         delayTimeKnob.value = 0
         delayMixKnob.value = 0
@@ -177,12 +186,15 @@ class SynthViewController: UIViewController {
         reverbAmtKnob.value = 0
         reverbMixKnob.value = 0
         
+        masterVolKnob.maximum = 11.0
         masterVolKnob.value = conductor.masterVolume.volume
+     
         
-        // Turn on initial toggle switches
+        // Set toggle switches
         vco1Toggled(vco1Toggle)
         vco2Toggled(vco2Toggle)
         filterToggled(filterToggle)
+        displayModeToggled(plotToggle)
         //delayToggled(delayToggle)
       
     }
@@ -317,11 +329,25 @@ class SynthViewController: UIViewController {
         }
     }
     
+    // Universal
+    
     @IBAction func midiPanicPressed(sender: RoundedButton) {
         statusLabel.text = "All Notes Off"
-        
         conductor.core.panic()
     }
+    
+    @IBAction func displayModeToggled(sender: UIButton) {
+        if sender.selected {
+            sender.selected = false
+            statusLabel.text = "Wave Display Filled Off"
+            audioPlot.shouldFill = false
+        } else {
+            sender.selected = true
+            statusLabel.text = "Wave Display Filled On"
+            audioPlot.shouldFill = true
+        }
+    }
+    
     
     // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
@@ -493,7 +519,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Crusher
         case ControlTag.CrushAmt.rawValue:
             statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
-            conductor.bitCrusher.sampleRate = 8000.0
+            conductor.bitCrusher.sampleRate = 4000.0
             conductor.bitCrusher.bitDepth = value
             
         // Delay
