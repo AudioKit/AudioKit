@@ -19,7 +19,9 @@ extern "C" {
 enum {
     frequencyAddress = 0,
     amplitudeAddress = 1,
-    indexAddress = 2
+    indexAddress = 2,
+    detuningOffsetAddress = 3,
+    detuningMultiplierAddress = 4
 };
 
 class AKMorphingOscillatorDSPKernel : public AKDSPKernel {
@@ -32,6 +34,7 @@ public:
         channels = channelCount;
 
         sampleRate = float(inSampleRate);
+
         sp_create(&sp);
         sp_oscmorph_create(&oscmorph);
         
@@ -103,6 +106,16 @@ public:
         indexRamper.set(clamp(wtpos, (float)0.0, (float)1000.0));
     }
 
+    void setDetuningOffset(float detuneOffset) {
+        detuningOffset = detuneOffset;
+        detuningOffsetRamper.set(clamp(detuneOffset, (float)-1000, (float)1000));
+    }
+
+    void setDetuningMultiplier(float detuneScale) {
+        detuningMultiplier = detuneScale;
+        detuningMultiplierRamper.set(clamp(detuneScale, (float)0.9, (float)1.11));
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -118,6 +131,14 @@ public:
                 indexRamper.set(clamp(value, (float)0.0, (float)1000.0));
                 break;
 
+            case detuningOffsetAddress:
+                detuningOffsetRamper.set(clamp(value, (float)-1000, (float)1000));
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.set(clamp(value, (float)0.9, (float)1.11));
+                break;
+
         }
     }
 
@@ -131,6 +152,12 @@ public:
 
             case indexAddress:
                 return indexRamper.goal();
+
+            case detuningOffsetAddress:
+                return detuningOffsetRamper.goal();
+
+            case detuningMultiplierAddress:
+                return detuningMultiplierRamper.goal();
 
             default: return 0.0f;
         }
@@ -150,6 +177,14 @@ public:
                 indexRamper.startRamp(clamp(value, (float)0.0, (float)1000.0), duration);
                 break;
 
+            case detuningOffsetAddress:
+                detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.startRamp(clamp(value, (float)0.9, (float)1.11), duration);
+                break;
+
         }
     }
 
@@ -163,7 +198,7 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            oscmorph->freq = frequencyRamper.getStep();
+            oscmorph->freq = frequencyRamper.getStep() * detuningMultiplier + detuningOffset;
             oscmorph->amp = amplitudeRamper.getStep();
             oscmorph->wtpos = indexRamper.getStep();
             
@@ -204,12 +239,16 @@ private:
     float frequency = 440;
     float amplitude = 0.5;
     float index = 0.0;
+    float detuningOffset = 0.0;
+    float detuningMultiplier = 1.0;
 
 public:
     bool started = true;
     AKParameterRamper frequencyRamper = 440;
     AKParameterRamper amplitudeRamper = 0.5;
     AKParameterRamper indexRamper = 0.0;
+    AKParameterRamper detuningOffsetRamper = 0.0;
+    AKParameterRamper detuningMultiplierRamper = 1.0;
 };
 
 #endif /* AKMorphingOscillatorDSPKernel_hpp */

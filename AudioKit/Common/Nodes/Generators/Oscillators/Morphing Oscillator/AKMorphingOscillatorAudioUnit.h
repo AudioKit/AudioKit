@@ -15,6 +15,8 @@
 @property (nonatomic) float frequency;
 @property (nonatomic) float amplitude;
 @property (nonatomic) float index;
+@property (nonatomic) float detuningOffset;
+@property (nonatomic) float detuningMultiplier;
 
 - (void)finalize;
 - (void)setupWaveform:(UInt32)waveform size:(int)size;

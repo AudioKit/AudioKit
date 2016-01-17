@@ -25,13 +25,13 @@ int sp_oscmorph_init(sp_data *sp, sp_oscmorph *osc, sp_ftbl **ft, int nft, SPFLO
     osc->lphs = ((int32_t)(osc->iphs * SP_FT_MAXLEN)) & SP_FT_PHMASK;
     osc->wtpos = 0.0;
     osc->nft = nft;
-    uint32_t prev = ft[0]->size;
+    uint32_t prev = (uint32_t)ft[0]->size;
     for(i = 0; i < nft; i++) {
         if(prev != ft[i]->size) {
             fprintf(stderr, "sp_oscmorph: size mismatch\n");
             return SP_NOT_OK;
         }
-        prev = ft[i]->size;
+        prev = (uint32_t)ft[i]->size;
     }
     return SP_OK;
 }
