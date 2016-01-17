@@ -32,22 +32,66 @@ public:
         channels = channelCount;
 
         sampleRate = float(inSampleRate);
-
+        NSLog(@"INITTING");
         sp_create(&sp);
         sp_oscmorph_create(&oscmorph);
+
+    }
+    
+    void finalize() {
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
+        NSLog(@"nft %d", oscmorph->nft);
+//        sp_ftbl *ft_array2[] = {ftbl0, ftbl1};
+//        sp_oscmorph_init(sp, oscmorph, ft_array2, 2, 0);
         oscmorph->freq = 440;
         oscmorph->amp = 0.5;
         oscmorph->wtpos = 0.0;
     }
-        
+    
     void setupWaveform(uint32_t waveform, uint32_t size) {
         tbl_size = size;
         sp_ftbl_create(sp, &ft_array[waveform], tbl_size);
+        switch (waveform) {
+            case 0:
+                sp_ftbl_create(sp, &ftbl0, tbl_size);
+                NSLog(@"0");
+                break;
+            case 1:
+                sp_ftbl_create(sp, &ftbl1, tbl_size);
+                NSLog(@"1");
+                break;
+            case 2:
+                sp_ftbl_create(sp, &ftbl2, tbl_size);
+                NSLog(@"2");
+                break;
+            case 3:
+                sp_ftbl_create(sp, &ftbl3, tbl_size);
+                NSLog(@"3");
+
+                break;
+            default:
+                break;
+        }
     }
 
     void setWaveformValue(uint32_t waveform, uint32_t index, float value) {
         ft_array[waveform]->tbl[index] = value;
+        switch (waveform) {
+            case 0:
+                ftbl0->tbl[index] = value;
+                break;
+            case 1:
+                ftbl1->tbl[index] = value;
+                break;
+            case 2:
+                ftbl2->tbl[index] = value;
+                break;
+            case 3:
+                ftbl3->tbl[index] = value;
+                break;
+            default:
+                break;
+        }
     }
 
     void start() {
@@ -131,32 +175,33 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *outBufferList) {
+    void setBuffer(AudioBufferList *outBufferList) {
         outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
             oscmorph->freq = frequencyRamper.getStep();
             oscmorph->amp = amplitudeRamper.getStep();
             oscmorph->wtpos = indexRamper.getStep();
-
+            
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
                     if (channel == 0) {
-                        sp_oscmorph_compute(sp, oscmorph, nil, out);
+                        NSLog(@"CHecking");
+                        NSLog(@"%d", oscmorph->nft);
+                        sp_oscmorph_compute(sp, oscmorph, nil, &temp);
                     }
                     *out = temp;
                 } else {
                     *out = 0.0;
                 }
-
-                
             }
         }
     }
@@ -173,6 +218,10 @@ private:
     sp_data *sp;
     sp_oscmorph *oscmorph;
     
+    sp_ftbl *ftbl0;
+    sp_ftbl *ftbl1;
+    sp_ftbl *ftbl2;
+    sp_ftbl *ftbl3;
     sp_ftbl *ft_array[4];
     UInt32 tbl_size = 4096;
 
