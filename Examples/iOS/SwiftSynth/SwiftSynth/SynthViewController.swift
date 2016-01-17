@@ -115,12 +115,12 @@ class SynthViewController: UIViewController {
     // *********************************************************
     
     func setDefaultValues() {
-        
+
         // Greeting
         statusLabel.text = String.randomGreeting()
         
-        // Set Values
-        conductor.masterVolume.volume = 10.0 // Master Volume
+        // Set Preset Values
+        conductor.masterVolume.volume = 25.0 // Master Volume
         conductor.core.offset1 = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
         conductor.core.detune = 0.0 // VCO2 Detune (Hz)
@@ -132,71 +132,73 @@ class SynthViewController: UIViewController {
         conductor.core.noiseMix = 0.0 // Noise Mix
         conductor.filterSection.lfoAmplitude = 300.0 // LFO Amp (Hz)
         conductor.filterSection.lfoRate = 0.3 // LFO Rate
-        conductor.filterSection.cutoffFrequency = 6000.0 // Filter Cutoff (Hz)
+        conductor.filterSection.cutoffFrequency = 6000.0 // Cutoff (Hz)
         conductor.filterSection.resonance = 0.6 // Filter Q/Rez
+        conductor.bitCrusher.sampleRate = 0.0 // Bitcrush SampleRate
         
-        // Set Knob Values
-        osc1SemitonesKnob.value = Double(conductor.core.offset1)
+        // Update Knob Values
+        setupKnobValues()
+        
+        // Set Toggle Preset Values
+        vco1Toggled(vco1Toggle)
+        vco2Toggled(vco2Toggle)
+        filterToggled(filterToggle)
+        displayModeToggled(plotToggle)
+    }
+    
+    func setupKnobValues() {
         osc1SemitonesKnob.minimum = -12
         osc1SemitonesKnob.maximum = 12
-
-        osc2SemitonesKnob.value = Double(conductor.core.offset2)
+        osc1SemitonesKnob.value = Double(conductor.core.offset1)
+        
         osc2SemitonesKnob.minimum = -12
         osc2SemitonesKnob.maximum = 12
-
+        osc2SemitonesKnob.value = Double(conductor.core.offset2)
+        
         osc2DetuneKnob.value = conductor.core.detune
         osc2DetuneKnob.minimum = -4
         osc2DetuneKnob.maximum = 4
         
         subMixKnob.value = conductor.core.subOscMix
         subMixKnob.maximum = 4.5
-
+        
         fmMixKnob.value = conductor.core.fmOscMix
         fmMixKnob.maximum = 2
-
+        
         fmModKnob.value = conductor.core.fmMod
         fmModKnob.maximum = 15
-
+        
         pwmKnob.value = conductor.core.pulseWidth
         pwmKnob.minimum = 0.5
-
+        
         noiseMixKnob.value = conductor.core.noiseMix
-
+        
         oscMixKnob.value = conductor.core.vco12Mix
-
-        lfoAmtKnob.maximum = 3000
+        
         lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
-
-        lfoRateKnob.maximum = 5
+        lfoAmtKnob.maximum = 2000
+        
         lfoRateKnob.value = conductor.filterSection.lfoRate
+        lfoRateKnob.maximum = 5
         
         cutoffKnob.value = conductor.filterSection.cutoffFrequency
         
         rezKnob.maximum = 0.99
         rezKnob.value = conductor.filterSection.resonance
-      
-   
-        crushAmtKnob.minimum = 160
-        crushAmtKnob.maximum = 5000
-        crushAmtKnob.value = 2000
-
+        
+        crushAmtKnob.minimum = 0
+        crushAmtKnob.maximum = 1950
+        crushAmtKnob.value = conductor.bitCrusher.sampleRate
+        
         delayTimeKnob.value = 0
         delayMixKnob.value = 0
-
+        
         reverbAmtKnob.value = 0
         reverbMixKnob.value = 0
         
-        masterVolKnob.maximum = 11.0
+        masterVolKnob.maximum = 30.0
         masterVolKnob.value = conductor.masterVolume.volume
-     
         
-        // Set toggle switches
-        vco1Toggled(vco1Toggle)
-        vco2Toggled(vco2Toggle)
-        filterToggled(filterToggle)
-        displayModeToggled(plotToggle)
-        //delayToggled(delayToggle)
-      
     }
 
     //*****************************************************************
@@ -464,83 +466,83 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             conductor.core.offset2 = intValue
             
         case ControlTag.Vco2Detune.rawValue:
-            statusLabel.text = "Detune: \(value.decimalFormattedString)"
+            statusLabel.text = "Detune: \(value.decimalString)"
             conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
-            statusLabel.text = "OscMix: \(value.decimalFormattedString)"
+            statusLabel.text = "OscMix: \(value.decimalString)"
             conductor.core.vco12Mix = value
             
         case ControlTag.Pwm.rawValue:
-            statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
+            statusLabel.text = "Pulse Width: \(value.decimalString)"
             conductor.core.pulseWidth = value
             
         // Additional OSCs
         case ControlTag.SubMix.rawValue:
-            statusLabel.text = "Sub Osc: \(value.decimalFormattedString)"
+            statusLabel.text = "Sub Osc: \(value.decimalString)"
             conductor.core.subOscMix = value
             
         case ControlTag.FmMix.rawValue:
-            statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
+            statusLabel.text = "FM Amt: \(value.decimalString)"
             conductor.core.fmOscMix = value
             
         case ControlTag.FmMod.rawValue:
-            statusLabel.text = "FM Mod: \(value.decimalFormattedString)"
+            statusLabel.text = "FM Mod: \(value.decimalString)"
             conductor.core.fmMod = value
             
         case ControlTag.NoiseMix.rawValue:
-            statusLabel.text = "Noise Amt: \(value.decimalFormattedString)"
+            statusLabel.text = "Noise Amt: \(value.decimalString)"
             conductor.core.noiseMix = value
             
         // LFO
         case ControlTag.LfoAmt.rawValue:
-            statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
+            statusLabel.text = "LFO Amp: \(value.decimalString) Hz"
             conductor.filterSection.lfoAmplitude = value
             
         case ControlTag.LfoRate.rawValue:
-            statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
+            statusLabel.text = "LFO Rate: \(value.decimalString)"
             conductor.filterSection.lfoRate = value
             
         // Filter
         case ControlTag.Cutoff.rawValue:
-            
             // Logarithmic scale to frequency
             let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
             let cutOffFrequency = scaledValue * 4
-            statusLabel.text = "Cutoff: \(cutOffFrequency.decimalFormattedString)"
+            statusLabel.text = "Cutoff: \(cutOffFrequency.decimalString)"
             conductor.filterSection.cutoffFrequency = cutOffFrequency
             
         case ControlTag.Rez.rawValue:
-            statusLabel.text = "Rez: \(value.decimalFormattedString)"
+            statusLabel.text = "Rez: \(value.decimalString)"
             conductor.filterSection.resonance = value
             
         // Crusher
         case ControlTag.CrushAmt.rawValue:
-            statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
-            conductor.bitCrusher.sampleRate = 4000.0
-            conductor.bitCrusher.bitDepth = value
+            let crushAmt = (crushAmtKnob.maximum - value) + 50
+            statusLabel.text = "Bitcrush: \(crushAmt.decimalString) Sample Rate"
+            conductor.bitCrusher.sampleRate = crushAmt
+            conductor.bitCrusher.bitDepth = 8
             
         // Delay
         case ControlTag.DelayTime.rawValue:
-            statusLabel.text = "Delay Time: \(value.decimalFormattedString)"
+            statusLabel.text = "Delay Time: \(value.decimalString)"
             conductor.multiDelay.time = value
             
         case ControlTag.DelayMix.rawValue:
-            statusLabel.text = "Delay Mix: \(value.decimalFormattedString)"
+            statusLabel.text = "Delay Mix: \(value.decimalString)"
             conductor.multiDelay.mix = value
             
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
-            statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
+            statusLabel.text = "Reverb Amt: \(value.decimalString)"
             conductor.reverb.decayTimeAt0Hz = value
             
         case ControlTag.ReverbMix.rawValue:
-            statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
+            statusLabel.text = "Reverb Mix: \(value.decimalString)"
             conductor.reverbMixer.balance = value
             
         // Master
         case ControlTag.MasterVol.rawValue:
-            statusLabel.text = "Master Vol: \(value.decimalFormattedString)"
+            statusLabel.text = "Master Vol: \(value.decimalString)"
             conductor.masterVolume.volume = value
             
         default:
@@ -558,19 +560,19 @@ extension SynthViewController: VerticalSliderDelegate {
         
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
-            statusLabel.text = "Attack: \(value.decimalFormattedString)"
+            statusLabel.text = "Attack: \(value.decimalString)"
             conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
-            statusLabel.text = "Decay: \(value.decimalFormattedString)"
+            statusLabel.text = "Decay: \(value.decimalString)"
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
-            statusLabel.text = "Sustain: \(value.decimalFormattedString)"
+            statusLabel.text = "Sustain: \(value.decimalString)"
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
-            statusLabel.text = "Release: \(value.decimalFormattedString)"
+            statusLabel.text = "Release: \(value.decimalString)"
             conductor.core.releaseDuration = value
             
         default:
