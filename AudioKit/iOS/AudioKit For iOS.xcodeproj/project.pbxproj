@@ -100,6 +100,7 @@
 		C43792891C0CEEB0001E9160 /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C43792851C0CEEB0001E9160 /* md5.h */; };
 		C437928A1C0CEEB0001E9160 /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = C43792861C0CEEB0001E9160 /* test.c */; };
 		C437928B1C0CEEB0001E9160 /* test.h in Headers */ = {isa = PBXBuildFile; fileRef = C43792871C0CEEB0001E9160 /* test.h */; };
+		C44B596D1C4B04BF0008507F /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B596C1C4B04BF0008507F /* segment.swift */; };
 		C4537F091C39D07100A51738 /* AKDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4537F081C39D07100A51738 /* AKDelay.swift */; };
 		C4537F0F1C39D0B400A51738 /* AKVariableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4537F0B1C39D0B400A51738 /* AKVariableDelay.swift */; };
 		C4537F101C39D0B400A51738 /* AKVariableDelayAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4537F0C1C39D0B400A51738 /* AKVariableDelayAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -617,6 +618,7 @@
 		C43792851C0CEEB0001E9160 /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		C43792861C0CEEB0001E9160 /* test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
 		C43792871C0CEEB0001E9160 /* test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
+		C44B596C1C4B04BF0008507F /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 		C4537F081C39D07100A51738 /* AKDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDelay.swift; sourceTree = "<group>"; };
 		C4537F0B1C39D0B400A51738 /* AKVariableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariableDelay.swift; sourceTree = "<group>"; };
 		C4537F0C1C39D0B400A51738 /* AKVariableDelayAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVariableDelayAudioUnit.h; sourceTree = "<group>"; };
@@ -2290,6 +2292,7 @@
 				C41863731C23FE6600A06E41 /* Random Number Generators */,
 				C463027A1C20E7A7009B44D9 /* add.swift */,
 				C463027B1C20E7A7009B44D9 /* divide.swift */,
+				C44B596C1C4B04BF0008507F /* segment.swift */,
 				C4E751A61C2354EE00688A1B /* max.swift */,
 				C4E751A81C23557F00688A1B /* min.swift */,
 				C463027C1C20E7A7009B44D9 /* multiply.swift */,
@@ -3032,6 +3035,7 @@
 				C4E958DA1C0ADBFD00516A6A /* rpt.c in Sources */,
 				C4E751791C2204AD00688A1B /* sawtoothWave.swift in Sources */,
 				C4E9589F1C0ADBFD00516A6A /* butbr.c in Sources */,
+				C44B596D1C4B04BF0008507F /* segment.swift in Sources */,
 				C4E958E41C0ADBFD00516A6A /* tenv.c in Sources */,
 				C4E958D01C0ADBFD00516A6A /* progress.c in Sources */,
 				C46302801C20E7A7009B44D9 /* delay.swift in Sources */,
