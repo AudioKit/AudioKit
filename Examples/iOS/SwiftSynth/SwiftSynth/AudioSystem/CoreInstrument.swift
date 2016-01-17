@@ -11,24 +11,29 @@ import AudioKit
 /// A wrapper for AKCore to make it a playable as a polyphonic instrument.
 class CoreInstrument: AKPolyphonicInstrument {
     
+    func updateWaveform1() {
+        var newWaveformIndex = waveform1 + morph
+        if newWaveformIndex < 0 { newWaveformIndex = 0 }
+        if newWaveformIndex > 3 { newWaveformIndex = 3 }
+        for voice in voices {
+            let coreVoice = voice as! CoreVoice
+            coreVoice.vco1.index = newWaveformIndex
+        }
+    }
     
-    var waveform1 = 0.0 {
-        didSet {
-            for voice in voices {
-                let coreVoice = voice as! CoreVoice
-                coreVoice.vco1.index = waveform1
-            }
+    func updateWaveform2() {
+        var newWaveformIndex = waveform2 + morph
+        if newWaveformIndex < 0 { newWaveformIndex = 0 }
+        if newWaveformIndex > 3 { newWaveformIndex = 3 }
+        for voice in voices {
+            let coreVoice = voice as! CoreVoice
+            coreVoice.vco2.index = newWaveformIndex
         }
     }
+    
+    var waveform1 = 0.0 { didSet { updateWaveform1() } }
+    var waveform2 = 0.0 { didSet { updateWaveform2() } }
 
-    var waveform2 = 0.0 {
-        didSet {
-            for voice in voices {
-                let coreVoice = voice as! CoreVoice
-                coreVoice.vco2.index = waveform2
-            }
-        }
-    }
 
     var offset1 = 0 {
         didSet {
@@ -82,7 +87,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-//                coreVoice.vco2.detuningOffset = detune
+                coreVoice.vco2.detuningOffset = detune
             }
         }
     }
@@ -107,14 +112,13 @@ class CoreInstrument: AKPolyphonicInstrument {
         }
     }
     
-    var pulseWidth: Double = 0.5 {
+    var morph: Double = 0.0 {
         didSet {
-            for voice in voices {
-                let coreVoice = voice as! CoreVoice
-                // Deprecated, need to think of another solution
-            }
+            updateWaveform1()
+            updateWaveform2()
         }
     }
+
     
     /// Attack time
     var attackDuration: Double = 0.1 {
