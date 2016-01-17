@@ -1,8 +1,8 @@
 /*
  * TADSR
- *
+ * 
  * This module uses modified code from Perry Cook's ADSR STK module.
- *
+ * 
  */
 
 #include <stdlib.h>
@@ -46,9 +46,9 @@ static void upslope(SPFLOAT *buf, int steps, SPFLOAT type)
 {
     SPFLOAT max = 0;
     SPFLOAT min = 100;
-    
+
     min = slope(buf, 0.00001, 1, steps, type);
-    max = bias(buf, steps, min);
+    max = bias(buf, steps, min); 
     normalize(buf, steps, max);
 }
 
@@ -86,29 +86,29 @@ static void ADSR_keyOff(sp_tadsr *a)
     a->state = RELEASE;
 }
 /*
- static void ADSR_setAttackRate(sp_data *sp, sp_tadsr *a, SPFLOAT aRate)
- {
- a->attackRate = aRate;
- a->attackRate *= RATE_NORM;
- }
- 
- static void ADSR_setDecayRate(sp_data *sp, sp_tadsr *a, SPFLOAT aRate)
- {
- a->decayRate = aRate;
- a->decayRate *= RATE_NORM;
- }
- */
+static void ADSR_setAttackRate(sp_data *sp, sp_tadsr *a, SPFLOAT aRate)
+{
+    a->attackRate = aRate;
+    a->attackRate *= RATE_NORM;
+}
+
+static void ADSR_setDecayRate(sp_data *sp, sp_tadsr *a, SPFLOAT aRate)
+{
+    a->decayRate = aRate;
+    a->decayRate *= RATE_NORM;
+}
+*/
 static void ADSR_setSustainLevel(sp_data *sp, sp_tadsr *a, SPFLOAT aLevel)
 {
-    a->sustainLevel = aLevel;
+   a->sustainLevel = aLevel;
 }
 /*
- static void ADSR_setReleaseRate(sp_data *sp, sp_tadsr *a, SPFLOAT aRate)
- {
- a->releaseRate = aRate;
- a->releaseRate *= RATE_NORM;
- }
- */
+static void ADSR_setReleaseRate(sp_data *sp, sp_tadsr *a, SPFLOAT aRate)
+{
+    a->releaseRate = aRate;
+    a->releaseRate *= RATE_NORM;
+}
+*/
 static void ADSR_setAttackTime(sp_data *sp, sp_tadsr *a, SPFLOAT aTime)
 {
     a->attackRate = 1.0 / (aTime * sp->sr);
@@ -125,7 +125,7 @@ static void ADSR_setReleaseTime(sp_data *sp, sp_tadsr *a, SPFLOAT aTime)
 }
 
 static void ADSR_setAllTimes(sp_data *sp, sp_tadsr *a, SPFLOAT attTime, SPFLOAT decTime,
-                             SPFLOAT susLevel, SPFLOAT relTime)
+                      SPFLOAT susLevel, SPFLOAT relTime)
 {
     ADSR_setAttackTime(sp, a, attTime);
     ADSR_setDecayTime(sp, a, decTime);
@@ -133,30 +133,30 @@ static void ADSR_setAllTimes(sp_data *sp, sp_tadsr *a, SPFLOAT attTime, SPFLOAT 
     ADSR_setReleaseTime(sp, a, relTime);
 }
 /*
- static void ADSR_setAll(sp_data *sp, sp_tadsr *a, SPFLOAT attRate, SPFLOAT decRate,
- SPFLOAT susLevel, SPFLOAT relRate)
- {
- ADSR_setAttackRate(sp, a, attRate);
- ADSR_setDecayRate(sp, a, decRate);
- ADSR_setSustainLevel(sp, a, susLevel);
- ADSR_setReleaseRate(sp, a, relRate);
- }
- 
- static void ADSR_setTarget(sp_data *sp, sp_tadsr *a, SPFLOAT aTarget)
- {
- a->target = aTarget;
- if (a->value <a-> target) {
- a->state = ATTACK;
- ADSR_setSustainLevel(sp, a, a->target);
- a->rate = a->attackRate;
- }
- if (a->value > a->target) {
- ADSR_setSustainLevel(sp, a, a->target);
- a->state = DECAY;
- a->rate = a->decayRate;
- }
- }
- */
+static void ADSR_setAll(sp_data *sp, sp_tadsr *a, SPFLOAT attRate, SPFLOAT decRate,
+    SPFLOAT susLevel, SPFLOAT relRate)
+{
+    ADSR_setAttackRate(sp, a, attRate);
+    ADSR_setDecayRate(sp, a, decRate);
+    ADSR_setSustainLevel(sp, a, susLevel);
+    ADSR_setReleaseRate(sp, a, relRate);
+}
+
+static void ADSR_setTarget(sp_data *sp, sp_tadsr *a, SPFLOAT aTarget)
+{
+    a->target = aTarget;
+    if (a->value <a-> target) {
+      a->state = ATTACK;
+      ADSR_setSustainLevel(sp, a, a->target);
+      a->rate = a->attackRate;
+    }
+    if (a->value > a->target) {
+      ADSR_setSustainLevel(sp, a, a->target);
+      a->state = DECAY;
+      a->rate = a->decayRate;
+    }
+}
+*/
 
 static SPFLOAT scale_to_buf(SPFLOAT *buf, int steps, SPFLOAT pos)
 {
@@ -176,46 +176,46 @@ static SPFLOAT ADSR_tick(sp_tadsr *a)
 {
     SPFLOAT out = 0;
     if (a->state == ATTACK) {
-        a->value += a->rate;
-        if (a->value >= a->target) {
-            a->value = a->target;
-            a->rate = a->decayRate;
-            a->target = a->sustainLevel;
-            a->state = DECAY;
-        }
-        out = scale_to_buf(a->atkbuf, 1024, a->value);
-        //out = a->value;
+      a->value += a->rate;
+      if (a->value >= a->target) {
+        a->value = a->target;
+        a->rate = a->decayRate;
+        a->target = a->sustainLevel;
+        a->state = DECAY;
+      }
+      out = scale_to_buf(a->atkbuf, 1024, a->value);
+      //out = a->value;
     } else if (a->state == DECAY) {
-        a->value -= a->decayRate;
-        out = a->value;
-        if (a->value <= a->sustainLevel) {
-            a->value = a->sustainLevel;
-            out = a->sustainLevel;
-            a->rate = 0.0;
-            a->state = SUSTAIN;
-        }
+      a->value -= a->decayRate;
+      out = a->value;
+      if (a->value <= a->sustainLevel) {
+        a->value = a->sustainLevel;
+        out = a->sustainLevel;
+        a->rate = 0.0;
+        a->state = SUSTAIN;
+      }     
     } else if (a->state == RELEASE)  {
-        a->value -= a->releaseRate;
-        if (a->value <= 0.0) {
-            a->value = 0.0;
-            a->state = CLEAR;
-        }
-        out = a->value;
+      a->value -= a->releaseRate;
+      if (a->value <= 0.0) {
+        a->value = 0.0;
+        a->state = CLEAR;
+      }
+      out = a->value;
     } else if (a->state == SUSTAIN)  {
         out = a->sustainLevel;
     }
     return out;
 }
 /*
- static void ADSR_setValue(sp_data *sp, sp_tadsr *a, SPFLOAT aValue)
- {
- a->state = SUSTAIN;
- a->target = aValue;
- a->value = aValue;
- ADSR_setSustainLevel(sp, a, aValue);
- a->rate = 0.0;
- }
- */
+static void ADSR_setValue(sp_data *sp, sp_tadsr *a, SPFLOAT aValue)
+{
+    a->state = SUSTAIN;
+    a->target = aValue;
+    a->value = aValue;
+    ADSR_setSustainLevel(sp, a, aValue);
+    a->rate = 0.0;
+}
+*/
 int sp_tadsr_create(sp_tadsr **p)
 {
     *p = malloc(sizeof(sp_tadsr));
@@ -236,17 +236,17 @@ int sp_tadsr_init(sp_data *sp, sp_tadsr *p)
     p->sus = 0.0;
     p->rel = 0.5;
     p->mode = KEY_OFF;
-    
+
     upslope(p->atkbuf, 1024, -3);
     upslope(p->decbuf, 1024, 3);
-    
+
     return SP_OK;
 }
 
 int sp_tadsr_compute(sp_data *sp, sp_tadsr *p, SPFLOAT *trig, SPFLOAT *out)
 {
     if(*trig != 0) {
-        
+
         if(*trig == 2) {
             ADSR_keyOff(p);
             p->mode = KEY_OFF;
