@@ -34,6 +34,8 @@ class Conductor {
         bitCrusher.stop()
         
         filterSection = FilterSection(bitCrusher)
+        filterSection.output.stop()
+        
         fatten = Fatten(filterSection)
         multiDelay = MultiDelay(fatten)
         multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0)
