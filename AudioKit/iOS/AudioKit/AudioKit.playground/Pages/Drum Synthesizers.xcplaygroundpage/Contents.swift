@@ -29,10 +29,10 @@ AKPlaygroundLoop(frequency: 4.44) {
     }
     let snrOrNot = i % 4
     if(snrOrNot == 2){
-        sd.stopNote(60)
         let vel = Int(random(1,100))
         //print("chik")
         sd.playNote(60, velocity: vel)
+        sd.stopNote(60)
     }
     i++
 }
