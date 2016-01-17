@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
-        <page name='Morphing Oscillator'/>
         <page name='Table Of Contents'/>
         <page name='Non-Audio Tutorial'/>
         <page name='Introduction and Hello World'/>
@@ -89,8 +88,6 @@
         <page name='Fatten Effect'/>
         <page name='Filter Section Example'/>
         <page name='MultiDelay Example'/>
-        <page name='Linear and Exponential Segment Operations'/>
         <page name='Sequencer - single output'/>
-        <page name='Drum Synthesizers'/>
     </pages>
 </playground>
