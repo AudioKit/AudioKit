@@ -233,7 +233,7 @@ private:
     sp_ftbl *ftbl1;
     sp_ftbl *ftbl2;
     sp_ftbl *ftbl3;
-    sp_ftbl *ft_array[4] = {ftbl0, ftbl1, ftbl2, ftbl3};
+    sp_ftbl *ft_array[4];
     UInt32 tbl_size = 4096;
 
     float frequency = 440;
