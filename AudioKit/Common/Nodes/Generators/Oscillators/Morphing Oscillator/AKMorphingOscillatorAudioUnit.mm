@@ -1,18 +1,18 @@
 //
-//  AKSawtoothOscillatorAudioUnit.mm
+//  AKMorphingOscillatorAudioUnit.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKSawtoothOscillatorAudioUnit.h"
-#import "AKSawtoothOscillatorDSPKernel.hpp"
+#import "AKMorphingOscillatorAudioUnit.h"
+#import "AKMorphingOscillatorDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
 #import "AKBufferedAudioBus.hpp"
 
-@interface AKSawtoothOscillatorAudioUnit()
+@interface AKMorphingOscillatorAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
 
@@ -22,19 +22,26 @@
 
 @end
 
-@implementation AKSawtoothOscillatorAudioUnit {
+@implementation AKMorphingOscillatorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKSawtoothOscillatorDSPKernel _kernel;
+    AKMorphingOscillatorDSPKernel _kernel;
 
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
+
+-(void)finalize {
+    _kernel.finalize();
+}
 
 - (void)setFrequency:(float)frequency {
     _kernel.setFrequency(frequency);
 }
 - (void)setAmplitude:(float)amplitude {
     _kernel.setAmplitude(amplitude);
+}
+- (void)setIndex:(float)index {
+    _kernel.setIndex(index);
 }
 - (void)setDetuningOffset:(float)detuningOffset {
     _kernel.setDetuningOffset(detuningOffset);
@@ -43,6 +50,13 @@
     _kernel.setDetuningMultiplier(detuningMultiplier);
 }
 
+- (void)setupWaveform:(UInt32)waveform size:(int)size {
+    _kernel.setupWaveform(waveform, (uint32_t)size);
+}
+
+- (void)setWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index {
+    _kernel.setWaveformValue(waveform, index, value);
+}
 
 - (void)start {
     _kernel.start();
@@ -75,10 +89,10 @@
         // Create a parameter object for the frequency.
     AUParameter *frequencyAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"frequency"
-                                              name:@"Frequency (Hz)"
+                                              name:@"Frequency (in Hz)"
                                            address:frequencyAddress
-                                               min:0.0
-                                               max:20000.0
+                                               min:0
+                                               max:22050
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -87,11 +101,23 @@
     // Create a parameter object for the amplitude.
     AUParameter *amplitudeAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Amplitude"
+                                              name:@"Amplitude (typically a value between 0 and 1)."
                                            address:amplitudeAddress
+                                               min:0
+                                               max:1
+                                              unit:kAudioUnitParameterUnit_Hertz
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    // Create a parameter object for the index.
+    AUParameter *indexAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"index"
+                                              name:@"Index of the wavetable to use (fractional are okay)."
+                                           address:indexAddress
                                                min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
+                                               max:1000.0
+                                              unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
@@ -124,11 +150,13 @@
     // Initialize the parameter values.
     frequencyAUParameter.value = 440;
     amplitudeAUParameter.value = 0.5;
+    indexAUParameter.value = 0.0;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
 
     _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);
+    _kernel.setParameter(indexAddress,              indexAUParameter.value);
     _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
@@ -136,6 +164,7 @@
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         frequencyAUParameter,
         amplitudeAUParameter,
+        indexAUParameter,
         detuningOffsetAUParameter,
         detuningMultiplierAUParameter
     ]];
@@ -144,13 +173,12 @@
     _inputBus.init(defaultFormat, 8);
     _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
 
-    // Create the output bus array.
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKSawtoothOscillatorDSPKernel *blockKernel = &_kernel;
+    __block AKMorphingOscillatorDSPKernel *blockKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -205,7 +233,7 @@
     _inputBus.deallocateRenderResources();
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKSawtoothOscillatorDSPKernel *blockKernel = &_kernel;
+    __block AKMorphingOscillatorDSPKernel *blockKernel = &_kernel;
 
     // Go back to setting parameters instead of scheduling them.
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -218,7 +246,7 @@
      Capture in locals to avoid ObjC member lookups. If "self" is captured in
      render, we're doing it wrong.
      */
-    __block AKSawtoothOscillatorDSPKernel *state = &_kernel;
+    __block AKMorphingOscillatorDSPKernel *state = &_kernel;
     __block BufferedInputBus *input = &_inputBus;
 
     return ^AUAudioUnitStatus(

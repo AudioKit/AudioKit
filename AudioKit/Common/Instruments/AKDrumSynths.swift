@@ -10,9 +10,9 @@ import Foundation
 import AVFoundation
 
 /// Kick Drum Synthesizer Instrument
-public class AKDrumSynthKickInst: AKPolyphonicInstrument {
+public class AKSynthKick: AKPolyphonicInstrument {
     public init(voiceCount: Int) {
-        super.init(voice: AKDrumSynthKickVoice(), voiceCount: voiceCount)
+        super.init(voice: AKSynthKickVoice(), voiceCount: voiceCount)
     }
     override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         voice.start()
@@ -22,29 +22,30 @@ public class AKDrumSynthKickInst: AKPolyphonicInstrument {
     }
 }
 /// Kick Drum Synthesizer Voice
-public class AKDrumSynthKickVoice:AKVoice{
-    var generator:AKOperationGenerator
-    var filt: AKMoogLadder?
+public class AKSynthKickVoice: AKVoice{
+    var generator: AKOperationGenerator
+    
+    var filter: AKMoogLadder
     
     override public init() {
         
         let frequency = AKOperation.lineSegment(AKOperation.trigger, start: 120, end: 40, duration: 0.03)
-        let volSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: 0.3)
-        let sine = AKOperation.sineWave(frequency: frequency, amplitude: volSlide)
+        let volumeSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: 0.3)
+        let boom = AKOperation.sineWave(frequency: frequency, amplitude: volumeSlide)
         
-        generator = AKOperationGenerator(operation: sine)
-        filt = AKMoogLadder(generator)
-        filt!.cutoffFrequency = 666
-        filt!.resonance = 0.00
+        generator = AKOperationGenerator(operation: boom)
+        filter = AKMoogLadder(generator)
+        filter.cutoffFrequency = 666
+        filter.resonance = 0.00
         
         super.init()
-        avAudioNode = filt!.avAudioNode
+        avAudioNode = filter.avAudioNode
         generator.start()
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
     override public func copy() -> AKVoice {
-        let copy = AKDrumSynthKickVoice()
+        let copy = AKSynthKickVoice()
         return copy
     }
     
@@ -65,12 +66,12 @@ public class AKDrumSynthKickVoice:AKVoice{
 }
 
 /// Snare Drum Synthesizer Instrument
-public class AKDrumSynthSnareInst: AKPolyphonicInstrument {
-    public init(voiceCount: Int, dur: Double = 0.143, res:Double = 0.9) {
-        super.init(voice: AKDrumSynthSnareVoice(dur: dur, res:res), voiceCount: voiceCount)
+public class AKSynthSnare: AKPolyphonicInstrument {
+    public init(voiceCount: Int, duration: Double = 0.143, resonance: Double = 0.9) {
+        super.init(voice: AKSynthSnareVoice(duration: duration, resonance:resonance), voiceCount: voiceCount)
     }
     override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
-        let tempVoice = voice as! AKDrumSynthSnareVoice
+        let tempVoice = voice as! AKSynthSnareVoice
         tempVoice.cutoff = (Double(velocity)/127.0 * 1600.0) + 300.0
         voice.start()
     }
@@ -80,40 +81,42 @@ public class AKDrumSynthSnareInst: AKPolyphonicInstrument {
 }
 
 /// Snare Drum Synthesizer Voice
-public class AKDrumSynthSnareVoice:AKVoice{
-    var generator:AKOperationGenerator
-    var filt: AKMoogLadder?
-    var len = 0.143
+public class AKSynthSnareVoice: AKVoice{
     
-    public init(dur:Double = 0.143, res:Double = 0.9) {
-        len = dur
-        let volSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: len)
+    var generator: AKOperationGenerator
+    var filter: AKMoogLadder
+    var duration = 0.143
+    
+    public init(duration: Double = 0.143, resonance: Double = 0.9) {
+        self.duration = duration
+        self.resonance = resonance
         
+        let volSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: duration)
         let white = AKOperation.whiteNoise(amplitude: volSlide)
         generator = AKOperationGenerator(operation: white)
-        filt = AKMoogLadder(generator)
-        filt!.cutoffFrequency = 1666
-        resonance = res
+        
+        filter = AKMoogLadder(generator)
+        filter.cutoffFrequency = 1666
         
         super.init()
-        avAudioNode = filt!.avAudioNode
+        avAudioNode = filter.avAudioNode
         generator.start()
     }
     
     internal var cutoff: Double = 1666 {
         didSet {
-            filt?.cutoffFrequency = cutoff
+            filter.cutoffFrequency = cutoff
         }
     }
     internal var resonance: Double = 0.3 {
         didSet {
-            filt?.resonance = resonance
+            filter.resonance = resonance
         }
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
     override public func copy() -> AKVoice {
-        let copy = AKDrumSynthSnareVoice(dur: len, res:resonance)
+        let copy = AKSynthSnareVoice(duration: duration, resonance: resonance)
         return copy
     }
     

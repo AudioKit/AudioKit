@@ -15,7 +15,7 @@ import Foundation
 extension Float {
     
     // Return string formatted to 2 decimal places
-    var decimalFormattedString: String {
+    var decimalString: String {
         return String(format: "%.02f", self)
     }
     

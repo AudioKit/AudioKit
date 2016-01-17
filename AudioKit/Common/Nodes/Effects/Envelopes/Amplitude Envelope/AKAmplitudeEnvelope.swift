@@ -8,13 +8,13 @@
 
 import AVFoundation
 
-/// Triggerable classic ADSR envelope
+/// Classic ADSR envelope
 ///
 /// - parameter input: Input node to process
-/// - parameter attackDuration: Attack time
-/// - parameter decayDuration: Decay time
-/// - parameter sustainLevel: Sustain Level
-/// - parameter releaseDuration: Release time
+/// - parameter attackDuration: Attack time (Default: 0.1)
+/// - parameter decayDuration: Decay time (Default: 0.1)
+/// - parameter sustainLevel: Sustain Level (Default: 1.0)
+/// - parameter releaseDuration: Release time (Default: 0.1)
 ///
 public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
@@ -46,7 +46,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
         }
     }
     /// Sustain Level
-    public var sustainLevel: Double = 0.66 {
+    public var sustainLevel: Double = 1.0 {
         willSet(newValue) {
             if sustainLevel != newValue {
                 sustainLevelParameter?.setValue(Float(newValue), originator: token!)
@@ -54,7 +54,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
         }
     }
     /// Release time
-    public var releaseDuration: Double = 0.5 {
+    public var releaseDuration: Double = 0.1 {
         willSet(newValue) {
             if releaseDuration != newValue {
                 releaseDurationParameter?.setValue(Float(newValue), originator: token!)
@@ -72,17 +72,17 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     /// Initialize this envelope node
     ///
     /// - parameter input: Input node to process
-    /// - parameter attackDuration: Attack time
-    /// - parameter decayDuration: Decay time
-    /// - parameter sustainLevel: Sustain Level
-    /// - parameter releaseDuration: Release time
+    /// - parameter attackDuration: Attack time (Default: 0.1)
+    /// - parameter decayDuration: Decay time (Default: 0.1)
+    /// - parameter sustainLevel: Sustain Level (Default: 1.0)
+    /// - parameter releaseDuration: Release time (Default: 0.1)
     ///
     public init(
         _ input: AKNode,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
-        sustainLevel: Double = 0.9,
-        releaseDuration: Double = 0.5) {
+        sustainLevel: Double = 1.0,
+        releaseDuration: Double = 0.1) {
 
         self.attackDuration = attackDuration
         self.decayDuration = decayDuration

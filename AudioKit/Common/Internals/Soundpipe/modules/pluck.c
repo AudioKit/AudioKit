@@ -46,6 +46,7 @@ static void sp_pluck_reinit(sp_data *sp, sp_pluck *p)
 int sp_pluck_init(sp_data *sp, sp_pluck *p, SPFLOAT ifreq)
 {
     int32_t npts;
+
     p->amp = 0.5;
     p->ifreq = ifreq;
     p->freq = ifreq;
@@ -61,6 +62,7 @@ int sp_pluck_init(sp_data *sp, sp_pluck *p, SPFLOAT ifreq)
     sp_pluck_reinit(sp, p);
     /* tuned pitch convt */
     p->sicps = (npts * 256.0 + 128.0) * (1.0 / sp->sr);
+    p->init = 1;
     return SP_OK;
 }
 
@@ -70,8 +72,15 @@ int sp_pluck_compute(sp_data *sp, sp_pluck *p, SPFLOAT *trig, SPFLOAT *out)
     int32_t phs256, phsinc, ltwopi, offset;
     SPFLOAT frac, diff;
 
+
     if(*trig != 0) {
+        p->init = 0;
         sp_pluck_reinit(sp, p);
+    }
+
+    if(p->init) {
+        *out = 0;
+        return SP_OK;
     }
 
     phsinc = (int32_t)(p->freq * p->sicps);

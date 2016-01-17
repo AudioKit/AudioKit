@@ -25,7 +25,7 @@ Operations are similar to nodes, except that they are a series of signal process
 
 ## Installation
 
-Installation can be achieved in the usual ways for a framewok.  You can drag AudioKit.framework from the AudioKit project from whatever OS you are targeting into your project.  Alternatively, you can drag the AudioKit project file into your project and then when you build your project, Xcode will autotomatically build AudioKit for you.  You need to add the AudioKit framework to the Build Phases "Link Bundle with Binaries" section.
+Installation can be achieved in the usual ways for a framework.  This is explained in more detail in the INSTALL.md file in the Frameworks directory.
 
 Installation with CocoaPods and Carthage is also planned but may not come with the first release.
 
