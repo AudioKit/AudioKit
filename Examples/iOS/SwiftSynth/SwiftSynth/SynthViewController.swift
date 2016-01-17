@@ -191,12 +191,8 @@ class SynthViewController: UIViewController {
         masterVolKnob.value = conductor.masterVolume.volume
      
         
-        // Set toggle switches
+        // Set toggle switches (Start simple)
         vco1Toggled(vco1Toggle)
-        vco2Toggled(vco2Toggle)
-        filterToggled(filterToggle)
-        displayModeToggled(plotToggle)
-        //delayToggled(delayToggle)
       
     }
 
@@ -244,11 +240,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Filter Off"
-            conductor.filterSection.mix = 0
+            conductor.filterSection.output.stop()
         } else {
             sender.selected = true
             statusLabel.text = "Filter On"
-            conductor.filterSection.mix = 1
+            conductor.filterSection.output.start()
         }
     }
     
