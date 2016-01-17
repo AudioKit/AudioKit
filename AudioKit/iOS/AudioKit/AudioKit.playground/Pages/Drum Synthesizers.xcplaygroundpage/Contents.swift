@@ -9,30 +9,33 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-var bd = AKDrumSynthKickInst(voiceCount: 1)
-var sd = AKDrumSynthSnareInst(voiceCount: 1, dur: 0.07)
-var mx = AKMixer()
-audiokit.audioOutput = mx
-mx.connect(bd)
-mx.connect(sd)
+var kick = AKSynthKick(voiceCount: 1)
+var snare = AKSynthSnare(voiceCount: 1, duration: 0.07)
+var mix = AKMixer(kick, snare)
+
+audiokit.audioOutput = mix
 audiokit.start()
 
 var i = 0
 
 //generate cheap electro
 AKPlaygroundLoop(frequency: 4.44) {
-    let bdOrNot = randomInt(0...3)
-    if(bdOrNot == 0 || i == 0){
+    
+    let onFirstBeat = i == 0
+    let everyOtherBeat = i % 4 == 2
+    let randomHit = randomInt(0...3) == 0
+    
+    if onFirstBeat || randomHit {
         //print("boom")
-        bd.playNote(60, velocity: 100)
-        bd.stopNote(60)
+        kick.playNote(60, velocity: 100)
+        kick.stopNote(60)
     }
-    let snrOrNot = i % 4
-    if(snrOrNot == 2){
-        let vel = Int(random(1,100))
+    
+    if everyOtherBeat {
         //print("chik")
-        sd.playNote(60, velocity: vel)
-        sd.stopNote(60)
+        let velocity = randomInt(1...100)
+        snare.playNote(60, velocity: velocity)
+        snare.stopNote(60)
     }
     i++
 }
