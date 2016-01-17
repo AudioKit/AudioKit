@@ -161,8 +161,8 @@
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
+    // Ramp over 0.2 milliseconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.0002 * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
