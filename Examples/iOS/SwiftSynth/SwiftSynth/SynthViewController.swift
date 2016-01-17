@@ -135,6 +135,9 @@ class SynthViewController: UIViewController {
         conductor.filterSection.cutoffFrequency = 6000.0 // Cutoff (Hz)
         conductor.filterSection.resonance = 0.6 // Filter Q/Rez
         conductor.bitCrusher.sampleRate = 0.0 // Bitcrush SampleRate
+        conductor.multiDelay.time = 0.5 // Delay (ms)
+        conductor.multiDelay.mix = 0.5 // Dry/Wet
+        conductor.reverbMixer.balance = 0.5 // Dry/Wet
         
         // Update Knob Values
         setupKnobValues()
@@ -143,6 +146,7 @@ class SynthViewController: UIViewController {
         vco1Toggled(vco1Toggle)
         vco2Toggled(vco2Toggle)
         filterToggled(filterToggle)
+        // delayToggled(delayToggle)
         displayModeToggled(plotToggle)
     }
     
@@ -155,31 +159,31 @@ class SynthViewController: UIViewController {
         osc2SemitonesKnob.maximum = 12
         osc2SemitonesKnob.value = Double(conductor.core.offset2)
         
-        osc2DetuneKnob.value = conductor.core.detune
         osc2DetuneKnob.minimum = -4
         osc2DetuneKnob.maximum = 4
+        osc2DetuneKnob.value = conductor.core.detune
         
-        subMixKnob.value = conductor.core.subOscMix
         subMixKnob.maximum = 4.5
+        subMixKnob.value = conductor.core.subOscMix
         
-        fmMixKnob.value = conductor.core.fmOscMix
         fmMixKnob.maximum = 2
+        fmMixKnob.value = conductor.core.fmOscMix
         
-        fmModKnob.value = conductor.core.fmMod
         fmModKnob.maximum = 15
+        fmModKnob.value = conductor.core.fmMod
         
-        pwmKnob.value = conductor.core.pulseWidth
         pwmKnob.minimum = 0.5
+        pwmKnob.value = conductor.core.pulseWidth
         
         noiseMixKnob.value = conductor.core.noiseMix
         
         oscMixKnob.value = conductor.core.vco12Mix
         
-        lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
         lfoAmtKnob.maximum = 2000
+        lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
         
-        lfoRateKnob.value = conductor.filterSection.lfoRate
         lfoRateKnob.maximum = 5
+        lfoRateKnob.value = conductor.filterSection.lfoRate
         
         cutoffKnob.value = conductor.filterSection.cutoffFrequency
         
@@ -190,11 +194,11 @@ class SynthViewController: UIViewController {
         crushAmtKnob.maximum = 1950
         crushAmtKnob.value = conductor.bitCrusher.sampleRate
         
-        delayTimeKnob.value = 0
-        delayMixKnob.value = 0
+        delayTimeKnob.value = conductor.multiDelay.time
+        delayMixKnob.value = conductor.multiDelay.mix
         
         reverbAmtKnob.value = 0
-        reverbMixKnob.value = 0
+        reverbMixKnob.value = conductor.reverbMixer.balance
         
         masterVolKnob.maximum = 30.0
         masterVolKnob.value = conductor.masterVolume.volume
@@ -524,7 +528,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Delay
         case ControlTag.DelayTime.rawValue:
-            statusLabel.text = "Delay Time: \(value.decimalString)"
+            statusLabel.text = "Delay Time: \(value.decimalString)ms"
             conductor.multiDelay.time = value
             
         case ControlTag.DelayMix.rawValue:
@@ -533,7 +537,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
-            statusLabel.text = "Reverb Amt: \(value.decimalString)"
+            statusLabel.text = "Reverb Amt: \(value.decimalString)ms"
             conductor.reverb.decayTimeAt0Hz = value
             
         case ControlTag.ReverbMix.rawValue:
