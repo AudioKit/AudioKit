@@ -494,6 +494,13 @@
 		C4E8ED1D1C43A5ED0041965F /* AKConvolutionAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED191C43A5ED0041965F /* AKConvolutionAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E8ED1E1C43A5ED0041965F /* AKConvolutionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED1A1C43A5ED0041965F /* AKConvolutionAudioUnit.mm */; };
 		C4E8ED1F1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED1B1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp */; };
+		EAF006721C4C7A2300ECD392 /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF006711C4C7A2300ECD392 /* oscmorph.c */; };
+		EAF006751C4C7A3500ECD392 /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF006731C4C7A3500ECD392 /* oscmorph.c */; };
+		EAF006761C4C7A3500ECD392 /* thresh.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF006741C4C7A3500ECD392 /* thresh.c */; };
+		EAF0067C1C4C7A5200ECD392 /* AKMorphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF006781C4C7A5200ECD392 /* AKMorphingOscillator.swift */; };
+		EAF0067D1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF006791C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EAF0067E1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF0067A1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm */; };
+		EAF0067F1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAF0067B1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -989,6 +996,13 @@
 		C4E8ED191C43A5ED0041965F /* AKConvolutionAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKConvolutionAudioUnit.h; sourceTree = "<group>"; };
 		C4E8ED1A1C43A5ED0041965F /* AKConvolutionAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKConvolutionAudioUnit.mm; sourceTree = "<group>"; };
 		C4E8ED1B1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKConvolutionDSPKernel.hpp; sourceTree = "<group>"; };
+		EAF006711C4C7A2300ECD392 /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
+		EAF006731C4C7A3500ECD392 /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
+		EAF006741C4C7A3500ECD392 /* thresh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thresh.c; sourceTree = "<group>"; };
+		EAF006781C4C7A5200ECD392 /* AKMorphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMorphingOscillator.swift; sourceTree = "<group>"; };
+		EAF006791C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMorphingOscillatorAudioUnit.h; sourceTree = "<group>"; };
+		EAF0067A1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMorphingOscillatorAudioUnit.mm; sourceTree = "<group>"; };
+		EAF0067B1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKMorphingOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1748,6 +1762,7 @@
 			isa = PBXGroup;
 			children = (
 				C453815D1C3A5CBD00A51738 /* FM Oscillator */,
+				EAF006771C4C7A5200ECD392 /* Morphing Oscillator */,
 				C45381621C3A5CBD00A51738 /* Oscillator */,
 				C45381671C3A5CBD00A51738 /* Sawtooth */,
 				C453816C1C3A5CBD00A51738 /* Square Wave */,
@@ -1974,6 +1989,7 @@
 				C4B191721C3B342800C0F330 /* moogladder.c */,
 				C4B191731C3B342800C0F330 /* noise.c */,
 				C4B191741C3B342800C0F330 /* osc.c */,
+				EAF006711C4C7A2300ECD392 /* oscmorph.c */,
 				C4B191751C3B342800C0F330 /* padsynth.c */,
 				C4B191761C3B342800C0F330 /* pan2.c */,
 				C4B191771C3B342800C0F330 /* panst.c */,
@@ -2096,6 +2112,7 @@
 				C4B191D11C3B342800C0F330 /* moogladder.c */,
 				C4B191D21C3B342800C0F330 /* noise.c */,
 				C4B191D31C3B342800C0F330 /* osc.c */,
+				EAF006731C4C7A3500ECD392 /* oscmorph.c */,
 				C4B191D41C3B342800C0F330 /* p.c */,
 				C4B191D51C3B342800C0F330 /* pan.c */,
 				C4B191D61C3B342800C0F330 /* phasor.c */,
@@ -2122,6 +2139,7 @@
 				C4B191ED1C3B342800C0F330 /* tenv.c */,
 				C4B191EE1C3B342800C0F330 /* tenv2.c */,
 				C4B191EF1C3B342800C0F330 /* tenvx.c */,
+				EAF006741C4C7A3500ECD392 /* thresh.c */,
 				C4B191F01C3B342800C0F330 /* tick.c */,
 				C4B191F11C3B342800C0F330 /* tin.c */,
 				C4B191F21C3B342800C0F330 /* tog.c */,
@@ -2401,6 +2419,17 @@
 			path = Convolution;
 			sourceTree = "<group>";
 		};
+		EAF006771C4C7A5200ECD392 /* Morphing Oscillator */ = {
+			isa = PBXGroup;
+			children = (
+				EAF006781C4C7A5200ECD392 /* AKMorphingOscillator.swift */,
+				EAF006791C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h */,
+				EAF0067A1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm */,
+				EAF0067B1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp */,
+			);
+			path = "Morphing Oscillator";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -2437,6 +2466,7 @@
 				C4B192971C3B342800C0F330 /* poly.h in Headers */,
 				C45382081C3A5CBD00A51738 /* AKOperationGeneratorAudioUnit.h in Headers */,
 				C45381D01C3A5CBD00A51738 /* AKLowPassButterworthFilterDSPKernel.hpp in Headers */,
+				EAF0067F1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp in Headers */,
 				C40C423B1C40E5C2009D870B /* AKTesterDSPKernel.hpp in Headers */,
 				C40C42861C41BF00009D870B /* AKPluckedStringDSPKernel.hpp in Headers */,
 				C4B1925F1C3B342800C0F330 /* md5.h in Headers */,
@@ -2498,6 +2528,7 @@
 				C42FFBD11C3D039C00823BD4 /* AKBalancerDSPKernel.hpp in Headers */,
 				C4E8ED1F1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp in Headers */,
 				C40C42201C40E5C2009D870B /* EZAudioFile.h in Headers */,
+				EAF0067D1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h in Headers */,
 				C453820A1C3A5CBD00A51738 /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				C40C42181C40E5C2009D870B /* EZAudio.h in Headers */,
 				C40C42241C40E5C2009D870B /* EZAudioFloatData.h in Headers */,
@@ -2610,6 +2641,7 @@
 				C4E752371C23888700688A1B /* delay.swift in Sources */,
 				C45381A21C3A5CBD00A51738 /* AKTanhDistortionAudioUnit.mm in Sources */,
 				C40C42211C40E5C2009D870B /* EZAudioFile.m in Sources */,
+				EAF0067E1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm in Sources */,
 				C4E752531C23888700688A1B /* multiply.swift in Sources */,
 				C4E752551C23888700688A1B /* scale.swift in Sources */,
 				C4B1921D1C3B342800C0F330 /* dmetro.c in Sources */,
@@ -2668,6 +2700,7 @@
 				C453819F1C3A5CBD00A51738 /* AKRingModulator.swift in Sources */,
 				C45381FA1C3A5CBD00A51738 /* AKChowningReverb.swift in Sources */,
 				C4B1920B1C3B342800C0F330 /* base.c in Sources */,
+				EAF006751C4C7A3500ECD392 /* oscmorph.c in Sources */,
 				C4B1927D1C3B342800C0F330 /* dmetro.c in Sources */,
 				C4B192A91C3B342800C0F330 /* tenv.c in Sources */,
 				C45381FC1C3A5CBD00A51738 /* AKChowningReverbAudioUnit.mm in Sources */,
@@ -2714,6 +2747,7 @@
 				C453820D1C3A5CBD00A51738 /* AKPinkNoiseAudioUnit.mm in Sources */,
 				C4B1929C1C3B342800C0F330 /* randi.c in Sources */,
 				C4E7524B1C23888700688A1B /* sineWave.swift in Sources */,
+				EAF006721C4C7A2300ECD392 /* oscmorph.c in Sources */,
 				C40C42231C40E5C2009D870B /* EZAudioFloatConverter.m in Sources */,
 				C4B1928A1C3B342800C0F330 /* maygate.c in Sources */,
 				C4B192431C3B342800C0F330 /* randh.c in Sources */,
@@ -2765,6 +2799,7 @@
 				C4B192601C3B342800C0F330 /* test.c in Sources */,
 				C4E752481C23888700688A1B /* fmOscillator.swift in Sources */,
 				C45381BF1C3A5CBD00A51738 /* AKFormantFilter.swift in Sources */,
+				EAF006761C4C7A3500ECD392 /* thresh.c in Sources */,
 				C45381BB1C3A5CBD00A51738 /* AKEqualizerFilter.swift in Sources */,
 				C4B192D91C3B639B00C0F330 /* AKAmplitudeEnvelope.swift in Sources */,
 				C45381851C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.mm in Sources */,
@@ -2919,6 +2954,7 @@
 				C45382191C3A5CBD00A51738 /* AKOscillatorAudioUnit.mm in Sources */,
 				C484438D1C311C59007BE794 /* AKParameter.swift in Sources */,
 				C4B1929D1C3B342800C0F330 /* reverse.c in Sources */,
+				EAF0067C1C4C7A5200ECD392 /* AKMorphingOscillator.swift in Sources */,
 				C4B192691C3B342800C0F330 /* stack.c in Sources */,
 				C453821F1C3A5CBD00A51738 /* AKSquareWaveOscillator.swift in Sources */,
 				C4B192A31C3B342800C0F330 /* streson.c in Sources */,
@@ -3066,6 +3102,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"NO_LIBSNDFILE=1",
+				);
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -3085,6 +3126,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = "NO_LIBSNDFILE=1";
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
