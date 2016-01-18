@@ -106,8 +106,11 @@ class SynthViewController: UIViewController {
         // Set Delegates
         setDelegates()
         
-        // Set Default Control Values
+        // Set Preset Control Values
         setDefaultValues()
+        
+        // Greeting
+        statusLabel.text = String.randomGreeting()
     }
     
     // *********************************************************
@@ -116,9 +119,6 @@ class SynthViewController: UIViewController {
     
     func setDefaultValues() {
 
-        // Greeting
-        statusLabel.text = String.randomGreeting()
-        
         // Set Preset Values
         conductor.masterVolume.volume = 30.0 // Master Volume
         conductor.core.offset1 = 0 // VCO1 Semitones
@@ -132,13 +132,13 @@ class SynthViewController: UIViewController {
         conductor.core.noiseMix = 0.0 // Noise Mix
         conductor.filterSection.lfoAmplitude = 300.0 // LFO Amp (Hz)
         conductor.filterSection.lfoRate = 0.3 // LFO Rate
-        conductor.filterSection.cutoffFrequency = 6000.0 // Cutoff (Hz)
         conductor.filterSection.resonance = 0.6 // Filter Q/Rez
-        conductor.bitCrusher.sampleRate = 0.0 // Bitcrush SampleRate
+        conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
         conductor.multiDelay.time = 0.4 // Delay (ms)
         conductor.multiDelay.mix = 0.4 // Dry/Wet
         conductor.reverb.feedback = 0.65 // Amt
         conductor.reverbMixer.balance = 0.5 // Dry/Wet
+        cutoffKnob.value = 0.6 // Cutoff Knob Position
         
         // Update Knob UI Values
         setupKnobValues()
@@ -149,6 +149,7 @@ class SynthViewController: UIViewController {
         filterToggled(filterToggle)
         delayToggled(delayToggle)
         displayModeToggled(plotToggle)
+
     }
     
     func setupKnobValues() {
@@ -186,14 +187,12 @@ class SynthViewController: UIViewController {
         lfoRateKnob.maximum = 5
         lfoRateKnob.value = conductor.filterSection.lfoRate
         
-        cutoffKnob.value = conductor.filterSection.cutoffFrequency
-        
         rezKnob.maximum = 0.99
         rezKnob.value = conductor.filterSection.resonance
         
         crushAmtKnob.minimum = 0
         crushAmtKnob.maximum = 1950
-        crushAmtKnob.value = conductor.bitCrusher.sampleRate
+        crushAmtKnob.knobValue = CGFloat((crushAmtKnob.maximum - conductor.bitCrusher.sampleRate) + 50)
         
         delayTimeKnob.value = conductor.multiDelay.time
         delayMixKnob.value = conductor.multiDelay.mix
@@ -204,6 +203,10 @@ class SynthViewController: UIViewController {
         
         masterVolKnob.maximum = 30.0
         masterVolKnob.value = conductor.masterVolume.volume
+        
+        // Calculate cutoff freq based on knob position
+        conductor.filterSection.cutoffFrequency = cutoffFreqFromValue(Double(cutoffKnob.value))
+        print(" * FILTER * \(conductor.filterSection.cutoffFrequency)")
     }
 
     //*****************************************************************
@@ -509,9 +512,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Filter
         case ControlTag.Cutoff.rawValue:
-            // Logarithmic scale to frequency
-            let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
-            let cutOffFrequency = scaledValue * 4
+            let cutOffFrequency = cutoffFreqFromValue(value)
             statusLabel.text = "Cutoff: \(cutOffFrequency.decimalString)"
             conductor.filterSection.cutoffFrequency = cutOffFrequency
             

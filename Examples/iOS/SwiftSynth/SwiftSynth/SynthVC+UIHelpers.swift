@@ -18,6 +18,12 @@ extension SynthViewController {
         return true
     }
     
+    func cutoffFreqFromValue(value: Double) -> Double {
+        // Logarithmic scale: knobvalue to frequency
+        let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
+        return scaledValue * 4
+    }
+    
     func createWaveFormSegmentViews() {
         setupOscSegmentView(8,   y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
         setupOscSegmentView(212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.Vco2Waveform.rawValue, type: 0)
