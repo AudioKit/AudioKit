@@ -1524,6 +1524,7 @@
                         <outlet property="lfoRateKnob" destination="tls-4y-C4Y" id="jHA-l9-y9n"/>
                         <outlet property="masterVolKnob" destination="z6P-WU-WnB" id="ln5-rm-ylY"/>
                         <outlet property="monoToggle" destination="PHv-M8-3cw" id="pkX-A8-XY2"/>
+                        <outlet property="morphKnob" destination="WR9-wM-ZDg" id="Kwm-sa-1dU"/>
                         <outlet property="noiseMixKnob" destination="Y6r-D0-hzD" id="Tia-Wu-uZg"/>
                         <outlet property="octavePositionLabel" destination="9bE-Z1-YxG" id="0dh-jI-vCH"/>
                         <outlet property="osc1SemitonesKnob" destination="q4I-ji-xFr" id="8ge-1A-nQe"/>
