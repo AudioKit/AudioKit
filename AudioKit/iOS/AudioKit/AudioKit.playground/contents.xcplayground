@@ -2,17 +2,22 @@
 <playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
-        <page name='Non-Audio Tutorial'/>
-        <page name='Introduction and Hello World'/>
-        <page name='Connecting Nodes'/>
-        <page name='Mixing Nodes'/>
-        <page name='Splitting Nodes'/>
         <page name='Balancing Nodes'/>
-        <page name='Stereo Panning'/>
-        <page name='Dry Wet Mixer'/>
+        <page name='Busy Signal'/>
+        <page name='Connecting Nodes'/>
         <page name='Delay'/>
-        <page name='Multi-tap Delay'/>
+        <page name='Dial Tone'/>
+        <page name='Dry Wet Mixer'/>
+        <page name='Introduction and Hello World'/>
+        <page name='Mixing Nodes'/>
+        <page name='Non-Audio Tutorial'/>
+        <page name='Pedestrians'/>
+        <page name='Splitting Nodes'/>
+        <page name='Stereo Panning'/>
+        <page name='Telephone Digits'/>
+        <page name='Telelphone Ringing'/>
         <page name='Variable Delay'/>
+        <page name='Multi-tap Delay'/>
         <page name='Dynamics Processor'/>
         <page name='Peak Limiter'/>
         <page name='Auto Wah Wah'/>
@@ -64,11 +69,6 @@
         <page name='Plucked String Operation'/>
         <page name='Sampler Instrument - EXS24'/>
         <page name='Sampler Instrument - Wav file'/>
-        <page name='Pedestrians'/>
-        <page name='Dial Tone'/>
-        <page name='Telephone Digits'/>
-        <page name='Telelphone Ringing'/>
-        <page name='Busy Signal'/>
         <page name='Using Functions'/>
         <page name='Another Example of Using Functions'/>
         <page name='Sporth Based Effect'/>
@@ -88,6 +88,10 @@
         <page name='Fatten Effect'/>
         <page name='Filter Section Example'/>
         <page name='MultiDelay Example'/>
-        <page name='Sequencer - single output'/>
+        <page name='Drum Synthesizers'/>
+        <page name='Linear and Exponential Segment Operations'/>
+        <page name='Morphing Oscillator'/>
+        <page name='Parameter Inertia'/>
+        <page name='Sequencer - Single output'/>
     </pages>
 </playground>

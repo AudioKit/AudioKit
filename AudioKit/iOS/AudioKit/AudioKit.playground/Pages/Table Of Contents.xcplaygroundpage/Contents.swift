@@ -1,11 +1,29 @@
 //: # AudioKit for iOS Playgrounds
 //:
-//: ## Tutorials
+//: AudioKit comes with many playgrounds, each of which serves to teach some core concept, demonstrate a particular generator or synthesizer, or just show off some wacky sounds that we've discovered.  Because there are so many playgrounds that are inter-related in different ways, the order of the playgrounds in Xcode is more or less alphabetical, however this index page lists all the the playgrounds grouped by category.  Playgrounds that fit into multiple categories are listed in each relevant category.
+//:
+//: ## Basic Tutorials
+//:
+//: These tutorials help you get started with the basic concepts of AudioKit, starting with what you need to know about playgrounds in general and then moving on to sound creation and working with AudioKit nodes.
 //:
 //: * [Non-Audio Tutorial](Non-Audio%20Tutorial)
 //: * [Introduction and Hello World](Introduction%20and%20Hello%20World)
 //: * [Connecting Nodes](Connecting%20Nodes)
 //: * [Mixing Nodes](Mixing%20Nodes)
+//: * [Splitting Nodes](Splitting%20Nodes)
+//: * [Balancing Nodes](Balancing%20Nodes)
+//:
+//: ## Designing Sound
+//:
+//: These playgrounds are inspired by the "Practicals" section of the book "Designing Sound", by Andy Farnell.  While this book is excellent, the examples are implemented in Pd, which is okay, I guess, but hey, this is AudioKit!
+//:
+//: * [Pedestrians](Pedestrians)
+//: * [Dial Tone](Dial%20Tone)
+//: * [Telephone Digits](Telephone%20Digits)
+//: * [Telephone Ringing](Telephone%20Ringing)
+//: * [Busy Signal](Busy%20Signal)
+//:
+//: Hopefully we'll add more practicals over time.  If you're interested in making more, submit a pull-request to git repo and we'll be sure to include them.
 //:
 //: ## Effect Processor Nodes
 //:
