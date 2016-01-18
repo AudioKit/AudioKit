@@ -9,7 +9,7 @@ import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
-var fm = AKFMOscillatorInstrument(voiceCount: 12)
+var fm = AKFMSynth(voiceCount: 12)
 audiokit.audioOutput = fm
 audiokit.start()
 

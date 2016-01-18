@@ -1,5 +1,5 @@
 //
-//  AKFMOscillatorInstrument.swift
+//  AKFMSynth.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
@@ -9,8 +9,8 @@
 import Foundation
 import AVFoundation
 
-/// A wrapper for AKFMOscillator to make it a playable as a polyphonic instrument.
-public class AKFMOscillatorInstrument: AKPolyphonicInstrument {
+/// A wrapper for AKFMOscillator to make it playable as a polyphonic instrument.
+public class AKFMSynth: AKPolyphonicInstrument {
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
         didSet {
