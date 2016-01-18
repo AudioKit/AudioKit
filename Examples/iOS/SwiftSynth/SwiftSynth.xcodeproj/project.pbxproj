@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		940D15131C49A9E200C88CA6 /* SynthVC+UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */; };
 		940D15171C49AC5400C88CA6 /* WaveformSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */; };
+		941771121C4C908000855BDA /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941771111C4C908000855BDA /* CGFloat+Extensions.swift */; };
 		94453BC31C4499BD00608231 /* String+RandomGreeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94453BC21C4499BD00608231 /* String+RandomGreeting.swift */; };
 		949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */; };
 		949B1C491C431E5400BFFA10 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2C1C431E5400BFFA10 /* Knob.swift */; };
@@ -92,6 +93,7 @@
 /* Begin PBXFileReference section */
 		940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+UIHelpers.swift"; sourceTree = "<group>"; };
 		940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformSegmentedView.swift; sourceTree = "<group>"; };
+		941771111C4C908000855BDA /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		94453BC21C4499BD00608231 /* String+RandomGreeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RandomGreeting.swift"; sourceTree = "<group>"; };
 		949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Knob+Touches.swift"; sourceTree = "<group>"; };
 		949B1C2C1C431E5400BFFA10 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		949B1C321C431E5400BFFA10 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				941771111C4C908000855BDA /* CGFloat+Extensions.swift */,
 				94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */,
 				94453BC21C4499BD00608231 /* String+RandomGreeting.swift */,
 			);
@@ -433,6 +436,7 @@
 				C4B5B8171C4769AF00CE0168 /* CoreInstrument.swift in Sources */,
 				949B1C491C431E5400BFFA10 /* Knob.swift in Sources */,
 				C4B5B8191C476A2100CE0168 /* CoreVoice.swift in Sources */,
+				941771121C4C908000855BDA /* CGFloat+Extensions.swift in Sources */,
 				949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */,
 				940D15131C49A9E200C88CA6 /* SynthVC+UIHelpers.swift in Sources */,
 				940D15171C49AC5400C88CA6 /* WaveformSegmentedView.swift in Sources */,

@@ -52,8 +52,4 @@ class Knob: UIView {
         lastX = touchPoint.x
         lastY = touchPoint.y
     }
-    
-    func percentageString() -> String {
-        return "\(Int(100 * knobValue))%"
-    }
 }
