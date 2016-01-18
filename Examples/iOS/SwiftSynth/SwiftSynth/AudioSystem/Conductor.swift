@@ -23,7 +23,7 @@ class Conductor {
     var multiDelayMixer: AKDryWetMixer
     
     var masterVolume = AKMixer()
-    var reverb: AKReverb2
+    var reverb: AKCostelloReverb
     var reverbMixer: AKDryWetMixer
 
     
@@ -41,7 +41,9 @@ class Conductor {
         multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0)
         
         masterVolume = AKMixer(multiDelayMixer)
-        reverb = AKReverb2(masterVolume)
+        reverb = AKCostelloReverb(masterVolume)
+        reverb.stop()
+        
         reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.5)
         
         audiokit.audioOutput = reverbMixer
