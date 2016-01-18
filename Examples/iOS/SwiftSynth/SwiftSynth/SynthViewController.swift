@@ -411,6 +411,7 @@ class SynthViewController: UIViewController {
         }
         
         turnOnKey(key)
+        lastKey = key
     }
     
     @IBAction func keyReleased(sender: UIButton) {
