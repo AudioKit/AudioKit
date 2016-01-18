@@ -1,22 +1,22 @@
 //
-//  AKOscillatorInstrument.swift
+//  AKSawtoothSynth.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper, revision history on Github.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import Foundation
 import AVFoundation
 
-/// A wrapper for AKOscillator to make it a playable as a polyphonic instrument.
-public class AKOscillatorInstrument: AKPolyphonicInstrument {
+/// A wrapper for AKSawtoothVoice to make it playable as a polyphonic instrument.
+public class AKSawtoothSynth: AKPolyphonicInstrument {
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
             for voice in voices {
-                let oscillatorVoice = voice as! AKOscillatorVoice
-                oscillatorVoice.adsr.attackDuration = attackDuration
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.attackDuration = attackDuration
             }
         }
     }
@@ -24,8 +24,8 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
     public var decayDuration: Double = 0.1 {
         didSet {
             for voice in voices {
-                let oscillatorVoice = voice as! AKOscillatorVoice
-                oscillatorVoice.adsr.decayDuration = decayDuration
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.decayDuration = decayDuration
             }
         }
     }
@@ -33,8 +33,8 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
     public var sustainLevel: Double = 0.66 {
         didSet {
             for voice in voices {
-                let oscillatorVoice = voice as! AKOscillatorVoice
-                oscillatorVoice.adsr.sustainLevel = sustainLevel
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.sustainLevel = sustainLevel
             }
         }
     }
@@ -42,19 +42,18 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
     public var releaseDuration: Double = 0.5 {
         didSet {
             for voice in voices {
-                let oscillatorVoice = voice as! AKOscillatorVoice
-                oscillatorVoice.adsr.releaseDuration = releaseDuration
+                let sawtoothVoice = voice as! AKSawtoothVoice
+                sawtoothVoice.adsr.releaseDuration = releaseDuration
             }
         }
     }
     
-    /// Instantiate the Oscillator Instrument
+    /// Instantiate the Sawtooth Instrument
     ///
-    /// - parameter waveform: Shape of the waveform to oscillate
     /// - parameter voiceCount: Maximum number of voices that will be required
     ///
-    public init(waveform: AKTable, voiceCount: Int) {
-        super.init(voice: AKOscillatorVoice(waveform: waveform), voiceCount: voiceCount)
+    public init(voiceCount: Int) {
+        super.init(voice: AKSawtoothVoice(), voiceCount: voiceCount)
     }
     
     /// Start playback of a particular voice with MIDI style note and velocity
@@ -66,10 +65,10 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
     public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let oscillatorVoice = voice as! AKOscillatorVoice
-        oscillatorVoice.oscillator.frequency = frequency
-        oscillatorVoice.oscillator.amplitude = amplitude
-        oscillatorVoice.start()
+        let sawtoothVoice = voice as! AKSawtoothVoice
+        sawtoothVoice.oscillator.frequency = frequency
+        sawtoothVoice.oscillator.amplitude = amplitude
+        sawtoothVoice.start()
     }
     
     /// Stop playback of a particular voice
@@ -78,35 +77,31 @@ public class AKOscillatorInstrument: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     ///
     public override func stopVoice(voice: AKVoice, note: Int) {
-        let oscillatorVoice = voice as! AKOscillatorVoice 
-        oscillatorVoice.stop()
+        let sawtoothVoice = voice as! AKSawtoothVoice //you'll need to cast the voice to its original form
+        sawtoothVoice.stop()
     }
 }
 
-internal class AKOscillatorVoice: AKVoice {
+internal class AKSawtoothVoice: AKVoice {
     
-    var oscillator: AKOscillator
+    var oscillator: AKSawtoothOscillator
     var adsr: AKAmplitudeEnvelope
     
-    var waveform: AKTable
-    
-    init(waveform: AKTable) {
-        oscillator = AKOscillator(waveform: waveform)
+    override init() {
+        oscillator = AKSawtoothOscillator()
         adsr = AKAmplitudeEnvelope(oscillator,
             attackDuration: 0.2,
             decayDuration: 0.2,
             sustainLevel: 0.8,
             releaseDuration: 1.0)
         
-        self.waveform = waveform
         super.init()
-        
         avAudioNode = adsr.avAudioNode
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
     override func copy() -> AKVoice {
-        let copy = AKOscillatorVoice(waveform: self.waveform)
+        let copy = AKSawtoothVoice()
         return copy
     }
     
