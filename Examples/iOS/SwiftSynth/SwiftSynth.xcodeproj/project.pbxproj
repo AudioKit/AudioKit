@@ -17,7 +17,6 @@
 		949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */; };
 		949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C301C431E5400BFFA10 /* RoundedButton.swift */; };
 		949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */; };
-		949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C331C431E5400BFFA10 /* Float+Extensions.swift */; };
 		949B1C501C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */; };
 		949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */; };
 		949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */; };
@@ -101,7 +100,6 @@
 		949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobSmall.swift; sourceTree = "<group>"; };
 		949B1C301C431E5400BFFA10 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthStyleKit.swift; sourceTree = "<group>"; };
-		949B1C331C431E5400BFFA10 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WaveformSegmentedView+Extensions.swift"; path = "../Extensions/WaveformSegmentedView+Extensions.swift"; sourceTree = "<group>"; };
 		949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMAlphaImageSegment.swift; sourceTree = "<group>"; };
 		949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMBasicSegment.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */,
-				949B1C331C431E5400BFFA10 /* Float+Extensions.swift */,
 				94453BC21C4499BD00608231 /* String+RandomGreeting.swift */,
 			);
 			path = Extensions;
@@ -421,7 +418,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				94C8EC781C4C1C7600AAA604 /* SynthVC+Delegates.swift in Sources */,
-				949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */,
 				C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */,
 				949B1C531C431E5400BFFA10 /* SMBasicSegmentView.swift in Sources */,
 				C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */,

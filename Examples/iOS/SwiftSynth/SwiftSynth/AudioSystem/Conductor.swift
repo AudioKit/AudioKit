@@ -38,13 +38,13 @@ class Conductor {
         
         fatten = Fatten(filterSection)
         multiDelay = MultiDelay(fatten)
-        multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0)
+        multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0.0)
         
         masterVolume = AKMixer(multiDelayMixer)
         reverb = AKCostelloReverb(masterVolume)
         reverb.stop()
         
-        reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.5)
+        reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.0)
         
         audiokit.audioOutput = reverbMixer
         audiokit.start()
