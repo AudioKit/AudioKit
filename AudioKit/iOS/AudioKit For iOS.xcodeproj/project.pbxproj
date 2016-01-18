@@ -356,6 +356,9 @@
 		C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		C46781AE1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */; };
 		C46960181C0F8C3900A65FBF /* AKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46960171C0F8C3900A65FBF /* AKNode.swift */; };
+		C46C795C1C4C5C4600F6CE3D /* morphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46C795B1C4C5C4600F6CE3D /* morphingOscillator.swift */; };
+		C46C795F1C4C616D00F6CE3D /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = C46C795E1C4C616D00F6CE3D /* oscmorph.c */; };
+		C46C79611C4C61CF00F6CE3D /* thresh.c in Sources */ = {isa = PBXBuildFile; fileRef = C46C79601C4C61CF00F6CE3D /* thresh.c */; };
 		C48443551C311523007BE794 /* blsaw.c in Sources */ = {isa = PBXBuildFile; fileRef = C48443521C311523007BE794 /* blsaw.c */; };
 		C48443561C311523007BE794 /* blsquare.c in Sources */ = {isa = PBXBuildFile; fileRef = C48443531C311523007BE794 /* blsquare.c */; };
 		C48443571C311523007BE794 /* bltriangle.c in Sources */ = {isa = PBXBuildFile; fileRef = C48443541C311523007BE794 /* bltriangle.c */; };
@@ -880,6 +883,9 @@
 		C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeFFTPlot.swift; sourceTree = "<group>"; };
 		C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
 		C46960171C0F8C3900A65FBF /* AKNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNode.swift; sourceTree = "<group>"; };
+		C46C795B1C4C5C4600F6CE3D /* morphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = morphingOscillator.swift; sourceTree = "<group>"; };
+		C46C795E1C4C616D00F6CE3D /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
+		C46C79601C4C61CF00F6CE3D /* thresh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thresh.c; sourceTree = "<group>"; };
 		C48443521C311523007BE794 /* blsaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blsaw.c; sourceTree = "<group>"; };
 		C48443531C311523007BE794 /* blsquare.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blsquare.c; sourceTree = "<group>"; };
 		C48443541C311523007BE794 /* bltriangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bltriangle.c; sourceTree = "<group>"; };
@@ -2191,6 +2197,7 @@
 				C46300B51C20C342009B44D9 /* moogladder.c */,
 				C46300B61C20C342009B44D9 /* noise.c */,
 				C46300B71C20C342009B44D9 /* osc.c */,
+				C46C795E1C4C616D00F6CE3D /* oscmorph.c */,
 				C46300B81C20C342009B44D9 /* p.c */,
 				C46300B91C20C342009B44D9 /* pan.c */,
 				C46300BA1C20C342009B44D9 /* phasor.c */,
@@ -2217,6 +2224,7 @@
 				C46300CB1C20C342009B44D9 /* tenv.c */,
 				C46300CC1C20C342009B44D9 /* tenv2.c */,
 				C46300CD1C20C342009B44D9 /* tenvx.c */,
+				C46C79601C4C61CF00F6CE3D /* thresh.c */,
 				C48443581C311539007BE794 /* tick.c */,
 				C46300CE1C20C342009B44D9 /* tin.c */,
 				C48443591C311539007BE794 /* tog.c */,
@@ -2300,6 +2308,7 @@
 			isa = PBXGroup;
 			children = (
 				C46302761C20E7A7009B44D9 /* fmOscillator.swift */,
+				C46C795B1C4C5C4600F6CE3D /* morphingOscillator.swift */,
 				C46302771C20E7A7009B44D9 /* phasor.swift */,
 				C48444EA1C36FE14007BE794 /* sawtooth.swift */,
 				C4E751781C2204AD00688A1B /* sawtoothWave.swift */,
@@ -2785,6 +2794,7 @@
 				C40AD69D1C463B2600B638AF /* AKMusicTrack+MIDI.swift in Sources */,
 				C4E958981C0ADBFD00516A6A /* autowah.c in Sources */,
 				C40C411F1C40E2E1009D870B /* AKManager.swift in Sources */,
+				C46C79611C4C61CF00F6CE3D /* thresh.c in Sources */,
 				C4E958EE1C0ADBFD00516A6A /* zitarev.c in Sources */,
 				C4A916511C24F95E006C1A15 /* triggeredWithEnvelope.swift in Sources */,
 				C4537FBF1C3A438D00A51738 /* AKEqualizerFilterAudioUnit.mm in Sources */,
@@ -2961,6 +2971,7 @@
 				C453804B1C3A59EA00A51738 /* AKOperationEffectAudioUnit.mm in Sources */,
 				C4537F091C39D07100A51738 /* AKDelay.swift in Sources */,
 				C4E751A71C2354EE00688A1B /* max.swift in Sources */,
+				C46C795C1C4C5C4600F6CE3D /* morphingOscillator.swift in Sources */,
 				C45C35581C08EE5700E3C7F0 /* parse.c in Sources */,
 				C46300DB1C20C342009B44D9 /* butlp.c in Sources */,
 				C4E13D2C1C42360C008F0A3C /* AKPhaseLockedVocoder.swift in Sources */,
@@ -2997,6 +3008,7 @@
 				C4537FD71C3A438D00A51738 /* AKLowShelfParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C4E958A51C0ADBFD00516A6A /* dcblock.c in Sources */,
 				C4E958DB1C0ADBFD00516A6A /* samphold.c in Sources */,
+				C46C795F1C4C616D00F6CE3D /* oscmorph.c in Sources */,
 				C46300F51C20C342009B44D9 /* osc.c in Sources */,
 				C40C41691C40E3A5009D870B /* EZPlot.m in Sources */,
 				C4E9589E1C0ADBFD00516A6A /* butbp.c in Sources */,
