@@ -322,6 +322,8 @@ class SynthViewController: UIViewController {
         keyboardOctavePosition += -1
         octavePositionLabel.text = String(keyboardOctavePosition)
         // update Keyboard keys held/etc
+        redisplayHeldKeys()
+        
     }
     
     @IBAction func octaveUpPressed(sender: UIButton) {
@@ -329,6 +331,7 @@ class SynthViewController: UIViewController {
         statusLabel.text = "Keyboard Octave Up"
         keyboardOctavePosition += 1
         octavePositionLabel.text = String(keyboardOctavePosition)
+        redisplayHeldKeys()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     }
     
     @IBAction func holdModeToggled(sender: UIButton) {
@@ -475,6 +478,17 @@ class SynthViewController: UIViewController {
         statusLabel.text = "Key(s) Released"
         keysHeld.removeAll(keepCapacity: false)
         midiNotesHeld.removeAll(keepCapacity: false)
+    }
+    
+    func redisplayHeldKeys() {
+        for key in keysHeld {
+            let index = key.tag - 200
+            if blackKeys.contains(index) {
+                key.setImage(UIImage(named: "blackkey"), forState: .Normal)
+            } else {
+                key.setImage(UIImage(named: "whitekey"), forState: .Normal)
+            }
+        }
     }
     
     func toggleKeyHeld(key: UIButton) {
