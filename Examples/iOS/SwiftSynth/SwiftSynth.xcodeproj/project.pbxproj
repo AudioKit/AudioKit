@@ -185,9 +185,9 @@
 		94B009E81C4B61EB000CF18E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */,
 				94B009E61C4B61BD000CF18E /* SynthVC+NoteNames.swift */,
 				940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */,
-				94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
