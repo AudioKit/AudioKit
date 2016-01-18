@@ -17,19 +17,17 @@ var player = AKAudioPlayer(file!)
 player.looping = true
 
 // Filter Properties
-var cutoffFrequency = 1000
+var cutoffFrequency = 1100
 var resonance = 0.9
 var filterMix = 0.9
 
 // LFO Properties
 var lfoAmplitude = 1000
 var lfoRate = 1.0 / 3.428
-var lfoMix = 1.0
 
-let lfo = AKOperation.sawtooth(frequency: lfoRate, amplitude: lfoAmplitude * lfoMix)
+let lfo = AKOperation.morphingOscillator(frequency: lfoRate, amplitude: lfoAmplitude, index: 1)
 let moog = AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency, resonance: resonance)
-let mixed = mixer(AKOperation.input, moog, balance: filterMix)
-let filterSectionEffect = AKOperationEffect(player, operation: mixed)
+let filterSectionEffect = AKOperationEffect(player, operation: moog)
 
 
 audiokit.audioOutput = filterSectionEffect
