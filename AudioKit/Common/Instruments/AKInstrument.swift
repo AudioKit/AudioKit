@@ -39,12 +39,18 @@ public class AKVoice: AKNode, AKToggleable {
 /// can be played simultaneously for polyphony
 public class AKPolyphonicInstrument: AKNode {
 
-    /// Array of available voices
+    /// Array of all voices
     public var voices: [AKVoice] {
         return activeVoices + availableVoices
     }
+    
+    /// Array of available voices
     public var availableVoices: [AKVoice] = []
+    
+    /// Array of only voices currently playing
     public var activeVoices: [AKVoice] = []
+    
+    /// Array of notes being played on the active instruments
     public var activeNotes: [Int] = []
     
     var voiceCount: Int

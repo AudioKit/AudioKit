@@ -24,6 +24,8 @@ custom_categories:
     - AKSawtoothInstrument
     - AKSquareInstrument
     - AKTriangleInstrument
+    - AKSynthKick
+    - AKSynthSnare
 
   - name: MIDI
     children:
@@ -116,6 +118,7 @@ custom_categories:
   - name: Oscillator Nodes
     children:
     - AKFMOscillator
+    - AKMorphingOscillator
     - AKOscillator
     - AKSawtoothOscillator
     - AKSquareWaveOscillator
