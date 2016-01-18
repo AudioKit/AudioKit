@@ -13,11 +13,11 @@ extension String {
         let randomInt = floor(Double.random(min: 0, max: 4))
         switch randomInt {
         case 0:
-            return "Welcome, can synth be love?"
+            return "Please plug in headphones for best sound."
         case 1:
             return "Affirmative, Dave. I read you."
         case 2:
-            return "Eat. Sleep. Synth. Repeat."
+            return "Eat. Swift. Synth. Repeat."
         case 3:
             return "Welcome to Swift Synth!"
         default:
