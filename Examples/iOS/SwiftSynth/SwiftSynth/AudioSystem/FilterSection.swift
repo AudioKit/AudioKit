@@ -60,7 +60,6 @@ class FilterSection: AKNode {
         
         let moog = AKOperation.input.moogLadderFilter(cutoffFrequency: max(lfo + cutoff, 0), resonance: rez)
 
-        print(moog)
         output = AKOperationEffect(input, operation: moog)
         output.parameters = parameters
         
