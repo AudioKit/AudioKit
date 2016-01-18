@@ -131,7 +131,7 @@ class SynthViewController: UIViewController {
         conductor.filterSection.lfoRate = 0.3 // LFO Rate
         conductor.filterSection.resonance = 0.6 // Filter Q/Rez
         conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
-        conductor.multiDelay.time = 0.4 // Delay (ms)
+        conductor.multiDelay.time = 0.4 // Delay (seconds)
         conductor.multiDelay.mix = 0.4 // Dry/Wet
         conductor.reverb.feedback = 0.88 // Amt
         conductor.reverbMixer.balance = 0.5 // Dry/Wet
@@ -545,7 +545,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Delay
         case ControlTag.DelayTime.rawValue:
-            statusLabel.text = "Delay Time: \(value.decimalString)ms"
+            statusLabel.text = "Delay Time: \(value.decimal1000String) ms"
             conductor.multiDelay.time = value
             
         case ControlTag.DelayMix.rawValue:
@@ -585,11 +585,11 @@ extension SynthViewController: VerticalSliderDelegate {
         
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
-            statusLabel.text = "Attack: \(value.decimalString)ms"
+            statusLabel.text = "Attack: \(value.decimalString) sec"
             conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
-            statusLabel.text = "Decay: \(value.decimalString)ms"
+            statusLabel.text = "Decay: \(value.decimalString) sec"
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
@@ -597,7 +597,7 @@ extension SynthViewController: VerticalSliderDelegate {
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
-            statusLabel.text = "Release: \(value.decimalString)ms"
+            statusLabel.text = "Release: \(value.decimalString) sec"
             conductor.core.releaseDuration = value
             
         default:
