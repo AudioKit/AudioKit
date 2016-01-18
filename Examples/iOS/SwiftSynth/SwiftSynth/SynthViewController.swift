@@ -117,7 +117,7 @@ class SynthViewController: UIViewController {
     func setDefaultValues() {
 
         // Set Preset Values
-        conductor.masterVolume.volume = 30.0 // Master Volume
+        conductor.masterVolume.volume = 25.0 // Master Volume
         conductor.core.offset1 = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
         conductor.core.detune = 0.0 // VCO2 Detune (Hz)
@@ -127,15 +127,15 @@ class SynthViewController: UIViewController {
         conductor.core.fmMod = 0.0 // FM Modulation Amt
         conductor.core.morph = 0.0 // Morphing between waveforms
         conductor.core.noiseMix = 0.0 // Noise Mix
-        conductor.filterSection.lfoAmplitude = 300.0 // LFO Amp (Hz)
-        conductor.filterSection.lfoRate = 0.3 // LFO Rate
-        conductor.filterSection.resonance = 0.6 // Filter Q/Rez
+        conductor.filterSection.lfoAmplitude = 0.0 // LFO Amp (Hz)
+        conductor.filterSection.lfoRate = 1.4 // LFO Rate
+        conductor.filterSection.resonance = 0.5 // Filter Q/Rez
         conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
-        conductor.multiDelay.time = 0.4 // Delay (seconds)
-        conductor.multiDelay.mix = 0.4 // Dry/Wet
+        conductor.multiDelay.time = 0.5 // Delay (seconds)
+        conductor.multiDelay.mix = 0.5 // Dry/Wet
         conductor.reverb.feedback = 0.88 // Amt
-        conductor.reverbMixer.balance = 0.5 // Dry/Wet
-        cutoffKnob.value = 0.6 // Cutoff Knob Position
+        conductor.reverbMixer.balance = 0.4 // Dry/Wet
+        cutoffKnob.value = 0.36 // Cutoff Knob Position
         
         // ADSR
         conductor.core.attackDuration = 0.1
@@ -148,12 +148,13 @@ class SynthViewController: UIViewController {
         setupSliderValues()
         
         // Update Toggle Presets
+        displayModeToggled(plotToggle)
+
         vco1Toggled(vco1Toggle)
         vco2Toggled(vco2Toggle)
         filterToggled(filterToggle)
         delayToggled(delayToggle)
-        displayModeToggled(plotToggle)
-
+        reverbToggled(reverbToggle)
     }
     
     func setupKnobValues() {
@@ -172,7 +173,7 @@ class SynthViewController: UIViewController {
         subMixKnob.maximum = 4.5
         subMixKnob.value = conductor.core.subOscMix
         
-        fmMixKnob.maximum = 2
+        fmMixKnob.maximum = 1.25
         fmMixKnob.value = conductor.core.fmOscMix
         
         fmModKnob.maximum = 15
@@ -185,7 +186,7 @@ class SynthViewController: UIViewController {
 
         oscMixKnob.value = conductor.core.vcoBalance
 
-        lfoAmtKnob.maximum = 2000
+        lfoAmtKnob.maximum = 1200
         lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
         
         lfoRateKnob.maximum = 5
