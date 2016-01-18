@@ -60,7 +60,6 @@ public:
     
     void finalize() {
         sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
-        NSLog(@"nft %d", oscmorph->nft);
         oscmorph->freq = 440;
         oscmorph->amp = 0.5;
         oscmorph->wtpos = 0.0;
