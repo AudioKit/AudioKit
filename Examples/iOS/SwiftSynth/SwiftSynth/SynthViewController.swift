@@ -529,7 +529,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
             statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
-            conductor.reverb.decayTimeAt0Hz = value
+            conductor.reverb.feedback = value
             
         case ControlTag.ReverbMix.rawValue:
             statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
@@ -596,7 +596,7 @@ extension SynthViewController: SMSegmentViewDelegate {
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
-            conductor.filterSection.selectedWaveform = index
+            conductor.filterSection.lfoIndex = min(Double(index), 3)
             
         default:
             break
