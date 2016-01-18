@@ -173,7 +173,7 @@ class SynthViewController: UIViewController {
         subMixKnob.maximum = 4.5
         subMixKnob.value = conductor.core.subOscMix
         
-        fmMixKnob.maximum = 2
+        fmMixKnob.maximum = 1.25
         fmMixKnob.value = conductor.core.fmOscMix
         
         fmModKnob.maximum = 15
