@@ -8,9 +8,6 @@
 
 import UIKit
 import AudioKit
-// TODO:
-// * Appropriate scales for Knobs
-// * Set sensible initial preset
 
 class SynthViewController: UIViewController {
     
@@ -136,12 +133,19 @@ class SynthViewController: UIViewController {
         conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
         conductor.multiDelay.time = 0.4 // Delay (ms)
         conductor.multiDelay.mix = 0.4 // Dry/Wet
-        conductor.reverb.feedback = 0.65 // Amt
+        conductor.reverb.feedback = 0.88 // Amt
         conductor.reverbMixer.balance = 0.5 // Dry/Wet
         cutoffKnob.value = 0.6 // Cutoff Knob Position
         
-        // Update Knob UI Values
+        // ADSR
+        conductor.core.attackDuration = 0.1
+        conductor.core.decayDuration = 0.1
+        conductor.core.sustainLevel = 0.66
+        conductor.core.releaseDuration = 0.5
+        
+        // Update Knob & Slider UI Values
         setupKnobValues()
+        setupSliderValues()
         
         // Update Toggle Presets
         vco1Toggled(vco1Toggle)
@@ -206,7 +210,19 @@ class SynthViewController: UIViewController {
         
         // Calculate cutoff freq based on knob position
         conductor.filterSection.cutoffFrequency = cutoffFreqFromValue(Double(cutoffKnob.value))
-        print(" * FILTER * \(conductor.filterSection.cutoffFrequency)")
+    }
+    
+    func setupSliderValues() {
+        attackSlider.maxValue = 2
+        attackSlider.currentValue = CGFloat(conductor.core.attackDuration)
+        
+        decaySlider.maxValue = 2
+        decaySlider.currentValue = CGFloat(conductor.core.decayDuration)
+        
+        sustainSlider.currentValue = CGFloat(conductor.core.sustainLevel)
+        
+        releaseSlider.maxValue = 2
+        releaseSlider.currentValue = CGFloat(conductor.core.releaseDuration)
     }
 
     //*****************************************************************
@@ -486,19 +502,19 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Additional OSCs
         case ControlTag.SubMix.rawValue:
-            statusLabel.text = "Sub Osc: \(subMixKnob.percentageString())"
+            statusLabel.text = "Sub Osc: \(subMixKnob.knobValue.percentageString)"
             conductor.core.subOscMix = value
             
         case ControlTag.FmMix.rawValue:
-            statusLabel.text = "FM Amt: \(fmMixKnob.percentageString())"
+            statusLabel.text = "FM Amt: \(fmMixKnob.knobValue.percentageString)"
             conductor.core.fmOscMix = value
             
         case ControlTag.FmMod.rawValue:
-            statusLabel.text = "FM Mod: \(fmModKnob.percentageString())"
+            statusLabel.text = "FM Mod: \(fmModKnob.knobValue.percentageString)"
             conductor.core.fmMod = value
             
         case ControlTag.NoiseMix.rawValue:
-            statusLabel.text = "Noise Amt: \(noiseMixKnob.percentageString())"
+            statusLabel.text = "Noise Amt: \(noiseMixKnob.knobValue.percentageString)"
             conductor.core.noiseMix = value
             
         // LFO
@@ -541,7 +557,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             if value == 0.99 {
                 statusLabel.text = "Reverb Size: Grand Canyon!"
             } else {
-                statusLabel.text = "Reverb Size: \(reverbAmtKnob.percentageString())"
+                statusLabel.text = "Reverb Size: \(reverbAmtKnob.knobValue.percentageString)"
             }
             conductor.reverb.feedback = value
             
@@ -551,7 +567,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Master
         case ControlTag.MasterVol.rawValue:
-            statusLabel.text = "Master Vol: \(masterVolKnob.percentageString())"
+            statusLabel.text = "Master Vol: \(masterVolKnob.knobValue.percentageString)"
             conductor.masterVolume.volume = value
             
         default:
@@ -569,19 +585,19 @@ extension SynthViewController: VerticalSliderDelegate {
         
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
-            statusLabel.text = "Attack: \(value.decimalString)"
+            statusLabel.text = "Attack: \(value.decimalString)ms"
             conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
-            statusLabel.text = "Decay: \(value.decimalString)"
+            statusLabel.text = "Decay: \(value.decimalString)ms"
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
-            statusLabel.text = "Sustain: \(value.decimalString)"
+            statusLabel.text = "Sustain: \(attackSlider.currentValue.percentageString)"
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
-            statusLabel.text = "Release: \(value.decimalString)"
+            statusLabel.text = "Release: \(value.decimalString)ms"
             conductor.core.releaseDuration = value
             
         default:
