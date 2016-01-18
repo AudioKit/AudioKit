@@ -136,7 +136,7 @@ public class AKMorphingOscillator: AKVoice {
         detuningMultiplier: Double = 1,
         phase: Double = 0) {
 
-
+        // AOP Note: Waveforms are currently hardcoded, need to upgrade this
         self.waveformArray = waveformArray
         self.frequency = frequency
         self.amplitude = amplitude
