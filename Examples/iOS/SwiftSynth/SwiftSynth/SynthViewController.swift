@@ -128,7 +128,7 @@ class SynthViewController: UIViewController {
         conductor.core.morph = 0.0 // Morphing between waveforms
         conductor.core.noiseMix = 0.0 // Noise Mix
         conductor.filterSection.lfoAmplitude = 0.0 // LFO Amp (Hz)
-        conductor.filterSection.lfoRate = 0.5 // LFO Rate
+        conductor.filterSection.lfoRate = 1.4 // LFO Rate
         conductor.filterSection.resonance = 0.5 // Filter Q/Rez
         conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
         conductor.multiDelay.time = 0.5 // Delay (seconds)
