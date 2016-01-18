@@ -36,11 +36,6 @@ public:
 
         sp_create(&sp);
         sp_adsr_create(&adsr);
-        sp_adsr_init(sp, adsr);
-        adsr->atk = 0.1;
-        adsr->dec = 0.1;
-        adsr->sus = 1.0;
-        adsr->rel = 0.1;
     }
 
     void start() {
@@ -64,10 +59,14 @@ public:
     }
 
     void reset() {
+        sp_adsr_init(sp, adsr);
+        adsr->atk = 0.1;
+        adsr->dec = 0.1;
+        adsr->sus = 1.0;
+        adsr->rel = 0.1;
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
-        return;
         switch (address) {
             case attackDurationAddress:
                 attackDurationRamper.set(clamp(value, (float)0, (float)99));
