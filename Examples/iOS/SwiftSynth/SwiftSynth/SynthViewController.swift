@@ -120,7 +120,7 @@ class SynthViewController: UIViewController {
         statusLabel.text = String.randomGreeting()
         
         // Set Preset Values
-        conductor.masterVolume.volume = 25.0 // Master Volume
+        conductor.masterVolume.volume = 30.0 // Master Volume
         conductor.core.offset1 = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
         conductor.core.detune = 0.0 // VCO2 Detune (Hz)
@@ -135,18 +135,19 @@ class SynthViewController: UIViewController {
         conductor.filterSection.cutoffFrequency = 6000.0 // Cutoff (Hz)
         conductor.filterSection.resonance = 0.6 // Filter Q/Rez
         conductor.bitCrusher.sampleRate = 0.0 // Bitcrush SampleRate
-        conductor.multiDelay.time = 0.5 // Delay (ms)
-        conductor.multiDelay.mix = 0.5 // Dry/Wet
+        conductor.multiDelay.time = 0.4 // Delay (ms)
+        conductor.multiDelay.mix = 0.4 // Dry/Wet
+        conductor.reverb.feedback = 0.65 // Amt
         conductor.reverbMixer.balance = 0.5 // Dry/Wet
         
-        // Update Knob Values
+        // Update Knob UI Values
         setupKnobValues()
         
-        // Set Toggle Preset Values
+        // Update Toggle Presets
         vco1Toggled(vco1Toggle)
         vco2Toggled(vco2Toggle)
         filterToggled(filterToggle)
-        // delayToggled(delayToggle)
+        delayToggled(delayToggle)
         displayModeToggled(plotToggle)
     }
     
@@ -171,9 +172,9 @@ class SynthViewController: UIViewController {
         
         fmModKnob.maximum = 15
 
-        pwmKnob.value = conductor.core.morph
         pwmKnob.minimum = -0.99
         pwmKnob.maximum = 0.99
+        pwmKnob.value = conductor.core.morph
 
         noiseMixKnob.value = conductor.core.noiseMix
 
@@ -197,7 +198,8 @@ class SynthViewController: UIViewController {
         delayTimeKnob.value = conductor.multiDelay.time
         delayMixKnob.value = conductor.multiDelay.mix
         
-        reverbAmtKnob.value = 0
+        reverbAmtKnob.maximum = 0.99
+        reverbAmtKnob.value = conductor.reverb.feedback
         reverbMixKnob.value = conductor.reverbMixer.balance
         
         masterVolKnob.maximum = 30.0
@@ -468,7 +470,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             conductor.core.offset2 = intValue
             
         case ControlTag.Vco2Detune.rawValue:
-            statusLabel.text = "Detune: \(value.decimalString)"
+            statusLabel.text = "Detune: \(value.decimalString)hz"
             conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
@@ -481,19 +483,19 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Additional OSCs
         case ControlTag.SubMix.rawValue:
-            statusLabel.text = "Sub Osc: \(value.decimalString)"
+            statusLabel.text = "Sub Osc: \(subMixKnob.percentageString())"
             conductor.core.subOscMix = value
             
         case ControlTag.FmMix.rawValue:
-            statusLabel.text = "FM Amt: \(value.decimalString)"
+            statusLabel.text = "FM Amt: \(fmMixKnob.percentageString())"
             conductor.core.fmOscMix = value
             
         case ControlTag.FmMod.rawValue:
-            statusLabel.text = "FM Mod: \(value.decimalString)"
+            statusLabel.text = "FM Mod: \(fmModKnob.percentageString())"
             conductor.core.fmMod = value
             
         case ControlTag.NoiseMix.rawValue:
-            statusLabel.text = "Noise Amt: \(value.decimalString)"
+            statusLabel.text = "Noise Amt: \(noiseMixKnob.percentageString())"
             conductor.core.noiseMix = value
             
         // LFO
@@ -535,7 +537,11 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Reverb
         case ControlTag.ReverbAmt.rawValue:
-            statusLabel.text = "Reverb Amt: \(value.decimalString)ms"
+            if value == 0.99 {
+                statusLabel.text = "Reverb Size: Grand Canyon!"
+            } else {
+                statusLabel.text = "Reverb Size: \(reverbAmtKnob.percentageString())"
+            }
             conductor.reverb.feedback = value
             
         case ControlTag.ReverbMix.rawValue:
@@ -544,7 +550,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Master
         case ControlTag.MasterVol.rawValue:
-            statusLabel.text = "Master Vol: \(value.decimalString)"
+            statusLabel.text = "Master Vol: \(masterVolKnob.percentageString())"
             conductor.masterVolume.volume = value
             
         default:
