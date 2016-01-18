@@ -5,9 +5,6 @@
 //  Created by Matthew Fecher on 1/11/16.
 //  Copyright (c) 2016 AudioKit. All rights reserved.
 
-
-
-
 import UIKit
 
 public class VerticalSliderStyles : NSObject {
