@@ -33,8 +33,8 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var subMixKnob: KnobSmall!
     @IBOutlet weak var fmMixKnob: KnobSmall!
     @IBOutlet weak var fmModKnob: KnobSmall!
-    @IBOutlet weak var pwmKnob: KnobSmall!
     @IBOutlet weak var noiseMixKnob: KnobSmall!
+    @IBOutlet weak var morphKnob: KnobSmall!
     @IBOutlet weak var masterVolKnob: KnobSmall!
     @IBOutlet weak var attackSlider: VerticalSlider!
     @IBOutlet weak var decaySlider: VerticalSlider!
@@ -65,7 +65,7 @@ class SynthViewController: UIViewController {
         case FmMix = 110
         case FmMod = 111
         case LfoWaveform = 112
-        case Pwm = 113
+        case Morph = 113
         case NoiseMix = 114
         case LfoAmt = 115
         case LfoRate = 116
@@ -131,7 +131,7 @@ class SynthViewController: UIViewController {
         conductor.filterSection.lfoRate = 0.3 // LFO Rate
         conductor.filterSection.resonance = 0.6 // Filter Q/Rez
         conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
-        conductor.multiDelay.time = 0.4 // Delay (ms)
+        conductor.multiDelay.time = 0.4 // Delay (seconds)
         conductor.multiDelay.mix = 0.4 // Dry/Wet
         conductor.reverb.feedback = 0.88 // Amt
         conductor.reverbMixer.balance = 0.5 // Dry/Wet
@@ -177,9 +177,9 @@ class SynthViewController: UIViewController {
         
         fmModKnob.maximum = 15
 
-        pwmKnob.minimum = -0.99
-        pwmKnob.maximum = 0.99
-        pwmKnob.value = conductor.core.morph
+        morphKnob.minimum = -0.99
+        morphKnob.maximum = 0.99
+        morphKnob.value = conductor.core.morph
 
         noiseMixKnob.value = conductor.core.noiseMix
 
@@ -489,15 +489,15 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             conductor.core.offset2 = intValue
             
         case ControlTag.Vco2Detune.rawValue:
-            statusLabel.text = "Detune: \(value.decimalString)hz"
+            statusLabel.text = "Detune: \(value.decimalString) Hz"
             conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalString)"
             conductor.core.vcoBalance = value
             
-        case ControlTag.Pwm.rawValue:
-            statusLabel.text = "Morph: \(value.decimalString)"
+        case ControlTag.Morph.rawValue:
+            statusLabel.text = "Morph Waveform: \(value.decimalString)"
             conductor.core.morph = value
             
         // Additional OSCs
@@ -529,7 +529,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Filter
         case ControlTag.Cutoff.rawValue:
             let cutOffFrequency = cutoffFreqFromValue(value)
-            statusLabel.text = "Cutoff: \(cutOffFrequency.decimalString)"
+            statusLabel.text = "Cutoff: \(cutOffFrequency.decimalString) Hz"
             conductor.filterSection.cutoffFrequency = cutOffFrequency
             
         case ControlTag.Rez.rawValue:
@@ -545,7 +545,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Delay
         case ControlTag.DelayTime.rawValue:
-            statusLabel.text = "Delay Time: \(value.decimalString)ms"
+            statusLabel.text = "Delay Time: \(value.decimal1000String) ms"
             conductor.multiDelay.time = value
             
         case ControlTag.DelayMix.rawValue:
@@ -585,11 +585,11 @@ extension SynthViewController: VerticalSliderDelegate {
         
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
-            statusLabel.text = "Attack: \(value.decimalString)ms"
+            statusLabel.text = "Attack: \(value.decimalString) sec"
             conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
-            statusLabel.text = "Decay: \(value.decimalString)ms"
+            statusLabel.text = "Decay: \(value.decimalString) sec"
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
@@ -597,7 +597,7 @@ extension SynthViewController: VerticalSliderDelegate {
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
-            statusLabel.text = "Release: \(value.decimalString)ms"
+            statusLabel.text = "Release: \(value.decimalString) sec"
             conductor.core.releaseDuration = value
             
         default:
