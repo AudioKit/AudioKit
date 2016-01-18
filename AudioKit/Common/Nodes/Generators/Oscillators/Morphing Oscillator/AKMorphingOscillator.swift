@@ -128,7 +128,7 @@ public class AKMorphingOscillator: AKVoice {
     /// - parameter phase: Initial phase of waveform, expects a value 0-1
     ///
     public init(
-        waveformArray: [AKTable] = [AKTable(.Sawtooth), AKTable(.Square), AKTable(.Sine), AKTable(.Triangle)],
+        waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
         frequency: Double = 440,
         amplitude: Double = 0.5,
         index: Double = 0.0,
@@ -176,7 +176,6 @@ public class AKMorphingOscillator: AKVoice {
                     self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
                 }
             }
-            self.internalAU?.finalize()
         }
 
         guard let tree = internalAU?.parameterTree else { return }
