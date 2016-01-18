@@ -86,6 +86,7 @@ class SynthViewController: UIViewController {
     var monoMode: Bool = false
     var holdMode: Bool = false
     var keysHeld = [UIButton]()
+    var midiNotesHeld = [Int]()
     let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
     
     var conductor = Conductor.sharedInstance
@@ -401,22 +402,30 @@ class SynthViewController: UIViewController {
                 turnOffKey(lastKey)
             }
         }
+        
+        if holdMode {
+            if keysHeld.contains(key) {
+                turnOffKey(key)
+                return
+            }
+        }
+        
         turnOnKey(key)
-        lastKey = key
     }
     
     @IBAction func keyReleased(sender: UIButton) {
         let key = sender
         
         if holdMode && monoMode {
-            if let lastKey = lastKey where lastKey != key {
-                turnOffKey(lastKey)
-            }
+           toggleMonoKeyHeld(key)
+
         } else if holdMode && !monoMode {
-            keysHeld.append(key)
+            toggleKeyHeld(key)
+            
         } else {
             turnOffKey(key)
         }
+        
         lastKey = key
     }
     
@@ -464,6 +473,24 @@ class SynthViewController: UIViewController {
         }
         statusLabel.text = "Key(s) Released"
         keysHeld.removeAll(keepCapacity: false)
+        midiNotesHeld.removeAll(keepCapacity: false)
+    }
+    
+    func toggleKeyHeld(key: UIButton) {
+        if let i = keysHeld.indexOf(key) {
+            keysHeld.removeAtIndex(i)
+        } else {
+            keysHeld.append(key)
+        }
+    }
+    
+    func toggleMonoKeyHeld(key: UIButton) {
+        if !keysHeld.contains(key) {
+            keysHeld.removeAll()
+            keysHeld.append(key)
+        } else {
+            keysHeld.removeAll()
+        }
     }
    
 }
