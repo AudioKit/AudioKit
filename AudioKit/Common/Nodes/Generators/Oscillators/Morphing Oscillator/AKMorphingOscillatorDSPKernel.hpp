@@ -43,10 +43,10 @@ public:
         sp_ftbl_create(sp, &ftbl1, tbl_size);
         sp_ftbl_create(sp, &ftbl2, tbl_size);
         sp_ftbl_create(sp, &ftbl3, tbl_size);
-        sp_gen_line(sp, ftbl0, "0 1 4095 -1");
+        sp_gen_line(sp, ftbl0, "0 0 1023 1 3071 -1 4095 0");
         sp_gen_line(sp, ftbl1, "0 1 2047 1 2048 -1 4095 -1");
-        sp_gen_sine(sp, ftbl2);
-        sp_gen_line(sp, ftbl3, "0 0 1023 1 3071 -1 4095 0");
+        sp_gen_line(sp, ftbl2, "0 1 511 1 512 -1 4095 -1");
+        sp_gen_line(sp, ftbl3, "0 1 4095 -1");
         ft_array[0] = ftbl0;
         ft_array[1] = ftbl1;
         ft_array[2] = ftbl2;
