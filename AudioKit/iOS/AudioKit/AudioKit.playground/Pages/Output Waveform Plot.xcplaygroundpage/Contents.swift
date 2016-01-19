@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## Audio Plotting
+//: ## Output Waveform Plot
 //: ### If you open the Assitant editor and make sure it shows the Output Waveform Plot.xcplaygroundpage (Timeline) view, you should see a plot of the waveform in real time
 import XCPlayground
 import AudioKit

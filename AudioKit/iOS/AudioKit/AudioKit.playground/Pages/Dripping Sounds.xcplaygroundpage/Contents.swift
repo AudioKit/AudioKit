@@ -3,10 +3,8 @@
 //: ---
 //:
 //: ## Dripping Sounds
-//: ### Physical model of a water drop letting hitting a pool.  What's this good for?  We don't know, but hey its cool. :)
-
+//: ### Physical model of a water drop letting hitting a pool.  What's this good for?  We don't know, but hey it's cool. :)
 import AudioKit
-
 import XCPlayground
 
 let playRate = 2.0
@@ -14,12 +12,11 @@ let playRate = 2.0
 let audiokit = AKManager.sharedInstance
 
 let drip = AKDrip()
-
 drip.intensity = 100
 
 let reverb = AKReverb(drip)
 
-//: Connect the sampler to the main output
+
 audiokit.audioOutput = reverb
 audiokit.start()
 

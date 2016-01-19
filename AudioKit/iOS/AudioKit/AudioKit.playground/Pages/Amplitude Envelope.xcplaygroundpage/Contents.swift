@@ -26,6 +26,10 @@ AKPlaygroundLoop(every:1) {
         fmWithADSR.stop()
     } else {
         fm.baseFrequency = random(220, 880)
+        fmWithADSR.attackDuration = random(0.01, 0.5)
+        fmWithADSR.decayDuration = random(0.01, 0.2)
+        fmWithADSR.sustainLevel = random(0.01, 1)
+        fmWithADSR.releaseDuration = random(0.01, 1)
         fmWithADSR.start()
     }
 }

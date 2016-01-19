@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Modal Resonance Filter Operation
-//: ### Add description
+//:
 import XCPlayground
 import AudioKit
 

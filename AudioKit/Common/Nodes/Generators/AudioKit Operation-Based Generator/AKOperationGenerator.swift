@@ -8,14 +8,7 @@
 
 import AVFoundation
 
-/// This is was built using the JC reverb implentation found in FAUST. According to
-/// the source code, the specifications for this implementation were found on an old
-/// SAIL DART backup tape.
-/// This class is derived from the CLM JCRev function, which is based on the use of
-/// networks of simple allpass and comb delay filters.  This class implements three
-/// series allpass units, followed by four parallel comb filters, and two
-/// decorrelation delay lines in parallel at the output.
-///
+/// Operation-based generator
 public class AKOperationGenerator: AKNode, AKToggleable {
 
     // MARK: - Properties
@@ -40,52 +33,39 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     /// Initialize the generator with an operation and indicate whether it responds to a trigger
     ///
     /// - parameter operation: AKOperation stack to use
-    /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
-    public convenience init(operation: AKOperation, triggered: Bool = false) {
-        var operationString = "\(operation) dup"
-        if triggered {
-            operationString = "\(operation) swap drop dup"
-        }
-        self.init(operationString, triggered: triggered)
+    public convenience init(operation: AKOperation) {
+        let operationString = "\(operation) dup"
+        self.init(operationString)
     }
     
     /// Initialize the generator with a stereo operation and indicate whether it responds to a trigger
     ///
     /// - parameter stereoOperation: AKStereoOperation stack to use
-    /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
-    public convenience init(stereoOperation: AKStereoOperation, triggered: Bool = false) {
-        var operationString = "\(stereoOperation) swap"
-        if triggered {
-            operationString = "drop \(stereoOperation) swap"
-        }
-        self.init(operationString, triggered: triggered)
+    public convenience init(stereoOperation: AKStereoOperation) {
+        let operationString = "\(stereoOperation) swap"
+        self.init(operationString)
     }
     
     /// Initialize the generator with a two mono operations for the left and right channel and indicate whether it responds to a trigger
     ///
     /// - parameter left: AKOperation to be heard from the left output
     /// - parameter right: AKOperation to be heard from the right output
-    /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
-    public convenience init(left: AKOperation, right: AKOperation, triggered: Bool = false) {
-        var operationString = "\(left) \(right)"
-        if triggered {
-            operationString = "\(left) swap \(right)"
-        }
-        self.init(operationString, triggered: triggered)
+    public convenience init(left: AKOperation, right: AKOperation) {
+        let operationString = "\(left) \(right)"
+        self.init(operationString)
     }
     
     /// Initialize this generator node with a generic sporth stack and a triggering flag
     ///
     /// - parameter sporth: String of valid Sporth code
-    /// - parameter triggered: Set to true if this operation requires a trigger (Default: false)
     ///
-    public init(_ sporth: String, triggered: Bool = false) {
+    public init(_ sporth: String) {
 
         var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
+        description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x63737467 /*'cstg'*/ 
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
@@ -106,11 +86,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
             AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
-            if triggered {
-                self.internalAU?.setSporth("0 p 1 p\(sporth)")
-            } else {
-                self.internalAU?.setSporth(sporth)
-            }
+            self.internalAU?.setSporth(sporth)
         }
     }
     

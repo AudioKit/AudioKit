@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKFlatFrequencyResponseReverb
-//: ### Write Description
+//: ## Flat Frequency Response Reverb
+//:
 import XCPlayground
 import AudioKit
 

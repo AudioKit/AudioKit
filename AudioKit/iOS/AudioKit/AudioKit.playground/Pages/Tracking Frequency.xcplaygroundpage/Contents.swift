@@ -4,15 +4,13 @@
 //:
 //: ## Tracking Frequency
 //: ### Tracking frequency is just as easy as tracking amplitude, and even includes amplitude, but it is more CPU intensive, so if you just need amplitude, use the amplitude tracker.
-
-//: Standard imports and AudioKit setup:
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
 //: Let's set up the volume to be changing in the shape of a sine wave
-let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0.3, maximum: 1)
+let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0.2, maximum: 0.5)
 
 //: And let's make the frequency also be a sineWave
 let minimum = Double(200)

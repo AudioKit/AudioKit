@@ -39,12 +39,18 @@ public class AKVoice: AKNode, AKToggleable {
 /// can be played simultaneously for polyphony
 public class AKPolyphonicInstrument: AKNode {
 
-    /// Array of available voices
+    /// Array of all voices
     public var voices: [AKVoice] {
         return activeVoices + availableVoices
     }
+    
+    /// Array of available voices
     public var availableVoices: [AKVoice] = []
+    
+    /// Array of only voices currently playing
     public var activeVoices: [AKVoice] = []
+    
+    /// Array of notes being played on the active instruments
     public var activeNotes: [Int] = []
     
     var voiceCount: Int
@@ -54,13 +60,14 @@ public class AKPolyphonicInstrument: AKNode {
     public var volume: Double = 1.0 {
         didSet {
             output.volume = volume
+            amplitude = volume
         }
     }
 
     /// Alias for volume
     public var amplitude: Double = 1.0 {
         didSet {
-            output.volume = volume
+            output.volume = amplitude
         }
     }
     
@@ -96,17 +103,6 @@ public class AKPolyphonicInstrument: AKNode {
         }
     }
     
-    /// Start playback of a particular voice with MIDI style note and velocity
-    ///
-    /// - parameter voice: Voice to start
-    /// - parameter note: MIDI Note Number
-    /// - parameter velocity: MIDI Velocity (0-127)
-    ///
-    public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
-        // Override in subclass
-        print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
-    }
-    
     /// Stop playback of a particular note
     ///
     /// - parameter note: MIDI Note Number
@@ -118,6 +114,17 @@ public class AKPolyphonicInstrument: AKNode {
             availableVoices.insert(voice, atIndex: 0)
             activeNotes.removeAtIndex(index)
         }
+    }
+    
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
+    public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+        // Override in subclass
+        print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
     
     /// Stop playback of a particular voice

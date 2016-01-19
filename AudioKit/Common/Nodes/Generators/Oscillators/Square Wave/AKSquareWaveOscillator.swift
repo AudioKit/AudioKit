@@ -13,8 +13,9 @@ import AVFoundation
 ///
 /// - parameter frequency: In cycles per second, or Hz.
 /// - parameter amplitude: Output amplitude
-/// - parameter detuning: Frequency offset in Hz.
 /// - parameter pulseWidth: Duty cycle width (range 0-1).
+/// - parameter detuningOffset: Frequency offset in Hz.
+/// - parameter detuningMultiplier: Frequency detuning multiplier
 ///
 public class AKSquareWaveOscillator: AKVoice {
 
@@ -26,8 +27,9 @@ public class AKSquareWaveOscillator: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-    private var detuningParameter: AUParameter?
     private var pulseWidthParameter: AUParameter?
+    private var detuningOffsetParameter: AUParameter?
+    private var detuningMultiplierParameter: AUParameter?
 
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
@@ -59,21 +61,6 @@ public class AKSquareWaveOscillator: AKVoice {
         amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
-    /// Frequency offset in Hz.
-    public var detuning: Double = 0 {
-        didSet {
-            internalAU?.detuning = Float(detuning)
-        }
-    }
-
-    /// Ramp to detuning over 20 ms
-    ///
-    /// - parameter detuning: Target Frequency offset in Hz.
-    ///
-    public func ramp(detuning detuning: Double) {
-        detuningParameter?.setValue(Float(detuning), originator: token!)
-    }
-
     /// Duty cycle width (range 0-1).
     public var pulseWidth: Double = 0.5 {
         didSet {
@@ -89,6 +76,36 @@ public class AKSquareWaveOscillator: AKVoice {
         pulseWidthParameter?.setValue(Float(pulseWidth), originator: token!)
     }
 
+    /// Frequency offset in Hz.
+    public var detuningOffset: Double = 0 {
+        didSet {
+            internalAU?.detuningOffset = Float(detuningOffset)
+        }
+    }
+
+    /// Ramp to detuningOffset over 20 ms
+    ///
+    /// - parameter detuningOffset: Target Frequency offset in Hz.
+    ///
+    public func ramp(detuningOffset detuningOffset: Double) {
+        detuningOffsetParameter?.setValue(Float(detuningOffset), originator: token!)
+    }
+
+    /// Frequency detuning multiplier
+    public var detuningMultiplier: Double = 1 {
+        didSet {
+            internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        }
+    }
+
+    /// Ramp to detuningMultiplier over 20 ms
+    ///
+    /// - parameter detuningMultiplier: Target Frequency detuning multiplier
+    ///
+    public func ramp(detuningMultiplier detuningMultiplier: Double) {
+        detuningMultiplierParameter?.setValue(Float(detuningMultiplier), originator: token!)
+    }
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     override public var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -100,20 +117,23 @@ public class AKSquareWaveOscillator: AKVoice {
     ///
     /// - parameter frequency: In cycles per second, or Hz.
     /// - parameter amplitude: Output amplitude
-    /// - parameter detuning: Frequency offset in Hz.
     /// - parameter pulseWidth: Duty cycle width (range 0-1).
+    /// - parameter detuningOffset: Frequency offset in Hz.
+    /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
         frequency: Double = 440,
         amplitude: Double = 1.0,
-        detuning: Double = 0,
-        pulseWidth: Double = 0.5) {
+        pulseWidth: Double = 0.5,
+        detuningOffset: Double = 0,
+        detuningMultiplier: Double = 1) {
 
 
         self.frequency = frequency
         self.amplitude = amplitude
-        self.detuning = detuning
         self.pulseWidth = pulseWidth
+        self.detuningOffset = detuningOffset
+        self.detuningMultiplier = detuningMultiplier
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -142,10 +162,11 @@ public class AKSquareWaveOscillator: AKVoice {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter  = tree.valueForKey("frequency")  as? AUParameter
-        amplitudeParameter  = tree.valueForKey("amplitude")  as? AUParameter
-        detuningParameter   = tree.valueForKey("detuning")   as? AUParameter
-        pulseWidthParameter = tree.valueForKey("pulseWidth") as? AUParameter
+        frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
+        amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
+        pulseWidthParameter         = tree.valueForKey("pulseWidth")         as? AUParameter
+        detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
+        detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -155,22 +176,25 @@ public class AKSquareWaveOscillator: AKVoice {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
-                } else if address == self.detuningParameter!.address {
-                    self.detuning = Double(value)
                 } else if address == self.pulseWidthParameter!.address {
                     self.pulseWidth = Double(value)
+                } else if address == self.detuningOffsetParameter!.address {
+                    self.detuningOffset = Double(value)
+                } else if address == self.detuningMultiplierParameter!.address {
+                    self.detuningMultiplier = Double(value)
                 }
             }
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
-        internalAU?.detuning = Float(detuning)
         internalAU?.pulseWidth = Float(pulseWidth)
+        internalAU?.detuningOffset = Float(detuningOffset)
+        internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
     public override func copy() -> AKVoice {
-        let copy = AKSquareWaveOscillator(frequency: self.frequency, amplitude: self.amplitude, detuning: self.detuning, pulseWidth: self.pulseWidth)
+        let copy = AKSquareWaveOscillator(frequency: self.frequency, amplitude: self.amplitude, pulseWidth: self.pulseWidth, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
         return copy
     }
 

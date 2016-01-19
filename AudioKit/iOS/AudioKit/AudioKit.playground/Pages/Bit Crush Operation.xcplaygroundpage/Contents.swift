@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## bitCrush
-//: ### This is an example of building a sound generator from scratch
+//: ## Bit Crush Operation
+//:
 import XCPlayground
 import AudioKit
 

@@ -3,8 +3,7 @@
 //: ---
 //:
 //: ## MultiDelay Example
-//: ### From the Swift Synth
-
+//: ### This is similar to the MultiDelay implemented in the SwiftSynth example project.
 import XCPlayground
 import AudioKit
 

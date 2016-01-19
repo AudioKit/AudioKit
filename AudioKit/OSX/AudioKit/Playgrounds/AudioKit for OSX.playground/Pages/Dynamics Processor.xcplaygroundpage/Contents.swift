@@ -32,9 +32,6 @@ dynamicsProcessor.expansionThreshold = 2 // rate
 dynamicsProcessor.attackTime = 0.001 // secs
 dynamicsProcessor.releaseTime = 0.05 // secs
 dynamicsProcessor.masterGain = 0 // dB
-dynamicsProcessor.compressionAmount = 0 // dB
-dynamicsProcessor.inputAmplitude = 0 // dB
-dynamicsProcessor.outputAmplitude = 0 // dB
 
 var dynamicsProcessorWindow = AKDynamicsProcessorWindow(dynamicsProcessor)
 

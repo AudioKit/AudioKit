@@ -4,9 +4,7 @@
 //:
 //: ## Plucked String
 //: ### Experimenting with a physical model of a string
-
 import AudioKit
-
 import XCPlayground
 
 let playRate = 2.0
@@ -22,7 +20,6 @@ delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 
-//: Connect the sampler to the main output
 audiokit.audioOutput = reverb
 audiokit.start()
 let scale = [0,2,4,5,7,9,11,12]

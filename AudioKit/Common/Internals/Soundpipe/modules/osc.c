@@ -58,11 +58,7 @@ int sp_osc_compute(sp_data *sp, sp_osc *osc, SPFLOAT *in, SPFLOAT *out)
     fract = ((phs) & ftp->lomask) * ftp->lodiv;
     ftab = ft + (phs >> lobits);
     v1 = ftab[0];
-    if(ftab[0] == osc->tbl->tbl[osc->tbl->size - 1]) {
-        v2 = osc->tbl->tbl[0];
-    } else {
-        v2 = ftab[1];
-    }
+    v2 = ftab[1];
     *out = (v1 + (v2 - v1) * fract) * amp;
     phs += osc->inc;
     phs &= SP_FT_PHMASK;

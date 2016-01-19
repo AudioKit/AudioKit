@@ -31,7 +31,7 @@ let momentaryPress = keyPressTone.triggeredWithEnvelope(
     AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
 
 let generator = AKOperationGenerator(
-    operation: momentaryPress * 0.4, triggered: true)
+    operation: momentaryPress * 0.4)
 
 audiokit.audioOutput = generator
 audiokit.start()

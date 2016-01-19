@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## FM Oscillator
-//: ### Generating audio
+//: 
 import XCPlayground
 import AudioKit
 
