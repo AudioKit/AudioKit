@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKLowPassFilter
+//: ## Low Pass Filter
 //: ### A low-pass filter takes an audio signal as an input, and cuts out the high-frequency components of the audio signal, allowing for the lower     frequency components to "pass through" the filter.
 import XCPlayground
 import AudioKit
@@ -19,9 +19,7 @@ var lowPassFilter = AKLowPassFilter(player)
 lowPassFilter.cutoffFrequency = 1000 // Hz
 lowPassFilter.resonance = 0 // dB
 
-let lp2 = AKLowPassFilter(lowPassFilter)
-
-audiokit.audioOutput = lp2
+audiokit.audioOutput = lowPassFilter
 audiokit.start()
 
 player.play()

@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## Another Example of Using Functions
-//: ### You can encapsualate functionality of operations into functions.
+//: ## Using Functions Part 2
+//:
 import XCPlayground
 import AudioKit
 

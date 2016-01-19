@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## Fattening Effect Playground
-//: ### Needed to test this for the keyboard project
+//: ## Fatten Effect
+//: ### This is a cool fattening effect that Matthew Flecher wanted for the Swift Synth project, so it was developed here in a playground first.
 import XCPlayground
 import AudioKit
 
@@ -15,7 +15,6 @@ let file = bundle.pathForResource("drumloop", ofType: "wav")
 //: Here we set up a player to the loop the file's playback
 var player = AKAudioPlayer(file!)
 player.looping = true
-
 
 //: Define parameters that will be required
 let input = AKStereoOperation.input

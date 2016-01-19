@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKTimePitch
-//: ### Add description
+//: ## Time Stretching and Pitch Shifting
+//: ### With AKTimePitch you can easily change the pitch and speed of a player-generated sound.  It does not work on live input or generated signals.
 import XCPlayground
 import AudioKit
 

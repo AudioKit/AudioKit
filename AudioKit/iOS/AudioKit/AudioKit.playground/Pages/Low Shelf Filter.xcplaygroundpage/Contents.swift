@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKLowShelfFilter
-//: ### Add description
+//: ## Low Shelf Filter
+//:
 import XCPlayground
 import AudioKit
 

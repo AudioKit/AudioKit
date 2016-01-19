@@ -1,5 +1,5 @@
 //
-//  AKSawtoothInstrument.swift
+//  AKPWMSynth.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -9,14 +9,25 @@
 import Foundation
 import AVFoundation
 
-/// A wrapper for AKSawtoothOscillator to make it a playable as a polyphonic instrument.
-public class AKSawtoothInstrument: AKPolyphonicInstrument {
+/// A wrapper for AKSquareOscillator to make it playable as a polyphonic instrument.
+public class AKPWMSynth: AKPolyphonicInstrument {
+    
+    /// Duty cycle width (range 0-1).
+    public var pulseWidth: Double = 0.5 {
+        didSet {
+            for voice in voices {
+                let squareVoice = voice as! AKSquareVoice
+                squareVoice.oscillator.pulseWidth = pulseWidth
+            }
+        }
+    }
+    
     /// Attack time
     public var attackDuration: Double = 0.1 {
         didSet {
             for voice in voices {
-                let sawtoothVoice = voice as! AKSawtoothVoice
-                sawtoothVoice.adsr.attackDuration = attackDuration
+                let squareVoice = voice as! AKSquareVoice
+                squareVoice.adsr.attackDuration = attackDuration
             }
         }
     }
@@ -24,8 +35,8 @@ public class AKSawtoothInstrument: AKPolyphonicInstrument {
     public var decayDuration: Double = 0.1 {
         didSet {
             for voice in voices {
-                let sawtoothVoice = voice as! AKSawtoothVoice
-                sawtoothVoice.adsr.decayDuration = decayDuration
+                let squareVoice = voice as! AKSquareVoice
+                squareVoice.adsr.decayDuration = decayDuration
             }
         }
     }
@@ -33,8 +44,8 @@ public class AKSawtoothInstrument: AKPolyphonicInstrument {
     public var sustainLevel: Double = 0.66 {
         didSet {
             for voice in voices {
-                let sawtoothVoice = voice as! AKSawtoothVoice
-                sawtoothVoice.adsr.sustainLevel = sustainLevel
+                let squareVoice = voice as! AKSquareVoice
+                squareVoice.adsr.sustainLevel = sustainLevel
             }
         }
     }
@@ -42,18 +53,18 @@ public class AKSawtoothInstrument: AKPolyphonicInstrument {
     public var releaseDuration: Double = 0.5 {
         didSet {
             for voice in voices {
-                let sawtoothVoice = voice as! AKSawtoothVoice
-                sawtoothVoice.adsr.releaseDuration = releaseDuration
+                let squareVoice = voice as! AKSquareVoice
+                squareVoice.adsr.releaseDuration = releaseDuration
             }
         }
     }
     
-    /// Instantiate the Sawtooth Instrument
+    /// Instantiate the Square Instrument
     ///
     /// - parameter voiceCount: Maximum number of voices that will be required
     ///
     public init(voiceCount: Int) {
-        super.init(voice: AKSawtoothVoice(), voiceCount: voiceCount)
+        super.init(voice: AKSquareVoice(), voiceCount: voiceCount)
     }
     
     /// Start playback of a particular voice with MIDI style note and velocity
@@ -65,10 +76,10 @@ public class AKSawtoothInstrument: AKPolyphonicInstrument {
     public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
-        let sawtoothVoice = voice as! AKSawtoothVoice
-        sawtoothVoice.oscillator.frequency = frequency
-        sawtoothVoice.oscillator.amplitude = amplitude
-        sawtoothVoice.start()
+        let squareVoice = voice as! AKSquareVoice
+        squareVoice.oscillator.frequency = frequency
+        squareVoice.oscillator.amplitude = amplitude
+        squareVoice.start()
     }
     
     /// Stop playback of a particular voice
@@ -77,18 +88,18 @@ public class AKSawtoothInstrument: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     ///
     public override func stopVoice(voice: AKVoice, note: Int) {
-        let sawtoothVoice = voice as! AKSawtoothVoice //you'll need to cast the voice to its original form
-        sawtoothVoice.stop()
+        let squareVoice = voice as! AKSquareVoice //you'll need to cast the voice to its original form
+        squareVoice.stop()
     }
 }
 
-internal class AKSawtoothVoice: AKVoice {
+internal class AKSquareVoice: AKVoice {
     
-    var oscillator: AKSawtoothOscillator
+    var oscillator: AKSquareWaveOscillator
     var adsr: AKAmplitudeEnvelope
     
     override init() {
-        oscillator = AKSawtoothOscillator()
+        oscillator = AKSquareWaveOscillator()
         adsr = AKAmplitudeEnvelope(oscillator,
             attackDuration: 0.2,
             decayDuration: 0.2,
@@ -101,7 +112,7 @@ internal class AKSawtoothVoice: AKVoice {
     
     /// Function create an identical new node for use in creating polyphonic instruments
     override func copy() -> AKVoice {
-        let copy = AKSawtoothVoice()
+        let copy = AKSquareVoice()
         return copy
     }
     

@@ -11,23 +11,43 @@ import AVFoundation
 
 /// Kick Drum Synthesizer Instrument
 public class AKSynthKick: AKPolyphonicInstrument {
+    
+    /// Create the synth kick instrument
+    /// 
+    /// - parameter voiceCount: Number of voices (usually two is plenty for drums)
+    ///
     public init(voiceCount: Int) {
         super.init(voice: AKSynthKickVoice(), voiceCount: voiceCount)
     }
+    
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
     override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         voice.start()
     }
+    
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
     override public func stopVoice(voice: AKVoice, note: Int) {
         
     }
 }
+
 /// Kick Drum Synthesizer Voice
-public class AKSynthKickVoice: AKVoice{
+internal class AKSynthKickVoice: AKVoice{
     var generator: AKOperationGenerator
     
     var filter: AKMoogLadder
     
-    override public init() {
+    /// Create the synth kick voice
+    override init() {
         
         let frequency = AKOperation.lineSegment(AKOperation.trigger, start: 120, end: 40, duration: 0.03)
         let volumeSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: 0.3)
@@ -44,50 +64,69 @@ public class AKSynthKickVoice: AKVoice{
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override public func copy() -> AKVoice {
+    override func copy() -> AKVoice {
         let copy = AKSynthKickVoice()
         return copy
     }
     
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    override var isStarted: Bool {
         return generator.isPlaying
     }
     
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    override func start() {
         generator.trigger()
     }
     
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    override func stop() {
         
     }
 }
 
 /// Snare Drum Synthesizer Instrument
 public class AKSynthSnare: AKPolyphonicInstrument {
+    
+    /// Create the synth snare instrument
+    ///
+    /// - parameter voiceCount: Number of voices (usually two is plenty for drums)
+    ///
     public init(voiceCount: Int, duration: Double = 0.143, resonance: Double = 0.9) {
         super.init(voice: AKSynthSnareVoice(duration: duration, resonance:resonance), voiceCount: voiceCount)
     }
+    
+    /// Start playback of a particular voice with MIDI style note and velocity
+    ///
+    /// - parameter voice: Voice to start
+    /// - parameter note: MIDI Note Number
+    /// - parameter velocity: MIDI Velocity (0-127)
+    ///
     override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let tempVoice = voice as! AKSynthSnareVoice
         tempVoice.cutoff = (Double(velocity)/127.0 * 1600.0) + 300.0
         voice.start()
     }
+    
+    /// Stop playback of a particular voice
+    ///
+    /// - parameter voice: Voice to stop
+    /// - parameter note: MIDI Note Number
+    ///
     override public func stopVoice(voice: AKVoice, note: Int) {
         
     }
 }
 
 /// Snare Drum Synthesizer Voice
-public class AKSynthSnareVoice: AKVoice{
+internal class AKSynthSnareVoice: AKVoice{
     
     var generator: AKOperationGenerator
     var filter: AKMoogLadder
     var duration = 0.143
     
-    public init(duration: Double = 0.143, resonance: Double = 0.9) {
+    /// Create the synth snare voice
+    init(duration: Double = 0.143, resonance: Double = 0.9) {
         self.duration = duration
         self.resonance = resonance
         
@@ -115,23 +154,23 @@ public class AKSynthSnareVoice: AKVoice{
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override public func copy() -> AKVoice {
+    override func copy() -> AKVoice {
         let copy = AKSynthSnareVoice(duration: duration, resonance: resonance)
         return copy
     }
     
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    override var isStarted: Bool {
         return generator.isPlaying
     }
     
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    override func start() {
         generator.trigger()
     }
     
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    override func stop() {
         
     }
 }

@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Sawtooth Wave Oscillator Operation
-//: ### This is an example of building a sound generator from scratch
+//: ### Maybe the most annoying sound ever. Sorry.
 import XCPlayground
 import AudioKit
 

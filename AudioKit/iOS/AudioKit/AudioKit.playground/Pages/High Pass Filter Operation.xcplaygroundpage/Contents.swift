@@ -2,9 +2,8 @@
 //:
 //: ---
 //:
-//: ## highPassFilter
-//: ### Just as you can create custom generators, you can also create custom effects. Here, we demonstrate how to make a high-pass filter.
-import XCPlayground
+//: ## High Pass Filter Operation
+//:
 import AudioKit
 
 let audiokit = AKManager.sharedInstance

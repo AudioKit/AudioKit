@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## lowPassFilter
-//: ### We'll show you how to make a low-pass filter, too...
+//: ## Low Pass Filter Operation
+//:
 import XCPlayground
 import AudioKit
 

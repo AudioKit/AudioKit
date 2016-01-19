@@ -29,6 +29,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
     
+    /// Inertia represents the speed at which parameters are allowed to change
     public var inertia: Double = 0.0002 {
         willSet(newValue){
             if(inertia != newValue){

@@ -1,5 +1,5 @@
 //
-//  AKNoiseInstrument.swift
+//  AKNoiseGenerator.swift
 //  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Noise generator that can be played polyphonically as a mix of pink and white noise
-public class AKNoiseInstrument: AKPolyphonicInstrument {
+public class AKNoiseGenerator: AKPolyphonicInstrument {
     
     /// Balance of white to pink noise
     public var whitePinkMix: Double = 0 {
