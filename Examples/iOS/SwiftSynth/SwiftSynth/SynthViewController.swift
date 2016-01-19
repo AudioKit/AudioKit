@@ -367,7 +367,7 @@ class SynthViewController: UIViewController {
     // Universal
     @IBAction func midiPanicPressed(sender: RoundedButton) {
         turnOffHeldKeys()
-        conductor.core.panic()
+        // conductor.core.panic()
         statusLabel.text = "All Notes Off"
     }
     
@@ -428,7 +428,6 @@ class SynthViewController: UIViewController {
         
         if holdMode && monoMode {
            toggleMonoKeyHeld(key)
-           redisplayHeldKeys()
         } else if holdMode && !monoMode {
             toggleKeyHeld(key)
             
@@ -476,6 +475,11 @@ class SynthViewController: UIViewController {
     }
     
     func redisplayHeldKeys() {
+        
+        guard !monoMode else {
+            turnOffHeldKeys()
+            return
+        }
         
         // Refresh keyboard
         updateAllKeysToUpPosition()
