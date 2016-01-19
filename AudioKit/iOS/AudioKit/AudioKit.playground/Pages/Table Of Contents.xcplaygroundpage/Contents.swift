@@ -4,6 +4,8 @@
 //:
 //: ## Getting Started
 //:
+//: Let's start off just making sure you're all set up and can make sound.
+//:
 //: * [Introduction and Hello World](Introduction%20and%20Hello%20World)
 //:
 //: ## This is going to be fun...

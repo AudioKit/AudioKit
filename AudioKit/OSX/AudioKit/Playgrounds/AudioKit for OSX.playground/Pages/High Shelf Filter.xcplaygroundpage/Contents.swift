@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKHighShelfFilter
-//: ### Add description
+//: ## High Shelf Filter
+//:
 import XCPlayground
 import AudioKit
 

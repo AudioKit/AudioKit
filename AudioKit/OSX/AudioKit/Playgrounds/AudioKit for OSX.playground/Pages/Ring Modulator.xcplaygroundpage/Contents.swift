@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKRingModulator
-//: ### Add description
+//: ## Ring Modulator
+//:
 import XCPlayground
 import AudioKit
 
