@@ -13,7 +13,7 @@ The third major revision of AudioKit has been completely rewritten to offer the 
 * Can use opcodes from Faust, Chuck, STK, Csound, and others
 * Many included Xcode Swift playgrounds
 
-and quite a bit more. There are things that version 2 had that are not yet part of version 3, so you should compare and contrast your options at http://audiokit.io/v3/
+and quite a bit more. There are things that version 2 had that are not yet part of version 3, but rather than trying to support version 2, let us know what you need to do, and we'll port it over to version 3 upon request.
 
 ## Key Concepts
 
@@ -25,7 +25,7 @@ Operations are similar to nodes, except that they are a series of signal process
 
 ## Installation
 
-Installation can be achieved in the usual ways for a framewok.  You can drag AudioKit.framework from the AudioKit project from whatever OS you are targeting into your project.  Alternatively, you can drag the AudioKit project file into your project and then when you build your project, Xcode will autotomatically build AudioKit for you.  You need to add the AudioKit framework to the Build Phases "Link Bundle with Binaries" section.
+Installation can be achieved in the usual ways for a framework.  This is explained in more detail in the INSTALL.md file in the Frameworks directory.
 
 Installation with CocoaPods and Carthage is also planned but may not come with the first release.
 

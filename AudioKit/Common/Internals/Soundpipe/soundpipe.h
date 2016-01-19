@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 #ifndef NO_LIBSNDFILE
-//#include "sndfile.h"
-#endif
+#include "sndfile.h"
+#endif 
 
 #define SP_BUFSIZE 4096
 #ifndef SPFLOAT
@@ -506,14 +506,15 @@ int sp_eqfil_destroy(sp_eqfil **p);
 int sp_eqfil_init(sp_data *sp, sp_eqfil *p);
 int sp_eqfil_compute(sp_data *sp, sp_eqfil *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
-    SPFLOAT ia, idur, ib;
+    SPFLOAT a, dur, b;
     SPFLOAT val, incr; 
     uint32_t sdur, stime;
+    int init;
 } sp_expon;
 
 int sp_expon_create(sp_expon **p);
 int sp_expon_destroy(sp_expon **p);
-int sp_expon_init(sp_data *sp, sp_expon *p, SPFLOAT ia, SPFLOAT idur, SPFLOAT ib);
+int sp_expon_init(sp_data *sp, sp_expon *p);
 int sp_expon_compute(sp_data *sp, sp_expon *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct{
     SPFLOAT freq, atk, dec, istor;
@@ -588,14 +589,15 @@ int sp_jitter_destroy(sp_jitter **p);
 int sp_jitter_init(sp_data *sp, sp_jitter *p);
 int sp_jitter_compute(sp_data *sp, sp_jitter *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
-    SPFLOAT ia, idur, ib;
+    SPFLOAT a, dur, b;
     SPFLOAT val, incr; 
     uint32_t sdur, stime;
+    int init;
 } sp_line;
 
 int sp_line_create(sp_line **p);
 int sp_line_destroy(sp_line **p);
-int sp_line_init(sp_data *sp, sp_line *p, SPFLOAT ia, SPFLOAT idur, SPFLOAT ib);
+int sp_line_init(sp_data *sp, sp_line *p);
 int sp_line_compute(sp_data *sp, sp_line *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct sp_lpf18{
     SPFLOAT cutoff, res, dist;
@@ -691,6 +693,19 @@ int sp_osc_create(sp_osc **osc);
 int sp_osc_destroy(sp_osc **osc);
 int sp_osc_init(sp_data *sp, sp_osc *osc, sp_ftbl *ft, SPFLOAT iphs);
 int sp_osc_compute(sp_data *sp, sp_osc *osc, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    SPFLOAT freq, amp, iphs;
+    int32_t lphs;
+    sp_ftbl **tbl;
+    int inc;
+    SPFLOAT wtpos;
+    int nft;
+} sp_oscmorph;
+
+int sp_oscmorph_create(sp_oscmorph **p);
+int sp_oscmorph_destroy(sp_oscmorph **p);
+int sp_oscmorph_init(sp_data *sp, sp_oscmorph *osc, sp_ftbl **ft, int nft, SPFLOAT iphs);
+int sp_oscmorph_compute(sp_data *sp, sp_oscmorph *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT pan;
     uint32_t type;

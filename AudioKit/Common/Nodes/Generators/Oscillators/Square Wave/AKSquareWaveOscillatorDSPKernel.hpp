@@ -19,8 +19,9 @@ extern "C" {
 enum {
     frequencyAddress = 0,
     amplitudeAddress = 1,
-    detuningAddress = 2,
-    pulseWidthAddress = 3
+    pulseWidthAddress = 2,
+    detuningOffsetAddress = 3,
+    detuningMultiplierAddress = 4
 };
 
 class AKSquareWaveOscillatorDSPKernel : public AKDSPKernel {
@@ -69,14 +70,19 @@ public:
         amplitudeRamper.set(clamp(amp, (float)0, (float)10));
     }
 
-    void setDetuning(float detune) {
-        detuning = detune;
-        detuningRamper.set(clamp(detune, (float)-1000, (float)1000));
-    }
-
     void setPulsewidth(float width) {
         pulseWidth = width;
         pulseWidthRamper.set(clamp(width, (float)0, (float)1));
+    }
+
+    void setDetuningOffset(float detuneOffset) {
+        detuningOffset = detuneOffset;
+        detuningOffsetRamper.set(clamp(detuneOffset, (float)-1000, (float)1000));
+    }
+
+    void setDetuningMultiplier(float detuneScale) {
+        detuningMultiplier = detuneScale;
+        detuningMultiplierRamper.set(clamp(detuneScale, (float)0.9, (float)1.11));
     }
 
 
@@ -90,12 +96,16 @@ public:
                 amplitudeRamper.set(clamp(value, (float)0, (float)10));
                 break;
 
-            case detuningAddress:
-                detuningRamper.set(clamp(value, (float)-1000, (float)1000));
-                break;
-
             case pulseWidthAddress:
                 pulseWidthRamper.set(clamp(value, (float)0, (float)1));
+                break;
+
+            case detuningOffsetAddress:
+                detuningOffsetRamper.set(clamp(value, (float)-1000, (float)1000));
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.set(clamp(value, (float)0.9, (float)1.11));
                 break;
 
         }
@@ -109,11 +119,14 @@ public:
             case amplitudeAddress:
                 return amplitudeRamper.goal();
 
-            case detuningAddress:
-                return detuningRamper.goal();
-
             case pulseWidthAddress:
                 return pulseWidthRamper.goal();
+
+            case detuningOffsetAddress:
+                return detuningOffsetRamper.goal();
+
+            case detuningMultiplierAddress:
+                return detuningMultiplierRamper.goal();
 
             default: return 0.0f;
         }
@@ -129,12 +142,16 @@ public:
                 amplitudeRamper.startRamp(clamp(value, (float)0, (float)10), duration);
                 break;
 
-            case detuningAddress:
-                detuningRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
-                break;
-
             case pulseWidthAddress:
                 pulseWidthRamper.startRamp(clamp(value, (float)0, (float)1), duration);
+                break;
+
+            case detuningOffsetAddress:
+                detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.startRamp(clamp(value, (float)0.9, (float)1.11), duration);
                 break;
 
         }
@@ -151,10 +168,11 @@ public:
 
             frequency = double(frequencyRamper.getStep());
             amplitude = double(amplitudeRamper.getStep());
-            detuning = double(detuningRamper.getStep());
             pulseWidth = double(pulseWidthRamper.getStep());
+            detuningOffset = double(detuningOffsetRamper.getStep());
+            detuningMultiplier = double(detuningMultiplierRamper.getStep());
 
-            *blsquare->freq = frequency + detuning;
+            *blsquare->freq = frequency * detuningMultiplier + detuningOffset;
             *blsquare->amp = amplitude;
             *blsquare->width = pulseWidth;
 
@@ -188,15 +206,17 @@ private:
 
     float frequency = 440;
     float amplitude = 1.0;
-    float detuning = 0;
     float pulseWidth = 0.5;
+    float detuningOffset = 0;
+    float detuningMultiplier = 1;
 
 public:
     bool started = false;
     AKParameterRamper frequencyRamper = 440;
     AKParameterRamper amplitudeRamper = 1.0;
-    AKParameterRamper detuningRamper = 0;
     AKParameterRamper pulseWidthRamper = 0.5;
+    AKParameterRamper detuningOffsetRamper = 0;
+    AKParameterRamper detuningMultiplierRamper = 1;
 };
 
 #endif /* AKSquareWaveOscillatorDSPKernel_hpp */

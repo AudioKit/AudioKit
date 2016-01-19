@@ -19,7 +19,8 @@ extern "C" {
 enum {
     frequencyAddress = 0,
     amplitudeAddress = 1,
-    detuningAddress = 2
+    detuningOffsetAddress = 2,
+    detuningMultiplierAddress = 3
 };
 
 class AKOscillatorDSPKernel : public AKDSPKernel {
@@ -75,9 +76,14 @@ public:
         amplitudeRamper.set(clamp(amp, (float)0, (float)10));
     }
 
-    void setDetuning(float detune) {
-        detuning = detune;
-        detuningRamper.set(clamp(detune, (float)-1000, (float)1000));
+    void setDetuningOffset(float detuneOffset) {
+        detuningOffset = detuneOffset;
+        detuningOffsetRamper.set(clamp(detuneOffset, (float)-1000, (float)1000));
+    }
+
+    void setDetuningMultiplier(float detuneScale) {
+        detuningMultiplier = detuneScale;
+        detuningMultiplierRamper.set(clamp(detuneScale, (float)0.9, (float)1.11));
     }
 
 
@@ -91,8 +97,12 @@ public:
                 amplitudeRamper.set(clamp(value, (float)0, (float)10));
                 break;
 
-            case detuningAddress:
-                detuningRamper.set(clamp(value, (float)-1000, (float)1000));
+            case detuningOffsetAddress:
+                detuningOffsetRamper.set(clamp(value, (float)-1000, (float)1000));
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.set(clamp(value, (float)0.9, (float)1.11));
                 break;
 
         }
@@ -106,8 +116,11 @@ public:
             case amplitudeAddress:
                 return amplitudeRamper.goal();
 
-            case detuningAddress:
-                return detuningRamper.goal();
+            case detuningOffsetAddress:
+                return detuningOffsetRamper.goal();
+
+            case detuningMultiplierAddress:
+                return detuningMultiplierRamper.goal();
 
             default: return 0.0f;
         }
@@ -123,8 +136,12 @@ public:
                 amplitudeRamper.startRamp(clamp(value, (float)0, (float)10), duration);
                 break;
 
-            case detuningAddress:
-                detuningRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+            case detuningOffsetAddress:
+                detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                break;
+
+            case detuningMultiplierAddress:
+                detuningMultiplierRamper.startRamp(clamp(value, (float)0.9, (float)1.11), duration);
                 break;
 
         }
@@ -141,9 +158,10 @@ public:
 
             frequency = double(frequencyRamper.getStep());
             amplitude = double(amplitudeRamper.getStep());
-            detuning = double(detuningRamper.getStep());
+            detuningOffset = double(detuningOffsetRamper.getStep());
+            detuningMultiplier = double(detuningMultiplierRamper.getStep());
 
-            osc->freq = frequency + detuning;
+            osc->freq = frequency * detuningMultiplier + detuningOffset;
             osc->amp = amplitude;
 
             float temp = 0;
@@ -178,13 +196,15 @@ private:
 
     float frequency = 440;
     float amplitude = 1;
-    float detuning = 0;
+    float detuningOffset = 0;
+    float detuningMultiplier = 1;
 
 public:
     bool started = false;
     AKParameterRamper frequencyRamper = 440;
     AKParameterRamper amplitudeRamper = 1;
-    AKParameterRamper detuningRamper = 0;
+    AKParameterRamper detuningOffsetRamper = 0;
+    AKParameterRamper detuningMultiplierRamper = 1;
 };
 
 #endif /* AKOscillatorDSPKernel_hpp */

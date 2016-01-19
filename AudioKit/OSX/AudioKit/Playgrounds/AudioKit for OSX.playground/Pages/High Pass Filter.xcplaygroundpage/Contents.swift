@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKHighPassFilter
-//: ### Add description
+//: ## High Pass Filter
+//: ### A high-pass filter takes an audio signal as an input, and cuts out the low-frequency components of the audio signal, allowing for the higher frequency components to "pass through" the filter.
 import XCPlayground
 import AudioKit
 

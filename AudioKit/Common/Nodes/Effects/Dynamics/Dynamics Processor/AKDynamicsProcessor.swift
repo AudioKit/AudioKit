@@ -18,9 +18,9 @@ import AVFoundation
 /// - parameter attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
 /// - parameter releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
 /// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
-/// - parameter compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0)
-/// - parameter inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
-/// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
+/// - parameter compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0) (read only)
+/// - parameter inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
+/// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
 ///
 public class AKDynamicsProcessor: AKNode, AKToggleable {
 
@@ -35,6 +35,10 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
     internal var internalAU = AudioUnit()
 
     private var mixer: AKMixer
+    
+    private var internalCompressionAmount:AudioUnitParameterValue = 0.0
+    private var internalInputAmplitude:AudioUnitParameterValue = 0.0
+    private var internalOutputAmplitude:AudioUnitParameterValue = 0.0
 
     /// Threshold (dB) ranges from -40 to 20 (Default: -20)
     public var threshold: Double = -20 {
@@ -154,56 +158,23 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
                 Float(masterGain), 0)
         }
     }
-
-    /// Compression Amount (dB) ranges from -40 to 40 (Default: 0)
-    public var compressionAmount: Double = 0 {
-        didSet {
-            if compressionAmount < -40 {
-                compressionAmount = -40
-            }            
-            if compressionAmount > 40 {
-                compressionAmount = 40
-            }
-            AudioUnitSetParameter(
-                internalAU,
-                kDynamicsProcessorParam_CompressionAmount,
-                kAudioUnitScope_Global, 0,
-                Float(compressionAmount), 0)
-        }
+    
+    /// Compression Amount (dB) read only
+    public var compressionAmount: Double {
+        AudioUnitGetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalCompressionAmount)
+        return Double(internalCompressionAmount)
     }
-
-    /// Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
-    public var inputAmplitude: Double = 0 {
-        didSet {
-            if inputAmplitude < -40 {
-                inputAmplitude = -40
-            }            
-            if inputAmplitude > 40 {
-                inputAmplitude = 40
-            }
-            AudioUnitSetParameter(
-                internalAU,
-                kDynamicsProcessorParam_InputAmplitude,
-                kAudioUnitScope_Global, 0,
-                Float(inputAmplitude), 0)
-        }
+    
+    /// Input Amplitude (dB) read only
+    public var inputAmplitude:Double {
+        AudioUnitGetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalInputAmplitude)
+        return Double(internalInputAmplitude)
     }
-
-    /// Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
-    public var outputAmplitude: Double = 0 {
-        didSet {
-            if outputAmplitude < -40 {
-                outputAmplitude = -40
-            }            
-            if outputAmplitude > 40 {
-                outputAmplitude = 40
-            }
-            AudioUnitSetParameter(
-                internalAU,
-                kDynamicsProcessorParam_OutputAmplitude,
-                kAudioUnitScope_Global, 0,
-                Float(outputAmplitude), 0)
-        }
+    
+    /// Output Amplitude (dB) read only
+    public var outputAmplitude: Double {
+        AudioUnitGetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalOutputAmplitude)
+        return Double(internalOutputAmplitude)
     }
 
     /// Dry/Wet Mix (Default 100)
@@ -261,9 +232,6 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
             self.attackTime = attackTime
             self.releaseTime = releaseTime
             self.masterGain = masterGain
-            self.compressionAmount = compressionAmount
-            self.inputAmplitude = inputAmplitude
-            self.outputAmplitude = outputAmplitude
 
             inputGain = AKMixer(input)
             inputGain!.volume = 0
@@ -288,9 +256,6 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime, kAudioUnitScope_Global, 0, Float(releaseTime), 0)
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain, kAudioUnitScope_Global, 0, Float(masterGain), 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0, Float(compressionAmount), 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_InputAmplitude, kAudioUnitScope_Global, 0, Float(inputAmplitude), 0)
-            AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_OutputAmplitude, kAudioUnitScope_Global, 0, Float(outputAmplitude), 0)
     }
 
     /// Function to start, play, or activate the node, all do the same thing

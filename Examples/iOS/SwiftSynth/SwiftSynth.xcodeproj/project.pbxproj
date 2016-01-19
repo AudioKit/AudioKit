@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		940D15131C49A9E200C88CA6 /* SynthVC+UIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */; };
 		940D15171C49AC5400C88CA6 /* WaveformSegmentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */; };
+		941771121C4C908000855BDA /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941771111C4C908000855BDA /* CGFloat+Extensions.swift */; };
 		94453BC31C4499BD00608231 /* String+RandomGreeting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94453BC21C4499BD00608231 /* String+RandomGreeting.swift */; };
 		949B1C481C431E5400BFFA10 /* Knob+Touches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */; };
 		949B1C491C431E5400BFFA10 /* Knob.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2C1C431E5400BFFA10 /* Knob.swift */; };
@@ -17,7 +18,6 @@
 		949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */; };
 		949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C301C431E5400BFFA10 /* RoundedButton.swift */; };
 		949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */; };
-		949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C331C431E5400BFFA10 /* Float+Extensions.swift */; };
 		949B1C501C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */; };
 		949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */; };
 		949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */; };
@@ -25,6 +25,8 @@
 		949B1C541C431E5400BFFA10 /* SMSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C391C431E5400BFFA10 /* SMSegment.swift */; };
 		949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C3A1C431E5400BFFA10 /* SMSegmentView.swift */; };
 		949B1C561C431E5400BFFA10 /* SynthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */; };
+		94B009E71C4B61BD000CF18E /* SynthVC+NoteNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B009E61C4B61BD000CF18E /* SynthVC+NoteNames.swift */; };
+		94C8EC781C4C1C7600AAA604 /* SynthVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */; };
 		94FBB47E1C4483AE00E14C86 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */; };
 		94FBB4821C44868000E14C86 /* VerticalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4811C44868000E14C86 /* VerticalSlider.swift */; };
 		94FBB4841C4487D000E14C86 /* VerticalSliderStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */; };
@@ -91,6 +93,7 @@
 /* Begin PBXFileReference section */
 		940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+UIHelpers.swift"; sourceTree = "<group>"; };
 		940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformSegmentedView.swift; sourceTree = "<group>"; };
+		941771111C4C908000855BDA /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		94453BC21C4499BD00608231 /* String+RandomGreeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RandomGreeting.swift"; sourceTree = "<group>"; };
 		949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Knob+Touches.swift"; sourceTree = "<group>"; };
 		949B1C2C1C431E5400BFFA10 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
@@ -99,7 +102,6 @@
 		949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobSmall.swift; sourceTree = "<group>"; };
 		949B1C301C431E5400BFFA10 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthStyleKit.swift; sourceTree = "<group>"; };
-		949B1C331C431E5400BFFA10 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
 		949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WaveformSegmentedView+Extensions.swift"; path = "../Extensions/WaveformSegmentedView+Extensions.swift"; sourceTree = "<group>"; };
 		949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMAlphaImageSegment.swift; sourceTree = "<group>"; };
 		949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMBasicSegment.swift; sourceTree = "<group>"; };
@@ -107,6 +109,8 @@
 		949B1C391C431E5400BFFA10 /* SMSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSegment.swift; sourceTree = "<group>"; };
 		949B1C3A1C431E5400BFFA10 /* SMSegmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSegmentView.swift; sourceTree = "<group>"; };
 		949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthViewController.swift; sourceTree = "<group>"; };
+		94B009E61C4B61BD000CF18E /* SynthVC+NoteNames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+NoteNames.swift"; sourceTree = "<group>"; };
+		94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+Delegates.swift"; sourceTree = "<group>"; };
 		94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		94FBB4811C44868000E14C86 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
 		94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSliderStyles.swift; sourceTree = "<group>"; };
@@ -139,17 +143,10 @@
 		949B1C1D1C431E5400BFFA10 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
-				949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */,
-				949B1C2C1C431E5400BFFA10 /* Knob.swift */,
-				949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */,
-				949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */,
-				949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */,
-				949B1C301C431E5400BFFA10 /* RoundedButton.swift */,
-				949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */,
-				94FBB4811C44868000E14C86 /* VerticalSlider.swift */,
-				94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */,
-				940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */,
-				949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */,
+				94B798961C4AA7E70020727B /* Buttons */,
+				94B798931C4AA6F90020727B /* Knobs */,
+				94B798951C4AA73D0020727B /* Segments */,
+				94B798941C4AA72F0020727B /* Sliders */,
 			);
 			path = CustomControls;
 			sourceTree = "<group>";
@@ -157,8 +154,8 @@
 		949B1C321C431E5400BFFA10 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				941771111C4C908000855BDA /* CGFloat+Extensions.swift */,
 				94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */,
-				949B1C331C431E5400BFFA10 /* Float+Extensions.swift */,
 				94453BC21C4499BD00608231 /* String+RandomGreeting.swift */,
 			);
 			path = Extensions;
@@ -176,13 +173,72 @@
 			path = SMSegmentView;
 			sourceTree = "<group>";
 		};
-		949B1C571C431E5B00BFFA10 /* SynthViewController */ = {
+		949B1C571C431E5B00BFFA10 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				949B1C3B1C431E5400BFFA10 /* SynthViewController.swift */,
+				94B009E81C4B61EB000CF18E /* Helpers */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		94B009E81C4B61EB000CF18E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */,
+				94B009E61C4B61BD000CF18E /* SynthVC+NoteNames.swift */,
 				940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */,
 			);
-			name = SynthViewController;
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		94B798911C4AA6B30020727B /* AudioProcessors */ = {
+			isa = PBXGroup;
+			children = (
+				C4E8ED2C1C43B2540041965F /* Fatten.swift */,
+				C4E8ED281C43ADA10041965F /* FilterSection.swift */,
+				C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */,
+			);
+			name = AudioProcessors;
+			sourceTree = "<group>";
+		};
+		94B798931C4AA6F90020727B /* Knobs */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C2C1C431E5400BFFA10 /* Knob.swift */,
+				949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */,
+				949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */,
+				949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */,
+				949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */,
+				949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */,
+			);
+			name = Knobs;
+			sourceTree = "<group>";
+		};
+		94B798941C4AA72F0020727B /* Sliders */ = {
+			isa = PBXGroup;
+			children = (
+				94FBB4811C44868000E14C86 /* VerticalSlider.swift */,
+				94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */,
+			);
+			name = Sliders;
+			sourceTree = "<group>";
+		};
+		94B798951C4AA73D0020727B /* Segments */ = {
+			isa = PBXGroup;
+			children = (
+				940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */,
+				949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */,
+			);
+			name = Segments;
+			sourceTree = "<group>";
+		};
+		94B798961C4AA7E70020727B /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				949B1C301C431E5400BFFA10 /* RoundedButton.swift */,
+			);
+			name = Buttons;
 			sourceTree = "<group>";
 		};
 		94F234F01C43FC0200072159 /* Libraries */ = {
@@ -225,8 +281,9 @@
 			isa = PBXGroup;
 			children = (
 				C4E8ED251C43AD650041965F /* AudioSystem */,
+				94B798911C4AA6B30020727B /* AudioProcessors */,
 				949B1C1D1C431E5400BFFA10 /* CustomControls */,
-				949B1C571C431E5B00BFFA10 /* SynthViewController */,
+				949B1C571C431E5B00BFFA10 /* ViewControllers */,
 				C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */,
 				C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */,
 				94FBB4851C44886000E14C86 /* Supporting Files */,
@@ -250,9 +307,6 @@
 				C4E8ED211C43AA8E0041965F /* Conductor.swift */,
 				C4B5B8161C4769AF00CE0168 /* CoreInstrument.swift */,
 				C4B5B8181C476A2100CE0168 /* CoreVoice.swift */,
-				C4E8ED2C1C43B2540041965F /* Fatten.swift */,
-				C4E8ED281C43ADA10041965F /* FilterSection.swift */,
-				C4E8ED2A1C43B04A0041965F /* MultiDelay.swift */,
 			);
 			name = AudioSystem;
 			sourceTree = "<group>";
@@ -300,6 +354,7 @@
 				TargetAttributes = {
 					C42FFBF51C3DDAAC00823BD4 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = W22K9JG3J6;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -366,7 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				949B1C4F1C431E5400BFFA10 /* Float+Extensions.swift in Sources */,
+				94C8EC781C4C1C7600AAA604 /* SynthVC+Delegates.swift in Sources */,
 				C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */,
 				949B1C531C431E5400BFFA10 /* SMBasicSegmentView.swift in Sources */,
 				C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */,
@@ -382,6 +437,7 @@
 				C4B5B8171C4769AF00CE0168 /* CoreInstrument.swift in Sources */,
 				949B1C491C431E5400BFFA10 /* Knob.swift in Sources */,
 				C4B5B8191C476A2100CE0168 /* CoreVoice.swift in Sources */,
+				941771121C4C908000855BDA /* CGFloat+Extensions.swift in Sources */,
 				949B1C551C431E5400BFFA10 /* SMSegmentView.swift in Sources */,
 				940D15131C49A9E200C88CA6 /* SynthVC+UIHelpers.swift in Sources */,
 				940D15171C49AC5400C88CA6 /* WaveformSegmentedView.swift in Sources */,
@@ -393,6 +449,7 @@
 				94FBB4821C44868000E14C86 /* VerticalSlider.swift in Sources */,
 				94FBB47E1C4483AE00E14C86 /* Double+Extensions.swift in Sources */,
 				94FBB4841C4487D000E14C86 /* VerticalSliderStyles.swift in Sources */,
+				94B009E71C4B61BD000CF18E /* SynthVC+NoteNames.swift in Sources */,
 				949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,10 +564,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SwiftSynth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SwiftSynth;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -521,10 +579,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = SwiftSynth/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SwiftSynth;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
 			};

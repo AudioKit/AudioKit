@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKOperationEffect
-//: ### You can also create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth). We'll show you how to do that for an effect node below...
+//: ## Sporth Based Effect
+//: ### You can also create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth). This is an example of an effect written in Sporth.
 import XCPlayground
 import AudioKit
 
@@ -16,9 +16,9 @@ var player = AKAudioPlayer(file!)
 player.looping = true
 
 let input  = AKStereoOperation.input
-let zitarev_example = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
+let sporth = "\(input) 15 200 7.0 8.0 10000 315 0 1500 0 1 0 zitarev"
 
-let effect = AKOperationEffect(player, sporth: zitarev_example)
+let effect = AKOperationEffect(player, sporth: sporth)
 
 audiokit.audioOutput = effect
 audiokit.start()

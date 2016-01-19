@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## lowPassFilter
-//: ### We'll show you how to make a low-pass filter, too...
+//: ## Low Pass Filter Operation
+//:
 import XCPlayground
 import AudioKit
 
@@ -35,4 +35,4 @@ player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

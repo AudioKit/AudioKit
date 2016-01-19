@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKCombFilterReverb
-//: ### Write description
+//: ## Comb Filter Reverb
+//: 
 import XCPlayground
 import AudioKit
 
@@ -24,4 +24,5 @@ player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [N
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+

@@ -7,10 +7,7 @@
 //
 
 import UIKit
-
-// TODO:
-// * Appropriate scales for Knobs
-// * Set sensible initial preset
+import AudioKit
 
 class SynthViewController: UIViewController {
     
@@ -36,8 +33,8 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var subMixKnob: KnobSmall!
     @IBOutlet weak var fmMixKnob: KnobSmall!
     @IBOutlet weak var fmModKnob: KnobSmall!
-    @IBOutlet weak var pwmKnob: KnobSmall!
     @IBOutlet weak var noiseMixKnob: KnobSmall!
+    @IBOutlet weak var morphKnob: KnobSmall!
     @IBOutlet weak var masterVolKnob: KnobSmall!
     @IBOutlet weak var attackSlider: VerticalSlider!
     @IBOutlet weak var decaySlider: VerticalSlider!
@@ -52,6 +49,8 @@ class SynthViewController: UIViewController {
     @IBOutlet weak var fattenToggle: UIButton!
     @IBOutlet weak var holdToggle: UIButton!
     @IBOutlet weak var monoToggle: UIButton!
+    @IBOutlet weak var audioPlot: AKOutputWaveformPlot!
+    @IBOutlet weak var plotToggle: UIButton!
     
     enum ControlTag: Int {
         case Cutoff = 101
@@ -66,7 +65,7 @@ class SynthViewController: UIViewController {
         case FmMix = 110
         case FmMod = 111
         case LfoWaveform = 112
-        case Pwm = 113
+        case Morph = 113
         case NoiseMix = 114
         case LfoAmt = 115
         case LfoRate = 116
@@ -86,7 +85,7 @@ class SynthViewController: UIViewController {
     var lastKey: UIButton?
     var monoMode: Bool = false
     var holdMode: Bool = false
-    var keysHeld = [UIButton]()
+    var midiNotesHeld = [Int]()
     let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
     
     var conductor = Conductor.sharedInstance
@@ -104,8 +103,11 @@ class SynthViewController: UIViewController {
         // Set Delegates
         setDelegates()
         
-        // Set Default Control Values
+        // Set Preset Control Values
         setDefaultValues()
+        
+        // Greeting
+        statusLabel.text = String.randomGreeting()
     }
     
     // *********************************************************
@@ -113,64 +115,115 @@ class SynthViewController: UIViewController {
     // *********************************************************
     
     func setDefaultValues() {
+
+        // Set Preset Values
+        conductor.masterVolume.volume = 25.0 // Master Volume
+        conductor.core.offset1 = 0 // VCO1 Semitones
+        conductor.core.offset2 = 0 // VCO2 Semitones
+        conductor.core.detune = 0.0 // VCO2 Detune (Hz)
+        conductor.core.vcoBalance = 0.5 // VCO1/VCO2 Mix
+        conductor.core.subOscMix = 0.0 // SubOsc Mix
+        conductor.core.fmOscMix = 0.0 // FM Mix
+        conductor.core.fmMod = 0.0 // FM Modulation Amt
+        conductor.core.morph = 0.0 // Morphing between waveforms
+        conductor.core.noiseMix = 0.0 // Noise Mix
+        conductor.filterSection.lfoAmplitude = 0.0 // LFO Amp (Hz)
+        conductor.filterSection.lfoRate = 1.4 // LFO Rate
+        conductor.filterSection.resonance = 0.5 // Filter Q/Rez
+        conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
+        conductor.multiDelay.time = 0.5 // Delay (seconds)
+        conductor.multiDelay.mix = 0.5 // Dry/Wet
+        conductor.reverb.feedback = 0.88 // Amt
+        conductor.reverbMixer.balance = 0.4 // Dry/Wet
+        cutoffKnob.value = 0.36 // Cutoff Knob Position
         
-        // Greeting
-        statusLabel.text = String.randomGreeting()
+        // ADSR
+        conductor.core.attackDuration = 0.1
+        conductor.core.decayDuration = 0.1
+        conductor.core.sustainLevel = 0.66
+        conductor.core.releaseDuration = 0.5
         
-        // Initial Knob Values
-        osc1SemitonesKnob.value = 0
-        osc1SemitonesKnob.minimum = -12
-        osc1SemitonesKnob.maximum = 12
-
-        osc2SemitonesKnob.value = 0
-        osc2SemitonesKnob.minimum = -12
-        osc2SemitonesKnob.maximum = 12
-
-        osc2DetuneKnob.value = 0
-        osc2DetuneKnob.minimum = -20
-        osc2DetuneKnob.maximum = 20
+        // Update Knob & Slider UI Values
+        setupKnobValues()
+        setupSliderValues()
         
-        subMixKnob.value = 0
-        subMixKnob.maximum = 5
-        print("fdsa \(subMixKnob.knobValue)")
+        // Update Toggle Presets
+        displayModeToggled(plotToggle)
 
-        fmMixKnob.value = 0
-        fmMixKnob.maximum = 2
-
-        fmModKnob.value = 0
-
-        pwmKnob.value = 0.5
-        pwmKnob.minimum = 0.5
-
-        noiseMixKnob.value = 0
-
-        oscMixKnob.value = 0.5
-
-        lfoAmtKnob.value = 0
-        lfoAmtKnob.maximum = 1000
-
-        lfoRateKnob.value = 0
-        lfoRateKnob.maximum = 5
-
-        crushAmtKnob.value = 0
-        crushAmtKnob.maximum = 0.8
-        
-        cutoffKnob.value = 0
-
-        rezKnob.value = 0
-        rezKnob.maximum = 0.99
-
-        delayTimeKnob.value = 0
-        delayMixKnob.value = 0
-
-        reverbAmtKnob.value = 0
-        reverbMixKnob.value = 0
-        
-        // Initial toggle switch settings
         vco1Toggled(vco1Toggle)
         vco2Toggled(vco2Toggle)
-        reverbToggled(reverbToggle)
         filterToggled(filterToggle)
+        delayToggled(delayToggle)
+        reverbToggled(reverbToggle)
+    }
+    
+    func setupKnobValues() {
+        osc1SemitonesKnob.minimum = -12
+        osc1SemitonesKnob.maximum = 12
+        osc1SemitonesKnob.value = Double(conductor.core.offset1)
+        
+        osc2SemitonesKnob.minimum = -12
+        osc2SemitonesKnob.maximum = 12
+        osc2SemitonesKnob.value = Double(conductor.core.offset2)
+        
+        osc2DetuneKnob.minimum = -4
+        osc2DetuneKnob.maximum = 4
+        osc2DetuneKnob.value = conductor.core.detune
+        
+        subMixKnob.maximum = 4.5
+        subMixKnob.value = conductor.core.subOscMix
+        
+        fmMixKnob.maximum = 1.25
+        fmMixKnob.value = conductor.core.fmOscMix
+        
+        fmModKnob.maximum = 15
+
+        morphKnob.minimum = -0.99
+        morphKnob.maximum = 0.99
+        morphKnob.value = conductor.core.morph
+
+        noiseMixKnob.value = conductor.core.noiseMix
+
+        oscMixKnob.value = conductor.core.vcoBalance
+
+        lfoAmtKnob.maximum = 1200
+        lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
+        
+        lfoRateKnob.maximum = 5
+        lfoRateKnob.value = conductor.filterSection.lfoRate
+        
+        rezKnob.maximum = 0.99
+        rezKnob.value = conductor.filterSection.resonance
+        
+        crushAmtKnob.minimum = 0
+        crushAmtKnob.maximum = 1950
+        crushAmtKnob.knobValue = CGFloat((crushAmtKnob.maximum - conductor.bitCrusher.sampleRate) + 50)
+        
+        delayTimeKnob.value = conductor.multiDelay.time
+        delayMixKnob.value = conductor.multiDelay.mix
+        
+        reverbAmtKnob.maximum = 0.99
+        reverbAmtKnob.value = conductor.reverb.feedback
+        reverbMixKnob.value = conductor.reverbMixer.balance
+        
+        masterVolKnob.maximum = 30.0
+        masterVolKnob.value = conductor.masterVolume.volume
+        
+        // Calculate cutoff freq based on knob position
+        conductor.filterSection.cutoffFrequency = cutoffFreqFromValue(Double(cutoffKnob.value))
+    }
+    
+    func setupSliderValues() {
+        attackSlider.maxValue = 2
+        attackSlider.currentValue = CGFloat(conductor.core.attackDuration)
+        
+        decaySlider.maxValue = 2
+        decaySlider.currentValue = CGFloat(conductor.core.decayDuration)
+        
+        sustainSlider.currentValue = CGFloat(conductor.core.sustainLevel)
+        
+        releaseSlider.maxValue = 2
+        releaseSlider.currentValue = CGFloat(conductor.core.releaseDuration)
     }
 
     //*****************************************************************
@@ -217,11 +270,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Filter Off"
-            conductor.filterSection.mix = 0
+            conductor.filterSection.output.stop()
         } else {
             sender.selected = true
             statusLabel.text = "Filter On"
-            conductor.filterSection.mix = 1
+            conductor.filterSection.output.start()
         }
     }
     
@@ -263,17 +316,26 @@ class SynthViewController: UIViewController {
     
     // Keyboard
     @IBAction func octaveDownPressed(sender: UIButton) {
-        guard keyboardOctavePosition > -3 else { return }
-        statusLabel.text = "Keyboard Octave Down"
+        guard keyboardOctavePosition > -2 else {
+            statusLabel.text = "How low can you go? This low."
+            return
+        }
+       
         keyboardOctavePosition += -1
         octavePositionLabel.text = String(keyboardOctavePosition)
+        redisplayHeldKeys()
+        
     }
     
     @IBAction func octaveUpPressed(sender: UIButton) {
-        guard keyboardOctavePosition < 3 else { return }
-        statusLabel.text = "Keyboard Octave Up"
+        guard keyboardOctavePosition < 3 else {
+            statusLabel.text = "Captain, she can't go any higher!"
+            return
+        }
+       
         keyboardOctavePosition += 1
         octavePositionLabel.text = String(keyboardOctavePosition)
+        redisplayHeldKeys()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     }
     
     @IBAction func holdModeToggled(sender: UIButton) {
@@ -302,10 +364,23 @@ class SynthViewController: UIViewController {
         }
     }
     
+    // Universal
     @IBAction func midiPanicPressed(sender: RoundedButton) {
+        turnOffHeldKeys()
+        // conductor.core.panic()
         statusLabel.text = "All Notes Off"
-        
-        conductor.core.panic()
+    }
+    
+    @IBAction func displayModeToggled(sender: UIButton) {
+        if sender.selected {
+            sender.selected = false
+            statusLabel.text = "Wave Display Filled Off"
+            audioPlot.shouldFill = false
+        } else {
+            sender.selected = true
+            statusLabel.text = "Wave Display Filled On"
+            audioPlot.shouldFill = true
+        }
     }
     
     // About App
@@ -329,11 +404,21 @@ class SynthViewController: UIViewController {
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
         
+        // Turn off last key press in Mono
         if monoMode {
-            if let lastKey = lastKey where lastKey != key {
+            if let lastKey = lastKey {
                 turnOffKey(lastKey)
             }
         }
+        
+        // Toggle key if in Hold mode
+        if holdMode {
+            if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
+                turnOffKey(key)
+                return
+            }
+        }
+        
         turnOnKey(key)
         lastKey = key
     }
@@ -342,15 +427,13 @@ class SynthViewController: UIViewController {
         let key = sender
         
         if holdMode && monoMode {
-            if let lastKey = lastKey where lastKey != key {
-                turnOffKey(lastKey)
-            }
+           toggleMonoKeyHeld(key)
         } else if holdMode && !monoMode {
-            keysHeld.append(key)
+            toggleKeyHeld(key)
+            
         } else {
             turnOffKey(key)
         }
-        lastKey = key
     }
     
     // *********************************************************
@@ -358,48 +441,108 @@ class SynthViewController: UIViewController {
     // *********************************************************
     
     func turnOnKey(key: UIButton) {
-        let index = key.tag - 200
-        
-        if blackKeys.contains(index) {
-            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
-        } else {
-            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
-        }
-        
-        let midiNote = index + (keyboardOctavePosition * 12)
+        updateKeyToDownPosition(key)
+        let midiNote = midiNoteFromTag(key.tag)
+        statusLabel.text = "Key Pressed: \(noteNameFromMidiNote(midiNote))"
         conductor.core.playNote(midiNote, velocity: 127)
-        statusLabel.text = "Key Pressed: \(midiNote)"
     }
     
     func turnOffKey(key: UIButton) {
-        let index = key.tag - 200
+        updateKeyToUpPosition(key)
+        statusLabel.text = "Key Released"
+        conductor.core.stopNote(midiNoteFromTag(key.tag))
+    }
+    
+    func turnOffHeldKeys() {
+        updateAllKeysToUpPosition()
         
+        for note in 21...108 {
+            conductor.core.stopNote(note)
+        }
+    
+        statusLabel.text = "Key(s) Released"
+        midiNotesHeld.removeAll(keepCapacity: false)
+    }
+    
+    func updateAllKeysToUpPosition() {
+        // Key up all keys shown on display
+        for tag in 248...272 {
+            guard let key = self.view.viewWithTag(tag) as? UIButton else {
+                return
+            }
+            updateKeyToUpPosition(key)
+        }
+    }
+    
+    func redisplayHeldKeys() {
+        
+        guard !monoMode else {
+            turnOffHeldKeys()
+            return
+        }
+        
+        // Refresh keyboard
+        updateAllKeysToUpPosition()
+        
+        // Determine new keyboard bounds
+        let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
+        let upperMidiNote = lowerMidiNote + 24
+        statusLabel.text = "Keyboard Shift: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
+        
+        // Check notes currently in view and turn on if held
+        for note in lowerMidiNote...upperMidiNote {
+            if midiNotesHeld.contains(note) {
+                let keyTag = (note - (keyboardOctavePosition * 12)) + 200
+                
+                guard let key = self.view.viewWithTag(keyTag) as? UIButton else {
+                    return
+                }
+                
+               updateKeyToDownPosition(key)
+            }
+        }
+    }
+    
+    func toggleKeyHeld(key: UIButton) {
+        if let i = midiNotesHeld.indexOf(midiNoteFromTag(key.tag)) {
+                midiNotesHeld.removeAtIndex(i)
+        } else {
+            midiNotesHeld.append(midiNoteFromTag(key.tag))
+        }
+    }
+    
+    func toggleMonoKeyHeld(key: UIButton) {
+        if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
+            midiNotesHeld.removeAll()
+        } else {
+            midiNotesHeld.removeAll()
+            midiNotesHeld.append(midiNoteFromTag(key.tag))
+        }
+    }
+    
+    func updateKeyToUpPosition(key: UIButton) {
+        let index = key.tag - 200
         if blackKeys.contains(index) {
             key.setImage(UIImage(named: "blackkey"), forState: .Normal)
         } else {
             key.setImage(UIImage(named: "whitekey"), forState: .Normal)
         }
-        
-        statusLabel.text = "Key Released"
-        let midiNote = index + (keyboardOctavePosition * 12)
-        conductor.core.stopNote(midiNote)
     }
     
-    func turnOffHeldKeys() {
-        for key in keysHeld {
-            turnOffKey(key)
-            let index = key.tag - 200
-            let midiNote = index + (keyboardOctavePosition * 12)
-            conductor.core.stopNote(midiNote)
+    func updateKeyToDownPosition(key: UIButton) {
+        let index = key.tag - 200
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
         }
-        if let lastKey = lastKey {
-            turnOffKey(lastKey)
-        }
-        statusLabel.text = "Key(s) Released"
-        keysHeld.removeAll(keepCapacity: false)
     }
-   
+    
+    func midiNoteFromTag(tag: Int) -> Int {
+        return (tag - 200) + (keyboardOctavePosition * 12)
+    }
 }
+
 
 //*****************************************************************
 // MARK: - 🎛 Knob Delegates
@@ -411,7 +554,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         
         switch (tag) {
             
-            // VCOs
+        // VCOs
         case ControlTag.Vco1Semitones.rawValue:
             let intValue = Int(floor(value))
             statusLabel.text = "Semitones: \(intValue)"
@@ -423,83 +566,85 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             conductor.core.offset2 = intValue
             
         case ControlTag.Vco2Detune.rawValue:
-            statusLabel.text = "Detune: \(value.decimalFormattedString)"
+            statusLabel.text = "Detune: \(value.decimalString) Hz"
             conductor.core.detune = value
             
         case ControlTag.OscMix.rawValue:
-            statusLabel.text = "OscMix: \(value.decimalFormattedString)"
-            conductor.core.vco12Mix = value
+            statusLabel.text = "OscMix: \(value.decimalString)"
+            conductor.core.vcoBalance = value
             
-        case ControlTag.Pwm.rawValue:
-            statusLabel.text = "Pulse Width: \(value.decimalFormattedString)"
-            conductor.core.pulseWidth = value
+        case ControlTag.Morph.rawValue:
+            statusLabel.text = "Morph Waveform: \(value.decimalString)"
+            conductor.core.morph = value
             
-            // Additional OSCs
+        // Additional OSCs
         case ControlTag.SubMix.rawValue:
-            statusLabel.text = "Sub Osc: \(value.decimalFormattedString)"
+            statusLabel.text = "Sub Osc: \(subMixKnob.knobValue.percentageString)"
             conductor.core.subOscMix = value
             
         case ControlTag.FmMix.rawValue:
-            statusLabel.text = "FM Amt: \(value.decimalFormattedString)"
+            statusLabel.text = "FM Amt: \(fmMixKnob.knobValue.percentageString)"
             conductor.core.fmOscMix = value
             
         case ControlTag.FmMod.rawValue:
-            statusLabel.text = "FM Mod: \(value.decimalFormattedString)"
+            statusLabel.text = "FM Mod: \(fmModKnob.knobValue.percentageString)"
             conductor.core.fmMod = value
             
         case ControlTag.NoiseMix.rawValue:
-            statusLabel.text = "Noise Amt: \(value.decimalFormattedString)"
+            statusLabel.text = "Noise Amt: \(noiseMixKnob.knobValue.percentageString)"
             conductor.core.noiseMix = value
             
-            // LFO
+        // LFO
         case ControlTag.LfoAmt.rawValue:
-            statusLabel.text = "LFO Amp: \(value.decimalFormattedString)"
+            statusLabel.text = "LFO Amp: \(value.decimalString) Hz"
             conductor.filterSection.lfoAmplitude = value
             
         case ControlTag.LfoRate.rawValue:
-            statusLabel.text = "LFO Rate: \(value.decimalFormattedString)"
+            statusLabel.text = "LFO Rate: \(value.decimalString)"
             conductor.filterSection.lfoRate = value
             
-            // Filter
+        // Filter
         case ControlTag.Cutoff.rawValue:
-            
-            // Logarithmic scale to frequency
-            let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
-            let cutOffFrequency = scaledValue * 4
-            statusLabel.text = "Cutoff: \(cutOffFrequency.decimalFormattedString)"
+            let cutOffFrequency = cutoffFreqFromValue(value)
+            statusLabel.text = "Cutoff: \(cutOffFrequency.decimalString) Hz"
             conductor.filterSection.cutoffFrequency = cutOffFrequency
             
         case ControlTag.Rez.rawValue:
-            statusLabel.text = "Rez: \(value.decimalFormattedString)"
+            statusLabel.text = "Rez: \(value.decimalString)"
             conductor.filterSection.resonance = value
             
-            // Crusher
+        // Crusher
         case ControlTag.CrushAmt.rawValue:
-            statusLabel.text = "Bitcrush: \(value.decimalFormattedString)"
-            conductor.bitCrusher.sampleRate = Double(16000.0 * (1.0 - value))
-            conductor.bitCrusher.bitDepth = Double(12 * (1.0 - value))
+            let crushAmt = (crushAmtKnob.maximum - value) + 50
+            statusLabel.text = "Bitcrush: \(crushAmt.decimalString) Sample Rate"
+            conductor.bitCrusher.sampleRate = crushAmt
+            conductor.bitCrusher.bitDepth = 8
             
-            // Delay
+        // Delay
         case ControlTag.DelayTime.rawValue:
-            statusLabel.text = "Delay Time: \(value.decimalFormattedString)"
+            statusLabel.text = "Delay Time: \(value.decimal1000String) ms"
             conductor.multiDelay.time = value
             
         case ControlTag.DelayMix.rawValue:
-            statusLabel.text = "Delay Mix: \(value.decimalFormattedString)"
+            statusLabel.text = "Delay Mix: \(value.decimalString)"
             conductor.multiDelay.mix = value
             
-            // Reverb
+        // Reverb
         case ControlTag.ReverbAmt.rawValue:
-            statusLabel.text = "Reverb Amt: \(value.decimalFormattedString)"
-            conductor.reverb.decayTimeAt0Hz = value
+            if value == 0.99 {
+                statusLabel.text = "Reverb Size: Grand Canyon!"
+            } else {
+                statusLabel.text = "Reverb Size: \(reverbAmtKnob.knobValue.percentageString)"
+            }
+            conductor.reverb.feedback = value
             
         case ControlTag.ReverbMix.rawValue:
-            statusLabel.text = "Reverb Mix: \(value.decimalFormattedString)"
+            statusLabel.text = "Reverb Mix: \(value.decimalString)"
             conductor.reverbMixer.balance = value
             
-            // Master
+        // Master
         case ControlTag.MasterVol.rawValue:
-            statusLabel.text = "Master Vol: \(value.decimalFormattedString)"
+            statusLabel.text = "Master Vol: \(masterVolKnob.knobValue.percentageString)"
             conductor.masterVolume.volume = value
             
         default:
@@ -509,7 +654,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
 }
 
 //*****************************************************************
-// MARK: - Slider Delegate (ADSR)
+// MARK: - 🎚Slider Delegate (ADSR)
 //*****************************************************************
 
 extension SynthViewController: VerticalSliderDelegate {
@@ -517,19 +662,19 @@ extension SynthViewController: VerticalSliderDelegate {
         
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
-            statusLabel.text = "Attack: \(value.decimalFormattedString)"
+            statusLabel.text = "Attack: \(value.decimalString) sec"
             conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
-            statusLabel.text = "Decay: \(value.decimalFormattedString)"
+            statusLabel.text = "Decay: \(value.decimalString) sec"
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
-            statusLabel.text = "Sustain: \(value.decimalFormattedString)"
+            statusLabel.text = "Sustain: \(sustainSlider.currentValue.percentageString)"
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
-            statusLabel.text = "Release: \(value.decimalFormattedString)"
+            statusLabel.text = "Release: \(value.decimalString) sec"
             conductor.core.releaseDuration = value
             
         default:
@@ -549,16 +694,16 @@ extension SynthViewController: SMSegmentViewDelegate {
         
         switch (segmentView.tag) {
         case ControlTag.Vco1Waveform.rawValue:
-            conductor.core.selectedVCO1Waveform.changeWaveformFromIndex(index)
-            statusLabel.text = "VCO1 Waveform: \(conductor.core.selectedVCO1Waveform)"
+            conductor.core.waveform1 = Double(index)
+            statusLabel.text = "VCO1 Waveform Changed"
             
         case ControlTag.Vco2Waveform.rawValue:
-            conductor.core.selectedVCO2Waveform.changeWaveformFromIndex(index)
-            statusLabel.text = "VCO2 Waveform: \(conductor.core.selectedVCO2Waveform)"
+            conductor.core.waveform2 = Double(index)
+            statusLabel.text = "VCO2 Waveform Changed"
             
         case ControlTag.LfoWaveform.rawValue:
             statusLabel.text = "LFO Waveform Changed"
-            conductor.filterSection.selectedWaveform = index
+            conductor.filterSection.lfoIndex = min(Double(index), 3)
             
         default:
             break
