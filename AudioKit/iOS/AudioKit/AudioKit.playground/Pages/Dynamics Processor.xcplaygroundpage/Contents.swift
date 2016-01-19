@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKDynamicsProcessor
+//: ## Dynamics Processor
 //: ### The AKDynamicsProcessor is both a compressor and an expander based on apple's Dynamics Processor audio unit. threshold and headRoom (similar to 'ratio' you might be more familiar with) are specific to the compressor, expansionRatio and expansionThreshold control the expander.
 import XCPlayground
 import AudioKit
