@@ -366,8 +366,9 @@ class SynthViewController: UIViewController {
     
     // Universal
     @IBAction func midiPanicPressed(sender: RoundedButton) {
-        statusLabel.text = "All Notes Off"
+        turnOffHeldKeys()
         conductor.core.panic()
+        statusLabel.text = "All Notes Off"
     }
     
     @IBAction func displayModeToggled(sender: UIButton) {
