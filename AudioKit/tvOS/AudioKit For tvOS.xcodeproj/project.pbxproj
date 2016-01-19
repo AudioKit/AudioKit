@@ -501,6 +501,7 @@
 		EAF0067D1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF006791C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EAF0067E1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = EAF0067A1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm */; };
 		EAF0067F1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = EAF0067B1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp */; };
+		EAF006911C4DB8DA00ECD392 /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF006901C4DB8DA00ECD392 /* segment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1003,6 +1004,7 @@
 		EAF006791C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMorphingOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		EAF0067A1C4C7A5200ECD392 /* AKMorphingOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMorphingOscillatorAudioUnit.mm; sourceTree = "<group>"; };
 		EAF0067B1C4C7A5200ECD392 /* AKMorphingOscillatorDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKMorphingOscillatorDSPKernel.hpp; sourceTree = "<group>"; };
+		EAF006901C4DB8DA00ECD392 /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2391,6 +2393,7 @@
 				C4DA4BEB1C248F3000AA3771 /* Random Number Generators */,
 				C4E7522B1C23888700688A1B /* add.swift */,
 				C4E7522C1C23888700688A1B /* divide.swift */,
+				EAF006901C4DB8DA00ECD392 /* segment.swift */,
 				C4E7522E1C23888700688A1B /* max.swift */,
 				C4E7522F1C23888700688A1B /* min.swift */,
 				C4E752301C23888700688A1B /* multiply.swift */,
@@ -2850,6 +2853,7 @@
 				C4E752411C23888700688A1B /* modalResonanceFilter.swift in Sources */,
 				C40BB09F1C471C7B004C138D /* maytrig.c in Sources */,
 				C4B192811C3B342800C0F330 /* gbuzz.c in Sources */,
+				EAF006911C4DB8DA00ECD392 /* segment.swift in Sources */,
 				C45382131C3A5CBD00A51738 /* AKFMOscillator.swift in Sources */,
 				C4B192351C3B342800C0F330 /* osc.c in Sources */,
 				C4B192921C3B342800C0F330 /* pan.c in Sources */,
