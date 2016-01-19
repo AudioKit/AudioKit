@@ -15,7 +15,7 @@ public class AKDynamicsProcessorWindow: NSWindow {
     private let windowWidth = 400
     private let padding = 30
     private let sliderHeight = 20
-    private let numberOfComponents = 10
+    private let numberOfComponents = 7
     
     /// Slider to control threshold
     public let thresholdSlider: NSSlider
@@ -31,12 +31,6 @@ public class AKDynamicsProcessorWindow: NSWindow {
     public let releaseTimeSlider: NSSlider
     /// Slider to control masterGain
     public let masterGainSlider: NSSlider
-    /// Slider to control compressionAmount
-    public let compressionAmountSlider: NSSlider
-    /// Slider to control inputAmplitude
-    public let inputAmplitudeSlider: NSSlider
-    /// Slider to control outputAmplitude
-    public let outputAmplitudeSlider: NSSlider
     
     private let thresholdTextField: NSTextField
     private let headRoomTextField: NSTextField
@@ -45,9 +39,6 @@ public class AKDynamicsProcessorWindow: NSWindow {
     private let attackTimeTextField: NSTextField
     private let releaseTimeTextField: NSTextField
     private let masterGainTextField: NSTextField
-    private let compressionAmountTextField: NSTextField
-    private let inputAmplitudeTextField: NSTextField
-    private let outputAmplitudeTextField: NSTextField
     
     private var dynamicsProcessor: AKDynamicsProcessor
     
@@ -63,9 +54,6 @@ public class AKDynamicsProcessorWindow: NSWindow {
         attackTimeSlider = newSlider(sliderWidth)
         releaseTimeSlider = newSlider(sliderWidth)
         masterGainSlider = newSlider(sliderWidth)
-        compressionAmountSlider = newSlider(sliderWidth)
-        inputAmplitudeSlider = newSlider(sliderWidth)
-        outputAmplitudeSlider = newSlider(sliderWidth)
         
         thresholdTextField = newTextField(sliderWidth)
         headRoomTextField = newTextField(sliderWidth)
@@ -74,9 +62,6 @@ public class AKDynamicsProcessorWindow: NSWindow {
         attackTimeTextField = newTextField(sliderWidth)
         releaseTimeTextField = newTextField(sliderWidth)
         masterGainTextField = newTextField(sliderWidth)
-        compressionAmountTextField = newTextField(sliderWidth)
-        inputAmplitudeTextField = newTextField(sliderWidth)
-        outputAmplitudeTextField = newTextField(sliderWidth)
         
         let titleHeightApproximation = 50
         let windowHeight = padding * 2 + titleHeightApproximation + numberOfComponents * 3 * sliderHeight
@@ -162,30 +147,6 @@ public class AKDynamicsProcessorWindow: NSWindow {
             minimumValue: -40,
             maximumValue: 40)
         
-        makeTextField(compressionAmountTextField, view: view, below: topTitle, distance: 23,
-            stringValue: "Compression Amount: \(dynamicsProcessor.compressionAmount) dB")
-        makeSlider(compressionAmountSlider, view: view, below: topTitle, distance: 24, target: self,
-            action: "updateCompressionamount",
-            currentValue: dynamicsProcessor.compressionAmount,
-            minimumValue: -40,
-            maximumValue: 40)
-        
-        makeTextField(inputAmplitudeTextField, view: view, below: topTitle, distance: 26,
-            stringValue: "Input Amplitude: \(dynamicsProcessor.inputAmplitude) dB")
-        makeSlider(inputAmplitudeSlider, view: view, below: topTitle, distance: 27, target: self,
-            action: "updateInputamplitude",
-            currentValue: dynamicsProcessor.inputAmplitude,
-            minimumValue: -40,
-            maximumValue: 40)
-        
-        makeTextField(outputAmplitudeTextField, view: view, below: topTitle, distance: 29,
-            stringValue: "Output Amplitude: \(dynamicsProcessor.outputAmplitude) dB")
-        makeSlider(outputAmplitudeSlider, view: view, below: topTitle, distance: 30, target: self,
-            action: "updateOutputamplitude",
-            currentValue: dynamicsProcessor.outputAmplitude,
-            minimumValue: -40,
-            maximumValue: 40)
-        
         self.contentView!.addSubview(view)
         self.makeKeyAndOrderFront(nil)
     }
@@ -224,21 +185,6 @@ public class AKDynamicsProcessorWindow: NSWindow {
         dynamicsProcessor.masterGain = masterGainSlider.doubleValue
         masterGainTextField.stringValue =
         "Master Gain \(String(format: "%0.4f", dynamicsProcessor.masterGain)) dB"
-    }
-    internal func updateCompressionamount() {
-        dynamicsProcessor.compressionAmount = compressionAmountSlider.doubleValue
-        compressionAmountTextField.stringValue =
-        "Compression Amount \(String(format: "%0.4f", dynamicsProcessor.compressionAmount)) dB"
-    }
-    internal func updateInputamplitude() {
-        dynamicsProcessor.inputAmplitude = inputAmplitudeSlider.doubleValue
-        inputAmplitudeTextField.stringValue =
-        "Input Amplitude \(String(format: "%0.4f", dynamicsProcessor.inputAmplitude)) dB"
-    }
-    internal func updateOutputamplitude() {
-        dynamicsProcessor.outputAmplitude = outputAmplitudeSlider.doubleValue
-        outputAmplitudeTextField.stringValue =
-        "Output Amplitude \(String(format: "%0.4f", dynamicsProcessor.outputAmplitude)) dB"
     }
     
     /// Required initializer

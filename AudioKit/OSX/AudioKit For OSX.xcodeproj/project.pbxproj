@@ -283,6 +283,8 @@
 		C4A916571C2504F2006C1A15 /* metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916531C2504F2006C1A15 /* metronome.swift */; };
 		C4A916581C2504F2006C1A15 /* periodicTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916541C2504F2006C1A15 /* periodicTrigger.swift */; };
 		C4A916591C2504F2006C1A15 /* portamento.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916551C2504F2006C1A15 /* portamento.swift */; };
+		C4AC8BC21C4E1CEF009EA58E /* AKCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BC11C4E1CEF009EA58E /* AKCompressor.swift */; };
+		C4AC8BC51C4E1CF3009EA58E /* AKExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BC41C4E1CF3009EA58E /* AKExpander.swift */; };
 		C4B190761C3B340400C0F330 /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B18FB11C3B340400C0F330 /* CUI.h */; };
 		C4B190771C3B340400C0F330 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FB31C3B340400C0F330 /* fft.c */; };
 		C4B190781C3B340400C0F330 /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FB51C3B340400C0F330 /* ini.c */; };
@@ -808,6 +810,8 @@
 		C4A916531C2504F2006C1A15 /* metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = metronome.swift; sourceTree = "<group>"; };
 		C4A916541C2504F2006C1A15 /* periodicTrigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = periodicTrigger.swift; sourceTree = "<group>"; };
 		C4A916551C2504F2006C1A15 /* portamento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = portamento.swift; sourceTree = "<group>"; };
+		C4AC8BC11C4E1CEF009EA58E /* AKCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCompressor.swift; sourceTree = "<group>"; };
+		C4AC8BC41C4E1CF3009EA58E /* AKExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKExpander.swift; sourceTree = "<group>"; };
 		C4B18FB11C3B340400C0F330 /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C4B18FB31C3B340400C0F330 /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C4B18FB51C3B340400C0F330 /* ini.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ini.c; sourceTree = "<group>"; };
@@ -1528,7 +1532,9 @@
 		C45382611C3A5E4300A51738 /* Dynamics */ = {
 			isa = PBXGroup;
 			children = (
+				C4AC8BC01C4E1CEF009EA58E /* Compressor */,
 				C45382621C3A5E4300A51738 /* Dynamics Processor */,
+				C4AC8BC31C4E1CF3009EA58E /* Expander */,
 				C45382641C3A5E4300A51738 /* Peak Limiter */,
 			);
 			path = Dynamics;
@@ -2059,6 +2065,22 @@
 				C48443661C3118E3007BE794 /* triggeredWithEnvelope.swift */,
 			);
 			path = Music;
+			sourceTree = "<group>";
+		};
+		C4AC8BC01C4E1CEF009EA58E /* Compressor */ = {
+			isa = PBXGroup;
+			children = (
+				C4AC8BC11C4E1CEF009EA58E /* AKCompressor.swift */,
+			);
+			path = Compressor;
+			sourceTree = "<group>";
+		};
+		C4AC8BC31C4E1CF3009EA58E /* Expander */ = {
+			isa = PBXGroup;
+			children = (
+				C4AC8BC41C4E1CF3009EA58E /* AKExpander.swift */,
+			);
+			path = Expander;
 			sourceTree = "<group>";
 		};
 		C4B18FAE1C3B340400C0F330 /* Soundpipe */ = {
@@ -2760,6 +2782,7 @@
 			files = (
 				C453832B1C3A5E4300A51738 /* AKDelay.swift in Sources */,
 				C453837B1C3A5E4300A51738 /* AKPeakingParametricEqualizerFilter.swift in Sources */,
+				C4AC8BC21C4E1CEF009EA58E /* AKCompressor.swift in Sources */,
 				C40C41A31C40E3EF009D870B /* EZAudioDevice.m in Sources */,
 				C4B190C41C3B340400C0F330 /* revsc.c in Sources */,
 				C4B190861C3B340400C0F330 /* bar.c in Sources */,
@@ -3107,6 +3130,7 @@
 				C4B190A21C3B340400C0F330 /* foo.c in Sources */,
 				C4B190CD1C3B340400C0F330 /* tbvcf.c in Sources */,
 				C4B191211C3B340400C0F330 /* t.c in Sources */,
+				C4AC8BC51C4E1CF3009EA58E /* AKExpander.swift in Sources */,
 				C4B190D11C3B340400C0F330 /* tevent.c in Sources */,
 				C45383C01C3A5E4300A51738 /* AKTriangleOscillatorAudioUnit.mm in Sources */,
 				C4B190B01C3B340400C0F330 /* noise.c in Sources */,
