@@ -10,10 +10,11 @@
 //:
 //: So wait, before we jump into the actual tutorials, let's just highlight some of the cooler sound playgrounds we have.  Don't try to understand the code if you're just started, it will all be expained starting with the next section, Basic Tutorials.
 //:
-//: * [Electro Drum Beat](Drum Synthesizers)
-//: * [Alien Apocalypse](Linear and Exponential Segment Operations)
+//: * [Electro Drum Beat](Drum%20Synthesizers)
+//: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
 //: * [Telephone Ringing](Telephone%20Ringing)
 //: * [Crazy Drum Effects](Variable%20Delay)
+//: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //:
 //: ## Basic Tutorials
 //:
@@ -55,9 +56,9 @@
 //: Distortion is a category for nodes that do more than just filter a sound, and basically change something essential to the sound, usually making for a harsher sound, but that's a matter of taste.
 //:
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
-//: * [Complex Distortion](Complex%20Distortion)
 //: * [Decimator](Decimator)
 //: * [Ring Modulation](Ring%20Modulation)
+//: * [Complex Distortion](Complex%20Distortion)
 //:
 //: ### Dynamics Processing
 //:
@@ -66,8 +67,9 @@
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Peak Limiter](Peak%20Limiter)
 //:
-//: ## Filters
+//: ### Filters
 //:
+//: * [Auto Wah Wah](Auto%20Wah%20Wah)
 //: * [Band Pass Filter](Band%20Pass%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
@@ -75,11 +77,20 @@
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
 //: * [Moog Ladder Filter](Moog%20Ladder%20Filter)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
+//: * [Roland TB-303 Filter](Roland%20TB-303%20Filter)
 //:
 //: ### Reverb
 //:
-//: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
+//: These are the more traditional reverb efffects.
+//: * [Simple Reverb](Simple%20Reverb)
+//: * [iOS-only Reverb](iOS-only%20Reverb)
 //: * [Sean Costello Reverb](Sean%20Costello%20Reverb)
+//:
+//: Convolution is included here because it often used for reverb effects, but it can do a lot more.
+//: * [Convolution](Convolution)
+//:
+//: Then there are "reverbs" that are more commonly used as components, not as a stand-alone effect.
+//: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
 //:
 //: ## Generator Nodes
@@ -99,14 +110,17 @@
 //:
 //: ### Playback
 //:
+//: Over the course of viewing the playgrounds so far, you've come across AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't require a playground of its own, but here are some playback-oriented effects that are very useful and cool.
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
+//: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //:
 //: ## Operations
 //:
 //: Operations are used to make the internals of a single node.
 //:
-//: * [Bit Crush](Bit%20Crush%20Operation)
-//: * [Clip](Clip%20Operation)
-//: * [Sean Costello Reverb](Sean%20Costello%20Reverb%20Operation)
+//: * [Bit Crush Operation](Bit%20Crush%20Operation)
+//: * [Clip Operation](Clip%20Operation)
+//: * [Sean Costello Reverb Operation](Sean%20Costello%20Reverb%20Operation)
 
-
+//: * [Electro Drum Beat](Drum%20Synthesizers)
+//: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)

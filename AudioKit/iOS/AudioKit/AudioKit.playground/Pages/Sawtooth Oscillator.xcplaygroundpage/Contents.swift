@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Sawtooth Oscillator
-//: ### Generating audio
+//: 
 import XCPlayground
 import AudioKit
 

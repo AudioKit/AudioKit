@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Pink Noise
-//: ### Generating audio
+//: 
 import XCPlayground
 import AudioKit
 

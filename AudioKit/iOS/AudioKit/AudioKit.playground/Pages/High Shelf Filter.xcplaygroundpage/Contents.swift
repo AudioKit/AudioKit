@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKHighShelfFilter
-//: ### A high-pass filter takes an audio signal as an input, and cuts out the low-frequency components of the audio signal, allowing for the higher frequency components to "pass through" the filter.
+//: ## High Shelf Filter
+//:
 import XCPlayground
 import AudioKit
 
@@ -14,12 +14,12 @@ let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 var highShelfFilter = AKHighShelfFilter(player)
-var h2 = AKHighShelfFilter(highShelfFilter)
+
 //: Set the parameters of the High-Shelf Filter here
 highShelfFilter.cutOffFrequency = 2000 // Hz
 highShelfFilter.gain = 40 // dB
 
-audiokit.audioOutput = h2
+audiokit.audioOutput = highShelfFilter
 audiokit.start()
 player.play()
 
