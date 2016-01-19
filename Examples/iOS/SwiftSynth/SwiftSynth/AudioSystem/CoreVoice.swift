@@ -9,8 +9,8 @@
 import AudioKit
 
 class CoreVoice: AKVoice {
-    var vco1 = AKMorphingOscillator()
-    var vco2 = AKMorphingOscillator()
+    var vco1: AKMorphingOscillator
+    var vco2: AKMorphingOscillator
     var subOsc       = AKOscillator()
     var fmOscillator = AKFMOscillator()
     var noise        = AKWhiteNoise()
@@ -28,6 +28,20 @@ class CoreVoice: AKVoice {
     
     /// Instantiate the FM Oscillator Voice
     override init() {
+        let triangle = AKTable(.Triangle)
+        let square   = AKTable(.Square)
+        let sawtooth = AKTable(.Sawtooth)
+        var squareWithHighPWM = AKTable()
+        let size = squareWithHighPWM.values.count
+        for i in 0..<size {
+            if i < size / 8 {
+                squareWithHighPWM.values[i] = -1.0
+            } else {
+                squareWithHighPWM.values[i] = 1.0
+            }
+        }
+        vco1 = AKMorphingOscillator(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
+        vco2 = AKMorphingOscillator(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
         
         vco1Mixer   = AKMixer(vco1)
         vco2Mixer   = AKMixer(vco2)
