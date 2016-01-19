@@ -18,11 +18,22 @@ extension SynthViewController {
         return true
     }
     
+    func openURL(url: String) {
+        guard let url = NSURL(string: url) else {
+            return
+        }
+        UIApplication.sharedApplication().openURL(url)
+    }
+    
     func cutoffFreqFromValue(value: Double) -> Double {
         // Logarithmic scale: knobvalue to frequency
         let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
         return scaledValue * 4
     }
+    
+    //*****************************************************************
+    // MARK: - SegmentViews
+    //*****************************************************************
     
     func createWaveFormSegmentViews() {
         setupOscSegmentView(8,   y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
