@@ -388,6 +388,8 @@
 		C4A916501C24F95E006C1A15 /* portamento.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A9164C1C24F95E006C1A15 /* portamento.swift */; };
 		C4A916511C24F95E006C1A15 /* triggeredWithEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A9164D1C24F95E006C1A15 /* triggeredWithEnvelope.swift */; };
 		C4A917161C265C84006C1A15 /* pitchamdf.c in Sources */ = {isa = PBXBuildFile; fileRef = C4A917151C265C84006C1A15 /* pitchamdf.c */; };
+		C4AC8BD01C4E2960009EA58E /* AKCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BCD1C4E2960009EA58E /* AKCompressor.swift */; };
+		C4AC8BD11C4E2960009EA58E /* AKExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BCF1C4E2960009EA58E /* AKExpander.swift */; };
 		C4B18FA11C3B312D00C0F330 /* conv.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FA01C3B312D00C0F330 /* conv.c */; };
 		C4B18FA31C3B313700C0F330 /* tadsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FA21C3B313700C0F330 /* tadsr.c */; };
 		C4B18FA51C3B313F00C0F330 /* thresh.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FA41C3B313F00C0F330 /* thresh.c */; };
@@ -515,8 +517,6 @@
 		C4E959081C0B847C00516A6A /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E959071C0B847C00516A6A /* fft.c */; };
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
 		FE4423711C4B95B700BA7009 /* AKDrumSynths.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */; };
-		FE83773D1C4DF3B60046CB17 /* AKCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE83773C1C4DF3B60046CB17 /* AKCompressor.swift */; };
-		FE83773F1C4DF9B60046CB17 /* AKExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE83773E1C4DF9B60046CB17 /* AKExpander.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -916,6 +916,8 @@
 		C4A9164C1C24F95E006C1A15 /* portamento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = portamento.swift; sourceTree = "<group>"; };
 		C4A9164D1C24F95E006C1A15 /* triggeredWithEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triggeredWithEnvelope.swift; sourceTree = "<group>"; };
 		C4A917151C265C84006C1A15 /* pitchamdf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pitchamdf.c; sourceTree = "<group>"; };
+		C4AC8BCD1C4E2960009EA58E /* AKCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCompressor.swift; sourceTree = "<group>"; };
+		C4AC8BCF1C4E2960009EA58E /* AKExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKExpander.swift; sourceTree = "<group>"; };
 		C4B18FA01C3B312D00C0F330 /* conv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = conv.c; sourceTree = "<group>"; };
 		C4B18FA21C3B313700C0F330 /* tadsr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tadsr.c; sourceTree = "<group>"; };
 		C4B18FA41C3B313F00C0F330 /* thresh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thresh.c; sourceTree = "<group>"; };
@@ -1045,8 +1047,6 @@
 		C4E959071C0B847C00516A6A /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDrumSynths.swift; sourceTree = "<group>"; };
-		FE83773C1C4DF3B60046CB17 /* AKCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCompressor.swift; path = ../AKCompressor.swift; sourceTree = "<group>"; };
-		FE83773E1C4DF9B60046CB17 /* AKExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKExpander.swift; path = ../AKExpander.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1537,7 +1537,9 @@
 		C42F35791C057F4C000E937C /* Dynamics */ = {
 			isa = PBXGroup;
 			children = (
+				C4AC8BCC1C4E2960009EA58E /* Compressor */,
 				C4537F371C39FCF700A51738 /* Dynamics Processor */,
+				C4AC8BCE1C4E2960009EA58E /* Expander */,
 				C4537F391C39FCF700A51738 /* Peak Limiter */,
 			);
 			path = Dynamics;
@@ -1692,8 +1694,6 @@
 		C4537F371C39FCF700A51738 /* Dynamics Processor */ = {
 			isa = PBXGroup;
 			children = (
-				FE83773C1C4DF3B60046CB17 /* AKCompressor.swift */,
-				FE83773E1C4DF9B60046CB17 /* AKExpander.swift */,
 				C4537F381C39FCF700A51738 /* AKDynamicsProcessor.swift */,
 			);
 			path = "Dynamics Processor";
@@ -2465,6 +2465,22 @@
 			path = Music;
 			sourceTree = "<group>";
 		};
+		C4AC8BCC1C4E2960009EA58E /* Compressor */ = {
+			isa = PBXGroup;
+			children = (
+				C4AC8BCD1C4E2960009EA58E /* AKCompressor.swift */,
+			);
+			path = Compressor;
+			sourceTree = "<group>";
+		};
+		C4AC8BCE1C4E2960009EA58E /* Expander */ = {
+			isa = PBXGroup;
+			children = (
+				C4AC8BCF1C4E2960009EA58E /* AKExpander.swift */,
+			);
+			path = Expander;
+			sourceTree = "<group>";
+		};
 		C4B192B71C3B4E1B00C0F330 /* Envelopes */ = {
 			isa = PBXGroup;
 			children = (
@@ -2777,6 +2793,7 @@
 				C48443621C3115C3007BE794 /* blsquare.c in Sources */,
 				C46300F31C20C342009B44D9 /* moogladder.c in Sources */,
 				C4E958AB1C0ADBFD00516A6A /* dtrig.c in Sources */,
+				C4AC8BD01C4E2960009EA58E /* AKCompressor.swift in Sources */,
 				C4E958B51C0ADBFD00516A6A /* ftbl.c in Sources */,
 				C4537FBD1C3A438D00A51738 /* AKEqualizerFilter.swift in Sources */,
 				C4537FDB1C3A438D00A51738 /* AKModalResonanceFilterAudioUnit.mm in Sources */,
@@ -2907,7 +2924,6 @@
 				C46302601C20DFD1009B44D9 /* tone.c in Sources */,
 				C4E958CA1C0ADBFD00516A6A /* phaser.c in Sources */,
 				C4537FF21C3A438D00A51738 /* AKToneComplementFilter.swift in Sources */,
-				FE83773D1C4DF3B60046CB17 /* AKCompressor.swift in Sources */,
 				C4E958EA1C0ADBFD00516A6A /* trand.c in Sources */,
 				C46302821C20E7A7009B44D9 /* clip.swift in Sources */,
 				C46300EF1C20C342009B44D9 /* maygate.c in Sources */,
@@ -2946,6 +2962,7 @@
 				C4E958971C0ADBFD00516A6A /* atone.c in Sources */,
 				C46300D51C20C342009B44D9 /* autowah.c in Sources */,
 				C463028C1C20E7A7009B44D9 /* phasor.swift in Sources */,
+				C4AC8BD11C4E2960009EA58E /* AKExpander.swift in Sources */,
 				C4E958CC1C0ADBFD00516A6A /* pinknoise.c in Sources */,
 				C4E958C21C0ADBFD00516A6A /* moogladder.c in Sources */,
 				C4A916121C24ED23006C1A15 /* pluckedString.swift in Sources */,
@@ -3128,7 +3145,6 @@
 				C4537FCA1C3A438D00A51738 /* AKHighShelfFilter.swift in Sources */,
 				C40B0FFB1C463A32000BE96E /* AKMIDI.swift in Sources */,
 				C48443611C3115C3007BE794 /* blsaw.c in Sources */,
-				FE83773F1C4DF9B60046CB17 /* AKExpander.swift in Sources */,
 				C4B192D01C3B637900C0F330 /* AKAmplitudeEnvelope.swift in Sources */,
 				C46301041C20C342009B44D9 /* scale.c in Sources */,
 				C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */,

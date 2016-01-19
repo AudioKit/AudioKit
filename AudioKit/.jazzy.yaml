@@ -24,7 +24,7 @@ custom_categories:
     - AKSawtoothSynth
     - AKSynthKick
     - AKSynthSnare
-    - AKWavetablySynth
+    - AKWavetableSynth
 
   - name: MIDI
     children:
@@ -65,7 +65,9 @@ custom_categories:
 
   - name: Dynamics Nodes
     children:
+    - AKCompressor
     - AKDynamicsProcessor
+    - AKExpander
     - AKPeakLimiter
 
   - name: Envelopes
