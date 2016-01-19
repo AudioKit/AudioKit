@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## Triangle Oscillator
-//: ### Generating audio
+//: ## Triangular Wave Oscillator
+//:
 import XCPlayground
 import AudioKit
 

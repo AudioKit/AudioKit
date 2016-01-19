@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKCombFilterReverb
-//: ### Write description
+//: ## Comb Filter Reverb
+//: 
 import XCPlayground
 import AudioKit
 
