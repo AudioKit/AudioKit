@@ -14,7 +14,6 @@
 //: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
 //: * [Telephone Ringing](Telephone%20Ringing)
 //: * [Crazy Drum Effects](Variable%20Delay)
-//: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //:
 //: ## Basic Tutorials
 //:
@@ -69,7 +68,6 @@
 //:
 //: ### Filters
 //:
-//: * [Auto Wah Wah](Auto%20Wah%20Wah)
 //: * [Band Pass Filter](Band%20Pass%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
@@ -110,17 +108,14 @@
 //:
 //: ### Playback
 //:
-//: Over the course of viewing the playgrounds so far, you've come across AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't require a playground of its own, but here are some playback-oriented effects that are very useful and cool.
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
-//: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //:
 //: ## Operations
 //:
 //: Operations are used to make the internals of a single node.
 //:
-//: * [Bit Crush Operation](Bit%20Crush%20Operation)
-//: * [Clip Operation](Clip%20Operation)
-//: * [Sean Costello Reverb Operation](Sean%20Costello%20Reverb%20Operation)
+//: * [Bit Crush](Bit%20Crush%20Operation)
+//: * [Clip](Clip%20Operation)
+//: * [Sean Costello Reverb](Sean%20Costello%20Reverb%20Operation)
 
-//: * [Electro Drum Beat](Drum%20Synthesizers)
-//: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
+

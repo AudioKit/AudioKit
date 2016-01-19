@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Sequencer - Multiple output
-//: ### Add description
+//:
 import XCPlayground
 import AudioKit
 
