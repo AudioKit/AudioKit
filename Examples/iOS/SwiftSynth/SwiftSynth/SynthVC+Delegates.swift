@@ -29,7 +29,7 @@ extension SynthViewController {
         subMixKnob.delegate = self
         fmMixKnob.delegate = self
         fmModKnob.delegate = self
-        pwmKnob.delegate = self
+        morphKnob.delegate = self
         noiseMixKnob.delegate = self
         masterVolKnob.delegate = self
         attackSlider.delegate = self

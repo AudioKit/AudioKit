@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## AutoWah Operation
-//: ### Add description
+//: 
 import XCPlayground
 import AudioKit
 

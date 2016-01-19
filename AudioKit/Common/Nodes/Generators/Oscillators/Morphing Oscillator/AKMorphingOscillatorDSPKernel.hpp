@@ -37,35 +37,9 @@ public:
 
         sp_create(&sp);
         sp_oscmorph_create(&oscmorph);
-        
-        // Override custom tables that aren't quite working yet
-        sp_ftbl_create(sp, &ftbl0, tbl_size);
-        sp_ftbl_create(sp, &ftbl1, tbl_size);
-        sp_ftbl_create(sp, &ftbl2, tbl_size);
-        sp_ftbl_create(sp, &ftbl3, tbl_size);
-        sp_gen_line(sp, ftbl0, "0 1 4095 -1");
-        sp_gen_line(sp, ftbl1, "0 1 2047 1 2048 -1 4095 -1");
-        sp_gen_sine(sp, ftbl2);
-        sp_gen_line(sp, ftbl3, "0 0 1023 1 3071 -1 4095 0");
-        ft_array[0] = ftbl0;
-        ft_array[1] = ftbl1;
-        ft_array[2] = ftbl2;
-        ft_array[3] = ftbl3;
-        sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
-        
-        oscmorph->freq = 440;
-        oscmorph->amp = 0.5;
-        oscmorph->wtpos = 0.0;
+
     }
-    
-    void finalize() {
-        sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
-        NSLog(@"nft %d", oscmorph->nft);
-        oscmorph->freq = 440;
-        oscmorph->amp = 0.5;
-        oscmorph->wtpos = 0.0;
-    }
-    
+
     void setupWaveform(uint32_t waveform, uint32_t size) {
         tbl_size = size;
         sp_ftbl_create(sp, &ft_array[waveform], tbl_size);
@@ -89,6 +63,10 @@ public:
     }
 
     void reset() {
+        sp_oscmorph_init(sp, oscmorph, ft_array, 4, 0);
+        oscmorph->freq = 440;
+        oscmorph->amp = 0.5;
+        oscmorph->wtpos = 0.0;
     }
 
     void setFrequency(float freq) {

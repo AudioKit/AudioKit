@@ -1,6 +1,12 @@
-// Vertical Slider code adapted from
+//
+//  VerticalSlider.swift
+//  Swift Synth
+//
+//  Created by Matthew Fecher on 1/11/16.
+//  Copyright (c) 2016 AudioKit. All rights reserved.
+
+// Slider code adapted from:
 // http://www.totem.training/swift-ios-tips-tricks-tutorials-blog/paint-code-and-live-views
-// by Matthew Fecher on 1/11/16.
 
 import UIKit
 

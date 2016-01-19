@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Roland TB-303 Filter
-//: ### Write description
+//: 
 import XCPlayground
 import AudioKit
 

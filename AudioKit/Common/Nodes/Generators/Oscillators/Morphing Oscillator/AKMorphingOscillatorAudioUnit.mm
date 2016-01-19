@@ -30,10 +30,6 @@
 }
 @synthesize parameterTree = _parameterTree;
 
--(void)finalize {
-    _kernel.finalize();
-}
-
 - (void)setFrequency:(float)frequency {
     _kernel.setFrequency(frequency);
 }

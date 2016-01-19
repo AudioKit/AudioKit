@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Rolling Output Plot
-//: ### Add description
+//: ###  If you open the Assitant editor and make sure it shows the Rolling Output Plot.xcplaygroundpage (Timeline) view, you should see a plot of the amplitude peaks scrolling in the view
 import XCPlayground
 import AudioKit
 
@@ -15,13 +15,7 @@ let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 
-var delay = AKDelay(player)
-
-delay.time = 0.01 // seconds
-delay.feedback  = 0.9 // Normalized Value 0 - 1
-delay.dryWetMix = 0.6 // Normalized Value 0 - 1
-
-audiokit.audioOutput = delay
+audiokit.audioOutput = player
 audiokit.start()
 player.play()
 

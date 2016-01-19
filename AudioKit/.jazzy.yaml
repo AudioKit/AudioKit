@@ -18,12 +18,13 @@ custom_categories:
     children:
     - AKPolyphonicInstrument
     - AKVoice
-    - AKFMOscillatorInstrument
-    - AKNoiseInstrument
-    - AKOscillatorInstrument
-    - AKSawtoothInstrument
-    - AKSquareInstrument
-    - AKTriangleInstrument
+    - AKFMSynth
+    - AKNoiseGenerator
+    - AKPWMSynth
+    - AKSawtoothSynth
+    - AKSynthKick
+    - AKSynthSnare
+    - AKWavetablySynth
 
   - name: MIDI
     children:
@@ -116,6 +117,7 @@ custom_categories:
   - name: Oscillator Nodes
     children:
     - AKFMOscillator
+    - AKMorphingOscillator
     - AKOscillator
     - AKSawtoothOscillator
     - AKSquareWaveOscillator
