@@ -38,12 +38,12 @@
 //: * [Node Output Plot](Node%20Output%20Plot)
 //: * [Node FFT Plot](Node%20FFT%20Plot)
 //:
-//: Audio Analysis
+//: ## Audio Analysis
 //:
 //: * [Tracking Amplitude](Tracking%20Amplitude)
 //: * [Tracking Frequency](Tracking%20Frequency)
 //:
-//: Swift Synth Example Project
+//: ## Swift Synth Example Project
 //:
 //: AudioKit is shipped with an awesome synth example project and the following playgrounds are where we developed and tested out the effects for that synth.
 //:
