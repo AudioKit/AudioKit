@@ -2,26 +2,26 @@
 //:
 //: ---
 //:
-//: ## Drum Synthesizer Instruments
-//: ### can be hooked up to midi or sequencers
+//: ## Drum Synthesizers
+//: ### These can also be hooked up to MIDI or a sequencer.
 import XCPlayground
 import AudioKit
 
 let audiokit = AKManager.sharedInstance
 
+//: Here we set up the instruments, which can be polyphnic, but we only need mono for this example
 var kick = AKSynthKick(voiceCount: 1)
 var snare = AKSynthSnare(voiceCount: 1, duration: 0.07)
+
 var mix = AKMixer(kick, snare)
 var reverb = AKReverb(mix)
 reverb.loadFactoryPreset(.MediumRoom)
-reverb.dryWetMix = 0.5
 
 audiokit.audioOutput = reverb
 audiokit.start()
 
+//: Generate a cheap electro beat
 var i = 0
-
-//generate cheap electro
 AKPlaygroundLoop(frequency: 4.44) {
     
     let onFirstBeat = i == 0
@@ -29,13 +29,11 @@ AKPlaygroundLoop(frequency: 4.44) {
     let randomHit = randomInt(0...3) == 0
     
     if onFirstBeat || randomHit {
-        //print("boom")
         kick.playNote(60, velocity: 100)
         kick.stopNote(60)
     }
     
     if everyOtherBeat {
-        //print("chik")
         let velocity = randomInt(1...100)
         snare.playNote(60, velocity: velocity)
         snare.stopNote(60)
