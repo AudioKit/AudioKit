@@ -27,8 +27,8 @@ var ringModulator = AKRingModulator(inputMix)
 //: Set the parameters of the ring modulator here
 ringModulator.frequency1 = 440 // Hertz
 ringModulator.frequency2 = 660 // Hertz
-ringModulator.balance = 50 // Percent
-ringModulator.mix = 50 // Percent
+ringModulator.balance = 0.5
+ringModulator.mix = 0.5
 
 var ringModulatorWindow = AKRingModulatorWindow(ringModulator)
 
