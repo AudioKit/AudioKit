@@ -665,7 +665,7 @@ extension SynthViewController: VerticalSliderDelegate {
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
-            statusLabel.text = "Sustain: \(attackSlider.currentValue.percentageString)"
+            statusLabel.text = "Sustain: \(sustainSlider.currentValue.percentageString)"
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
