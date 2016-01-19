@@ -4,7 +4,6 @@
 //:
 //: ## Plucked String Operation
 //: ### Experimenting with a physical model of a string
-
 import XCPlayground
 import AudioKit
 
@@ -24,7 +23,6 @@ delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 
-//: Connect the sampler to the main output
 audiokit.audioOutput = reverb
 audiokit.start()
 pluckNode.start()

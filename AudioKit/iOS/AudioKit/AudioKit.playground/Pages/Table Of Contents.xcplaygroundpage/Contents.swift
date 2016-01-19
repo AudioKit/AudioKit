@@ -13,7 +13,9 @@
 //: * [Electro Drum Beat](Drum%20Synthesizers)
 //: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
 //: * [Telephone Ringing](Telephone%20Ringing)
+//: * [EXS24 Sampler](Sampler%20Instrument%20-%20EXS24)
 //: * [Crazy Drum Effects](Variable%20Delay)
+//: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //:
 //: ## Basic Tutorials
 //:
@@ -27,6 +29,28 @@
 //: * [Balancing Nodes](Balancing%20Nodes)
 //: * [Stereo Panning](Stereo%20Panning)
 //:
+//: ## Plotting
+//:
+//: Playgrounds are a very visually compelling interface and you create a few different ways  of seeing what is happening to your audio signal.
+//:
+//: * [Output Waveform Plot](Output%20Waveform%20Plot)
+//: * [Rolling Output Plot](Rolling%20Output%20Plot)
+//: * [Node Output Plot](Node%20Output%20Plot)
+//: * [Node FFT Plot](Node%20FFT%20Plot)
+//:
+//: Audio Analysis
+//:
+//: * [Tracking Amplitude](Tracking%20Amplitude)
+//: * [Tracking Frequency](Tracking%20Frequency)
+//:
+//: Swift Synth Example Project
+//:
+//: AudioKit is shipped with an awesome synth example project and the following playgrounds are where we developed and tested out the effects for that synth.
+//:
+//: * [Fatten Effect](Fatten%20Effect)
+//: * [Filter Section](Filter%20Section%20Example)
+//: * [MultiDelay](MultiDelay%20Example)
+//:
 //: ## Designing Sound
 //:
 //: These playgrounds are inspired by the "Practicals" section of the book "Designing Sound", by Andy Farnell.  While this book is excellent, the examples are implemented in Pd, which is okay, I guess, but hey, this is AudioKit!
@@ -38,6 +62,42 @@
 //: * [Busy Signal](Busy%20Signal)
 //:
 //: Hopefully we'll add more practicals over time.  If you're interested in making more, submit a pull-request to git repo and we'll be sure to include them.
+//:
+//: ## Playback Nodes
+//:
+//: Over the course of viewing the playgrounds so far, you've come across AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't require a playground of its own, but there are some playback-oriented nodes that are very useful and cool.
+//:
+//: * [Sampler Instrument - EXS24](Sampler%20Instrument%20-%20EXS24)
+//: * [Sampler Instrument - Wav file](Sampler%20Instrument%20-%20Wav file)
+//: * [Sequencer - Single output](Sequencer%20-%20Single%20output)
+//: * [Sequencer - Multiple output](Sequencer%20-%20Multiple%20output)
+//: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
+//: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
+//:
+//: ## Generator Nodes
+//:
+//: ### Oscillators
+//:
+//: Oscillators are the bread and butter of audio synthesis and there's no shortage of them in AudioKit.
+//:
+//: * [FM Oscillator](FM%20Oscillator)
+//: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
+//: * [Morphing Oscillator](Morphing%20Oscillator)
+//: * [Sawtooth Oscillator](Sawtooth%20Oscillator)
+//: * [Square Wave Oscillator](Square%20Wave%20Oscillator)
+//: * [Triangular Wave Oscillator](Triangular%20Wave%20Oscillator)
+//:
+//: ### Noise Generators
+//:
+//: Two noise "colors" to start off with, but we aim to have a much larger spectrum soon.
+//: * [Pink Noise Generator](Pink%20Noise%20Generator)
+//: * [White Noise Generator](White%20Noise%20Generator)
+//:
+//: ### Physical Models
+//:
+//: There are only a few of these to start off with, but we think they are a lot of fun and sound really good.  More on the way!
+//: * [Dripping Sounds](Dripping%20Sounds)
+//: * [Plucked String](Plucked%20String)
 //:
 //: ## Effect Processor Nodes
 //:
@@ -68,11 +128,14 @@
 //:
 //: ### Filters
 //:
+//: * [Amplitude Envelope](Amplitude%20Envelope)
+//: * [Auto Wah Wah](Auto%20Wah%20Wah)
 //: * [Band Pass Filter](Band%20Pass%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
+//: * [Modal Resonance Filter](Modal%20Resonance%20Filter)
 //: * [Moog Ladder Filter](Moog%20Ladder%20Filter)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
 //: * [Roland TB-303 Filter](Roland%20TB-303%20Filter)
@@ -91,31 +154,49 @@
 //: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
 //:
-//: ## Generator Nodes
-//:
-//: ### Noise Generators
-//:
-//: * [Pink Noise Generator](Pink%20Noise%20Generator)
-//: * [White Noise Generator](White%20Noise%20Generator)
-//:
-//: ### Oscillators
-//:
-//: * [FM Oscillator](FM%20Oscillator)
-//: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
-//: * [Sawtooth Oscillator](Sawtooth%20Oscillator)
-//: * [Square Wave Oscillator](Square%20Wave%20Oscillator)
-//: * [Triangular Wave Oscillator](Triangular%20Wave%20Oscillator)
-//:
-//: ### Playback
-//:
-//: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
-//:
 //: ## Operations
 //:
 //: Operations are used to make the internals of a single node.
 //:
+//: * [Custom Generator](Custom%20Generator)
+//: * [Low-Frequency Oscillating of Parameters](Low-Frequency%20Oscillating%20of%20Parameters)
+//: * [Using Functions](Using%20Functions)
+//: * [Using Functions Part 2](Using%20Functions%20Part%202)
+//: * [Muli-tap Delay](Multi-tap%20Delay)
+//:
+//: Many of the types of things you can do in nodes are also possible with operations, but with great flexibility in how the parameters are changed over time.
+//:
+//: * [AutoWah Operation](AutoWah%20Operation)
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Clip](Clip%20Operation)
-//: * [Sean Costello Reverb](Sean%20Costello%20Reverb%20Operation)
-
+//: * [Drum% Synthesizers](Drum%20Synthesizers)
+//: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
+//: * [FM Oscillator](FM%20Oscillator%20Operation)
+//: * [High Pass Filter](High%20Pass%20Filter%20Operation)
+//: * [Linear and Exponential Segment Operations](Linear%20and%20Exponential%20Segment%20Operations)
+//: * [Low Pass Filter](Low%20Pass%20Filter%20Operation)
+//: * [Modal Resonance Filter](Modal%20Resonance%20Filter%20Operation)
+//: * [Moog Ladder Filter](Moog%20Ladder%20Filter%20Operation)
+//: * [Noise](Noise%20Operations)
+//: * [Phasor](Phasor%20Operation)
+//: * [Plucked String Operation](Plucked%20String%20Operation)
+//: * [Sawtooth Wave Oscillator Operation](Sawtooth%20Wave%20Oscillator%20Operation)
+//: * [Sean Costello Reverb ](Sean%20Costello%20Reverb%20Operation)
+//: * [Variable Delay](Variable%20Delay%20Operation)
+//:
+//: ## Sporth
+//:
+//: Sporth is a simple but super-powerful stack-based audio processing language that you can run directly in AudioKit. Here are some examples.
+//:
+//: * [Sporth Based Generator](Sporth%20Based%20Generator)
+//: * [Sporth Based Effect](Sporth%20Based%20Effect)
+//:
+//: ## Development
+//:
+//: These playgrounds are here basically for us to work on future AudioKit developments.  Proceed with caution!
+//:
+//: * [Parameter Intertia](Parameter%20Inertia)
+//:
+//: Hey you got all the way to the bottom of this file, why not let us know by emailing audiokit@audiokit.io.  We'd love to hear from you!
+//:
 
