@@ -385,16 +385,11 @@ class SynthViewController: UIViewController {
     
     // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
-        if let url = NSURL(string: "http://audiokit.io") {
-            UIApplication.sharedApplication().openURL(url)
-        }
+        openURL("http://audiokit.io")
     }
     
     @IBAction func buildThisSynth(sender: RoundedButton) {
-        // TODO: link to tutorial
-        if let url = NSURL(string: "http://audiokit.io") {
-            UIApplication.sharedApplication().openURL(url)
-        }
+        openURL("http://audiokit.io/examples/swiftsynth")
     }
     
     //*****************************************************************
@@ -487,18 +482,16 @@ class SynthViewController: UIViewController {
         // Determine new keyboard bounds
         let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
         let upperMidiNote = lowerMidiNote + 24
-        statusLabel.text = "Keyboard Shift: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
+        statusLabel.text = "Keyboard Range: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
         
         // Check notes currently in view and turn on if held
         for note in lowerMidiNote...upperMidiNote {
             if midiNotesHeld.contains(note) {
                 let keyTag = (note - (keyboardOctavePosition * 12)) + 200
-                
                 guard let key = self.view.viewWithTag(keyTag) as? UIButton else {
                     return
                 }
-                
-               updateKeyToDownPosition(key)
+                updateKeyToDownPosition(key)
             }
         }
     }
