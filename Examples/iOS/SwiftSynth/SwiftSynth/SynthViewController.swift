@@ -404,12 +404,14 @@ class SynthViewController: UIViewController {
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
         
+        // Turn off last key press in Mono
         if monoMode {
-            if let lastKey = lastKey where lastKey != key {
+            if let lastKey = lastKey {
                 turnOffKey(lastKey)
             }
         }
         
+        // Toggle key if in Hold mode
         if holdMode {
             if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
                 turnOffKey(key)
@@ -426,15 +428,13 @@ class SynthViewController: UIViewController {
         
         if holdMode && monoMode {
            toggleMonoKeyHeld(key)
-
+           redisplayHeldKeys()
         } else if holdMode && !monoMode {
             toggleKeyHeld(key)
             
         } else {
             turnOffKey(key)
         }
-        
-        lastKey = key
     }
     
     // *********************************************************
@@ -457,7 +457,7 @@ class SynthViewController: UIViewController {
     func turnOffHeldKeys() {
         updateAllKeysToUpPosition()
         
-        for note in midiNotesHeld {
+        for note in 21...108 {
             conductor.core.stopNote(note)
         }
     
@@ -510,9 +510,9 @@ class SynthViewController: UIViewController {
     func toggleMonoKeyHeld(key: UIButton) {
         if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
             midiNotesHeld.removeAll()
-            midiNotesHeld.append(midiNoteFromTag(key.tag))
         } else {
             midiNotesHeld.removeAll()
+            midiNotesHeld.append(midiNoteFromTag(key.tag))
         }
     }
     
