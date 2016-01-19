@@ -169,7 +169,7 @@
 //: * [AutoWah Operation](AutoWah%20Operation)
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Clip](Clip%20Operation)
-//: * [Drum% Synthesizers](Drum%20Synthesizers)
+//: * [Drum Synthesizers](Drum%20Synthesizers)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
 //: * [FM Oscillator](FM%20Oscillator%20Operation)
 //: * [High Pass Filter](High%20Pass%20Filter%20Operation)
