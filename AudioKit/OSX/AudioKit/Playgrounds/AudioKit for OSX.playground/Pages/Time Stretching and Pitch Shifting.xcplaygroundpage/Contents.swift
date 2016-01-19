@@ -19,7 +19,7 @@ let playerWindow = AKAudioPlayerWindow(player)
 //: Next, we'll connect the audio source to a time/pitch effect
 var timePitch = AKTimePitch(player)
 
-//: Set the parameters of the Peak Limiter here
+//: Set the parameters of the Time/Pitch stretching here
 timePitch.rate = 1.0 // rate
 timePitch.pitch = 1.0 // Cents
 timePitch.overlap = 8.0 // generic

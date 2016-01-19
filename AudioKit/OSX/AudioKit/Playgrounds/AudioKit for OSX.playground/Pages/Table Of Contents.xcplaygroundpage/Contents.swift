@@ -8,6 +8,13 @@
 //:
 //: * [Introduction](Intro)
 //:
+//: ## This is going to be fun...
+//:
+//: So wait, before we jump into the actual tutorials, let's just highlight some of the cooler sound playgrounds we have.  Don't try to understand the code if you're just started, it will all be expained starting with the next section, Basic Tutorials.
+//:
+//: * [Delay](Delay)
+//: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
+//:
 //: ## Basic Tutorials
 //:
 //: These tutorials help you get started with the basic concepts of AudioKit, starting with what you need to know about playgrounds in general and then moving on to sound creation and working with AudioKit nodes.
