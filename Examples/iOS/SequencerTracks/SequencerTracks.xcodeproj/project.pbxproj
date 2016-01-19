@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EAC814B21C4E50130061C355 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC814B11C4E50130061C355 /* AudioKit.framework */; };
+		EAC814B31C4E50130061C355 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAC814B11C4E50130061C355 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FE3ECF0A1C45FE1E0002857A /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECF091C45FE1E0002857A /* Sounds */; };
 		FE3ECF0E1C45FE5D0002857A /* seqDemo.mid in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECF0D1C45FE5D0002857A /* seqDemo.mid */; };
 		FE7B7B9F1C42F1FF00E373E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7B7B9E1C42F1FF00E373E5 /* AppDelegate.swift */; };
@@ -16,7 +18,6 @@
 		FE7B7BA91C42F1FF00E373E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE7B7BA71C42F1FF00E373E5 /* LaunchScreen.storyboard */; };
 		FE7B7BB41C42F1FF00E373E5 /* AKPersonalPanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7B7BB31C42F1FF00E373E5 /* AKPersonalPanTests.swift */; };
 		FE7B7BBF1C42F1FF00E373E5 /* AKPersonalPanUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7B7BBE1C42F1FF00E373E5 /* AKPersonalPanUITests.swift */; };
-		FE7B7BD51C42F2F000E373E5 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE7B7BD21C42F2E200E373E5 /* AudioKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,23 +35,24 @@
 			remoteGlobalIDString = FE7B7B9A1C42F1FF00E373E5;
 			remoteInfo = AKPersonalPan;
 		};
-		FE7B7BD11C42F2E200E373E5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FE7B7BCC1C42F2E200E373E5 /* AudioKit For iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F35001C057E03000E937C;
-			remoteInfo = AudioKit;
-		};
-		FE7B7BD31C42F2E200E373E5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FE7B7BCC1C42F2E200E373E5 /* AudioKit For iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C43792781C0CE2E0001E9160;
-			remoteInfo = AudioKitTests;
-		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		EAC814B41C4E50130061C355 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EAC814B31C4E50130061C355 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		EAC814B11C4E50130061C355 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		FE3ECF091C45FE1E0002857A /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		FE3ECF0D1C45FE5D0002857A /* seqDemo.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = seqDemo.mid; sourceTree = "<group>"; };
 		FE7B7B9B1C42F1FF00E373E5 /* SequencerTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SequencerTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +68,6 @@
 		FE7B7BBA1C42F1FF00E373E5 /* SequencerTracks.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SequencerTracks.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE7B7BBE1C42F1FF00E373E5 /* AKPersonalPanUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKPersonalPanUITests.swift; sourceTree = "<group>"; };
 		FE7B7BC01C42F1FF00E373E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE7B7BCC1C42F2E200E373E5 /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../AudioKit3/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE7B7BD51C42F2F000E373E5 /* AudioKit.framework in Frameworks */,
+				EAC814B21C4E50130061C355 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,14 +96,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EAC814B51C4E50170061C355 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAC814B11C4E50130061C355 /* AudioKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FE7B7B921C42F1FF00E373E5 = {
 			isa = PBXGroup;
 			children = (
-				FE7B7BCC1C42F2E200E373E5 /* AudioKit For iOS.xcodeproj */,
 				FE7B7B9D1C42F1FF00E373E5 /* AKPersonalPan */,
 				FE7B7BB21C42F1FF00E373E5 /* AKPersonalPanTests */,
 				FE7B7BBD1C42F1FF00E373E5 /* AKPersonalPanUITests */,
 				FE7B7B9C1C42F1FF00E373E5 /* Products */,
+				EAC814B51C4E50170061C355 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,15 +157,6 @@
 			path = AKPersonalPanUITests;
 			sourceTree = "<group>";
 		};
-		FE7B7BCD1C42F2E200E373E5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FE7B7BD21C42F2E200E373E5 /* AudioKit.framework */,
-				FE7B7BD41C42F2E200E373E5 /* AudioKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		FE7B7BD61C42F55600E373E5 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +176,7 @@
 				FE7B7B971C42F1FF00E373E5 /* Sources */,
 				FE7B7B981C42F1FF00E373E5 /* Frameworks */,
 				FE7B7B991C42F1FF00E373E5 /* Resources */,
+				EAC814B41C4E50130061C355 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,12 +262,6 @@
 			mainGroup = FE7B7B921C42F1FF00E373E5;
 			productRefGroup = FE7B7B9C1C42F1FF00E373E5 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FE7B7BCD1C42F2E200E373E5 /* Products */;
-					ProjectRef = FE7B7BCC1C42F2E200E373E5 /* AudioKit For iOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				FE7B7B9A1C42F1FF00E373E5 /* SequencerTracks */,
@@ -275,23 +270,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FE7B7BD21C42F2E200E373E5 /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = FE7B7BD11C42F2E200E373E5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FE7B7BD41C42F2E200E373E5 /* AudioKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AudioKitTests.xctest;
-			remoteRef = FE7B7BD31C42F2E200E373E5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FE7B7B991C42F1FF00E373E5 /* Resources */ = {
@@ -470,9 +448,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AKPersonalPan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = southernworks.AKPersonalPan;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AKPersonalPan;
 				PRODUCT_NAME = SequencerTracks;
 			};
 			name = Debug;
@@ -481,9 +460,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AKPersonalPan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = southernworks.AKPersonalPan;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AKPersonalPan;
 				PRODUCT_NAME = SequencerTracks;
 			};
 			name = Release;

@@ -1,6 +1,6 @@
 AudioKit V3
 ===
-*This document was last updated: January 16, 2016*
+*This document was last updated: January 19, 2016*
 
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
@@ -9,7 +9,7 @@ The third major revision of AudioKit has been completely rewritten to offer the 
 
 * Installation as a framework
 * Integrated with CoreAudio audio units from Apple
-* No dependencies on Csound or libsndfile
+* No external dependencies
 * Can use opcodes from Faust, Chuck, STK, Csound, and others
 * Many included Xcode Swift playgrounds
 
@@ -63,14 +63,10 @@ And then responding to the UI by changing the oscillator:
 Because Playgrounds have very different capabilities depending on whether they are for OSX or iOS, we have two sets of playgrounds for each OS.  At this point tvOS behaves very much like iOS so there is no set of playgrounds explicitly for tvOS.
 
 ### AudioKit for iOS Playgrounds
-There are many playground pages within the AudioKit for iOS Playground.  Each playground includes a demo of a node or operation or an example of sound design.  The first playground is a Table of Contents and the second one is just a Hello World to prove whether or not you have things set up correctly on your machine.  After the first few playgrounds, you should consider jumping around to whatever interests you.  Since Apple doesn't provide much of a way to organize playgrounds, the best place to see how playgrounds are grouped together is to look at the http://audiokit.io/playgrounds/ where you can also see videos of the playgrounds in action.
+There are many playground pages within the AudioKit for iOS Playground.  Each playground includes a demo of a node or operation or an example of sound design.  The first playground is a Table of Contents in which the playgrounds are organized via markup.  The playground may also be opened up to view the playgrounds alphabetically.
 
 ### AudioKit for OSX Playgrounds
 OSX Playgrounds are able to launch NSWindows that can be used to control the AudioKit effects processors, so these playgrounds have a UI that allow you to adjust the parameters of an effect very easily.  However, OSX playgrounds at this point do not support AudioKit nodes that do not use Apple AudioUnit processors, so there are fewer things that we can demonstrate in OSX playgrounds.  Hopefully this will be fixed in the future - it is unclear whether the problem is in AudioKit or within the Xcode playground audio implementation.
-
-## Developer Tools
-
-These are tools for the developers of AudioKit itself, not tools for developers making apps with AudioKit.  This folder contains scripts and templates that generate nodes and operations from meta data contained in yaml or interface files.
 
 ## Tests
 
@@ -78,13 +74,13 @@ So far, the only testing that we do automatically through Travis is to ensure th
 
 ## About Us
 
-AudioKit was created by the follow team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
+AudioKit was created by the following team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
 
 * Aurelius Prochazka: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
 * Jeff Cooper: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
 * Matthew Fecher: Sound design, graphic design, and programming of the Swift Synth example.
 * Nicholas Arner: Longtime contributor to AudioKit and AudioKit's web site.
 * Paul Batchelor: The author of Soundpipe, and Sporth, which serve as two primary audio engines in AudioKit 3.
-* Simon Gladman: Contributed his AudioKitParticles project and PencilSynth which appears as part of TouchPlayer.
+* Simon Gladman: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
 * Stephane Peter: Installation and configuration czar and code reviewer.
 * Syed Haris Ali: The author of EZAudio which is AudioKit's included waveform plotter and FFT analysis engine.

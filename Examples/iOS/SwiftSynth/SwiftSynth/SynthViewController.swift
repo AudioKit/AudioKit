@@ -367,7 +367,6 @@ class SynthViewController: UIViewController {
     // Universal
     @IBAction func midiPanicPressed(sender: RoundedButton) {
         turnOffHeldKeys()
-        // conductor.core.panic()
         statusLabel.text = "All Notes Off"
     }
     
@@ -385,16 +384,11 @@ class SynthViewController: UIViewController {
     
     // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
-        if let url = NSURL(string: "http://audiokit.io") {
-            UIApplication.sharedApplication().openURL(url)
-        }
+        openURL("http://audiokit.io")
     }
     
     @IBAction func buildThisSynth(sender: RoundedButton) {
-        // TODO: link to tutorial
-        if let url = NSURL(string: "http://audiokit.io") {
-            UIApplication.sharedApplication().openURL(url)
-        }
+        openURL("http://audiokit.io/examples/swiftsynth")
     }
     
     //*****************************************************************
@@ -456,11 +450,9 @@ class SynthViewController: UIViewController {
     func turnOffHeldKeys() {
         updateAllKeysToUpPosition()
         
-        for note in 21...108 {
+        for note in 0...127 {
             conductor.core.stopNote(note)
         }
-    
-        statusLabel.text = "Key(s) Released"
         midiNotesHeld.removeAll(keepCapacity: false)
     }
     
@@ -476,6 +468,11 @@ class SynthViewController: UIViewController {
     
     func redisplayHeldKeys() {
         
+        // Determine new keyboard bounds
+        let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
+        let upperMidiNote = lowerMidiNote + 24
+        statusLabel.text = "Keyboard Range: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
+        
         guard !monoMode else {
             turnOffHeldKeys()
             return
@@ -484,21 +481,14 @@ class SynthViewController: UIViewController {
         // Refresh keyboard
         updateAllKeysToUpPosition()
         
-        // Determine new keyboard bounds
-        let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
-        let upperMidiNote = lowerMidiNote + 24
-        statusLabel.text = "Keyboard Shift: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
-        
         // Check notes currently in view and turn on if held
         for note in lowerMidiNote...upperMidiNote {
             if midiNotesHeld.contains(note) {
                 let keyTag = (note - (keyboardOctavePosition * 12)) + 200
-                
                 guard let key = self.view.viewWithTag(keyTag) as? UIButton else {
                     return
                 }
-                
-               updateKeyToDownPosition(key)
+                updateKeyToDownPosition(key)
             }
         }
     }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EAC814AC1C4E4F2F0061C355 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC814AB1C4E4F2F0061C355 /* AudioKit.framework */; };
+		EAC814AD1C4E4F2F0061C355 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EAC814AB1C4E4F2F0061C355 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FE3ECF231C4ADDCF0002857A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECF221C4ADDCF0002857A /* AppDelegate.swift */; };
 		FE3ECF251C4ADDCF0002857A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECF241C4ADDCF0002857A /* ViewController.swift */; };
 		FE3ECF281C4ADDCF0002857A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECF261C4ADDCF0002857A /* Main.storyboard */; };
@@ -14,12 +16,9 @@
 		FE3ECF2D1C4ADDCF0002857A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE3ECF2B1C4ADDCF0002857A /* LaunchScreen.storyboard */; };
 		FE3ECF381C4ADDD00002857A /* AKMidiSeqDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECF371C4ADDD00002857A /* AKMidiSeqDemoTests.swift */; };
 		FE3ECF431C4ADDD00002857A /* AKMidiSeqDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3ECF421C4ADDD00002857A /* AKMidiSeqDemoUITests.swift */; };
-		FE3ECF861C4ADF450002857A /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE3ECF831C4ADF3A0002857A /* AudioKit.framework */; };
 		FE4423751C4C86F500BA7009 /* molly-jumpsun.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4423741C4C86F500BA7009 /* molly-jumpsun.png */; };
 		FE44237F1C4C8B2300BA7009 /* monkeypuzzle-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = FE44237E1C4C8B2300BA7009 /* monkeypuzzle-bg.png */; };
 		FE4423811C4C981600BA7009 /* mp-button2.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4423801C4C981600BA7009 /* mp-button2.png */; };
-		FE44238E1C4CA2C000BA7009 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE3ECF831C4ADF3A0002857A /* AudioKit.framework */; };
-		FE44238F1C4CA2C000BA7009 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE3ECF831C4ADF3A0002857A /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,37 +36,16 @@
 			remoteGlobalIDString = FE3ECF1E1C4ADDCF0002857A;
 			remoteInfo = AKMidiSeqDemo;
 		};
-		FE3ECF821C4ADF3A0002857A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FE3ECF7D1C4ADF390002857A /* AudioKit For iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F35001C057E03000E937C;
-			remoteInfo = AudioKit;
-		};
-		FE3ECF841C4ADF3A0002857A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FE3ECF7D1C4ADF390002857A /* AudioKit For iOS.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C43792781C0CE2E0001E9160;
-			remoteInfo = AudioKitTests;
-		};
-		FE4423901C4CA2C000BA7009 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FE3ECF7D1C4ADF390002857A /* AudioKit For iOS.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C42F34FF1C057E03000E937C;
-			remoteInfo = AudioKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		FE4423921C4CA2C000BA7009 /* Embed Frameworks */ = {
+		EAC814AE1C4E4F2F0061C355 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FE44238F1C4CA2C000BA7009 /* AudioKit.framework in Embed Frameworks */,
+				EAC814AD1C4E4F2F0061C355 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EAC814AB1C4E4F2F0061C355 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		FE3ECF1F1C4ADDCF0002857A /* MollyBChimes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MollyBChimes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE3ECF221C4ADDCF0002857A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE3ECF241C4ADDCF0002857A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,7 +67,6 @@
 		FE3ECF3E1C4ADDD00002857A /* MollyBChimes.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MollyBChimes.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE3ECF421C4ADDD00002857A /* AKMidiSeqDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AKMidiSeqDemoUITests.swift; sourceTree = "<group>"; };
 		FE3ECF441C4ADDD00002857A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE3ECF7D1C4ADF390002857A /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../AudioKit3/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		FE4423741C4C86F500BA7009 /* molly-jumpsun.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "molly-jumpsun.png"; sourceTree = "<group>"; };
 		FE44237E1C4C8B2300BA7009 /* monkeypuzzle-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "monkeypuzzle-bg.png"; sourceTree = "<group>"; };
 		FE4423801C4C981600BA7009 /* mp-button2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mp-button2.png"; sourceTree = "<group>"; };
@@ -99,8 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE44238E1C4CA2C000BA7009 /* AudioKit.framework in Frameworks */,
-				FE3ECF861C4ADF450002857A /* AudioKit.framework in Frameworks */,
+				EAC814AC1C4E4F2F0061C355 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,14 +98,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EAC814AF1C4E4F390061C355 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EAC814AB1C4E4F2F0061C355 /* AudioKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FE3ECF161C4ADDCF0002857A = {
 			isa = PBXGroup;
 			children = (
-				FE3ECF7D1C4ADF390002857A /* AudioKit For iOS.xcodeproj */,
 				FE3ECF211C4ADDCF0002857A /* AKMidiSeqDemo */,
 				FE3ECF361C4ADDD00002857A /* AKMidiSeqDemoTests */,
 				FE3ECF411C4ADDD00002857A /* AKMidiSeqDemoUITests */,
 				FE3ECF201C4ADDCF0002857A /* Products */,
+				EAC814AF1C4E4F390061C355 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,15 +161,6 @@
 			path = AKMidiSeqDemoUITests;
 			sourceTree = "<group>";
 		};
-		FE3ECF7E1C4ADF390002857A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FE3ECF831C4ADF3A0002857A /* AudioKit.framework */,
-				FE3ECF851C4ADF3A0002857A /* AudioKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -195,12 +171,11 @@
 				FE3ECF1B1C4ADDCF0002857A /* Sources */,
 				FE3ECF1C1C4ADDCF0002857A /* Frameworks */,
 				FE3ECF1D1C4ADDCF0002857A /* Resources */,
-				FE4423921C4CA2C000BA7009 /* Embed Frameworks */,
+				EAC814AE1C4E4F2F0061C355 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				FE4423911C4CA2C000BA7009 /* PBXTargetDependency */,
 			);
 			name = MollyBChimes;
 			productName = AKMidiSeqDemo;
@@ -282,12 +257,6 @@
 			mainGroup = FE3ECF161C4ADDCF0002857A;
 			productRefGroup = FE3ECF201C4ADDCF0002857A /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FE3ECF7E1C4ADF390002857A /* Products */;
-					ProjectRef = FE3ECF7D1C4ADF390002857A /* AudioKit For iOS.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				FE3ECF1E1C4ADDCF0002857A /* MollyBChimes */,
@@ -296,23 +265,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FE3ECF831C4ADF3A0002857A /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = FE3ECF821C4ADF3A0002857A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FE3ECF851C4ADF3A0002857A /* AudioKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AudioKitTests.xctest;
-			remoteRef = FE3ECF841C4ADF3A0002857A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FE3ECF1D1C4ADDCF0002857A /* Resources */ = {
@@ -382,11 +334,6 @@
 			isa = PBXTargetDependency;
 			target = FE3ECF1E1C4ADDCF0002857A /* MollyBChimes */;
 			targetProxy = FE3ECF3F1C4ADDD00002857A /* PBXContainerItemProxy */;
-		};
-		FE4423911C4CA2C000BA7009 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKit;
-			targetProxy = FE4423901C4CA2C000BA7009 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -497,10 +444,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AKMidiSeqDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AudioKit.AKMidiSeqDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AKMidiSeqDemo;
 				PRODUCT_NAME = MollyBChimes;
 			};
 			name = Debug;
@@ -509,10 +456,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
 				INFOPLIST_FILE = AKMidiSeqDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = AudioKit.AKMidiSeqDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AKMidiSeqDemo;
 				PRODUCT_NAME = MollyBChimes;
 			};
 			name = Release;
