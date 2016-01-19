@@ -525,6 +525,7 @@
 		EAF0066C1C4C79B500ECD392 /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF0066B1C4C79B400ECD392 /* oscmorph.c */; };
 		EAF0066F1C4C79E800ECD392 /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF0066D1C4C79E800ECD392 /* oscmorph.c */; };
 		EAF006701C4C79E800ECD392 /* thresh.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF0066E1C4C79E800ECD392 /* thresh.c */; };
+		EAF006931C4DB8FD00ECD392 /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF006921C4DB8FD00ECD392 /* segment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1052,6 +1053,7 @@
 		EAF0066B1C4C79B400ECD392 /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
 		EAF0066D1C4C79E800ECD392 /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
 		EAF0066E1C4C79E800ECD392 /* thresh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thresh.c; sourceTree = "<group>"; };
+		EAF006921C4DB8FD00ECD392 /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2515,6 +2517,7 @@
 				C4DA4BE01C248EC200AA3771 /* Random Number Generators */,
 				C4E751DD1C23885400688A1B /* add.swift */,
 				C4E751DE1C23885400688A1B /* divide.swift */,
+				EAF006921C4DB8FD00ECD392 /* segment.swift */,
 				C4E751E01C23885400688A1B /* max.swift */,
 				C4E751E11C23885400688A1B /* min.swift */,
 				C4E751E21C23885400688A1B /* multiply.swift */,
@@ -2997,6 +3000,7 @@
 				C4B191231C3B340400C0F330 /* tadsr.c in Sources */,
 				C453836C1C3A5E4300A51738 /* AKLowPassFilter.swift in Sources */,
 				C4DA4BE61C248EC200AA3771 /* randomVertexPulse.swift in Sources */,
+				EAF006931C4DB8FD00ECD392 /* segment.swift in Sources */,
 				C4B191031C3B340400C0F330 /* jcrev.c in Sources */,
 				C45383A21C3A5E4300A51738 /* AKOperationGenerator.swift in Sources */,
 				C4B190AD1C3B340400C0F330 /* mincer.c in Sources */,
