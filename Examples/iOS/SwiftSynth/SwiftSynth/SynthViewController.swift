@@ -451,11 +451,9 @@ class SynthViewController: UIViewController {
     func turnOffHeldKeys() {
         updateAllKeysToUpPosition()
         
-        for note in 21...108 {
+        for note in 0...127 {
             conductor.core.stopNote(note)
         }
-    
-        statusLabel.text = "Key(s) Released"
         midiNotesHeld.removeAll(keepCapacity: false)
     }
     
@@ -471,6 +469,11 @@ class SynthViewController: UIViewController {
     
     func redisplayHeldKeys() {
         
+        // Determine new keyboard bounds
+        let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
+        let upperMidiNote = lowerMidiNote + 24
+        statusLabel.text = "Keyboard Range: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
+        
         guard !monoMode else {
             turnOffHeldKeys()
             return
@@ -478,11 +481,6 @@ class SynthViewController: UIViewController {
         
         // Refresh keyboard
         updateAllKeysToUpPosition()
-        
-        // Determine new keyboard bounds
-        let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
-        let upperMidiNote = lowerMidiNote + 24
-        statusLabel.text = "Keyboard Range: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
         
         // Check notes currently in view and turn on if held
         for note in lowerMidiNote...upperMidiNote {
