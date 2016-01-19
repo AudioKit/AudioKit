@@ -443,63 +443,47 @@ class SynthViewController: UIViewController {
     // *********************************************************
     
     func turnOnKey(key: UIButton) {
-        let index = key.tag - 200
-        
-        if blackKeys.contains(index) {
-            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
-        } else {
-            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
-        }
-        
+        updateKeyToDownPosition(key)
         let midiNote = midiNoteFromTag(key.tag)
-        conductor.core.playNote(midiNote, velocity: 127)
         statusLabel.text = "Key Pressed: \(noteNameFromMidiNote(midiNote))"
+        conductor.core.playNote(midiNote, velocity: 127)
+     
     }
     
     func turnOffKey(key: UIButton) {
-        let index = key.tag - 200
-        
-        if blackKeys.contains(index) {
-            key.setImage(UIImage(named: "blackkey"), forState: .Normal)
-        } else {
-            key.setImage(UIImage(named: "whitekey"), forState: .Normal)
-        }
-        
+        updateKeyToUpPosition(key)
         statusLabel.text = "Key Released"
         conductor.core.stopNote(midiNoteFromTag(key.tag))
     }
     
     func turnOffHeldKeys() {
-        for key in keysHeld {
-            turnOffKey(key)
-            conductor.core.stopNote(midiNoteFromTag(key.tag))
+        updateAllKeysToUpPosition()
+        
+        for note in midiNotesHeld {
+            conductor.core.stopNote(note)
         }
-        if let lastKey = lastKey {
-            turnOffKey(lastKey)
-        }
+    
         statusLabel.text = "Key(s) Released"
         keysHeld.removeAll(keepCapacity: false)
         midiNotesHeld.removeAll(keepCapacity: false)
     }
     
-    func redisplayHeldKeys() {
-        
-        // turn off current keys
+    func updateAllKeysToUpPosition() {
+        // turn off all keys on display
         for tag in 248...272 {
-            
             guard let key = self.view.viewWithTag(tag) as? UIButton else {
                 return
             }
-           
-            let index = tag - 200
-            if blackKeys.contains(index) {
-                key.setImage(UIImage(named: "blackkey"), forState: .Normal)
-            } else {
-                key.setImage(UIImage(named: "whitekey"), forState: .Normal)
-            }
+            updateKeyToUpPosition(key)
         }
+    }
+    
+    func redisplayHeldKeys() {
         
-        // determine bounds
+        // Refresh keyboard
+        updateAllKeysToUpPosition()
+        
+        // Determine new keyboard bounds
         let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
         let upperMidiNote = lowerMidiNote + 24
         statusLabel.text = "Keyboard Shift: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
@@ -514,13 +498,7 @@ class SynthViewController: UIViewController {
                     return
                 }
                 
-                let index = keyTag - 200
-                if blackKeys.contains(index) {
-                    key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
-                } else {
-                    key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
-                }
-
+               updateKeyToDownPosition(key)
             }
         }
     }
@@ -545,6 +523,24 @@ class SynthViewController: UIViewController {
         } else {
             keysHeld.removeAll()
             midiNotesHeld.removeAll()
+        }
+    }
+    
+    func updateKeyToUpPosition(key: UIButton) {
+        let index = key.tag - 200
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey"), forState: .Normal)
+        }
+    }
+    
+    func updateKeyToDownPosition(key: UIButton) {
+        let index = key.tag - 200
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
+        } else {
+            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
         }
     }
     
