@@ -85,7 +85,6 @@ class SynthViewController: UIViewController {
     var lastKey: UIButton?
     var monoMode: Bool = false
     var holdMode: Bool = false
-    var keysHeld = [UIButton]()
     var midiNotesHeld = [Int]()
     let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
     
@@ -383,7 +382,6 @@ class SynthViewController: UIViewController {
         }
     }
     
-    
     // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
         if let url = NSURL(string: "http://audiokit.io") {
@@ -412,7 +410,7 @@ class SynthViewController: UIViewController {
         }
         
         if holdMode {
-            if keysHeld.contains(key) {
+            if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
                 turnOffKey(key)
                 return
             }
@@ -447,7 +445,6 @@ class SynthViewController: UIViewController {
         let midiNote = midiNoteFromTag(key.tag)
         statusLabel.text = "Key Pressed: \(noteNameFromMidiNote(midiNote))"
         conductor.core.playNote(midiNote, velocity: 127)
-     
     }
     
     func turnOffKey(key: UIButton) {
@@ -464,12 +461,11 @@ class SynthViewController: UIViewController {
         }
     
         statusLabel.text = "Key(s) Released"
-        keysHeld.removeAll(keepCapacity: false)
         midiNotesHeld.removeAll(keepCapacity: false)
     }
     
     func updateAllKeysToUpPosition() {
-        // turn off all keys on display
+        // Key up all keys shown on display
         for tag in 248...272 {
             guard let key = self.view.viewWithTag(tag) as? UIButton else {
                 return
@@ -488,11 +484,10 @@ class SynthViewController: UIViewController {
         let upperMidiNote = lowerMidiNote + 24
         statusLabel.text = "Keyboard Shift: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
         
-        // Check for note and turn it on
+        // Check notes currently in view and turn on if held
         for note in lowerMidiNote...upperMidiNote {
             if midiNotesHeld.contains(note) {
                 let keyTag = (note - (keyboardOctavePosition * 12)) + 200
-                print(keyTag)
                 
                 guard let key = self.view.viewWithTag(keyTag) as? UIButton else {
                     return
@@ -504,24 +499,18 @@ class SynthViewController: UIViewController {
     }
     
     func toggleKeyHeld(key: UIButton) {
-        if let i = keysHeld.indexOf(key) {
-            keysHeld.removeAtIndex(i)
-            if let i2 = midiNotesHeld.indexOf(midiNoteFromTag(key.tag)) {
-                midiNotesHeld.removeAtIndex(i2)
-            }
+        if let i = midiNotesHeld.indexOf(midiNoteFromTag(key.tag)) {
+                midiNotesHeld.removeAtIndex(i)
         } else {
-            keysHeld.append(key)
             midiNotesHeld.append(midiNoteFromTag(key.tag))
         }
     }
     
     func toggleMonoKeyHeld(key: UIButton) {
-        if !keysHeld.contains(key) {
-            keysHeld.removeAll()
-            keysHeld.append(key)
-         
+        if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
+            midiNotesHeld.removeAll()
+            midiNotesHeld.append(midiNoteFromTag(key.tag))
         } else {
-            keysHeld.removeAll()
             midiNotesHeld.removeAll()
         }
     }
