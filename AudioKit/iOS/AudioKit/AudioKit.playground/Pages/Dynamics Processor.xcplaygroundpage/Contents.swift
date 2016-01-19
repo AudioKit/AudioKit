@@ -13,7 +13,7 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
-var fmChord = AKFMOscillatorInstrument(voiceCount: 3)
+var fmChord = AKFMOscillatorInstrument(voiceCount: 2)
 var mix = AKMixer()
 var dynamicsProcessor = AKDynamicsProcessor(mix)
 
