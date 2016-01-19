@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Flat Frequency Response Reverb Operation
-//: ### Add Description
+//:
 import XCPlayground
 import AudioKit
 
@@ -15,8 +15,7 @@ let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 
-// Note this is not currently working correctly...
-let duration = AKOperation.sineWave(frequency: 0.1).scale(minimum: 0, maximum: 5)
+let duration = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 5)
 
 let reverb = AKOperation.input.reverberateWithFlatFrequencyResponse(reverbDuration: duration, loopDuration: 0.1)
 let effect = AKOperationEffect(player, operation: reverb)
