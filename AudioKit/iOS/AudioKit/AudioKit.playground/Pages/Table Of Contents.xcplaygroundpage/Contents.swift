@@ -2,16 +2,30 @@
 //:
 //: AudioKit comes with many playgrounds, each of which serves to teach some core concept, demonstrate a particular generator or synthesizer, or just show off some wacky sounds that we've discovered.  Because there are so many playgrounds that are inter-related in different ways, the order of the playgrounds in Xcode is more or less alphabetical, however this index page lists all the the playgrounds grouped by category.  Playgrounds that fit into multiple categories are listed in each relevant category.
 //:
+//: ## Getting Started
+//:
+//: * [Introduction and Hello World](Introduction%20and%20Hello%20World)
+//:
+//: ## This is going to be fun...
+//:
+//: So wait, before we jump into the actual tutorials, let's just highlight some of the cooler sound playgrounds we have.  Don't try to understand the code if you're just started, it will all be expained starting with the next section, Basic Tutorials.
+//:
+//: * [Electro Drum Beat](Drum Synthesizers)
+//: * [Alien Apocalypse](Linear and Exponential Segment Operations)
+//: * [Telephone Ringing](Telephone%20Ringing)
+//: * [Crazy Drum Effects](Variable%20Delay)
+//:
 //: ## Basic Tutorials
 //:
 //: These tutorials help you get started with the basic concepts of AudioKit, starting with what you need to know about playgrounds in general and then moving on to sound creation and working with AudioKit nodes.
 //:
 //: * [Non-Audio Tutorial](Non-Audio%20Tutorial)
-//: * [Introduction and Hello World](Introduction%20and%20Hello%20World)
 //: * [Connecting Nodes](Connecting%20Nodes)
 //: * [Mixing Nodes](Mixing%20Nodes)
 //: * [Splitting Nodes](Splitting%20Nodes)
+//: * [Dry Wet Mixer](Dry%20Wet%20Mixer)
 //: * [Balancing Nodes](Balancing%20Nodes)
+//: * [Stereo Panning](Stereo%20Panning)
 //:
 //: ## Designing Sound
 //:
@@ -27,20 +41,27 @@
 //:
 //: ## Effect Processor Nodes
 //:
-//: ### Delay
+//: Here is where we start presenting playgrounds with the purpose of demonstrating a particular type of node.  This section covers effect processors such as what you might find on a electric guitar pedal board.
+//:
+//: ### Delay Nodes
+//:
+//: Delay is a lot more powerful than simply repeating an earlier sound.  By varying parameters, you can get startlingly beautiful effects.
 //:
 //: * [Delay](Delay)
 //: * [Variable Delay](Variable%20Delay)
 //:
 //: ### Distortion
 //:
+//: Distortion is a category for nodes that do more than just filter a sound, and basically change something essential to the sound, usually making for a harsher sound, but that's a matter of taste.
+//:
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
 //: * [Complex Distortion](Complex%20Distortion)
 //: * [Decimator](Decimator)
 //: * [Ring Modulation](Ring%20Modulation)
-//: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //:
-//: ### Dynamics
+//: ### Dynamics Processing
+//:
+//: Dynamics processing is usually done at the mixing stage and involves changing the signal's output levels.
 //:
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Peak Limiter](Peak%20Limiter)
@@ -75,6 +96,10 @@
 //: * [Sawtooth Oscillator](Sawtooth%20Oscillator)
 //: * [Square Wave Oscillator](Square%20Wave%20Oscillator)
 //: * [Triangular Wave Oscillator](Triangular%20Wave%20Oscillator)
+//:
+//: ### Playback
+//:
+//: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //:
 //: ## Operations
 //:
