@@ -90,12 +90,14 @@
 //: ### Noise Generators
 //:
 //: Two noise "colors" to start off with, but we aim to have a much larger spectrum soon.
+//:
 //: * [Pink Noise Generator](Pink%20Noise%20Generator)
 //: * [White Noise Generator](White%20Noise%20Generator)
 //:
 //: ### Physical Models
 //:
 //: There are only a few of these to start off with, but we think they are a lot of fun and sound really good.  More on the way!
+//:
 //: * [Dripping Sounds](Dripping%20Sounds)
 //: * [Plucked String](Plucked%20String)
 //:
@@ -143,14 +145,17 @@
 //: ### Reverb
 //:
 //: These are the more traditional reverb efffects.
+//:
 //: * [Simple Reverb](Simple%20Reverb)
 //: * [iOS-only Reverb](iOS-only%20Reverb)
 //: * [Sean Costello Reverb](Sean%20Costello%20Reverb)
 //:
 //: Convolution is included here because it often used for reverb effects, but it can do a lot more.
+//:
 //: * [Convolution](Convolution)
 //:
 //: Then there are "reverbs" that are more commonly used as components, not as a stand-alone effect.
+//:
 //: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
 //:
