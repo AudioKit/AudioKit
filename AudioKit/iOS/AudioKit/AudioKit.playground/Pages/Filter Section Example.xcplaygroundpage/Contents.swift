@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## Fattening Effect Playground
-//: ### Needed to test this for the keyboard project
+//: ## Filter Section
+//: ### This is where we created the filter for the Swift Synth example project.
 import XCPlayground
 import AudioKit
 
@@ -29,15 +29,10 @@ let lfo = AKOperation.morphingOscillator(frequency: lfoRate, amplitude: lfoAmpli
 let moog = AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency, resonance: resonance)
 let filterSectionEffect = AKOperationEffect(player, operation: moog)
 
-
 audiokit.audioOutput = filterSectionEffect
 audiokit.start()
 
 player.play()
 
-
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-
-
-

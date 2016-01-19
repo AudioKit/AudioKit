@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Moog Ladder Filter Operation
-//: ### Add description
+//: 
 import XCPlayground
 import AudioKit
 
