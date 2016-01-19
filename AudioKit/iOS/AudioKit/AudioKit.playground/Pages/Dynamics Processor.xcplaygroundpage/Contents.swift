@@ -17,15 +17,12 @@ var dynamicsProcessor = AKDynamicsProcessor(player)
 
 //: Set the parameters of the dynamics processor here
 dynamicsProcessor.threshold = -20 // dB
-dynamicsProcessor.headRoom = 5 // dB
-dynamicsProcessor.expansionRatio = 2 // rate
-dynamicsProcessor.expansionThreshold = 2 // rate
-dynamicsProcessor.attackTime = 0.001 // secs
-dynamicsProcessor.releaseTime = 0.05 // secs
-dynamicsProcessor.masterGain = 0 // dB
-dynamicsProcessor.compressionAmount = 0 // dB
-dynamicsProcessor.inputAmplitude = 0 // dB
-dynamicsProcessor.outputAmplitude = 0 // dB
+dynamicsProcessor.headRoom = 0.1 // dB - similar to 'ratio' on most compressors
+dynamicsProcessor.attackTime = 0.01 // secs
+dynamicsProcessor.releaseTime = 0.25 // secs
+dynamicsProcessor.expansionRatio = 1 // effectively bypassing the expansion by using raito of 1
+dynamicsProcessor.expansionThreshold = 0 // rate
+dynamicsProcessor.masterGain = 20 // dB - makeup gain
 
 audiokit.audioOutput = dynamicsProcessor
 audiokit.start()
