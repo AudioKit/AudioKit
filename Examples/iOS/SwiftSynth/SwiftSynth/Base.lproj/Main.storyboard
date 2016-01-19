@@ -557,21 +557,10 @@
                                     <button opaque="NO" tag="248" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ME-5Z-nHQ" userLabel="C">
                                         <rect key="frame" x="3" y="0.0" width="67" height="184"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="76" id="Nib-3F-X7s"/>
                                             <constraint firstAttribute="height" constant="184" id="nHE-u1-4Jp"/>
                                             <constraint firstAttribute="width" constant="67" id="nxQ-8e-jmY"/>
                                         </constraints>
                                         <state key="normal" image="whitekey"/>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Nib-3F-X7s"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="Nib-3F-X7s"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="79F-ry-pDF"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="4ba-ts-gvs"/>
@@ -581,23 +570,12 @@
                                     <button opaque="NO" tag="250" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6X-s4-vWj" userLabel="D">
                                         <rect key="frame" x="71" y="0.0" width="67" height="184"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="76" id="RZW-7Y-7G4"/>
                                             <constraint firstAttribute="width" constant="67" id="oIa-7v-OqD"/>
                                             <constraint firstAttribute="height" constant="184" id="sJP-CL-C2J"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="RZW-7Y-7G4"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="RZW-7Y-7G4"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="3Rg-pY-bDq"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="Un7-OC-A1s"/>
@@ -608,22 +586,11 @@
                                         <rect key="frame" x="139" y="0.0" width="67" height="184"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="184" id="6zh-pO-Oym"/>
-                                            <constraint firstAttribute="width" constant="76" id="UNZ-KJ-ATK"/>
                                             <constraint firstAttribute="width" constant="67" id="dPa-gW-HRD"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="UNZ-KJ-ATK"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="UNZ-KJ-ATK"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="uVE-YI-HDL"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="Xes-Gr-zdt"/>
@@ -634,22 +601,11 @@
                                         <rect key="frame" x="207" y="0.0" width="67" height="184"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67" id="KpK-Fu-Mcn"/>
-                                            <constraint firstAttribute="width" constant="76" id="YEb-PO-367"/>
                                             <constraint firstAttribute="height" constant="184" id="zxM-Jc-ldD"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.69929956900000001" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="YEb-PO-367"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="YEb-PO-367"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="HRO-E7-f8f"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="Adw-Ts-ZhH"/>
@@ -660,22 +616,11 @@
                                         <rect key="frame" x="275" y="0.0" width="67" height="184"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="184" id="JZL-BY-VFA"/>
-                                            <constraint firstAttribute="width" constant="76" id="WzP-ig-B2c"/>
                                             <constraint firstAttribute="width" constant="67" id="oPE-ka-43M"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="WzP-ig-B2c"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="WzP-ig-B2c"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="7JH-wM-8Tf"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="V9a-bQ-Vaf"/>
@@ -687,21 +632,10 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="184" id="DJv-Ie-5mf"/>
                                             <constraint firstAttribute="width" constant="67" id="FsJ-Pn-cCh"/>
-                                            <constraint firstAttribute="width" constant="76" id="dBh-na-7By"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="dBh-na-7By"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="dBh-na-7By"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="7Dr-PZ-Nfd"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="tx4-CJ-aYj"/>
@@ -712,22 +646,11 @@
                                         <rect key="frame" x="411" y="0.0" width="67" height="184"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67" id="BNv-7u-iOf"/>
-                                            <constraint firstAttribute="width" constant="76" id="C0C-6N-ZEn"/>
                                             <constraint firstAttribute="height" constant="184" id="nbj-yX-fqU"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="C0C-6N-ZEn"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="C0C-6N-ZEn"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="1zl-iy-tGf"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="0GQ-tW-Jh1"/>
@@ -739,21 +662,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67" id="Uf5-dI-IQZ"/>
                                             <constraint firstAttribute="height" constant="184" id="VjW-65-1hY"/>
-                                            <constraint firstAttribute="width" constant="76" id="Yb8-K5-AgX"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Yb8-K5-AgX"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="Yb8-K5-AgX"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="1Ja-gT-u8o"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="hhH-BS-J8j"/>
@@ -764,22 +676,11 @@
                                         <rect key="frame" x="547" y="0.0" width="67" height="184"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67" id="0Rb-W0-dzB"/>
-                                            <constraint firstAttribute="width" constant="76" id="8PE-aE-AFl"/>
                                             <constraint firstAttribute="height" constant="184" id="QRr-Sh-rU6"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="8PE-aE-AFl"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="8PE-aE-AFl"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="LM3-eM-iLN"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="sgk-HW-XtG"/>
@@ -789,23 +690,12 @@
                                     <button opaque="NO" tag="264" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdT-Mg-jgd" userLabel="E2">
                                         <rect key="frame" x="615" y="0.0" width="67" height="184"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="76" id="CD0-ld-hMO"/>
                                             <constraint firstAttribute="height" constant="184" id="eea-xc-1DE"/>
                                             <constraint firstAttribute="width" constant="67" id="ybv-LI-lBS"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="CD0-ld-hMO"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="CD0-ld-hMO"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="5bj-Dh-m6z"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="2wQ-4C-EoB"/>
@@ -817,21 +707,10 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="184" id="KTl-hb-nLy"/>
                                             <constraint firstAttribute="width" constant="67" id="dQk-cs-eND"/>
-                                            <constraint firstAttribute="width" constant="76" id="xxN-pO-BbB"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="xxN-pO-BbB"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="xxN-pO-BbB"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="ivq-IX-vE2"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="Ot8-wJ-MeC"/>
@@ -843,21 +722,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67" id="W1e-SU-UyY"/>
                                             <constraint firstAttribute="height" constant="184" id="rsa-tC-KZX"/>
-                                            <constraint firstAttribute="width" constant="76" id="z1T-H6-Bn1"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="z1T-H6-Bn1"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="z1T-H6-Bn1"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="uDM-10-7p3"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="5as-G0-UJh"/>
@@ -868,22 +736,11 @@
                                         <rect key="frame" x="819" y="0.0" width="67" height="184"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67" id="UoT-Po-5zR"/>
-                                            <constraint firstAttribute="width" constant="76" id="tcJ-UI-0ls"/>
                                             <constraint firstAttribute="height" constant="184" id="vfF-5Z-KEm"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="tcJ-UI-0ls"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="tcJ-UI-0ls"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="0fT-IP-tZQ"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="c16-kB-hXZ"/>
@@ -895,21 +752,10 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="184" id="18l-kx-UWU"/>
                                             <constraint firstAttribute="width" constant="67" id="GrL-Kl-bmI"/>
-                                            <constraint firstAttribute="width" constant="76" id="uIs-Ph-73D"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="uIs-Ph-73D"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="uIs-Ph-73D"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="uUm-1z-o2G"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="Wow-nT-g2Z"/>
@@ -921,21 +767,10 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="67" id="NI3-cL-8ZA"/>
                                             <constraint firstAttribute="height" constant="184" id="a9E-3y-E5L"/>
-                                            <constraint firstAttribute="width" constant="76" id="aIl-Fr-yti"/>
                                         </constraints>
                                         <state key="normal" image="whitekey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="aIl-Fr-yti"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="aIl-Fr-yti"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <action selector="keyPressed:" destination="Z3O-nk-rpn" eventType="touchDown" id="EZq-dy-JOl"/>
                                             <action selector="keyReleased:" destination="Z3O-nk-rpn" eventType="touchUpOutside" id="jUU-ZX-YTh"/>
@@ -947,7 +782,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="137" id="RyL-tQ-4Os"/>
                                             <constraint firstAttribute="height" constant="116" id="UlW-yQ-NpB"/>
-                                            <constraint firstAttribute="width" constant="48" id="WV8-im-nrZ"/>
                                             <constraint firstAttribute="width" constant="46" id="lEk-U1-D6R"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
@@ -956,12 +790,6 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="RyL-tQ-4Os"/>
-                                                <exclude reference="WV8-im-nrZ"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="WV8-im-nrZ"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -977,7 +805,6 @@
                                             <constraint firstAttribute="height" constant="116" id="JQE-6x-7g7"/>
                                             <constraint firstAttribute="height" constant="137" id="ZPZ-Vv-E0y"/>
                                             <constraint firstAttribute="height" constant="137" id="g3H-hK-R2V"/>
-                                            <constraint firstAttribute="width" constant="48" id="kC6-xL-n9c"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -986,12 +813,6 @@
                                             <mask key="constraints">
                                                 <exclude reference="ZPZ-Vv-E0y"/>
                                                 <exclude reference="g3H-hK-R2V"/>
-                                                <exclude reference="kC6-xL-n9c"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="kC6-xL-n9c"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1003,7 +824,6 @@
                                     <button opaque="NO" clipsSubviews="YES" tag="270" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nW5-5X-GcQ" userLabel="G2#">
                                         <rect key="frame" x="864" y="0.0" width="46" height="116"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="Dmn-Am-NbS"/>
                                             <constraint firstAttribute="width" constant="46" id="L9g-S4-0Ac"/>
                                             <constraint firstAttribute="height" constant="116" id="giE-Oa-QXs"/>
                                             <constraint firstAttribute="height" constant="137" id="gte-oi-MsB"/>
@@ -1014,14 +834,8 @@
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="Dmn-Am-NbS"/>
                                                 <exclude reference="gte-oi-MsB"/>
                                                 <exclude reference="o5j-gw-SAo"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="Dmn-Am-NbS"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1036,7 +850,6 @@
                                             <constraint firstAttribute="width" constant="46" id="DuA-wg-Fbg"/>
                                             <constraint firstAttribute="height" constant="116" id="FvQ-Jq-Tll"/>
                                             <constraint firstAttribute="height" constant="137" id="Gd7-2T-W7X"/>
-                                            <constraint firstAttribute="width" constant="48" id="YgU-UH-wZn"/>
                                             <constraint firstAttribute="height" constant="137" id="gg2-6f-M3w"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
@@ -1045,13 +858,7 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="Gd7-2T-W7X"/>
-                                                <exclude reference="YgU-UH-wZn"/>
                                                 <exclude reference="gg2-6f-M3w"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="YgU-UH-wZn"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1064,7 +871,6 @@
                                         <rect key="frame" x="318" y="0.0" width="46" height="116"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="116" id="6tc-yB-v0u"/>
-                                            <constraint firstAttribute="width" constant="48" id="R0b-er-wL3"/>
                                             <constraint firstAttribute="height" constant="137" id="pQd-Nj-n3Z"/>
                                             <constraint firstAttribute="width" constant="46" id="ufX-Zj-0jx"/>
                                             <constraint firstAttribute="height" constant="137" id="ysU-tA-OyB"/>
@@ -1074,14 +880,8 @@
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="R0b-er-wL3"/>
                                                 <exclude reference="pQd-Nj-n3Z"/>
                                                 <exclude reference="ysU-tA-OyB"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="R0b-er-wL3"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1095,7 +895,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="137" id="DdZ-Uc-fGW"/>
                                             <constraint firstAttribute="height" constant="137" id="QOy-ao-aNJ"/>
-                                            <constraint firstAttribute="width" constant="48" id="kfq-ds-8am"/>
                                             <constraint firstAttribute="width" constant="46" id="mMs-Sw-OQU"/>
                                             <constraint firstAttribute="height" constant="116" id="mP0-B9-uMZ"/>
                                         </constraints>
@@ -1106,12 +905,6 @@
                                             <mask key="constraints">
                                                 <exclude reference="DdZ-Uc-fGW"/>
                                                 <exclude reference="QOy-ao-aNJ"/>
-                                                <exclude reference="kfq-ds-8am"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="kfq-ds-8am"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1123,7 +916,6 @@
                                     <button opaque="NO" clipsSubviews="YES" tag="261" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rBE-IK-PKv" userLabel="C2#">
                                         <rect key="frame" x="524" y="0.0" width="46" height="116"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="AwG-OB-GHz"/>
                                             <constraint firstAttribute="width" constant="46" id="Xln-xf-ZQI"/>
                                             <constraint firstAttribute="height" constant="137" id="n0S-Ys-JCS"/>
                                             <constraint firstAttribute="height" constant="137" id="thT-Ir-mMt"/>
@@ -1134,14 +926,8 @@
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="AwG-OB-GHz"/>
                                                 <exclude reference="n0S-Ys-JCS"/>
                                                 <exclude reference="thT-Ir-mMt"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="AwG-OB-GHz"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1156,7 +942,6 @@
                                             <constraint firstAttribute="height" constant="137" id="FXb-f0-eu6"/>
                                             <constraint firstAttribute="width" constant="46" id="Loy-Iw-2OY"/>
                                             <constraint firstAttribute="height" constant="116" id="QGY-JI-HOB"/>
-                                            <constraint firstAttribute="width" constant="48" id="cQR-ch-kgB"/>
                                             <constraint firstAttribute="height" constant="137" id="fzc-rB-dUU"/>
                                         </constraints>
                                         <state key="normal" image="blackkey">
@@ -1165,13 +950,7 @@
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="FXb-f0-eu6"/>
-                                                <exclude reference="cQR-ch-kgB"/>
                                                 <exclude reference="fzc-rB-dUU"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="cQR-ch-kgB"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1184,7 +963,6 @@
                                         <rect key="frame" x="728" y="0.0" width="46" height="116"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="9PS-eG-qlV"/>
-                                            <constraint firstAttribute="width" constant="48" id="IAF-qt-90n"/>
                                             <constraint firstAttribute="height" constant="137" id="Kvz-og-WVX"/>
                                             <constraint firstAttribute="height" constant="116" id="Nwz-l3-7XL"/>
                                             <constraint firstAttribute="height" constant="137" id="Qpi-E8-YPx"/>
@@ -1194,14 +972,8 @@
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="IAF-qt-90n"/>
                                                 <exclude reference="Kvz-og-WVX"/>
                                                 <exclude reference="Qpi-E8-YPx"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="IAF-qt-90n"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -1213,7 +985,6 @@
                                     <button opaque="NO" clipsSubviews="YES" tag="268" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeN-13-ZoL" userLabel="A2#">
                                         <rect key="frame" x="796" y="0.0" width="46" height="116"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="48" id="4oH-Nn-wte"/>
                                             <constraint firstAttribute="width" constant="46" id="4r6-Ml-aSc"/>
                                             <constraint firstAttribute="height" constant="137" id="VMS-eb-2kc"/>
                                             <constraint firstAttribute="height" constant="137" id="ua9-5B-pD9"/>
@@ -1224,14 +995,8 @@
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
-                                                <exclude reference="4oH-Nn-wte"/>
                                                 <exclude reference="VMS-eb-2kc"/>
                                                 <exclude reference="ua9-5B-pD9"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="4oH-Nn-wte"/>
                                             </mask>
                                         </variation>
                                         <connections>
