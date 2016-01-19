@@ -103,10 +103,10 @@ extension SynthViewController {
             108: "C8"
         ]
         
-        if let noteName = noteNames[noteNumber] {
-            return noteName
-        } else {
+        guard let noteName = noteNames[noteNumber] else {
             return String(noteNumber)
         }
+        
+        return noteName
     }
 }
