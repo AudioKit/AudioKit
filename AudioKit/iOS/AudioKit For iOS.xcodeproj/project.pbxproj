@@ -513,6 +513,8 @@
 		C4E959081C0B847C00516A6A /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E959071C0B847C00516A6A /* fft.c */; };
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
 		FE4423711C4B95B700BA7009 /* AKDrumSynths.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */; };
+		FE83773D1C4DF3B60046CB17 /* AKCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE83773C1C4DF3B60046CB17 /* AKCompressor.swift */; };
+		FE83773F1C4DF9B60046CB17 /* AKExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE83773E1C4DF9B60046CB17 /* AKExpander.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1039,6 +1041,8 @@
 		C4E959071C0B847C00516A6A /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDrumSynths.swift; sourceTree = "<group>"; };
+		FE83773C1C4DF3B60046CB17 /* AKCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCompressor.swift; path = ../AKCompressor.swift; sourceTree = "<group>"; };
+		FE83773E1C4DF9B60046CB17 /* AKExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKExpander.swift; path = ../AKExpander.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1685,6 +1689,8 @@
 		C4537F371C39FCF700A51738 /* Dynamics Processor */ = {
 			isa = PBXGroup;
 			children = (
+				FE83773C1C4DF3B60046CB17 /* AKCompressor.swift */,
+				FE83773E1C4DF9B60046CB17 /* AKExpander.swift */,
 				C4537F381C39FCF700A51738 /* AKDynamicsProcessor.swift */,
 			);
 			path = "Dynamics Processor";
@@ -2894,6 +2900,7 @@
 				C46302601C20DFD1009B44D9 /* tone.c in Sources */,
 				C4E958CA1C0ADBFD00516A6A /* phaser.c in Sources */,
 				C4537FF21C3A438D00A51738 /* AKToneComplementFilter.swift in Sources */,
+				FE83773D1C4DF3B60046CB17 /* AKCompressor.swift in Sources */,
 				C4E958EA1C0ADBFD00516A6A /* trand.c in Sources */,
 				C46302821C20E7A7009B44D9 /* clip.swift in Sources */,
 				C46300EF1C20C342009B44D9 /* maygate.c in Sources */,
@@ -3113,6 +3120,7 @@
 				C4537FCA1C3A438D00A51738 /* AKHighShelfFilter.swift in Sources */,
 				C40B0FFB1C463A32000BE96E /* AKMIDI.swift in Sources */,
 				C48443611C3115C3007BE794 /* blsaw.c in Sources */,
+				FE83773F1C4DF9B60046CB17 /* AKExpander.swift in Sources */,
 				C4B192D01C3B637900C0F330 /* AKAmplitudeEnvelope.swift in Sources */,
 				C46301041C20C342009B44D9 /* scale.c in Sources */,
 				C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */,
