@@ -485,8 +485,13 @@ class SynthViewController: UIViewController {
     func redisplayHeldKeys() {
         
         // turn off current keys
-        for key in keysHeld {
-            let index = key.tag - 200
+        for tag in 248...272 {
+            
+            guard let key = self.view.viewWithTag(tag) as? UIButton else {
+                return
+            }
+           
+            let index = tag - 200
             if blackKeys.contains(index) {
                 key.setImage(UIImage(named: "blackkey"), forState: .Normal)
             } else {
@@ -498,6 +503,26 @@ class SynthViewController: UIViewController {
         let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
         let upperMidiNote = lowerMidiNote + 24
         statusLabel.text = "Keyboard Shift: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
+        
+        // Check for note and turn it on
+        for note in lowerMidiNote...upperMidiNote {
+            if midiNotesHeld.contains(note) {
+                let keyTag = (note - (keyboardOctavePosition * 12)) + 200
+                print(keyTag)
+                
+                guard let key = self.view.viewWithTag(keyTag) as? UIButton else {
+                    return
+                }
+                
+                let index = keyTag - 200
+                if blackKeys.contains(index) {
+                    key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
+                } else {
+                    key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
+                }
+
+            }
+        }
     }
     
     func toggleKeyHeld(key: UIButton) {
