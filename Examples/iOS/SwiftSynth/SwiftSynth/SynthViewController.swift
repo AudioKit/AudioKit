@@ -85,7 +85,6 @@ class SynthViewController: UIViewController {
     var lastKey: UIButton?
     var monoMode: Bool = false
     var holdMode: Bool = false
-    var keysHeld = [UIButton]()
     var midiNotesHeld = [Int]()
     let blackKeys = [49, 51, 54, 56, 58, 61, 63, 66, 68, 70]
     
@@ -317,18 +316,26 @@ class SynthViewController: UIViewController {
     
     // Keyboard
     @IBAction func octaveDownPressed(sender: UIButton) {
-        guard keyboardOctavePosition > -2 else { return }
-        statusLabel.text = "Keyboard Octave Down"
+        guard keyboardOctavePosition > -2 else {
+            statusLabel.text = "How low can you go? This low."
+            return
+        }
+       
         keyboardOctavePosition += -1
         octavePositionLabel.text = String(keyboardOctavePosition)
-        // update Keyboard keys held/etc
+        redisplayHeldKeys()
+        
     }
     
     @IBAction func octaveUpPressed(sender: UIButton) {
-        guard keyboardOctavePosition < 3 else { return }
-        statusLabel.text = "Keyboard Octave Up"
+        guard keyboardOctavePosition < 3 else {
+            statusLabel.text = "Captain, she can't go any higher!"
+            return
+        }
+       
         keyboardOctavePosition += 1
         octavePositionLabel.text = String(keyboardOctavePosition)
+        redisplayHeldKeys()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     }
     
     @IBAction func holdModeToggled(sender: UIButton) {
@@ -359,8 +366,9 @@ class SynthViewController: UIViewController {
     
     // Universal
     @IBAction func midiPanicPressed(sender: RoundedButton) {
+        turnOffHeldKeys()
+        // conductor.core.panic()
         statusLabel.text = "All Notes Off"
-        conductor.core.panic()
     }
     
     @IBAction func displayModeToggled(sender: UIButton) {
@@ -374,7 +382,6 @@ class SynthViewController: UIViewController {
             audioPlot.shouldFill = true
         }
     }
-    
     
     // About App
     @IBAction func audioKitHomepage(sender: UIButton) {
@@ -397,20 +404,23 @@ class SynthViewController: UIViewController {
     @IBAction func keyPressed(sender: UIButton) {
         let key = sender
         
+        // Turn off last key press in Mono
         if monoMode {
-            if let lastKey = lastKey where lastKey != key {
+            if let lastKey = lastKey {
                 turnOffKey(lastKey)
             }
         }
         
+        // Toggle key if in Hold mode
         if holdMode {
-            if keysHeld.contains(key) {
+            if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
                 turnOffKey(key)
                 return
             }
         }
         
         turnOnKey(key)
+        lastKey = key
     }
     
     @IBAction func keyReleased(sender: UIButton) {
@@ -418,15 +428,12 @@ class SynthViewController: UIViewController {
         
         if holdMode && monoMode {
            toggleMonoKeyHeld(key)
-
         } else if holdMode && !monoMode {
             toggleKeyHeld(key)
             
         } else {
             turnOffKey(key)
         }
-        
-        lastKey = key
     }
     
     // *********************************************************
@@ -434,66 +441,108 @@ class SynthViewController: UIViewController {
     // *********************************************************
     
     func turnOnKey(key: UIButton) {
-        let index = key.tag - 200
-        
-        if blackKeys.contains(index) {
-            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
-        } else {
-            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
-        }
-        
-        let midiNote = index + (keyboardOctavePosition * 12)
+        updateKeyToDownPosition(key)
+        let midiNote = midiNoteFromTag(key.tag)
+        statusLabel.text = "Key Pressed: \(noteNameFromMidiNote(midiNote))"
         conductor.core.playNote(midiNote, velocity: 127)
-        statusLabel.text = "Key Pressed: \(returnNoteName(midiNote))"
     }
     
     func turnOffKey(key: UIButton) {
-        let index = key.tag - 200
+        updateKeyToUpPosition(key)
+        statusLabel.text = "Key Released"
+        conductor.core.stopNote(midiNoteFromTag(key.tag))
+    }
+    
+    func turnOffHeldKeys() {
+        updateAllKeysToUpPosition()
         
+        for note in 21...108 {
+            conductor.core.stopNote(note)
+        }
+    
+        statusLabel.text = "Key(s) Released"
+        midiNotesHeld.removeAll(keepCapacity: false)
+    }
+    
+    func updateAllKeysToUpPosition() {
+        // Key up all keys shown on display
+        for tag in 248...272 {
+            guard let key = self.view.viewWithTag(tag) as? UIButton else {
+                return
+            }
+            updateKeyToUpPosition(key)
+        }
+    }
+    
+    func redisplayHeldKeys() {
+        
+        guard !monoMode else {
+            turnOffHeldKeys()
+            return
+        }
+        
+        // Refresh keyboard
+        updateAllKeysToUpPosition()
+        
+        // Determine new keyboard bounds
+        let lowerMidiNote = 48  + (keyboardOctavePosition * 12)
+        let upperMidiNote = lowerMidiNote + 24
+        statusLabel.text = "Keyboard Shift: \(noteNameFromMidiNote(lowerMidiNote)) to \(noteNameFromMidiNote(upperMidiNote))"
+        
+        // Check notes currently in view and turn on if held
+        for note in lowerMidiNote...upperMidiNote {
+            if midiNotesHeld.contains(note) {
+                let keyTag = (note - (keyboardOctavePosition * 12)) + 200
+                
+                guard let key = self.view.viewWithTag(keyTag) as? UIButton else {
+                    return
+                }
+                
+               updateKeyToDownPosition(key)
+            }
+        }
+    }
+    
+    func toggleKeyHeld(key: UIButton) {
+        if let i = midiNotesHeld.indexOf(midiNoteFromTag(key.tag)) {
+                midiNotesHeld.removeAtIndex(i)
+        } else {
+            midiNotesHeld.append(midiNoteFromTag(key.tag))
+        }
+    }
+    
+    func toggleMonoKeyHeld(key: UIButton) {
+        if midiNotesHeld.contains(midiNoteFromTag(key.tag)) {
+            midiNotesHeld.removeAll()
+        } else {
+            midiNotesHeld.removeAll()
+            midiNotesHeld.append(midiNoteFromTag(key.tag))
+        }
+    }
+    
+    func updateKeyToUpPosition(key: UIButton) {
+        let index = key.tag - 200
         if blackKeys.contains(index) {
             key.setImage(UIImage(named: "blackkey"), forState: .Normal)
         } else {
             key.setImage(UIImage(named: "whitekey"), forState: .Normal)
         }
-        
-        statusLabel.text = "Key Released"
-        let midiNote = index + (keyboardOctavePosition * 12)
-        conductor.core.stopNote(midiNote)
     }
     
-    func turnOffHeldKeys() {
-        for key in keysHeld {
-            turnOffKey(key)
-            let index = key.tag - 200
-            let midiNote = index + (keyboardOctavePosition * 12)
-            conductor.core.stopNote(midiNote)
-        }
-        if let lastKey = lastKey {
-            turnOffKey(lastKey)
-        }
-        statusLabel.text = "Key(s) Released"
-        keysHeld.removeAll(keepCapacity: false)
-        midiNotesHeld.removeAll(keepCapacity: false)
-    }
-    
-    func toggleKeyHeld(key: UIButton) {
-        if let i = keysHeld.indexOf(key) {
-            keysHeld.removeAtIndex(i)
+    func updateKeyToDownPosition(key: UIButton) {
+        let index = key.tag - 200
+        if blackKeys.contains(index) {
+            key.setImage(UIImage(named: "blackkey_selected"), forState: .Normal)
         } else {
-            keysHeld.append(key)
+            key.setImage(UIImage(named: "whitekey_selected"), forState: .Normal)
         }
     }
     
-    func toggleMonoKeyHeld(key: UIButton) {
-        if !keysHeld.contains(key) {
-            keysHeld.removeAll()
-            keysHeld.append(key)
-        } else {
-            keysHeld.removeAll()
-        }
+    func midiNoteFromTag(tag: Int) -> Int {
+        return (tag - 200) + (keyboardOctavePosition * 12)
     }
-   
 }
+
 
 //*****************************************************************
 // MARK: - 🎛 Knob Delegates
@@ -621,7 +670,7 @@ extension SynthViewController: VerticalSliderDelegate {
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
-            statusLabel.text = "Sustain: \(attackSlider.currentValue.percentageString)"
+            statusLabel.text = "Sustain: \(sustainSlider.currentValue.percentageString)"
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
