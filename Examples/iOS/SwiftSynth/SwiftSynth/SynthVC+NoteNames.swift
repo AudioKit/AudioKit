@@ -8,7 +8,7 @@
 
 extension SynthViewController {
     
-    func returnNoteName(noteNumber: Int) -> String {
+    func noteNameFromMidiNote(noteNumber: Int) -> String {
         
         // Handy table of Midi Note Names
         let noteNames: [Int: String] =
