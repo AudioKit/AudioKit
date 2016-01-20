@@ -80,7 +80,7 @@ AudioKit was created by the following team whose contributions are fully chronic
 * Jeff Cooper: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
 * Matthew Fecher: Sound design, graphic design, and programming of the Swift Synth example.
 * Nicholas Arner: Longtime contributor to AudioKit and AudioKit's web site.
-* Paul Batchelor: The author of Soundpipe, and Sporth, which serve as two primary audio engines in AudioKit 3.
+* Paul Batchelor: The author of [Soundpipe](https://www.github.com/paulbatchelor/soundpipe), and [Sporth](http://www.github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
 * Simon Gladman: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
 * Stephane Peter: Installation and configuration czar and code reviewer.
 * Syed Haris Ali: The author of EZAudio which is AudioKit's included waveform plotter and FFT analysis engine.
