@@ -39,6 +39,8 @@ public class AKVoice: AKNode, AKToggleable {
 /// can be played simultaneously for polyphony
 public class AKPolyphonicInstrument: AKNode {
 
+    // MARK: - Voice Properties
+    
     /// Array of all voices
     public var voices: [AKVoice] {
         return activeVoices + availableVoices
@@ -54,6 +56,9 @@ public class AKPolyphonicInstrument: AKNode {
     public var activeNotes: [Int] = []
     
     var voiceCount: Int
+    
+    // MARK: - Output properties
+    
     private let output = AKMixer()
     
     /// Output level
@@ -70,6 +75,8 @@ public class AKPolyphonicInstrument: AKNode {
             output.volume = amplitude
         }
     }
+    
+    // MARK: - Initialization
     
     /// Initialize the polyphonic instrument with a voice and a count
     ///
@@ -89,6 +96,8 @@ public class AKPolyphonicInstrument: AKNode {
             output.connect(voice)
         }
     }
+    
+    // MARK: - Playback control
     
     /// Start playback with MIDI style note and velocity
     ///

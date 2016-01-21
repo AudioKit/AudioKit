@@ -27,6 +27,9 @@ func myNotifFunction(notif: NSNotification) {
 
 /// A container for the values that define a MIDI event
 public struct AKMIDIEvent {
+    
+    // MARK: - Properties
+    
     /// Internal data (Why the _?)
     var internalData = [UInt8](count: 3, repeatedValue: 0)
     /// The length in bytes for this MIDI message (1 to 3 bytes)
@@ -69,6 +72,8 @@ public struct AKMIDIEvent {
     private var bytes: NSData {
         return NSData(bytes: [internalData[0], internalData[1], internalData[2]] as [UInt8], length: 3)
     }
+    
+    // MARK: - Initialization
     
     /// Initialize the MIDI Event from a MIDI Packet
     init(packet: MIDIPacket) {
@@ -130,6 +135,8 @@ public struct AKMIDIEvent {
         }
     }
     
+    // MARK: - Notification Center
+    
     /// Broadcast a notification center message
     func postNotification() -> Bool {
         var ret = NSDictionary()
@@ -180,7 +187,7 @@ public struct AKMIDIEvent {
         }
         return false
 
-    }//end postNotification
+    }
     
     // MARK: - Utility constructors for common MIDI events
     

@@ -11,6 +11,8 @@ import Foundation
 /// Wrapper for internal Apple MusicTrack
 public class AKMusicTrack {
     
+    // MARK: - Properties
+    
     internal var internalMusicTrack = MusicTrack()
     
     /// Pointer to the Music Track
@@ -23,6 +25,8 @@ public class AKMusicTrack {
         MusicTrackGetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, &size)
         return len
     }
+    
+    // MARK: - Initialization
     
     /// Initialize with nothing
     ///

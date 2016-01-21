@@ -12,6 +12,8 @@ import CoreMIDI
 /// MIDI input and output handler
 public class AKMIDI {
     
+    // MARK: - Properties
+    
     /// MIDI Client Reference
     public var midiClient = MIDIClientRef()
     
@@ -68,6 +70,8 @@ public class AKMIDI {
         }
     }
     
+    // MARK: - Initialization
+    
     /// Initialize the AKMIDI system
     public init() {
 
@@ -87,6 +91,8 @@ public class AKMIDI {
             }
         }
     }
+    
+    // MARK: - Input/Output Setup
     
     /// Open a MIDI Input port
     ///
@@ -184,6 +190,8 @@ public class AKMIDI {
             print("Destination at \(endpointNameStr)")
         }//end foreach midi destination
     }
+    
+    // MARK: - Sending MIDI
     
     /// Send Message with data
     public func sendMessage(data: [UInt8]) {
