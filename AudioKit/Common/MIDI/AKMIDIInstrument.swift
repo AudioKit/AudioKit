@@ -13,6 +13,8 @@ import CoreAudio
 /// should be triggerable via MIDI or sequenced with the sequencer.
 public class AKMIDIInstrument: AKNode {
 
+    // MARK: - Properties
+    
     /// MIDI Input
     public var midiIn = MIDIEndpointRef()
     
@@ -20,6 +22,8 @@ public class AKMIDIInstrument: AKNode {
     public var name = "AKMIDIInstrument"
     
     internal var internalInstrument: AKPolyphonicInstrument?
+    
+    // MARK: - Initialization
     
     /// Initialize the MIDI instrument
     ///
@@ -42,6 +46,8 @@ public class AKMIDIInstrument: AKNode {
         result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
         CheckError(result)
     }
+    
+    // MARK: - Handling MIDI Data
     
     // Send MIDI data to the audio unit
     func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
@@ -71,6 +77,8 @@ public class AKMIDIInstrument: AKNode {
             stopNote(note, onChannel: channel)
         }
     }
+    
+    // MARK: - MIDI Note Start/Stop
     
     /// Start a note
     public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
