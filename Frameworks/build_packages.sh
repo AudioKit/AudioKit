@@ -7,6 +7,12 @@ set -o pipefail
 VERSION=$(cat ../VERSION)
 PLATFORMS=${PLATFORMS:-"iOS tvOS OSX"}
 
+if ! which gsed > /dev/null 2>&1;
+then
+	echo "You need GNU sed installed to run this script properly!"
+	exit 1
+fi
+
 if ! test -d AudioKit-iOS;
 then
 	./build_frameworks.sh
@@ -21,9 +27,9 @@ create_package()
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
-	find Examples -name project.pbxproj -exec sed -i -f ../fix_paths.sed {} \;
+	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../INSTALL.md .
-	find . -name .DS_Store -exec rm -f {} \;
+	find . -name .DS_Store -or -name build -exec rm -f {} \;
 	cd ..
 	zip -9yr ${DIR}-${VERSION}.zip $DIR
 }
