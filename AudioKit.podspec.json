@@ -10,7 +10,7 @@
     "homepage": "http://audiokit.io/",
     "source": {
         "git": "https://github.com/audiokit/AudioKit.git",
-        "tag": "v2.3"
+        "tag": "v3.0"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "source_files": [],
