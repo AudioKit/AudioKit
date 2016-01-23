@@ -116,6 +116,8 @@ public class AKBandPassFilter: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
             AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

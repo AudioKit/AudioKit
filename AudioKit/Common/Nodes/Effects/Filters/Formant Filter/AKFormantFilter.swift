@@ -127,6 +127,8 @@ public class AKFormantFilter: AKNode, AKToggleable {
         attackDurationParameter?.setValue(Float(attackDuration), originator: token!)
         decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

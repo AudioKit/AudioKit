@@ -122,6 +122,8 @@ public class AKMoogLadder: AKNode, AKToggleable {
         cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         resonanceParameter?.setValue(Float(resonance), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

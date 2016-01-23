@@ -257,6 +257,8 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime, kAudioUnitScope_Global, 0, Float(releaseTime), 0)
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain, kAudioUnitScope_Global, 0, Float(masterGain), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

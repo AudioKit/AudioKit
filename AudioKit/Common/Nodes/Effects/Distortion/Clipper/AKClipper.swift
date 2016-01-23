@@ -126,6 +126,8 @@ public class AKClipper: AKNode, AKToggleable {
         clippingStartPointParameter?.setValue(Float(clippingStartPoint), originator: token!)
         methodParameter?.setValue(Float(method), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

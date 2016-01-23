@@ -116,6 +116,8 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kHighShelfParam_CutOffFrequency, kAudioUnitScope_Global, 0, Float(cutOffFrequency), 0)
             AudioUnitSetParameter(internalAU, kHighShelfParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
