@@ -116,6 +116,8 @@ public class AKHighPassFilter: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kHipassParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)
             AudioUnitSetParameter(internalAU, kHipassParam_Resonance, kAudioUnitScope_Global, 0, Float(resonance), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

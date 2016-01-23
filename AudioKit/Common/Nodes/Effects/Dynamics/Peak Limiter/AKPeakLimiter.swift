@@ -137,6 +137,8 @@ public class AKPeakLimiter: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, Float(decayTime), 0)
             AudioUnitSetParameter(internalAU, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, Float(preGain), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

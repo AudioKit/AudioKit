@@ -116,6 +116,8 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kAULowShelfParam_CutoffFrequency, kAudioUnitScope_Global, 0, Float(cutoffFrequency), 0)
             AudioUnitSetParameter(internalAU, kAULowShelfParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

@@ -138,6 +138,8 @@ public class AKParametricEQ: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, Float(q), 0)
             AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
