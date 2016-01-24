@@ -38,7 +38,7 @@ public class AKManager {
         do {
             try self.engine.start()
             #if !os(OSX)
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
         } catch {
