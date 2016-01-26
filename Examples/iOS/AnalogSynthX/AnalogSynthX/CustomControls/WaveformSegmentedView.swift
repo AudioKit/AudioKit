@@ -1,6 +1,6 @@
 //
 //  WaveformSegmentedView.swift
-//  SwiftSynth
+//  AnalogSynthX
 //
 //  Created by Matthew Fecher on 1/15/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,7 +9,7 @@
 import UIKit
 
 class WaveformSegmentedView: SMSegmentView {
-    
+
     func setOscColors() {
         separatorColour = UIColor.clearColor()
         separatorWidth = 0.5

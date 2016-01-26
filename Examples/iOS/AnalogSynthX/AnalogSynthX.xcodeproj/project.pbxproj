@@ -90,7 +90,7 @@
 		94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		94FBB4811C44868000E14C86 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
 		94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSliderStyles.swift; sourceTree = "<group>"; };
-		C42FFBF61C3DDAAC00823BD4 /* SwiftSynth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftSynth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42FFBF61C3DDAAC00823BD4 /* AnalogSynthX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalogSynthX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		C42FFBED1C3DDAAC00823BD4 = {
 			isa = PBXGroup;
 			children = (
-				C42FFBF81C3DDAAC00823BD4 /* SwiftSynth */,
+				C42FFBF81C3DDAAC00823BD4 /* AnalogSynthX */,
 				EA127F471C42097600289567 /* Frameworks */,
 				C42FFBF71C3DDAAC00823BD4 /* Products */,
 			);
@@ -247,12 +247,12 @@
 		C42FFBF71C3DDAAC00823BD4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C42FFBF61C3DDAAC00823BD4 /* SwiftSynth.app */,
+				C42FFBF61C3DDAAC00823BD4 /* AnalogSynthX.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C42FFBF81C3DDAAC00823BD4 /* SwiftSynth */ = {
+		C42FFBF81C3DDAAC00823BD4 /* AnalogSynthX */ = {
 			isa = PBXGroup;
 			children = (
 				C4E8ED251C43AD650041965F /* AudioSystem */,
@@ -264,7 +264,7 @@
 				94FBB4851C44886000E14C86 /* Supporting Files */,
 				94F234F01C43FC0200072159 /* Libraries */,
 			);
-			path = SwiftSynth;
+			path = AnalogSynthX;
 			sourceTree = "<group>";
 		};
 		C4E8ED251C43AD650041965F /* AudioSystem */ = {
@@ -283,15 +283,15 @@
 				EAF0A5B61C4F943E00F37994 /* AudioKit.framework */,
 			);
 			name = Frameworks;
-			path = SwiftSynth;
+			path = AnalogSynthX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C42FFBF51C3DDAAC00823BD4 /* SwiftSynth */ = {
+		C42FFBF51C3DDAAC00823BD4 /* AnalogSynthX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C42FFC081C3DDAAC00823BD4 /* Build configuration list for PBXNativeTarget "SwiftSynth" */;
+			buildConfigurationList = C42FFC081C3DDAAC00823BD4 /* Build configuration list for PBXNativeTarget "AnalogSynthX" */;
 			buildPhases = (
 				C42FFBF21C3DDAAC00823BD4 /* Sources */,
 				C42FFBF31C3DDAAC00823BD4 /* Frameworks */,
@@ -303,9 +303,9 @@
 			);
 			dependencies = (
 			);
-			name = SwiftSynth;
-			productName = SwiftSynth;
-			productReference = C42FFBF61C3DDAAC00823BD4 /* SwiftSynth.app */;
+			name = AnalogSynthX;
+			productName = AnalogSynthX;
+			productReference = C42FFBF61C3DDAAC00823BD4 /* AnalogSynthX.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -328,7 +328,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42FFBF11C3DDAAC00823BD4 /* Build configuration list for PBXProject "SwiftSynth" */;
+			buildConfigurationList = C42FFBF11C3DDAAC00823BD4 /* Build configuration list for PBXProject "AnalogSynthX" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -341,7 +341,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C42FFBF51C3DDAAC00823BD4 /* SwiftSynth */,
+				C42FFBF51C3DDAAC00823BD4 /* AnalogSynthX */,
 			);
 		};
 /* End PBXProject section */
@@ -500,11 +500,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
-				INFOPLIST_FILE = SwiftSynth/Info.plist;
+				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AnalogSynthX;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
@@ -516,11 +516,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
-				INFOPLIST_FILE = SwiftSynth/Info.plist;
+				INFOPLIST_FILE = AnalogSynthX/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.AudioKitSynth;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AnalogSynthX;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
@@ -528,7 +528,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42FFBF11C3DDAAC00823BD4 /* Build configuration list for PBXProject "SwiftSynth" */ = {
+		C42FFBF11C3DDAAC00823BD4 /* Build configuration list for PBXProject "AnalogSynthX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42FFC061C3DDAAC00823BD4 /* Debug */,
@@ -537,7 +537,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C42FFC081C3DDAAC00823BD4 /* Build configuration list for PBXNativeTarget "SwiftSynth" */ = {
+		C42FFC081C3DDAAC00823BD4 /* Build configuration list for PBXNativeTarget "AnalogSynthX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42FFC091C3DDAAC00823BD4 /* Debug */,

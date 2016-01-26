@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Filter Section
-//: ### This is where we created the filter for the Swift Synth example project.
+//: ### This is where we created the filter for the Analog Synth X example project.
 import XCPlayground
 import AudioKit
 

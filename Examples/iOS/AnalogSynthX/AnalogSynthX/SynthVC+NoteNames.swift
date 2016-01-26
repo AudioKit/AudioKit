@@ -1,15 +1,15 @@
 //
 //  NoteNames.swift
-//  SwiftSynth
+//  AnalogSynthX
 //
 //  Created by Matthew Fecher on 1/16/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 extension SynthViewController {
-    
+
     func noteNameFromMidiNote(noteNumber: Int) -> String {
-        
+
         // Handy table of Midi Note Names
         let noteNames: [Int: String] =
         [
@@ -102,11 +102,11 @@ extension SynthViewController {
             107: "B7",
             108: "C8"
         ]
-        
+
         guard let noteName = noteNames[noteNumber] else {
             return String(noteNumber)
         }
-        
+
         return noteName
     }
 }

@@ -1,6 +1,6 @@
 //
 //  CoreVoice.swift
-//  SwiftSynth
+//  AnalogSynthX
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -25,7 +25,7 @@ class CoreVoice: AKVoice {
     var vcoBalancer: AKDryWetMixer
     var sourceMixer: AKMixer
     var adsr: AKAmplitudeEnvelope
-    
+
     /// Instantiate the FM Oscillator Voice
     override init() {
         let triangle = AKTable(.Triangle)
@@ -42,7 +42,7 @@ class CoreVoice: AKVoice {
         }
         vco1 = AKMorphingOscillator(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
         vco2 = AKMorphingOscillator(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
-        
+
         vco1Mixer   = AKMixer(vco1)
         vco2Mixer   = AKMixer(vco2)
         subOscMixer = AKMixer(subOsc)
@@ -57,25 +57,25 @@ class CoreVoice: AKVoice {
         vcoBalancer = AKDryWetMixer(vco1Mixer, vco2Mixer, balance: 0.5)
 
         sourceMixer = AKMixer(vcoBalancer, fmOscMixer, subOscMixer, noiseMixer)
-        
+
         adsr = AKAmplitudeEnvelope(sourceMixer)
-        
+
         super.init()
-        
+
         avAudioNode = adsr.avAudioNode
     }
-    
+
     /// Function create an identical new node for use in creating polyphonic instruments
     override func copy() -> AKVoice {
         let copy = CoreVoice()
         return copy
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     override var isStarted: Bool {
         return fmOscillator.isPlaying
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     override func start() {
 
@@ -83,10 +83,10 @@ class CoreVoice: AKVoice {
         subOsc.start()
         fmOscillator.start()
         noise.start()
-        
+
         adsr.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     override func stop() {
         adsr.stop()

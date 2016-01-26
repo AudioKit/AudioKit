@@ -1,17 +1,17 @@
 //
 //  SynthVC+Delegates.swift
-//  SwiftSynth
+//  AnalogSynthX
 //
 //  Created by Matthew Fecher on 1/17/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 extension SynthViewController {
-    
+
     //*****************************************************************
     // MARK: - Set Delegates
     //*****************************************************************
-    
+
     func setDelegates() {
         oscMixKnob.delegate = self
         cutoffKnob.delegate = self

@@ -7,7 +7,7 @@
         <!--Synth View Controller-->
         <scene sceneID="tnH-wK-6JA">
             <objects>
-                <viewController id="Z3O-nk-rpn" customClass="SynthViewController" customModule="SwiftSynth" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z3O-nk-rpn" customClass="SynthViewController" customModule="AnalogSynthX" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yW7-P6-fa5"/>
                         <viewControllerLayoutGuide type="bottom" id="oAV-bZ-PLO"/>
@@ -19,7 +19,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ijd-H8-GXr" userLabel="HeaderBarView">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tf5-gm-MpM" userLabel="Build this Synth Btn" customClass="RoundedButton" customModule="SwiftSynth" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tf5-gm-MpM" userLabel="Build this Synth Btn" customClass="RoundedButton" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="821" y="8" width="193" height="30"/>
                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -42,7 +42,7 @@
                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcu-W9-Pl6" userLabel="Panic Btn" customClass="RoundedButton" customModule="SwiftSynth" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcu-W9-Pl6" userLabel="Panic Btn" customClass="RoundedButton" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="745" y="8" width="68" height="30"/>
                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -189,154 +189,154 @@
                                             <action selector="filterToggled:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="9hw-rw-I2C"/>
                                         </connections>
                                     </button>
-                                    <view opaque="NO" tag="108" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1H-Yq-qu3" userLabel="OscMix Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="108" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1H-Yq-qu3" userLabel="OscMix Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="289" y="310" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="YJN-lS-ZMp"/>
                                             <constraint firstAttribute="height" constant="75" id="jxP-MI-Td2"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="105" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q4I-ji-xFr" userLabel="VCO1 Semi Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="105" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q4I-ji-xFr" userLabel="VCO1 Semi Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="25" y="88" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="6O7-jA-QQ4"/>
                                             <constraint firstAttribute="width" constant="75" id="hTn-f9-kKL"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="106" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RhI-1x-viL" userLabel="VCO2 Semi Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="106" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RhI-1x-viL" userLabel="VCO2 Semi Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="212" y="88" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="PbX-Wq-qjM"/>
                                             <constraint firstAttribute="width" constant="75" id="lFx-O6-uQl"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="107" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhc-nf-ACm" userLabel="VCO2 Detune Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="107" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhc-nf-ACm" userLabel="VCO2 Detune Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="359" y="88" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="1WW-DE-Mz2"/>
                                             <constraint firstAttribute="height" constant="75" id="NgK-fC-Hzl"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="109" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x1t-hx-AuC" userLabel="Sub Amt Knob" customClass="KnobSmall" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="109" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x1t-hx-AuC" userLabel="Sub Amt Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="18" y="206" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="Ym5-pO-sit"/>
                                             <constraint firstAttribute="height" constant="65" id="vGL-Me-4IC"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="110" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nk5-8a-iP4" userLabel="FM Amt Knob" customClass="KnobSmall" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="110" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nk5-8a-iP4" userLabel="FM Amt Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="109" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="1f2-gm-Fwv"/>
                                             <constraint firstAttribute="width" constant="65" id="fgt-Lf-Q7l"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="111" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xO4-Ns-PxZ" userLabel="FM Mod Knob" customClass="KnobSmall" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="111" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xO4-Ns-PxZ" userLabel="FM Mod Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="185" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="4jk-fW-lqb"/>
                                             <constraint firstAttribute="height" constant="65" id="bQb-lJ-CHO"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="113" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WR9-wM-ZDg" userLabel="PWM Mod Knob" customClass="KnobSmall" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="113" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WR9-wM-ZDg" userLabel="PWM Mod Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="362" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="ARC-LJ-k9d"/>
                                             <constraint firstAttribute="width" constant="65" id="T04-t1-wzO"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="114" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6r-D0-hzD" userLabel="Noise Amt Knob" customClass="KnobSmall" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="114" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y6r-D0-hzD" userLabel="Noise Amt Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="275" y="205" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="Amf-sa-bF5"/>
                                             <constraint firstAttribute="height" constant="65" id="R8K-Hd-mfa"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="122" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6P-WU-WnB" userLabel="Master Vol Knob" customClass="KnobSmall" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="122" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6P-WU-WnB" userLabel="Master Vol Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="470" y="7" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="65" id="Nrc-4f-m47"/>
                                             <constraint firstAttribute="width" constant="65" id="rOq-cz-doe"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0a-nf-wee" userLabel="Rez Knob" customClass="KnobSmall" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0a-nf-wee" userLabel="Rez Knob" customClass="KnobSmall" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="563" y="281" width="65" height="65"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="8Ct-sL-bKH"/>
                                             <constraint firstAttribute="height" constant="65" id="MD1-te-qAF"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="117" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlr-Av-4V5" userLabel="Crush Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="117" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlr-Av-4V5" userLabel="Crush Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="531" y="182" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="6P6-xn-m5n"/>
                                             <constraint firstAttribute="width" constant="75" id="Afy-SO-M3X"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="118" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRy-Wi-Jgx" userLabel="Delay Time Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="118" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRy-Wi-Jgx" userLabel="Delay Time Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="739" y="235" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="7g4-c5-VDY"/>
                                             <constraint firstAttribute="height" constant="75" id="Og3-Ky-pO1"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="119" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rr9-Rn-niD" userLabel="Delay Mix Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="119" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rr9-Rn-niD" userLabel="Delay Mix Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="868" y="235" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="mkZ-rb-XfX"/>
                                             <constraint firstAttribute="height" constant="75" id="ntm-zH-Hi9"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="120" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Say-Mi-dCy" userLabel="Reverb Amt Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="120" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Say-Mi-dCy" userLabel="Reverb Amt Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="741" y="327" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="BeZ-C9-YD0"/>
                                             <constraint firstAttribute="height" constant="75" id="nPL-QQ-vsu"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="121" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35Z-L3-mdG" userLabel="Reverb Mix Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="121" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35Z-L3-mdG" userLabel="Reverb Mix Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="868" y="327" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="Kzz-eR-dcE"/>
                                             <constraint firstAttribute="height" constant="75" id="S3i-EM-hQf"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="115" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X97-bN-ycd" userLabel="LFO Amt Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="115" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X97-bN-ycd" userLabel="LFO Amt Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="19" y="395" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="EdE-py-lt2"/>
                                             <constraint firstAttribute="height" constant="75" id="mAN-Xy-58U"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QcX-GL-sr0" userLabel="Cutoff Knob" customClass="KnobLarge" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QcX-GL-sr0" userLabel="Cutoff Knob" customClass="KnobLarge" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="447" y="322" width="116" height="116"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="116" id="KlZ-Cp-S7F"/>
                                             <constraint firstAttribute="width" constant="116" id="UV1-2Q-fsg"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="123" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mwk-FU-bNw" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="123" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mwk-FU-bNw" customClass="VerticalSlider" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="671" y="34" width="42" height="164"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="164" id="Av7-Aj-RfO"/>
                                             <constraint firstAttribute="width" constant="42" id="zax-e3-4Iy"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="124" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUb-xS-52W" userLabel="Decay Slider" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="124" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gUb-xS-52W" userLabel="Decay Slider" customClass="VerticalSlider" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="757" y="34" width="42" height="164"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="42" id="AP8-Kg-DtB"/>
                                             <constraint firstAttribute="height" constant="164" id="SJX-KU-lcP"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="125" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tbf-ak-gFV" userLabel="Sustain Slider" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="125" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tbf-ak-gFV" userLabel="Sustain Slider" customClass="VerticalSlider" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="850" y="34" width="42" height="164"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="42" id="Edf-Zt-1wP"/>
                                             <constraint firstAttribute="height" constant="164" id="yUC-QX-wiq"/>
                                         </constraints>
                                     </view>
-                                    <view opaque="NO" tag="126" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozb-GC-i5H" userLabel="Release Slider" customClass="VerticalSlider" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="126" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozb-GC-i5H" userLabel="Release Slider" customClass="VerticalSlider" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="942" y="34" width="42" height="164"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="42" id="0uV-ME-NmA"/>
@@ -360,7 +360,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="shouldFill" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view opaque="NO" tag="116" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tls-4y-C4Y" userLabel="LFO Rate Knob" customClass="KnobMedium" customModule="SwiftSynth" customModuleProvider="target">
+                                    <view opaque="NO" tag="116" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tls-4y-C4Y" userLabel="LFO Rate Knob" customClass="KnobMedium" customModule="AnalogSynthX" customModuleProvider="target">
                                         <rect key="frame" x="138" y="395" width="75" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="DRM-wS-UvG"/>

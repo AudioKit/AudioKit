@@ -388,7 +388,7 @@ class SynthViewController: UIViewController {
     }
     
     @IBAction func buildThisSynth(sender: RoundedButton) {
-        openURL("http://audiokit.io/examples/swiftsynth")
+        openURL("http://audiokit.io/examples/AnalogSynthX")
     }
     
     //*****************************************************************
