@@ -1,6 +1,6 @@
 //
 //  SynthStyleKit.swift
-//  SwiftSynth
+//  AnalogSynthX
 //
 //  Created by Matthew Fecher on 1/9/16.
 //  Copyright (c) 2016 AudioKit. All rights reserved.

@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Fatten Effect
-//: ### This is a cool fattening effect that Matthew Flecher wanted for the Swift Synth project, so it was developed here in a playground first.
+//: ### This is a cool fattening effect that Matthew Flecher wanted for the Analog Synth X project, so it was developed here in a playground first.
 import XCPlayground
 import AudioKit
 

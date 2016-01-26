@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C42FFBF51C3DDAAC00823BD4"
-               BuildableName = "SwiftSynth.app"
-               BlueprintName = "SwiftSynth"
-               ReferencedContainer = "container:SwiftSynth.xcodeproj">
+               BuildableName = "AnalogSynthX.app"
+               BlueprintName = "AnalogSynthX"
+               ReferencedContainer = "container:AnalogSynthX.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C42FFBF51C3DDAAC00823BD4"
-            BuildableName = "SwiftSynth.app"
-            BlueprintName = "SwiftSynth"
-            ReferencedContainer = "container:SwiftSynth.xcodeproj">
+            BuildableName = "AnalogSynthX.app"
+            BlueprintName = "AnalogSynthX"
+            ReferencedContainer = "container:AnalogSynthX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C42FFBF51C3DDAAC00823BD4"
-            BuildableName = "SwiftSynth.app"
-            BlueprintName = "SwiftSynth"
-            ReferencedContainer = "container:SwiftSynth.xcodeproj">
+            BuildableName = "AnalogSynthX.app"
+            BlueprintName = "AnalogSynthX"
+            ReferencedContainer = "container:AnalogSynthX.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C42FFBF51C3DDAAC00823BD4"
-            BuildableName = "SwiftSynth.app"
-            BlueprintName = "SwiftSynth"
-            ReferencedContainer = "container:SwiftSynth.xcodeproj">
+            BuildableName = "AnalogSynthX.app"
+            BlueprintName = "AnalogSynthX"
+            ReferencedContainer = "container:AnalogSynthX.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

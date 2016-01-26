@@ -45,7 +45,7 @@
 //: * [Tracking Amplitude](Tracking%20Amplitude)
 //: * [Tracking Frequency](Tracking%20Frequency)
 //:
-//: ## Swift Synth Example Project
+//: ## "Analog Synth X" Example Project
 //:
 //: AudioKit is shipped with an awesome synth example project and the following playgrounds are where we developed and tested out the effects for that synth.
 //:
