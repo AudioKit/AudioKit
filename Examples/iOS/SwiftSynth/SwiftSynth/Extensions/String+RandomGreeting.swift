@@ -19,7 +19,7 @@ extension String {
         case 2:
             return "Eat. Swift. Synth. Repeat."
         case 3:
-            return "Welcome to Swift Synth!"
+            return "Welcome!"
         default:
             return "Welcome"
         }

@@ -70,7 +70,7 @@
 		940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+UIHelpers.swift"; sourceTree = "<group>"; };
 		940D15161C49AC5400C88CA6 /* WaveformSegmentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaveformSegmentedView.swift; sourceTree = "<group>"; };
 		941771111C4C908000855BDA /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
-		94453BC21C4499BD00608231 /* String+RandomGreeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+RandomGreeting.swift"; sourceTree = "<group>"; };
+		94453BC21C4499BD00608231 /* String+RandomGreeting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+RandomGreeting.swift"; path = "Extensions/String+RandomGreeting.swift"; sourceTree = "<group>"; };
 		949B1C2B1C431E5400BFFA10 /* Knob+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Knob+Touches.swift"; sourceTree = "<group>"; };
 		949B1C2C1C431E5400BFFA10 /* Knob.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Knob.swift; sourceTree = "<group>"; };
 		949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobLarge.swift; sourceTree = "<group>"; };
@@ -132,7 +132,6 @@
 			children = (
 				941771111C4C908000855BDA /* CGFloat+Extensions.swift */,
 				94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */,
-				94453BC21C4499BD00608231 /* String+RandomGreeting.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -164,6 +163,7 @@
 				94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */,
 				94B009E61C4B61BD000CF18E /* SynthVC+NoteNames.swift */,
 				940D15121C49A9E200C88CA6 /* SynthVC+UIHelpers.swift */,
+				94453BC21C4499BD00608231 /* String+RandomGreeting.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
