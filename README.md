@@ -35,7 +35,14 @@ Installation can be achieved in the usual ways for a framework.  This is explain
 Installation with CocoaPods and Carthage is also planned but may not come with the first release.
 
 ## Example Code
-There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.  Hello World basically consists of just a few sections of code:
+There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
+
+The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
+
+    $ cd Frameworks
+    $ ./build_frameworks.sh
+
+Hello World basically consists of just a few sections of code:
 
 Setting up AudioKit:
 
