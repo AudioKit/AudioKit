@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Z3O-nk-rpn">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
@@ -43,23 +42,6 @@
                                         <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AudioKit 3: Swift Synth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EV-yy-X47" userLabel="Synth Lbl">
-                                        <rect key="frame" x="57" y="9" width="150" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="150" id="LxG-uI-eCz"/>
-                                            <constraint firstAttribute="height" constant="30" id="l9r-wC-mr1"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
-                                        <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="swiftbird" translatesAutoresizingMaskIntoConstraints="NO" id="CFv-jp-acF">
-                                        <rect key="frame" x="6" y="5" width="38" height="33"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="38" id="Aa0-QA-y9N"/>
-                                            <constraint firstAttribute="height" constant="33" id="DwY-Fv-Jgy"/>
-                                        </constraints>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcu-W9-Pl6" userLabel="Panic Btn" customClass="RoundedButton" customModule="SwiftSynth" customModuleProvider="target">
                                         <rect key="frame" x="745" y="8" width="68" height="30"/>
                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -76,31 +58,36 @@
                                             <action selector="midiPanicPressed:" destination="Z3O-nk-rpn" eventType="touchUpInside" id="Gni-Ij-MJc"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AudioKit 3: Analog Synth X" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9EV-yy-X47" userLabel="Synth Lbl">
+                                        <rect key="frame" x="8" y="8" width="200" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="E6Z-l5-uP7"/>
+                                            <constraint firstAttribute="height" constant="30" id="aTA-Cy-X8M"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
+                                        <color key="textColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.066666666669999999" green="0.066666666669999999" blue="0.066666666669999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="tf5-gm-MpM" firstAttribute="leading" secondItem="bcu-W9-Pl6" secondAttribute="trailing" constant="8" id="4aN-aJ-vL2"/>
-                                    <constraint firstItem="9EV-yy-X47" firstAttribute="leading" secondItem="CFv-jp-acF" secondAttribute="trailing" constant="13" id="7Qk-pz-UcY"/>
-                                    <constraint firstItem="CFv-jp-acF" firstAttribute="leading" secondItem="Ijd-H8-GXr" secondAttribute="leading" constant="6" id="8aV-QD-9Su"/>
-                                    <constraint firstItem="9EV-yy-X47" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="9" id="8eM-HL-30a"/>
-                                    <constraint firstAttribute="bottom" secondItem="CFv-jp-acF" secondAttribute="bottom" constant="6" id="9l7-TV-S1t"/>
                                     <constraint firstAttribute="trailing" secondItem="tf5-gm-MpM" secondAttribute="trailing" constant="10" id="CdN-5z-EgL"/>
                                     <constraint firstItem="tf5-gm-MpM" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="8" id="DVJ-GF-bwN"/>
                                     <constraint firstItem="bcu-W9-Pl6" firstAttribute="leading" secondItem="JKQ-oU-stT" secondAttribute="trailing" constant="7" id="I1x-5V-vYz"/>
                                     <constraint firstAttribute="width" constant="1024" id="Ids-rk-WR7"/>
-                                    <constraint firstItem="JKQ-oU-stT" firstAttribute="leading" secondItem="9EV-yy-X47" secondAttribute="trailing" constant="131" id="Jp9-mK-ZKx"/>
                                     <constraint firstItem="bcu-W9-Pl6" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="8" id="PcV-w5-G2e"/>
-                                    <constraint firstItem="9EV-yy-X47" firstAttribute="leading" secondItem="CFv-jp-acF" secondAttribute="trailing" constant="13" id="RZm-FW-cIG"/>
                                     <constraint firstItem="bcu-W9-Pl6" firstAttribute="leading" secondItem="JKQ-oU-stT" secondAttribute="trailing" constant="7" id="TGg-yj-yEH"/>
-                                    <constraint firstItem="JKQ-oU-stT" firstAttribute="leading" secondItem="9EV-yy-X47" secondAttribute="trailing" constant="131" id="YVh-QZ-K4H"/>
-                                    <constraint firstAttribute="bottom" secondItem="9EV-yy-X47" secondAttribute="bottom" constant="5" id="aXG-E0-AV7"/>
+                                    <constraint firstItem="JKQ-oU-stT" firstAttribute="leading" secondItem="9EV-yy-X47" secondAttribute="trailing" constant="130" id="Z13-3e-RcW"/>
+                                    <constraint firstAttribute="bottom" secondItem="9EV-yy-X47" secondAttribute="bottom" constant="6" id="bdc-fO-Oyy"/>
                                     <constraint firstItem="tf5-gm-MpM" firstAttribute="leading" secondItem="bcu-W9-Pl6" secondAttribute="trailing" constant="8" id="dg8-bT-H6b"/>
                                     <constraint firstAttribute="bottom" secondItem="JKQ-oU-stT" secondAttribute="bottom" constant="6" id="eu4-n0-GTA"/>
                                     <constraint firstAttribute="height" constant="44" id="fIV-ex-tTc"/>
-                                    <constraint firstItem="CFv-jp-acF" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="5" id="gXt-Q7-PpE"/>
                                     <constraint firstAttribute="bottom" secondItem="tf5-gm-MpM" secondAttribute="bottom" constant="6" id="h0T-Qb-5HX"/>
                                     <constraint firstItem="JKQ-oU-stT" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="8" id="lNI-qi-CRD"/>
+                                    <constraint firstItem="9EV-yy-X47" firstAttribute="top" secondItem="Ijd-H8-GXr" secondAttribute="top" constant="8" id="lvX-ea-Gxo"/>
                                     <constraint firstAttribute="bottom" secondItem="bcu-W9-Pl6" secondAttribute="bottom" constant="6" id="psp-2Q-A3V"/>
+                                    <constraint firstItem="9EV-yy-X47" firstAttribute="leading" secondItem="Ijd-H8-GXr" secondAttribute="leading" constant="8" id="u4e-Vh-yph"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xur-qx-kBj" userLabel="ControlsView">
@@ -1314,7 +1301,6 @@
         <image name="controls_guide" width="1024" height="486"/>
         <image name="roundbtn_off" width="31" height="31"/>
         <image name="roundbtn_on" width="31" height="31"/>
-        <image name="swiftbird" width="38" height="33"/>
         <image name="whitekey" width="67" height="184"/>
     </resources>
 </document>
