@@ -1,3 +1,5 @@
 *.framework
 *.zip
 AudioKit-*
+Carthage
+
