@@ -104,4 +104,4 @@ AudioKit was created by the following team whose contributions are fully chronic
 * **Paul Batchelor**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
 * **Simon Gladman**: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
 * **Stephane Peter**: Installation and configuration czar and code reviewer.
-* **Syed Haris Ali**: The author of EZAudio which is AudioKit's included waveform plotter and FFT analysis engine.
+* **Syed Haris Ali**: The author of [EZAudio](https://github.com/syedhali/EZAudio) which is AudioKit's included waveform plotter and FFT analysis engine.
