@@ -64,7 +64,7 @@ internal class AKSynthKickVoice: AKVoice{
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override func copy() -> AKVoice {
+    override func duplicate() -> AKVoice {
         let copy = AKSynthKickVoice()
         return copy
     }
@@ -154,7 +154,7 @@ internal class AKSynthSnareVoice: AKVoice{
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override func copy() -> AKVoice {
+    override func duplicate() -> AKVoice {
         let copy = AKSynthSnareVoice(duration: duration, resonance: resonance)
         return copy
     }
