@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Builds packages for release of the current versino of AudioKit.
+# Builds packages for release of the current version of AudioKit.
 #
 set -o pipefail
 
@@ -24,6 +24,8 @@ create_package()
 {
 	echo "Packaging AudioKit version $VERSION for $1 ..."
 	DIR="AudioKit-$1"
+	mkdir -p "Carthage/$os"
+	cp -a "$DIR/AudioKit.framework" "Carthage/$os/"
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
@@ -38,4 +40,10 @@ for os in $PLATFORMS;
 do
 	create_package $os
 done
+
+# Create binary framework zip for Carthage, to be uploaded to Github along with release
+
+echo "Packaging AudioKit frameworks version $VERSION for Carthage ..."
+cd Carthage
+zip -9yr ../AudioKit.framework.zip $PLATFORMS
 

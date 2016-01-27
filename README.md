@@ -3,9 +3,10 @@ AudioKit V3
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
 [![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 
-*This document was last updated: January 20, 2016*
+*This document was last updated: January 27, 2016*
 
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
@@ -84,15 +85,23 @@ OS X Playgrounds are able to launch NSWindows that can be used to control the Au
 
 So far, the only testing that we do automatically through Travis is to ensure that all of the projects included with AudioKit build successfully.  AudioKit version 2 was heavily tested, but at the time of this writing AudioKit 3 does not have a test suite in place.  This is high on our priority list after an initial release.
 
+## Package Managers
+
+You can easily add the framework to your project by using [Carthage](https://github.com/Carthage/Carthage). Just use the following in your `Cartfile`:
+
+```
+github "audiokit/AudioKit"
+```
+
 ## About Us
 
 AudioKit was created by the following team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
 
-* Aurelius Prochazka: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
-* Jeff Cooper: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
-* Matthew Fecher: Sound design, graphic design, and programming of the Swift Synth example.
-* Nicholas Arner: Longtime contributor to AudioKit and AudioKit's web site.
-* Paul Batchelor: The author of [Soundpipe](https://www.github.com/paulbatchelor/soundpipe), and [Sporth](http://www.github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
-* Simon Gladman: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
-* Stephane Peter: Installation and configuration czar and code reviewer.
-* Syed Haris Ali: The author of EZAudio which is AudioKit's included waveform plotter and FFT analysis engine.
+* **Aurelius Prochazka**: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
+* **Jeff Cooper**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
+* **Matthew Fecher**: Sound design, graphic design, and programming of the Swift Synth example.
+* **Nicholas Arner**: Longtime contributor to AudioKit and AudioKit's web site.
+* **Paul Batchelor**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
+* **Simon Gladman**: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
+* **Stephane Peter**: Installation and configuration czar and code reviewer.
+* **Syed Haris Ali**: The author of EZAudio which is AudioKit's included waveform plotter and FFT analysis engine.
