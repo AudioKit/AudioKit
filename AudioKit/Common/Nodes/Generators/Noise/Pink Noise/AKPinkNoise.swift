@@ -94,7 +94,7 @@ public class AKPinkNoise: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func copy() -> AKVoice {
+    public override func duplicate() -> AKVoice {
         let copy = AKPinkNoise(amplitude: self.amplitude)
         return copy
     }
