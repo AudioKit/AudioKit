@@ -274,7 +274,7 @@ public class AKSequencer {
         var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
 
-        for( var i = 0; i < Int(count); ++i) {
+        for i in 0 ..< count {
             var musicTrack = MusicTrack()
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
             tracks.append(AKMusicTrack(musicTrack: musicTrack))
@@ -283,11 +283,11 @@ public class AKSequencer {
     
     /// Get a new track
     public func newTrack() {
-        var newMusTrack = MusicTrack()
-        MusicSequenceNewTrack(sequence, &newMusTrack)
+        var newMusicTrack = MusicTrack()
+        MusicSequenceNewTrack(sequence, &newMusicTrack)
         var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
-        tracks.append(AKMusicTrack(musicTrack: newMusTrack))
+        tracks.append(AKMusicTrack(musicTrack: newMusicTrack))
         initTracks()
     }
     
