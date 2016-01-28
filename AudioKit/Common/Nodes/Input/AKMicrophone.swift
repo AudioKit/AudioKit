@@ -36,8 +36,8 @@ public class AKMicrophone: AKNode, AKToggleable {
         #if !os(tvOS)
             super.init()
             self.avAudioNode = mixer
-            AKManager.sharedInstance.engine.attachNode(mixer)
-            AKManager.sharedInstance.engine.connect(AKManager.sharedInstance.engine.inputNode!, to: self.avAudioNode, format: nil)
+            AKManager.engine.attachNode(mixer)
+            AKManager.engine.connect(AKManager.engine.inputNode!, to: self.avAudioNode, format: nil)
         #endif
     }
     

@@ -78,7 +78,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
 
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterReverbAudioUnit
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU!.setLoopDuration(Float(loopDuration))
         }

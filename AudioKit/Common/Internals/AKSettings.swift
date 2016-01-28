@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 /// Global settings for AudioKit
 @objc
@@ -23,4 +24,9 @@ public class AKSettings : NSObject {
     
     /// Whether to allow audio playback to override the mute setting
     public static var playbackWhileMuted: Bool = false;
+    
+    
+    public static var audioFormat: AVAudioFormat {
+        return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
+    }
 }

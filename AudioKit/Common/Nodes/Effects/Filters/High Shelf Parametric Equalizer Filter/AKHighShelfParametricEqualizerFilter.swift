@@ -98,7 +98,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKHighShelfParametricEqualizerFilterAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

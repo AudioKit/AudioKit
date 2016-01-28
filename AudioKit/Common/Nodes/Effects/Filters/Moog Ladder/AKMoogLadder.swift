@@ -99,7 +99,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKMoogLadderAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

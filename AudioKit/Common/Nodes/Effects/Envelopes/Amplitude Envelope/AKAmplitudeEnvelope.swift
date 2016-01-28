@@ -111,7 +111,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeEnvelopeAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

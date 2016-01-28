@@ -102,7 +102,7 @@ public class AKPhaseLockedVocoder: AKNode {
                 self.avAudioNode = avAudioUnitGenerator
                 self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPhaseLockedVocoderAudioUnit
 
-                AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+                AKManager.engine.attachNode(self.avAudioNode)
             }
 
             guard let tree = internalAU?.parameterTree else { return }

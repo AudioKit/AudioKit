@@ -26,7 +26,7 @@ import AVFoundation
     /// Connect this node to another
     public func addConnectionPoint(node: AKNode) {
         connectionPoints.append(AVAudioConnectionPoint(node: node.avAudioNode, bus: 0))
-        AKManager.sharedInstance.engine.connect(avAudioNode,
+        AKManager.engine.connect(avAudioNode,
             toConnectionPoints: connectionPoints,
             fromBus: 0,
             format: AKManager.format)

@@ -164,7 +164,7 @@ public class AKFMOscillator: AKVoice {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AKManager.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
             for var i = 0; i < waveform.size; i++ {
                 self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
