@@ -96,6 +96,11 @@ public class AKOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    convenience override init() {
+        self.init(waveform: AKTable(.Sine))
+    }
 
     /// Initialize this oscillator node
     ///
@@ -105,7 +110,7 @@ public class AKOscillator: AKVoice {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable = AKTable(.Sine),
+        waveform: AKTable,
         frequency: Double = 440,
         amplitude: Double = 1,
         detuningOffset: Double = 0,

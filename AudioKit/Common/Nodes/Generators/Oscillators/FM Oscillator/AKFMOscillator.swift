@@ -20,7 +20,6 @@ public class AKFMOscillator: AKVoice {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKFMOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -113,6 +112,11 @@ public class AKFMOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    convenience override init() {
+        self.init(waveform: AKTable(.Sine))
+    }
 
     /// Initialize this oscillator node
     ///
@@ -123,7 +127,7 @@ public class AKFMOscillator: AKVoice {
     /// - parameter amplitude: Output Amplitude.
     ///
     public init(
-        waveform: AKTable = AKTable(.Sine),
+        waveform: AKTable,
         baseFrequency: Double = 440,
         carrierMultiplier: Double = 1.0,
         modulatingMultiplier: Double = 1,

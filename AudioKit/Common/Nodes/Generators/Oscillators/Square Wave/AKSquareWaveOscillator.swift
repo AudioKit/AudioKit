@@ -112,6 +112,11 @@ public class AKSquareWaveOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    convenience override init() {
+        self.init(frequency: 440)
+    }
 
     /// Initialize this oscillator node
     ///
@@ -122,7 +127,7 @@ public class AKSquareWaveOscillator: AKVoice {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        frequency: Double = 440,
+        frequency: Double,
         amplitude: Double = 1.0,
         pulseWidth: Double = 0.5,
         detuningOffset: Double = 0,

@@ -116,6 +116,11 @@ public class AKMorphingOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    convenience override init() {
+        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
+    }
 
     /// Initialize this Morpher node
     ///
@@ -128,7 +133,7 @@ public class AKMorphingOscillator: AKVoice {
     /// - parameter phase: Initial phase of waveform, expects a value 0-1
     ///
     public init(
-        waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
+        waveformArray: [AKTable],
         frequency: Double = 440,
         amplitude: Double = 0.5,
         index: Double = 0.0,

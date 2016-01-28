@@ -95,6 +95,11 @@ public class AKTriangleOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    convenience override init() {
+        self.init(frequency: 440)
+    }
 
     /// Initialize this oscillator node
     ///
@@ -104,7 +109,7 @@ public class AKTriangleOscillator: AKVoice {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        frequency: Double = 440,
+        frequency: Double,
         amplitude: Double = 0.5,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
