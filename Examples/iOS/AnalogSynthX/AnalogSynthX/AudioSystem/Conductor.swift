@@ -12,7 +12,6 @@ class Conductor {
     /// Globally accessible singleton
     static let sharedInstance = Conductor()
 
-    let audiokit = AKManager.sharedInstance
     var midi = AKMIDI()
 
     var core = CoreInstrument(voiceCount: 5)
@@ -46,8 +45,8 @@ class Conductor {
 
         reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.0)
 
-        audiokit.audioOutput = reverbMixer
-        audiokit.start()
+        AKManager.audioOutput = reverbMixer
+        AKManager.start()
 
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
