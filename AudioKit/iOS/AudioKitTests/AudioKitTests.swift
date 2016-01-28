@@ -24,7 +24,7 @@ class AKTestCase: XCTestCase {
     }
     
     func testFMOscillator() {
-        let samples = duration * 44100
+        let samples = duration * AKSettings.sampleRate
         
         let audiokit = AKManager.sharedInstance
         

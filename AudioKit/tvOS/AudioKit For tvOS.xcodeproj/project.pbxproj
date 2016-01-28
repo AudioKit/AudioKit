@@ -496,6 +496,7 @@
 		C4E8ED1D1C43A5ED0041965F /* AKConvolutionAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED191C43A5ED0041965F /* AKConvolutionAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E8ED1E1C43A5ED0041965F /* AKConvolutionAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED1A1C43A5ED0041965F /* AKConvolutionAudioUnit.mm */; };
 		C4E8ED1F1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E8ED1B1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp */; };
+		EA6949E91C5A2F610035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E81C5A2F610035B5DF /* AKSettings.swift */; };
 		EAF006721C4C7A2300ECD392 /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF006711C4C7A2300ECD392 /* oscmorph.c */; };
 		EAF006751C4C7A3500ECD392 /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF006731C4C7A3500ECD392 /* oscmorph.c */; };
 		EAF006761C4C7A3500ECD392 /* thresh.c in Sources */ = {isa = PBXBuildFile; fileRef = EAF006741C4C7A3500ECD392 /* thresh.c */; };
@@ -1001,6 +1002,7 @@
 		C4E8ED191C43A5ED0041965F /* AKConvolutionAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKConvolutionAudioUnit.h; sourceTree = "<group>"; };
 		C4E8ED1A1C43A5ED0041965F /* AKConvolutionAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKConvolutionAudioUnit.mm; sourceTree = "<group>"; };
 		C4E8ED1B1C43A5ED0041965F /* AKConvolutionDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKConvolutionDSPKernel.hpp; sourceTree = "<group>"; };
+		EA6949E81C5A2F610035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		EAF006711C4C7A2300ECD392 /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
 		EAF006731C4C7A3500ECD392 /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
 		EAF006741C4C7A3500ECD392 /* thresh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thresh.c; sourceTree = "<group>"; };
@@ -2240,6 +2242,7 @@
 			isa = PBXGroup;
 			children = (
 				C40C41E11C40E5C2009D870B /* AKManager.swift */,
+				EA6949E81C5A2F610035B5DF /* AKSettings.swift */,
 				C40C41E21C40E5C2009D870B /* AKTable.swift */,
 				C40C41E31C40E5C2009D870B /* AudioKitHelpers.swift */,
 				C40C41E41C40E5C2009D870B /* CoreAudio */,
@@ -2934,6 +2937,7 @@
 				C48444FA1C370329007BE794 /* triangle.swift in Sources */,
 				C46C797D1C4CF9F000F6CE3D /* AKSawtoothSynth.swift in Sources */,
 				C4AC8BCB1C4E292D009EA58E /* AKExpander.swift in Sources */,
+				EA6949E91C5A2F610035B5DF /* AKSettings.swift in Sources */,
 				C4E752381C23888700688A1B /* bitcrush.swift in Sources */,
 				C40C42A11C41CB7D009D870B /* AKDripAudioUnit.mm in Sources */,
 				C45381991C3A5CBD00A51738 /* AKClipper.swift in Sources */,

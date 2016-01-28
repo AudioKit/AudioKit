@@ -18,7 +18,7 @@ public class AKManager {
     // MARK: Global audio format (44.1K, Stereo)
     
     /// Format of AudioKit Nodes
-    public static let format = AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)
+    public static let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: AKSettings.numberOfChannels)
 
     // MARK: - Internal audio engine mechanics
     
@@ -38,7 +38,13 @@ public class AKManager {
         do {
             try self.engine.start()
             #if !os(OSX)
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+                if AKSettings.audioInputEnabled {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+                } else if AKSettings.playbackWhileMuted {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                } else {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+                }
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
         } catch {
