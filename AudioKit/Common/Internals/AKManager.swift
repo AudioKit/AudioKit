@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Top level AudioKit managing class
-public class AKManager {
+@objc public class AKManager: NSObject {
     
     /// Globally accessible singleton
     public static let sharedInstance = AKManager()
