@@ -12,28 +12,25 @@ import AVFoundation
 /// Top level AudioKit managing class
 @objc public class AKManager: NSObject {
     
-    /// Globally accessible singleton
-    public static let sharedInstance = AKManager()
-    
     // MARK: Global audio format (44.1K, Stereo)
     
     /// Format of AudioKit Nodes
-    public static let format = AVAudioFormat(standardFormatWithSampleRate: AKSettings.sampleRate, channels: AKSettings.numberOfChannels)
+    public static let format = AKSettings.audioFormat
 
     // MARK: - Internal audio engine mechanics
     
     /// Reference to the AV Audio Engine
-    public var engine = AVAudioEngine()
+    public static let engine = AVAudioEngine()
     
     /// An audio output operation that most applications will need to use last
-    public var audioOutput: AKNode? {
+    public static var audioOutput: AKNode? {
         didSet {
             engine.connect(audioOutput!.avAudioNode, to: engine.outputNode, format: AKManager.format)
         }
     }
     
     /// Start up the audio engine
-    public func start() {
+    public static func start() {
         // Start the engine.
         do {
             try self.engine.start()
@@ -53,7 +50,7 @@ import AVFoundation
     }
     
     /// Stop the audio engine
-    public func stop() {
+    public static func stop() {
         // Stop the engine.
         self.engine.stop()
     }
@@ -61,14 +58,14 @@ import AVFoundation
     // MARK: Testing
     
     /// Testing AKNode
-    public var tester: AKTester?
+    public static var tester: AKTester?
 
     /// Test the output of a given node
     ///
     /// - parameter node: AKNode to test
     /// - parameter samples: Number of samples to generate in the test
     ///
-    public func testOutput(node: AKNode, samples: Int) {
+    public static func testOutput(node: AKNode, samples: Int) {
         tester = AKTester(node, samples: samples)
         audioOutput = tester
     }

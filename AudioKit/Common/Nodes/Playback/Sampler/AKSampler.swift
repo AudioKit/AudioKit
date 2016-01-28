@@ -34,7 +34,7 @@ public class AKSampler: AKNode {
         super.init()
         self.avAudioNode = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
-        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+        AKManager.engine.attachNode(self.avAudioNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
     

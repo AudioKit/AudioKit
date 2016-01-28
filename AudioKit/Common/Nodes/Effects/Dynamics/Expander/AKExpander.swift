@@ -202,10 +202,10 @@ public class AKExpander: AKNode, AKToggleable {
             effectGain!.volume = 1
             
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AKManager.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
-            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
-            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
+            AKManager.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
+            AKManager.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
             
             super.init()
             avAudioNode = mixer.avAudioNode

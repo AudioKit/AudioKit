@@ -11,7 +11,7 @@ import Foundation
 /// Wrapper class for plotting audio from the final mix in a waveform plot
 @objc public class AKOutputWaveformPlot: EZAudioPlot {
     internal func setupNode() {
-        AKManager.sharedInstance.engine.outputNode.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
+        AKManager.engine.outputNode.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize;
                 let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);
