@@ -24,6 +24,7 @@
 //: As of Xcode 7.3, iOS Playgrounds have access to a simulated device, so we can create and react to UI elements.  While this may not teach you much about programming, it is educational to hear what parameter sound like under user control.
 //:
 //: * [Interactive Oscillator](Interactive%20Oscillator)
+//: * [Interactive FM Oscillator](Interactive%20FM%20Oscillator)
 //:
 //: ## Basic Tutorials
 //:

@@ -3,6 +3,7 @@
 //: ---
 //:
 //: ## Interactive Oscillator
+//: ### Open the timeline view to use the controls this playground sets up.
 //:
 import UIKit
 import XCPlayground
@@ -27,15 +28,14 @@ class ViewController: AKPlaygroundViewController {
         audiokit.start()
 
 //: Starting values
-        oscillator.frequency = 440
         oscillator.amplitude = 0.1
         
 //: Create the UI
         addTitle("AKOscillator")
         addSwitch("toggle:")
-        frequencyLabel = addLabel("Frequency:")
+        frequencyLabel = addLabel("Frequency: 440")
         addSlider("setFrequency:", value: 440, minimum: 200, maximum: 800)
-        amplitudeLabel = addLabel("Amplitude:")
+        amplitudeLabel = addLabel("Amplitude: 0.1")
         addSlider("setAmplitude:", value: 0.1)
     }
     
