@@ -29,7 +29,7 @@ public class AKVoice: AKNode, AKToggleable {
     }
     
     /// Return a duplication of this voice
-    public func copy() -> AKVoice {
+    public func duplicate() -> AKVoice {
         return AKVoice()
         // override in subclass
     }
@@ -91,7 +91,7 @@ public class AKPolyphonicInstrument: AKNode {
         avAudioNode = output.avAudioNode
         
         for (var i = 0; i < voiceCount; ++i) {
-            let voice = voice.copy()
+            let voice = voice.duplicate()
             availableVoices.append(voice)
             output.connect(voice)
         }

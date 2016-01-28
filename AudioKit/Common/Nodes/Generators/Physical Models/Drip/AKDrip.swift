@@ -147,6 +147,11 @@ public class AKDrip: AKNode {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the drip with defaults
+    convenience override init() {
+        self.init(intensity: 10)
+    }
 
     /// Initialize this drip node
     ///
@@ -159,7 +164,7 @@ public class AKDrip: AKNode {
     /// - parameter amplitude: Amplitude.
     ///
     public init(
-        intensity: Double = 10,
+        intensity: Double,
         dampingFactor: Double = 0.2,
         energyReturn: Double = 0,
         mainResonantFrequency: Double = 450,

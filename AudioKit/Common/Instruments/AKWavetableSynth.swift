@@ -105,7 +105,7 @@ internal class AKOscillatorVoice: AKVoice {
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override func copy() -> AKVoice {
+    override func duplicate() -> AKVoice {
         let copy = AKOscillatorVoice(waveform: self.waveform)
         return copy
     }
