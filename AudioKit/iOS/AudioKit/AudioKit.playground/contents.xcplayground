@@ -36,6 +36,7 @@
         <page name='High Shelf Filter'/>
         <page name='Introduction and Hello World'/>
         <page name='iOS-only Reverb'/>
+        <page name='Interactive Oscillator'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Linear and Exponential Segment Operations'/>
         <page name='Low Pass Filter'/>
