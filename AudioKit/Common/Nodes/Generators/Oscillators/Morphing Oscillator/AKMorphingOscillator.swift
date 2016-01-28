@@ -118,7 +118,7 @@ public class AKMorphingOscillator: AKVoice {
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    convenience override init() {
+    public convenience override init() {
         self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
     }
 

@@ -114,7 +114,7 @@ public class AKFMOscillator: AKVoice {
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    convenience override init() {
+    public convenience override init() {
         self.init(waveform: AKTable(.Sine))
     }
 
