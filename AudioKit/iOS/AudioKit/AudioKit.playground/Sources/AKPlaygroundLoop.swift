@@ -1,12 +1,13 @@
 //
-//  AKPlaygroundHelpers.swift
+//  AKPlaygroundLoop.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
 //
 
 import Foundation
+import QuartzCore
 
 /// Class to handle updating via CADisplayLink
 public class AKPlaygroundLoop {
@@ -43,7 +44,7 @@ public class AKPlaygroundLoop {
     /// Callback function for CADisplayLink
     @objc func update() {
         if counter < trigger {
-            counter++
+            counter += 1
             return
         }
         counter = 0
