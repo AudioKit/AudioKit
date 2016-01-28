@@ -30,7 +30,7 @@ import Foundation
     ///
     public init(_ input: AKNode, width: CGFloat = 1000.0, height: CGFloat = 500.0) {
         super.init()
-        fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: 44100.0, delegate: self)
+        fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         plot = EZAudioPlot(frame: frame)
         plot!.plotType = .Buffer
