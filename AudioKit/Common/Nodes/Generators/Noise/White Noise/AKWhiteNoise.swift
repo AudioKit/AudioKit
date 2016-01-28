@@ -16,7 +16,6 @@ public class AKWhiteNoise: AKVoice {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKWhiteNoiseAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -43,12 +42,17 @@ public class AKWhiteNoise: AKVoice {
     }
     
     // MARK: - Initialization
+    
+    /// Initialize the noise generator with defaults
+    convenience override init() {
+        self.init(amplitude: 1.0)
+    }
 
     /// Initialize this noise node
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1).
     ///
-    public init(amplitude: Double = 1.0) {
+    public init(amplitude: Double) {
 
         self.amplitude = amplitude
 

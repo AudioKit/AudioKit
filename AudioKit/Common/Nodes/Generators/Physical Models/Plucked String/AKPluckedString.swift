@@ -18,7 +18,6 @@ public class AKPluckedString: AKVoice {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKPluckedStringAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -63,6 +62,11 @@ public class AKPluckedString: AKVoice {
 
     // MARK: - Initialization
 
+    /// Initialize the pluck with defaults
+    convenience override init() {
+        self.init(frequency: 110)
+    }
+    
     /// Initialize this pluck node
     ///
     /// - parameter frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
@@ -70,7 +74,7 @@ public class AKPluckedString: AKVoice {
     /// - parameter lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
     public init(
-        frequency: Double = 110,
+        frequency: Double,
         amplitude: Double = 0.5,
         lowestFrequency: Double = 110) {
 
