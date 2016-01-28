@@ -31,7 +31,7 @@ player.play()
 var increment = 0.01
 
 AKPlaygroundLoop(every: 3.428/100.0) { () -> () in
-    mixer.balance += increment
+    mixer.balance = mixer.balance + increment
     if mixer.balance >= 1 && increment > 0 {
         increment = -0.01
     }
