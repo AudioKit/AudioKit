@@ -10,8 +10,10 @@
 
 @import AudioKit;
 
-@interface ViewController ()
-
+@interface ViewController () {
+    AKManager *audiokit;
+    AKOscillator *oscillator;
+}
 @end
 
 @implementation ViewController
@@ -19,9 +21,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    audiokit = [AKManager sharedInstance];
+    oscillator = [[AKOscillator alloc] init];
+    audiokit.audioOutput = oscillator;
+    [audiokit start];
+}
 
-    AKManager *audiokit = [AKManager sharedInstance];
-    AKOscillator *osc = [[AKOscillator alloc] init];
+- (IBAction)toggleSound:(UIButton *)sender {
+
+    if (oscillator.isStarted) {
+        [oscillator stop];
+        [sender setTitle:@"Play Sine Wave" forState:UIControlStateNormal];
+    } else {
+        oscillator.amplitude = ((float)rand() / RAND_MAX) * 0.5 + 0.5;
+        oscillator.frequency = ((float)rand() / RAND_MAX) * 660.0 + 220.0;
+        [oscillator start];
+        NSString *title = [NSString stringWithFormat:@"Stop Sine Wave at %0.2fHz", oscillator.frequency];
+        [sender setTitle:title forState:UIControlStateNormal];
+    }
+    [sender setNeedsDisplay];
     
 }
 
