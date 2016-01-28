@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Parent class for all nodes in AudioKit
-public class AKNode {
+@objc public class AKNode: NSObject {
     
     /// The internal AVAudioEngine AVAudioNode
     public var avAudioNode: AVAudioNode
@@ -19,7 +19,7 @@ public class AKNode {
     internal var connectionPoints = [AVAudioConnectionPoint]()
 
     /// Create the node
-    public init() {
+    public override init() {
         self.avAudioNode = AVAudioNode()
     }
     

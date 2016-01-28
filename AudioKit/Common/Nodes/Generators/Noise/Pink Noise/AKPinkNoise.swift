@@ -43,12 +43,17 @@ public class AKPinkNoise: AKVoice {
     }
     
     // MARK: - Initialization
+    
+    /// Initialize the noise generator with defaults
+    convenience override init() {
+        self.init(amplitude: 1.0)
+    }
 
     /// Initialize this noise node
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1).
     ///
-    public init(amplitude: Double = 1.0) {
+    public init(amplitude: Double) {
 
         self.amplitude = amplitude
 
@@ -94,7 +99,7 @@ public class AKPinkNoise: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func copy() -> AKVoice {
+    public override func duplicate() -> AKVoice {
         let copy = AKPinkNoise(amplitude: self.amplitude)
         return copy
     }
