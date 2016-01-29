@@ -7,27 +7,20 @@
 import XCPlayground
 import AudioKit
 
-//: This section prepares the player and the microphone
-var mic = AKMicrophone()
-mic.volume = 0
-let micWindow = AKMicrophoneWindow(mic)
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
+
+//: Here we set up a player to the loop the file's playback
 var player = AKAudioPlayer(file!)
 player.looping = true
-let playerWindow = AKAudioPlayerWindow(player)
 
-//: Next, we'll connect the audio sources to a delay
-let inputMix = AKMixer(mic, player)
-var delay = AKDelay(inputMix)
+//: Next we'll connect the audio player to a delay effect
+var delay = AKDelay(player)
 
 //: Set the parameters of the delay here
 delay.time = 0.1 // seconds
 delay.feedback  = 0.8 // Normalized Value 0 - 1
-delay.dryWetMix = 0.6 // Normalized Value 0 - 1
-
-var delayWindow  = AKDelayWindow(delay)
+delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 
 //: You can continue add more nodes as you wish, and here we add a reverb
 let reverb = AKReverb(delay)
@@ -35,6 +28,8 @@ reverb.loadFactoryPreset(.Cathedral)
 
 AudioKit.output = reverb
 AudioKit.start()
+
+player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
