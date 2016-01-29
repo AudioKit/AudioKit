@@ -24,6 +24,7 @@ create_package()
 {
 	echo "Packaging AudioKit version $VERSION for $1 ..."
 	DIR="AudioKit-$1"
+	rm -f ${DIR}-${VERSION}.zip
 	mkdir -p "Carthage/$os"
 	cp -a "$DIR/AudioKit.framework" "Carthage/$os/"
 	cd $DIR
@@ -44,6 +45,8 @@ done
 # Create binary framework zip for Carthage, to be uploaded to Github along with release
 
 echo "Packaging AudioKit frameworks version $VERSION for Carthage ..."
+rm -f AudioKit.framework.zip
 cd Carthage
-zip -9yr ../AudioKit.framework.zip $PLATFORMS
+cp ../../LICENSE .
+zip -9yr ../AudioKit.framework.zip $PLATFORMS LICENSE
 
