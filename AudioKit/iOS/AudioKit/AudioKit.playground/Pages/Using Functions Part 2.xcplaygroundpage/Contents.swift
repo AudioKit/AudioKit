@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 func instrument(noteNumber: Int, rate: Double, amplitude: Double) -> AKOperation {
     let metro = AKOperation.metronome(82.0 / (60.0 * rate))
     let frequency = noteNumber.midiNoteToFrequency()
@@ -27,8 +25,8 @@ let reverb = instruments.reverberateWithCostello(feedback: 0.9, cutoffFrequency:
 
 let generator = AKOperationGenerator(operation: mixer(instruments, reverb, balance: 0.4))
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 
 generator.start()
 

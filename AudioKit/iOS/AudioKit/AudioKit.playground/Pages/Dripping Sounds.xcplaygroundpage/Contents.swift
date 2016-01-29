@@ -9,16 +9,14 @@ import XCPlayground
 
 let playRate = 2.0
 
-let audiokit = AKManager.sharedInstance
-
-let drip = AKDrip()
+let drip = AKDrip(intensity: 1)
 drip.intensity = 100
 
 let reverb = AKReverb(drip)
 
 
-audiokit.audioOutput = reverb
-audiokit.start()
+AudioKit.output = reverb
+AudioKit.start()
 
 AKPlaygroundLoop(frequency: playRate) {
     drip.trigger()

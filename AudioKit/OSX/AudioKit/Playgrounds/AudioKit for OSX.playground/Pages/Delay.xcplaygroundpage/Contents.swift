@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the player and the microphone
 var mic = AKMicrophone()
 mic.volume = 0
@@ -34,8 +32,8 @@ var delayWindow  = AKDelayWindow(delay)
 //: You can also set the bounds of the sliders here
 delayWindow.timeSlider.maxValue = 0.2 // seconds
 delayWindow.feedbackSlider.maxValue = 0.99
-audiokit.audioOutput = delay
-audiokit.start()
+AudioKit.output = delay
+AudioKit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

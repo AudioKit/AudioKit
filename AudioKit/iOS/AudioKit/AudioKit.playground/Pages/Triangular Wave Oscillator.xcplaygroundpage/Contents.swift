@@ -7,10 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
 var triangle = AKTriangleOscillator()
-audiokit.audioOutput = triangle
-audiokit.start()
+AudioKit.output = triangle
+AudioKit.start()
 
 triangle.start()
 

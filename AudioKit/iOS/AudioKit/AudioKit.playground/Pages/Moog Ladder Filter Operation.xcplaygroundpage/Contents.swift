@@ -7,7 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -20,8 +19,8 @@ let filter  = AKOperation.input.moogLadderFilter(cutoffFrequency: frequency, res
 
 let effect = AKOperationEffect(player, operation: filter)
 
-audiokit.audioOutput = effect
-audiokit.start()
+AudioKit.output = effect
+AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

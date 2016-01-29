@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: Here is the canonical specification of DTMF Tones
 var keys = [String: [Double]]()
 keys["1"] = [697, 1209]
@@ -33,8 +31,8 @@ let momentaryPress = keyPressTone.triggeredWithEnvelope(
 let generator = AKOperationGenerator(
     operation: momentaryPress * 0.4)
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 
 generator.start()
 

@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let slowSine = round(AKOperation.sineWave(frequency: 1)  * 12) / 12
 let vibrato  = slowSine.scale(minimum: -1200, maximum: 1200)
 
@@ -20,8 +18,8 @@ let rightOutput = AKOperation.sineWave(frequency: 220 + vibrato, amplitude: volu
 
 let generator = AKOperationGenerator(left: leftOutput, right:  rightOutput)
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 generator.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

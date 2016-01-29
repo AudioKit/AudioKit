@@ -28,7 +28,7 @@ bandPassFilter.bandwidth = 600  // Cents
 
 var bandPassFilterWindow = AKBandPassFilterWindow(bandPassFilter)
 
-AudioKit.audioOutput = bandPassFilter
+AudioKit.output = bandPassFilter
 AudioKit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
