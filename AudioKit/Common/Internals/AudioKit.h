@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 //! Project version number for AudioKit.
 FOUNDATION_EXPORT double AudioKitVersionNumber;

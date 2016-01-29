@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
@@ -21,8 +19,8 @@ let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
 //: At this point you don't have much signal left, so you balance it against the original signal!
 let rebalancedWithSource = AKBalancer(lowPassFiltering,  comparator: source)
 
-audiokit.audioOutput = rebalancedWithSource
-audiokit.start()
+AudioKit.output = rebalancedWithSource
+AudioKit.start()
 source.play()
 
 //: Toggle processing on every loop

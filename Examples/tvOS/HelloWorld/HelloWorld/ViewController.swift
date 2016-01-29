@@ -11,7 +11,6 @@ import AudioKit
 
 class ViewController: UIViewController {
 
-    let audiokit = AKManager.sharedInstance
     var oscillator = AKOscillator()
 
     @IBOutlet var plot: AKOutputWaveformPlot!
@@ -19,8 +18,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        audiokit.audioOutput = oscillator
-        audiokit.start()
+        AudioKit.output = oscillator
+        AudioKit.start()
         
     }
 

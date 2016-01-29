@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the player and the microphone
 var mic = AKMicrophone()
 mic.volume = 0
@@ -31,8 +29,8 @@ parametricEQ.gain = 0 // dB
 
 var parametricEQWindow = AKParametricEQWindow(parametricEQ)
 
-audiokit.audioOutput = parametricEQ
-audiokit.start()
+AudioKit.output = parametricEQ
+AudioKit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

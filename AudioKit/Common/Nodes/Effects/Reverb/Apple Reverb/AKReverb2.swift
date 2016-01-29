@@ -188,7 +188,7 @@ public class AKReverb2: AKNode, AKToggleable {
             
             super.init()
             self.avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 

@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: Create the sequencer, but we can't init it until we do some basic setup
 var seq:AKSequencer?
 
@@ -22,23 +20,23 @@ var mixer = AKMixer()
 mixer.connect(sampler1)
 mixer.connect(sampler2)
 mixer.volume = 0.4
-audiokit.audioOutput = mixer
+AudioKit.output = mixer
 
-//: Load in a midi file, and set the sequencer to the main audiokit engine
-seq = AKSequencer(filename: "4tracks", engine: audiokit.engine)
+seq =//: Load in a midi file, and set the sequencer to the main audiokit engine
+ AKSequencer(filename: "4tracks")
 
-//: Do some basic setup to make the sequence loop correctly
-seq!.setLength(4)
+seq!.//: Do some basic setup to make the sequence loop correctly
+setLength(4)
 seq!.loopOn()
-//: Here we set each alternating track to a different instrument
+seq!.//: Here we set each alternating track to a different instrument
 //: (Note that track 0 in our case is just meta information...not actual notes)
-seq!.avTracks[1].destinationAudioUnit = sampler1.samplerUnit
+avTracks[1].destinationAudioUnit = sampler1.samplerUnit
 seq!.avTracks[2].destinationAudioUnit = sampler2.samplerUnit
 seq!.avTracks[3].destinationAudioUnit = sampler1.samplerUnit
 seq!.avTracks[4].destinationAudioUnit = sampler2.samplerUnit
 
-//: Hear it go
-audiokit.start()
+Audio//: Hear it go
+Kit.start()
 seq!.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

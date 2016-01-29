@@ -7,12 +7,10 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 var fm = AKFMOscillator(
     waveform: AKTable(.Sine, size: 4096))
-audiokit.audioOutput = fm
-audiokit.start()
+AudioKit.output = fm
+AudioKit.start()
 
 AKPlaygroundLoop(frequency: 1) {
     fm.baseFrequency = random(220, 880)

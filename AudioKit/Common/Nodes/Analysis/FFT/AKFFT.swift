@@ -23,8 +23,8 @@ import Foundation
     ///
     public init(_ input: AKNode) {
         super.init()
-        fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: 44100.0, delegate: self)
-        input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AKManager.format) { [weak self] (buffer, time) -> Void in
+        fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
+        input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize;
                 let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);

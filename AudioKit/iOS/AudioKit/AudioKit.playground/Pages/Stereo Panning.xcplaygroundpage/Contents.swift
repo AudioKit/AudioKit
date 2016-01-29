@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: Set up the audio player
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
@@ -18,9 +16,9 @@ player.looping = true
 //: Route the audio player through the panner
 var panner = AKPanner(player)
 
-audiokit.audioOutput = panner
+AudioKit.output = panner
+AudioKit.start()
 
-audiokit.start()
 player.play()
 
 //: Adjust the pan to smoothly cycle left and right over time

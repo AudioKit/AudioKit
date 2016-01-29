@@ -37,7 +37,7 @@ public class AKBooster: AKNode, AKToggleable {
             
         super.init()
         self.avAudioNode = mixer
-        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)
             
         mixer.outputVolume = Float(gain)

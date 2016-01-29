@@ -37,7 +37,7 @@ public class AKMixer: AKNode, AKToggleable {
     public init(_ inputs: AKNode...) {
         super.init()
         self.avAudioNode = mixerAU
-        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attachNode(self.avAudioNode)
         for input in inputs {
             connect(input)
         }
@@ -49,7 +49,7 @@ public class AKMixer: AKNode, AKToggleable {
     ///
     public func connect(input: AKNode) {
         input.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU, bus: mixerAU.numberOfInputs))
-        AKManager.sharedInstance.engine.connect(input.avAudioNode, toConnectionPoints: input.connectionPoints, fromBus: 0, format: AKManager.format)
+        AudioKit.engine.connect(input.avAudioNode, toConnectionPoints: input.connectionPoints, fromBus: 0, format: AudioKit.format)
     }
     
     /// Function to start, play, or activate the node, all do the same thing

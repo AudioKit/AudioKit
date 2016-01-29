@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 func drone(frequency: Double, rate: Double) -> AKOperation {
     let metro = AKOperation.metronome(rate)
     let tone = AKOperation.sineWave(frequency: frequency, amplitude: 0.2)
@@ -21,8 +19,8 @@ let drone3 = drone(450, rate: 7)
 
 let generator = AKOperationGenerator(operation: (drone1 + drone2 + drone3) / 3)
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 
 generator.start()
 
