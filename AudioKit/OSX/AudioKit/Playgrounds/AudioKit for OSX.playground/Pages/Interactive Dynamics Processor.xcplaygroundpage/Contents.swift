@@ -2,8 +2,8 @@
 //:
 //: ---
 //:
-//: ## AKDynamicsProcessor
-//: ### Add description
+//: ## Dynamics Processor
+//:
 import XCPlayground
 import AudioKit
 

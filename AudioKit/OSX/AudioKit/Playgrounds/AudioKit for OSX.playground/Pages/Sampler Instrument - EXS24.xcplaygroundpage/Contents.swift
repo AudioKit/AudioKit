@@ -28,17 +28,17 @@ let reverb = AKReverb(delay)
 AudioKit.output = reverb
 AudioKit.start()
 
-AKPla//: This is a loop to send a random note to the sampler
+//: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here
-ygroundLoop.start(every: pulse) { timer in
-    let scale = [0,2,4,5,7,9,11,12]
+let scale = [0,2,4,5,7,9,11,12]
+
+AKPlaygroundLoop(every: pulse) {
     var note = scale.randomElement()
     let octave = randomInt(3...7)  * 12
     if random(0, 10) < 1.0 { note++ }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
     if random(0, 6) > 1.0 { sampler.playNote(note + octave) }
 }
-
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

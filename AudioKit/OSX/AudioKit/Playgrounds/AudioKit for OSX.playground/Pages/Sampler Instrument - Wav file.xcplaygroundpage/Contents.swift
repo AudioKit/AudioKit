@@ -17,7 +17,9 @@ let sampler = AKSampler()
 //: Here is where we reference the Wav file as it is in the app bundle
 sampler.loadWav("Sounds/fmpia1")
 
-var delay  = AKDelay(sampler)
+let ampedSampler = AKBooster(sampler, gain: 3.0)
+
+var delay  = AKDelay(ampedSampler)
 delay.time = pulse * 1.5
 delay.dryWetMix = 0.3
 delay.feedback = 0.2
@@ -25,24 +27,20 @@ delay.feedback = 0.2
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.LargeRoom)
 
-var mixer = AKMixer(reverb)
-mixer.volume = 5.0
-
 //: Connect the sampler to the main output
-AudioKit.output = mixer
+AudioKit.output = reverb
 AudioKit.start()
 
-AKPla//: This is a loop to send a random note to the sampler
+//: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here
-ygroundLoop.start(every: pulse) { timer in
+AKPlaygroundLoop(every: pulse) {
     let scale = [0,2,4,5,7,9,11,12]
     var note = scale.randomElement()
-    let octave = randomInt(3...7)  * 12
+    let octave = randomInt(3...6)  * 12
     if random(0, 10) < 1.0 { note++ }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
     if random(0, 6) > 1.0 { sampler.playNote(note + octave) }
 }
-
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
