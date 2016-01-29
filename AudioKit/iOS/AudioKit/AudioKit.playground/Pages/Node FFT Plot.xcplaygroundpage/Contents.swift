@@ -7,12 +7,11 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 var oscillator = AKOscillator(waveform: AKTable(.Sine, size: 4096))
 var mixer = AKMixer(oscillator)
-audiokit.audioOutput = mixer
-audiokit.start()
+
+AudioKit.output = mixer
+AudioKit.start()
 
 oscillator.start()
 

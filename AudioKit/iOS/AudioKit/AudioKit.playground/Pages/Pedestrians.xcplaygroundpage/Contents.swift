@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: Generate a sine wave at the right frequency
 let crossingSignalTone = AKOperation.sineWave(frequency: 2500)
 
@@ -19,8 +17,8 @@ let crossingSignal = crossingSignalTone.triggeredWithEnvelope(crossingSignalTrig
 //: Create the generator node (and scale that volume!)
 let generator = AKOperationGenerator(operation: crossingSignal * 0.2)
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 
 //: Activate the signal
 generator.start()

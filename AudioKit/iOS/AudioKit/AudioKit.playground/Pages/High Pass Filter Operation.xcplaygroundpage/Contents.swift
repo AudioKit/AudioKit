@@ -4,9 +4,8 @@
 //:
 //: ## High Pass Filter Operation
 //:
+import XCPlayground
 import AudioKit
-
-let audiokit = AKManager.sharedInstance
 
 //: Filter setup
 let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12000, maximum: 100)
@@ -25,8 +24,8 @@ let filteredPlayer = AKOperationEffect(player, operation: filter)
 
 //: Mixdown and playback
 let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, balance: 0.5)
-audiokit.audioOutput = mixer
-audiokit.start()
+AudioKit.output = mixer
+AudioKit.start()
 
 whiteNoise.start()
 player.play()

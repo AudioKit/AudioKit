@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -20,8 +18,8 @@ var moogLadder = AKMoogLadder(player)
 moogLadder.cutoffFrequency = 300 // Hz
 moogLadder.resonance = 0.6  
 
-audiokit.audioOutput = moogLadder
-audiokit.start()
+AudioKit.output = moogLadder
+AudioKit.start()
 
 player.play()
 

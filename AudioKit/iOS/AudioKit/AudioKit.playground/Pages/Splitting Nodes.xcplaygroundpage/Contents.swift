@@ -8,8 +8,6 @@ import XCPlayground
 import AudioKit
 import AVFoundation
 
-let audiokit = AKManager.sharedInstance
-
 //: Prepare the source audio player
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
@@ -27,8 +25,8 @@ delay.dryWetMix = 1
 //: Any number of inputs can be equally summed into one output, including the original player, allowing us to create dry/wet mixes even for effects that don't have that property by default
 let mixer = AKMixer(player, delay)
 
-audiokit.audioOutput = mixer
-audiokit.start()
+AudioKit.output = mixer
+AudioKit.start()
 player.play()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

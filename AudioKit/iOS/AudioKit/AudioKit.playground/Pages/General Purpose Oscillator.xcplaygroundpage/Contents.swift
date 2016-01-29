@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let triangle = AKTable(.Triangle, size: 128)
 for value in triangle.values { value } // Click the eye icon ->
 
@@ -29,8 +27,8 @@ for value in custom.values { value } // Click the eye icon ->
 
 //: Try changing the table to triangle, square, sine, or sawtooth. This will change the shape of the oscillator's waveform.
 var oscillator = AKOscillator(waveform: custom)
-audiokit.audioOutput = oscillator
-audiokit.start()
+AudioKit.output = oscillator
+AudioKit.start()
 
 oscillator.start()
 

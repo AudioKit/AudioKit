@@ -1,5 +1,5 @@
 //
-//  AKManager.swift
+//  AudioKit.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -23,9 +23,9 @@ import AVFoundation
     public static let engine = AVAudioEngine()
     
     /// An audio output operation that most applications will need to use last
-    public static var audioOutput: AKNode? {
+    public static var output: AKNode? {
         didSet {
-            engine.connect(audioOutput!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
+            engine.connect(output!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
         }
     }
     
@@ -67,6 +67,6 @@ import AVFoundation
     ///
     public static func testOutput(node: AKNode, samples: Int) {
         tester = AKTester(node, samples: samples)
-        audioOutput = tester
+        output = tester
     }
 }
