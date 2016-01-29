@@ -22,8 +22,8 @@ let playerWindow = AKAudioPlayerWindow(player)
 let inputMix = AKMixer(mic, player)
 var delay = AKDelay(inputMix)
 
-delay.//: Set the parameters of the delay here
-time = 0.01 // seconds
+//: Set the parameters of the delay here
+delay.time = 0.01 // seconds
 delay.feedback  = 0.9 // Normalized Value 0 - 1
 delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
