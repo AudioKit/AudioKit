@@ -98,7 +98,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPeakingParametricEqualizerFilterAudioUnit
 
-            AKManager.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

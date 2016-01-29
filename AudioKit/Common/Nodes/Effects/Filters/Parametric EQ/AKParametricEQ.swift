@@ -128,10 +128,10 @@ public class AKParametricEQ: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
             
-            AKManager.engine.attachNode(internalEffect)
+            AudioKit.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
-            AKManager.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
-            AKManager.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
+            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)

@@ -68,7 +68,7 @@ public class AKConvolution: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKConvolutionAudioUnit
 
-            AKManager.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU!.setPartitionLength(Int32(partitionLength))
         }

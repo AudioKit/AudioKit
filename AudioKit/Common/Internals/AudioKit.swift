@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Top level AudioKit managing class
-@objc public class AKManager: NSObject {
+@objc public class AudioKit : NSObject {
     
     // MARK: Global audio format (44.1K, Stereo)
     
@@ -25,7 +25,7 @@ import AVFoundation
     /// An audio output operation that most applications will need to use last
     public static var audioOutput: AKNode? {
         didSet {
-            engine.connect(audioOutput!.avAudioNode, to: engine.outputNode, format: AKManager.format)
+            engine.connect(audioOutput!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
         }
     }
     

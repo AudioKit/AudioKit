@@ -26,7 +26,7 @@
 		C40C41121C40DF67009D870B /* AKWavetableSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C410A1C40DF67009D870B /* AKWavetableSynth.swift */; };
 		C40C41131C40DF67009D870B /* AKSawtoothSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C410B1C40DF67009D870B /* AKSawtoothSynth.swift */; };
 		C40C41141C40DF67009D870B /* AKPWMSynth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C410C1C40DF67009D870B /* AKPWMSynth.swift */; };
-		C40C411F1C40E2E1009D870B /* AKManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411C1C40E2E1009D870B /* AKManager.swift */; };
+		C40C411F1C40E2E1009D870B /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411C1C40E2E1009D870B /* AudioKit.swift */; };
 		C40C41201C40E2E1009D870B /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411D1C40E2E1009D870B /* AKTable.swift */; };
 		C40C41211C40E2E1009D870B /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */; };
 		C40C41281C40E344009D870B /* AKBufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41231C40E344009D870B /* AKBufferedAudioBus.hpp */; };
@@ -550,7 +550,7 @@
 		C40C410A1C40DF67009D870B /* AKWavetableSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKWavetableSynth.swift; sourceTree = "<group>"; };
 		C40C410B1C40DF67009D870B /* AKSawtoothSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSawtoothSynth.swift; sourceTree = "<group>"; };
 		C40C410C1C40DF67009D870B /* AKPWMSynth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMSynth.swift; sourceTree = "<group>"; };
-		C40C411C1C40E2E1009D870B /* AKManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKManager.swift; sourceTree = "<group>"; };
+		C40C411C1C40E2E1009D870B /* AudioKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKit.swift; sourceTree = "<group>"; };
 		C40C411D1C40E2E1009D870B /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKitHelpers.swift; sourceTree = "<group>"; };
 		C40C41231C40E344009D870B /* AKBufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBufferedAudioBus.hpp; sourceTree = "<group>"; };
@@ -1328,7 +1328,7 @@
 		C42F350D1C057F4C000E937C /* Internals */ = {
 			isa = PBXGroup;
 			children = (
-				C40C411C1C40E2E1009D870B /* AKManager.swift */,
+				C40C411C1C40E2E1009D870B /* AudioKit.swift */,
 				EA6949E11C59A9FC0035B5DF /* AKSettings.swift */,
 				C40C411D1C40E2E1009D870B /* AKTable.swift */,
 				C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */,
@@ -2816,7 +2816,7 @@
 				C4E958C81C0ADBFD00516A6A /* panst.c in Sources */,
 				C40AD69D1C463B2600B638AF /* AKMusicTrack+MIDI.swift in Sources */,
 				C4E958981C0ADBFD00516A6A /* autowah.c in Sources */,
-				C40C411F1C40E2E1009D870B /* AKManager.swift in Sources */,
+				C40C411F1C40E2E1009D870B /* AudioKit.swift in Sources */,
 				C46C79611C4C61CF00F6CE3D /* thresh.c in Sources */,
 				C4E958EE1C0ADBFD00516A6A /* zitarev.c in Sources */,
 				C4A916511C24F95E006C1A15 /* triggeredWithEnvelope.swift in Sources */,

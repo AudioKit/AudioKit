@@ -29,13 +29,13 @@ class AKTestCase: XCTestCase {
         //: Try changing the table type to triangle or another AKTableType
         //: or changing the number of points to a smaller number (has to be a power of 2)
         let fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
-        AKManager.testOutput(fm, samples: samples)
-        AKManager.start()
-        print("IS testing %@", AKManager.tester!.isTesting())
-        while AKManager.tester!.isTesting() {
+        AudioKit.testOutput(fm, samples: samples)
+        AudioKit.start()
+        print("IS testing %@", AudioKit.tester!.isTesting())
+        while AudioKit.tester!.isTesting() {
             usleep(10)
         }
-        print("Got this MD5: \(AKManager.tester!.getMD5())")
+        print("Got this MD5: \(AudioKit.tester!.getMD5())")
     }
 
     
