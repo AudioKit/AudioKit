@@ -9,6 +9,8 @@
 	"file": "LICENSE"
     },
     "homepage": "http://audiokit.io/",
+    "social_media_url": "http://twitter.com/AudioKitMan",
+    "documentation_url": "http://audiokit.io/docs/",
     "source": {
         "http": "https://github.com/audiokit/AudioKit/releases/download/v3.0.1/AudioKit.framework.zip"
     },
