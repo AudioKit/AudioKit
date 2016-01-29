@@ -45,21 +45,17 @@ The examples rely on the frameworks being built so you can either download the p
 
 Hello World basically consists of just a few sections of code:
 
-Setting up AudioKit:
-
-    let audiokit = AKManager.sharedInstance
-
 Creating the sound, in this case an oscillator:
 
     var oscillator = AKOscillator()
 
 Telling AudioKit where to get its audio from (ie. the oscillator):
 
-    audiokit.audioOutput = oscillator
+    AudioKit.output = oscillator
 
 Starting AudioKit:
 
-        audiokit.start()
+        AudioKit.start()
 
 And then responding to the UI by changing the oscillator:
 
