@@ -4,9 +4,9 @@ AudioKit V3
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
 [![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://github.com/CocoaPods/Specs/tree/master/Specs/AudioKit)
 
-
-*This document was last updated: January 27, 2016*
+*This document was last updated: January 29, 2016*
 
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
@@ -45,21 +45,17 @@ The examples rely on the frameworks being built so you can either download the p
 
 Hello World basically consists of just a few sections of code:
 
-Setting up AudioKit:
-
-    let audiokit = AKManager.sharedInstance
-
 Creating the sound, in this case an oscillator:
 
     var oscillator = AKOscillator()
 
 Telling AudioKit where to get its audio from (ie. the oscillator):
 
-    audiokit.audioOutput = oscillator
+    AudioKit.output = oscillator
 
 Starting AudioKit:
 
-        audiokit.start()
+    AudioKit.start()
 
 And then responding to the UI by changing the oscillator:
 
@@ -91,6 +87,12 @@ You can easily add the framework to your project by using [Carthage](https://git
 
 ```
 github "audiokit/AudioKit"
+```
+
+If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
+
+```
+pod 'AudioKit', '~> 3.0'
 ```
 
 ## About Us
