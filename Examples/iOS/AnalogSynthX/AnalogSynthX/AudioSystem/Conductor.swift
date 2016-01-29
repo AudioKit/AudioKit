@@ -45,8 +45,8 @@ class Conductor {
 
         reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.0)
 
-        AKManager.audioOutput = reverbMixer
-        AKManager.start()
+        AudioKit.output = reverbMixer
+        AudioKit.start()
 
         let defaultCenter = NSNotificationCenter.defaultCenter()
         let mainQueue = NSOperationQueue.mainQueue()
