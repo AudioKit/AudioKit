@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -21,8 +19,8 @@ ringModulator.frequency2 = 660 // Hertz
 ringModulator.balance = 0.5 //  Normalized Value: 0 - 1
 ringModulator.mix     = 0.5 //  Normalized Value: 0 - 1
 
-audiokit.audioOutput = ringModulator
-audiokit.start()
+AudioKit.output = ringModulator
+AudioKit.start()
 
 player.play()
 

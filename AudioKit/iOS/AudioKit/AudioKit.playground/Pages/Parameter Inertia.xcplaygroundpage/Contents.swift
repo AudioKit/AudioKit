@@ -7,17 +7,15 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 var noise = AKWhiteNoise(amplitude: 1)
 var filter = AKMoogLadder(noise)
 
 filter.resonance = 0.94
 filter.inertia = 0.0002
 
-audiokit.audioOutput = filter
+AudioKit.output = filter
+AudioKit.start()
 
-audiokit.start()
 noise.start()
 
 var i = 0

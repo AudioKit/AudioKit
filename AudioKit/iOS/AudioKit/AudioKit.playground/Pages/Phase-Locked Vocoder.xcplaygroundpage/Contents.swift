@@ -7,14 +7,12 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let url = bundle.URLForResource("guitarloop", withExtension: "wav")
 let phaseLockedVocoder = AKPhaseLockedVocoder(audioFileURL: url!)
 
-audiokit.audioOutput = phaseLockedVocoder
-audiokit.start()
+AudioKit.output = phaseLockedVocoder
+AudioKit.start()
 phaseLockedVocoder.start()
 phaseLockedVocoder.amplitude = 1
 phaseLockedVocoder.pitchRatio = 1

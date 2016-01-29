@@ -24,20 +24,18 @@ class AKTestCase: XCTestCase {
     }
     
     func testFMOscillator() {
-        let samples = duration * 44100
-        
-        let audiokit = AKManager.sharedInstance
+        let samples = duration * AKSettings.sampleRate
         
         //: Try changing the table type to triangle or another AKTableType
         //: or changing the number of points to a smaller number (has to be a power of 2)
         let fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
-        audiokit.testOutput(fm, samples: samples)
-        audiokit.start()
-        print("IS testing %@", AKManager.sharedInstance.tester!.isTesting())
-        while AKManager.sharedInstance.tester!.isTesting() {
+        AudioKit.testOutput(fm, samples: samples)
+        AudioKit.start()
+        print("IS testing %@", AudioKit.tester!.isTesting())
+        while AudioKit.tester!.isTesting() {
             usleep(10)
         }
-        print("Got this MD5: \(AKManager.sharedInstance.tester!.getMD5())")
+        print("Got this MD5: \(AudioKit.tester!.getMD5())")
     }
 
     

@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -20,8 +18,8 @@ filter.qualityFactor = 50
 
 let loweredVolume = AKBooster(filter, gain: 0.2)
 
-audiokit.audioOutput = loweredVolume
-audiokit.start()
+AudioKit.output = loweredVolume
+AudioKit.start()
 
 player.play()
 

@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the player
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
@@ -26,8 +24,8 @@ timePitch.overlap = 8.0 // generic
 
 var timePitchWindow = AKTimePitchWindow(timePitch)
 timePitchWindow.rateSlider.maxValue = 4.0
-audiokit.audioOutput = timePitch
-audiokit.start()
+AudioKit.output = timePitch
+AudioKit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

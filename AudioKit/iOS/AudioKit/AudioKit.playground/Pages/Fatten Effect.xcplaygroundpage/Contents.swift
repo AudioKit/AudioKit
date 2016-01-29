@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 
@@ -25,8 +23,8 @@ let fattenOperation = AKStereoOperation(
     "\(input) dup \(1 - fattenMixParameter) * swap 0 \(fattenTimeParameter) 1.0 vdelay \(fattenMixParameter) * +")
 let fatten = AKOperationEffect(player, stereoOperation: fattenOperation)
 
-audiokit.audioOutput = fatten
-audiokit.start()
+AudioKit.output = fatten
+AudioKit.start()
 
 player.play()
 

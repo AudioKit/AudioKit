@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
 let drumFile   = bundle.pathForResource("drumloop",   ofType: "wav")
@@ -29,8 +27,8 @@ lead.looping   = true
 //: Any number of inputs can be summed into one output
 let mixer = AKMixer(drums, bass, guitar, lead)
 
-audiokit.audioOutput = mixer
-audiokit.start()
+AudioKit.output = mixer
+AudioKit.start()
 
 drums.play()
 bass.play()

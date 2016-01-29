@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
 
@@ -17,8 +15,8 @@ player.looping = true
 
 let tracker = AKFrequencyTracker(player, minimumFrequency: 400, maximumFrequency: 600)
 
-audiokit.audioOutput = tracker
-audiokit.start()
+AudioKit.output = tracker
+AudioKit.start()
 player.play()
 
 //: And here's where we monitor the results of tracking the amplitude.

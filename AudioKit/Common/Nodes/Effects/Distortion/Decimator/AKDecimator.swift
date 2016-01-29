@@ -108,7 +108,7 @@ public class AKDecimator: AKNode, AKToggleable {
             super.init()
             
             avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             

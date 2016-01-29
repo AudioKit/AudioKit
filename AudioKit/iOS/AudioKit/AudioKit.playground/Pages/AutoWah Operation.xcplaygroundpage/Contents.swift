@@ -7,7 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -19,8 +18,8 @@ let autowah = AKOperation.input.autoWah(wah: wahAmount, mix: 100, amplitude: 1)
 
 let effect = AKOperationEffect(player, operation: autowah)
 
-audiokit.audioOutput = effect
-audiokit.start()
+AudioKit.output = effect
+AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let ringingTone1 = AKOperation.sineWave(frequency: 480)
 let ringingTone2 = AKOperation.sineWave(frequency: 440)
 
@@ -21,8 +19,8 @@ let ringing = ringingToneMix.triggeredWithEnvelope(ringTrigger,
 
 let generator = AKOperationGenerator(operation: ringing * 0.4)
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 
 generator.start()
 

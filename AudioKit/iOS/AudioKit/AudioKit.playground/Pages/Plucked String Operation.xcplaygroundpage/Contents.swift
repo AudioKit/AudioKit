@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let playRate = 2.0
 
 let frequency = (AKOperation.parameters(0) + 40).midiNoteToFrequency()
@@ -23,8 +21,8 @@ delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 
-audiokit.audioOutput = reverb
-audiokit.start()
+AudioKit.output = reverb
+AudioKit.start()
 pluckNode.start()
 
 let scale = [0,2,4,5,7,9,11,12]

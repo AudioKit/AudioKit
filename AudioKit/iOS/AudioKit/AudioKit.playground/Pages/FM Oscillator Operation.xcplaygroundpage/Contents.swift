@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: Set up the operations that will be used to make a generator node
 let sine = AKOperation.sineWave(frequency: 1)
 let square = AKOperation.squareWave(frequency: 1.64)
@@ -34,8 +32,8 @@ let delay2 = AKDelay(delay1,
     time: 0.1, feedback: 0.1, lowPassCutoff: 0, dryWetMix: 0.5)
 let reverb = AKReverb(delay2, dryWetMix: 0.5)
 
-audiokit.audioOutput = reverb
-audiokit.start()
+AudioKit.output = reverb
+AudioKit.start()
 
 generator.start()
 

@@ -8,8 +8,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -25,13 +23,13 @@ reverb2.decayTimeAt0Hz = 3.0 // Secs
 reverb2.decayTimeAtNyquist = 0.5 // Secs
 reverb2.randomizeReflections = 0 // Integer
 
-audiokit.audioOutput = reverb2
-audiokit.start()
+AudioKit.output = reverb2
+AudioKit.start()
 
 player.play()
 
-//: Toggle processing on every loop
-AKPlaygroundLoop(every: 3.428) { () -> () in
+AKPla//: Toggle processing on every loop
+ygroundLoop(every: 3.428) { () -> () in
     if reverb2.isBypassed {
         reverb2.start()
     } else {

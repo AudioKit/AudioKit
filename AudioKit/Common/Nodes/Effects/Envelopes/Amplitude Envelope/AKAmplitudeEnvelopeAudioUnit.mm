@@ -5,12 +5,13 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
-
 #import "AKAmplitudeEnvelopeAudioUnit.h"
 #import "AKAmplitudeEnvelopeDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
 #import "AKBufferedAudioBus.hpp"
+
+#import <AudioKit/AudioKit-Swift.h>
 
 @interface AKAmplitudeEnvelopeAudioUnit()
 
@@ -52,8 +53,8 @@
     }
 
     // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.
-                                                                                  channels:2];
+    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                                  channels:AKSettings.numberOfChannels];
 
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);

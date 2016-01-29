@@ -22,8 +22,8 @@
 
 import UIKit
 import AudioKit
+
 class ViewController: UIViewController {
-    let audiokit = AKManager.sharedInstance
     var seq:AKSequencer?
     var mixer = AKMixer()
     var syn1 = AKSampler()
@@ -75,14 +75,14 @@ class ViewController: UIViewController {
         
         filter = AKMoogLadder(mixer)
         filter?.cutoffFrequency = 20000
-        audiokit.audioOutput = filter
+        AudioKit.output = filter
         
         syn2.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
         syn1.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
         syn3.loadEXS24("Sounds/Sampler Instruments/sawPad1")
         drmKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
-        audiokit.start()
-        seq = AKSequencer(filename: "seqDemo", engine: audiokit.engine)
+        AudioKit.start()
+        seq = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
         seq?.loopOn()
         seq!.avTracks[1].destinationAudioUnit = syn1.samplerUnit
         seq!.avTracks[2].destinationAudioUnit = syn2.samplerUnit

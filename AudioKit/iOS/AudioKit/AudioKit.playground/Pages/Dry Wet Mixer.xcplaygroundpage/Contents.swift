@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
 let drumFile   = bundle.pathForResource("drumloop",   ofType: "wav")
@@ -27,8 +25,8 @@ reverb.loadFactoryPreset(.LargeChamber)
 
 let mixture = AKDryWetMixer(drums, reverb, balance: 0.5)
 
-audiokit.audioOutput = mixture
-audiokit.start()
+AudioKit.output = mixture
+AudioKit.start()
 drums.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

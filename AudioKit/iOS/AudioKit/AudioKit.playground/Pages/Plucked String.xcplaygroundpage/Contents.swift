@@ -9,9 +9,7 @@ import XCPlayground
 
 let playRate = 2.0
 
-let audiokit = AKManager.sharedInstance
-
-let pluckedString = AKPluckedString()
+let pluckedString = AKPluckedString(frequency: 22050)
 
 var delay  = AKDelay(pluckedString)
 delay.time = 1.5 / playRate
@@ -20,8 +18,8 @@ delay.feedback = 0.2
 
 let reverb = AKReverb(delay)
 
-audiokit.audioOutput = reverb
-audiokit.start()
+AudioKit.output = reverb
+AudioKit.start()
 let scale = [0,2,4,5,7,9,11,12]
 
 AKPlaygroundLoop(frequency: playRate) {
