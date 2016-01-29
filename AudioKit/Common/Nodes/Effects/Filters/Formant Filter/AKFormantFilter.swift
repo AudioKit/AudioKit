@@ -100,7 +100,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFormantFilterAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 

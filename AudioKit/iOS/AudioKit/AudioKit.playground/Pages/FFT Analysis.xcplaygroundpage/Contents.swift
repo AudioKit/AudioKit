@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
 
@@ -16,8 +14,8 @@ var player = AKAudioPlayer(file!)
 player.looping = true
 
 //: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom
-audiokit.audioOutput = player
-audiokit.start()
+AudioKit.output = player
+AudioKit.start()
 player.play()
 let fft = AKFFT(player)
 

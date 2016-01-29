@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
 
@@ -29,8 +27,8 @@ let lfo = AKOperation.morphingOscillator(frequency: lfoRate, amplitude: lfoAmpli
 let moog = AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency, resonance: resonance)
 let filterSectionEffect = AKOperationEffect(player, operation: moog)
 
-audiokit.audioOutput = filterSectionEffect
-audiokit.start()
+AudioKit.output = filterSectionEffect
+AudioKit.start()
 
 player.play()
 

@@ -29,8 +29,6 @@ class ViewController: UIViewController {
     {
         super.viewDidLoad()
         
-        let audiokit = AKManager.sharedInstance
-
         let mic = AKMicrophone()
        
         fft = AKFFT(mic)
@@ -41,11 +39,8 @@ class ViewController: UIViewController {
         let noAudioOutput = AKMixer(amplitudeTracker)
         noAudioOutput.volume = 0
         
-        audiokit.audioOutput = noAudioOutput
-    
-        audiokit.start()
-        
-        
+        AudioKit.output = noAudioOutput
+        AudioKit.start()
         
         let _ = AKPlaygroundLoop(every: 1 / 60) {
             let fftData = self.fft.fftData

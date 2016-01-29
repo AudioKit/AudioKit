@@ -7,7 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -18,8 +17,8 @@ let reverb = AKOperation.input.reverberateWithCostello(
     cutoffFrequency: 10000)
 let effect = AKOperationEffect(player, stereoOperation: reverb)
 
-audiokit.audioOutput = effect
-audiokit.start()
+AudioKit.output = effect
+AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

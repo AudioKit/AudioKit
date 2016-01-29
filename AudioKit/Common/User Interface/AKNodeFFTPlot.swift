@@ -30,7 +30,7 @@ import Foundation
     ///
     public init(_ input: AKNode, width: CGFloat = 1000.0, height: CGFloat = 500.0) {
         super.init()
-        fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: 44100.0, delegate: self)
+        fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         plot = EZAudioPlot(frame: frame)
         plot!.plotType = .Buffer
@@ -40,7 +40,7 @@ import Foundation
         containerView = AKView(frame: frame)
         containerView!.addSubview(plot!)
         
-        input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AKManager.format) { [weak self] (buffer, time) -> Void in
+        input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize;
                 let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);

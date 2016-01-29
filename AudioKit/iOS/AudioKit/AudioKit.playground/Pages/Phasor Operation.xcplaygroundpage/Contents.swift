@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let interval: Double = 2
 let numberOfNotes: Double = 24
 let startingNote: Double = 48 // C
@@ -21,8 +19,8 @@ let reverb = oscillator.reverberateWithChowning()
 let oscillatorReverbMix = mixer(oscillator, reverb, balance: 0.6)
 let generator = AKOperationGenerator(operation: oscillatorReverbMix)
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 generator.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

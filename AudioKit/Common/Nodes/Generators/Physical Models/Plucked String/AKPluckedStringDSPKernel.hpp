@@ -12,6 +12,8 @@
 #import "AKDSPKernel.hpp"
 #import "AKParameterRamper.hpp"
 
+#import <AudioKit/AudioKit-Swift.h>
+
 extern "C" {
 #include "soundpipe.h"
 }
@@ -142,8 +144,8 @@ public:
 
 private:
 
-    int channels = 2;
-    float sampleRate = 44100.0;
+    int channels = AKSettings.numberOfChannels;
+    float sampleRate = AKSettings.sampleRate;
     float internalTrigger = 0;
 
     AudioBufferList *outBufferListPtr = nullptr;

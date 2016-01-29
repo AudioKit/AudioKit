@@ -7,10 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
 var noise = AKWhiteNoise(amplitude: 0.0)
-audiokit.audioOutput = noise
-audiokit.start()
+AudioKit.output = noise
+AudioKit.start()
 noise.start()
 
 //: This is a timer that will change the amplitude of the pink noise

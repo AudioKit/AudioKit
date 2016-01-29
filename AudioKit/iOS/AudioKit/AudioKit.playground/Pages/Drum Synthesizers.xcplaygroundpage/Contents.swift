@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: Here we set up the instruments, which can be polyphnic, but we only need mono for this example
 var kick = AKSynthKick(voiceCount: 1)
 var snare = AKSynthSnare(voiceCount: 1, duration: 0.07)
@@ -17,8 +15,8 @@ var mix = AKMixer(kick, snare)
 var reverb = AKReverb(mix)
 reverb.loadFactoryPreset(.MediumRoom)
 
-audiokit.audioOutput = reverb
-audiokit.start()
+AudioKit.output = reverb
+AudioKit.start()
 
 //: Generate a cheap electro beat
 var i = 0

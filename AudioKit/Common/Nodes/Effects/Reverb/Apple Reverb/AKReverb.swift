@@ -45,7 +45,7 @@ public class AKReverb: AKNode, AKToggleable {
         super.init()
         
         self.avAudioNode = reverbAU
-        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)
         
         reverbAU.wetDryMix = Float(dryWetMix) * 100.0

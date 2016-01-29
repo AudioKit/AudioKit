@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let busySignalTone1 = AKOperation.sineWave(frequency: 480)
 let busySignalTone2 = AKOperation.sineWave(frequency: 620)
 let busySignalTone = mixer(busySignalTone1, busySignalTone2, balance: 0.5)
@@ -19,8 +17,8 @@ let busySignal = busySignalTone.triggeredWithEnvelope(busyTrigger,
 
 let generator = AKOperationGenerator(operation: busySignal * 0.4)
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 
 generator.play()
 

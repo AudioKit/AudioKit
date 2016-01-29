@@ -61,11 +61,11 @@ public class AKBalancer: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBalancerAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self.avAudioNode, bus: 1))
-            AKManager.sharedInstance.engine.connect(comparator.avAudioNode, toConnectionPoints: comparator.connectionPoints, fromBus: 0, format: nil)
+            AudioKit.engine.connect(comparator.avAudioNode, toConnectionPoints: comparator.connectionPoints, fromBus: 0, format: nil)
         }
     }
     

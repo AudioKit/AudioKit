@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 
@@ -43,8 +41,8 @@ let delayPannedRight = AKPanner(rightDelay, pan: 1)
 
 let mix = AKMixer(delayPannedLeft, delayPannedRight)
 
-audiokit.audioOutput = mix
-audiokit.start()
+AudioKit.output = mix
+AudioKit.start()
 player.play()
 
 
