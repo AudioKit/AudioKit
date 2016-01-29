@@ -14,7 +14,7 @@ import CoreAudio
 /// 1) init the audio unit like this: var sampler = AKSampler()
 /// 2) load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
 /// 3) connect to the avengine: AudioKit.output = sampler
-/// 4) start the avengine audiokit.start()
+/// 4) start the engine AudioKit.start()
 ///
 public class AKSampler: AKNode {
     
