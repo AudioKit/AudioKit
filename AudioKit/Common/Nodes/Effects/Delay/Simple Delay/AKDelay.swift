@@ -97,7 +97,7 @@ public class AKDelay: AKNode, AKToggleable {
             
             super.init()
             self.avAudioNode = delayAU
-            AKManager.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             
             

@@ -88,7 +88,7 @@ public class AKTimePitch: AKNode, AKToggleable {
         
         super.init()
         self.avAudioNode = timePitchAU
-        AKManager.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)
     }
     

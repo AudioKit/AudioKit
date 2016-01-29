@@ -60,11 +60,11 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         
         internalPlayer = AVAudioPlayerNode()
         super.init()
-        AKManager.engine.attachNode(internalPlayer)
+        AudioKit.engine.attachNode(internalPlayer)
 
         let mixer = AVAudioMixerNode()
-        AKManager.engine.attachNode(mixer)
-        AKManager.engine.connect(internalPlayer, to: mixer, format: audioFormat)
+        AudioKit.engine.attachNode(mixer)
+        AudioKit.engine.connect(internalPlayer, to: mixer, format: audioFormat)
         self.avAudioNode = mixer
 
         internalPlayer.scheduleBuffer(

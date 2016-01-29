@@ -172,7 +172,7 @@ public class AKMorphingOscillator: AKVoice {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorAudioUnit
 
-            AKManager.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             
             /// AOP need to set up phase
             for i in 0..<waveformArray.count {
