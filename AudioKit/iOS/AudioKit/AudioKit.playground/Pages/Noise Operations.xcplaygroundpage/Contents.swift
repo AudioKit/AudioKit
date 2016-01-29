@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let white = AKOperation.whiteNoise()
 let pink = AKOperation.pinkNoise()
 
@@ -18,8 +16,8 @@ let pan = AKOperation.sineWave(frequency: 0.3)
 
 let generator = AKOperationGenerator(stereoOperation: noise.pan(pan))
 
-audiokit.audioOutput = generator
-audiokit.start()
+AudioKit.output = generator
+AudioKit.start()
 
 generator.start()
 

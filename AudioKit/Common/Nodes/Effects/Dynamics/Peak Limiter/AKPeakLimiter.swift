@@ -127,10 +127,10 @@ public class AKPeakLimiter: AKNode, AKToggleable {
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AudioKit.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
-            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
-            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
+            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             self.avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kLimiterParam_AttackTime, kAudioUnitScope_Global, 0, Float(attackTime), 0)

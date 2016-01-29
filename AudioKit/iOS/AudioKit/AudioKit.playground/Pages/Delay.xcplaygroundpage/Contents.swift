@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 
@@ -21,9 +19,8 @@ delay.time      = 0.1 // seconds
 delay.feedback  = 0.5 // Normalized Value 0 - 1
 delay.dryWetMix = 0.5 // Normalized Value 0 - 1
 
-audiokit.audioOutput = delay
-
-audiokit.start()
+AudioKit.output = delay
+AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

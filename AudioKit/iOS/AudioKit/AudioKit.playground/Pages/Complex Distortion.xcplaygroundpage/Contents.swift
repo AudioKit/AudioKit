@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -42,8 +40,8 @@ distortion.polynomialMix = 0.5 // Normalized Value: 0 - 1
 distortion.softClipGain = -6 // dB
 distortion.finalMix = 0.2    // Normalized Value: 0 - 1
 
-audiokit.audioOutput = distortion
-audiokit.start()
+AudioKit.output = distortion
+AudioKit.start()
 player.play()
 
 //: Toggle processing on every loop

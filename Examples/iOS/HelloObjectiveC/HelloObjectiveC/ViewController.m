@@ -11,7 +11,6 @@
 @import AudioKit;
 
 @interface ViewController () {
-    AKManager *audiokit;
     AKOscillator *oscillator;
 }
 @end
@@ -22,10 +21,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    audiokit = [AKManager sharedInstance];
     oscillator = [[AKOscillator alloc] init];
-    audiokit.audioOutput = oscillator;
-    [audiokit start];
+    AudioKit.output = oscillator;
+    [AudioKit start];
 }
 
 - (IBAction)toggleSound:(UIButton *)sender {

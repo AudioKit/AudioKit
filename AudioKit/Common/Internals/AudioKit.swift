@@ -1,5 +1,5 @@
 //
-//  AKManager.swift
+//  AudioKit.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -10,35 +10,38 @@ import Foundation
 import AVFoundation
 
 /// Top level AudioKit managing class
-@objc public class AKManager: NSObject {
-    
-    /// Globally accessible singleton
-    public static let sharedInstance = AKManager()
+@objc public class AudioKit : NSObject {
     
     // MARK: Global audio format (44.1K, Stereo)
     
     /// Format of AudioKit Nodes
-    public static let format = AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)
+    public static let format = AKSettings.audioFormat
 
     // MARK: - Internal audio engine mechanics
     
     /// Reference to the AV Audio Engine
-    public var engine = AVAudioEngine()
+    public static let engine = AVAudioEngine()
     
     /// An audio output operation that most applications will need to use last
-    public var audioOutput: AKNode? {
+    public static var output: AKNode? {
         didSet {
-            engine.connect(audioOutput!.avAudioNode, to: engine.outputNode, format: AKManager.format)
+            engine.connect(output!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
         }
     }
     
     /// Start up the audio engine
-    public func start() {
+    public static func start() {
         // Start the engine.
         do {
             try self.engine.start()
             #if !os(OSX)
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+                if AKSettings.audioInputEnabled {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+                } else if AKSettings.playbackWhileMuted {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                } else {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+                }
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
         } catch {
@@ -47,7 +50,7 @@ import AVFoundation
     }
     
     /// Stop the audio engine
-    public func stop() {
+    public static func stop() {
         // Stop the engine.
         self.engine.stop()
     }
@@ -55,15 +58,15 @@ import AVFoundation
     // MARK: Testing
     
     /// Testing AKNode
-    public var tester: AKTester?
+    public static var tester: AKTester?
 
     /// Test the output of a given node
     ///
     /// - parameter node: AKNode to test
     /// - parameter samples: Number of samples to generate in the test
     ///
-    public func testOutput(node: AKNode, samples: Int) {
+    public static func testOutput(node: AKNode, samples: Int) {
         tester = AKTester(node, samples: samples)
-        audioOutput = tester
+        output = tester
     }
 }

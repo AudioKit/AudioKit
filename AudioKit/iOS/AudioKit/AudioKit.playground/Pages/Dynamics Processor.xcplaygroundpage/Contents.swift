@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -29,8 +27,8 @@ dynamicsProcessor.masterGain = 20 // dB - makeup gain
 mix.connect(fmChord)
 mix.connect(player)
 
-audiokit.audioOutput = dynamicsProcessor
-audiokit.start()
+AudioKit.output = dynamicsProcessor
+AudioKit.start()
 
 player.play()
 fmChord.playNote(55, velocity: 100)

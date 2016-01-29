@@ -78,7 +78,7 @@ public class AKWhiteNoise: AKVoice {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKWhiteNoiseAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }

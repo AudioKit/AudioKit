@@ -62,7 +62,7 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
 
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFrequencyTrackerAudioUnit
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setFrequencyLimitsWithMinimum(Float(minimumFrequency/2), maximum: Float(maximumFrequency/2))
         }

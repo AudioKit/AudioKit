@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -19,8 +17,8 @@ var highShelfFilter = AKHighShelfFilter(player)
 highShelfFilter.cutOffFrequency = 2000 // Hz
 highShelfFilter.gain = 40 // dB
 
-audiokit.audioOutput = highShelfFilter
-audiokit.start()
+AudioKit.output = highShelfFilter
+AudioKit.start()
 player.play()
 
 //: Toggle processing on every loop
