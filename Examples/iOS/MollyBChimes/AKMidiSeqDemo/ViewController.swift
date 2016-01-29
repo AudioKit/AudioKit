@@ -88,8 +88,8 @@ class ViewController: UIViewController {
         mixer.connect(snareGhost!)
         mixer.connect(snareVerb!)
         
-        AKManager.audioOutput = pumper
-        AKManager.start()
+        AudioKit.output = pumper
+        AudioKit.start()
         
         seq.newTrack()
         seq.setLength(seqLen)

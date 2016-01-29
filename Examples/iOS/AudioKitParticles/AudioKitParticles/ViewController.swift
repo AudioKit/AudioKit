@@ -39,8 +39,8 @@ class ViewController: UIViewController {
         let noAudioOutput = AKMixer(amplitudeTracker)
         noAudioOutput.volume = 0
         
-        AKManager.audioOutput = noAudioOutput
-        AKManager.start()
+        AudioKit.output = noAudioOutput
+        AudioKit.start()
         
         let _ = AKPlaygroundLoop(every: 1 / 60) {
             let fftData = self.fft.fftData

@@ -18,8 +18,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AKManager.audioOutput = oscillator
-        AKManager.start()
+        AudioKit.output = oscillator
+        AudioKit.start()
         
     }
 
