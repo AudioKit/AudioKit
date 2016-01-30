@@ -516,6 +516,7 @@
 		C4E958FB1C0ADC5800516A6A /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E958F41C0ADC5800516A6A /* kiss_fftr.h */; };
 		C4E959081C0B847C00516A6A /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E959071C0B847C00516A6A /* fft.c */; };
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
+		EA3B2C371C5C43B6008F481F /* AKSettings-Bridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EA3B2C361C5C43B6008F481F /* AKSettings-Bridge.m */; };
 		EA6949E21C59A9FC0035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E11C59A9FC0035B5DF /* AKSettings.swift */; };
 		FE4423711C4B95B700BA7009 /* AKDrumSynths.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */; };
 /* End PBXBuildFile section */
@@ -1047,6 +1048,8 @@
 		C4E958F51C0ADC5800516A6A /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C4E959071C0B847C00516A6A /* fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fft.c; sourceTree = "<group>"; };
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
+		EA3B2C361C5C43B6008F481F /* AKSettings-Bridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AKSettings-Bridge.m"; sourceTree = "<group>"; };
+		EA3B2C381C5C4518008F481F /* AKSettings-Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AKSettings-Bridge.h"; sourceTree = "<group>"; };
 		EA6949E11C59A9FC0035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDrumSynths.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1330,6 +1333,8 @@
 			children = (
 				C40C411C1C40E2E1009D870B /* AudioKit.swift */,
 				EA6949E11C59A9FC0035B5DF /* AKSettings.swift */,
+				EA3B2C361C5C43B6008F481F /* AKSettings-Bridge.m */,
+				EA3B2C381C5C4518008F481F /* AKSettings-Bridge.h */,
 				C40C411D1C40E2E1009D870B /* AKTable.swift */,
 				C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */,
 				C40C41221C40E344009D870B /* CoreAudio */,
@@ -2812,6 +2817,7 @@
 				C4A9164E1C24F95E006C1A15 /* metronome.swift in Sources */,
 				C46301061C20C342009B44D9 /* switch.c in Sources */,
 				C4E958CD1C0ADBFD00516A6A /* pluck.c in Sources */,
+				EA3B2C371C5C43B6008F481F /* AKSettings-Bridge.m in Sources */,
 				C4537FD11C3A438D00A51738 /* AKLowPassButterworthFilterAudioUnit.mm in Sources */,
 				C4E958C81C0ADBFD00516A6A /* panst.c in Sources */,
 				C40AD69D1C463B2600B638AF /* AKMusicTrack+MIDI.swift in Sources */,
@@ -3304,6 +3310,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					"NO_LIBSNDFILE=1",
+					"AUDIOKIT=1",
 				);
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -3326,7 +3333,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREPROCESSOR_DEFINITIONS = "NO_LIBSNDFILE=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NO_LIBSNDFILE=1",
+					"AUDIOKIT=1",
+				);
 				INFOPLIST_FILE = AudioKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
