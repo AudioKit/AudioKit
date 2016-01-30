@@ -72,6 +72,7 @@
 		C40C42971C41CB3E009D870B /* AKDripAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C42931C41CB3E009D870B /* AKDripAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C42981C41CB3E009D870B /* AKDripAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40C42941C41CB3E009D870B /* AKDripAudioUnit.mm */; };
 		C40C42991C41CB3E009D870B /* AKDripDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C42951C41CB3E009D870B /* AKDripDSPKernel.hpp */; };
+		C410C9AA1C5C54D900EF8C37 /* mix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410C9A91C5C54D900EF8C37 /* mix.swift */; };
 		C417025A1C10C50900AB689C /* AKDistortionWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42F38941C0585C2000E937C /* AKDistortionWindow.swift */; };
 		C42AE0011C2DF59D000CEED2 /* AKOutputWaveformPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFF1C2DF59D000CEED2 /* AKOutputWaveformPlot.swift */; };
 		C42AE0021C2DF59D000CEED2 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AE0001C2DF59D000CEED2 /* AKRollingOutputPlot.swift */; };
@@ -598,6 +599,7 @@
 		C40C42931C41CB3E009D870B /* AKDripAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKDripAudioUnit.h; sourceTree = "<group>"; };
 		C40C42941C41CB3E009D870B /* AKDripAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDripAudioUnit.mm; sourceTree = "<group>"; };
 		C40C42951C41CB3E009D870B /* AKDripDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDripDSPKernel.hpp; sourceTree = "<group>"; };
+		C410C9A91C5C54D900EF8C37 /* mix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mix.swift; sourceTree = "<group>"; };
 		C42ADFFF1C2DF59D000CEED2 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
 		C42AE0001C2DF59D000CEED2 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2558,6 +2560,7 @@
 		C4E751E61C23885400688A1B /* Mixing */ = {
 			isa = PBXGroup;
 			children = (
+				C410C9A91C5C54D900EF8C37 /* mix.swift */,
 				C4E751E71C23885400688A1B /* pan.swift */,
 			);
 			path = Mixing;
@@ -2884,6 +2887,7 @@
 				C4B190C91C3B340400C0F330 /* streson.c in Sources */,
 				C453835E1C3A5E4300A51738 /* AKHighPassButterworthFilter.swift in Sources */,
 				C4B190E51C3B340400C0F330 /* stack.c in Sources */,
+				C410C9AA1C5C54D900EF8C37 /* mix.swift in Sources */,
 				C4B191181C3B340400C0F330 /* randi.c in Sources */,
 				C4B190881C3B340400C0F330 /* biquad.c in Sources */,
 				C4B190B71C3B340400C0F330 /* phasor.c in Sources */,
