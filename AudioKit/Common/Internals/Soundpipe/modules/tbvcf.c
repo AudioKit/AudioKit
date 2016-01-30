@@ -21,6 +21,9 @@
 #endif 
 
 #include "soundpipe.h"
+#ifdef AUDIOKIT
+# include "AKSettings-Bridge.h"
+#endif
 
 int sp_tbvcf_create(sp_tbvcf **p)
 {
@@ -64,7 +67,14 @@ int sp_tbvcf_compute(sp_data *sp, sp_tbvcf *p, SPFLOAT *in, SPFLOAT *out)
     /* The initialisations are fake to fool compiler warnings */
     SPFLOAT ih, fdbk, d, ad;
     SPFLOAT fc=0.0, fco1=0.0, q=0.0, q1=0.0;
-
+    SPFLOAT sr;
+    
+#ifdef AUDIOKIT
+    sr = _AKSettings_sampleRate();
+#else
+    sr=44100.0;
+#endif
+    
     ih  = 0.001; /* ih is the incremental factor */
 
  /* Set up the pointers 
@@ -87,17 +97,17 @@ int sp_tbvcf_compute(sp_data *sp, sp_tbvcf *p, SPFLOAT *in, SPFLOAT *out)
 
  /* Try to decouple the variables */
     if ((p->rezcod==0) && (p->fcocod==0)) { /* Calc once only */
-      q1   = res/(1.0 + sqrt(dist));
-      fco1 = pow(fco*260.0/(1.0+q1*0.5),0.58);
-      q    = q1*fco1*fco1*0.0005;
-      fc   = fco1*p->onedsr*(44100.0/8.0);
+        q1   = res/(1.0 + sqrt(dist));
+        fco1 = pow(fco*260.0/(1.0+q1*0.5),0.58);
+        q    = q1*fco1*fco1*0.0005;
+        fc   = fco1*p->onedsr*(sr/8.0);
     }
-      if ((p->rezcod!=0) || (p->fcocod!=0)) {
+    if ((p->rezcod!=0) || (p->fcocod!=0)) {
         q1  = res/(1.0 + sqrt(dist));
         fco1 = pow(fco*260.0/(1.0+q1*0.5),0.58);
         q  = q1*fco1*fco1*0.0005;
-        fc  = fco1*p->onedsr*(44100.0/8.0);
-      }
+        fc  = fco1*p->onedsr*(sr/8.0);
+    }
     x  = *in;
     fdbk = q*y/(1.0 + exp(-3.0*y)*asym);
     y1  = y1 + ih*((x - y1)*fc - fdbk);
