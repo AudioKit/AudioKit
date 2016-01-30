@@ -55,6 +55,9 @@ public protocol AKMIDIListener{
     /// @param channel  MIDI Channel (1-16)
     func midiProgramChange(program:Int, channel:Int)
     
+    // Receive a midi system command (such as clock, sysex, etc)
+    // We'll just pass the data through and let the user implement how they want for now
+    func midiSystemCommand(data:[UInt8])
 }
 
 public extension AKMIDIListener{
@@ -84,5 +87,10 @@ public extension AKMIDIListener{
     
     func midiProgramChange(program:Int, channel:Int){
         print("channel: \(channel) programChange: \(program)")
+    }
+    
+    func midiSystemCommand(data:[UInt8]){
+        print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
+        dump(data)
     }
 }
