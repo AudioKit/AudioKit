@@ -72,25 +72,6 @@ class ViewController: UIViewController, AKMIDIListener {
            self.outputTextView.text = "\(input)\n\(self.outputTextView.text)"
         })
     }
-    func handleMIDINotification(notification: NSNotification) {
-        let channel = Int((notification.userInfo?["channel"])! as! NSNumber) + 1
-        var newString = "Channel: \(channel) "
-
-        if notification.name == AKMIDIStatus.NoteOn.name() {
-            let note = Int((notification.userInfo?["note"])! as! NSNumber)
-            let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
-            newString.appendContentsOf("Note On: \(note) Velocity: \(velocity) ")
-        } else if notification.name == AKMIDIStatus.NoteOff.name() {
-            let note = Int((notification.userInfo?["note"])! as! NSNumber)
-            let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
-            newString.appendContentsOf("Note Off: \(note) Velocity: \(velocity) ")
-        } else if notification.name == AKMIDIStatus.ControllerChange.name() {
-            let controller = Int((notification.userInfo?["control"])! as! NSNumber)
-            let value = Int((notification.userInfo?["value"])! as! NSNumber)
-            newString.appendContentsOf("Controller: \(controller) Value: \(value)")
-        }
-//        outputTextView.text = "\(newString)\n\(outputTextView.text)"
-    }
 
 }
 
