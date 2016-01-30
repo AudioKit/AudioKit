@@ -15,13 +15,15 @@ player.looping = true
 var reverb = AKReverb(player)
 
 //: Load factory preset and give the dry/wet mix amount here
-reverb.loadFactoryPreset(.Cathedral)
 reverb.dryWetMix = 0.5
 
 AudioKit.output = reverb
 AudioKit.start()
 
 player.play()
+
+//: Presets must be changed after AudioKit starts (on OS X)
+reverb.loadFactoryPreset(.Cathedral)
 
 //: Toggle processing on every loop
 AKPlaygroundLoop(every: 3.428) { () -> () in

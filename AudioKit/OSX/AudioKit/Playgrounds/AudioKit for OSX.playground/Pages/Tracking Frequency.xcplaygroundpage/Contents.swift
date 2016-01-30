@@ -29,15 +29,15 @@ AudioKit.start()
 
 oscillatorNode.start()
 
-AKPla//: And here's where we monitor the results of tracking the amplitude.
-ygroundLoop(every: 0.1) {
+//: And here's where we monitor the results of tracking the amplitude.
+AKPlaygroundLoop(every: 0.1) {
     let amp = tracker.amplitude
     let freq = tracker.frequency
 
 }
 
-XCPla//: This keeps the playground running so that audio can play for a long time
-ygroundPage.currentPage.needsIndefiniteExecution = true
+//: This keeps the playground running so that audio can play for a long time
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

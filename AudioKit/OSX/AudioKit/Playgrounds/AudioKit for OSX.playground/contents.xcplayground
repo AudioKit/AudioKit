@@ -48,7 +48,6 @@
         <page name='Interactive Peak Limiter'/>
         <page name='Interactive Ring Modulator'/>
         <page name='Interactive Time Stretching and Pitch Shifting'/>
-        <page name='iOS-only Reverb'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Linear and Exponential Segment Operations'/>
         <page name='Low Pass Filter'/>

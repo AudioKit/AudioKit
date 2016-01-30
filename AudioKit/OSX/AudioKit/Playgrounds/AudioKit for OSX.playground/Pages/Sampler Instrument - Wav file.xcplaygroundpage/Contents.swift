@@ -4,14 +4,12 @@
 //:
 //: ## Sampler Instrument - Wav File
 //: ### Loading a sampler with a reference wav file
-
 import XCPlayground
 import AudioKit
 
 let pulse = 0.23 // seconds
 
 //: We are going to load an EXS24 instrument and send it random notes
-
 let sampler = AKSampler()
 
 //: Here is where we reference the Wav file as it is in the app bundle
