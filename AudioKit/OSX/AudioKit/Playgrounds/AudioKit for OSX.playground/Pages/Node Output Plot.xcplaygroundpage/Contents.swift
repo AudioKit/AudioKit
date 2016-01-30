@@ -28,7 +28,7 @@ let plot = AKNodeOutputPlot(player)
 plot.plot?.plotType = .Rolling
 plot.plot?.shouldFill = true
 plot.plot?.shouldMirror = true
-plot.plot?.color = UIColor.blueColor()
+plot.plot?.color = NSColor.blueColor()
 let view = plot.containerView
 
 XCPlaygroundPage.currentPage.liveView = plot.containerView
