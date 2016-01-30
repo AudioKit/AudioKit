@@ -189,6 +189,23 @@ public struct AKMIDIEvent {
 
     }
     
+//    static public func midiEventsFromPacket(packet:MIDIPacket)->[AKMIDIEvent]{
+//        var midiEvents:[AKMIDIEvent]
+//        
+//        return midiEvents
+//    }
+    
+    /*+ (NSArray<AKMidiEvent *> *)midiEventsFromPacket:(const MIDIPacket *)packet
+    {
+        NSMutableArray *ret = [NSMutableArray arrayWithCapacity:packet->length/3];
+        for(NSUInteger i = 0; i < packet->length; i += 3) {
+            AKMidiEvent *event = [[AKMidiEvent alloc] initWithMIDIPacket:&packet->data[i]];
+            [ret addObject:event];
+        }
+        return ret;
+    }
+    */
+    
     // MARK: - Utility constructors for common MIDI events
     
     /// Create note on event

@@ -9,7 +9,7 @@
 import UIKit
 import AudioKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AKMIDIListener {
     @IBOutlet var outputTextView: UITextView!
     var midi = AKMIDI()
 
@@ -18,15 +18,19 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         midi.openMIDIIn("Session 1")
-        
-        let defaultCenter = NSNotificationCenter.defaultCenter()
-        let mainQueue = NSOperationQueue.mainQueue()
-        
-        defaultCenter.addObserverForName(AKMIDIStatus.NoteOn.name(), object:  nil, queue: mainQueue, usingBlock: handleMIDINotification)
-        defaultCenter.addObserverForName(AKMIDIStatus.NoteOff.name(), object: nil, queue: mainQueue, usingBlock: handleMIDINotification)
-        defaultCenter.addObserverForName(AKMIDIStatus.ControllerChange.name(), object: nil, queue: mainQueue, usingBlock: handleMIDINotification)
+        midi.addListener(self)
+    }
+    func midiController(controller: Int, value: Int, channel: Int) {
+        var newString = "Channel: \(channel+1) "
+        newString.appendContentsOf("controller: \(controller) value: \(value) ")
+        updateText(newString)
     }
     
+    func updateText(input:String){
+        dispatch_async(dispatch_get_main_queue(), {
+           self.outputTextView.text = "\(input)\n\(self.outputTextView.text)"
+        })
+    }
     func handleMIDINotification(notification: NSNotification) {
         let channel = Int((notification.userInfo?["channel"])! as! NSNumber) + 1
         var newString = "Channel: \(channel) "
@@ -44,7 +48,7 @@ class ViewController: UIViewController {
             let value = Int((notification.userInfo?["value"])! as! NSNumber)
             newString.appendContentsOf("Controller: \(controller) Value: \(value)")
         }
-        outputTextView.text = "\(newString)\n\(outputTextView.text)"
+//        outputTextView.text = "\(newString)\n\(outputTextView.text)"
     }
 
 }
