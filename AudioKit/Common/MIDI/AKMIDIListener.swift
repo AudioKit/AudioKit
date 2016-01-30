@@ -91,6 +91,6 @@ public extension AKMIDIListener{
     
     func midiSystemCommand(data:[UInt8]){
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
-        dump(data)
+        //dump(data)
     }
 }
