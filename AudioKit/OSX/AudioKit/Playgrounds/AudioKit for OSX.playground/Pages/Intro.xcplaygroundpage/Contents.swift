@@ -21,7 +21,7 @@ Kit.start()
 playe//: Start the player's audio playback
 r.play()
 
-XCPla//: Because we need to keep this playground running to playback the audio, we add the following line at the bottom to most playgrounds (or in some cases, we can set up a never ending loop)
-ygroundPage.currentPage.needsIndefiniteExecution = true
+//: Because we need to keep this playground running to playback the audio, we add the following line at the bottom to most playgrounds (or in some cases, we can set up a never ending loop)
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

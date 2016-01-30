@@ -28,9 +28,9 @@ let reverb = AKReverb(delay)
 AudioKit.output = reverb
 AudioKit.start()
 
-AKPla//: This is a loop to send a random note to the sampler
+//: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here
-ygroundLoop.start(every: pulse) { timer in
+AKPlaygroundLoop.start(every: pulse) { timer in
     let scale = [0,2,4,5,7,9,11,12]
     var note = scale.randomElement()
     let octave = randomInt(3...7)  * 12

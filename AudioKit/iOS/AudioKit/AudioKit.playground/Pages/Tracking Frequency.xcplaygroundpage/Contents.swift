@@ -29,8 +29,8 @@ AudioKit.start()
 
 oscillatorNode.start()
 
-AKPla//: And here's where we monitor the results of tracking the amplitude.
-ygroundLoop(every: 0.1) {
+//: And here's where we monitor the results of tracking the amplitude.
+AKPlaygroundLoop(every: 0.1) {
     let amp = tracker.amplitude
     let freq = tracker.frequency
 
