@@ -9,24 +9,12 @@
 import Foundation
 import CoreMIDI
 
-/*
-You add observers like this:
-var midiIn = AKMidi()
-midi.openMIDIIn()
-midi.addListener(self)
-
-...where self conforms to the AKMIDIListener protocol
-
-You then implement the methods you need from AKMIDIListener and use the data how you need.
-
-*/
-
 /// A container for the values that define a MIDI event
 public struct AKMIDIEvent {
     
     // MARK: - Properties
     
-    /// Internal data (Why the _?)
+    /// Internal data - defaults to 3 bytes
     var internalData = [UInt8](count: 3, repeatedValue: 0)
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
@@ -78,10 +66,24 @@ public struct AKMIDIEvent {
             let channel = UInt8(packet.data.0 & 0xF)
             fillWithStatus(status!, channel: channel, byte1: packet.data.1, byte2: packet.data.2)
         } else {
-            fillWithCommand(
-                AKMIDISystemCommand(rawValue: packet.data.0)!,
-                byte1: packet.data.1,
-                byte2: packet.data.2)
+            if(packet.data.0 == AKMIDISystemCommand.Sysex.rawValue){ //if is sysex
+                internalData = [] //reset internalData
+                //voodoo
+                let mirrorData = Mirror(reflecting:packet.data)
+                var i = 0
+                for (_, value) in mirrorData.children{
+                    internalData.append(UInt8(value as! UInt8))
+                    i++
+                    if(value as! UInt8 == 247){
+                        break;
+                    }
+                }//end voodoo
+            }else{
+                fillWithCommand(
+                    AKMIDISystemCommand(rawValue: packet.data.0)!,
+                    byte1: packet.data.1,
+                    byte2: packet.data.2)
+            }
         }
     }
     
@@ -130,7 +132,6 @@ public struct AKMIDIEvent {
             length = 1
         }
     }
-   
     
     // MARK: - Utility constructors for common MIDI events
     

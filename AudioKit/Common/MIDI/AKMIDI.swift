@@ -9,6 +9,18 @@
 import Foundation
 import CoreMIDI
 
+/*
+You add midi listeners like this:
+var midiIn = AKMidi()
+midi.openMIDIIn()
+midi.addListener(someClass)
+
+...where someClass conforms to the AKMIDIListener protocol
+
+You then implement the methods you need from AKMIDIListener and use the data how you need.
+
+*/
+
 /// MIDI input and output handler
 public class AKMIDI {
     
@@ -58,7 +70,7 @@ public class AKMIDI {
                     break
                 case AKMIDIStatus.ChannelAftertouch:
                     listener.midiAfterTouch(Int(event.internalData[1]), channel: Int(event.channel))
-                break
+                    break
                 case AKMIDIStatus.NoteOn:
                     listener.midiNoteOn(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
                     break
@@ -74,24 +86,10 @@ public class AKMIDI {
                 case AKMIDIStatus.ProgramChange:
                     listener.midiProgramChange(Int(event.internalData[1]), channel: Int(event.channel))
                     break
-                default:
+                case AKMIDIStatus.SystemCommand:
+                    listener.midiSystemCommand(event.internalData)
                     break
-                /*
-                case .SystemCommand:
-                    switch self.command {
-                    case .Clock:
-                        print("MIDI Clock")
-                    case .Sysex:
-                        print("SysEx Command")
-                    case .SysexEnd:
-                        print("SysEx EOX")
-                    case .SysReset:
-                        print("MIDI System Reset")
-                    default:
-                        print("Some other MIDI Status System Command")
-                    }
-                }
-                */
+            }
         }
     }
     
