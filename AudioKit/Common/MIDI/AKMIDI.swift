@@ -43,6 +43,43 @@ public class AKMIDI {
     /// MIDI Out Port Name
     var midiOutName: CFString = "MIDI Out Port"
     
+    public var midiListeners:[AKMIDIListener] = []
+    
+    public func addListener(listener:AKMIDIListener){
+        midiListeners.append(listener)
+    }
+    
+    private func handleMidiMessage(event:AKMIDIEvent){
+        for listener in midiListeners{
+            let type = event.status
+            switch type{
+                case AKMIDIStatus.ControllerChange:
+                    listener.midiController(Int(event.internalData[1]), value: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.ChannelAftertouch:
+                    listener.midiAfterTouch(Int(event.internalData[1]), channel: Int(event.channel))
+                break
+                case AKMIDIStatus.NoteOn:
+                    listener.midiNoteOn(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.NoteOff:
+                    listener.midiNoteOff(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.PitchWheel:
+                    listener.midiPitchWheel(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.PolyphonicAftertouch:
+                    listener.midiAftertouchOnNote(Int(event.internalData[1]), pressure: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.ProgramChange:
+                    listener.midiProgramChange(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                default:
+                    break
+            }
+        }
+    }
+    
     private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
         let notification = midiNotification.memory
         print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
@@ -62,16 +99,16 @@ public class AKMIDI {
         let packet = packetList.memory.packet as MIDIPacket
         var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
         packetPtr.initialize(packet)
-        
         for var i = 0; i < numPackets; ++i {
             let event = AKMIDIEvent(packet: packetPtr.memory)
-            event.postNotification()
+            handleMidiMessage(event)
             packetPtr = MIDIPacketNext(packetPtr)
         }
+    
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize the AKMIDI system
     public init() {
 
