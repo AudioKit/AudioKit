@@ -22,8 +22,8 @@ AudioKit.start()
 
 player.play()
 
-AKPla//: Toggle processing on every loop
-ygroundLoop(every: 3.428) { () -> () in
+//: Toggle processing on every loop
+AKPlaygroundLoop(every: 3.428) { () -> () in
     if lowShelfFilter.isBypassed {
         lowShelfFilter.start()
     } else {

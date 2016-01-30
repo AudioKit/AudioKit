@@ -25,13 +25,13 @@ AudioKit.output = trackedAmplitude
 AudioKit.start()
 oscillatorNode.start()
 
-AKPla//: And here's where we monitor the results of tracking the amplitude.
-ygroundLoop(every: 0.1) {
+//: And here's where we monitor the results of tracking the amplitude.
+AKPlaygroundLoop(every: 0.1) {
     let amp = trackedAmplitude.amplitude
 }
 
-XCPla//: This keeps the playground running so that audio can play for a long time
-ygroundPage.currentPage.needsIndefiniteExecution = true
+//: This keeps the playground running so that audio can play for a long time
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 
 //: You can experiment with this playground by changing the volume function to a phasor or another well-known function to see how well the amplitude tracker can track.  Also, you could change the sound source from an oscillator to a noise generator, or any constant sound source (some things like a physical model would not work because the output has an envelope to its volume).  Instead of just plotting our results, we could use the value to drive other sounds or update an app's user interface.
