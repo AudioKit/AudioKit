@@ -11,7 +11,7 @@ import AudioKit
 //: or changing the number of points to a smaller number (has to be a power of 2)
 var morph = AKMorphingOscillator(waveformArray:[AKTable(.Sine), AKTable(.Triangle), AKTable(.Sawtooth), AKTable(.Square)])
 morph.frequency = 400
-morph.amplitude = 0.77
+morph.amplitude = 0.3
 morph.index = 0.8
 
 AudioKit.output = morph
@@ -22,7 +22,7 @@ let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
 var t = 0.0
-let timeStep = 0.1
+let timeStep = 0.02
 
 AKPlaygroundLoop(every: timeStep) {
     morph.index = 1.5 * ( 1.0 + sin(t) )

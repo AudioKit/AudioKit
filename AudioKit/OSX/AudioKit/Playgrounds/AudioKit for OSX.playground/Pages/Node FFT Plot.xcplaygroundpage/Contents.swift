@@ -25,7 +25,7 @@ let plot = AKNodeFFTPlot(mixer)
 plot.plot?.shouldFill = true
 plot.plot?.shouldMirror = false
 plot.plot?.shouldCenterYAxis = false
-plot.plot?.color = UIColor.purpleColor()
+plot.plot?.color = NSColor.purpleColor()
 let view = plot.containerView
 
 XCPlaygroundPage.currentPage.liveView = plot.containerView
