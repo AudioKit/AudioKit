@@ -36,8 +36,8 @@ AKPlaygroundLoop(every: 0.1) {
 
 }
 
-XCPla//: This keeps the playground running so that audio can play for a long time
-ygroundPage.currentPage.needsIndefiniteExecution = true
+//: This keeps the playground running so that audio can play for a long time
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
