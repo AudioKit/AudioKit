@@ -73,5 +73,10 @@ class ViewController: UIViewController, AKMIDIListener {
         })
     }
 
+    @IBAction func clearText(sender: AnyObject) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.outputTextView.text = ""
+        })
+    }
 }
 
