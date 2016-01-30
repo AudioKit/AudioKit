@@ -76,7 +76,22 @@ public class AKMIDI {
                     break
                 default:
                     break
-            }
+                /*
+                case .SystemCommand:
+                    switch self.command {
+                    case .Clock:
+                        print("MIDI Clock")
+                    case .Sysex:
+                        print("SysEx Command")
+                    case .SysexEnd:
+                        print("SysEx EOX")
+                    case .SysReset:
+                        print("MIDI System Reset")
+                    default:
+                        print("Some other MIDI Status System Command")
+                    }
+                }
+                */
         }
     }
     

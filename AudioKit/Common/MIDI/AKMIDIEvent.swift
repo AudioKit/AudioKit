@@ -11,18 +11,14 @@ import CoreMIDI
 
 /*
 You add observers like this:
-defaultCenter.addObserverForName(
-    AKMIDIStatus.NoteOn.name(), 
-    object: nil, 
-    queue: mainQueue, 
-    usingBlock: YourNotifFunction)
+var midiIn = AKMidi()
+midi.openMIDIIn()
+midi.addListener(self)
 
-YourNotifFunction takes an NSNotifcation as an argument, 
-and then all the good stuff is contained in the userInfo part of the notification
+...where self conforms to the AKMIDIListener protocol
 
-func myNotifFunction(notif: NSNotification) {
-    print(notif.userInfo)
-}
+You then implement the methods you need from AKMIDIListener and use the data how you need.
+
 */
 
 /// A container for the values that define a MIDI event
@@ -134,77 +130,7 @@ public struct AKMIDIEvent {
             length = 1
         }
     }
-    
-    // MARK: - Notification Center
-    
-    /// Broadcast a notification center message
-    func postNotification() -> Bool {
-        var ret = NSDictionary()
-        let byte1 = NSInteger(data1)
-        let byte2 = NSInteger(data2)
-        let c  = NSInteger(channel)
-        
-        switch status {
-            
-        case .NoteOn, .NoteOff:
-            ret = ["note": byte1, "velocity": byte2, "channel": c]
-            
-        case .PolyphonicAftertouch:
-            ret = ["note": byte1, "pressure": byte2, "channel": c]
-            
-        case .ControllerChange:
-            ret = ["control": byte1, "value": byte2, "channel": c]
-
-        case .ChannelAftertouch:
-            ret = ["pressure": byte1, "channel": c]
-            
-        case .ProgramChange:
-            ret = ["program": byte1, "channel": c]
-            
-        case .PitchWheel:
-            ret = ["pitchWheel": NSInteger(data), "channel": c]
-
-        case .SystemCommand:
-            switch self.command {
-                case .Clock:
-                    print("MIDI Clock")
-                case .Sysex:
-                    print("SysEx Command")
-                case .SysexEnd:
-                    print("SysEx EOX")
-                case .SysReset:
-                    print("MIDI System Reset")
-                default:
-                    print("Some other MIDI Status System Command")
-            }
-
-        }
-        if ret.count != 0 {
-            NSNotificationCenter.defaultCenter().postNotificationName(status.name(),
-                object: nil,
-                userInfo: ret as [NSObject : AnyObject])
-            return true
-        }
-        return false
-
-    }
-    
-//    static public func midiEventsFromPacket(packet:MIDIPacket)->[AKMIDIEvent]{
-//        var midiEvents:[AKMIDIEvent]
-//        
-//        return midiEvents
-//    }
-    
-    /*+ (NSArray<AKMidiEvent *> *)midiEventsFromPacket:(const MIDIPacket *)packet
-    {
-        NSMutableArray *ret = [NSMutableArray arrayWithCapacity:packet->length/3];
-        for(NSUInteger i = 0; i < packet->length; i += 3) {
-            AKMidiEvent *event = [[AKMidiEvent alloc] initWithMIDIPacket:&packet->data[i]];
-            [ret addObject:event];
-        }
-        return ret;
-    }
-    */
+   
     
     // MARK: - Utility constructors for common MIDI events
     
