@@ -77,9 +77,7 @@ int sp_tenvx_init(sp_data *sp, sp_tenvx *p)
     p->sr = sp->sr;
     p->atk_end = p->sr * p->atk;
     p->rel_start = p->sr * (p->atk + p->hold);
-    //p->atk_slp = 1.0 / p->atk_end;
     p->atk_slp = pow((SPFLOAT)(1.0/0.000001), onedsr / p->atk);
-   // p->rel_slp = -1.0 / (p->sr * p->rel);
     p->rel_slp = pow((SPFLOAT)(0.000001/1.0), onedsr / p->rel);
     p->totaldur = p->sr * (p->atk + p->hold + p->rel);
     sp_tevent_init(sp, p->te, sp_tenvx_reinit, sp_tenvx_comp, p);

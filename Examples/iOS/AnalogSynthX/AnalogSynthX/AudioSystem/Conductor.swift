@@ -8,11 +8,9 @@
 
 import AudioKit
 
-class Conductor {
+class Conductor: AKMIDIListener {
     /// Globally accessible singleton
     static let sharedInstance = Conductor()
-
-    var midi = AKMIDI()
 
     var core = CoreInstrument(voiceCount: 5)
     var bitCrusher: AKBitCrusher
@@ -27,8 +25,6 @@ class Conductor {
 
 
     init() {
-        midi.openMIDIIn("Session 1")
-
         bitCrusher = AKBitCrusher(core)
         bitCrusher.stop()
 
@@ -48,22 +44,16 @@ class Conductor {
         AudioKit.output = reverbMixer
         AudioKit.start()
 
-        let defaultCenter = NSNotificationCenter.defaultCenter()
-        let mainQueue = NSOperationQueue.mainQueue()
-
-        defaultCenter.addObserverForName(AKMIDIStatus.NoteOn.name(), object:  nil, queue: mainQueue, usingBlock: handleMIDINotification)
-        defaultCenter.addObserverForName(AKMIDIStatus.NoteOff.name(), object: nil, queue: mainQueue, usingBlock: handleMIDINotification)
-
+        let midi = AKMIDI()
+        midi.openMIDIIn("Session 1")
+        midi.addListener(self)
     }
-
-    func handleMIDINotification(notification: NSNotification) {
-        let note = Int((notification.userInfo?["note"])! as! NSNumber)
-        let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
-        if notification.name == AKMIDIStatus.NoteOn.name() && velocity > 0 {
-            core.playNote(note, velocity: velocity)
-        } else if (notification.name == AKMIDIStatus.NoteOn.name() && velocity == 0) || notification.name == AKMIDIStatus.NoteOff.name() {
-            core.stopNote(note)
-        }
+    
+    func midiNoteOn(note: Int, velocity: Int, channel: Int) {
+        core.playNote(note, velocity: velocity)
+    }
+    func midiNoteOff(note: Int, velocity: Int, channel: Int) {
+        core.stopNote(note)
     }
 
 }
