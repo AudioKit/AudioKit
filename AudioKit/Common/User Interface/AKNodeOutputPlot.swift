@@ -8,16 +8,8 @@
 
 import Foundation
 
-#if os(OSX)
-    public typealias AKView = NSView
-    typealias AKColor = NSColor
-#else
-    public typealias AKView = UIView
-    typealias AKColor = UIColor
-#endif
-
 /// Plot the output from any node in an signal processing graph
-public class AKNodeOutputPlot {
+@objc public class AKNodeOutputPlot : NSObject {
 
     internal let bufferSize: UInt32 = 512
     
@@ -34,6 +26,7 @@ public class AKNodeOutputPlot {
     /// - parameter height: Height of the view
     ///
     public init(_ input: AKNode, width: CGFloat = 1000.0, height: CGFloat = 500.0) {
+        super.init()
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         plot = EZAudioPlot(frame: frame)
         plot!.plotType = .Buffer

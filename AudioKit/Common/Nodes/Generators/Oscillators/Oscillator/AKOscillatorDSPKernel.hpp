@@ -37,6 +37,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_osc_create(&osc);
         sp_osc_init(sp, osc, ftbl, 0);
         osc->freq = 440;

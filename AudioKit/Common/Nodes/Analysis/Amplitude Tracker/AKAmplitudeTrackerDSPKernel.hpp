@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_rms_create(&rms);
         sp_rms_init(sp, rms);
         rms->ihp = 10;

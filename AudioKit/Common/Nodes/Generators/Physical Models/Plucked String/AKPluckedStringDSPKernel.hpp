@@ -35,6 +35,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_pluck_create(&pluck);
         sp_pluck_init(sp, pluck, 110);
         pluck->freq = 110;

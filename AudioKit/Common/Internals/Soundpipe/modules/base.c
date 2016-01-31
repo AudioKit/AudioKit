@@ -3,9 +3,6 @@
 #include <string.h>
 #include <math.h>
 #include "soundpipe.h"
-#ifdef AUDIOKIT
-# include "AKSettings-Bridge.h"
-#endif
 
 int sp_create(sp_data **spp)
 {
@@ -16,11 +13,7 @@ int sp_create(sp_data **spp)
     SPFLOAT *out = malloc(sizeof(SPFLOAT) * sp->nchan);
     *out = 0;
     sp->out = out;
-#ifdef AUDIOKIT
-    sp->sr = _AKSettings_sampleRate();
-#else
     sp->sr = 44100;
-#endif
     sp->len = 5 * sp->sr;
     sp->pos = 0;
     sp->k = 1;
@@ -37,11 +30,7 @@ int sp_createn(sp_data **spp, int nchan)
     SPFLOAT *out = malloc(sizeof(SPFLOAT) * sp->nchan);
     *out = 0;
     sp->out = out;
-#ifdef AUDIOKIT
-    sp->sr = _AKSettings_sampleRate();
-#else
     sp->sr = 44100;
-#endif
     sp->len = 5 * sp->sr;
     sp->pos = 0;
     sp->k = 1;

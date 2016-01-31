@@ -37,6 +37,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_bltriangle_create(&bltriangle);
         sp_bltriangle_init(sp, bltriangle);
         *bltriangle->freq = 440;
