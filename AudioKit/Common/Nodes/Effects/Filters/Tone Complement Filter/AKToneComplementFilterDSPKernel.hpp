@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_atone_create(&atone);
         sp_atone_init(sp, atone);
         atone->hp = 1000;

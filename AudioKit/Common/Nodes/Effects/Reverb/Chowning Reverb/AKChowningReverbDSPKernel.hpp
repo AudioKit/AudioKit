@@ -31,6 +31,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_jcrev_create(&jcrev);
         sp_jcrev_init(sp, jcrev);
     }

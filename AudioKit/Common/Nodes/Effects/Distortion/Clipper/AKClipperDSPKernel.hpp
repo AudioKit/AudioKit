@@ -36,6 +36,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_clip_create(&clip);
         sp_clip_init(sp, clip);
         clip->lim = 1.0;

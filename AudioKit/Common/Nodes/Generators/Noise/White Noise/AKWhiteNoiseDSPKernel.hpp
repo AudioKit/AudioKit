@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_noise_create(&noise);
         sp_noise_init(sp, noise);
         noise->amp = 1;

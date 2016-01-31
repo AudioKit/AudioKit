@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_butlp_create(&butlp);
         sp_butlp_init(sp, butlp);
         butlp->freq = 1000;
