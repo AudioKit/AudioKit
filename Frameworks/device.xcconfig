@@ -1,9 +1,7 @@
 // Xcode settings for building frameworks suitable for distribution
 
-ENABLE_BITCODE = NO
-OTHER_CFLAGS = $(inherited) -fembed-bitcode
-OTHER_SWIFT_FLAGS = $(inherited) -embed-bitcode
-OTHER_LDFLAGS = -Wl,-bitcode_bundle -Wl,-bitcode_hide_symbols
+ENABLE_BITCODE = YES
+BITCODE_GENERATION_MODE = bitcode
 
 ONLY_ACTIVE_ARCH = NO
 CODE_SIGNING_REQUIRED = NO
