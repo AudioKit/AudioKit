@@ -45,13 +45,13 @@ int sp_bal_init(sp_data *sp, sp_bal *p)
 
 int sp_bal_compute(sp_data *sp, sp_bal *p, SPFLOAT *sig, SPFLOAT *comp, SPFLOAT *out)
 {
-    double  q, r, a;
-    double  c1 = p->c1, c2 = p->c2;
+    SPFLOAT q, r, a, diff;
+    SPFLOAT c1 = p->c1, c2 = p->c2;
 
     q = p->prvq;
     r = p->prvr;
-    double as = *sig;
-    double cs = *comp;
+    SPFLOAT as = *sig;
+    SPFLOAT cs = *comp;
 
     q = c1 * as * as + c2 * q;
     r = c1 * cs * cs + c2 * r;
@@ -65,6 +65,12 @@ int sp_bal_compute(sp_data *sp, sp_bal *p, SPFLOAT *sig, SPFLOAT *comp, SPFLOAT 
         a = sqrt(r);
     }
 
-    *out = *sig * a;
+    if((diff = a - p->prva) != 0.0) {
+        *out = *sig * p->prva;
+        p->prva = a;
+    } else {
+        *out = *sig * a;
+    }
+
     return SP_OK;
 }
