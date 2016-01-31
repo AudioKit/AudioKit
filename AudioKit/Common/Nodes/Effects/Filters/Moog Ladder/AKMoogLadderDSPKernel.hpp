@@ -35,6 +35,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_moogladder_create(&moogladder);
         sp_moogladder_init(sp, moogladder);
         moogladder->freq = 1000;

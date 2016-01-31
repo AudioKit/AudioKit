@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_allpass_create(&allpass);
         sp_allpass_init(sp, allpass, internalLoopDuration);
         allpass->revtime = 0.5;

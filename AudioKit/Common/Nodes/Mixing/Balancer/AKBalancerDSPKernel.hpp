@@ -31,6 +31,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_bal_create(&bal);
         sp_bal_init(sp, bal);
     }

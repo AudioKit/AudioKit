@@ -36,6 +36,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_fofilt_create(&fofilt);
         sp_fofilt_init(sp, fofilt);
         fofilt->freq = 1000;

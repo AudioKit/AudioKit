@@ -31,6 +31,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_pitchamdf_create(&pitchamdf);
         sp_pitchamdf_init(sp, pitchamdf, minimumFrequency, maximumFrequency);
     }

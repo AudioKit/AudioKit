@@ -38,6 +38,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_blsquare_create(&blsquare);
         sp_blsquare_init(sp, blsquare);
         *blsquare->freq = 440;
