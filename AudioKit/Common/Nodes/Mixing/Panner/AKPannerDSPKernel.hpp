@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_panst_create(&panst);
         sp_panst_init(sp, panst);
         panst->pan = 0;

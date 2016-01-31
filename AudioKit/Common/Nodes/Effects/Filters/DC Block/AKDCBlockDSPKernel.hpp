@@ -31,6 +31,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_dcblock_create(&dcblock);
         sp_dcblock_init(sp, dcblock);
     }

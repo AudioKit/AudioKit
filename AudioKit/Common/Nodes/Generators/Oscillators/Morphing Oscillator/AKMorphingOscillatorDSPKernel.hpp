@@ -38,6 +38,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_oscmorph_create(&oscmorph);
 
     }

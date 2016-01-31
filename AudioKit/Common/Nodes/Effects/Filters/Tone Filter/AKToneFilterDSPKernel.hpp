@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_tone_create(&tone);
         sp_tone_init(sp, tone);
         tone->hp = 1000;

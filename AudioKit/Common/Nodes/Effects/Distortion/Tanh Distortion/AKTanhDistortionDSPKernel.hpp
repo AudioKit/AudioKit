@@ -37,6 +37,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_dist_create(&dist);
         sp_dist_init(sp, dist);
         dist->pregain = 2.0;
