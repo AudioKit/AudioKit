@@ -8,14 +8,6 @@
 
 import Foundation
 
-#if os(OSX)
-    public typealias AKView = NSView
-    typealias AKColor = NSColor
-#else
-    public typealias AKView = UIView
-    typealias AKColor = UIColor
-#endif
-
 /// Plot the output from any node in an signal processing graph
 @objc public class AKNodeOutputPlot : NSObject {
 
