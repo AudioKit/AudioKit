@@ -16,7 +16,7 @@ int sp_tseq_destroy(sp_tseq **p)
 int sp_tseq_init(sp_data *sp, sp_tseq *p, sp_ftbl *ft)
 {
     p->ft = ft;
-    p->pos = 0;
+    p->pos = -1;
     p->val = 0;
     p->shuf = 0;
     return SP_OK;
@@ -25,12 +25,12 @@ int sp_tseq_init(sp_data *sp, sp_tseq *p, sp_ftbl *ft)
 int sp_tseq_compute(sp_data *sp, sp_tseq *p, SPFLOAT *trig, SPFLOAT *val)
 {    
     if(*trig != 0){
-        p->val = p->ft->tbl[p->pos];
         if(p->shuf) {
-            p->pos = rand() % p->ft->size;
+            p->pos = sp_rand(sp) % p->ft->size;
         } else {
             p->pos = (p->pos + 1) % p->ft->size;
         }
+        p->val = p->ft->tbl[p->pos];
     }
     *val = p->val;
     return SP_OK;
