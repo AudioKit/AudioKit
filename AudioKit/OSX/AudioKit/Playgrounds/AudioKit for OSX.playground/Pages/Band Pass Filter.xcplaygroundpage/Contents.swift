@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the player and the microphone
 var mic = AKMicrophone()
 mic.volume = 0
@@ -30,8 +28,8 @@ bandPassFilter.bandwidth = 600  // Cents
 
 var bandPassFilterWindow = AKBandPassFilterWindow(bandPassFilter)
 
-audiokit.audioOutput = bandPassFilter
-audiokit.start()
+AudioKit.output = bandPassFilter
+AudioKit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

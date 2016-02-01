@@ -9,25 +9,12 @@
 import Foundation
 import CoreMIDI
 
-/*
-You add observers like this:
-defaultCenter.addObserverForName(
-    AKMIDIStatus.NoteOn.name(), 
-    object: nil, 
-    queue: mainQueue, 
-    usingBlock: YourNotifFunction)
-
-YourNotifFunction takes an NSNotifcation as an argument, 
-and then all the good stuff is contained in the userInfo part of the notification
-
-func myNotifFunction(notif: NSNotification) {
-    print(notif.userInfo)
-}
-*/
-
 /// A container for the values that define a MIDI event
 public struct AKMIDIEvent {
-    /// Internal data (Why the _?)
+    
+    // MARK: - Properties
+    
+    /// Internal data - defaults to 3 bytes
     var internalData = [UInt8](count: 3, repeatedValue: 0)
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
@@ -70,6 +57,8 @@ public struct AKMIDIEvent {
         return NSData(bytes: [internalData[0], internalData[1], internalData[2]] as [UInt8], length: 3)
     }
     
+    // MARK: - Initialization
+    
     /// Initialize the MIDI Event from a MIDI Packet
     init(packet: MIDIPacket) {
         if packet.data.0 < 0xF0 {
@@ -77,10 +66,24 @@ public struct AKMIDIEvent {
             let channel = UInt8(packet.data.0 & 0xF)
             fillWithStatus(status!, channel: channel, byte1: packet.data.1, byte2: packet.data.2)
         } else {
-            fillWithCommand(
-                AKMIDISystemCommand(rawValue: packet.data.0)!,
-                byte1: packet.data.1,
-                byte2: packet.data.2)
+            if(packet.data.0 == AKMIDISystemCommand.Sysex.rawValue){ //if is sysex
+                internalData = [] //reset internalData
+                //voodoo
+                let mirrorData = Mirror(reflecting:packet.data)
+                var i = 0
+                for (_, value) in mirrorData.children{
+                    internalData.append(UInt8(value as! UInt8))
+                    i++
+                    if(value as! UInt8 == 247){
+                        break;
+                    }
+                }//end voodoo
+            }else{
+                fillWithCommand(
+                    AKMIDISystemCommand(rawValue: packet.data.0)!,
+                    byte1: packet.data.1,
+                    byte2: packet.data.2)
+            }
         }
     }
     
@@ -129,58 +132,6 @@ public struct AKMIDIEvent {
             length = 1
         }
     }
-    
-    /// Broadcast a notification center message
-    func postNotification() -> Bool {
-        var ret = NSDictionary()
-        let byte1 = NSInteger(data1)
-        let byte2 = NSInteger(data2)
-        let c  = NSInteger(channel)
-        
-        switch status {
-            
-        case .NoteOn, .NoteOff:
-            ret = ["note": byte1, "velocity": byte2, "channel": c]
-            
-        case .PolyphonicAftertouch:
-            ret = ["note": byte1, "pressure": byte2, "channel": c]
-            
-        case .ControllerChange:
-            ret = ["control": byte1, "value": byte2, "channel": c]
-
-        case .ChannelAftertouch:
-            ret = ["pressure": byte1, "channel": c]
-            
-        case .ProgramChange:
-            ret = ["program": byte1, "channel": c]
-            
-        case .PitchWheel:
-            ret = ["pitchWheel": NSInteger(data), "channel": c]
-
-        case .SystemCommand:
-            switch self.command {
-                case .Clock:
-                    print("MIDI Clock")
-                case .Sysex:
-                    print("SysEx Command")
-                case .SysexEnd:
-                    print("SysEx EOX")
-                case .SysReset:
-                    print("MIDI System Reset")
-                default:
-                    print("Some other MIDI Status System Command")
-            }
-
-        }
-        if ret.count != 0 {
-            NSNotificationCenter.defaultCenter().postNotificationName(status.name(),
-                object: nil,
-                userInfo: ret as [NSObject : AnyObject])
-            return true
-        }
-        return false
-
-    }//end postNotification
     
     // MARK: - Utility constructors for common MIDI events
     

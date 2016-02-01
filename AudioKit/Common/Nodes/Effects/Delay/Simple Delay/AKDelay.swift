@@ -58,11 +58,11 @@ public class AKDelay: AKNode, AKToggleable {
     /// Dry/Wet Mix (Normalized Value) ranges from 0 to 1 (Default: 0.5)
     public var dryWetMix: Double = 0.5 {
         didSet {
-            setDryWetMix(dryWetMix)
+            internalSetDryWetMix(dryWetMix)
         }
     }
     
-    internal func setDryWetMix(var value: Double) {
+    internal func internalSetDryWetMix(var value: Double) {
         if value < 0 {
             value = 0
         }
@@ -97,14 +97,14 @@ public class AKDelay: AKNode, AKToggleable {
             
             super.init()
             self.avAudioNode = delayAU
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             
             
             delayAU.delayTime = self.time
             delayAU.feedback = Float(feedback) * 100.0
             delayAU.lowPassCutoff = Float(lowPassCutoff)
-            setDryWetMix(dryWetMix)
+            internalSetDryWetMix(dryWetMix)
     }
     
     /// Function to start, play, or activate the node, all do the same thing

@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: Let's set up the volume to be changing in the shape of a sine wave
 let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0, maximum: 0.5)
 
@@ -23,8 +21,8 @@ let oscillatorNode = AKOperationGenerator(operation: oscillator)
 let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
 
 //: The amplitude tracker passes its input to the output, so we can insert into the signal chain at the bottom
-audiokit.audioOutput = trackedAmplitude
-audiokit.start()
+AudioKit.output = trackedAmplitude
+AudioKit.start()
 oscillatorNode.start()
 
 //: And here's where we monitor the results of tracking the amplitude.
@@ -35,6 +33,6 @@ AKPlaygroundLoop(every: 0.1) {
 //: This keeps the playground running so that audio can play for a long time
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: You can experiment with this playground by changing the volume function to a phasor or another well-known function to see how well the amplitude tracker can track.  Also, you could change the sound source from an oscillator to a noise generator, or any constant sound source (some things like a physical model would not work because the output has an envelope to its volume).  Instead of just plotting our results, we could use the value to drive other sounds or update an app's user interface.
 
+//: You can experiment with this playground by changing the volume function to a phasor or another well-known function to see how well the amplitude tracker can track.  Also, you could change the sound source from an oscillator to a noise generator, or any constant sound source (some things like a physical model would not work because the output has an envelope to its volume).  Instead of just plotting our results, we could use the value to drive other sounds or update an app's user interface.
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

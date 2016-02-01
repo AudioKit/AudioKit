@@ -3,11 +3,9 @@
 //: ---
 //:
 //: ## Fatten Effect
-//: ### This is a cool fattening effect that Matthew Flecher wanted for the Swift Synth project, so it was developed here in a playground first.
+//: ### This is a cool fattening effect that Matthew Flecher wanted for the Analog Synth X project, so it was developed here in a playground first.
 import XCPlayground
 import AudioKit
-
-let audiokit = AKManager.sharedInstance
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
@@ -25,8 +23,8 @@ let fattenOperation = AKStereoOperation(
     "\(input) dup \(1 - fattenMixParameter) * swap 0 \(fattenTimeParameter) 1.0 vdelay \(fattenMixParameter) * +")
 let fatten = AKOperationEffect(player, stereoOperation: fattenOperation)
 
-audiokit.audioOutput = fatten
-audiokit.start()
+AudioKit.output = fatten
+AudioKit.start()
 
 player.play()
 

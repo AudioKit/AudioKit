@@ -116,6 +116,11 @@ public class AKMorphingOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
+    }
 
     /// Initialize this Morpher node
     ///
@@ -128,7 +133,7 @@ public class AKMorphingOscillator: AKVoice {
     /// - parameter phase: Initial phase of waveform, expects a value 0-1
     ///
     public init(
-        waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
+        waveformArray: [AKTable],
         frequency: Double = 440,
         amplitude: Double = 0.5,
         index: Double = 0.0,
@@ -167,7 +172,7 @@ public class AKMorphingOscillator: AKVoice {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             
             /// AOP need to set up phase
             for i in 0..<waveformArray.count {
@@ -211,7 +216,7 @@ public class AKMorphingOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func copy() -> AKVoice {
+    public override func duplicate() -> AKVoice {
         let copy = AKMorphingOscillator(waveformArray: self.waveformArray, frequency: self.frequency, amplitude: self.amplitude, index: self.index, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier, phase: self.phase)
         return copy
     }

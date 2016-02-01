@@ -111,7 +111,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKRolandTB303FilterAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
@@ -142,6 +142,8 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
         distortionParameter?.setValue(Float(distortion), originator: token!)
         resonanceAsymmetryParameter?.setValue(Float(resonanceAsymmetry), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

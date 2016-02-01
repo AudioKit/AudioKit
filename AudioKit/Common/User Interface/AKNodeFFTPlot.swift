@@ -9,38 +9,14 @@
 import Foundation
 
 /// Plot the FFT output from any node in an signal processing graph
-@objc public class AKNodeFFTPlot: NSObject, EZAudioFFTDelegate {
+@IBDesignable
+public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     
-    internal let bufferSize: UInt32 = 512
-    
-    /// EZAudioPlot containing actual plot
-    public var plot: EZAudioPlot?
-    
-    /// EZAudioFFT container
-    internal var fft: EZAudioFFT?
-    
-    /// View with the plot
-    public var containerView: AKView?
-    
-    /// Initialize the plot with the output from a given node and optional plot size
-    ///
-    /// - parameter input: AKNode from which to get the plot data
-    /// - parameter width: Width of the view
-    /// - parameter height: Height of the view
-    ///
-    public init(_ input: AKNode, width: CGFloat = 1000.0, height: CGFloat = 500.0) {
-        super.init()
-        fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: 44100.0, delegate: self)
-        let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
-        plot = EZAudioPlot(frame: frame)
-        plot!.plotType = .Buffer
-        plot!.backgroundColor = AKColor.whiteColor()
-        plot!.shouldCenterYAxis = true
-        
-        containerView = AKView(frame: frame)
-        containerView!.addSubview(plot!)
-        
-        input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AKManager.format) { [weak self] (buffer, time) -> Void in
+    internal func setupNode(input: AKNode?) {
+        if fft == nil {
+            fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
+        }
+        input?.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize;
                 let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);
@@ -48,7 +24,47 @@ import Foundation
                 strongSelf.fft!.computeFFTWithBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
             }
         }
-        
+    }
+    
+    internal let bufferSize: UInt32 = 512
+    
+    /// EZAudioFFT container
+    private var fft: EZAudioFFT?
+    
+    /// The node whose output to graph
+    public var node: AKNode? {
+        willSet {
+            node?.avAudioNode.removeTapOnBus(0)
+        }
+        didSet {
+            setupNode(node)
+        }
+    }
+    
+    deinit {
+        node?.avAudioNode.removeTapOnBus(0)
+    }
+    
+    /// Required coder-based initialization (for use with Interface Builder)
+    ///
+    /// - parameter coder: NSCoder
+    ///
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupNode(nil)
+    }
+
+    /// Initialize the plot with the output from a given node and optional plot size
+    ///
+    /// - parameter input: AKNode from which to get the plot data
+    /// - parameter width: Width of the view
+    /// - parameter height: Height of the view
+    ///
+    public init(_ input: AKNode, frame: CGRect) {
+        super.init(frame: frame)
+        self.plotType = .Buffer
+        self.backgroundColor = AKColor.whiteColor()
+        self.shouldCenterYAxis = true
     }
     
     /// Callback function for FFT data:
@@ -57,9 +73,9 @@ import Foundation
     /// - parameter updatedWithFFTData: A pointer to a c-style array of floats
     /// - parameter bufferSize: Number of elements in the FFT Data array
     ///
-    @objc public func fft(fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
+    public func fft(fft: EZAudioFFT!, updatedWithFFTData fftData: UnsafeMutablePointer<Float>, bufferSize: vDSP_Length) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            self.plot!.updateBuffer(fftData, withBufferSize: self.bufferSize)
+            self.updateBuffer(fftData, withBufferSize: self.bufferSize)
         }
     }
 }

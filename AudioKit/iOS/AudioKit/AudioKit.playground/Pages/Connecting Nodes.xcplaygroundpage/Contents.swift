@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 
@@ -28,8 +26,8 @@ delay.dryWetMix = 0.2 // Normalized Value 0 - 1
 let reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.Cathedral)
 
-audiokit.audioOutput = reverb
-audiokit.start()
+AudioKit.output = reverb
+AudioKit.start()
 
 player.play()
 

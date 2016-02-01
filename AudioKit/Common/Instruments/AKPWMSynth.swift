@@ -111,7 +111,7 @@ internal class AKSquareVoice: AKVoice {
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override func copy() -> AKVoice {
+    override func duplicate() -> AKVoice {
         let copy = AKSquareVoice()
         return copy
     }

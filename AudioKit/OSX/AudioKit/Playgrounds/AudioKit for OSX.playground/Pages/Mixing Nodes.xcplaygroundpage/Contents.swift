@@ -8,7 +8,6 @@ import XCPlayground
 import AudioKit
 
 //: This section prepares the players
-let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file1 = bundle.pathForResource("drumloop", ofType: "wav")
 let file2 = bundle.pathForResource("guitarloop", ofType: "wav")
@@ -23,8 +22,8 @@ let player2Window = AKAudioPlayerWindow(player2, title: "Guitar", xOffset: 640)
 //: Any number of inputs can be equally summed into one output
 let mixer = AKMixer(player1, player2)
 
-audiokit.audioOutput = mixer
-audiokit.start()
+AudioKit.output = mixer
+AudioKit.start()
 
 let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView

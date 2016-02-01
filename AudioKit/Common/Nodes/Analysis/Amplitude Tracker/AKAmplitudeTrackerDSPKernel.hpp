@@ -12,6 +12,8 @@
 #import "AKDSPKernel.hpp"
 #import "AKParameterRamper.hpp"
 
+#import <AudioKit/AudioKit-Swift.h>
+
 extern "C" {
 #include "soundpipe.h"
 }
@@ -32,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_rms_create(&rms);
         sp_rms_init(sp, rms);
         rms->ihp = 10;
@@ -113,8 +117,8 @@ public:
 
 private:
 
-    int channels = 2;
-    float sampleRate = 44100.0;
+    int channels = AKSettings.numberOfChannels;
+    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;

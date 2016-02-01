@@ -100,7 +100,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFormantFilterAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
@@ -127,6 +127,8 @@ public class AKFormantFilter: AKNode, AKToggleable {
         attackDurationParameter?.setValue(Float(attackDuration), originator: token!)
         decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

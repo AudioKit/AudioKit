@@ -9,7 +9,6 @@ import AudioKit
 import AVFoundation
 
 //: This section prepares the players
-let audiokit = AKManager.sharedInstance
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -25,8 +24,8 @@ let ringModWindow = AKRingModulatorWindow(ringMod)
 //: Any number of inputs can be equally summed into one output
 let mixer = AKMixer(delay, ringMod, player)
 
-audiokit.audioOutput = mixer
-audiokit.start()
+AudioKit.output = mixer
+AudioKit.start()
 
 let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView

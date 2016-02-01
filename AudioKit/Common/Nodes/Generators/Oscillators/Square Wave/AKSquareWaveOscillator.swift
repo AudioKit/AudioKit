@@ -112,6 +112,11 @@ public class AKSquareWaveOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(frequency: 440)
+    }
 
     /// Initialize this oscillator node
     ///
@@ -122,7 +127,7 @@ public class AKSquareWaveOscillator: AKVoice {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        frequency: Double = 440,
+        frequency: Double,
         amplitude: Double = 1.0,
         pulseWidth: Double = 0.5,
         detuningOffset: Double = 0,
@@ -157,7 +162,7 @@ public class AKSquareWaveOscillator: AKVoice {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKSquareWaveOscillatorAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -193,7 +198,7 @@ public class AKSquareWaveOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func copy() -> AKVoice {
+    public override func duplicate() -> AKVoice {
         let copy = AKSquareWaveOscillator(frequency: self.frequency, amplitude: self.amplitude, pulseWidth: self.pulseWidth, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
         return copy
     }

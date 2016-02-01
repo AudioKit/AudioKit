@@ -78,7 +78,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
 
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterReverbAudioUnit
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU!.setLoopDuration(Float(loopDuration))
         }
@@ -98,6 +98,8 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
         }
         reverbDurationParameter?.setValue(Float(reverbDuration), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

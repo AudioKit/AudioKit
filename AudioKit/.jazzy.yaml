@@ -10,7 +10,8 @@ swift_version: 2.1.1
 custom_categories:
   - name: AudioKit Core
     children:
-    - AKManager
+    - AudioKit
+    - AKSettings
     - AKTable
     - AKTableType
 
@@ -32,6 +33,7 @@ custom_categories:
     - AKMIDIEvent
     - AKMIDIControl
     - AKMIDIInstrument
+    - AKMIDIListener
     - AKMIDIStatus
     - AKMIDISystemCommand
     - AKMusicTrack

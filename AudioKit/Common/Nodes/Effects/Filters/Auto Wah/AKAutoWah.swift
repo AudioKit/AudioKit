@@ -98,7 +98,7 @@ public class AKAutoWah: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAutoWahAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
@@ -125,6 +125,8 @@ public class AKAutoWah: AKNode, AKToggleable {
         mixParameter?.setValue(Float(mix), originator: token!)
         amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
