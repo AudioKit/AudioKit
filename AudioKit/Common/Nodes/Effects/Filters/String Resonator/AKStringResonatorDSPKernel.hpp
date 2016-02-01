@@ -35,6 +35,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_streson_create(&streson);
         sp_streson_init(sp, streson);
         streson->freq = 100;

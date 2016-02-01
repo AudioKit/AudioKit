@@ -40,6 +40,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_drip_create(&drip);
         sp_drip_init(sp, drip, 0.9);
         drip->num_tubes = 10;

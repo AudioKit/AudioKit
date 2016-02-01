@@ -34,6 +34,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_pinknoise_create(&pinknoise);
         sp_pinknoise_init(sp, pinknoise);
         *pinknoise->amp = 1;

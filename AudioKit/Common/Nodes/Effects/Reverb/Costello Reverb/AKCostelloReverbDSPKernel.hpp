@@ -35,6 +35,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_revsc_create(&revsc);
         sp_revsc_init(sp, revsc);
         revsc->feedback = 0.6;

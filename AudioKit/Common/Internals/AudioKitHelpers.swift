@@ -139,10 +139,6 @@ public enum AKMIDIStatus: Int {
     /// System commands differ from system to system
     case SystemCommand = 15
     
-    /// Return a unique string for use as broadcasted name in NSNotificationCenter
-    public func name() -> String {
-        return "AudioKit MIDI Status: \(self)"
-    }
 }
 
 /// MIDI System Command
