@@ -15,6 +15,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
     
+    private var sampleRate : Double = 1.0
+    private var totalFrameCount : Int64
+    
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
     
@@ -57,6 +60,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         let audioFrameCount = UInt32(audioFile.length)
         audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat, frameCapacity: audioFrameCount)
         try! audioFile.readIntoBuffer(audioFileBuffer)
+        // added for currentTime calculation later on
+        sampleRate = audioFile.fileFormat.sampleRate
+        totalFrameCount = Int64( audioFrameCount )
         
         internalPlayer = AVAudioPlayerNode()
         super.init()
@@ -95,5 +101,17 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// Stop playback
     public func stop() {
         internalPlayer.stop()
+    }
+    
+    // The currentTime
+    public var currentTime : Double {
+        
+        if internalPlayer.playing {
+            if let time = internalPlayer.lastRenderTime {
+                // wrap the sampleTime by the totalFrameCount as sampleTime does not reset when audio loops.
+                return Double( ( Int64(time.sampleTime) % totalFrameCount) ) / sampleRate
+            }
+        }
+        return 0.0
     }
 }
