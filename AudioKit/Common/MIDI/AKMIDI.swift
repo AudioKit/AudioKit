@@ -9,19 +9,17 @@
 import Foundation
 import CoreMIDI
 
-/*
-You add midi listeners like this:
-var midiIn = AKMidi()
-midi.openMIDIIn()
-midi.addListener(someClass)
-
-...where someClass conforms to the AKMIDIListener protocol
-
-You then implement the methods you need from AKMIDIListener and use the data how you need.
-
-*/
-
 /// MIDI input and output handler
+///
+/// You add midi listeners like this:
+/// ```
+/// var midiIn = AKMidi()
+/// midi.openMIDIIn()
+/// midi.addListener(someClass)
+/// ```
+/// ...where someClass conforms to the AKMIDIListener protocol
+///
+/// You then implement the methods you need from AKMIDIListener and use the data how you need.
 public class AKMIDI {
     
     // MARK: - Properties
@@ -55,8 +53,10 @@ public class AKMIDI {
     /// MIDI Out Port Name
     var midiOutName: CFString = "MIDI Out Port"
     
+    /// Array of all listeners
     public var midiListeners:[AKMIDIListener] = []
     
+    /// Add a listener to the listeners
     public func addListener(listener:AKMIDIListener){
         midiListeners.append(listener)
     }
