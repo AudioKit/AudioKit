@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the player and the microphone
 var mic = AKMicrophone()
 mic.volume = 0
@@ -31,8 +29,8 @@ decimator.mix = 0.5 // Normalized Value 0 - 1
 
 var decimatorWindow = AKDecimatorWindow(decimator)
 
-audiokit.audioOutput = decimator
-audiokit.start()
+AudioKit.output = decimator
+AudioKit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

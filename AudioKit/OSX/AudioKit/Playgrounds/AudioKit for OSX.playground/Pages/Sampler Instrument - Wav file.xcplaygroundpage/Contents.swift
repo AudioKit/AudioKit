@@ -8,8 +8,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let pulse = 0.23 // seconds
 
 //: We are going to load an EXS24 instrument and send it random notes
@@ -31,8 +29,8 @@ var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
 //: Connect the sampler to the main output
-audiokit.audioOutput = mixer
-audiokit.start()
+AudioKit.output = mixer
+AudioKit.start()
 
 //: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here

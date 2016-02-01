@@ -147,6 +147,11 @@ public class AKDrip: AKNode {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the drip with defaults
+    convenience override init() {
+        self.init(intensity: 10)
+    }
 
     /// Initialize this drip node
     ///
@@ -159,7 +164,7 @@ public class AKDrip: AKNode {
     /// - parameter amplitude: Amplitude.
     ///
     public init(
-        intensity: Double = 10,
+        intensity: Double,
         dampingFactor: Double = 0.2,
         energyReturn: Double = 0,
         mainResonantFrequency: Double = 450,
@@ -198,7 +203,7 @@ public class AKDrip: AKNode {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKDripAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -248,6 +253,8 @@ public class AKDrip: AKNode {
         self.internalAU!.start()
         self.internalAU!.trigger()
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

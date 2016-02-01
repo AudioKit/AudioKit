@@ -11,8 +11,10 @@ import CoreAudio
 
 /// A version of AKInstrument specifically targeted to instruments that 
 /// should be triggerable via MIDI or sequenced with the sequencer.
-public class AKMIDIInstrument: AKNode {
+public class AKMIDIInstrument: AKNode, AKMIDIListener {
 
+    // MARK: - Properties
+    
     /// MIDI Input
     public var midiIn = MIDIEndpointRef()
     
@@ -20,6 +22,8 @@ public class AKMIDIInstrument: AKNode {
     public var name = "AKMIDIInstrument"
     
     internal var internalInstrument: AKPolyphonicInstrument?
+    
+    // MARK: - Initialization
     
     /// Initialize the MIDI instrument
     ///
@@ -43,6 +47,8 @@ public class AKMIDIInstrument: AKNode {
         CheckError(result)
     }
     
+    // MARK: - Handling MIDI Data
+    
     // Send MIDI data to the audio unit
     func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
         let status = data1 >> 4
@@ -54,23 +60,20 @@ public class AKMIDIInstrument: AKNode {
         }
     }
     
-    /// Handle MIDI commands that come in through NSNotificationCenter
+    /// Handle MIDI commands that come in externally
     ///
-    /// - parameter notification: Notification fo a note on or off event
+    /// - parameter note: MIDI Note number
+    /// - parameter velocity: MIDI velocity
+    /// - parameter channel: MIDI channel
     ///
-    public func handleMIDINotification(notification: NSNotification) {
-        let note     = Int((notification.userInfo?["note"])!     as! NSNumber)
-        let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
-        let channel  = Int((notification.userInfo?["channel"])!  as! NSNumber)
-        
-        if(notification.name == AKMIDIStatus.NoteOn.name() && velocity > 0) {
+    public func midiNoteOn(note: Int, velocity: Int, channel: Int) {
+        if(velocity > 0){
             startNote(note, withVelocity: velocity, onChannel: channel)
-        } else if ((
-            notification.name == AKMIDIStatus.NoteOn.name() && velocity == 0) ||
-            notification.name == AKMIDIStatus.NoteOff.name()) {
+        }else{
             stopNote(note, onChannel: channel)
         }
     }
+    // MARK: - MIDI Note Start/Stop
     
     /// Start a note
     public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {

@@ -188,7 +188,7 @@ public class AKReverb2: AKNode, AKToggleable {
             
             super.init()
             self.avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 
@@ -200,6 +200,8 @@ public class AKReverb2: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, Float(decayTimeAtNyquist), 0)
             AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, Float(randomizeReflections), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

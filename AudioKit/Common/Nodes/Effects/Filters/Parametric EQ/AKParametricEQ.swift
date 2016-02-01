@@ -128,16 +128,18 @@ public class AKParametricEQ: AKNode, AKToggleable {
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
             
-            AKManager.sharedInstance.engine.attachNode(internalEffect)
+            AudioKit.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
-            AKManager.sharedInstance.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AKManager.format)
-            AKManager.sharedInstance.engine.connect(internalEffect, to: mixer.avAudioNode, format: AKManager.format)
+            AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
+            AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
             avAudioNode = mixer.avAudioNode
 
             AudioUnitSetParameter(internalAU, kParametricEQParam_CenterFreq, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
             AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, Float(q), 0)
             AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

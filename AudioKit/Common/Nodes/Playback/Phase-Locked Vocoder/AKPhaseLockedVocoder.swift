@@ -102,7 +102,7 @@ public class AKPhaseLockedVocoder: AKNode {
                 self.avAudioNode = avAudioUnitGenerator
                 self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPhaseLockedVocoderAudioUnit
 
-                AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+                AudioKit.engine.attachNode(self.avAudioNode)
             }
 
             guard let tree = internalAU?.parameterTree else { return }
@@ -128,6 +128,8 @@ public class AKPhaseLockedVocoder: AKNode {
             amplitudeParameter?.setValue(Float(amplitude), originator: token!)
             pitchRatioParameter?.setValue(Float(pitchRatio), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
@@ -147,7 +149,7 @@ public class AKPhaseLockedVocoder: AKNode {
             if err != 0 { print("ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) FAILED, Error = \(err)"); break Exit }
             if theFileFormat.mChannelsPerFrame > 2 { print("Unsupported Format, channel count is greater than stereo"); break Exit }
 
-            theOutputFormat.mSampleRate = 44100
+            theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
             theOutputFormat.mBitsPerChannel = UInt32(strideof(Float)) * 8

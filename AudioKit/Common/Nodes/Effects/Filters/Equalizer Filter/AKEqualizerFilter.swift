@@ -101,7 +101,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKEqualizerFilterAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
@@ -128,6 +128,8 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
         bandwidthParameter?.setValue(Float(bandwidth), originator: token!)
         gainParameter?.setValue(Float(gain), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

@@ -10,7 +10,19 @@ import Foundation
 import CoreMIDI
 
 /// MIDI input and output handler
+///
+/// You add midi listeners like this:
+/// ```
+/// var midiIn = AKMidi()
+/// midi.openMIDIIn()
+/// midi.addListener(someClass)
+/// ```
+/// ...where someClass conforms to the AKMIDIListener protocol
+///
+/// You then implement the methods you need from AKMIDIListener and use the data how you need.
 public class AKMIDI {
+    
+    // MARK: - Properties
     
     /// MIDI Client Reference
     public var midiClient = MIDIClientRef()
@@ -41,6 +53,46 @@ public class AKMIDI {
     /// MIDI Out Port Name
     var midiOutName: CFString = "MIDI Out Port"
     
+    /// Array of all listeners
+    public var midiListeners:[AKMIDIListener] = []
+    
+    /// Add a listener to the listeners
+    public func addListener(listener:AKMIDIListener){
+        midiListeners.append(listener)
+    }
+    
+    private func handleMidiMessage(event:AKMIDIEvent){
+        for listener in midiListeners{
+            let type = event.status
+            switch type{
+                case AKMIDIStatus.ControllerChange:
+                    listener.midiController(Int(event.internalData[1]), value: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.ChannelAftertouch:
+                    listener.midiAfterTouch(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.NoteOn:
+                    listener.midiNoteOn(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.NoteOff:
+                    listener.midiNoteOff(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.PitchWheel:
+                    listener.midiPitchWheel(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.PolyphonicAftertouch:
+                    listener.midiAftertouchOnNote(Int(event.internalData[1]), pressure: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.ProgramChange:
+                    listener.midiProgramChange(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.SystemCommand:
+                    listener.midiSystemCommand(event.internalData)
+                    break
+            }
+        }
+    }
+    
     private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
         let notification = midiNotification.memory
         print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
@@ -60,14 +112,16 @@ public class AKMIDI {
         let packet = packetList.memory.packet as MIDIPacket
         var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
         packetPtr.initialize(packet)
-        
         for var i = 0; i < numPackets; ++i {
             let event = AKMIDIEvent(packet: packetPtr.memory)
-            event.postNotification()
+            handleMidiMessage(event)
             packetPtr = MIDIPacketNext(packetPtr)
         }
-    }
     
+    }
+
+    // MARK: - Initialization
+
     /// Initialize the AKMIDI system
     public init() {
 
@@ -87,6 +141,8 @@ public class AKMIDI {
             }
         }
     }
+    
+    // MARK: - Input/Output Setup
     
     /// Open a MIDI Input port
     ///
@@ -184,6 +240,8 @@ public class AKMIDI {
             print("Destination at \(endpointNameStr)")
         }//end foreach midi destination
     }
+    
+    // MARK: - Sending MIDI
     
     /// Send Message with data
     public func sendMessage(data: [UInt8]) {

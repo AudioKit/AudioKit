@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 //: This section prepares the player and the microphone
 var mic = AKMicrophone()
 mic.volume = 0
@@ -30,8 +28,8 @@ highPassFilter.resonance = 0 // dB
 
 var highPassFilterWindow = AKHighPassFilterWindow(highPassFilter)
 
-audiokit.audioOutput = highPassFilter
-audiokit.start()
+AudioKit.output = highPassFilter
+AudioKit.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

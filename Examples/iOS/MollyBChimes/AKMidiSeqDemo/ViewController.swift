@@ -13,7 +13,6 @@ import UIKit
 import AudioKit
 
 class ViewController: UIViewController {
-    let audiokit = AKManager.sharedInstance
     let midi = AKMIDI()
     
     var fmOsc1 = AKFMSynth(voiceCount: 4)
@@ -89,8 +88,8 @@ class ViewController: UIViewController {
         mixer.connect(snareGhost!)
         mixer.connect(snareVerb!)
         
-        audiokit.audioOutput = pumper
-        audiokit.start()
+        AudioKit.output = pumper
+        AudioKit.start()
         
         seq.newTrack()
         seq.setLength(seqLen)
@@ -241,7 +240,8 @@ class ViewController: UIViewController {
 
 }
 
-class BDVoice:AKVoice{
+@objc
+class BDVoice: AKVoice {
     var generator:AKOperationGenerator
     var filt: AKMoogLadder?
     
@@ -262,7 +262,7 @@ class BDVoice:AKVoice{
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override func copy() -> AKVoice {
+    override func duplicate() -> AKVoice {
         let copy = BDVoice()
         return copy
     }
@@ -293,6 +293,7 @@ class BDInst: AKPolyphonicInstrument {
         
     }
 }
+
 class SDVoice:AKVoice{
     var generator:AKOperationGenerator
     var filt: AKMoogLadder?
@@ -325,7 +326,7 @@ class SDVoice:AKVoice{
     }
     
     /// Function create an identical new node for use in creating polyphonic instruments
-    override func copy() -> AKVoice {
+    override func duplicate() -> AKVoice {
         let copy = SDVoice(dur: len, res:resonance)
         return copy
     }

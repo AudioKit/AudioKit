@@ -16,6 +16,8 @@ import AVFoundation
 /// - parameter mix: Mix (Normalized Value) ranges from 0 to 1 (Default: 1)
 ///
 public class AKDecimator: AKNode, AKToggleable {
+    
+    // MARK: - Properties
 
     private let cd = AudioComponentDescription(
         componentType: kAudioUnitType_Effect,
@@ -82,6 +84,8 @@ public class AKDecimator: AKNode, AKToggleable {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
+    
+    // MARK: - Initialization
 
     /// Initialize the decimator node
     ///
@@ -104,7 +108,7 @@ public class AKDecimator: AKNode, AKToggleable {
             super.init()
             
             avAudioNode = internalEffect
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
             
@@ -115,6 +119,8 @@ public class AKDecimator: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding) * 100.0, 0)
             AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
     }
+    
+    // MARK: - Control
     
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

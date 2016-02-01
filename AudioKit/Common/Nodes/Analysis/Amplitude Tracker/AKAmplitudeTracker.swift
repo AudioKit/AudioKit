@@ -79,7 +79,7 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeTrackerAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
@@ -98,6 +98,8 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
         }
         halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

@@ -20,7 +20,6 @@ public class AKFMOscillator: AKVoice {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKFMOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -113,6 +112,11 @@ public class AKFMOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(waveform: AKTable(.Sine))
+    }
 
     /// Initialize this oscillator node
     ///
@@ -123,7 +127,7 @@ public class AKFMOscillator: AKVoice {
     /// - parameter amplitude: Output Amplitude.
     ///
     public init(
-        waveform: AKTable = AKTable(.Sine),
+        waveform: AKTable,
         baseFrequency: Double = 440,
         carrierMultiplier: Double = 1.0,
         modulatingMultiplier: Double = 1,
@@ -160,7 +164,7 @@ public class AKFMOscillator: AKVoice {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
             for var i = 0; i < waveform.size; i++ {
                 self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
@@ -200,7 +204,7 @@ public class AKFMOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func copy() -> AKVoice {
+    public override func duplicate() -> AKVoice {
         let copy = AKFMOscillator(waveform: self.waveform!, baseFrequency: self.baseFrequency, carrierMultiplier: self.carrierMultiplier, modulatingMultiplier: self.modulatingMultiplier, modulationIndex: self.modulationIndex, amplitude: self.amplitude)
         return copy
     }

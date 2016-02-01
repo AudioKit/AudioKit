@@ -88,7 +88,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKVariableDelayAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
@@ -111,6 +111,8 @@ public class AKVariableDelay: AKNode, AKToggleable {
         timeParameter?.setValue(Float(time), originator: token!)
         feedbackParameter?.setValue(Float(feedback), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

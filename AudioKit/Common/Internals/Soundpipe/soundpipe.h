@@ -474,6 +474,7 @@ typedef struct sp_dtrig{
     int running;
     int loop;
     SPFLOAT delay;
+    SPFLOAT scale;
 } sp_dtrig;
 
 int sp_dtrig_create(sp_dtrig **p);
@@ -490,7 +491,7 @@ typedef struct sp_dust{
 
 int sp_dust_create(sp_dust **p);
 int sp_dust_destroy(sp_dust **p);
-int sp_dust_init(sp_data *sp, sp_dust *p, SPFLOAT amp, SPFLOAT density);
+int sp_dust_init(sp_data *sp, sp_dust *p);
 int sp_dust_compute(sp_data *sp, sp_dust *p, SPFLOAT *in, SPFLOAT *out);
 
 
@@ -1073,8 +1074,6 @@ typedef struct {
     SPFLOAT sus;
     SPFLOAT dec;
     int mode;
-    SPFLOAT atkbuf[1024];
-    SPFLOAT decbuf[1024];
 } sp_tadsr;
 
 int sp_tadsr_create(sp_tadsr **p);
@@ -1173,7 +1172,7 @@ int sp_trand_compute(sp_data *sp, sp_trand *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct sp_tseq {
     sp_ftbl *ft;
     SPFLOAT val;
-    uint32_t pos;
+    int32_t pos;
     int shuf;
 } sp_tseq;
 

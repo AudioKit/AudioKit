@@ -111,7 +111,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKAmplitudeEnvelopeAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
@@ -142,6 +142,8 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
         sustainLevelParameter?.setValue(Float(sustainLevel), originator: token!)
         releaseDurationParameter?.setValue(Float(releaseDuration), originator: token!)
     }
+    
+    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

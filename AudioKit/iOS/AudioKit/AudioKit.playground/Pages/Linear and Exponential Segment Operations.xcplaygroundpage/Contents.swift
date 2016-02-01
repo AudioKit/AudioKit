@@ -8,8 +8,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 
 //: Generate a new pew sound twice per second
 let updateRate = 2.0
@@ -33,8 +31,8 @@ delay.feedback = 0.8
 var reverb = AKReverb(delay)
 reverb.loadFactoryPreset(.LargeHall)
 
-audiokit.audioOutput = reverb
-audiokit.start()
+AudioKit.output = reverb
+AudioKit.start()
 
 generator.start()
 

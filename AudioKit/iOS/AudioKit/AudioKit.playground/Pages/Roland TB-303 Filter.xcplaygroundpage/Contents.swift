@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -19,8 +17,8 @@ var filter = AKRolandTB303Filter(player)
 filter.cutoffFrequency = 1350
 filter.resonance = 0.8
 
-audiokit.audioOutput = filter
-audiokit.start()
+AudioKit.output = filter
+AudioKit.start()
 player.play()
 
 

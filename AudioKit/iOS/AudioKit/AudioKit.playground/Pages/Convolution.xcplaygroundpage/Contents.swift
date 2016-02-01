@@ -7,8 +7,6 @@
 import XCPlayground
 import AudioKit
 
-let audiokit = AKManager.sharedInstance
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
@@ -22,8 +20,8 @@ var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, p
 
 var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 1)
 
-audiokit.audioOutput = mixer
-audiokit.start()
+AudioKit.output = mixer
+AudioKit.start()
 stairwellConvolution.start()
 dishConvolution.start()
 player.play()

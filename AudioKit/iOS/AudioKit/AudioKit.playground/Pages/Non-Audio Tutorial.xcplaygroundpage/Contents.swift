@@ -10,9 +10,6 @@ import AudioKit
 //: Another import line you will see in most playgrounds enables `XCPlayground` functions for plotting, keeping the playground alive while audio plays, and more.
 import XCPlayground
 
-//: All AudioKit powered apps and playgrounds need a reference to an instance of `AKManager` shared across the app.
-let audiokit = AKManager.sharedInstance
-
 //: This main bundle line just helps the playground find the files (such as audio clips) it will be able to play and process.
 let bundle = NSBundle.mainBundle()
 

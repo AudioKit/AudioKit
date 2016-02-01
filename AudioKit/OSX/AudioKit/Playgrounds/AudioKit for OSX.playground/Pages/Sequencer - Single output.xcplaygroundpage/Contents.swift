@@ -7,20 +7,17 @@
 import XCPlayground
 import AudioKit
 
-
-let audiokit = AKManager.sharedInstance
-
 //: Create the sequencer, but we can't init it until we do some basic setup
-var seq:AKSequencer?
+var seq: AKSequencer?
 
 //: Create a sampler, load a sound, and connect it to the output
 var sampler = AKSampler()
 
 sampler.loadEXS24("Sounds/sawPiano1")
-audiokit.audioOutput = sampler
+AudioKit.output = sampler
 
 //: Load in a midi file, and set the sequencer to the main audiokit engine
-seq = AKSequencer(filename: "4tracks", engine: audiokit.engine)
+seq = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
 
 //: Do some basic setup to make the sequence loop correctly
 seq!.setLength(4)
@@ -30,7 +27,7 @@ seq!.loopOn()
 seq!.setGlobalAVAudioUnitOutput(sampler.samplerUnit)
 
 //: Hear it go
-audiokit.start()
+AudioKit.start()
 seq!.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

@@ -12,6 +12,8 @@
 #import "AKDSPKernel.hpp"
 #import "AKParameterRamper.hpp"
 
+#import <AudioKit/AudioKit-Swift.h>
+
 extern "C" {
 #include "plumber.h"
 }
@@ -29,6 +31,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         plumber_register(&pd);
         plumber_init(&pd);
         pd.sp = sp;
@@ -127,8 +131,8 @@ public:
 
 private:
 
-    int channels = 2;
-    float sampleRate = 44100.0;
+    int channels = AKSettings.numberOfChannels;
+    float sampleRate = AKSettings.sampleRate;
     int internalTrigger = 0;
     float parameters[10] = {0,0,0,0,0,0,0,0,0,0};
 

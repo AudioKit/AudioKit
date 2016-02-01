@@ -13,8 +13,8 @@ import CoreAudio
 ///
 /// 1) init the audio unit like this: var sampler = AKSampler()
 /// 2) load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
-/// 3) connect to the avengine: audiokit.audioOutput = sampler
-/// 4) start the avengine audiokit.start()
+/// 3) connect to the avengine: AudioKit.output = sampler
+/// 4) start the engine AudioKit.start()
 ///
 public class AKSampler: AKNode {
     
@@ -34,7 +34,7 @@ public class AKSampler: AKNode {
         super.init()
         self.avAudioNode = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
-        AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attachNode(self.avAudioNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
     

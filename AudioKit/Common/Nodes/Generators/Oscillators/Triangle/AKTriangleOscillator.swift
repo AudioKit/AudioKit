@@ -95,6 +95,11 @@ public class AKTriangleOscillator: AKVoice {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(frequency: 440)
+    }
 
     /// Initialize this oscillator node
     ///
@@ -104,7 +109,7 @@ public class AKTriangleOscillator: AKVoice {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        frequency: Double = 440,
+        frequency: Double,
         amplitude: Double = 0.5,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
@@ -137,7 +142,7 @@ public class AKTriangleOscillator: AKVoice {
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKTriangleOscillatorAudioUnit
 
-            AKManager.sharedInstance.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attachNode(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
@@ -169,7 +174,7 @@ public class AKTriangleOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func copy() -> AKVoice {
+    public override func duplicate() -> AKVoice {
         let copy = AKTriangleOscillator(frequency: self.frequency, amplitude: self.amplitude, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
         return copy
     }
