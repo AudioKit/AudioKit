@@ -1,6 +1,6 @@
 module_name: AudioKit
 author_name: Aurelius Prochazka
-author_url: https://audiokit.io/
+author_url: http://audiokit.io/
 github_url: https://github.com/audiokit/AudioKit
 min_acl: public
 readme_path: ../README.md
