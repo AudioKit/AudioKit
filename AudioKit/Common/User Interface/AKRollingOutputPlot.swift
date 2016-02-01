@@ -9,7 +9,8 @@
 import Foundation
 
 /// Wrapper class for plotting audio from the final mix in a rolling plot
-@objc public class AKRollingOutputPlot: EZAudioPlot {
+@IBDesignable
+public class AKRollingOutputPlot: EZAudioPlot {
     internal func setupNode() {
         AudioKit.engine.outputNode.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
@@ -23,6 +24,10 @@ import Foundation
     }
     
     internal let bufferSize: UInt32 = 512
+    
+    deinit {
+        AudioKit.engine.outputNode.removeTapOnBus(0)
+    }
     
     /// Initialize the plot in a frame
     ///
