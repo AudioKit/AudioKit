@@ -25,7 +25,7 @@ public class AKSettings : NSObject {
     /// Whether to allow audio playback to override the mute setting
     public static var playbackWhileMuted: Bool = false;
     
-    
+    /// Global audio format AudioKit will default to
     public static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }

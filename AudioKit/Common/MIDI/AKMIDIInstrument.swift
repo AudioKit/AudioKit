@@ -11,7 +11,7 @@ import CoreAudio
 
 /// A version of AKInstrument specifically targeted to instruments that 
 /// should be triggerable via MIDI or sequenced with the sequencer.
-public class AKMIDIInstrument: AKNode {
+public class AKMIDIInstrument: AKNode, AKMIDIListener {
 
     // MARK: - Properties
     
@@ -60,24 +60,19 @@ public class AKMIDIInstrument: AKNode {
         }
     }
     
-    /// Handle MIDI commands that come in through NSNotificationCenter
+    /// Handle MIDI commands that come in externally
     ///
-    /// - parameter notification: Notification fo a note on or off event
+    /// - parameter note: MIDI Note number
+    /// - parameter velocity: MIDI velocity
+    /// - parameter channel: MIDI channel
     ///
-    public func handleMIDINotification(notification: NSNotification) {
-        let note     = Int((notification.userInfo?["note"])!     as! NSNumber)
-        let velocity = Int((notification.userInfo?["velocity"])! as! NSNumber)
-        let channel  = Int((notification.userInfo?["channel"])!  as! NSNumber)
-        
-        if(notification.name == AKMIDIStatus.NoteOn.name() && velocity > 0) {
+    public func midiNoteOn(note: Int, velocity: Int, channel: Int) {
+        if(velocity > 0){
             startNote(note, withVelocity: velocity, onChannel: channel)
-        } else if ((
-            notification.name == AKMIDIStatus.NoteOn.name() && velocity == 0) ||
-            notification.name == AKMIDIStatus.NoteOff.name()) {
+        }else{
             stopNote(note, onChannel: channel)
         }
     }
-    
     // MARK: - MIDI Note Start/Stop
     
     /// Start a note

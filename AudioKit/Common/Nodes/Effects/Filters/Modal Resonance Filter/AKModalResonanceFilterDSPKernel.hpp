@@ -35,6 +35,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_mode_create(&mode);
         sp_mode_init(sp, mode);
         mode->freq = 500.0;

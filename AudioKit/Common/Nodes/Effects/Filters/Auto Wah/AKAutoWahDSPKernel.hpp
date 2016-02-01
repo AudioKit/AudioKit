@@ -36,6 +36,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_autowah_create(&autowah);
         sp_autowah_init(sp, autowah);
         *autowah->wah = 0;

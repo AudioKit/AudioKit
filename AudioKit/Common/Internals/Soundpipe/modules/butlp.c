@@ -25,8 +25,6 @@ static int sp_butter_filter(SPFLOAT *in, SPFLOAT *out, SPFLOAT *a)
 {
     SPFLOAT t, y;
     t = *in - a[4] * a[6] - a[5] * a[7];
-    /*TODO: look into this function */
-    //t = csoundUndenormalizeDouble(t); /* Not needed on AMD */
     y = t * a[1] + a[2] * a[6] + a[3] * a[7];
     a[7] = a[6];
     a[6] = t;
