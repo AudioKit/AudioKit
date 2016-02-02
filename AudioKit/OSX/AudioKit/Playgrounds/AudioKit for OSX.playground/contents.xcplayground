@@ -36,6 +36,7 @@
         <page name='High Shelf Filter'/>
         <page name='Introduction and Hello World'/>
         <page name='Interactive Band Pass Filter'/>
+        <page name='Interactive Convolution'/>
         <page name='Interactive Decimator'/>
         <page name='Interactive Delay'/>
         <page name='Interactive Distortion'/>
