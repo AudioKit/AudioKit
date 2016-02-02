@@ -9,6 +9,7 @@
 import Cocoa
 
 public typealias Slider = NSSlider
+public typealias Label  = NSTextField
 
 public class AKPlaygroundView: NSView {
     
