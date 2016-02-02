@@ -36,6 +36,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_lpf18_create(&lpf18);
         sp_lpf18_init(sp, lpf18);
         lpf18->dist = 0.5;

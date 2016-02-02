@@ -132,6 +132,7 @@ int sp_pinknoise_compute(sp_data *sp, sp_pinknoise *p, SPFLOAT *in, SPFLOAT *out
     SPFLOAT *faust_in[] = {in};
     computepinknoise(dsp, 1, faust_in, faust_out);
 
-    *out = out1 * 10.0; // The 10.0 is a quick fix to give this module the same overall amplitude as noise
+    /* quick fix to give this module the same overall amplitude as white noise */
+    *out = out1 * 10.0; 
     return SP_OK;
 }

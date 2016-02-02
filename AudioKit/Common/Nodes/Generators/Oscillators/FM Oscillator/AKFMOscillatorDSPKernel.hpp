@@ -38,6 +38,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_fosc_create(&fosc);
         sp_fosc_init(sp, fosc, ftbl);
         

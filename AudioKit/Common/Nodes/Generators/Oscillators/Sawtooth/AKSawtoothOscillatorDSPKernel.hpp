@@ -37,6 +37,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_blsaw_create(&blsaw);
         sp_blsaw_init(sp, blsaw);
         *blsaw->freq = 440;

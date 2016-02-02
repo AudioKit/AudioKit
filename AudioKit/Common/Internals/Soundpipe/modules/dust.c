@@ -26,10 +26,10 @@ int sp_dust_destroy(sp_dust **p)
     return SP_OK;
 }
 
-int sp_dust_init(sp_data *sp, sp_dust *p, SPFLOAT amp, SPFLOAT density) 
+int sp_dust_init(sp_data *sp, sp_dust *p) 
 {
-    p->density = density;
-    p->amp = amp;
+    p->density = 10;
+    p->amp = 0.4;
     p->density0 = 0.0;
     p->thresh = 0.0;
     p->scale = 0.0;

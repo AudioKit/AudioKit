@@ -10,6 +10,16 @@ import Foundation
 import CoreMIDI
 
 /// MIDI input and output handler
+///
+/// You add midi listeners like this:
+/// ```
+/// var midiIn = AKMidi()
+/// midi.openMIDIIn()
+/// midi.addListener(someClass)
+/// ```
+/// ...where someClass conforms to the AKMIDIListener protocol
+///
+/// You then implement the methods you need from AKMIDIListener and use the data how you need.
 public class AKMIDI {
     
     // MARK: - Properties
@@ -43,6 +53,46 @@ public class AKMIDI {
     /// MIDI Out Port Name
     var midiOutName: CFString = "MIDI Out Port"
     
+    /// Array of all listeners
+    public var midiListeners:[AKMIDIListener] = []
+    
+    /// Add a listener to the listeners
+    public func addListener(listener:AKMIDIListener){
+        midiListeners.append(listener)
+    }
+    
+    private func handleMidiMessage(event:AKMIDIEvent){
+        for listener in midiListeners{
+            let type = event.status
+            switch type{
+                case AKMIDIStatus.ControllerChange:
+                    listener.midiController(Int(event.internalData[1]), value: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.ChannelAftertouch:
+                    listener.midiAfterTouch(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.NoteOn:
+                    listener.midiNoteOn(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.NoteOff:
+                    listener.midiNoteOff(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.PitchWheel:
+                    listener.midiPitchWheel(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.PolyphonicAftertouch:
+                    listener.midiAftertouchOnNote(Int(event.internalData[1]), pressure: Int(event.internalData[2]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.ProgramChange:
+                    listener.midiProgramChange(Int(event.internalData[1]), channel: Int(event.channel))
+                    break
+                case AKMIDIStatus.SystemCommand:
+                    listener.midiSystemCommand(event.internalData)
+                    break
+            }
+        }
+    }
+    
     private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
         let notification = midiNotification.memory
         print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
@@ -58,20 +108,20 @@ public class AKMIDI {
         let midiPortPtr = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
         let midiPort = midiPortPtr.memory
         */
-        let packetCount = Int(packetList.memory.numPackets)
+        let numPackets = Int(packetList.memory.numPackets)
         let packet = packetList.memory.packet as MIDIPacket
         var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
         packetPtr.initialize(packet)
-        
-        for _ in 0 ..< packetCount {
+        for var i = 0; i < numPackets; ++i {
             let event = AKMIDIEvent(packet: packetPtr.memory)
-            event.postNotification()
+            handleMidiMessage(event)
             packetPtr = MIDIPacketNext(packetPtr)
         }
+    
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize the AKMIDI system
     public init() {
 
@@ -104,7 +154,7 @@ public class AKMIDI {
         
         let sourceCount = MIDIGetNumberOfSources()
         print("SourceCount: \(sourceCount)")
-        for i in 0 ..< sourceCount {
+        for var i = 0; i < sourceCount; ++i {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
             inputName = nil
@@ -131,7 +181,7 @@ public class AKMIDI {
     public func printMIDIInputs() {
         let sourceCount = MIDIGetNumberOfSources()
         print("MIDI Inputs:")
-        for i in 0 ..< sourceCount {
+        for var i = 0; i < sourceCount; ++i {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
             inputName = nil
@@ -149,8 +199,8 @@ public class AKMIDI {
         print("Opening MIDI Out")
         var result = OSStatus(noErr)
         
-        let outputCount = MIDIGetNumberOfDestinations()
-        print("Number of MIDI Out ports = \(outputCount)")
+        let numOutputs = MIDIGetNumberOfDestinations()
+        print("Number of MIDI Out ports = \(numOutputs)")
         var foundDest = false
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         
@@ -160,7 +210,7 @@ public class AKMIDI {
             print("error creating midi out port : \(result)")
         }
         
-        for i in 0 ..< outputCount {
+        for var i = 0; i < numOutputs; ++i {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>?
             endpointName = nil
@@ -179,9 +229,9 @@ public class AKMIDI {
     
     /// Prints a list of all MIDI Destinations
     public func printMIDIDestinations() {
-        let outputCount = MIDIGetNumberOfDestinations()
+        let numOutputs = MIDIGetNumberOfDestinations()
         print("MIDI Destinations:")
-        for i in  0 ..< outputCount {
+        for var i = 0; i < numOutputs; ++i {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>?
             endpointName = nil
@@ -201,7 +251,7 @@ public class AKMIDI {
         var packet = UnsafeMutablePointer<MIDIPacket>()
         packet = MIDIPacketListInit(packetListPtr)
         packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
-        for _ in 0 ..< midiEndpoints.count {
+        for var i = 0; i < midiEndpoints.count; ++i {
             result = MIDISend(midiOutPort, midiEndpoints[0], packetListPtr)
             if result == OSStatus(noErr) {
                 //print("sent midi")

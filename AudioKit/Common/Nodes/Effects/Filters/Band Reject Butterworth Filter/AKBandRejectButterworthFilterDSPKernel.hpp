@@ -35,6 +35,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_butbr_create(&butbr);
         sp_butbr_init(sp, butbr);
         butbr->freq = 3000;

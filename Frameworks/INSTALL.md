@@ -10,6 +10,17 @@ AudioKit 3 now requires at least iOS 9.0, OS X 10.11 (El Capitan) or tvOS 9.0. T
 * Drag and drop the `AudioKit.framework` bundle in the **Embedded Binaries** section of the **General** tab.
 * If you didn't copy the framework to your project, go to the **Build Settings** tab and make sure that the **Framework Search Paths** options contains the path where the framework is located.
 
+### Handling Bitcode
+
+If your project has Bitcode enabled (which is mandatory on tvOS), then you need to add a new *Run Script* build phase to your target with the following script:
+
+`"$BUILT_PRODUCTS_DIR/$FRAMEWORKS_FOLDER_PATH/AudioKit.framework/fix-framework.sh"`
+
+Make sure this script is run **after** the existing *Embed Frameworks* build phase.
+
+Calling this script is required for your App Store submissions to pass validation when using Bitcode. While optional for non-Bitcode submissions, you may still add this script as it will somewhat reduce the size of the framework embedded in your app.
+
+
 ## Alternative: compile the framework from source
 
 This may be the preferred method if you need to debug code using AudioKit, as Xcode 7.1 is still notoriously bad at handling precompiled Swift frameworks in other projects.
