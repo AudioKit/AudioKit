@@ -12,7 +12,6 @@ var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.1
 AudioKit.output = oscillator
 AudioKit.start()
-oscillator.start()
 
 class PlaygroundView: AKPlaygroundView {
     
@@ -25,6 +24,10 @@ class PlaygroundView: AKPlaygroundView {
     
     override func setup() {
         addTitle("FM Oscillator")
+        
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+
         
         frequencyLabel = addLabel("Base Frequency: 440")
         addSlider("setBaseFrequency:", value: 440, minimum: 200, maximum: 800)
@@ -44,27 +47,33 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
+    func start() {
+        oscillator.play()
+    }
+    func stop() {
+        oscillator.stop()
+    }
+    
     func setBaseFrequency(slider: Slider) {
-        oscillator.baseFrequency = Double(slider.floatValue)
+        oscillator.ramp(baseFrequency: Double(slider.floatValue))
         let baseFrequency = String(format: "%0.1f", oscillator.baseFrequency)
         frequencyLabel!.stringValue = "Base Frequency: \(baseFrequency)"
     }
     
     func setCarrierMultiplier(slider: Slider) {
-        oscillator.carrierMultiplier = Double(slider.floatValue)
+        oscillator.ramp(carrierMultiplier: Double(slider.floatValue))
         let carrierMultiplier = String(format: "%0.3f", oscillator.carrierMultiplier)
         carrierMultiplierLabel!.stringValue = "Carrier Multiplier: \(carrierMultiplier)"
     }
     
-    
     func setModulatingMultiplier(slider: Slider) {
-        oscillator.modulatingMultiplier = Double(slider.floatValue)
+        oscillator.ramp(modulatingMultiplier: Double(slider.floatValue))
         let modulatingMultiplier = String(format: "%0.3f", oscillator.modulatingMultiplier)
         modulatingMultiplierLabel!.stringValue = "Modulation Multiplier: \(modulatingMultiplier)"
     }
     
     func setModulationIndex(slider: Slider) {
-        oscillator.modulationIndex = Double(slider.floatValue)
+        oscillator.ramp(modulationIndex: Double(slider.floatValue))
         let modulationIndex = String(format: "%0.3f", oscillator.modulationIndex)
         modulationIndexLabel!.stringValue = "Modulation Index: \(modulationIndex)"
     }
