@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -36,6 +36,7 @@
         <page name='High Shelf Filter'/>
         <page name='Introduction and Hello World'/>
         <page name='Interactive Convolution'/>
+        <page name='Interactive Band Pass Filter'/>
         <page name='Interactive FM Oscillator'/>
         <page name='Interactive Oscillator'/>
         <page name='iOS-only Reverb'/>
