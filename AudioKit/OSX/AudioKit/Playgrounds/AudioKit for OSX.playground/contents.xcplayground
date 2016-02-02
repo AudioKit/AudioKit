@@ -37,6 +37,7 @@
         <page name='Introduction and Hello World'/>
         <page name='Interactive Band Pass Filter'/>
         <page name='Interactive Convolution'/>
+        <page name='Interactive FM Oscillator'/>
         <page name='Interactive Decimator'/>
         <page name='Interactive Delay'/>
         <page name='Interactive Distortion'/>
@@ -45,6 +46,7 @@
         <page name='Interactive High Shelf Filter'/>
         <page name='Interactive Low Pass Filter'/>
         <page name='Interactive Low Shelf Filter'/>
+        <page name='Interactive Oscillator'/>
         <page name='Interactive Parametric Equalizer'/>
         <page name='Interactive Peak Limiter'/>
         <page name='Interactive Ring Modulator'/>
@@ -105,5 +107,6 @@
         <page name='Variable Delay'/>
         <page name='Variable Delay Operation'/>
         <page name='White Noise Generator'/>
+        <page name='XY Pad'/>
     </pages>
 </playground>
