@@ -10,44 +10,42 @@ import XCPlayground
 import AudioKit
 
 class ViewController: AKPlaygroundViewController {
-    
-    //: Create an instance of AudioKit and an oscillator
-    let audiokit = AKManager.sharedInstance
+
     var player: AKAudioPlayer?
     var mixer: AKDryWetMixer?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         //: Set up AudioKit's audio graph
         let bundle = NSBundle.mainBundle()
         let file = bundle.pathForResource("drumloop", ofType: "wav")
         player = AKAudioPlayer(file!)
         player!.looping = true
-        
+
         let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
         let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
-        
+
         var stairwellConvolution = AKConvolution.init(player!, impulseResponseFileURL: stairwell, partitionLength: 8192)
         var dishConvolution = AKConvolution.init(player!, impulseResponseFileURL: dish, partitionLength: 8192)
-        
+
         mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0)
-        
-        audiokit.audioOutput = mixer
-        audiokit.start()
+
+        AudioKit.output = mixer
+        AudioKit.start()
         stairwellConvolution.start()
         dishConvolution.start()
 
-        
+
         //: Create the UI
         addTitle("AKConvolution")
         addSwitch("toggle:")
         addLabel("Balance: Stairwell to Dish")
         addSlider("setBalance:")
     }
-    
+
     //: Handle UI Events
-    
+
     func toggle(switch: UISwitch) {
         if player!.isPlaying {
             player!.stop()
@@ -55,12 +53,12 @@ class ViewController: AKPlaygroundViewController {
             player!.play()
         }
     }
-    
+
     func setBalance(slider: UISlider) {
         mixer?.balance = Double(slider.value)
     }
 
-    
+
 }
 
 ViewController()
