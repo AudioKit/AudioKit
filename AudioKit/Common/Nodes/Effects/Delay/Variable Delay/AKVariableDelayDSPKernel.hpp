@@ -35,6 +35,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         plumber_register(&pd);
         plumber_init(&pd);
         pd.sp = sp;

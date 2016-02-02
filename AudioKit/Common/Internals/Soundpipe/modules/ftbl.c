@@ -17,7 +17,6 @@ int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size)
     memset(ftp->tbl, 0, sizeof(SPFLOAT) * (size + 1));
     ftp->sicvt = 1.0 * SP_FT_MAXLEN / sp->sr;
     ftp->lobits = log2(SP_FT_MAXLEN / size);
-//    ftp->lomask = pow(2, ftp->lobits) - 1;
     ftp->lomask = (2^ftp->lobits) - 1;
     ftp->lodiv = 1.0 / pow(2, ftp->lobits);
     return SP_OK;

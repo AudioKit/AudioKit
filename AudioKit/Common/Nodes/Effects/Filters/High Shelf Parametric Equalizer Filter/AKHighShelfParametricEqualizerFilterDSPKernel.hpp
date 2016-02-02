@@ -36,6 +36,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_pareq_create(&pareq);
         sp_pareq_init(sp, pareq);
         pareq->fc = 1000;

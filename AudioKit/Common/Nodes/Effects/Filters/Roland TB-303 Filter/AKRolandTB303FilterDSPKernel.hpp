@@ -37,6 +37,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_tbvcf_create(&tbvcf);
         sp_tbvcf_init(sp, tbvcf);
         tbvcf->fco = 500;
