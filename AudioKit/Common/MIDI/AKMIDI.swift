@@ -108,11 +108,11 @@ public class AKMIDI {
         let midiPortPtr = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
         let midiPort = midiPortPtr.memory
         */
-        let numPackets = Int(packetList.memory.numPackets)
+        let packetCount = Int(packetList.memory.numPackets)
         let packet = packetList.memory.packet as MIDIPacket
         var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
         packetPtr.initialize(packet)
-        for var i = 0; i < numPackets; ++i {
+        for _ in 0 ..< packetCount {
             let event = AKMIDIEvent(packet: packetPtr.memory)
             handleMidiMessage(event)
             packetPtr = MIDIPacketNext(packetPtr)
@@ -154,7 +154,7 @@ public class AKMIDI {
         
         let sourceCount = MIDIGetNumberOfSources()
         print("SourceCount: \(sourceCount)")
-        for var i = 0; i < sourceCount; ++i {
+        for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
             inputName = nil
@@ -181,7 +181,7 @@ public class AKMIDI {
     public func printMIDIInputs() {
         let sourceCount = MIDIGetNumberOfSources()
         print("MIDI Inputs:")
-        for var i = 0; i < sourceCount; ++i {
+        for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
             inputName = nil
@@ -199,8 +199,8 @@ public class AKMIDI {
         print("Opening MIDI Out")
         var result = OSStatus(noErr)
         
-        let numOutputs = MIDIGetNumberOfDestinations()
-        print("Number of MIDI Out ports = \(numOutputs)")
+        let outputCount = MIDIGetNumberOfDestinations()
+        print("Number of MIDI Out ports = \(outputCount)")
         var foundDest = false
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         
@@ -210,7 +210,7 @@ public class AKMIDI {
             print("error creating midi out port : \(result)")
         }
         
-        for var i = 0; i < numOutputs; ++i {
+        for i in 0 ..< outputCount {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>?
             endpointName = nil
@@ -229,9 +229,9 @@ public class AKMIDI {
     
     /// Prints a list of all MIDI Destinations
     public func printMIDIDestinations() {
-        let numOutputs = MIDIGetNumberOfDestinations()
+        let outputCount = MIDIGetNumberOfDestinations()
         print("MIDI Destinations:")
-        for var i = 0; i < numOutputs; ++i {
+        for i in  0 ..< outputCount {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>?
             endpointName = nil
@@ -251,7 +251,7 @@ public class AKMIDI {
         var packet = UnsafeMutablePointer<MIDIPacket>()
         packet = MIDIPacketListInit(packetListPtr)
         packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
-        for var i = 0; i < midiEndpoints.count; ++i {
+        for _ in 0 ..< midiEndpoints.count {
             result = MIDISend(midiOutPort, midiEndpoints[0], packetListPtr)
             if result == OSStatus(noErr) {
                 //print("sent midi")

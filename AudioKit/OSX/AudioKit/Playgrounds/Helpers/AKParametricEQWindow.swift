@@ -49,7 +49,7 @@ public class AKParametricEQWindow: NSWindow {
         super.init(contentRect: NSRect(x: padding, y: padding, width: windowWidth, height: windowHeight),
             styleMask: NSTitledWindowMask,
             backing: .Buffered,
-            `defer`: false)
+            defer: false)
         self.hasShadow = true
         self.styleMask = NSBorderlessWindowMask | NSResizableWindowMask
         self.movableByWindowBackground = true
