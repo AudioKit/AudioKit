@@ -73,7 +73,7 @@ public struct AKMIDIEvent {
                 var i = 0
                 for (_, value) in mirrorData.children{
                     internalData.append(UInt8(value as! UInt8))
-                    i++
+                    i += 1
                     if(value as! UInt8 == 247){
                         break;
                     }
