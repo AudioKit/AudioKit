@@ -37,8 +37,6 @@
         <page name='Introduction and Hello World'/>
         <page name='Interactive Convolution'/>
         <page name='Interactive FM Oscillator'/>
-        <page name='Interactive Decimator'/>
-        <page name='Interactive Delay'/>
         <page name='Interactive Distortion'/>
         <page name='Interactive Dynamics Processor'/>
         <page name='Interactive High Pass Filter'/>

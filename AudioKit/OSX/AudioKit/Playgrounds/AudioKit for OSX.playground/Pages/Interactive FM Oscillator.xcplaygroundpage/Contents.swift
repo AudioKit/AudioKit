@@ -23,7 +23,7 @@ class PlaygroundView: AKPlaygroundView {
     var modulationIndexLabel: Label?
 
     override func setup() {
-        addTitle("AKFMOscillator")
+        addTitle("FM Oscillator")
 
         addButton("Start", action: "start")
         addButton("Stop", action: "stop")
