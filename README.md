@@ -102,7 +102,7 @@ AudioKit was created by the following team whose contributions are fully chronic
 
 * **Aurelius Prochazka**: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
 * **Jeff Cooper**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
-* **Matthew Fecher**: Sound design, graphic design, and programming of the Swift Synth example.
+* **Matthew Fecher**: Sound design, graphic design, and programming of the Analog Synth X example.
 * **Nicholas Arner**: Longtime contributor to AudioKit and AudioKit's web site.
 * **Paul Batchelor**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
 * **Simon Gladman**: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.

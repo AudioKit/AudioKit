@@ -30,6 +30,13 @@ extension SynthViewController {
         let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
         return scaledValue * 4
     }
+    
+    func crusherFreqFromValue(value: Double) -> Double {
+        // Logarithmic scale: reverse knobvalue to frequency
+        let value = 1 - value
+        let scaledValue = Double.scaleRangeLog(value, rangeMin: 50, rangeMax: 8000)
+        return scaledValue
+    }
 
     //*****************************************************************
     // MARK: - SegmentViews
