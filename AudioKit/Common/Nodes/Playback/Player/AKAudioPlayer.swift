@@ -17,6 +17,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     
     private var sampleRate : Double = 1.0
     private var totalFrameCount : Int64
+    private var initialFrameCount : Int64 = -1
     
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
@@ -67,7 +68,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer = AVAudioPlayerNode()
         super.init()
         AudioKit.engine.attachNode(internalPlayer)
-
+        
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attachNode(mixer)
         AudioKit.engine.connect(internalPlayer, to: mixer, format: audioFormat)
@@ -91,6 +92,12 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             internalPlayer.scheduleBuffer(audioFileBuffer, atTime: nil, options: options, completionHandler: nil)
         }
         internalPlayer.play()
+        // get the initialFrameCount for currentTime as it's relative to the audio engine's time.
+        if (initialFrameCount == -1){
+            if let t = internalPlayer.lastRenderTime {
+                initialFrameCount = t.sampleTime
+            }
+        }
     }
     
     /// Pause playback
@@ -103,13 +110,13 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.stop()
     }
     
-    // The currentTime
+    /// Current playback time (in seconds)
     public var currentTime : Double {
         
         if internalPlayer.playing {
             if let time = internalPlayer.lastRenderTime {
                 // wrap the sampleTime by the totalFrameCount as sampleTime does not reset when audio loops.
-                return Double( ( Int64(time.sampleTime) % totalFrameCount) ) / sampleRate
+                return Double( ( Int64(time.sampleTime - initialFrameCount) % totalFrameCount) ) / sampleRate
             }
         }
         return 0.0
