@@ -43,7 +43,6 @@ class PlaygroundView: AKPlaygroundView {
         
         bandwidthLabel = addLabel("Bandwidth 600 Cents")
         addSlider("setBandwidth:", value: 600, minimum: 100, maximum: 12000)
-        self.backgroundColor = UIColor.whiteColor()
     }
     
     //: Handle UI Events

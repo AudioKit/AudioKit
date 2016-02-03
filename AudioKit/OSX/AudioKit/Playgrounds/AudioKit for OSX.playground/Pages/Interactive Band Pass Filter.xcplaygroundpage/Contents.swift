@@ -7,18 +7,13 @@
 import XCPlayground
 import AudioKit
 
-//: This section prepares the player and the microphone
-var mic = AKMicrophone()
-mic.volume = 0
-
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 
 //: Next, we'll connect the audio sources to a band pass filter
-let inputMix = AKMixer(mic, player)
-var bandPassFilter = AKBandPassFilter(inputMix)
+var bandPassFilter = AKBandPassFilter(player)
 
 //: Set the parameters of the band pass filter here
 bandPassFilter.centerFrequency = 5000 // Hz
@@ -38,13 +33,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Band Pass Filter")
         
-        addLabel("Microphone")
-        addSlider("setMicrophoneVolume:")
-        
         addLabel("Audio Player")
         addButton("Start", action: "start")
         addButton("Stop", action: "stop")
         
+        addLabel("Band Pass Filter Parameters")
         centerFrequencyLabel = addLabel("Center Frequency: 5000 Hz")
         addSlider("setCenterFrequency:", value: 5000, minimum: 20, maximum: 22050)
         
@@ -57,30 +50,26 @@ class PlaygroundView: AKPlaygroundView {
     func start() {
         player.play()
     }
+    
     func stop() {
         player.stop()
     }
     
-    func setMicrophoneVolume(slider: Slider) {
-        mic.volume = Double(slider.floatValue)
-    }
-    
     func setCenterFrequency(slider: Slider) {
-        bandPassFilter.centerFrequency = Double(slider.floatValue)
+        bandPassFilter.centerFrequency = Double(slider.value)
         let frequency = String(format: "%0.1f", bandPassFilter.centerFrequency)
-        centerFrequencyLabel!.stringValue = "Center Frequency: \(frequency) Hz"
+        centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
     }
     
     func setBandwidth(slider: Slider) {
-        bandPassFilter.bandwidth = Double(slider.floatValue)
+        bandPassFilter.bandwidth = Double(slider.value)
         let bandwidth = String(format: "%0.1f", bandPassFilter.bandwidth)
-        bandwidthLabel!.stringValue = "Bandwidth: \(bandwidth) Cents"
+        bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
     }
-    
-    
 }
 
-let view = PlaygroundView(frame: NSRect(x: 0, y: 0, width: 500, height: 550));
+
+let view = PlaygroundView(frame: CGRectMake(0, 0, 500, 350));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
