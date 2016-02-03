@@ -383,11 +383,19 @@ class SynthViewController: UIViewController {
         }
     }
     
-    // About App
-    @IBAction func audioKitHomepage(sender: UIButton) {
-        openURL("http://audiokit.io")
-    }
     
+    @IBAction func cpuEfficientToggled(sender: UIButton) {
+        if sender.selected {
+            sender.selected = false
+            statusLabel.text = "CPU Efficient Mode Off"
+        } else {
+            sender.selected = true
+            statusLabel.text = "CPU Efficient Mode On"
+            // TODO: CPU Efficient CODE HERE
+        }
+    }
+
+    // About App
     @IBAction func buildThisSynth(sender: RoundedButton) {
         openURL("http://audiokit.io/examples/AnalogSynthX")
     }
