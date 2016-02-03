@@ -2,71 +2,60 @@
 //:
 //: ---
 //:
-//: ## Interactive Oscillator
+//: ## Interactive FM Oscillator
 //: ### Open the timeline view to use the controls this playground sets up.
 //:
-import UIKit
 import XCPlayground
 import AudioKit
 
-class ViewController: AKPlaygroundViewController {
-    
-//: Create an instance of AudioKit and an oscillator
-    let audiokit = AKManager.sharedInstance
-    var oscillator = AKOscillator()
-    
-//: UI Elements we'll need to be able to access
-    var frequencyLabel: UILabel?
-    var amplitudeLabel: UILabel?
-    
+var oscillator = AKOscillator()
+oscillator.amplitude = 0.1
+AudioKit.output = oscillator
+AudioKit.start()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-//: Set up AudioKit's audio graph
-        audiokit.audioOutput = oscillator
-        audiokit.start()
-
-//: Starting values
-        oscillator.amplitude = 0.1
+class PlaygroundView: AKPlaygroundView {
+    
+    //: UI Elements we'll need to be able to access
+    var frequencyLabel: Label?
+    var amplitudeLabel: Label?
+    
+    override func setup() {
+        addTitle("Oscillator")
         
-//: Create the UI
-        addTitle("AKOscillator")
-        addSwitch("toggle:")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+        
         frequencyLabel = addLabel("Frequency: 440")
         addSlider("setFrequency:", value: 440, minimum: 200, maximum: 800)
+        
         amplitudeLabel = addLabel("Amplitude: 0.1")
         addSlider("setAmplitude:", value: 0.1)
     }
     
-//: Handle UI Events
+    //: Handle UI Events
     
-    func toggle(switch: UISwitch) {
-        if oscillator.isPlaying {
-            oscillator.stop()
-        } else {
-            oscillator.start()
-        }
+    func start() {
+        oscillator.play()
+    }
+    func stop() {
+        oscillator.stop()
     }
     
-    func setFrequency(slider: UISlider) {
-        oscillator.frequency = Double(slider.value)
+    func setFrequency(slider: Slider) {
+        oscillator.ramp(frequency: Double(slider.value))
         let frequency = String(format: "%0.1f", oscillator.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
     }
     
-    func setAmplitude(slider: UISlider) {
+    func setAmplitude(slider: Slider) {
         oscillator.ramp(amplitude: Double(slider.value))
         let amp = String(format: "%0.3f", oscillator.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
-    
-
 }
 
-ViewController()
-
-XCPlaygroundPage.currentPage.liveView = ViewController()
+let view = PlaygroundView(frame: CGRectMake(0, 0, 500, 350));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
