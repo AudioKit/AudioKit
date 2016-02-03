@@ -8,8 +8,44 @@
 
 import Cocoa
 
-public typealias Slider = NSSlider
-public typealias Label  = NSTextField
+public typealias Label  = AKLabel
+public typealias Slider = AKSlider
+
+public class AKLabel: NSTextField {
+    
+    public override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    public var text: String = "" {
+        didSet {
+        stringValue = text
+        }
+    }
+}
+
+
+public class AKSlider: NSSlider {
+    
+    public override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    public var value: Float {
+        get {
+            return floatValue
+        }
+        set {
+            floatValue = value
+        }
+    }
+}
 
 public class AKPlaygroundView: NSView {
     
@@ -30,7 +66,7 @@ public class AKPlaygroundView: NSView {
         positionIndex += 1
         lastButton = nil
     }
-
+    
     
     public func addTitle(text: String) -> NSTextField {
         let newLabel = NSTextField(frame: CGRectMake(0, 0, self.bounds.width, 2 * elementHeight))
@@ -68,9 +104,9 @@ public class AKPlaygroundView: NSView {
         return newButton
     }
     
-    public func addLabel(text: String) -> NSTextField {
+    public func addLabel(text: String) -> AKLabel {
         lastButton = nil
-        let newLabel = NSTextField(frame: CGRectMake(0, 0, self.bounds.width, elementHeight))
+        let newLabel = AKLabel(frame: CGRectMake(0, 0, self.bounds.width, elementHeight))
         newLabel.stringValue = text
         newLabel.editable = false
         newLabel.drawsBackground = false
@@ -82,9 +118,9 @@ public class AKPlaygroundView: NSView {
         return newLabel
     }
     
-    public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> NSSlider {
+    public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> AKSlider {
         lastButton = nil
-        let newSlider = NSSlider(frame: CGRectMake(0, 0, self.bounds.width, 20))
+        let newSlider = AKSlider(frame: CGRectMake(0, 0, self.bounds.width, 20))
         newSlider.frame.origin.y = self.bounds.height -  CGFloat(positionIndex * horizontalSpacing - 10)
         newSlider.minValue = Double(minimum)
         newSlider.maxValue = Double(maximum)
