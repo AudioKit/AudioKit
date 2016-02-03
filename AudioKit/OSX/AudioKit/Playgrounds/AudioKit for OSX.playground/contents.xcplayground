@@ -12,13 +12,13 @@
         <page name='Busy Signal'/>
         <page name='Clip Operation'/>
         <page name='Comb Filter Reverb'/>
-        <page name='Complex Distortion'/>
         <page name='Connecting Nodes'/>
         <page name='Convolution'/>
         <page name='Custom Generator'/>
         <page name='Decimator'/>
         <page name='Delay'/>
         <page name='Dial Tone'/>
+        <page name='Distortion'/>
         <page name='Drum Synthesizers'/>
         <page name='Dripping Sounds'/>
         <page name='Dry Wet Mixer'/>
@@ -37,10 +37,7 @@
         <page name='Introduction and Hello World'/>
         <page name='Interactive Convolution'/>
         <page name='Interactive FM Oscillator'/>
-        <page name='Interactive Distortion'/>
         <page name='Interactive Oscillator'/>
-        <page name='Interactive Ring Modulator'/>
-        <page name='Interactive Time Stretching and Pitch Shifting'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Linear and Exponential Segment Operations'/>
         <page name='Low Pass Filter'/>
@@ -68,7 +65,7 @@
         <page name='Pink Noise Generator'/>
         <page name='Plucked String'/>
         <page name='Plucked String Operation'/>
-        <page name='Ring Modulation'/>
+        <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>
         <page name='Sampler Instrument - EXS24'/>

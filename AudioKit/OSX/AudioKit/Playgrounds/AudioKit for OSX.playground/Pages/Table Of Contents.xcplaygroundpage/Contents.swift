@@ -26,16 +26,16 @@
 //: * [Band Pass Filter](Band%20Pass%20Filter)
 //: * [Decimator](Decimator)
 //: * [Delay](Delay)
-//: * [Interactive Distortion](Interactive%20Distortion)
-//: * [Interactive Dynamics Processor](Interactive%20Dynamics%20Processor)
+//: * [Distortion](Distortion)
+//: * [Dynamics Processor](Dynamics%20Processor)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
-//: * [Interactive Parametric Equalizer](Interactive%20Parametric%20Equalizer)
-//: * [Interactive Peak Limiter](Interactive%20Peak%20Limiter)
-//: * [Interactive Ring Modulator](Interactive%20Ring%20Modulator)
-//: * [Interactive Time Stretching and Pitch Shifting](Interactive%20Time%20Stretching%20and%20Pitch%20Shifting)
+//: * [Parametric Equalizer](Parametric%20Equalizer)
+//: * [Peak Limiter](Peak%20Limiter)
+//: * [Ring Modulator](Ring%20Modulator)
+//: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //:
 //: ## Basic Tutorials
 //:
