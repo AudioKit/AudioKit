@@ -9,32 +9,25 @@ import UIKit
 import XCPlayground
 import AudioKit
 
-class ViewController: AKPlaygroundViewController {
-    
-//: Create an instance of AudioKit and an oscillator
-    let audiokit = AKManager.sharedInstance
-    var oscillator = AKFMOscillator()
+var oscillator = AKFMOscillator()
+oscillator.amplitude = 0.1
+AudioKit.output = oscillator
+AudioKit.start()
+
+class PlaygroundView: AKPlaygroundView {
     
 //: UI Elements we'll need to be able to access
-    var frequencyLabel: UILabel?
-    var amplitudeLabel: UILabel?
-    var carrierMultiplierLabel: UILabel?
-    var modulatingMultiplierLabel: UILabel?
-    var modulationIndexLabel: UILabel?
+    var frequencyLabel: Label?
+    var amplitudeLabel: Label?
+    var carrierMultiplierLabel: Label?
+    var modulatingMultiplierLabel: Label?
+    var modulationIndexLabel: Label?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-//: Set up AudioKit's audio graph
-        audiokit.audioOutput = oscillator
-        audiokit.start()
-        
-//: Starting values
-        oscillator.amplitude = 0.1
-        
-//: Create the UI
+    override func setup() {
         addTitle("AKFMOscillator")
-        addSwitch("toggle:")
+        
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
         
         frequencyLabel = addLabel("Base Frequency: 440")
         addSlider("setBaseFrequency:", value: 440, minimum: 200, maximum: 800)
@@ -54,41 +47,40 @@ class ViewController: AKPlaygroundViewController {
     
 //: Handle UI Events
     
-    func toggle(switch: UISwitch) {
-        if oscillator.isPlaying {
-            oscillator.stop()
-        } else {
-            oscillator.start()
-        }
+    func start() {
+        oscillator.play()
+    }
+    func stop() {
+        oscillator.stop()
     }
     
-    func setBaseFrequency(slider: UISlider) {
+    func setBaseFrequency(slider: Slider) {
         oscillator.baseFrequency = Double(slider.value)
         let baseFrequency = String(format: "%0.1f", oscillator.baseFrequency)
         frequencyLabel!.text = "Base Frequency: \(baseFrequency)"
     }
 
-    func setCarrierMultiplier(slider: UISlider) {
+    func setCarrierMultiplier(slider: Slider) {
         oscillator.carrierMultiplier = Double(slider.value)
         let carrierMultiplier = String(format: "%0.3f", oscillator.carrierMultiplier)
         carrierMultiplierLabel!.text = "Carrier Multiplier: \(carrierMultiplier)"
     }
     
     
-    func setModulatingMultiplier(slider: UISlider) {
+    func setModulatingMultiplier(slider: Slider) {
         oscillator.modulatingMultiplier = Double(slider.value)
         let modulatingMultiplier = String(format: "%0.3f", oscillator.modulatingMultiplier)
         modulatingMultiplierLabel!.text = "Modulation Multiplier: \(modulatingMultiplier)"
     }
 
-    func setModulationIndex(slider: UISlider) {
+    func setModulationIndex(slider: Slider) {
         oscillator.modulationIndex = Double(slider.value)
         let modulationIndex = String(format: "%0.3f", oscillator.modulationIndex)
         modulationIndexLabel!.text = "Modulation Index: \(modulationIndex)"
     }
 
     
-    func setAmplitude(slider: UISlider) {
+    func setAmplitude(slider: Slider) {
         oscillator.ramp(amplitude: Double(slider.value))
         let amp = String(format: "%0.3f", oscillator.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
@@ -97,9 +89,8 @@ class ViewController: AKPlaygroundViewController {
     
 }
 
-ViewController()
-
-XCPlaygroundPage.currentPage.liveView = ViewController()
+let view = PlaygroundView(frame: CGRectMake(0, 0, 500, 550));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

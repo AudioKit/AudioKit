@@ -14,81 +14,79 @@ AudioKit.output = oscillator
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
-    //: UI Elements we'll need to be able to access
+
+//: UI Elements we'll need to be able to access
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
     var carrierMultiplierLabel: Label?
     var modulatingMultiplierLabel: Label?
     var modulationIndexLabel: Label?
-    
+
     override func setup() {
-        addTitle("FM Oscillator")
-        
+        addTitle("AKFMOscillator")
+
         addButton("Start", action: "start")
         addButton("Stop", action: "stop")
 
-        
         frequencyLabel = addLabel("Base Frequency: 440")
         addSlider("setBaseFrequency:", value: 440, minimum: 200, maximum: 800)
-        
+
         carrierMultiplierLabel = addLabel("Carrier Multiplier: 1")
         addSlider("setCarrierMultiplier:", value: 1, minimum: 0, maximum: 20)
-        
+
         modulatingMultiplierLabel = addLabel("Modulating Multiplier: 1")
         addSlider("setModulatingMultiplier:", value: 1, minimum: 0, maximum: 20)
-        
+
         modulationIndexLabel = addLabel("Modulation Index: 1")
         addSlider("setModulationIndex:", value: 1, minimum: 0, maximum: 100)
-        
+
         amplitudeLabel = addLabel("Amplitude: 0.1")
         addSlider("setAmplitude:", value: 0.1)
     }
-    
-    //: Handle UI Events
-    
+
+//: Handle UI Events
+
     func start() {
         oscillator.play()
     }
     func stop() {
         oscillator.stop()
     }
-    
+
     func setBaseFrequency(slider: Slider) {
-        oscillator.ramp(baseFrequency: Double(slider.floatValue))
+        oscillator.baseFrequency = Double(slider.value)
         let baseFrequency = String(format: "%0.1f", oscillator.baseFrequency)
-        frequencyLabel!.stringValue = "Base Frequency: \(baseFrequency)"
+        frequencyLabel!.text = "Base Frequency: \(baseFrequency)"
     }
-    
+
     func setCarrierMultiplier(slider: Slider) {
-        oscillator.ramp(carrierMultiplier: Double(slider.floatValue))
+        oscillator.carrierMultiplier = Double(slider.value)
         let carrierMultiplier = String(format: "%0.3f", oscillator.carrierMultiplier)
-        carrierMultiplierLabel!.stringValue = "Carrier Multiplier: \(carrierMultiplier)"
+        carrierMultiplierLabel!.text = "Carrier Multiplier: \(carrierMultiplier)"
     }
-    
+
+
     func setModulatingMultiplier(slider: Slider) {
-        oscillator.ramp(modulatingMultiplier: Double(slider.floatValue))
+        oscillator.modulatingMultiplier = Double(slider.value)
         let modulatingMultiplier = String(format: "%0.3f", oscillator.modulatingMultiplier)
-        modulatingMultiplierLabel!.stringValue = "Modulation Multiplier: \(modulatingMultiplier)"
+        modulatingMultiplierLabel!.text = "Modulation Multiplier: \(modulatingMultiplier)"
     }
-    
+
     func setModulationIndex(slider: Slider) {
-        oscillator.ramp(modulationIndex: Double(slider.floatValue))
+        oscillator.modulationIndex = Double(slider.value)
         let modulationIndex = String(format: "%0.3f", oscillator.modulationIndex)
-        modulationIndexLabel!.stringValue = "Modulation Index: \(modulationIndex)"
+        modulationIndexLabel!.text = "Modulation Index: \(modulationIndex)"
     }
-    
-    
+
+
     func setAmplitude(slider: Slider) {
-        oscillator.ramp(amplitude: Double(slider.floatValue))
+        oscillator.ramp(amplitude: Double(slider.value))
         let amp = String(format: "%0.3f", oscillator.amplitude)
-        amplitudeLabel!.stringValue = "Amplitude: \(amp)"
+        amplitudeLabel!.text = "Amplitude: \(amp)"
     }
-    
-    
 }
 
-let view = PlaygroundView(frame: NSRect(x: 0, y: 0, width: 500, height: 550));
+let view = PlaygroundView(frame: CGRectMake(0, 0, 500, 550));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
