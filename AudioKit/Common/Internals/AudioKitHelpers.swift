@@ -81,6 +81,15 @@ extension Double {
             self = min * exp(log(max / min) * self);
         }
     }
+    
+    /// Calculate frequency from a floating point MIDI Note Number
+    ///
+    /// - returns: Frequency (Double) in Hz
+    ///
+    public func midiNoteToFrequency(aRef : Double = 440.0) -> Double {
+        return pow(2.0, (self - 69.0) / 12.0) * aRef
+    }
+
 }
 
 // MARK: - MIDI Helpers
@@ -92,10 +101,12 @@ extension Int {
     ///
     /// - returns: Frequency (Double) in Hz
     ///
-    public func midiNoteToFrequency() -> Double {
-        return pow(2.0, (Double(self) - 69.0) / 12.0) * 440.0
+    public func midiNoteToFrequency(aRef : Double = 440.0) -> Double {
+        return pow(2.0, (Double(self) - 69.0) / 12.0) * aRef
     }
 }
+
+
 
 /// Potential MIDI Status messages
 ///
