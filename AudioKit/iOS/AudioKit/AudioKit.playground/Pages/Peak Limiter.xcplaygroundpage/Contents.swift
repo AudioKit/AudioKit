@@ -11,28 +11,89 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
+
 var peakLimiter = AKPeakLimiter(player)
 
-//: Set the parameters of the Peak Limiter here
-peakLimiter.attackTime = 0.001 // seconds
-peakLimiter.decayTime  = 0.01  // seconds
-peakLimiter.preGain    = 10 // dB (-40 to 40)
+//: Set the parameters here
+peakLimiter.attackTime = 0.001 // Secs
+peakLimiter.decayTime = 0.01 // Secs
+peakLimiter.preGain = 10 // dB
 
 AudioKit.output = peakLimiter
 AudioKit.start()
-
 player.play()
 
-//: Toggle processing on every loop
-AKPlaygroundLoop(every: 3.428) { () -> () in
-    if peakLimiter.isBypassed {
+//: User Interface Set up
+
+class PlaygroundView: AKPlaygroundView {
+    
+    //: UI Elements we'll need to be able to access
+    var attackTimeLabel: Label?
+    var decayTimeLabel: Label?
+    var preGainLabel: Label?
+    
+    override func setup() {
+        addTitle("Peak Limiter")
+        
+        addLabel("Audio Player")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+        
+        addLabel("Peak Limiter Parameters")
+        
+        addButton("Process", action: "process")
+        addButton("Bypass", action: "bypass")
+        
+        attackTimeLabel = addLabel("Attack Time: \(peakLimiter.attackTime) Secs")
+        addSlider("setAttackTime:", value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03)
+        
+        decayTimeLabel = addLabel("Decay Time: \(peakLimiter.decayTime) Secs")
+        addSlider("setDecayTime:", value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.06)
+        
+        preGainLabel = addLabel("Pre-gain: \(peakLimiter.preGain) dB")
+        addSlider("setPreGain:", value: peakLimiter.preGain, minimum: -40, maximum: 40)
+        
+    }
+    
+    //: Handle UI Events
+    
+    func start() {
+        player.play()
+    }
+    
+    func stop() {
+        player.stop()
+    }
+    
+    func process() {
         peakLimiter.start()
-    } else {
+    }
+    
+    func bypass() {
         peakLimiter.bypass()
     }
-    peakLimiter.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+    func setAttackTime(slider: Slider) {
+        peakLimiter.attackTime = Double(slider.value)
+        let attackTime = String(format: "%0.3f", peakLimiter.attackTime)
+        attackTimeLabel!.text = "attackTime: \(attackTime) Secs"
+    }
+    
+    func setDecayTime(slider: Slider) {
+        peakLimiter.decayTime = Double(slider.value)
+        let decayTime = String(format: "%0.3f", peakLimiter.decayTime)
+        decayTimeLabel!.text = "decayTime: \(decayTime) Secs"
+    }
+    
+    func setPreGain(slider: Slider) {
+        peakLimiter.preGain = Double(slider.value)
+        let preGain = String(format: "%0.3f", peakLimiter.preGain)
+        preGainLabel!.text = "preGain: \(preGain) dB"
+    }
+    
 }
 
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000 ));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
