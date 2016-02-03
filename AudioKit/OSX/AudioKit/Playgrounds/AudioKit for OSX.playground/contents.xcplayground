@@ -38,10 +38,7 @@
         <page name='Interactive Convolution'/>
         <page name='Interactive FM Oscillator'/>
         <page name='Interactive Distortion'/>
-        <page name='Interactive Dynamics Processor'/>
         <page name='Interactive Oscillator'/>
-        <page name='Interactive Parametric Equalizer'/>
-        <page name='Interactive Peak Limiter'/>
         <page name='Interactive Ring Modulator'/>
         <page name='Interactive Time Stretching and Pitch Shifting'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
