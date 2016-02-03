@@ -47,7 +47,7 @@ public protocol AKMIDIListener {
     func midiAfterTouch(pressure: Int, channel: Int)
     
     /// Receive pitch wheel value
-    /// - parameter pitchWheelValue: MIDI Pitch Wheel Value (0-127)
+    /// - parameter pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     /// - parameter channel:         MIDI Channel (1-16)
     func midiPitchWheel(pitchWheelValue: Int, channel: Int)
     
@@ -104,10 +104,10 @@ public extension AKMIDIListener{
     }
     
     /// Receive pitch wheel value
-    /// - parameter pitchWheelValue: MIDI Pitch Wheel Value (0-127)
+    /// - parameter pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     /// - parameter channel:         MIDI Channel (1-16)
     func midiPitchWheel(pitchWheelValue:Int, channel:Int){
-        print("channel: \(channel) pitchWheel: \(pitchWheelValue)")
+        print("channel: \(channel) pitchWheelC: \(pitchWheelValue)")
     }
     
     /// Receive program change
