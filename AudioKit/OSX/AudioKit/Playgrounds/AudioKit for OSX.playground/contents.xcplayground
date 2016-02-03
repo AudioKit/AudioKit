@@ -39,10 +39,6 @@
         <page name='Interactive FM Oscillator'/>
         <page name='Interactive Distortion'/>
         <page name='Interactive Dynamics Processor'/>
-        <page name='Interactive High Pass Filter'/>
-        <page name='Interactive High Shelf Filter'/>
-        <page name='Interactive Low Pass Filter'/>
-        <page name='Interactive Low Shelf Filter'/>
         <page name='Interactive Oscillator'/>
         <page name='Interactive Parametric Equalizer'/>
         <page name='Interactive Peak Limiter'/>

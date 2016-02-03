@@ -11,27 +11,77 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
+
 var lowShelfFilter = AKLowShelfFilter(player)
 
-//: Set the parameters of the Low-Shelf Filter here
-lowShelfFilter.cutoffFrequency = 800 // Hz
-lowShelfFilter.gain = -100 // dB
+//: Set the parameters here
+lowShelfFilter.cutoffFrequency = 80 // Hz
+lowShelfFilter.gain = 0 // dB
 
 AudioKit.output = lowShelfFilter
 AudioKit.start()
 
-player.play()
+//: User Interface Set up
 
-//: Toggle processing on every loop
-AKPlaygroundLoop(every: 3.428) { () -> () in
-    if lowShelfFilter.isBypassed {
+class PlaygroundView: AKPlaygroundView {
+    
+    //: UI Elements we'll need to be able to access
+    var cutoffFrequencyLabel: Label?
+    var gainLabel: Label?
+    
+    override func setup() {
+        addTitle("Low Shelf Filter")
+        
+        addLabel("Audio Player")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+        
+        addLabel("Low Shelf Filter Parameters")
+        
+        addButton("Process", action: "process")
+        addButton("Bypass", action: "bypass")
+        
+        cutoffFrequencyLabel = addLabel("Cut-off Frequency: 80 Hz")
+        addSlider("setcutoffFrequency:", value: 80, minimum: 10, maximum: 200)
+        
+        gainLabel = addLabel("Gain: 0 dB")
+        addSlider("setgain:", value: 0, minimum: -40, maximum: 40)
+        
+    }
+    
+    //: Handle UI Events
+    
+    func start() {
+        player.play()
+    }
+    
+    func stop() {
+        player.stop()
+    }
+    
+    func process() {
         lowShelfFilter.start()
-    } else {
+    }
+    
+    func bypass() {
         lowShelfFilter.bypass()
     }
-    lowShelfFilter.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
+    func setcutoffFrequency(slider: Slider) {
+        lowShelfFilter.cutoffFrequency = Double(slider.value)
+        let cutoffFrequency = String(format: "%0.1f", lowShelfFilter.cutoffFrequency)
+        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
+    }
+    
+    func setgain(slider: Slider) {
+        lowShelfFilter.gain = Double(slider.value)
+        let gain = String(format: "%0.1f", lowShelfFilter.gain)
+        gainLabel!.text = "Gain: \(gain) dB"
+    }
+    
 }
 
+let view = PlaygroundView(frame: CGRectMake(0, 0, 500, 550));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
