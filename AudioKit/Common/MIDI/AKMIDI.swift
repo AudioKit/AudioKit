@@ -9,6 +9,119 @@
 import Foundation
 import CoreMIDI
 
+
+/** The returned generator will enumerate each value of the provided tuple. */
+func generatorForTuple(tuple: Any) -> AnyGenerator<Any> {
+    let children = Mirror(reflecting: tuple).children
+    return anyGenerator(children.generate().lazy.map { $0.value }.generate())
+}
+
+/**
+ Allows a MIDIPacket to be iterated through with a for statement.
+ This is necessary because MIDIPacket can contain multiple midi events,
+ but Swift makes this unnecessarily hard because the MIDIPacket struct uses a tuple
+ for the data field. Grrr!
+ 
+ Example usage:
+ let packet: MIDIPacket
+ for message in packet {
+ // message is a Message
+ }
+ */
+extension MIDIPacket: SequenceType {
+    public func generate() -> AnyGenerator<AKMIDIEvent> {
+        let generator = generatorForTuple(self.data)
+        var index: UInt16 = 0
+        
+        return anyGenerator {
+            if index >= self.length {
+                return nil
+            }
+            
+            func pop() -> UInt8 {
+                assert(index < self.length)
+                index++
+                return generator.next() as! UInt8
+            }
+            
+            let status = pop()
+            if AKMIDIEvent.isStatusByte(status) {
+                var data1: UInt8 = 0
+                var data2: UInt8 = 0
+                var mstat = AKMIDIEvent.statusFromValue(status)
+                switch  mstat {
+                case .NoteOff,
+                .NoteOn,
+                .PolyphonicAftertouch,
+                .ControllerChange,
+                .PitchWheel:
+                    data1 = pop(); data2 = pop();
+
+                case .ProgramChange,
+                .ChannelAftertouch:
+                    data1 = pop()
+
+                case .SystemCommand: break
+                }
+
+                if mstat == .NoteOn && data2 == 0 {
+                    // turn noteOn with velocity 0 to noteOff
+                    mstat = .NoteOff
+                }
+
+                let chan = (status & 0xF)
+                return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
+            }
+            else if status == 0xF0 {
+                // sysex - guaranteed by coremidi to be the entire packet
+                index = self.length
+                return AKMIDIEvent(packet: self)
+            }
+            // TODO realtime messages
+            
+            return nil
+        }
+    }
+}
+
+extension MIDIPacketList: SequenceType {
+    public typealias Generator = MIDIPacketListGenerator
+    
+    public func generate() -> Generator {
+        return Generator(packetList: self)
+    }
+}
+
+/**
+ Generator for MIDIPacketList allowing iteration over its list of MIDIPacket objects.
+ */
+public struct MIDIPacketListGenerator : GeneratorType {
+    public typealias Element = MIDIPacket
+    
+    init(packetList: MIDIPacketList) {
+        let ptr = UnsafeMutablePointer<MIDIPacket>.alloc(1)
+        ptr.initialize(packetList.packet)
+        self.packet = ptr
+        self.count = packetList.numPackets
+    }
+    
+    public mutating func next() -> Element? {
+        guard self.packet != nil && self.index < self.count else { return nil }
+        
+        let lastPacket = self.packet!
+        self.packet = MIDIPacketNext(self.packet!)
+        self.index++
+        return lastPacket.memory
+    }
+    
+    // Extracted packet list info
+    var count: UInt32
+    var index: UInt32 = 0
+    
+    // Iteration state
+    var packet: UnsafeMutablePointer<MIDIPacket>?
+}
+
 /// MIDI input and output handler
 ///
 /// You add midi listeners like this:
@@ -29,7 +142,10 @@ public class AKMIDI {
     
     /// Array of MIDI In ports
     public var midiInPorts: [MIDIPortRef] = []
-    
+
+    // virtual midi destination (input)
+    public var virtInput = MIDIPortRef()
+
     /// MIDI Client Name
     var midiClientName: CFString = "MIDI Client"
     
@@ -46,6 +162,10 @@ public class AKMIDI {
     
     /// MIDI Out Port Reference
     public var midiOutPort = MIDIPortRef()
+
+    // virtual midi source (output)
+    public var virtOutput = MIDIPortRef()
+
     
     /// Array of MIDI Endpoints
     public var midiEndpoints: [MIDIEndpointRef] = []
@@ -67,28 +187,20 @@ public class AKMIDI {
             switch type{
                 case AKMIDIStatus.ControllerChange:
                     listener.midiController(Int(event.internalData[1]), value: Int(event.internalData[2]), channel: Int(event.channel))
-                    break
                 case AKMIDIStatus.ChannelAftertouch:
                     listener.midiAfterTouch(Int(event.internalData[1]), channel: Int(event.channel))
-                    break
                 case AKMIDIStatus.NoteOn:
                     listener.midiNoteOn(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
-                    break
                 case AKMIDIStatus.NoteOff:
                     listener.midiNoteOff(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
-                    break
                 case AKMIDIStatus.PitchWheel:
-                    listener.midiPitchWheel(Int(event.internalData[1]), channel: Int(event.channel))
-                    break
+                    listener.midiPitchWheel(Int(event.data), channel: Int(event.channel))
                 case AKMIDIStatus.PolyphonicAftertouch:
                     listener.midiAftertouchOnNote(Int(event.internalData[1]), pressure: Int(event.internalData[2]), channel: Int(event.channel))
-                    break
                 case AKMIDIStatus.ProgramChange:
                     listener.midiProgramChange(Int(event.internalData[1]), channel: Int(event.channel))
-                    break
                 case AKMIDIStatus.SystemCommand:
                     listener.midiSystemCommand(event.internalData)
-                    break
             }
         }
     }
@@ -108,16 +220,13 @@ public class AKMIDI {
         let midiPortPtr = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
         let midiPort = midiPortPtr.memory
         */
-        let numPackets = Int(packetList.memory.numPackets)
-        let packet = packetList.memory.packet as MIDIPacket
-        var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
-        packetPtr.initialize(packet)
-        for var i = 0; i < numPackets; ++i {
-            let event = AKMIDIEvent(packet: packetPtr.memory)
-            handleMidiMessage(event)
-            packetPtr = MIDIPacketNext(packetPtr)
+
+        for packet in packetList.memory {
+            // a coremidi packet may contain multiple midi events
+            for event in packet {
+                handleMidiMessage(event)
+            }
         }
-    
     }
 
     // MARK: - Initialization
@@ -139,6 +248,47 @@ public class AKMIDI {
             } else {
                 print("error creating client : \(result)")
             }
+        }
+    }
+    
+    public func createVirtualPorts(uniqueId: Int32 = 2000000) {
+        print("Creating virtual MIDI ports")
+
+        destroyVirtualPorts()
+        
+        var result = OSStatus(noErr)
+        result = MIDIDestinationCreateWithBlock(midiClient, midiClientName, &virtInput, MyMIDIReadBlock)
+        
+        if result == OSStatus(noErr) {
+            print("Created virt dest: \(midiClientName)");
+            MIDIObjectSetIntegerProperty(virtInput, kMIDIPropertyUniqueID, uniqueId)
+        }
+        else {
+            print("Error creatervirt dest: \(midiClientName) -- \(virtInput)");
+        }
+        
+        
+        result = MIDISourceCreate(midiClient, midiClientName, &virtOutput);
+        if result == OSStatus(noErr) {
+            print("Created virt source: \(midiClientName)")
+            MIDIObjectSetIntegerProperty(virtInput, kMIDIPropertyUniqueID, uniqueId + 1)
+        }
+        else {
+            print("Error creating virtual source: \(midiClientName) -- \(virtOutput)")
+        }
+
+    
+    }
+    
+    public func destroyVirtualPorts() {
+        if virtInput != 0 {
+            MIDIEndpointDispose(virtInput)
+            virtInput = 0
+        }
+
+        if virtOutput != 0 {
+            MIDIEndpointDispose(virtOutput)
+            virtOutput = 0
         }
     }
     
@@ -258,6 +408,10 @@ public class AKMIDI {
             } else {
                 print("error sending midi : \(result)")
             }
+        }
+
+        if virtOutput != 0 {
+            MIDIReceived(virtOutput, packetListPtr);
         }
         
         packetListPtr.destroy()
