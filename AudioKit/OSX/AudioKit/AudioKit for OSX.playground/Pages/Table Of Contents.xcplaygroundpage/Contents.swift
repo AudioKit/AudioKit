@@ -18,6 +18,7 @@
 //: * [EXS24 Sampler](Sampler%20Instrument%20-%20EXS24)
 //: * [Crazy Drum Effects](Variable%20Delay)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
+//: * [XY Pad](XY%20Pad)
 //:
 //: ## Interactive UI Playgrounds
 //:
