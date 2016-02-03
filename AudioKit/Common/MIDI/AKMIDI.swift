@@ -77,9 +77,22 @@ extension MIDIPacket: SequenceType {
                 index = self.length
                 return AKMIDIEvent(packet: self)
             }
-            // TODO realtime messages
-            
-            return nil
+            else {
+                let cmd = AKMIDISystemCommand(rawValue: status)!
+                var data1: UInt8 = 0
+                var data2: UInt8 = 0
+                switch  cmd {
+                case .Sysex: break
+                case .SongPosition:
+                    data1 = pop()
+                    data2 = pop()
+                case .SongSelect:
+                    data1 = pop()
+                default: break
+                }
+                
+                return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
+            }
         }
     }
 }
