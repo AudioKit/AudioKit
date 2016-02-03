@@ -135,6 +135,7 @@ class SynthViewController: UIViewController {
         conductor.multiDelay.mix = 0.5 // Dry/Wet
         conductor.reverb.feedback = 0.88 // Amt
         conductor.reverbMixer.balance = 0.4 // Dry/Wet
+        conductor.midiBendRange = 2.0 // MIDI bend range in +/- semitones
         cutoffKnob.value = 0.36 // Cutoff Knob Position
         
         // ADSR
