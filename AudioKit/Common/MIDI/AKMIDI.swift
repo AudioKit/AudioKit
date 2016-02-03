@@ -48,16 +48,25 @@ extension MIDIPacket: SequenceType {
             if AKMIDIEvent.isStatusByte(status) {
                 var data1: UInt8 = 0
                 var data2: UInt8 = 0
-                let mstat = AKMIDIEvent.statusFromValue(status)
+                var mstat = AKMIDIEvent.statusFromValue(status)
                 switch  mstat {
-                case .NoteOff: data1 = pop(); data2 = pop();
-                case .NoteOn: data1 = pop(); data2 = pop();
-                case .PolyphonicAftertouch: data1 = pop(); data2 = pop();
-                case .ControllerChange: data1 = pop(); data2 = pop();
-                case .ProgramChange: data1 = pop()
-                case .ChannelAftertouch:data1 = pop()
-                case .PitchWheel: data1 = pop(); data2 = pop();
-                case .SystemCommand: data1 = 0;
+                case .NoteOff,
+                .NoteOn,
+                .PolyphonicAftertouch,
+                .ControllerChange,
+                .PitchWheel:
+                    data1 = pop(); data2 = pop();
+
+                case .ProgramChange,
+                .ChannelAftertouch:
+                    data1 = pop()
+
+                case .SystemCommand: break
+                }
+
+                if mstat == .NoteOn && data2 == 0 {
+                    // turn noteOn with velocity 0 to noteOff
+                    mstat = .NoteOff
                 }
 
                 let chan = (status & 0xF)
