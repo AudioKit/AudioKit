@@ -5,7 +5,6 @@
 //: ## Interactive Convolution
 //: ### Open the timeline view to use the controls this playground sets up.
 //:
-import Cocoa
 import XCPlayground
 import AudioKit
 
@@ -33,20 +32,20 @@ dishConvolution.start()
 
 class PlaygroundView: AKPlaygroundView {
     
-    internal override func setup() {
+    override func setup() {
         addTitle("Convolution")
         
         addLabel("Audio Playback")
         addButton("Start", action: "start")
         addButton("Stop", action: "stop")
-
+        
         addLabel("Mix: Dry Audio to Fully Convolved")
         addSlider("setDryWet:")
         
         addLabel("Impulse Response: Stairwell to Dish")
         addSlider("setIRMix:")
     }
-
+    
     func start() {
         player.play()
     }
@@ -55,14 +54,14 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func setIRMix(slider: Slider) {
-        mixer.balance = Double(slider.floatValue)
+        mixer.balance = Double(slider.value)
     }
     
     func setDryWet(slider: Slider) {
-        dryWetMixer.balance = Double(slider.floatValue)
+        dryWetMixer.balance = Double(slider.value)
     }
 }
 
-let view = PlaygroundView(frame: NSRect(x: 0, y: 0, width: 500, height: 350));
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
