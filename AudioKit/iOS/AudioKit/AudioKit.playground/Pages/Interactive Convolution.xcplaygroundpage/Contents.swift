@@ -5,66 +5,67 @@
 //: ## Interactive Convolution
 //: ### Open the timeline view to use the controls this playground sets up.
 //:
-import UIKit
 import XCPlayground
 import AudioKit
 
-class ViewController: AKPlaygroundViewController {
+let bundle = NSBundle.mainBundle()
+let file = bundle.pathForResource("drumloop", ofType: "wav")
+var player = AKAudioPlayer(file!)
+player.looping = true
 
-    var player: AKAudioPlayer?
-    var mixer: AKDryWetMixer?
+let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
+let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+var stairwellConvolution = AKConvolution.init(player, impulseResponseFileURL: stairwell, partitionLength: 8192)
+var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, partitionLength: 8192)
 
-        //: Set up AudioKit's audio graph
-        let bundle = NSBundle.mainBundle()
-        let file = bundle.pathForResource("drumloop", ofType: "wav")
-        player = AKAudioPlayer(file!)
-        player!.looping = true
+var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0)
+var dryWetMixer = AKDryWetMixer(player, mixer, balance: 0)
 
-        let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
-        let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
+AudioKit.output = dryWetMixer
+AudioKit.start()
 
-        var stairwellConvolution = AKConvolution.init(player!, impulseResponseFileURL: stairwell, partitionLength: 8192)
-        var dishConvolution = AKConvolution.init(player!, impulseResponseFileURL: dish, partitionLength: 8192)
+stairwellConvolution.start()
+dishConvolution.start()
 
-        mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0)
+//: User Interface Set up
 
-        AudioKit.output = mixer
-        AudioKit.start()
-        stairwellConvolution.start()
-        dishConvolution.start()
-
-
-        //: Create the UI
-        addTitle("AKConvolution")
-        addSwitch("toggle:")
-        addLabel("Balance: Stairwell to Dish")
-        addSlider("setBalance:")
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Convolution")
+        
+        addLabel("Audio Playback")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+        
+        addLineBreak()
+        
+        addLabel("Convolution Parameters")
+        
+        addLabel("Mix: Dry Audio to Fully Convolved")
+        addSlider("setDryWet:")
+        
+        addLabel("Impulse Response: Stairwell to Dish")
+        addSlider("setIRMix:")
     }
-
-    //: Handle UI Events
-
-    func toggle(switch: UISwitch) {
-        if player!.isPlaying {
-            player!.stop()
-        } else {
-            player!.play()
-        }
+    
+    func start() {
+        player.play()
     }
-
-    func setBalance(slider: UISlider) {
-        mixer?.balance = Double(slider.value)
+    func stop() {
+        player.stop()
     }
-
-
+    
+    func setIRMix(slider: Slider) {
+        mixer.balance = Double(slider.value)
+    }
+    
+    func setDryWet(slider: Slider) {
+        dryWetMixer.balance = Double(slider.value)
+    }
 }
 
-ViewController()
-
-XCPlaygroundPage.currentPage.liveView = ViewController()
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:400));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-
+XCPlaygroundPage.currentPage.liveView = view
