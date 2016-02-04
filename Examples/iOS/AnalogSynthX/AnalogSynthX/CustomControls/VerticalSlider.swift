@@ -27,6 +27,7 @@ class VerticalSlider: UIControl {
             if currentValue > maxValue {
                 currentValue = maxValue
             }
+            self.sliderValue = CGFloat((currentValue - minValue) / (maxValue - minValue))
             setupView()
         }
     }
@@ -36,6 +37,7 @@ class VerticalSlider: UIControl {
     var knobRect: CGRect!
     var barLength: CGFloat = 164.0
     var isSliding = false
+    var sliderValue: CGFloat = 0.5
     var delegate: VerticalSliderDelegate?
 }
 
