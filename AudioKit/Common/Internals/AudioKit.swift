@@ -31,6 +31,9 @@ import AVFoundation
     
     /// Start up the audio engine
     public static func start() {
+        if output == nil {
+            NSLog("AudioKit: No output node has been set yet, no processing will happen.")
+        }
         // Start the engine.
         do {
             try self.engine.start()
@@ -45,7 +48,7 @@ import AVFoundation
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
         } catch {
-            fatalError("Could not start engine. error: \(error).")
+            fatalError("AudioKit: Could not start engine. error: \(error).")
         }
     }
     
