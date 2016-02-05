@@ -21,6 +21,7 @@ delay.dryWetMix = 0.6 // Normalized Value 0 - 1
 
 AudioKit.output = delay
 AudioKit.start()
+player.play()
 
 class PlaygroundView: AKPlaygroundView {
     
@@ -60,7 +61,7 @@ class PlaygroundView: AKPlaygroundView {
     
     func setTime(slider: Slider) {
         delay.time = Double(slider.value)
-        let time = String(format: "%0.2f", delay.time)
+        let time = String(format: "%0.3f", delay.time)
         timeLabel!.text = "Time: \(time)"
     }
     

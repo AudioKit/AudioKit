@@ -3,6 +3,7 @@
 //: ---
 //:
 //: ## Distortion
+//: ### This thing is a beast.
 //:
 import XCPlayground
 import AudioKit
@@ -103,55 +104,55 @@ class PlaygroundView: AKPlaygroundView {
     }
     func setDelay(slider: Slider) {
         distortion.delay = Double(slider.value)
-        let delay = String(format: "%0.1f", distortion.delay)
+        let delay = String(format: "%0.3f", distortion.delay)
         delayLabel!.text = "Delay: \(delay) Milliseconds"
     }
     
     func setDecay(slider: Slider) {
         distortion.decay = Double(slider.value)
-        let decay = String(format: "%0.1f", distortion.decay)
+        let decay = String(format: "%0.3f", distortion.decay)
         decayLabel!.text = "Decay: \(decay) Rate"
     }
     
     func setDelayMix(slider: Slider) {
         distortion.delayMix = Double(slider.value)
-        let delayMix = String(format: "%0.1f", distortion.delayMix)
+        let delayMix = String(format: "%0.3f", distortion.delayMix)
         delayMixLabel!.text = "Delay Mix: \(delayMix)"
     }
     
     func setLinearTerm(slider: Slider) {
         distortion.linearTerm = Double(slider.value)
-        let linearTerm = String(format: "%0.1f", distortion.linearTerm)
+        let linearTerm = String(format: "%0.3f", distortion.linearTerm)
         linearTermLabel!.text = "linearTerm: \(linearTerm)"
     }
     
     func setSquaredTerm(slider: Slider) {
         distortion.squaredTerm = Double(slider.value)
-        let squaredTerm = String(format: "%0.1f", distortion.squaredTerm)
+        let squaredTerm = String(format: "%0.3f", distortion.squaredTerm)
         squaredTermLabel!.text = "squaredTerm: \(squaredTerm)"
     }
     
     func setCubicTerm(slider: Slider) {
         distortion.cubicTerm = Double(slider.value)
-        let cubicTerm = String(format: "%0.1f", distortion.cubicTerm)
+        let cubicTerm = String(format: "%0.3f", distortion.cubicTerm)
         cubicTermLabel!.text = "cubicTerm: \(cubicTerm)"
     }
     
     func setPolynomialMix(slider: Slider) {
         distortion.polynomialMix = Double(slider.value)
-        let polynomialMix = String(format: "%0.1f", distortion.polynomialMix)
+        let polynomialMix = String(format: "%0.3f", distortion.polynomialMix)
         polynomialMixLabel!.text = "polynomialMix: \(polynomialMix)"
     }
     
     func setSoftClipGain(slider: Slider) {
         distortion.softClipGain = Double(slider.value)
-        let softClipGain = String(format: "%0.1f", distortion.softClipGain)
+        let softClipGain = String(format: "%0.3f", distortion.softClipGain)
         softClipGainLabel!.text = "softClipGain: \(softClipGain) dB"
     }
     
     func setFinalMix(slider: Slider) {
         distortion.finalMix = Double(slider.value)
-        let finalMix = String(format: "%0.1f", distortion.finalMix)
+        let finalMix = String(format: "%0.3f", distortion.finalMix)
         finalMixLabel!.text = "finalMix: \(finalMix)"
     }
     

@@ -29,6 +29,39 @@ AudioKit.output = mixture
 AudioKit.start()
 drums.play()
 
+//: User Interface Set up
+
+class PlaygroundView: AKPlaygroundView {
+    
+    var balanceLabel:   Label?
+    
+    override func setup() {
+        addTitle("Dry Wet Mix")
+        
+        addLabel("Audio Playback")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+        
+        balanceLabel = addLabel("Balance: \(mixture.balance)")
+        addSlider("setDuration:", value: mixture.balance)
+    }
+    
+    func start() {
+        drums.play()
+    }
+    func stop() {
+        drums.stop()
+    }
+    
+    func setDuration(slider: Slider) {
+        mixture.balance = Double(slider.value)
+        balanceLabel!.text = "Balance: \(String(format: "%0.3f", mixture.balance))"
+    }
+    
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

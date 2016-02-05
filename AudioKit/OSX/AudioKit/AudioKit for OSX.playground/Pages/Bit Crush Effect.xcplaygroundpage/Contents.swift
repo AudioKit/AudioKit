@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Bit Crush Effect
-//: ### An audio signal consists of two components, amplitude and frequency. When an analog audio signal is converted to a digial representation, these two components are stored by a bit-depth value, and a sample-rate value. The sample-rate represents the number of samples of audio per second, and the bit-depth represents the number of bits used capture that audio. The bit-depth specifies the dynamic range (the difference between the smallest and loudest audio signal). By changing the bit-depth of an audio file, you can create rather interesting digital distortion effects.  
+//: ### An audio signal consists of two components, amplitude and frequency. When an analog audio signal is converted to a digial representation, these two components are stored by a bit-depth value, and a sample-rate value. The sample-rate represents the number of samples of audio per second, and the bit-depth represents the number of bits used capture that audio. The bit-depth specifies the dynamic range (the difference between the smallest and loudest audio signal). By changing the bit-depth of an audio file, you can create rather interesting digital distortion effects.
 import XCPlayground
 import AudioKit
 
@@ -22,6 +22,47 @@ AudioKit.start()
 
 player.play()
 
+class PlaygroundView: AKPlaygroundView {
+    
+    var bitDepthLabel: Label?
+    var sampleRateLabel: Label?
+    
+    override func setup() {
+        addTitle("Bit Crusher")
+        
+        addLabel("Audio Player")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+        
+        bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
+        addSlider("setBitDepth:", value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
+        
+        sampleRateLabel = addLabel("Sample Rate: \(bitcrusher.sampleRate)")
+        addSlider("setSampleRate:", value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
+    }
+    
+    func start() {
+        player.play()
+    }
+    func stop() {
+        player.stop()
+    }
+    
+    func setBitDepth(slider: Slider) {
+        bitcrusher.bitDepth = Double(slider.value)
+        let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
+        bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
+    }
+    
+    func setSampleRate(slider: Slider) {
+        bitcrusher.sampleRate = Double(slider.value)
+        let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
+        sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
+    }
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

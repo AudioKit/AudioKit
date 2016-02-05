@@ -21,10 +21,24 @@
 //:
 //: ## Interactive UI Playgrounds
 //:
-//: As of Xcode 7.3, iOS Playgrounds have access to a simulated device, so we can create and react to UI elements.  While this may not teach you much about programming, it is educational to hear what parameter sound like under user control.
+//: In these playgrounds you can update the parameters of a synthesized sound or effect using sliders.  While this may not teach you much about programming, it is educational to hear what parameter sound like under user control.
 //:
-//: * [Interactive Oscillator](Interactive%20Oscillator)
+//: * [Band Pass Filter](Band%20Pass%20Filter)
+//: * [Convolution](Convolution)
+//: * [Decimator](Decimator)
+//: * [Delay](Delay)
+//: * [Distortion](Distortion)
+//: * [Dynamics Processor](Dynamics%20Processor)
+//: * [High Pass Filter](High%20Pass%20Filter)
+//: * [High Shelf Filter](High%20Shelf%20Filter)
 //: * [Interactive FM Oscillator](Interactive%20FM%20Oscillator)
+//: * [Interactive Oscillator](Interactive%20Oscillator)
+//: * [Low Pass Filter](Low%20Pass%20Filter)
+//: * [Low  Shelf Filter](Low%20Shelf%20Filter)
+//: * [Parametric Equalizer](Parametric%20Equalizer)
+//: * [Peak Limiter](Peak%20Limiter)
+//: * [Ring Modulator](Ring%20Modulator)
+//: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //:
 //: ## Basic Tutorials
 //:
