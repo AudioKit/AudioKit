@@ -21,6 +21,7 @@ highShelfFilter.gain = 0 // dB
 
 AudioKit.output = highShelfFilter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 

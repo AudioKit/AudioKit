@@ -21,6 +21,7 @@ highPassFilter.resonance = 0 // dB
 
 AudioKit.output = highPassFilter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -76,7 +77,7 @@ class PlaygroundView: AKPlaygroundView {
     func setResonance(slider: Slider) {
         highPassFilter.resonance = Double(slider.value)
         let resonance = String(format: "%0.1f", highPassFilter.resonance)
-        resonanceLabel!.text = "resonance: \(resonance) dB"
+        resonanceLabel!.text = "Resonance: \(resonance) dB"
     }
     
 }

@@ -21,6 +21,7 @@ highPassFilter.resonance = 0 // dB
 
 AudioKit.output = highPassFilter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
