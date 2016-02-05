@@ -659,19 +659,19 @@ extension SynthViewController: VerticalSliderDelegate {
         
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
-            statusLabel.text = "Attack: \(value.decimalString) sec"
+            statusLabel.text = "Attack: \(attackSlider.sliderValue.percentageString)"
             conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
-            statusLabel.text = "Decay: \(value.decimalString) sec"
+            statusLabel.text = "Decay: \(decaySlider.sliderValue.percentageString)"
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
-            statusLabel.text = "Sustain: \(sustainSlider.currentValue.percentageString)"
+            statusLabel.text = "Sustain: \(sustainSlider.sliderValue.percentageString)"
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
-            statusLabel.text = "Release: \(value.decimalString) sec"
+            statusLabel.text = "Release: \(releaseSlider.sliderValue.percentageString)"
             conductor.core.releaseDuration = value
             
         default:
