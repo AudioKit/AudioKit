@@ -21,6 +21,7 @@ highShelfFilter.gain = 0 // dB
 
 AudioKit.output = highShelfFilter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -76,7 +77,7 @@ class PlaygroundView: AKPlaygroundView {
     func setGain(slider: Slider) {
         highShelfFilter.gain = Double(slider.value)
         let gain = String(format: "%0.1f", highShelfFilter.gain)
-        gainLabel!.text = "gain: \(gain) dB"
+        gainLabel!.text = "Gain: \(gain) dB"
     }
     
 }

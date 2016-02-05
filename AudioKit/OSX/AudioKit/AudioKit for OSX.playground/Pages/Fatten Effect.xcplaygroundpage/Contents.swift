@@ -28,15 +28,50 @@ AudioKit.start()
 
 player.play()
 
-//: Toggle processing on every loop
-AKPlaygroundLoop(every: 3.428) { () -> () in
-    let time = random(0.03, 0.1)
-    let mix = random(0.3, 1.0)
-    fatten.parameters = [time, mix];
+fatten.parameters = [0.1, 0.5];
+
+//: User Interface Set up
+
+class PlaygroundView: AKPlaygroundView {
+    
+    var timeLabel: Label?
+    var mixLabel: Label?
+    
+    override func setup() {
+        addTitle("Analog Synth X Fatten")
+        
+        addLabel("Audio Playback")
+        addButton("Start", action: "start")
+        addButton("Stop", action: "stop")
+        
+        timeLabel = addLabel("Time: \(fatten.parameters[0])")
+        addSlider("setTime:", value: fatten.parameters[0], minimum: 0.03, maximum: 0.1)
+        
+        mixLabel = addLabel("Mix: \(fatten.parameters[0])")
+        addSlider("setMix:", value: fatten.parameters[1])
+    }
+    
+    func start() {
+        player.play()
+    }
+    func stop() {
+        player.stop()
+    }
+    
+    func setTime(slider: Slider) {
+        fatten.parameters = [Double(slider.value), fatten.parameters[1]]
+        timeLabel!.text = "Time: \(String(format: "%0.3f", fatten.parameters[0]))"
+    }
+    
+    func setMix(slider: Slider) {
+        fatten.parameters = [fatten.parameters[0], Double(slider.value)]
+        mixLabel!.text = "Mix: \(String(format: "%0.3f", fatten.parameters[1]))"
+    }
+    
 }
 
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-
-
-

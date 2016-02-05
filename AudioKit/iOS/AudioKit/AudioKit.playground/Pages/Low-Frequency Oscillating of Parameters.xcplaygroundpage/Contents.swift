@@ -17,7 +17,7 @@ let fm = AKOperation.fmOscillator(
     carrierMultiplier: carrierLFO,
     modulatingMultiplier: modulatingMultiplierLFO,
     modulationIndex:  modulatingIndexLFO,
-    amplitude: 1)
+    amplitude: 0.2)
 
 let generator = AKOperationGenerator(operation: fm)
 

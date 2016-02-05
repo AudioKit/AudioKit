@@ -18,7 +18,7 @@ let duration = AKOperation.randomNumberPulse()
 let frequency = AKOperation.lineSegment(AKOperation.trigger, start: start, end: 0, duration: duration)
 
 //: Decrease the amplitude exponentially
-let amplitude = AKOperation.exponentialSegment(AKOperation.trigger, start: 0.8, end: 0.01, duration: 1.0 / updateRate)
+let amplitude = AKOperation.exponentialSegment(AKOperation.trigger, start: 0.3, end: 0.01, duration: 1.0 / updateRate)
 let sine = AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
 
 let generator = AKOperationGenerator(operation:  sine)
