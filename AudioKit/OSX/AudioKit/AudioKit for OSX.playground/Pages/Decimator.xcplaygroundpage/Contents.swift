@@ -22,6 +22,7 @@ decimator.mix = 0.5 // Normalized Value 0 - 1
 
 AudioKit.output = decimator
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -39,14 +40,14 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Start", action: "start")
         addButton("Stop", action: "stop")
         
-        decimationLabel = addLabel("Decimation: 0.5")
-        addSlider("setDecimation:", value: 0.5)
+        decimationLabel = addLabel("Decimation: \(decimator.decimation)")
+        addSlider("setDecimation:", value: decimator.decimation)
         
-        roundingLabel = addLabel("Rounding: 0.5")
-        addSlider("setRounding:", value: 0.5)
+        roundingLabel = addLabel("Rounding: \(decimator.rounding)")
+        addSlider("setRounding:", value: decimator.rounding)
         
-        mixLabel = addLabel("Mix: 0.5")
-        addSlider("setMix:", value: 0.5)
+        mixLabel = addLabel("Mix: \(decimator.mix)")
+        addSlider("setMix:", value: decimator.mix)
     }
     
     //: Handle UI Events

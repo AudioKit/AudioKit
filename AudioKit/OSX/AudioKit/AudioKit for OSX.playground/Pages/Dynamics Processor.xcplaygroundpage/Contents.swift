@@ -25,6 +25,7 @@ dynamicsProcessor.masterGain
 
 AudioKit.output = dynamicsProcessor
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -92,43 +93,43 @@ class PlaygroundView: AKPlaygroundView {
     }
     func setThreshold(slider: Slider) {
         dynamicsProcessor.threshold = Double(slider.value)
-        let threshold = String(format: "%0.1f", dynamicsProcessor.threshold)
+        let threshold = String(format: "%0.3f", dynamicsProcessor.threshold)
         thresholdLabel!.text = "Threshold: \(threshold) dB"
     }
     
     func setHeadRoom(slider: Slider) {
         dynamicsProcessor.headRoom = Double(slider.value)
-        let headRoom = String(format: "%0.1f", dynamicsProcessor.headRoom)
+        let headRoom = String(format: "%0.3f", dynamicsProcessor.headRoom)
         headRoomLabel!.text = "Head Room: \(headRoom) dB"
     }
     
     func setExpansionRatio(slider: Slider) {
         dynamicsProcessor.expansionRatio = Double(slider.value)
-        let expansionRatio = String(format: "%0.1f", dynamicsProcessor.expansionRatio)
+        let expansionRatio = String(format: "%0.3f", dynamicsProcessor.expansionRatio)
         expansionRatioLabel!.text = "Expansion Ratio: \(expansionRatio) rate"
     }
     
     func setExpansionThreshold(slider: Slider) {
         dynamicsProcessor.expansionThreshold = Double(slider.value)
-        let expansionThreshold = String(format: "%0.1f", dynamicsProcessor.expansionThreshold)
+        let expansionThreshold = String(format: "%0.3f", dynamicsProcessor.expansionThreshold)
         expansionThresholdLabel!.text = "Expansion Threshold: \(expansionThreshold) rate"
     }
     
     func setAttackTime(slider: Slider) {
         dynamicsProcessor.attackTime = Double(slider.value)
-        let attackTime = String(format: "%0.1f", dynamicsProcessor.attackTime)
+        let attackTime = String(format: "%0.3f", dynamicsProcessor.attackTime)
         attackTimeLabel!.text = "Attack Time: \(attackTime) secs"
     }
     
     func setReleaseTime(slider: Slider) {
         dynamicsProcessor.releaseTime = Double(slider.value)
-        let releaseTime = String(format: "%0.1f", dynamicsProcessor.releaseTime)
+        let releaseTime = String(format: "%0.3f", dynamicsProcessor.releaseTime)
         releaseTimeLabel!.text = "Release Time: \(releaseTime) secs"
     }
     
     func setMasterGain(slider: Slider) {
         dynamicsProcessor.masterGain = Double(slider.value)
-        let masterGain = String(format: "%0.1f", dynamicsProcessor.masterGain)
+        let masterGain = String(format: "%0.3f", dynamicsProcessor.masterGain)
         masterGainLabel!.text = "Master Gain: \(masterGain) dB"
     }
     

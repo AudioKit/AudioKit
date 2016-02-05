@@ -16,7 +16,6 @@ var reverb = AKReverb(mix)
 
 AudioKit.output = reverb
 AudioKit.start()
-
 reverb.loadFactoryPreset(.MediumRoom)
 
 //: Generate a cheap electro beat
@@ -37,7 +36,7 @@ AKPlaygroundLoop(frequency: 4.44) {
         snare.playNote(60, velocity: velocity)
         snare.stopNote(60)
     }
-    i++
+    i += 1
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

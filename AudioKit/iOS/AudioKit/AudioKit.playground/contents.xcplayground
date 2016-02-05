@@ -35,7 +35,6 @@
         <page name='High Pass Filter Operation'/>
         <page name='High Shelf Filter'/>
         <page name='Introduction and Hello World'/>
-        <page name='Interactive Convolution'/>
         <page name='Interactive FM Oscillator'/>
         <page name='Interactive Oscillator'/>
         <page name='iOS-only Reverb'/>
