@@ -19,7 +19,10 @@ sampler2.loadEXS24("Sounds/sqrTone1")
 var mixer = AKMixer()
 mixer.connect(sampler1)
 mixer.connect(sampler2)
-AudioKit.output = mixer
+
+let reverb = AKCostelloReverb(mixer)
+
+AudioKit.output = reverb
 
 //: Load in a midi file, and set the sequencer to the main audiokit engine
 seq = AKSequencer(filename: "4tracks", engine: AudioKit.engine)

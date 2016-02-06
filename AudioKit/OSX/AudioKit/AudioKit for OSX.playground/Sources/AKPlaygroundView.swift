@@ -63,7 +63,6 @@ public class AKPlaygroundView: NSView {
     }
     
     public func addLineBreak() {
-        positionIndex += 1
         lastButton = nil
     }
     

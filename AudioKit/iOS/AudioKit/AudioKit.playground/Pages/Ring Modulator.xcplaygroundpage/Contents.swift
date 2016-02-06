@@ -22,6 +22,7 @@ ringModulator.mix = 0.5
 
 AudioKit.output = ringModulator
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
