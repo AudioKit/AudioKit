@@ -14,7 +14,7 @@ public typealias Label  = UILabel
 public class AKPlaygroundView: UIView {
     
     public var elementHeight: CGFloat = 30
-    public var positionIndex = 1
+    public var yPosition: Int = 0
     public var horizontalSpacing = 40
     public var lastButton: UIButton?
     
@@ -39,7 +39,7 @@ public class AKPlaygroundView: UIView {
         newLabel.frame.origin.y = 0
         newLabel.font = UIFont.boldSystemFontOfSize(24)
         self.addSubview(newLabel)
-        positionIndex += 1
+        yPosition += horizontalSpacing
         return newLabel
     }
     
@@ -54,14 +54,15 @@ public class AKPlaygroundView: UIView {
         // Line up multiple buttons in a row
         if let button = lastButton {
             newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
-            positionIndex -= 1
+            yPosition -= horizontalSpacing
         }
         
-        newButton.frame.origin.y = CGFloat(positionIndex * horizontalSpacing)
+        newButton.frame.origin.y = CGFloat(yPosition)
         newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
         newButton.sizeToFit()
         self.addSubview(newButton)
-        positionIndex += 1
+        yPosition += horizontalSpacing
+
         lastButton = newButton
         return newButton
     }
@@ -71,23 +72,25 @@ public class AKPlaygroundView: UIView {
         let newLabel = UILabel(frame: CGRectMake(0, 0, self.bounds.width, elementHeight))
         newLabel.text = text
         newLabel.font = UIFont.systemFontOfSize(18)
-        newLabel.frame.origin.y = CGFloat(positionIndex * horizontalSpacing)
+        newLabel.frame.origin.y = CGFloat(yPosition)
         self.addSubview(newLabel)
-        positionIndex += 1
+        yPosition += horizontalSpacing
+
         return newLabel
     }
     
     public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> UISlider {
         lastButton = nil
         let newSlider = UISlider(frame: CGRectMake(0, 0, self.bounds.width, 20))
-        newSlider.frame.origin.y = CGFloat(positionIndex * horizontalSpacing - 10)
+        newSlider.frame.origin.y = CGFloat(yPosition)
         newSlider.minimumValue = Float(minimum)
         newSlider.maximumValue = Float(maximum)
         newSlider.value = Float(value)
         newSlider.setNeedsDisplay()
         newSlider.addTarget(self, action: action, forControlEvents: .ValueChanged)
         self.addSubview(newSlider)
-        positionIndex += 1
+        yPosition += horizontalSpacing
+
         return newSlider
     }
     
