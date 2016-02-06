@@ -14,7 +14,9 @@ var seq:AKSequencer?
 var sampler = AKSampler()
 
 sampler.loadEXS24("Sounds/sawPiano1")
-AudioKit.output = sampler
+let reverb = AKCostelloReverb(sampler)
+
+AudioKit.output = reverb
 
 //: Load in a midi file, and set the sequencer to the main audiokit engine
 seq = AKSequencer(filename: "4tracks", engine: AudioKit.engine)

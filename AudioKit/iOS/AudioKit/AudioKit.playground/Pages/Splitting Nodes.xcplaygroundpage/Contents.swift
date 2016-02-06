@@ -6,7 +6,6 @@
 //: ### All nodes in AudioKit can have multiple destinations, the only caveat is that all of the destinations do have to eventually be mixed back together and none of the parallel signal paths can have any time stretching.
 import XCPlayground
 import AudioKit
-import AVFoundation
 
 //: Prepare the source audio player
 let bundle = NSBundle.mainBundle()
@@ -28,5 +27,7 @@ let mixer = AKMixer(player, delay)
 AudioKit.output = mixer
 AudioKit.start()
 player.play()
+
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

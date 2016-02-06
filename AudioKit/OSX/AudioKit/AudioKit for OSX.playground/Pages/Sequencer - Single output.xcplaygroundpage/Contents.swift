@@ -3,18 +3,20 @@
 //: ---
 //:
 //: ## Sequencer - Single output
-//: 
+//:
 import XCPlayground
 import AudioKit
 
 //: Create the sequencer, but we can't init it until we do some basic setup
-var seq: AKSequencer?
+var seq:AKSequencer?
 
 //: Create a sampler, load a sound, and connect it to the output
 var sampler = AKSampler()
 
 sampler.loadEXS24("Sounds/sawPiano1")
-AudioKit.output = sampler
+let reverb = AKCostelloReverb(sampler)
+
+AudioKit.output = reverb
 
 //: Load in a midi file, and set the sequencer to the main audiokit engine
 seq = AKSequencer(filename: "4tracks", engine: AudioKit.engine)

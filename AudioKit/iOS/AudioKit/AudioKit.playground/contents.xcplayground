@@ -9,7 +9,6 @@
         <page name='Band Pass Filter'/>
         <page name='Bit Crush Effect'/>
         <page name='Bit Crush Operation'/>
-        <page name='Busy Signal'/>
         <page name='Clip Operation'/>
         <page name='Comb Filter Reverb'/>
         <page name='Connecting Nodes'/>
@@ -17,7 +16,6 @@
         <page name='Custom Generator'/>
         <page name='Decimator'/>
         <page name='Delay'/>
-        <page name='Dial Tone'/>
         <page name='Distortion'/>
         <page name='Drum Synthesizers'/>
         <page name='Dripping Sounds'/>
@@ -81,8 +79,7 @@
         <page name='Sporth Based Effect'/>
         <page name='Square Wave Oscillator'/>
         <page name='Stereo Panning'/>
-        <page name='Telephone Digits'/>
-        <page name='Telephone Ringing'/>
+        <page name='Telephone'/>
         <page name='Time Stretching and Pitch Shifting'/>
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency'/>

@@ -47,6 +47,7 @@ class PlaygroundView: AKPlaygroundView {
     func setDuration(slider: Slider) {
         filter.reverbDuration = Double(slider.value)
         durationLabel!.text = "Duration: \(String(format: "%0.3f", filter.reverbDuration))"
+        filter.reverbDuration // to plot value history
     }
     
 }

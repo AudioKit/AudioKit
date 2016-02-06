@@ -14,8 +14,7 @@ AudioKit.output = oscillator
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
-
-    //: UI Elements we'll need to be able to access
+    
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
 
@@ -31,9 +30,7 @@ class PlaygroundView: AKPlaygroundView {
         amplitudeLabel = addLabel("Amplitude: 0.1")
         addSlider("setAmplitude:", value: 0.1)
     }
-
-    //: Handle UI Events
-
+    
     func start() {
         oscillator.play()
     }
