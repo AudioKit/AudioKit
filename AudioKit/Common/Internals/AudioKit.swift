@@ -32,27 +32,39 @@ import AVFoundation
     /// Enumerate the list of available input devices.
     public static var availableInputs: [String]?
     {
-        if let devices = AVAudioSession.sharedInstance().availableInputs {
-            return devices.map({ $0.portName })
-        }
+        #if os(OSX)
+            // TODO: Do this in Objective-C
+        #else
+            if let devices = AVAudioSession.sharedInstance().availableInputs {
+                return devices.map({ $0.portName })
+            }
+        #endif
         return nil
     }
 
     /// The name of the current preferred input device, if available.
     public static var inputName: String? {
-        return AVAudioSession.sharedInstance().preferredInput?.portName
+        #if os(OSX)
+            return nil // TODO
+        #else
+            return AVAudioSession.sharedInstance().preferredInput?.portName
+        #endif
     }
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     public static func setInput(inputName: String) throws
     {
-        if let devices = AVAudioSession.sharedInstance().availableInputs {
-            for dev in devices {
-                if dev.portName == inputName {
-                    try AVAudioSession.sharedInstance().setPreferredInput(dev)
+        #if os(OSX)
+            // TODO
+        #else
+            if let devices = AVAudioSession.sharedInstance().availableInputs {
+                for dev in devices {
+                    if dev.portName == inputName {
+                        try AVAudioSession.sharedInstance().setPreferredInput(dev)
+                    }
                 }
             }
-        }
+        #endif
     }
     
     /// Start up the audio engine
