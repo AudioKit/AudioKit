@@ -1,3 +1,9 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## XY Pad
+//: 
 import Cocoa
 import XCPlayground
 import AudioKit
@@ -60,3 +66,6 @@ let touchView: TouchView = {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = touchView
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+

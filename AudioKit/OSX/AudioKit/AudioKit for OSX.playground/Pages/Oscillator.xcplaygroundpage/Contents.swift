@@ -12,6 +12,7 @@ var oscillator = AKOscillator()
 oscillator.amplitude = 0.1
 AudioKit.output = oscillator
 AudioKit.start()
+oscillator.play()
 
 class PlaygroundView: AKPlaygroundView {
     
