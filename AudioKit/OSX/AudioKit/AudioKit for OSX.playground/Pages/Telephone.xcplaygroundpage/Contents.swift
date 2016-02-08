@@ -74,16 +74,8 @@ AudioKit.start()
 dialTone.start()
 
 keypad.start()
-//
-////: Let's call Jenny and Mary!
-//let phoneNumber = "8675309   3212333 222 333 3212333322321"
-//for number in phoneNumber.characters {
-//    if keys.keys.contains(String(number)) {
-//        generator.trigger(keys[String(number)]!)
-//    }
-//    usleep(250000)
-//}
-//
+
+
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
@@ -102,23 +94,25 @@ class PlaygroundView: AKPlaygroundView {
         addLabel("Busy Signal")
         addButton("Start", action: "startBusySignal")
         addButton("Stop",  action: "stopBusySignal")
+        addLineBreak()
         
         addLabel("Keypad")
-        addButton("  1  ", action: "touch1")
-        addButton("  2  ", action: "touch2")
-        addButton("  3  ", action: "touch3")
+
+        addTouchKey("1", text: "",    action: "touch1")
+        addTouchKey("2", text: "ABC", action: "touch2")
+        addTouchKey("3", text: "DEF", action: "touch3")
         addLineBreak()
-        addButton("  4  ", action: "touch4")
-        addButton("  5  ", action: "touch5")
-        addButton("  6  ", action: "touch6")
+        addTouchKey("4", text: "GHI", action: "touch4")
+        addTouchKey("5", text: "JKL", action: "touch5")
+        addTouchKey("6", text: "MNO", action: "touch6")
         addLineBreak()
-        addButton("  7  ", action: "touch7")
-        addButton("  8  ", action: "touch8")
-        addButton("  9  ", action: "touch9")
+        addTouchKey("7", text: "PQRS", action: "touch7")
+        addTouchKey("8", text: "TUV",  action: "touch8")
+        addTouchKey("9", text: "WXYZ", action: "touch9")
         addLineBreak()
-        addButton("  *  ", action: "touchStar")
-        addButton("  0  ", action: "touch0")
-        addButton("  #  ", action: "touchHash")
+        addTouchKey("*", text: "GHI", action: "touchStar")
+        addTouchKey("0", text: "JKL", action: "touch0")
+        addTouchKey("#", text: "MNO", action: "touchHash")
     }
     
     func startDialTone() {
@@ -194,7 +188,9 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:700));
+
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:850));
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
