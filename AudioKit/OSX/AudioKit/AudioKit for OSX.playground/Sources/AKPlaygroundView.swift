@@ -50,7 +50,7 @@ public class AKSlider: NSSlider {
 public class AKPlaygroundView: NSView {
     
     public var elementHeight: CGFloat = 30
-    public var positionIndex = 2
+    public var yPosition: Int = 80
     public var horizontalSpacing = 40
     public var lastButton: NSButton?
     
@@ -77,7 +77,7 @@ public class AKPlaygroundView: NSView {
         newLabel.frame.origin.y = self.bounds.height - CGFloat(2 * horizontalSpacing)
         newLabel.font = NSFont.boldSystemFontOfSize(24)
         self.addSubview(newLabel)
-        positionIndex += 1
+        yPosition += horizontalSpacing
         return newLabel
     }
     
@@ -89,16 +89,16 @@ public class AKPlaygroundView: NSView {
         // Line up multiple buttons in a row
         if let button = lastButton {
             newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
-            positionIndex -= 1
+            yPosition -= horizontalSpacing
         }
         
-        newButton.frame.origin.y = self.bounds.height -  CGFloat(positionIndex * horizontalSpacing)
+        newButton.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         newButton.sizeToFit()
         newButton.bezelStyle = NSBezelStyle.ShadowlessSquareBezelStyle
         newButton.target = self
         newButton.action = action
         self.addSubview(newButton)
-        positionIndex += 1
+        yPosition += horizontalSpacing
         lastButton = newButton
         return newButton
     }
@@ -111,16 +111,16 @@ public class AKPlaygroundView: NSView {
         newLabel.drawsBackground = false
         newLabel.bezeled = false
         newLabel.font = NSFont.systemFontOfSize(18)
-        newLabel.frame.origin.y = self.bounds.height -  CGFloat(positionIndex * horizontalSpacing)
+        newLabel.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         self.addSubview(newLabel)
-        positionIndex += 1
+        yPosition += horizontalSpacing
         return newLabel
     }
     
     public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> AKSlider {
         lastButton = nil
         let newSlider = AKSlider(frame: CGRectMake(0, 0, self.bounds.width, 20))
-        newSlider.frame.origin.y = self.bounds.height -  CGFloat(positionIndex * horizontalSpacing - 10)
+        newSlider.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         newSlider.minValue = Double(minimum)
         newSlider.maxValue = Double(maximum)
         newSlider.floatValue = Float(value)
@@ -128,7 +128,7 @@ public class AKPlaygroundView: NSView {
         newSlider.target = self
         newSlider.action = action
         self.addSubview(newSlider)
-        positionIndex += 1
+        yPosition += horizontalSpacing
         return newSlider
     }
     
