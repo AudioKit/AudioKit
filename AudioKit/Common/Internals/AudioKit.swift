@@ -29,8 +29,60 @@ import AVFoundation
         }
     }
     
+    /// Enumerate the list of available input devices.
+    public static var availableInputs: [AKDevice]?
+    {
+        #if os(OSX)
+            EZAudioUtilities.setShouldExitOnCheckResultFail(false)
+            return EZAudioDevice.inputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
+        #else
+            if let devices = AVAudioSession.sharedInstance().availableInputs {
+                return devices.map({ AKDevice(name: $0.portName, deviceID: $0.UID) })
+            }
+            return nil
+        #endif
+    }
+
+    /// The name of the current preferred input device, if available.
+    public static var inputDevice: AKDevice?
+    {
+        #if os(OSX)
+            if let dev = EZAudioDevice.currentInputDevice() {
+                return AKDevice(name: dev.name, deviceID: dev.deviceID)
+            }
+        #else
+            if let dev = AVAudioSession.sharedInstance().preferredInput {
+                return AKDevice(name: dev.portName, deviceID: dev.UID)
+            }
+        #endif
+        return nil
+    }
+
+    /// Change the preferred input device, giving it one of the names from the list of available inputs.
+    public static func setInputDevice(input: AKDevice) throws
+    {
+        #if os(OSX)
+            var address = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDefaultInputDevice,
+                                                     mScope: kAudioObjectPropertyScopeGlobal,
+                                                     mElement: kAudioObjectPropertyElementMaster)
+            var devid = input.deviceID
+            AudioObjectSetPropertyData(AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+        #else
+            if let devices = AVAudioSession.sharedInstance().availableInputs {
+                for dev in devices {
+                    if dev.UID == input.deviceID {
+                        try AVAudioSession.sharedInstance().setPreferredInput(dev)
+                    }
+                }
+            }
+        #endif
+    }
+    
     /// Start up the audio engine
     public static func start() {
+        if output == nil {
+            NSLog("AudioKit: No output node has been set yet, no processing will happen.")
+        }
         // Start the engine.
         do {
             try self.engine.start()
@@ -45,7 +97,7 @@ import AVFoundation
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
         } catch {
-            fatalError("Could not start engine. error: \(error).")
+            fatalError("AudioKit: Could not start engine. error: \(error).")
         }
     }
     

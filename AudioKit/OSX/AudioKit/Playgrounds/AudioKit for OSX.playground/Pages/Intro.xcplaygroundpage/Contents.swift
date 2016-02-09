@@ -15,11 +15,11 @@ let player = AKAudioPlayer(file!)
 //: Next set AudioKit's main audio output to be this player
 AudioKit.output = player
 
-Audio//: Start up AudioKit to connect all nodes to the system
-Kit.start()
+//: Start up AudioKit to connect all nodes to the system
+AudioKit.start()
 
-playe//: Start the player's audio playback
-r.play()
+//: Start the player's audio playback
+player.play()
 
 //: Because we need to keep this playground running to playback the audio, we add the following line at the bottom to most playgrounds (or in some cases, we can set up a never ending loop)
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
