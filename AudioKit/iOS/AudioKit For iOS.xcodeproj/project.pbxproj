@@ -264,6 +264,7 @@
 		C45380921C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C453808A1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45380931C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C453808B1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm */; };
 		C45380941C3A5C0C00A51738 /* AKWhiteNoiseDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C453808C1C3A5C0C00A51738 /* AKWhiteNoiseDSPKernel.hpp */; };
+		C45464051C69DBA40087394B /* AKAudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45464041C69DBA40087394B /* AKAudioRecorder.swift */; };
 		C45C35531C08EE5700E3C7F0 /* func.c in Sources */ = {isa = PBXBuildFile; fileRef = C45C34FE1C08EE5700E3C7F0 /* func.c */; };
 		C45C35541C08EE5700E3C7F0 /* plumber.h in Headers */ = {isa = PBXBuildFile; fileRef = C45C35001C08EE5700E3C7F0 /* plumber.h */; };
 		C45C35551C08EE5700E3C7F0 /* sporth.h in Headers */ = {isa = PBXBuildFile; fileRef = C45C35011C08EE5700E3C7F0 /* sporth.h */; };
@@ -795,6 +796,7 @@
 		C453808A1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKWhiteNoiseAudioUnit.h; sourceTree = "<group>"; };
 		C453808B1C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKWhiteNoiseAudioUnit.mm; sourceTree = "<group>"; };
 		C453808C1C3A5C0C00A51738 /* AKWhiteNoiseDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKWhiteNoiseDSPKernel.hpp; sourceTree = "<group>"; };
+		C45464041C69DBA40087394B /* AKAudioRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAudioRecorder.swift; path = Recorder/AKAudioRecorder.swift; sourceTree = "<group>"; };
 		C45C34FE1C08EE5700E3C7F0 /* func.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = func.c; sourceTree = "<group>"; };
 		C45C35001C08EE5700E3C7F0 /* plumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plumber.h; sourceTree = "<group>"; };
 		C45C35011C08EE5700E3C7F0 /* sporth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sporth.h; sourceTree = "<group>"; };
@@ -2141,6 +2143,14 @@
 			path = "White Noise";
 			sourceTree = "<group>";
 		};
+		C45464031C69DB8C0087394B /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				C45464041C69DBA40087394B /* AKAudioRecorder.swift */,
+			);
+			name = Recorder;
+			sourceTree = "<group>";
+		};
 		C45C34FC1C08EE5700E3C7F0 /* Sporth */ = {
 			isa = PBXGroup;
 			children = (
@@ -2394,6 +2404,7 @@
 		C46303D91C2126A2009B44D9 /* Playback */ = {
 			isa = PBXGroup;
 			children = (
+				C45464031C69DB8C0087394B /* Recorder */,
 				C4E13D271C42360C008F0A3C /* Phase-Locked Vocoder */,
 				C40C42AC1C420C1D009D870B /* Player */,
 				C40C42AE1C420C1D009D870B /* Sampler */,
@@ -2842,6 +2853,7 @@
 				C437928A1C0CEEB0001E9160 /* test.c in Sources */,
 				C4537F301C39D2A300A51738 /* AKDistortion.swift in Sources */,
 				C453807D1C3A5BDA00A51738 /* AKSquareWaveOscillatorAudioUnit.mm in Sources */,
+				C45464051C69DBA40087394B /* AKAudioRecorder.swift in Sources */,
 				C4537FB11C3A438D00A51738 /* AKBandRejectButterworthFilter.swift in Sources */,
 				C484435D1C311539007BE794 /* zeros.c in Sources */,
 				C46300EA1C20C342009B44D9 /* gen_vals.c in Sources */,
