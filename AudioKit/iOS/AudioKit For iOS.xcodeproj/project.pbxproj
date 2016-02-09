@@ -519,6 +519,7 @@
 		C4E9590E1C0B84FA00516A6A /* mincer.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E9590D1C0B84FA00516A6A /* mincer.c */; };
 		EA6949E21C59A9FC0035B5DF /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6949E11C59A9FC0035B5DF /* AKSettings.swift */; };
 		EA8BA9821C5E24AE00BBD469 /* AKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8BA9811C5E24AE00BBD469 /* AKView.swift */; };
+		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
 		FE4423711C4B95B700BA7009 /* AKDrumSynths.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
 /* End PBXBuildFile section */
@@ -1053,6 +1054,7 @@
 		C4E9590D1C0B84FA00516A6A /* mincer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mincer.c; sourceTree = "<group>"; };
 		EA6949E11C59A9FC0035B5DF /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		EA8BA9811C5E24AE00BBD469 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
+		EAF9C9861C69A3E500C10CCE /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		FE4423701C4B95B700BA7009 /* AKDrumSynths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDrumSynths.swift; sourceTree = "<group>"; };
 		FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1336,6 +1338,7 @@
 			isa = PBXGroup;
 			children = (
 				C40C411C1C40E2E1009D870B /* AudioKit.swift */,
+				EAF9C9861C69A3E500C10CCE /* AKDevice.swift */,
 				EA6949E11C59A9FC0035B5DF /* AKSettings.swift */,
 				C40C411D1C40E2E1009D870B /* AKTable.swift */,
 				C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */,
@@ -2926,6 +2929,7 @@
 				C40C410F1C40DF67009D870B /* AKFMSynth.swift in Sources */,
 				C45380101C3A4CCE00A51738 /* AKChowningReverbAudioUnit.mm in Sources */,
 				C46300FA1C20C342009B44D9 /* pluck.c in Sources */,
+				EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */,
 				C46300DE1C20C342009B44D9 /* dcblock.c in Sources */,
 				C4537FDD1C3A438D00A51738 /* AKMoogLadder.swift in Sources */,
 				C40C41111C40DF67009D870B /* AKNoiseGenerator.swift in Sources */,
