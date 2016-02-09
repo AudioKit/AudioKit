@@ -61,6 +61,7 @@
         <page name='Pink Noise Generator'/>
         <page name='Plucked String'/>
         <page name='Plucked String Operation'/>
+        <page name='Recording from Microphone'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>
