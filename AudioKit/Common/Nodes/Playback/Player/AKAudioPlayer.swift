@@ -15,6 +15,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
     
+    private var internalFile: String
     private var sampleRate : Double = 1.0
     private var totalFrameCount : Int64
     private var initialFrameCount : Int64 = -1
@@ -55,6 +56,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// - parameter file: Path to the audio file
     ///
     public init(_ file: String) {
+        internalFile = file
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
         let audioFile = try! AVAudioFile(forReading: url)
         let audioFormat = audioFile.processingFormat
@@ -80,6 +82,15 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             options: .Loops,
             completionHandler: nil)
         internalPlayer.volume = 1.0
+    }
+    
+    public func reloadFile() {
+        let url = NSURL.fileURLWithPath(internalFile, isDirectory: false)
+        let audioFile = try! AVAudioFile(forReading: url)
+        let audioFormat = audioFile.processingFormat
+        let audioFrameCount = UInt32(audioFile.length)
+        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat, frameCapacity: audioFrameCount)
+        try! audioFile.readIntoBuffer(audioFileBuffer)
     }
     
     /// Start playback
