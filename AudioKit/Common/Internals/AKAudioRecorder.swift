@@ -14,7 +14,7 @@ public class AKAudioRecorder {
     
     private var internalRecorder: AVAudioRecorder
     
-    /// Initialize the player
+    /// Initialize the recorder
     ///
     /// - parameter file: Path to the audio file
     ///
@@ -29,7 +29,7 @@ public class AKAudioRecorder {
         internalRecorder.record()
     }
     
-    /// Stop playback
+    /// Stop recording
     public func stop() {
         internalRecorder.stop()
     }
