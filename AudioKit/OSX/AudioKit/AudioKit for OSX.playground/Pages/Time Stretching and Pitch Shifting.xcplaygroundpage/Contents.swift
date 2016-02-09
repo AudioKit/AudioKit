@@ -75,19 +75,19 @@ class PlaygroundView: AKPlaygroundView {
     }
     func setRate(slider: Slider) {
         timePitch.rate = Double(slider.value)
-        let rate = String(format: "%0.1f", timePitch.rate)
+        let rate = String(format: "%0.3f", timePitch.rate)
         rateLabel!.text = "Rate: \(rate) rate"
     }
     
     func setPitch(slider: Slider) {
         timePitch.pitch = Double(slider.value)
-        let pitch = String(format: "%0.1f", timePitch.pitch)
+        let pitch = String(format: "%0.3f", timePitch.pitch)
         pitchLabel!.text = "Pitch: \(pitch) Cents"
     }
     
     func setOverlap(slider: Slider) {
         timePitch.overlap = Double(slider.value)
-        let overlap = String(format: "%0.1f", timePitch.overlap)
+        let overlap = String(format: "%0.3f", timePitch.overlap)
         overlapLabel!.text = "Overlap: \(overlap)"
     }
     

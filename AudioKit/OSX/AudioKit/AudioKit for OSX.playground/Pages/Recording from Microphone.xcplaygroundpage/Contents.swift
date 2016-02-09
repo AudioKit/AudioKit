@@ -8,8 +8,6 @@ import XCPlayground
 import AudioKit
 
 let mic = AKMicrophone()
-let tracker = AKFrequencyTracker.init(mic, minimumFrequency: 200, maximumFrequency: 2000)
-
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("recording", ofType: "wav")
