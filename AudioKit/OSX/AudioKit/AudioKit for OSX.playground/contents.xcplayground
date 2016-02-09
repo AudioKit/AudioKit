@@ -17,8 +17,8 @@
         <page name='Decimator'/>
         <page name='Delay'/>
         <page name='Distortion'/>
-        <page name='Drum Synthesizers'/>
         <page name='Dripping Sounds'/>
+        <page name='Drum Synthesizers'/>
         <page name='Dry Wet Mixer'/>
         <page name='Dynamics Processor'/>
         <page name='Fatten Effect'/>
@@ -60,6 +60,7 @@
         <page name='Phasor Operation'/>
         <page name='Pink Noise Generator'/>
         <page name='Plucked String'/>
+        <page name='Playback Speed'/>
         <page name='Plucked String Operation'/>
         <page name='Recording from Microphone'/>
         <page name='Ring Modulator'/>
