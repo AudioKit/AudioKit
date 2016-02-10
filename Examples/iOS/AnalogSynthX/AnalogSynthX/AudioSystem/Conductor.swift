@@ -26,6 +26,7 @@ class Conductor: AKMIDIListener {
     var midiBendRange : Double = 2.0
 
     init() {
+        AKSettings.audioInputEnabled = true
         bitCrusher = AKBitCrusher(core)
         bitCrusher.stop()
 
@@ -33,6 +34,8 @@ class Conductor: AKMIDIListener {
         filterSection.output.stop()
 
         fatten = Fatten(filterSection)
+        fatten.output.stop()
+        
         multiDelay = MultiDelay(fatten)
         multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0.0)
 

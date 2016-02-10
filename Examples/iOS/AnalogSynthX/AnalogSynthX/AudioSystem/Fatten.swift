@@ -10,26 +10,14 @@ import AudioKit
 
 class Fatten: AKNode {
 
-    var time = 0.05 {
-        didSet {
-            output.parameters = [time, mix]
-        }
-    }
-    var mix = 0.5 {
-        didSet {
-            output.parameters = [time, mix]
-        }
-    }
-
-    private var output: AKOperationEffect
+    var output: AKOperationEffect
 
     init(_ input: AKNode) {
 
-        let fattenTimeParameter = AKOperation.parameters(0)
-        let fattenMixParameter = AKOperation.parameters(1)
+        let fattenTimeParameter = 0.05
 
         let fattenOperation = AKStereoOperation(
-            "\(AKStereoOperation.input) dup \(1 - fattenMixParameter) * swap 0 \(fattenTimeParameter) 1.0 vdelay \(fattenMixParameter) * +")
+            "\(AKStereoOperation.input) dup 0.5 * swap 0 \(fattenTimeParameter) 1.0 vdelay 0.5 * +")
         output = AKOperationEffect(input, stereoOperation: fattenOperation)
         super.init()
         self.avAudioNode = output.avAudioNode
