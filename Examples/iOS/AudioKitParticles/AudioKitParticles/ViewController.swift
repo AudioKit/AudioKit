@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         AudioKit.output = noAudioOutput
         AudioKit.start()
         
-        let _ = AKPlaygroundLoop(every: 1 / 60) {
+        let _ = Loop(every: 1 / 60) {
             let fftData = self.fft.fftData
             let count = 250
             

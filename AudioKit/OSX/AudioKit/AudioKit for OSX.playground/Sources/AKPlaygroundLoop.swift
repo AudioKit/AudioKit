@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import QuartzCore
 
 /// Class to handle updating via CADisplayLink
 public class AKPlaygroundLoop: NSObject {
