@@ -11,9 +11,9 @@ import AudioKit
 class CoreVoice: AKVoice {
     var vco1: AKMorphingOscillator
     var vco2: AKMorphingOscillator
-    var subOsc       = AKOscillator()
-    var fmOscillator = AKFMOscillator()
-    var noise        = AKWhiteNoise()
+    var subOsc = AKOscillator()
+    var fmOsc  = AKFMOscillator()
+    var noise  = AKWhiteNoise()
 
     // We'll be using these simply to control volume independent of velocity
     var vco1Mixer:   AKMixer
@@ -46,7 +46,7 @@ class CoreVoice: AKVoice {
         vco1Mixer   = AKMixer(vco1)
         vco2Mixer   = AKMixer(vco2)
         subOscMixer = AKMixer(subOsc)
-        fmOscMixer  = AKMixer(fmOscillator)
+        fmOscMixer  = AKMixer(fmOsc)
         noiseMixer  = AKMixer(noise)
 
         // Default non-VCO's off
@@ -73,7 +73,7 @@ class CoreVoice: AKVoice {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     override var isStarted: Bool {
-        return fmOscillator.isPlaying
+        return fmOsc.isPlaying
     }
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -81,7 +81,7 @@ class CoreVoice: AKVoice {
 
         // Do not automatically start the VCOs because the logic about that is higher up
         subOsc.start()
-        fmOscillator.start()
+        fmOsc.start()
         noise.start()
 
         adsr.start()
