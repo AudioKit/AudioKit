@@ -34,8 +34,6 @@ class Conductor: AKMIDIListener {
         filterSection.output.stop()
 
         fatten = Fatten(filterSection)
-        fatten.output.stop()
-        
         multiDelay = MultiDelay(fatten)
         multiDelayMixer = AKDryWetMixer(fatten, multiDelay, balance: 0.0)
 

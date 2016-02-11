@@ -306,11 +306,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Stereo Fatten Off"
-            conductor.fatten.output.stop()
+            conductor.fatten.dryWetMix.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Stereo Fatten On"
-            conductor.fatten.output.start()
+            conductor.fatten.dryWetMix.balance = 1
         }
     }
     
