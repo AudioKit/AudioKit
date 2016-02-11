@@ -26,6 +26,7 @@ class Conductor: AKMIDIListener {
     var midiBendRange : Double = 2.0
 
     init() {
+        AKSettings.audioInputEnabled = true
         bitCrusher = AKBitCrusher(core)
         bitCrusher.stop()
 
