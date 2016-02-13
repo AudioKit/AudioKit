@@ -72,30 +72,14 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the feedback.
-    AUParameter *feedbackAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"feedback"
-                                              name:@"Feedback (%)"
-                                           address:feedbackAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
     // Initialize the parameter values.
     timeAUParameter.value = 1;
-    feedbackAUParameter.value = 0;
 
     _kernel.setParameter(timeAddress,             timeAUParameter.value);
-    _kernel.setParameter(feedbackAddress,         feedbackAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        timeAUParameter,
-        feedbackAUParameter
+        timeAUParameter
     ]];
 
     // Create the input and output busses.
