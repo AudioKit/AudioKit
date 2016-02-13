@@ -9,20 +9,24 @@
 import Foundation
 import AVFoundation
 
-@objc
-public class AKDevice : NSObject
-{
+/// Wrapper for audio device selection
+@objc public class AKDevice : NSObject {
     /// The human-readable name for the device.
     public var name: String
     
-    /// The device identifier.
     #if os(OSX)
+    /// The device identifier.
     public private(set) var deviceID: AudioDeviceID
     #else
+    /// The device identifier.
     public private(set) var deviceID: String
     #endif
 
     #if os(OSX)
+    /// Initialize the device
+    ///
+    /// - parameter name: The human-readable name for the device.
+    /// - paramter deviceID: The device identifier.
     public init(name: String, deviceID: AudioDeviceID)
     {
         self.name = name
@@ -30,6 +34,10 @@ public class AKDevice : NSObject
         super.init()
     }
     #else
+    /// Initialize the device
+    ///
+    /// - parameter name: The human-readable name for the device.
+    /// - paramter deviceID: The device identifier.
     public init(name: String, deviceID: String)
     {
         self.name = name
@@ -38,6 +46,7 @@ public class AKDevice : NSObject
     }
     #endif
     
+    /// Printable device description
     public override var description: String
     {
         return "<Device: \(name) (\(deviceID))>"
