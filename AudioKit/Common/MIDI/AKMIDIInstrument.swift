@@ -92,7 +92,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
             let packet = packetList.memory.packet as MIDIPacket
             var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
             packetPtr.initialize(packet)
-            for _ in 0 ..< packetCount {
+            for i in 0 ..< packetCount {
                 let event = AKMIDIEvent(packet: packetPtr.memory)
                 //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
                 handleMIDI(UInt32(event.internalData[0]), data2: UInt32(event.internalData[1]), data3: UInt32(event.internalData[2]))

@@ -30,8 +30,7 @@ import AVFoundation
     }
     
     /// Enumerate the list of available input devices.
-    public static var availableInputs: [AKDevice]?
-    {
+    public static var availableInputs: [AKDevice]? {
         #if os(OSX)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.inputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
@@ -44,8 +43,7 @@ import AVFoundation
     }
 
     /// The name of the current preferred input device, if available.
-    public static var inputDevice: AKDevice?
-    {
+    public static var inputDevice: AKDevice? {
         #if os(OSX)
             if let dev = EZAudioDevice.currentInputDevice() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
@@ -59,8 +57,7 @@ import AVFoundation
     }
 
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
-    public static func setInputDevice(input: AKDevice) throws
-    {
+    public static func setInputDevice(input: AKDevice) throws {
         #if os(OSX)
             var address = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDefaultInputDevice,
                                                      mScope: kAudioObjectPropertyScopeGlobal,

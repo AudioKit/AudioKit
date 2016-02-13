@@ -11,6 +11,7 @@ custom_categories:
   - name: AudioKit Core
     children:
     - AudioKit
+    - AKDevice
     - AKSettings
     - AKTable
     - AKTableType
@@ -151,6 +152,7 @@ custom_categories:
     - AKSampler
     - AKSequencer
     - AKTimePitch
+    - AKVariSpeed
 
   - name: Operations
     children:
