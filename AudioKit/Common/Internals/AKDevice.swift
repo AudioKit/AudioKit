@@ -9,50 +9,30 @@
 import Foundation
 import AVFoundation
 
+#if os(OSX)
+public typealias DeviceID = AudioDeviceID
+#else
+public typealias DeviceID = String
+#endif
+    
 /// Wrapper for audio device selection
 @objc public class AKDevice : NSObject {
     /// The human-readable name for the device.
     public var name: String
     
-    #if os(OSX)
-    
     /// The device identifier.
-    public private(set) var deviceID: AudioDeviceID
-    
-    #else
-    
-    /// The device identifier.
-    public private(set) var deviceID: String
-    
-    #endif
+    public private(set) var deviceID: DeviceID
 
-    #if os(OSX)
-    
     /// Initialize the device
     ///
     /// - parameter name: The human-readable name for the device.
-    /// - paramter deviceID: The device identifier.
+    /// - parameter deviceID: The device identifier.
     ///
-    public init(name: String, deviceID: AudioDeviceID) {
+    public init(name: String, deviceID: DeviceID) {
         self.name = name
         self.deviceID = deviceID
         super.init()
     }
-    
-    #else
-    
-    /// Initialize the device
-    ///
-    /// - parameter name: The human-readable name for the device.
-    /// - paramter deviceID: The device identifier.
-    ///
-    public init(name: String, deviceID: String) {
-        self.name = name
-        self.deviceID = deviceID
-        super.init()
-    }
-    
-    #endif
     
     /// Printable device description
     public override var description: String {
