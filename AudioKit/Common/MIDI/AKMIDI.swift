@@ -154,7 +154,7 @@ public class AKMIDI {
     /// Array of MIDI In ports
     public var midiInPorts: [MIDIPortRef] = []
 
-    // virtual midi destination (input)
+    /// Virtual MIDI Input destination
     public var virtualInput = MIDIPortRef()
 
     /// MIDI Client Name
@@ -174,7 +174,7 @@ public class AKMIDI {
     /// MIDI Out Port Reference
     public var midiOutPort = MIDIPortRef()
 
-    // virtual midi source (output)
+    /// Virtual MIDI output
     public var virtualOutput = MIDIPortRef()
 
     
