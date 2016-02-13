@@ -175,7 +175,7 @@ public class AKMIDI {
     public var midiOutPort = MIDIPortRef()
 
     // virtual midi source (output)
-    public var virtOutput = MIDIPortRef()
+    public var virtualOutput = MIDIPortRef()
 
     
     /// Array of MIDI Endpoints
@@ -280,13 +280,13 @@ public class AKMIDI {
         }
         
         
-        result = MIDISourceCreate(midiClient, midiClientName, &virtOutput);
+        result = MIDISourceCreate(midiClient, midiClientName, &virtualOutput);
         if result == OSStatus(noErr) {
             print("Created virt source: \(midiClientName)")
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId + 1)
         }
         else {
-            print("Error creating virtual source: \(midiClientName) -- \(virtOutput)")
+            print("Error creating virtual source: \(midiClientName) -- \(virtualOutput)")
         }
 
     
@@ -300,7 +300,7 @@ public class AKMIDI {
         }
 
         if virtualInput != 0 {
-            MIDIEndpointDispose(virtOutput)
+            MIDIEndpointDispose(virtualOutput)
             virtualInput = 0
         }
     }
@@ -423,8 +423,8 @@ public class AKMIDI {
             }
         }
 
-        if virtOutput != 0 {
-            MIDIReceived(virtOutput, packetListPtr);
+        if virtualOutput != 0 {
+            MIDIReceived(virtualOutput, packetListPtr);
         }
         
         packetListPtr.destroy()
