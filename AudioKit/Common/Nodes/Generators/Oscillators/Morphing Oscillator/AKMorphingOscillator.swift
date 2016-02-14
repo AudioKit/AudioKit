@@ -177,7 +177,7 @@ public class AKMorphingOscillator: AKVoice {
             /// AOP need to set up phase
             for i in 0..<waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
-                for var j = 0; j < waveformArray[i].size; j++ {
+                for j in 0 ..< waveformArray[i].size {
                     self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
                 }
             }

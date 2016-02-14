@@ -1,7 +1,7 @@
 disabled_rules: # rule identifiers to exclude from running
   - trailing_whitespace
   - force_try
-#  - line_length
+  - line_length
 
 type_body_length:
   - 400 # warning
