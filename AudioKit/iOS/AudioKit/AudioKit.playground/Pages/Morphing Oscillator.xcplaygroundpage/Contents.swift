@@ -21,13 +21,13 @@ morph.start()
 let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
-var t = 0.0
+var time = 0.0
 let timeStep = 0.1
 
 AKPlaygroundLoop(every: timeStep) {
-    morph.index = 1.5 * ( 1.0 + sin(t) )
+    morph.index = 1.5 * ( 1.0 + sin(time) )
     
-    t = t + timeStep
+    time += timeStep
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

@@ -32,11 +32,8 @@ player.play()
 AKPlaygroundLoop(every: 3.428) { () -> () in
     let time = random(0.03, 0.1)
     let mix = random(0.3, 1.0)
-    fatten.parameters = [time, mix];
+    fatten.parameters = [time, mix]
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-
-
-

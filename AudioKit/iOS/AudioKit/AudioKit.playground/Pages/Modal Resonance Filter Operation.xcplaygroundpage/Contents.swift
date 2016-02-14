@@ -11,7 +11,6 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
-let fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096), baseFrequency: 100,  amplitude:0.1)
 
 let frequency = AKOperation.sineWave(frequency: 0.3).scale(minimum: 200, maximum: 1200)
 
