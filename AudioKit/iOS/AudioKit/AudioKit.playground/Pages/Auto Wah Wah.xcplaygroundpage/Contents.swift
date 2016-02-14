@@ -26,7 +26,7 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
     
-    var wahLabel:   Label?
+    var wahLabel: Label?
     
     override func setup() {
         addTitle("Auto Wah Wah")
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300));
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

@@ -24,7 +24,7 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
     
-    var durationLabel:   Label?
+    var durationLabel: Label?
     
     override func setup() {
         addTitle("Comb Filter Reverb")
@@ -52,7 +52,7 @@ class PlaygroundView: AKPlaygroundView {
     
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300));
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

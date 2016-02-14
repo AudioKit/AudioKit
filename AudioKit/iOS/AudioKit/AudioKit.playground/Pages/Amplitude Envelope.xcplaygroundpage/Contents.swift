@@ -8,8 +8,8 @@ import XCPlayground
 import AudioKit
 
 
-var fm = AKFMOscillator()
-var fmWithADSR = AKAmplitudeEnvelope(fm,
+var fmOscillator = AKFMOscillator()
+var fmWithADSR = AKAmplitudeEnvelope(fmOscillator,
                                      attackDuration: 0.1,
                                      decayDuration: 0.1,
                                      sustainLevel: 0.8,
@@ -26,15 +26,15 @@ class PlaygroundView: AKPlaygroundView {
     
     var holdDuration = 1.0
     
-    var attackLabel:   Label?
-    var decayLabel:    Label?
-    var sustainLabel:  Label?
-    var releaseLabel:  Label?
+    var attackLabel: Label?
+    var decayLabel: Label?
+    var sustainLabel: Label?
+    var releaseLabel: Label?
     var durationLabel: Label?
-    var attackSlider:   Slider?
-    var decaySlider:    Slider?
-    var sustainSlider:  Slider?
-    var releaseSlider:  Slider?
+    var attackSlider: Slider?
+    var decaySlider: Slider?
+    var sustainSlider: Slider?
+    var releaseSlider: Slider?
     var durationSlider: Slider?
 
     override func setup() {
@@ -126,7 +126,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 560));
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 560))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

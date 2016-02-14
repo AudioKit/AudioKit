@@ -19,7 +19,7 @@ AudioKit.output = delay
 AudioKit.start()
 player.play()
 
-var t = 0.0
+var time = 0.0
 let timeStep = 0.02
 
 AKPlaygroundLoop(every: timeStep) {
@@ -29,7 +29,7 @@ AKPlaygroundLoop(every: timeStep) {
     let delayModulation = (1.0 - cos(2 * 3.14 * delayModulationHz * t)) * 0.2
     delay.time = delayModulation
     
-    t = t + timeStep
+    t += timeStep
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
