@@ -18,11 +18,11 @@ AudioKit.start()
 
 noise.start()
 
-var i = 0
+var counter = 0
 
 AKPlaygroundLoop(frequency: 2.66) {
-    let frequencyToggle = i % 2
-    let inertiaToggle = i % 16
+    let frequencyToggle = counter % 2
+    let inertiaToggle = counter % 16
     if frequencyToggle > 0 {
         filter.cutoffFrequency = 111
     } else {

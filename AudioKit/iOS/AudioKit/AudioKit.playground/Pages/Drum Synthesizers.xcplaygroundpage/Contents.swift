@@ -19,11 +19,11 @@ AudioKit.start()
 reverb.loadFactoryPreset(.MediumRoom)
 
 //: Generate a cheap electro beat
-var i = 0
+var counter = 0
 AKPlaygroundLoop(frequency: 4.44) {
     
-    let onFirstBeat = i == 0
-    let everyOtherBeat = i % 4 == 2
+    let onFirstBeat = counter == 0
+    let everyOtherBeat = counter % 4 == 2
     let randomHit = randomInt(0...3) == 0
     
     if onFirstBeat || randomHit {

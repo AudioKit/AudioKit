@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 //: Create the sequencer, but we can't init it until we do some basic setup
-var seq:AKSequencer?
+var seq: AKSequencer?
 
 //: Create a sampler, load a sound, and connect it to the output
 var sampler = AKSampler()

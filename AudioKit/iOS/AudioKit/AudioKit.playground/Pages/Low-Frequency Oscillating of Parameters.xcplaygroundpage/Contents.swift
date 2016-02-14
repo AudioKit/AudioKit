@@ -12,14 +12,14 @@ let carrierLFO   = AKOperation.triangle(frequency: 1).scale(minimum: 1, maximum:
 let modulatingMultiplierLFO = AKOperation.sawtooth(frequency: 1).scale(minimum: 0.1, maximum: 2)
 let modulatingIndexLFO = AKOperation.reverseSawtooth(frequency: 1).scale(minimum: 0.1, maximum: 20)
 
-let fm = AKOperation.fmOscillator(
+let fmOscillator = AKOperation.fmOscillator(
     baseFrequency: frequencyLFO,
     carrierMultiplier: carrierLFO,
     modulatingMultiplier: modulatingMultiplierLFO,
     modulationIndex:  modulatingIndexLFO,
     amplitude: 0.2)
 
-let generator = AKOperationGenerator(operation: fm)
+let generator = AKOperationGenerator(operation: fmOscillator)
 
 AudioKit.output = generator
 AudioKit.start()
