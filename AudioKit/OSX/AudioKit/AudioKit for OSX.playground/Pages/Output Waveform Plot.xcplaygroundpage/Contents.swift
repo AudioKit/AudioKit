@@ -7,9 +7,9 @@
 import XCPlayground
 import AudioKit
 
-var fm = AKFMOscillator(
+var fmOscillator = AKFMOscillator(
     waveform: AKTable(.Sine, size: 4096))
-AudioKit.output = fm
+AudioKit.output = fmOscillator
 AudioKit.start()
 
 AKPlaygroundLoop(frequency: 1) {

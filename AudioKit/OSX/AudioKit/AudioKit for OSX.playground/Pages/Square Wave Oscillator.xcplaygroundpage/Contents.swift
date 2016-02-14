@@ -13,14 +13,14 @@ AudioKit.start()
 
 square.start()
 
-var t: Double = 0
+var time: Double = 0
 
 AKPlaygroundLoop(every: 0.12) {
-    square.pulseWidth = 0.75 -  0.24 * cos(10*t)
+    square.pulseWidth = 0.75 -  0.24 * cos(10 * time)
     square.pulseWidth
-    t = t + 0.01
+    time += 0.01
     
-    let scale = [0,2,4,5,7,9,11,12]
+    let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()
     let octave = randomInt(3...6)  * 12
     square.frequency = (note + octave).midiNoteToFrequency()

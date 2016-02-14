@@ -16,7 +16,7 @@ sawtooth.start()
 AKPlaygroundLoop(every: 0.12) {
     sawtooth.amplitude = random(0, 0.3)
     
-    let scale = [0,2,4,5,7,9,11,12]
+    let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()
     let octave = randomInt(3...6)  * 12
     sawtooth.ramp(frequency: (note + octave).midiNoteToFrequency())

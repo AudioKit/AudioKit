@@ -68,7 +68,7 @@ public class AKPlaygroundView: NSView {
     
     
     public func addTitle(text: String) -> NSTextField {
-        let newLabel = NSTextField(frame: CGRectMake(0, 0, self.bounds.width, 2 * elementHeight))
+        let newLabel = NSTextField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
         newLabel.stringValue = text
         newLabel.editable = false
         newLabel.drawsBackground = false
@@ -82,7 +82,7 @@ public class AKPlaygroundView: NSView {
     }
     
     public func addButton(label: String, action: Selector) -> NSButton {
-        let newButton = NSButton(frame: CGRectMake(0, 0, self.bounds.width, elementHeight))
+        let newButton = NSButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newButton.title = "\(label)    "
         newButton.font = NSFont.systemFontOfSize(18)
         
@@ -105,7 +105,7 @@ public class AKPlaygroundView: NSView {
     
     public func addLabel(text: String) -> AKLabel {
         lastButton = nil
-        let newLabel = AKLabel(frame: CGRectMake(0, 0, self.bounds.width, elementHeight))
+        let newLabel = AKLabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.stringValue = text
         newLabel.editable = false
         newLabel.drawsBackground = false
@@ -119,7 +119,7 @@ public class AKPlaygroundView: NSView {
     
     public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> AKSlider {
         lastButton = nil
-        let newSlider = AKSlider(frame: CGRectMake(0, 0, self.bounds.width, 20))
+        let newSlider = AKSlider(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
         newSlider.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         newSlider.minValue = Double(minimum)
         newSlider.maxValue = Double(maximum)
