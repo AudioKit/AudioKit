@@ -414,7 +414,7 @@ public class AKMIDI {
         var packet = UnsafeMutablePointer<MIDIPacket>()
         packet = MIDIPacketListInit(packetListPtr)
         packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
-        for i in 0 ..< midiEndpoints.count {
+        for _ in 0 ..< midiEndpoints.count {
             result = MIDISend(midiOutPort, midiEndpoints[0], packetListPtr)
             if result == OSStatus(noErr) {
                 //print("sent midi")

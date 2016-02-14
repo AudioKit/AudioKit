@@ -33,7 +33,7 @@ public class AKPlaygroundView: UIView {
     
     
     public func addTitle(text: String) -> UILabel {
-        let newLabel = UILabel(frame: CGRectMake(0, 0, self.bounds.width, 2 * elementHeight))
+        let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
         newLabel.text = text
         newLabel.textAlignment = .Center
         newLabel.frame.origin.y = 0
@@ -46,7 +46,7 @@ public class AKPlaygroundView: UIView {
     public func addButton(label: String, action: Selector) -> UIButton {
         
         let newButton = UIButton(type: .Custom)
-        newButton.frame = CGRectMake(0, 0, self.bounds.width, elementHeight)
+        newButton.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight)
         newButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         newButton.backgroundColor = UIColor.blueColor()
         newButton.setTitle("  \(label)  ", forState: .Normal)
@@ -69,7 +69,7 @@ public class AKPlaygroundView: UIView {
     
     public func addLabel(text: String) -> UILabel {
         lastButton = nil
-        let newLabel = UILabel(frame: CGRectMake(0, 0, self.bounds.width, elementHeight))
+        let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
         newLabel.font = UIFont.systemFontOfSize(18)
         newLabel.frame.origin.y = CGFloat(yPosition)
@@ -81,7 +81,7 @@ public class AKPlaygroundView: UIView {
     
     public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> UISlider {
         lastButton = nil
-        let newSlider = UISlider(frame: CGRectMake(0, 0, self.bounds.width, 20))
+        let newSlider = UISlider(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
         newSlider.frame.origin.y = CGFloat(yPosition)
         newSlider.minimumValue = Float(minimum)
         newSlider.maximumValue = Float(maximum)

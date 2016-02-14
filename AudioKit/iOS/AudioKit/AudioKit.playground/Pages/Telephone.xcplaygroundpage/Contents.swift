@@ -190,7 +190,7 @@ class PlaygroundView: AKPlaygroundView {
 
 
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:750));
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 750))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
