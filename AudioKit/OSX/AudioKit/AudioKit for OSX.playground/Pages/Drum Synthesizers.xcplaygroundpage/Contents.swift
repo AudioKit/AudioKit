@@ -19,11 +19,11 @@ AudioKit.start()
 reverb.loadFactoryPreset(.MediumRoom)
 
 //: Generate a cheap electro beat
-var i = 0
+var counter = 0
 AKPlaygroundLoop(frequency: 4.44) {
     
-    let onFirstBeat = i == 0
-    let everyOtherBeat = i % 4 == 2
+    let onFirstBeat = counter == 0
+    let everyOtherBeat = counter % 4 == 2
     let randomHit = randomInt(0...3) == 0
     
     if onFirstBeat || randomHit {
@@ -36,7 +36,7 @@ AKPlaygroundLoop(frequency: 4.44) {
         snare.playNote(60, velocity: velocity)
         snare.stopNote(60)
     }
-    i += 1
+    counter += 1
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

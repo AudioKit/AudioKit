@@ -28,7 +28,7 @@ AudioKit.start()
 
 player.play()
 
-fatten.parameters = [0.1, 0.5];
+fatten.parameters = [0.1, 0.5]
 
 //: User Interface Set up
 
@@ -70,7 +70,7 @@ class PlaygroundView: AKPlaygroundView {
     
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350));
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
