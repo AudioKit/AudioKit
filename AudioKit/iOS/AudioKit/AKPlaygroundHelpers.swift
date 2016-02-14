@@ -17,7 +17,7 @@ public class AKPlaygroundLoop {
     /// Repeat this loop at a given period with a code block
     ///
     /// - parameter every: Period, or interval between block executions
-    /// - parameter handle: Code block to execute
+    /// - parameter handler: Code block to execute
     ///
     public init(every duration: Double, handler:()->()) {
         trigger =  Int(60 * duration)
@@ -30,7 +30,7 @@ public class AKPlaygroundLoop {
     /// Repeat this loop at a given frequency with a code block
     ///
     /// - parameter frequency: Frequency of block executions in Hz
-    /// - parameter handle: Code block to execute
+    /// - parameter handler: Code block to execute
     ///
     public init(frequency: Double, handler:()->()) {
         trigger =  Int(60 / frequency)
@@ -43,7 +43,7 @@ public class AKPlaygroundLoop {
     /// Callback function for CADisplayLink
     @objc func update() {
         if counter < trigger {
-            counter++
+            counter += 1
             return
         }
         counter = 0

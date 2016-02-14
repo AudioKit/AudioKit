@@ -274,7 +274,7 @@ public class AKSequencer {
         var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
 
-        for( var i = 0; i < Int(count); ++i) {
+        for i in 0 ..< Int(count) {
             var musicTrack = MusicTrack()
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
             tracks.append(AKMusicTrack(musicTrack: musicTrack))
