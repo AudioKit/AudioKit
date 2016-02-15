@@ -65,6 +65,9 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         self.plotType = .Buffer
         self.backgroundColor = AKColor.whiteColor()
         self.shouldCenterYAxis = true
+        
+        setupNode(input)
+        
     }
     
     /// Callback function for FFT data:
