@@ -351,6 +351,10 @@
 		C46302911C20E7A7009B44D9 /* scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463027D1C20E7A7009B44D9 /* scale.swift */; };
 		C46302921C20E7A7009B44D9 /* subtract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C463027E1C20E7A7009B44D9 /* subtract.swift */; };
 		C46303D11C212682009B44D9 /* AKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46303C71C212682009B44D9 /* AKMicrophone.swift */; };
+		C46501231C729B1700EF6CF7 /* pshift.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501221C729B1700EF6CF7 /* pshift.c */; };
+		C46501251C729BCA00EF6CF7 /* compressor.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501241C729BCA00EF6CF7 /* compressor.c */; };
+		C46501281C729C0200EF6CF7 /* fof.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501261C729C0200EF6CF7 /* fof.c */; };
+		C46501291C729C0200EF6CF7 /* fog.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501271C729C0200EF6CF7 /* fog.c */; };
 		C467816D1C1C0C090000BF29 /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
 		C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		C46781AE1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */; };
@@ -884,6 +888,10 @@
 		C463027D1C20E7A7009B44D9 /* scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = scale.swift; sourceTree = "<group>"; };
 		C463027E1C20E7A7009B44D9 /* subtract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subtract.swift; sourceTree = "<group>"; };
 		C46303C71C212682009B44D9 /* AKMicrophone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMicrophone.swift; sourceTree = "<group>"; };
+		C46501221C729B1700EF6CF7 /* pshift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pshift.c; sourceTree = "<group>"; };
+		C46501241C729BCA00EF6CF7 /* compressor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compressor.c; sourceTree = "<group>"; };
+		C46501261C729C0200EF6CF7 /* fof.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fof.c; sourceTree = "<group>"; };
+		C46501271C729C0200EF6CF7 /* fog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fog.c; sourceTree = "<group>"; };
 		C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeOutputPlot.swift; sourceTree = "<group>"; };
 		C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeFFTPlot.swift; sourceTree = "<group>"; };
 		C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
@@ -1397,6 +1405,7 @@
 				C4E958461C0ADBFD00516A6A /* butlp.c */,
 				C4E958471C0ADBFD00516A6A /* clip.c */,
 				C4E958481C0ADBFD00516A6A /* comb.c */,
+				C46501241C729BCA00EF6CF7 /* compressor.c */,
 				C4B18FA01C3B312D00C0F330 /* conv.c */,
 				C4E958491C0ADBFD00516A6A /* count.c */,
 				C4E9584A1C0ADBFD00516A6A /* dcblock.c */,
@@ -1409,7 +1418,9 @@
 				C4E958521C0ADBFD00516A6A /* eqfil.c */,
 				C4E958541C0ADBFD00516A6A /* expon.c */,
 				C4E958551C0ADBFD00516A6A /* fftwrapper.c */,
+				C46501261C729C0200EF6CF7 /* fof.c */,
 				C4E958561C0ADBFD00516A6A /* fofilt.c */,
+				C46501271C729C0200EF6CF7 /* fog.c */,
 				C4E958571C0ADBFD00516A6A /* fold.c */,
 				C4E958581C0ADBFD00516A6A /* foo.c */,
 				C4E958591C0ADBFD00516A6A /* fosc.c */,
@@ -1441,6 +1452,7 @@
 				C4E958741C0ADBFD00516A6A /* posc3.c */,
 				C4E958751C0ADBFD00516A6A /* progress.c */,
 				C4E958761C0ADBFD00516A6A /* prop.c */,
+				C46501221C729B1700EF6CF7 /* pshift.c */,
 				C4E958771C0ADBFD00516A6A /* randh.c */,
 				C4E958781C0ADBFD00516A6A /* randi.c */,
 				C4E958791C0ADBFD00516A6A /* randmt.c */,
@@ -2838,6 +2850,7 @@
 				C4E958BC1C0ADBFD00516A6A /* line.c in Sources */,
 				C4E958CE1C0ADBFD00516A6A /* port.c in Sources */,
 				C48443651C3117D7007BE794 /* tblrec.c in Sources */,
+				C46501291C729C0200EF6CF7 /* fog.c in Sources */,
 				C45380181C3A4CCE00A51738 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
 				C40C41141C40DF67009D870B /* AKPWMSynth.swift in Sources */,
 				C46300FE1C20C342009B44D9 /* randi.c in Sources */,
@@ -2929,6 +2942,7 @@
 				C4537FF41C3A438D00A51738 /* AKToneComplementFilterAudioUnit.mm in Sources */,
 				C40C426F1C41B22A009D870B /* AKPluckedString.swift in Sources */,
 				C46300FD1C20C342009B44D9 /* randh.c in Sources */,
+				C46501251C729BCA00EF6CF7 /* compressor.c in Sources */,
 				C4B18FA71C3B31C400C0F330 /* streson.c in Sources */,
 				C4537FB91C3A438D00A51738 /* AKDCBlock.swift in Sources */,
 				C45C35571C08EE5700E3C7F0 /* hash.c in Sources */,
@@ -2967,6 +2981,7 @@
 				C4E958D31C0ADBFD00516A6A /* randi.c in Sources */,
 				C40C42711C41B22A009D870B /* AKPluckedStringAudioUnit.mm in Sources */,
 				C40C41511C40E3A5009D870B /* EZAudioDevice.m in Sources */,
+				C46501281C729C0200EF6CF7 /* fof.c in Sources */,
 				C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */,
 				C4E8ED0C1C4391C70041965F /* AKConvolutionAudioUnit.mm in Sources */,
 				C46300DA1C20C342009B44D9 /* buthp.c in Sources */,
@@ -3159,6 +3174,7 @@
 				C4537FC11C3A438D00A51738 /* AKFormantFilter.swift in Sources */,
 				C4E958AD1C0ADBFD00516A6A /* eqfil.c in Sources */,
 				C4E958991C0ADBFD00516A6A /* bal.c in Sources */,
+				C46501231C729B1700EF6CF7 /* pshift.c in Sources */,
 				C46300EC1C20C342009B44D9 /* jcrev.c in Sources */,
 				C4537FCB1C3A438D00A51738 /* AKHighShelfParametricEqualizerFilter.swift in Sources */,
 				C4537FCA1C3A438D00A51738 /* AKHighShelfFilter.swift in Sources */,
