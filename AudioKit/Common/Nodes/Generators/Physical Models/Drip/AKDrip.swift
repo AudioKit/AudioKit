@@ -246,15 +246,14 @@ public class AKDrip: AKNode {
         internalAU?.amplitude = Float(amplitude)
     }
     
+    // MARK: - Control
+    
     /// Trigger the sound with an optional set of parameters
-    /// - parameter parameters: An array of doubles to use as parameters
     ///
     public func trigger() {
         self.internalAU!.start()
         self.internalAU!.trigger()
     }
-    
-    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
