@@ -97,7 +97,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// Start playback
     public func start() {
         if !internalPlayer.playing {
-            var options: AVAudioPlayerNodeBufferOptions = AVAudioPlayerNodeBufferOptions.Interrupts
+            var options = AVAudioPlayerNodeBufferOptions.Interrupts
             if looping {
                 options = .Loops
             }
