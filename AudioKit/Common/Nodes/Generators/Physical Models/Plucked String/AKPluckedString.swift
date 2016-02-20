@@ -134,7 +134,8 @@ public class AKPluckedString: AKVoice {
     }
     
     /// Trigger the sound with an optional set of parameters
-    /// - parameter parameters: An array of doubles to use as parameters
+    /// - parameter frequency: Frequency in Hz
+    /// - amplitude amplitude: Volume
     ///
     public func trigger(frequency frequency: Double, amplitude: Double = 1) {
         self.frequency = frequency
