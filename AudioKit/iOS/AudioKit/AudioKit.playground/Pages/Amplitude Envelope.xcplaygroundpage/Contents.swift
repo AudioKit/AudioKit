@@ -18,7 +18,7 @@ var fmWithADSR = AKAmplitudeEnvelope(fmOscillator,
 AudioKit.output = fmWithADSR
 AudioKit.start()
 
-fm.start()
+fmOscillator.start()
 
 //: User Interface Set up
 
@@ -90,7 +90,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func play() {
-        fm.baseFrequency = random(220, 880)
+        fmOscillator.baseFrequency = random(220, 880)
         fmWithADSR.start()
         self.performSelector("stop", withObject: nil, afterDelay: holdDuration)
     }
