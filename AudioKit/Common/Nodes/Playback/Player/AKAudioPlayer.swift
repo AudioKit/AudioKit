@@ -106,9 +106,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.play()
         // get the initialFrameCount for currentTime as it's relative to the audio engine's time.
         if initialFrameCount == -1 {
-            if let t = internalPlayer.lastRenderTime {
-                initialFrameCount = t.sampleTime
-            }
+            resetFrameCount()
         }
     }
     
@@ -120,6 +118,13 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// Stop playback
     public func stop() {
         internalPlayer.stop()
+        resetFrameCount()
+    }
+    
+    func resetFrameCount() {
+        if let t = internalPlayer.lastRenderTime {
+            initialFrameCount = t.sampleTime
+        }
     }
     
     /// Current playback time (in seconds)
