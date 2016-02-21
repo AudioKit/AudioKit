@@ -40,34 +40,34 @@ Installation with CocoaPods and Carthage is also planned but may not come with t
 There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
 
 The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
-
-    $ cd Frameworks
-    $ ./build_frameworks.sh
-
+```
+$ cd Frameworks
+$ ./build_frameworks.sh
+```
 Hello World basically consists of just a few sections of code:
 
 Creating the sound, in this case an oscillator:
-
-    var oscillator = AKOscillator()
-
+```swift
+var oscillator = AKOscillator()
+```
 Telling AudioKit where to get its audio from (ie. the oscillator):
-
-    AudioKit.output = oscillator
-
+```swift
+AudioKit.output = oscillator
+```
 Starting AudioKit:
-
-    AudioKit.start()
-
+```swift
+AudioKit.start()
+```
 And then responding to the UI by changing the oscillator:
-
-        if oscillator.isPlaying {
-            oscillator.stop()
-        } else {
-            oscillator.amplitude = random(0.5, 1)
-            oscillator.frequency = random(220, 880)
-            oscillator.start()
-        }
-
+```swift
+if oscillator.isPlaying {
+    oscillator.stop()
+} else {
+    oscillator.amplitude = random(0.5, 1)
+    oscillator.frequency = random(220, 880)
+    oscillator.start()
+}
+```
 ## Playgrounds
 
 Because Playgrounds have very different capabilities depending on whether they are for OSX or iOS, we have two sets of playgrounds for each OS.  At this point tvOS behaves very much like iOS so there is no set of playgrounds explicitly for tvOS.
