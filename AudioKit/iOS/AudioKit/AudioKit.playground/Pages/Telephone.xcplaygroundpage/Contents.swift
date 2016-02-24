@@ -11,41 +11,40 @@ import AudioKit
 //: A dial tone is simply two sine waves at specific frequencies
 let dialTone1 = AKOperation.sineWave(frequency: 350)
 let dialTone2 = AKOperation.sineWave(frequency: 440)
-let dialToneMix = mixer(dialTone1, dialTone2, balance: 0.5)
+let dialToneMix = mixer(dialTone1, dialTone2)
 
 let dialTone = AKOperationGenerator(operation: dialToneMix * 0.3)
 
-//: ## Telephone Ringing
+//: ### Telephone Ringing
 //: The ringing sound is also a pair of frequencies that play for 2 seconds, and repeats every 6 seconds.
 let ringingTone1 = AKOperation.sineWave(frequency: 480)
 let ringingTone2 = AKOperation.sineWave(frequency: 440)
 
-let ringingToneMix = mixer(ringingTone1, ringingTone2, balance: 0.5)
+let ringingToneMix = mixer(ringingTone1, ringingTone2)
 
 let ringTrigger = AKOperation.metronome(0.1666) // 1 / 6 seconds
 
-let rings = ringingToneMix.triggeredWithEnvelope(ringTrigger,
-                                                   attack: 0.01, hold: 2, release: 0.01)
+let rings = ringingToneMix.triggeredWithEnvelope(
+    ringTrigger,
+    attack: 0.01, hold: 2, release: 0.01)
 
 let ringing = AKOperationGenerator(operation: rings * 0.4)
 
 //: ### Busy Signal
 //: The busy signal is similar as well, just a different set of parameters.
-
 let busySignalTone1 = AKOperation.sineWave(frequency: 480)
 let busySignalTone2 = AKOperation.sineWave(frequency: 620)
-let busySignalTone = mixer(busySignalTone1, busySignalTone2, balance: 0.5)
+let busySignalTone = mixer(busySignalTone1, busySignalTone2)
 
 let busyTrigger = AKOperation.metronome(2)
-let busySignal = busySignalTone.triggeredWithEnvelope(busyTrigger,
-                                                      attack: 0.01, hold: 0.25, release: 0.01)
+let busySignal = busySignalTone.triggeredWithEnvelope(
+    busyTrigger,
+    attack: 0.01, hold: 0.25, release: 0.01)
 let busy = AKOperationGenerator(operation: busySignal * 0.4)
-
-
 
 //: ## Key presses
 //: All the digits are also just combinations of sine waves
-
+//:
 //: Here is the canonical specification of DTMF Tones
 var keys = [String: [Double]]()
 keys["1"] = [697, 1209]
@@ -82,19 +81,7 @@ class PlaygroundView: AKPlaygroundView {
     
     override func setup() {
         addTitle("Telephone")
-        
-        addLabel("Dial Tone")
-        addButton("Start", action: "startDialTone")
-        addButton("Stop",  action: "stopDialTone")
 
-        addLabel("Ringing")
-        addButton("Start", action: "startRinging")
-        addButton("Stop",  action: "stopRinging")
-
-        addLabel("Busy Signal")
-        addButton("Start", action: "startBusySignal")
-        addButton("Stop",  action: "stopBusySignal")
-        addLineBreak()
         
         addLabel("Keypad")
         
@@ -110,9 +97,12 @@ class PlaygroundView: AKPlaygroundView {
         addTouchKey("8", text: "TUV",  action: "touch8")
         addTouchKey("9", text: "WXYZ", action: "touch9")
         addLineBreak()
-        addTouchKey("*", text: "GHI", action: "touchStar")
+        addTouchKey("✶", text: "GHI", action: "touchStar")
         addTouchKey("0", text: "JKL", action: "touch0")
         addTouchKey("#", text: "MNO", action: "touchHash")
+        addLineBreak()
+        addTouchKey("🚫", text: "BUSY", action: "touchBusy")
+        addTouchKey("☏", text: "CALL", action: "touchCall")
     }
 
     func startDialTone() {
@@ -135,62 +125,57 @@ class PlaygroundView: AKPlaygroundView {
     func stopBusySignal() {
         busy.stop()
     }
-    func touch1() {
-        keypad.trigger(keys["1"]!)
-        usleep(250000)
+    
+    func touchCall() {
+        busy.stop()
+        dialTone.stop()
+        if ringing.isStarted {
+            ringing.stop()
+            dialTone.start()
+        } else {
+            ringing.start()
+        }
     }
-    func touch2() {
-        keypad.trigger(keys["2"]!)
-        usleep(250000)
+    
+    func touchBusy() {
+        ringing.stop()
+        dialTone.stop()
+        if busy.isStarted {
+            busy.stop()
+            dialTone.start()
+        } else {
+            busy.start()
+        }
     }
-    func touch3() {
-        keypad.trigger(keys["3"]!)
+    
+    func touchKeyPad(text: String) {
+        dialTone.stop()
+        ringing.stop()
+        busy.stop()
+        keypad.trigger(keys[text]!)
         usleep(250000)
     }
     
-    func touch4() {
-        keypad.trigger(keys["4"]!)
-        usleep(250000)
-    }
-    func touch5() {
-        keypad.trigger(keys["5"]!)
-        usleep(250000)
-    }
-    func touch6() {
-        keypad.trigger(keys["6"]!)
-        usleep(250000)
-    }
+    func touch1() { touchKeyPad("1") }
+    func touch2() { touchKeyPad("2") }
+    func touch3() { touchKeyPad("3") }
     
-    func touch7() {
-        keypad.trigger(keys["7"]!)
-        usleep(250000)
-    }
-    func touch8() {
-        keypad.trigger(keys["8"]!)
-        usleep(250000)
-    }
-    func touch9() {
-        keypad.trigger(keys["9"]!)
-        usleep(250000)
-    }
+    func touch4() { touchKeyPad("4") }
+    func touch5() { touchKeyPad("5") }
+    func touch6() { touchKeyPad("6") }
     
-    func touchStar() {
-        keypad.trigger(keys["*"]!)
-        usleep(250000)
-    }
-    func touch0() {
-        keypad.trigger(keys["0"]!)
-        usleep(250000)
-    }
-    func touchHash() {
-        keypad.trigger(keys["#"]!)
-        usleep(250000)
-    }
+    func touch7() { touchKeyPad("7") }
+    func touch8() { touchKeyPad("8") }
+    func touch9() { touchKeyPad("9") }
+    
+    func touchStar() { touchKeyPad("*") }
+    func touch0()    { touchKeyPad("0") }
+    func touchHash() { touchKeyPad("#") }
 }
 
 
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 750))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 320, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
