@@ -41,6 +41,18 @@ import AVFoundation
             return nil
         #endif
     }
+    /// Enumerate the list of available output devices.
+    public static var availableOutputs: [AKDevice]? {
+        #if os(OSX)
+            EZAudioUtilities.setShouldExitOnCheckResultFail(false)
+            return EZAudioDevice.outputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
+        #else
+            if let devices = AVAudioSession.sharedInstance().availableoutputs {
+                return devices.map({ AKDevice(name: $0.portName, deviceID: $0.UID) })
+            }
+            return nil
+        #endif
+    }
 
     /// The name of the current preferred input device, if available.
     public static var inputDevice: AKDevice? {
