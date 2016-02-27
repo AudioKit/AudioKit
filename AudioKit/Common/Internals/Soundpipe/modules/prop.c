@@ -71,8 +71,41 @@ int sp_prop_compute(sp_data *sp, sp_prop *p, SPFLOAT *in, SPFLOAT *out)
     return SP_OK;
 }
 
+static int stack_push(prop_stack *ps, uint32_t val)
+{
+    if(ps->pos++ < 16) {
+        ps->stack[ps->pos] = val;
+    }
+    return SP_OK;
+}
+
+static void stack_init(prop_stack *ps)
+{
+    ps->pos = -1;
+    int n;
+    for(n = 0; n < 16; n++) ps->stack[n] = 1;
+}
+
+static uint32_t stack_pop(prop_stack *ps)
+{
+    if(ps->pos >= 0) {
+        return ps->stack[ps->pos--];
+    }
+    return 1;
+}
+
 static void mode_insert(prop_data *pd, char type)
 {
+#ifdef DEBUG_PROP
+    if(type == PTYPE_ON) {
+        printf("mode_insert: PTYPE_ON\n");
+    } else {
+        printf("mode_insert: PTYPE_OFF\n");
+    }
+    printf("\tval/mul = %d, pos = %d, cons = %d, div = %d\n", 
+            pd->mul, pd->num, pd->cons_mul, pd->div);
+#endif
+
     prop_event *evt = malloc(sizeof(prop_event));
     evt->type = type;
     evt->val = pd->mul;
@@ -95,24 +128,34 @@ static void mode_setmul(prop_data *pd)
 {
     pd->mul *= pd->tmp;
     pd->div = pd->tmp;
+    stack_push(&pd->mstack, pd->tmp);
     pd->tmp = 0;
 }
 
 static void mode_unsetmul(prop_data *pd)
 {
-    if(pd->div > 0) pd->mul /= pd->div;
+    uint32_t div = stack_pop(&pd->mstack);
+#ifdef DEBUG_PROP
+    printf("mul / div = %d / %d\n", pd->mul, div);
+#endif
+    pd->mul /= div;
 }
 
 static void mode_setcons(prop_data *pd)
 {
     pd->cons_mul *= pd->tmp;
     pd->cons_div = pd->tmp;
+    stack_push(&pd->cstack, pd->tmp);
     pd->tmp = 0;
 }
 
 static void mode_unsetcons(prop_data *pd)
 {
-    if(pd->cons_div > 0) pd->cons_mul /= pd->cons_div;
+    uint32_t div = stack_pop(&pd->cstack);
+#ifdef DEBUG_PROP
+    printf("mul / div = %d / %d\n", pd->cons_mul, div);
+#endif
+    pd->cons_mul /= div;
 }
 
 int prop_create(prop_data **pd)
@@ -131,6 +174,10 @@ int prop_create(prop_data **pd)
     pdp->evtpos = 0;
     pdp->last = &pdp->root;
     pdp->tmp = 0;
+
+    stack_init(&pdp->mstack);
+    stack_init(&pdp->cstack);
+
     return PSTATUS_OK;
 }
 
@@ -239,4 +286,3 @@ int prop_destroy(prop_data **pd)
     free(*pd);
     return PSTATUS_OK;
 }
-

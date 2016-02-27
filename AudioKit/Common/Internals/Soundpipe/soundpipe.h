@@ -386,6 +386,14 @@ int sp_conv_destroy(sp_conv **p);
 int sp_conv_init(sp_data *sp, sp_conv *p, sp_ftbl *ft, SPFLOAT iPartLen);
 int sp_conv_compute(sp_data *sp, sp_conv *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    SPFLOAT pos;
+} sp_crossfade;
+
+int sp_crossfade_create(sp_crossfade **p);
+int sp_crossfade_destroy(sp_crossfade **p);
+int sp_crossfade_init(sp_data *sp, sp_crossfade *p);
+int sp_crossfade_compute(sp_data *sp, sp_crossfade *p, SPFLOAT *in1, SPFLOAT *in2, SPFLOAT *out);
+typedef struct {
     SPFLOAT gg;
     SPFLOAT outputs;
     SPFLOAT inputs;
@@ -1283,6 +1291,20 @@ int sp_vdelay_create(sp_vdelay **p);
 int sp_vdelay_destroy(sp_vdelay **p);
 int sp_vdelay_init(sp_data *sp, sp_vdelay *p, SPFLOAT maxdel);
 int sp_vdelay_compute(sp_data *sp, sp_vdelay *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
+    void *faust;
+    int argpos;
+    SPFLOAT *args[3];
+    SPFLOAT *atk;
+    SPFLOAT *rel;
+    SPFLOAT *bwratio;
+} sp_vocoder;
+
+int sp_vocoder_create(sp_vocoder **p);
+int sp_vocoder_destroy(sp_vocoder **p);
+int sp_vocoder_init(sp_data *sp, sp_vocoder *p);
+int sp_vocoder_compute(sp_data *sp, sp_vocoder *p, SPFLOAT *source, SPFLOAT *excite, SPFLOAT *out);
+
 typedef struct {
     void *faust;
     int argpos;
