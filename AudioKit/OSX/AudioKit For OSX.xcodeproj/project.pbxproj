@@ -460,6 +460,10 @@
 		C4B192E41C3B63DA00C0F330 /* AKAmplitudeEnvelopeAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B192E01C3B63DA00C0F330 /* AKAmplitudeEnvelopeAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4B192E51C3B63DA00C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4B192E11C3B63DA00C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm */; };
 		C4B192E61C3B63DA00C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4B192E21C3B63DA00C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */; };
+		C4B3E6511C7EBAF500EDD81E /* AKMetalBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B3E64D1C7EBAF500EDD81E /* AKMetalBar.swift */; };
+		C4B3E6521C7EBAF500EDD81E /* AKMetalBarAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B3E64E1C7EBAF500EDD81E /* AKMetalBarAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4B3E6531C7EBAF500EDD81E /* AKMetalBarAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4B3E64F1C7EBAF500EDD81E /* AKMetalBarAudioUnit.mm */; };
+		C4B3E6541C7EBAF500EDD81E /* AKMetalBarDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4B3E6501C7EBAF500EDD81E /* AKMetalBarDSPKernel.hpp */; };
 		C4B76D1E1C5C5A2100E1D584 /* morphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B76D1D1C5C5A2100E1D584 /* morphingOscillator.swift */; };
 		C4BC44191C49D2B100FECA77 /* adsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BC44181C49D2B100FECA77 /* adsr.c */; };
 		C4D0427C1C5D95DF00DF3479 /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0427B1C5D95DF00DF3479 /* AKMIDIListener.swift */; };
@@ -982,6 +986,10 @@
 		C4B192E01C3B63DA00C0F330 /* AKAmplitudeEnvelopeAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAmplitudeEnvelopeAudioUnit.h; sourceTree = "<group>"; };
 		C4B192E11C3B63DA00C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAmplitudeEnvelopeAudioUnit.mm; sourceTree = "<group>"; };
 		C4B192E21C3B63DA00C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKAmplitudeEnvelopeDSPKernel.hpp; sourceTree = "<group>"; };
+		C4B3E64D1C7EBAF500EDD81E /* AKMetalBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMetalBar.swift; sourceTree = "<group>"; };
+		C4B3E64E1C7EBAF500EDD81E /* AKMetalBarAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMetalBarAudioUnit.h; sourceTree = "<group>"; };
+		C4B3E64F1C7EBAF500EDD81E /* AKMetalBarAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMetalBarAudioUnit.mm; sourceTree = "<group>"; };
+		C4B3E6501C7EBAF500EDD81E /* AKMetalBarDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKMetalBarDSPKernel.hpp; sourceTree = "<group>"; };
 		C4B76D1D1C5C5A2100E1D584 /* morphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = morphingOscillator.swift; sourceTree = "<group>"; };
 		C4BC44181C49D2B100FECA77 /* adsr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adsr.c; sourceTree = "<group>"; };
 		C4D0427B1C5D95DF00DF3479 /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
@@ -1160,6 +1168,7 @@
 			isa = PBXGroup;
 			children = (
 				C40C42911C41CB3E009D870B /* Drip */,
+				C4B3E64C1C7EBAF500EDD81E /* Metal Bar */,
 				C40C42741C41BECC009D870B /* Plucked String */,
 			);
 			path = "Physical Models";
@@ -2346,6 +2355,17 @@
 			path = "Amplitude Envelope";
 			sourceTree = "<group>";
 		};
+		C4B3E64C1C7EBAF500EDD81E /* Metal Bar */ = {
+			isa = PBXGroup;
+			children = (
+				C4B3E64D1C7EBAF500EDD81E /* AKMetalBar.swift */,
+				C4B3E64E1C7EBAF500EDD81E /* AKMetalBarAudioUnit.h */,
+				C4B3E64F1C7EBAF500EDD81E /* AKMetalBarAudioUnit.mm */,
+				C4B3E6501C7EBAF500EDD81E /* AKMetalBarDSPKernel.hpp */,
+			);
+			path = "Metal Bar";
+			sourceTree = "<group>";
+		};
 		C4DA4BE01C248EC200AA3771 /* Random Number Generators */ = {
 			isa = PBXGroup;
 			children = (
@@ -2586,6 +2606,7 @@
 				C40C41C61C40E421009D870B /* AKTesterAudioUnit.h in Headers */,
 				C45383481C3A5E4300A51738 /* AKBandPassButterworthFilterDSPKernel.hpp in Headers */,
 				C453834D1C3A5E4300A51738 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
+				C4B3E6541C7EBAF500EDD81E /* AKMetalBarDSPKernel.hpp in Headers */,
 				C42F36D01C0582E6000E937C /* AudioKit.h in Headers */,
 				C40C41BC1C40E3EF009D870B /* EZRecorder.h in Headers */,
 				C40C41AC1C40E3EF009D870B /* EZAudioFloatData.h in Headers */,
@@ -2627,6 +2648,7 @@
 				C453833E1C3A5E4300A51738 /* AKTanhDistortionDSPKernel.hpp in Headers */,
 				C45383791C3A5E4300A51738 /* AKMoogLadderDSPKernel.hpp in Headers */,
 				C45383861C3A5E4300A51738 /* AKStringResonatorDSPKernel.hpp in Headers */,
+				C4B3E6521C7EBAF500EDD81E /* AKMetalBarAudioUnit.h in Headers */,
 				C42FFBB71C3CFC3000823BD4 /* AKPannerAudioUnit.h in Headers */,
 				C40C41BA1C40E3EF009D870B /* EZPlot.h in Headers */,
 				C45383281C3A5E4300A51738 /* AKOperationEffectAudioUnit.h in Headers */,
@@ -2990,10 +3012,12 @@
 				C4B192E51C3B63DA00C0F330 /* AKAmplitudeEnvelopeAudioUnit.mm in Sources */,
 				C4B190F01C3B340400C0F330 /* buthp.c in Sources */,
 				C4B190E81C3B340400C0F330 /* autowah.c in Sources */,
+				C4B3E6511C7EBAF500EDD81E /* AKMetalBar.swift in Sources */,
 				C40C41B31C40E3EF009D870B /* EZAudioPlotGL.m in Sources */,
 				C4B1909F1C3B340400C0F330 /* fftwrapper.c in Sources */,
 				EA6949ED1C5AE1D70035B5DF /* AudioKit.swift in Sources */,
 				C4B191261C3B340400C0F330 /* tenv2.c in Sources */,
+				C4B3E6531C7EBAF500EDD81E /* AKMetalBarAudioUnit.mm in Sources */,
 				C4B190C71C3B340400C0F330 /* samphold.c in Sources */,
 				C4B190EE1C3B340400C0F330 /* blsquare.c in Sources */,
 				C4B190AC1C3B340400C0F330 /* metro.c in Sources */,
