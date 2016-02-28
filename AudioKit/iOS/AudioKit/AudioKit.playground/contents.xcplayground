@@ -39,6 +39,7 @@
         <page name='Low Pass Filter'/>
         <page name='Low Pass Filter Operation'/>
         <page name='Low Shelf Filter'/>
+        <page name='Metal Bar'/>
         <page name='Mixing Nodes'/>
         <page name='Modal Resonance Filter'/>
         <page name='Modal Resonance Filter Operation'/>
@@ -47,6 +48,7 @@
         <page name='Morphing Oscillator'/>
         <page name='Multi-tap Delay'/>
         <page name='MultiDelay Example'/>
+        <page name='Newtons Cradle'/>
         <page name='Node FFT Plot'/>
         <page name='Node Output Plot'/>
         <page name='Noise Operations'/>
