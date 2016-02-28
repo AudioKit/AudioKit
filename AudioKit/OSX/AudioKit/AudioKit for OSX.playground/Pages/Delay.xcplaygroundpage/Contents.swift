@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKDelay
+//: ## Delay
 //: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
 import XCPlayground
 import AudioKit
