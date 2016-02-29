@@ -48,8 +48,16 @@ public class AKMixer: AKNode, AKToggleable {
     /// - parameter input: AKNode to connect
     ///
     public func connect(input: AKNode) {
+        var wasRunning = false
+        if AudioKit.engine.running {
+            wasRunning = true
+            AudioKit.stop()
+        }
         input.connectionPoints.append(AVAudioConnectionPoint(node: mixerAU, bus: mixerAU.numberOfInputs))
         AudioKit.engine.connect(input.avAudioNode, toConnectionPoints: input.connectionPoints, fromBus: 0, format: AudioKit.format)
+        if wasRunning {
+            AudioKit.start()
+        }
     }
     
     /// Function to start, play, or activate the node, all do the same thing
