@@ -62,14 +62,15 @@ public class AKDelay: AKNode, AKToggleable {
         }
     }
     
-    internal func internalSetDryWetMix(var value: Double) {
-        if value < 0 {
-            value = 0
+    internal func internalSetDryWetMix(value: Double) {
+        var newValue = value
+        if newValue < 0 {
+            newValue = 0
         }
-        if value > 1 {
-            value = 1
+        if newValue > 1 {
+            newValue = 1
         }
-        delayAU.wetDryMix = Float(value) * 100.0
+        delayAU.wetDryMix = Float(newValue) * 100.0
     }
     
     /// Tells whether the node is processing (ie. started, playing, or active)
