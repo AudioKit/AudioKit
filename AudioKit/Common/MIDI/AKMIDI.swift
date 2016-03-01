@@ -13,7 +13,7 @@ import CoreMIDI
 /// The returned generator will enumerate each value of the provided tuple.
 func generatorForTuple(tuple: Any) -> AnyGenerator<Any> {
     let children = Mirror(reflecting: tuple).children
-    return anyGenerator(children.generate().lazy.map { $0.value }.generate())
+    return AnyGenerator(children.generate().lazy.map { $0.value }.generate())
 }
 
 /**
@@ -33,7 +33,7 @@ extension MIDIPacket: SequenceType {
         let generator = generatorForTuple(self.data)
         var index: UInt16 = 0
         
-        return anyGenerator {
+        return AnyGenerator {
             if index >= self.length {
                 return nil
             }
