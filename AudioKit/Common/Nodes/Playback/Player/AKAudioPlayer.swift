@@ -22,6 +22,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
+    private var paused = false
     
     /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
@@ -96,7 +97,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     
     /// Start playback
     public func start() {
-        if !internalPlayer.playing {
+        if !internalPlayer.playing && !paused {
             var options = AVAudioPlayerNodeBufferOptions.Interrupts
             if looping {
                 options = .Loops
@@ -112,6 +113,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     
     /// Pause playback
     public func pause() {
+        paused = true
         internalPlayer.pause()
     }
 
