@@ -44,22 +44,22 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("ADSR Envelope")
         
         attackLabel = addLabel("Attack Duration: \(fmWithADSR.attackDuration)")
-        attackSlider = addSlider("setAttack:", value: fmWithADSR.attackDuration)
+        attackSlider = addSlider(#selector(self.setAttack(_:)), value: fmWithADSR.attackDuration)
 
         decayLabel = addLabel("Decay Duration: \(fmWithADSR.decayDuration)")
-        decaySlider = addSlider("setDecay:", value: fmWithADSR.decayDuration)
+        decaySlider = addSlider(#selector(self.setDecay(_:)), value: fmWithADSR.decayDuration)
 
         sustainLabel = addLabel("Sustain Label: \(fmWithADSR.sustainLevel)")
-        sustainSlider = addSlider("setSustain:", value: fmWithADSR.sustainLevel)
+        sustainSlider = addSlider(#selector(self.setSustain(_:)), value: fmWithADSR.sustainLevel)
 
         releaseLabel = addLabel("Release Duration: \(fmWithADSR.releaseDuration)")
-        releaseSlider = addSlider("setRelease:", value: fmWithADSR.releaseDuration)
+        releaseSlider = addSlider(#selector(self.setRelease(_:)), value: fmWithADSR.releaseDuration)
         
         durationLabel = addLabel("Hold Duration: \(holdDuration)")
-        durationSlider = addSlider("setDuration:", value: 1.0, minimum: 0.0, maximum: 5.0)
+        durationSlider = addSlider(#selector(self.setDuration(_:)), value: 1.0, minimum: 0.0, maximum: 5.0)
 
-        addButton("Play Current", action: "play")
-        addButton("Randomize", action: "randomize")
+        addButton("Play Current", action: #selector(PlaygroundView.play))
+        addButton("Randomize", action: #selector(self.randomize))
         
 
     }
@@ -92,7 +92,7 @@ class PlaygroundView: AKPlaygroundView {
     func play() {
         fmOscillator.baseFrequency = random(220, 880)
         fmWithADSR.start()
-        self.performSelector("stop", withObject: nil, afterDelay: holdDuration)
+        self.performSelector(#selector(self.stop), withObject: nil, afterDelay: holdDuration)
     }
     
     func stop() {

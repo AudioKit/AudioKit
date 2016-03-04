@@ -23,8 +23,6 @@ AudioKit.output = generator
 AudioKit.start()
 generator.start()
 
-
-
 class PlaygroundView: AKPlaygroundView {
     
     var frequencyLabel: Label?
