@@ -27,50 +27,50 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var decimationLabel: Label?
     var roundingLabel: Label?
     var mixLabel: Label?
-    
+
     override func setup() {
         addTitle("Decimator")
-        
+
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         decimationLabel = addLabel("Decimation: \(decimator.decimation)")
-        addSlider("setDecimation:", value: decimator.decimation)
-        
+        addSlider(#selector(self.setDecimation(_:)), value: decimator.decimation)
+
         roundingLabel = addLabel("Rounding: \(decimator.rounding)")
-        addSlider("setRounding:", value: decimator.rounding)
-        
+        addSlider(#selector(self.setRounding(_:)), value: decimator.rounding)
+
         mixLabel = addLabel("Mix: \(decimator.mix)")
-        addSlider("setMix:", value: decimator.mix)
+        addSlider(#selector(self.setMix(_:)), value: decimator.mix)
     }
-    
+
     //: Handle UI Events
-    
+
     func start() {
         player.play()
     }
     func stop() {
         player.stop()
     }
-    
+
     func setDecimation(slider: Slider) {
         decimator.decimation = Double(slider.value)
         let decimation = String(format: "%0.3f", decimator.decimation)
         decimationLabel!.text = "Decimation: \(decimation)"
     }
-    
+
     func setRounding(slider: Slider) {
         decimator.rounding = Double(slider.value)
         let rounding = String(format: "%0.3f", decimator.rounding)
         roundingLabel!.text = "Rounding: \(rounding)"
     }
-    
+
     func setMix(slider: Slider) {
         decimator.mix = Double(slider.value)
         let mix = String(format: "%0.3f", decimator.mix)

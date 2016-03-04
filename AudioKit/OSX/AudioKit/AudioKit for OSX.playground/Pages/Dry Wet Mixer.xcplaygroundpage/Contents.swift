@@ -32,32 +32,32 @@ drums.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var balanceLabel: Label?
-    
+
     override func setup() {
         addTitle("Dry Wet Mix")
-        
+
         addLabel("Audio Playback")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         balanceLabel = addLabel("Balance: \(mixture.balance)")
-        addSlider("setDuration:", value: mixture.balance)
+        addSlider(#selector(self.setDuration(_:)), value: mixture.balance)
     }
-    
+
     func start() {
         drums.play()
     }
     func stop() {
         drums.stop()
     }
-    
+
     func setDuration(slider: Slider) {
         mixture.balance = Double(slider.value)
         balanceLabel!.text = "Balance: \(String(format: "%0.3f", mixture.balance))"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

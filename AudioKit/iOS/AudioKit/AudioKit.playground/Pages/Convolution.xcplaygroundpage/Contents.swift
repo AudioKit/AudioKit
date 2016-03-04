@@ -31,36 +31,36 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Convolution")
-        
+
         addLabel("Audio Playback")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         addLineBreak()
-        
+
         addLabel("Convolution Parameters")
-        
+
         addLabel("Mix: Dry Audio to Fully Convolved")
-        addSlider("setDryWet:", value: dryWetMixer.balance)
-        
+        addSlider(#selector(self.setDryWet(_:)), value: dryWetMixer.balance)
+
         addLabel("Impulse Response: Stairwell to Dish")
-        addSlider("setIRMix:", value: mixer.balance)
+        addSlider(#selector(self.setIRMix(_:)), value: mixer.balance)
     }
-    
+
     func start() {
         player.play()
     }
     func stop() {
         player.stop()
     }
-    
+
     func setIRMix(slider: Slider) {
         mixer.balance = Double(slider.value)
     }
-    
+
     func setDryWet(slider: Slider) {
         dryWetMixer.balance = Double(slider.value)
     }

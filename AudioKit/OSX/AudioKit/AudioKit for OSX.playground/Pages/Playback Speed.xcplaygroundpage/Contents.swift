@@ -25,42 +25,42 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var rateLabel: Label?
     var pitchLabel: Label?
     var overlapLabel: Label?
-    
+
     override func setup() {
         addTitle("Playback Speed")
-        
+
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         addLabel("VariSpeed Parameters")
-        
-        addButton("Process", action: "process")
-        addButton("Bypass", action: "bypass")
-        
+
+        addButton("Process", action: #selector(self.process))
+        addButton("Bypass", action: #selector(self.bypass))
+
         rateLabel = addLabel("Rate: \(variSpeed.rate) rate")
-        addSlider("setRate:", value: variSpeed.rate, minimum: 0.03125, maximum: 5.0)
+        addSlider(#selector(self.setRate(_:)), value: variSpeed.rate, minimum: 0.03125, maximum: 5.0)
     }
-    
+
     //: Handle UI Events
-    
+
     func start() {
         player.play()
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         variSpeed.start()
     }
-    
+
     func bypass() {
         variSpeed.bypass()
     }
@@ -69,7 +69,7 @@ class PlaygroundView: AKPlaygroundView {
         let rate = String(format: "%0.3f", variSpeed.rate)
         rateLabel!.text = "Rate: \(rate) rate"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))

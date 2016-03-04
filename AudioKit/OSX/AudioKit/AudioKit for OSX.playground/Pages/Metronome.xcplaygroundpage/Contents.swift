@@ -26,22 +26,22 @@ generator.start()
 
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var frequencyLabel: Label?
-    
+
     override func setup() {
         addTitle("Metronome")
-        
+
         frequencyLabel = addLabel("Frequency: \(currentFrequency) BPM")
-        addSlider("setFrequency:", value: currentFrequency, minimum: 20, maximum: 320)
+        addSlider(#selector(self.setFrequency(_:)), value: currentFrequency, minimum: 20, maximum: 320)
     }
-    
+
     func setFrequency(slider: Slider) {
         currentFrequency = Double(slider.value)
         generator.parameters = [currentFrequency]
         frequencyLabel!.text = "Frequency: \(String(format: "%0.1f", currentFrequency)) BPM"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

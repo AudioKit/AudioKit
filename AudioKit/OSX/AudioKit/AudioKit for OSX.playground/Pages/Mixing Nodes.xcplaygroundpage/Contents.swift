@@ -49,39 +49,39 @@ lead.pan   = -0.2
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Mixer")
-        
+
         addLabel("Audio Playback")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         addLabel("Drums Volume")
-        addSlider("setDrumsVolume:", value: drums.volume)
-        
+        addSlider(#selector(self.setDrumsVolume(_:)), value: drums.volume)
+
         addLabel("Drums Pan")
-        addSlider("setDrumsPan:", value: drums.pan, minimum: -1, maximum: 1)
-        
+        addSlider(#selector(self.setDrumsPan(_:)), value: drums.pan, minimum: -1, maximum: 1)
+
         addLabel("Bass Volume")
-        addSlider("setBassVolume:", value: bass.volume)
-        
+        addSlider(#selector(self.setBassVolume(_:)), value: bass.volume)
+
         addLabel("Bass Pan")
-        addSlider("setBassPan:", value: bass.pan, minimum: -1, maximum: 1)
-        
+        addSlider(#selector(self.setBassPan(_:)), value: bass.pan, minimum: -1, maximum: 1)
+
         addLabel("Guitar Volume")
-        addSlider("setGuitarVolume:", value: guitar.volume)
-        
+        addSlider(#selector(self.setGuitarVolume(_:)), value: guitar.volume)
+
         addLabel("Guitar Pan")
-        addSlider("setGuitarPan:", value: guitar.pan, minimum: -1, maximum: 1)
-        
+        addSlider(#selector(self.setGuitarPan(_:)), value: guitar.pan, minimum: -1, maximum: 1)
+
         addLabel("Lead Volume")
-        addSlider("setLeadVolume:", value: lead.volume)
-        
+        addSlider(#selector(self.setLeadVolume(_:)), value: lead.volume)
+
         addLabel("Lead Pan")
-        addSlider("setLeadPan:", value: lead.pan, minimum: -1, maximum: 1)
+        addSlider(#selector(self.setLeadPan(_:)), value: lead.pan, minimum: -1, maximum: 1)
     }
-    
+
     func start() {
         drums.play()
         bass.play()
@@ -94,35 +94,35 @@ class PlaygroundView: AKPlaygroundView {
         guitar.stop()
         lead.stop()
     }
-    
+
     func setDrumsVolume(slider: Slider) {
         drums.volume = Double(slider.value)
     }
-    
+
     func setDrumsPan(slider: Slider) {
         drums.pan = Double(slider.value)
     }
-    
+
     func setBassVolume(slider: Slider) {
         bass.volume = Double(slider.value)
     }
-    
+
     func setBassPan(slider: Slider) {
         bass.pan = Double(slider.value)
     }
-    
+
     func setGuitarVolume(slider: Slider) {
         guitar.volume = Double(slider.value)
     }
-    
+
     func setGuitarPan(slider: Slider) {
         guitar.pan = Double(slider.value)
     }
-    
+
     func setLeadVolume(slider: Slider) {
         lead.volume = Double(slider.value)
     }
-    
+
     func setLeadPan(slider: Slider) {
         lead.pan = Double(slider.value)
     }

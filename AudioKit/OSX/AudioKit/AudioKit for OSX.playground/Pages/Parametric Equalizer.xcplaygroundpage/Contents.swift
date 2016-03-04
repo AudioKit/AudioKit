@@ -26,49 +26,49 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var centerFreqLabel: Label?
     var qLabel: Label?
     var gainLabel: Label?
-    
+
     override func setup() {
         addTitle("Parametric EQ")
-        
+
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         addLabel("Parametric EQ Parameters")
-        
-        addButton("Process", action: "process")
-        addButton("Bypass", action: "bypass")
-        
+
+        addButton("Process", action: #selector(self.process))
+        addButton("Bypass", action: #selector(self.bypass))
+
         centerFreqLabel = addLabel("Center Frequency: \(parametricEQ.centerFrequency) Hz")
-        addSlider("setCenterFreq:", value: parametricEQ.centerFrequency, minimum: 20, maximum: 22050)
-        
+        addSlider(#selector(self.setCenterFreq(_:)), value: parametricEQ.centerFrequency, minimum: 20, maximum: 22050)
+
         qLabel = addLabel("Q: \(parametricEQ.q) Hz")
-        addSlider("setQ:", value: parametricEQ.q, minimum: 0.1, maximum: 20)
-        
+        addSlider(#selector(self.setQ(_:)), value: parametricEQ.q, minimum: 0.1, maximum: 20)
+
         gainLabel = addLabel("Gain: \(parametricEQ.gain) dB")
-        addSlider("setGain:", value: parametricEQ.gain, minimum: -20, maximum: 20)
-        
+        addSlider(#selector(self.setGain(_:)), value: parametricEQ.gain, minimum: -20, maximum: 20)
+
     }
-    
+
     //: Handle UI Events
-    
+
     func start() {
         player.play()
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         parametricEQ.start()
     }
-    
+
     func bypass() {
         parametricEQ.bypass()
     }
@@ -77,19 +77,19 @@ class PlaygroundView: AKPlaygroundView {
         let centerFrequency = String(format: "%0.1f", parametricEQ.centerFrequency)
         centerFreqLabel!.text = "Center Frequency: \(centerFrequency) Hz"
     }
-    
+
     func setQ(slider: Slider) {
         parametricEQ.q = Double(slider.value)
         let q = String(format: "%0.1f", parametricEQ.q)
         qLabel!.text = "Q: \(q) Hz"
     }
-    
+
     func setGain(slider: Slider) {
         parametricEQ.gain = Double(slider.value)
         let gain = String(format: "%0.1f", parametricEQ.gain)
         gainLabel!.text = "gain: \(gain) dB"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))

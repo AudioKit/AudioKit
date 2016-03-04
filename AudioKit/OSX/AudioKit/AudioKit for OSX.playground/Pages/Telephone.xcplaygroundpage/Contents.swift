@@ -79,56 +79,56 @@ keypad.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Telephone")
-        
+
         addLabel("Dial Tone")
-        addButton("Start", action: "startDialTone")
-        addButton("Stop",  action: "stopDialTone")
-        
+        addButton("Start", action: #selector(self.startDialTone))
+        addButton("Stop",  action: #selector(self.stopDialTone))
+
         addLabel("Ringing")
-        addButton("Start", action: "startRinging")
-        addButton("Stop",  action: "stopRinging")
-        
+        addButton("Start", action: #selector(self.startRinging))
+        addButton("Stop",  action: #selector(self.stopRinging))
+
         addLabel("Busy Signal")
-        addButton("Start", action: "startBusySignal")
-        addButton("Stop",  action: "stopBusySignal")
+        addButton("Start", action: #selector(self.startBusySignal))
+        addButton("Stop",  action: #selector(self.stopBusySignal))
         addLineBreak()
-        
+
         addLabel("Keypad")
 
-        addTouchKey("1", text: "",    action: "touch1")
-        addTouchKey("2", text: "ABC", action: "touch2")
-        addTouchKey("3", text: "DEF", action: "touch3")
+        addTouchKey("1", text: "",    action: #selector(self.touch1))
+        addTouchKey("2", text: "ABC", action: #selector(self.touch2))
+        addTouchKey("3", text: "DEF", action: #selector(self.touch3))
         addLineBreak()
-        addTouchKey("4", text: "GHI", action: "touch4")
-        addTouchKey("5", text: "JKL", action: "touch5")
-        addTouchKey("6", text: "MNO", action: "touch6")
+        addTouchKey("4", text: "GHI", action: #selector(self.touch4))
+        addTouchKey("5", text: "JKL", action: #selector(self.touch5))
+        addTouchKey("6", text: "MNO", action: #selector(self.touch6))
         addLineBreak()
-        addTouchKey("7", text: "PQRS", action: "touch7")
-        addTouchKey("8", text: "TUV",  action: "touch8")
-        addTouchKey("9", text: "WXYZ", action: "touch9")
+        addTouchKey("7", text: "PQRS", action: #selector(self.touch7))
+        addTouchKey("8", text: "TUV",  action: #selector(self.touch8))
+        addTouchKey("9", text: "WXYZ", action: #selector(self.touch9))
         addLineBreak()
-        addTouchKey("*", text: "GHI", action: "touchStar")
-        addTouchKey("0", text: "JKL", action: "touch0")
-        addTouchKey("#", text: "MNO", action: "touchHash")
+        addTouchKey("*", text: "GHI", action: #selector(self.touchStar))
+        addTouchKey("0", text: "JKL", action: #selector(self.touch0))
+        addTouchKey("#", text: "MNO", action: #selector(self.touchHash))
     }
-    
+
     func startDialTone() {
         dialTone.start()
     }
     func stopDialTone() {
         dialTone.stop()
     }
-    
+
     func startRinging() {
         ringing.start()
     }
     func stopRinging() {
         ringing.stop()
     }
-    
+
     func startBusySignal() {
         busy.start()
     }
@@ -147,7 +147,7 @@ class PlaygroundView: AKPlaygroundView {
         keypad.trigger(keys["3"]!)
         usleep(250000)
     }
-    
+
     func touch4() {
         keypad.trigger(keys["4"]!)
         usleep(250000)
@@ -160,7 +160,7 @@ class PlaygroundView: AKPlaygroundView {
         keypad.trigger(keys["6"]!)
         usleep(250000)
     }
-    
+
     func touch7() {
         keypad.trigger(keys["7"]!)
         usleep(250000)
@@ -173,7 +173,7 @@ class PlaygroundView: AKPlaygroundView {
         keypad.trigger(keys["9"]!)
         usleep(250000)
     }
-    
+
     func touchStar() {
         keypad.trigger(keys["*"]!)
         usleep(250000)

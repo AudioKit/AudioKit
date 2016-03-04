@@ -26,49 +26,49 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var attackTimeLabel: Label?
     var decayTimeLabel: Label?
     var preGainLabel: Label?
-    
+
     override func setup() {
         addTitle("Peak Limiter")
-        
+
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         addLabel("Peak Limiter Parameters")
-        
-        addButton("Process", action: "process")
-        addButton("Bypass", action: "bypass")
-        
+
+        addButton("Process", action: #selector(self.process))
+        addButton("Bypass", action: #selector(self.bypass))
+
         attackTimeLabel = addLabel("Attack Time: \(peakLimiter.attackTime) Secs")
-        addSlider("setAttackTime:", value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03)
-        
+        addSlider(#selector(self.setAttackTime(_:)), value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03)
+
         decayTimeLabel = addLabel("Decay Time: \(peakLimiter.decayTime) Secs")
-        addSlider("setDecayTime:", value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.06)
-        
+        addSlider(#selector(self.setDecayTime(_:)), value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.06)
+
         preGainLabel = addLabel("Pre-gain: \(peakLimiter.preGain) dB")
-        addSlider("setPreGain:", value: peakLimiter.preGain, minimum: -40, maximum: 40)
-        
+        addSlider(#selector(self.setPreGain(_:)), value: peakLimiter.preGain, minimum: -40, maximum: 40)
+
     }
-    
+
     //: Handle UI Events
-    
+
     func start() {
         player.play()
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         peakLimiter.start()
     }
-    
+
     func bypass() {
         peakLimiter.bypass()
     }
@@ -77,19 +77,19 @@ class PlaygroundView: AKPlaygroundView {
         let attackTime = String(format: "%0.3f", peakLimiter.attackTime)
         attackTimeLabel!.text = "attackTime: \(attackTime) Secs"
     }
-    
+
     func setDecayTime(slider: Slider) {
         peakLimiter.decayTime = Double(slider.value)
         let decayTime = String(format: "%0.3f", peakLimiter.decayTime)
         decayTimeLabel!.text = "decayTime: \(decayTime) Secs"
     }
-    
+
     func setPreGain(slider: Slider) {
         peakLimiter.preGain = Double(slider.value)
         let preGain = String(format: "%0.3f", peakLimiter.preGain)
         preGainLabel!.text = "preGain: \(preGain) dB"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
