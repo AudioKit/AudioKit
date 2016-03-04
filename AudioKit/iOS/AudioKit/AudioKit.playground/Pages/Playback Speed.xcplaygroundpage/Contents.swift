@@ -35,16 +35,16 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Playback Speed")
         
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
         
         addLabel("VariSpeed Parameters")
         
-        addButton("Process", action: "process")
-        addButton("Bypass", action: "bypass")
+        addButton("Process", action: #selector(self.process))
+        addButton("Bypass", action: #selector(self.bypass))
         
         rateLabel = addLabel("Rate: \(variSpeed.rate) rate")
-        addSlider("setRate:", value: variSpeed.rate, minimum: 0.03125, maximum: 5.0)
+        addSlider(#selector(self.setRate(_:)), value: variSpeed.rate, minimum: 0.03125, maximum: 5.0)
     }
     
     //: Handle UI Events
