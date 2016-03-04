@@ -14,36 +14,36 @@ AudioKit.output = oscillator
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
-    
+
     override func setup() {
         addTitle("Oscillator")
-        
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         frequencyLabel = addLabel("Frequency: 440")
-        addSlider("setFrequency:", value: 440, minimum: 200, maximum: 800)
-        
+        addSlider(#selector(self.setFrequency(_:)), value: 440, minimum: 200, maximum: 800)
+
         amplitudeLabel = addLabel("Amplitude: 0.1")
-        addSlider("setAmplitude:", value: 0.1)
+        addSlider(#selector(self.setAmplitude(_:)), value: 0.1)
     }
-    
+
     func start() {
         oscillator.play()
     }
     func stop() {
         oscillator.stop()
     }
-    
+
     func setFrequency(slider: Slider) {
         oscillator.ramp(frequency: Double(slider.value))
         let frequency = String(format: "%0.1f", oscillator.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
     }
-    
+
     func setAmplitude(slider: Slider) {
         oscillator.ramp(amplitude: Double(slider.value))
         let amp = String(format: "%0.3f", oscillator.amplitude)

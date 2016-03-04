@@ -20,27 +20,27 @@ AudioKit.start()
 let recorder = AKAudioRecorder(file!)
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
-    
+
     override func setup() {
         addTitle("Recording Mic")
-        
-        addButton("Record", action: "record")
-        addButton("Stop", action: "stop")
-        
+
+        addButton("Record", action: #selector(self.record))
+        addButton("Stop", action: #selector(self.stop))
+
         addLabel("Playback")
-        
-        addButton("Play", action: "play")
+
+        addButton("Play", action: #selector(self.play))
     }
-    
+
     func play() {
         player.stop()
         player.reloadFile()
         player.play()
     }
-    
+
     func record() {
         recorder.record()
     }

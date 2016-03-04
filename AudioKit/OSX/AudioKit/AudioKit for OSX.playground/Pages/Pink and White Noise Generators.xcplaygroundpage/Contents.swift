@@ -18,20 +18,20 @@ white.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var volumeLabel: Label?
     var balanceLabel: Label?
-    
+
     override func setup() {
         addTitle("Pink and White Noise")
         volumeLabel = addLabel("Volume: \(pink.amplitude)")
-        addSlider("setVolume:", value: pink.amplitude)
-        
+        addSlider(#selector(self.setVolume(_:)), value: pink.amplitude)
+
         balanceLabel = addLabel("Pink to White Noise Balance: \(pinkWhiteMixer.balance)")
-        addSlider("setBalance:", value: pinkWhiteMixer.balance)
+        addSlider(#selector(self.setBalance(_:)), value: pinkWhiteMixer.balance)
     }
-    
-    
+
+
     func setBalance(slider: Slider) {
         pinkWhiteMixer.balance = Double(slider.value)
         balanceLabel!.text = "Pink to White Noise Balance: \(String(format: "%0.3f", pinkWhiteMixer.balance))"
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
         white.amplitude = Double(slider.value)
         volumeLabel!.text = "Volume: \(String(format: "%0.3f", pink.amplitude))"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

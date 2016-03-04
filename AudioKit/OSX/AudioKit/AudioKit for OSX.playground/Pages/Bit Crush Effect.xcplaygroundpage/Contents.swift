@@ -23,37 +23,37 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var bitDepthLabel: Label?
     var sampleRateLabel: Label?
-    
+
     override func setup() {
         addTitle("Bit Crusher")
-        
+
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
-        addSlider("setBitDepth:", value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
-        
+        addSlider(#selector(self.setBitDepth(_:)), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
+
         sampleRateLabel = addLabel("Sample Rate: \(bitcrusher.sampleRate)")
-        addSlider("setSampleRate:", value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
+        addSlider(#selector(self.setSampleRate(_:)), value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
     }
-    
+
     func start() {
         player.play()
     }
     func stop() {
         player.stop()
     }
-    
+
     func setBitDepth(slider: Slider) {
         bitcrusher.bitDepth = Double(slider.value)
         let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
         bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
     }
-    
+
     func setSampleRate(slider: Slider) {
         bitcrusher.sampleRate = Double(slider.value)
         let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)

@@ -25,54 +25,54 @@ AudioKit.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var centerFrequencyLabel: Label?
     var bandwidthLabel: Label?
-    
+
     override func setup() {
         addTitle("Band Pass Filter")
-        
+
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         addLabel("Band Pass Filter Parameters")
-        
-        addButton("Process", action: "process")
-        addButton("Bypass", action: "bypass")
-        
+
+        addButton("Process", action: #selector(self.process))
+        addButton("Bypass", action: #selector(self.bypass))
+
         centerFrequencyLabel = addLabel("Center Frequency: 5000 Hz")
-        addSlider("setCenterFrequency:", value: 5000, minimum: 20, maximum: 22050)
-        
+        addSlider(#selector(self.setCenterFrequency(_:)), value: 5000, minimum: 20, maximum: 22050)
+
         bandwidthLabel = addLabel("Bandwidth 600 Cents")
-        addSlider("setBandwidth:", value: 600, minimum: 100, maximum: 12000)
+        addSlider(#selector(self.setBandwidth(_:)), value: 600, minimum: 100, maximum: 12000)
     }
-    
+
     //: Handle UI Events
-    
+
     func start() {
         player.play()
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         bandPassFilter.play()
     }
-    
+
     func bypass() {
         bandPassFilter.bypass()
     }
-    
+
     func setCenterFrequency(slider: Slider) {
         bandPassFilter.centerFrequency = Double(slider.value)
         let frequency = String(format: "%0.1f", bandPassFilter.centerFrequency)
         centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
     }
-    
+
     func setBandwidth(slider: Slider) {
         bandPassFilter.bandwidth = Double(slider.value)
         let bandwidth = String(format: "%0.1f", bandPassFilter.bandwidth)

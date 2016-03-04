@@ -19,53 +19,53 @@ AudioKit.start()
 morph.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
     var morphIndexLabel: Label?
-    
+
     override func setup() {
         let plotView = AKOutputWaveformPlot.createView(500, height: 550)
         self.addSubview(plotView)
-        
+
         addTitle("Morphing Oscillator")
-        
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         frequencyLabel = addLabel("Frequency: 440")
-        addSlider("setFrequency:", value: 440, minimum: 200, maximum: 800)
-        
+        addSlider(#selector(self.setFrequency(_:)), value: 440, minimum: 200, maximum: 800)
+
         amplitudeLabel = addLabel("Amplitude: 0.1")
-        addSlider("setAmplitude:", value: 0.1)
-        
+        addSlider(#selector(self.setAmplitude(_:)), value: 0.1)
+
         morphIndexLabel = addLabel("Morph Index: \(morph.index)")
-        addLabel("Sine = 0")        
+        addLabel("Sine = 0")
         addLabel("Triangle = 1")
         addLabel("Sawtooth = 2")
         addLabel("Square = 3")
-        addSlider("setMorphIndex:", value: morph.index, minimum: 0, maximum: 3)
+        addSlider(#selector(self.setMorphIndex(_:)), value: morph.index, minimum: 0, maximum: 3)
     }
-    
+
     func start() {
         morph.play()
     }
     func stop() {
         morph.stop()
     }
-    
+
     func setFrequency(slider: Slider) {
         morph.ramp(frequency: Double(slider.value))
         let frequency = String(format: "%0.1f", morph.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
     }
-    
+
     func setAmplitude(slider: Slider) {
         morph.ramp(amplitude: Double(slider.value))
         let amp = String(format: "%0.3f", morph.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
-    
+
     func setMorphIndex(slider: Slider) {
         morph.index = Double(slider.value)
         let index = String(format: "%0.3f", morph.index)

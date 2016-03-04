@@ -25,45 +25,45 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var cutoffFrequencyLabel: Label?
     var gainLabel: Label?
-    
+
     override func setup() {
         addTitle("Low Shelf Filter")
-        
+
         addLabel("Audio Player")
-        addButton("Start", action: "start")
-        addButton("Stop", action: "stop")
-        
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
         addLabel("Low Shelf Filter Parameters")
-        
-        addButton("Process", action: "process")
-        addButton("Bypass", action: "bypass")
-        
+
+        addButton("Process", action: #selector(self.process))
+        addButton("Bypass", action: #selector(self.bypass))
+
         cutoffFrequencyLabel = addLabel("Cut-off Frequency: 80 Hz")
-        addSlider("setcutoffFrequency:", value: 80, minimum: 10, maximum: 200)
-        
+        addSlider(#selector(self.setcutoffFrequency(_:)), value: 80, minimum: 10, maximum: 200)
+
         gainLabel = addLabel("Gain: 0 dB")
-        addSlider("setgain:", value: 0, minimum: -40, maximum: 40)
-        
+        addSlider(#selector(self.setgain(_:)), value: 0, minimum: -40, maximum: 40)
+
     }
-    
+
     //: Handle UI Events
-    
+
     func start() {
         player.play()
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         lowShelfFilter.start()
     }
-    
+
     func bypass() {
         lowShelfFilter.bypass()
     }
@@ -72,13 +72,13 @@ class PlaygroundView: AKPlaygroundView {
         let cutoffFrequency = String(format: "%0.1f", lowShelfFilter.cutoffFrequency)
         cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
     }
-    
+
     func setgain(slider: Slider) {
         lowShelfFilter.gain = Double(slider.value)
         let gain = String(format: "%0.1f", lowShelfFilter.gain)
         gainLabel!.text = "Gain: \(gain) dB"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
