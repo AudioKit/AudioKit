@@ -179,6 +179,7 @@
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
 }
+
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
