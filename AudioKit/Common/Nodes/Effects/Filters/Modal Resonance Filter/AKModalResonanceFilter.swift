@@ -26,6 +26,16 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
     private var frequencyParameter: AUParameter?
     private var qualityFactorParameter: AUParameter?
+    
+    /// Inertia represents the speed at which parameters are allowed to change
+    public var inertia: Double = 0.0002 {
+        willSet(newValue){
+            if(inertia != newValue){
+                internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Resonant frequency of the filter.
     public var frequency: Double = 500.0 {
