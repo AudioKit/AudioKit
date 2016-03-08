@@ -357,8 +357,6 @@
 		C46501181C727DFE00EF6CF7 /* AKMetalBarDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C46501141C727DFE00EF6CF7 /* AKMetalBarDSPKernel.hpp */; };
 		C46501231C729B1700EF6CF7 /* pshift.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501221C729B1700EF6CF7 /* pshift.c */; };
 		C46501251C729BCA00EF6CF7 /* compressor.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501241C729BCA00EF6CF7 /* compressor.c */; };
-		C46501281C729C0200EF6CF7 /* fof.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501261C729C0200EF6CF7 /* fof.c */; };
-		C46501291C729C0200EF6CF7 /* fog.c in Sources */ = {isa = PBXBuildFile; fileRef = C46501271C729C0200EF6CF7 /* fog.c */; };
 		C467816D1C1C0C090000BF29 /* AKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */; };
 		C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */; };
 		C46781AE1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */; };
@@ -898,8 +896,6 @@
 		C46501141C727DFE00EF6CF7 /* AKMetalBarDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKMetalBarDSPKernel.hpp; sourceTree = "<group>"; };
 		C46501221C729B1700EF6CF7 /* pshift.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pshift.c; sourceTree = "<group>"; };
 		C46501241C729BCA00EF6CF7 /* compressor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compressor.c; sourceTree = "<group>"; };
-		C46501261C729C0200EF6CF7 /* fof.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fof.c; sourceTree = "<group>"; };
-		C46501271C729C0200EF6CF7 /* fog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fog.c; sourceTree = "<group>"; };
 		C467816C1C1C0C090000BF29 /* AKNodeOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeOutputPlot.swift; sourceTree = "<group>"; };
 		C46781961C1C127B0000BF29 /* AKNodeFFTPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeFFTPlot.swift; sourceTree = "<group>"; };
 		C46781AD1C1C28DD0000BF29 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
@@ -1427,9 +1423,7 @@
 				C4E958521C0ADBFD00516A6A /* eqfil.c */,
 				C4E958541C0ADBFD00516A6A /* expon.c */,
 				C4E958551C0ADBFD00516A6A /* fftwrapper.c */,
-				C46501261C729C0200EF6CF7 /* fof.c */,
 				C4E958561C0ADBFD00516A6A /* fofilt.c */,
-				C46501271C729C0200EF6CF7 /* fog.c */,
 				C4E958571C0ADBFD00516A6A /* fold.c */,
 				C4E958581C0ADBFD00516A6A /* foo.c */,
 				C4E958591C0ADBFD00516A6A /* fosc.c */,
@@ -2872,7 +2866,6 @@
 				C4E958BC1C0ADBFD00516A6A /* line.c in Sources */,
 				C4E958CE1C0ADBFD00516A6A /* port.c in Sources */,
 				C48443651C3117D7007BE794 /* tblrec.c in Sources */,
-				C46501291C729C0200EF6CF7 /* fog.c in Sources */,
 				C45380181C3A4CCE00A51738 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
 				C40C41141C40DF67009D870B /* AKPWMSynth.swift in Sources */,
 				C46300FE1C20C342009B44D9 /* randi.c in Sources */,
@@ -3003,7 +2996,6 @@
 				C4E958D31C0ADBFD00516A6A /* randi.c in Sources */,
 				C40C42711C41B22A009D870B /* AKPluckedStringAudioUnit.mm in Sources */,
 				C40C41511C40E3A5009D870B /* EZAudioDevice.m in Sources */,
-				C46501281C729C0200EF6CF7 /* fof.c in Sources */,
 				C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */,
 				C4E8ED0C1C4391C70041965F /* AKConvolutionAudioUnit.mm in Sources */,
 				C46300DA1C20C342009B44D9 /* buthp.c in Sources */,
