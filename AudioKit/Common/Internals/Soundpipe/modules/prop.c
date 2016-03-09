@@ -2,7 +2,7 @@
  * Tinyprop
  * By Paul Batchelor
  *
- * A tiny C implemenntation of prop, a proportional rhythmic notation system
+ * A tiny C implementation of prop, a proportional rhythmic notation system
  *
  */
 
