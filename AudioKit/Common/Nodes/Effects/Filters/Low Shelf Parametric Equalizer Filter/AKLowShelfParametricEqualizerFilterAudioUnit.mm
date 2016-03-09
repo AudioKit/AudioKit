@@ -101,6 +101,8 @@
     cornerFrequencyAUParameter.value = 1000;
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
+    
+    _inertia = 0.0002;
 
     _kernel.setParameter(cornerFrequencyAddress, cornerFrequencyAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);
@@ -172,20 +174,24 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
+    [self setUpParameterRamp];
+    
+    return YES;
+}
+
+- (void)setUpParameterRamp{
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
-
+    
+    // Ramp over inertia time in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_inertia * self.outputBus.format.sampleRate);
+    
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {
