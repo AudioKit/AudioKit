@@ -22,6 +22,8 @@ import AVFoundation
     /// Reference to the AV Audio Engine
     public static let engine = AVAudioEngine()
     
+    static var shouldBeRunning = false
+    
     /// An audio output operation that most applications will need to use last
     public static var output: AKNode? {
         didSet {
@@ -33,26 +35,50 @@ import AVFoundation
     public static func start() {
         // Start the engine.
         do {
-            try self.engine.start()
+            self.engine.prepare()
             #if !os(OSX)
                 if AKSettings.audioInputEnabled {
-                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+                    if AKSettings.defaultToSpeaker {
+                        
+                        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker)
+                        
+                        // listen to AVAudioEngineConfigurationChangeNotification
+                        // and restart the engine if it's stopped.
+                        NSNotificationCenter.defaultCenter().addObserver(self, selector: "audioEngineConfigurationChange:", name: AVAudioEngineConfigurationChangeNotification, object: engine)
+                        
+                        //print("current route (after force speaker): \(AVAudioSession.sharedInstance().currentRoute)")
+                        
+                    } else {
+                        try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+                        
+                    }
+                    
                 } else if AKSettings.playbackWhileMuted {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 } else {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
                 }
                 try AVAudioSession.sharedInstance().setActive(true)
+                
+                try self.engine.start()
+                
             #endif
         } catch {
             fatalError("Could not start engine. error: \(error).")
         }
+        shouldBeRunning = true
     }
     
     /// Stop the audio engine
     public static func stop() {
         // Stop the engine.
         self.engine.stop()
+        shouldBeRunning = false
+        do {
+            try AVAudioSession.sharedInstance().setActive(false)
+        } catch {
+            print("couldn't stop session \(error)")
+        }
     }
     
     // MARK: Testing
@@ -69,4 +95,19 @@ import AVFoundation
         tester = AKTester(node, samples: samples)
         output = tester
     }
+    
+    // Listen to changes in audio configuration 
+    // and restart the audio engine if it stops and should be playing
+    @objc private static func audioEngineConfigurationChange(notification: NSNotification) -> Void {
+        
+        if (shouldBeRunning == true && self.engine.running == false){
+            do {
+                try self.engine.start()
+            } catch {
+                print("couldn't start engine after configuration change \(error)")
+            }
+        }
+
+    }
+    
 }
