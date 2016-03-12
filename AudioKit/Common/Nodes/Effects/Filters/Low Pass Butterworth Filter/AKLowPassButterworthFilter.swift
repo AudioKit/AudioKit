@@ -34,7 +34,6 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
         }
     }
 
-
     /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 1000 {
         willSet(newValue) {
