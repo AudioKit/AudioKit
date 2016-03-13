@@ -70,6 +70,27 @@ public class AKSampler: AKNode {
         loadInstrument(file, type: "sf2")
     }
     
+    
+    /// Load a AUPreset sample data file
+    ///
+    /// - parameter file: Name of the AUPreset file without the .aupreset extension
+    ///
+    public func loadAUPreset(file: String) {
+        loadInstrument(file, type: "aupreset")
+    }
+    
+    /// Load a file path
+    ///
+    /// - parameter file: Name of the file with the extension
+    ///
+    public func loadPath(filePath: String) {
+        do {
+        try samplerUnit.loadInstrumentAtURL(NSURL(fileURLWithPath: filePath))
+    } catch {
+        print("error")
+        }
+    }
+    
     internal func loadInstrument(file: String, type: String) {
         print("filename is \(file)")
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: type) else {

@@ -47,9 +47,6 @@ import AVFoundation
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
             return EZAudioDevice.outputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
         #else
-            if let devices = AVAudioSession.sharedInstance().availableoutputs {
-                return devices.map({ AKDevice(name: $0.portName, deviceID: $0.UID) })
-            }
             return nil
         #endif
     }
@@ -67,13 +64,13 @@ import AVFoundation
         #endif
         return nil
     }
-
+    
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     public static func setInputDevice(input: AKDevice) throws {
         #if os(OSX)
             var address = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDefaultInputDevice,
-                                                     mScope: kAudioObjectPropertyScopeGlobal,
-                                                     mElement: kAudioObjectPropertyElementMaster)
+                mScope: kAudioObjectPropertyScopeGlobal,
+                mElement: kAudioObjectPropertyElementMaster)
             var devid = input.deviceID
             AudioObjectSetPropertyData(AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
         #else
@@ -84,6 +81,18 @@ import AVFoundation
                     }
                 }
             }
+        #endif
+    }
+    /// Change the preferred output device, giving it one of the names from the list of available output.
+    public static func setOutputDevice(output: AKDevice) throws {
+        #if os(OSX)
+            var address = AudioObjectPropertyAddress(mSelector: kAudioHardwarePropertyDefaultOutputDevice,
+                mScope: kAudioObjectPropertyScopeGlobal,
+                mElement: kAudioObjectPropertyElementMaster)
+            var devid = output.deviceID
+            AudioObjectSetPropertyData(AudioObjectID(kAudioObjectSystemObject), &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+        #else
+            //not available on ios
         #endif
     }
     
