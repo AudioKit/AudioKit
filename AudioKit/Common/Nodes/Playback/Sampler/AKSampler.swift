@@ -82,6 +82,118 @@ public class AKSampler: AKNode {
         }
     }
     
+    /* loadSamplesFromDict
+    Dictionary is a collection of other dictionaries that have the format like this:
+    ***Key:Value***
+    rootnote:int
+    startnote:int
+    endnote:int
+    filename:string -
+    
+    
+    */
+    public func loadSamplesFromDict(dict:NSDictionary){
+        let rootNoteKeyStr = "rootnote"
+        let startNoteKeyStr = "startnote"
+        let endNoteKeyStr = "endnote"
+        let filenameKeyStr = "filename"
+        var loadSoundsArr = Array<NSMutableDictionary>()
+        var sampleZoneXML:String = String()
+        var sampleIDXML:String = String()
+        var sampleIteration = 0
+        let sampleNumStart = 268435457
+        
+        //first iterate over the sound packs
+        for (var i = 0; i < dict.count; i++){
+            let sound = dict.allValues[i]
+            var soundDict:NSMutableDictionary
+            var alreadyLoaded = false
+            var sampleNum:Int = 0
+            soundDict = sound.mutableCopy() as! NSMutableDictionary
+            //check if this sample is already loaded
+            for loadedSoundDict in loadSoundsArr{
+                let alreadyLoadedSound:String = loadedSoundDict.objectForKey(filenameKeyStr) as! String
+                let newLoadingSound:String = soundDict.objectForKey(filenameKeyStr) as! String
+                if ( alreadyLoadedSound == newLoadingSound){
+                    alreadyLoaded = true
+                    sampleNum = loadedSoundDict.objectForKey("sampleNum") as! Int
+                }
+            }
+            
+            if(sound.objectForKey(startNoteKeyStr) == nil || sound.objectForKey(endNoteKeyStr) == nil ){
+                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: startNoteKeyStr)
+                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: endNoteKeyStr)
+            }
+            if(sound.objectForKey(rootNoteKeyStr) == nil){
+                //error
+            }else{
+                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: rootNoteKeyStr)
+            }
+            if(!alreadyLoaded){ //if this is a new sound, then add it to samplefile xml
+                sampleNum = sampleNumStart + sampleIteration
+                let sampleNumString = "<key>Sample:\(sampleNum)</key>"
+                let sampleLocString = "<string>\(sound.objectForKey("filename")!)</string>\n"
+                
+                soundDict.setObject(sampleNumString, forKey: "sampleNumString")
+                soundDict.setObject(sampleLocString, forKey: "sampleLocString")
+                sampleIDXML.appendContentsOf("\(sampleNumString)\n\(sampleLocString)")
+                sampleIteration++;
+            }
+            let tempSampleZoneXML:String = "<dict>\n" +
+                "<key>ID</key>\n" +
+                "<integer>\(sampleIteration)</integer>\n" +
+                "<key>enabled</key>\n" +
+                "<true/>\n" +
+                "<key>loop enabled</key>\n" +
+                "<false/>\n" +
+                "<key>max key</key>\n" +
+                "<integer>\(soundDict.objectForKey(endNoteKeyStr)!)</integer>\n" +
+                "<key>min key</key>\n" +
+                "<integer>\(soundDict.objectForKey(startNoteKeyStr)!)</integer>\n" +
+                "<key>root key</key>\n" +
+                "<integer>\(soundDict.objectForKey(rootNoteKeyStr)!)</integer>\n" +
+                "<key>waveform</key>\n" +
+                "<integer>\(sampleNum)</integer>\n" +
+            "</dict>\n"
+            sampleZoneXML.appendContentsOf(tempSampleZoneXML)
+            soundDict.setObject(sampleNum, forKey: "sampleNum")
+            loadSoundsArr.append(soundDict)
+        }//end iterate soundPack
+        
+        print(sampleZoneXML)
+        print(sampleIDXML)
+        
+        //let newpreset = writeAUPreset("soundName", fileName: "SamplePreset2", zoneStr: sampleZoneXML, samplesStr: sampleIDXML)
+        
+    }//end func loadSamplesFromDict
+    
+//    func writeAUPreset(instName:String, fileName:String, zoneStr:String, samplesStr:String)->String{
+//        let path = NSBundle.mainBundle().pathForResource("Sounds/AUSamplerTemplate", ofType: "xml")
+//        let documents = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+//        createDir("soundpacks")
+//        let writePath = documents.stringByAppendingString("/soundpacks/\(fileName).aupreset")
+//        var newStr = String()
+//        do{
+//            let templateStr = try String(contentsOfFile: path!, encoding: NSUTF8StringEncoding)
+//            newStr = templateStr.stringByReplacingOccurrencesOfString("***INSTNAME***", withString: instName)
+//            print(zoneStr)
+//            newStr = newStr.stringByReplacingOccurrencesOfString("***ZONEMAPPINGS***", withString: zoneStr)
+//            print(samplesStr)
+//            newStr = newStr.stringByReplacingOccurrencesOfString("***SAMPLEFILES***", withString: samplesStr)
+//        }catch let error as NSError {
+//            print(error)
+//        }
+//        //write to file
+//        do{
+//            print(writePath)
+//            try newStr.writeToFile(writePath, atomically: true, encoding: NSUTF8StringEncoding)
+//            return writePath
+//        }catch let error as NSError {
+//            print(error)
+//            return ""
+//        }
+//    }
+
     /// Output Amplitude.
     public var amplitude: Double = 1 {
         didSet {
