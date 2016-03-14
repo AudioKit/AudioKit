@@ -70,6 +70,18 @@ public class AKSampler: AKNode {
         loadInstrument(file, type: "sf2")
     }
     
+    /// Load a file path
+    ///
+    /// - parameter file: Name of the file with the extension
+    ///
+    public func loadPath(filePath: String) {
+        do {
+            try samplerUnit.loadInstrumentAtURL(NSURL(fileURLWithPath: filePath))
+        } catch {
+            print("error")
+        }
+    }
+    
     internal func loadInstrument(file: String, type: String) {
         print("filename is \(file)")
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: type) else {
@@ -103,7 +115,7 @@ public class AKSampler: AKNode {
         var sampleIteration = 0
         let sampleNumStart = 268435457
         
-        //first iterate over the sound packs
+        //iterate over the sounds
         for i in 0...(dict.count - 1){
             let sound = dict.allValues[i]
             var soundDict:NSMutableDictionary
@@ -141,7 +153,7 @@ public class AKSampler: AKNode {
             }
             let tempSampleZoneXML:String = "<dict>\n" +
                 "<key>ID</key>\n" +
-                "<integer>\(sampleIteration)</integer>\n" +
+                "<integer>\(i)</integer>\n" +
                 "<key>enabled</key>\n" +
                 "<true/>\n" +
                 "<key>loop enabled</key>\n" +
@@ -166,6 +178,7 @@ public class AKSampler: AKNode {
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***ZONEMAPPINGS***", withString: sampleZoneXML)
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***SAMPLEFILES***", withString: sampleIDXML)
         
+        print(templateStr)
         //write to file
         do{
             print("Writing to \(path)")
