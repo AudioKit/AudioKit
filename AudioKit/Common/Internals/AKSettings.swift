@@ -14,16 +14,16 @@ import AVFoundation
 public class AKSettings : NSObject {
     
     /// The sample rate in Hertz
-    public static var sampleRate: Double = 44100;
+    public static var sampleRate: Double = 44100
     
     /// Number of audio channels: 2 for stereo, 1 for mono
-    public static var numberOfChannels: UInt32 = 2;
+    public static var numberOfChannels: UInt32 = 2
     
     /// Whether we should be listening to audio input (microphone)
-    public static var audioInputEnabled: Bool = false;
+    public static var audioInputEnabled: Bool = false
     
     /// Whether to allow audio playback to override the mute setting
-    public static var playbackWhileMuted: Bool = false;
+    public static var playbackWhileMuted: Bool = false
     
     /// Global audio format AudioKit will default to
     public static var audioFormat: AVAudioFormat {
