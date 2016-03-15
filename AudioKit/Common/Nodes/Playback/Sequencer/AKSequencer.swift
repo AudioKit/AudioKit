@@ -99,7 +99,6 @@ public class AKSequencer {
         let options = AVMusicSequenceLoadOptions.SMF_PreserveTracks
         
         do {
-//            avSeq = AVAudioSequencer()
             try avSeq.loadFromData(data, options: options)
             print("should have loaded new seq data")
         } catch {
@@ -208,12 +207,14 @@ public class AKSequencer {
             if newTempo < 10  { newTempo = 10  }
             
             var tempoTrack = MusicTrack()
-            var currTime: MusicTimeStamp = 0
-            MusicPlayerGetTime(musicPlayer, &currTime)
-            currTime = fmod(currTime, length)
             
             MusicSequenceGetTempoTrack(sequence, &tempoTrack)
-            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo))
+            if(isPlaying){
+                var currTime: MusicTimeStamp = 0
+                MusicPlayerGetTime(musicPlayer, &currTime)
+                currTime = fmod(currTime, length)
+                MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo))
+            }
             MusicTrackClear(tempoTrack, 0, length)
             MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo))
         }
@@ -258,6 +259,28 @@ public class AKSequencer {
             }
         } else {
            //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
+        }
+    }
+    
+    //isPlaying
+    public var isPlaying:Bool{
+        if isAvSeq{
+            return avSeq.playing
+        }else{
+            var isPlayingBool:DarwinBoolean = false
+            MusicPlayerIsPlaying(musicPlayer, &isPlayingBool)
+            return isPlayingBool.boolValue
+        }
+    }
+    
+    //currentTime
+    public var currentTime:Double{
+        if isAvSeq{
+            return avSeq.currentPositionInBeats
+        }else{
+            var currTime = MusicTimeStamp()
+            MusicPlayerGetTime(musicPlayer, &currTime)
+            return currTime
         }
     }
     
