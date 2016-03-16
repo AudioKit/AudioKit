@@ -33,8 +33,7 @@ AKPlaygroundLoop(frequency: 2.66) {
     } else {
         filter.inertia = 0.0002
     }
-    
-    i++
+    counter += 1
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
