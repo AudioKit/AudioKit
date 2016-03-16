@@ -13,7 +13,7 @@ public class AKMusicTrack {
     
     // MARK: - Properties
     
-    internal var internalMusicTrack = MusicTrack()
+    public var internalMusicTrack = MusicTrack()
     
     /// Pointer to the Music Track
     public var trackPtr: UnsafeMutablePointer<MusicTrack>
@@ -124,9 +124,19 @@ public class AKMusicTrack {
         DisposeMusicEventIterator(iterator)
     }
     
+    public func setLengthSoft(duration:Double){
+        let size:UInt32 = 0
+        var len = MusicTimeStamp(duration)
+        MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
+    }
+    
     /// Clear all events from the track
     public func clear() {
         MusicTrackClear(internalMusicTrack, 0, length)
+    }
+    /// Clear some events from the track
+    public func clearRange(start:Double, duration:Double) {
+        MusicTrackClear(internalMusicTrack, start, duration)
     }
     
     /// Add Note to sequence
