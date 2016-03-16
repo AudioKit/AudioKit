@@ -61,7 +61,7 @@ public class AKMusicTrack {
     /// - paramter numberOfLoops: how many times to loop. 0 is infinte
     ///
     public func setLoopInfo(duration: Double, numberOfLoops: Int) {
-        let size:UInt32 = 0
+        let size:UInt32 = UInt32(sizeof(MusicTrackLoopInfo))
         let len = MusicTimeStamp(duration)
         var loopInfo = MusicTrackLoopInfo(loopDuration: len, numberOfLoops: Int32(numberOfLoops))
         MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_LoopInfo, &loopInfo, size)
