@@ -84,6 +84,29 @@ public class AKSequencer {
         loadMIDIFile(filename)
     }
     
+    /// Initialize the sequence with an empty sequence and audioengine
+    ///
+    /// - parameter engine: reference to the AV Audio Engine
+    /// - on hold while technology is still unstable
+    ///
+    public convenience init(engine: AVAudioEngine) {
+        self.init()
+        isAvSeq = true
+        avSeq = AVAudioSequencer(audioEngine: engine)
+    }
+    
+    public func sequenceFromData(data: NSData){
+        let options = AVMusicSequenceLoadOptions.SMF_PreserveTracks
+        
+        do {
+            try avSeq.loadFromData(data, options: options)
+            print("should have loaded new seq data")
+        } catch {
+            print("cannot load from data \(error)")
+            return
+        }
+    }
+    
     /// Set loop functionality of entire sequence
     public func loopToggle() {
         (loopEnabled ? loopOff() : loopOn())
@@ -175,7 +198,7 @@ public class AKSequencer {
     }
     
     /// Set the tempo of the sequencer
-    public func setBPM(bpm: Float) {
+    public func setBPM(bpm: Double) {
         if isAvSeq {
             //not applicable
         } else {
@@ -184,12 +207,14 @@ public class AKSequencer {
             if newTempo < 10  { newTempo = 10  }
             
             var tempoTrack = MusicTrack()
-            var currTime: MusicTimeStamp = 0
-            MusicPlayerGetTime(musicPlayer, &currTime)
-            currTime = fmod(currTime, length)
             
             MusicSequenceGetTempoTrack(sequence, &tempoTrack)
-            MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo))
+            if(isPlaying){
+                var currTime: MusicTimeStamp = 0
+                MusicPlayerGetTime(musicPlayer, &currTime)
+                currTime = fmod(currTime, length)
+                MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo))
+            }
             MusicTrackClear(tempoTrack, 0, length)
             MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo))
         }
@@ -234,6 +259,28 @@ public class AKSequencer {
             }
         } else {
            //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
+        }
+    }
+    
+    //isPlaying
+    public var isPlaying:Bool{
+        if isAvSeq{
+            return avSeq.playing
+        }else{
+            var isPlayingBool:DarwinBoolean = false
+            MusicPlayerIsPlaying(musicPlayer, &isPlayingBool)
+            return isPlayingBool.boolValue
+        }
+    }
+    
+    //currentTime
+    public var currentTime:Double{
+        if isAvSeq{
+            return avSeq.currentPositionInBeats
+        }else{
+            var currTime = MusicTimeStamp()
+            MusicPlayerGetTime(musicPlayer, &currTime)
+            return currTime
         }
     }
     
@@ -283,12 +330,32 @@ public class AKSequencer {
     
     /// Get a new track
     public func newTrack() {
-        var newMusicTrack = MusicTrack()
-        MusicSequenceNewTrack(sequence, &newMusicTrack)
-        var count: UInt32 = 0
-        MusicSequenceGetTrackCount(sequence, &count)
-        tracks.append(AKMusicTrack(musicTrack: newMusicTrack))
-        initTracks()
+        if(!isAvSeq){
+            var newMusicTrack = MusicTrack()
+            MusicSequenceNewTrack(sequence, &newMusicTrack)
+            var count: UInt32 = 0
+            MusicSequenceGetTrackCount(sequence, &count)
+            tracks.append(AKMusicTrack(musicTrack: newMusicTrack))
+            initTracks()
+        }else{
+            //cannot
+        }
+    }
+    
+    public func genData()-> NSData? {
+        var status = OSStatus(noErr)
+        var data:Unmanaged<CFData>?
+        status = MusicSequenceFileCreateData(sequence,
+                                             MusicSequenceFileTypeID.MIDIType,
+                                             MusicSequenceFileFlags.EraseFile,
+                                             480, &data)
+        if status != noErr {
+            print("error creating MusicSequence Data")
+            return nil
+        }
+        let ns:NSData = data!.takeUnretainedValue()
+        data?.release()
+        return ns
     }
     
     /// Print sequence to console
