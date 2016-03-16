@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## Interactive FM Oscillator
+//: ## Interactive Oscillator
 //: ### Open the timeline view to use the controls this playground sets up.
 //:
 import XCPlayground
