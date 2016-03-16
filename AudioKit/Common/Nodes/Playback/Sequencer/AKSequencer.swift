@@ -220,6 +220,12 @@ public class AKSequencer {
         }
     }
     
+    public func beatsForSeconds(seconds:Double)->Double{
+        var outBeats:Double = MusicTimeStamp()
+        MusicSequenceGetBeatsForSeconds(sequence, Float64(seconds), &outBeats)
+        return outBeats
+    }
+    
     /// Play the sequence
     public func play() {
         if isAvSeq {
@@ -340,6 +346,21 @@ public class AKSequencer {
         }else{
             //cannot
         }
+    }
+    
+    /// Clear some events from the track
+    public func clearRange(start:Double, duration:Double) {
+        if(isAvSeq){
+            //?
+        }else{
+            for track in tracks{
+                track.clearRange(start, duration: duration)
+            }
+        }
+    }
+    
+    public func setTime(time:MusicTimeStamp){
+        MusicPlayerSetTime(musicPlayer, time)
     }
     
     public func genData()-> NSData? {
