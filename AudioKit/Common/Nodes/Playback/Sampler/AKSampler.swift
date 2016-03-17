@@ -104,7 +104,7 @@ public class AKSampler: AKNode {
      path is where the aupreset will be created
      instName is the name of the aupreset
     */
-    public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String){
+    static public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String){
         let rootNoteKeyStr = "rootnote"
         let startNoteKeyStr = "startnote"
         let endNoteKeyStr = "endnote"
@@ -132,7 +132,8 @@ public class AKSampler: AKNode {
                 }
             }
             
-            if(sound.objectForKey(startNoteKeyStr) == nil || sound.objectForKey(endNoteKeyStr) == nil ){
+            if(sound.objectForKey(startNoteKeyStr) == nil
+                || sound.objectForKey(endNoteKeyStr) == nil){
                 soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: startNoteKeyStr)
                 soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: endNoteKeyStr)
             }
@@ -149,7 +150,7 @@ public class AKSampler: AKNode {
                 soundDict.setObject(sampleNumString, forKey: "sampleNumString")
                 soundDict.setObject(sampleLocString, forKey: "sampleLocString")
                 sampleIDXML.appendContentsOf("\(sampleNumString)\n\(sampleLocString)")
-                sampleIteration++;
+                sampleIteration += 1;
             }
             let tempSampleZoneXML:String = "<dict>\n" +
                 "<key>ID</key>\n" +
@@ -172,13 +173,13 @@ public class AKSampler: AKNode {
             loadSoundsArr.append(soundDict)
         }//end iterate soundPack
         
-        var templateStr = getAUPresetXML()
+        var templateStr = AKSampler.getAUPresetXML()
         
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***INSTNAME***", withString: instName)
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***ZONEMAPPINGS***", withString: sampleZoneXML)
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***SAMPLEFILES***", withString: sampleIDXML)
         
-        print(templateStr)
+        //print(templateStr) //debug
         //write to file
         do{
             print("Writing to \(path)")
@@ -188,6 +189,16 @@ public class AKSampler: AKNode {
         }
     }//end func createAUPresetFromDict
     
+    public static func genTemplateDict(rootnote:Int, filename:String, startnote:Int, endnote:Int)->NSMutableDictionary{
+        let rootNoteKeyStr = "rootnote"
+        let startNoteKeyStr = "startnote"
+        let endNoteKeyStr = "endnote"
+        let filenameKeyStr = "filename"
+        let defaultObjects:[NSObject] = Array.init(arrayLiteral: rootnote, startnote, endnote, filename)
+        let keys:[String] = Array(arrayLiteral: rootNoteKeyStr,startNoteKeyStr,endNoteKeyStr,filenameKeyStr)
+        let outDict = NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
+        return outDict
+    }
     /// Output Amplitude.
     public var amplitude: Double = 1 {
         didSet {
@@ -215,7 +226,7 @@ public class AKSampler: AKNode {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
     
-    func getAUPresetXML()->String{
+    static func getAUPresetXML()->String{
         var templateStr:String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         templateStr.appendContentsOf("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
