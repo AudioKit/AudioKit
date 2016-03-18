@@ -78,6 +78,7 @@ public class AKSawtoothOscillator: AKVoice {
     override public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
+    
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
