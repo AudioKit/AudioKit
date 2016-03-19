@@ -9,6 +9,7 @@ import XCPlayground
 import AudioKit
 
 var oscillator = AKFMOscillator()
+oscillator.inertia = 0.1
 oscillator.amplitude = 0.1
 AudioKit.output = oscillator
 AudioKit.start()
@@ -80,7 +81,7 @@ class PlaygroundView: AKPlaygroundView {
 
 
     func setAmplitude(slider: Slider) {
-        oscillator.ramp(amplitude: Double(slider.value))
+        oscillator.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", oscillator.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
