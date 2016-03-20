@@ -28,6 +28,16 @@ public class AKMetalBar: AKNode {
     internal var token: AUParameterObserverToken?
 
 
+    /// Inertia represents the speed at which parameters are allowed to change
+    public var inertia: Double = 0.0002 {
+        willSet(newValue) {
+            if inertia != newValue {
+                internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     private var leftBoundaryConditionParameter: AUParameter?
     private var rightBoundaryConditionParameter: AUParameter?
     private var decayDurationParameter: AUParameter?
@@ -38,107 +48,65 @@ public class AKMetalBar: AKNode {
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     public var leftBoundaryCondition: Double = 1 {
-        didSet {
-            internalAU?.leftBoundaryCondition = Float(leftBoundaryCondition)
+        willSet(newValue) {
+            if leftBoundaryCondition != newValue {
+                leftBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to leftBoundaryCondition over 20 ms
-    ///
-    /// - parameter leftBoundaryCondition: Target Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    ///
-    public func ramp(leftBoundaryCondition leftBoundaryCondition: Double) {
-        leftBoundaryConditionParameter?.setValue(Float(leftBoundaryCondition), originator: token!)
     }
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
     public var rightBoundaryCondition: Double = 1 {
-        didSet {
-            internalAU?.rightBoundaryCondition = Float(rightBoundaryCondition)
+        willSet(newValue) {
+            if rightBoundaryCondition != newValue {
+                rightBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to rightBoundaryCondition over 20 ms
-    ///
-    /// - parameter rightBoundaryCondition: Target Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    ///
-    public func ramp(rightBoundaryCondition rightBoundaryCondition: Double) {
-        rightBoundaryConditionParameter?.setValue(Float(rightBoundaryCondition), originator: token!)
     }
 
     /// 30db decay time (in seconds).
     public var decayDuration: Double = 3 {
-        didSet {
-            internalAU?.decayDuration = Float(decayDuration)
+        willSet(newValue) {
+            if decayDuration != newValue {
+                decayDurationParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to decayDuration over 20 ms
-    ///
-    /// - parameter decayDuration: Target 30db decay time (in seconds).
-    ///
-    public func ramp(decayDuration decayDuration: Double) {
-        decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
     }
 
     /// Speed of scanning the output location.
     public var scanSpeed: Double = 0.25 {
-        didSet {
-            internalAU?.scanSpeed = Float(scanSpeed)
+        willSet(newValue) {
+            if scanSpeed != newValue {
+                scanSpeedParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to scanSpeed over 20 ms
-    ///
-    /// - parameter scanSpeed: Target Speed of scanning the output location.
-    ///
-    public func ramp(scanSpeed scanSpeed: Double) {
-        scanSpeedParameter?.setValue(Float(scanSpeed), originator: token!)
     }
 
     /// Position along bar that strike occurs.
     public var position: Double = 0.2 {
-        didSet {
-            internalAU?.position = Float(position)
+        willSet(newValue) {
+            if position != newValue {
+                positionParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to position over 20 ms
-    ///
-    /// - parameter position: Target Position along bar that strike occurs.
-    ///
-    public func ramp(position position: Double) {
-        positionParameter?.setValue(Float(position), originator: token!)
     }
 
     /// Normalized strike velocity
     public var strikeVelocity: Double = 500 {
-        didSet {
-            internalAU?.strikeVelocity = Float(strikeVelocity)
+        willSet(newValue) {
+            if strikeVelocity != newValue {
+                strikeVelocityParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to strikeVelocity over 20 ms
-    ///
-    /// - parameter strikeVelocity: Target Normalized strike velocity
-    ///
-    public func ramp(strikeVelocity strikeVelocity: Double) {
-        strikeVelocityParameter?.setValue(Float(strikeVelocity), originator: token!)
     }
 
     /// Spatial width of strike.
     public var strikeWidth: Double = 0.05 {
-        didSet {
-            internalAU?.strikeWidth = Float(strikeWidth)
+        willSet(newValue) {
+            if strikeWidth != newValue {
+                strikeWidthParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to strikeWidth over 20 ms
-    ///
-    /// - parameter strikeWidth: Target Spatial width of strike.
-    ///
-    public func ramp(strikeWidth strikeWidth: Double) {
-        strikeWidthParameter?.setValue(Float(strikeWidth), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)

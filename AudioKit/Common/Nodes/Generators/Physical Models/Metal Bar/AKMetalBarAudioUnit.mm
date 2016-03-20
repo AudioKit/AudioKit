@@ -91,8 +91,8 @@
     [AUParameterTree createParameterWithIdentifier:@"leftBoundaryCondition"
                                               name:@"Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free"
                                            address:leftBoundaryConditionAddress
-                                               min: 1
-                                               max: 3
+                                               min:1
+                                               max:3
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -103,8 +103,8 @@
     [AUParameterTree createParameterWithIdentifier:@"rightBoundaryCondition"
                                               name:@"Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free"
                                            address:rightBoundaryConditionAddress
-                                               min: 1
-                                               max: 3
+                                               min:1
+                                               max:3
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -115,8 +115,8 @@
     [AUParameterTree createParameterWithIdentifier:@"decayDuration"
                                               name:@"30db decay time (in seconds)."
                                            address:decayDurationAddress
-                                               min: 0
-                                               max: 10
+                                               min:0
+                                               max:10
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -170,6 +170,8 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
+
+    _inertia = 0.0002;
 
     // Initialize the parameter values.
     leftBoundaryConditionAUParameter.value = 1;
@@ -251,20 +253,24 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
+    [self setUpParameterRamp];
+
+    return YES;
+}
+
+- (void)setUpParameterRamp {
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
+    // Ramp over inertia time in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_inertia * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {
