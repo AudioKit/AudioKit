@@ -11,13 +11,14 @@ var fmOscillator = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
 AudioKit.output = fmOscillator
 AudioKit.start()
 
-AKPlaygroundLoop(frequency: 1) {
+fmOscillator.start()
+
+AKPlaygroundLoop(frequency: 1.0) {
     fmOscillator.baseFrequency        = random(220, 880)
     fmOscillator.carrierMultiplier    = random(0, 4)
     fmOscillator.modulationIndex      = random(0, 5)
     fmOscillator.modulatingMultiplier = random(0, 0.3)
-    fmOscillator.ramp(amplitude:        random(0.4, 0.7))
-    fmOscillator.start()
+    fmOscillator.amplitude            = random(0.4, 0.7)
 }
 
 let plotView = AKOutputWaveformPlot.createView()
