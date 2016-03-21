@@ -20,6 +20,10 @@
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+
+@property double inertia;
+
 @end
 
 #endif /* AKSawtoothOscillatorAudioUnit_h */

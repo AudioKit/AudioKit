@@ -13,6 +13,7 @@ var morph = AKMorphingOscillator(waveformArray:[AKTable(.Sine), AKTable(.Triangl
 morph.frequency = 400
 morph.amplitude = 0.1
 morph.index = 0.8
+morph.inertia = 0.1
 
 AudioKit.output = morph
 AudioKit.start()
@@ -55,14 +56,15 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func setFrequency(slider: Slider) {
-        morph.ramp(frequency: Double(slider.value))
+        morph.frequency = Double(slider.value)
         let frequency = String(format: "%0.1f", morph.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
     }
 
     func setAmplitude(slider: Slider) {
-        morph.ramp(amplitude: Double(slider.value))
+        morph.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", morph.amplitude)
+        print(morph.index)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
 
