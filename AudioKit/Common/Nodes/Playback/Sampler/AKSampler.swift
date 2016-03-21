@@ -215,7 +215,6 @@ public class AKSampler: AKNode {
             var newGain = volume
             newGain.denormalize(-90.0, max: 0.0, taper: 1)
             samplerUnit.masterGain = Float(newGain)
-            print(volume)//.denormalize(-90.0, max: 12.0, taper: 1))
         }
     }
     // MARK: - Playback
