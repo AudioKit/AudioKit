@@ -25,6 +25,16 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
 
     private var centerFrequencyParameter: AUParameter?
     private var bandwidthParameter: AUParameter?
+    
+    /// Inertia represents the speed at which parameters are allowed to change
+    public var inertia: Double = 0.0002 {
+        willSet(newValue) {
+            if inertia != newValue {
+                internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Center frequency. (in Hertz)
     public var centerFrequency: Double = 2000 {
