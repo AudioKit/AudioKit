@@ -225,6 +225,11 @@ public class AKSequencer {
         MusicSequenceGetBeatsForSeconds(sequence, Float64(seconds), &outBeats)
         return outBeats
     }
+    public func secondsForBeats(beats:Double)->Double{
+        var outSecs:Double = MusicTimeStamp()
+        MusicSequenceGetSecondsForBeats(sequence, beats, &outSecs)
+        return outSecs
+    }
     
     /// Play the sequence
     public func play() {
