@@ -200,10 +200,22 @@ public class AKSampler: AKNode {
         return outDict
     }
     /// Output Amplitude.
+    /// Range:     -90.0 -> +12 db
+    /// Default: 0 db
     public var amplitude: Double = 1 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
-            print(samplerUnit.masterGain)
+        }
+    }
+    /// Normalised Output Volume.
+    /// Range:   0 - 1
+    /// Default: 1
+    public var volume: Double = 1 {
+        didSet {
+            var newGain = volume
+            newGain.denormalize(-90.0, max: 0.0, taper: 1)
+            samplerUnit.masterGain = Float(newGain)
+            print(volume)//.denormalize(-90.0, max: 12.0, taper: 1))
         }
     }
     // MARK: - Playback
