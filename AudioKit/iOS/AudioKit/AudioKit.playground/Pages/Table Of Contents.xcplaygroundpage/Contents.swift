@@ -14,7 +14,7 @@
 //:
 //: * [Electro Drum Beat](Drum%20Synthesizers)
 //: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
-//: * [Telephone Ringing](Telephone%20Ringing)
+//: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
 //: * [EXS24 Sampler](Sampler%20Instrument%20-%20EXS24)
 //: * [Crazy Drum Effects](Variable%20Delay)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
@@ -58,10 +58,7 @@
 //: These playgrounds are inspired by the "Practicals" section of the book "Designing Sound", by Andy Farnell.  While this book is excellent, the examples are implemented in Pd, which is okay, I guess, but hey, this is AudioKit!
 //:
 //: * [Pedestrians](Pedestrians)
-//: * [Dial Tone](Dial%20Tone)
-//: * [Telephone Digits](Telephone%20Digits)
-//: * [Telephone Ringing](Telephone%20Ringing)
-//: * [Busy Signal](Busy%20Signal)
+//: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
 //:
 //: Hopefully we'll add more practicals over time.  If you're interested in making more, submit a pull-request to git repo and we'll be sure to include them.
 //:

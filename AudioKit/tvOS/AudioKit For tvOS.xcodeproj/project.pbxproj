@@ -258,6 +258,10 @@
 		C4A916961C25083A006C1A15 /* metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916921C25083A006C1A15 /* metronome.swift */; };
 		C4A916971C25083A006C1A15 /* periodicTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916931C25083A006C1A15 /* periodicTrigger.swift */; };
 		C4A916981C25083A006C1A15 /* portamento.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916941C25083A006C1A15 /* portamento.swift */; };
+		C4ABF5371C82AEC00078EE8E /* AKMetalBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ABF5331C82AEC00078EE8E /* AKMetalBar.swift */; };
+		C4ABF5381C82AEC00078EE8E /* AKMetalBarAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4ABF5341C82AEC00078EE8E /* AKMetalBarAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4ABF5391C82AEC00078EE8E /* AKMetalBarAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4ABF5351C82AEC00078EE8E /* AKMetalBarAudioUnit.mm */; };
+		C4ABF53A1C82AEC00078EE8E /* AKMetalBarDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4ABF5361C82AEC00078EE8E /* AKMetalBarDSPKernel.hpp */; };
 		C4AC8BCA1C4E292D009EA58E /* AKCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BC71C4E292D009EA58E /* AKCompressor.swift */; };
 		C4AC8BCB1C4E292D009EA58E /* AKExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AC8BC91C4E292D009EA58E /* AKExpander.swift */; };
 		C4B191FA1C3B342800C0F330 /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B191351C3B342800C0F330 /* CUI.h */; };
@@ -762,6 +766,10 @@
 		C4A916921C25083A006C1A15 /* metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = metronome.swift; sourceTree = "<group>"; };
 		C4A916931C25083A006C1A15 /* periodicTrigger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = periodicTrigger.swift; sourceTree = "<group>"; };
 		C4A916941C25083A006C1A15 /* portamento.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = portamento.swift; sourceTree = "<group>"; };
+		C4ABF5331C82AEC00078EE8E /* AKMetalBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMetalBar.swift; sourceTree = "<group>"; };
+		C4ABF5341C82AEC00078EE8E /* AKMetalBarAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMetalBarAudioUnit.h; sourceTree = "<group>"; };
+		C4ABF5351C82AEC00078EE8E /* AKMetalBarAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMetalBarAudioUnit.mm; sourceTree = "<group>"; };
+		C4ABF5361C82AEC00078EE8E /* AKMetalBarDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKMetalBarDSPKernel.hpp; sourceTree = "<group>"; };
 		C4AC8BC71C4E292D009EA58E /* AKCompressor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCompressor.swift; sourceTree = "<group>"; };
 		C4AC8BC91C4E292D009EA58E /* AKExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKExpander.swift; sourceTree = "<group>"; };
 		C4B191351C3B342800C0F330 /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
@@ -1135,6 +1143,7 @@
 			isa = PBXGroup;
 			children = (
 				C40C429A1C41CB7D009D870B /* Drip */,
+				C4ABF5321C82AEC00078EE8E /* Metal Bar */,
 				C40C427E1C41BF00009D870B /* Plucked String */,
 			);
 			path = "Physical Models";
@@ -1892,6 +1901,17 @@
 			path = Music;
 			sourceTree = "<group>";
 		};
+		C4ABF5321C82AEC00078EE8E /* Metal Bar */ = {
+			isa = PBXGroup;
+			children = (
+				C4ABF5331C82AEC00078EE8E /* AKMetalBar.swift */,
+				C4ABF5341C82AEC00078EE8E /* AKMetalBarAudioUnit.h */,
+				C4ABF5351C82AEC00078EE8E /* AKMetalBarAudioUnit.mm */,
+				C4ABF5361C82AEC00078EE8E /* AKMetalBarDSPKernel.hpp */,
+			);
+			path = "Metal Bar";
+			sourceTree = "<group>";
+		};
 		C4AC8BC61C4E292D009EA58E /* Compressor */ = {
 			isa = PBXGroup;
 			children = (
@@ -2515,6 +2535,7 @@
 				C45381B21C3A5CBD00A51738 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
 				C45381C61C3A5CBD00A51738 /* AKHighPassButterworthFilterDSPKernel.hpp in Headers */,
 				C45381A71C3A5CBD00A51738 /* AKAutoWahAudioUnit.h in Headers */,
+				C4ABF53A1C82AEC00078EE8E /* AKMetalBarDSPKernel.hpp in Headers */,
 				C45382051C3A5CBD00A51738 /* AKFlatFrequencyResponseReverbDSPKernel.hpp in Headers */,
 				C45382141C3A5CBD00A51738 /* AKFMOscillatorAudioUnit.h in Headers */,
 				C45381981C3A5CBD00A51738 /* AKBitCrusherDSPKernel.hpp in Headers */,
@@ -2556,6 +2577,7 @@
 				C45381EB1C3A5CBD00A51738 /* AKStringResonatorDSPKernel.hpp in Headers */,
 				C453818D1C3A5CBD00A51738 /* AKOperationEffectAudioUnit.h in Headers */,
 				C45381B81C3A5CBD00A51738 /* AKDCBlockAudioUnit.h in Headers */,
+				C4ABF5381C82AEC00078EE8E /* AKMetalBarAudioUnit.h in Headers */,
 				C42FFBDB1C3D039C00823BD4 /* AKPannerAudioUnit.h in Headers */,
 				C45382181C3A5CBD00A51738 /* AKOscillatorAudioUnit.h in Headers */,
 				C45381C41C3A5CBD00A51738 /* AKHighPassButterworthFilterAudioUnit.h in Headers */,
@@ -2727,8 +2749,10 @@
 				C4B1921A1C3B342800C0F330 /* dcblock.c in Sources */,
 				C4B1923D1C3B342800C0F330 /* pitchamdf.c in Sources */,
 				C4E752511C23888700688A1B /* max.swift in Sources */,
+				C4ABF5371C82AEC00078EE8E /* AKMetalBar.swift in Sources */,
 				C4B1927C1C3B342800C0F330 /* dist.c in Sources */,
 				C42AE0081C2DF681000CEED2 /* AKRollingOutputPlot.swift in Sources */,
+				C4ABF5391C82AEC00078EE8E /* AKMetalBarAudioUnit.mm in Sources */,
 				C40BB09D1C471C6F004C138D /* gen_padsynth.c in Sources */,
 				C4B192581C3B342800C0F330 /* tone.c in Sources */,
 				C40C42351C40E5C2009D870B /* EZRecorder.m in Sources */,

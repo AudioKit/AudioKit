@@ -82,6 +82,8 @@ public class AKHighPassFilter: AKNode, AKToggleable {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
+    
+    // MARK: - Initialization
 
     /// Initialize the high pass filter node
     ///

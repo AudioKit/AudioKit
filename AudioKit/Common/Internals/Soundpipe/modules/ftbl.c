@@ -8,6 +8,8 @@
 #define M_PI		3.14159265358979323846	/* pi */
 #endif
 
+#define tpd360  0.0174532925199433
+
 int sp_ftbl_create(sp_data *sp, sp_ftbl **ft, size_t size)
 {
     *ft = malloc(sizeof(sp_ftbl));
@@ -266,5 +268,30 @@ int sp_gen_gauss(sp_data *sp, sp_ftbl *ft, SPFLOAT scale, uint32_t seed)
         ft->tbl[n] = gaussrand(&rand, scale);
     }
 
+    return SP_OK;
+}
+
+int sp_gen_sinecomp(sp_data *sp, sp_ftbl *ft, const char *argstring)
+{
+    SPFLOAT phs, inc, amp, dc, tpdlen = 2 * M_PI/ (SPFLOAT) ft->size;
+    int i, n;
+    
+    sp_ftbl *args;
+    sp_ftbl_create(sp, &args, 1);
+    sp_gen_vals(sp, args, argstring);
+
+    for(n = 0; n < args->size; n += 4) {
+        inc = args->tbl[n] * tpdlen;
+        amp = args->tbl[n + 1];
+        phs = args->tbl[n + 2] * tpd360;
+        dc = args->tbl[n + 3];
+
+        for (i = 0; i <ft->size ; i++) {
+            ft->tbl[i] += (SPFLOAT) (sin(phs) * amp + dc);
+            if ((phs += inc) >= 2 * M_PI) phs -= 2 * M_PI;
+        }
+    }
+
+    sp_ftbl_destroy(&args);
     return SP_OK;
 }
