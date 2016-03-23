@@ -19,7 +19,7 @@ public class KeyboardView: UIView {
     var keys: [UIView] = []
     
     public var lowestKey = 48
-    public var totalKeys = 88
+    public var totalKeys = 37
     let notesWithFlats  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     
@@ -71,10 +71,9 @@ public class KeyboardView: UIView {
     
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
-            let touchPoint = touch.locationInView(self)
             
             for key in keys {
-                if CGRectContainsPoint(key.frame, touchPoint) {
+                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOn(key.tag)
                 }
             }
@@ -84,11 +83,9 @@ public class KeyboardView: UIView {
     
     override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
-            let touchPoint = touch.locationInView(self)
-            let prevPoint = touch.previousLocationInView(self)
-            
+
             for key in keys {
-                if CGRectContainsPoint(key.frame, touchPoint) {
+                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOn(key.tag)
                 }
             }
@@ -100,8 +97,11 @@ public class KeyboardView: UIView {
     
     override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
-            let prevPoint = touch.previousLocationInView(self)
-            delegate?.noteOff(0)
+            for key in keys {
+                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
+                    delegate?.noteOff(key.tag)
+                }
+            }
         }
     }
 }
