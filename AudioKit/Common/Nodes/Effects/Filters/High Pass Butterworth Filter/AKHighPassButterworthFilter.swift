@@ -23,6 +23,16 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
     internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
+    
+    /// Inertia represents the speed at which parameters are allowed to change
+    public var inertia: Double = 0.0002 {
+        willSet(newValue) {
+            if inertia != newValue {
+                internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 500 {

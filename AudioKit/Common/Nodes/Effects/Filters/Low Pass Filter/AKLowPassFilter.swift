@@ -83,6 +83,8 @@ public class AKLowPassFilter: AKNode, AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
+    // MARK: - Initialization
+    
     /// Initialize the low pass filter node
     ///
     /// - parameter input: Input node to process

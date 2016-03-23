@@ -83,6 +83,8 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 
+    // MARK: - Initialization
+    
     /// Initialize the high shelf filter node
     ///
     /// - parameter input: Input node to process

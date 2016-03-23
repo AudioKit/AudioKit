@@ -15,12 +15,14 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
     
-    private var sampleRate : Double = 1.0
-    private var totalFrameCount : Int64
-    private var initialFrameCount : Int64 = -1
+    private var internalFile: String
+    private var sampleRate: Double = 1.0
+    private var totalFrameCount: Int64
+    private var initialFrameCount: Int64 = -1
     
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
+    private var paused = false
     
     /// Output Volume (Default 1)
     public var volume: Double = 1.0 {
@@ -55,12 +57,14 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// - parameter file: Path to the audio file
     ///
     public init(_ file: String) {
+        internalFile = file
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
         let audioFile = try! AVAudioFile(forReading: url)
         let audioFormat = audioFile.processingFormat
         let audioFrameCount = UInt32(audioFile.length)
         audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat, frameCapacity: audioFrameCount)
         try! audioFile.readIntoBuffer(audioFileBuffer)
+        
         // added for currentTime calculation later on
         sampleRate = audioFile.fileFormat.sampleRate
         totalFrameCount = Int64( audioFrameCount )
@@ -82,10 +86,19 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.volume = 1.0
     }
     
+    public func reloadFile() {
+        let url = NSURL.fileURLWithPath(internalFile, isDirectory: false)
+        let audioFile = try! AVAudioFile(forReading: url)
+        let audioFormat = audioFile.processingFormat
+        let audioFrameCount = UInt32(audioFile.length)
+        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat, frameCapacity: audioFrameCount)
+        try! audioFile.readIntoBuffer(audioFileBuffer)
+    }
+    
     /// Start playback
     public func start() {
-        if !internalPlayer.playing {
-            var options: AVAudioPlayerNodeBufferOptions = AVAudioPlayerNodeBufferOptions.Interrupts
+        if !internalPlayer.playing && !paused {
+            var options = AVAudioPlayerNodeBufferOptions.Interrupts
             if looping {
                 options = .Loops
             }
@@ -93,21 +106,27 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
         internalPlayer.play()
         // get the initialFrameCount for currentTime as it's relative to the audio engine's time.
-        if (initialFrameCount == -1){
-            if let t = internalPlayer.lastRenderTime {
-                initialFrameCount = t.sampleTime
-            }
+        if initialFrameCount == -1 {
+            resetFrameCount()
         }
     }
     
     /// Pause playback
     public func pause() {
+        paused = true
         internalPlayer.pause()
     }
 
     /// Stop playback
     public func stop() {
         internalPlayer.stop()
+        resetFrameCount()
+    }
+    
+    func resetFrameCount() {
+        if let t = internalPlayer.lastRenderTime {
+            initialFrameCount = t.sampleTime
+        }
     }
     
     /// Current playback time (in seconds)
@@ -116,7 +135,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         if internalPlayer.playing {
             if let time = internalPlayer.lastRenderTime {
                 // wrap the sampleTime by the totalFrameCount as sampleTime does not reset when audio loops.
-                return Double( ( Int64(time.sampleTime - initialFrameCount) % totalFrameCount) ) / sampleRate
+                return Double((Int64(time.sampleTime - initialFrameCount) % totalFrameCount)) / sampleRate
             }
         }
         return 0.0
