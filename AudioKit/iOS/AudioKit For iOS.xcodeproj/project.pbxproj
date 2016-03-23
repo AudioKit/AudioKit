@@ -365,6 +365,8 @@
 		C46C795C1C4C5C4600F6CE3D /* morphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46C795B1C4C5C4600F6CE3D /* morphingOscillator.swift */; };
 		C46C795F1C4C616D00F6CE3D /* oscmorph.c in Sources */ = {isa = PBXBuildFile; fileRef = C46C795E1C4C616D00F6CE3D /* oscmorph.c */; };
 		C46C79611C4C61CF00F6CE3D /* thresh.c in Sources */ = {isa = PBXBuildFile; fileRef = C46C79601C4C61CF00F6CE3D /* thresh.c */; };
+		C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */; };
+		C46EECD11C9FF615007FEA1B /* adsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C46EECD01C9FF615007FEA1B /* adsr.c */; };
 		C48443551C311523007BE794 /* blsaw.c in Sources */ = {isa = PBXBuildFile; fileRef = C48443521C311523007BE794 /* blsaw.c */; };
 		C48443561C311523007BE794 /* blsquare.c in Sources */ = {isa = PBXBuildFile; fileRef = C48443531C311523007BE794 /* blsquare.c */; };
 		C48443571C311523007BE794 /* bltriangle.c in Sources */ = {isa = PBXBuildFile; fileRef = C48443541C311523007BE794 /* bltriangle.c */; };
@@ -906,6 +908,8 @@
 		C46C795B1C4C5C4600F6CE3D /* morphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = morphingOscillator.swift; sourceTree = "<group>"; };
 		C46C795E1C4C616D00F6CE3D /* oscmorph.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = oscmorph.c; sourceTree = "<group>"; };
 		C46C79601C4C61CF00F6CE3D /* thresh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thresh.c; sourceTree = "<group>"; };
+		C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adsrEnvelope.swift; sourceTree = "<group>"; };
+		C46EECD01C9FF615007FEA1B /* adsr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adsr.c; sourceTree = "<group>"; };
 		C48443521C311523007BE794 /* blsaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blsaw.c; sourceTree = "<group>"; };
 		C48443531C311523007BE794 /* blsquare.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blsquare.c; sourceTree = "<group>"; };
 		C48443541C311523007BE794 /* bltriangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bltriangle.c; sourceTree = "<group>"; };
@@ -2195,6 +2199,7 @@
 		C45C350C1C08EE5700E3C7F0 /* ugens */ = {
 			isa = PBXGroup;
 			children = (
+				C46EECD01C9FF615007FEA1B /* adsr.c */,
 				C46300951C20C342009B44D9 /* allpass.c */,
 				C46300961C20C342009B44D9 /* atone.c */,
 				C46300971C20C342009B44D9 /* autowah.c */,
@@ -2508,6 +2513,7 @@
 				C4A9164B1C24F95E006C1A15 /* periodicTrigger.swift */,
 				C4A9164C1C24F95E006C1A15 /* portamento.swift */,
 				C4A9164D1C24F95E006C1A15 /* triggeredWithEnvelope.swift */,
+				C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -2868,6 +2874,7 @@
 				C46C79611C4C61CF00F6CE3D /* thresh.c in Sources */,
 				C4E958EE1C0ADBFD00516A6A /* zitarev.c in Sources */,
 				C4A916511C24F95E006C1A15 /* triggeredWithEnvelope.swift in Sources */,
+				C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */,
 				C4537FBF1C3A438D00A51738 /* AKEqualizerFilterAudioUnit.mm in Sources */,
 				C45380401C3A599F00A51738 /* AKFrequencyTracker.swift in Sources */,
 				C4E958BC1C0ADBFD00516A6A /* line.c in Sources */,
@@ -3178,6 +3185,7 @@
 				C4E958A21C0ADBFD00516A6A /* clip.c in Sources */,
 				C40BB0821C4716E0004C138D /* AKCombFilterReverbAudioUnit.mm in Sources */,
 				C46300F41C20C342009B44D9 /* noise.c in Sources */,
+				C46EECD11C9FF615007FEA1B /* adsr.c in Sources */,
 				C4E751951C220C4E00688A1B /* triangleWave.swift in Sources */,
 				C453807F1C3A5BDA00A51738 /* AKTriangleOscillator.swift in Sources */,
 				C4537F2C1C39D2A300A51738 /* AKClipper.swift in Sources */,
