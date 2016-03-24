@@ -20,16 +20,16 @@ AudioKit.start()
 player.play()
 
 var time = 0.0
-let timeStep = 0.02
+let timeStep = 0.2
 
 AKPlaygroundLoop(every: timeStep) {
     
 //: Vary the delay time between 0.0 and 0.2 in a sinusoid at 2 hz
     let delayModulationHz = 2.0
-    let delayModulation = (1.0 - cos(2 * 3.14 * delayModulationHz * t)) * 0.2
+    let delayModulation = (1.0 - cos(2 * 3.14 * delayModulationHz * time)) * 0.2
     delay.time = delayModulation
     
-    t += timeStep
+    time += timeStep
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
