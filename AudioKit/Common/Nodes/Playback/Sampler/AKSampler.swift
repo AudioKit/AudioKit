@@ -206,7 +206,7 @@ public class AKSampler: AKNode {
     /// Output Amplitude.
     /// Range: -90.0 -> +12 db
     /// Default: 0 db
-    public var amplitude: Double = 1 {
+    public var amplitude: Double = 0 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
         }
