@@ -30,15 +30,15 @@ class MultiDelay: AKNode {
         }
     }
 
-    private var leftDelays: [AKVariableDelay] = []
-    private var rightDelays: [AKVariableDelay] = []
+    private var leftDelays: [AKDelay] = []
+    private var rightDelays: [AKDelay] = []
     private var leftBoosters: [AKBooster] = []
     private var rightBoosters: [AKBooster] = []
     private var gains = [0.5, 0.25, 0.15]
     private var leftTimes = [1.0, 2.0, 3.0]
     private var rightTimes = [1.5, 2.5, 3.5]
 
-    func updateDelays(delays: [AKVariableDelay], boosters: [AKBooster], times: [Double], gains: [Double]) {
+    func updateDelays(delays: [AKDelay], boosters: [AKBooster], times: [Double], gains: [Double]) {
         for i in 0..<gains.count {
             delays[i].time = times[i]
             boosters[i].gain = gains[i]
@@ -51,8 +51,8 @@ class MultiDelay: AKNode {
         let rightDelayMix = AKMixer()
 
         for i in 0..<gains.count {
-            leftDelays.append(AKVariableDelay(input, time: leftTimes[i], feedback: 0.0))
-            rightDelays.append(AKVariableDelay(input, time: rightTimes[i], feedback: 0.0))
+            leftDelays.append(AKDelay(input, time: leftTimes[i], feedback: 0.0))
+            rightDelays.append(AKDelay(input, time: rightTimes[i], feedback: 0.0))
             leftBoosters.append(AKBooster(leftDelays[i], gain: gains[i]))
             rightBoosters.append(AKBooster(rightDelays[i], gain: gains[i]))
 

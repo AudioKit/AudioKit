@@ -41,19 +41,19 @@ public struct AKMIDIEvent {
         }
         return 0
     }
-    private var data1: UInt8 {
+    var data1: UInt8 {
         return internalData[1]
     }
-    private var data2: UInt8 {
+    var data2: UInt8 {
         return internalData[2]
     }
-    private var data: UInt16 {
+    var data: UInt16 {
         let x = UInt16(internalData[1])
-        let y = UInt16(internalData[2] << 7)
+        let y = UInt16(internalData[2]) << 7
         return y + x
     }
     
-    private var bytes: NSData {
+    var bytes: NSData {
         return NSData(bytes: [internalData[0], internalData[1], internalData[2]] as [UInt8], length: 3)
     }
     
@@ -69,11 +69,11 @@ public struct AKMIDIEvent {
             if(packet.data.0 == AKMIDISystemCommand.Sysex.rawValue){ //if is sysex
                 internalData = [] //reset internalData
                 //voodoo
-                let mirrorData = Mirror(reflecting:packet.data)
+                let mirrorData = Mirror(reflecting:data)
                 var i = 0
                 for (_, value) in mirrorData.children{
                     internalData.append(UInt8(value as! UInt8))
-                    i++
+                    i += 1
                     if(value as! UInt8 == 247){
                         break;
                     }
@@ -133,7 +133,24 @@ public struct AKMIDIEvent {
         }
     }
     
+    static private let statusBit: UInt8 = 0b10000000
+    static private let dataMask: UInt8 = 0b01111111
+    static private let messageMask: UInt8 = 0b01110000
+    static private let channelMask: UInt8 = 0b00001111
+    
     // MARK: - Utility constructors for common MIDI events
+    static func isStatusByte(byte: UInt8) -> Bool {
+        return (byte & AKMIDIEvent.statusBit) == AKMIDIEvent.statusBit
+    }
+    static func isDataByte(byte: UInt8) -> Bool {
+        return (byte & AKMIDIEvent.statusBit) == 0
+    }
+
+    static func statusFromValue(byte: UInt8) -> AKMIDIStatus {
+        let status = byte >> 4
+        return AKMIDIStatus(rawValue: Int(status))!
+    }
+
     
     /// Create note on event
     static public func eventWithNoteOn(note: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMIDIEvent {

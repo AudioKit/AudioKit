@@ -23,12 +23,12 @@ player.play()
 
 //: Adjust the pan to smoothly cycle left and right over time
 
-var t = 0.0
+var time = 0.0
 let timeStep = 0.05
 AKPlaygroundLoop(every: timeStep) {
     panner.pan
-    panner.pan = sin(t)
-    t = t + timeStep
+    panner.pan = sin(time)
+    time = time + timeStep
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

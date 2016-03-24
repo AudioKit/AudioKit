@@ -130,12 +130,14 @@ class SynthViewController: UIViewController {
         conductor.filterSection.lfoAmplitude = 0.0 // LFO Amp (Hz)
         conductor.filterSection.lfoRate = 1.4 // LFO Rate
         conductor.filterSection.resonance = 0.5 // Filter Q/Rez
-        conductor.bitCrusher.sampleRate = 2000.0 // Bitcrush SampleRate
         conductor.multiDelay.time = 0.5 // Delay (seconds)
         conductor.multiDelay.mix = 0.5 // Dry/Wet
         conductor.reverb.feedback = 0.88 // Amt
         conductor.reverbMixer.balance = 0.4 // Dry/Wet
+        conductor.midiBendRange = 2.0 // MIDI bend range in +/- semitones
+        
         cutoffKnob.value = 0.36 // Cutoff Knob Position
+        crushAmtKnob.value = 0.0 // Crusher Knob Position
         
         // ADSR
         conductor.core.attackDuration = 0.1
@@ -195,10 +197,6 @@ class SynthViewController: UIViewController {
         rezKnob.maximum = 0.99
         rezKnob.value = conductor.filterSection.resonance
         
-        crushAmtKnob.minimum = 0
-        crushAmtKnob.maximum = 1950
-        crushAmtKnob.knobValue = CGFloat((crushAmtKnob.maximum - conductor.bitCrusher.sampleRate) + 50)
-        
         delayTimeKnob.value = conductor.multiDelay.time
         delayMixKnob.value = conductor.multiDelay.mix
         
@@ -209,8 +207,10 @@ class SynthViewController: UIViewController {
         masterVolKnob.maximum = 30.0
         masterVolKnob.value = conductor.masterVolume.volume
         
-        // Calculate cutoff freq based on knob position
+        // Calculate Logarithmic scales based on knob position
         conductor.filterSection.cutoffFrequency = cutoffFreqFromValue(Double(cutoffKnob.value))
+        conductor.bitCrusher.sampleRate = crusherFreqFromValue(Double(crushAmtKnob.value))
+        conductor.bitCrusher.bitDepth = 8
     }
     
     func setupSliderValues() {
@@ -306,11 +306,11 @@ class SynthViewController: UIViewController {
         if sender.selected {
             sender.selected = false
             statusLabel.text = "Stereo Fatten Off"
-            conductor.fatten.mix = 0
+            conductor.fatten.dryWetMix.balance = 0
         } else {
             sender.selected = true
             statusLabel.text = "Stereo Fatten On"
-            conductor.fatten.mix = 1
+            conductor.fatten.dryWetMix.balance = 1
         }
     }
     
@@ -382,11 +382,19 @@ class SynthViewController: UIViewController {
         }
     }
     
-    // About App
-    @IBAction func audioKitHomepage(sender: UIButton) {
-        openURL("http://audiokit.io")
-    }
     
+    @IBAction func cpuEfficientToggled(sender: UIButton) {
+        if sender.selected {
+            sender.selected = false
+            statusLabel.text = "CPU Efficient Mode Off"
+        } else {
+            sender.selected = true
+            statusLabel.text = "CPU Efficient Mode On"
+            // TODO: CPU Efficient CODE HERE
+        }
+    }
+
+    // About App
     @IBAction func buildThisSynth(sender: RoundedButton) {
         openURL("http://audiokit.io/examples/AnalogSynthX")
     }
@@ -605,10 +613,9 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
             
         // Crusher
         case ControlTag.CrushAmt.rawValue:
-            let crushAmt = (crushAmtKnob.maximum - value) + 50
+            let crushAmt = crusherFreqFromValue(value)
             statusLabel.text = "Bitcrush: \(crushAmt.decimalString) Sample Rate"
             conductor.bitCrusher.sampleRate = crushAmt
-            conductor.bitCrusher.bitDepth = 8
             
         // Delay
         case ControlTag.DelayTime.rawValue:
@@ -652,19 +659,19 @@ extension SynthViewController: VerticalSliderDelegate {
         
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
-            statusLabel.text = "Attack: \(value.decimalString) sec"
+            statusLabel.text = "Attack: \(attackSlider.sliderValue.percentageString)"
             conductor.core.attackDuration = value
             
         case ControlTag.adsrDecay.rawValue:
-            statusLabel.text = "Decay: \(value.decimalString) sec"
+            statusLabel.text = "Decay: \(decaySlider.sliderValue.percentageString)"
             conductor.core.decayDuration = value
             
         case ControlTag.adsrSustain.rawValue:
-            statusLabel.text = "Sustain: \(sustainSlider.currentValue.percentageString)"
+            statusLabel.text = "Sustain: \(sustainSlider.sliderValue.percentageString)"
             conductor.core.sustainLevel = value
             
         case ControlTag.adsrRelease.rawValue:
-            statusLabel.text = "Release: \(value.decimalString) sec"
+            statusLabel.text = "Release: \(releaseSlider.sliderValue.percentageString)"
             conductor.core.releaseDuration = value
             
         default:

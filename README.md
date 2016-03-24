@@ -2,7 +2,7 @@ AudioKit V3
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
-[![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](http://cocoadocs.org/docsets/AudioKit)
+[![License](https://img.shields.io/cocoapods/l/AudioKit.svg?style=flat)](https://github.com/audiokit/AudioKit/blob/master/LICENSE)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://github.com/CocoaPods/Specs/tree/master/Specs/AudioKit)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
@@ -100,11 +100,11 @@ pod 'AudioKit', '~> 3.0'
 
 AudioKit was created by the following team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
 
-* **Aurelius Prochazka**: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
-* **Jeff Cooper**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
-* **Matthew Fecher**: Sound design, graphic design, and programming of the Swift Synth example.
-* **Nicholas Arner**: Longtime contributor to AudioKit and AudioKit's web site.
-* **Paul Batchelor**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
-* **Simon Gladman**: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
-* **Stephane Peter**: Installation and configuration czar and code reviewer.
-* **Syed Haris Ali**: The author of [EZAudio](https://github.com/syedhali/EZAudio) which is AudioKit's included waveform plotter and FFT analysis engine.
+* **[Aurelius Prochazka](https://github.com/aure)**: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
+* **[Jeff Cooper](https://github.com/eljeff)**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
+* **[Matthew Fecher](https://github.com/swiftcodex)**: Sound design, graphic design, and programming of the Analog Synth X example.
+* **[Nicholas Arner](https://github.com/narner)**: Longtime contributor to AudioKit and AudioKit's web site.
+* **[Paul Batchelor](https://github.com/PaulBatchelor)**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
+* **[Simon Gladman](https://github.com/FlexMonkey)**: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
+* **[Stephane Peter](https://github.com/megastep)**: Installation and configuration czar and code reviewer.
+* **[Syed Haris Ali](https://github.com/syedhali)**: The author of [EZAudio](https://github.com/syedhali/EZAudio) which is AudioKit's included waveform plotter and FFT analysis engine.

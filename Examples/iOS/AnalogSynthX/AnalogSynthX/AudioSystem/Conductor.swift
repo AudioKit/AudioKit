@@ -23,8 +23,10 @@ class Conductor: AKMIDIListener {
     var reverb: AKCostelloReverb
     var reverbMixer: AKDryWetMixer
 
+    var midiBendRange : Double = 2.0
 
     init() {
+        AKSettings.audioInputEnabled = true
         bitCrusher = AKBitCrusher(core)
         bitCrusher.stop()
 
@@ -40,11 +42,15 @@ class Conductor: AKMIDIListener {
         reverb.stop()
 
         reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.0)
-
+        
+        // uncomment this to allow background operation
+        // AKSettings.playbackWhileMuted = true
+        
         AudioKit.output = reverbMixer
         AudioKit.start()
 
         let midi = AKMIDI()
+        midi.createVirtualPorts()
         midi.openMIDIIn("Session 1")
         midi.addListener(self)
     }
@@ -54,6 +60,10 @@ class Conductor: AKMIDIListener {
     }
     func midiNoteOff(note: Int, velocity: Int, channel: Int) {
         core.stopNote(note)
+    }
+    func midiPitchWheel(pitchWheelValue: Int, channel: Int) {
+        let bendSemi =  (Double(pitchWheelValue - 8192) / 8192.0) * midiBendRange
+        core.globalbend = bendSemi
     }
 
 }

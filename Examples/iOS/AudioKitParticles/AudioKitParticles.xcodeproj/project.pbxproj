@@ -14,6 +14,7 @@
 		3E51059D1C310A4100CEC622 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E51059B1C310A4100CEC622 /* LaunchScreen.storyboard */; };
 		3E5105B61C310BFC00CEC622 /* Particles.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3E5105B51C310BFC00CEC622 /* Particles.metal */; };
 		3E5105B81C310C4200CEC622 /* ParticleLab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5105B71C310C4200CEC622 /* ParticleLab.swift */; };
+		C4D88CFA1C6AD6C9005BB6CE /* Loop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D88CF91C6AD6C9005BB6CE /* Loop.swift */; };
 		EA127F361C41F62300289567 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F351C41F62300289567 /* AudioKit.framework */; };
 		EA127F391C4200E000289567 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F351C41F62300289567 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		3E51059E1C310A4100CEC622 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E5105B51C310BFC00CEC622 /* Particles.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Particles.metal; path = particleLab/Particles.metal; sourceTree = "<group>"; };
 		3E5105B71C310C4200CEC622 /* ParticleLab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParticleLab.swift; path = particleLab/ParticleLab.swift; sourceTree = "<group>"; };
+		C4D88CF91C6AD6C9005BB6CE /* Loop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loop.swift; sourceTree = "<group>"; };
 		EA127F351C41F62300289567 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 				3E5105B41C310BDA00CEC622 /* particleLab */,
 				3E5105921C310A4100CEC622 /* AppDelegate.swift */,
 				3E5105941C310A4100CEC622 /* ViewController.swift */,
+				C4D88CF91C6AD6C9005BB6CE /* Loop.swift */,
 				3E5105961C310A4100CEC622 /* Main.storyboard */,
 				3E5105991C310A4100CEC622 /* Assets.xcassets */,
 				3E51059B1C310A4100CEC622 /* LaunchScreen.storyboard */,
@@ -178,6 +181,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4D88CFA1C6AD6C9005BB6CE /* Loop.swift in Sources */,
 				3E5105951C310A4100CEC622 /* ViewController.swift in Sources */,
 				3E5105931C310A4100CEC622 /* AppDelegate.swift in Sources */,
 				3E5105B61C310BFC00CEC622 /* Particles.metal in Sources */,

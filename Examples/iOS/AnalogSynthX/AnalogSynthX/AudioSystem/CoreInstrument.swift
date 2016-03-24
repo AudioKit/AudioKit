@@ -34,12 +34,24 @@ class CoreInstrument: AKPolyphonicInstrument {
     var waveform1 = 0.0 { didSet { updateWaveform1() } }
     var waveform2 = 0.0 { didSet { updateWaveform2() } }
 
-
+    var globalbend : Double = 0.0 {
+        didSet {
+            for i in 0..<activeVoices.count {
+                let coreVoice = activeVoices[i] as! CoreVoice
+                let note = Double(activeNotes[i] + offset1) + globalbend
+                coreVoice.vco1.frequency = note.midiNoteToFrequency()
+                let note2 = Double(activeNotes[i] + offset2) + globalbend
+                coreVoice.vco2.frequency = note2.midiNoteToFrequency()
+                coreVoice.subOsc.frequency = (Double(activeNotes[i] - 12) + globalbend).midiNoteToFrequency()
+            }
+        }
+    }
+    
     var offset1 = 0 {
         didSet {
             for i in 0..<activeVoices.count {
                 let coreVoice = activeVoices[i] as! CoreVoice
-                let note = activeNotes[i] + offset1
+                let note = Double(activeNotes[i] + offset1) + globalbend
                 coreVoice.vco1.frequency = note.midiNoteToFrequency()
             }
         }
@@ -49,7 +61,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for i in 0..<activeVoices.count {
                 let coreVoice = activeVoices[i] as! CoreVoice
-                let note = activeNotes[i] + offset2
+                let note = Double(activeNotes[i] + offset2) + globalbend
                 coreVoice.vco2.frequency = note.midiNoteToFrequency()
             }
         }
@@ -96,7 +108,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.fmOscillator.modulationIndex = fmMod
+                coreVoice.fmOsc.modulationIndex = fmMod
             }
         }
     }
@@ -201,17 +213,17 @@ class CoreInstrument: AKPolyphonicInstrument {
         
         let commonAmplitude = Double(velocity)/127.0
         
-        coreVoice.vco1.amplitude         = commonAmplitude
-        coreVoice.vco2.amplitude         = commonAmplitude
-        coreVoice.subOsc.amplitude       = commonAmplitude
-        coreVoice.fmOscillator.amplitude = commonAmplitude
-        coreVoice.noise.amplitude        = commonAmplitude
+        coreVoice.vco1.amplitude   = commonAmplitude
+        coreVoice.vco2.amplitude   = commonAmplitude
+        coreVoice.subOsc.amplitude = commonAmplitude
+        coreVoice.fmOsc.amplitude  = commonAmplitude
+        coreVoice.noise.amplitude  = commonAmplitude
         
-        coreVoice.vco1.frequency = (note + offset1).midiNoteToFrequency()
-        coreVoice.vco2.frequency = (note + offset2).midiNoteToFrequency()
+        coreVoice.vco1.frequency = (Double(note + offset1) + globalbend).midiNoteToFrequency()
+        coreVoice.vco2.frequency = (Double(note + offset2) + globalbend).midiNoteToFrequency()
 
-        coreVoice.subOsc.frequency = (note - 12).midiNoteToFrequency()
-        coreVoice.fmOscillator.baseFrequency = note.midiNoteToFrequency()
+        coreVoice.subOsc.frequency = (Double(note - 12) + globalbend).midiNoteToFrequency()
+        coreVoice.fmOsc.baseFrequency = note.midiNoteToFrequency()
         
         coreVoice.start()
     }
