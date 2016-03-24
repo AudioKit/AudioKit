@@ -189,18 +189,22 @@ public class AKSampler: AKNode {
         }
     }//end func createAUPresetFromDict
     
-    public static func genTemplateDict(rootnote:Int, filename:String, startnote:Int, endnote:Int)->NSMutableDictionary{
+    public static func generateTemplateDictionary(
+        rootNote: Int,
+        filename: String,
+        startNote: Int,
+        endNote: Int) -> NSMutableDictionary {
+        
         let rootNoteKeyStr = "rootnote"
         let startNoteKeyStr = "startnote"
         let endNoteKeyStr = "endnote"
         let filenameKeyStr = "filename"
-        let defaultObjects:[NSObject] = Array.init(arrayLiteral: rootnote, startnote, endnote, filename)
-        let keys:[String] = Array(arrayLiteral: rootNoteKeyStr,startNoteKeyStr,endNoteKeyStr,filenameKeyStr)
-        let outDict = NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
-        return outDict
+        let defaultObjects:[NSObject] = [rootNote, startNote, endNote, filename]
+        let keys: [String] = [rootNoteKeyStr, startNoteKeyStr, endNoteKeyStr, filenameKeyStr]
+        return NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
     }
     /// Output Amplitude.
-    /// Range:     -90.0 -> +12 db
+    /// Range: -90.0 -> +12 db
     /// Default: 0 db
     public var amplitude: Double = 1 {
         didSet {
