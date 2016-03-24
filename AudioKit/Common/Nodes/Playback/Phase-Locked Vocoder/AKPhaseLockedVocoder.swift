@@ -28,6 +28,16 @@ public class AKPhaseLockedVocoder: AKNode {
     private var amplitudeParameter: AUParameter?
     private var pitchRatioParameter: AUParameter?
 
+    /// Inertia represents the speed at which parameters are allowed to change
+    public var inertia: Double = 0.0002 {
+        willSet(newValue) {
+            if inertia != newValue {
+                internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+    
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     public var position: Double = 0 {
         willSet(newValue) {
