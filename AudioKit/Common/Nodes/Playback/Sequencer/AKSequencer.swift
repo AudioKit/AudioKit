@@ -224,7 +224,7 @@ public class AKSequencer {
         }
     }
     
-    public func addTempoEvent(bpm:Double, pos:Double){
+    public func addTempoEvent(bpm: Double, position: Double){
         if isAvSeq {
             //not applicable
         } else {
@@ -235,7 +235,7 @@ public class AKSequencer {
             var tempoTrack = MusicTrack()
             
             MusicSequenceGetTempoTrack(sequence, &tempoTrack)
-            MusicTrackNewExtendedTempoEvent(tempoTrack, pos, Double(newTempo))
+            MusicTrackNewExtendedTempoEvent(tempoTrack, position, Double(newTempo))
         }
 
     }
