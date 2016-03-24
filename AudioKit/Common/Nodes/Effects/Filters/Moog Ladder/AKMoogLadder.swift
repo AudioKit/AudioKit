@@ -31,8 +31,8 @@ public class AKMoogLadder: AKNode, AKToggleable {
     
     /// Inertia represents the speed at which parameters are allowed to change
     public var inertia: Double = 0.0002 {
-        willSet(newValue){
-            if(inertia != newValue){
+        willSet(newValue) {
+            if inertia != newValue {
                 internalAU?.inertia = newValue
                 internalAU?.setUpParameterRamp()
             }

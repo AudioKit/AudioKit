@@ -100,6 +100,8 @@ public class AKParametricEQ: AKNode, AKToggleable {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
+    
+    // MARK: - Initialization
 
     /// Initialize the parametric eq node
     ///

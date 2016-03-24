@@ -21,6 +21,10 @@
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+
+@property double inertia;
+
 @end
 
 #endif /* AKSquareWaveOscillatorAudioUnit_h */

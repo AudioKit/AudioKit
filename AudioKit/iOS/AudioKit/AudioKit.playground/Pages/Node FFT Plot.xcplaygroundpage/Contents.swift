@@ -20,7 +20,7 @@ AKPlaygroundLoop(frequency: 5) {
     oscillator.amplitude = 0.2
 }
 
-let plot = AKNodeFFTPlot(oscillator, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+let plot = AKNodeFFTPlot(mixer, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 plot.shouldFill = true
 plot.shouldMirror = false
 plot.shouldCenterYAxis = false

@@ -26,6 +26,16 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     private var cornerFrequencyParameter: AUParameter?
     private var gainParameter: AUParameter?
     private var qParameter: AUParameter?
+    
+    /// Inertia represents the speed at which parameters are allowed to change
+    public var inertia: Double = 0.0002 {
+        willSet(newValue) {
+            if inertia != newValue {
+                internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Corner frequency.
     public var cornerFrequency: Double = 1000 {

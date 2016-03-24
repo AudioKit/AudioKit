@@ -32,7 +32,6 @@ public class AKDryWetMixer: AKNode {
         }
     }
     
-    private var lastKnownMix: Double = 100
     private var dryGain: AKMixer?
     private var wetGain: AKMixer?
     
