@@ -7,19 +7,68 @@
 import XCPlayground
 import AudioKit
 
-var sawtooth = AKSawtoothOscillator()
-AudioKit.output = sawtooth
+var oscillator = AKSawtoothOscillator()
+var currentAmplitude = 0.1
+var currentInertia = 0.0
+
+AudioKit.output = oscillator
 AudioKit.start()
 
-sawtooth.start()
+let playgroundWidth = 500
 
-AKPlaygroundLoop(every: 0.12) {
-    let scale = [0, 2, 4, 5, 7, 9, 11, 12]
-    var note = scale.randomElement()
-    let octave = randomInt(3...6)  * 12
-    sawtooth.inertia = random(0.01, 0.1)
-    sawtooth.frequency = (note + octave).midiNoteToFrequency()
-    sawtooth.amplitude = random(0, 0.3)
+class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+    
+    var frequencyLabel: Label?
+    var amplitudeLabel: Label?
+    var inertiaLabel: Label?
+    
+    override func setup() {
+        addTitle("Sawtooth Oscillator")
+        
+        amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
+        addSlider(#selector(self.setAmplitude(_:)), value: currentAmplitude)
+        
+        inertiaLabel = addLabel("Inertia: \(currentInertia)")
+        addSlider(#selector(self.setInertia(_:)), value: currentInertia, minimum: 0, maximum: 0.1)
+        
+        let keyboard = KeyboardView(width: playgroundWidth, height: 100)
+        keyboard.frame.origin.y = CGFloat(yPosition)
+        keyboard.setNeedsDisplay()
+        keyboard.delegate = self
+        self.addSubview(keyboard)
+    }
+    
+    func noteOn(note: Int) {
+        // start from the correct note if amplitude is zero
+        if oscillator.amplitude == 0 {
+            oscillator.inertia = 0
+        }
+        oscillator.frequency = note.midiNoteToFrequency()
+        
+        // Still use inertia for volume
+        oscillator.inertia = currentInertia
+        oscillator.amplitude = currentAmplitude
+        oscillator.play()
+    }
+    
+    func noteOff(note: Int) {
+        oscillator.amplitude = 0
+    }
+    
+    
+    func setAmplitude(slider: Slider) {
+        currentAmplitude = Double(slider.value)
+        let amp = String(format: "%0.3f", currentAmplitude)
+        amplitudeLabel!.text = "Amplitude: \(amp)"
+    }
+    
+    func setInertia(slider: Slider) {
+        currentInertia = Double(slider.value)
+        let inertia = String(format: "%0.3f", currentInertia)
+        inertiaLabel!.text = "Inertia: \(inertia)"
+    }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
