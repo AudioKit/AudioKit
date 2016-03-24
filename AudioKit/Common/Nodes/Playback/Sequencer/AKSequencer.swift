@@ -107,6 +107,10 @@ public class AKSequencer {
         }
     }
     
+    public func preRoll(){
+        MusicPlayerPreroll(musicPlayer)
+    }
+    
     /// Set loop functionality of entire sequence
     public func loopToggle() {
         (loopEnabled ? loopOff() : loopOn())
@@ -218,6 +222,22 @@ public class AKSequencer {
             MusicTrackClear(tempoTrack, 0, length)
             MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo))
         }
+    }
+    
+    public func addTempoEvent(bpm:Double, pos:Double){
+        if isAvSeq {
+            //not applicable
+        } else {
+            var newTempo = bpm;
+            if newTempo > 280 { newTempo = 280 } //bpm limits
+            if newTempo < 10  { newTempo = 10  }
+            
+            var tempoTrack = MusicTrack()
+            
+            MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+            MusicTrackNewExtendedTempoEvent(tempoTrack, pos, Double(newTempo))
+        }
+
     }
     
     public func beatsForSeconds(seconds:Double)->Double{
@@ -340,7 +360,7 @@ public class AKSequencer {
     }
     
     /// Get a new track
-    public func newTrack() {
+    public func newTrack()->AKMusicTrack? {
         if(!isAvSeq){
             var newMusicTrack = MusicTrack()
             MusicSequenceNewTrack(sequence, &newMusicTrack)
@@ -348,8 +368,10 @@ public class AKSequencer {
             MusicSequenceGetTrackCount(sequence, &count)
             tracks.append(AKMusicTrack(musicTrack: newMusicTrack))
             initTracks()
+            return tracks.last!
         }else{
             //cannot
+            return nil
         }
     }
     
