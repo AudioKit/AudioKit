@@ -28,8 +28,6 @@ stairwellConvolution.start()
 dishConvolution.start()
 player.play()
 
-//: User Interface Set up
-
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {

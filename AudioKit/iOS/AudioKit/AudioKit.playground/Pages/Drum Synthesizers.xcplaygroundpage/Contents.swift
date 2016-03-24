@@ -36,7 +36,7 @@ AKPlaygroundLoop(frequency: 4.44) {
         snare.playNote(60, velocity: velocity)
         snare.stopNote(60)
     }
-    i += 1
+    counter += 1
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
