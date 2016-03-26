@@ -16,12 +16,21 @@ import AVFoundation
 public class AKVariableDelay: AKNode, AKToggleable {
 
     // MARK: - Properties
-
-
+    
     internal var internalAU: AKVariableDelayAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var timeParameter: AUParameter?
+    
+    /// Inertia represents the speed at which parameters are allowed to change
+    public var inertia: Double = 0.0002 {
+        willSet(newValue) {
+            if inertia != newValue {
+                internalAU?.inertia = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
     public var time: Double = 1 {
@@ -80,7 +89,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        timeParameter             = tree.valueForKey("time")             as? AUParameter
+        timeParameter = tree.valueForKey("time") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
