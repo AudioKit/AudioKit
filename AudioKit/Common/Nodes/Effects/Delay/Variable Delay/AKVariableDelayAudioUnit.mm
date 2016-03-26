@@ -74,8 +74,10 @@
                                dependentParameters:nil];
     // Initialize the parameter values.
     timeAUParameter.value = 1;
+    
+    _inertia = 0.0002;
 
-    _kernel.setParameter(timeAddress,             timeAUParameter.value);
+    _kernel.setParameter(timeAddress, timeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
@@ -140,21 +142,23 @@
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
+    
+    return YES;
+}
 
+- (void)setUpParameterRamp {
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.2 * self.outputBus.format.sampleRate);
-
+    
+    // Ramp over inertia time in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_inertia * self.outputBus.format.sampleRate);
+    
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {
