@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## Parameter Inertia
+//: ## Parameter Ramp Time
 //: ### Ramping to values at different rates
 import XCPlayground
 import AudioKit
@@ -21,16 +21,16 @@ var counter = 0
 
 AKPlaygroundLoop(frequency: 2.66) {
     let frequencyToggle = counter % 2
-    let inertiaToggle = counter % 16
+    let rampTimeToggle = counter % 16
     if frequencyToggle > 0 {
         filter.cutoffFrequency = 111
     } else {
         filter.cutoffFrequency = 666
     }
-    if inertiaToggle > 8 {
-        filter.inertia = 0.2
+    if rampTimeToggle > 8 {
+        filter.rampTime = 0.2
     } else {
-        filter.inertia = 0.0002
+        filter.rampTime = 0.0002
     }
     counter += 1
 }

@@ -17,7 +17,7 @@ class PlaygroundView: AKPlaygroundView {
 
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
-    var inertiaLabel: Label?
+    var rampTimeLabel: Label?
 
     override func setup() {
         addTitle("Oscillator")
@@ -31,8 +31,8 @@ class PlaygroundView: AKPlaygroundView {
         amplitudeLabel = addLabel("Amplitude: \(oscillator.amplitude)")
         addSlider(#selector(self.setAmplitude(_:)), value: oscillator.amplitude)
 
-        inertiaLabel = addLabel("Inertia: \(oscillator.inertia)")
-        addSlider(#selector(self.setInertia(_:)), value: oscillator.inertia)
+        rampTimeLabel = addLabel("Ramp Time: \(oscillator.rampTime)")
+        addSlider(#selector(self.setRampTime(_:)), value: oscillator.rampTime)
     }
 
     func start() {
@@ -54,10 +54,10 @@ class PlaygroundView: AKPlaygroundView {
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
     
-    func setInertia(slider: Slider) {
-        oscillator.inertia = Double(slider.value)
-        let inertia = String(format: "%0.3f", oscillator.inertia)
-        inertiaLabel!.text = "Inertia: \(inertia)"
+    func setRampTime(slider: Slider) {
+        oscillator.rampTime = Double(slider.value)
+        let rampTime = String(format: "%0.3f", oscillator.rampTime)
+        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 }
 

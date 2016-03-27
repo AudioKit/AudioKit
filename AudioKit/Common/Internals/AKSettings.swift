@@ -30,6 +30,6 @@ public class AKSettings : NSObject {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
     
-    /// Global default inertia value
-    public static var inertia: Double = 0.0002
+    /// Global default rampTime value
+    public static var rampTime: Double = 0.0002
 }
