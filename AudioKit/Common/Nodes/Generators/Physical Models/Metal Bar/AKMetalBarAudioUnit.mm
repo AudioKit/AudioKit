@@ -171,7 +171,7 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     // Initialize the parameter values.
     leftBoundaryConditionAUParameter.value = 1;

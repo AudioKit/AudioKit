@@ -102,7 +102,7 @@
     cutoffFrequencyAUParameter.value = 1500;
     resonanceAUParameter.value = 0.5;
     
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(distortionAddress,      distortionAUParameter.value);
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);

@@ -79,7 +79,7 @@
     // Initialize the parameter values.
     amplitudeAUParameter.value = 1;
     
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
 

@@ -27,7 +27,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
     private var bandwidthParameter: AUParameter?
     
     /// Inertia represents the speed at which parameters are allowed to change
-    public var inertia: Double = 0.0002 {
+    public var inertia: Double = AKSettings.inertia {
         willSet(newValue) {
             if inertia != newValue {
                 internalAU?.inertia = newValue
@@ -44,6 +44,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
             }
         }
     }
+    
     /// Bandwidth. (in Hertz)
     public var bandwidth: Double = 100 {
         willSet(newValue) {

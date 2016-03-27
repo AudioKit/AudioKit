@@ -29,4 +29,7 @@ public class AKSettings : NSObject {
     public static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
+    
+    /// Global default inertia value
+    public static var inertia: Double = 0.0002
 }

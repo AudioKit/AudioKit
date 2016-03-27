@@ -89,7 +89,7 @@
     frequencyAUParameter.value = 500.0;
     qualityFactorAUParameter.value = 50.0;
 
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
     
     _kernel.setParameter(frequencyAddress,     frequencyAUParameter.value);
     _kernel.setParameter(qualityFactorAddress, qualityFactorAUParameter.value);
