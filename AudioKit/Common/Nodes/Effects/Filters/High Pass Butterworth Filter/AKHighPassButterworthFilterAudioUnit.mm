@@ -76,7 +76,7 @@
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 500;
     
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
 

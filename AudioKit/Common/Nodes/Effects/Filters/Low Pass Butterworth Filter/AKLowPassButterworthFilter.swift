@@ -25,7 +25,7 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
     private var cutoffFrequencyParameter: AUParameter?
     
     /// Inertia represents the speed at which parameters are allowed to change
-    public var inertia: Double = 0.0002 {
+    public var inertia: Double = AKSettings.inertia {
         willSet(newValue) {
             if inertia != newValue {
                 internalAU?.inertia = newValue

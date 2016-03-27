@@ -89,7 +89,7 @@
     centerFrequencyAUParameter.value = 2000;
     bandwidthAUParameter.value = 100;
 
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(centerFrequencyAddress, centerFrequencyAUParameter.value);
     _kernel.setParameter(bandwidthAddress,       bandwidthAUParameter.value);

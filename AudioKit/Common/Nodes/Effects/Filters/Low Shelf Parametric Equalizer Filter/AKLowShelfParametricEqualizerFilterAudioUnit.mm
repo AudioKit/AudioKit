@@ -102,7 +102,7 @@
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
     
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(cornerFrequencyAddress, cornerFrequencyAUParameter.value);
     _kernel.setParameter(gainAddress,            gainAUParameter.value);

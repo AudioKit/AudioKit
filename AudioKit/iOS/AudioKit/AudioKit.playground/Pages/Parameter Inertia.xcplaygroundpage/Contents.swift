@@ -11,7 +11,6 @@ var noise = AKWhiteNoise(amplitude: 1)
 var filter = AKMoogLadder(noise)
 
 filter.resonance = 0.94
-filter.inertia = 0.0002
 
 AudioKit.output = filter
 AudioKit.start()

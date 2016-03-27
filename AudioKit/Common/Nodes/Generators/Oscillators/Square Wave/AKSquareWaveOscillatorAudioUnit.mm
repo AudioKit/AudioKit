@@ -145,7 +145,7 @@
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
     
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);

@@ -115,7 +115,7 @@
     positionAUParameter.value = 0;
     amplitudeAUParameter.value = 1;
     pitchRatioAUParameter.value = 1;
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(positionAddress,   positionAUParameter.value);
     _kernel.setParameter(amplitudeAddress,  amplitudeAUParameter.value);

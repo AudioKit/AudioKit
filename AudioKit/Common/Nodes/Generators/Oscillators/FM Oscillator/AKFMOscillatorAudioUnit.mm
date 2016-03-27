@@ -151,7 +151,7 @@
     modulationIndexAUParameter.value = 1;
     amplitudeAUParameter.value = 1;
     
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(baseFrequencyAddress,        baseFrequencyAUParameter.value);
     _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);

@@ -75,7 +75,7 @@
     // Initialize the parameter values.
     timeAUParameter.value = 1;
     
-    _inertia = 0.0002;
+    _inertia = AKSettings.inertia;
 
     _kernel.setParameter(timeAddress, timeAUParameter.value);
 
