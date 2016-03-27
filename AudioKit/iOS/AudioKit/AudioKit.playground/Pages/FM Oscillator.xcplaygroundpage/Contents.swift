@@ -9,7 +9,7 @@ import XCPlayground
 import AudioKit
 
 var oscillator = AKFMOscillator()
-oscillator.inertia = 0.1
+oscillator.rampTime = 0.1
 oscillator.amplitude = 0.1
 AudioKit.output = oscillator
 AudioKit.start()

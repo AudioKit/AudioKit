@@ -35,11 +35,11 @@ public class AKMorphingOscillator: AKVoice {
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
 
-    /// Inertia represents the speed at which parameters are allowed to change
-    public var inertia: Double = AKSettings.inertia {
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
-            if inertia != newValue {
-                internalAU?.inertia = newValue
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
             }
         }

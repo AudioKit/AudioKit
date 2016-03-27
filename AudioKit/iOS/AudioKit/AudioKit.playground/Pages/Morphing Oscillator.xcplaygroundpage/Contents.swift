@@ -13,7 +13,7 @@ var morph = AKMorphingOscillator(waveformArray:[AKTable(.Sine), AKTable(.Triangl
 morph.frequency = 400
 morph.amplitude = 0.1
 morph.index = 0.8
-morph.inertia = 0.1
+morph.rampTime = 0.1
 
 AudioKit.output = morph
 AudioKit.start()

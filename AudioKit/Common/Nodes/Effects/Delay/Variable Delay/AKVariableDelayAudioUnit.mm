@@ -75,7 +75,7 @@
     // Initialize the parameter values.
     timeAUParameter.value = 1;
     
-    _inertia = AKSettings.inertia;
+    _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(timeAddress, timeAUParameter.value);
 
@@ -153,8 +153,8 @@
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
     
-    // Ramp over inertia time in seconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_inertia * self.outputBus.format.sampleRate);
+    // Ramp over rampTime in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
     
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);

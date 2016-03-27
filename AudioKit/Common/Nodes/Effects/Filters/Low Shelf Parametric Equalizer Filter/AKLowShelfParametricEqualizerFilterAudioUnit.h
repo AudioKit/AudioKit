@@ -17,7 +17,7 @@
 - (BOOL)isPlaying;
 - (void)setUpParameterRamp;
 
-@property double inertia;
+@property double rampTime;
 
 @end
 

@@ -29,7 +29,7 @@ for value in custom.values { value } // Click the eye icon ->
 var oscillator = AKOscillator(waveform: custom)
 AudioKit.output = oscillator
 AudioKit.start()
-oscillator.inertia = 0.02
+oscillator.rampTime = 0.02
 oscillator.start()
 
 AKPlaygroundLoop(frequency: 5) {

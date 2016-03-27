@@ -10,7 +10,7 @@ import AudioKit
 var oscillator = AKSquareWaveOscillator()
 oscillator.pulseWidth = 0.5
 var currentAmplitude = 0.1
-var currentInertia = 0.0
+var currentRampTime = 0.0
 
 AudioKit.output = oscillator
 AudioKit.start()
@@ -22,7 +22,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var frequencyLabel: Label?
     var pulseWidthLabel: Label?
     var amplitudeLabel: Label?
-    var inertiaLabel: Label?
+    var rampTimeLabel: Label?
     
     override func setup() {
         addTitle("Square Wave Oscillator")
@@ -33,8 +33,8 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         pulseWidthLabel = addLabel("Pulse Width: \(oscillator.pulseWidth)")
         addSlider(#selector(self.setPulseWidth(_:)), value: oscillator.pulseWidth, minimum: 0.5, maximum: 1)
 
-        inertiaLabel = addLabel("Inertia: \(currentInertia)")
-        addSlider(#selector(self.setInertia(_:)), value: currentInertia, minimum: 0, maximum: 0.1)
+        rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
+        addSlider(#selector(self.setRampTime(_:)), value: currentRampTime, minimum: 0, maximum: 5.0)
         
         let keyboard = KeyboardView(width: playgroundWidth, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)
@@ -46,12 +46,12 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     func noteOn(note: Int) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
-            oscillator.inertia = 0
+            oscillator.rampTime = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
         
-        // Still use inertia for volume
-        oscillator.inertia = currentInertia
+        // Still use rampTime for volume
+        oscillator.rampTime = currentRampTime
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
@@ -73,10 +73,10 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
     
-    func setInertia(slider: Slider) {
-        currentInertia = Double(slider.value)
-        let inertia = String(format: "%0.3f", currentInertia)
-        inertiaLabel!.text = "Inertia: \(inertia)"
+    func setRampTime(slider: Slider) {
+        currentRampTime = Double(slider.value)
+        let rampTime = String(format: "%0.3f",currentRampTime)
+        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 }
 

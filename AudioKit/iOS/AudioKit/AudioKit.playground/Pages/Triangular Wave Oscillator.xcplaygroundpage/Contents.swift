@@ -9,7 +9,7 @@ import AudioKit
 
 var oscillator = AKTriangleOscillator()
 var currentAmplitude = 0.5
-var currentInertia = 0.0
+var currentRampTime = 0.0
 
 AudioKit.output = oscillator
 AudioKit.start()
@@ -20,7 +20,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
-    var inertiaLabel: Label?
+    var rampTimeLabel: Label?
     
     override func setup() {
         addTitle("Triangular Wave Oscillator")
@@ -28,8 +28,8 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
         addSlider(#selector(self.setAmplitude(_:)), value: currentAmplitude)
         
-        inertiaLabel = addLabel("Inertia: \(currentInertia)")
-        addSlider(#selector(self.setInertia(_:)), value: currentInertia, minimum: 0, maximum: 0.1)
+        rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
+        addSlider(#selector(self.setRampTime(_:)), value: currentRampTime, minimum: 0, maximum: 0.1)
         
         let keyboard = KeyboardView(width: playgroundWidth, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)
@@ -41,12 +41,12 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     func noteOn(note: Int) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
-            oscillator.inertia = 0
+            oscillator.rampTime = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
         
-        // Still use inertia for volume
-        oscillator.inertia = currentInertia
+        // Still use rampTime for volume
+        oscillator.rampTime = currentRampTime
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
@@ -62,10 +62,10 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
     
-    func setInertia(slider: Slider) {
-        currentInertia = Double(slider.value)
-        let inertia = String(format: "%0.3f", currentInertia)
-        inertiaLabel!.text = "Inertia: \(inertia)"
+    func setRampTime(slider: Slider) {
+        currentRampTime = Double(slider.value)
+        let rampTime = String(format: "%0.3f", currentRampTime)
+        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 }
 
@@ -73,4 +73,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, heig
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne
