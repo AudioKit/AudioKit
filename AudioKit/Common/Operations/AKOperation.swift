@@ -93,6 +93,14 @@ public struct AKOperation: AKComputedParameter  {
         return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
     }
     
+    /// Initialize the operation as a constant value
+    ///
+    /// - parameter value: Constant value as an operation
+    ///
+    public init(_ value: Double) {
+        self.operationString = "\(value)"
+    }
+    
     /// Initialize the operation with a Sporth string
     ///
     /// - parameter operationString: Valid Sporth string (proceed with caution
