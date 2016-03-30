@@ -3,6 +3,7 @@
 //: ---
 //:
 //: ## Metal Bar Physical Model
+//: ### Experimental Playground, not quite working yet.
 //:
 import AudioKit
 import XCPlayground
