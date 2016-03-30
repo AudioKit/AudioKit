@@ -135,8 +135,9 @@ import AVFoundation
                 } else {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
                 }
+            #if os(iOS)
                 try AVAudioSession.sharedInstance().setActive(true)
-                
+            #endif
                 try self.engine.start()
                 
                 shouldBeRunning = true
