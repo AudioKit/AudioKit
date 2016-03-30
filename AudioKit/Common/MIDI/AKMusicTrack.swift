@@ -13,7 +13,7 @@ public class AKMusicTrack {
     
     // MARK: - Properties
     
-    public var internalMusicTrack = MusicTrack()
+    public var internalMusicTrack: MusicTrack = nil
     
     /// Pointer to the Music Track
     public var trackPtr: UnsafeMutablePointer<MusicTrack>
@@ -36,7 +36,6 @@ public class AKMusicTrack {
     /// - parameter musicTrack: An Apple Music Track
     ///
     public init() {
-        internalMusicTrack = MusicTrack()
         trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
     
@@ -86,7 +85,7 @@ public class AKMusicTrack {
         var len = MusicTimeStamp(duration)
         var tmpSeq: MusicSequence = nil
         var seqPtr: UnsafeMutablePointer<MusicSequence>
-        var tmpTrack = MusicTrack()
+        var tmpTrack: MusicTrack = nil
         seqPtr = UnsafeMutablePointer<MusicSequence>(tmpSeq)
         NewMusicSequence(&tmpSeq)
         MusicTrackGetSequence(internalMusicTrack, seqPtr)
@@ -101,7 +100,7 @@ public class AKMusicTrack {
         DisposeMusicSequence(tmpSeq)
 
         //now to clean up any notes that are too long
-        var iterator = MusicEventIterator()
+        var iterator: MusicEventIterator = nil
         NewMusicEventIterator(internalMusicTrack, &iterator)
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()

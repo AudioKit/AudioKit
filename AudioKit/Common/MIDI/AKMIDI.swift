@@ -411,7 +411,7 @@ public class AKMIDI {
         var result = OSStatus(noErr)
         let packetListPtr: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.alloc(1)
         
-        var packet = UnsafeMutablePointer<MIDIPacket>()
+        var packet: UnsafeMutablePointer<MIDIPacket> = nil
         packet = MIDIPacketListInit(packetListPtr)
         packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
         for _ in 0 ..< midiEndpoints.count {
