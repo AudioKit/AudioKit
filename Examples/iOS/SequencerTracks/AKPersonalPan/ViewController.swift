@@ -24,16 +24,16 @@ import UIKit
 import AudioKit
 
 class ViewController: UIViewController {
-    var seq:AKSequencer?
+    var seq: AKSequencer?
     var mixer = AKMixer()
     var syn1 = AKSampler()
     var syn2 = AKSampler()
     var syn3 = AKSampler()
     var drmKit = AKSampler()
-    var vol1:AKBooster?
-    var vol2:AKBooster?
-    var vol3:AKBooster?
-    var vol4:AKBooster?
+    var vol1: AKBooster?
+    var vol2: AKBooster?
+    var vol3: AKBooster?
+    var vol4: AKBooster?
     var filter:AKMoogLadder?
     
     @IBOutlet var rateSlider: UISlider!
@@ -92,57 +92,57 @@ class ViewController: UIViewController {
         seq!.setLength(4)
     }
     
-    @IBAction func adjustTempo(){
+    @IBAction func adjustTempo() {
         seq?.setRate(rateSlider.value)
     }
     
-    @IBAction func adjustsyn1Vol(){
+    @IBAction func adjustsyn1Vol() {
         vol1?.gain = Double(syn1VolSlider.value)
     }
-    @IBAction func adjustsyn2Vol(){
+    @IBAction func adjustsyn2Vol() {
         vol2?.gain = Double(syn2VolSlider.value)
     }
-    @IBAction func adjustsyn3Vol(){
+    @IBAction func adjustsyn3Vol() {
         vol3?.gain = Double(syn3VolSlider.value)
     }
-    @IBAction func adjustDrmVol(){
+    @IBAction func adjustDrmVol() {
         vol4?.gain = Double(drmVolSlider.value)
     }
-    @IBAction func adjustFilt(){
+    @IBAction func adjustFilt() {
         var val = Double(filterSlider.value)
         val.denormalize(Double(30.0), max: Double(20000.00), taper: 3.03)
         filter?.cutoffFrequency = val
     }
-    @IBAction func playSeq(){
+    @IBAction func playSeq() {
         seq!.play()
     }
-    @IBAction func stopSeq(){
+    @IBAction func stopSeq() {
         seq!.stop()
     }
-    @IBAction func rewindSeq(){
+    @IBAction func rewindSeq() {
         seq!.rewind()
     }
-    @IBAction func toggleLoop(){
+    @IBAction func toggleLoop() {
         seq!.loopToggle()
         print("loop enabled: \(seq!.loopEnabled)")
     }
-    @IBAction func setLength1(){
+    @IBAction func setLength1() {
         seq!.setLength(1)
         seq!.rewind()
     }
-    @IBAction func setLength2(){
+    @IBAction func setLength2() {
         seq!.setLength(2)
         seq!.rewind()
     }
-    @IBAction func setLength4(){
+    @IBAction func setLength4() {
         seq!.setLength(4)
         seq!.rewind()
     }
-    @IBAction func setLength8(){
+    @IBAction func setLength8() {
         seq!.setLength(8)
         seq!.rewind()
     }
-    @IBAction func setLength16(){
+    @IBAction func setLength16() {
         seq!.setLength(16)
         seq!.rewind()
     }

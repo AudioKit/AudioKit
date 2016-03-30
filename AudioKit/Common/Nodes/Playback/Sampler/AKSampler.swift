@@ -171,7 +171,7 @@ public class AKSampler: AKNode {
             sampleZoneXML.appendContentsOf(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum")
             loadSoundsArr.append(soundDict)
-        }//end iterate soundPack
+        }
         
         var templateStr = AKSampler.getAUPresetXML()
         
@@ -187,7 +187,7 @@ public class AKSampler: AKNode {
         }catch let error as NSError {
             print(error)
         }
-    }//end func createAUPresetFromDict
+    }
     
     public static func generateTemplateDictionary(
         rootNote: Int,
@@ -203,6 +203,7 @@ public class AKSampler: AKNode {
         let keys: [String] = [rootNoteKeyStr, startNoteKeyStr, endNoteKeyStr, filenameKeyStr]
         return NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
     }
+    
     /// Output Amplitude.
     /// Range: -90.0 -> +12 db
     /// Default: 0 db
@@ -211,6 +212,7 @@ public class AKSampler: AKNode {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
+    
     /// Normalised Output Volume.
     /// Range:   0 - 1
     /// Default: 1
