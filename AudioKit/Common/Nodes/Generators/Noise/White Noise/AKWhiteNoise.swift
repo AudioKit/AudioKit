@@ -21,19 +21,23 @@ public class AKWhiteNoise: AKVoice {
 
     private var amplitudeParameter: AUParameter?
 
-    /// Amplitude. (Value between 0-1).
-    public var amplitude: Double = 1 {
-        didSet {
-            internalAU?.amplitude = Float(amplitude)
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
         }
     }
     
-    /// Ramp to amplitude over 20 ms
-    ///
-    /// - parameter amplitude: Target Output Amplitude.
-    ///
-    public func ramp(amplitude amplitude: Double) {
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+    /// Amplitude. (Value between 0-1).
+    public var amplitude: Double = 1 {
+        willSet(newValue) {
+            if amplitude != newValue {
+                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+            }
+        }
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)

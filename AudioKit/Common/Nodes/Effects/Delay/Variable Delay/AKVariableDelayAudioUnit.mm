@@ -72,30 +72,16 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the feedback.
-    AUParameter *feedbackAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"feedback"
-                                              name:@"Feedback (%)"
-                                           address:feedbackAddress
-                                               min:0
-                                               max:1
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-
     // Initialize the parameter values.
     timeAUParameter.value = 1;
-    feedbackAUParameter.value = 0;
+    
+    _rampTime = AKSettings.rampTime;
 
-    _kernel.setParameter(timeAddress,             timeAUParameter.value);
-    _kernel.setParameter(feedbackAddress,         feedbackAUParameter.value);
+    _kernel.setParameter(timeAddress, timeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        timeAUParameter,
-        feedbackAUParameter
+        timeAUParameter
     ]];
 
     // Create the input and output busses.
@@ -156,21 +142,23 @@
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
+    
+    return YES;
+}
 
+- (void)setUpParameterRamp {
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.2 * self.outputBus.format.sampleRate);
-
+    
+    // Ramp over rampTime in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
+    
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {

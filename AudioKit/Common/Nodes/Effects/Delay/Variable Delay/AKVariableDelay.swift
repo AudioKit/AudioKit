@@ -12,33 +12,31 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 /// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
-/// - parameter feedback: Feedback amount. Should be a value between 0-1.
-/// - parameter maximumDelayTime: The maximum delay time, in seconds.
 ///
 public class AKVariableDelay: AKNode, AKToggleable {
 
     // MARK: - Properties
-
-
+    
     internal var internalAU: AKVariableDelayAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var timeParameter: AUParameter?
-    private var feedbackParameter: AUParameter?
+    
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
     public var time: Double = 1 {
         willSet(newValue) {
             if time != newValue {
                 timeParameter?.setValue(Float(newValue), originator: token!)
-            }
-        }
-    }
-    /// Feedback amount. Should be a value between 0-1.
-    public var feedback: Double = 0 {
-        willSet(newValue) {
-            if feedback != newValue {
-                feedbackParameter?.setValue(Float(newValue), originator: token!)
             }
         }
     }
@@ -54,17 +52,14 @@ public class AKVariableDelay: AKNode, AKToggleable {
     ///
     /// - parameter input: Input node to process
     /// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
-    /// - parameter feedback: Feedback amount. Should be a value between 0-1.
     /// - parameter maximumDelayTime: The maximum delay time, in seconds.
     ///
     public init(
         _ input: AKNode,
         time: Double = 1,
-        feedback: Double = 0,
         maximumDelayTime: Double = 5) {
 
         self.time = time
-        self.feedback = feedback
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -94,8 +89,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        timeParameter             = tree.valueForKey("time")             as? AUParameter
-        feedbackParameter         = tree.valueForKey("feedback")         as? AUParameter
+        timeParameter = tree.valueForKey("time") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -103,13 +97,10 @@ public class AKVariableDelay: AKNode, AKToggleable {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.timeParameter!.address {
                     self.time = Double(value)
-                } else if address == self.feedbackParameter!.address {
-                    self.feedback = Double(value)
                 }
             }
         }
         timeParameter?.setValue(Float(time), originator: token!)
-        feedbackParameter?.setValue(Float(feedback), originator: token!)
     }
     
     // MARK: - Control

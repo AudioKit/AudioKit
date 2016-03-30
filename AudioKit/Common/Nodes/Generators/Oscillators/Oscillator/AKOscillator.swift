@@ -29,65 +29,51 @@ public class AKOscillator: AKVoice {
     private var amplitudeParameter: AUParameter?
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
-
-    /// Frequency in cycles per second
-    public var frequency: Double = 440 {
-        didSet {
-            internalAU?.frequency = Float(frequency)
+    
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
         }
     }
-
-    /// Ramp to frequency over 20 ms
-    ///
-    /// - parameter frequency: Target Frequency in cycles per second
-    ///
-    public func ramp(frequency frequency: Double) {
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
+    
+    /// In cycles per second, or Hz.
+    public var frequency: Double = 440 {
+        willSet(newValue) {
+            if frequency != newValue {
+                frequencyParameter?.setValue(Float(newValue), originator: token!)
+            }
+        }
     }
 
     /// Output Amplitude.
     public var amplitude: Double = 1 {
-        didSet {
-            internalAU?.amplitude = Float(amplitude)
+        willSet(newValue) {
+            if amplitude != newValue {
+                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to amplitude over 20 ms
-    ///
-    /// - parameter amplitude: Target Output Amplitude.
-    ///
-    public func ramp(amplitude amplitude: Double) {
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
-        didSet {
-            internalAU?.detuningOffset = Float(detuningOffset)
+        willSet(newValue) {
+            if detuningOffset != newValue {
+                detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to detuningOffset over 20 ms
-    ///
-    /// - parameter detuningOffset: Target Frequency offset in Hz.
-    ///
-    public func ramp(detuningOffset detuningOffset: Double) {
-        detuningOffsetParameter?.setValue(Float(detuningOffset), originator: token!)
     }
 
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
-        didSet {
-            internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        willSet(newValue) {
+            if detuningMultiplier != newValue {
+                detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to detuningMultiplier over 20 ms
-    ///
-    /// - parameter detuningMultiplier: Target Frequency detuning multiplier
-    ///
-    public func ramp(detuningMultiplier detuningMultiplier: Double) {
-        detuningMultiplierParameter?.setValue(Float(detuningMultiplier), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -147,7 +133,7 @@ public class AKOscillator: AKVoice {
 
             AudioKit.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
-            for var i = 0; i < waveform.size; i++ {
+            for i in 0 ..< waveform.size {
                 self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
             }
         }
@@ -174,10 +160,11 @@ public class AKOscillator: AKVoice {
                 }
             }
         }
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
-        internalAU?.detuningOffset = Float(detuningOffset)
-        internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        frequencyParameter?.setValue(Float(frequency), originator: token!)
+        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+        detuningOffsetParameter?.setValue(Float(detuningOffset), originator: token!)
+        detuningMultiplierParameter?.setValue(Float(detuningMultiplier), originator: token!)
+
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments

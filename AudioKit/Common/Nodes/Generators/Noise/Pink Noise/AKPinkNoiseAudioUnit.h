@@ -16,6 +16,11 @@
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKPinkNoiseAudioUnit_h */

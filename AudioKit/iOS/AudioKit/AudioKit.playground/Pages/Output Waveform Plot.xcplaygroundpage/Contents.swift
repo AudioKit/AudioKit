@@ -7,18 +7,18 @@
 import XCPlayground
 import AudioKit
 
-var fm = AKFMOscillator(
-    waveform: AKTable(.Sine, size: 4096))
-AudioKit.output = fm
+var fmOscillator = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
+AudioKit.output = fmOscillator
 AudioKit.start()
 
-AKPlaygroundLoop(frequency: 1) {
-    fm.baseFrequency = random(220, 880)
-    fm.carrierMultiplier = random(0, 4)
-    fm.modulationIndex = random(0, 5)
-    fm.modulatingMultiplier = random(0, 0.3)
-    fm.ramp(amplitude: random(0.4, 0.7))
-    fm.start()
+fmOscillator.start()
+
+AKPlaygroundLoop(frequency: 1.0) {
+    fmOscillator.baseFrequency        = random(220, 880)
+    fmOscillator.carrierMultiplier    = random(0, 4)
+    fmOscillator.modulationIndex      = random(0, 5)
+    fmOscillator.modulatingMultiplier = random(0, 0.3)
+    fmOscillator.amplitude            = random(0.4, 0.7)
 }
 
 let plotView = AKOutputWaveformPlot.createView()

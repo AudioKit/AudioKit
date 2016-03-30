@@ -19,26 +19,51 @@ var stairwellConvolution = AKConvolution.init(player, impulseResponseFileURL: st
 var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, partitionLength: 8192)
 
 var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 1)
+var dryWetMixer = AKDryWetMixer(player, mixer, balance: 1)
 
-AudioKit.output = mixer
+AudioKit.output = dryWetMixer
 AudioKit.start()
+
 stairwellConvolution.start()
 dishConvolution.start()
 player.play()
 
-var increment = 0.01
+class PlaygroundView: AKPlaygroundView {
 
-AKPlaygroundLoop(every: 3.428/100.0) { () -> () in
-    mixer.balance += increment
-    if mixer.balance >= 1 && increment > 0 {
-        increment = -0.01
+    override func setup() {
+        addTitle("Convolution")
+
+        addLabel("Audio Playback")
+        addButton("Start", action: #selector(self.start))
+        addButton("Stop", action: #selector(self.stop))
+
+        addLineBreak()
+
+        addLabel("Convolution Parameters")
+
+        addLabel("Mix: Dry Audio to Fully Convolved")
+        addSlider(#selector(self.setDryWet(_:)), value: dryWetMixer.balance)
+
+        addLabel("Impulse Response: Stairwell to Dish")
+        addSlider(#selector(self.setIRMix(_:)), value: mixer.balance)
     }
-    if mixer.balance <= 0 && increment < 0 {
-        increment = 0.01
+
+    func start() {
+        player.play()
+    }
+    func stop() {
+        player.stop()
+    }
+
+    func setIRMix(slider: Slider) {
+        mixer.balance = Double(slider.value)
+    }
+
+    func setDryWet(slider: Slider) {
+        dryWetMixer.balance = Double(slider.value)
     }
 }
 
-
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:400))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+XCPlaygroundPage.currentPage.liveView = view

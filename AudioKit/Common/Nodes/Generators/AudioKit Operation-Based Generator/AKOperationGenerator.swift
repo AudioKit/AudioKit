@@ -13,23 +13,22 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-    
     private var internalAU: AKOperationGeneratorAudioUnit?
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     /// Parameters for changing internal operations
     public var parameters: [Double] = [] {
         didSet {
             internalAU?.setParameters(parameters)
         }
     }
-    
+
     // MARK: - Initializers
-    
+
     /// Initialize the generator with an operation and indicate whether it responds to a trigger
     ///
     /// - parameter operation: AKOperation stack to use
@@ -38,7 +37,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
         let operationString = "\(operation) dup"
         self.init(operationString)
     }
-    
+
     /// Initialize the generator with a stereo operation and indicate whether it responds to a trigger
     ///
     /// - parameter stereoOperation: AKStereoOperation stack to use
@@ -47,7 +46,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
         let operationString = "\(stereoOperation) swap"
         self.init(operationString)
     }
-    
+
     /// Initialize the generator with a two mono operations for the left and right channel and indicate whether it responds to a trigger
     ///
     /// - parameter left: AKOperation to be heard from the left output
@@ -57,7 +56,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
         let operationString = "\(left) \(right)"
         self.init(operationString)
     }
-    
+
     /// Initialize this generator node with a generic sporth stack and a triggering flag
     ///
     /// - parameter sporth: String of valid Sporth code
@@ -66,7 +65,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x63737467 /*'cstg'*/ 
+        description.componentSubType      = 0x63737467 /*'cstg'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
@@ -89,19 +88,19 @@ public class AKOperationGenerator: AKNode, AKToggleable {
             self.internalAU?.setSporth(sporth)
         }
     }
-    
+
     /// Trigger the sound with an optional set of parameters
     /// - parameter parameters: An array of doubles to use as parameters
     ///
     public func trigger(parameters: [Double] = []) {
         self.internalAU!.trigger(parameters)
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         self.internalAU!.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         self.internalAU!.stop()

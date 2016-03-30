@@ -21,38 +21,37 @@ public class AKPluckedString: AKVoice {
     internal var internalAU: AKPluckedStringAudioUnit?
     internal var token: AUParameterObserverToken?
 
+
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
     private var lowestFrequency: Double
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     public var frequency: Double = 110 {
-        didSet {
-            internalAU?.frequency = Float(frequency)
+        willSet(newValue) {
+            if frequency != newValue {
+                frequencyParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to frequency over 20 ms
-    ///
-    /// - parameter frequency: Target Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    ///
-    public func ramp(frequency frequency: Double) {
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
     }
 
     /// Amplitude
     public var amplitude: Double = 0.5 {
-        didSet {
-            internalAU?.amplitude = Float(amplitude)
+        willSet(newValue) {
+            if amplitude != newValue {
+                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to amplitude over 20 ms
-    ///
-    /// - parameter amplitude: Target Amplitude
-    ///
-    public func ramp(amplitude amplitude: Double) {
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -134,7 +133,8 @@ public class AKPluckedString: AKVoice {
     }
     
     /// Trigger the sound with an optional set of parameters
-    /// - parameter parameters: An array of doubles to use as parameters
+    /// - parameter frequency: Frequency in Hz
+    /// - amplitude amplitude: Volume
     ///
     public func trigger(frequency frequency: Double, amplitude: Double = 1) {
         self.frequency = frequency
@@ -149,7 +149,7 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Function to stop or bypass the node, both are equivalent
-  override   public func stop() {
+    public override func stop() {
         self.internalAU!.stop()
     }
 }

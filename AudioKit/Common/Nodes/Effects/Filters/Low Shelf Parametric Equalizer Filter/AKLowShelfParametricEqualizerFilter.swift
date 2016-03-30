@@ -26,6 +26,16 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     private var cornerFrequencyParameter: AUParameter?
     private var gainParameter: AUParameter?
     private var qParameter: AUParameter?
+    
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Corner frequency.
     public var cornerFrequency: Double = 1000 {

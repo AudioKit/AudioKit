@@ -40,18 +40,18 @@ int sp_tbvcf_init(sp_data *sp, sp_tbvcf *p)
     p->res = 0.8;
     p->dist = 2.0;
     p->asym = 0.5;
-    
+
     p->sr = sp->sr;
     p->onedsr = 1.0 / p->sr;
-    
+
     p->iskip = 0.0;
     if(p->iskip == 0.0){
         p->y = p->y1 = p->y2 = 0.0;
     }
     p->fcocod = p->fco;
     p->rezcod = p->res;
-    
-    
+
+
     return SP_OK;
 }
 
@@ -64,28 +64,28 @@ int sp_tbvcf_compute(sp_data *sp, sp_tbvcf *p, SPFLOAT *in, SPFLOAT *out)
     /* The initialisations are fake to fool compiler warnings */
     SPFLOAT ih, fdbk, d, ad;
     SPFLOAT fc=0.0, fco1=0.0, q=0.0, q1=0.0;
-    
+
     ih  = 0.001; /* ih is the incremental factor */
-    
-    /* Set up the pointers
-     fcoptr  = p->fco;
-     resptr  = p->res;
-     distptr = p->dist;
-     asymptr = p->asym; */
-    
-    /* Get the values for the k-rate variables
-     fco  = (SPFLOAT)*fcoptr;
-     res  = (SPFLOAT)*resptr;
-     dist = (SPFLOAT)*distptr;
-     asym = (SPFLOAT)*asymptr; */
-    
+
+ /* Set up the pointers
+    fcoptr  = p->fco;
+    resptr  = p->res;
+    distptr = p->dist;
+    asymptr = p->asym; */
+
+ /* Get the values for the k-rate variables
+    fco  = (SPFLOAT)*fcoptr;
+    res  = (SPFLOAT)*resptr;
+    dist = (SPFLOAT)*distptr;
+    asym = (SPFLOAT)*asymptr; */
+
     /* This should work in sp world */
     fco = p->fco;
     res = p->res;
     dist = p->dist;
     asym = p->asym;
-    
-    /* Try to decouple the variables */
+
+ /* Try to decouple the variables */
     if ((p->rezcod==0) && (p->fcocod==0)) { /* Calc once only */
         q1   = res/(1.0 + sqrt(dist));
         fco1 = pow(fco*260.0/(1.0+q1*0.5),0.58);
@@ -106,7 +106,7 @@ int sp_tbvcf_compute(sp_data *sp, sp_tbvcf *p, SPFLOAT *in, SPFLOAT *out)
     y2  = y2 + ih*((y1 - y2)*fc + ad);
     y  = y + ih*((y2 - y)*fc);
     *out = (y*fc/1000.0*(1.0 + q1)*3.2);
-    
+
     p->y = y; p->y1 = y1; p->y2 = y2;
     return SP_OK;
 }

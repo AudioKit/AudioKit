@@ -19,13 +19,22 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKThreePoleLowpassFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var distortionParameter: AUParameter?
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
+    
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     public var distortion: Double = 0.5 {

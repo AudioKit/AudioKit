@@ -90,7 +90,7 @@ public class AKPolyphonicInstrument: AKNode {
         super.init()
         avAudioNode = output.avAudioNode
         
-        for (var i = 0; i < voiceCount; ++i) {
+        for _ in 0 ..< voiceCount {
             let voice = voice.duplicate()
             availableVoices.append(voice)
             output.connect(voice)

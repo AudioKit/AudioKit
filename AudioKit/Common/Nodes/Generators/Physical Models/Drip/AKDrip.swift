@@ -23,10 +23,19 @@ public class AKDrip: AKNode {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKDripAudioUnit?
     internal var token: AUParameterObserverToken?
 
+
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     private var intensityParameter: AUParameter?
     private var dampingFactorParameter: AUParameter?
@@ -38,107 +47,65 @@ public class AKDrip: AKNode {
 
     /// The intensity of the dripping sound.
     public var intensity: Double = 10 {
-        didSet {
-            internalAU?.intensity = Float(intensity)
+        willSet(newValue) {
+            if intensity != newValue {
+                intensityParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to intensity over 20 ms
-    ///
-    /// - parameter intensity: Target The intensity of the dripping sound.
-    ///
-    public func ramp(intensity intensity: Double) {
-        intensityParameter?.setValue(Float(intensity), originator: token!)
     }
 
     /// The damping factor. Maximum value is 2.0.
     public var dampingFactor: Double = 0.2 {
-        didSet {
-            internalAU?.dampingFactor = Float(dampingFactor)
+        willSet(newValue) {
+            if dampingFactor != newValue {
+                dampingFactorParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to dampingFactor over 20 ms
-    ///
-    /// - parameter dampingFactor: Target The damping factor. Maximum value is 2.0.
-    ///
-    public func ramp(dampingFactor dampingFactor: Double) {
-        dampingFactorParameter?.setValue(Float(dampingFactor), originator: token!)
     }
 
     /// The amount of energy to add back into the system.
     public var energyReturn: Double = 0 {
-        didSet {
-            internalAU?.energyReturn = Float(energyReturn)
+        willSet(newValue) {
+            if energyReturn != newValue {
+                energyReturnParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to energyReturn over 20 ms
-    ///
-    /// - parameter energyReturn: Target The amount of energy to add back into the system.
-    ///
-    public func ramp(energyReturn energyReturn: Double) {
-        energyReturnParameter?.setValue(Float(energyReturn), originator: token!)
     }
 
     /// Main resonant frequency.
     public var mainResonantFrequency: Double = 450 {
-        didSet {
-            internalAU?.mainResonantFrequency = Float(mainResonantFrequency)
+        willSet(newValue) {
+            if mainResonantFrequency != newValue {
+                mainResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to mainResonantFrequency over 20 ms
-    ///
-    /// - parameter mainResonantFrequency: Target Main resonant frequency.
-    ///
-    public func ramp(mainResonantFrequency mainResonantFrequency: Double) {
-        mainResonantFrequencyParameter?.setValue(Float(mainResonantFrequency), originator: token!)
     }
 
     /// The first resonant frequency.
     public var firstResonantFrequency: Double = 600 {
-        didSet {
-            internalAU?.firstResonantFrequency = Float(firstResonantFrequency)
+        willSet(newValue) {
+            if firstResonantFrequency != newValue {
+                firstResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to firstResonantFrequency over 20 ms
-    ///
-    /// - parameter firstResonantFrequency: Target The first resonant frequency.
-    ///
-    public func ramp(firstResonantFrequency firstResonantFrequency: Double) {
-        firstResonantFrequencyParameter?.setValue(Float(firstResonantFrequency), originator: token!)
     }
 
     /// The second resonant frequency.
     public var secondResonantFrequency: Double = 750 {
-        didSet {
-            internalAU?.secondResonantFrequency = Float(secondResonantFrequency)
+        willSet(newValue) {
+            if secondResonantFrequency != newValue {
+                secondResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to secondResonantFrequency over 20 ms
-    ///
-    /// - parameter secondResonantFrequency: Target The second resonant frequency.
-    ///
-    public func ramp(secondResonantFrequency secondResonantFrequency: Double) {
-        secondResonantFrequencyParameter?.setValue(Float(secondResonantFrequency), originator: token!)
     }
 
     /// Amplitude.
     public var amplitude: Double = 0.3 {
-        didSet {
-            internalAU?.amplitude = Float(amplitude)
+        willSet(newValue) {
+            if amplitude != newValue {
+                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to amplitude over 20 ms
-    ///
-    /// - parameter amplitude: Target Amplitude.
-    ///
-    public func ramp(amplitude amplitude: Double) {
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -246,15 +213,14 @@ public class AKDrip: AKNode {
         internalAU?.amplitude = Float(amplitude)
     }
     
+    // MARK: - Control
+    
     /// Trigger the sound with an optional set of parameters
-    /// - parameter parameters: An array of doubles to use as parameters
     ///
     public func trigger() {
         self.internalAU!.start()
         self.internalAU!.trigger()
     }
-    
-    // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

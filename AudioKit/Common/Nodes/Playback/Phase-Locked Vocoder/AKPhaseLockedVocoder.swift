@@ -28,6 +28,16 @@ public class AKPhaseLockedVocoder: AKNode {
     private var amplitudeParameter: AUParameter?
     private var pitchRatioParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+    
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     public var position: Double = 0 {
         willSet(newValue) {

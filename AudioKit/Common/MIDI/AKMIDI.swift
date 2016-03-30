@@ -10,10 +10,10 @@ import Foundation
 import CoreMIDI
 
 
-/** The returned generator will enumerate each value of the provided tuple. */
+/// The returned generator will enumerate each value of the provided tuple.
 func generatorForTuple(tuple: Any) -> AnyGenerator<Any> {
     let children = Mirror(reflecting: tuple).children
-    return anyGenerator(children.generate().lazy.map { $0.value }.generate())
+    return AnyGenerator(children.generate().lazy.map { $0.value }.generate())
 }
 
 /**
@@ -33,14 +33,14 @@ extension MIDIPacket: SequenceType {
         let generator = generatorForTuple(self.data)
         var index: UInt16 = 0
         
-        return anyGenerator {
+        return AnyGenerator {
             if index >= self.length {
                 return nil
             }
             
             func pop() -> UInt8 {
                 assert(index < self.length)
-                index++
+                index += 1
                 return generator.next() as! UInt8
             }
             
@@ -77,9 +77,22 @@ extension MIDIPacket: SequenceType {
                 index = self.length
                 return AKMIDIEvent(packet: self)
             }
-            // TODO realtime messages
-            
-            return nil
+            else {
+                let cmd = AKMIDISystemCommand(rawValue: status)!
+                var data1: UInt8 = 0
+                var data2: UInt8 = 0
+                switch  cmd {
+                case .Sysex: break
+                case .SongPosition:
+                    data1 = pop()
+                    data2 = pop()
+                case .SongSelect:
+                    data1 = pop()
+                default: break
+                }
+                
+                return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
+            }
         }
     }
 }
@@ -92,9 +105,7 @@ extension MIDIPacketList: SequenceType {
     }
 }
 
-/**
- Generator for MIDIPacketList allowing iteration over its list of MIDIPacket objects.
- */
+/// Generator for MIDIPacketList allowing iteration over its list of MIDIPacket objects.
 public struct MIDIPacketListGenerator : GeneratorType {
     public typealias Element = MIDIPacket
     
@@ -110,7 +121,7 @@ public struct MIDIPacketListGenerator : GeneratorType {
         
         let lastPacket = self.packet!
         self.packet = MIDIPacketNext(self.packet!)
-        self.index++
+        self.index += 1
         return lastPacket.memory
     }
     
@@ -143,8 +154,8 @@ public class AKMIDI {
     /// Array of MIDI In ports
     public var midiInPorts: [MIDIPortRef] = []
 
-    // virtual midi destination (input)
-    public var virtInput = MIDIPortRef()
+    /// Virtual MIDI Input destination
+    public var virtualInput = MIDIPortRef()
 
     /// MIDI Client Name
     var midiClientName: CFString = "MIDI Client"
@@ -163,8 +174,8 @@ public class AKMIDI {
     /// MIDI Out Port Reference
     public var midiOutPort = MIDIPortRef()
 
-    // virtual midi source (output)
-    public var virtOutput = MIDIPortRef()
+    /// Virtual MIDI output
+    public var virtualOutput = MIDIPortRef()
 
     
     /// Array of MIDI Endpoints
@@ -251,44 +262,46 @@ public class AKMIDI {
         }
     }
     
+    /// Create set of virtual MIDI ports
     public func createVirtualPorts(uniqueId: Int32 = 2000000) {
         print("Creating virtual MIDI ports")
 
         destroyVirtualPorts()
         
         var result = OSStatus(noErr)
-        result = MIDIDestinationCreateWithBlock(midiClient, midiClientName, &virtInput, MyMIDIReadBlock)
+        result = MIDIDestinationCreateWithBlock(midiClient, midiClientName, &virtualInput, MyMIDIReadBlock)
         
         if result == OSStatus(noErr) {
             print("Created virt dest: \(midiClientName)");
-            MIDIObjectSetIntegerProperty(virtInput, kMIDIPropertyUniqueID, uniqueId)
+            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)
         }
         else {
-            print("Error creatervirt dest: \(midiClientName) -- \(virtInput)");
+            print("Error creatervirt dest: \(midiClientName) -- \(virtualInput)");
         }
         
         
-        result = MIDISourceCreate(midiClient, midiClientName, &virtOutput);
+        result = MIDISourceCreate(midiClient, midiClientName, &virtualOutput);
         if result == OSStatus(noErr) {
             print("Created virt source: \(midiClientName)")
-            MIDIObjectSetIntegerProperty(virtInput, kMIDIPropertyUniqueID, uniqueId + 1)
+            MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId + 1)
         }
         else {
-            print("Error creating virtual source: \(midiClientName) -- \(virtOutput)")
+            print("Error creating virtual source: \(midiClientName) -- \(virtualOutput)")
         }
 
     
     }
     
+    /// Discard all virtual ports
     public func destroyVirtualPorts() {
-        if virtInput != 0 {
-            MIDIEndpointDispose(virtInput)
-            virtInput = 0
+        if virtualInput != 0 {
+            MIDIEndpointDispose(virtualInput)
+            virtualInput = 0
         }
 
-        if virtOutput != 0 {
-            MIDIEndpointDispose(virtOutput)
-            virtOutput = 0
+        if virtualInput != 0 {
+            MIDIEndpointDispose(virtualOutput)
+            virtualInput = 0
         }
     }
     
@@ -304,7 +317,7 @@ public class AKMIDI {
         
         let sourceCount = MIDIGetNumberOfSources()
         print("SourceCount: \(sourceCount)")
-        for var i = 0; i < sourceCount; ++i {
+        for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
             inputName = nil
@@ -331,7 +344,7 @@ public class AKMIDI {
     public func printMIDIInputs() {
         let sourceCount = MIDIGetNumberOfSources()
         print("MIDI Inputs:")
-        for var i = 0; i < sourceCount; ++i {
+        for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
             inputName = nil
@@ -349,8 +362,8 @@ public class AKMIDI {
         print("Opening MIDI Out")
         var result = OSStatus(noErr)
         
-        let numOutputs = MIDIGetNumberOfDestinations()
-        print("Number of MIDI Out ports = \(numOutputs)")
+        let outputCount = MIDIGetNumberOfDestinations()
+        print("Number of MIDI Out ports = \(outputCount)")
         var foundDest = false
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         
@@ -360,7 +373,7 @@ public class AKMIDI {
             print("error creating midi out port : \(result)")
         }
         
-        for var i = 0; i < numOutputs; ++i {
+        for i in 0 ..< outputCount {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>?
             endpointName = nil
@@ -379,9 +392,9 @@ public class AKMIDI {
     
     /// Prints a list of all MIDI Destinations
     public func printMIDIDestinations() {
-        let numOutputs = MIDIGetNumberOfDestinations()
+        let outputCount = MIDIGetNumberOfDestinations()
         print("MIDI Destinations:")
-        for var i = 0; i < numOutputs; ++i {
+        for i in 0 ..< outputCount {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>?
             endpointName = nil
@@ -401,7 +414,7 @@ public class AKMIDI {
         var packet = UnsafeMutablePointer<MIDIPacket>()
         packet = MIDIPacketListInit(packetListPtr)
         packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
-        for var i = 0; i < midiEndpoints.count; ++i {
+        for _ in 0 ..< midiEndpoints.count {
             result = MIDISend(midiOutPort, midiEndpoints[0], packetListPtr)
             if result == OSStatus(noErr) {
                 //print("sent midi")
@@ -410,8 +423,8 @@ public class AKMIDI {
             }
         }
 
-        if virtOutput != 0 {
-            MIDIReceived(virtOutput, packetListPtr);
+        if virtualOutput != 0 {
+            MIDIReceived(virtualOutput, packetListPtr);
         }
         
         packetListPtr.destroy()

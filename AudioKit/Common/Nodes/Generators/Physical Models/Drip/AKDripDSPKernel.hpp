@@ -202,8 +202,7 @@ public:
         }
     }
 
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
-        inBufferListPtr = inBufferList;
+    void setBuffer(AudioBufferList *outBufferList) {
         outBufferListPtr = outBufferList;
     }
 

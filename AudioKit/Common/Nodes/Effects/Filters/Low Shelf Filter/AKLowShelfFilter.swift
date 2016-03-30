@@ -80,6 +80,8 @@ public class AKLowShelfFilter: AKNode, AKToggleable {
     private var inputGain: AKMixer?
     private var effectGain: AKMixer?
 
+    // MARK: - Initialization
+    
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
 

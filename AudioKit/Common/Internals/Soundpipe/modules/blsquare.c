@@ -11,7 +11,7 @@
 #endif
 
 float fmodf(float dummy0, float dummy1);
-float faustpower2_f(float value) {
+static float faustpower2_f(float value) {
 	return (value * value);
 }
 
