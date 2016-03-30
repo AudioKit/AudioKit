@@ -210,7 +210,7 @@ public class AKSequencer {
             if newTempo > 280 { newTempo = 280 } //bpm limits
             if newTempo < 10  { newTempo = 10  }
             
-            var tempoTrack = MusicTrack()
+            var tempoTrack: MusicTrack = nil
             
             MusicSequenceGetTempoTrack(sequence, &tempoTrack)
             if(isPlaying){
@@ -232,7 +232,7 @@ public class AKSequencer {
             if newTempo > 280 { newTempo = 280 } //bpm limits
             if newTempo < 10  { newTempo = 10  }
             
-            var tempoTrack = MusicTrack()
+            var tempoTrack: MusicTrack = nil
             
             MusicSequenceGetTempoTrack(sequence, &tempoTrack)
             MusicTrackNewExtendedTempoEvent(tempoTrack, position, Double(newTempo))
@@ -353,7 +353,7 @@ public class AKSequencer {
         MusicSequenceGetTrackCount(sequence, &count)
 
         for i in 0 ..< count {
-            var musicTrack = MusicTrack()
+            var musicTrack: MusicTrack = nil
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
             tracks.append(AKMusicTrack(musicTrack: musicTrack))
         }
@@ -362,7 +362,7 @@ public class AKSequencer {
     /// Get a new track
     public func newTrack()->AKMusicTrack? {
         if(!isAvSeq){
-            var newMusicTrack = MusicTrack()
+            var newMusicTrack: MusicTrack = nil
             MusicSequenceNewTrack(sequence, &newMusicTrack)
             var count: UInt32 = 0
             MusicSequenceGetTrackCount(sequence, &count)
