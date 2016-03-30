@@ -30,80 +30,60 @@ public class AKFMOscillator: AKVoice {
     private var modulatingMultiplierParameter: AUParameter?
     private var modulationIndexParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-
-    /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    public var baseFrequency: Double = 440 {
-        didSet {
-            internalAU?.baseFrequency = Float(baseFrequency)
+    
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
         }
     }
 
-    /// Ramp to baseFrequency over 20 ms
-    ///
-    /// - parameter baseFrequency: Target In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    ///
-    public func ramp(baseFrequency baseFrequency: Double) {
-        baseFrequencyParameter?.setValue(Float(baseFrequency), originator: token!)
+    /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+    public var baseFrequency: Double = 440 {
+        willSet(newValue) {
+            if baseFrequency != newValue {
+                baseFrequencyParameter?.setValue(Float(newValue), originator: token!)
+            }
+        }
     }
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
-        didSet {
-            internalAU?.carrierMultiplier = Float(carrierMultiplier)
+        willSet(newValue) {
+            if carrierMultiplier != newValue {
+                carrierMultiplierParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to carrierMultiplier over 20 ms
-    ///
-    /// - parameter carrierMultiplier: Target This multiplied by the baseFrequency gives the carrier frequency.
-    ///
-    public func ramp(carrierMultiplier carrierMultiplier: Double) {
-        carrierMultiplierParameter?.setValue(Float(carrierMultiplier), originator: token!)
     }
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
     public var modulatingMultiplier: Double = 1 {
-        didSet {
-            internalAU?.modulatingMultiplier = Float(modulatingMultiplier)
+        willSet(newValue) {
+            if modulatingMultiplier != newValue {
+                modulatingMultiplierParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to modulatingMultiplier over 20 ms
-    ///
-    /// - parameter modulatingMultiplier: Target This multiplied by the baseFrequency gives the modulating frequency.
-    ///
-    public func ramp(modulatingMultiplier modulatingMultiplier: Double) {
-        modulatingMultiplierParameter?.setValue(Float(modulatingMultiplier), originator: token!)
     }
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     public var modulationIndex: Double = 1 {
-        didSet {
-            internalAU?.modulationIndex = Float(modulationIndex)
+        willSet(newValue) {
+            if modulationIndex != newValue {
+                modulationIndexParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to modulationIndex over 20 ms
-    ///
-    /// - parameter modulationIndex: Target This multiplied by the modulating frequency gives the modulation amplitude.
-    ///
-    public func ramp(modulationIndex modulationIndex: Double) {
-        modulationIndexParameter?.setValue(Float(modulationIndex), originator: token!)
     }
 
     /// Output Amplitude.
     public var amplitude: Double = 1 {
-        didSet {
-            internalAU?.amplitude = Float(amplitude)
+        willSet(newValue) {
+            if amplitude != newValue {
+                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to amplitude over 20 ms
-    ///
-    /// - parameter amplitude: Target Output Amplitude.
-    ///
-    public func ramp(amplitude amplitude: Double) {
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -166,7 +146,7 @@ public class AKFMOscillator: AKVoice {
 
             AudioKit.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
-            for var i = 0; i < waveform.size; i++ {
+            for i in 0 ..< waveform.size {
                 self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
             }
         }

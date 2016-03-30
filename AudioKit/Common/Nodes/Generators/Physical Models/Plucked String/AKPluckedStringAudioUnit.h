@@ -19,6 +19,10 @@
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKPluckedStringAudioUnit_h */

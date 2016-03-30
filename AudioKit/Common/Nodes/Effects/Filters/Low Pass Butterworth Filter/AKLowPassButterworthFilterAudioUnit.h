@@ -15,6 +15,10 @@
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKLowPassButterworthFilterAudioUnit_h */

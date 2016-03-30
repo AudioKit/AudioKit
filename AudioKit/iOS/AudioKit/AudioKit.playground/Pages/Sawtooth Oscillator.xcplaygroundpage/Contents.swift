@@ -7,20 +7,68 @@
 import XCPlayground
 import AudioKit
 
-var sawtooth = AKSawtoothOscillator()
-AudioKit.output = sawtooth
+var oscillator = AKSawtoothOscillator()
+var currentAmplitude = 0.1
+var currentRampTime = 0.0
+
+AudioKit.output = oscillator
 AudioKit.start()
 
-sawtooth.start()
+let playgroundWidth = 500
 
-AKPlaygroundLoop(every: 0.12) {
-    sawtooth.amplitude = random(0, 0.3)
+class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
-    let scale = [0,2,4,5,7,9,11,12]
-    var note = scale.randomElement()
-    let octave = randomInt(3...6)  * 12
-    sawtooth.ramp(frequency: (note + octave).midiNoteToFrequency())
-    sawtooth.ramp(amplitude: random(0, 0.3))
+    var frequencyLabel: Label?
+    var amplitudeLabel: Label?
+    var rampTimeLabel: Label?
+    
+    override func setup() {
+        addTitle("Sawtooth Oscillator")
+        
+        amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
+        addSlider(#selector(self.setAmplitude(_:)), value: currentAmplitude)
+        
+        rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
+        addSlider(#selector(self.setRampTime(_:)), value: currentRamp Time, minimum: 0, maximum: 0.1)
+        
+        let keyboard = KeyboardView(width: playgroundWidth, height: 100)
+        keyboard.frame.origin.y = CGFloat(yPosition)
+        keyboard.setNeedsDisplay()
+        keyboard.delegate = self
+        self.addSubview(keyboard)
+    }
+    
+    func noteOn(note: Int) {
+        // start from the correct note if amplitude is zero
+        if oscillator.amplitude == 0 {
+            oscillator.rampTime = 0
+        }
+        oscillator.frequency = note.midiNoteToFrequency()
+        
+        // Still use rampTime for volume
+        oscillator.rampTime = currentRampTime
+        oscillator.amplitude = currentAmplitude
+        oscillator.play()
+    }
+    
+    func noteOff(note: Int) {
+        oscillator.amplitude = 0
+    }
+    
+    
+    func setAmplitude(slider: Slider) {
+        currentAmplitude = Double(slider.value)
+        let amp = String(format: "%0.3f", currentAmplitude)
+        amplitudeLabel!.text = "Amplitude: \(amp)"
+    }
+    
+    func setRampTime(slider: Slider) {
+        currentRampTime = Double(slider.value)
+        let rampTime = String(format: "%0.3f", currentRampTime)
+        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
+    }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view

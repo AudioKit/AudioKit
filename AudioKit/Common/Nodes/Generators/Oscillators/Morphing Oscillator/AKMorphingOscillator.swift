@@ -35,79 +35,57 @@ public class AKMorphingOscillator: AKVoice {
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
 
-    /// Frequency (in Hz)
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+    
+    /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
-        didSet {
-            internalAU?.frequency = Float(frequency)
+        willSet(newValue) {
+            if frequency != newValue {
+                frequencyParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
     }
-
-    /// Ramp to frequency over 20 ms
-    ///
-    /// - parameter frequency: Target Frequency (in Hz)
-    ///
-    public func ramp(frequency frequency: Double) {
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
-    }
-
-    /// Amplitude (typically a value between 0 and 1).
-    public var amplitude: Double = 0.5 {
-        didSet {
-            internalAU?.amplitude = Float(amplitude)
+    
+    /// Output Amplitude.
+    public var amplitude: Double = 1 {
+        willSet(newValue) {
+            if amplitude != newValue {
+                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to amplitude over 20 ms
-    ///
-    /// - parameter amplitude: Target Amplitude (typically a value between 0 and 1).
-    ///
-    public func ramp(amplitude amplitude: Double) {
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
     }
 
     /// Index of the wavetable to use (fractional are okay).
     public var index: Double = 0.0 {
-        didSet {
-            internalAU?.index = Float(index) / Float(waveformArray.count - 1)
+        willSet(newValue) {
+            internalAU?.index = Float(newValue) / Float(waveformArray.count - 1)
         }
-    }
-
-    /// Ramp to index over 20 ms
-    ///
-    /// - parameter index: Target Index of the wavetable to use (fractional are okay).
-    ///
-    public func ramp(index index: Double) {
-        indexParameter?.setValue(Float(index), originator: token!)
     }
 
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
-        didSet {
-            internalAU?.detuningOffset = Float(detuningOffset)
+        willSet(newValue) {
+            if detuningOffset != newValue {
+                detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
     }
-
-    /// Ramp to detuningOffset over 20 ms
-    ///
-    /// - parameter detuningOffset: Target Frequency offset in Hz.
-    ///
-    public func ramp(detuningOffset detuningOffset: Double) {
-        detuningOffsetParameter?.setValue(Float(detuningOffset), originator: token!)
-    }
-
+    
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
-        didSet {
-            internalAU?.detuningMultiplier = Float(detuningMultiplier)
+        willSet(newValue) {
+            if detuningMultiplier != newValue {
+                detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+            }
         }
-    }
-
-    /// Ramp to detuningMultiplier over 20 ms
-    ///
-    /// - parameter detuningMultiplier: Target Frequency detuning multiplier
-    ///
-    public func ramp(detuningMultiplier detuningMultiplier: Double) {
-        detuningMultiplierParameter?.setValue(Float(detuningMultiplier), originator: token!)
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
@@ -175,9 +153,9 @@ public class AKMorphingOscillator: AKVoice {
             AudioKit.engine.attachNode(self.avAudioNode)
             
             /// AOP need to set up phase
-            for i in 0..<waveformArray.count {
+            for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
-                for var j = 0; j < waveformArray[i].size; j++ {
+                for j in 0 ..< waveformArray[i].size{
                     self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
                 }
             }

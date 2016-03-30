@@ -23,6 +23,16 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
     internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
+    
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
 
     /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 500 {

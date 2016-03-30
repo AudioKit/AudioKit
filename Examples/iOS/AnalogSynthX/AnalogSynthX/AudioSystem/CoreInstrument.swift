@@ -108,7 +108,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         didSet {
             for voice in voices {
                 let coreVoice = voice as! CoreVoice
-                coreVoice.fmOscillator.modulationIndex = fmMod
+                coreVoice.fmOsc.modulationIndex = fmMod
             }
         }
     }
@@ -213,17 +213,17 @@ class CoreInstrument: AKPolyphonicInstrument {
         
         let commonAmplitude = Double(velocity)/127.0
         
-        coreVoice.vco1.amplitude         = commonAmplitude
-        coreVoice.vco2.amplitude         = commonAmplitude
-        coreVoice.subOsc.amplitude       = commonAmplitude
-        coreVoice.fmOscillator.amplitude = commonAmplitude
-        coreVoice.noise.amplitude        = commonAmplitude
+        coreVoice.vco1.amplitude   = commonAmplitude
+        coreVoice.vco2.amplitude   = commonAmplitude
+        coreVoice.subOsc.amplitude = commonAmplitude
+        coreVoice.fmOsc.amplitude  = commonAmplitude
+        coreVoice.noise.amplitude  = commonAmplitude
         
         coreVoice.vco1.frequency = (Double(note + offset1) + globalbend).midiNoteToFrequency()
         coreVoice.vco2.frequency = (Double(note + offset2) + globalbend).midiNoteToFrequency()
 
         coreVoice.subOsc.frequency = (Double(note - 12) + globalbend).midiNoteToFrequency()
-        coreVoice.fmOscillator.baseFrequency = note.midiNoteToFrequency()
+        coreVoice.fmOsc.baseFrequency = note.midiNoteToFrequency()
         
         coreVoice.start()
     }

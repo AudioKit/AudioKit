@@ -23,17 +23,28 @@ AudioKit.output = rebalancedWithSource
 AudioKit.start()
 source.play()
 
-//: Toggle processing on every loop
-AKPlaygroundLoop(every: 3.428) { () -> () in
-    if rebalancedWithSource.isBypassed {
+//: User Interface Set up
+
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Balancing Nodes")
+        
+        addLabel("Listen to the difference in volume:")
+        addButton("Balance", action: #selector(self.start))
+        addButton("Bypass", action: #selector(self.bypass))
+    }
+    
+    func start() {
         rebalancedWithSource.start()
-    } else {
+    }
+    func bypass() {
         rebalancedWithSource.bypass()
     }
-    rebalancedWithSource.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
 }
 
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 200))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-
