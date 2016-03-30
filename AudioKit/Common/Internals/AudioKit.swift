@@ -108,6 +108,8 @@ import AVFoundation
             self.engine.prepare()
             #if !os(OSX)
                 if AKSettings.audioInputEnabled {
+                    
+                #if os(iOS)
                     if AKSettings.defaultToSpeaker {
                         
                         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker)
@@ -122,6 +124,11 @@ import AVFoundation
                         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
                         
                     }
+                #else
+                    // tvOS
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+                    
+                #endif
                     
                 } else if AKSettings.playbackWhileMuted {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
@@ -132,11 +139,13 @@ import AVFoundation
                 
                 try self.engine.start()
                 
+                shouldBeRunning = true
+                
             #endif
         } catch {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }
-        shouldBeRunning = true
+        
     }
     
     /// Stop the audio engine
