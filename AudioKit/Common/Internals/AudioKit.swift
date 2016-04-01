@@ -154,11 +154,13 @@ import AVFoundation
         // Stop the engine.
         self.engine.stop()
         shouldBeRunning = false
+        #if os(iOS)
         do {
             try AVAudioSession.sharedInstance().setActive(false)
         } catch {
             print("couldn't stop session \(error)")
         }
+        #endif
     }
     
     // MARK: Testing
