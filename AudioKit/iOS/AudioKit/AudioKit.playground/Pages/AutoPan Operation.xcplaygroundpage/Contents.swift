@@ -14,10 +14,10 @@ enum AutoPanParameter: Int {
 }
 
 struct AutoPan {
-    static var speed: AKParameter {
+    static var speed: AKOperation {
         return AKOperation.parameters(AutoPanParameter.Speed.rawValue)
     }
-    static var depth: AKParameter {
+    static var depth: AKOperation {
         return AKOperation.parameters(AutoPanParameter.Depth.rawValue)
     }
 }

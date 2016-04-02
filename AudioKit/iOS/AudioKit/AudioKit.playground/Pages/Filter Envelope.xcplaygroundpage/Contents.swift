@@ -13,13 +13,13 @@ enum SynthParameter: Int {
 }
 
 struct Synth {
-    static var frequency: AKParameter {
+    static var frequency: AKOperation {
         return AKOperation.parameters(SynthParameter.Frequency.rawValue)
     }
-    static var cutoff: AKParameter {
+    static var cutoff: AKOperation {
         return AKOperation.parameters(SynthParameter.Cutoff.rawValue)
     }
-    static var gate: AKParameter {
+    static var gate: AKOperation {
         return AKOperation.parameters(SynthParameter.Gate.rawValue)
     }
 }
@@ -45,7 +45,7 @@ let oscillator = AKOperation.fmOscillator(
     modulatingMultiplier: 0.7,
     modulationIndex: 2,
     amplitude: 0.1)
-let cutoff = AKOperation.parameters(1).gatedADSREnvelope(Synth.gate, attack: 0.1, decay: 0.01, sustain: 1, release: 0.6)
+let cutoff = Synth.cutoff.gatedADSREnvelope(Synth.gate, attack: 0.1, decay: 0.01, sustain: 1, release: 0.6)
 
 let filtered = oscillator.moogLadderFilter(cutoffFrequency: cutoff, resonance: 0.9)
 
