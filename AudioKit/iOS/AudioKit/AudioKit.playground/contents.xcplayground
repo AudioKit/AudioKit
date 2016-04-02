@@ -24,6 +24,7 @@
         <page name='Dynamics Processor'/>
         <page name='Fatten Effect'/>
         <page name='FFT Analysis'/>
+        <page name='Filter Envelope'/>
         <page name='Filter Section Example'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Flat Frequency Response Reverb Operation'/>
