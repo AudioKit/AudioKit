@@ -42,13 +42,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Segment Operations")
         
         speedLabel = addLabel("Update Rate: \(generator.parameters[0])")
-        addSlider(#selector(self.setSpeed(_:)), value: generator.parameters[0], minimum: 0.1, maximum: 25)
+        addSlider(#selector(self.setSpeed(_:)), value: generator.parameters[0], minimum: 0.1, maximum: 10)
         
     }
     
     func setSpeed(slider: Slider) {
         generator.parameters[0] = Double(slider.value)
         speedLabel!.text = "Update Rate: \(String(format: "%0.3f", generator.parameters[0]))"
+        delay.time = 0.25 / Double(slider.value)
     }
 }
 
