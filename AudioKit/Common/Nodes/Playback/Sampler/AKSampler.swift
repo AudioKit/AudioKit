@@ -104,7 +104,7 @@ public class AKSampler: AKNode {
      path is where the aupreset will be created
      instName is the name of the aupreset
     */
-    static public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String){
+    static public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String, attack:Double? = 0, release:Double? = 0){
         let rootNoteKeyStr = "rootnote"
         let startNoteKeyStr = "startnote"
         let endNoteKeyStr = "endnote"
@@ -116,7 +116,7 @@ public class AKSampler: AKNode {
         let sampleNumStart = 268435457
         
         //iterate over the sounds
-        for i in 0...(dict.count - 1){
+        for i in 0..<dict.count{
             let sound = dict.allValues[i]
             var soundDict:NSMutableDictionary
             var alreadyLoaded = false
@@ -178,6 +178,8 @@ public class AKSampler: AKNode {
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***INSTNAME***", withString: instName)
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***ZONEMAPPINGS***", withString: sampleZoneXML)
         templateStr = templateStr.stringByReplacingOccurrencesOfString("***SAMPLEFILES***", withString: sampleIDXML)
+        templateStr = templateStr.stringByReplacingOccurrencesOfString("***ATTACK***", withString: String(attack!))
+        templateStr = templateStr.stringByReplacingOccurrencesOfString("***RELEASE***", withString: String(release!))
         
         //print(templateStr) //debug
         //write to file
@@ -189,6 +191,8 @@ public class AKSampler: AKNode {
         }
     }
     
+    // This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that
+    // into createAUPresetFromDict
     public static func generateTemplateDictionary(
         rootNote: Int,
         filename: String,
@@ -457,7 +461,7 @@ public class AKSampler: AKNode {
         templateStr.appendContentsOf("                                    <key>stage</key>\n")
         templateStr.appendContentsOf("                                    <integer>1</integer>\n")
         templateStr.appendContentsOf("                                    <key>time</key>\n")
-        templateStr.appendContentsOf("                                    <real>0.0</real>\n")
+        templateStr.appendContentsOf("                                    <real>***ATTACK***</real>\n")
         templateStr.appendContentsOf("                                </dict>\n")
         templateStr.appendContentsOf("                                <dict>\n")
         templateStr.appendContentsOf("                                    <key>curve</key>\n")
@@ -487,7 +491,7 @@ public class AKSampler: AKNode {
         templateStr.appendContentsOf("                                    <key>stage</key>\n")
         templateStr.appendContentsOf("                                    <integer>5</integer>\n")
         templateStr.appendContentsOf("                                    <key>time</key>\n")
-        templateStr.appendContentsOf("                                    <real>0.0</real>\n")
+        templateStr.appendContentsOf("                                    <real>***RELEASE***</real>\n")
         templateStr.appendContentsOf("                                </dict>\n")
         templateStr.appendContentsOf("                                <dict>\n")
         templateStr.appendContentsOf("                                    <key>curve</key>\n")
