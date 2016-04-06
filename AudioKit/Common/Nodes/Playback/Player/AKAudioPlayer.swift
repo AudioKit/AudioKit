@@ -86,6 +86,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.volume = 1.0
     }
     
+    /// Reload the file from the disk
     public func reloadFile() {
         let url = NSURL.fileURLWithPath(internalFile, isDirectory: false)
         let audioFile = try! AVAudioFile(forReading: url)
