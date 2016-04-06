@@ -261,7 +261,7 @@ class ParticleLab: MTKView
             return
         }
         
-        frameNumber++
+        frameNumber += 1
         
         if frameNumber == 100
         {
