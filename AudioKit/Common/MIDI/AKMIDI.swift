@@ -29,6 +29,7 @@ func generatorForTuple(tuple: Any) -> AnyGenerator<Any> {
  }
  */
 extension MIDIPacket: SequenceType {
+    /// Generate a midi packet
     public func generate() -> AnyGenerator<AKMIDIEvent> {
         let generator = generatorForTuple(self.data)
         var index: UInt16 = 0
@@ -98,8 +99,10 @@ extension MIDIPacket: SequenceType {
 }
 
 extension MIDIPacketList: SequenceType {
+    /// Type alis for MIDI Packet List Generator
     public typealias Generator = MIDIPacketListGenerator
     
+    /// Create a generator from the packet list
     public func generate() -> Generator {
         return Generator(packetList: self)
     }
@@ -109,6 +112,10 @@ extension MIDIPacketList: SequenceType {
 public struct MIDIPacketListGenerator : GeneratorType {
     public typealias Element = MIDIPacket
     
+    /// Initialize the packet list generator with a packet list
+    ///
+    /// - parameter packetList: MIDI Packet List
+    ///
     init(packetList: MIDIPacketList) {
         let ptr = UnsafeMutablePointer<MIDIPacket>.alloc(1)
         ptr.initialize(packetList.packet)
@@ -116,6 +123,7 @@ public struct MIDIPacketListGenerator : GeneratorType {
         self.count = packetList.numPackets
     }
     
+    /// Provide the next element (packet)
     public mutating func next() -> Element? {
         guard self.packet != nil && self.index < self.count else { return nil }
         

@@ -93,30 +93,31 @@ public class AKSampler: AKNode {
             print("error")
         }
     }
-    
-    /* createAUPresetFromDict
-     dict is a collection of other dictionaries that have the format like this:
-        ***Key:Value***
-        filename:string
-        rootnote:int
-        startnote:int (optional)
-        endnote:int (optional)
-     path is where the aupreset will be created
-     instName is the name of the aupreset
-    */
-    static public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String, attack:Double? = 0, release:Double? = 0){
+
+    /// Create AU Preset from a collection of dictionaires with the format:
+    /// filename: string
+    /// rootnote: int
+    /// startnote: int (optional)
+    /// endnote: int (optional)
+    ///
+    /// - parameter dict: Dictionary as described above
+    /// - parameter path: Where the AUPreset will be created
+    /// - parameter instName: Name of the AUPreset
+    /// - parameter attack: Optional attack time
+    ///
+    static public func createAUPresetFromDict(dict: NSDictionary, path: String, instName: String, attack: Double? = 0, release: Double? = 0){
         let rootNoteKeyStr = "rootnote"
         let startNoteKeyStr = "startnote"
         let endNoteKeyStr = "endnote"
         let filenameKeyStr = "filename"
         var loadSoundsArr = Array<NSMutableDictionary>()
-        var sampleZoneXML:String = String()
-        var sampleIDXML:String = String()
+        var sampleZoneXML: String = String()
+        var sampleIDXML: String = String()
         var sampleIteration = 0
         let sampleNumStart = 268435457
         
         //iterate over the sounds
-        for i in 0..<dict.count{
+        for i in 0 ..< dict.count {
             let sound = dict.allValues[i]
             var soundDict:NSMutableDictionary
             var alreadyLoaded = false
@@ -132,17 +133,16 @@ public class AKSampler: AKNode {
                 }
             }
             
-            if(sound.objectForKey(startNoteKeyStr) == nil
-                || sound.objectForKey(endNoteKeyStr) == nil){
+            if sound.objectForKey(startNoteKeyStr) == nil || sound.objectForKey(endNoteKeyStr) == nil {
                 soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: startNoteKeyStr)
                 soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: endNoteKeyStr)
             }
-            if(sound.objectForKey(rootNoteKeyStr) == nil){
+            if sound.objectForKey(rootNoteKeyStr) == nil {
                 //error
-            }else{
+            } else {
                 soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: rootNoteKeyStr)
             }
-            if(!alreadyLoaded){ //if this is a new sound, then add it to samplefile xml
+            if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
                 let sampleNumString = "<key>Sample:\(sampleNum)</key>"
                 let sampleLocString = "<string>\(sound.objectForKey("filename")!)</string>\n"
@@ -183,16 +183,15 @@ public class AKSampler: AKNode {
         
         //print(templateStr) //debug
         //write to file
-        do{
+        do {
             print("Writing to \(path)")
             try templateStr.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
-        }catch let error as NSError {
+        } catch let error as NSError {
             print(error)
         }
     }
     
-    // This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that
-    // into createAUPresetFromDict
+    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that into createAUPresetFromDict
     public static func generateTemplateDictionary(
         rootNote: Int,
         filename: String,
