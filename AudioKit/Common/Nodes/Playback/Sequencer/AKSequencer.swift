@@ -116,7 +116,7 @@ public class AKSequencer {
         (loopEnabled ? loopOff() : loopOn())
     }
     
-    /// Enable looping for all tracks
+    /// Enable looping for all tracks - loops entire sequence
     public func loopOn() {
         if isAvSeq {
             for track in avSeq.tracks{
@@ -125,6 +125,19 @@ public class AKSequencer {
             }
         } else {
             setLoopInfo(length, numberOfLoops: 0)
+        }
+        loopEnabled = true
+    }
+    
+    /// Enable looping for all tracks with specified length
+    public func loopOn(loopLength:Double) {
+        if isAvSeq {
+            for track in avSeq.tracks{
+                track.loopingEnabled = true
+                track.loopRange = AVMakeBeatRange(0, self.length)
+            }
+        } else {
+            setLoopInfo(loopLength, numberOfLoops: 0)
         }
         loopEnabled = true
     }
