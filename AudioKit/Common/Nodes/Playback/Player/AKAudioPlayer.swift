@@ -140,4 +140,12 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
         return 0.0
     }
+    
+    /// Load a brand new file!
+    public func loadNewFile( file : String )
+    {
+        internalFile = file
+        reloadFile()
+    }
+    
 }
