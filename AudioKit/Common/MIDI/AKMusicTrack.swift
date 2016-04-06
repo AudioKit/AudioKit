@@ -13,6 +13,7 @@ public class AKMusicTrack {
     
     // MARK: - Properties
     
+    /// The representation of Apple's underlying music track
     public var internalMusicTrack: MusicTrack = nil
     
     /// Pointer to the Music Track
@@ -136,6 +137,10 @@ public class AKMusicTrack {
         DisposeMusicEventIterator(iterator)
     }
     
+    /// A less destructive and simpler way to set the length
+    ///
+    /// - parameter duration: How long the loop will last, from the end of the track backwards
+    ///
     public func setLengthSoft(duration: Double){
         let size: UInt32 = 0
         var len = MusicTimeStamp(duration)
