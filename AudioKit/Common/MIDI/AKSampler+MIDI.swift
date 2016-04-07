@@ -40,10 +40,13 @@ public class AKMIDISampler: AKSampler {
     func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
         let status = data1 >> 4
         let channel = data1 & 0xF
+        
         if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
             startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
         }else if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0) {
             stopNote(Int(data2), onChannel: Int(channel))
+        }else if(Int(status) == AKMIDIStatus.ControllerChange.rawValue) {
+            midiCC(Int(data2), value: Int(data3), channel: Int(channel))
         }
     }
     
@@ -59,6 +62,16 @@ public class AKMIDISampler: AKSampler {
         }else{
             stopNote(note, onChannel: channel)
         }
+    }
+    /// Handle MIDI CC that come in externally
+    ///
+    /// - parameter cc: MIDI cc number
+    /// - parameter value: MIDI cc value
+    /// - parameter channel: MIDI cc channel
+    ///
+    public func midiCC(cc: Int, value: Int, channel: Int) {
+        print("cc \(cc) val \(value) chan \(channel)")
+        samplerUnit.sendController(UInt8(cc), withValue: UInt8(value), onChannel: UInt8(channel))
     }
     // MARK: - MIDI Note Start/Stop
     
