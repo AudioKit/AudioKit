@@ -11,10 +11,12 @@ custom_categories:
   - name: AudioKit Core
     children:
     - AudioKit
+    - AKAudioRecorder
     - AKDevice
     - AKSettings
     - AKTable
     - AKTableType
+    - AKTester
 
   - name: Instruments
     children:
@@ -35,9 +37,13 @@ custom_categories:
     - AKMIDIControl
     - AKMIDIInstrument
     - AKMIDIListener
+    - AKMIDISampler
     - AKMIDIStatus
     - AKMIDISystemCommand
     - AKMusicTrack
+    - MIDIPacket
+    - MIDIPacketList
+    - MIDIPacketListGenerator
 
   - name: Nodes
     children:
@@ -131,6 +137,7 @@ custom_categories:
   - name: Physical Models
     children:
     - AKDrip
+    - AKMetalBar
     - AKPluckedString
 
   - name: Input Node
