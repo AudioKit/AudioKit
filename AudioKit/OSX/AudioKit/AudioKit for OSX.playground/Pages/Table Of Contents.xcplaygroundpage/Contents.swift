@@ -177,6 +177,7 @@
 //:
 //: Many of the types of things you can do in nodes are also possible with operations, but with great flexibility in how the parameters are changed over time.
 //:
+//: * [AutoPan Operation](AutoPan%20Operation)
 //: * [AutoWah Operation](AutoWah%20Operation)
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Clip](Clip%20Operation)
