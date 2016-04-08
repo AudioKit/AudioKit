@@ -22,10 +22,10 @@ public protocol SMSegmentViewDelegate: class {
 public class SMBasicSegmentView: UIView {
     public var segments: [SMBasicSegment] = [] {
         didSet {
-            var i=0;
+            var i = 0
             for segment in segments {
                 segment.index = i
-                i++
+                i += 1
                 segment.segmentView = self
                 self.addSubview(segment)
             }

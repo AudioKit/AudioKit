@@ -15,7 +15,7 @@
 @property (nonatomic) float position;
 @property (nonatomic) float amplitude;
 @property (nonatomic) float pitchRatio;
-@property double inertia;
+@property double rampTime;
 
 - (void)setUpParameterRamp;
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size;
