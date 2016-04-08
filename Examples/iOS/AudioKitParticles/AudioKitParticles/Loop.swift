@@ -22,7 +22,7 @@ public class Loop {
     public init(every duration: Double, handler:()->()) {
         trigger =  Int(60 * duration)
         internalHandler = handler
-        let displayLink = CADisplayLink(target: self, selector: "update")
+        let displayLink = CADisplayLink(target: self, selector: #selector(update))
         displayLink.frameInterval = 1
         displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
@@ -35,7 +35,7 @@ public class Loop {
     public init(frequency: Double, handler:()->()) {
         trigger =  Int(60 / frequency)
         internalHandler = handler
-        let displayLink = CADisplayLink(target: self, selector: "update")
+        let displayLink = CADisplayLink(target: self, selector: #selector(update))
         displayLink.frameInterval = 1
         displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }

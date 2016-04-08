@@ -3,6 +3,7 @@
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
+        <page name='AutoPan Operation'/>
         <page name='AutoWah Operation'/>
         <page name='Auto Wah Wah'/>
         <page name='Balancing Nodes'/>
@@ -23,6 +24,7 @@
         <page name='Dynamics Processor'/>
         <page name='Fatten Effect'/>
         <page name='FFT Analysis'/>
+        <page name='Filter Envelope'/>
         <page name='Filter Section Example'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Flat Frequency Response Reverb Operation'/>
@@ -56,7 +58,7 @@
         <page name='Non-Audio Tutorial'/>
         <page name='Oscillator'/>
         <page name='Output Waveform Plot'/>
-        <page name='Parameter Inertia'/>
+        <page name='Parameter Ramp Time'/>
         <page name='Parametric Equalizer'/>
         <page name='Peak Limiter'/>
         <page name='Pedestrians'/>

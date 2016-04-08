@@ -11,7 +11,7 @@ AudioKit V3
 
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
-### Version 3.0
+### Version 3
 The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
 
 * Installation as a framework
@@ -40,6 +40,7 @@ Installation with CocoaPods and Carthage is also planned but may not come with t
 There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
 
 The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
+
 ```
 $ cd Frameworks
 $ ./build_frameworks.sh
@@ -47,19 +48,23 @@ $ ./build_frameworks.sh
 Hello World basically consists of just a few sections of code:
 
 Creating the sound, in this case an oscillator:
-```swift
+
+```
 var oscillator = AKOscillator()
 ```
 Telling AudioKit where to get its audio from (ie. the oscillator):
-```swift
+
+```
 AudioKit.output = oscillator
 ```
 Starting AudioKit:
-```swift
+
+```
 AudioKit.start()
 ```
 And then responding to the UI by changing the oscillator:
-```swift
+
+```
 if oscillator.isPlaying {
     oscillator.stop()
 } else {
@@ -93,7 +98,7 @@ github "audiokit/AudioKit"
 If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
 
 ```
-pod 'AudioKit', '~> 3.0'
+pod 'AudioKit', '~> 3.1'
 ```
 
 ## About Us

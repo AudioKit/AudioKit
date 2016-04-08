@@ -29,4 +29,11 @@ public class AKSettings : NSObject {
     public static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
+    
+    /// Whether to DefaultToSpeaker when audio input is enabled
+    public static var defaultToSpeaker: Bool = false;
+    
+    /// Global default rampTime value
+    public static var rampTime: Double = 0.0002
+
 }

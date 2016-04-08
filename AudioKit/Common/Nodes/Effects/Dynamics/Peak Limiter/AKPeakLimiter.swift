@@ -25,7 +25,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU = AudioUnit()
+    internal var internalAU: AudioUnit = nil
 
     private var mixer: AKMixer
 

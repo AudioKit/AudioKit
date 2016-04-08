@@ -22,11 +22,11 @@ public class AKPluckedString: AKVoice {
     internal var token: AUParameterObserverToken?
 
 
-    /// Inertia represents the speed at which parameters are allowed to change
-    public var inertia: Double = 0.0002 {
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
-            if inertia != newValue {
-                internalAU?.inertia = newValue
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
             }
         }
