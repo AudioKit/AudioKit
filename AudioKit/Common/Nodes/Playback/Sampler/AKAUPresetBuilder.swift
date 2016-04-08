@@ -10,11 +10,119 @@ import Foundation
 
 public class AKAUPresetBuilder{
     
+    public var presetXML:String = ""
+    
+    init(name:String = "Coded Instrument Name",
+         connections:String = "***CONNECTIONS***\n",
+         envelopes:String = "***ENVELOPES***\n",
+         filter:String = "***FILTER***\n",
+         lfos:String = "***LFOS***\n",
+         zones:String = "***ZONES***\n",
+         filerefs:String = "***FILEREFS***\n"){
+        presetXML = AKAUPresetBuilder.buildInstrument(name, connections: connections, envelopes: envelopes, filter: filter, lfos: lfos, zones: zones,filerefs: filerefs)
+    }
+    
+    
+    /* createAUPresetFromDict
+     dict is a collection of other dictionaries that have the format like this:
+     ***Key:Value***
+     filename:string
+     rootnote:int
+     startnote:int (optional)
+     endnote:int (optional)
+     path is where the aupreset will be created
+     instName is the name of the aupreset
+     */
+    static public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String, attack:Double? = 0, release:Double? = 0){
+        let rootNoteKeyStr = "rootnote"
+        let startNoteKeyStr = "startnote"
+        let endNoteKeyStr = "endnote"
+        let filenameKeyStr = "filename"
+        var loadSoundsArr = Array<NSMutableDictionary>()
+        var sampleZoneXML:String = String()
+        var sampleIDXML:String = String()
+        var sampleIteration = 0
+        let sampleNumStart = 268435457
+        
+        //iterate over the sounds
+        for i in 0..<dict.count{
+            let sound = dict.allValues[i]
+            var soundDict:NSMutableDictionary
+            var alreadyLoaded = false
+            var sampleNum:Int = 0
+            soundDict = sound.mutableCopy() as! NSMutableDictionary
+            //check if this sample is already loaded
+            for loadedSoundDict in loadSoundsArr{
+                let alreadyLoadedSound:String = loadedSoundDict.objectForKey(filenameKeyStr) as! String
+                let newLoadingSound:String = soundDict.objectForKey(filenameKeyStr) as! String
+                if ( alreadyLoadedSound == newLoadingSound){
+                    alreadyLoaded = true
+                    sampleNum = loadedSoundDict.objectForKey("sampleNum") as! Int
+                }
+            }
+            
+            if(sound.objectForKey(startNoteKeyStr) == nil
+                || sound.objectForKey(endNoteKeyStr) == nil){
+                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: startNoteKeyStr)
+                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: endNoteKeyStr)
+            }
+            if(sound.objectForKey(rootNoteKeyStr) == nil){
+                //error
+            }else{
+                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: rootNoteKeyStr)
+            }
+            if(!alreadyLoaded){ //if this is a new sound, then add it to samplefile xml
+                sampleNum = sampleNumStart + sampleIteration
+                let idXML = AKAUPresetBuilder.generateFileRef(sampleNum, samplePath: sound.objectForKey("filename")! as! String)
+                sampleIDXML.appendContentsOf(idXML)
+                
+                sampleIteration += 1;
+            }
+            let startNote = soundDict.objectForKey(startNoteKeyStr)! as! Int
+            let endNote = soundDict.objectForKey(endNoteKeyStr)! as! Int
+            let rootNote = soundDict.objectForKey(rootNoteKeyStr)! as! Int
+            let tempSampleZoneXML:String = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote, endNote: endNote, wavRef: sampleNum)
+            
+            sampleZoneXML.appendContentsOf(tempSampleZoneXML)
+            soundDict.setObject(sampleNum, forKey: "sampleNum")
+            loadSoundsArr.append(soundDict)
+        }//end iterate soundPack
+        
+        let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
+        let templateStr = AKAUPresetBuilder.buildInstrument(instName, envelopes: envelopesXML, zones: sampleZoneXML, filerefs: sampleIDXML)
+        
+        //print(templateStr) //debug
+        //write to file
+        do{
+            print("Writing to \(path)")
+            try templateStr.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
+        }catch let error as NSError {
+            print(error)
+        }
+    }//end func createAUPresetFromDict
+    
+    // This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that
+    // into createAUPresetFromDict
+    public static func generateTemplateDictionary(
+        rootNote: Int,
+        filename: String,
+        startNote: Int,
+        endNote: Int) -> NSMutableDictionary {
+        
+        let rootNoteKeyStr = "rootnote"
+        let startNoteKeyStr = "startnote"
+        let endNoteKeyStr = "endnote"
+        let filenameKeyStr = "filename"
+        let defaultObjects:[NSObject] = [rootNote, startNote, endNote, filename]
+        let keys: [String] = [rootNoteKeyStr, startNoteKeyStr, endNoteKeyStr, filenameKeyStr]
+        return NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
+    }
+
     static public func buildInstrument( name:String = "Coded Instrument Name",
-                                        connections:String = "***CONNECTIONS***\n",
-                                        envelopes:String = "***ENVELOPES***\n",
-                                        filter:String = "***FILTER***\n",
-                                        lfos:String = "***LFOS***\n",
+                                        connections:String = "",
+                                        envelopes:String = "",
+                                        filter:String = "",
+                                        lfos:String = "",
                                         zones:String = "***ZONES***\n",
                                         filerefs:String = "***FILEREFS***\n"
                                 )->String{
@@ -23,18 +131,14 @@ public class AKAUPresetBuilder{
         presetXML.appendContentsOf(openLayers())
         presetXML.appendContentsOf(openLayer())
         presetXML.appendContentsOf(openConnections())
-        presetXML.appendContentsOf(connections)
-        //presetXML.appendContentsOf(generateConnectionDict(<#T##id: Int##Int#>, source: <#T##Int#>, destination: <#T##Int#>, scale: <#T##Int#>))
+        presetXML.appendContentsOf((connections == "" ? genDefaultConnections() : connections))
         presetXML.appendContentsOf(closeConnections())
         presetXML.appendContentsOf(openEnvelopes())
-        presetXML.appendContentsOf(envelopes)
-        //presetXML.appendContentsOf(generateEnvelope(<#T##id: Int##Int#>, delay: <#T##Double#>, attack: <#T##Double#>, hold: <#T##Double#>, decay: <#T##Double#>, sustain: <#T##Double#>, release: <#T##Double#>))
+        presetXML.appendContentsOf((envelopes == "" ? generateEnvelope() : envelopes))
         presetXML.appendContentsOf(closeEnvelopes())
-        //presetXML.appendContentsOf(generateFilter(<#T##cutoffHz: Double##Double#>, resonanceDb: <#T##Double#>))
-        presetXML.appendContentsOf((filter == "**FILTER***" ? generateFilter() : filter))
+        presetXML.appendContentsOf((filter == "" ? generateFilter() : filter))
         presetXML.appendContentsOf(openLFOs())
-        presetXML.appendContentsOf(lfos)
-        //presetXML.appendContentsOf(generateLFO(<#T##id: Int##Int#>, delay: <#T##Double#>, rate: <#T##Double#>, waveform: <#T##Int#>))
+        presetXML.appendContentsOf((lfos == "" ? generateLFO() : lfos))
         presetXML.appendContentsOf(closeLFOs())
         presetXML.appendContentsOf(generateOscillator())
         presetXML.appendContentsOf(openZones())
@@ -752,6 +856,181 @@ public class AKAUPresetBuilder{
         templateStr.appendContentsOf("        <integer>64</integer>\n")
         templateStr.appendContentsOf("    </dict>\n")
         templateStr.appendContentsOf("</plist>\n")
+        return templateStr
+    }
+    
+    static public func genDefaultConnections()->String{
+        var templateStr = ""
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>816840704</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <false/>\n")
+        templateStr.appendContentsOf("                            <key>scale</key>\n")
+        templateStr.appendContentsOf("                            <real>12800</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>300</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>1343225856</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>scale</key>\n")
+        templateStr.appendContentsOf("                            <real>-96</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>301</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>2</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>2</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>1343225856</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>scale</key>\n")
+        templateStr.appendContentsOf("                            <real>-96</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>7</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>2</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>3</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>1343225856</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>scale</key>\n")
+        templateStr.appendContentsOf("                            <real>-96</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>11</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>2</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>4</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>1344274432</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <false/>\n")
+        templateStr.appendContentsOf("                            <key>max value</key>\n")
+        templateStr.appendContentsOf("                            <real>0.50800001621246338</real>\n")
+        templateStr.appendContentsOf("                            <key>min value</key>\n")
+        templateStr.appendContentsOf("                            <real>-0.50800001621246338</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>10</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>7</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>241</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>816840704</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <false/>\n")
+        templateStr.appendContentsOf("                            <key>max value</key>\n")
+        templateStr.appendContentsOf("                            <real>12800</real>\n")
+        templateStr.appendContentsOf("                            <key>min value</key>\n")
+        templateStr.appendContentsOf("                            <real>-12800</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>224</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>8</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>816840704</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <false/>\n")
+        templateStr.appendContentsOf("                            <key>max value</key>\n")
+        templateStr.appendContentsOf("                            <real>100</real>\n")
+        templateStr.appendContentsOf("                            <key>min value</key>\n")
+        templateStr.appendContentsOf("                            <real>-100</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>242</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>6</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>816840704</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <false/>\n")
+        templateStr.appendContentsOf("                            <key>max value</key>\n")
+        templateStr.appendContentsOf("                            <real>50</real>\n")
+        templateStr.appendContentsOf("                            <key>min value</key>\n")
+        templateStr.appendContentsOf("                            <real>-50</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>268435456</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
+        templateStr.appendContentsOf("                        <dict>\n")
+        templateStr.appendContentsOf("                            <key>ID</key>\n")
+        templateStr.appendContentsOf("                            <integer>5</integer>\n")
+        templateStr.appendContentsOf("                            <key>control</key>\n")
+        templateStr.appendContentsOf("                            <integer>0</integer>\n")
+        templateStr.appendContentsOf("                            <key>destination</key>\n")
+        templateStr.appendContentsOf("                            <integer>1343225856</integer>\n")
+        templateStr.appendContentsOf("                            <key>enabled</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>inverse</key>\n")
+        templateStr.appendContentsOf("                            <true/>\n")
+        templateStr.appendContentsOf("                            <key>scale</key>\n")
+        templateStr.appendContentsOf("                            <real>-96</real>\n")
+        templateStr.appendContentsOf("                            <key>source</key>\n")
+        templateStr.appendContentsOf("                            <integer>536870912</integer>\n")
+        templateStr.appendContentsOf("                            <key>transform</key>\n")
+        templateStr.appendContentsOf("                            <integer>1</integer>\n")
+        templateStr.appendContentsOf("                        </dict>\n")
         return templateStr
     }
 }
