@@ -143,9 +143,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
     
     /// Load a brand new file!
-    public func loadNewFile( file : String )
+    public func replaceFile( newFile : String )
     {
-        internalFile = file
+        internalFile = newFile
         reloadFile()
     }
     
