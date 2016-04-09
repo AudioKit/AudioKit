@@ -1,4 +1,4 @@
-//: # AudioKit for iOS Playgrounds
+//: # Playgrounds Table of Contents
 //:
 //: AudioKit comes with many playgrounds, each of which serves to teach some core concept, demonstrate a particular generator or synthesizer, or just show off some wacky sounds that we've discovered.  Because there are so many playgrounds that are inter-related in different ways, the order of the playgrounds in Xcode is more or less alphabetical, however this index page lists all the the playgrounds grouped by category.  Playgrounds that fit into multiple categories are listed in each relevant category.
 //:
@@ -202,7 +202,7 @@
 //:
 //: These playgrounds are here basically for us to work on future AudioKit developments.  Proceed with caution!
 //:
-//: * [Parameter Intertia](Parameter%20Inertia)
+//: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
 //:
 //: Hey you got all the way to the bottom of this file, why not let us know by emailing audiokit@audiokit.io.  We'd love to hear from you!
 //:
