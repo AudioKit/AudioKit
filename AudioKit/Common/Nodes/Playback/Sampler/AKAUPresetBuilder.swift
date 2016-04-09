@@ -146,6 +146,7 @@ public class AKAUPresetBuilder{
             presetXML.appendContentsOf((envelopes == "" ? generateEnvelope() : envelopes))
             presetXML.appendContentsOf(closeEnvelopes())
             presetXML.appendContentsOf((filter == "" ? generateFilter() : filter))
+            presetXML.appendContentsOf(generateID())
             presetXML.appendContentsOf(openLFOs())
             presetXML.appendContentsOf((lfos == "" ? generateLFO() : lfos))
             presetXML.appendContentsOf(closeLFOs())
@@ -348,8 +349,12 @@ public class AKAUPresetBuilder{
         templateStr.appendContentsOf("                        <key>type</key>\n")
         templateStr.appendContentsOf("                        <integer>40</integer>\n")
         templateStr.appendContentsOf("                    </dict>\n")
+        return templateStr
+    }
+    static public func generateID(id:Int = 0)->String{
+        var templateStr = ""
         templateStr.appendContentsOf("                    <key>ID</key>\n")
-        templateStr.appendContentsOf("                    <integer>0</integer>\n")
+        templateStr.appendContentsOf("                    <integer>\(id)</integer>\n")
         return templateStr
     }
     static public func openLFOs()->String{
@@ -399,7 +404,8 @@ public class AKAUPresetBuilder{
         templateStr.appendContentsOf("                    <array>\n")
         return templateStr
     }
-    static public func generateZone(id:Int, rootNote:Int, startNote:Int, endNote:Int, wavRef:Int = 268435457)->String{
+    static public func generateZone(id:Int, rootNote:Int, startNote:Int, endNote:Int, wavRef:Int = 268435457, offset:Int = 0)->String{
+        let wavRefNum = wavRef+offset
         var templateStr = ""
         templateStr.appendContentsOf("                    <dict>\n")
         templateStr.appendContentsOf("                        <key>ID</key>\n")
@@ -415,7 +421,7 @@ public class AKAUPresetBuilder{
         templateStr.appendContentsOf("                        <key>root key</key>\n")
         templateStr.appendContentsOf("                        <integer>\(rootNote)</integer>\n")
         templateStr.appendContentsOf("                        <key>waveform</key>\n")
-        templateStr.appendContentsOf("                        <integer>\(wavRef)</integer>\n")
+        templateStr.appendContentsOf("                        <integer>\(wavRefNum)</integer>\n")
         templateStr.appendContentsOf("                     </dict>\n")
         return templateStr
     }
@@ -541,6 +547,7 @@ public class AKAUPresetBuilder{
         templateStr.appendContentsOf((envelopes == "" ? generateEnvelope() : envelopes))
         templateStr.appendContentsOf(closeEnvelopes())
         templateStr.appendContentsOf((filter == "" ? generateFilter() : filter))
+        templateStr.appendContentsOf(generateID(layer))
         templateStr.appendContentsOf(openLFOs())
         templateStr.appendContentsOf((lfos == "" ? generateLFO() : lfos))
         templateStr.appendContentsOf(closeLFOs())
@@ -1087,7 +1094,7 @@ public class AKAUPresetBuilder{
  300 = keynumber
  301 = keyvelocity
  536870912 = layer1envelope
- 536871168 = layer2envelope (+256)
+ 536871168 = layer2envelope (+256)536871424
  268435456 = layer1LFO1
  268435457 = layer1LFO2
  
