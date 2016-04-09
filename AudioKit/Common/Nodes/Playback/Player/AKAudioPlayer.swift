@@ -142,7 +142,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         return 0.0
     }
     
-    /// Load a brand new file!
+    /// Replace the current audio file with a new audio file
     public func replaceFile( newFile : String )
     {
         internalFile = newFile
