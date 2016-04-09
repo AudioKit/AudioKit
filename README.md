@@ -40,6 +40,7 @@ Installation with CocoaPods and Carthage is also planned but may not come with t
 There are three Hello World projects, one for each of the Apple platforms: OSX, iOS, and tvOS. They simply play an oscillator and display the waveform.
 
 The examples rely on the frameworks being built so you can either download the precompiled frameworks or build them on your own:
+
 ```
 $ cd Frameworks
 $ ./build_frameworks.sh
@@ -47,19 +48,23 @@ $ ./build_frameworks.sh
 Hello World basically consists of just a few sections of code:
 
 Creating the sound, in this case an oscillator:
-```swift
+
+```
 var oscillator = AKOscillator()
 ```
 Telling AudioKit where to get its audio from (ie. the oscillator):
-```swift
+
+```
 AudioKit.output = oscillator
 ```
 Starting AudioKit:
-```swift
+
+```
 AudioKit.start()
 ```
 And then responding to the UI by changing the oscillator:
-```swift
+
+```
 if oscillator.isPlaying {
     oscillator.stop()
 } else {

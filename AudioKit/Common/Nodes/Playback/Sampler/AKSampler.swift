@@ -93,118 +93,23 @@ public class AKSampler: AKNode {
             print("error")
         }
     }
-
-    /// Create AU Preset from a collection of dictionaires with the format:
-    /// filename: string
-    /// rootnote: int
-    /// startnote: int (optional)
-    /// endnote: int (optional)
-    ///
-    /// - parameter dict: Dictionary as described above
-    /// - parameter path: Where the AUPreset will be created
-    /// - parameter instName: Name of the AUPreset
-    /// - parameter attack: Optional attack time
-    ///
-    static public func createAUPresetFromDict(dict: NSDictionary, path: String, instName: String, attack: Double? = 0, release: Double? = 0){
-        let rootNoteKeyStr = "rootnote"
-        let startNoteKeyStr = "startnote"
-        let endNoteKeyStr = "endnote"
-        let filenameKeyStr = "filename"
-        var loadSoundsArr = Array<NSMutableDictionary>()
-        var sampleZoneXML: String = String()
-        var sampleIDXML: String = String()
-        var sampleIteration = 0
-        let sampleNumStart = 268435457
-        
-        //iterate over the sounds
-        for i in 0 ..< dict.count {
-            let sound = dict.allValues[i]
-            var soundDict:NSMutableDictionary
-            var alreadyLoaded = false
-            var sampleNum:Int = 0
-            soundDict = sound.mutableCopy() as! NSMutableDictionary
-            //check if this sample is already loaded
-            for loadedSoundDict in loadSoundsArr{
-                let alreadyLoadedSound:String = loadedSoundDict.objectForKey(filenameKeyStr) as! String
-                let newLoadingSound:String = soundDict.objectForKey(filenameKeyStr) as! String
-                if ( alreadyLoadedSound == newLoadingSound){
-                    alreadyLoaded = true
-                    sampleNum = loadedSoundDict.objectForKey("sampleNum") as! Int
-                }
-            }
-            
-            if sound.objectForKey(startNoteKeyStr) == nil || sound.objectForKey(endNoteKeyStr) == nil {
-                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: startNoteKeyStr)
-                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: endNoteKeyStr)
-            }
-            if sound.objectForKey(rootNoteKeyStr) == nil {
-                //error
-            } else {
-                soundDict.setObject(sound.objectForKey(rootNoteKeyStr)!, forKey: rootNoteKeyStr)
-            }
-            if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
-                sampleNum = sampleNumStart + sampleIteration
-                let sampleNumString = "<key>Sample:\(sampleNum)</key>"
-                let sampleLocString = "<string>\(sound.objectForKey("filename")!)</string>\n"
-                
-                soundDict.setObject(sampleNumString, forKey: "sampleNumString")
-                soundDict.setObject(sampleLocString, forKey: "sampleLocString")
-                sampleIDXML.appendContentsOf("\(sampleNumString)\n\(sampleLocString)")
-                sampleIteration += 1;
-            }
-            let tempSampleZoneXML:String = "<dict>\n" +
-                "<key>ID</key>\n" +
-                "<integer>\(i)</integer>\n" +
-                "<key>enabled</key>\n" +
-                "<true/>\n" +
-                "<key>loop enabled</key>\n" +
-                "<false/>\n" +
-                "<key>max key</key>\n" +
-                "<integer>\(soundDict.objectForKey(endNoteKeyStr)!)</integer>\n" +
-                "<key>min key</key>\n" +
-                "<integer>\(soundDict.objectForKey(startNoteKeyStr)!)</integer>\n" +
-                "<key>root key</key>\n" +
-                "<integer>\(soundDict.objectForKey(rootNoteKeyStr)!)</integer>\n" +
-                "<key>waveform</key>\n" +
-                "<integer>\(sampleNum)</integer>\n" +
-            "</dict>\n"
-            sampleZoneXML.appendContentsOf(tempSampleZoneXML)
-            soundDict.setObject(sampleNum, forKey: "sampleNum")
-            loadSoundsArr.append(soundDict)
-        }
-        
-        var templateStr = AKSampler.getAUPresetXML()
-        
-        templateStr = templateStr.stringByReplacingOccurrencesOfString("***INSTNAME***", withString: instName)
-        templateStr = templateStr.stringByReplacingOccurrencesOfString("***ZONEMAPPINGS***", withString: sampleZoneXML)
-        templateStr = templateStr.stringByReplacingOccurrencesOfString("***SAMPLEFILES***", withString: sampleIDXML)
-        templateStr = templateStr.stringByReplacingOccurrencesOfString("***ATTACK***", withString: String(attack!))
-        templateStr = templateStr.stringByReplacingOccurrencesOfString("***RELEASE***", withString: String(release!))
-        
-        //print(templateStr) //debug
-        //write to file
-        do {
-            print("Writing to \(path)")
-            try templateStr.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
-        } catch let error as NSError {
-            print(error)
-        }
-    }
     
-    /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that into createAUPresetFromDict
+    /* createAUPresetFromDict
+     was moved to AKAUPresetBuilder
+    */
+    static public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String, attack:Double? = 0, release:Double? = 0){
+        NSException(name: "Deprecated", reason: "createAUPresetFromDict was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.createAUPresetFromDict with AKAUPresetBuilder.createAUPresetFromDict. Thank you.", userInfo: nil).raise()
+    }//end func createAUPresetFromDict
+    
+    // This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that
+    // into createAUPresetFromDict
     public static func generateTemplateDictionary(
         rootNote: Int,
         filename: String,
         startNote: Int,
         endNote: Int) -> NSMutableDictionary {
-        
-        let rootNoteKeyStr = "rootnote"
-        let startNoteKeyStr = "startnote"
-        let endNoteKeyStr = "endnote"
-        let filenameKeyStr = "filename"
-        let defaultObjects:[NSObject] = [rootNote, startNote, endNote, filename]
-        let keys: [String] = [rootNoteKeyStr, startNoteKeyStr, endNoteKeyStr, filenameKeyStr]
-        return NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
+        NSException(name: "Deprecated", reason: "generateTemplateDictionary was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.generateTemplateDictionary with AKAUPresetBuilder.generateTemplateDictionary. Thank you.", userInfo: nil).raise()
+        return NSMutableDictionary()
     }
     
     /// Output Amplitude.
@@ -215,7 +120,6 @@ public class AKSampler: AKNode {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
-    
     /// Normalised Output Volume.
     /// Range:   0 - 1
     /// Default: 1
