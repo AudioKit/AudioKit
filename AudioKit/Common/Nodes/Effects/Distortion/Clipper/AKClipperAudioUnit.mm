@@ -72,45 +72,16 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the clippingStartPoint.
-    AUParameter *clippingStartPointAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"clippingStartPoint"
-                                              name:@"Clip start point"
-                                           address:clippingStartPointAddress
-                                               min:0.0
-                                               max:1.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the method.
-    AUParameter *methodAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"method"
-                                              name:@"Method"
-                                           address:methodAddress
-                                               min:0
-                                               max:2
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
+
 
     // Initialize the parameter values.
     limitAUParameter.value = 1.0;
-    clippingStartPointAUParameter.value = 0.5;
-    methodAUParameter.value = 0;
 
     _kernel.setParameter(limitAddress,              limitAUParameter.value);
-    _kernel.setParameter(clippingStartPointAddress, clippingStartPointAUParameter.value);
-    _kernel.setParameter(methodAddress,             methodAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        limitAUParameter,
-        clippingStartPointAUParameter,
-        methodAUParameter
+        limitAUParameter
     ]];
 
     // Create the input and output busses.

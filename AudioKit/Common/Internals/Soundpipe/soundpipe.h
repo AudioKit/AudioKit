@@ -317,8 +317,7 @@ int sp_butlp_destroy(sp_butlp **p);
 int sp_butlp_init(sp_data *sp, sp_butlp *p);
 int sp_butlp_compute(sp_data *sp, sp_butlp *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct{
-    SPFLOAT arg, lim, k1, k2;
-    int meth, pmeth;
+    SPFLOAT lim, k1;
 }sp_clip;
 
 int sp_clip_create(sp_clip **p);
