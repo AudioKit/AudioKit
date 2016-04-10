@@ -44,8 +44,8 @@ public class AKClipper: AKNode, AKToggleable {
             }
         }
     }
-    /// Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
-    public var method: Double = 0 {
+    /// Method of clipping. 0 = Bram de Jong, 1 = Sine (Default), 2 = tanh.
+    public var method: Int = 1 {
         willSet(newValue) {
             if method != newValue {
                 methodParameter?.setValue(Float(newValue), originator: token!)
@@ -71,7 +71,7 @@ public class AKClipper: AKNode, AKToggleable {
         _ input: AKNode,
         limit: Double = 1.0,
         clippingStartPoint: Double = 0.5,
-        method: Double = 0) {
+        method: Int = 0) {
 
         self.limit = limit
         self.clippingStartPoint = clippingStartPoint
@@ -118,7 +118,7 @@ public class AKClipper: AKNode, AKToggleable {
                 } else if address == self.clippingStartPointParameter!.address {
                     self.clippingStartPoint = Double(value)
                 } else if address == self.methodParameter!.address {
-                    self.method = Double(value)
+                    self.method = Int(value)
                 }
             }
         }

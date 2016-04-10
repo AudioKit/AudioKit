@@ -39,10 +39,7 @@ public:
         sp->sr = sampleRate;
         sp->nchan = channels;
         sp_clip_create(&clip);
-        sp_clip_init(sp, clip);
-        clip->lim = 1.0;
-        clip->arg = 0.5;
-        clip->meth = 0;
+
     }
 
     void start() {
@@ -59,6 +56,10 @@ public:
     }
 
     void reset() {
+        sp_clip_init(sp, clip);
+        clip->lim = 1.0;
+        clip->arg = 0.5;
+        clip->meth = 0;
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -136,7 +137,6 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
                 sp_clip_compute(sp, clip, in, out);
             }
         }
