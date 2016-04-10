@@ -73,4 +73,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, heig
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
