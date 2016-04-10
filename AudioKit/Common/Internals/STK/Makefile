@@ -69,8 +69,12 @@ $(OBJECTS) : include/Stk.h
 sp_mandol: sp_mandol.cpp $(OBJECTS)
 	g++ -o $@ $(CFLAGS) sp_mandol.cpp -lsoundpipe -lsndfile $(OBJECTS)
 
+sp_modalbar: sp_modalbar.cpp $(OBJECTS)
+	g++ -o $@ $(CFLAGS) sp_modalbar.cpp -lsoundpipe -lsndfile $(OBJECTS)
+
 clean : 
 	$(RM) -f $(OBJECT_PATH)/*.o
 	$(RM) -f *~
 	$(RM) -fR *.dSYM
 	$(RM) -rf *.o
+	$(RM) -rf sp_mandol sp_modalbar
