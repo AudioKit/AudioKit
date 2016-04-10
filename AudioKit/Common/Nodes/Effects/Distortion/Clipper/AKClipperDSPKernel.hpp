@@ -126,7 +126,7 @@ public:
 
             clip->lim = (float)limit;
             clip->arg = (float)clippingStartPoint;
-            clip->meth = (float)method;
+            clip->meth = (int)method;
 
             if (!started) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];

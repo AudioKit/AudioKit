@@ -21,23 +21,8 @@
 
 #include "soundpipe.h"
 
-int sp_clip_create(sp_clip **p)
+static void set_meth(sp_clip *p)
 {
-    *p = malloc(sizeof(sp_clip));
-    return SP_OK;
-}
-
-int sp_clip_destroy(sp_clip **p)
-{
-    free(*p);
-    return SP_OK;
-}
-
-int sp_clip_init(sp_data *sp, sp_clip *p)
-{
-    p->meth = 1;
-    p->arg = 0.5;
-    p->lim = 1;
     switch (p->meth) {
         case 0: /* Bram de Jong method */
             if (p->arg > 1.0 || p->arg < 0.0) p->arg = 0.999;
@@ -55,6 +40,27 @@ int sp_clip_init(sp_data *sp, sp_clip *p)
         default:
             p->meth = 0;
     }
+}
+
+int sp_clip_create(sp_clip **p)
+{
+    *p = malloc(sizeof(sp_clip));
+    return SP_OK;
+}
+
+int sp_clip_destroy(sp_clip **p)
+{
+    free(*p);
+    return SP_OK;
+}
+
+int sp_clip_init(sp_data *sp, sp_clip *p)
+{
+    p->meth = 1;
+    p->pmeth = 1;
+    p->arg = 0.5;
+    p->lim = 1;
+    set_meth(p);
     return SP_OK;
 }
 
@@ -64,6 +70,11 @@ int sp_clip_compute(sp_data *sp, sp_clip *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT limit = p->lim;
     SPFLOAT rlim = 1.0 / limit;
     SPFLOAT x;
+
+    if(p->meth != p->pmeth) {
+        p->pmeth = p->meth;
+        set_meth(p);
+    }
 
     switch (p->meth) {
         case 0:                     /* Soft clip with division */
@@ -109,5 +120,6 @@ int sp_clip_compute(sp_data *sp, sp_clip *p, SPFLOAT *in, SPFLOAT *out)
             return SP_OK;
         }
 
+    p->pmeth = p->meth;
     return SP_OK;
 }
