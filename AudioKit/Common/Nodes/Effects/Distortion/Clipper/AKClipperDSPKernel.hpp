@@ -19,9 +19,7 @@ extern "C" {
 }
 
 enum {
-    limitAddress = 0,
-    clippingStartPointAddress = 1,
-    methodAddress = 2
+    limitAddress = 0
 };
 
 class AKClipperDSPKernel : public AKDSPKernel {
@@ -58,8 +56,6 @@ public:
     void reset() {
         sp_clip_init(sp, clip);
         clip->lim = 1.0;
-        clip->arg = 0.5;
-        clip->meth = 0;
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
@@ -67,15 +63,6 @@ public:
             case limitAddress:
                 limitRamper.set(clamp(value, (float)0.0, (float)1.0));
                 break;
-
-            case clippingStartPointAddress:
-                clippingStartPointRamper.set(clamp(value, (float)0.0, (float)1.0));
-                break;
-
-            case methodAddress:
-                methodRamper.set(clamp(value, (float)0, (float)2));
-                break;
-
         }
     }
 
@@ -83,12 +70,6 @@ public:
         switch (address) {
             case limitAddress:
                 return limitRamper.goal();
-
-            case clippingStartPointAddress:
-                return clippingStartPointRamper.goal();
-
-            case methodAddress:
-                return methodRamper.goal();
 
             default: return 0.0f;
         }
@@ -99,15 +80,6 @@ public:
             case limitAddress:
                 limitRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
                 break;
-
-            case clippingStartPointAddress:
-                clippingStartPointRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
-                break;
-
-            case methodAddress:
-                methodRamper.startRamp(clamp(value, (float)0, (float)2), duration);
-                break;
-
         }
     }
 
@@ -120,14 +92,10 @@ public:
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             double limit = double(limitRamper.getStep());
-            double clippingStartPoint = double(clippingStartPointRamper.getStep());
-            double method = double(methodRamper.getStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
             clip->lim = (float)limit;
-            clip->arg = (float)clippingStartPoint;
-            clip->meth = (int)method;
 
             if (!started) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
@@ -158,8 +126,6 @@ private:
 public:
     bool started = true;
     AKParameterRamper limitRamper = 1.0;
-    AKParameterRamper clippingStartPointRamper = 0.5;
-    AKParameterRamper methodRamper = 0;
 };
 
 #endif /* AKClipperDSPKernel_hpp */
