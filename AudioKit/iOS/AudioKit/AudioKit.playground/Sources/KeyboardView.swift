@@ -1,5 +1,5 @@
 //
-//  TeyboardView.swift
+//  KeyboardView.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -18,13 +18,10 @@ public class KeyboardView: UIView {
     public var delegate: KeyboardDelegate?
     var keys: [UIView] = []
     
-    public var lowestKey = 48
-    public var totalKeys = 37
     let notesWithFlats  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     
-    
-    public init(width: Int, height: Int) {
+    public init(width: Int, height: Int, lowestKey: Int = 48, totalKeys: Int = 37) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         let allowedNotes = notesWithSharps //["A", "B", "C#", "D", "E", "F#", "G"]
         
