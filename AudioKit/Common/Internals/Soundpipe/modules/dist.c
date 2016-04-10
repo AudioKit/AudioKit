@@ -28,7 +28,6 @@ int sp_dist_destroy(sp_dist **p)
 
 int sp_dist_init(sp_data *sp, sp_dist *p)
 {
-    p->mode = 0;
     p->pregain = 2.0;
     p->postgain = 0.5;
     p->shape1 = 0;
@@ -42,23 +41,11 @@ int sp_dist_compute(sp_data *sp, sp_dist *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT shape1 = p->shape1, shape2 = p->shape2;
     SPFLOAT sig;
     
-    if (p->mode < 0.5) { 
-        /* mode 0: original Mikelson version */               
-        pregain   *=  0.0002;
-        postgain  *=  20000.0;        
-        shape1    *=  0.000125;
-        shape2    *=  0.000125;
-    } else if (p->mode < 1.5) {     
-        /* mode 1: same with 0dBFS support */
-        pregain   *=  6.5536;
-        postgain  *=  0.61035156;
-        shape1    *=  4.096;
-        shape2    *=  4.096;
-    } else {                              
-        /* mode 2: "raw" mode (+/- 1 amp.) */
-        shape1 *= pregain;
-        shape2 *= -pregain;
-    }
+    pregain   *=  6.5536;
+    postgain  *=  0.61035156;
+    shape1    *=  4.096;
+    shape2    *=  4.096;
+
     /* IV - Dec 28 2002 */
     shape1 += pregain;
     shape2 -= pregain;
