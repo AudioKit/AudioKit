@@ -17,35 +17,63 @@ AudioKit.start()
 class PlaygroundView: AKPlaygroundView {
 
     //: UI Elements we'll need to be able to access
-    var frequencyLabel: Label?
-    var amplitudeLabel: Label?
-    var carrierMultiplierLabel: Label?
-    var modulatingMultiplierLabel: Label?
-    var modulationIndexLabel: Label?
+    var frequencyTextField: TextField?
+    var frequencySlider: Slider?
+    var carrierMultiplierTextField: TextField?
+    var carrierMultiplierSlider: Slider?
+    var modulatingMultiplierTextField: TextField?
+    var modulatingMultiplierSlider: Slider?
+    var modulationIndexTextField: TextField?
+    var modulationIndexSlider: Slider?
+    var amplitudeTextField: TextField?
+    var amplitudeSlider: Slider?
 
     override func setup() {
         addTitle("FM Oscillator")
 
         addButton("Start", action: #selector(self.start))
         addButton("Stop", action: #selector(self.stop))
+        
+        frequencyTextField = addTextField(#selector(self.setBaseFrequency(_:)), text: "Base Frequency", value: oscillator.baseFrequency)
+        frequencySlider = addSlider(#selector(self.slideBaseFrequency(_:)), value: oscillator.baseFrequency, minimum: 200, maximum: 800)
 
-        frequencyLabel = addLabel("Base Frequency: 440")
-        addSlider(#selector(self.setBaseFrequency(_:)), value: 440, minimum: 200, maximum: 800)
+        carrierMultiplierTextField = addTextField(#selector(self.setCarrierMultiplier(_:)), text: "Carrier Multiplier", value: oscillator.carrierMultiplier)
+        carrierMultiplierSlider = addSlider(#selector(self.slideCarrierMultiplier(_:)), value: oscillator.carrierMultiplier, minimum: 0, maximum: 20)
 
-        carrierMultiplierLabel = addLabel("Carrier Multiplier: 1")
-        addSlider(#selector(self.setCarrierMultiplier(_:)), value: 1, minimum: 0, maximum: 20)
+        modulatingMultiplierTextField = addTextField(#selector(self.setModulatingMultiplier(_:)), text: "Modulating Multiplier", value: oscillator.modulatingMultiplier)
+        modulatingMultiplierSlider = addSlider(#selector(self.slideModulatingMultiplier(_:)), value: oscillator.modulatingMultiplier, minimum: 0, maximum: 20)
+        
+        modulationIndexTextField = addTextField(#selector(self.setModulationIndex(_:)), text: "Modulation Index", value: oscillator.modulationIndex)
+        modulationIndexSlider = addSlider(#selector(self.slideModulationIndex(_:)), value: oscillator.modulationIndex, minimum: 0, maximum: 100)
 
-        modulatingMultiplierLabel = addLabel("Modulating Multiplier: 1")
-        addSlider(#selector(self.setModulatingMultiplier(_:)), value: 1, minimum: 0, maximum: 20)
+        amplitudeTextField = addTextField(#selector(self.setAmplitude(_:)), text: "Amplitude", value: oscillator.amplitude)
+        amplitudeSlider = addSlider(#selector(self.slideAmplitude(_:)), value: oscillator.amplitude)
 
-        modulationIndexLabel = addLabel("Modulation Index: 1")
-        addSlider(#selector(self.setModulationIndex(_:)), value: 1, minimum: 0, maximum: 100)
 
-        amplitudeLabel = addLabel("Amplitude: 0.1")
-        addSlider(#selector(self.setAmplitude(_:)), value: 0.1)
+        addButton("Stun Ray", action: #selector(self.presetStunRay))
+        addButton("Wobble", action: #selector(self.presetWobble))
+        addButton("Fog Horn", action: #selector(self.presetFogHorn))
+        addButton("Buzzer", action: #selector(self.presetBuzzer))
+        addButton("Spiral", action: #selector(self.presetSpiral))
+        addLineBreak()
+        addButton("Randomize", action: #selector(self.presetRandom))
+
     }
 
     //: Handle UI Events
+    
+    func updateUI() {
+        frequencySlider?.value = Float(oscillator.baseFrequency)
+        carrierMultiplierSlider?.value = Float(oscillator.carrierMultiplier)
+        modulatingMultiplierSlider?.value = Float(oscillator.modulatingMultiplier)
+        modulationIndexSlider?.value = Float(oscillator.modulationIndex)
+        amplitudeSlider?.value = Float(oscillator.amplitude)
+        frequencyTextField!.text = "\(oscillator.baseFrequency)"
+        carrierMultiplierTextField!.text = "\(oscillator.carrierMultiplier)"
+        modulatingMultiplierTextField!.text = "\(oscillator.modulatingMultiplier)"
+        modulationIndexTextField!.text = "\(oscillator.modulationIndex)"
+        amplitudeTextField!.text = "\(Float(oscillator.amplitude))"
+    }
 
     func start() {
         oscillator.play()
@@ -54,40 +82,129 @@ class PlaygroundView: AKPlaygroundView {
         oscillator.stop()
     }
 
-    func setBaseFrequency(slider: Slider) {
+    func setBaseFrequency(textField: UITextField) {
+        if let value = Double(textField.text!) {
+            oscillator.baseFrequency = value
+            frequencySlider?.value = Float(value)
+        }
+    }
+    func slideBaseFrequency(slider: Slider) {
         oscillator.baseFrequency = Double(slider.value)
         let baseFrequency = String(format: "%0.1f", oscillator.baseFrequency)
-        frequencyLabel!.text = "Base Frequency: \(baseFrequency)"
+        frequencyTextField!.text = "\(baseFrequency)"
     }
-
-    func setCarrierMultiplier(slider: Slider) {
+    
+    func setCarrierMultiplier(textField: UITextField) {
+        if let value = Double(textField.text!) {
+            oscillator.carrierMultiplier = value
+            carrierMultiplierSlider?.value = Float(value)
+        }
+    }
+    func slideCarrierMultiplier(slider: Slider) {
         oscillator.carrierMultiplier = Double(slider.value)
         let carrierMultiplier = String(format: "%0.3f", oscillator.carrierMultiplier)
-        carrierMultiplierLabel!.text = "Carrier Multiplier: \(carrierMultiplier)"
+        carrierMultiplierTextField!.text = "\(carrierMultiplier)"
     }
 
-
-    func setModulatingMultiplier(slider: Slider) {
+    func setModulatingMultiplier(textField: UITextField) {
+        if let value = Double(textField.text!) {
+            oscillator.modulatingMultiplier = value
+            modulatingMultiplierSlider?.value = Float(value)
+        }
+    }
+    func slideModulatingMultiplier(slider: Slider) {
         oscillator.modulatingMultiplier = Double(slider.value)
         let modulatingMultiplier = String(format: "%0.3f", oscillator.modulatingMultiplier)
-        modulatingMultiplierLabel!.text = "Modulation Multiplier: \(modulatingMultiplier)"
+        modulatingMultiplierTextField!.text = "\(modulatingMultiplier)"
     }
 
-    func setModulationIndex(slider: Slider) {
+    func setModulationIndex(textField: UITextField) {
+        if let value = Double(textField.text!) {
+            oscillator.modulationIndex = value
+            modulationIndexSlider?.value = Float(value)
+        }
+    }
+    func slideModulationIndex(slider: Slider) {
         oscillator.modulationIndex = Double(slider.value)
         let modulationIndex = String(format: "%0.3f", oscillator.modulationIndex)
-        modulationIndexLabel!.text = "Modulation Index: \(modulationIndex)"
+        modulationIndexTextField!.text = "\(modulationIndex)"
     }
 
-
-    func setAmplitude(slider: Slider) {
+    func setAmplitude(textField: UITextField) {
+        if let value = Double(textField.text!) {
+            oscillator.amplitude = value
+            amplitudeSlider?.value = Float(value)
+        }
+    }
+    func slideAmplitude(slider: Slider) {
         oscillator.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator.amplitude)
-        amplitudeLabel!.text = "Amplitude: \(amp)"
+        let amplitude = String(format: "%0.3f", oscillator.amplitude)
+        amplitudeTextField!.text = "\(amplitude)"
     }
+    
+    
+    
+    func presetStunRay() {
+        oscillator.baseFrequency = 200
+        oscillator.carrierMultiplier = 90
+        oscillator.modulatingMultiplier = 10
+        oscillator.modulationIndex = 25
+        oscillator.start()
+        updateUI()
+    }
+    
+    func presetFogHorn() {
+        oscillator.baseFrequency = 25
+        oscillator.carrierMultiplier = 10
+        oscillator.modulatingMultiplier = 5
+        oscillator.modulationIndex = 10
+        oscillator.start()
+        updateUI()
+    }
+    
+    func presetBuzzer() {
+        oscillator.baseFrequency = 400
+        oscillator.carrierMultiplier = 28
+        oscillator.modulatingMultiplier = 0.5
+        oscillator.modulationIndex = 100
+        oscillator.start()
+        updateUI()
+    }
+    
+    func presetSpiral() {
+        oscillator.baseFrequency = 5
+        oscillator.carrierMultiplier = 280
+        oscillator.modulatingMultiplier = 0.2
+        oscillator.modulationIndex = 100
+        oscillator.start()
+        updateUI()
+    }
+    
+    func presetWobble() {
+        oscillator.baseFrequency = 20
+        oscillator.carrierMultiplier = 10
+        oscillator.modulatingMultiplier = 0.9
+        oscillator.modulationIndex = 20
+        oscillator.start()
+        updateUI()
+    }
+    
+    func presetRandom() {
+        oscillator.baseFrequency = random(Double(frequencySlider!.minimumValue), Double(frequencySlider!.maximumValue))
+        oscillator.carrierMultiplier = random(Double(carrierMultiplierSlider!.minimumValue), Double(carrierMultiplierSlider!.maximumValue))
+        
+        oscillator.modulatingMultiplier = random(Double(modulatingMultiplierSlider!.minimumValue), Double(modulatingMultiplierSlider!.maximumValue))
+        
+        oscillator.modulationIndex = random(Double(modulationIndexSlider!.minimumValue), Double(modulationIndexSlider!.maximumValue))
+        
+        oscillator.start()
+        updateUI()
+    }
+    
+
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
