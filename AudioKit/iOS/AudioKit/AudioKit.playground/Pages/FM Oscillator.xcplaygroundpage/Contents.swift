@@ -9,7 +9,6 @@ import XCPlayground
 import AudioKit
 
 var oscillator = AKFMOscillator()
-oscillator.rampTime = 0.1
 oscillator.amplitude = 0.1
 AudioKit.output = oscillator
 AudioKit.start()
@@ -27,6 +26,8 @@ class PlaygroundView: AKPlaygroundView {
     var modulationIndexSlider: Slider?
     var amplitudeTextField: TextField?
     var amplitudeSlider: Slider?
+    var rampTimeTextField: TextField?
+    var rampTimeSlider: Slider?
 
     override func setup() {
         addTitle("FM Oscillator")
@@ -35,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Stop", action: #selector(self.stop))
         
         frequencyTextField = addTextField(#selector(self.setBaseFrequency(_:)), text: "Base Frequency", value: oscillator.baseFrequency)
-        frequencySlider = addSlider(#selector(self.slideBaseFrequency(_:)), value: oscillator.baseFrequency, minimum: 200, maximum: 800)
+        frequencySlider = addSlider(#selector(self.slideBaseFrequency(_:)), value: oscillator.baseFrequency, minimum: 0, maximum: 800)
 
         carrierMultiplierTextField = addTextField(#selector(self.setCarrierMultiplier(_:)), text: "Carrier Multiplier", value: oscillator.carrierMultiplier)
         carrierMultiplierSlider = addSlider(#selector(self.slideCarrierMultiplier(_:)), value: oscillator.carrierMultiplier, minimum: 0, maximum: 20)
@@ -48,6 +49,9 @@ class PlaygroundView: AKPlaygroundView {
 
         amplitudeTextField = addTextField(#selector(self.setAmplitude(_:)), text: "Amplitude", value: oscillator.amplitude)
         amplitudeSlider = addSlider(#selector(self.slideAmplitude(_:)), value: oscillator.amplitude)
+        
+        rampTimeTextField = addTextField(#selector(self.setRampTime(_:)), text: "Ramp Time", value: oscillator.rampTime)
+        rampTimeSlider = addSlider(#selector(self.slideRampTime(_:)), value: oscillator.rampTime, minimum: 0, maximum: 10)
 
 
         addButton("Stun Ray", action: #selector(self.presetStunRay))
@@ -62,18 +66,6 @@ class PlaygroundView: AKPlaygroundView {
 
     //: Handle UI Events
     
-    func updateUI() {
-        frequencySlider?.value = Float(oscillator.baseFrequency)
-        carrierMultiplierSlider?.value = Float(oscillator.carrierMultiplier)
-        modulatingMultiplierSlider?.value = Float(oscillator.modulatingMultiplier)
-        modulationIndexSlider?.value = Float(oscillator.modulationIndex)
-        amplitudeSlider?.value = Float(oscillator.amplitude)
-        frequencyTextField!.text = "\(oscillator.baseFrequency)"
-        carrierMultiplierTextField!.text = "\(oscillator.carrierMultiplier)"
-        modulatingMultiplierTextField!.text = "\(oscillator.modulatingMultiplier)"
-        modulationIndexTextField!.text = "\(oscillator.modulationIndex)"
-        amplitudeTextField!.text = "\(Float(oscillator.amplitude))"
-    }
 
     func start() {
         oscillator.play()
@@ -85,64 +77,68 @@ class PlaygroundView: AKPlaygroundView {
     func setBaseFrequency(textField: UITextField) {
         if let value = Double(textField.text!) {
             oscillator.baseFrequency = value
-            frequencySlider?.value = Float(value)
+            updateSliders()
         }
     }
     func slideBaseFrequency(slider: Slider) {
         oscillator.baseFrequency = Double(slider.value)
-        let baseFrequency = String(format: "%0.1f", oscillator.baseFrequency)
-        frequencyTextField!.text = "\(baseFrequency)"
+        updateTextFields()
     }
     
     func setCarrierMultiplier(textField: UITextField) {
         if let value = Double(textField.text!) {
             oscillator.carrierMultiplier = value
-            carrierMultiplierSlider?.value = Float(value)
+            updateSliders()
         }
     }
     func slideCarrierMultiplier(slider: Slider) {
         oscillator.carrierMultiplier = Double(slider.value)
-        let carrierMultiplier = String(format: "%0.3f", oscillator.carrierMultiplier)
-        carrierMultiplierTextField!.text = "\(carrierMultiplier)"
+        updateTextFields()
     }
 
     func setModulatingMultiplier(textField: UITextField) {
         if let value = Double(textField.text!) {
             oscillator.modulatingMultiplier = value
-            modulatingMultiplierSlider?.value = Float(value)
+            updateSliders()
         }
     }
     func slideModulatingMultiplier(slider: Slider) {
         oscillator.modulatingMultiplier = Double(slider.value)
-        let modulatingMultiplier = String(format: "%0.3f", oscillator.modulatingMultiplier)
-        modulatingMultiplierTextField!.text = "\(modulatingMultiplier)"
+        updateTextFields()
     }
 
     func setModulationIndex(textField: UITextField) {
         if let value = Double(textField.text!) {
             oscillator.modulationIndex = value
-            modulationIndexSlider?.value = Float(value)
+            updateSliders()
         }
     }
     func slideModulationIndex(slider: Slider) {
         oscillator.modulationIndex = Double(slider.value)
-        let modulationIndex = String(format: "%0.3f", oscillator.modulationIndex)
-        modulationIndexTextField!.text = "\(modulationIndex)"
+        updateTextFields()
     }
 
     func setAmplitude(textField: UITextField) {
         if let value = Double(textField.text!) {
             oscillator.amplitude = value
-            amplitudeSlider?.value = Float(value)
+            updateSliders()
         }
     }
     func slideAmplitude(slider: Slider) {
         oscillator.amplitude = Double(slider.value)
-        let amplitude = String(format: "%0.3f", oscillator.amplitude)
-        amplitudeTextField!.text = "\(amplitude)"
+        updateTextFields()
     }
     
-    
+    func setRampTime(textField: UITextField) {
+        if let value = Double(textField.text!) {
+            oscillator.rampTime = value
+            updateSliders()
+        }
+    }
+    func slideRampTime(slider: Slider) {
+        oscillator.rampTime = Double(slider.value)
+        updateTextFields()
+    }
     
     func presetStunRay() {
         oscillator.baseFrequency = 200
@@ -199,6 +195,40 @@ class PlaygroundView: AKPlaygroundView {
         
         oscillator.start()
         updateUI()
+    }
+    
+    func updateSliders() {
+        frequencySlider?.value = Float(oscillator.baseFrequency)
+        carrierMultiplierSlider?.value = Float(oscillator.carrierMultiplier)
+        modulatingMultiplierSlider?.value = Float(oscillator.modulatingMultiplier)
+        modulationIndexSlider?.value = Float(oscillator.modulationIndex)
+        amplitudeSlider?.value = Float(oscillator.amplitude)
+        rampTimeSlider?.value = Float(oscillator.rampTime)
+    }
+    
+    func updateTextFields() {
+        let baseFrequency = String(format: "%0.1f", oscillator.baseFrequency)
+        frequencyTextField!.text = "\(baseFrequency)"
+        
+        let carrierMultiplier = String(format: "%0.3f", oscillator.carrierMultiplier)
+        carrierMultiplierTextField!.text = "\(carrierMultiplier)"
+        
+        let modulatingMultiplier = String(format: "%0.3f", oscillator.modulatingMultiplier)
+        modulatingMultiplierTextField!.text = "\(modulatingMultiplier)"
+        
+        let modulationIndex = String(format: "%0.3f", oscillator.modulationIndex)
+        modulationIndexTextField!.text = "\(modulationIndex)"
+        
+        let amplitude = String(format: "%0.3f", oscillator.amplitude)
+        amplitudeTextField!.text = "\(amplitude)"
+        
+        let rampTime = String(format: "%0.3f", oscillator.rampTime)
+        rampTimeTextField!.text = "\(rampTime)"
+    }
+    
+    func updateUI() {
+        updateTextFields()
+        updateSliders()
     }
     
 
