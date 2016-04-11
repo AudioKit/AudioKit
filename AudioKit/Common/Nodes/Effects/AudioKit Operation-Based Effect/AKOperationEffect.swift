@@ -55,7 +55,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
     /// - parameter right: AKOperation stack to use on the right
     ///  
     public convenience init(_ input: AKNode, left: AKOperation, right: AKOperation) {
-        self.init(input, sporth:"\(left) swap \(right) swap")
+        self.init(input, sporth:"\(right) swap \(left) swap")
     }
     
     /// Initialize the effect with an input and a valid Sporth string
