@@ -467,7 +467,7 @@ public class AKAUPresetBuilder{
         templateStr.appendContentsOf("        <dict>\n")
         return templateStr
     }
-    static public func generateFileRef(wavRef:Int, samplePath:String)->String{
+    static public func generateFileRef(wavRef:Int = 268435457, samplePath:String)->String{
         var templateStr:String = ""
         templateStr.appendContentsOf("            <key>Sample:\(wavRef)</key>\n")
         templateStr.appendContentsOf("            <string>\(samplePath)</string>\n")

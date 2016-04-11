@@ -451,4 +451,12 @@ public class AKSequencer {
             CAShow(sequencePointer)
         }
     }
+    
+    public static func beatsFromSamples(samples:Int, fs:Int, bpm:Double)->Double{
+        let timeInSecs = Double(samples)/Double(fs)
+        let beatsPerSec = bpm/60.0
+        let beatLenInSecs = Double(1.0/beatsPerSec)
+        let numBeats = timeInSecs/beatLenInSecs
+        return numBeats
+    }
 }
