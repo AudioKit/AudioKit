@@ -1,6 +1,6 @@
 {
     "name": "AudioKit",
-    "version": "3.1",
+    "version": "3.1.1",
     "authors": {
         "Aurelius Prochazka": "audiokit@audiokit.io"
     },
