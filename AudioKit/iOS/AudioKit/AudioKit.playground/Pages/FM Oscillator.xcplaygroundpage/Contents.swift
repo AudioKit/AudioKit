@@ -10,12 +10,13 @@ import AudioKit
 
 var oscillator = AKFMOscillator()
 oscillator.amplitude = 0.1
+oscillator.rampTime = 0.1
 AudioKit.output = oscillator
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
+    // UI Elements we'll need to be able to access
     var frequencyTextField: TextField?
     var frequencySlider: Slider?
     var carrierMultiplierTextField: TextField?
@@ -219,10 +220,11 @@ class PlaygroundView: AKPlaygroundView {
         // Here we're just printing out the preset so it can be copy and pasted into code
         
         print("func presetXXXXXX() {")
-        print("    oscillator.baseFrequency = \(oscillator.baseFrequency)")
-        print("    oscillator.carrierMultiplier = \(oscillator.carrierMultiplier)")
-        print("    oscillator.modulatingMultiplier = \(oscillator.modulatingMultiplier)")
-        print("    oscillator.modulationIndex = \(oscillator.modulationIndex)\n}\n")
+        print("    baseFrequency = \(oscillator.baseFrequency)")
+        print("    carrierMultiplier = \(oscillator.carrierMultiplier)")
+        print("    modulatingMultiplier = \(oscillator.modulatingMultiplier)")
+        print("    modulationIndex = \(oscillator.modulationIndex)")
+        print("}\n")
     }
     
     func updateUI() {
@@ -230,7 +232,6 @@ class PlaygroundView: AKPlaygroundView {
         updateSliders()
     }
     
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
