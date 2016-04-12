@@ -79,6 +79,7 @@
 		C42FFBDD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBCD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp */; };
 		C4362F141C2F5FCD00D17352 /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F131C2F5FCD00D17352 /* reverberateWithCostello.swift */; };
 		C4362F161C2F5FD500D17352 /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F151C2F5FD500D17352 /* variableDelay.swift */; };
+		C43FF29B1CBDA00600B3C05A /* AKFMOscillatorPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43FF29A1CBDA00600B3C05A /* AKFMOscillatorPresets.swift */; };
 		C45381831C3A5CBD00A51738 /* AKAmplitudeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45380971C3A5CBD00A51738 /* AKAmplitudeTracker.swift */; };
 		C45381841C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45380981C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45381851C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45380991C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.mm */; };
@@ -588,6 +589,7 @@
 		C42FFBCD1C3D039C00823BD4 /* AKPannerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPannerDSPKernel.hpp; sourceTree = "<group>"; };
 		C4362F131C2F5FCD00D17352 /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
 		C4362F151C2F5FD500D17352 /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
+		C43FF29A1CBDA00600B3C05A /* AKFMOscillatorPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorPresets.swift; sourceTree = "<group>"; };
 		C45380971C3A5CBD00A51738 /* AKAmplitudeTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAmplitudeTracker.swift; sourceTree = "<group>"; };
 		C45380981C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAmplitudeTrackerAudioUnit.h; sourceTree = "<group>"; };
 		C45380991C3A5CBD00A51738 /* AKAmplitudeTrackerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKAmplitudeTrackerAudioUnit.mm; sourceTree = "<group>"; };
@@ -1806,6 +1808,7 @@
 				C453815F1C3A5CBD00A51738 /* AKFMOscillatorAudioUnit.h */,
 				C45381601C3A5CBD00A51738 /* AKFMOscillatorAudioUnit.mm */,
 				C45381611C3A5CBD00A51738 /* AKFMOscillatorDSPKernel.hpp */,
+				C43FF29A1CBDA00600B3C05A /* AKFMOscillatorPresets.swift */,
 			);
 			path = "FM Oscillator";
 			sourceTree = "<group>";
@@ -2933,6 +2936,7 @@
 				C453818C1C3A5CBD00A51738 /* AKOperationEffect.swift in Sources */,
 				C4B1921F1C3B342800C0F330 /* dtrig.c in Sources */,
 				C4E7523A1C23888700688A1B /* distort.swift in Sources */,
+				C43FF29B1CBDA00600B3C05A /* AKFMOscillatorPresets.swift in Sources */,
 				C4E752391C23888700688A1B /* clip.swift in Sources */,
 				C4B192441C3B342800C0F330 /* randi.c in Sources */,
 				C4B1920F1C3B342800C0F330 /* blsaw.c in Sources */,
