@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+/// Preset for the AKFMOscillator
 public extension AKFMOscillator {
     
     /// Stun Ray Preset
