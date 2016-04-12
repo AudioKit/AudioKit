@@ -141,46 +141,31 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func presetStunRay() {
-        oscillator.baseFrequency = 200
-        oscillator.carrierMultiplier = 90
-        oscillator.modulatingMultiplier = 10
-        oscillator.modulationIndex = 25
+        oscillator.presetStunRay()
         oscillator.start()
         updateUI()
     }
     
     func presetFogHorn() {
-        oscillator.baseFrequency = 25
-        oscillator.carrierMultiplier = 10
-        oscillator.modulatingMultiplier = 5
-        oscillator.modulationIndex = 10
+        oscillator.presetFogHorn()
         oscillator.start()
         updateUI()
     }
     
     func presetBuzzer() {
-        oscillator.baseFrequency = 400
-        oscillator.carrierMultiplier = 28
-        oscillator.modulatingMultiplier = 0.5
-        oscillator.modulationIndex = 100
+        oscillator.presetBuzzer()
         oscillator.start()
         updateUI()
     }
     
     func presetSpiral() {
-        oscillator.baseFrequency = 5
-        oscillator.carrierMultiplier = 280
-        oscillator.modulatingMultiplier = 0.2
-        oscillator.modulationIndex = 100
+        oscillator.presetSpiral()
         oscillator.start()
         updateUI()
     }
     
     func presetWobble() {
-        oscillator.baseFrequency = 20
-        oscillator.carrierMultiplier = 10
-        oscillator.modulatingMultiplier = 0.9
-        oscillator.modulationIndex = 20
+        oscillator.presetWobble()
         oscillator.start()
         updateUI()
     }
@@ -204,6 +189,8 @@ class PlaygroundView: AKPlaygroundView {
         modulationIndexSlider?.value = Float(oscillator.modulationIndex)
         amplitudeSlider?.value = Float(oscillator.amplitude)
         rampTimeSlider?.value = Float(oscillator.rampTime)
+        
+        printCode()
     }
     
     func updateTextFields() {
@@ -224,6 +211,18 @@ class PlaygroundView: AKPlaygroundView {
         
         let rampTime = String(format: "%0.3f", oscillator.rampTime)
         rampTimeTextField!.text = "\(rampTime)"
+        
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("func presetXXXXXX() {")
+        print("    oscillator.baseFrequency = \(oscillator.baseFrequency)")
+        print("    oscillator.carrierMultiplier = \(oscillator.carrierMultiplier)")
+        print("    oscillator.modulatingMultiplier = \(oscillator.modulatingMultiplier)")
+        print("    oscillator.modulationIndex = \(oscillator.modulationIndex)\n}\n")
     }
     
     func updateUI() {
