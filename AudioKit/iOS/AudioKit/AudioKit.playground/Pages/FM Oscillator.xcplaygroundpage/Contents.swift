@@ -219,11 +219,11 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
         
-        print("func presetXXXXXX() {")
-        print("    baseFrequency = \(oscillator.baseFrequency)")
-        print("    carrierMultiplier = \(oscillator.carrierMultiplier)")
-        print("    modulatingMultiplier = \(oscillator.modulatingMultiplier)")
-        print("    modulationIndex = \(oscillator.modulationIndex)")
+        print("public func presetXXXXXX() {")
+        print("    baseFrequency = \(String(format: "%0.3f", oscillator.baseFrequency))")
+        print("    carrierMultiplier = \(String(format: "%0.3f", oscillator.carrierMultiplier))")
+        print("    modulatingMultiplier = \(String(format: "%0.3f", oscillator.modulatingMultiplier))")
+        print("    modulationIndex = \(String(format: "%0.3f", oscillator.modulationIndex))")
         print("}\n")
     }
     
