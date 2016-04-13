@@ -53,7 +53,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     /// - parameter right: AKOperation to be heard from the right output
     ///
     public convenience init(left: AKOperation, right: AKOperation) {
-        let operationString = "\(left) \(right)"
+        let operationString = "\(right) \(left)"
         self.init(operationString)
     }
 

@@ -9,6 +9,7 @@ AudioKit 3 now requires at least iOS 9.0, OS X 10.11 (El Capitan) or tvOS 9.0. T
 * Select the target in your Xcode project that will link with AudioKit.
 * Drag and drop the `AudioKit.framework` bundle in the **Embedded Binaries** section of the **General** tab.
 * If you didn't copy the framework to your project, go to the **Build Settings** tab and make sure that the **Framework Search Paths** options contains the path where the framework is located.
+* For **Objective-C Projects**, make sure that the *Embedded Content Contains Swift Code* build setting is set to YES for your target. AudioKit is a Swift library that depends on the Swift runtime being available.
 
 ### Handling Bitcode
 
@@ -23,7 +24,7 @@ Calling this script is required for your App Store submissions to pass validatio
 
 ## Alternative: compile the framework from source
 
-This may be the preferred method if you need to debug code using AudioKit, as Xcode 7.1 is still notoriously bad at handling precompiled Swift frameworks in other projects.
+This may be the preferred method if you need to debug code using AudioKit, as Xcode 7 is still notoriously bad at handling precompiled Swift frameworks in other projects.
 
 You may obtain the source code archive directly from [GitHub](http://github.com/AudioKit/AudioKit), or you may also clone the official repository.
 

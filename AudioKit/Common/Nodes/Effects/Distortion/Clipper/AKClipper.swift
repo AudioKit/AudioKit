@@ -8,13 +8,10 @@
 
 import AVFoundation
 
-/// Clips a signal to a predefined limit, in a "soft" manner, using one of three
-/// methods.
+/// Clips a signal to a predefined limit, in a "soft" manner, using the sine method.
 ///
 /// - parameter input: Input node to process
 /// - parameter limit: Threshold / limiting value.
-/// - parameter clippingStartPoint: When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
-/// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
 ///
 public class AKClipper: AKNode, AKToggleable {
 
@@ -25,30 +22,12 @@ public class AKClipper: AKNode, AKToggleable {
     internal var token: AUParameterObserverToken?
 
     private var limitParameter: AUParameter?
-    private var clippingStartPointParameter: AUParameter?
-    private var methodParameter: AUParameter?
 
     /// Threshold / limiting value.
     public var limit: Double = 1.0 {
         willSet(newValue) {
             if limit != newValue {
                 limitParameter?.setValue(Float(newValue), originator: token!)
-            }
-        }
-    }
-    /// When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
-    public var clippingStartPoint: Double = 0.5 {
-        willSet(newValue) {
-            if clippingStartPoint != newValue {
-                clippingStartPointParameter?.setValue(Float(newValue), originator: token!)
-            }
-        }
-    }
-    /// Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
-    public var method: Double = 0 {
-        willSet(newValue) {
-            if method != newValue {
-                methodParameter?.setValue(Float(newValue), originator: token!)
             }
         }
     }
@@ -64,18 +43,14 @@ public class AKClipper: AKNode, AKToggleable {
     ///
     /// - parameter input: Input node to process
     /// - parameter limit: Threshold / limiting value.
-    /// - parameter clippingStartPoint: When the clipping method is 0 (Bram De Jong), indicates point at which clipping starts in the range 0-1.
-    /// - parameter method: Method of clipping. 0 = Bram de Jong, 1 = Sine, 2 = tanh.
     ///
     public init(
         _ input: AKNode,
         limit: Double = 1.0,
         clippingStartPoint: Double = 0.5,
-        method: Double = 0) {
+        method: Int = 0) {
 
         self.limit = limit
-        self.clippingStartPoint = clippingStartPoint
-        self.method = method
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
@@ -106,8 +81,6 @@ public class AKClipper: AKNode, AKToggleable {
         guard let tree = internalAU?.parameterTree else { return }
 
         limitParameter              = tree.valueForKey("limit")              as? AUParameter
-        clippingStartPointParameter = tree.valueForKey("clippingStartPoint") as? AUParameter
-        methodParameter             = tree.valueForKey("method")             as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
@@ -115,16 +88,10 @@ public class AKClipper: AKNode, AKToggleable {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.limitParameter!.address {
                     self.limit = Double(value)
-                } else if address == self.clippingStartPointParameter!.address {
-                    self.clippingStartPoint = Double(value)
-                } else if address == self.methodParameter!.address {
-                    self.method = Double(value)
                 }
             }
         }
         limitParameter?.setValue(Float(limit), originator: token!)
-        clippingStartPointParameter?.setValue(Float(clippingStartPoint), originator: token!)
-        methodParameter?.setValue(Float(method), originator: token!)
     }
     
     // MARK: - Control

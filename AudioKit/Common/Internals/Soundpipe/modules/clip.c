@@ -35,79 +35,27 @@ int sp_clip_destroy(sp_clip **p)
 
 int sp_clip_init(sp_data *sp, sp_clip *p)
 {
-    p->meth = 1;
-    p->arg = 0.5;
     p->lim = 1;
-    switch (p->meth) {
-        case 0: /* Bram de Jong method */
-            if (p->arg > 1.0 || p->arg < 0.0) p->arg = 0.999;
-            p->arg = p->lim * p->arg;
-            p->k1 = 1.0 / (p->lim - p->arg);
-            p->k1 = p->k1 * p->k1;
-            p->k2 = (p->lim + p->arg) * 0.5;
-            break;
-        case 1: /* Sine method */
-            p->k1 = M_PI / (2.0 * p->lim);
-            break;
-        case 2: /* tanh method */
-            p->k1 = 1.0 / tanh(1.0);
-            break;
-        default:
-            p->meth = 0;
-    }
+    p->k1 = M_PI / (2.0 * p->lim);
     return SP_OK;
 }
 
 int sp_clip_compute(sp_data *sp, sp_clip *p, SPFLOAT *in, SPFLOAT *out)
 {
-    SPFLOAT a = p->arg, k1 = p->k1, k2 = p->k2;
+    p->k1 = M_PI / (2.0 * p->lim);
+    SPFLOAT k1 = p->k1;
     SPFLOAT limit = p->lim;
-    SPFLOAT rlim = 1.0 / limit;
     SPFLOAT x;
 
-    switch (p->meth) {
-        case 0:                     /* Soft clip with division */
-            x = *in;
-            if (x >= 0.0) {
-                if (x > limit) x = k2;
-                else if (x > a){
-                    x = a + (x - a) / (1.0 + (x - a) * (x - a) * k1);
-                }
-            } else {
-                if (x < -limit) {
-                    x = -k2;
-                } else if (-x > a) {
-                    x = -a + (x + a) / (1.0 + (x + a) * (x + a) * k1);
-                }
-            }
-            *out = x;
-
-            return SP_OK;
-        case 1:
-            x = *in;
-            if (x >= limit) {
-                x = limit;
-            } else if (x <= -limit)
-              x = -limit;
-            else{
-                x = limit * sin(k1 * x);
-            }
-            *out = x;
-          
-            return SP_OK;
-        case 2:
-            x = *in;
-            if (x >= limit){
-              x = limit;
-            } else if (x <= -limit){
-              x = -limit;
-            }
-            else{
-              x = limit * k1 * tanh(x * rlim);
-            }
-            *out = x;
-            return SP_OK;
-        }
+    x = *in;
+    if (x >= limit) {
+        x = limit;
+    } else if (x <= -limit) {
+        x = -limit;
+    } else {
+        x = limit * sin(k1 * x);
+    }
+    *out = x;
 
     return SP_OK;
 }
