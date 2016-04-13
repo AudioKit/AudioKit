@@ -134,9 +134,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     public var currentTime : Double {
         
         if internalPlayer.playing {
-            if let time = internalPlayer.lastRenderTime {
-                // wrap the sampleTime by the totalFrameCount as sampleTime does not reset when audio loops.
-                return Double((Int64(time.sampleTime - initialFrameCount) % totalFrameCount)) / sampleRate
+            if let nodeTime = internalPlayer.lastRenderTime,
+                let playerTime = internalPlayer.playerTimeForNodeTime(nodeTime) {
+                return Double( Double( playerTime.sampleTime ) / playerTime.sampleRate )
             }
         }
         return 0.0
