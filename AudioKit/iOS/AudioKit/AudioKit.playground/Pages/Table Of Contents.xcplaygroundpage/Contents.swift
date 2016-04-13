@@ -1,4 +1,4 @@
-//: # AudioKit for iOS Playgrounds
+//: # Playgrounds Table of Contents
 //:
 //: AudioKit comes with many playgrounds, each of which serves to teach some core concept, demonstrate a particular generator or synthesizer, or just show off some wacky sounds that we've discovered.  Because there are so many playgrounds that are inter-related in different ways, the order of the playgrounds in Xcode is more or less alphabetical, however this index page lists all the the playgrounds grouped by category.  Playgrounds that fit into multiple categories are listed in each relevant category.
 //:
@@ -13,6 +13,7 @@
 //: So wait, before we jump into the actual tutorials, let's just highlight some of the cooler sound playgrounds we have.  Don't try to understand the code if you're just started, it will all be expained starting with the next section, Basic Tutorials.
 //:
 //: * [Electro Drum Beat](Drum%20Synthesizers)
+//: * [Filter Envelope](Filter%20Envelope)
 //: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
 //: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
 //: * [EXS24 Sampler](Sampler%20Instrument%20-%20EXS24)
@@ -170,10 +171,12 @@
 //:
 //: Many of the types of things you can do in nodes are also possible with operations, but with great flexibility in how the parameters are changed over time.
 //:
+//: * [AutoPan Operation](AutoPan%20Operation)
 //: * [AutoWah Operation](AutoWah%20Operation)
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Clip](Clip%20Operation)
 //: * [Drum Synthesizers](Drum%20Synthesizers)
+//: * [Filter Envelope](Filter%20Envelope)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
 //: * [FM Oscillator](FM%20Oscillator%20Operation)
 //: * [High Pass Filter](High%20Pass%20Filter%20Operation)
@@ -199,7 +202,7 @@
 //:
 //: These playgrounds are here basically for us to work on future AudioKit developments.  Proceed with caution!
 //:
-//: * [Parameter Intertia](Parameter%20Inertia)
+//: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
 //:
 //: Hey you got all the way to the bottom of this file, why not let us know by emailing audiokit@audiokit.io.  We'd love to hear from you!
 //:

@@ -138,11 +138,12 @@ import AVFoundation
             #if os(iOS)
                 try AVAudioSession.sharedInstance().setActive(true)
             #endif
-                try self.engine.start()
-                
-                shouldBeRunning = true
-                
+
             #endif
+            
+            try self.engine.start()
+            
+            shouldBeRunning = true
         } catch {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }
