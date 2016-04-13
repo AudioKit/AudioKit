@@ -113,6 +113,7 @@ public class AKSequencer {
     
     /// Preroll for the music player
     public func preRoll() {
+        MusicPlayerStop(musicPlayer)
         MusicPlayerPreroll(musicPlayer)
     }
     
@@ -458,5 +459,8 @@ public class AKSequencer {
         let beatLenInSecs = Double(1.0/beatsPerSec)
         let numBeats = timeInSecs/beatLenInSecs
         return numBeats
+    }
+    public static func secondsFromBeats(beats:Double, bpm:Double)->Double{
+        return (60.0/bpm)*beats
     }
 }
