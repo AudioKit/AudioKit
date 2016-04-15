@@ -48,40 +48,40 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Distortion")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Distortion Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         delayLabel = addLabel("Delay: \(distortion.delay) Milliseconds")
-        addSlider(#selector(self.setDelay(_:)), value: distortion.delay, minimum: 0.1, maximum: 500)
+        addSlider(#selector(setDelay), value: distortion.delay, minimum: 0.1, maximum: 500)
 
         decayLabel = addLabel("Decay: \(distortion.decay) Rate")
-        addSlider(#selector(self.setDecay(_:)), value: distortion.decay, minimum: 0.1, maximum: 50)
+        addSlider(#selector(setDecay), value: distortion.decay, minimum: 0.1, maximum: 50)
 
         delayMixLabel = addLabel("Delay Mix: \(distortion.delayMix)")
-        addSlider(#selector(self.setDelayMix(_:)), value: distortion.delayMix)
+        addSlider(#selector(setDelayMix), value: distortion.delayMix)
 
         linearTermLabel = addLabel("Linear Term: \(distortion.linearTerm)")
-        addSlider(#selector(self.setLinearTerm(_:)), value: distortion.linearTerm)
+        addSlider(#selector(setLinearTerm), value: distortion.linearTerm)
 
         squaredTermLabel = addLabel("Squared Term: \(distortion.squaredTerm)")
-        addSlider(#selector(self.setSquaredTerm(_:)), value: distortion.squaredTerm)
+        addSlider(#selector(setSquaredTerm), value: distortion.squaredTerm)
 
         cubicTermLabel = addLabel("Cubic Term: \(distortion.cubicTerm)")
-        addSlider(#selector(self.setCubicTerm(_:)), value: distortion.cubicTerm)
+        addSlider(#selector(setCubicTerm), value: distortion.cubicTerm)
 
         polynomialMixLabel = addLabel("Polynomial Mix: \(distortion.polynomialMix)")
-        addSlider(#selector(self.setPolynomialMix(_:)), value: distortion.polynomialMix)
+        addSlider(#selector(setPolynomialMix), value: distortion.polynomialMix)
 
         softClipGainLabel = addLabel("Soft Clip Gain: \(distortion.softClipGain) dB")
-        addSlider(#selector(self.setSoftClipGain(_:)), value: distortion.softClipGain, minimum: -80, maximum: 20)
+        addSlider(#selector(setSoftClipGain), value: distortion.softClipGain, minimum: -80, maximum: 20)
 
         finalMixLabel = addLabel("Final Mix: \(distortion.finalMix)")
-        addSlider(#selector(self.setFinalMix(_:)), value: distortion.finalMix)
+        addSlider(#selector(setFinalMix), value: distortion.finalMix)
 
     }
 

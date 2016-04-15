@@ -36,22 +36,22 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Peak Limiter")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Peak Limiter Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         attackTimeLabel = addLabel("Attack Time: \(peakLimiter.attackTime) Secs")
-        addSlider(#selector(self.setAttackTime(_:)), value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03)
+        addSlider(#selector(setAttackTime), value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03)
 
         decayTimeLabel = addLabel("Decay Time: \(peakLimiter.decayTime) Secs")
-        addSlider(#selector(self.setDecayTime(_:)), value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.06)
+        addSlider(#selector(setDecayTime), value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.06)
 
         preGainLabel = addLabel("Pre-gain: \(peakLimiter.preGain) dB")
-        addSlider(#selector(self.setPreGain(_:)), value: peakLimiter.preGain, minimum: -40, maximum: 40)
+        addSlider(#selector(setPreGain), value: peakLimiter.preGain, minimum: -40, maximum: 40)
 
     }
 

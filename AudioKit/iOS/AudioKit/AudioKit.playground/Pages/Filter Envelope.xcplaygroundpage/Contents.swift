@@ -67,7 +67,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         addTitle("Filter Envelope")
         
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(synth.cutoff)")
-        addSlider(#selector(self.setCutoffFrequency(_:)), value: synth.cutoff, minimum: 0, maximum: 5000)
+        addSlider(#selector(setCutoffFrequency), value: synth.cutoff, minimum: 0, maximum: 5000)
         
         let keyboard = KeyboardView(width: playgroundWidth, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)

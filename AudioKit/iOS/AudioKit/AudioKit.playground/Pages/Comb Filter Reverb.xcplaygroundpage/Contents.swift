@@ -30,11 +30,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Comb Filter Reverb")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         durationLabel = addLabel("Duration: \(filter.reverbDuration)")
-        addSlider(#selector(self.setDuration(_:)), value: filter.reverbDuration, minimum: 0, maximum: 5)
+        addSlider(#selector(setDuration), value: filter.reverbDuration, minimum: 0, maximum: 5)
     }
 
     func start() {
