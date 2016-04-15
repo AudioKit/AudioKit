@@ -31,14 +31,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Bit Crusher")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
-        addSlider(#selector(self.setBitDepth(_:)), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
+        addSlider(#selector(setBitDepth), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
 
         sampleRateLabel = addLabel("Sample Rate: \(bitcrusher.sampleRate)")
-        addSlider(#selector(self.setSampleRate(_:)), value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
+        addSlider(#selector(setSampleRate), value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
     }
 
     func start() {

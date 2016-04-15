@@ -35,19 +35,19 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("High Shelf Filter")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("High Shelf Filter Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         cutOffFrequencyLabel = addLabel("Cut-off Frequency: 10000 Hz")
-        addSlider(#selector(self.setCutOffFrequency(_:)), value: 10000, minimum: 10000, maximum: 22050)
+        addSlider(#selector(setCutOffFrequency), value: 10000, minimum: 10000, maximum: 22050)
 
         gainLabel = addLabel("Gain: 0 dB")
-        addSlider(#selector(self.setGain(_:)), value: 0, minimum: -40, maximum: 40)
+        addSlider(#selector(setGain), value: 0, minimum: -40, maximum: 40)
 
     }
 

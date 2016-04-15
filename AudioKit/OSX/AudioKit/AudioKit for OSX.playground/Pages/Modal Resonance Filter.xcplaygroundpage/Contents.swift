@@ -33,14 +33,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Modal Resonance Filter")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         frequencyLabel = addLabel("Frequency: \(filter.frequency)")
-        addSlider(#selector(self.setFrequency(_:)), value: filter.frequency, minimum: 0, maximum: 5000)
+        addSlider(#selector(setFrequency), value: filter.frequency, minimum: 0, maximum: 5000)
 
         qualityFactorLabel = addLabel("Quality Factor: \(filter.qualityFactor)")
-        addSlider(#selector(self.setQualityFactor(_:)), value: filter.qualityFactor, minimum: 0, maximum: 20)
+        addSlider(#selector(setQualityFactor), value: filter.qualityFactor, minimum: 0, maximum: 20)
     }
 
     func start() {

@@ -44,34 +44,34 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Dynamics Processor")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Dynamics Processor Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         thresholdLabel = addLabel("Threshold: \(dynamicsProcessor.threshold) dB")
-        addSlider(#selector(self.setThreshold(_:)), value: dynamicsProcessor.threshold, minimum: -40, maximum: 20)
+        addSlider(#selector(setThreshold), value: dynamicsProcessor.threshold, minimum: -40, maximum: 20)
 
         headRoomLabel = addLabel("Head Room: \(dynamicsProcessor.headRoom) dB")
-        addSlider(#selector(self.setHeadRoom(_:)), value: dynamicsProcessor.headRoom, minimum: 0.1, maximum: 40.0)
+        addSlider(#selector(setHeadRoom), value: dynamicsProcessor.headRoom, minimum: 0.1, maximum: 40.0)
 
         expansionRatioLabel = addLabel("Expansion Ratio: \(dynamicsProcessor.expansionRatio) rate")
-        addSlider(#selector(self.setExpansionRatio(_:)), value: dynamicsProcessor.expansionRatio, minimum: 1, maximum: 50.0)
+        addSlider(#selector(setExpansionRatio), value: dynamicsProcessor.expansionRatio, minimum: 1, maximum: 50.0)
 
         expansionThresholdLabel = addLabel("Expansion Threshold: \(dynamicsProcessor.expansionThreshold) rate")
-        addSlider(#selector(self.setExpansionThreshold(_:)), value: dynamicsProcessor.expansionThreshold, minimum: 1, maximum: 50.0)
+        addSlider(#selector(setExpansionThreshold), value: dynamicsProcessor.expansionThreshold, minimum: 1, maximum: 50.0)
 
         attackTimeLabel = addLabel("Attack Time: \(dynamicsProcessor.attackTime) secs")
-        addSlider(#selector(self.setAttackTime(_:)), value: dynamicsProcessor.attackTime, minimum: 0.0001, maximum: 0.2)
+        addSlider(#selector(setAttackTime), value: dynamicsProcessor.attackTime, minimum: 0.0001, maximum: 0.2)
 
         releaseTimeLabel = addLabel("Release Time: \(dynamicsProcessor.releaseTime) secs")
-        addSlider(#selector(self.setReleaseTime(_:)), value: dynamicsProcessor.releaseTime, minimum: 0.01, maximum: 3)
+        addSlider(#selector(setReleaseTime), value: dynamicsProcessor.releaseTime, minimum: 0.01, maximum: 3)
 
         masterGainLabel = addLabel("Master Gain: \(dynamicsProcessor.masterGain) dB")
-        addSlider(#selector(self.setMasterGain(_:)), value: dynamicsProcessor.masterGain, minimum: -40, maximum: 40)
+        addSlider(#selector(setMasterGain), value: dynamicsProcessor.masterGain, minimum: -40, maximum: 40)
     }
 
     //: Handle UI Events

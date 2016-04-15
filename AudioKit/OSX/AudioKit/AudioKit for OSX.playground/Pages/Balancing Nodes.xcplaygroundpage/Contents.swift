@@ -31,8 +31,8 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Balancing Nodes")
 
         addLabel("Listen to the difference in volume:")
-        addButton("Balance", action: #selector(self.start))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Balance", action: #selector(start))
+        addButton("Bypass", action: #selector(bypass))
     }
 
     func start() {
