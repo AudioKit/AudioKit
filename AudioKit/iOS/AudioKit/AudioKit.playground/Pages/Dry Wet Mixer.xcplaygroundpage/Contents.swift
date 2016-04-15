@@ -9,7 +9,7 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let drumFile   = bundle.pathForResource("drumloop",   ofType: "wav")
+let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
 var drums  = AKAudioPlayer(drumFile!)
 drums.looping  = true
 

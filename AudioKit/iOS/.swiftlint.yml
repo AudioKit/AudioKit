@@ -18,3 +18,5 @@ variable_name_min_length:
 line_length:
   - 120 # warning
   - 500 # error
+
+force_cast: warning

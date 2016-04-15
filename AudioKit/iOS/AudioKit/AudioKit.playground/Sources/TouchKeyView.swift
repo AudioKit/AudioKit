@@ -29,37 +29,37 @@ public class TouchKeyView: UIButton {
         let context = UIGraphicsGetCurrentContext()
         
         //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalInRect: CGRectMake(2, 2, 96, 96))
+        let ovalPath = UIBezierPath(ovalInRect: CGRect(x: 2, y: 2, width: 96, height: 96))
         UIColor.lightGrayColor().setStroke()
         ovalPath.lineWidth = 2.5
         ovalPath.stroke()
         
         
         //// Letters Drawing
-        let lettersRect = CGRectMake(0, 0, 100, 81)
+        let lettersRect = CGRect(x: 0, y: 0, width: 100, height: 81)
         let lettersStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         lettersStyle.alignment = .Center
         
         let lettersFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(15), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: lettersStyle]
         
-        let lettersTextHeight: CGFloat = NSString(string: text).boundingRectWithSize(CGSizeMake(lettersRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: lettersFontAttributes, context: nil).size.height
+        let lettersTextHeight: CGFloat = NSString(string: text).boundingRectWithSize(CGSize(width: lettersRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: lettersFontAttributes, context: nil).size.height
         CGContextSaveGState(context)
-        CGContextClipToRect(context, lettersRect);
-        NSString(string: text).drawInRect(CGRectMake(lettersRect.minX, lettersRect.minY + lettersRect.height - lettersTextHeight, lettersRect.width, lettersTextHeight), withAttributes: lettersFontAttributes)
+        CGContextClipToRect(context, lettersRect)
+        NSString(string: text).drawInRect(CGRect(x: lettersRect.minX, y: lettersRect.minY + lettersRect.height - lettersTextHeight, width: lettersRect.width, height: lettersTextHeight), withAttributes: lettersFontAttributes)
         CGContextRestoreGState(context)
         
         
         //// Number Drawing
-        let numberRect = CGRectMake(0, 0, 100, 75)
+        let numberRect = CGRect(x: 0, y: 0, width: 100, height: 75)
         let numberStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         numberStyle.alignment = .Center
         
         let numberFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(48), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: numberStyle]
         
-        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRectWithSize(CGSizeMake(numberRect.width, CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: numberFontAttributes, context: nil).size.height
+        let numberTextHeight: CGFloat = NSString(string: numeral).boundingRectWithSize(CGSize(width: numberRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: numberFontAttributes, context: nil).size.height
         CGContextSaveGState(context)
-        CGContextClipToRect(context, numberRect);
-        NSString(string: numeral).drawInRect(CGRectMake(numberRect.minX, numberRect.minY + (numberRect.height - numberTextHeight) / 2, numberRect.width, numberTextHeight), withAttributes: numberFontAttributes)
+        CGContextClipToRect(context, numberRect)
+        NSString(string: numeral).drawInRect(CGRect(x: numberRect.minX, y: numberRect.minY + (numberRect.height - numberTextHeight) / 2, width: numberRect.width, height: numberTextHeight), withAttributes: numberFontAttributes)
         CGContextRestoreGState(context)
     }
 
