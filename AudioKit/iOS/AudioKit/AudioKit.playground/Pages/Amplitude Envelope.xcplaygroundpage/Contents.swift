@@ -40,9 +40,9 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         let plotView = AKRollingOutputPlot.createView(500, height: 560)
         self.addSubview(plotView)
-        
+
         addTitle("ADSR Envelope")
-        
+
         attackLabel = addLabel("Attack Duration: \(fmWithADSR.attackDuration)")
         attackSlider = addSlider(#selector(self.setAttack(_:)), value: fmWithADSR.attackDuration)
 

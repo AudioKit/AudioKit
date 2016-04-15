@@ -8,8 +8,9 @@
 
 import UIKit
 
-public typealias Slider = UISlider
-public typealias Label  = UILabel
+public typealias Slider    = UISlider
+public typealias Label     = UILabel
+public typealias TextField = UITextField
 
 public class AKPlaygroundView: UIView {
     
@@ -77,6 +78,26 @@ public class AKPlaygroundView: UIView {
         yPosition += horizontalSpacing
 
         return newLabel
+    }
+    
+    public func addTextField(action: Selector, text: String, value: Double = 0) -> UITextField {
+        lastButton = nil
+        let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
+        newLabel.text = text
+        newLabel.font = UIFont.systemFontOfSize(18)
+        newLabel.frame.origin.y = CGFloat(yPosition)
+        self.addSubview(newLabel)
+        
+        let newTextField =  UITextField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
+        newTextField.frame.origin.y = CGFloat(yPosition)
+        newTextField.text = "\(value)"
+        newTextField.textAlignment = .Right
+        newTextField.setNeedsDisplay()
+        newTextField.addTarget(self, action: action, forControlEvents: .AllEvents)
+        self.addSubview(newTextField)
+        yPosition += horizontalSpacing
+        
+        return newTextField
     }
     
     public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> UISlider {

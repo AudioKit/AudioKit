@@ -54,7 +54,7 @@ let synth = AKOperationGenerator(operation: filtered)
 
 AudioKit.output = synth
 AudioKit.start()
-synth.parameters = [0,1000,0] // Initialize the array
+synth.parameters = [0, 1000, 0] // Initialize the array
 synth.start()
 
 let playgroundWidth = 500

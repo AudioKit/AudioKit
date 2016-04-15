@@ -13,11 +13,11 @@ extension AKSequencer {
     /// Set the midi output for all tracks
     public func setGlobalMIDIOutput(midiEndpoint: MIDIEndpointRef) {
         if isAvSeq {
-            for track in avSeq.tracks{
+            for track in avSeq.tracks {
                 track.destinationMIDIEndpoint = midiEndpoint
             }
         } else {
-            for track in tracks{
+            for track in tracks {
                 track.setMIDIOutput(midiEndpoint)
             }
         }

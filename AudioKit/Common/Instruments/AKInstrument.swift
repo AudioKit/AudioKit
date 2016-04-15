@@ -105,7 +105,7 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
     public func playNote(note: Int, velocity: Int) {
-        if let voice = availableVoices.popLast()  {
+        if let voice = availableVoices.popLast() {
             activeVoices.append(voice)
             activeNotes.append(note)
             playVoice(voice, note: note, velocity: velocity)

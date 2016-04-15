@@ -106,13 +106,13 @@ public class AKMusicTrack {
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()
         var eventData: UnsafePointer<Void> = nil
-        var eventDataSize: UInt32 = 0;
-        var hasNextEvent:DarwinBoolean = false
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
         
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         
         while(hasNextEvent) {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime,  &eventType, &eventData, &eventDataSize)
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
             
             if eventType == kMusicEventType_MIDINoteMessage {
                 let data = UnsafePointer<MIDINoteMessage>(eventData)
@@ -141,7 +141,7 @@ public class AKMusicTrack {
     ///
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
-    public func setLengthSoft(duration: Double){
+    public func setLengthSoft(duration: Double) {
         let size: UInt32 = 0
         var len = MusicTimeStamp(duration)
         MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)

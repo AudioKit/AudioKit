@@ -12,7 +12,7 @@ import Foundation
 public protocol AKComputedParameter: AKParameter {}
 
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
-public struct AKOperation: AKComputedParameter  {
+public struct AKOperation: AKComputedParameter {
     
     /// Default input to any operation stack
     public static var input = AKOperation("(0 p)")
@@ -164,4 +164,3 @@ public func log10(operation: AKOperation) -> AKOperation {
 public func round(operation: AKOperation) -> AKOperation {
     return operation.round()
 }
-

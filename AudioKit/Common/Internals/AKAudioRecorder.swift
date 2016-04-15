@@ -2,7 +2,7 @@
 //  AKAudioRecorder.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 2/9/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

@@ -9,10 +9,10 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let drumFile   = bundle.pathForResource("drumloop",   ofType: "wav")
-let bassFile   = bundle.pathForResource("bassloop",   ofType: "wav")
+let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
+let bassFile   = bundle.pathForResource("bassloop", ofType: "wav")
 let guitarFile = bundle.pathForResource("guitarloop", ofType: "wav")
-let leadFile   = bundle.pathForResource("leadloop",   ofType: "wav")
+let leadFile   = bundle.pathForResource("leadloop", ofType: "wav")
 
 var drums  = AKAudioPlayer(drumFile!)
 var bass   = AKAudioPlayer(bassFile!)

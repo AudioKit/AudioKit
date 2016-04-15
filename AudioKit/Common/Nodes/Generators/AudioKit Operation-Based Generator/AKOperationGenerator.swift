@@ -53,7 +53,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     /// - parameter right: AKOperation to be heard from the right output
     ///
     public convenience init(left: AKOperation, right: AKOperation) {
-        let operationString = "\(left) \(right)"
+        let operationString = "\(right) \(left)"
         self.init(operationString)
     }
 
@@ -88,11 +88,19 @@ public class AKOperationGenerator: AKNode, AKToggleable {
             self.internalAU?.setSporth(sporth)
         }
     }
+    
+    /// Trigger the sound with current parameters
+    ///
+    public func trigger() {
+        self.internalAU!.trigger(self.parameters)
+    }
+    
 
-    /// Trigger the sound with an optional set of parameters
+    /// Trigger the sound with a set of parameters
     /// - parameter parameters: An array of doubles to use as parameters
     ///
-    public func trigger(parameters: [Double] = []) {
+    public func trigger(parameters: [Double]) {
+        self.parameters = parameters
         self.internalAU!.trigger(parameters)
     }
 

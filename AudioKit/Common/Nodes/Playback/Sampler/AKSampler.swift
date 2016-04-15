@@ -150,7 +150,7 @@ public class AKSampler: AKNode {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
     
-    static func getAUPresetXML()->String{
+    static func getAUPresetXML() -> String{
         var templateStr:String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         templateStr.appendContentsOf("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
