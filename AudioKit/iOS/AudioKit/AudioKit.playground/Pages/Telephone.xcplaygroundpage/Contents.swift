@@ -85,7 +85,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Keypad")
 
-        addTouchKey("1", text: "",    action: #selector(self.touch1))
+        addTouchKey("1", text: "   ", action: #selector(self.touch1))
         addTouchKey("2", text: "ABC", action: #selector(self.touch2))
         addTouchKey("3", text: "DEF", action: #selector(self.touch3))
         addLineBreak()
@@ -94,7 +94,7 @@ class PlaygroundView: AKPlaygroundView {
         addTouchKey("6", text: "MNO", action: #selector(self.touch6))
         addLineBreak()
         addTouchKey("7", text: "PQRS", action: #selector(self.touch7))
-        addTouchKey("8", text: "TUV",  action: #selector(self.touch8))
+        addTouchKey("8", text: "TUV", action: #selector(self.touch8))
         addTouchKey("9", text: "WXYZ", action: #selector(self.touch9))
         addLineBreak()
         addTouchKey("✶", text: "GHI", action: #selector(self.touchStar))
@@ -169,7 +169,7 @@ class PlaygroundView: AKPlaygroundView {
     func touch9() { touchKeyPad("9") }
 
     func touchStar() { touchKeyPad("*") }
-    func touch0()    { touchKeyPad("0") }
+    func touch0() { touchKeyPad("0") }
     func touchHash() { touchKeyPad("#") }
 }
 

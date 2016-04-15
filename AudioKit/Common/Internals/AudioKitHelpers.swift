@@ -59,10 +59,10 @@ extension Double {
     public mutating func normalize(min: Double, max: Double, taper: Double) {
         if taper > 0 {
             // algebraic taper
-            self = pow(((self - min) / (max - min)), (1.0 / taper));
+            self = pow(((self - min) / (max - min)), (1.0 / taper))
         } else {
             // exponential taper
-            self = log(self / min) / log(max / min);
+            self = log(self / min) / log(max / min)
         }
     }
     
@@ -75,10 +75,10 @@ extension Double {
     public mutating func denormalize(min: Double, max: Double, taper: Double) {
         if taper > 0 {
             // algebraic taper
-            self = min + (max - min) * pow(self, taper);
+            self = min + (max - min) * pow(self, taper)
         } else {
             // exponential taper
-            self = min * exp(log(max / min) * self);
+            self = min * exp(log(max / min) * self)
         }
     }
     
@@ -86,7 +86,7 @@ extension Double {
     ///
     /// - returns: Frequency (Double) in Hz
     ///
-    public func midiNoteToFrequency(aRef : Double = 440.0) -> Double {
+    public func midiNoteToFrequency(aRef: Double = 440.0) -> Double {
         return pow(2.0, (self - 69.0) / 12.0) * aRef
     }
 
@@ -101,7 +101,7 @@ extension Int {
     ///
     /// - returns: Frequency (Double) in Hz
     ///
-    public func midiNoteToFrequency(aRef : Double = 440.0) -> Double {
+    public func midiNoteToFrequency(aRef: Double = 440.0) -> Double {
         return pow(2.0, (Double(self) - 69.0) / 12.0) * aRef
     }
 }
@@ -307,4 +307,3 @@ public enum AKMIDIControl: UInt8 {
     /// Continuous Controller Number 31
     case CC31 = 31
 }
-

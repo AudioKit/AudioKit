@@ -40,4 +40,3 @@ public struct AKStereoOperation: AKComputedParameter {
         return self
     }
 }
-

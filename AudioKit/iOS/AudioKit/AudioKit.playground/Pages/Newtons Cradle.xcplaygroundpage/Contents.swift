@@ -100,7 +100,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
     
     // MARK: Collision
     
-    public func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item1: UIDynamicItem, withItem item2: UIDynamicItem, atPoint p: CGPoint) {
+    public func collisionBehavior(behavior: UICollisionBehavior, beganContactForItem item1: UIDynamicItem, withItem item2: UIDynamicItem, atPoint point: CGPoint) {
         tink.stop()
         tink.play()
     }
@@ -128,7 +128,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
     
     // MARK: Properties
     
-    public var attachmentBehaviors:[UIAttachmentBehavior] {
+    public var attachmentBehaviors: [UIAttachmentBehavior] {
         get {
             var attachmentBehaviors: [UIAttachmentBehavior] = []
             for ball in balls {
@@ -139,13 +139,12 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
         }
     }
     
-    public var useSquaresInsteadOfBalls:Bool = false {
+    public var useSquaresInsteadOfBalls: Bool = false {
         didSet {
         for ball in balls {
             if useSquaresInsteadOfBalls {
                 ball.layer.cornerRadius = 0
-            }
-            else {
+            } else {
                 ball.layer.cornerRadius = ball.bounds.width / 2.0
             }
         }
@@ -201,7 +200,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
         if let touch = touches.first {
             let touchLocation = touch.locationInView(superview)
             for ball in balls {
-                if (CGRectContainsPoint(ball.frame, touchLocation)) {
+                if CGRectContainsPoint(ball.frame, touchLocation) {
                     snapBehavior = UISnapBehavior(item: ball, snapToPoint: touchLocation)
                     animator?.addBehavior(snapBehavior!)
                 }
@@ -228,7 +227,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
     // MARK: KVO
     
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        if (keyPath == "center") {
+        if keyPath == "center" {
             setNeedsDisplay()
         }
     }
@@ -249,7 +248,7 @@ public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
             CGContextSetLineWidth(context, 4.0)
             CGContextStrokePath(context)
             
-            let attachmentDotWidth:CGFloat = 10.0
+            let attachmentDotWidth: CGFloat = 10.0
             let attachmentDotOrigin = CGPoint(x: anchorPoint.x - (attachmentDotWidth / 2), y: anchorPoint.y - (attachmentDotWidth / 2))
             let attachmentDotRect = CGRect(x: attachmentDotOrigin.x, y: attachmentDotOrigin.y, width: attachmentDotWidth, height: attachmentDotWidth)
             

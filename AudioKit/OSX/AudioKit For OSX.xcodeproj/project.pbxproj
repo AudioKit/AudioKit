@@ -89,6 +89,7 @@
 		C42FFBB91C3CFC3000823BD4 /* AKPannerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C42FFBA91C3CFC3000823BD4 /* AKPannerDSPKernel.hpp */; };
 		C4362F101C2F5E8F00D17352 /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F0F1C2F5E8F00D17352 /* variableDelay.swift */; };
 		C4362F121C2F5EA600D17352 /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4362F111C2F5EA600D17352 /* reverberateWithCostello.swift */; };
+		C43FF2991CBD986000B3C05A /* AKFMOscillatorPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43FF2981CBD986000B3C05A /* AKFMOscillatorPresets.swift */; };
 		C453831E1C3A5E4300A51738 /* AKAmplitudeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45382321C3A5E4300A51738 /* AKAmplitudeTracker.swift */; };
 		C453831F1C3A5E4300A51738 /* AKAmplitudeTrackerAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C45382331C3A5E4300A51738 /* AKAmplitudeTrackerAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C45383201C3A5E4300A51738 /* AKAmplitudeTrackerAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C45382341C3A5E4300A51738 /* AKAmplitudeTrackerAudioUnit.mm */; };
@@ -613,6 +614,7 @@
 		C42FFBA91C3CFC3000823BD4 /* AKPannerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPannerDSPKernel.hpp; sourceTree = "<group>"; };
 		C4362F0F1C2F5E8F00D17352 /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
 		C4362F111C2F5EA600D17352 /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
+		C43FF2981CBD986000B3C05A /* AKFMOscillatorPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorPresets.swift; sourceTree = "<group>"; };
 		C44379961C62B0A3005315BD /* AudioKit for OSX.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = "AudioKit for OSX.playground"; path = "AudioKit/AudioKit for OSX.playground"; sourceTree = "<group>"; };
 		C45382321C3A5E4300A51738 /* AKAmplitudeTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAmplitudeTracker.swift; sourceTree = "<group>"; };
 		C45382331C3A5E4300A51738 /* AKAmplitudeTrackerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKAmplitudeTrackerAudioUnit.h; sourceTree = "<group>"; };
@@ -1930,6 +1932,7 @@
 				C45382FA1C3A5E4300A51738 /* AKFMOscillatorAudioUnit.h */,
 				C45382FB1C3A5E4300A51738 /* AKFMOscillatorAudioUnit.mm */,
 				C45382FC1C3A5E4300A51738 /* AKFMOscillatorDSPKernel.hpp */,
+				C43FF2981CBD986000B3C05A /* AKFMOscillatorPresets.swift */,
 			);
 			path = "FM Oscillator";
 			sourceTree = "<group>";
@@ -2844,6 +2847,7 @@
 				C4B190BD1C3B340400C0F330 /* progress.c in Sources */,
 				C4B190F31C3B340400C0F330 /* comb.c in Sources */,
 				C4B191191C3B340400C0F330 /* reverse.c in Sources */,
+				C43FF2991CBD986000B3C05A /* AKFMOscillatorPresets.swift in Sources */,
 				C4B190CB1C3B340400C0F330 /* tabread.c in Sources */,
 				C42FFBAE1C3CFC3000823BD4 /* AKBooster.swift in Sources */,
 				C40BB0A11C471C9A004C138D /* gen_padsynth.c in Sources */,

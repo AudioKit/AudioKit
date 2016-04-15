@@ -75,7 +75,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
     func setRampTime(slider: Slider) {
         currentRampTime = Double(slider.value)
-        let rampTime = String(format: "%0.3f",currentRampTime)
+        let rampTime = String(format: "%0.3f", currentRampTime)
         rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 }

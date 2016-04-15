@@ -83,6 +83,7 @@
 		C40C42B41C420C1D009D870B /* AKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C42AD1C420C1D009D870B /* AKAudioPlayer.swift */; };
 		C40C42B61C420C1D009D870B /* AKSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C42B11C420C1D009D870B /* AKSequencer.swift */; };
 		C40C42B71C420C1D009D870B /* AKTimePitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C42B31C420C1D009D870B /* AKTimePitch.swift */; };
+		C411BF471CBD93DF00C83556 /* AKFMOscillatorPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C411BF461CBD93DF00C83556 /* AKFMOscillatorPresets.swift */; };
 		C41863771C23FE6600A06E41 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863741C23FE6600A06E41 /* jitter.swift */; };
 		C41863781C23FE6600A06E41 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863751C23FE6600A06E41 /* randomNumberPulse.swift */; };
 		C41863791C23FE6600A06E41 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863761C23FE6600A06E41 /* randomVertexPulse.swift */; };
@@ -622,6 +623,7 @@
 		C40C42AD1C420C1D009D870B /* AKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioPlayer.swift; sourceTree = "<group>"; };
 		C40C42B11C420C1D009D870B /* AKSequencer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSequencer.swift; sourceTree = "<group>"; };
 		C40C42B31C420C1D009D870B /* AKTimePitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTimePitch.swift; sourceTree = "<group>"; };
+		C411BF461CBD93DF00C83556 /* AKFMOscillatorPresets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFMOscillatorPresets.swift; sourceTree = "<group>"; };
 		C41863741C23FE6600A06E41 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C41863751C23FE6600A06E41 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
 		C41863761C23FE6600A06E41 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
@@ -2105,6 +2107,7 @@
 				C45380581C3A5BDA00A51738 /* AKFMOscillatorAudioUnit.h */,
 				C45380591C3A5BDA00A51738 /* AKFMOscillatorAudioUnit.mm */,
 				C453805A1C3A5BDA00A51738 /* AKFMOscillatorDSPKernel.hpp */,
+				C411BF461CBD93DF00C83556 /* AKFMOscillatorPresets.swift */,
 			);
 			path = "FM Oscillator";
 			sourceTree = "<group>";
@@ -2954,6 +2957,7 @@
 				C48443571C311523007BE794 /* bltriangle.c in Sources */,
 				C4537FF61C3A438D00A51738 /* AKToneFilter.swift in Sources */,
 				C484435C1C311539007BE794 /* tog.c in Sources */,
+				C411BF471CBD93DF00C83556 /* AKFMOscillatorPresets.swift in Sources */,
 				C45380141C3A4CCE00A51738 /* AKCostelloReverbAudioUnit.mm in Sources */,
 				C46302871C20E7A7009B44D9 /* lowPassButterworthFilter.swift in Sources */,
 				C40AD6A01C463CC300B638AF /* AKSampler.swift in Sources */,
