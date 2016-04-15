@@ -36,18 +36,18 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Convolution")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLineBreak()
 
         addLabel("Convolution Parameters")
 
         addLabel("Mix: Dry Audio to Fully Convolved")
-        addSlider(#selector(self.setDryWet(_:)), value: dryWetMixer.balance)
+        addSlider(#selector(setDryWet), value: dryWetMixer.balance)
 
         addLabel("Impulse Response: Stairwell to Dish")
-        addSlider(#selector(self.setIRMix(_:)), value: mixer.balance)
+        addSlider(#selector(setIRMix), value: mixer.balance)
     }
 
     func start() {

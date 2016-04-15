@@ -34,20 +34,20 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Delay")
 
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         timeLabel = addLabel("Time: \(delay.time)")
-        addSlider(#selector(self.setTime(_:)), value: delay.time, minimum: 0, maximum: 1)
+        addSlider(#selector(setTime), value: delay.time, minimum: 0, maximum: 1)
 
         feedbackLabel = addLabel("Feedback: \(delay.feedback)")
-        addSlider(#selector(self.setFeedback(_:)), value: delay.feedback)
+        addSlider(#selector(setFeedback), value: delay.feedback)
 
         lowPassCutoffFrequencyLabel = addLabel("Low Pass Cutoff Frequency: \(delay.lowPassCutoff)")
-        addSlider(#selector(self.setLowPassCutoffFrequency(_:)), value: delay.lowPassCutoff, minimum: 0, maximum: 22050)
+        addSlider(#selector(setLowPassCutoffFrequency), value: delay.lowPassCutoff, minimum: 0, maximum: 22050)
 
         dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
-        addSlider(#selector(self.setDryWetMix(_:)), value: delay.dryWetMix)
+        addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
     }
 
     //: Handle UI Events

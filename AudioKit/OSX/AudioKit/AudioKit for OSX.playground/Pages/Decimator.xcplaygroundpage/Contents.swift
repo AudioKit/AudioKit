@@ -37,17 +37,17 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Decimator")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         decimationLabel = addLabel("Decimation: \(decimator.decimation)")
-        addSlider(#selector(self.setDecimation(_:)), value: decimator.decimation)
+        addSlider(#selector(setDecimation), value: decimator.decimation)
 
         roundingLabel = addLabel("Rounding: \(decimator.rounding)")
-        addSlider(#selector(self.setRounding(_:)), value: decimator.rounding)
+        addSlider(#selector(setRounding), value: decimator.rounding)
 
         mixLabel = addLabel("Mix: \(decimator.mix)")
-        addSlider(#selector(self.setMix(_:)), value: decimator.mix)
+        addSlider(#selector(setMix), value: decimator.mix)
     }
 
     //: Handle UI Events
