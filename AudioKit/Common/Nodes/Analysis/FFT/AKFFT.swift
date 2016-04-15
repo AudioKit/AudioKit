@@ -26,9 +26,9 @@ import Foundation
         fft = EZAudioFFT.fftWithMaximumBufferSize(vDSP_Length(bufferSize), sampleRate: Float(AKSettings.sampleRate), delegate: self)
         input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize;
-                let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);
-                let tail = buffer.floatChannelData[0];
+                buffer.frameLength = strongSelf.bufferSize
+                let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                let tail = buffer.floatChannelData[0]
                 strongSelf.fft!.computeFFTWithBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
             }
         }

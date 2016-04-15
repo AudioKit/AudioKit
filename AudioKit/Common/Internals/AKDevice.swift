@@ -2,7 +2,7 @@
 //  AKDevice.swift
 //  AudioKit
 //
-//  Created by Stéphane Peter on 2/8/16.
+//  Created by Stéphane Peter, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -16,7 +16,7 @@ public typealias DeviceID = String
 #endif
     
 /// Wrapper for audio device selection
-@objc public class AKDevice : NSObject {
+@objc public class AKDevice: NSObject {
     /// The human-readable name for the device.
     public var name: String
     

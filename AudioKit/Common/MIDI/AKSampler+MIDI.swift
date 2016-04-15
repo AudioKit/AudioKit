@@ -29,7 +29,7 @@ public class AKMIDISampler: AKSampler {
     /// - parameter name: Name to connect with
     ///
     public func enableMIDI(midiClient: MIDIClientRef, name: String) {
-        var result:OSStatus
+        var result: OSStatus
         result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
         CheckError(result)
     }
@@ -43,9 +43,9 @@ public class AKMIDISampler: AKSampler {
         
         if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
             startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
-        }else if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0) {
+        } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
             stopNote(Int(data2), onChannel: Int(channel))
-        }else if(Int(status) == AKMIDIStatus.ControllerChange.rawValue) {
+        } else if Int(status) == AKMIDIStatus.ControllerChange.rawValue {
             midiCC(Int(data2), value: Int(data3), channel: Int(channel))
         }
     }
@@ -57,9 +57,9 @@ public class AKMIDISampler: AKSampler {
     /// - parameter channel: MIDI channel
     ///
     public func midiNoteOn(note: Int, velocity: Int, channel: Int) {
-        if(velocity > 0){
+        if velocity > 0 {
             startNote(note, withVelocity: velocity, onChannel: channel)
-        }else{
+        } else {
             stopNote(note, onChannel: channel)
         }
     }
@@ -99,5 +99,4 @@ public class AKMIDISampler: AKSampler {
             packetPtr = MIDIPacketNext(packetPtr)
         }
     }
-
 }

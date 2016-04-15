@@ -66,19 +66,19 @@ public struct AKMIDIEvent {
             let channel = UInt8(packet.data.0 & 0xF)
             fillWithStatus(status!, channel: channel, byte1: packet.data.1, byte2: packet.data.2)
         } else {
-            if(packet.data.0 == AKMIDISystemCommand.Sysex.rawValue){ //if is sysex
+            if packet.data.0 == AKMIDISystemCommand.Sysex.rawValue { //if is sysex
                 internalData = [] //reset internalData
                 //voodoo
                 let mirrorData = Mirror(reflecting:data)
                 var i = 0
-                for (_, value) in mirrorData.children{
+                for (_, value) in mirrorData.children {
                     internalData.append(UInt8(value as! UInt8))
                     i += 1
-                    if(value as! UInt8 == 247){
-                        break;
+                    if(value as! UInt8 == 247) {
+                        break
                     }
                 }//end voodoo
-            }else{
+            } else {
                 fillWithCommand(
                     AKMIDISystemCommand(rawValue: packet.data.0)!,
                     byte1: packet.data.1,

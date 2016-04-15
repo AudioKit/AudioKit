@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Top level AudioKit managing class
-@objc public class AudioKit : NSObject {
+@objc public class AudioKit: NSObject {
     
     // MARK: Global audio format (44.1K, Stereo)
     
@@ -183,7 +183,7 @@ import AVFoundation
     // and restart the audio engine if it stops and should be playing
     @objc private static func audioEngineConfigurationChange(notification: NSNotification) -> Void {
         
-        if (shouldBeRunning == true && self.engine.running == false){
+        if (shouldBeRunning == true && self.engine.running == false) {
             do {
                 try self.engine.start()
             } catch {
