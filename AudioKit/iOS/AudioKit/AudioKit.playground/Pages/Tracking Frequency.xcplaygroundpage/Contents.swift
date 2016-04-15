@@ -22,7 +22,6 @@ let oscillator = AKOperation.sineWave(frequency: frequency, amplitude: volume)
 let oscillatorNode = AKOperationGenerator(operation: oscillator)
 let tracker = AKFrequencyTracker(oscillatorNode, minimumFrequency: minimum, maximumFrequency: maximum)
 
-
 //: The frequency tracker passes its input to the output, so we can insert into the signal chain at the bottom
 AudioKit.output = tracker
 AudioKit.start()
