@@ -37,7 +37,7 @@ public class TouchKeyView: UIButton {
         
         //// Letters Drawing
         let lettersRect = CGRect(x: 0, y: 0, width: 100, height: 81)
-        let lettersStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        let lettersStyle = NSMutableParagraphStyle()
         lettersStyle.alignment = .Center
         
         let lettersFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(15), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: lettersStyle]
@@ -48,10 +48,10 @@ public class TouchKeyView: UIButton {
         NSString(string: text).drawInRect(CGRect(x: lettersRect.minX, y: lettersRect.minY + lettersRect.height - lettersTextHeight, width: lettersRect.width, height: lettersTextHeight), withAttributes: lettersFontAttributes)
         CGContextRestoreGState(context)
         
-        
         //// Number Drawing
         let numberRect = CGRect(x: 0, y: 0, width: 100, height: 75)
-        let numberStyle = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
+        let numberStyle = NSMutableParagraphStyle()
+        numberStyle.setParagraphStyle(NSParagraphStyle.defaultParagraphStyle())
         numberStyle.alignment = .Center
         
         let numberFontAttributes = [NSFontAttributeName: UIFont.systemFontOfSize(48), NSForegroundColorAttributeName: UIColor.blackColor(), NSParagraphStyleAttributeName: numberStyle]
