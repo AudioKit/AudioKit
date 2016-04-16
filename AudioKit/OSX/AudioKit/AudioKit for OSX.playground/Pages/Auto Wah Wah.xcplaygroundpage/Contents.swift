@@ -32,11 +32,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Auto Wah Wah")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         wahLabel = addLabel("Wah: \(wah.wah)")
-        addSlider(#selector(self.setWah(_:)), value: wah.wah)
+        addSlider(#selector(setWah), value: wah.wah)
     }
 
     func start() {

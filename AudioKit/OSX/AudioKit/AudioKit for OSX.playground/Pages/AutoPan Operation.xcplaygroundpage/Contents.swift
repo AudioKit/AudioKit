@@ -32,14 +32,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("AutoPan")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
         
         speedLabel = addLabel("Speed: \(effect.parameters[0])")
-        addSlider(#selector(self.setSpeed(_:)), value: effect.parameters[0], minimum: 0.1, maximum: 25)
+        addSlider(#selector(setSpeed), value: effect.parameters[0], minimum: 0.1, maximum: 25)
         
         depthLabel = addLabel("Depth: \(effect.parameters[1])")
-        addSlider(#selector(self.setDepth(_:)), value: effect.parameters[1])
+        addSlider(#selector(setDepth), value: effect.parameters[1])
     }
     
     func start() {

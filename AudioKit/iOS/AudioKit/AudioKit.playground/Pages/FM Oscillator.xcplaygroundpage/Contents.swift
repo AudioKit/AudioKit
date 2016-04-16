@@ -33,35 +33,35 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("FM Oscillator")
 
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
         
-        frequencyTextField = addTextField(#selector(self.setBaseFrequency(_:)), text: "Base Frequency", value: oscillator.baseFrequency)
-        frequencySlider = addSlider(#selector(self.slideBaseFrequency(_:)), value: oscillator.baseFrequency, minimum: 0, maximum: 800)
+        frequencyTextField = addTextField(#selector(setBaseFrequency), text: "Base Frequency", value: oscillator.baseFrequency)
+        frequencySlider = addSlider(#selector(slideBaseFrequency), value: oscillator.baseFrequency, minimum: 0, maximum: 800)
 
-        carrierMultiplierTextField = addTextField(#selector(self.setCarrierMultiplier(_:)), text: "Carrier Multiplier", value: oscillator.carrierMultiplier)
-        carrierMultiplierSlider = addSlider(#selector(self.slideCarrierMultiplier(_:)), value: oscillator.carrierMultiplier, minimum: 0, maximum: 20)
+        carrierMultiplierTextField = addTextField(#selector(setCarrierMultiplier), text: "Carrier Multiplier", value: oscillator.carrierMultiplier)
+        carrierMultiplierSlider = addSlider(#selector(slideCarrierMultiplier), value: oscillator.carrierMultiplier, minimum: 0, maximum: 20)
 
-        modulatingMultiplierTextField = addTextField(#selector(self.setModulatingMultiplier(_:)), text: "Modulating Multiplier", value: oscillator.modulatingMultiplier)
-        modulatingMultiplierSlider = addSlider(#selector(self.slideModulatingMultiplier(_:)), value: oscillator.modulatingMultiplier, minimum: 0, maximum: 20)
+        modulatingMultiplierTextField = addTextField(#selector(setModulatingMultiplier), text: "Modulating Multiplier", value: oscillator.modulatingMultiplier)
+        modulatingMultiplierSlider = addSlider(#selector(slideModulatingMultiplier), value: oscillator.modulatingMultiplier, minimum: 0, maximum: 20)
         
-        modulationIndexTextField = addTextField(#selector(self.setModulationIndex(_:)), text: "Modulation Index", value: oscillator.modulationIndex)
-        modulationIndexSlider = addSlider(#selector(self.slideModulationIndex(_:)), value: oscillator.modulationIndex, minimum: 0, maximum: 100)
+        modulationIndexTextField = addTextField(#selector(setModulationIndex), text: "Modulation Index", value: oscillator.modulationIndex)
+        modulationIndexSlider = addSlider(#selector(slideModulationIndex), value: oscillator.modulationIndex, minimum: 0, maximum: 100)
 
-        amplitudeTextField = addTextField(#selector(self.setAmplitude(_:)), text: "Amplitude", value: oscillator.amplitude)
-        amplitudeSlider = addSlider(#selector(self.slideAmplitude(_:)), value: oscillator.amplitude)
+        amplitudeTextField = addTextField(#selector(setAmplitude), text: "Amplitude", value: oscillator.amplitude)
+        amplitudeSlider = addSlider(#selector(slideAmplitude), value: oscillator.amplitude)
         
-        rampTimeTextField = addTextField(#selector(self.setRampTime(_:)), text: "Ramp Time", value: oscillator.rampTime)
-        rampTimeSlider = addSlider(#selector(self.slideRampTime(_:)), value: oscillator.rampTime, minimum: 0, maximum: 10)
+        rampTimeTextField = addTextField(#selector(setRampTime), text: "Ramp Time", value: oscillator.rampTime)
+        rampTimeSlider = addSlider(#selector(slideRampTime), value: oscillator.rampTime, minimum: 0, maximum: 10)
 
 
-        addButton("Stun Ray", action: #selector(self.presetStunRay))
-        addButton("Wobble", action: #selector(self.presetWobble))
-        addButton("Fog Horn", action: #selector(self.presetFogHorn))
-        addButton("Buzzer", action: #selector(self.presetBuzzer))
-        addButton("Spiral", action: #selector(self.presetSpiral))
+        addButton("Stun Ray", action: #selector(presetStunRay))
+        addButton("Wobble", action: #selector(presetWobble))
+        addButton("Fog Horn", action: #selector(presetFogHorn))
+        addButton("Buzzer", action: #selector(presetBuzzer))
+        addButton("Spiral", action: #selector(presetSpiral))
         addLineBreak()
-        addButton("Randomize", action: #selector(self.presetRandom))
+        addButton("Randomize", action: #selector(presetRandom))
 
     }
 

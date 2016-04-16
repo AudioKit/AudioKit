@@ -26,10 +26,10 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         addTitle("Sawtooth Oscillator")
         
         amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
-        addSlider(#selector(self.setAmplitude(_:)), value: currentAmplitude)
+        addSlider(#selector(setAmplitude), value: currentAmplitude)
         
         rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
-        addSlider(#selector(self.setRampTime(_:)), value: currentRamp Time, minimum: 0, maximum: 0.1)
+        addSlider(#selector(setRampTime), value: currentRamp Time, minimum: 0, maximum: 0.1)
         
         let keyboard = KeyboardView(width: playgroundWidth, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)
