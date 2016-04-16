@@ -9,6 +9,8 @@
 import Foundation
 import AVFoundation
 
+public typealias Beat=Double
+
 /// Basic sequencer
 ///
 /// This  is currently in transistion from old c core audio apis, to the more
@@ -337,7 +339,7 @@ public class AKSequencer {
     }
     
     /// Current Time
-    public var currentTime: Double {
+    public var currentPositionInBeats: Beat {
         if isAvSeq {
             return avSeq.currentPositionInBeats
         } else {
