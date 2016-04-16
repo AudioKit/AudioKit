@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         drmKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
         AudioKit.start()
         seq = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
-        seq?.loopOn()
+        seq?.enableLooping()
         seq!.avTracks[1].destinationAudioUnit = syn1.samplerUnit
         seq!.avTracks[2].destinationAudioUnit = syn2.samplerUnit
         seq!.avTracks[3].destinationAudioUnit = syn3.samplerUnit
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
         seq!.rewind()
     }
     @IBAction func toggleLoop() {
-        seq!.loopToggle()
+        seq!.toggleLoop()
         print("loop enabled: \(seq!.loopEnabled)")
     }
     @IBAction func setLength1() {
