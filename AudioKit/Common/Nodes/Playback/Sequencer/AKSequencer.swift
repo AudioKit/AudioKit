@@ -112,17 +112,17 @@ public class AKSequencer {
     }
     
     /// Preroll for the music player
-    public func preRoll() {
+    public func preroll() {
         MusicPlayerPreroll(musicPlayer)
     }
     
     /// Set loop functionality of entire sequence
-    public func loopToggle() {
-        (loopEnabled ? loopOff() : loopOn())
+    public func toggleLoop() {
+        (loopEnabled ? disableLooping() : enableLooping())
     }
     
     /// Enable looping for all tracks - loops entire sequence
-    public func loopOn() {
+    public func enableLooping() {
         if isAvSeq {
             for track in avSeq.tracks {
                 track.loopingEnabled = true
@@ -135,7 +135,7 @@ public class AKSequencer {
     }
     
     /// Enable looping for all tracks with specified length
-    public func loopOn(loopLength: Double) {
+    public func enableLooping(loopLength: Double) {
         if isAvSeq {
             for track in avSeq.tracks {
                 track.loopingEnabled = true
@@ -148,7 +148,7 @@ public class AKSequencer {
     }
     
     /// Disable looping for all tracks
-    public func loopOff() {
+    public func disableLooping() {
         if isAvSeq {
             for track in avSeq.tracks {
                 track.loopingEnabled = false
