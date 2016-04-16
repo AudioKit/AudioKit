@@ -108,7 +108,7 @@ public class AKSampler: AKNode {
         filename: String,
         startNote: Int,
         endNote: Int) -> NSMutableDictionary {
-        NSException(name: "Deprecated", reason: "generateTemplateDictionary was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.generateTemplateDictionary with AKAUPresetBuilder.generateTemplateDictionary. Thank you.", userInfo: nil).raise()
+        NSException(name: "Deprecated", reason: "generateTemplateDictionary was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.generateTemplateDictionary with AKAUPresetBuilder.generateDictionary. Thank you.", userInfo: nil).raise()
         return NSMutableDictionary()
     }
     

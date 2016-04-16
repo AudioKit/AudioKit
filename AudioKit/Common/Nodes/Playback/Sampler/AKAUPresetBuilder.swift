@@ -136,7 +136,7 @@ public class AKAUPresetBuilder {
     /// - parameter startNote: First note in range
     /// - parameter endNote:   Last note in range
     ///
-    public static func generateTemplateDictionary(
+    public static func generateDictionary(
         rootNote: Int,
         filename: String,
         startNote: Int,
