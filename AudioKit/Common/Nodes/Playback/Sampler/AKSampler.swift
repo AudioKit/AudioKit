@@ -120,7 +120,8 @@ public class AKSampler: AKNode {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
-    /// Normalised Output Volume.
+    
+    /// Normalized Output Volume.
     /// Range:   0 - 1
     /// Default: 1
     public var volume: Double = 1 {
