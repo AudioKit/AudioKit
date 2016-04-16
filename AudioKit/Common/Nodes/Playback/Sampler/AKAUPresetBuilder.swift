@@ -10,15 +10,24 @@ import Foundation
 
 public class AKAUPresetBuilder {
     
-    public var presetXML: String = ""
-    public var layers: [String] = Array()
-    public var connections: [String] = Array()
-    public var envelopes: [String] = Array()
-    public var lfos: [String] = Array()
-    public var zones: [String] = Array()
-    public var fileRefs: [String] = Array()
-    public var filters: [String] = Array()
+    public var presetXML = ""
+    public var layers = [String]()
+    public var connections = [String]()
+    public var envelopes = [String]()
+    public var lfos = [String]()
+    public var zones = [String]()
+    public var fileRefs = [String]()
+    public var filters = [String]()
     
+    /// Create preset with the given components
+    /// - parameter name:        Coded instrument name
+    /// - parameter connections: Connection XML
+    /// - parameter envelopes:   Envelopes XML
+    /// - parameter filter:      Filter XML
+    /// - parameter lfos:        Low Frequency Oscillator XML
+    /// - parameter zones:       Zones XML
+    /// - parameter filerefs:    File references XML
+    ///
     init(name: String = "Coded Instrument Name",
          connections: String = "***CONNECTIONS***\n",
          envelopes: String = "***ENVELOPES***\n",
@@ -26,37 +35,49 @@ public class AKAUPresetBuilder {
          lfos: String = "***LFOS***\n",
          zones: String = "***ZONES***\n",
          filerefs: String = "***FILEREFS***\n") {
-        presetXML = AKAUPresetBuilder.buildInstrument(name, connections: connections, envelopes: envelopes, filter: filter, lfos: lfos, zones: zones, filerefs: filerefs)
+        presetXML = AKAUPresetBuilder.buildInstrument(name,
+                                                      connections: connections,
+                                                      envelopes: envelopes,
+                                                      filter: filter,
+                                                      lfos: lfos,
+                                                      zones: zones,
+                                                      filerefs: filerefs)
     }
     
-    
-    /* createAUPresetFromDict
-     dict is a collection of other dictionaries that have the format like this:
-     ***Key:Value***
-     filename:string
-     rootnote:int
-     startnote:int (optional)
-     endnote:int (optional)
-     path is where the aupreset will be created
-     instName is the name of the aupreset
-     */
-    static public func createAUPresetFromDict(dict: NSDictionary, path: String, instName: String, attack: Double? = 0, release: Double? = 0) {
+    /// Create an AUPreset from a collection of dictionaries.
+    /// dict is a collection of other dictionaries that have the format like this:
+    /// ***Key:Value***
+    /// filename:string
+    /// rootnote:int
+    /// startnote:int (optional)
+    /// endnote:int (optional)
+    ///
+    /// - parameter dict:           Collection of dictionaries with format as given above
+    /// - parameter path:           Where the AUPreset will be created
+    /// - parameter instrumentName: The name of the AUPreset
+    /// - parameter attack:         Attack time in seconds
+    /// - parameter release:        Release time in seconds
+    static public func createAUPresetFromDict(dict: NSDictionary,
+                                              path: String,
+                                              instrumentName: String,
+                                              attack: Double? = 0,
+                                              release: Double? = 0) {
         let rootNoteKey = "rootnote"
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
         let filenameKey = "filename"
         var loadSoundsArr = Array<NSMutableDictionary>()
-        var sampleZoneXML: String = String()
-        var sampleIDXML: String = String()
+        var sampleZoneXML = ""
+        var sampleIDXML = ""
         var sampleIteration = 0
         let sampleNumStart = 268435457
         
         //iterate over the sounds
-        for i in 0..<dict.count {
+        for i in 0 ..< dict.count {
             let sound = dict.allValues[i]
             var soundDict: NSMutableDictionary
             var alreadyLoaded = false
-            var sampleNum: Int = 0
+            var sampleNum = 0
             soundDict = sound.mutableCopy() as! NSMutableDictionary
             //check if this sample is already loaded
             for loadedSoundDict in loadSoundsArr {
@@ -68,7 +89,7 @@ public class AKAUPresetBuilder {
                 }
             }
             
-            if (sound.objectForKey(startNoteKey) == nil || sound.objectForKey(endNoteKey) == nil) {
+            if sound.objectForKey(startNoteKey) == nil || sound.objectForKey(endNoteKey) == nil {
                 soundDict.setObject(sound.objectForKey(rootNoteKey)!, forKey: startNoteKey)
                 soundDict.setObject(sound.objectForKey(rootNoteKey)!, forKey: endNoteKey)
             }
@@ -77,6 +98,7 @@ public class AKAUPresetBuilder {
             } else {
                 soundDict.setObject(sound.objectForKey(rootNoteKey)!, forKey: rootNoteKey)
             }
+            
             if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
                 let idXML = AKAUPresetBuilder.generateFileRef(sampleNum, samplePath: sound.objectForKey("filename")! as! String)
@@ -84,6 +106,7 @@ public class AKAUPresetBuilder {
                 
                 sampleIteration += 1
             }
+            
             let startNote = soundDict.objectForKey(startNoteKey)! as! Int
             let endNote = soundDict.objectForKey(endNoteKey)! as! Int
             let rootNote = soundDict.objectForKey(rootNoteKey)! as! Int
@@ -95,7 +118,7 @@ public class AKAUPresetBuilder {
         }//end sounds
         
         let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
-        let str = AKAUPresetBuilder.buildInstrument(instName, envelopes: envelopesXML, zones: sampleZoneXML, filerefs: sampleIDXML)
+        let str = AKAUPresetBuilder.buildInstrument(instrumentName, envelopes: envelopesXML, zones: sampleZoneXML, filerefs: sampleIDXML)
         
         //print(str) //debug
         //write to file
@@ -108,11 +131,11 @@ public class AKAUPresetBuilder {
     }//end func createAUPresetFromDict
     
     /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that into createAUPresetFromDict
-    /// - parameter rootNote:  <#rootNote description#>
-    /// - parameter filename:  <#filename description#>
-    /// - parameter startNote: <#startNote description#>
-    /// - parameter endNote:   <#endNote description#>
-    /// - returns: <#return value description#>
+    /// - parameter rootNote:  Note at which the sample playback is unchanged
+    /// - parameter filename:  Name of the file
+    /// - parameter startNote: First note in range
+    /// - parameter endNote:   Last note in range
+    ///
     public static func generateTemplateDictionary(
         rootNote: Int,
         filename: String,
@@ -124,7 +147,7 @@ public class AKAUPresetBuilder {
         let endNoteKey = "endnote"
         let filenameKey = "filename"
         let defaultObjects: [NSObject] = [rootNote, startNote, endNote, filename]
-        let keys: [String] = [rootNoteKey, startNoteKey, endNoteKey, filenameKey]
+        let keys = [rootNoteKey, startNoteKey, endNoteKey, filenameKey]
         return NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
     }
     
