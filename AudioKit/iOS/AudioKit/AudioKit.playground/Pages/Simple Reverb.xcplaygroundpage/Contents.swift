@@ -31,33 +31,33 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Apple Reverb")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLineBreak()
 
         addLabel("Apple Reverb")
 
-        addButton("Cathedral", action: #selector(self.loadCathedral))
-        addButton("Large Chamber", action: #selector(self.loadLargeChamber))
-        addButton("Large Hall", action: #selector(self.loadLargeHall))
-        addButton("Large Hall 2", action: #selector(self.loadLargeHall2))
+        addButton("Cathedral", action: #selector(loadCathedral))
+        addButton("Large Chamber", action: #selector(loadLargeChamber))
+        addButton("Large Hall", action: #selector(loadLargeHall))
+        addButton("Large Hall 2", action: #selector(loadLargeHall2))
         addLineBreak()
-        addButton("Large Room", action: #selector(self.loadLargeRoom))
-        addButton("Large Room 2", action: #selector(self.loadLargeRoom2))
-        addButton("Medium Chamber", action: #selector(self.loadMediumChamber))
+        addButton("Large Room", action: #selector(loadLargeRoom))
+        addButton("Large Room 2", action: #selector(loadLargeRoom2))
+        addButton("Medium Chamber", action: #selector(loadMediumChamber))
         addLineBreak()
-        addButton("Medium Hall", action: #selector(self.loadMediumHall))
-        addButton("Medium Hall 2", action: #selector(self.loadMediumHall2))
+        addButton("Medium Hall", action: #selector(loadMediumHall))
+        addButton("Medium Hall 2", action: #selector(loadMediumHall2))
 
-        addButton("Medium Hall 3", action: #selector(self.loadMediumHall3))
+        addButton("Medium Hall 3", action: #selector(loadMediumHall3))
         addLineBreak()
-        addButton("Medium Room", action: #selector(self.loadMediumRoom))
-        addButton("Plate", action: #selector(self.loadPlate))
-        addButton("Small Room", action: #selector(self.loadSmallRoom))
+        addButton("Medium Room", action: #selector(loadMediumRoom))
+        addButton("Plate", action: #selector(loadPlate))
+        addButton("Small Room", action: #selector(loadSmallRoom))
 
         addLabel("Mix: ")
-        addSlider(#selector(self.setDryWet(_:)), value: reverb.dryWetMix)
+        addSlider(#selector(setDryWet), value: reverb.dryWetMix)
     }
 
     func start() {

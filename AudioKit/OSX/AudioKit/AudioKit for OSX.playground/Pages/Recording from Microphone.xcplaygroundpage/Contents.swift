@@ -27,12 +27,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Recording Mic")
 
-        addButton("Record", action: #selector(self.record))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Record", action: #selector(record))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Playback")
 
-        addButton("Play", action: #selector(self.play))
+        addButton("Play", action: #selector(play))
     }
 
     func play() {

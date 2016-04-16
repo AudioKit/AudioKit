@@ -28,13 +28,13 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         addTitle("Square Wave Oscillator")
         
         amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
-        addSlider(#selector(self.setAmplitude(_:)), value: currentAmplitude)
+        addSlider(#selector(setAmplitude), value: currentAmplitude)
 
         pulseWidthLabel = addLabel("Pulse Width: \(oscillator.pulseWidth)")
-        addSlider(#selector(self.setPulseWidth(_:)), value: oscillator.pulseWidth, minimum: 0.5, maximum: 1)
+        addSlider(#selector(setPulseWidth), value: oscillator.pulseWidth, minimum: 0.5, maximum: 1)
 
         rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
-        addSlider(#selector(self.setRampTime(_:)), value: currentRampTime, minimum: 0, maximum: 5.0)
+        addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 5.0)
         
         let keyboard = KeyboardView(width: playgroundWidth, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)

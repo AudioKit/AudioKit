@@ -25,10 +25,10 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Pink and White Noise")
         volumeLabel = addLabel("Volume: \(pink.amplitude)")
-        addSlider(#selector(self.setVolume(_:)), value: pink.amplitude)
+        addSlider(#selector(setVolume), value: pink.amplitude)
 
         balanceLabel = addLabel("Pink to White Noise Balance: \(pinkWhiteMixer.balance)")
-        addSlider(#selector(self.setBalance(_:)), value: pinkWhiteMixer.balance)
+        addSlider(#selector(setBalance), value: pinkWhiteMixer.balance)
     }
 
 

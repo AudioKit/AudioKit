@@ -33,14 +33,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Sean Costello Reverb")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
-        addSlider(#selector(self.setCutoffFrequency(_:)), value: reverb.cutoffFrequency, minimum: 0, maximum: 5000)
+        addSlider(#selector(setCutoffFrequency), value: reverb.cutoffFrequency, minimum: 0, maximum: 5000)
 
         feedbackLabel = addLabel("Feedback: \(reverb.feedback)")
-        addSlider(#selector(self.setFeedback(_:)), value: reverb.feedback, minimum: 0, maximum: 0.99)
+        addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
     }
 
     func start() {

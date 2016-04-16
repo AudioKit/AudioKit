@@ -34,19 +34,19 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Band Pass Filter")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Band Pass Filter Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         centerFrequencyLabel = addLabel("Center Frequency: 5000 Hz")
-        addSlider(#selector(self.setCenterFrequency(_:)), value: 5000, minimum: 20, maximum: 22050)
+        addSlider(#selector(setCenterFrequency), value: 5000, minimum: 20, maximum: 22050)
 
         bandwidthLabel = addLabel("Bandwidth 600 Cents")
-        addSlider(#selector(self.setBandwidth(_:)), value: 600, minimum: 100, maximum: 12000)
+        addSlider(#selector(setBandwidth), value: 600, minimum: 100, maximum: 12000)
     }
 
     //: Handle UI Events
