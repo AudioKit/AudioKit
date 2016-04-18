@@ -10,7 +10,7 @@ import AudioKit
 
 /// A wrapper for AKCore to make it a playable as a polyphonic instrument.
 class CoreInstrument: AKPolyphonicInstrument {
-    
+
     func updateWaveform1() {
         var newWaveformIndex = waveform1 + morph
         if newWaveformIndex < 0 { newWaveformIndex = 0 }
@@ -20,7 +20,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             coreVoice.vco1.index = newWaveformIndex
         }
     }
-    
+
     func updateWaveform2() {
         var newWaveformIndex = waveform2 + morph
         if newWaveformIndex < 0 { newWaveformIndex = 0 }
@@ -30,11 +30,11 @@ class CoreInstrument: AKPolyphonicInstrument {
             coreVoice.vco2.index = newWaveformIndex
         }
     }
-    
+
     var waveform1 = 0.0 { didSet { updateWaveform1() } }
     var waveform2 = 0.0 { didSet { updateWaveform2() } }
 
-    var globalbend : Double = 0.0 {
+    var globalbend: Double = 0.0 {
         didSet {
             for i in 0..<activeVoices.count {
                 let coreVoice = activeVoices[i] as! CoreVoice
@@ -46,7 +46,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var offset1 = 0 {
         didSet {
             for i in 0..<activeVoices.count {
@@ -56,7 +56,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var offset2 = 0 {
         didSet {
             for i in 0..<activeVoices.count {
@@ -66,8 +66,8 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
-    
+
+
     var subOscMix = 0.0 {
         didSet {
             for voice in voices {
@@ -76,7 +76,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var fmOscMix = 0.0 {
         didSet {
             for voice in voices {
@@ -85,7 +85,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var noiseMix = 0.0 {
         didSet {
             for voice in voices {
@@ -94,7 +94,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var detune: Double = 0.0 {
         didSet {
             for voice in voices {
@@ -103,7 +103,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var fmMod: Double = 1 {
         didSet {
             for voice in voices {
@@ -112,7 +112,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var vcoBalance: Double = 0.5 {
         didSet {
             for voice in voices {
@@ -121,7 +121,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var morph: Double = 0.0 {
         didSet {
             updateWaveform1()
@@ -129,7 +129,7 @@ class CoreInstrument: AKPolyphonicInstrument {
         }
     }
 
-    
+
     /// Attack time
     var attackDuration: Double = 0.1 {
         didSet {
@@ -159,7 +159,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     /// Release time
     var releaseDuration: Double = 0.5 {
         didSet {
@@ -170,7 +170,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var vco1On = true {
         didSet {
             for voice in voices {
@@ -179,7 +179,7 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
+
     var vco2On = true {
         didSet {
             for voice in voices {
@@ -188,20 +188,20 @@ class CoreInstrument: AKPolyphonicInstrument {
             }
         }
     }
-    
-    
+
+
     /// Instantiate the Instrument
     ///
     /// - parameter voiceCount: Maximum number of voices that will be required
     ///
     init(voiceCount: Int) {
         super.init(voice: CoreVoice(), voiceCount: voiceCount)
-        
+
         let sourceCount = 11
         amplitude = 1.0 /  Double(sourceCount * voiceCount)
-        
+
     }
-    
+
     /// Start a given voice playing a note.
     ///
     /// - parameter voice: Voice to start
@@ -210,24 +210,24 @@ class CoreInstrument: AKPolyphonicInstrument {
     ///
     override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let coreVoice = voice as! CoreVoice
-        
+
         let commonAmplitude = Double(velocity)/127.0
-        
+
         coreVoice.vco1.amplitude   = commonAmplitude
         coreVoice.vco2.amplitude   = commonAmplitude
         coreVoice.subOsc.amplitude = commonAmplitude
         coreVoice.fmOsc.amplitude  = commonAmplitude
         coreVoice.noise.amplitude  = commonAmplitude
-        
+
         coreVoice.vco1.frequency = (Double(note + offset1) + globalbend).midiNoteToFrequency()
         coreVoice.vco2.frequency = (Double(note + offset2) + globalbend).midiNoteToFrequency()
 
         coreVoice.subOsc.frequency = (Double(note - 12) + globalbend).midiNoteToFrequency()
         coreVoice.fmOsc.baseFrequency = note.midiNoteToFrequency()
-        
+
         coreVoice.start()
     }
-    
+
     /// Stop a given voice playing a note.
     ///
     /// - parameter voice: Voice to stop
@@ -237,6 +237,5 @@ class CoreInstrument: AKPolyphonicInstrument {
         let coreVoice = voice as! CoreVoice
         coreVoice.stop()
     }
-    
-}
 
+}
