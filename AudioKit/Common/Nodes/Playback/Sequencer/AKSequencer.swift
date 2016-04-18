@@ -174,6 +174,7 @@ public class AKSequencer {
                 track.setLoopInfo(duration, numberOfLoops: numberOfLoops)
             }
         }
+        loopEnabled = true
     }
     
     /// Set length of all tracks
