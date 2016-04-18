@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		524B77BC1CC4B074001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77BB1CC4B074001D82D1 /* AKNotifications.swift */; };
 		C40695B71CB6ED1500AD89F8 /* AKSampler+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40695B61CB6ED1500AD89F8 /* AKSampler+MIDI.swift */; };
 		C40AD6A21C463E3600B638AF /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AD6A11C463E3600B638AF /* AKSampler.swift */; };
 		C40AD6A91C463E4700B638AF /* AKMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AD6A31C463E4700B638AF /* AKMIDI.swift */; };
@@ -530,6 +531,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		524B77BB1CC4B074001D82D1 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
 		C40695B61CB6ED1500AD89F8 /* AKSampler+MIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSampler+MIDI.swift"; sourceTree = "<group>"; };
 		C40AD6A11C463E3600B638AF /* AKSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSampler.swift; sourceTree = "<group>"; };
 		C40AD6A31C463E4700B638AF /* AKMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDI.swift; sourceTree = "<group>"; };
@@ -1255,6 +1257,7 @@
 			children = (
 				C46B30191C69E431008CEB43 /* AKAudioRecorder.swift */,
 				EA6949EA1C5A2F720035B5DF /* AKSettings.swift */,
+				524B77BB1CC4B074001D82D1 /* AKNotifications.swift */,
 				EA6949EC1C5AE1D70035B5DF /* AudioKit.swift */,
 				EAF9C9821C68985C00C10CCE /* AKDevice.swift */,
 				C40C416F1C40E3EF009D870B /* AKTable.swift */,
@@ -2876,6 +2879,7 @@
 				C45383411C3A5E4300A51738 /* AKAutoWah.swift in Sources */,
 				C4B191221C3B340400C0F330 /* tabread.c in Sources */,
 				C45383991C3A5E4300A51738 /* AKCostelloReverb.swift in Sources */,
+				524B77BC1CC4B074001D82D1 /* AKNotifications.swift in Sources */,
 				C45383761C3A5E4300A51738 /* AKMoogLadder.swift in Sources */,
 				C4B190DA1C3B340400C0F330 /* md5.c in Sources */,
 				C453836D1C3A5E4300A51738 /* AKLowShelfFilter.swift in Sources */,

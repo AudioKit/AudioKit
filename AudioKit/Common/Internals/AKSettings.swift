@@ -35,4 +35,6 @@ import AVFoundation
     /// Global default rampTime value
     public static var rampTime: Double = 0.0002
 
+    /// Allows AudioKit to send Notifications
+    public static var turnOnAKNotifications: Bool = false
 }
