@@ -109,7 +109,7 @@ import AVFoundation
             
             #if os(iOS)
                 
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioKit.restartEngineAfterRouteChange), name: AVAudioSessionRouteChangeNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioKit.restartEngineAfterRouteChange(_:)), name: AVAudioSessionRouteChangeNotification, object: nil)
             #endif
             #if !os(OSX)
                 if AKSettings.audioInputEnabled {
