@@ -223,8 +223,9 @@ public class AKMIDI {
     }
     
     private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
-        let notification = midiNotification.memory
-        print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
+        _ = midiNotification.memory
+        //do something with notification - change _ above to let varname
+        //print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
         
     }
     
