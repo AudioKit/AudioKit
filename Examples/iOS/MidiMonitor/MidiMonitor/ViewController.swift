@@ -16,7 +16,7 @@ class ViewController: UIViewController, AKMIDIListener {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+
         midi.openMIDIIn("Session 1")
         midi.addListener(self)
     }
@@ -35,39 +35,39 @@ class ViewController: UIViewController, AKMIDIListener {
         newString.appendContentsOf("controller: \(controller) value: \(value) ")
         updateText(newString)
     }
-    func midiAftertouchOnNote(note:Int, pressure:Int, channel:Int){
+    func midiAftertouchOnNote(note: Int, pressure: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.appendContentsOf("midiAftertouchOnNote: \(note) pressure: \(pressure) ")
         updateText(newString)
     }
-    
-    func midiAfterTouch(pressure:Int, channel:Int){
+
+    func midiAfterTouch(pressure: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.appendContentsOf("midiAfterTouch pressure: \(pressure) ")
         updateText(newString)
     }
-    
-    func midiPitchWheel(pitchWheelValue:Int, channel:Int){
+
+    func midiPitchWheel(pitchWheelValue: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.appendContentsOf("midiPitchWheel: \(pitchWheelValue) ")
         updateText(newString)
     }
-    
-    func midiProgramChange(program:Int, channel:Int){
+
+    func midiProgramChange(program: Int, channel: Int) {
         var newString = "Channel: \(channel+1) "
         newString.appendContentsOf("programChange: \(program) ")
         updateText(newString)
     }
-    
-    func midiSystemCommand(data:[UInt8]){
+
+    func midiSystemCommand(data: [UInt8]) {
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
         var newString = "MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!) \n"
-        for (var i in 0 ..< data.count){
+        for i in 0 ..< data.count {
             newString.appendContentsOf("\(data[i]) ")
         }
         updateText(newString)
     }
-    func updateText(input:String){
+    func updateText(input: String) {
         dispatch_async(dispatch_get_main_queue(), {
            self.outputTextView.text = "\(input)\n\(self.outputTextView.text)"
         })
@@ -79,4 +79,3 @@ class ViewController: UIViewController, AKMIDIListener {
         })
     }
 }
-

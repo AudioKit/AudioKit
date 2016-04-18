@@ -23,7 +23,7 @@ class Conductor: AKMIDIListener {
     var reverb: AKCostelloReverb
     var reverbMixer: AKDryWetMixer
 
-    var midiBendRange : Double = 2.0
+    var midiBendRange: Double = 2.0
 
     init() {
         AKSettings.audioInputEnabled = true
@@ -42,10 +42,10 @@ class Conductor: AKMIDIListener {
         reverb.stop()
 
         reverbMixer = AKDryWetMixer(masterVolume, reverb, balance: 0.0)
-        
+
         // uncomment this to allow background operation
         // AKSettings.playbackWhileMuted = true
-        
+
         AudioKit.output = reverbMixer
         AudioKit.start()
 
@@ -54,7 +54,7 @@ class Conductor: AKMIDIListener {
         midi.openMIDIIn("Session 1")
         midi.addListener(self)
     }
-    
+
     func midiNoteOn(note: Int, velocity: Int, channel: Int) {
         core.playNote(note, velocity: velocity)
     }
