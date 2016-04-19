@@ -36,5 +36,5 @@ import AVFoundation
     public static var rampTime: Double = 0.0002
 
     /// Allows AudioKit to send Notifications
-    public static var turnOnAKNotifications: Bool = false
+    public static var notificationsEnabled: Bool = false
 }
