@@ -223,8 +223,9 @@ public class AKMIDI {
     }
     
     private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
-        let notification = midiNotification.memory
-        print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
+        _ = midiNotification.memory
+        //do something with notification - change _ above to let varname
+        //print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
         
     }
     
@@ -251,7 +252,7 @@ public class AKMIDI {
     /// Initialize the AKMIDI system
     public init() {
 
-        print("MIDI Enabled")
+        //print("MIDI Enabled")
         #if os(iOS)
             MIDINetworkSession.defaultSession().enabled = true
             MIDINetworkSession.defaultSession().connectionPolicy =
@@ -261,16 +262,16 @@ public class AKMIDI {
         if midiClient == 0 {
             result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
             if result == OSStatus(noErr) {
-                print("created client")
+                print("created midi client")
             } else {
-                print("error creating client : \(result)")
+                print("error creating midi client : \(result)")
             }
         }
     }
     
     /// Create set of virtual MIDI ports
     public func createVirtualPorts(uniqueId: Int32 = 2000000) {
-        print("Creating virtual MIDI ports")
+        //print("Creating virtual MIDI ports")
 
         destroyVirtualPorts()
         
@@ -316,11 +317,11 @@ public class AKMIDI {
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
     public func openMIDIIn(namedInput: String = "") {
-        print("Opening MIDI In")
+        //print("Opening MIDI In")
         var result = OSStatus(noErr)
         
         let sourceCount = MIDIGetNumberOfSources()
-        print("SourceCount: \(sourceCount)")
+        //print("SourceCount: \(sourceCount)")
         for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
@@ -363,11 +364,11 @@ public class AKMIDI {
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openMIDIOut(namedOutput: String = "") {
-        print("Opening MIDI Out")
+        //print("Opening MIDI Out")
         var result = OSStatus(noErr)
         
         let outputCount = MIDIGetNumberOfDestinations()
-        print("Number of MIDI Out ports = \(outputCount)")
+        //print("Number of MIDI Out ports = \(outputCount)")
         var foundDest = false
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         

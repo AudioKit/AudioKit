@@ -120,12 +120,12 @@ public class AKAUPresetBuilder {
         let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
         let str = AKAUPresetBuilder.buildInstrument(instrumentName, envelopes: envelopesXML, zones: sampleZoneXML, filerefs: sampleIDXML)
         
-        //print(str) //debug
         //write to file
         do {
             print("Writing to \(path)")
             try str.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
         } catch let error as NSError {
+            print("Could not write to \(path)")
             print(error)
         }
     }//end func createAUPresetFromDict
