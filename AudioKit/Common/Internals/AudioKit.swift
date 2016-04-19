@@ -215,6 +215,8 @@ import AVFoundation
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: AKNotifications.engineRestartedAfterRouteChange, object: nil)
+        #if os(iOS)
+            NSNotificationCenter.defaultCenter().removeObserver(self, name: AKNotifications.engineRestartedAfterRouteChange, object:    nil)
+        #endif
     }
 }
