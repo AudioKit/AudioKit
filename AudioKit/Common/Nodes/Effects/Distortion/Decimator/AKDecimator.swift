@@ -118,6 +118,10 @@ public class AKDecimator: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kDistortionParam_Decimation, kAudioUnitScope_Global, 0, Float(decimation) * 100.0, 0)
             AudioUnitSetParameter(internalAU, kDistortionParam_Rounding, kAudioUnitScope_Global, 0, Float(rounding) * 100.0, 0)
             AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
+            //turn off the other distortion effects
+            AudioUnitSetParameter(internalAU, kDistortionParam_PolynomialMix, kAudioUnitScope_Global, 0, 0, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 0, 0)
+            AudioUnitSetParameter(internalAU, kDistortionParam_DelayMix, kAudioUnitScope_Global, 0, 0, 0)
     }
     
     // MARK: - Control
