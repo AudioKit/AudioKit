@@ -204,7 +204,7 @@ import AVFoundation
             do {
                 try self.engine.start()
                 // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
-                if AKSettings.turnOnAKNotifications {
+                if AKSettings.notificationsEnabled {
                     NSNotificationCenter.defaultCenter().postNotificationName(AKNotifications.engineRestartedAfterRouteChange, object: nil, userInfo: notification.userInfo)
                     
                 }
