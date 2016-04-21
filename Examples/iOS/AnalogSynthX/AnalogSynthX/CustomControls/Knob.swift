@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable
 class Knob: UIView {
-    
+
     var minimum = 0.0 {
         didSet {
             self.knobValue = CGFloat((value - minimum) / (maximum - minimum))
@@ -21,7 +21,7 @@ class Knob: UIView {
             self.knobValue = CGFloat((value - minimum) / (maximum - minimum))
         }
     }
-    
+
     var value: Double = 0 {
         didSet {
             if value > maximum {
@@ -33,19 +33,19 @@ class Knob: UIView {
             self.knobValue = CGFloat((value - minimum) / (maximum - minimum))
         }
     }
-    
+
     // Knob properties
-    var knobValue: CGFloat = 0.5 
+    var knobValue: CGFloat = 0.5
     var knobSensitivity = 0.005
     var lastX: CGFloat = 0
     var lastY: CGFloat = 0
-    
+
     func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
         // Knobs assume up or right is increasing, and down or left is decreasing
-        
+
         let horizontalChange = Double(touchPoint.x - lastX) * knobSensitivity
         value += horizontalChange * (maximum - minimum)
-        
+
         let verticalChange = Double(touchPoint.y - lastY) * knobSensitivity
         value -= verticalChange * (maximum - minimum)
 
