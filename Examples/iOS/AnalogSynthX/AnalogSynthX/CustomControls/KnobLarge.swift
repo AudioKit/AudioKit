@@ -14,19 +14,18 @@ protocol KnobLargeDelegate {
 
 @IBDesignable
 class KnobLarge: Knob {
-    
+
     var delegate: KnobLargeDelegate?
-    
+
     override func drawRect(rect: CGRect) {
         SynthStyleKit.drawKnobLarge(knobValue: knobValue)
     }
-    
+
     // MARK: - Set Percentages
     override func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
         super.setPercentagesWithTouchPoint(touchPoint)
         delegate?.updateKnobValue(value, tag: self.tag)
         setNeedsDisplay()
     }
- 
-}
 
+}

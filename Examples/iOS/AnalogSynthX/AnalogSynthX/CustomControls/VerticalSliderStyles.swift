@@ -7,11 +7,11 @@
 
 import UIKit
 
-public class VerticalSliderStyles : NSObject {
+public class VerticalSliderStyles: NSObject {
 
     //// Drawing Methods
 
-    public class func drawVerticalSlider(controlFrame controlFrame: CGRect = CGRectMake(0, 0, 40, 216), knobRect: CGRect = CGRectMake(0, 89, 36, 32)) {
+    public class func drawVerticalSlider(controlFrame controlFrame: CGRect = CGRect(x: 0, y: 0, width: 40, height: 216), knobRect: CGRect = CGRect(x: 0, y: 89, width: 36, height: 32)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
