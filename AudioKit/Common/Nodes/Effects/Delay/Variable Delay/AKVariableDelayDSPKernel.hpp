@@ -9,8 +9,8 @@
 #ifndef AKVariableDelayDSPKernel_hpp
 #define AKVariableDelayDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     feedbackAddress = 1
 };
 
-class AKVariableDelayDSPKernel : public AKDSPKernel {
+class AKVariableDelayDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
     
@@ -155,8 +155,8 @@ private:
     
 public:
     bool started = true;
-    AKParameterRamper timeRamper = 1;
-    AKParameterRamper feedbackRamper = 0;
+    ParameterRamper timeRamper = 1;
+    ParameterRamper feedbackRamper = 0;
 };
 
 #endif /* AKVariableDelayDSPKernel_hpp */

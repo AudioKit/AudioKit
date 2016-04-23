@@ -9,8 +9,8 @@
 #ifndef AKDCBlockDSPKernel_hpp
 #define AKDCBlockDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -19,7 +19,7 @@ extern "C" {
 }
 
 
-class AKDCBlockDSPKernel : public AKDSPKernel {
+class AKDCBlockDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 

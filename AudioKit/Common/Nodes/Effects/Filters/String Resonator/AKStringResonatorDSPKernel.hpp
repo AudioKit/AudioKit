@@ -9,8 +9,8 @@
 #ifndef AKStringResonatorDSPKernel_hpp
 #define AKStringResonatorDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     feedbackAddress = 1
 };
 
-class AKStringResonatorDSPKernel : public AKDSPKernel {
+class AKStringResonatorDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -142,8 +142,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper fundamentalFrequencyRamper = 100;
-    AKParameterRamper feedbackRamper = 0.95;
+    ParameterRamper fundamentalFrequencyRamper = 100;
+    ParameterRamper feedbackRamper = 0.95;
 };
 
 #endif /* AKStringResonatorDSPKernel_hpp */

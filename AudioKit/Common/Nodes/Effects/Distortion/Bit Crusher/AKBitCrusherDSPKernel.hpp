@@ -9,8 +9,8 @@
 #ifndef AKBitCrusherDSPKernel_hpp
 #define AKBitCrusherDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     sampleRateAddress = 1
 };
 
-class AKBitCrusherDSPKernel : public AKDSPKernel {
+class AKBitCrusherDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -142,8 +142,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper bitDepthRamper = 8;
-    AKParameterRamper sampleRateRamper = 10000;
+    ParameterRamper bitDepthRamper = 8;
+    ParameterRamper sampleRateRamper = 10000;
 };
 
 #endif /* AKBitCrusherDSPKernel_hpp */

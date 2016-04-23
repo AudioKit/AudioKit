@@ -9,8 +9,8 @@
 #ifndef AKSawtoothOscillatorDSPKernel_hpp
 #define AKSawtoothOscillatorDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -25,7 +25,7 @@ enum {
     detuningMultiplierAddress = 3
 };
 
-class AKSawtoothOscillatorDSPKernel : public AKDSPKernel {
+class AKSawtoothOscillatorDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -195,10 +195,10 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper frequencyRamper = 440;
-    AKParameterRamper amplitudeRamper = 0.5;
-    AKParameterRamper detuningOffsetRamper = 0;
-    AKParameterRamper detuningMultiplierRamper = 1;
+    ParameterRamper frequencyRamper = 440;
+    ParameterRamper amplitudeRamper = 0.5;
+    ParameterRamper detuningOffsetRamper = 0;
+    ParameterRamper detuningMultiplierRamper = 1;
 };
 
 #endif /* AKSawtoothOscillatorDSPKernel_hpp */

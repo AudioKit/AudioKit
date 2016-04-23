@@ -9,8 +9,8 @@
 #ifndef AKThreePoleLowpassFilterDSPKernel_hpp
 #define AKThreePoleLowpassFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     resonanceAddress = 2
 };
 
-class AKThreePoleLowpassFilterDSPKernel : public AKDSPKernel {
+class AKThreePoleLowpassFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -157,9 +157,9 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper distortionRamper = 0.5;
-    AKParameterRamper cutoffFrequencyRamper = 1500;
-    AKParameterRamper resonanceRamper = 0.5;
+    ParameterRamper distortionRamper = 0.5;
+    ParameterRamper cutoffFrequencyRamper = 1500;
+    ParameterRamper resonanceRamper = 0.5;
 };
 
 #endif /* AKThreePoleLowpassFilterDSPKernel_hpp */

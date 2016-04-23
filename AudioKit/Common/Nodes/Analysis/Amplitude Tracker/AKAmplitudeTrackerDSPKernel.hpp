@@ -9,8 +9,8 @@
 #ifndef AKAmplitudeTrackerDSPKernel_hpp
 #define AKAmplitudeTrackerDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKAmplitudeTrackerDSPKernel : public AKDSPKernel {
+class AKAmplitudeTrackerDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -127,7 +127,7 @@ private:
     sp_rms *rms;
 
 public:
-    AKParameterRamper halfPowerPointRamper = 10;
+    ParameterRamper halfPowerPointRamper = 10;
     bool started = true;
     float trackedAmplitude = 0.0;
 };

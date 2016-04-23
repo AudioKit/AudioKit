@@ -9,8 +9,8 @@
 #ifndef AKLowPassButterworthFilterDSPKernel_hpp
 #define AKLowPassButterworthFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     cutoffFrequencyAddress = 0
 };
 
-class AKLowPassButterworthFilterDSPKernel : public AKDSPKernel {
+class AKLowPassButterworthFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -127,7 +127,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper cutoffFrequencyRamper = 1000;
+    ParameterRamper cutoffFrequencyRamper = 1000;
 };
 
 #endif /* AKLowPassButterworthFilterDSPKernel_hpp */

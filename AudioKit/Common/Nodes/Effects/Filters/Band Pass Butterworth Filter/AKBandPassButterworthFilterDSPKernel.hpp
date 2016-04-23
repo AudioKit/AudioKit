@@ -9,8 +9,8 @@
 #ifndef AKBandPassButterworthFilterDSPKernel_hpp
 #define AKBandPassButterworthFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKBandPassButterworthFilterDSPKernel : public AKDSPKernel {
+class AKBandPassButterworthFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -142,8 +142,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper centerFrequencyRamper = 2000;
-    AKParameterRamper bandwidthRamper = 100;
+    ParameterRamper centerFrequencyRamper = 2000;
+    ParameterRamper bandwidthRamper = 100;
 };
 
 #endif /* AKBandPassButterworthFilterDSPKernel_hpp */

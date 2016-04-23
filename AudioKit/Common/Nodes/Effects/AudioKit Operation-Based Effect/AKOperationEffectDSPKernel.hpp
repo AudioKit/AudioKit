@@ -9,8 +9,8 @@
 #ifndef AKOperationEffectDSPKernel_hpp
 #define AKOperationEffectDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -19,7 +19,7 @@ extern "C" {
 }
 
 
-class AKOperationEffectDSPKernel : public AKDSPKernel {
+class AKOperationEffectDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 

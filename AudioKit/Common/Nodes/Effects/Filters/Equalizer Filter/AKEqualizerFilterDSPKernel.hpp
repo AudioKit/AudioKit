@@ -9,8 +9,8 @@
 #ifndef AKEqualizerFilterDSPKernel_hpp
 #define AKEqualizerFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     gainAddress = 2
 };
 
-class AKEqualizerFilterDSPKernel : public AKDSPKernel {
+class AKEqualizerFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -157,9 +157,9 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper centerFrequencyRamper = 1000;
-    AKParameterRamper bandwidthRamper = 100;
-    AKParameterRamper gainRamper = 10;
+    ParameterRamper centerFrequencyRamper = 1000;
+    ParameterRamper bandwidthRamper = 100;
+    ParameterRamper gainRamper = 10;
 };
 
 #endif /* AKEqualizerFilterDSPKernel_hpp */

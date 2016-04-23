@@ -9,8 +9,8 @@
 #ifndef AKAmplitudeEnvelopeDSPKernel_hpp
 #define AKAmplitudeEnvelopeDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -25,7 +25,7 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel {
+class AKAmplitudeEnvelopeDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -174,10 +174,10 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper attackDurationRamper = 0.1;
-    AKParameterRamper decayDurationRamper = 0.1;
-    AKParameterRamper sustainLevelRamper = 1.0;
-    AKParameterRamper releaseDurationRamper = 0.1;
+    ParameterRamper attackDurationRamper = 0.1;
+    ParameterRamper decayDurationRamper = 0.1;
+    ParameterRamper sustainLevelRamper = 1.0;
+    ParameterRamper releaseDurationRamper = 0.1;
 };
 
 #endif /* AKAmplitudeEnvelopeDSPKernel_hpp */

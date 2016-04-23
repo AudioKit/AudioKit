@@ -9,8 +9,8 @@
 #ifndef AKWhiteNoiseDSPKernel_hpp
 #define AKWhiteNoiseDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     amplitudeAddress = 0
 };
 
-class AKWhiteNoiseDSPKernel : public AKDSPKernel {
+class AKWhiteNoiseDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -133,7 +133,7 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper amplitudeRamper = 1;
+    ParameterRamper amplitudeRamper = 1;
 };
 
 #endif /* AKWhiteNoiseDSPKernel_hpp */

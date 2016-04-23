@@ -9,8 +9,8 @@
 #ifndef AKModalResonanceFilterDSPKernel_hpp
 #define AKModalResonanceFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     qualityFactorAddress = 1
 };
 
-class AKModalResonanceFilterDSPKernel : public AKDSPKernel {
+class AKModalResonanceFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -142,8 +142,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper frequencyRamper = 500.0;
-    AKParameterRamper qualityFactorRamper = 50.0;
+    ParameterRamper frequencyRamper = 500.0;
+    ParameterRamper qualityFactorRamper = 50.0;
 };
 
 #endif /* AKModalResonanceFilterDSPKernel_hpp */

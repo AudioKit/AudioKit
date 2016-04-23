@@ -9,8 +9,8 @@
 #ifndef AKMetalBarDSPKernel_hpp
 #define AKMetalBarDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -28,7 +28,7 @@ enum {
     strikeWidthAddress = 6
 };
 
-class AKMetalBarDSPKernel : public AKDSPKernel {
+class AKMetalBarDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -258,13 +258,13 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper leftBoundaryConditionRamper = 1;
-    AKParameterRamper rightBoundaryConditionRamper = 1;
-    AKParameterRamper decayDurationRamper = 3;
-    AKParameterRamper scanSpeedRamper = 0.25;
-    AKParameterRamper positionRamper = 0.2;
-    AKParameterRamper strikeVelocityRamper = 500;
-    AKParameterRamper strikeWidthRamper = 0.05;
+    ParameterRamper leftBoundaryConditionRamper = 1;
+    ParameterRamper rightBoundaryConditionRamper = 1;
+    ParameterRamper decayDurationRamper = 3;
+    ParameterRamper scanSpeedRamper = 0.25;
+    ParameterRamper positionRamper = 0.2;
+    ParameterRamper strikeVelocityRamper = 500;
+    ParameterRamper strikeWidthRamper = 0.05;
 };
 
 #endif /* AKMetalBarDSPKernel_hpp */

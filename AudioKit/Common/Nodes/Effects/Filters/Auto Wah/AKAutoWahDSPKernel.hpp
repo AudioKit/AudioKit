@@ -9,8 +9,8 @@
 #ifndef AKAutoWahDSPKernel_hpp
 #define AKAutoWahDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     amplitudeAddress = 2
 };
 
-class AKAutoWahDSPKernel : public AKDSPKernel {
+class AKAutoWahDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -157,9 +157,9 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper wahRamper = 0;
-    AKParameterRamper mixRamper = 100;
-    AKParameterRamper amplitudeRamper = 0.1;
+    ParameterRamper wahRamper = 0;
+    ParameterRamper mixRamper = 100;
+    ParameterRamper amplitudeRamper = 0.1;
 };
 
 #endif /* AKAutoWahDSPKernel_hpp */

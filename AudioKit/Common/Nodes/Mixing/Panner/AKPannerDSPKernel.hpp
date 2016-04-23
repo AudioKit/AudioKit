@@ -9,8 +9,8 @@
 #ifndef AKPannerDSPKernel_hpp
 #define AKPannerDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     panAddress = 0
 };
 
-class AKPannerDSPKernel : public AKDSPKernel {
+class AKPannerDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -135,7 +135,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper panRamper = 0;
+    ParameterRamper panRamper = 0;
 };
 
 #endif /* AKPannerDSPKernel_hpp */

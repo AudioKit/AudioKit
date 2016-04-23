@@ -9,8 +9,8 @@
 #ifndef AKPhaseLockedVocoderDSPKernel_hpp
 #define AKPhaseLockedVocoderDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     pitchRatioAddress = 2
 };
 
-class AKPhaseLockedVocoderDSPKernel : public AKDSPKernel {
+class AKPhaseLockedVocoderDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -183,9 +183,9 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper positionRamper = 0;
-    AKParameterRamper amplitudeRamper = 1;
-    AKParameterRamper pitchRatioRamper = 1;
+    ParameterRamper positionRamper = 0;
+    ParameterRamper amplitudeRamper = 1;
+    ParameterRamper pitchRatioRamper = 1;
 };
 
 #endif /* AKPhaseLockedVocoderDSPKernel_hpp */

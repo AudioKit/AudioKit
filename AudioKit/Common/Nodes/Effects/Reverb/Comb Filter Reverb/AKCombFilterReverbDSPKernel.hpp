@@ -9,8 +9,8 @@
 #ifndef AKCombFilterReverbDSPKernel_hpp
 #define AKCombFilterReverbDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     reverbDurationAddress = 0
 };
 
-class AKCombFilterReverbDSPKernel : public AKDSPKernel {
+class AKCombFilterReverbDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -131,7 +131,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper reverbDurationRamper = 1.0;
+    ParameterRamper reverbDurationRamper = 1.0;
 };
 
 #endif /* AKCombFilterReverbDSPKernel_hpp */
