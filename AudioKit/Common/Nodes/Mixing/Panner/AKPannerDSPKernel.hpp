@@ -60,7 +60,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case panAddress:
-                panRamper.set(clamp(value, (float)-1, (float)1));
+                panRamper.setUIValue(clamp(value, (float)-1, (float)1));
                 break;
 
         }
@@ -69,7 +69,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case panAddress:
-                return panRamper.goal();
+                return panRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -99,7 +99,7 @@ public:
         
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double pan = double(panRamper.getStep());
+            double pan = double(panRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

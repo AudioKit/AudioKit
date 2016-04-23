@@ -72,37 +72,37 @@ public:
 
     void setIntensity(float num_tubes) {
         intensity = num_tubes;
-        intensityRamper.set(clamp(num_tubes, (float)0, (float)100));
+        intensityRamper.setUIValue(clamp(num_tubes, (float)0, (float)100));
     }
 
     void setDampingfactor(float damp) {
         dampingFactor = damp;
-        dampingFactorRamper.set(clamp(damp, (float)0.0, (float)2.0));
+        dampingFactorRamper.setUIValue(clamp(damp, (float)0.0, (float)2.0));
     }
 
     void setEnergyreturn(float shake_max) {
         energyReturn = shake_max;
-        energyReturnRamper.set(clamp(shake_max, (float)0, (float)100));
+        energyReturnRamper.setUIValue(clamp(shake_max, (float)0, (float)100));
     }
 
     void setMainresonantfrequency(float freq) {
         mainResonantFrequency = freq;
-        mainResonantFrequencyRamper.set(clamp(freq, (float)0, (float)22000));
+        mainResonantFrequencyRamper.setUIValue(clamp(freq, (float)0, (float)22000));
     }
 
     void setFirstresonantfrequency(float freq1) {
         firstResonantFrequency = freq1;
-        firstResonantFrequencyRamper.set(clamp(freq1, (float)0, (float)22000));
+        firstResonantFrequencyRamper.setUIValue(clamp(freq1, (float)0, (float)22000));
     }
 
     void setSecondresonantfrequency(float freq2) {
         secondResonantFrequency = freq2;
-        secondResonantFrequencyRamper.set(clamp(freq2, (float)0, (float)22000));
+        secondResonantFrequencyRamper.setUIValue(clamp(freq2, (float)0, (float)22000));
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.set(clamp(amp, (float)0, (float)1));
+        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)1));
     }
 
     void trigger() {
@@ -112,31 +112,31 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case intensityAddress:
-                intensityRamper.set(clamp(value, (float)0, (float)100));
+                intensityRamper.setUIValue(clamp(value, (float)0, (float)100));
                 break;
 
             case dampingFactorAddress:
-                dampingFactorRamper.set(clamp(value, (float)0.0, (float)2.0));
+                dampingFactorRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
                 break;
 
             case energyReturnAddress:
-                energyReturnRamper.set(clamp(value, (float)0, (float)100));
+                energyReturnRamper.setUIValue(clamp(value, (float)0, (float)100));
                 break;
 
             case mainResonantFrequencyAddress:
-                mainResonantFrequencyRamper.set(clamp(value, (float)0, (float)22000));
+                mainResonantFrequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
                 break;
 
             case firstResonantFrequencyAddress:
-                firstResonantFrequencyRamper.set(clamp(value, (float)0, (float)22000));
+                firstResonantFrequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
                 break;
 
             case secondResonantFrequencyAddress:
-                secondResonantFrequencyRamper.set(clamp(value, (float)0, (float)22000));
+                secondResonantFrequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.set(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
 
         }
@@ -145,25 +145,25 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case intensityAddress:
-                return intensityRamper.goal();
+                return intensityRamper.getUIValue();
 
             case dampingFactorAddress:
-                return dampingFactorRamper.goal();
+                return dampingFactorRamper.getUIValue();
 
             case energyReturnAddress:
-                return energyReturnRamper.goal();
+                return energyReturnRamper.getUIValue();
 
             case mainResonantFrequencyAddress:
-                return mainResonantFrequencyRamper.goal();
+                return mainResonantFrequencyRamper.getUIValue();
 
             case firstResonantFrequencyAddress:
-                return firstResonantFrequencyRamper.goal();
+                return firstResonantFrequencyRamper.getUIValue();
 
             case secondResonantFrequencyAddress:
-                return secondResonantFrequencyRamper.goal();
+                return secondResonantFrequencyRamper.getUIValue();
 
             case amplitudeAddress:
-                return amplitudeRamper.goal();
+                return amplitudeRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -211,13 +211,13 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            intensity = double(intensityRamper.getStep());
-            dampingFactor = double(dampingFactorRamper.getStep());
-            energyReturn = double(energyReturnRamper.getStep());
-            mainResonantFrequency = double(mainResonantFrequencyRamper.getStep());
-            firstResonantFrequency = double(firstResonantFrequencyRamper.getStep());
-            secondResonantFrequency = double(secondResonantFrequencyRamper.getStep());
-            amplitude = double(amplitudeRamper.getStep());
+            intensity = double(intensityRamper.getAndStep());
+            dampingFactor = double(dampingFactorRamper.getAndStep());
+            energyReturn = double(energyReturnRamper.getAndStep());
+            mainResonantFrequency = double(mainResonantFrequencyRamper.getAndStep());
+            firstResonantFrequency = double(firstResonantFrequencyRamper.getAndStep());
+            secondResonantFrequency = double(secondResonantFrequencyRamper.getAndStep());
+            amplitude = double(amplitudeRamper.getAndStep());
 
             drip->num_tubes = intensity;
             drip->damp = dampingFactor;

@@ -62,12 +62,12 @@ public:
 
     void setFrequency(float freq) {
         frequency = freq;
-        frequencyRamper.set(clamp(freq, (float)0, (float)22000));
+        frequencyRamper.setUIValue(clamp(freq, (float)0, (float)22000));
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.set(clamp(amp, (float)0, (float)1));
+        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)1));
     }
 
     void trigger() {
@@ -77,11 +77,11 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.set(clamp(value, (float)0, (float)22000));
+                frequencyRamper.setUIValue(clamp(value, (float)0, (float)22000));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.set(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
 
         }
@@ -90,10 +90,10 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case frequencyAddress:
-                return frequencyRamper.goal();
+                return frequencyRamper.getUIValue();
 
             case amplitudeAddress:
-                return amplitudeRamper.goal();
+                return amplitudeRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -121,8 +121,8 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            frequency = double(frequencyRamper.getStep());
-            amplitude = double(amplitudeRamper.getStep());
+            frequency = double(frequencyRamper.getAndStep());
+            amplitude = double(amplitudeRamper.getAndStep());
 
             pluck->freq = frequency;
             pluck->amp = amplitude;

@@ -61,7 +61,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case limitAddress:
-                limitRamper.set(clamp(value, (float)0.0, (float)1.0));
+                limitRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
                 break;
         }
     }
@@ -69,7 +69,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case limitAddress:
-                return limitRamper.goal();
+                return limitRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -91,7 +91,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double limit = double(limitRamper.getStep());
+            double limit = double(limitRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

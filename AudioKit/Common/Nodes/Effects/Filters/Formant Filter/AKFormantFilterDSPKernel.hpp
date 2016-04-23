@@ -64,15 +64,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
+                centerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
             case attackDurationAddress:
-                attackDurationRamper.set(clamp(value, (float)0.0, (float)0.1));
+                attackDurationRamper.setUIValue(clamp(value, (float)0.0, (float)0.1));
                 break;
 
             case decayDurationAddress:
-                decayDurationRamper.set(clamp(value, (float)0.0, (float)0.1));
+                decayDurationRamper.setUIValue(clamp(value, (float)0.0, (float)0.1));
                 break;
 
         }
@@ -81,13 +81,13 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case centerFrequencyAddress:
-                return centerFrequencyRamper.goal();
+                return centerFrequencyRamper.getUIValue();
 
             case attackDurationAddress:
-                return attackDurationRamper.goal();
+                return attackDurationRamper.getUIValue();
 
             case decayDurationAddress:
-                return decayDurationRamper.goal();
+                return decayDurationRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -118,9 +118,9 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double centerFrequency = double(centerFrequencyRamper.getStep());
-            double attackDuration = double(attackDurationRamper.getStep());
-            double decayDuration = double(decayDurationRamper.getStep());
+            double centerFrequency = double(centerFrequencyRamper.getAndStep());
+            double attackDuration = double(attackDurationRamper.getAndStep());
+            double decayDuration = double(decayDurationRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

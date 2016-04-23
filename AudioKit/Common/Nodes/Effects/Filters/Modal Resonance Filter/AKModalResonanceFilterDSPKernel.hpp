@@ -62,11 +62,11 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
+                frequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
             case qualityFactorAddress:
-                qualityFactorRamper.set(clamp(value, (float)0.0, (float)100.0));
+                qualityFactorRamper.setUIValue(clamp(value, (float)0.0, (float)100.0));
                 break;
 
         }
@@ -75,10 +75,10 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case frequencyAddress:
-                return frequencyRamper.goal();
+                return frequencyRamper.getUIValue();
 
             case qualityFactorAddress:
-                return qualityFactorRamper.goal();
+                return qualityFactorRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -105,8 +105,8 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double frequency = double(frequencyRamper.getStep());
-            double qualityFactor = double(qualityFactorRamper.getStep());
+            double frequency = double(frequencyRamper.getAndStep());
+            double qualityFactor = double(qualityFactorRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

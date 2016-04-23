@@ -73,19 +73,19 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case attackDurationAddress:
-                attackDurationRamper.set(clamp(value, (float)0, (float)99));
+                attackDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
             case decayDurationAddress:
-                decayDurationRamper.set(clamp(value, (float)0, (float)99));
+                decayDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
             case sustainLevelAddress:
-                sustainLevelRamper.set(clamp(value, (float)0, (float)99));
+                sustainLevelRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
             case releaseDurationAddress:
-                releaseDurationRamper.set(clamp(value, (float)0, (float)99));
+                releaseDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
         }
@@ -94,16 +94,16 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case attackDurationAddress:
-                return attackDurationRamper.goal();
+                return attackDurationRamper.getUIValue();
 
             case decayDurationAddress:
-                return decayDurationRamper.goal();
+                return decayDurationRamper.getUIValue();
 
             case sustainLevelAddress:
-                return sustainLevelRamper.goal();
+                return sustainLevelRamper.getUIValue();
 
             case releaseDurationAddress:
-                return releaseDurationRamper.goal();
+                return releaseDurationRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -140,10 +140,10 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             
-            adsr->atk = attackDurationRamper.getStep();
-            adsr->dec = decayDurationRamper.getStep();
-            adsr->sus = sustainLevelRamper.getStep();
-            adsr->rel = releaseDurationRamper.getStep();
+            adsr->atk = attackDurationRamper.getAndStep();
+            adsr->dec = decayDurationRamper.getAndStep();
+            adsr->sus = sustainLevelRamper.getAndStep();
+            adsr->rel = releaseDurationRamper.getAndStep();
             
 //            NSLog(@"%f %f", adsr->atk, adsr->rel);
 
