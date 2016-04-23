@@ -9,8 +9,8 @@
 #ifndef AKDripDSPKernel_hpp
 #define AKDripDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -28,7 +28,7 @@ enum {
     amplitudeAddress = 6
 };
 
-class AKDripDSPKernel : public AKDSPKernel {
+class AKDripDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -266,13 +266,13 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper intensityRamper = 10;
-    AKParameterRamper dampingFactorRamper = 0.2;
-    AKParameterRamper energyReturnRamper = 0;
-    AKParameterRamper mainResonantFrequencyRamper = 450;
-    AKParameterRamper firstResonantFrequencyRamper = 600;
-    AKParameterRamper secondResonantFrequencyRamper = 750;
-    AKParameterRamper amplitudeRamper = 0.3;
+    ParameterRamper intensityRamper = 10;
+    ParameterRamper dampingFactorRamper = 0.2;
+    ParameterRamper energyReturnRamper = 0;
+    ParameterRamper mainResonantFrequencyRamper = 450;
+    ParameterRamper firstResonantFrequencyRamper = 600;
+    ParameterRamper secondResonantFrequencyRamper = 750;
+    ParameterRamper amplitudeRamper = 0.3;
 };
 
 #endif /* AKDripDSPKernel_hpp */

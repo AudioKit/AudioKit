@@ -9,8 +9,8 @@
 #ifndef AKClipperDSPKernel_hpp
 #define AKClipperDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     limitAddress = 0
 };
 
-class AKClipperDSPKernel : public AKDSPKernel {
+class AKClipperDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -125,7 +125,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper limitRamper = 1.0;
+    ParameterRamper limitRamper = 1.0;
 };
 
 #endif /* AKClipperDSPKernel_hpp */

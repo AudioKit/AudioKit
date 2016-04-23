@@ -9,8 +9,8 @@
 #ifndef AKRolandTB303FilterDSPKernel_hpp
 #define AKRolandTB303FilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -25,7 +25,7 @@ enum {
     resonanceAsymmetryAddress = 3
 };
 
-class AKRolandTB303FilterDSPKernel : public AKDSPKernel {
+class AKRolandTB303FilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -172,10 +172,10 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper cutoffFrequencyRamper = 500;
-    AKParameterRamper resonanceRamper = 0.5;
-    AKParameterRamper distortionRamper = 2.0;
-    AKParameterRamper resonanceAsymmetryRamper = 0.5;
+    ParameterRamper cutoffFrequencyRamper = 500;
+    ParameterRamper resonanceRamper = 0.5;
+    ParameterRamper distortionRamper = 2.0;
+    ParameterRamper resonanceAsymmetryRamper = 0.5;
 };
 
 #endif /* AKRolandTB303FilterDSPKernel_hpp */

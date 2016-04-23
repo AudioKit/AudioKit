@@ -9,8 +9,8 @@
 #ifndef AKMoogLadderDSPKernel_hpp
 #define AKMoogLadderDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     resonanceAddress = 1
 };
 
-class AKMoogLadderDSPKernel : public AKDSPKernel {
+class AKMoogLadderDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -142,8 +142,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper cutoffFrequencyRamper = 1000;
-    AKParameterRamper resonanceRamper = 0.5;
+    ParameterRamper cutoffFrequencyRamper = 1000;
+    ParameterRamper resonanceRamper = 0.5;
 };
 
 #endif /* AKMoogLadderDSPKernel_hpp */

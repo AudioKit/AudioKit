@@ -9,8 +9,8 @@
 #ifndef AKTanhDistortionDSPKernel_hpp
 #define AKTanhDistortionDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -25,7 +25,7 @@ enum {
     negativeShapeParameterAddress = 3
 };
 
-class AKTanhDistortionDSPKernel : public AKDSPKernel {
+class AKTanhDistortionDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -172,10 +172,10 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper pregainRamper = 2.0;
-    AKParameterRamper postgainRamper = 0.5;
-    AKParameterRamper postiveShapeParameterRamper = 0.0;
-    AKParameterRamper negativeShapeParameterRamper = 0.0;
+    ParameterRamper pregainRamper = 2.0;
+    ParameterRamper postgainRamper = 0.5;
+    ParameterRamper postiveShapeParameterRamper = 0.0;
+    ParameterRamper negativeShapeParameterRamper = 0.0;
 };
 
 #endif /* AKTanhDistortionDSPKernel_hpp */

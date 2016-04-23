@@ -9,8 +9,8 @@
 #ifndef AKChowningReverbDSPKernel_hpp
 #define AKChowningReverbDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -19,7 +19,7 @@ extern "C" {
 }
 
 
-class AKChowningReverbDSPKernel : public AKDSPKernel {
+class AKChowningReverbDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 

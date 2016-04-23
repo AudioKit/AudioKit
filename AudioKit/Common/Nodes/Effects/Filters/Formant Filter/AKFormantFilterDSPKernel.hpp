@@ -9,8 +9,8 @@
 #ifndef AKFormantFilterDSPKernel_hpp
 #define AKFormantFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     decayDurationAddress = 2
 };
 
-class AKFormantFilterDSPKernel : public AKDSPKernel {
+class AKFormantFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -157,9 +157,9 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper centerFrequencyRamper = 1000;
-    AKParameterRamper attackDurationRamper = 0.007;
-    AKParameterRamper decayDurationRamper = 0.04;
+    ParameterRamper centerFrequencyRamper = 1000;
+    ParameterRamper attackDurationRamper = 0.007;
+    ParameterRamper decayDurationRamper = 0.04;
 };
 
 #endif /* AKFormantFilterDSPKernel_hpp */

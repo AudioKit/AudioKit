@@ -9,8 +9,8 @@
 #ifndef AKCostelloReverbDSPKernel_hpp
 #define AKCostelloReverbDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     cutoffFrequencyAddress = 1
 };
 
-class AKCostelloReverbDSPKernel : public AKDSPKernel {
+class AKCostelloReverbDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -148,8 +148,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper feedbackRamper = 0.6;
-    AKParameterRamper cutoffFrequencyRamper = 4000;
+    ParameterRamper feedbackRamper = 0.6;
+    ParameterRamper cutoffFrequencyRamper = 4000;
 };
 
 #endif /* AKCostelloReverbDSPKernel_hpp */

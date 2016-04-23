@@ -9,8 +9,8 @@
 #ifndef AKFMOscillatorDSPKernel_hpp
 #define AKFMOscillatorDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -26,7 +26,7 @@ enum {
     amplitudeAddress = 4
 };
 
-class AKFMOscillatorDSPKernel : public AKDSPKernel {
+class AKFMOscillatorDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -231,11 +231,11 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper baseFrequencyRamper = 220;
-    AKParameterRamper carrierMultiplierRamper = 1.0;
-    AKParameterRamper modulatingMultiplierRamper = 1;
-    AKParameterRamper modulationIndexRamper = 1;
-    AKParameterRamper amplitudeRamper = 1;
+    ParameterRamper baseFrequencyRamper = 220;
+    ParameterRamper carrierMultiplierRamper = 1.0;
+    ParameterRamper modulatingMultiplierRamper = 1;
+    ParameterRamper modulationIndexRamper = 1;
+    ParameterRamper amplitudeRamper = 1;
 };
 
 #endif /* AKFMOscillatorDSPKernel_hpp */

@@ -9,8 +9,8 @@
 #ifndef AKPluckedStringDSPKernel_hpp
 #define AKPluckedStringDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     amplitudeAddress = 1
 };
 
-class AKPluckedStringDSPKernel : public AKDSPKernel {
+class AKPluckedStringDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -160,8 +160,8 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper frequencyRamper = 110;
-    AKParameterRamper amplitudeRamper = 0.5;
+    ParameterRamper frequencyRamper = 110;
+    ParameterRamper amplitudeRamper = 0.5;
 };
 
 #endif /* AKPluckedStringDSPKernel_hpp */

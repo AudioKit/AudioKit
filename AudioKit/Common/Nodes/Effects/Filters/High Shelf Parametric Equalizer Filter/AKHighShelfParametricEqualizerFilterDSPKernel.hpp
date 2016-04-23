@@ -9,8 +9,8 @@
 #ifndef AKHighShelfParametricEqualizerFilterDSPKernel_hpp
 #define AKHighShelfParametricEqualizerFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     qAddress = 2
 };
 
-class AKHighShelfParametricEqualizerFilterDSPKernel : public AKDSPKernel {
+class AKHighShelfParametricEqualizerFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -158,9 +158,9 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper centerFrequencyRamper = 1000;
-    AKParameterRamper gainRamper = 1.0;
-    AKParameterRamper qRamper = 0.707;
+    ParameterRamper centerFrequencyRamper = 1000;
+    ParameterRamper gainRamper = 1.0;
+    ParameterRamper qRamper = 0.707;
 };
 
 #endif /* AKHighShelfParametricEqualizerFilterDSPKernel_hpp */

@@ -9,8 +9,8 @@
 #ifndef AKToneComplementFilterDSPKernel_hpp
 #define AKToneComplementFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKToneComplementFilterDSPKernel : public AKDSPKernel {
+class AKToneComplementFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -127,7 +127,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper halfPowerPointRamper = 1000;
+    ParameterRamper halfPowerPointRamper = 1000;
 };
 
 #endif /* AKToneComplementFilterDSPKernel_hpp */

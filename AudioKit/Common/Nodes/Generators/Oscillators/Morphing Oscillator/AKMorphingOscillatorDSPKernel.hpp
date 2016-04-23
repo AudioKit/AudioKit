@@ -9,8 +9,8 @@
 #ifndef AKMorphingOscillatorDSPKernel_hpp
 #define AKMorphingOscillatorDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -26,7 +26,7 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKMorphingOscillatorDSPKernel : public AKDSPKernel {
+class AKMorphingOscillatorDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -226,11 +226,11 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper frequencyRamper = 440;
-    AKParameterRamper amplitudeRamper = 0.5;
-    AKParameterRamper indexRamper = 0.0;
-    AKParameterRamper detuningOffsetRamper = 0.0;
-    AKParameterRamper detuningMultiplierRamper = 1.0;
+    ParameterRamper frequencyRamper = 440;
+    ParameterRamper amplitudeRamper = 0.5;
+    ParameterRamper indexRamper = 0.0;
+    ParameterRamper detuningOffsetRamper = 0.0;
+    ParameterRamper detuningMultiplierRamper = 1.0;
 };
 
 #endif /* AKMorphingOscillatorDSPKernel_hpp */
