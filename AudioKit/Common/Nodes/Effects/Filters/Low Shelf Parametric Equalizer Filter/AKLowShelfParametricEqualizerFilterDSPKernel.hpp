@@ -65,15 +65,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cornerFrequencyAddress:
-                cornerFrequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
+                cornerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
             case gainAddress:
-                gainRamper.set(clamp(value, (float)0.0, (float)10.0));
+                gainRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
                 break;
 
             case qAddress:
-                qRamper.set(clamp(value, (float)0.0, (float)2.0));
+                qRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
                 break;
 
         }
@@ -82,13 +82,13 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case cornerFrequencyAddress:
-                return cornerFrequencyRamper.goal();
+                return cornerFrequencyRamper.getUIValue();
 
             case gainAddress:
-                return gainRamper.goal();
+                return gainRamper.getUIValue();
 
             case qAddress:
-                return qRamper.goal();
+                return qRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -119,9 +119,9 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double cornerFrequency = double(cornerFrequencyRamper.getStep());
-            double gain = double(gainRamper.getStep());
-            double q = double(qRamper.getStep());
+            double cornerFrequency = double(cornerFrequencyRamper.getAndStep());
+            double gain = double(gainRamper.getAndStep());
+            double q = double(qRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

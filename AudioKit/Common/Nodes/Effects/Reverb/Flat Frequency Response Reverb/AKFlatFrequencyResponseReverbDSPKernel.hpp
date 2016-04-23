@@ -62,7 +62,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.set(clamp(value, (float)0, (float)10));
+                reverbDurationRamper.setUIValue(clamp(value, (float)0, (float)10));
                 break;
 
         }
@@ -71,7 +71,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case reverbDurationAddress:
-                return reverbDurationRamper.goal();
+                return reverbDurationRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -94,7 +94,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double reverbDuration = double(reverbDurationRamper.getStep());
+            double reverbDuration = double(reverbDurationRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

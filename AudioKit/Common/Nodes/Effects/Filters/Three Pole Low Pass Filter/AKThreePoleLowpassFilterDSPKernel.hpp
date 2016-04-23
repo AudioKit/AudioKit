@@ -64,15 +64,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case distortionAddress:
-                distortionRamper.set(clamp(value, (float)0.0, (float)2.0));
+                distortionRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
                 break;
 
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
+                cutoffFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
             case resonanceAddress:
-                resonanceRamper.set(clamp(value, (float)0.0, (float)2.0));
+                resonanceRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
                 break;
 
         }
@@ -81,13 +81,13 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case distortionAddress:
-                return distortionRamper.goal();
+                return distortionRamper.getUIValue();
 
             case cutoffFrequencyAddress:
-                return cutoffFrequencyRamper.goal();
+                return cutoffFrequencyRamper.getUIValue();
 
             case resonanceAddress:
-                return resonanceRamper.goal();
+                return resonanceRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -118,9 +118,9 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double distortion = double(distortionRamper.getStep());
-            double cutoffFrequency = double(cutoffFrequencyRamper.getStep());
-            double resonance = double(resonanceRamper.getStep());
+            double distortion = double(distortionRamper.getAndStep());
+            double cutoffFrequency = double(cutoffFrequencyRamper.getAndStep());
+            double resonance = double(resonanceRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

@@ -60,7 +60,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case halfPowerPointAddress:
-                halfPowerPointRamper.set(clamp(value, (float)12.0, (float)20000.0));
+                halfPowerPointRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
         }
@@ -69,7 +69,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case halfPowerPointAddress:
-                return halfPowerPointRamper.goal();
+                return halfPowerPointRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -92,7 +92,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double halfPowerPoint = double(halfPowerPointRamper.getStep());
+            double halfPowerPoint = double(halfPowerPointRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 

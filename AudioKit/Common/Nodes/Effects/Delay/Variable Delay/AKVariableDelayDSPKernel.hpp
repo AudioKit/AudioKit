@@ -68,11 +68,11 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case timeAddress:
-                timeRamper.set(clamp(value, (float)0, (float)10));
+                timeRamper.setUIValue(clamp(value, (float)0, (float)10));
                 break;
                 
             case feedbackAddress:
-                feedbackRamper.set(clamp(value, (float)0, (float)1));
+                feedbackRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
                 
         }
@@ -81,10 +81,10 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case timeAddress:
-                return timeRamper.goal();
+                return timeRamper.getUIValue();
                 
             case feedbackAddress:
-                return feedbackRamper.goal();
+                return feedbackRamper.getUIValue();
                 
             default: return 0.0f;
         }
@@ -111,8 +111,8 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double time = double(timeRamper.getStep());
-            double feedback = double(feedbackRamper.getStep());
+            double time = double(timeRamper.getAndStep());
+            double feedback = double(feedbackRamper.getAndStep());
             
             int frameOffset = int(frameIndex + bufferOffset);
             
