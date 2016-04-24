@@ -62,6 +62,12 @@ public class AKPlaygroundView: NSView {
     public func setup() {
     }
     
+    public override func drawRect(dirtyRect: NSRect) {
+        NSColor.whiteColor().setFill()
+        NSRectFill(dirtyRect)
+        super.drawRect(dirtyRect)
+    }
+    
     public func addLineBreak() {
         lastButton = nil
     }
