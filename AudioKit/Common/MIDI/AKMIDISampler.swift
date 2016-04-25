@@ -1,6 +1,6 @@
 //
-//  AKSampler+MIDI.swift
-//  AudioKit For iOS
+//  AKMIDISampler.swift
+//  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -23,9 +23,9 @@ public class AKMIDISampler: AKSampler {
     public var name = "AKMIDISampler"
     
     /// Enable MIDI input from a given MIDI client
-    /// This is not in the init function because it must be called AFTER you start audiokit
+    /// This is not in the init function because it must be called AFTER you start AudioKit
     ///
-    /// - parameter midiClient: A refernce to the midi client
+    /// - parameter midiClient: A refernce to the MIDI client
     /// - parameter name: Name to connect with
     ///
     public func enableMIDI(midiClient: MIDIClientRef, name: String) {
@@ -63,6 +63,7 @@ public class AKMIDISampler: AKSampler {
             stopNote(note, onChannel: channel)
         }
     }
+    
     /// Handle MIDI CC that come in externally
     ///
     /// - parameter cc: MIDI cc number
@@ -70,9 +71,10 @@ public class AKMIDISampler: AKSampler {
     /// - parameter channel: MIDI cc channel
     ///
     public func midiCC(cc: Int, value: Int, channel: Int) {
-        print("cc \(cc) val \(value) chan \(channel)")
+        //print("cc \(cc) val \(value) chan \(channel)")
         samplerUnit.sendController(UInt8(cc), withValue: UInt8(value), onChannel: UInt8(channel))
     }
+    
     // MARK: - MIDI Note Start/Stop
     
     /// Start a note
