@@ -1,8 +1,8 @@
 //
-//  AKMidiListener.swift
+//  AKMIDIListener.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 1/30/16.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

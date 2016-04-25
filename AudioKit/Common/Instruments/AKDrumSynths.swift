@@ -1,6 +1,6 @@
 //
 //  DrumSynths.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.

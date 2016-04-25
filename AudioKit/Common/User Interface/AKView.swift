@@ -1,6 +1,6 @@
 //
 //  AKView.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Stéphane Peter on 1/31/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
