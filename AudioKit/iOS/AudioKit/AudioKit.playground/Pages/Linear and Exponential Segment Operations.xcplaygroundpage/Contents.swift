@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Segment Operations")
         
         speedLabel = addLabel("Update Rate: \(generator.parameters[0])")
-        addSlider(#selector(self.setSpeed(_:)), value: generator.parameters[0], minimum: 0.1, maximum: 10)
+        addSlider(#selector(setSpeed), value: generator.parameters[0], minimum: 0.1, maximum: 10)
         
     }
     

@@ -9,8 +9,8 @@
 #ifndef AKAmplitudeTrackerDSPKernel_hpp
 #define AKAmplitudeTrackerDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     halfPowerPointAddress = 0
 };
 
-class AKAmplitudeTrackerDSPKernel : public AKDSPKernel {
+class AKAmplitudeTrackerDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -60,7 +60,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case halfPowerPointAddress:
-                halfPowerPointRamper.set(clamp(value, (float)0, (float)20000));
+                halfPowerPointRamper.setUIValue(clamp(value, (float)0, (float)20000));
                 break;
 
         }
@@ -69,7 +69,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case halfPowerPointAddress:
-                return halfPowerPointRamper.goal();
+                return halfPowerPointRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -92,7 +92,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double halfPowerPoint = double(halfPowerPointRamper.getStep());
+            double halfPowerPoint = double(halfPowerPointRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -127,7 +127,7 @@ private:
     sp_rms *rms;
 
 public:
-    AKParameterRamper halfPowerPointRamper = 10;
+    ParameterRamper halfPowerPointRamper = 10;
     bool started = true;
     float trackedAmplitude = 0.0;
 };

@@ -1,8 +1,8 @@
 //
 //  DrumSynths.swift
-//  AudioKit For iOS
+//  AudioKit
 //
-//  Created by Jeff Cooper on 1/17/16.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -41,7 +41,7 @@ public class AKSynthKick: AKPolyphonicInstrument {
 }
 
 /// Kick Drum Synthesizer Voice
-internal class AKSynthKickVoice: AKVoice{
+internal class AKSynthKickVoice: AKVoice {
     var generator: AKOperationGenerator
     
     var filter: AKMoogLadder
@@ -119,7 +119,7 @@ public class AKSynthSnare: AKPolyphonicInstrument {
 }
 
 /// Snare Drum Synthesizer Voice
-internal class AKSynthSnareVoice: AKVoice{
+internal class AKSynthSnareVoice: AKVoice {
     
     var generator: AKOperationGenerator
     var filter: AKMoogLadder

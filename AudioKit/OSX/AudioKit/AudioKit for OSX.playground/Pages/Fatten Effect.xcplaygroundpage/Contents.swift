@@ -41,14 +41,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Analog Synth X Fatten")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         timeLabel = addLabel("Time: \(fatten.parameters[0])")
-        addSlider(#selector(self.setTime(_:)), value: fatten.parameters[0], minimum: 0.03, maximum: 0.1)
+        addSlider(#selector(setTime), value: fatten.parameters[0], minimum: 0.03, maximum: 0.1)
 
         mixLabel = addLabel("Mix: \(fatten.parameters[0])")
-        addSlider(#selector(self.setMix(_:)), value: fatten.parameters[1])
+        addSlider(#selector(setMix), value: fatten.parameters[1])
     }
 
     func start() {

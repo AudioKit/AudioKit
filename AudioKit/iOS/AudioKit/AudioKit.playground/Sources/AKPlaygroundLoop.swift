@@ -8,10 +8,11 @@
 
 import Foundation
 import QuartzCore
+public typealias Closure = () -> ()
 
 /// Class to handle updating via CADisplayLink
 public class AKPlaygroundLoop {
-    private var internalHandler: () -> () = {}
+    private var internalHandler: Closure = {}
     private var trigger = 60
     private var counter = 0
     
@@ -20,7 +21,7 @@ public class AKPlaygroundLoop {
     /// - parameter every: Period, or interval between block executions
     /// - parameter handler: Code block to execute
     ///
-    public init(every duration: Double, handler: ()->()) {
+    public init(every duration: Double, handler: Closure) {
         trigger =  Int(60 * duration)
         internalHandler = handler
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
@@ -33,7 +34,7 @@ public class AKPlaygroundLoop {
     /// - parameter frequency: Frequency of block executions in Hz
     /// - parameter handler: Code block to execute
     ///
-    public init(frequency: Double, handler: ()->()) {
+    public init(frequency: Double, handler: Closure) {
         trigger =  Int(60 / frequency)
         internalHandler = handler
         let displayLink = CADisplayLink(target: self, selector: #selector(update))

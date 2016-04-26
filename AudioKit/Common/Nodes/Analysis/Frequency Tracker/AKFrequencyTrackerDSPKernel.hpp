@@ -9,8 +9,8 @@
 #ifndef AKFrequencyTrackerDSPKernel_hpp
 #define AKFrequencyTrackerDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -19,7 +19,7 @@ extern "C" {
 }
 
 
-class AKFrequencyTrackerDSPKernel : public AKDSPKernel {
+class AKFrequencyTrackerDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 

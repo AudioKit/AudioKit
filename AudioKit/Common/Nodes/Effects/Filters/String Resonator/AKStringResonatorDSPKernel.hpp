@@ -9,8 +9,8 @@
 #ifndef AKStringResonatorDSPKernel_hpp
 #define AKStringResonatorDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     feedbackAddress = 1
 };
 
-class AKStringResonatorDSPKernel : public AKDSPKernel {
+class AKStringResonatorDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -62,11 +62,11 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case fundamentalFrequencyAddress:
-                fundamentalFrequencyRamper.set(clamp(value, (float)12.0, (float)10000.0));
+                fundamentalFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)10000.0));
                 break;
 
             case feedbackAddress:
-                feedbackRamper.set(clamp(value, (float)0.0, (float)1.0));
+                feedbackRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
                 break;
 
         }
@@ -75,10 +75,10 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case fundamentalFrequencyAddress:
-                return fundamentalFrequencyRamper.goal();
+                return fundamentalFrequencyRamper.getUIValue();
 
             case feedbackAddress:
-                return feedbackRamper.goal();
+                return feedbackRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -105,8 +105,8 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double fundamentalFrequency = double(fundamentalFrequencyRamper.getStep());
-            double feedback = double(feedbackRamper.getStep());
+            double fundamentalFrequency = double(fundamentalFrequencyRamper.getAndStep());
+            double feedback = double(feedbackRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -142,8 +142,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper fundamentalFrequencyRamper = 100;
-    AKParameterRamper feedbackRamper = 0.95;
+    ParameterRamper fundamentalFrequencyRamper = 100;
+    ParameterRamper feedbackRamper = 0.95;
 };
 
 #endif /* AKStringResonatorDSPKernel_hpp */

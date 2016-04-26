@@ -9,8 +9,8 @@
 #ifndef AKBalancerDSPKernel_hpp
 #define AKBalancerDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -19,7 +19,7 @@ extern "C" {
 }
 
 
-class AKBalancerDSPKernel : public AKDSPKernel {
+class AKBalancerDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 

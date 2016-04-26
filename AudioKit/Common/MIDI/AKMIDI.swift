@@ -56,7 +56,7 @@ extension MIDIPacket: SequenceType {
                 .PolyphonicAftertouch,
                 .ControllerChange,
                 .PitchWheel:
-                    data1 = pop(); data2 = pop();
+                    data1 = pop(); data2 = pop()
 
                 case .ProgramChange,
                 .ChannelAftertouch:
@@ -72,13 +72,11 @@ extension MIDIPacket: SequenceType {
 
                 let chan = (status & 0xF)
                 return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
-            }
-            else if status == 0xF0 {
+            } else if status == 0xF0 {
                 // sysex - guaranteed by coremidi to be the entire packet
                 index = self.length
                 return AKMIDIEvent(packet: self)
-            }
-            else {
+            } else {
                 let cmd = AKMIDISystemCommand(rawValue: status)!
                 var data1: UInt8 = 0
                 var data2: UInt8 = 0
@@ -109,7 +107,7 @@ extension MIDIPacketList: SequenceType {
 }
 
 /// Generator for MIDIPacketList allowing iteration over its list of MIDIPacket objects.
-public struct MIDIPacketListGenerator : GeneratorType {
+public struct MIDIPacketListGenerator: GeneratorType {
     public typealias Element = MIDIPacket
     
     /// Initialize the packet list generator with a packet list
@@ -172,7 +170,7 @@ public class AKMIDI {
     var midiInName: CFString = "MIDI In Port"
     
     /// MIDI End Point
-    public var midiEndpoint: MIDIEndpointRef{
+    public var midiEndpoint: MIDIEndpointRef {
         return midiEndpoints[0]
     }
     
@@ -193,17 +191,17 @@ public class AKMIDI {
     var midiOutName: CFString = "MIDI Out Port"
     
     /// Array of all listeners
-    public var midiListeners:[AKMIDIListener] = []
+    public var midiListeners: [AKMIDIListener] = []
     
     /// Add a listener to the listeners
-    public func addListener(listener:AKMIDIListener){
+    public func addListener(listener: AKMIDIListener) {
         midiListeners.append(listener)
     }
     
-    private func handleMidiMessage(event:AKMIDIEvent){
-        for listener in midiListeners{
+    private func handleMidiMessage(event: AKMIDIEvent) {
+        for listener in midiListeners {
             let type = event.status
-            switch type{
+            switch type {
                 case AKMIDIStatus.ControllerChange:
                     listener.midiController(Int(event.internalData[1]), value: Int(event.internalData[2]), channel: Int(event.channel))
                 case AKMIDIStatus.ChannelAftertouch:
@@ -225,8 +223,9 @@ public class AKMIDI {
     }
     
     private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
-        let notification = midiNotification.memory
-        print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
+        _ = midiNotification.memory
+        //do something with notification - change _ above to let varname
+        //print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
         
     }
     
@@ -253,7 +252,7 @@ public class AKMIDI {
     /// Initialize the AKMIDI system
     public init() {
 
-        print("MIDI Enabled")
+        //print("MIDI Enabled")
         #if os(iOS)
             MIDINetworkSession.defaultSession().enabled = true
             MIDINetworkSession.defaultSession().connectionPolicy =
@@ -263,16 +262,16 @@ public class AKMIDI {
         if midiClient == 0 {
             result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
             if result == OSStatus(noErr) {
-                print("created client")
+                print("created midi client")
             } else {
-                print("error creating client : \(result)")
+                print("error creating midi client : \(result)")
             }
         }
     }
     
     /// Create set of virtual MIDI ports
     public func createVirtualPorts(uniqueId: Int32 = 2000000) {
-        print("Creating virtual MIDI ports")
+        //print("Creating virtual MIDI ports")
 
         destroyVirtualPorts()
         
@@ -280,20 +279,18 @@ public class AKMIDI {
         result = MIDIDestinationCreateWithBlock(midiClient, midiClientName, &virtualInput, MyMIDIReadBlock)
         
         if result == OSStatus(noErr) {
-            print("Created virt dest: \(midiClientName)");
+            print("Created virt dest: \(midiClientName)")
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)
-        }
-        else {
-            print("Error creatervirt dest: \(midiClientName) -- \(virtualInput)");
+        } else {
+            print("Error creatervirt dest: \(midiClientName) -- \(virtualInput)")
         }
         
         
-        result = MIDISourceCreate(midiClient, midiClientName, &virtualOutput);
+        result = MIDISourceCreate(midiClient, midiClientName, &virtualOutput)
         if result == OSStatus(noErr) {
             print("Created virt source: \(midiClientName)")
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId + 1)
-        }
-        else {
+        } else {
             print("Error creating virtual source: \(midiClientName) -- \(virtualOutput)")
         }
 
@@ -320,11 +317,11 @@ public class AKMIDI {
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
     public func openMIDIIn(namedInput: String = "") {
-        print("Opening MIDI In")
+        //print("Opening MIDI In")
         var result = OSStatus(noErr)
         
         let sourceCount = MIDIGetNumberOfSources()
-        print("SourceCount: \(sourceCount)")
+        //print("SourceCount: \(sourceCount)")
         for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
@@ -367,11 +364,11 @@ public class AKMIDI {
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openMIDIOut(namedOutput: String = "") {
-        print("Opening MIDI Out")
+        //print("Opening MIDI Out")
         var result = OSStatus(noErr)
         
         let outputCount = MIDIGetNumberOfDestinations()
-        print("Number of MIDI Out ports = \(outputCount)")
+        //print("Number of MIDI Out ports = \(outputCount)")
         var foundDest = false
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         
@@ -432,7 +429,7 @@ public class AKMIDI {
         }
 
         if virtualOutput != 0 {
-            MIDIReceived(virtualOutput, packetListPtr);
+            MIDIReceived(virtualOutput, packetListPtr)
         }
         
         packetListPtr.destroy()

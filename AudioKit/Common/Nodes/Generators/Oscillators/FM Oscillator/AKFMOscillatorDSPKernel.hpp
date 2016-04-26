@@ -9,8 +9,8 @@
 #ifndef AKFMOscillatorDSPKernel_hpp
 #define AKFMOscillatorDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -26,7 +26,7 @@ enum {
     amplitudeAddress = 4
 };
 
-class AKFMOscillatorDSPKernel : public AKDSPKernel {
+class AKFMOscillatorDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -77,50 +77,50 @@ public:
 
     void setBaseFrequency(float freq) {
         baseFrequency = freq;
-        baseFrequencyRamper.set(clamp(freq, (float)0.0, (float)20000.0));
+        baseFrequencyRamper.setUIValue(clamp(freq, (float)0.0, (float)20000.0));
     }
 
     void setCarrierMultiplier(float car) {
         carrierMultiplier = car;
-        carrierMultiplierRamper.set(clamp(car, (float)0.0, (float)1000.0));
+        carrierMultiplierRamper.setUIValue(clamp(car, (float)0.0, (float)1000.0));
     }
 
     void setModulatingMultiplier(float mod) {
         modulatingMultiplier = mod;
-        modulatingMultiplierRamper.set(clamp(mod, (float)0, (float)1000));
+        modulatingMultiplierRamper.setUIValue(clamp(mod, (float)0, (float)1000));
     }
 
     void setModulationIndex(float indx) {
         modulationIndex = indx;
-        modulationIndexRamper.set(clamp(indx, (float)0, (float)1000));
+        modulationIndexRamper.setUIValue(clamp(indx, (float)0, (float)1000));
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.set(clamp(amp, (float)0, (float)10));
+        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)10));
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case baseFrequencyAddress:
-                baseFrequencyRamper.set(clamp(value, (float)0.0, (float)20000.0));
+                baseFrequencyRamper.setUIValue(clamp(value, (float)0.0, (float)20000.0));
                 break;
 
             case carrierMultiplierAddress:
-                carrierMultiplierRamper.set(clamp(value, (float)0.0, (float)1000.0));
+                carrierMultiplierRamper.setUIValue(clamp(value, (float)0.0, (float)1000.0));
                 break;
 
             case modulatingMultiplierAddress:
-                modulatingMultiplierRamper.set(clamp(value, (float)0, (float)1000));
+                modulatingMultiplierRamper.setUIValue(clamp(value, (float)0, (float)1000));
                 break;
 
             case modulationIndexAddress:
-                modulationIndexRamper.set(clamp(value, (float)0, (float)1000));
+                modulationIndexRamper.setUIValue(clamp(value, (float)0, (float)1000));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.set(clamp(value, (float)0, (float)10));
+                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)10));
                 break;
 
         }
@@ -129,19 +129,19 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case baseFrequencyAddress:
-                return baseFrequencyRamper.goal();
+                return baseFrequencyRamper.getUIValue();
 
             case carrierMultiplierAddress:
-                return carrierMultiplierRamper.goal();
+                return carrierMultiplierRamper.getUIValue();
 
             case modulatingMultiplierAddress:
-                return modulatingMultiplierRamper.goal();
+                return modulatingMultiplierRamper.getUIValue();
 
             case modulationIndexAddress:
-                return modulationIndexRamper.goal();
+                return modulationIndexRamper.getUIValue();
 
             case amplitudeAddress:
-                return amplitudeRamper.goal();
+                return amplitudeRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -181,11 +181,11 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            baseFrequency = double(baseFrequencyRamper.getStep());
-            carrierMultiplier = double(carrierMultiplierRamper.getStep());
-            modulatingMultiplier = double(modulatingMultiplierRamper.getStep());
-            modulationIndex = double(modulationIndexRamper.getStep());
-            amplitude = double(amplitudeRamper.getStep());
+            baseFrequency = double(baseFrequencyRamper.getAndStep());
+            carrierMultiplier = double(carrierMultiplierRamper.getAndStep());
+            modulatingMultiplier = double(modulatingMultiplierRamper.getAndStep());
+            modulationIndex = double(modulationIndexRamper.getAndStep());
+            amplitude = double(amplitudeRamper.getAndStep());
 
             fosc->freq = baseFrequency;
             fosc->car = carrierMultiplier;
@@ -231,11 +231,11 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper baseFrequencyRamper = 220;
-    AKParameterRamper carrierMultiplierRamper = 1.0;
-    AKParameterRamper modulatingMultiplierRamper = 1;
-    AKParameterRamper modulationIndexRamper = 1;
-    AKParameterRamper amplitudeRamper = 1;
+    ParameterRamper baseFrequencyRamper = 220;
+    ParameterRamper carrierMultiplierRamper = 1.0;
+    ParameterRamper modulatingMultiplierRamper = 1;
+    ParameterRamper modulationIndexRamper = 1;
+    ParameterRamper amplitudeRamper = 1;
 };
 
 #endif /* AKFMOscillatorDSPKernel_hpp */

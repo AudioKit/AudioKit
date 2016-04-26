@@ -11,13 +11,13 @@ import AVFoundation
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-/// - parameter frequency: Frequency (in Hz)
-/// - parameter amplitude: Amplitude (typically a value between 0 and 1).
-/// - parameter index: Index of the wavetable to use (fractional are okay).
-/// - parameter detuningOffset: Frequency offset in Hz.
+/// - parameter waveformArray:      An array of exactly four waveforms
+/// - parameter frequency:          Frequency (in Hz)
+/// - parameter amplitude:          Amplitude (typically a value between 0 and 1).
+/// - parameter index:              Index of the wavetable to use (fractional are okay).
+/// - parameter detuningOffset:     Frequency offset in Hz.
 /// - parameter detuningMultiplier: Frequency detuning multiplier
-/// - parameter waveformCount: Number of waveforms.
-/// - parameter phase: Initial phase of waveform, expects a value 0-1
+/// - parameter phase:              Initial phase of waveform, expects a value 0-1
 ///
 public class AKMorphingOscillator: AKVoice {
 
@@ -99,16 +99,16 @@ public class AKMorphingOscillator: AKVoice {
     public convenience override init() {
         self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
     }
-
+    
     /// Initialize this Morpher node
     ///
-    /// - parameter frequency: Frequency (in Hz)
-    /// - parameter amplitude: Amplitude (typically a value between 0 and 1).
-    /// - parameter index: Index of the wavetable to use (fractional are okay).
-    /// - parameter detuningOffset: Frequency offset in Hz.
+    /// - parameter waveformArray:      An array of exactly four waveforms
+    /// - parameter frequency:          Frequency (in Hz)
+    /// - parameter amplitude:          Amplitude (typically a value between 0 and 1).
+    /// - parameter index:              Index of the wavetable to use (fractional are okay).
+    /// - parameter detuningOffset:     Frequency offset in Hz.
     /// - parameter detuningMultiplier: Frequency detuning multiplier
-    /// - parameter waveformCount: Number of waveforms.
-    /// - parameter phase: Initial phase of waveform, expects a value 0-1
+    /// - parameter phase:              Initial phase of waveform, expects a value 0-1
     ///
     public init(
         waveformArray: [AKTable],

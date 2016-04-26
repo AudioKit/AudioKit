@@ -9,8 +9,8 @@
 #ifndef AKPannerDSPKernel_hpp
 #define AKPannerDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     panAddress = 0
 };
 
-class AKPannerDSPKernel : public AKDSPKernel {
+class AKPannerDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -60,7 +60,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case panAddress:
-                panRamper.set(clamp(value, (float)-1, (float)1));
+                panRamper.setUIValue(clamp(value, (float)-1, (float)1));
                 break;
 
         }
@@ -69,7 +69,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case panAddress:
-                return panRamper.goal();
+                return panRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -99,7 +99,7 @@ public:
         
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double pan = double(panRamper.getStep());
+            double pan = double(panRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -135,7 +135,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper panRamper = 0;
+    ParameterRamper panRamper = 0;
 };
 
 #endif /* AKPannerDSPKernel_hpp */

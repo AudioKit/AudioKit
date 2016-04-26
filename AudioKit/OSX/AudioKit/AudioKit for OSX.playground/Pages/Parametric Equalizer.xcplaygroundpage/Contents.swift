@@ -36,22 +36,22 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Parametric EQ")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Parametric EQ Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         centerFreqLabel = addLabel("Center Frequency: \(parametricEQ.centerFrequency) Hz")
-        addSlider(#selector(self.setCenterFreq(_:)), value: parametricEQ.centerFrequency, minimum: 20, maximum: 22050)
+        addSlider(#selector(setCenterFreq), value: parametricEQ.centerFrequency, minimum: 20, maximum: 22050)
 
         qLabel = addLabel("Q: \(parametricEQ.q) Hz")
-        addSlider(#selector(self.setQ(_:)), value: parametricEQ.q, minimum: 0.1, maximum: 20)
+        addSlider(#selector(setQ), value: parametricEQ.q, minimum: 0.1, maximum: 20)
 
         gainLabel = addLabel("Gain: \(parametricEQ.gain) dB")
-        addSlider(#selector(self.setGain(_:)), value: parametricEQ.gain, minimum: -20, maximum: 20)
+        addSlider(#selector(setGain), value: parametricEQ.gain, minimum: -20, maximum: 20)
 
     }
 

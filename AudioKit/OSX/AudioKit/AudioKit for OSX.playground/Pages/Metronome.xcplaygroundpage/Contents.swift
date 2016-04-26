@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Metronome")
 
         frequencyLabel = addLabel("Frequency: \(currentFrequency) BPM")
-        addSlider(#selector(self.setFrequency(_:)), value: currentFrequency, minimum: 20, maximum: 320)
+        addSlider(#selector(setFrequency), value: currentFrequency, minimum: 20, maximum: 320)
     }
 
     func setFrequency(slider: Slider) {

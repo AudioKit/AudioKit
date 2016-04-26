@@ -9,10 +9,10 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let drumFile   = bundle.pathForResource("drumloop",   ofType: "wav")
-let bassFile   = bundle.pathForResource("bassloop",   ofType: "wav")
+let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
+let bassFile   = bundle.pathForResource("bassloop", ofType: "wav")
 let guitarFile = bundle.pathForResource("guitarloop", ofType: "wav")
-let leadFile   = bundle.pathForResource("leadloop",   ofType: "wav")
+let leadFile   = bundle.pathForResource("leadloop", ofType: "wav")
 
 var drums  = AKAudioPlayer(drumFile!)
 var bass   = AKAudioPlayer(bassFile!)
@@ -54,32 +54,32 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Mixer")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Drums Volume")
-        addSlider(#selector(self.setDrumsVolume(_:)), value: drums.volume)
+        addSlider(#selector(setDrumsVolume), value: drums.volume)
 
         addLabel("Drums Pan")
-        addSlider(#selector(self.setDrumsPan(_:)), value: drums.pan, minimum: -1, maximum: 1)
+        addSlider(#selector(setDrumsPan), value: drums.pan, minimum: -1, maximum: 1)
 
         addLabel("Bass Volume")
-        addSlider(#selector(self.setBassVolume(_:)), value: bass.volume)
+        addSlider(#selector(setBassVolume), value: bass.volume)
 
         addLabel("Bass Pan")
-        addSlider(#selector(self.setBassPan(_:)), value: bass.pan, minimum: -1, maximum: 1)
+        addSlider(#selector(setBassPan), value: bass.pan, minimum: -1, maximum: 1)
 
         addLabel("Guitar Volume")
-        addSlider(#selector(self.setGuitarVolume(_:)), value: guitar.volume)
+        addSlider(#selector(setGuitarVolume), value: guitar.volume)
 
         addLabel("Guitar Pan")
-        addSlider(#selector(self.setGuitarPan(_:)), value: guitar.pan, minimum: -1, maximum: 1)
+        addSlider(#selector(setGuitarPan), value: guitar.pan, minimum: -1, maximum: 1)
 
         addLabel("Lead Volume")
-        addSlider(#selector(self.setLeadVolume(_:)), value: lead.volume)
+        addSlider(#selector(setLeadVolume), value: lead.volume)
 
         addLabel("Lead Pan")
-        addSlider(#selector(self.setLeadPan(_:)), value: lead.pan, minimum: -1, maximum: 1)
+        addSlider(#selector(setLeadPan), value: lead.pan, minimum: -1, maximum: 1)
     }
 
     func start() {

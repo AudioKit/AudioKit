@@ -9,8 +9,8 @@
 #ifndef AKPhaseLockedVocoderDSPKernel_hpp
 #define AKPhaseLockedVocoderDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     pitchRatioAddress = 2
 };
 
-class AKPhaseLockedVocoderDSPKernel : public AKDSPKernel {
+class AKPhaseLockedVocoderDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -69,32 +69,32 @@ public:
 
     void setPosition(float time) {
         position = time;
-        positionRamper.set(clamp(time, (float)0, (float)1000000));
+        positionRamper.setUIValue(clamp(time, (float)0, (float)1000000));
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.set(clamp(amp, (float)0, (float)1));
+        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)1));
     }
 
     void setPitchratio(float pitch) {
         pitchRatio = pitch;
-        pitchRatioRamper.set(clamp(pitch, (float)-1000, (float)1000));
+        pitchRatioRamper.setUIValue(clamp(pitch, (float)-1000, (float)1000));
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case positionAddress:
-                positionRamper.set(clamp(value, (float)0, (float)1000000));
+                positionRamper.setUIValue(clamp(value, (float)0, (float)1000000));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.set(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
 
             case pitchRatioAddress:
-                pitchRatioRamper.set(clamp(value, (float)-1000, (float)1000));
+                pitchRatioRamper.setUIValue(clamp(value, (float)-1000, (float)1000));
                 break;
 
         }
@@ -103,13 +103,13 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case positionAddress:
-                return positionRamper.goal();
+                return positionRamper.getUIValue();
 
             case amplitudeAddress:
-                return amplitudeRamper.goal();
+                return amplitudeRamper.getUIValue();
 
             case pitchRatioAddress:
-                return pitchRatioRamper.goal();
+                return pitchRatioRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -141,9 +141,9 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             
-            position = double(positionRamper.getStep());
-            amplitude = double(amplitudeRamper.getStep());
-            pitchRatio = double(pitchRatioRamper.getStep());
+            position = double(positionRamper.getAndStep());
+            amplitude = double(amplitudeRamper.getAndStep());
+            pitchRatio = double(pitchRatioRamper.getAndStep());
 
             mincer->time = position;
             mincer->amp = amplitude;
@@ -183,9 +183,9 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper positionRamper = 0;
-    AKParameterRamper amplitudeRamper = 1;
-    AKParameterRamper pitchRatioRamper = 1;
+    ParameterRamper positionRamper = 0;
+    ParameterRamper amplitudeRamper = 1;
+    ParameterRamper pitchRatioRamper = 1;
 };
 
 #endif /* AKPhaseLockedVocoderDSPKernel_hpp */

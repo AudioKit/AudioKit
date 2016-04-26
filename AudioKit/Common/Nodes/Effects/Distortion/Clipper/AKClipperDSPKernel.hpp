@@ -9,8 +9,8 @@
 #ifndef AKClipperDSPKernel_hpp
 #define AKClipperDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     limitAddress = 0
 };
 
-class AKClipperDSPKernel : public AKDSPKernel {
+class AKClipperDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -61,7 +61,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case limitAddress:
-                limitRamper.set(clamp(value, (float)0.0, (float)1.0));
+                limitRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
                 break;
         }
     }
@@ -69,7 +69,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case limitAddress:
-                return limitRamper.goal();
+                return limitRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -91,7 +91,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double limit = double(limitRamper.getStep());
+            double limit = double(limitRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -125,7 +125,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper limitRamper = 1.0;
+    ParameterRamper limitRamper = 1.0;
 };
 
 #endif /* AKClipperDSPKernel_hpp */

@@ -40,26 +40,26 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         let plotView = AKRollingOutputPlot.createView(500, height: 560)
         self.addSubview(plotView)
-        
+
         addTitle("ADSR Envelope")
-        
+
         attackLabel = addLabel("Attack Duration: \(fmWithADSR.attackDuration)")
-        attackSlider = addSlider(#selector(self.setAttack(_:)), value: fmWithADSR.attackDuration)
+        attackSlider = addSlider(#selector(setAttack), value: fmWithADSR.attackDuration)
 
         decayLabel = addLabel("Decay Duration: \(fmWithADSR.decayDuration)")
-        decaySlider = addSlider(#selector(self.setDecay(_:)), value: fmWithADSR.decayDuration)
+        decaySlider = addSlider(#selector(setDecay), value: fmWithADSR.decayDuration)
 
         sustainLabel = addLabel("Sustain Label: \(fmWithADSR.sustainLevel)")
-        sustainSlider = addSlider(#selector(self.setSustain(_:)), value: fmWithADSR.sustainLevel)
+        sustainSlider = addSlider(#selector(setSustain), value: fmWithADSR.sustainLevel)
 
         releaseLabel = addLabel("Release Duration: \(fmWithADSR.releaseDuration)")
-        releaseSlider = addSlider(#selector(self.setRelease(_:)), value: fmWithADSR.releaseDuration)
+        releaseSlider = addSlider(#selector(setRelease), value: fmWithADSR.releaseDuration)
         
         durationLabel = addLabel("Hold Duration: \(holdDuration)")
-        durationSlider = addSlider(#selector(self.setDuration(_:)), value: 1.0, minimum: 0.0, maximum: 5.0)
+        durationSlider = addSlider(#selector(setDuration), value: 1.0, minimum: 0.0, maximum: 5.0)
 
         addButton("Play Current", action: #selector(PlaygroundView.play))
-        addButton("Randomize", action: #selector(self.randomize))
+        addButton("Randomize", action: #selector(randomize))
         
 
     }
@@ -92,7 +92,7 @@ class PlaygroundView: AKPlaygroundView {
     func play() {
         fmOscillator.baseFrequency = random(220, 880)
         fmWithADSR.start()
-        self.performSelector(#selector(self.stop), withObject: nil, afterDelay: holdDuration)
+        self.performSelector(#selector(stop), withObject: nil, afterDelay: holdDuration)
     }
     
     func stop() {

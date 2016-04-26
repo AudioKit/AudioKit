@@ -30,7 +30,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     /// - parameter instrument: A polyphonic instrument that will be triggered via MIDI
     ///
     public init(instrument: AKPolyphonicInstrument) {
-        internalInstrument = instrument;
+        internalInstrument = instrument
         super.init()
         avAudioNode = (internalInstrument?.avAudioNode)!
     }
@@ -42,7 +42,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     /// - parameter name: Name to connect with
     ///
     public func enableMIDI(midiClient: MIDIClientRef, name: String) {
-        var result:OSStatus
+        var result: OSStatus
         result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
         CheckError(result)
     }
@@ -55,7 +55,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
         let channel = data1 & 0xF
         if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
             startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
-        }else if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0) {
+        } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
             stopNote(Int(data2), onChannel: Int(channel))
         }
     }
@@ -67,9 +67,9 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     /// - parameter channel: MIDI channel
     ///
     public func midiNoteOn(note: Int, velocity: Int, channel: Int) {
-        if(velocity > 0){
+        if velocity > 0 {
             startNote(note, withVelocity: velocity, onChannel: channel)
-        }else{
+        } else {
             stopNote(note, onChannel: channel)
         }
     }

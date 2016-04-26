@@ -25,23 +25,23 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("FM Oscillator")
 
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         frequencyLabel = addLabel("Base Frequency: 440")
-        addSlider(#selector(self.setBaseFrequency(_:)), value: 440, minimum: 200, maximum: 800)
+        addSlider(#selector(setBaseFrequency), value: 440, minimum: 200, maximum: 800)
 
         carrierMultiplierLabel = addLabel("Carrier Multiplier: 1")
-        addSlider(#selector(self.setCarrierMultiplier(_:)), value: 1, minimum: 0, maximum: 20)
+        addSlider(#selector(setCarrierMultiplier), value: 1, minimum: 0, maximum: 20)
 
         modulatingMultiplierLabel = addLabel("Modulating Multiplier: 1")
-        addSlider(#selector(self.setModulatingMultiplier(_:)), value: 1, minimum: 0, maximum: 20)
+        addSlider(#selector(setModulatingMultiplier), value: 1, minimum: 0, maximum: 20)
 
         modulationIndexLabel = addLabel("Modulation Index: 1")
-        addSlider(#selector(self.setModulationIndex(_:)), value: 1, minimum: 0, maximum: 100)
+        addSlider(#selector(setModulationIndex), value: 1, minimum: 0, maximum: 100)
 
         amplitudeLabel = addLabel("Amplitude: 0.1")
-        addSlider(#selector(self.setAmplitude(_:)), value: 0.1)
+        addSlider(#selector(setAmplitude), value: 0.1)
     }
 
     //: Handle UI Events

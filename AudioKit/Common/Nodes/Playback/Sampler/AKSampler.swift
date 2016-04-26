@@ -97,7 +97,7 @@ public class AKSampler: AKNode {
     /* createAUPresetFromDict
      was moved to AKAUPresetBuilder
     */
-    static public func createAUPresetFromDict(dict:NSDictionary, path:String, instName:String, attack:Double? = 0, release:Double? = 0){
+    static public func createAUPresetFromDict(dict: NSDictionary, path: String, instName: String, attack: Double? = 0, release: Double? = 0){
         NSException(name: "Deprecated", reason: "createAUPresetFromDict was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.createAUPresetFromDict with AKAUPresetBuilder.createAUPresetFromDict. Thank you.", userInfo: nil).raise()
     }//end func createAUPresetFromDict
     
@@ -108,7 +108,7 @@ public class AKSampler: AKNode {
         filename: String,
         startNote: Int,
         endNote: Int) -> NSMutableDictionary {
-        NSException(name: "Deprecated", reason: "generateTemplateDictionary was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.generateTemplateDictionary with AKAUPresetBuilder.generateTemplateDictionary. Thank you.", userInfo: nil).raise()
+        NSException(name: "Deprecated", reason: "generateTemplateDictionary was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.generateTemplateDictionary with AKAUPresetBuilder.generateDictionary. Thank you.", userInfo: nil).raise()
         return NSMutableDictionary()
     }
     
@@ -120,7 +120,8 @@ public class AKSampler: AKNode {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
-    /// Normalised Output Volume.
+    
+    /// Normalized Output Volume.
     /// Range:   0 - 1
     /// Default: 1
     public var volume: Double = 1 {
@@ -150,7 +151,7 @@ public class AKSampler: AKNode {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
     
-    static func getAUPresetXML()->String{
+    static func getAUPresetXML() -> String{
         var templateStr:String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         templateStr.appendContentsOf("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")

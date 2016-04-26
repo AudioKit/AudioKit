@@ -9,8 +9,8 @@
 #ifndef AKTanhDistortionDSPKernel_hpp
 #define AKTanhDistortionDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -25,7 +25,7 @@ enum {
     negativeShapeParameterAddress = 3
 };
 
-class AKTanhDistortionDSPKernel : public AKDSPKernel {
+class AKTanhDistortionDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -66,19 +66,19 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case pregainAddress:
-                pregainRamper.set(clamp(value, (float)0.0, (float)10.0));
+                pregainRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
                 break;
 
             case postgainAddress:
-                postgainRamper.set(clamp(value, (float)0.0, (float)10.0));
+                postgainRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
                 break;
 
             case postiveShapeParameterAddress:
-                postiveShapeParameterRamper.set(clamp(value, (float)-10.0, (float)10.0));
+                postiveShapeParameterRamper.setUIValue(clamp(value, (float)-10.0, (float)10.0));
                 break;
 
             case negativeShapeParameterAddress:
-                negativeShapeParameterRamper.set(clamp(value, (float)-10.0, (float)10.0));
+                negativeShapeParameterRamper.setUIValue(clamp(value, (float)-10.0, (float)10.0));
                 break;
 
         }
@@ -87,16 +87,16 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case pregainAddress:
-                return pregainRamper.goal();
+                return pregainRamper.getUIValue();
 
             case postgainAddress:
-                return postgainRamper.goal();
+                return postgainRamper.getUIValue();
 
             case postiveShapeParameterAddress:
-                return postiveShapeParameterRamper.goal();
+                return postiveShapeParameterRamper.getUIValue();
 
             case negativeShapeParameterAddress:
-                return negativeShapeParameterRamper.goal();
+                return negativeShapeParameterRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -131,10 +131,10 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double pregain = double(pregainRamper.getStep());
-            double postgain = double(postgainRamper.getStep());
-            double postiveShapeParameter = double(postiveShapeParameterRamper.getStep());
-            double negativeShapeParameter = double(negativeShapeParameterRamper.getStep());
+            double pregain = double(pregainRamper.getAndStep());
+            double postgain = double(postgainRamper.getAndStep());
+            double postiveShapeParameter = double(postiveShapeParameterRamper.getAndStep());
+            double negativeShapeParameter = double(negativeShapeParameterRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -172,10 +172,10 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper pregainRamper = 2.0;
-    AKParameterRamper postgainRamper = 0.5;
-    AKParameterRamper postiveShapeParameterRamper = 0.0;
-    AKParameterRamper negativeShapeParameterRamper = 0.0;
+    ParameterRamper pregainRamper = 2.0;
+    ParameterRamper postgainRamper = 0.5;
+    ParameterRamper postiveShapeParameterRamper = 0.0;
+    ParameterRamper negativeShapeParameterRamper = 0.0;
 };
 
 #endif /* AKTanhDistortionDSPKernel_hpp */

@@ -10,7 +10,7 @@ import AudioKit
 
 class Fatten: AKNode {
     var dryWetMix: AKDryWetMixer
-    
+
     init(_ input: AKNode) {
         let delay = AKDelay.init(input, time: 0.05, dryWetMix: 0.5)
         let pannedDelay = AKPanner(delay, pan: 1)
@@ -22,6 +22,3 @@ class Fatten: AKNode {
         input.addConnectionPoint(self)
     }
 }
-
-
-

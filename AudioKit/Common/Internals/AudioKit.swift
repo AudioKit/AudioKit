@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Top level AudioKit managing class
-@objc public class AudioKit : NSObject {
+@objc public class AudioKit: NSObject {
     
     // MARK: Global audio format (44.1K, Stereo)
     
@@ -106,6 +106,11 @@ import AVFoundation
         // Start the engine.
         do {
             self.engine.prepare()
+            
+            #if os(iOS)
+                
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioKit.restartEngineAfterRouteChange(_:)), name: AVAudioSessionRouteChangeNotification, object: nil)
+            #endif
             #if !os(OSX)
                 if AKSettings.audioInputEnabled {
                     
@@ -183,7 +188,7 @@ import AVFoundation
     // and restart the audio engine if it stops and should be playing
     @objc private static func audioEngineConfigurationChange(notification: NSNotification) -> Void {
         
-        if (shouldBeRunning == true && self.engine.running == false){
+        if (shouldBeRunning == true && self.engine.running == false) {
             do {
                 try self.engine.start()
             } catch {
@@ -193,4 +198,25 @@ import AVFoundation
 
     }
     
+    // Restarts the engine after audio output has been changed, like headphones plugged in.
+    @objc private static func restartEngineAfterRouteChange(notification: NSNotification) {
+        if shouldBeRunning {
+            do {
+                try self.engine.start()
+                // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
+                if AKSettings.notificationsEnabled {
+                    NSNotificationCenter.defaultCenter().postNotificationName(AKNotifications.engineRestartedAfterRouteChange, object: nil, userInfo: notification.userInfo)
+                    
+                }
+            } catch {
+                print("error restarting engine after route change")
+            }
+        }
+    }
+    
+    deinit {
+        #if os(iOS)
+            NSNotificationCenter.defaultCenter().removeObserver(self, name: AKNotifications.engineRestartedAfterRouteChange, object:    nil)
+        #endif
+    }
 }

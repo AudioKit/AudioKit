@@ -37,22 +37,22 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Time/Pitch")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Time/Pitch Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         rateLabel = addLabel("Rate: \(timePitch.rate) rate")
-        addSlider(#selector(self.setRate(_:)), value: timePitch.rate, minimum: 0.03125, maximum: 5.0)
+        addSlider(#selector(setRate), value: timePitch.rate, minimum: 0.03125, maximum: 5.0)
 
         pitchLabel = addLabel("Pitch: \(timePitch.pitch) Cents")
-        addSlider(#selector(self.setPitch(_:)), value: timePitch.pitch, minimum: -2400, maximum: 2400)
+        addSlider(#selector(setPitch), value: timePitch.pitch, minimum: -2400, maximum: 2400)
 
         overlapLabel = addLabel("Overlap: \(timePitch.overlap)")
-        addSlider(#selector(self.setOverlap(_:)), value: timePitch.overlap, minimum: 3.0, maximum: 32.0)
+        addSlider(#selector(setOverlap), value: timePitch.overlap, minimum: 3.0, maximum: 32.0)
 
     }
 

@@ -1,8 +1,8 @@
 //
-//  AKMidiListener.swift
+//  AKMIDIListener.swift
 //  AudioKit
 //
-//  Created by Jeff Cooper on 1/30/16.
+//  Created by Jeff Cooper, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -62,13 +62,13 @@ public protocol AKMIDIListener {
 }
 
 /// Default listener functions
-public extension AKMIDIListener{
+public extension AKMIDIListener {
     
     /// Receive the MIDI note on event
     /// - parameter note:     Note number of activated note
     /// - parameter velocity: MIDI Velocity (0-127)
     /// - parameter channel:  MIDI Channel (1-16)
-    func midiNoteOn(note:Int, velocity:Int, channel:Int){
+    func midiNoteOn(note: Int, velocity: Int, channel: Int) {
         print("channel: \(channel) noteOn: \(note) velocity: \(velocity)")
     }
     
@@ -76,7 +76,7 @@ public extension AKMIDIListener{
     /// - parameter note:     Note number of released note
     /// - parameter velocity: MIDI Velocity (0-127) usually speed of release, often 0.
     /// - parameter channel:  MIDI Channel (1-16)
-    func midiNoteOff(note:Int, velocity:Int, channel:Int){
+    func midiNoteOff(note: Int, velocity: Int, channel: Int) {
         print("channel: \(channel) noteOff: \(note) velocity: \(velocity)")
     }
     
@@ -84,7 +84,7 @@ public extension AKMIDIListener{
     /// - parameter controller: MIDI Controller Number
     /// - parameter value:      Value of this controller
     /// - parameter channel:    MIDI Channel (1-16)
-    func midiController(controller:Int, value:Int, channel:Int){
+    func midiController(controller: Int, value: Int, channel: Int) {
         print("channel: \(channel) controller: \(controller) value: \(value)")
     }
     
@@ -92,34 +92,34 @@ public extension AKMIDIListener{
     /// - parameter note:     Note number of touched note
     /// - parameter pressure: Pressure applied to the note (0-127)
     /// - parameter channel:  MIDI Channel (1-16)
-    func midiAftertouchOnNote(note:Int, pressure:Int, channel:Int){
+    func midiAftertouchOnNote(note: Int, pressure: Int, channel: Int) {
         print("channel: \(channel) midiAftertouchOnNote: \(note) pressure: \(pressure)")
     }
     
     /// Receive global aftertouch
     /// - parameter pressure: Pressure applied (0-127)
     /// - parameter channel:  MIDI Channel (1-16)
-    func midiAfterTouch(pressure:Int, channel:Int){
+    func midiAfterTouch(pressure: Int, channel: Int) {
         print("channel: \(channel) midiAfterTouch pressure: \(pressure)")
     }
     
     /// Receive pitch wheel value
     /// - parameter pitchWheelValue: MIDI Pitch Wheel Value (0-16383)
     /// - parameter channel:         MIDI Channel (1-16)
-    func midiPitchWheel(pitchWheelValue:Int, channel:Int){
+    func midiPitchWheel(pitchWheelValue: Int, channel: Int) {
         print("channel: \(channel) pitchWheelC: \(pitchWheelValue)")
     }
     
     /// Receive program change
     /// - parameter program:  MIDI Program Value (0-127)
     /// - parameter channel:  MIDI Channel (1-16)
-    func midiProgramChange(program:Int, channel:Int){
+    func midiProgramChange(program: Int, channel: Int) {
         print("channel: \(channel) programChange: \(program)")
     }
     
     /// Receive a midi system command (such as clock, sysex, etc)
     /// - parameter data: Array of integers
-    func midiSystemCommand(data:[UInt8]){
+    func midiSystemCommand(data: [UInt8]) {
         print("MIDI System Command: \(AKMIDISystemCommand(rawValue: data[0])!)")
     }
 }

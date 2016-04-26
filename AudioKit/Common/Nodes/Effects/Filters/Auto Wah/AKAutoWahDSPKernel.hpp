@@ -9,8 +9,8 @@
 #ifndef AKAutoWahDSPKernel_hpp
 #define AKAutoWahDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     amplitudeAddress = 2
 };
 
-class AKAutoWahDSPKernel : public AKDSPKernel {
+class AKAutoWahDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -64,15 +64,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case wahAddress:
-                wahRamper.set(clamp(value, (float)0, (float)1));
+                wahRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
 
             case mixAddress:
-                mixRamper.set(clamp(value, (float)0, (float)100));
+                mixRamper.setUIValue(clamp(value, (float)0, (float)100));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.set(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
 
         }
@@ -81,13 +81,13 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case wahAddress:
-                return wahRamper.goal();
+                return wahRamper.getUIValue();
 
             case mixAddress:
-                return mixRamper.goal();
+                return mixRamper.getUIValue();
 
             case amplitudeAddress:
-                return amplitudeRamper.goal();
+                return amplitudeRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -118,9 +118,9 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double wah = double(wahRamper.getStep());
-            double mix = double(mixRamper.getStep());
-            double amplitude = double(amplitudeRamper.getStep());
+            double wah = double(wahRamper.getAndStep());
+            double mix = double(mixRamper.getAndStep());
+            double amplitude = double(amplitudeRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -157,9 +157,9 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper wahRamper = 0;
-    AKParameterRamper mixRamper = 100;
-    AKParameterRamper amplitudeRamper = 0.1;
+    ParameterRamper wahRamper = 0;
+    ParameterRamper mixRamper = 100;
+    ParameterRamper amplitudeRamper = 0.1;
 };
 
 #endif /* AKAutoWahDSPKernel_hpp */

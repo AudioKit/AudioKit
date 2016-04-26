@@ -9,8 +9,8 @@
 #ifndef AKEqualizerFilterDSPKernel_hpp
 #define AKEqualizerFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -24,7 +24,7 @@ enum {
     gainAddress = 2
 };
 
-class AKEqualizerFilterDSPKernel : public AKDSPKernel {
+class AKEqualizerFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -64,15 +64,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
+                centerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.set(clamp(value, (float)0.0, (float)20000.0));
+                bandwidthRamper.setUIValue(clamp(value, (float)0.0, (float)20000.0));
                 break;
 
             case gainAddress:
-                gainRamper.set(clamp(value, (float)-100.0, (float)100.0));
+                gainRamper.setUIValue(clamp(value, (float)-100.0, (float)100.0));
                 break;
 
         }
@@ -81,13 +81,13 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case centerFrequencyAddress:
-                return centerFrequencyRamper.goal();
+                return centerFrequencyRamper.getUIValue();
 
             case bandwidthAddress:
-                return bandwidthRamper.goal();
+                return bandwidthRamper.getUIValue();
 
             case gainAddress:
-                return gainRamper.goal();
+                return gainRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -118,9 +118,9 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double centerFrequency = double(centerFrequencyRamper.getStep());
-            double bandwidth = double(bandwidthRamper.getStep());
-            double gain = double(gainRamper.getStep());
+            double centerFrequency = double(centerFrequencyRamper.getAndStep());
+            double bandwidth = double(bandwidthRamper.getAndStep());
+            double gain = double(gainRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -157,9 +157,9 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper centerFrequencyRamper = 1000;
-    AKParameterRamper bandwidthRamper = 100;
-    AKParameterRamper gainRamper = 10;
+    ParameterRamper centerFrequencyRamper = 1000;
+    ParameterRamper bandwidthRamper = 100;
+    ParameterRamper gainRamper = 10;
 };
 
 #endif /* AKEqualizerFilterDSPKernel_hpp */

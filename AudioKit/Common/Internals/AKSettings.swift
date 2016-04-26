@@ -2,7 +2,7 @@
 //  AKSettings.swift
 //  AudioKit
 //
-//  Created by Stéphane Peter on 1/27/16.
+//  Created by Stéphane Peter, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -10,8 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Global settings for AudioKit
-@objc
-public class AKSettings : NSObject {
+@objc public class AKSettings: NSObject {
     
     /// The sample rate in Hertz
     public static var sampleRate: Double = 44100
@@ -31,9 +30,11 @@ public class AKSettings : NSObject {
     }
     
     /// Whether to DefaultToSpeaker when audio input is enabled
-    public static var defaultToSpeaker: Bool = false;
+    public static var defaultToSpeaker: Bool = false
     
     /// Global default rampTime value
     public static var rampTime: Double = 0.0002
 
+    /// Allows AudioKit to send Notifications
+    public static var notificationsEnabled: Bool = false
 }

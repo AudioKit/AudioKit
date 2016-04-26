@@ -34,14 +34,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Moog Ladder Filter")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(moogLadder.cutoffFrequency)")
-        addSlider(#selector(self.setCutoffFrequency(_:)), value: moogLadder.cutoffFrequency, minimum: 0, maximum: 5000)
+        addSlider(#selector(setCutoffFrequency), value: moogLadder.cutoffFrequency, minimum: 0, maximum: 5000)
 
         resonanceLabel = addLabel("Resonance: \(moogLadder.resonance)")
-        addSlider(#selector(self.setResonance(_:)), value: moogLadder.resonance, minimum: 0, maximum: 0.99)
+        addSlider(#selector(setResonance), value: moogLadder.resonance, minimum: 0, maximum: 0.99)
     }
 
     func start() {
