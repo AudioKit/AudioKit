@@ -11,9 +11,8 @@ import UIKit
 class RoundedButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+
         clipsToBounds = true
         layer.cornerRadius = 6
     }
 }
-

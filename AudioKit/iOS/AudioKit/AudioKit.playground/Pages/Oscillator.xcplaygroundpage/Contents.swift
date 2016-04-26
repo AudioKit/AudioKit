@@ -22,17 +22,17 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Oscillator")
 
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         frequencyLabel = addLabel("Frequency: \(oscillator.frequency)")
-        addSlider(#selector(self.setFrequency(_:)), value: oscillator.frequency, minimum: 200, maximum: 800)
+        addSlider(#selector(setFrequency), value: oscillator.frequency, minimum: 200, maximum: 800)
 
         amplitudeLabel = addLabel("Amplitude: \(oscillator.amplitude)")
-        addSlider(#selector(self.setAmplitude(_:)), value: oscillator.amplitude)
+        addSlider(#selector(setAmplitude), value: oscillator.amplitude)
 
         rampTimeLabel = addLabel("Ramp Time: \(oscillator.rampTime)")
-        addSlider(#selector(self.setRampTime(_:)), value: oscillator.rampTime)
+        addSlider(#selector(setRampTime), value: oscillator.rampTime)
     }
 
     func start() {

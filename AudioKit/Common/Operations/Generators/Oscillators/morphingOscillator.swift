@@ -1,6 +1,6 @@
 //
 //  morphingOscillator.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka on 1/17/16.
 //  Copyright © 2016 AudioKit. All rights reserved.

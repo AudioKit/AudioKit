@@ -1,6 +1,6 @@
 //
 //  AKExpander.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Jeff Cooper on 1/18/16.
 //  Copyright © 2016 AudioKit. All rights reserved.

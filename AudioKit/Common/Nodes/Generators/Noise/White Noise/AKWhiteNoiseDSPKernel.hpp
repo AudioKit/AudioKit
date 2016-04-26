@@ -9,8 +9,8 @@
 #ifndef AKWhiteNoiseDSPKernel_hpp
 #define AKWhiteNoiseDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     amplitudeAddress = 0
 };
 
-class AKWhiteNoiseDSPKernel : public AKDSPKernel {
+class AKWhiteNoiseDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -59,13 +59,13 @@ public:
     
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.set(clamp(amp, (float)0, (float)10));
+        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)10));
     }
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case amplitudeAddress:
-                amplitudeRamper.set(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
                 break;
 
         }
@@ -74,7 +74,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case amplitudeAddress:
-                return amplitudeRamper.goal();
+                return amplitudeRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -96,7 +96,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double amplitude = double(amplitudeRamper.getStep());
+            double amplitude = double(amplitudeRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -133,7 +133,7 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper amplitudeRamper = 1;
+    ParameterRamper amplitudeRamper = 1;
 };
 
 #endif /* AKWhiteNoiseDSPKernel_hpp */

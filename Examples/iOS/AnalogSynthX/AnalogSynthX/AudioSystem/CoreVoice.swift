@@ -16,11 +16,11 @@ class CoreVoice: AKVoice {
     var noise  = AKWhiteNoise()
 
     // We'll be using these simply to control volume independent of velocity
-    var vco1Mixer:   AKMixer
-    var vco2Mixer:   AKMixer
+    var vco1Mixer: AKMixer
+    var vco2Mixer: AKMixer
     var subOscMixer: AKMixer
-    var fmOscMixer:  AKMixer
-    var noiseMixer:  AKMixer
+    var fmOscMixer: AKMixer
+    var noiseMixer: AKMixer
 
     var vcoBalancer: AKDryWetMixer
     var sourceMixer: AKMixer

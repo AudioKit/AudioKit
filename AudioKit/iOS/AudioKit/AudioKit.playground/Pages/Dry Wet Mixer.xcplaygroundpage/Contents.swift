@@ -9,7 +9,7 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let drumFile   = bundle.pathForResource("drumloop",   ofType: "wav")
+let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
 var drums  = AKAudioPlayer(drumFile!)
 drums.looping  = true
 
@@ -39,11 +39,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Dry Wet Mix")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         balanceLabel = addLabel("Balance: \(mixture.balance)")
-        addSlider(#selector(self.setDuration(_:)), value: mixture.balance)
+        addSlider(#selector(setDuration), value: mixture.balance)
     }
 
     func start() {

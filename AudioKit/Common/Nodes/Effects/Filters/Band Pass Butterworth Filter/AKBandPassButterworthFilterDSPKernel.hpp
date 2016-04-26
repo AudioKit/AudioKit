@@ -9,8 +9,8 @@
 #ifndef AKBandPassButterworthFilterDSPKernel_hpp
 #define AKBandPassButterworthFilterDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -23,7 +23,7 @@ enum {
     bandwidthAddress = 1
 };
 
-class AKBandPassButterworthFilterDSPKernel : public AKDSPKernel {
+class AKBandPassButterworthFilterDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -62,11 +62,11 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.set(clamp(value, (float)12.0, (float)20000.0));
+                centerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.set(clamp(value, (float)0.0, (float)20000.0));
+                bandwidthRamper.setUIValue(clamp(value, (float)0.0, (float)20000.0));
                 break;
 
         }
@@ -75,10 +75,10 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case centerFrequencyAddress:
-                return centerFrequencyRamper.goal();
+                return centerFrequencyRamper.getUIValue();
 
             case bandwidthAddress:
-                return bandwidthRamper.goal();
+                return bandwidthRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -105,8 +105,8 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double centerFrequency = double(centerFrequencyRamper.getStep());
-            double bandwidth = double(bandwidthRamper.getStep());
+            double centerFrequency = double(centerFrequencyRamper.getAndStep());
+            double bandwidth = double(bandwidthRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -142,8 +142,8 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper centerFrequencyRamper = 2000;
-    AKParameterRamper bandwidthRamper = 100;
+    ParameterRamper centerFrequencyRamper = 2000;
+    ParameterRamper bandwidthRamper = 100;
 };
 
 #endif /* AKBandPassButterworthFilterDSPKernel_hpp */

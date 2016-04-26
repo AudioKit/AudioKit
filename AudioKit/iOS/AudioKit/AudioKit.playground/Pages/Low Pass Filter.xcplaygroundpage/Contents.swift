@@ -35,19 +35,19 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Low Pass Filter")
 
         addLabel("Audio Player")
-        addButton("Start", action: #selector(self.start))
-        addButton("Stop", action: #selector(self.stop))
+        addButton("Start", action: #selector(start))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Low Pass Filter Parameters")
 
-        addButton("Process", action: #selector(self.process))
-        addButton("Bypass", action: #selector(self.bypass))
+        addButton("Process", action: #selector(process))
+        addButton("Bypass", action: #selector(bypass))
 
         cutoffFrequencyLabel = addLabel("Cut-off Frequency: 6900 Hz")
-        addSlider(#selector(self.setCutoffFrequency(_:)), value: 6900, minimum: 10, maximum: 22050)
+        addSlider(#selector(setCutoffFrequency), value: 6900, minimum: 10, maximum: 22050)
 
         resonanceLabel = addLabel("Resonance: 0 dB")
-        addSlider(#selector(self.setResonance(_:)), value: 0, minimum: -20, maximum: 40)
+        addSlider(#selector(setResonance), value: 0, minimum: -20, maximum: 40)
 
     }
 

@@ -10,15 +10,15 @@ import Foundation
 
 /// Plot the output from any node in an signal processing graph
 @IBDesignable
-public class AKNodeOutputPlot : EZAudioPlot {
+public class AKNodeOutputPlot: EZAudioPlot {
 
     internal func setupNode(input: AKNode?) {
         input?.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
             if let strongSelf = self {
-                buffer.frameLength = strongSelf.bufferSize;
-                let offset: Int = Int(buffer.frameCapacity - buffer.frameLength);
-                let tail = buffer.floatChannelData[0];
-                strongSelf.updateBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize);
+                buffer.frameLength = strongSelf.bufferSize
+                let offset = Int(buffer.frameCapacity - buffer.frameLength)
+                let tail = buffer.floatChannelData[0]
+                strongSelf.updateBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
             }
         }
     }
@@ -54,8 +54,7 @@ public class AKNodeOutputPlot : EZAudioPlot {
     /// - parameter width: Width of the view
     /// - parameter height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect)
-    {
+    public init(_ input: AKNode, frame: CGRect) {
         super.init(frame: frame)
         self.plotType = .Buffer
         self.backgroundColor = AKColor.whiteColor()

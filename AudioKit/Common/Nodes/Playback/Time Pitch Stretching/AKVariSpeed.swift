@@ -1,6 +1,6 @@
 //
 //  AKVariSpeed.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Eiríkur Orri Ólafsson, revision history on GitHub
 //  Copyright © 2016 AudioKit. All rights reserved.

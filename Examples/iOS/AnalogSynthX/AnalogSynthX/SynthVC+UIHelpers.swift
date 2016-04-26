@@ -30,7 +30,7 @@ extension SynthViewController {
         let scaledValue = Double.scaleRangeLog(value, rangeMin: 30, rangeMax: 7000)
         return scaledValue * 4
     }
-    
+
     func crusherFreqFromValue(value: Double) -> Double {
         // Logarithmic scale: reverse knobvalue to frequency
         let value = 1 - value
@@ -43,9 +43,9 @@ extension SynthViewController {
     //*****************************************************************
 
     func createWaveFormSegmentViews() {
-        setupOscSegmentView(8,   y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
+        setupOscSegmentView(8, y: 75.0, width: 195, height: 46.0, tag: ControlTag.Vco1Waveform.rawValue, type: 0)
         setupOscSegmentView(212, y: 75.0, width: 226, height: 46.0, tag: ControlTag.Vco2Waveform.rawValue, type: 0)
-        setupOscSegmentView(10,  y: 377,  width: 255, height: 46.0, tag: ControlTag.LfoWaveform.rawValue,  type: 1)
+        setupOscSegmentView(10, y: 377, width: 255, height: 46.0, tag: ControlTag.LfoWaveform.rawValue, type: 1)
     }
 
     func setupOscSegmentView(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, tag: Int, type: Int) {

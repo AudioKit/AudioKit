@@ -9,8 +9,8 @@
 #ifndef AKCombFilterReverbDSPKernel_hpp
 #define AKCombFilterReverbDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -22,7 +22,7 @@ enum {
     reverbDurationAddress = 0
 };
 
-class AKCombFilterReverbDSPKernel : public AKDSPKernel {
+class AKCombFilterReverbDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -62,7 +62,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.set(clamp(value, (float)0.0, (float)10.0));
+                reverbDurationRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
                 break;
 
         }
@@ -71,7 +71,7 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case reverbDurationAddress:
-                return reverbDurationRamper.goal();
+                return reverbDurationRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -94,7 +94,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double reverbDuration = double(reverbDurationRamper.getStep());
+            double reverbDuration = double(reverbDurationRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
@@ -131,7 +131,7 @@ private:
 
 public:
     bool started = true;
-    AKParameterRamper reverbDurationRamper = 1.0;
+    ParameterRamper reverbDurationRamper = 1.0;
 };
 
 #endif /* AKCombFilterReverbDSPKernel_hpp */

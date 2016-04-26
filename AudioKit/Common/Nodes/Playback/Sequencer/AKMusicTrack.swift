@@ -106,13 +106,13 @@ public class AKMusicTrack {
         var eventTime = MusicTimeStamp(0)
         var eventType = MusicEventType()
         var eventData: UnsafePointer<Void> = nil
-        var eventDataSize: UInt32 = 0;
-        var hasNextEvent:DarwinBoolean = false
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
         
         MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         
         while(hasNextEvent) {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime,  &eventType, &eventData, &eventDataSize)
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
             
             if eventType == kMusicEventType_MIDINoteMessage {
                 let data = UnsafePointer<MIDINoteMessage>(eventData)
@@ -141,7 +141,7 @@ public class AKMusicTrack {
     ///
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
-    public func setLengthSoft(duration: Double){
+    public func setLengthSoft(duration: Double) {
         let size: UInt32 = 0
         var len = MusicTimeStamp(duration)
         MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
@@ -174,6 +174,18 @@ public class AKMusicTrack {
             duration: Float32(duration))
         
         MusicTrackNewMIDINoteEvent(internalMusicTrack, MusicTimeStamp(position), &noteMessage)
+    }
+    /// Add Controller change to sequence
+    ///
+    /// - parameter controller: The midi controller to insert
+    /// - parameter value: The velocity to insert note at
+    /// - parameter position: Where in the sequence to start the note (expressed in beats)
+    /// - parameter channel: MIDI channel for this note
+    ///
+    public func addController(controller: Int, value: Int, position: Double, channel: Int = 0) {
+        
+        var controlMessage = MIDIChannelMessage(status: UInt8(11 << 4) | UInt8((channel) & 0xf), data1: UInt8(controller), data2: UInt8(value), reserved: 0)
+        MusicTrackNewMIDIChannelEvent(internalMusicTrack, MusicTimeStamp(position), &controlMessage)
     }
     
     /// Debug by showing the track pointer.

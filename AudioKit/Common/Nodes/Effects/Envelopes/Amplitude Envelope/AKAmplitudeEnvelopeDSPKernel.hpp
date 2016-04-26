@@ -9,8 +9,8 @@
 #ifndef AKAmplitudeEnvelopeDSPKernel_hpp
 #define AKAmplitudeEnvelopeDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
@@ -25,7 +25,7 @@ enum {
     releaseDurationAddress = 3
 };
 
-class AKAmplitudeEnvelopeDSPKernel : public AKDSPKernel {
+class AKAmplitudeEnvelopeDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -73,19 +73,19 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case attackDurationAddress:
-                attackDurationRamper.set(clamp(value, (float)0, (float)99));
+                attackDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
             case decayDurationAddress:
-                decayDurationRamper.set(clamp(value, (float)0, (float)99));
+                decayDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
             case sustainLevelAddress:
-                sustainLevelRamper.set(clamp(value, (float)0, (float)99));
+                sustainLevelRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
             case releaseDurationAddress:
-                releaseDurationRamper.set(clamp(value, (float)0, (float)99));
+                releaseDurationRamper.setUIValue(clamp(value, (float)0, (float)99));
                 break;
 
         }
@@ -94,16 +94,16 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case attackDurationAddress:
-                return attackDurationRamper.goal();
+                return attackDurationRamper.getUIValue();
 
             case decayDurationAddress:
-                return decayDurationRamper.goal();
+                return decayDurationRamper.getUIValue();
 
             case sustainLevelAddress:
-                return sustainLevelRamper.goal();
+                return sustainLevelRamper.getUIValue();
 
             case releaseDurationAddress:
-                return releaseDurationRamper.goal();
+                return releaseDurationRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -140,10 +140,10 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
             
-            adsr->atk = attackDurationRamper.getStep();
-            adsr->dec = decayDurationRamper.getStep();
-            adsr->sus = sustainLevelRamper.getStep();
-            adsr->rel = releaseDurationRamper.getStep();
+            adsr->atk = attackDurationRamper.getAndStep();
+            adsr->dec = decayDurationRamper.getAndStep();
+            adsr->sus = sustainLevelRamper.getAndStep();
+            adsr->rel = releaseDurationRamper.getAndStep();
             
 //            NSLog(@"%f %f", adsr->atk, adsr->rel);
 
@@ -174,10 +174,10 @@ private:
 
 public:
     bool started = false;
-    AKParameterRamper attackDurationRamper = 0.1;
-    AKParameterRamper decayDurationRamper = 0.1;
-    AKParameterRamper sustainLevelRamper = 1.0;
-    AKParameterRamper releaseDurationRamper = 0.1;
+    ParameterRamper attackDurationRamper = 0.1;
+    ParameterRamper decayDurationRamper = 0.1;
+    ParameterRamper sustainLevelRamper = 1.0;
+    ParameterRamper releaseDurationRamper = 0.1;
 };
 
 #endif /* AKAmplitudeEnvelopeDSPKernel_hpp */
