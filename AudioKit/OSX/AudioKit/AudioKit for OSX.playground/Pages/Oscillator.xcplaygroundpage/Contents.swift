@@ -40,13 +40,13 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func setFrequency(slider: Slider) {
-        oscillator.ramp(frequency: Double(slider.value))
+        oscillator.frequency = Double(slider.value)
         let frequency = String(format: "%0.1f", oscillator.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
     }
 
     func setAmplitude(slider: Slider) {
-        oscillator.ramp(amplitude: Double(slider.value))
+        oscillator.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", oscillator.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
