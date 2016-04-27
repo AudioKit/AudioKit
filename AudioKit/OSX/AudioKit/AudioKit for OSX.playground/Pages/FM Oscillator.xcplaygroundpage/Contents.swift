@@ -80,7 +80,7 @@ class PlaygroundView: AKPlaygroundView {
 
 
     func setAmplitude(slider: Slider) {
-        oscillator.ramp(amplitude: Double(slider.value))
+        oscillator.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", oscillator.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
