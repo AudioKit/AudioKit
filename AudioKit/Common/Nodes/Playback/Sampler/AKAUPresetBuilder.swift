@@ -66,7 +66,6 @@ public class AKAUPresetBuilder {
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
         let filenameKey = "filename"
-        let triggerModeKey = "triggerMode"
         var loadSoundsArr = Array<NSMutableDictionary>()
         var sampleZoneXML = ""
         var sampleIDXML = ""
