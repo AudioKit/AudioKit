@@ -14,6 +14,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     
     private var audioFileBuffer: AVAudioPCMBuffer
     private var internalPlayer: AVAudioPlayerNode
+    private var audioFile: AVAudioFile
     
     private var internalFile: String
     private var sampleRate: Double = 1.0
@@ -59,15 +60,16 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     public init(_ file: String) {
         internalFile = file
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
-        let audioFile = try! AVAudioFile(forReading: url)
+        audioFile = try! AVAudioFile(forReading: url)
         let audioFormat = audioFile.processingFormat
         let audioFrameCount = UInt32(audioFile.length)
-        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat, frameCapacity: audioFrameCount)
+        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat,
+                                           frameCapacity: audioFrameCount)
         try! audioFile.readIntoBuffer(audioFileBuffer)
         
         // added for currentTime calculation later on
         sampleRate = audioFile.fileFormat.sampleRate
-        totalFrameCount = Int64( audioFrameCount )
+        totalFrameCount = Int64(audioFrameCount)
         
         internalPlayer = AVAudioPlayerNode()
         super.init()
@@ -92,7 +94,8 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         let audioFile = try! AVAudioFile(forReading: url)
         let audioFormat = audioFile.processingFormat
         let audioFrameCount = UInt32(audioFile.length)
-        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat, frameCapacity: audioFrameCount)
+        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat,
+                                           frameCapacity: audioFrameCount)
         try! audioFile.readIntoBuffer(audioFileBuffer)
     }
     
@@ -103,7 +106,11 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             if looping {
                 options = .Loops
             }
-            internalPlayer.scheduleBuffer(audioFileBuffer, atTime: nil, options: options, completionHandler: nil)
+            internalPlayer.scheduleBuffer(
+                audioFileBuffer,
+                atTime: nil,
+                options: options,
+                completionHandler: nil)
         }
         internalPlayer.play()
         // get the initialFrameCount for currentTime as it's relative to the audio engine's time.
@@ -140,6 +147,23 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             }
         }
         return 0.0
+    }
+    
+    /// Play the file back from a certain time (non-looping)
+    ///
+    /// - parameter time: Time into the file at which to start playing back
+    ///
+    public func playFrom(time: Double) {
+        let startingFrame = Int64(sampleRate * time)
+        let frameCount = UInt32(totalFrameCount - startingFrame)
+        internalPlayer.prepareWithFrameCount(frameCount)
+        internalPlayer.scheduleSegment(
+            audioFile,
+            startingFrame: startingFrame,
+            frameCount: frameCount,
+            atTime: nil,
+            completionHandler: nil)
+        internalPlayer.play()
     }
     
     /// Replace the current audio file with a new audio file
