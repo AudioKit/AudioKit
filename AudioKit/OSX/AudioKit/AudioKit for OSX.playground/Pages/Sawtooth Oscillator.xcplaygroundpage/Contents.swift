@@ -23,4 +23,5 @@ AKPlaygroundLoop(every: 0.12) {
     sawtooth.amplitude = random(0, 0.3)
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
