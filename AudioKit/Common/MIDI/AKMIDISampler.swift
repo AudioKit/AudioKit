@@ -71,7 +71,6 @@ public class AKMIDISampler: AKSampler {
     /// - parameter channel: MIDI cc channel
     ///
     public func midiCC(cc: Int, value: Int, channel: Int) {
-        //print("cc \(cc) val \(value) chan \(channel)")
         samplerUnit.sendController(UInt8(cc), withValue: UInt8(value), onChannel: UInt8(channel))
     }
     

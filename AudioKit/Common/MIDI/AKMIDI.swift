@@ -9,140 +9,6 @@
 import Foundation
 import CoreMIDI
 
-
-/// Temporary hack for Xcode 7.3.1 - Appreciate improvements to this if you want to make a go of it!
-typealias AKRawMIDIPacket = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)
-
-
-/// The returned generator will enumerate each value of the provided tuple.
-func generatorForTuple(tuple: AKRawMIDIPacket) -> AnyGenerator<Any> {
-    let children = Mirror(reflecting: tuple).children
-    return AnyGenerator(children.generate().lazy.map { $0.value }.generate())
-}
-
-/**
- Allows a MIDIPacket to be iterated through with a for statement.
- This is necessary because MIDIPacket can contain multiple midi events,
- but Swift makes this unnecessarily hard because the MIDIPacket struct uses a tuple
- for the data field. Grrr!
- 
- Example usage:
- let packet: MIDIPacket
- for message in packet {
- // message is a Message
- }
- */
-extension MIDIPacket: SequenceType {
-    /// Generate a midi packet
-    public func generate() -> AnyGenerator<AKMIDIEvent> {
-        let generator = generatorForTuple(self.data)
-        var index: UInt16 = 0
-        
-        return AnyGenerator {
-            if index >= self.length {
-                return nil
-            }
-            
-            func pop() -> UInt8 {
-                assert(index < self.length)
-                index += 1
-                return generator.next() as! UInt8
-            }
-            
-            let status = pop()
-            if AKMIDIEvent.isStatusByte(status) {
-                var data1: UInt8 = 0
-                var data2: UInt8 = 0
-                var mstat = AKMIDIEvent.statusFromValue(status)
-                switch  mstat {
-                case .NoteOff,
-                .NoteOn,
-                .PolyphonicAftertouch,
-                .ControllerChange,
-                .PitchWheel:
-                    data1 = pop(); data2 = pop()
-
-                case .ProgramChange,
-                .ChannelAftertouch:
-                    data1 = pop()
-
-                case .SystemCommand: break
-                }
-
-                if mstat == .NoteOn && data2 == 0 {
-                    // turn noteOn with velocity 0 to noteOff
-                    mstat = .NoteOff
-                }
-
-                let chan = (status & 0xF)
-                return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
-            } else if status == 0xF0 {
-                // sysex - guaranteed by coremidi to be the entire packet
-                index = self.length
-                return AKMIDIEvent(packet: self)
-            } else {
-                let cmd = AKMIDISystemCommand(rawValue: status)!
-                var data1: UInt8 = 0
-                var data2: UInt8 = 0
-                switch  cmd {
-                case .Sysex: break
-                case .SongPosition:
-                    data1 = pop()
-                    data2 = pop()
-                case .SongSelect:
-                    data1 = pop()
-                default: break
-                }
-                
-                return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)
-            }
-        }
-    }
-}
-
-extension MIDIPacketList: SequenceType {
-    /// Type alis for MIDI Packet List Generator
-    public typealias Generator = MIDIPacketListGenerator
-    
-    /// Create a generator from the packet list
-    public func generate() -> Generator {
-        return Generator(packetList: self)
-    }
-}
-
-/// Generator for MIDIPacketList allowing iteration over its list of MIDIPacket objects.
-public struct MIDIPacketListGenerator: GeneratorType {
-    public typealias Element = MIDIPacket
-    
-    /// Initialize the packet list generator with a packet list
-    ///
-    /// - parameter packetList: MIDI Packet List
-    ///
-    init(packetList: MIDIPacketList) {
-        let ptr = UnsafeMutablePointer<MIDIPacket>.alloc(1)
-        ptr.initialize(packetList.packet)
-        self.packet = ptr
-        self.count = packetList.numPackets
-    }
-    
-    /// Provide the next element (packet)
-    public mutating func next() -> Element? {
-        guard self.packet != nil && self.index < self.count else { return nil }
-        
-        let lastPacket = self.packet!
-        self.packet = MIDIPacketNext(self.packet!)
-        self.index += 1
-        return lastPacket.memory
-    }
-    
-    // Extracted packet list info
-    var count: UInt32
-    var index: UInt32 = 0
-    
-    // Iteration state
-    var packet: UnsafeMutablePointer<MIDIPacket>?
-}
-
 /// MIDI input and output handler
 ///
 /// You add midi listeners like this:
@@ -267,7 +133,6 @@ public class AKMIDI {
     /// Initialize the AKMIDI system
     public init() {
 
-        //print("MIDI Enabled")
         #if os(iOS)
             MIDINetworkSession.defaultSession().enabled = true
             MIDINetworkSession.defaultSession().connectionPolicy =
@@ -286,7 +151,6 @@ public class AKMIDI {
     
     /// Create set of virtual MIDI ports
     public func createVirtualPorts(uniqueId: Int32 = 2000000) {
-        //print("Creating virtual MIDI ports")
 
         destroyVirtualPorts()
         
@@ -332,11 +196,10 @@ public class AKMIDI {
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
     public func openMIDIIn(namedInput: String = "") {
-        //print("Opening MIDI In")
         var result = OSStatus(noErr)
         
         let sourceCount = MIDIGetNumberOfSources()
-        //print("SourceCount: \(sourceCount)")
+
         for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
@@ -443,9 +306,7 @@ public class AKMIDI {
         packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
         for _ in 0 ..< midiEndpoints.count {
             result = MIDISend(midiOutPort, midiEndpoints[0], packetListPtr)
-            if result == OSStatus(noErr) {
-                //print("sent midi")
-            } else {
+            if result != OSStatus(noErr) {
                 print("error sending midi : \(result)")
             }
         }
@@ -477,7 +338,6 @@ public class AKMIDI {
         self.sendMessage(message)
     }
 }
-
 
 /// Print out a more human readable error message
 ///

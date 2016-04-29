@@ -122,17 +122,13 @@ public class AKMusicTrack {
                 let dur = data.memory.duration
                 
                 if Double(eventTime) + Double(dur) > duration {
-                    //print("note is too long at \(Double(eventTime) + Double(dur))")
-                    //print("newDur should be \(Double(duration) - Double(eventTime))")
                     var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(Double(duration) - Double(eventTime)))
                     MusicEventIteratorSetEventInfo(iterator, eventType, &newNote)
                 }
-                //print("time: \(eventTime) - chan:\(channel) - note:\(note) - vel:\(velocity) - duration:\(dur)")
             }
             
             MusicEventIteratorNextEvent(iterator)
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-            //print(hasNextEvent)
         }
         DisposeMusicEventIterator(iterator)
     }
