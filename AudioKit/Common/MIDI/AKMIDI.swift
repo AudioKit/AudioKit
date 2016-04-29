@@ -207,19 +207,30 @@ public class AKMIDI {
             let type = event.status
             switch type {
                 case AKMIDIStatus.ControllerChange:
-                    listener.midiController(Int(event.internalData[1]), value: Int(event.internalData[2]), channel: Int(event.channel))
+                    listener.midiController(Int(event.internalData[1]),
+                                            value: Int(event.internalData[2]),
+                                            channel: Int(event.channel))
                 case AKMIDIStatus.ChannelAftertouch:
-                    listener.midiAfterTouch(Int(event.internalData[1]), channel: Int(event.channel))
+                    listener.midiAfterTouch(Int(event.internalData[1]),
+                                            channel: Int(event.channel))
                 case AKMIDIStatus.NoteOn:
-                    listener.midiNoteOn(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    listener.midiNoteOn(Int(event.internalData[1]),
+                                        velocity: Int(event.internalData[2]),
+                                        channel: Int(event.channel))
                 case AKMIDIStatus.NoteOff:
-                    listener.midiNoteOff(Int(event.internalData[1]), velocity: Int(event.internalData[2]), channel: Int(event.channel))
+                    listener.midiNoteOff(Int(event.internalData[1]),
+                                         velocity: Int(event.internalData[2]),
+                                         channel: Int(event.channel))
                 case AKMIDIStatus.PitchWheel:
-                    listener.midiPitchWheel(Int(event.data), channel: Int(event.channel))
+                    listener.midiPitchWheel(Int(event.data),
+                                            channel: Int(event.channel))
                 case AKMIDIStatus.PolyphonicAftertouch:
-                    listener.midiAftertouchOnNote(Int(event.internalData[1]), pressure: Int(event.internalData[2]), channel: Int(event.channel))
+                    listener.midiAftertouchOnNote(Int(event.internalData[1]),
+                                                  pressure: Int(event.internalData[2]),
+                                                  channel: Int(event.channel))
                 case AKMIDIStatus.ProgramChange:
-                    listener.midiProgramChange(Int(event.internalData[1]), channel: Int(event.channel))
+                    listener.midiProgramChange(Int(event.internalData[1]),
+                                               channel: Int(event.channel))
                 case AKMIDIStatus.SystemCommand:
                     listener.midiSystemCommand(event.internalData)
             }
@@ -351,16 +362,24 @@ public class AKMIDI {
     
     /// Prints a list of all MIDI Inputs
     public func printMIDIInputs() {
+        for inputName in inputNames {
+            print("midiIn at \(inputName)")
+        }
+    }
+    
+    /// Array of input names
+    public var inputNames: [String] {
         let sourceCount = MIDIGetNumberOfSources()
-        print("MIDI Inputs:")
+        var returnedArray = [String]()
         for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
             var inputName: Unmanaged<CFString>?
             inputName = nil
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
             let inputNameStr = (inputName?.takeRetainedValue())! as String
-            print("midiIn at \(inputNameStr)")
+            returnedArray.append(inputNameStr)
         }
+        return returnedArray
     }
     
     /// Open a MIDI Output Port
@@ -368,11 +387,10 @@ public class AKMIDI {
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openMIDIOut(namedOutput: String = "") {
-        //print("Opening MIDI Out")
+
         var result = OSStatus(noErr)
         
         let outputCount = MIDIGetNumberOfDestinations()
-        //print("Number of MIDI Out ports = \(outputCount)")
         var foundDest = false
         result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
         
