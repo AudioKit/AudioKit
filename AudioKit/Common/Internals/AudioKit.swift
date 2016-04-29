@@ -122,9 +122,7 @@ import AVFoundation
                         // listen to AVAudioEngineConfigurationChangeNotification
                         // and restart the engine if it's stopped.
                         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AudioKit.audioEngineConfigurationChange(_:)), name: AVAudioEngineConfigurationChangeNotification, object: engine)
-                        
-                        //print("current route (after force speaker): \(AVAudioSession.sharedInstance().currentRoute)")
-                        
+                                                
                     } else {
                         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
                         
