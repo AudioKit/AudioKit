@@ -267,6 +267,7 @@
 		C48444F21C3702F8007BE794 /* sawtooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444EF1C3702F8007BE794 /* sawtooth.swift */; };
 		C48444F31C3702F8007BE794 /* square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F01C3702F8007BE794 /* square.swift */; };
 		C48444F41C3702F8007BE794 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F11C3702F8007BE794 /* triangle.swift */; };
+		C48DB7911CD536CB00D1EC13 /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7901CD536CB00D1EC13 /* CheckError.swift */; };
 		C4A662881CCB132D00A38B90 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A662841CCB132D00A38B90 /* BufferedAudioBus.hpp */; };
 		C4A662891CCB132D00A38B90 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A662851CCB132D00A38B90 /* DSPKernel.hpp */; };
 		C4A6628A1CCB132D00A38B90 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A662861CCB132D00A38B90 /* DSPKernel.mm */; };
@@ -797,6 +798,7 @@
 		C48444EF1C3702F8007BE794 /* sawtooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtooth.swift; sourceTree = "<group>"; };
 		C48444F01C3702F8007BE794 /* square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = square.swift; sourceTree = "<group>"; };
 		C48444F11C3702F8007BE794 /* triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
+		C48DB7901CD536CB00D1EC13 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
 		C4A662841CCB132D00A38B90 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		C4A662851CCB132D00A38B90 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
 		C4A662861CCB132D00A38B90 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
@@ -1106,6 +1108,7 @@
 			children = (
 				C40C41751C40E3EF009D870B /* AKGetAUParams.swift */,
 				C4A662841CCB132D00A38B90 /* BufferedAudioBus.hpp */,
+				C48DB7901CD536CB00D1EC13 /* CheckError.swift */,
 				C4A662851CCB132D00A38B90 /* DSPKernel.hpp */,
 				C4A662861CCB132D00A38B90 /* DSPKernel.mm */,
 				C4A662871CCB132D00A38B90 /* ParameterRamper.hpp */,
@@ -2889,6 +2892,7 @@
 				C4B190881C3B340400C0F330 /* biquad.c in Sources */,
 				C4B190B71C3B340400C0F330 /* phasor.c in Sources */,
 				C45383411C3A5E4300A51738 /* AKAutoWah.swift in Sources */,
+				C48DB7911CD536CB00D1EC13 /* CheckError.swift in Sources */,
 				C4B191221C3B340400C0F330 /* tabread.c in Sources */,
 				C45383991C3A5E4300A51738 /* AKCostelloReverb.swift in Sources */,
 				524B77BC1CC4B074001D82D1 /* AKNotifications.swift in Sources */,
