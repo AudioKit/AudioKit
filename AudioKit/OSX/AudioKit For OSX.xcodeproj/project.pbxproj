@@ -268,6 +268,8 @@
 		C48444F31C3702F8007BE794 /* square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F01C3702F8007BE794 /* square.swift */; };
 		C48444F41C3702F8007BE794 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F11C3702F8007BE794 /* triangle.swift */; };
 		C48DB7911CD536CB00D1EC13 /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7901CD536CB00D1EC13 /* CheckError.swift */; };
+		C48DB7991CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */; };
+		C48DB79B1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */; };
 		C4A662881CCB132D00A38B90 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A662841CCB132D00A38B90 /* BufferedAudioBus.hpp */; };
 		C4A662891CCB132D00A38B90 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A662851CCB132D00A38B90 /* DSPKernel.hpp */; };
 		C4A6628A1CCB132D00A38B90 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A662861CCB132D00A38B90 /* DSPKernel.mm */; };
@@ -799,6 +801,8 @@
 		C48444F01C3702F8007BE794 /* square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = square.swift; sourceTree = "<group>"; };
 		C48444F11C3702F8007BE794 /* triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
 		C48DB7901CD536CB00D1EC13 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
+		C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+SendingMIDI.swift"; sourceTree = "<group>"; };
+		C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+ReceivingMIDI.swift"; sourceTree = "<group>"; };
 		C4A662841CCB132D00A38B90 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		C4A662851CCB132D00A38B90 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
 		C4A662861CCB132D00A38B90 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
@@ -1285,6 +1289,8 @@
 			isa = PBXGroup;
 			children = (
 				C40AD6A31C463E4700B638AF /* AKMIDI.swift */,
+				C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */,
+				C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */,
 				C40AD6A41C463E4700B638AF /* AKMIDIEvent.swift */,
 				C40AD6A51C463E4700B638AF /* AKMIDIInstrument.swift */,
 				C4D0427B1C5D95DF00DF3479 /* AKMIDIListener.swift */,
@@ -2912,6 +2918,7 @@
 				C45383B61C3A5E4300A51738 /* AKSawtoothOscillator.swift in Sources */,
 				C4B1910C1C3B340400C0F330 /* osc.c in Sources */,
 				C40C41AD1C40E3EF009D870B /* EZAudioFloatData.m in Sources */,
+				C48DB79B1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift in Sources */,
 				C453834A1C3A5E4300A51738 /* AKBandRejectButterworthFilter.swift in Sources */,
 				C453833B1C3A5E4300A51738 /* AKTanhDistortion.swift in Sources */,
 				C4B190C81C3B340400C0F330 /* scale.c in Sources */,
@@ -2921,6 +2928,7 @@
 				C4B1912A1C3B340400C0F330 /* tog.c in Sources */,
 				C4B190A51C3B340400C0F330 /* gbuzz.c in Sources */,
 				C4B190EF1C3B340400C0F330 /* bltriangle.c in Sources */,
+				C48DB7991CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift in Sources */,
 				C4B190C11C3B340400C0F330 /* randmt.c in Sources */,
 				C4B1912E1C3B340400C0F330 /* tseq.c in Sources */,
 				EA6949EB1C5A2F720035B5DF /* AKSettings.swift in Sources */,
