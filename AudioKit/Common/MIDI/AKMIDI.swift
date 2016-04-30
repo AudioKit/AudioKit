@@ -25,108 +25,75 @@ public class AKMIDI {
     // MARK: - Properties
     
     /// MIDI Client Reference
-    public var midiClient = MIDIClientRef()
+    private var client = MIDIClientRef()
     
     /// Array of MIDI In ports
-    public var midiInPorts: [MIDIPortRef] = []
+    private var inputPorts = [MIDIPortRef]()
 
     /// Virtual MIDI Input destination
-    public var virtualInput = MIDIPortRef()
+    private var virtualInput = MIDIPortRef()
 
     /// MIDI Client Name
-    var midiClientName: CFString = "MIDI Client"
+    private var clientName: CFString = "MIDI Client"
     
     /// MIDI In Port Name
-    var midiInName: CFString = "MIDI In Port"
+    private var inputPortName: CFString = "MIDI In Port"
     
     /// MIDI End Point
-    public var midiEndpoint: MIDIEndpointRef {
-        return midiEndpoints[0]
+    private var endpoint: MIDIEndpointRef {
+        return endpoints[0]
     }
     
     /// Array of MIDI Out ports
-    public var midiOutPorts: [MIDIPortRef] = []
+    private var outputPorts = [MIDIPortRef]()
     
     /// MIDI Out Port Reference
-    public var midiOutPort = MIDIPortRef()
+    private var outputPort = MIDIPortRef()
 
     /// Virtual MIDI output
-    public var virtualOutput = MIDIPortRef()
+    private var virtualOutput = MIDIPortRef()
 
     
     /// Array of MIDI Endpoints
-    public var midiEndpoints: [MIDIEndpointRef] = []
+    private var endpoints = [MIDIEndpointRef]()
     
     /// MIDI Out Port Name
-    var midiOutName: CFString = "MIDI Out Port"
+    private var outputPortName: CFString = "MIDI Out Port"
     
     /// Array of all listeners
-    public var midiListeners: [AKMIDIListener] = []
+    private var listeners = [AKMIDIListener]()
     
-    /// Add a listener to the listeners
-    public func addListener(listener: AKMIDIListener) {
-        midiListeners.append(listener)
-    }
-    
-    private func handleMidiMessage(event: AKMIDIEvent) {
-        for listener in midiListeners {
-            let type = event.status
-            switch type {
-                case AKMIDIStatus.ControllerChange:
-                    listener.midiController(Int(event.internalData[1]),
-                                            value: Int(event.internalData[2]),
-                                            channel: Int(event.channel))
-                case AKMIDIStatus.ChannelAftertouch:
-                    listener.midiAfterTouch(Int(event.internalData[1]),
-                                            channel: Int(event.channel))
-                case AKMIDIStatus.NoteOn:
-                    listener.midiNoteOn(Int(event.internalData[1]),
-                                        velocity: Int(event.internalData[2]),
-                                        channel: Int(event.channel))
-                case AKMIDIStatus.NoteOff:
-                    listener.midiNoteOff(Int(event.internalData[1]),
-                                         velocity: Int(event.internalData[2]),
-                                         channel: Int(event.channel))
-                case AKMIDIStatus.PitchWheel:
-                    listener.midiPitchWheel(Int(event.data),
-                                            channel: Int(event.channel))
-                case AKMIDIStatus.PolyphonicAftertouch:
-                    listener.midiAftertouchOnNote(Int(event.internalData[1]),
-                                                  pressure: Int(event.internalData[2]),
-                                                  channel: Int(event.channel))
-                case AKMIDIStatus.ProgramChange:
-                    listener.midiProgramChange(Int(event.internalData[1]),
-                                               channel: Int(event.channel))
-                case AKMIDIStatus.SystemCommand:
-                    listener.midiSystemCommand(event.internalData)
-            }
-        }
-    }
-    
-    private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
-        _ = midiNotification.memory
-        //do something with notification - change _ above to let varname
-        //print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
+    /// Array of input names
+    public var inputNames: [String] {
+        var nameArray = [String]()
+        let sourceCount = MIDIGetNumberOfSources()
         
+        for i in 0 ..< sourceCount {
+            let source = MIDIGetSource(i)
+            var inputName: Unmanaged<CFString>?
+            inputName = nil
+            MIDIObjectGetStringProperty(source, kMIDIPropertyName, &inputName)
+            let inputNameStr = (inputName?.takeRetainedValue())! as String
+            nameArray.append(inputNameStr)
+        }
+        return nameArray
     }
     
-    private func MyMIDIReadBlock(
-        packetList: UnsafePointer<MIDIPacketList>,
-        srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
-        /*
-        //can't yet figure out how to access the port passed via srcConnRefCon
-        //maybe having this port is not that necessary though...
-        let midiPortPtr = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
-        let midiPort = midiPortPtr.memory
-        */
-
-        for packet in packetList.memory {
-            // a coremidi packet may contain multiple midi events
-            for event in packet {
-                handleMidiMessage(event)
-            }
+    /// Array of destination names
+    public var destinationNames: [String] {
+        var nameArray = [String]()
+        let outputCount = MIDIGetNumberOfDestinations()
+        for i in 0 ..< outputCount {
+            let destination = MIDIGetDestination(i)
+            var endpointName: Unmanaged<CFString>?
+            endpointName = nil
+            MIDIObjectGetStringProperty(destination, kMIDIPropertyName, &endpointName)
+            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
+            nameArray.append(endpointNameStr)
         }
+        return nameArray
     }
+    
 
     // MARK: - Initialization
 
@@ -139,8 +106,8 @@ public class AKMIDI {
                 MIDINetworkConnectionPolicy.Anyone
         #endif
         var result = OSStatus(noErr)
-        if midiClient == 0 {
-            result = MIDIClientCreateWithBlock(midiClientName, &midiClient, MyMIDINotifyBlock)
+        if client == 0 {
+            result = MIDIClientCreateWithBlock(clientName, &client, MyMIDINotifyBlock)
             if result == OSStatus(noErr) {
                 print("created midi client")
             } else {
@@ -155,22 +122,22 @@ public class AKMIDI {
         destroyVirtualPorts()
         
         var result = OSStatus(noErr)
-        result = MIDIDestinationCreateWithBlock(midiClient, midiClientName, &virtualInput, MyMIDIReadBlock)
+        result = MIDIDestinationCreateWithBlock(client, clientName, &virtualInput, MyMIDIReadBlock)
         
         if result == OSStatus(noErr) {
-            print("Created virt dest: \(midiClientName)")
+            print("Created virt dest: \(clientName)")
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId)
         } else {
-            print("Error creatervirt dest: \(midiClientName) -- \(virtualInput)")
+            print("Error creatervirt dest: \(clientName) -- \(virtualInput)")
         }
         
         
-        result = MIDISourceCreate(midiClient, midiClientName, &virtualOutput)
+        result = MIDISourceCreate(client, clientName, &virtualOutput)
         if result == OSStatus(noErr) {
-            print("Created virt source: \(midiClientName)")
+            print("Created virt source: \(clientName)")
             MIDIObjectSetIntegerProperty(virtualInput, kMIDIPropertyUniqueID, uniqueId + 1)
         } else {
-            print("Error creating virtual source: \(midiClientName) -- \(virtualOutput)")
+            print("Error creating virtual source: \(clientName) -- \(virtualOutput)")
         }
 
     
@@ -202,48 +169,24 @@ public class AKMIDI {
 
         for i in 0 ..< sourceCount {
             let src = MIDIGetSource(i)
-            var inputName: Unmanaged<CFString>?
-            inputName = nil
-            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &inputName)
-            let inputNameStr = (inputName?.takeRetainedValue())! as String
+            var tempName: Unmanaged<CFString>? = nil
+
+            MIDIObjectGetStringProperty(src, kMIDIPropertyName, &tempName)
+            let inputNameStr = (tempName?.takeRetainedValue())! as String
             if namedInput.isEmpty || namedInput == inputNameStr {
-                midiInPorts.append(MIDIPortRef())
+
+                inputPorts.append(MIDIPortRef())
+                var port = inputPorts.last!
                 result = MIDIInputPortCreateWithBlock(
-                    midiClient,
-                    midiInName,
-                    &midiInPorts[i],
-                    MyMIDIReadBlock)
+                    client, inputPortName, &port, MyMIDIReadBlock)
                 if result == OSStatus(noErr) {
                     print("created midiInPort at \(inputNameStr)")
                 } else {
                     print("error creating midiInPort : \(result)")
                 }
-                MIDIPortConnectSource(midiInPorts[i], src, nil)
+                MIDIPortConnectSource(port, src, nil)
             }
         }
-    }
-    
-    /// Prints a list of all MIDI Inputs
-    public func printMIDIInputs() {
-        for inputName in inputNames {
-            print("midiIn at \(inputName)")
-        }
-    }
-    
-    /// Array of input names
-    public var inputNames: [String] {
-        var nameArray = [String]()
-        let sourceCount = MIDIGetNumberOfSources()
-        
-        for i in 0 ..< sourceCount {
-            let source = MIDIGetSource(i)
-            var inputName: Unmanaged<CFString>?
-            inputName = nil
-            MIDIObjectGetStringProperty(source, kMIDIPropertyName, &inputName)
-            let inputNameStr = (inputName?.takeRetainedValue())! as String
-            nameArray.append(inputNameStr)
-        }
-        return nameArray
     }
     
     /// Open a MIDI Output Port
@@ -256,7 +199,7 @@ public class AKMIDI {
         
         let outputCount = MIDIGetNumberOfDestinations()
         var foundDest = false
-        result = MIDIOutputPortCreate(midiClient, midiOutName, &midiOutPort)
+        result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
         
         if result == OSStatus(noErr) {
             print("created midi out port")
@@ -266,13 +209,13 @@ public class AKMIDI {
         
         for i in 0 ..< outputCount {
             let src = MIDIGetDestination(i)
-            var endpointName: Unmanaged<CFString>?
-            endpointName = nil
+            var endpointName: Unmanaged<CFString>? = nil
+
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
             let endpointNameStr = (endpointName?.takeRetainedValue())! as String
             if namedOutput.isEmpty || namedOutput == endpointNameStr {
                 print("Found destination at \(endpointNameStr)")
-                midiEndpoints.append(MIDIGetDestination(i))
+                endpoints.append(MIDIGetDestination(i))
                 foundDest = true
             }
         }
@@ -281,29 +224,73 @@ public class AKMIDI {
         }
     }
     
-    /// Prints a list of all MIDI Inputs
-    public func printMIDIDestinations() {
-        for destinationName in destinationNames {
-            print("Destination at \(destinationName)")
+    // MARK: - Receiving MIDI
+    
+    /// Add a listener to the listeners
+    public func addListener(listener: AKMIDIListener) {
+        listeners.append(listener)
+    }
+    
+    private func handleMidiMessage(event: AKMIDIEvent) {
+        for listener in listeners {
+            let type = event.status
+            switch type {
+            case AKMIDIStatus.ControllerChange:
+                listener.midiController(Int(event.internalData[1]),
+                                        value: Int(event.internalData[2]),
+                                        channel: Int(event.channel))
+            case AKMIDIStatus.ChannelAftertouch:
+                listener.midiAfterTouch(Int(event.internalData[1]),
+                                        channel: Int(event.channel))
+            case AKMIDIStatus.NoteOn:
+                listener.midiNoteOn(Int(event.internalData[1]),
+                                    velocity: Int(event.internalData[2]),
+                                    channel: Int(event.channel))
+            case AKMIDIStatus.NoteOff:
+                listener.midiNoteOff(Int(event.internalData[1]),
+                                     velocity: Int(event.internalData[2]),
+                                     channel: Int(event.channel))
+            case AKMIDIStatus.PitchWheel:
+                listener.midiPitchWheel(Int(event.data),
+                                        channel: Int(event.channel))
+            case AKMIDIStatus.PolyphonicAftertouch:
+                listener.midiAftertouchOnNote(Int(event.internalData[1]),
+                                              pressure: Int(event.internalData[2]),
+                                              channel: Int(event.channel))
+            case AKMIDIStatus.ProgramChange:
+                listener.midiProgramChange(Int(event.internalData[1]),
+                                           channel: Int(event.channel))
+            case AKMIDIStatus.SystemCommand:
+                listener.midiSystemCommand(event.internalData)
+            }
         }
     }
     
-    /// Array of destination names
-    public var destinationNames: [String] {
-        var nameArray = [String]()
-        let outputCount = MIDIGetNumberOfDestinations()
-        print("MIDI Destinations:")
-        for i in 0 ..< outputCount {
-            let destination = MIDIGetDestination(i)
-            var endpointName: Unmanaged<CFString>?
-            endpointName = nil
-            MIDIObjectGetStringProperty(destination, kMIDIPropertyName, &endpointName)
-            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
-            nameArray.append(endpointNameStr)
-        }
-        return nameArray
+    private func MyMIDINotifyBlock(midiNotification: UnsafePointer<MIDINotification>) {
+        _ = midiNotification.memory
+        //do something with notification - change _ above to let varname
+        //print("MIDI Notify, messageId= \(notification.messageID.rawValue)")
+        
     }
     
+    private func MyMIDIReadBlock(
+        packetList: UnsafePointer<MIDIPacketList>,
+        srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
+        /*
+         //can't yet figure out how to access the port passed via srcConnRefCon
+         //maybe having this port is not that necessary though...
+         let midiPortPtr = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
+         let midiPort = midiPortPtr.memory
+         */
+        
+        for packet in packetList.memory {
+            // a coremidi packet may contain multiple midi events
+            for event in packet {
+                handleMidiMessage(event)
+            }
+        }
+    }
+
     // MARK: - Sending MIDI
     
     /// Send Message with data
@@ -314,8 +301,8 @@ public class AKMIDI {
         var packet: UnsafeMutablePointer<MIDIPacket> = nil
         packet = MIDIPacketListInit(packetListPtr)
         packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
-        for _ in 0 ..< midiEndpoints.count {
-            result = MIDISend(midiOutPort, midiEndpoints[0], packetListPtr)
+        for _ in 0 ..< endpoints.count {
+            result = MIDISend(outputPort, endpoints[0], packetListPtr)
             if result != OSStatus(noErr) {
                 print("error sending midi : \(result)")
             }
@@ -346,5 +333,21 @@ public class AKMIDI {
         let controlCommand: UInt8 = UInt8(0xB0) + UInt8(channel)
         let message: [UInt8] = [controlCommand, UInt8(control), UInt8(value)]
         self.sendMessage(message)
+    }
+    
+    // MARK: - Utility Functions
+    
+    /// Prints a list of all MIDI Inputs
+    public func printMIDIDestinations() {
+        for destinationName in destinationNames {
+            print("Destination at \(destinationName)")
+        }
+    }
+    
+    /// Prints a list of all MIDI Inputs
+    public func printMIDIInputs() {
+        for inputName in inputNames {
+            print("midiIn at \(inputName)")
+        }
     }
 }
