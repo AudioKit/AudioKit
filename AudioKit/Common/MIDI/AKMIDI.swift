@@ -25,7 +25,7 @@ public class AKMIDI {
     // MARK: - Properties
     
     /// MIDI Client Reference
-    internal var client = MIDIClientRef()
+    public var client = MIDIClientRef()
     
     /// Array of MIDI In ports
     internal var inputPorts = [MIDIPortRef]()
