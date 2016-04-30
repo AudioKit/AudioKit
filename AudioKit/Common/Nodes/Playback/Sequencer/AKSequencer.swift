@@ -32,7 +32,7 @@ public class AKSequencer {
     public var avSeq = AVAudioSequencer()
     
     /// Array of AudioKit Music Tracks
-    public var tracks: [AKMusicTrack] = []
+    public var tracks = [AKMusicTrack]()
     
     /// Array of AVMusicTracks
     public var avTracks: [AVMusicTrack] {
@@ -40,7 +40,7 @@ public class AKSequencer {
             return avSeq.tracks
         } else {
             //this won't do anything if not using an AVSeq
-            let tracks: [AVMusicTrack] = []
+            let tracks = [AVMusicTrack]()
             return tracks
         }
     }
@@ -431,7 +431,7 @@ public class AKSequencer {
     
     /// Generate NSData from the sequence
     public func genData() -> NSData? {
-        var status = OSStatus(noErr)
+        var status = noErr
         var data: Unmanaged<CFData>?
         status = MusicSequenceFileCreateData(sequence,
                                              MusicSequenceFileTypeID.MIDIType,

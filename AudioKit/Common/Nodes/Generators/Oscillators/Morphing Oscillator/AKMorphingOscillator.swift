@@ -26,7 +26,7 @@ public class AKMorphingOscillator: AKVoice {
     internal var internalAU: AKMorphingOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var waveformArray: [AKTable] = []
+    private var waveformArray = [AKTable]()
     private var phase: Double
 
     private var frequencyParameter: AUParameter?
