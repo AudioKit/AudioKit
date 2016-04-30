@@ -1,5 +1,5 @@
 //
-//  MIDIHelpers.swift
+//  midiNoteToFrequency.swift
 //  AudioKit For OSX
 //
 //  Created by Aurelius Prochazka on 4/30/16.
