@@ -180,7 +180,7 @@ class ViewController: UIViewController {
                 let scale = (minor ? scale2 : scale1)
                 let scaleOffset = random(0, Double(scale.count-1))
                 var octaveOffset = 0
-                for i in 0 ..< 2 {
+                for _ in 0 ..< 2 {
                     octaveOffset += Int(12 * ((maybe()*2.0)+(-1.0)))
                     octaveOffset = Int(maybe() * maybe() * Float(octaveOffset))
                 }
