@@ -7,12 +7,33 @@
 //
 
 extension AKMIDI {
+    
+    /// Array of input names
+    public var inputNames: [String] {
+        var nameArray = [String]()
+        let sourceCount = MIDIGetNumberOfSources()
+        
+        for i in 0 ..< sourceCount {
+            let source = MIDIGetSource(i)
+            var inputName: Unmanaged<CFString>?
+            inputName = nil
+            MIDIObjectGetStringProperty(source, kMIDIPropertyName, &inputName)
+            let inputNameStr = (inputName?.takeRetainedValue())! as String
+            nameArray.append(inputNameStr)
+        }
+        return nameArray
+    }
+    
+    /// Add a listener to the listeners
+    public func addListener(listener: AKMIDIListener) {
+        listeners.append(listener)
+    }
 
     /// Open a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
     ///
-    public func openMIDIIn(namedInput: String = "") {
+    public func openInput(namedInput: String = "") {
         var result = noErr
         
         let sourceCount = MIDIGetNumberOfSources()

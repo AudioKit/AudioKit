@@ -18,18 +18,15 @@ class ViewController: NSViewController, AKMIDIListener {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        midi.openMIDIIn("Session 1")
+        midi.openInput("Session 1")
         midi.addListener(self)
-        
-        midi.printMIDIInputs()
-        midi.printMIDIDestinations()
         
         sourcePopUpButton.removeAllItems()
         sourcePopUpButton.addItemsWithTitles(midi.inputNames)
     }
     
     @IBAction func sourceChanged(sender: NSPopUpButton) {
-        midi.openMIDIIn(midi.inputNames[sender.indexOfSelectedItem])
+        midi.openInput(midi.inputNames[sender.indexOfSelectedItem])
     }
     
     func midiNoteOn(note: Int, velocity: Int, channel: Int) {
