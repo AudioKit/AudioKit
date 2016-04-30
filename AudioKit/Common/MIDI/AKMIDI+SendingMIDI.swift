@@ -7,11 +7,26 @@
 //
 
 extension AKMIDI {
+    /// Array of destination names
+    public var destinationNames: [String] {
+        var nameArray = [String]()
+        let outputCount = MIDIGetNumberOfDestinations()
+        for i in 0 ..< outputCount {
+            let destination = MIDIGetDestination(i)
+            var endpointName: Unmanaged<CFString>?
+            endpointName = nil
+            MIDIObjectGetStringProperty(destination, kMIDIPropertyName, &endpointName)
+            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
+            nameArray.append(endpointNameStr)
+        }
+        return nameArray
+    }
+    
     /// Open a MIDI Output Port
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
-    public func openMIDIOut(namedOutput: String = "") {
+    public func openOutput(namedOutput: String = "") {
         
         var result = noErr
         
@@ -64,7 +79,7 @@ extension AKMIDI {
     }
     
     /// Send Messsage from midi event data
-    public func sendMIDIEvent(event: AKMIDIEvent) {
+    public func sendEvent(event: AKMIDIEvent) {
         sendMessage(event.internalData)
     }
     

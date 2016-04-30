@@ -14,7 +14,7 @@ import CoreMIDI
 /// You add midi listeners like this:
 /// ```
 /// var midiIn = AKMidi()
-/// midi.openMIDIIn()
+/// midi.openInput()
 /// midi.addListener(someClass)
 /// ```
 /// ...where someClass conforms to the AKMIDIListener protocol
@@ -60,38 +60,6 @@ public class AKMIDI {
     /// Array of all listeners
     internal var listeners = [AKMIDIListener]()
     
-    /// Array of input names
-    public var inputNames: [String] {
-        var nameArray = [String]()
-        let sourceCount = MIDIGetNumberOfSources()
-        
-        for i in 0 ..< sourceCount {
-            let source = MIDIGetSource(i)
-            var inputName: Unmanaged<CFString>?
-            inputName = nil
-            MIDIObjectGetStringProperty(source, kMIDIPropertyName, &inputName)
-            let inputNameStr = (inputName?.takeRetainedValue())! as String
-            nameArray.append(inputNameStr)
-        }
-        return nameArray
-    }
-    
-    /// Array of destination names
-    public var destinationNames: [String] {
-        var nameArray = [String]()
-        let outputCount = MIDIGetNumberOfDestinations()
-        for i in 0 ..< outputCount {
-            let destination = MIDIGetDestination(i)
-            var endpointName: Unmanaged<CFString>?
-            endpointName = nil
-            MIDIObjectGetStringProperty(destination, kMIDIPropertyName, &endpointName)
-            let endpointNameStr = (endpointName?.takeRetainedValue())! as String
-            nameArray.append(endpointNameStr)
-        }
-        return nameArray
-    }
-    
-
     // MARK: - Initialization
 
     /// Initialize the AKMIDI system
@@ -110,6 +78,8 @@ public class AKMIDI {
             }
         }
     }
+    
+    // MARK: - Virtual MIDI
     
     /// Create set of virtual MIDI ports
     public func createVirtualPorts(uniqueId: Int32 = 2000000) {
@@ -132,8 +102,6 @@ public class AKMIDI {
         } else {
             print("Error creating virtual source: \(clientName) -- \(virtualOutput)")
         }
-
-    
     }
     
     /// Discard all virtual ports
@@ -146,28 +114,6 @@ public class AKMIDI {
         if virtualInput != 0 {
             MIDIEndpointDispose(virtualOutput)
             virtualInput = 0
-        }
-    }
-    
-    /// Add a listener to the listeners
-    public func addListener(listener: AKMIDIListener) {
-        listeners.append(listener)
-    }
-    
-    
-    // MARK: - Utility Functions
-    
-    /// Prints a list of all MIDI Inputs
-    public func printMIDIDestinations() {
-        for destinationName in destinationNames {
-            print("Destination at \(destinationName)")
-        }
-    }
-    
-    /// Prints a list of all MIDI Inputs
-    public func printMIDIInputs() {
-        for inputName in inputNames {
-            print("midiIn at \(inputName)")
         }
     }
 }

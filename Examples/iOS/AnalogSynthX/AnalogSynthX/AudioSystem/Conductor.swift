@@ -51,7 +51,7 @@ class Conductor: AKMIDIListener {
 
         let midi = AKMIDI()
         midi.createVirtualPorts()
-        midi.openMIDIIn("Session 1")
+        midi.openInput("Session 1")
         midi.addListener(self)
     }
 

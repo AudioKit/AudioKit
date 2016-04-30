@@ -270,6 +270,10 @@
 		C48DB7911CD536CB00D1EC13 /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7901CD536CB00D1EC13 /* CheckError.swift */; };
 		C48DB7991CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */; };
 		C48DB79B1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */; };
+		C48DB7B01CD5658400D1EC13 /* MIDIHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7AF1CD5658400D1EC13 /* MIDIHelpers.swift */; };
+		C48DB7B21CD565CF00D1EC13 /* AKMIDISystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7B11CD565CF00D1EC13 /* AKMIDISystemCommand.swift */; };
+		C48DB7B41CD565FA00D1EC13 /* AKMIDIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7B31CD565FA00D1EC13 /* AKMIDIControl.swift */; };
+		C48DB7B61CD5662A00D1EC13 /* AKMIDIStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7B51CD5662A00D1EC13 /* AKMIDIStatus.swift */; };
 		C4A662881CCB132D00A38B90 /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A662841CCB132D00A38B90 /* BufferedAudioBus.hpp */; };
 		C4A662891CCB132D00A38B90 /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4A662851CCB132D00A38B90 /* DSPKernel.hpp */; };
 		C4A6628A1CCB132D00A38B90 /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4A662861CCB132D00A38B90 /* DSPKernel.mm */; };
@@ -803,6 +807,10 @@
 		C48DB7901CD536CB00D1EC13 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
 		C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+SendingMIDI.swift"; sourceTree = "<group>"; };
 		C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+ReceivingMIDI.swift"; sourceTree = "<group>"; };
+		C48DB7AF1CD5658400D1EC13 /* MIDIHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIHelpers.swift; sourceTree = "<group>"; };
+		C48DB7B11CD565CF00D1EC13 /* AKMIDISystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDISystemCommand.swift; sourceTree = "<group>"; };
+		C48DB7B31CD565FA00D1EC13 /* AKMIDIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIControl.swift; sourceTree = "<group>"; };
+		C48DB7B51CD5662A00D1EC13 /* AKMIDIStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIStatus.swift; sourceTree = "<group>"; };
 		C4A662841CCB132D00A38B90 /* BufferedAudioBus.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BufferedAudioBus.hpp; sourceTree = "<group>"; };
 		C4A662851CCB132D00A38B90 /* DSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DSPKernel.hpp; sourceTree = "<group>"; };
 		C4A662861CCB132D00A38B90 /* DSPKernel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKernel.mm; sourceTree = "<group>"; };
@@ -1291,12 +1299,16 @@
 				C40AD6A31C463E4700B638AF /* AKMIDI.swift */,
 				C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */,
 				C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */,
+				C48DB7B31CD565FA00D1EC13 /* AKMIDIControl.swift */,
 				C40AD6A41C463E4700B638AF /* AKMIDIEvent.swift */,
 				C40AD6A51C463E4700B638AF /* AKMIDIInstrument.swift */,
 				C4D0427B1C5D95DF00DF3479 /* AKMIDIListener.swift */,
 				C40695B61CB6ED1500AD89F8 /* AKMIDISampler.swift */,
+				C48DB7B51CD5662A00D1EC13 /* AKMIDIStatus.swift */,
+				C48DB7B11CD565CF00D1EC13 /* AKMIDISystemCommand.swift */,
 				C40AD6A71C463E4700B638AF /* AKMusicTrack+MIDI.swift */,
 				C40AD6A81C463E4700B638AF /* AKSequencer+MIDI.swift */,
+				C48DB7AF1CD5658400D1EC13 /* MIDIHelpers.swift */,
 				C472E1AF1CD4292000C748F4 /* MIDIPacket+SequenceType.swift */,
 				C472E1AD1CD428E500C748F4 /* MIDIPacketList+SequenceType.swift */,
 				C472E1AB1CD4289200C748F4 /* MIDIPacketListGenerator.swift */,
@@ -2830,6 +2842,7 @@
 				C4B190821C3B340400C0F330 /* allpass.c in Sources */,
 				C40C41A11C40E3EF009D870B /* EZAudio.m in Sources */,
 				C42FFBB61C3CFC3000823BD4 /* AKPanner.swift in Sources */,
+				C48DB7B21CD565CF00D1EC13 /* AKMIDISystemCommand.swift in Sources */,
 				C45383931C3A5E4300A51738 /* AKReverb.swift in Sources */,
 				C4B190931C3B340400C0F330 /* comb.c in Sources */,
 				C453833F1C3A5E4300A51738 /* AKDynamicsProcessor.swift in Sources */,
@@ -2878,6 +2891,7 @@
 				C453839D1C3A5E4300A51738 /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C48444F31C3702F8007BE794 /* square.swift in Sources */,
 				C4B190A91C3B340400C0F330 /* line.c in Sources */,
+				C48DB7B61CD5662A00D1EC13 /* AKMIDIStatus.swift in Sources */,
 				C4B190781C3B340400C0F330 /* ini.c in Sources */,
 				C4B191271C3B340400C0F330 /* tenvx.c in Sources */,
 				C45383471C3A5E4300A51738 /* AKBandPassButterworthFilterAudioUnit.mm in Sources */,
@@ -2961,6 +2975,7 @@
 				C45383971C3A5E4300A51738 /* AKChowningReverbAudioUnit.mm in Sources */,
 				C4B190BE1C3B340400C0F330 /* prop.c in Sources */,
 				EA8BA9841C5E252800BBD469 /* AKView.swift in Sources */,
+				C48DB7B01CD5658400D1EC13 /* MIDIHelpers.swift in Sources */,
 				C4E751F91C23885400688A1B /* whiteNoise.swift in Sources */,
 				C4B76D1E1C5C5A2100E1D584 /* morphingOscillator.swift in Sources */,
 				C4B190C01C3B340400C0F330 /* randi.c in Sources */,
@@ -3031,6 +3046,7 @@
 				C40C41BB1C40E3EF009D870B /* EZPlot.m in Sources */,
 				C4B190771C3B340400C0F330 /* fft.c in Sources */,
 				C45383231C3A5E4300A51738 /* AKFrequencyTracker.swift in Sources */,
+				C48DB7B41CD565FA00D1EC13 /* AKMIDIControl.swift in Sources */,
 				C4E751FE1C23885400688A1B /* squareWave.swift in Sources */,
 				C4E13D581C427138008F0A3C /* AKSequencer.swift in Sources */,
 				C45383781C3A5E4300A51738 /* AKMoogLadderAudioUnit.mm in Sources */,
