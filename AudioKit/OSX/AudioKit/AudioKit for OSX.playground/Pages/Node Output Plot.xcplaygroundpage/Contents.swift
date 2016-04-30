@@ -24,14 +24,13 @@ AudioKit.start()
 player.play()
 
 
-let plot = AKNodeOutputPlot(player)
-plot.plot?.plotType = .Rolling
-plot.plot?.shouldFill = true
-plot.plot?.shouldMirror = true
-plot.plot?.color = NSColor.blueColor()
-let view = plot.containerView
+let plot = AKNodeOutputPlot(player, frame: CGRect.init(x: 0, y: 0, width: 500, height: 500))
+plot.plotType = .Rolling
+plot.shouldFill = true
+plot.shouldMirror = true
+plot.color = NSColor.blueColor()
 
-XCPlaygroundPage.currentPage.liveView = plot.containerView
+XCPlaygroundPage.currentPage.liveView = plot
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
