@@ -106,8 +106,8 @@ extension AKMIDI {
         /*
          //can't yet figure out how to access the port passed via srcConnRefCon
          //maybe having this port is not that necessary though...
-         let midiPortPtr = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
-         let midiPort = midiPortPtr.memory
+         let midiPortPointer = UnsafeMutablePointer<MIDIPortRef>(srcConnRefCon)
+         let midiPort = midiPortPointer.memory
          */
         
         for packet in packetList.memory {

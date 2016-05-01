@@ -41,7 +41,7 @@ public class AKMIDISampler: AKSampler {
         let status = data1 >> 4
         let channel = data1 & 0xF
         
-        if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
+        if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0 {
             startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
             stopNote(Int(data2), onChannel: Int(channel))
@@ -89,15 +89,17 @@ public class AKMIDISampler: AKSampler {
     private func MyMIDIReadBlock(
         packetList: UnsafePointer<MIDIPacketList>,
         srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
+        
         let packetCount = Int(packetList.memory.numPackets)
         let packet = packetList.memory.packet as MIDIPacket
-        var packetPtr: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
-        packetPtr.initialize(packet)
+        var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
+        packetPointer.initialize(packet)
+        
         for _ in 0 ..< packetCount {
-            let event = AKMIDIEvent(packet: packetPtr.memory)
+            let event = AKMIDIEvent(packet: packetPointer.memory)
             //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
             handleMIDI(UInt32(event.internalData[0]), data2: UInt32(event.internalData[1]), data3: UInt32(event.internalData[2]))
-            packetPtr = MIDIPacketNext(packetPtr)
+            packetPointer = MIDIPacketNext(packetPointer)
         }
     }
 }

@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         fmOsc1.modulationIndex = 0.3
         fmOsc1.amplitude = 0.11
         melodicSound = AKMIDIInstrument(instrument: fmOsc1)
-        melodicSound?.enableMIDI(midi.midiClient, name: "melodicSound midi in")
+        melodicSound?.enableMIDI(midi.client, name: "melodicSound midi in")
         verb = AKReverb2(melodicSound!)
         verb?.dryWetMix = 0.5
         verb?.decayTimeAt0Hz = 7
@@ -58,17 +58,17 @@ class ViewController: UIViewController {
         bassDrumInst = BDInst(voiceCount: 1)
         bassDrumInst?.amplitude = 1
         bassDrum = AKMIDIInstrument(instrument: bassDrumInst!)
-        bassDrum?.enableMIDI(midi.midiClient, name: "bassDrum midi in")
+        bassDrum?.enableMIDI(midi.client, name: "bassDrum midi in")
 
         snareDrumInst = SDInst(voiceCount: 1)
         snareDrumInst?.amplitude = 0.3
         snareDrum = AKMIDIInstrument(instrument: snareDrumInst!)
-        snareDrum?.enableMIDI(midi.midiClient, name: "snareDrum midi in")
+        snareDrum?.enableMIDI(midi.client, name: "snareDrum midi in")
 
         snareGhostInst = SDInst(voiceCount: 1, dur: 0.06, res: 0.3)
         snareGhostInst?.amplitude = 0.2
         snareGhost = AKMIDIInstrument(instrument: snareGhostInst!)
-        snareGhost?.enableMIDI(midi.midiClient, name: "snareGhost midi in")
+        snareGhost?.enableMIDI(midi.client, name: "snareGhost midi in")
 
         snareMixer.connect(snareDrum!)
         snareMixer.connect(snareGhost!)

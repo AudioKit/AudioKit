@@ -58,24 +58,24 @@ extension AKMIDI {
     /// Send Message with data
     public func sendMessage(data: [UInt8]) {
         var result = noErr
-        let packetListPtr: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.alloc(1)
+        let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.alloc(1)
         
         var packet: UnsafeMutablePointer<MIDIPacket> = nil
-        packet = MIDIPacketListInit(packetListPtr)
-        packet = MIDIPacketListAdd(packetListPtr, 1024, packet, 0, data.count, data)
+        packet = MIDIPacketListInit(packetListPointer)
+        packet = MIDIPacketListAdd(packetListPointer, 1024, packet, 0, data.count, data)
         for _ in 0 ..< endpoints.count {
-            result = MIDISend(outputPort, endpoints[0], packetListPtr)
+            result = MIDISend(outputPort, endpoints[0], packetListPointer)
             if result != noErr {
                 print("error sending midi : \(result)")
             }
         }
         
         if virtualOutput != 0 {
-            MIDIReceived(virtualOutput, packetListPtr)
+            MIDIReceived(virtualOutput, packetListPointer)
         }
         
-        packetListPtr.destroy()
-        packetListPtr.dealloc(1)//necessary? wish i could do this without the alloc above
+        packetListPointer.destroy()
+        packetListPointer.dealloc(1)//necessary? wish i could do this without the alloc above
     }
     
     /// Send Messsage from midi event data
