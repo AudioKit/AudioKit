@@ -28,7 +28,7 @@ extension AKMIDI {
     public func addListener(listener: AKMIDIListener) {
         listeners.append(listener)
     }
-
+    
     /// Open a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
@@ -63,32 +63,32 @@ extension AKMIDI {
             let type = event.status
             switch type {
             case AKMIDIStatus.ControllerChange:
-                listener.midiController(Int(event.internalData[1]),
-                                        value: Int(event.internalData[2]),
-                                        channel: Int(event.channel))
+                listener.receivedMIDIController(Int(event.internalData[1]),
+                                                value: Int(event.internalData[2]),
+                                                channel: Int(event.channel))
             case AKMIDIStatus.ChannelAftertouch:
-                listener.midiAfterTouch(Int(event.internalData[1]),
-                                        channel: Int(event.channel))
+                listener.receivedMIDIAfterTouch(Int(event.internalData[1]),
+                                                channel: Int(event.channel))
             case AKMIDIStatus.NoteOn:
-                listener.midiNoteOn(Int(event.internalData[1]),
-                                    velocity: Int(event.internalData[2]),
-                                    channel: Int(event.channel))
+                listener.receivedMIDINoteOn(Int(event.internalData[1]),
+                                            velocity: Int(event.internalData[2]),
+                                            channel: Int(event.channel))
             case AKMIDIStatus.NoteOff:
-                listener.midiNoteOff(Int(event.internalData[1]),
-                                     velocity: Int(event.internalData[2]),
-                                     channel: Int(event.channel))
+                listener.receivedMIDINoteOff(Int(event.internalData[1]),
+                                             velocity: Int(event.internalData[2]),
+                                             channel: Int(event.channel))
             case AKMIDIStatus.PitchWheel:
-                listener.midiPitchWheel(Int(event.data),
-                                        channel: Int(event.channel))
+                listener.receivedMIDIPitchWheel(Int(event.data),
+                                                channel: Int(event.channel))
             case AKMIDIStatus.PolyphonicAftertouch:
-                listener.midiAftertouchOnNote(Int(event.internalData[1]),
-                                              pressure: Int(event.internalData[2]),
-                                              channel: Int(event.channel))
+                listener.receivedMIDIAftertouchOnNote(Int(event.internalData[1]),
+                                                      pressure: Int(event.internalData[2]),
+                                                      channel: Int(event.channel))
             case AKMIDIStatus.ProgramChange:
-                listener.midiProgramChange(Int(event.internalData[1]),
-                                           channel: Int(event.channel))
+                listener.receivedMIDIProgramChange(Int(event.internalData[1]),
+                                                   channel: Int(event.channel))
             case AKMIDIStatus.SystemCommand:
-                listener.midiSystemCommand(event.internalData)
+                listener.receivedMIDISystemCommand(event.internalData)
             }
         }
     }

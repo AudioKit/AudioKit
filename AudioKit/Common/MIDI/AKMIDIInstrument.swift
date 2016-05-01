@@ -66,7 +66,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     /// - parameter velocity: MIDI velocity
     /// - parameter channel: MIDI channel
     ///
-    public func midiNoteOn(note: Int, velocity: Int, channel: Int) {
+    public func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
         if velocity > 0 {
             startNote(note, withVelocity: velocity, onChannel: channel)
         } else {
