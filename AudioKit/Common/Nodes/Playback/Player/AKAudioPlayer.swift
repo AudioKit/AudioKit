@@ -20,6 +20,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     private var sampleRate: Double = 1.0
     private var totalFrameCount: Int64
     private var initialFrameCount: Int64 = -1
+    private var skippedToTime: Double
     
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
@@ -70,6 +71,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         // added for currentTime calculation later on
         sampleRate = audioFile.fileFormat.sampleRate
         totalFrameCount = Int64(audioFrameCount)
+        skippedToTime = 0
         
         internalPlayer = AVAudioPlayerNode()
         super.init()
@@ -143,10 +145,10 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         if internalPlayer.playing {
             if let nodeTime = internalPlayer.lastRenderTime,
                 let playerTime = internalPlayer.playerTimeForNodeTime(nodeTime) {
-                return Double( Double( playerTime.sampleTime ) / playerTime.sampleRate )
+                return Double( Double( playerTime.sampleTime ) / playerTime.sampleRate ) + skippedToTime
             }
         }
-        return 0.0
+        return skippedToTime
     }
     
     /// Play the file back from a certain time (non-looping)
@@ -154,6 +156,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// - parameter time: Time into the file at which to start playing back
     ///
     public func playFrom(time: Double) {
+        skippedToTime = time
         let startingFrame = Int64(sampleRate * time)
         let frameCount = UInt32(totalFrameCount - startingFrame)
         internalPlayer.prepareWithFrameCount(frameCount)
