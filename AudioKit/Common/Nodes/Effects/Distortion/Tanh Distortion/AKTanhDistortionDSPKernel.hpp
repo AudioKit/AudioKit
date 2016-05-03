@@ -61,7 +61,29 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setPregain(float pregain) {
+        pregain = pregain;
+        pregainRamper.setImmediate(pregain);
+    }
+
+    void setPostgain(float postgain) {
+        postgain = postgain;
+        postgainRamper.setImmediate(postgain);
+    }
+
+    void setPostiveShapeParameter(float shape1) {
+        postiveShapeParameter = shape1;
+        postiveShapeParameterRamper.setImmediate(shape1);
+    }
+
+    void setNegativeShapeParameter(float shape2) {
+        negativeShapeParameter = shape2;
+        negativeShapeParameterRamper.setImmediate(shape2);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -131,16 +153,16 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double pregain = double(pregainRamper.getAndStep());
-            double postgain = double(postgainRamper.getAndStep());
-            double postiveShapeParameter = double(postiveShapeParameterRamper.getAndStep());
-            double negativeShapeParameter = double(negativeShapeParameterRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            pregain = pregainRamper.getAndStep();
             dist->pregain = (float)pregain;
+            postgain = postgainRamper.getAndStep();
             dist->postgain = (float)postgain;
+            postiveShapeParameter = postiveShapeParameterRamper.getAndStep();
             dist->shape1 = (float)postiveShapeParameter;
+            negativeShapeParameter = negativeShapeParameterRamper.getAndStep();
             dist->shape2 = (float)negativeShapeParameter;
 
             if (!started) {
@@ -170,8 +192,14 @@ private:
     sp_data *sp;
     sp_dist *dist;
 
+    float pregain = 2.0;
+    float postgain = 0.5;
+    float postiveShapeParameter = 0.0;
+    float negativeShapeParameter = 0.0;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper pregainRamper = 2.0;
     ParameterRamper postgainRamper = 0.5;
     ParameterRamper postiveShapeParameterRamper = 0.0;
