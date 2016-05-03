@@ -110,10 +110,10 @@ public class AKVariableDelay: AKNode, AKToggleable {
         }
 
         guard let tree = internalAU?.parameterTree else { return }
-        
-        timeParameter     = tree.valueForKey("time")     as? AUParameter
-        feedbackParameter = tree.valueForKey("feedback") as? AUParameter
-        
+
+        timeParameter             = tree.valueForKey("time")             as? AUParameter
+        feedbackParameter         = tree.valueForKey("feedback")         as? AUParameter
+
         token = tree.tokenByAddingParameterObserver {
             address, value in
 
