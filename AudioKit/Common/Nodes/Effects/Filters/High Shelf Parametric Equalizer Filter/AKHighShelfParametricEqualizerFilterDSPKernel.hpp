@@ -60,7 +60,24 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setCenterFrequency(float fc) {
+        centerFrequency = fc;
+        centerFrequencyRamper.setImmediate(fc);
+    }
+
+    void setGain(float v) {
+        gain = v;
+        gainRamper.setImmediate(v);
+    }
+
+    void setQ(float q) {
+        q = q;
+        qRamper.setImmediate(q);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -119,14 +136,14 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double centerFrequency = double(centerFrequencyRamper.getAndStep());
-            double gain = double(gainRamper.getAndStep());
-            double q = double(qRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            centerFrequency = centerFrequencyRamper.getAndStep();
             pareq->fc = (float)centerFrequency;
+            gain = gainRamper.getAndStep();
             pareq->v = (float)gain;
+            q = qRamper.getAndStep();
             pareq->q = (float)q;
 
             if (!started) {
@@ -156,8 +173,13 @@ private:
     sp_data *sp;
     sp_pareq *pareq;
 
+    float centerFrequency = 1000;
+    float gain = 1.0;
+    float q = 0.707;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper centerFrequencyRamper = 1000;
     ParameterRamper gainRamper = 1.0;
     ParameterRamper qRamper = 0.707;
