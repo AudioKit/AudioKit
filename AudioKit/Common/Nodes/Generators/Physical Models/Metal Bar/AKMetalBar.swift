@@ -28,7 +28,15 @@ public class AKMetalBar: AKNode {
     internal var token: AUParameterObserverToken?
 
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
+    private var leftBoundaryConditionParameter: AUParameter?
+    private var rightBoundaryConditionParameter: AUParameter?
+    private var decayDurationParameter: AUParameter?
+    private var scanSpeedParameter: AUParameter?
+    private var positionParameter: AUParameter?
+    private var strikeVelocityParameter: AUParameter?
+    private var strikeWidthParameter: AUParameter?
+
+   /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
             if rampTime != newValue {
@@ -37,14 +45,6 @@ public class AKMetalBar: AKNode {
             }
         }
     }
-
-    private var leftBoundaryConditionParameter: AUParameter?
-    private var rightBoundaryConditionParameter: AUParameter?
-    private var decayDurationParameter: AUParameter?
-    private var scanSpeedParameter: AUParameter?
-    private var positionParameter: AUParameter?
-    private var strikeVelocityParameter: AUParameter?
-    private var strikeWidthParameter: AUParameter?
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     public var leftBoundaryCondition: Double = 1 {

@@ -40,6 +40,8 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_bar_create(&bar);
         sp_bar_init(sp, bar, 3, 0.0001);
 //        bar->bcL = 2;
@@ -50,7 +52,6 @@ public:
 //        bar->vel = 1500;
 //        bar->wid = 0.02;
     }
-
 
     void start() {
         started = true;
@@ -66,46 +67,47 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
 
-    void setLeftboundarycondition(float bcL) {
+    void setLeftBoundaryCondition(float bcL) {
         leftBoundaryCondition = bcL;
-        leftBoundaryConditionRamper.setUIValue(clamp(bcL, (float)1, (float)3));
+        leftBoundaryConditionRamper.setImmediate(bcL);
     }
 
-    void setRightboundarycondition(float bcR) {
+    void setRightBoundaryCondition(float bcR) {
         rightBoundaryCondition = bcR;
-        rightBoundaryConditionRamper.setUIValue(clamp(bcR, (float)1, (float)3));
+        rightBoundaryConditionRamper.setImmediate(bcR);
     }
 
-    void setDecayduration(float T30) {
+    void setDecayDuration(float T30) {
         decayDuration = T30;
-        decayDurationRamper.setUIValue(clamp(T30, (float)0, (float)10));
+        decayDurationRamper.setImmediate(T30);
     }
 
-    void setScanspeed(float scan) {
+    void setScanSpeed(float scan) {
         scanSpeed = scan;
-        scanSpeedRamper.setUIValue(clamp(scan, (float)0, (float)100));
+        scanSpeedRamper.setImmediate(scan);
     }
 
     void setPosition(float pos) {
         position = pos;
-        positionRamper.setUIValue(clamp(pos, (float)0, (float)1));
+        positionRamper.setImmediate(pos);
     }
 
-    void setStrikevelocity(float vel) {
+    void setStrikeVelocity(float vel) {
         strikeVelocity = vel;
-        strikeVelocityRamper.setUIValue(clamp(vel, (float)0, (float)1000));
+        strikeVelocityRamper.setImmediate(vel);
     }
 
-    void setStrikewidth(float wid) {
+    void setStrikeWidth(float wid) {
         strikeWidth = wid;
-        strikeWidthRamper.setUIValue(clamp(wid, (float)0, (float)1));
+        strikeWidthRamper.setImmediate(wid);
     }
+
     void trigger() {
         internalTrigger = 1;
     }
-
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -207,17 +209,24 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
-
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
 
-//            bar->bcL = leftBoundaryConditionRamper.getAndStep();
-//            bar->bcR = rightBoundaryConditionRamper.getAndStep();
-//            bar->T30 = decayDurationRamper.getAndStep();
-//            bar->scan = scanSpeedRamper.getAndStep();
-//            bar->pos = positionRamper.getAndStep();
-//            bar->vel = strikeVelocityRamper.getAndStep();
-//            bar->wid = strikeWidthRamper.getAndStep();
+            leftBoundaryCondition = leftBoundaryConditionRamper.getAndStep();
+            bar->bcL = (float)leftBoundaryCondition;
+            rightBoundaryCondition = rightBoundaryConditionRamper.getAndStep();
+            bar->bcR = (float)rightBoundaryCondition;
+            decayDuration = decayDurationRamper.getAndStep();
+            bar->T30 = (float)decayDuration;
+            scanSpeed = scanSpeedRamper.getAndStep();
+            bar->scan = (float)scanSpeed;
+            position = positionRamper.getAndStep();
+            bar->pos = (float)position;
+            strikeVelocity = strikeVelocityRamper.getAndStep();
+            bar->vel = (float)strikeVelocity;
+            strikeWidth = strikeWidthRamper.getAndStep();
+            bar->wid = (float)strikeWidth;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -247,7 +256,6 @@ private:
     sp_data *sp;
     sp_bar *bar;
 
-
     float leftBoundaryCondition = 1;
     float rightBoundaryCondition = 1;
     float decayDuration = 3;
@@ -258,6 +266,7 @@ private:
 
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper leftBoundaryConditionRamper = 1;
     ParameterRamper rightBoundaryConditionRamper = 1;
     ParameterRamper decayDurationRamper = 3;
