@@ -57,6 +57,10 @@
     return _kernel.started;
 }
 
+- (BOOL)isSetUp {
+    return _kernel.resetted;
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
@@ -98,14 +102,15 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
-    _rampTime = AKSettings.rampTime;
 
     // Initialize the parameter values.
     frequencyAUParameter.value = 110;
     amplitudeAUParameter.value = 0.5;
 
-    _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
-    _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
+    _rampTime = AKSettings.rampTime;
+
+    _kernel.setParameter(frequencyAddress,       frequencyAUParameter.value);
+    _kernel.setParameter(amplitudeAddress,       amplitudeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
