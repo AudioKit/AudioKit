@@ -57,7 +57,19 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setFrequency(float freq) {
+        frequency = freq;
+        frequencyRamper.setImmediate(freq);
+    }
+
+    void setQualityFactor(float q) {
+        qualityFactor = q;
+        qualityFactorRamper.setImmediate(q);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -105,12 +117,12 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double frequency = double(frequencyRamper.getAndStep());
-            double qualityFactor = double(qualityFactorRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            frequency = frequencyRamper.getAndStep();
             mode->freq = (float)frequency;
+            qualityFactor = qualityFactorRamper.getAndStep();
             mode->q = (float)qualityFactor;
 
             if (!started) {
@@ -140,8 +152,12 @@ private:
     sp_data *sp;
     sp_mode *mode;
 
+    float frequency = 500.0;
+    float qualityFactor = 50.0;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper frequencyRamper = 500.0;
     ParameterRamper qualityFactorRamper = 50.0;
 };

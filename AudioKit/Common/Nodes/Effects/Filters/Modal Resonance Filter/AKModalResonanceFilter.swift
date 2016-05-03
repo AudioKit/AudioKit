@@ -20,13 +20,12 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKModalResonanceFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var frequencyParameter: AUParameter?
     private var qualityFactorParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
@@ -41,7 +40,11 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
     public var frequency: Double = 500.0 {
         willSet(newValue) {
             if frequency != newValue {
-                frequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.frequency = Float(newValue)
+                }
             }
         }
     }
@@ -49,7 +52,11 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
     public var qualityFactor: Double = 50.0 {
         willSet(newValue) {
             if qualityFactor != newValue {
-                qualityFactorParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    qualityFactorParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.qualityFactor = Float(newValue)
+                }
             }
         }
     }
@@ -117,10 +124,10 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
                 }
             }
         }
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
-        qualityFactorParameter?.setValue(Float(qualityFactor), originator: token!)
+        internalAU?.frequency = Float(frequency)
+        internalAU?.qualityFactor = Float(qualityFactor)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
