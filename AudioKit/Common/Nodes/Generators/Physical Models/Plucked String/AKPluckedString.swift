@@ -22,7 +22,11 @@ public class AKPluckedString: AKVoice {
     internal var token: AUParameterObserverToken?
 
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
+    private var frequencyParameter: AUParameter?
+    private var amplitudeParameter: AUParameter?
+    private var lowestFrequency: Double
+    
+   /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
             if rampTime != newValue {
@@ -31,10 +35,6 @@ public class AKPluckedString: AKVoice {
             }
         }
     }
-
-    private var frequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
-    private var lowestFrequency: Double
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     public var frequency: Double = 110 {
@@ -77,6 +77,7 @@ public class AKPluckedString: AKVoice {
         amplitude: Double = 0.5,
         lowestFrequency: Double = 110) {
 
+
         self.frequency = frequency
         self.amplitude = amplitude
         self.lowestFrequency = lowestFrequency
@@ -108,8 +109,8 @@ public class AKPluckedString: AKVoice {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
+        frequencyParameter       = tree.valueForKey("frequency")       as? AUParameter
+        amplitudeParameter       = tree.valueForKey("amplitude")       as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
