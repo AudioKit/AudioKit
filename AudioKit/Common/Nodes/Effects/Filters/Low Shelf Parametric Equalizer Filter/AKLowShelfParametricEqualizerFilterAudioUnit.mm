@@ -32,6 +32,17 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setCornerFrequency:(float)cornerFrequency {
+    _kernel.setCornerFrequency(cornerFrequency);
+}
+- (void)setGain:(float)gain {
+    _kernel.setGain(gain);
+}
+- (void)setQ:(float)q {
+    _kernel.setQ(q);
+}
+
+
 - (void)start {
     _kernel.start();
 }
@@ -42,6 +53,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -97,11 +112,12 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     cornerFrequencyAUParameter.value = 1000;
     gainAUParameter.value = 1.0;
     qAUParameter.value = 0.707;
-    
+
     _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(cornerFrequencyAddress, cornerFrequencyAUParameter.value);
@@ -175,7 +191,7 @@
     _kernel.reset();
 
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -185,10 +201,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };

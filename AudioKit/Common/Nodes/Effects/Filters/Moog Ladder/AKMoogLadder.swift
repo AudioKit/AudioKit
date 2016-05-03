@@ -126,8 +126,9 @@ public class AKMoogLadder: AKNode, AKToggleable {
                 }
             }
         }
-        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
-        resonanceParameter?.setValue(Float(resonance), originator: token!)
+        
+        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        internalAU?.resonance = Float(resonance)
     }
 
     // MARK: - Control
