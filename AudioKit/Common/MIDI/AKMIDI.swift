@@ -31,7 +31,7 @@ public class AKMIDI {
     internal var inputPorts = [MIDIPortRef]()
 
     /// Virtual MIDI Input destination
-    private var virtualInput = MIDIPortRef()
+    public var virtualInput = MIDIPortRef()
 
     /// MIDI Client Name
     private var clientName: CFString = "MIDI Client"
