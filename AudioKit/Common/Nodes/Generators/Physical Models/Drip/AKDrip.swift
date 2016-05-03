@@ -27,7 +27,15 @@ public class AKDrip: AKNode {
     internal var token: AUParameterObserverToken?
 
 
-    /// Ramp Time represents the speed at which parameters are allowed to change
+    private var intensityParameter: AUParameter?
+    private var dampingFactorParameter: AUParameter?
+    private var energyReturnParameter: AUParameter?
+    private var mainResonantFrequencyParameter: AUParameter?
+    private var firstResonantFrequencyParameter: AUParameter?
+    private var secondResonantFrequencyParameter: AUParameter?
+    private var amplitudeParameter: AUParameter?
+
+   /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
             if rampTime != newValue {
@@ -36,14 +44,6 @@ public class AKDrip: AKNode {
             }
         }
     }
-
-    private var intensityParameter: AUParameter?
-    private var dampingFactorParameter: AUParameter?
-    private var energyReturnParameter: AUParameter?
-    private var mainResonantFrequencyParameter: AUParameter?
-    private var firstResonantFrequencyParameter: AUParameter?
-    private var secondResonantFrequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
 
     /// The intensity of the dripping sound.
     public var intensity: Double = 10 {

@@ -9,8 +9,13 @@ import XCPlayground
 
 let playRate = 2.0
 
-let drip = AKDrip(intensity: 1)
-drip.intensity = 100
+let drip = AKDrip(intensity: 10,
+                  dampingFactor: 0.9,
+                  energyReturn: 1.5,
+                  mainResonantFrequency: 1000.0,
+                  firstResonantFrequency: 1500.0,
+                  secondResonantFrequency: 2250.0,
+                  amplitude: 0.1)
 
 let reverb = AKReverb(drip)
 
