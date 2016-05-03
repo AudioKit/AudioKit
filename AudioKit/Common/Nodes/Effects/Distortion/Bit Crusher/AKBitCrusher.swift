@@ -24,11 +24,25 @@ public class AKBitCrusher: AKNode, AKToggleable {
     private var bitDepthParameter: AUParameter?
     private var sampleRateParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     public var bitDepth: Double = 8 {
         willSet(newValue) {
             if bitDepth != newValue {
-                bitDepthParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    bitDepthParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.bitDepth = Float(newValue)
+                }
             }
         }
     }
@@ -36,7 +50,11 @@ public class AKBitCrusher: AKNode, AKToggleable {
     public var sampleRate: Double = 10000 {
         willSet(newValue) {
             if sampleRate != newValue {
-                sampleRateParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    sampleRateParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.sampleRate = Float(newValue)
+                }
             }
         }
     }
@@ -104,12 +122,12 @@ public class AKBitCrusher: AKNode, AKToggleable {
                 }
             }
         }
-        bitDepthParameter?.setValue(Float(bitDepth), originator: token!)
-        sampleRateParameter?.setValue(Float(sampleRate), originator: token!)
+        internalAU?.bitDepth = Float(bitDepth)
+        internalAU?.sampleRate = Float(sampleRate)
     }
 
     // MARK: - Control
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         self.internalAU!.start()
