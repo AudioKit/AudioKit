@@ -12,9 +12,16 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKToneComplementFilterAudioUnit : AUAudioUnit
+@property (nonatomic) float halfPowerPoint;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+- (BOOL)isSetUp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKToneComplementFilterAudioUnit_h */
