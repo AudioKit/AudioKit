@@ -12,10 +12,14 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKVariableDelayAudioUnit : AUAudioUnit
+@property (nonatomic) float time;
+@property (nonatomic) float feedback;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
 - (void)setUpParameterRamp;
+- (BOOL)isSetUp;
 
 @property double rampTime;
 
