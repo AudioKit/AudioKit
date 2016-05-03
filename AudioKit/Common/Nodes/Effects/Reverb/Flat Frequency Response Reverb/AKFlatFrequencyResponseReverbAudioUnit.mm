@@ -32,6 +32,14 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setReverbDuration:(float)reverbDuration {
+    _kernel.setReverbDuration(reverbDuration);
+}
+
+- (void)setLoopDuration:(float)duration {
+    _kernel.setLoopDuration(duration);
+}
+
 - (void)start {
     _kernel.start();
 }
@@ -44,8 +52,8 @@
     return _kernel.started;
 }
 
-- (void)setLoopDuration:(float)duration {
-    _kernel.setLoopDuration(duration);
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -77,8 +85,11 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     reverbDurationAUParameter.value = 0.5;
+
+    _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(reverbDurationAddress, reverbDurationAUParameter.value);
 
@@ -146,20 +157,24 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
+    [self setUpParameterRamp];
+
+    return YES;
+}
+
+- (void)setUpParameterRamp {
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
+    // Ramp over rampTime in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {
