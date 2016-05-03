@@ -12,10 +12,15 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKThreePoleLowpassFilterAudioUnit : AUAudioUnit
+@property (nonatomic) float distortion;
+@property (nonatomic) float cutoffFrequency;
+@property (nonatomic) float resonance;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
 - (void)setUpParameterRamp;
+- (BOOL)isSetUp;
 
 @property double rampTime;
 
