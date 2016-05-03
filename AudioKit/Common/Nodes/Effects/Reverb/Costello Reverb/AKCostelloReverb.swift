@@ -20,18 +20,31 @@ public class AKCostelloReverb: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKCostelloReverbAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var feedbackParameter: AUParameter?
     private var cutoffFrequencyParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Feedback level in the range 0 to 1. 0.6 gives a good small 'live' room sound, 0.8 a small hall, and 0.9 a large hall. A setting of exactly 1 means infinite length, while higher values will make the opcode unstable.
     public var feedback: Double = 0.6 {
         willSet(newValue) {
             if feedback != newValue {
-                feedbackParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    feedbackParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.feedback = Float(newValue)
+                }
             }
         }
     }
@@ -39,7 +52,11 @@ public class AKCostelloReverb: AKNode, AKToggleable {
     public var cutoffFrequency: Double = 4000 {
         willSet(newValue) {
             if cutoffFrequency != newValue {
-                cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.cutoffFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -107,10 +124,10 @@ public class AKCostelloReverb: AKNode, AKToggleable {
                 }
             }
         }
-        feedbackParameter?.setValue(Float(feedback), originator: token!)
-        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
+        internalAU?.feedback = Float(feedback)
+        internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
