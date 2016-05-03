@@ -36,7 +36,7 @@ public class AKMetalBar: AKNode {
     private var strikeVelocityParameter: AUParameter?
     private var strikeWidthParameter: AUParameter?
 
-   /// Ramp Time represents the speed at which parameters are allowed to change
+    /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
             if rampTime != newValue {
