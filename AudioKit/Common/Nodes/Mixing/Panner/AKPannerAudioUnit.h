@@ -12,9 +12,16 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKPannerAudioUnit : AUAudioUnit
+@property (nonatomic) float pan;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+- (BOOL)isSetUp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKPannerAudioUnit_h */
