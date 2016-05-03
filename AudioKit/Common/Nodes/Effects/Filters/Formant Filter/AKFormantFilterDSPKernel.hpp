@@ -59,7 +59,24 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setCenterFrequency(float freq) {
+        centerFrequency = freq;
+        centerFrequencyRamper.setImmediate(freq);
+    }
+
+    void setAttackDuration(float atk) {
+        attackDuration = atk;
+        attackDurationRamper.setImmediate(atk);
+    }
+
+    void setDecayDuration(float dec) {
+        decayDuration = dec;
+        decayDurationRamper.setImmediate(dec);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -118,14 +135,14 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double centerFrequency = double(centerFrequencyRamper.getAndStep());
-            double attackDuration = double(attackDurationRamper.getAndStep());
-            double decayDuration = double(decayDurationRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            centerFrequency = centerFrequencyRamper.getAndStep();
             fofilt->freq = (float)centerFrequency;
+            attackDuration = attackDurationRamper.getAndStep();
             fofilt->atk = (float)attackDuration;
+            decayDuration = decayDurationRamper.getAndStep();
             fofilt->dec = (float)decayDuration;
 
             if (!started) {
@@ -155,8 +172,13 @@ private:
     sp_data *sp;
     sp_fofilt *fofilt;
 
+    float centerFrequency = 1000;
+    float attackDuration = 0.007;
+    float decayDuration = 0.04;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper centerFrequencyRamper = 1000;
     ParameterRamper attackDurationRamper = 0.007;
     ParameterRamper decayDurationRamper = 0.04;
