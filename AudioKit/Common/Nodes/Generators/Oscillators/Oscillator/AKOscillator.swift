@@ -44,7 +44,11 @@ public class AKOscillator: AKVoice {
     public var frequency: Double = 440 {
         willSet(newValue) {
             if frequency != newValue {
-                frequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.frequency = Float(newValue)
+                }
             }
         }
     }
@@ -53,7 +57,11 @@ public class AKOscillator: AKVoice {
     public var amplitude: Double = 1 {
         willSet(newValue) {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.amplitude = Float(newValue)
+                }
             }
         }
     }
@@ -62,7 +70,11 @@ public class AKOscillator: AKVoice {
     public var detuningOffset: Double = 0 {
         willSet(newValue) {
             if detuningOffset != newValue {
-                detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.detuningOffset = Float(newValue)
+                }
             }
         }
     }
@@ -71,7 +83,11 @@ public class AKOscillator: AKVoice {
     public var detuningMultiplier: Double = 1 {
         willSet(newValue) {
             if detuningMultiplier != newValue {
-                detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.detuningMultiplier = Float(newValue)
+                }
             }
         }
     }
@@ -160,10 +176,10 @@ public class AKOscillator: AKVoice {
                 }
             }
         }
-        frequencyParameter?.setValue(Float(frequency), originator: token!)
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
-        detuningOffsetParameter?.setValue(Float(detuningOffset), originator: token!)
-        detuningMultiplierParameter?.setValue(Float(detuningMultiplier), originator: token!)
+        internalAU?.frequency = Float(frequency)
+        internalAU?.amplitude = Float(amplitude)
+        internalAU?.detuningOffset = Float(detuningOffset)
+        internalAU?.detuningMultiplier = Float(detuningMultiplier)
 
     }
 
