@@ -22,13 +22,12 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKMoogLadderAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
@@ -38,7 +37,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
             }
         }
     }
-    
+
     /// Filter cutoff frequency.
     public var cutoffFrequency: Double = 1000 {
         willSet(newValue) {
@@ -130,7 +129,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
         cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
         resonanceParameter?.setValue(Float(resonance), originator: token!)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

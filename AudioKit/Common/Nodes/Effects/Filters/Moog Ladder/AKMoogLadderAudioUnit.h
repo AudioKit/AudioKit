@@ -14,6 +14,7 @@
 @interface AKMoogLadderAudioUnit : AUAudioUnit
 @property (nonatomic) float cutoffFrequency;
 @property (nonatomic) float resonance;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
