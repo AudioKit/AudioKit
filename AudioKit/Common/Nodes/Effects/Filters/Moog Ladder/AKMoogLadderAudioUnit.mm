@@ -33,6 +33,14 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setCutoffFrequency:(float)cutoffFrequency {
+    _kernel.setCutoffFrequency(cutoffFrequency);
+}
+
+- (void)setResonance:(float)resonance {
+    _kernel.setResonance(resonance);
+}
+
 - (void)start {
     _kernel.start();
 }
@@ -43,6 +51,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
