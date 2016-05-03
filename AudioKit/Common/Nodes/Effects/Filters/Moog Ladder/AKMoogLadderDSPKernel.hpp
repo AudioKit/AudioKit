@@ -59,7 +59,7 @@ public:
     void reset() {
         resetted = true;
     }
-    
+
     void setCutoffFrequency(float freq) {
         cutoffFrequency = freq;
         cutoffFrequencyRamper.setImmediate(freq);
@@ -70,7 +70,7 @@ public:
         resonanceRamper.setImmediate(res);
     }
 
-    
+
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cutoffFrequencyAddress:
@@ -117,12 +117,12 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            cutoffFrequency = cutoffFrequencyRamper.getAndStep();
-            resonance = resonanceRamper.getAndStep();
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            cutoffFrequency = cutoffFrequencyRamper.getAndStep();
             moogladder->freq = (float)cutoffFrequency;
+            resonance = resonanceRamper.getAndStep();
             moogladder->res = (float)resonance;
 
             if (!started) {
@@ -151,7 +151,7 @@ private:
 
     sp_data *sp;
     sp_moogladder *moogladder;
-    
+
     float cutoffFrequency = 1000;
     float resonance = 0.5;
 
