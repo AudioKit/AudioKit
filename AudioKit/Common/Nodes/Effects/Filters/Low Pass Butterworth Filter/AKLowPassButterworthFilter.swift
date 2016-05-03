@@ -18,12 +18,11 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKLowPassButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
@@ -38,7 +37,11 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
     public var cutoffFrequency: Double = 1000 {
         willSet(newValue) {
             if cutoffFrequency != newValue {
-                cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.cutoffFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -100,9 +103,9 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
                 }
             }
         }
-        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
+        internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
