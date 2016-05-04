@@ -13,21 +13,34 @@ import AVFoundation
 /// - parameter input: Input node to process
 /// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
 ///
-public class AKPanner: AKNode {
+public class AKPanner: AKNode, AKToggleable {
 
     // MARK: - Properties
-
 
     internal var internalAU: AKPannerAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var panParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     public var pan: Double = 0 {
         willSet(newValue) {
             if pan != newValue {
-                panParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    panParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.pan = Float(newValue)
+                }
             }
         }
     }
@@ -35,21 +48,6 @@ public class AKPanner: AKNode {
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    public var isPlaying: Bool {
-        return internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isStopped: Bool {
-        return !internalAU!.isPlaying()
-    }
-
-    /// Tells whether the node is not processing (ie. stopped or bypassed)
-    public var isBypassed: Bool {
-        return !internalAU!.isPlaying()
     }
 
     // MARK: - Initialization
@@ -104,9 +102,9 @@ public class AKPanner: AKNode {
                 }
             }
         }
-        panParameter?.setValue(Float(pan), originator: token!)
+        internalAU?.pan = Float(pan)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -116,16 +114,6 @@ public class AKPanner: AKNode {
 
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
-        self.internalAU!.stop()
-    }
-
-    /// Function to start, play, or activate the node, all do the same thing
-    public func play() {
-        self.internalAU!.start()
-    }
-
-    /// Function to stop or bypass the node, both are equivalent
-    public func bypass() {
         self.internalAU!.stop()
     }
 }

@@ -32,10 +32,10 @@ public:
     void init(int channelCount, double inSampleRate) {
         channels = channelCount;
 
-        sampleRate = float(inSampleRate);
+        globalSampleRate = float(inSampleRate);
 
         sp_create(&sp);
-        sp->sr = sampleRate;
+        sp->sr = globalSampleRate;
         sp->nchan = channels;
         sp_bitcrush_create(&bitcrush);
         sp_bitcrush_init(sp, bitcrush);
@@ -57,7 +57,19 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setBitDepth(float bitdepth) {
+        bitDepth = bitdepth;
+        bitDepthRamper.setImmediate(bitdepth);
+    }
+
+    void setSampleRate(float srate) {
+        sampleRate = srate;
+        sampleRateRamper.setImmediate(srate);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -105,12 +117,12 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double bitDepth = double(bitDepthRamper.getAndStep());
-            double sampleRate = double(sampleRateRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            bitDepth = bitDepthRamper.getAndStep();
             bitcrush->bitdepth = (float)bitDepth;
+            sampleRate = sampleRateRamper.getAndStep();
             bitcrush->srate = (float)sampleRate;
 
             if (!started) {
@@ -132,7 +144,7 @@ public:
 private:
 
     int channels = AKSettings.numberOfChannels;
-    float sampleRate = AKSettings.sampleRate;
+    float globalSampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
@@ -140,8 +152,12 @@ private:
     sp_data *sp;
     sp_bitcrush *bitcrush;
 
+    float bitDepth = 8;
+    float sampleRate = 10000;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper bitDepthRamper = 8;
     ParameterRamper sampleRateRamper = 10000;
 };

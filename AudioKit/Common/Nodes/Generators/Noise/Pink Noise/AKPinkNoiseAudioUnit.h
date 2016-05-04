@@ -13,10 +13,12 @@
 
 @interface AKPinkNoiseAudioUnit : AUAudioUnit
 @property (nonatomic) float amplitude;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
 - (void)setUpParameterRamp;
+- (BOOL)isSetUp;
 
 @property double rampTime;
 

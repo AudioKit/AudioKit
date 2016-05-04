@@ -12,9 +12,19 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKRolandTB303FilterAudioUnit : AUAudioUnit
+@property (nonatomic) float cutoffFrequency;
+@property (nonatomic) float resonance;
+@property (nonatomic) float distortion;
+@property (nonatomic) float resonanceAsymmetry;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+- (BOOL)isSetUp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKRolandTB303FilterAudioUnit_h */

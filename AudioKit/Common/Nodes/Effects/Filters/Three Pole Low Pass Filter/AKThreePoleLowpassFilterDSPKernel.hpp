@@ -59,7 +59,24 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setDistortion(float dist) {
+        distortion = dist;
+        distortionRamper.setImmediate(dist);
+    }
+
+    void setCutoffFrequency(float cutoff) {
+        cutoffFrequency = cutoff;
+        cutoffFrequencyRamper.setImmediate(cutoff);
+    }
+
+    void setResonance(float res) {
+        resonance = res;
+        resonanceRamper.setImmediate(res);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -118,14 +135,14 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double distortion = double(distortionRamper.getAndStep());
-            double cutoffFrequency = double(cutoffFrequencyRamper.getAndStep());
-            double resonance = double(resonanceRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            distortion = distortionRamper.getAndStep();
             lpf18->dist = (float)distortion;
+            cutoffFrequency = cutoffFrequencyRamper.getAndStep();
             lpf18->cutoff = (float)cutoffFrequency;
+            resonance = resonanceRamper.getAndStep();
             lpf18->res = (float)resonance;
 
             if (!started) {
@@ -155,8 +172,13 @@ private:
     sp_data *sp;
     sp_lpf18 *lpf18;
 
+    float distortion = 0.5;
+    float cutoffFrequency = 1500;
+    float resonance = 0.5;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper distortionRamper = 0.5;
     ParameterRamper cutoffFrequencyRamper = 1500;
     ParameterRamper resonanceRamper = 0.5;

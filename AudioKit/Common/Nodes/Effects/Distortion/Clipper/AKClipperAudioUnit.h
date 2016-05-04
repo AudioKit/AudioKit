@@ -12,9 +12,16 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKClipperAudioUnit : AUAudioUnit
+@property (nonatomic) float limit;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+- (BOOL)isSetUp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKClipperAudioUnit_h */

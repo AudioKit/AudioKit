@@ -22,13 +22,12 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKMoogLadderAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
@@ -38,12 +37,16 @@ public class AKMoogLadder: AKNode, AKToggleable {
             }
         }
     }
-    
+
     /// Filter cutoff frequency.
     public var cutoffFrequency: Double = 1000 {
         willSet(newValue) {
             if cutoffFrequency != newValue {
-                cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.cutoffFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -51,7 +54,11 @@ public class AKMoogLadder: AKNode, AKToggleable {
     public var resonance: Double = 0.5 {
         willSet(newValue) {
             if resonance != newValue {
-                resonanceParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    resonanceParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.resonance = Float(newValue)
+                }
             }
         }
     }
@@ -119,10 +126,11 @@ public class AKMoogLadder: AKNode, AKToggleable {
                 }
             }
         }
-        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
-        resonanceParameter?.setValue(Float(resonance), originator: token!)
+        
+        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        internalAU?.resonance = Float(resonance)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

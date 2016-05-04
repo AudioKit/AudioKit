@@ -12,9 +12,17 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKStringResonatorAudioUnit : AUAudioUnit
+@property (nonatomic) float fundamentalFrequency;
+@property (nonatomic) float feedback;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+- (BOOL)isSetUp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKStringResonatorAudioUnit_h */

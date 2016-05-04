@@ -37,7 +37,8 @@ public:
         sp->sr = sampleRate;
         sp->nchan = channels;
         sp_clip_create(&clip);
-
+        sp_clip_init(sp, clip);
+        clip->lim = 1.0;
     }
 
     void start() {
@@ -54,15 +55,21 @@ public:
     }
 
     void reset() {
-        sp_clip_init(sp, clip);
-        clip->lim = 1.0;
+        resetted = true;
     }
+
+    void setLimit(float lim) {
+        limit = lim;
+        limitRamper.setImmediate(lim);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case limitAddress:
                 limitRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
                 break;
+
         }
     }
 
@@ -80,6 +87,7 @@ public:
             case limitAddress:
                 limitRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
                 break;
+
         }
     }
 
@@ -91,10 +99,10 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double limit = double(limitRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            limit = limitRamper.getAndStep();
             clip->lim = (float)limit;
 
             if (!started) {
@@ -105,6 +113,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+
                 sp_clip_compute(sp, clip, in, out);
             }
         }
@@ -123,8 +132,11 @@ private:
     sp_data *sp;
     sp_clip *clip;
 
+    float limit = 1.0;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper limitRamper = 1.0;
 };
 

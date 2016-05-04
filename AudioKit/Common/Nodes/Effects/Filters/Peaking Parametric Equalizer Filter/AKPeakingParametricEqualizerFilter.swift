@@ -19,7 +19,6 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKPeakingParametricEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -27,11 +26,25 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     private var gainParameter: AUParameter?
     private var qParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Center frequency.
     public var centerFrequency: Double = 1000 {
         willSet(newValue) {
             if centerFrequency != newValue {
-                centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.centerFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -39,7 +52,11 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     public var gain: Double = 1.0 {
         willSet(newValue) {
             if gain != newValue {
-                gainParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    gainParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.gain = Float(newValue)
+                }
             }
         }
     }
@@ -47,7 +64,11 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     public var q: Double = 0.707 {
         willSet(newValue) {
             if q != newValue {
-                qParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    qParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.q = Float(newValue)
+                }
             }
         }
     }
@@ -121,11 +142,11 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
                 }
             }
         }
-        centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
-        gainParameter?.setValue(Float(gain), originator: token!)
-        qParameter?.setValue(Float(q), originator: token!)
+        internalAU?.centerFrequency = Float(centerFrequency)
+        internalAU?.gain = Float(gain)
+        internalAU?.q = Float(q)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

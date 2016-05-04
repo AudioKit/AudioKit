@@ -17,6 +17,7 @@
 @interface AKPinkNoiseAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
+
 @property AUAudioUnitBusArray *outputBusArray;
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;
@@ -35,6 +36,7 @@
     _kernel.setAmplitude(amplitude);
 }
 
+
 - (void)start {
     _kernel.start();
 }
@@ -45,6 +47,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -76,9 +82,10 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     amplitudeAUParameter.value = 1;
-    
+
     _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(amplitudeAddress, amplitudeAUParameter.value);
@@ -129,9 +136,9 @@
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
-    
+
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -141,10 +148,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };

@@ -71,31 +71,32 @@ public:
         oscmorph->freq = 440;
         oscmorph->amp = 0.5;
         oscmorph->wtpos = 0.0;
+        resetted = true;
     }
 
     void setFrequency(float freq) {
         frequency = freq;
-        frequencyRamper.setUIValue(clamp(freq, (float)0, (float)22050));
+        frequencyRamper.setImmediate(freq);
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)1));
+        amplitudeRamper.setImmediate(amp);
     }
 
     void setIndex(float wtpos) {
         index = wtpos;
-        indexRamper.setUIValue(clamp(wtpos, (float)0.0, (float)1000.0));
+        indexRamper.setImmediate(wtpos);
     }
 
     void setDetuningOffset(float detuneOffset) {
         detuningOffset = detuneOffset;
-        detuningOffsetRamper.setUIValue(clamp(detuneOffset, (float)-1000, (float)1000));
+        detuningOffsetRamper.setImmediate(detuneOffset);
     }
 
     void setDetuningMultiplier(float detuneScale) {
         detuningMultiplier = detuneScale;
-        detuningMultiplierRamper.setUIValue(clamp(detuneScale, (float)0.9, (float)1.11));
+        detuningMultiplierRamper.setImmediate(detuneScale);
     }
 
 
@@ -226,6 +227,7 @@ private:
 
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper frequencyRamper = 440;
     ParameterRamper amplitudeRamper = 0.5;
     ParameterRamper indexRamper = 0.0;

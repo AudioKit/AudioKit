@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Low Pass Filter
-//: ### A low-pass filter takes an audio signal as an input, and cuts out the low-frequency components of the audio signal, allowing for the lower frequency components to "pass through" the filter.
+//: ### A low-pass filter takes an audio signal as an input, and cuts out the high-frequency components of the audio signal, allowing for the lower frequency components to "pass through" the filter.
 //:
 import XCPlayground
 import AudioKit
@@ -43,8 +43,8 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        cutoffFrequencyLabel = addLabel("Cut-off Frequency: 6900 Hz")
-        addSlider(#selector(setCutoffFrequency), value: 6900, minimum: 10, maximum: 22050)
+        cutoffFrequencyLabel = addLabel("Cut-off Frequency: \(lowPassFilter.cutoffFrequency) Hz")
+        addSlider(#selector(setCutoffFrequency), value: lowPassFilter.cutoffFrequency, minimum: 10, maximum: 22050)
 
         resonanceLabel = addLabel("Resonance: 0 dB")
         addSlider(#selector(setResonance), value: 0, minimum: -20, maximum: 40)

@@ -57,7 +57,19 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setFeedback(float feedback) {
+        feedback = feedback;
+        feedbackRamper.setImmediate(feedback);
+    }
+
+    void setCutoffFrequency(float lpfreq) {
+        cutoffFrequency = lpfreq;
+        cutoffFrequencyRamper.setImmediate(lpfreq);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -106,18 +118,19 @@ public:
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
+            int frameOffset = int(frameIndex + bufferOffset);
+
+            feedback = feedbackRamper.getAndStep();
+            revsc->feedback = (float)feedback;
+            cutoffFrequency = cutoffFrequencyRamper.getAndStep();
+            revsc->lpfreq = (float)cutoffFrequency;
+
             if (!started) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
                 outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
                 return;
             }
-            double feedback = double(feedbackRamper.getAndStep());
-            double cutoffFrequency = double(cutoffFrequencyRamper.getAndStep());
-
-            int frameOffset = int(frameIndex + bufferOffset);
-
-            revsc->feedback = (float)feedback;
-            revsc->lpfreq = (float)cutoffFrequency;
+            
             float *tmpin[2];
             float *tmpout[2];
             for (int channel = 0; channel < channels; ++channel) {
@@ -146,8 +159,12 @@ private:
     sp_data *sp;
     sp_revsc *revsc;
 
+    float feedback = 0.6;
+    float cutoffFrequency = 4000;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper feedbackRamper = 0.6;
     ParameterRamper cutoffFrequencyRamper = 4000;
 };

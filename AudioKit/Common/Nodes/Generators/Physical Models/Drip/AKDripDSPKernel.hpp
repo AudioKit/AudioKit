@@ -53,7 +53,6 @@ public:
         drip->amp = 0.3;
     }
 
-
     void start() {
         started = true;
     }
@@ -68,41 +67,42 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
 
     void setIntensity(float num_tubes) {
         intensity = num_tubes;
-        intensityRamper.setUIValue(clamp(num_tubes, (float)0, (float)100));
+        intensityRamper.setImmediate(num_tubes);
     }
 
-    void setDampingfactor(float damp) {
+    void setDampingFactor(float damp) {
         dampingFactor = damp;
-        dampingFactorRamper.setUIValue(clamp(damp, (float)0.0, (float)2.0));
+        dampingFactorRamper.setImmediate(damp);
     }
 
-    void setEnergyreturn(float shake_max) {
+    void setEnergyReturn(float shake_max) {
         energyReturn = shake_max;
-        energyReturnRamper.setUIValue(clamp(shake_max, (float)0, (float)100));
+        energyReturnRamper.setImmediate(shake_max);
     }
 
-    void setMainresonantfrequency(float freq) {
+    void setMainResonantFrequency(float freq) {
         mainResonantFrequency = freq;
-        mainResonantFrequencyRamper.setUIValue(clamp(freq, (float)0, (float)22000));
+        mainResonantFrequencyRamper.setImmediate(freq);
     }
 
-    void setFirstresonantfrequency(float freq1) {
+    void setFirstResonantFrequency(float freq1) {
         firstResonantFrequency = freq1;
-        firstResonantFrequencyRamper.setUIValue(clamp(freq1, (float)0, (float)22000));
+        firstResonantFrequencyRamper.setImmediate(freq1);
     }
 
-    void setSecondresonantfrequency(float freq2) {
+    void setSecondResonantFrequency(float freq2) {
         secondResonantFrequency = freq2;
-        secondResonantFrequencyRamper.setUIValue(clamp(freq2, (float)0, (float)22000));
+        secondResonantFrequencyRamper.setImmediate(freq2);
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)1));
+        amplitudeRamper.setImmediate(amp);
     }
 
     void trigger() {
@@ -209,23 +209,23 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
 
-            intensity = double(intensityRamper.getAndStep());
-            dampingFactor = double(dampingFactorRamper.getAndStep());
-            energyReturn = double(energyReturnRamper.getAndStep());
-            mainResonantFrequency = double(mainResonantFrequencyRamper.getAndStep());
-            firstResonantFrequency = double(firstResonantFrequencyRamper.getAndStep());
-            secondResonantFrequency = double(secondResonantFrequencyRamper.getAndStep());
-            amplitude = double(amplitudeRamper.getAndStep());
-
-            drip->num_tubes = intensity;
-            drip->damp = dampingFactor;
-            drip->shake_max = energyReturn;
-            drip->freq = mainResonantFrequency;
-            drip->freq1 = firstResonantFrequency;
-            drip->freq2 = secondResonantFrequency;
-            drip->amp = amplitude;
+            intensity = intensityRamper.getAndStep();
+            drip->num_tubes = (float)intensity;
+            dampingFactor = dampingFactorRamper.getAndStep();
+            drip->damp = (float)dampingFactor;
+            energyReturn = energyReturnRamper.getAndStep();
+            drip->shake_max = (float)energyReturn;
+            mainResonantFrequency = mainResonantFrequencyRamper.getAndStep();
+            drip->freq = (float)mainResonantFrequency;
+            firstResonantFrequency = firstResonantFrequencyRamper.getAndStep();
+            drip->freq1 = (float)firstResonantFrequency;
+            secondResonantFrequency = secondResonantFrequencyRamper.getAndStep();
+            drip->freq2 = (float)secondResonantFrequency;
+            amplitude = amplitudeRamper.getAndStep();
+            drip->amp = (float)amplitude;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -255,7 +255,6 @@ private:
     sp_data *sp;
     sp_drip *drip;
 
-
     float intensity = 10;
     float dampingFactor = 0.2;
     float energyReturn = 0;
@@ -266,6 +265,7 @@ private:
 
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper intensityRamper = 10;
     ParameterRamper dampingFactorRamper = 0.2;
     ParameterRamper energyReturnRamper = 0;
