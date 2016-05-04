@@ -43,7 +43,6 @@ public:
         pluck->amp = 0.5;
     }
 
-
     void start() {
         started = true;
     }
@@ -58,16 +57,17 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
 
     void setFrequency(float freq) {
         frequency = freq;
-        frequencyRamper.setUIValue(clamp(freq, (float)0, (float)22000));
+        frequencyRamper.setImmediate(freq);
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)1));
+        amplitudeRamper.setImmediate(amp);
     }
 
     void trigger() {
@@ -119,13 +119,13 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
 
-            frequency = double(frequencyRamper.getAndStep());
-            amplitude = double(amplitudeRamper.getAndStep());
-
-            pluck->freq = frequency;
-            pluck->amp = amplitude;
+            frequency = frequencyRamper.getAndStep();
+            pluck->freq = (float)frequency;
+            amplitude = amplitudeRamper.getAndStep();
+            pluck->amp = (float)amplitude;
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -160,6 +160,7 @@ private:
 
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper frequencyRamper = 110;
     ParameterRamper amplitudeRamper = 0.5;
 };

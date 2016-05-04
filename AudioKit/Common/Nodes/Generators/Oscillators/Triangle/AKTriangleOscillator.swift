@@ -42,7 +42,11 @@ public class AKTriangleOscillator: AKVoice {
     public var frequency: Double = 440 {
         willSet(newValue) {
             if frequency != newValue {
-                frequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.frequency = Float(newValue)
+                }
             }
         }
     }
@@ -51,7 +55,11 @@ public class AKTriangleOscillator: AKVoice {
     public var amplitude: Double = 1 {
         willSet(newValue) {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.amplitude = Float(newValue)
+                }
             }
         }
     }
@@ -60,7 +68,11 @@ public class AKTriangleOscillator: AKVoice {
     public var detuningOffset: Double = 0 {
         willSet(newValue) {
             if detuningOffset != newValue {
-                detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.detuningOffset = Float(newValue)
+                }
             }
         }
     }
@@ -69,10 +81,15 @@ public class AKTriangleOscillator: AKVoice {
     public var detuningMultiplier: Double = 1 {
         willSet(newValue) {
             if detuningMultiplier != newValue {
-                detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.detuningMultiplier = Float(newValue)
+                }
             }
         }
     }
+
     
     /// Tells whether the node is processing (ie. started, playing, or active)
     override public var isStarted: Bool {

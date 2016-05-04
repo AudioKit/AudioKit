@@ -34,11 +34,11 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
 
-        frequencyLabel = addLabel("Frequency: 440")
-        addSlider(#selector(setFrequency), value: 440, minimum: 200, maximum: 800)
+        frequencyLabel = addLabel("Frequency: \(morph.frequency)")
+        addSlider(#selector(setFrequency), value: morph.frequency, minimum: 200, maximum: 800)
 
         amplitudeLabel = addLabel("Amplitude: 0.1")
-        addSlider(#selector(setAmplitude), value: 0.1)
+        addSlider(#selector(setAmplitude), value: morph.amplitude)
 
         morphIndexLabel = addLabel("Morph Index: \(morph.index)")
         addLabel("Sine = 0")
@@ -64,7 +64,6 @@ class PlaygroundView: AKPlaygroundView {
     func setAmplitude(slider: Slider) {
         morph.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", morph.amplitude)
-        print(morph.index)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
 

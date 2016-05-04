@@ -22,17 +22,30 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKCombFilterReverbAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var reverbDurationParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
     public var reverbDuration: Double = 1.0 {
         willSet(newValue) {
             if reverbDuration != newValue {
-                reverbDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    reverbDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.reverbDuration = Float(newValue)
+                }
             }
         }
     }
@@ -78,6 +91,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
 
             self.avAudioNode = avAudioUnitEffect
             self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKCombFilterReverbAudioUnit
+
             AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU!.setLoopDuration(Float(loopDuration))
@@ -96,9 +110,9 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
                 }
             }
         }
-        reverbDurationParameter?.setValue(Float(reverbDuration), originator: token!)
+        internalAU?.reverbDuration = Float(reverbDuration)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

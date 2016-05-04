@@ -57,7 +57,19 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setCenterFrequency(float freq) {
+        centerFrequency = freq;
+        centerFrequencyRamper.setImmediate(freq);
+    }
+
+    void setBandwidth(float bw) {
+        bandwidth = bw;
+        bandwidthRamper.setImmediate(bw);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -105,12 +117,12 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double centerFrequency = double(centerFrequencyRamper.getAndStep());
-            double bandwidth = double(bandwidthRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            centerFrequency = centerFrequencyRamper.getAndStep();
             butbp->freq = (float)centerFrequency;
+            bandwidth = bandwidthRamper.getAndStep();
             butbp->bw = (float)bandwidth;
 
             if (!started) {
@@ -140,8 +152,12 @@ private:
     sp_data *sp;
     sp_butbp *butbp;
 
+    float centerFrequency = 2000;
+    float bandwidth = 100;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper centerFrequencyRamper = 2000;
     ParameterRamper bandwidthRamper = 100;
 };

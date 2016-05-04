@@ -19,6 +19,7 @@ public class AKWhiteNoise: AKVoice {
     internal var internalAU: AKWhiteNoiseAudioUnit?
     internal var token: AUParameterObserverToken?
 
+
     private var amplitudeParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -30,7 +31,7 @@ public class AKWhiteNoise: AKVoice {
             }
         }
     }
-    
+
     /// Amplitude. (Value between 0-1).
     public var amplitude: Double = 1 {
         willSet(newValue) {
@@ -44,19 +45,16 @@ public class AKWhiteNoise: AKVoice {
     override public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
-    
-    /// Initialize the noise generator with defaults
-    public convenience override init() {
-        self.init(amplitude: 1.0)
-    }
 
     /// Initialize this noise node
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1).
     ///
-    public init(amplitude: Double) {
+    public init(
+        amplitude: Double = 1) {
+
 
         self.amplitude = amplitude
 
@@ -98,7 +96,7 @@ public class AKWhiteNoise: AKVoice {
                 }
             }
         }
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+        internalAU?.amplitude = Float(amplitude)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments

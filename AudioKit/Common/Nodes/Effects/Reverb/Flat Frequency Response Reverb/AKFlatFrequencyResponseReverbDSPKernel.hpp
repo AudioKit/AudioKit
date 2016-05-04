@@ -55,10 +55,18 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setReverbDuration(float revtime) {
+        reverbDuration = revtime;
+        reverbDurationRamper.setImmediate(revtime);
+    }
+
     void setLoopDuration(float duration) {
         internalLoopDuration = duration;
     }
+
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
@@ -94,10 +102,10 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double reverbDuration = double(reverbDurationRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            reverbDuration = reverbDurationRamper.getAndStep();
             allpass->revtime = (float)reverbDuration;
 
             if (!started) {
@@ -126,11 +134,13 @@ private:
 
     sp_data *sp;
     sp_allpass *allpass;
-    
+
+    float reverbDuration = 0.5;
     float internalLoopDuration = 0.1;
 
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper reverbDurationRamper = 0.5;
 };
 

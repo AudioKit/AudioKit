@@ -12,9 +12,18 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKEqualizerFilterAudioUnit : AUAudioUnit
+@property (nonatomic) float centerFrequency;
+@property (nonatomic) float bandwidth;
+@property (nonatomic) float gain;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+- (BOOL)isSetUp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKEqualizerFilterAudioUnit_h */

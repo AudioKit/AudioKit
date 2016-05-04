@@ -12,10 +12,13 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKHighPassButterworthFilterAudioUnit : AUAudioUnit
+@property (nonatomic) float cutoffFrequency;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
 - (void)setUpParameterRamp;
+- (BOOL)isSetUp;
 
 @property double rampTime;
 

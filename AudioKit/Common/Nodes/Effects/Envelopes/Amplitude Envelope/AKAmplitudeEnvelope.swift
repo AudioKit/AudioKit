@@ -8,18 +8,17 @@
 
 import AVFoundation
 
-/// Classic ADSR envelope
+/// Triggerable classic ADSR envelope
 ///
 /// - parameter input: Input node to process
-/// - parameter attackDuration: Attack time (Default: 0.1)
-/// - parameter decayDuration: Decay time (Default: 0.1)
-/// - parameter sustainLevel: Sustain Level (Default: 1.0)
-/// - parameter releaseDuration: Release time (Default: 0.1)
+/// - parameter attackDuration: Attack time
+/// - parameter decayDuration: Decay time
+/// - parameter sustainLevel: Sustain Level
+/// - parameter releaseDuration: Release time
 ///
 public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
     // MARK: - Properties
-
 
     internal var internalAU: AKAmplitudeEnvelopeAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -29,11 +28,25 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     private var sustainLevelParameter: AUParameter?
     private var releaseDurationParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Attack time
     public var attackDuration: Double = 0.1 {
         willSet(newValue) {
             if attackDuration != newValue {
-                attackDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    attackDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.attackDuration = Float(newValue)
+                }
             }
         }
     }
@@ -41,7 +54,11 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     public var decayDuration: Double = 0.1 {
         willSet(newValue) {
             if decayDuration != newValue {
-                decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.decayDuration = Float(newValue)
+                }
             }
         }
     }
@@ -49,7 +66,11 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     public var sustainLevel: Double = 1.0 {
         willSet(newValue) {
             if sustainLevel != newValue {
-                sustainLevelParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    sustainLevelParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.sustainLevel = Float(newValue)
+                }
             }
         }
     }
@@ -57,7 +78,11 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     public var releaseDuration: Double = 0.1 {
         willSet(newValue) {
             if releaseDuration != newValue {
-                releaseDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    releaseDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.releaseDuration = Float(newValue)
+                }
             }
         }
     }
@@ -72,10 +97,10 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     /// Initialize this envelope node
     ///
     /// - parameter input: Input node to process
-    /// - parameter attackDuration: Attack time (Default: 0.1)
-    /// - parameter decayDuration: Decay time (Default: 0.1)
-    /// - parameter sustainLevel: Sustain Level (Default: 1.0)
-    /// - parameter releaseDuration: Release time (Default: 0.1)
+    /// - parameter attackDuration: Attack time
+    /// - parameter decayDuration: Decay time
+    /// - parameter sustainLevel: Sustain Level
+    /// - parameter releaseDuration: Release time
     ///
     public init(
         _ input: AKNode,
@@ -137,12 +162,12 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
                 }
             }
         }
-        attackDurationParameter?.setValue(Float(attackDuration), originator: token!)
-        decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
-        sustainLevelParameter?.setValue(Float(sustainLevel), originator: token!)
-        releaseDurationParameter?.setValue(Float(releaseDuration), originator: token!)
+        internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.decayDuration = Float(decayDuration)
+        internalAU?.sustainLevel = Float(sustainLevel)
+        internalAU?.releaseDuration = Float(releaseDuration)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -154,5 +179,4 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     public func stop() {
         self.internalAU!.stop()
     }
-
 }

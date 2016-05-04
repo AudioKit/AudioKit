@@ -32,6 +32,20 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setPregain:(float)pregain {
+    _kernel.setPregain(pregain);
+}
+- (void)setPostgain:(float)postgain {
+    _kernel.setPostgain(postgain);
+}
+- (void)setPostiveShapeParameter:(float)postiveShapeParameter {
+    _kernel.setPostiveShapeParameter(postiveShapeParameter);
+}
+- (void)setNegativeShapeParameter:(float)negativeShapeParameter {
+    _kernel.setNegativeShapeParameter(negativeShapeParameter);
+}
+
+
 - (void)start {
     _kernel.start();
 }
@@ -42,6 +56,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -109,11 +127,14 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     pregainAUParameter.value = 2.0;
     postgainAUParameter.value = 0.5;
     postiveShapeParameterAUParameter.value = 0.0;
     negativeShapeParameterAUParameter.value = 0.0;
+
+    _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(pregainAddress,                pregainAUParameter.value);
     _kernel.setParameter(postgainAddress,               postgainAUParameter.value);
@@ -187,20 +208,24 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
+    [self setUpParameterRamp];
+
+    return YES;
+}
+
+- (void)setUpParameterRamp {
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
+    // Ramp over rampTime in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {

@@ -35,20 +35,20 @@
 - (void)setIntensity:(float)intensity {
     _kernel.setIntensity(intensity);
 }
-- (void)setDampingfactor:(float)dampingFactor {
-    _kernel.setDampingfactor(dampingFactor);
+- (void)setDampingFactor:(float)dampingFactor {
+    _kernel.setDampingFactor(dampingFactor);
 }
-- (void)setEnergyreturn:(float)energyReturn {
-    _kernel.setEnergyreturn(energyReturn);
+- (void)setEnergyReturn:(float)energyReturn {
+    _kernel.setEnergyReturn(energyReturn);
 }
-- (void)setMainresonantfrequency:(float)mainResonantFrequency {
-    _kernel.setMainresonantfrequency(mainResonantFrequency);
+- (void)setMainResonantFrequency:(float)mainResonantFrequency {
+    _kernel.setMainResonantFrequency(mainResonantFrequency);
 }
-- (void)setFirstresonantfrequency:(float)firstResonantFrequency {
-    _kernel.setFirstresonantfrequency(firstResonantFrequency);
+- (void)setFirstResonantFrequency:(float)firstResonantFrequency {
+    _kernel.setFirstResonantFrequency(firstResonantFrequency);
 }
-- (void)setSecondresonantfrequency:(float)secondResonantFrequency {
-    _kernel.setSecondresonantfrequency(secondResonantFrequency);
+- (void)setSecondResonantFrequency:(float)secondResonantFrequency {
+    _kernel.setSecondResonantFrequency(secondResonantFrequency);
 }
 - (void)setAmplitude:(float)amplitude {
     _kernel.setAmplitude(amplitude);
@@ -68,6 +68,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -171,7 +175,6 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
-    _rampTime = AKSettings.rampTime;
 
     // Initialize the parameter values.
     intensityAUParameter.value = 10;
@@ -181,6 +184,8 @@
     firstResonantFrequencyAUParameter.value = 600;
     secondResonantFrequencyAUParameter.value = 750;
     amplitudeAUParameter.value = 0.3;
+
+    _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(intensityAddress,               intensityAUParameter.value);
     _kernel.setParameter(dampingFactorAddress,           dampingFactorAUParameter.value);

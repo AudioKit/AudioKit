@@ -22,17 +22,30 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKFlatFrequencyResponseReverbAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var reverbDurationParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
     public var reverbDuration: Double = 0.5 {
         willSet(newValue) {
             if reverbDuration != newValue {
-                reverbDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    reverbDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.reverbDuration = Float(newValue)
+                }
             }
         }
     }
@@ -97,9 +110,9 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
                 }
             }
         }
-        reverbDurationParameter?.setValue(Float(reverbDuration), originator: token!)
+        internalAU?.reverbDuration = Float(reverbDuration)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

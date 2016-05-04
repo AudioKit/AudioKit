@@ -32,6 +32,14 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setFrequency:(float)frequency {
+    _kernel.setFrequency(frequency);
+}
+- (void)setQualityFactor:(float)qualityFactor {
+    _kernel.setQualityFactor(qualityFactor);
+}
+
+
 - (void)start {
     _kernel.start();
 }
@@ -42,6 +50,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -85,12 +97,13 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     frequencyAUParameter.value = 500.0;
     qualityFactorAUParameter.value = 50.0;
 
     _rampTime = AKSettings.rampTime;
-    
+
     _kernel.setParameter(frequencyAddress,     frequencyAUParameter.value);
     _kernel.setParameter(qualityFactorAddress, qualityFactorAUParameter.value);
 
@@ -160,7 +173,7 @@
     _kernel.reset();
 
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -170,10 +183,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
