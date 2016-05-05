@@ -21,6 +21,16 @@ public class AKBooster: AKNode, AKToggleable {
         }
     }
     
+    /// Amplification Factor in db
+    public var dB: Double {
+        set {
+            gain  = pow(10.0,Double(newValue/20))
+        }
+        get {
+            return 20.0*log10(gain)
+        }
+    }
+    
     private var lastKnownGain: Double = 1.0
     
     /// Tells whether or not the booster is actually changing the volume of its source.
