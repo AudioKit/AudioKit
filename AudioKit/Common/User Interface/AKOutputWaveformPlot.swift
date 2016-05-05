@@ -23,7 +23,7 @@ public class AKOutputWaveformPlot: EZAudioPlot {
         }
     }
 
-    internal let bufferSize: UInt32 = 512
+    internal let bufferSize: UInt32 = 1024
     
     deinit {
         AudioKit.engine.outputNode.removeTapOnBus(0)
