@@ -347,6 +347,7 @@
 				C472E19F1CD40E2000C748F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

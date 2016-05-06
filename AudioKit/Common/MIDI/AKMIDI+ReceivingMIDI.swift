@@ -46,16 +46,50 @@ extension AKMIDI {
             let inputNameStr = (tempName?.takeRetainedValue())! as String
             if namedInput.isEmpty || namedInput == inputNameStr {
                 
-                inputPorts.append(MIDIPortRef())
-                var port = inputPorts.last!
+                inputPorts[namedInput] = MIDIPortRef()
+                
+                var port = inputPorts[namedInput]!
+                
                 result = MIDIInputPortCreateWithBlock(
                     client, inputPortName, &port, MyMIDIReadBlock)
+                inputPorts[namedInput] = port
+                
                 if result != noErr {
                     print("Error creating midiInPort : \(result)")
                 }
                 MIDIPortConnectSource(port, src, nil)
+                endpoints[namedInput] = src
             }
         }
+    }
+    
+    /// Close a MIDI Input port
+    ///
+    /// - parameter namedInput: String containing the name of the MIDI Input
+    ///
+    public func closeInput(namedInput: String = "") {
+        var result = noErr
+        
+        for key in inputPorts.keys {
+            if namedInput.isEmpty || key == namedInput {
+                if let port = inputPorts[key], endpoint = endpoints[key] {
+                    
+                    result = MIDIPortDisconnectSource(port, endpoint)
+                    if result == noErr {
+                        endpoints.removeValueForKey(namedInput)
+                        inputPorts.removeValueForKey(namedInput)
+                    } else {
+                        print("Error closing midiInPort : \(result)")
+                    }
+                }
+            }
+        }
+    }
+    
+    /// Close all MIDI Input ports
+    ///
+    public func closeAllInputs() {
+        closeInput()
     }
     
     internal func handleMidiMessage(event: AKMIDIEvent) {
