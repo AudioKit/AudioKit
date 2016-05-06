@@ -28,8 +28,8 @@ public class AKMIDI {
     public var client = MIDIClientRef()
     
     /// Array of MIDI In ports
-    internal var inputPorts = [MIDIPortRef]()
-
+    internal var inputPorts = [String: MIDIPortRef]()
+    
     /// Virtual MIDI Input destination
     public var virtualInput = MIDIPortRef()
 
@@ -39,20 +39,14 @@ public class AKMIDI {
     /// MIDI In Port Name
     internal var inputPortName: CFString = "MIDI In Port"
     
-    /// MIDI End Point
-    private var endpoint: MIDIEndpointRef {
-        return endpoints[0]
-    }
-
     /// MIDI Out Port Reference
     internal var outputPort = MIDIPortRef()
 
     /// Virtual MIDI output
     internal var virtualOutput = MIDIPortRef()
-
     
     /// Array of MIDI Endpoints
-    internal var endpoints = [MIDIEndpointRef]()
+    internal var endpoints = [String: MIDIEndpointRef]()
     
     /// MIDI Out Port Name
     internal var outputPortName: CFString = "MIDI Out Port"

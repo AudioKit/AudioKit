@@ -26,6 +26,7 @@ class ViewController: NSViewController, AKMIDIListener {
     }
     
     @IBAction func sourceChanged(sender: NSPopUpButton) {
+        midi.closeAllInputs()
         midi.openInput(midi.inputNames[sender.indexOfSelectedItem])
     }
     
