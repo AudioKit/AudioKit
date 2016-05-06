@@ -137,7 +137,10 @@ public class AKSequencer {
     }
     
     /// Enable looping for all tracks with specified length
-    public func enableLooping(loopLength: Double) {
+    ///
+    /// - parameter loopLength: Loop length in beats
+    ///
+    public func enableLooping(loopLength: Beat) {
         if isAvSeq {
             for track in avSeq.tracks {
                 track.loopingEnabled = true
@@ -163,10 +166,10 @@ public class AKSequencer {
     
     ///  Set looping duration and count for all tracks
     ///
-    /// - parameter duration: Duration of the loop in seconds
+    /// - parameter duration: Duration of the loop in beats
     /// - parameter numberOfLoops: The number of time to repeat
     ///
-    public func setLoopInfo(duration: Double, numberOfLoops: Int) {
+    public func setLoopInfo(duration: Beat, numberOfLoops: Int) {
         if isAvSeq {
             //nothing yet
         } else {
@@ -179,9 +182,9 @@ public class AKSequencer {
     
     /// Set length of all tracks
     ///
-    /// - parameter length: Length of tracks in seconds
+    /// - parameter length: Length of tracks in beats
     ///
-    public func setLength(length: Double) {
+    public func setLength(length: Beat) {
         for track in tracks {
             track.setLength(length)
         }
@@ -194,7 +197,7 @@ public class AKSequencer {
     }
     
     /// Length of longest track in the sequence
-    public var length: Double {
+    public var length: Beat {
         
         var length: MusicTimeStamp = 0
         var tmpLength: MusicTimeStamp = 0
@@ -210,7 +213,7 @@ public class AKSequencer {
                 if tmpLength >= length { length = tmpLength }
             }
         }
-        return Double(length)
+        return Beat(length)
     }
     
     /// Set the rate relative to the the default BPM of the track
@@ -248,9 +251,9 @@ public class AKSequencer {
     /// Add a  tempo change to the score
     ///
     /// - parameter bpm: Tempo in beats per minute
-    /// - parameter position: Point in time in seconds
+    /// - parameter position: Point in time in beats
     ///
-    public func addTempoEvent(bpm: Double, position: Double) {
+    public func addTempoEvent(bpm: Double, position: Beat) {
         if isAvSeq {
             //not applicable
         } else {
@@ -270,8 +273,8 @@ public class AKSequencer {
     ///
     /// - parameter seconds: time in seconds
     ///
-    public func beatsForSeconds(seconds: Double) -> Double {
-        var outBeats: Double = MusicTimeStamp()
+    public func beatsForSeconds(seconds: Double) -> Beat {
+        var outBeats: Beat = MusicTimeStamp()
         MusicSequenceGetBeatsForSeconds(sequence, Float64(seconds), &outBeats)
         return outBeats
     }
@@ -280,7 +283,7 @@ public class AKSequencer {
     ///
     /// - parameter beats: number of beats (can be fractional)
     ///
-    public func secondsForBeats(beats: Double) -> Double {
+    public func secondsForBeats(beats: Beat) -> Double {
         var outSecs: Double = MusicTimeStamp()
         MusicSequenceGetSecondsForBeats(sequence, beats, &outSecs)
         return outSecs
@@ -411,7 +414,7 @@ public class AKSequencer {
     }
     
     /// Clear some events from the track
-    public func clearRange(start: Double, duration: Double) {
+    public func clearRange(start: Beat, duration: Beat) {
         if isAvSeq {
             //?
         } else {
@@ -455,11 +458,11 @@ public class AKSequencer {
         }
     }
     
-    public static func beatsFromSamples(samples: Int, fs: Int, bpm: Double) -> Double {
-        let timeInSecs = Double(samples)/Double(fs)
-        let beatsPerSec = bpm/60.0
-        let beatLenInSecs = Double(1.0/beatsPerSec)
-        let numBeats = timeInSecs/beatLenInSecs
+    public static func beatsFromSamples(samples: Int, fs: Int, bpm: Double) -> Beat {
+        let timeInSecs = Double(samples) / Double(fs)
+        let beatsPerSec = bpm / 60.0
+        let beatLenInSecs = Double(1.0 / beatsPerSec)
+        let numBeats = timeInSecs / beatLenInSecs
         return numBeats
     }
 }
