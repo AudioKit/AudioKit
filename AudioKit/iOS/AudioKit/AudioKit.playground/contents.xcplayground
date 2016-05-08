@@ -34,6 +34,7 @@
         <page name='FM Oscillator'/>
         <page name='FM Oscillator Operation'/>
         <page name='General Purpose Oscillator'/>
+        <page name='Graphic Equalizer'/>
         <page name='High Pass Butterworth Filter'/>
         <page name='High Pass Filter'/>
         <page name='High Pass Filter Operation'/>
