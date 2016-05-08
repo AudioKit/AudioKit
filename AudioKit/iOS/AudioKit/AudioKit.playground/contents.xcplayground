@@ -7,8 +7,8 @@
         <page name='AutoWah Operation'/>
         <page name='Auto Wah Wah'/>
         <page name='Balancing Nodes'/>
-        <page name='Band Pass Filter'/>
         <page name='Band Pass Butterworth Filter'/>
+        <page name='Band Pass Filter'/>
         <page name='Band Reject Butterworth Filter'/>
         <page name='Bit Crush Effect'/>
         <page name='Bit Crush Operation'/>
