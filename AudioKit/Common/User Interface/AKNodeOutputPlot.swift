@@ -23,7 +23,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
         }
     }
     
-    internal let bufferSize: UInt32 = 512
+    internal var bufferSize: UInt32 = 1024
     
     /// The node whose output to graph
     public var node: AKNode? {
@@ -54,11 +54,12 @@ public class AKNodeOutputPlot: EZAudioPlot {
     /// - parameter width: Width of the view
     /// - parameter height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect) {
+    public init(_ input: AKNode, frame: CGRect, bufferSize:Int = 1024) {
         super.init(frame: frame)
         self.plotType = .Buffer
         self.backgroundColor = AKColor.whiteColor()
         self.shouldCenterYAxis = true
+        self.bufferSize = UInt32(bufferSize)
         
         setupNode(input)
     }
