@@ -56,7 +56,10 @@ class PlaygroundView: AKPlaygroundView {
         releaseSlider = addSlider(#selector(setRelease), value: fmWithADSR.releaseDuration)
         
         durationLabel = addLabel("Hold Duration: \(holdDuration)")
-        durationSlider = addSlider(#selector(setDuration), value: 1.0, minimum: 0.0, maximum: 5.0)
+        durationSlider = addSlider(#selector(setDuration),
+                                   value: 1.0,
+                                   minimum: 0.0,
+                                   maximum: 5.0)
 
         addButton("Play Current", action: #selector(PlaygroundView.play))
         addButton("Randomize", action: #selector(randomize))
@@ -100,9 +103,9 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func randomize() {
-        fmWithADSR.attackDuration = random(0.01, 0.5)
-        fmWithADSR.decayDuration = random(0.01, 0.2)
-        fmWithADSR.sustainLevel = random(0.01, 1)
+        fmWithADSR.attackDuration  = random(0.01, 0.5)
+        fmWithADSR.decayDuration   = random(0.01, 0.2)
+        fmWithADSR.sustainLevel    = random(0.01, 1)
         fmWithADSR.releaseDuration = random(0.01, 1)
         holdDuration = fmWithADSR.attackDuration + fmWithADSR.decayDuration + 0.5
 

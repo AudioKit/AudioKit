@@ -176,13 +176,17 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        // For each sample.
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
             int frameOffset = int(frameIndex + bufferOffset);
 
-            oscmorph->freq = frequencyRamper.getAndStep() * detuningMultiplier + detuningOffset;
-            oscmorph->amp = amplitudeRamper.getAndStep();
+            frequency = double(frequencyRamper.getAndStep());
+            amplitude = double(amplitudeRamper.getAndStep());
+            detuningOffset = double(detuningOffsetRamper.getAndStep());
+            detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
+            
+            oscmorph->freq = frequency * detuningMultiplier + detuningOffset;
+            oscmorph->amp = amplitude;
             oscmorph->wtpos = indexRamper.getAndStep();
             
             float temp = 0;
