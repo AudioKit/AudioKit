@@ -133,7 +133,7 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        // For each sample.
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
@@ -145,16 +145,15 @@ public:
             resonance = resonanceRamper.getAndStep();
             lpf18->res = (float)resonance;
 
-            if (!started) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-                return;
-            }
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_lpf18_compute(sp, lpf18, in, out);
+                if (started) {
+                    sp_lpf18_compute(sp, lpf18, in, out);
+                } else {
+                    *out = *in;
+                }
             }
         }
     }
