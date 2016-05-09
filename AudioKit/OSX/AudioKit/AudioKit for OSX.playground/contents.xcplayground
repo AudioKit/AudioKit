@@ -7,7 +7,9 @@
         <page name='AutoWah Operation'/>
         <page name='Auto Wah Wah'/>
         <page name='Balancing Nodes'/>
+        <page name='Band Pass Butterworth Filter'/>
         <page name='Band Pass Filter'/>
+        <page name='Band Reject Butterworth Filter'/>
         <page name='Bit Crush Effect'/>
         <page name='Bit Crush Operation'/>
         <page name='Clip Operation'/>
@@ -30,12 +32,15 @@
         <page name='FM Oscillator'/>
         <page name='FM Oscillator Operation'/>
         <page name='General Purpose Oscillator'/>
+        <page name='Graphic Equalizer'/>
+        <page name='High Pass Butterworth Filter'/>
         <page name='High Pass Filter'/>
         <page name='High Pass Filter Operation'/>
         <page name='High Shelf Filter'/>
         <page name='Introduction and Hello World'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Linear and Exponential Segment Operations'/>
+        <page name='Low Pass Butterworth Filter'/>
         <page name='Low Pass Filter'/>
         <page name='Low Pass Filter Operation'/>
         <page name='Low Shelf Filter'/>
@@ -82,6 +87,8 @@
         <page name='Sporth Based Effect'/>
         <page name='Square Wave Oscillator'/>
         <page name='Stereo Panning'/>
+        <page name='String Resonator'/>
+        <page name='Tanh Distortion'/>
         <page name='Telephone'/>
         <page name='Time Stretching and Pitch Shifting'/>
         <page name='Tracking Amplitude'/>
@@ -94,5 +101,6 @@
         <page name='Variable Delay'/>
         <page name='Variable Delay Operation'/>
         <page name='XY Pad'/>
+        <page name='Filter Envelope'/>
     </pages>
 </playground>
