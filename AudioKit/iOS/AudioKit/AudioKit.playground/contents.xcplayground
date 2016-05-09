@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -94,7 +94,9 @@
         <page name='String Resonator'/>
         <page name='Tanh Distortion'/>
         <page name='Telephone'/>
+        <page name='Three-Pole Low Pass Filter'/>
         <page name='Time Stretching and Pitch Shifting'/>
+        <page name='Tone and Tone Complement Filters'/>
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency'/>
         <page name='Tracking Frequency of Audio File'/>
