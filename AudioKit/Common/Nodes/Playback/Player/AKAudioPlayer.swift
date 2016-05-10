@@ -194,5 +194,6 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat,
                                            frameCapacity: audioFrameCount)
         try! audioFile.readIntoBuffer(audioFileBuffer)
+        totalFrameCount = Int64(audioFrameCount)
     }
 }
