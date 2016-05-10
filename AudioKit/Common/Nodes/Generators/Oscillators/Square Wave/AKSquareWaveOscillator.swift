@@ -48,7 +48,11 @@ public class AKSquareWaveOscillator: AKVoice {
     public var frequency: Double = 440 {
         willSet(newValue) {
             if frequency != newValue {
-                frequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    frequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.frequency = Float(newValue)
+                }
             }
         }
     }
@@ -57,7 +61,37 @@ public class AKSquareWaveOscillator: AKVoice {
     public var amplitude: Double = 1 {
         willSet(newValue) {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.amplitude = Float(newValue)
+                }
+            }
+        }
+    }
+    
+    /// Frequency offset in Hz.
+    public var detuningOffset: Double = 0 {
+        willSet(newValue) {
+            if detuningOffset != newValue {
+                if internalAU!.isSetUp() {
+                    detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.detuningOffset = Float(newValue)
+                }
+            }
+        }
+    }
+    
+    /// Frequency detuning multiplier
+    public var detuningMultiplier: Double = 1 {
+        willSet(newValue) {
+            if detuningMultiplier != newValue {
+                if internalAU!.isSetUp() {
+                    detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.detuningMultiplier = Float(newValue)
+                }
             }
         }
     }
@@ -67,24 +101,11 @@ public class AKSquareWaveOscillator: AKVoice {
         willSet(newValue) {
             if pulseWidth != newValue {
                 pulseWidthParameter?.setValue(Float(newValue), originator: token!)
-            }
-        }
-    }
-    
-    /// Frequency offset in Hz.
-    public var detuningOffset: Double = 0 {
-        willSet(newValue) {
-            if detuningOffset != newValue {
-                detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
-            }
-        }
-    }
-    
-    /// Frequency detuning multiplier
-    public var detuningMultiplier: Double = 1 {
-        willSet(newValue) {
-            if detuningMultiplier != newValue {
-                detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    pulseWidthParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.pulseWidth = Float(newValue)
+                }
             }
         }
     }

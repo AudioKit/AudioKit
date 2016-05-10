@@ -20,7 +20,6 @@ public class AKTanhDistortion: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKTanhDistortionAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -29,11 +28,25 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     private var postiveShapeParameterParameter: AUParameter?
     private var negativeShapeParameterParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     public var pregain: Double = 2.0 {
         willSet(newValue) {
             if pregain != newValue {
-                pregainParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    pregainParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.pregain = Float(newValue)
+                }
             }
         }
     }
@@ -41,7 +54,11 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     public var postgain: Double = 0.5 {
         willSet(newValue) {
             if postgain != newValue {
-                postgainParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    postgainParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.postgain = Float(newValue)
+                }
             }
         }
     }
@@ -49,7 +66,11 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     public var postiveShapeParameter: Double = 0.0 {
         willSet(newValue) {
             if postiveShapeParameter != newValue {
-                postiveShapeParameterParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    postiveShapeParameterParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.postiveShapeParameter = Float(newValue)
+                }
             }
         }
     }
@@ -57,7 +78,11 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     public var negativeShapeParameter: Double = 0.0 {
         willSet(newValue) {
             if negativeShapeParameter != newValue {
-                negativeShapeParameterParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    negativeShapeParameterParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.negativeShapeParameter = Float(newValue)
+                }
             }
         }
     }
@@ -137,12 +162,12 @@ public class AKTanhDistortion: AKNode, AKToggleable {
                 }
             }
         }
-        pregainParameter?.setValue(Float(pregain), originator: token!)
-        postgainParameter?.setValue(Float(postgain), originator: token!)
-        postiveShapeParameterParameter?.setValue(Float(postiveShapeParameter), originator: token!)
-        negativeShapeParameterParameter?.setValue(Float(negativeShapeParameter), originator: token!)
+        internalAU?.pregain = Float(pregain)
+        internalAU?.postgain = Float(postgain)
+        internalAU?.postiveShapeParameter = Float(postiveShapeParameter)
+        internalAU?.negativeShapeParameter = Float(negativeShapeParameter)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

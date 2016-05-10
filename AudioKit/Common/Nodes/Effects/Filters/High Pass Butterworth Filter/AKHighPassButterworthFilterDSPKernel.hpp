@@ -55,7 +55,14 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setCutoffFrequency(float freq) {
+        cutoffFrequency = freq;
+        cutoffFrequencyRamper.setImmediate(freq);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -92,10 +99,10 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double cutoffFrequency = double(cutoffFrequencyRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            cutoffFrequency = cutoffFrequencyRamper.getAndStep();
             buthp->freq = (float)cutoffFrequency;
 
             if (!started) {
@@ -125,8 +132,11 @@ private:
     sp_data *sp;
     sp_buthp *buthp;
 
+    float cutoffFrequency = 500;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper cutoffFrequencyRamper = 500;
 };
 

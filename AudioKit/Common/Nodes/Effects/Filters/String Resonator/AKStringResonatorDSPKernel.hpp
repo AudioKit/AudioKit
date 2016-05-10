@@ -57,7 +57,19 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setFundamentalFrequency(float freq) {
+        fundamentalFrequency = freq;
+        fundamentalFrequencyRamper.setImmediate(freq);
+    }
+
+    void setFeedback(float fdbgain) {
+        feedback = fdbgain;
+        feedbackRamper.setImmediate(fdbgain);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -105,12 +117,12 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double fundamentalFrequency = double(fundamentalFrequencyRamper.getAndStep());
-            double feedback = double(feedbackRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            fundamentalFrequency = fundamentalFrequencyRamper.getAndStep();
             streson->freq = (float)fundamentalFrequency;
+            feedback = feedbackRamper.getAndStep();
             streson->fdbgain = (float)feedback;
 
             if (!started) {
@@ -140,8 +152,12 @@ private:
     sp_data *sp;
     sp_streson *streson;
 
+    float fundamentalFrequency = 100;
+    float feedback = 0.95;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper fundamentalFrequencyRamper = 100;
     ParameterRamper feedbackRamper = 0.95;
 };

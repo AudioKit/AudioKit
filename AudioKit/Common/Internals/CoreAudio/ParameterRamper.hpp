@@ -22,7 +22,8 @@ class ParameterRamper {
     AUAudioFrameCount samplesRemaining;
     volatile int32_t changeCounter = 0;
     int32_t updateCounter = 0;
-    
+
+public:
     void setImmediate(float value) {
         // only to be called from the render thread or when resources are not allocated.
         _goal = _uiValue = value;
@@ -30,7 +31,7 @@ class ParameterRamper {
         samplesRemaining = 0;
     }
     
-public:
+
     ParameterRamper(float value) {
         setImmediate(value);
     }

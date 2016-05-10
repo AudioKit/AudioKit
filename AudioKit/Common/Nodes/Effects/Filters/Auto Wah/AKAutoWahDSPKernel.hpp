@@ -59,7 +59,24 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setWah(float wah) {
+        wah = wah;
+        wahRamper.setImmediate(wah);
+    }
+
+    void setMix(float mix) {
+        mix = mix;
+        mixRamper.setImmediate(mix);
+    }
+
+    void setAmplitude(float level) {
+        amplitude = level;
+        amplitudeRamper.setImmediate(level);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -118,14 +135,14 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double wah = double(wahRamper.getAndStep());
-            double mix = double(mixRamper.getAndStep());
-            double amplitude = double(amplitudeRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            wah = wahRamper.getAndStep();
             *autowah->wah = (float)wah;
+            mix = mixRamper.getAndStep();
             *autowah->mix = (float)mix;
+            amplitude = amplitudeRamper.getAndStep();
             *autowah->level = (float)amplitude;
 
             if (!started) {
@@ -155,8 +172,13 @@ private:
     sp_data *sp;
     sp_autowah *autowah;
 
+    float wah = 0;
+    float mix = 100;
+    float amplitude = 0.1;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper wahRamper = 0;
     ParameterRamper mixRamper = 100;
     ParameterRamper amplitudeRamper = 0.1;

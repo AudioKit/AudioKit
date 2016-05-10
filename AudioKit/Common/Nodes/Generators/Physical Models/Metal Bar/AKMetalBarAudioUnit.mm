@@ -32,26 +32,26 @@
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setLeftboundarycondition:(float)leftBoundaryCondition {
-    _kernel.setLeftboundarycondition(leftBoundaryCondition);
+- (void)setLeftBoundaryCondition:(float)leftBoundaryCondition {
+    _kernel.setLeftBoundaryCondition(leftBoundaryCondition);
 }
-- (void)setRightboundarycondition:(float)rightBoundaryCondition {
-    _kernel.setRightboundarycondition(rightBoundaryCondition);
+- (void)setRightBoundaryCondition:(float)rightBoundaryCondition {
+    _kernel.setRightBoundaryCondition(rightBoundaryCondition);
 }
-- (void)setDecayduration:(float)decayDuration {
-    _kernel.setDecayduration(decayDuration);
+- (void)setDecayDuration:(float)decayDuration {
+    _kernel.setDecayDuration(decayDuration);
 }
-- (void)setScanspeed:(float)scanSpeed {
-    _kernel.setScanspeed(scanSpeed);
+- (void)setScanSpeed:(float)scanSpeed {
+    _kernel.setScanSpeed(scanSpeed);
 }
 - (void)setPosition:(float)position {
     _kernel.setPosition(position);
 }
-- (void)setStrikevelocity:(float)strikeVelocity {
-    _kernel.setStrikevelocity(strikeVelocity);
+- (void)setStrikeVelocity:(float)strikeVelocity {
+    _kernel.setStrikeVelocity(strikeVelocity);
 }
-- (void)setStrikewidth:(float)strikeWidth {
-    _kernel.setStrikewidth(strikeWidth);
+- (void)setStrikeWidth:(float)strikeWidth {
+    _kernel.setStrikeWidth(strikeWidth);
 }
 
 - (void)trigger {
@@ -68,6 +68,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -171,7 +175,6 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
-    _rampTime = AKSettings.rampTime;
 
     // Initialize the parameter values.
     leftBoundaryConditionAUParameter.value = 1;
@@ -181,6 +184,8 @@
     positionAUParameter.value = 0.2;
     strikeVelocityAUParameter.value = 500;
     strikeWidthAUParameter.value = 0.05;
+
+    _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(leftBoundaryConditionAddress,  leftBoundaryConditionAUParameter.value);
     _kernel.setParameter(rightBoundaryConditionAddress, rightBoundaryConditionAUParameter.value);

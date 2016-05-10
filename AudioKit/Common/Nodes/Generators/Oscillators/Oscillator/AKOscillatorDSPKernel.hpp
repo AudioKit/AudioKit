@@ -68,26 +68,27 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
 
     void setFrequency(float freq) {
         frequency = freq;
-        frequencyRamper.setUIValue(clamp(freq, (float)0, (float)20000));
+        frequencyRamper.setImmediate(frequency);
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)10));
+        amplitudeRamper.setImmediate(amplitude);
     }
 
     void setDetuningOffset(float detuneOffset) {
         detuningOffset = detuneOffset;
-        detuningOffsetRamper.setUIValue(clamp(detuneOffset, (float)-1000, (float)1000));
+        detuningOffsetRamper.setImmediate(detuneOffset);
     }
 
     void setDetuningMultiplier(float detuneScale) {
         detuningMultiplier = detuneScale;
-        detuningMultiplierRamper.setUIValue(clamp(detuneScale, (float)0.9, (float)1.11));
+        detuningMultiplierRamper.setImmediate(detuneScale);
     }
 
 
@@ -205,6 +206,7 @@ private:
 
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper frequencyRamper = 440;
     ParameterRamper amplitudeRamper = 1;
     ParameterRamper detuningOffsetRamper = 0;

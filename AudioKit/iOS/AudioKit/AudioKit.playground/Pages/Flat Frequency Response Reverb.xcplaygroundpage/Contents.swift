@@ -27,7 +27,7 @@ class PlaygroundView: AKPlaygroundView {
     var durationLabel: Label?
 
     override func setup() {
-        addTitle("Comb Filter Reverb")
+        addTitle("Flat Frequency Response Reverb")
 
         addLabel("Audio Playback")
         addButton("Start", action: #selector(start))

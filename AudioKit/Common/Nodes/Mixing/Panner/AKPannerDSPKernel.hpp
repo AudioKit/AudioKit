@@ -55,7 +55,14 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setPan(float pan) {
+        pan = pan;
+        panRamper.setImmediate(pan);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -90,20 +97,19 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
-        if (!started) {
-            outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-            outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-            return;
-        }
-        
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double pan = double(panRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            pan = panRamper.getAndStep();
             panst->pan = (float)pan;
+
+            if (!started) {
+                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
+                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
+                return;
+            }
             
             float *tmpin[2];
             float *tmpout[2];
@@ -132,9 +138,12 @@ private:
 
     sp_data *sp;
     sp_panst *panst;
+    
+    float pan = 0.0;
 
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper panRamper = 0;
 };
 

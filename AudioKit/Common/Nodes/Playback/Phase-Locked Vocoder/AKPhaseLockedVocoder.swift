@@ -42,23 +42,37 @@ public class AKPhaseLockedVocoder: AKNode {
     public var position: Double = 0 {
         willSet(newValue) {
             if position != newValue {
-                positionParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    positionParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.position = Float(newValue)
+                }
             }
         }
     }
+    
     /// Amplitude.
     public var amplitude: Double = 1 {
         willSet(newValue) {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.amplitude = Float(newValue)
+                }
             }
         }
     }
+    
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     public var pitchRatio: Double = 1 {
         willSet(newValue) {
             if pitchRatio != newValue {
-                pitchRatioParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    pitchRatioParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.pitchRatio = Float(newValue)
+                }
             }
         }
     }
@@ -69,6 +83,7 @@ public class AKPhaseLockedVocoder: AKNode {
     }
 
     private var audioFileURL: CFURL
+    
     // MARK: - Initialization
 
     /// Initialize this Phase-Locked Vocoder node
@@ -84,61 +99,61 @@ public class AKPhaseLockedVocoder: AKNode {
         amplitude: Double = 1,
         pitchRatio: Double = 1) {
 
-            self.position = position
-            self.amplitude = amplitude
-            self.pitchRatio = pitchRatio
-            self.audioFileURL = audioFileURL
-
-            var description = AudioComponentDescription()
-            description.componentType         = kAudioUnitType_Generator
-            description.componentSubType      = 0x6d696e63 /*'minc'*/
-            description.componentManufacturer = 0x41754b74 /*'AuKt'*/
-            description.componentFlags        = 0
-            description.componentFlagsMask    = 0
-
-            AUAudioUnit.registerSubclass(
-                AKPhaseLockedVocoderAudioUnit.self,
-                asComponentDescription: description,
-                name: "Local AKPhaseLockedVocoder",
-                version: UInt32.max)
-
-            super.init()
-
-            AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
-                avAudioUnit, error in
-
-                guard let avAudioUnitGenerator = avAudioUnit else { return }
-
-                self.avAudioNode = avAudioUnitGenerator
-                self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPhaseLockedVocoderAudioUnit
-
-                AudioKit.engine.attachNode(self.avAudioNode)
-            }
-
-            guard let tree = internalAU?.parameterTree else { return }
-
-            positionParameter   = tree.valueForKey("position")   as? AUParameter
-            amplitudeParameter  = tree.valueForKey("amplitude")  as? AUParameter
-            pitchRatioParameter = tree.valueForKey("pitchRatio") as? AUParameter
-
-            token = tree.tokenByAddingParameterObserver {
-                address, value in
-
-                dispatch_async(dispatch_get_main_queue()) {
-                    if address == self.positionParameter!.address {
-                        self.position = Double(value)
-                    } else if address == self.amplitudeParameter!.address {
-                        self.amplitude = Double(value)
-                    } else if address == self.pitchRatioParameter!.address {
-                        self.pitchRatio = Double(value)
-                    }
+        self.position = position
+        self.amplitude = amplitude
+        self.pitchRatio = pitchRatio
+        self.audioFileURL = audioFileURL
+        
+        var description = AudioComponentDescription()
+        description.componentType         = kAudioUnitType_Generator
+        description.componentSubType      = 0x6d696e63 /*'minc'*/
+        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentFlags        = 0
+        description.componentFlagsMask    = 0
+        
+        AUAudioUnit.registerSubclass(
+            AKPhaseLockedVocoderAudioUnit.self,
+            asComponentDescription: description,
+            name: "Local AKPhaseLockedVocoder",
+            version: UInt32.max)
+        
+        super.init()
+        
+        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+            avAudioUnit, error in
+            
+            guard let avAudioUnitGenerator = avAudioUnit else { return }
+            
+            self.avAudioNode = avAudioUnitGenerator
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPhaseLockedVocoderAudioUnit
+            
+            AudioKit.engine.attachNode(self.avAudioNode)
+        }
+        
+        guard let tree = internalAU?.parameterTree else { return }
+        
+        positionParameter   = tree.valueForKey("position")   as? AUParameter
+        amplitudeParameter  = tree.valueForKey("amplitude")  as? AUParameter
+        pitchRatioParameter = tree.valueForKey("pitchRatio") as? AUParameter
+        
+        token = tree.tokenByAddingParameterObserver {
+            address, value in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if address == self.positionParameter!.address {
+                    self.position = Double(value)
+                } else if address == self.amplitudeParameter!.address {
+                    self.amplitude = Double(value)
+                } else if address == self.pitchRatioParameter!.address {
+                    self.pitchRatio = Double(value)
                 }
             }
-            positionParameter?.setValue(Float(position), originator: token!)
-            amplitudeParameter?.setValue(Float(amplitude), originator: token!)
-            pitchRatioParameter?.setValue(Float(pitchRatio), originator: token!)
+        }
+        internalAU?.position = Float(position)
+        internalAU?.amplitude = Float(amplitude)
+        internalAU?.pitchRatio = Float(pitchRatio)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
@@ -209,5 +224,4 @@ public class AKPhaseLockedVocoder: AKNode {
     public func stop() {
         internalAU!.stop()
     }
-
 }

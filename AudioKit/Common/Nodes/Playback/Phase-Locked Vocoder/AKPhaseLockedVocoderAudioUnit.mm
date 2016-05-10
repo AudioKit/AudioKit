@@ -39,7 +39,7 @@
     _kernel.setAmplitude(amplitude);
 }
 - (void)setPitchRatio:(float)pitchRatio {
-    _kernel.setPitchratio(pitchRatio);
+    _kernel.setPitchRatio(pitchRatio);
 }
 
 - (void)setupAudioFileTable:(float *)data size:(UInt32)size {
@@ -56,6 +56,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -80,7 +84,7 @@
                                               name:@"Position in time. When non-changing it will do a spectral freeze of a the current point in time."
                                            address:positionAddress
                                                min:0
-                                               max:1000000
+                                               max:1
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
@@ -103,7 +107,7 @@
     [AUParameterTree createParameterWithIdentifier:@"pitchRatio"
                                               name:@"Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc."
                                            address:pitchRatioAddress
-                                               min:-1000
+                                               min:0
                                                max:1000
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
@@ -111,10 +115,12 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     positionAUParameter.value = 0;
     amplitudeAUParameter.value = 1;
     pitchRatioAUParameter.value = 1;
+
     _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(positionAddress,   positionAUParameter.value);
@@ -182,7 +188,7 @@
     _kernel.reset();
 
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -192,15 +198,14 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
 }
-
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];

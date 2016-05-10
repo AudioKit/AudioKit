@@ -20,6 +20,7 @@
 - (void)stop;
 - (BOOL)isPlaying;
 - (void)setUpParameterRamp;
+- (BOOL)isSetUp;
 
 @property double rampTime;
 

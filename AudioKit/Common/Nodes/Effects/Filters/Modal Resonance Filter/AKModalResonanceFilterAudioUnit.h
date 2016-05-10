@@ -12,10 +12,14 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKModalResonanceFilterAudioUnit : AUAudioUnit
+@property (nonatomic) float frequency;
+@property (nonatomic) float qualityFactor;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
 - (void)setUpParameterRamp;
+- (BOOL)isSetUp;
 
 @property double rampTime;
 

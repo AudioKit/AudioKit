@@ -16,6 +16,7 @@ AudioKit.start()
 phaseLockedVocoder.start()
 phaseLockedVocoder.amplitude = 1
 phaseLockedVocoder.pitchRatio = 1
+phaseLockedVocoder.rampTime = 0.1
 
 var timeStep = 0.1
 
