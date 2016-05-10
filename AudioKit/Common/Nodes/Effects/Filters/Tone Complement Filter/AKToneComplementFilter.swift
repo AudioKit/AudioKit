@@ -17,17 +17,30 @@ public class AKToneComplementFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKToneComplementFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var halfPowerPointParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     public var halfPowerPoint: Double = 1000 {
         willSet(newValue) {
             if halfPowerPoint != newValue {
-                halfPowerPointParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    halfPowerPointParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.halfPowerPoint = Float(newValue)
+                }
             }
         }
     }
@@ -89,9 +102,9 @@ public class AKToneComplementFilter: AKNode, AKToggleable {
                 }
             }
         }
-        halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
+        internalAU?.halfPowerPoint = Float(halfPowerPoint)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

@@ -45,7 +45,11 @@ public class AKFMOscillator: AKVoice {
     public var baseFrequency: Double = 440 {
         willSet(newValue) {
             if baseFrequency != newValue {
-                baseFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    baseFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.baseFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -54,7 +58,11 @@ public class AKFMOscillator: AKVoice {
     public var carrierMultiplier: Double = 1.0 {
         willSet(newValue) {
             if carrierMultiplier != newValue {
-                carrierMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    carrierMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.carrierMultiplier = Float(newValue)
+                }
             }
         }
     }
@@ -63,7 +71,11 @@ public class AKFMOscillator: AKVoice {
     public var modulatingMultiplier: Double = 1 {
         willSet(newValue) {
             if modulatingMultiplier != newValue {
-                modulatingMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    modulatingMultiplierParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.modulatingMultiplier = Float(newValue)
+                }
             }
         }
     }
@@ -72,7 +84,11 @@ public class AKFMOscillator: AKVoice {
     public var modulationIndex: Double = 1 {
         willSet(newValue) {
             if modulationIndex != newValue {
-                modulationIndexParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    modulationIndexParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.modulationIndex = Float(newValue)
+                }
             }
         }
     }
@@ -81,7 +97,11 @@ public class AKFMOscillator: AKVoice {
     public var amplitude: Double = 1 {
         willSet(newValue) {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.amplitude = Float(newValue)
+                }
             }
         }
     }

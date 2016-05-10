@@ -40,6 +40,7 @@ public:
         sp->sr = sampleRate;
         sp->nchan = channels;
         sp_adsr_create(&adsr);
+
     }
 
     void start() {
@@ -68,7 +69,29 @@ public:
         adsr->dec = 0.1;
         adsr->sus = 1.0;
         adsr->rel = 0.1;
+        resetted = true;
     }
+
+    void setAttackDuration(float atk) {
+        attackDuration = atk;
+        attackDurationRamper.setImmediate(atk);
+    }
+
+    void setDecayDuration(float dec) {
+        decayDuration = dec;
+        decayDurationRamper.setImmediate(dec);
+    }
+
+    void setSustainLevel(float sus) {
+        sustainLevel = sus;
+        sustainLevelRamper.setImmediate(sus);
+    }
+
+    void setReleaseDuration(float rel) {
+        releaseDuration = rel;
+        releaseDurationRamper.setImmediate(rel);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -138,17 +161,20 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
-            
-            adsr->atk = attackDurationRamper.getAndStep();
-            adsr->dec = decayDurationRamper.getAndStep();
-            adsr->sus = sustainLevelRamper.getAndStep();
-            adsr->rel = releaseDurationRamper.getAndStep();
-            
-//            NSLog(@"%f %f", adsr->atk, adsr->rel);
+
+            attackDuration = attackDurationRamper.getAndStep();
+            adsr->atk = (float)attackDuration;
+            decayDuration = decayDurationRamper.getAndStep();
+            adsr->dec = (float)decayDuration;
+            sustainLevel = sustainLevelRamper.getAndStep();
+            adsr->sus = (float)sustainLevel;
+            releaseDuration = releaseDurationRamper.getAndStep();
+            adsr->rel = (float)releaseDuration;
 
             sp_adsr_compute(sp, adsr, &internalGate, &amp);
-
+            
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
@@ -172,8 +198,14 @@ private:
     sp_data *sp;
     sp_adsr *adsr;
 
+    float attackDuration = 0.1;
+    float decayDuration = 0.1;
+    float sustainLevel = 1.0;
+    float releaseDuration = 0.1;
+
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper attackDurationRamper = 0.1;
     ParameterRamper decayDurationRamper = 0.1;
     ParameterRamper sustainLevelRamper = 1.0;

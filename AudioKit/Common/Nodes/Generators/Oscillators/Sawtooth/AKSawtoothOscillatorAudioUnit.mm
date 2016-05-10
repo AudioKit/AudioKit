@@ -58,6 +58,10 @@
     return _kernel.started;
 }
 
+- (BOOL)isSetUp {
+    return _kernel.resetted;
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {

@@ -61,7 +61,29 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setCutoffFrequency(float fco) {
+        cutoffFrequency = fco;
+        cutoffFrequencyRamper.setImmediate(fco);
+    }
+
+    void setResonance(float res) {
+        resonance = res;
+        resonanceRamper.setImmediate(res);
+    }
+
+    void setDistortion(float dist) {
+        distortion = dist;
+        distortionRamper.setImmediate(dist);
+    }
+
+    void setResonanceAsymmetry(float asym) {
+        resonanceAsymmetry = asym;
+        resonanceAsymmetryRamper.setImmediate(asym);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -131,16 +153,16 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double cutoffFrequency = double(cutoffFrequencyRamper.getAndStep());
-            double resonance = double(resonanceRamper.getAndStep());
-            double distortion = double(distortionRamper.getAndStep());
-            double resonanceAsymmetry = double(resonanceAsymmetryRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            cutoffFrequency = cutoffFrequencyRamper.getAndStep();
             tbvcf->fco = (float)cutoffFrequency;
+            resonance = resonanceRamper.getAndStep();
             tbvcf->res = (float)resonance;
+            distortion = distortionRamper.getAndStep();
             tbvcf->dist = (float)distortion;
+            resonanceAsymmetry = resonanceAsymmetryRamper.getAndStep();
             tbvcf->asym = (float)resonanceAsymmetry;
 
             if (!started) {
@@ -170,8 +192,14 @@ private:
     sp_data *sp;
     sp_tbvcf *tbvcf;
 
+    float cutoffFrequency = 500;
+    float resonance = 0.5;
+    float distortion = 2.0;
+    float resonanceAsymmetry = 0.5;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper cutoffFrequencyRamper = 500;
     ParameterRamper resonanceRamper = 0.5;
     ParameterRamper distortionRamper = 2.0;

@@ -34,6 +34,7 @@ public:
         channels = channelCount;
 
         sampleRate = float(inSampleRate);
+
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = channels;
@@ -65,21 +66,22 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
 
     void setPosition(float time) {
         position = time;
-        positionRamper.setUIValue(clamp(time, (float)0, (float)1000000));
+        positionRamper.setImmediate(time);
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)1));
+        amplitudeRamper.setImmediate(amp);
     }
 
-    void setPitchratio(float pitch) {
+    void setPitchRatio(float pitch) {
         pitchRatio = pitch;
-        pitchRatioRamper.setUIValue(clamp(pitch, (float)-1000, (float)1000));
+        pitchRatioRamper.setImmediate(pitch);
     }
 
 
@@ -139,6 +141,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
             
             position = double(positionRamper.getAndStep());
@@ -183,6 +186,7 @@ private:
 
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper positionRamper = 0;
     ParameterRamper amplitudeRamper = 1;
     ParameterRamper pitchRatioRamper = 1;

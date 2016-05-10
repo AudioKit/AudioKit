@@ -19,7 +19,6 @@ public class AKAutoWah: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKAutoWahAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -27,11 +26,25 @@ public class AKAutoWah: AKNode, AKToggleable {
     private var mixParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Wah Amount
     public var wah: Double = 0 {
         willSet(newValue) {
             if wah != newValue {
-                wahParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    wahParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.wah = Float(newValue)
+                }
             }
         }
     }
@@ -39,7 +52,11 @@ public class AKAutoWah: AKNode, AKToggleable {
     public var mix: Double = 1 {
         willSet(newValue) {
             if mix != newValue {
-                mixParameter?.setValue(Float(newValue * 100.0), originator: token!)
+                if internalAU!.isSetUp() {
+                    mixParameter?.setValue(Float(newValue * 100.0), originator: token!)
+                } else {
+                    internalAU?.mix = Float(newValue * 100.0)
+                }
             }
         }
     }
@@ -47,7 +64,11 @@ public class AKAutoWah: AKNode, AKToggleable {
     public var amplitude: Double = 0.1 {
         willSet(newValue) {
             if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    amplitudeParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.amplitude = Float(newValue)
+                }
             }
         }
     }
@@ -121,11 +142,11 @@ public class AKAutoWah: AKNode, AKToggleable {
                 }
             }
         }
-        wahParameter?.setValue(Float(wah), originator: token!)
-        mixParameter?.setValue(Float(mix * 100.0), originator: token!)
-        amplitudeParameter?.setValue(Float(amplitude), originator: token!)
+        internalAU?.wah = Float(wah)
+        internalAU?.mix = Float(mix * 100.0)
+        internalAU?.amplitude = Float(amplitude)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

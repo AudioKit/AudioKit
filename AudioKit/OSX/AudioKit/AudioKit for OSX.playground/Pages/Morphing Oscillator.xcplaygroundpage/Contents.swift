@@ -55,13 +55,13 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func setFrequency(slider: Slider) {
-        morph.ramp(frequency: Double(slider.value))
+        morph.frequency = Double(slider.value)
         let frequency = String(format: "%0.1f", morph.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
     }
 
     func setAmplitude(slider: Slider) {
-        morph.ramp(amplitude: Double(slider.value))
+        morph.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", morph.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }

@@ -436,7 +436,7 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("                    <array>\n")
         return str
     }
-    static public func generateZone(id: Int, rootNote: Int, startNote: Int, endNote: Int, wavRef: Int = 268435457, offset: Int = 0) -> String {
+    static public func generateZone(id: Int, rootNote: Int, startNote: Int, endNote: Int, wavRef: Int = 268435457, offset: Int = 0, loopEnabled:Bool = false) -> String {
         let wavRefNum = wavRef+offset
         var str = ""
         str.appendContentsOf("                    <dict>\n")
@@ -445,7 +445,7 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("                        <key>enabled</key>\n")
         str.appendContentsOf("                        <true/>\n")
         str.appendContentsOf("                        <key>loop enabled</key>\n")
-        str.appendContentsOf("                        <false/>\n")
+        str.appendContentsOf("                        <\((loopEnabled ? "true" : "false"))/>\n")
         str.appendContentsOf("                        <key>max key</key>\n")
         str.appendContentsOf("                        <integer>\(endNote)</integer>\n")
         str.appendContentsOf("                        <key>min key</key>\n")
@@ -460,6 +460,20 @@ public class AKAUPresetBuilder {
     static public func closeZones() -> String {
         var str = ""
         str.appendContentsOf("                    </array>\n")
+        return str
+    }
+    static public func layerIgnoreNoteOff(ignore: Bool = false) -> String {
+        var str = ""
+        if ignore{
+            str.appendContentsOf("        <key>trigger mode</key>\n")
+            str.appendContentsOf("        <integer>11</integer>\n")
+        }
+        return str
+    }
+    static public func layerSetVoiceCount(count: Int = 16) -> String {
+        var str = ""
+        str.appendContentsOf("        <key>voice count</key>\n")
+        str.appendContentsOf("        <integer>\(count)</integer>\n")
         return str
     }
     static public func closeLayer() -> String {
@@ -569,7 +583,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static public func generateLayer(connections: String, envelopes: String = "", filter: String = "", lfos: String = "", zones: String = "", layer: Int = 0) -> String {
+    static public func generateLayer(connections: String, envelopes: String = "", filter: String = "", lfos: String = "", zones: String = "", layer: Int = 0, numVoices: Int = 16, ignoreNoteOff: Bool = false) -> String {
         var str = ""
         str.appendContentsOf(openLayer())
         str.appendContentsOf(openConnections())
@@ -587,6 +601,8 @@ public class AKAUPresetBuilder {
         str.appendContentsOf(openZones())
         str.appendContentsOf(zones)
         str.appendContentsOf(closeZones())
+        str.appendContentsOf(layerIgnoreNoteOff(ignoreNoteOff))
+        str.appendContentsOf(layerSetVoiceCount(numVoices))
         str.appendContentsOf(closeLayer())
         return str
     }

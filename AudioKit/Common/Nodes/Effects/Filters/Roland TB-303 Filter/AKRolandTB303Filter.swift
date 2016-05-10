@@ -13,13 +13,12 @@ import AVFoundation
 /// - parameter input: Input node to process
 /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
 /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-/// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
+/// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
 /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
 public class AKRolandTB303Filter: AKNode, AKToggleable {
 
     // MARK: - Properties
-
 
     internal var internalAU: AKRolandTB303FilterAudioUnit?
     internal var token: AUParameterObserverToken?
@@ -29,11 +28,25 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     private var distortionParameter: AUParameter?
     private var resonanceAsymmetryParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 500 {
         willSet(newValue) {
             if cutoffFrequency != newValue {
-                cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.cutoffFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -41,15 +54,23 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     public var resonance: Double = 0.5 {
         willSet(newValue) {
             if resonance != newValue {
-                resonanceParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    resonanceParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.resonance = Float(newValue)
+                }
             }
         }
     }
-    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues.
+    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     public var distortion: Double = 2.0 {
         willSet(newValue) {
             if distortion != newValue {
-                distortionParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    distortionParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.distortion = Float(newValue)
+                }
             }
         }
     }
@@ -57,7 +78,11 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     public var resonanceAsymmetry: Double = 0.5 {
         willSet(newValue) {
             if resonanceAsymmetry != newValue {
-                resonanceAsymmetryParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    resonanceAsymmetryParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.resonanceAsymmetry = Float(newValue)
+                }
             }
         }
     }
@@ -74,7 +99,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     /// - parameter input: Input node to process
     /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
     /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    /// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
+    /// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
@@ -137,12 +162,12 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
                 }
             }
         }
-        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
-        resonanceParameter?.setValue(Float(resonance), originator: token!)
-        distortionParameter?.setValue(Float(distortion), originator: token!)
-        resonanceAsymmetryParameter?.setValue(Float(resonanceAsymmetry), originator: token!)
+        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        internalAU?.resonance = Float(resonance)
+        internalAU?.distortion = Float(distortion)
+        internalAU?.resonanceAsymmetry = Float(resonanceAsymmetry)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

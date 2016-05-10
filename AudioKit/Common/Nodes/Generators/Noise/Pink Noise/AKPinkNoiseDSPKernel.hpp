@@ -55,12 +55,14 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
-    
+
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)10));
+        amplitudeRamper.setImmediate(amp);
     }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -96,10 +98,10 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double amplitude = double(amplitudeRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            amplitude = amplitudeRamper.getAndStep();
             *pinknoise->amp = (float)amplitude;
 
             float temp = 0;
@@ -128,11 +130,12 @@ private:
 
     sp_data *sp;
     sp_pinknoise *pinknoise;
-    
+
     float amplitude = 1;
 
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper amplitudeRamper = 1;
 };
 

@@ -19,13 +19,12 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKBandRejectButterworthFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var centerFrequencyParameter: AUParameter?
     private var bandwidthParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
@@ -40,7 +39,11 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
     public var centerFrequency: Double = 3000 {
         willSet(newValue) {
             if centerFrequency != newValue {
-                centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.centerFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -48,7 +51,11 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
     public var bandwidth: Double = 2000 {
         willSet(newValue) {
             if bandwidth != newValue {
-                bandwidthParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    bandwidthParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.bandwidth = Float(newValue)
+                }
             }
         }
     }
@@ -116,10 +123,10 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
                 }
             }
         }
-        centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
-        bandwidthParameter?.setValue(Float(bandwidth), originator: token!)
+        internalAU?.centerFrequency = Float(centerFrequency)
+        internalAU?.bandwidth = Float(bandwidth)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

@@ -55,7 +55,14 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
+    void setHalfPowerPoint(float hp) {
+        halfPowerPoint = hp;
+        halfPowerPointRamper.setImmediate(hp);
+    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -92,10 +99,10 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            double halfPowerPoint = double(halfPowerPointRamper.getAndStep());
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+            halfPowerPoint = halfPowerPointRamper.getAndStep();
             atone->hp = (float)halfPowerPoint;
 
             if (!started) {
@@ -125,8 +132,11 @@ private:
     sp_data *sp;
     sp_atone *atone;
 
+    float halfPowerPoint = 1000;
+
 public:
     bool started = true;
+    bool resetted = false;
     ParameterRamper halfPowerPointRamper = 1000;
 };
 

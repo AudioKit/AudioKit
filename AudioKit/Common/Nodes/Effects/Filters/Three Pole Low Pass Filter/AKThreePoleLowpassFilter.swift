@@ -25,7 +25,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     private var distortionParameter: AUParameter?
     private var cutoffFrequencyParameter: AUParameter?
     private var resonanceParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
@@ -40,7 +40,11 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     public var distortion: Double = 0.5 {
         willSet(newValue) {
             if distortion != newValue {
-                distortionParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    distortionParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.distortion = Float(newValue)
+                }
             }
         }
     }
@@ -48,7 +52,11 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     public var cutoffFrequency: Double = 1500 {
         willSet(newValue) {
             if cutoffFrequency != newValue {
-                cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.cutoffFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -56,7 +64,11 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     public var resonance: Double = 0.5 {
         willSet(newValue) {
             if resonance != newValue {
-                resonanceParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    resonanceParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.resonance = Float(newValue)
+                }
             }
         }
     }
@@ -130,11 +142,11 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
                 }
             }
         }
-        distortionParameter?.setValue(Float(distortion), originator: token!)
-        cutoffFrequencyParameter?.setValue(Float(cutoffFrequency), originator: token!)
-        resonanceParameter?.setValue(Float(resonance), originator: token!)
+        internalAU?.distortion = Float(distortion)
+        internalAU?.cutoffFrequency = Float(cutoffFrequency)
+        internalAU?.resonance = Float(resonance)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

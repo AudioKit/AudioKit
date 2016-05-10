@@ -5,6 +5,7 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
+
 #import "AKAmplitudeEnvelopeAudioUnit.h"
 #import "AKAmplitudeEnvelopeDSPKernel.hpp"
 
@@ -31,6 +32,20 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setAttackDuration:(float)attackDuration {
+    _kernel.setAttackDuration(attackDuration);
+}
+- (void)setDecayDuration:(float)decayDuration {
+    _kernel.setDecayDuration(decayDuration);
+}
+- (void)setSustainLevel:(float)sustainLevel {
+    _kernel.setSustainLevel(sustainLevel);
+}
+- (void)setReleaseDuration:(float)releaseDuration {
+    _kernel.setReleaseDuration(releaseDuration);
+}
+
+
 - (void)start {
     _kernel.start();
 }
@@ -41,6 +56,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -108,11 +127,14 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     attackDurationAUParameter.value = 0.1;
     decayDurationAUParameter.value = 0.1;
-    sustainLevelAUParameter.value = 0.5;
-    releaseDurationAUParameter.value = 0.5;
+    sustainLevelAUParameter.value = 1.0;
+    releaseDurationAUParameter.value = 0.1;
+
+    _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value);
     _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
@@ -186,20 +208,24 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
+    [self setUpParameterRamp];
+
+    return YES;
+}
+
+- (void)setUpParameterRamp {
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
+    // Ramp over rampTime in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {

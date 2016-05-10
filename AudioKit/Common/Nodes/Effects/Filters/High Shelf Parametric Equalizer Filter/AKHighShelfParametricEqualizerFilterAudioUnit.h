@@ -12,9 +12,18 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKHighShelfParametricEqualizerFilterAudioUnit : AUAudioUnit
+@property (nonatomic) float centerFrequency;
+@property (nonatomic) float gain;
+@property (nonatomic) float q;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
+- (void)setUpParameterRamp;
+- (BOOL)isSetUp;
+
+@property double rampTime;
+
 @end
 
 #endif /* AKHighShelfParametricEqualizerFilterAudioUnit_h */

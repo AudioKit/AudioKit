@@ -73,31 +73,32 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
 
     void setBaseFrequency(float freq) {
         baseFrequency = freq;
-        baseFrequencyRamper.setUIValue(clamp(freq, (float)0.0, (float)20000.0));
+        baseFrequencyRamper.setImmediate(freq);
     }
 
     void setCarrierMultiplier(float car) {
         carrierMultiplier = car;
-        carrierMultiplierRamper.setUIValue(clamp(car, (float)0.0, (float)1000.0));
+        carrierMultiplierRamper.setImmediate(car);
     }
 
     void setModulatingMultiplier(float mod) {
         modulatingMultiplier = mod;
-        modulatingMultiplierRamper.setUIValue(clamp(mod, (float)0, (float)1000));
+        modulatingMultiplierRamper.setImmediate(mod);
     }
 
     void setModulationIndex(float indx) {
         modulationIndex = indx;
-        modulationIndexRamper.setUIValue(clamp(indx, (float)0, (float)1000));
+        modulationIndexRamper.setImmediate(indx);
     }
 
     void setAmplitude(float amp) {
         amplitude = amp;
-        amplitudeRamper.setUIValue(clamp(amp, (float)0, (float)10));
+        amplitudeRamper.setImmediate(amp);
     }
 
 
@@ -231,6 +232,7 @@ private:
 
 public:
     bool started = false;
+    bool resetted = false;
     ParameterRamper baseFrequencyRamper = 220;
     ParameterRamper carrierMultiplierRamper = 1.0;
     ParameterRamper modulatingMultiplierRamper = 1;

@@ -22,7 +22,6 @@
 
 @property (nonatomic, readwrite) AUParameterTree *parameterTree;
 
-
 @end
 
 @implementation AKMoogLadderAudioUnit {
@@ -32,6 +31,14 @@
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
+
+- (void)setCutoffFrequency:(float)cutoffFrequency {
+    _kernel.setCutoffFrequency(cutoffFrequency);
+}
+- (void)setResonance:(float)resonance {
+    _kernel.setResonance(resonance);
+}
+
 
 - (void)start {
     _kernel.start();
@@ -43,6 +50,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -86,10 +97,11 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     cutoffFrequencyAUParameter.value = 1000;
     resonanceAUParameter.value = 0.5;
-    
+
     _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(cutoffFrequencyAddress, cutoffFrequencyAUParameter.value);
@@ -161,7 +173,7 @@
     _kernel.reset();
 
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -174,7 +186,7 @@
 
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };

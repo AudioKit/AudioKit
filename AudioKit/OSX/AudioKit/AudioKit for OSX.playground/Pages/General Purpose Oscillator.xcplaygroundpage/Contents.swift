@@ -35,7 +35,7 @@ oscillator.start()
 AKPlaygroundLoop(frequency: 5) {
 //: Notice how we change the frequency directly but let the amplitude be ramped to its new value.  This is because abrupt changes in amplitude produces clicking sounds.  Frequency can also be ramped, but it is not as important.  Try setting the amplitude without the ramp to hear the difference.
     oscillator.frequency = randomInt(50...74).midiNoteToFrequency()
-    oscillator.ramp(amplitude: random(0, 0.4))
+    oscillator.amplitude = random(0, 0.4)
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

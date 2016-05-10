@@ -20,15 +20,13 @@ AKPlaygroundLoop(frequency: 5) {
     oscillator.amplitude = 0.2
 }
 
+let plot = AKNodeFFTPlot(mixer, frame: CGRect(x: 0, y: 0, width: 500, height: 500))
+plot.shouldFill = true
+plot.shouldMirror = false
+plot.shouldCenterYAxis = false
+plot.color = NSColor.purpleColor()
 
-let plot = AKNodeFFTPlot(mixer)
-plot.plot?.shouldFill = true
-plot.plot?.shouldMirror = false
-plot.plot?.shouldCenterYAxis = false
-plot.plot?.color = NSColor.purpleColor()
-let view = plot.containerView
-
-XCPlaygroundPage.currentPage.liveView = plot.containerView
+XCPlaygroundPage.currentPage.liveView = plot
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

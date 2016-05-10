@@ -21,7 +21,6 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKFormantFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -29,11 +28,25 @@ public class AKFormantFilter: AKNode, AKToggleable {
     private var attackDurationParameter: AUParameter?
     private var decayDurationParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Center frequency.
     public var centerFrequency: Double = 1000 {
         willSet(newValue) {
             if centerFrequency != newValue {
-                centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.centerFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -41,7 +54,11 @@ public class AKFormantFilter: AKNode, AKToggleable {
     public var attackDuration: Double = 0.007 {
         willSet(newValue) {
             if attackDuration != newValue {
-                attackDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    attackDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.attackDuration = Float(newValue)
+                }
             }
         }
     }
@@ -49,7 +66,11 @@ public class AKFormantFilter: AKNode, AKToggleable {
     public var decayDuration: Double = 0.04 {
         willSet(newValue) {
             if decayDuration != newValue {
-                decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.decayDuration = Float(newValue)
+                }
             }
         }
     }
@@ -123,11 +144,11 @@ public class AKFormantFilter: AKNode, AKToggleable {
                 }
             }
         }
-        centerFrequencyParameter?.setValue(Float(centerFrequency), originator: token!)
-        attackDurationParameter?.setValue(Float(attackDuration), originator: token!)
-        decayDurationParameter?.setValue(Float(decayDuration), originator: token!)
+        internalAU?.centerFrequency = Float(centerFrequency)
+        internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.decayDuration = Float(decayDuration)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

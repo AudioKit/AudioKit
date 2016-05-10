@@ -19,14 +19,13 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKLowShelfParametricEqualizerFilterAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var cornerFrequencyParameter: AUParameter?
     private var gainParameter: AUParameter?
     private var qParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet(newValue) {
@@ -41,7 +40,11 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     public var cornerFrequency: Double = 1000 {
         willSet(newValue) {
             if cornerFrequency != newValue {
-                cornerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    cornerFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.cornerFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -49,7 +52,11 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     public var gain: Double = 1.0 {
         willSet(newValue) {
             if gain != newValue {
-                gainParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    gainParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.gain = Float(newValue)
+                }
             }
         }
     }
@@ -57,7 +64,11 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
     public var q: Double = 0.707 {
         willSet(newValue) {
             if q != newValue {
-                qParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    qParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.q = Float(newValue)
+                }
             }
         }
     }
@@ -131,11 +142,11 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
                 }
             }
         }
-        cornerFrequencyParameter?.setValue(Float(cornerFrequency), originator: token!)
-        gainParameter?.setValue(Float(gain), originator: token!)
-        qParameter?.setValue(Float(q), originator: token!)
+        internalAU?.cornerFrequency = Float(cornerFrequency)
+        internalAU?.gain = Float(gain)
+        internalAU?.q = Float(q)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

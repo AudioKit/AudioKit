@@ -23,18 +23,31 @@ public class AKStringResonator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKStringResonatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var fundamentalFrequencyParameter: AUParameter?
     private var feedbackParameter: AUParameter?
 
+    /// Ramp Time represents the speed at which parameters are allowed to change
+    public var rampTime: Double = AKSettings.rampTime {
+        willSet(newValue) {
+            if rampTime != newValue {
+                internalAU?.rampTime = newValue
+                internalAU?.setUpParameterRamp()
+            }
+        }
+    }
+
     /// Fundamental frequency of string.
     public var fundamentalFrequency: Double = 100 {
         willSet(newValue) {
             if fundamentalFrequency != newValue {
-                fundamentalFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    fundamentalFrequencyParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.fundamentalFrequency = Float(newValue)
+                }
             }
         }
     }
@@ -42,7 +55,11 @@ public class AKStringResonator: AKNode, AKToggleable {
     public var feedback: Double = 0.95 {
         willSet(newValue) {
             if feedback != newValue {
-                feedbackParameter?.setValue(Float(newValue), originator: token!)
+                if internalAU!.isSetUp() {
+                    feedbackParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.feedback = Float(newValue)
+                }
             }
         }
     }
@@ -110,10 +127,10 @@ public class AKStringResonator: AKNode, AKToggleable {
                 }
             }
         }
-        fundamentalFrequencyParameter?.setValue(Float(fundamentalFrequency), originator: token!)
-        feedbackParameter?.setValue(Float(feedback), originator: token!)
+        internalAU?.fundamentalFrequency = Float(fundamentalFrequency)
+        internalAU?.feedback = Float(feedback)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
