@@ -108,17 +108,6 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.volume = 1.0
     }
     
-    /// Reload the file from the disk
-    public func reloadFile() {
-        let url = NSURL.fileURLWithPath(internalFile, isDirectory: false)
-        let audioFile = try! AVAudioFile(forReading: url)
-        let audioFormat = audioFile.processingFormat
-        let audioFrameCount = UInt32(audioFile.length)
-        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat,
-                                           frameCapacity: audioFrameCount)
-        try! audioFile.readIntoBuffer(audioFileBuffer)
-    }
-    
     /// Start playback
     public func start() {
         if (!internalPlayer.playing && !paused) || playhead == duration {
@@ -196,4 +185,14 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         reloadFile()
     }
     
+    /// Reload the file from the disk
+    public func reloadFile() {
+        let url = NSURL.fileURLWithPath(internalFile, isDirectory: false)
+        let audioFile = try! AVAudioFile(forReading: url)
+        let audioFormat = audioFile.processingFormat
+        let audioFrameCount = UInt32(audioFile.length)
+        audioFileBuffer = AVAudioPCMBuffer(PCMFormat: audioFormat,
+                                           frameCapacity: audioFrameCount)
+        try! audioFile.readIntoBuffer(audioFileBuffer)
+    }
 }
