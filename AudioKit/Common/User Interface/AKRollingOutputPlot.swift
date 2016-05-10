@@ -23,7 +23,7 @@ public class AKRollingOutputPlot: EZAudioPlot {
         }
     }
     
-    internal let bufferSize: UInt32 = 1024
+    internal var bufferSize: UInt32 = 1024
     
     deinit {
         AudioKit.engine.outputNode.removeTapOnBus(0)
@@ -33,8 +33,9 @@ public class AKRollingOutputPlot: EZAudioPlot {
     ///
     /// - parameter frame: CGRect in which to draw the plot
     ///
-    public override init(frame: CGRect) {
+    public init(frame: CGRect, bufferSize:Int = 1024) {
         super.init(frame: frame)
+        self.bufferSize = UInt32(bufferSize)
         setupNode()
     }
 
