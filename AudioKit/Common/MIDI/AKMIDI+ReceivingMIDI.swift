@@ -29,6 +29,11 @@ extension AKMIDI {
         listeners.append(listener)
     }
     
+    /// Add a listener to the listeners
+    public func clearListeners() {
+        listeners.removeAll()
+    }
+    
     /// Open a MIDI Input port
     ///
     /// - parameter namedInput: String containing the name of the MIDI Input
