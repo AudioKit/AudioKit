@@ -1,5 +1,5 @@
 //
-//  AKFFT.swift
+//  AKFFTTap.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -9,7 +9,7 @@
 import Foundation
 
 /// FFT Calculation for any node
-@objc public class AKFFT: NSObject, EZAudioFFTDelegate {
+@objc public class AKFFTTap: NSObject, EZAudioFFTDelegate {
     
     internal let bufferSize: UInt32 = 512
     internal var fft: EZAudioFFT?

@@ -33,6 +33,7 @@
         <page name='Flat Frequency Response Reverb Operation'/>
         <page name='FM Oscillator'/>
         <page name='FM Oscillator Operation'/>
+        <page name='Formant Filter'/>
         <page name='General Purpose Oscillator'/>
         <page name='Graphic Equalizer'/>
         <page name='High Pass Butterworth Filter'/>
