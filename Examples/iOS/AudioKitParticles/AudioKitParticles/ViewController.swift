@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var gravityWellAngle: Float = 0
 
     var particleLab: ParticleLab!
-    var fft: AKFFT!
+    var fft: AKFFTTap!
     var amplitudeTracker: AKAmplitudeTracker!
 
     var amplitude: Float = 0
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
 
         let mic = AKMicrophone()
 
-        fft = AKFFT(mic)
+        fft = AKFFTTap(mic)
 
         amplitudeTracker = AKAmplitudeTracker(mic)
 
