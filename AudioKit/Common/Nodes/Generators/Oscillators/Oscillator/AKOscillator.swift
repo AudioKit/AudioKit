@@ -106,6 +106,7 @@ public class AKOscillator: AKVoice {
 
     /// Initialize this oscillator node
     ///
+    /// - parameter waveform:  The waveform of oscillation
     /// - parameter frequency: Frequency in cycles per second
     /// - parameter amplitude: Output Amplitude.
     /// - parameter detuningOffset: Frequency offset in Hz.
