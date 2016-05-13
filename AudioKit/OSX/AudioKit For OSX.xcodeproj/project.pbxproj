@@ -479,6 +479,11 @@
 		C4B76D1E1C5C5A2100E1D584 /* morphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B76D1D1C5C5A2100E1D584 /* morphingOscillator.swift */; };
 		C4BC44191C49D2B100FECA77 /* adsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C4BC44181C49D2B100FECA77 /* adsr.c */; };
 		C4D0427C1C5D95DF00DF3479 /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D0427B1C5D95DF00DF3479 /* AKMIDIListener.swift */; };
+		C4D4F9E21CE5B4770034CC07 /* AKTremolo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D4F9DE1CE5B4770034CC07 /* AKTremolo.swift */; };
+		C4D4F9E31CE5B4770034CC07 /* AKTremoloAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D4F9DF1CE5B4770034CC07 /* AKTremoloAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4D4F9E41CE5B4770034CC07 /* AKTremoloAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D4F9E01CE5B4770034CC07 /* AKTremoloAudioUnit.mm */; };
+		C4D4F9E51CE5B4770034CC07 /* AKTremoloDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D4F9E11CE5B4770034CC07 /* AKTremoloDSPKernel.hpp */; };
+		C4D4F9E71CE5B5400034CC07 /* trem.c in Sources */ = {isa = PBXBuildFile; fileRef = C4D4F9E61CE5B5400034CC07 /* trem.c */; };
 		C4DA4BE41C248EC200AA3771 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE11C248EC200AA3771 /* jitter.swift */; };
 		C4DA4BE51C248EC200AA3771 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE21C248EC200AA3771 /* randomNumberPulse.swift */; };
 		C4DA4BE61C248EC200AA3771 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE31C248EC200AA3771 /* randomVertexPulse.swift */; };
@@ -1019,6 +1024,11 @@
 		C4B76D1D1C5C5A2100E1D584 /* morphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = morphingOscillator.swift; sourceTree = "<group>"; };
 		C4BC44181C49D2B100FECA77 /* adsr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adsr.c; sourceTree = "<group>"; };
 		C4D0427B1C5D95DF00DF3479 /* AKMIDIListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIListener.swift; sourceTree = "<group>"; };
+		C4D4F9DE1CE5B4770034CC07 /* AKTremolo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTremolo.swift; sourceTree = "<group>"; };
+		C4D4F9DF1CE5B4770034CC07 /* AKTremoloAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTremoloAudioUnit.h; sourceTree = "<group>"; };
+		C4D4F9E01CE5B4770034CC07 /* AKTremoloAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTremoloAudioUnit.mm; sourceTree = "<group>"; };
+		C4D4F9E11CE5B4770034CC07 /* AKTremoloDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTremoloDSPKernel.hpp; sourceTree = "<group>"; };
+		C4D4F9E61CE5B5400034CC07 /* trem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trem.c; sourceTree = "<group>"; };
 		C4DA4BE11C248EC200AA3771 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C4DA4BE21C248EC200AA3771 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
 		C4DA4BE31C248EC200AA3771 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
@@ -2264,6 +2274,7 @@
 				C4B190121C3B340400C0F330 /* tin.c */,
 				C4B190131C3B340400C0F330 /* tone.c */,
 				C4B190141C3B340400C0F330 /* trand.c */,
+				C4D4F9E61CE5B5400034CC07 /* trem.c */,
 				C4B190151C3B340400C0F330 /* tseq.c */,
 				C4B190161C3B340400C0F330 /* vdelay.c */,
 				C4B190171C3B340400C0F330 /* zitarev.c */,
@@ -2406,6 +2417,7 @@
 			isa = PBXGroup;
 			children = (
 				C4B192DE1C3B63DA00C0F330 /* Amplitude Envelope */,
+				C4D4F9DD1CE5B4770034CC07 /* Tremolo */,
 			);
 			path = Envelopes;
 			sourceTree = "<group>";
@@ -2430,6 +2442,17 @@
 				C4B3E6501C7EBAF500EDD81E /* AKMetalBarDSPKernel.hpp */,
 			);
 			path = "Metal Bar";
+			sourceTree = "<group>";
+		};
+		C4D4F9DD1CE5B4770034CC07 /* Tremolo */ = {
+			isa = PBXGroup;
+			children = (
+				C4D4F9DE1CE5B4770034CC07 /* AKTremolo.swift */,
+				C4D4F9DF1CE5B4770034CC07 /* AKTremoloAudioUnit.h */,
+				C4D4F9E01CE5B4770034CC07 /* AKTremoloAudioUnit.mm */,
+				C4D4F9E11CE5B4770034CC07 /* AKTremoloDSPKernel.hpp */,
+			);
+			path = Tremolo;
 			sourceTree = "<group>";
 		};
 		C4DA4BE01C248EC200AA3771 /* Random Number Generators */ = {
@@ -2673,6 +2696,7 @@
 				C40C41C61C40E421009D870B /* AKTesterAudioUnit.h in Headers */,
 				C4A6628B1CCB132D00A38B90 /* ParameterRamper.hpp in Headers */,
 				C45383481C3A5E4300A51738 /* AKBandPassButterworthFilterDSPKernel.hpp in Headers */,
+				C4D4F9E31CE5B4770034CC07 /* AKTremoloAudioUnit.h in Headers */,
 				C453834D1C3A5E4300A51738 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
 				C4B3E6541C7EBAF500EDD81E /* AKMetalBarDSPKernel.hpp in Headers */,
 				C42F36D01C0582E6000E937C /* AudioKit.h in Headers */,
@@ -2697,6 +2721,7 @@
 				C40C41A01C40E3EF009D870B /* EZAudio.h in Headers */,
 				C45383821C3A5E4300A51738 /* AKRolandTB303FilterDSPKernel.hpp in Headers */,
 				C453839A1C3A5E4300A51738 /* AKCostelloReverbAudioUnit.h in Headers */,
+				C4D4F9E51CE5B4770034CC07 /* AKTremoloDSPKernel.hpp in Headers */,
 				C4B1907B1C3B340400C0F330 /* _kiss_fft_guts.h in Headers */,
 				C4B190791C3B340400C0F330 /* ini.h in Headers */,
 				C45383881C3A5E4300A51738 /* AKThreePoleLowpassFilterAudioUnit.h in Headers */,
@@ -3003,6 +3028,7 @@
 				C4B190C01C3B340400C0F330 /* randi.c in Sources */,
 				C4B190E31C3B340400C0F330 /* parse.c in Sources */,
 				C4B190FA1C3B340400C0F330 /* expon.c in Sources */,
+				C4D4F9E71CE5B5400034CC07 /* trem.c in Sources */,
 				C4B191241C3B340400C0F330 /* tblrec.c in Sources */,
 				C45383BC1C3A5E4300A51738 /* AKSquareWaveOscillatorAudioUnit.mm in Sources */,
 				C4E751EA1C23885400688A1B /* bitcrush.swift in Sources */,
@@ -3168,6 +3194,7 @@
 				C4B190A61C3B340400C0F330 /* in.c in Sources */,
 				C4B190B81C3B340400C0F330 /* pinknoise.c in Sources */,
 				C4B191061C3B340400C0F330 /* maygate.c in Sources */,
+				C4D4F9E21CE5B4770034CC07 /* AKTremolo.swift in Sources */,
 				C42FFBB21C3CFC3000823BD4 /* AKDryWetMixer.swift in Sources */,
 				C45383641C3A5E4300A51738 /* AKHighShelfParametricEqualizerFilter.swift in Sources */,
 				C4B190891C3B340400C0F330 /* biscale.c in Sources */,
@@ -3179,6 +3206,7 @@
 				C4B190B31C3B340400C0F330 /* pan2.c in Sources */,
 				C453837F1C3A5E4300A51738 /* AKRolandTB303Filter.swift in Sources */,
 				C4B190CA1C3B340400C0F330 /* switch.c in Sources */,
+				C4D4F9E41CE5B4770034CC07 /* AKTremoloAudioUnit.mm in Sources */,
 				C45383561C3A5E4300A51738 /* AKEqualizerFilter.swift in Sources */,
 				C4B191001C3B340400C0F330 /* gen_sinesum.c in Sources */,
 				C4B190921C3B340400C0F330 /* clip.c in Sources */,
