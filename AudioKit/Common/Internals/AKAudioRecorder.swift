@@ -24,7 +24,10 @@ public class AKAudioRecorder {
         self.node = node
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
         do {
-            avAudioFile = try AVAudioFile(forWriting: url, settings: AudioKit.format.settings)
+            let audioFile = try! AVAudioFile(forReading: url)
+            var settings = audioFile.processingFormat.settings
+            settings[AVLinearPCMIsNonInterleaved] = false
+            avAudioFile = try AVAudioFile(forWriting: url, settings: settings)
         } catch {
             print("Could not open file.")
         }
