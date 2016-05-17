@@ -80,43 +80,21 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalFile = file
         internalPlayer = AVAudioPlayerNode()
         super.init()
-        let url = NSURL.fileURLWithPath(file, isDirectory: false)
-        do {
-            audioFile = try AVAudioFile(forReading: url)
-        } catch {
-            print("Could not load audio file.")
-            return
-        }
-        if let actualAudioFile = audioFile {
-            let audioFrameCount = UInt32(actualAudioFile.length)
-
-            audioFileBuffer = AVAudioPCMBuffer(PCMFormat: actualAudioFile.processingFormat,
-                                               frameCapacity: audioFrameCount)
-            do {
-                try actualAudioFile.readIntoBuffer(audioFileBuffer!)
-            } catch {
-                print("Could not read data into buffer.")
-                return
-            }
-            
-            // added for currentTime calculation later on
-            sampleRate = actualAudioFile.fileFormat.sampleRate
-            totalFrameCount = Int64(audioFrameCount)
-            
-            AudioKit.engine.attachNode(internalPlayer)
-            
-            let mixer = AVAudioMixerNode()
-            AudioKit.engine.attachNode(mixer)
-            AudioKit.engine.connect(internalPlayer, to: mixer, format: AudioKit.format)
-            self.avAudioNode = mixer
-            
-            internalPlayer.scheduleBuffer(
-                audioFileBuffer!,
-                atTime: nil,
-                options: .Loops,
-                completionHandler: nil)
-            internalPlayer.volume = 1.0
-        }
+        reloadFile()
+        AudioKit.engine.attachNode(internalPlayer)
+        
+        let mixer = AVAudioMixerNode()
+        AudioKit.engine.attachNode(mixer)
+        AudioKit.engine.connect(internalPlayer, to: mixer, format: AudioKit.format)
+        self.avAudioNode = mixer
+        
+        internalPlayer.scheduleBuffer(
+            audioFileBuffer!,
+            atTime: nil,
+            options: .Loops,
+            completionHandler: nil)
+        internalPlayer.volume = 1.0
+        
     }
     
     /// Start playback
@@ -209,7 +187,10 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
         if let actualAudioFile = audioFile {
             let audioFrameCount = UInt32(actualAudioFile.length)
-
+            if audioFrameCount == 0 {
+                print("No Audio to load.")
+                return
+            }
             audioFileBuffer = AVAudioPCMBuffer(PCMFormat: AudioKit.format,
                                                frameCapacity: audioFrameCount)
 
