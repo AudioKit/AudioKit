@@ -13,7 +13,10 @@ import AVFoundation
 public class AKAudioRecorder {
     
     private var avAudioFile: AVAudioFile?
+    private var settings: [String: AnyObject]
+    private var format: AVAudioFormat
     private var node: AKNode?
+    public var isRecording = false
     
     /// Initialize the recorder to record a node's output to a file
     ///
@@ -25,7 +28,8 @@ public class AKAudioRecorder {
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
         do {
             let audioFile = try! AVAudioFile(forReading: url)
-            var settings = audioFile.processingFormat.settings
+            format = audioFile.processingFormat
+            settings = audioFile.processingFormat.settings
             settings[AVLinearPCMIsNonInterleaved] = false
             avAudioFile = try AVAudioFile(forWriting: url, settings: settings)
         } catch {
@@ -36,8 +40,11 @@ public class AKAudioRecorder {
     
     /// Record audio
     public func record() {
+        if isRecording { return }
+        isRecording = true
         if let recordingNode = node {
-            recordingNode.avAudioNode.installTapOnBus(0, bufferSize: 1024, format: AudioKit.format) { (buffer, time) in
+            recordingNode.avAudioNode.installTapOnBus(0, bufferSize: 1024, format: format) {
+                (buffer, time) in
                 do {
                     try self.avAudioFile?.writeFromBuffer(buffer)
                 } catch {
@@ -49,8 +56,10 @@ public class AKAudioRecorder {
     
     /// Stop recording
     public func stop() {
+        isRecording = false
         if let recordingNode = node {
             recordingNode.avAudioNode.removeTapOnBus(0)
+            print("stopping")
         }
     }
 }
