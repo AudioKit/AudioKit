@@ -27,7 +27,7 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
 
     /// Half-power point (in Hz) of internal lowpass filter.
     public var halfPowerPoint: Double = 10 {
-        willSet(newValue) {
+        willSet {
             if halfPowerPoint != newValue {
                 halfPowerPointParameter?.setValue(Float(newValue), originator: token!)
             }

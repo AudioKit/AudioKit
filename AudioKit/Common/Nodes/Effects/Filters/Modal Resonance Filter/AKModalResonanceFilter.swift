@@ -28,7 +28,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -38,7 +38,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
     /// Resonant frequency of the filter.
     public var frequency: Double = 500.0 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
                     frequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -50,7 +50,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
     }
     /// Quality factor of the filter. Roughly equal to Q/frequency.
     public var qualityFactor: Double = 50.0 {
-        willSet(newValue) {
+        willSet {
             if qualityFactor != newValue {
                 if internalAU!.isSetUp() {
                     qualityFactorParameter?.setValue(Float(newValue), originator: token!)

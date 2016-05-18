@@ -27,7 +27,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -37,7 +37,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
 
     /// Center frequency. (in Hertz)
     public var centerFrequency: Double = 3000 {
-        willSet(newValue) {
+        willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -49,7 +49,7 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
     }
     /// Bandwidth. (in Hertz)
     public var bandwidth: Double = 2000 {
-        willSet(newValue) {
+        willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
                     bandwidthParameter?.setValue(Float(newValue), originator: token!)

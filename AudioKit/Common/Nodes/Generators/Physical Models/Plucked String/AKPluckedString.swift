@@ -28,7 +28,7 @@ public class AKPluckedString: AKVoice {
     
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -38,7 +38,7 @@ public class AKPluckedString: AKVoice {
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     public var frequency: Double = 110 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 frequencyParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -47,7 +47,7 @@ public class AKPluckedString: AKVoice {
 
     /// Amplitude
     public var amplitude: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
             }

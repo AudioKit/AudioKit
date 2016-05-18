@@ -36,7 +36,7 @@ public class AKSquareWaveOscillator: AKVoice {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -46,7 +46,7 @@ public class AKSquareWaveOscillator: AKVoice {
     
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
                     frequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -59,7 +59,7 @@ public class AKSquareWaveOscillator: AKVoice {
     
     /// Output Amplitude.
     public var amplitude: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)
@@ -72,7 +72,7 @@ public class AKSquareWaveOscillator: AKVoice {
     
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
                     detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
@@ -85,7 +85,7 @@ public class AKSquareWaveOscillator: AKVoice {
     
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
                     detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
@@ -98,7 +98,7 @@ public class AKSquareWaveOscillator: AKVoice {
     
     /// Duty cycle width (range 0-1).
     public var pulseWidth: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if pulseWidth != newValue {
                 pulseWidthParameter?.setValue(Float(newValue), originator: token!)
                 if internalAU!.isSetUp() {

@@ -28,7 +28,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -38,7 +38,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
 
     /// Distortion amount.  Zero gives a clean output. Greater than zero adds tanh distortion controlled by the filter parameters, in such a way that both low cutoff and high resonance increase the distortion amount.
     public var distortion: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if distortion != newValue {
                 if internalAU!.isSetUp() {
                     distortionParameter?.setValue(Float(newValue), originator: token!)
@@ -50,7 +50,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     }
     /// Filter cutoff frequency in Hertz.
     public var cutoffFrequency: Double = 1500 {
-        willSet(newValue) {
+        willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -62,7 +62,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
     }
     /// Resonance. Usually a value in the range 0-1. A value of 1.0 will self oscillate at the cutoff frequency. Values slightly greater than 1 are possible for more sustained oscillation and an “overdrive” effect.
     public var resonance: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if resonance != newValue {
                 if internalAU!.isSetUp() {
                     resonanceParameter?.setValue(Float(newValue), originator: token!)

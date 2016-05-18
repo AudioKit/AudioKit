@@ -30,7 +30,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +40,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
 
     /// Determines the amount of gain applied to the signal before waveshaping. A value of 1 gives slight distortion.
     public var pregain: Double = 2.0 {
-        willSet(newValue) {
+        willSet {
             if pregain != newValue {
                 if internalAU!.isSetUp() {
                     pregainParameter?.setValue(Float(newValue), originator: token!)
@@ -52,7 +52,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     }
     /// Gain applied after waveshaping
     public var postgain: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if postgain != newValue {
                 if internalAU!.isSetUp() {
                     postgainParameter?.setValue(Float(newValue), originator: token!)
@@ -64,7 +64,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     }
     /// Shape of the positive part of the signal. A value of 0 gets a flat clip.
     public var postiveShapeParameter: Double = 0.0 {
-        willSet(newValue) {
+        willSet {
             if postiveShapeParameter != newValue {
                 if internalAU!.isSetUp() {
                     postiveShapeParameterParameter?.setValue(Float(newValue), originator: token!)
@@ -76,7 +76,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
     }
     /// Like the positive shape parameter, only for the negative part.
     public var negativeShapeParameter: Double = 0.0 {
-        willSet(newValue) {
+        willSet {
             if negativeShapeParameter != newValue {
                 if internalAU!.isSetUp() {
                     negativeShapeParameterParameter?.setValue(Float(newValue), originator: token!)
