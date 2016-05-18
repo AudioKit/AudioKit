@@ -25,7 +25,7 @@ public class AKTremolo: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -35,7 +35,7 @@ public class AKTremolo: AKNode, AKToggleable {
 
     /// Frequency (Hz)
     public var frequency: Double = 10 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
                     frequencyParameter?.setValue(Float(newValue), originator: token!)

@@ -33,7 +33,7 @@ public class AKFMOscillator: AKVoice {
     
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -43,7 +43,7 @@ public class AKFMOscillator: AKVoice {
 
     /// In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
     public var baseFrequency: Double = 440 {
-        willSet(newValue) {
+        willSet {
             if baseFrequency != newValue {
                 if internalAU!.isSetUp() {
                     baseFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -56,7 +56,7 @@ public class AKFMOscillator: AKVoice {
 
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
-        willSet(newValue) {
+        willSet {
             if carrierMultiplier != newValue {
                 if internalAU!.isSetUp() {
                     carrierMultiplierParameter?.setValue(Float(newValue), originator: token!)
@@ -69,7 +69,7 @@ public class AKFMOscillator: AKVoice {
 
     /// This multiplied by the baseFrequency gives the modulating frequency.
     public var modulatingMultiplier: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if modulatingMultiplier != newValue {
                 if internalAU!.isSetUp() {
                     modulatingMultiplierParameter?.setValue(Float(newValue), originator: token!)
@@ -82,7 +82,7 @@ public class AKFMOscillator: AKVoice {
 
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     public var modulationIndex: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if modulationIndex != newValue {
                 if internalAU!.isSetUp() {
                     modulationIndexParameter?.setValue(Float(newValue), originator: token!)
@@ -95,7 +95,7 @@ public class AKFMOscillator: AKVoice {
 
     /// Output Amplitude.
     public var amplitude: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)

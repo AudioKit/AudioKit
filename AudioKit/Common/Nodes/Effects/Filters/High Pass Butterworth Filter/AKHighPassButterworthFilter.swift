@@ -25,7 +25,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -35,7 +35,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
 
     /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 500 {
-        willSet(newValue) {
+        willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)

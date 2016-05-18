@@ -24,7 +24,7 @@ public class AKWhiteNoise: AKVoice {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -34,7 +34,7 @@ public class AKWhiteNoise: AKVoice {
 
     /// Amplitude. (Value between 0-1).
     public var amplitude: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
             }

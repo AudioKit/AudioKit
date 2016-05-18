@@ -38,7 +38,7 @@ public class AKMetalBar: AKNode {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -48,7 +48,7 @@ public class AKMetalBar: AKNode {
 
     /// Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
     public var leftBoundaryCondition: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if leftBoundaryCondition != newValue {
                 leftBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -57,7 +57,7 @@ public class AKMetalBar: AKNode {
 
     /// Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
     public var rightBoundaryCondition: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if rightBoundaryCondition != newValue {
                 rightBoundaryConditionParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -66,7 +66,7 @@ public class AKMetalBar: AKNode {
 
     /// 30db decay time (in seconds).
     public var decayDuration: Double = 3 {
-        willSet(newValue) {
+        willSet {
             if decayDuration != newValue {
                 decayDurationParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -75,7 +75,7 @@ public class AKMetalBar: AKNode {
 
     /// Speed of scanning the output location.
     public var scanSpeed: Double = 0.25 {
-        willSet(newValue) {
+        willSet {
             if scanSpeed != newValue {
                 scanSpeedParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -84,7 +84,7 @@ public class AKMetalBar: AKNode {
 
     /// Position along bar that strike occurs.
     public var position: Double = 0.2 {
-        willSet(newValue) {
+        willSet {
             if position != newValue {
                 positionParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -93,7 +93,7 @@ public class AKMetalBar: AKNode {
 
     /// Normalized strike velocity
     public var strikeVelocity: Double = 500 {
-        willSet(newValue) {
+        willSet {
             if strikeVelocity != newValue {
                 strikeVelocityParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -102,7 +102,7 @@ public class AKMetalBar: AKNode {
 
     /// Spatial width of strike.
     public var strikeWidth: Double = 0.05 {
-        willSet(newValue) {
+        willSet {
             if strikeWidth != newValue {
                 strikeWidthParameter?.setValue(Float(newValue), originator: token!)
             }
