@@ -13,19 +13,18 @@ let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("recording", ofType: "wav")
 var player = AKAudioPlayer(file!)
 
-AudioKit.output = AKMixer(mic, player)
+var reverb =  AKReverb(mic)
+reverb.loadFactoryPreset(.Plate)
+AudioKit.output = AKMixer(reverb, player)
 
 AudioKit.start()
 
-let recorder = AKAudioRecorder(file!)
-
 class PlaygroundView: AKPlaygroundView {
-
-    var frequencyLabel: Label?
-    var amplitudeLabel: Label?
-
+    
+    var recorder = AKMicrophoneRecorder(file!)
+    
     override func setup() {
-        addTitle("Recording Mic")
+        addTitle("Recording from Microphone")
 
         addButton("Record", action: #selector(record))
         addButton("Stop", action: #selector(stop))
@@ -34,18 +33,21 @@ class PlaygroundView: AKPlaygroundView {
 
         addButton("Play", action: #selector(play))
     }
-
+    
     func play() {
         player.stop()
-        player.reloadFile()
+        player.replaceFile(file!)
         player.play()
     }
-
+    
     func record() {
         recorder.record()
     }
+    
     func stop() {
         recorder.stop()
+        AudioKit.stop()
+        AudioKit.start()
     }
 }
 
