@@ -1,5 +1,5 @@
 //
-//  AKAudioRecorder.swift
+//  AKNodeRecorder.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Simple audio recorder class
-public class AKAudioRecorder {
+public class AKNodeRecorder {
     
     private var avAudioFile: AVAudioFile?
     private var settings: [String: AnyObject]
