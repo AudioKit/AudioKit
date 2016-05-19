@@ -136,7 +136,9 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     self.wantsLayer = YES;
     self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
 #endif
+    self.originalColor = self.color;
     self.backgroundColor = nil;
+    self.fadeout = false;
     [self.layer insertSublayer:self.waveformLayer atIndex:0];
     
     //
@@ -189,6 +191,16 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
 //------------------------------------------------------------------------------
 
 - (void)setColor:(id)color
+{
+    [super setColor:color];
+    self.originalColor = color;
+    self.waveformLayer.strokeColor = [color CGColor];
+    if (self.shouldFill)
+    {
+        self.waveformLayer.fillColor = [color CGColor];
+    }
+}
+- (void)updateColor:(id)color
 {
     [super setColor:color];
     self.waveformLayer.strokeColor = [color CGColor];
@@ -270,6 +282,21 @@ UInt32 const EZAudioPlotDefaultMaxHistoryBufferLength = 8192;
     CGMutablePathRef path = NULL;
     if (pointCount > 0)
     {
+        if(_fadeout){
+            float total = 0.0;
+            for (int i = 0; i < pointCount; i++){
+                total += points[i].y;
+            }
+            float avg = total / (float)pointCount;
+            double opacityThreshold = 0.00001;
+            double opacityVal = 1.0;
+            if(fabs(avg) < opacityThreshold){
+                opacityVal = pow(fabs(avg)/opacityThreshold,5);
+            }
+            [self updateColor:[self.originalColor colorWithAlphaComponent:(CGFloat)opacityVal]];
+        }else{
+            [self updateColor:self.originalColor];
+        }
         path = CGPathCreateMutable();
         double xscale = (rect.size.width) / ((float)self.pointCount);
         double halfHeight = floor(rect.size.height / 2.0);
