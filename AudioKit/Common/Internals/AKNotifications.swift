@@ -17,4 +17,3 @@ import Foundation
     ///
     public static let engineRestartedAfterRouteChange: String = "io.audiokit.enginerestartedafterroutechange"
 }
-
