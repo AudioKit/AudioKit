@@ -188,6 +188,13 @@ public class AKSequencer {
         for track in tracks {
             track.setLength(length)
         }
+        
+        let size: UInt32 = 0
+        var len = MusicTimeStamp(length)
+        var tempoTrack: MusicTrack = nil
+        MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+        MusicTrackSetProperty(tempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
+        
         if isAVSequencer {
             for track in avSequencer.tracks {
                 track.lengthInBeats = length
@@ -403,6 +410,7 @@ public class AKSequencer {
     
     /// Get a new track
     public func newTrack() -> AKMusicTrack? {
+        
         if isAVSequencer { return nil }
         
         var newMusicTrack: MusicTrack = nil
