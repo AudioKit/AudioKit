@@ -25,6 +25,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// Boolean indicating whether or not to loop the playback
     public var looping = false
     private var paused = false
+    public var completionHandler: AKCallback?
     
     /// Total duration of one loop through of the file
     public var duration: Double {
@@ -76,8 +77,10 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     ///
     /// - parameter file: Path to the audio file
     ///
-    public init(_ file: String) {
+    public init(_ file: String, completionHandler: AKCallback? = nil) {
         internalFile = file
+        self.completionHandler = completionHandler
+        
         internalPlayer = AVAudioPlayerNode()
         super.init()
         reloadFile()
@@ -108,7 +111,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
                 audioFileBuffer!,
                 atTime: nil,
                 options: options,
-                completionHandler: nil)
+                completionHandler: completionHandler)
         }
         
         internalPlayer.play()
@@ -164,7 +167,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             startingFrame: startingFrame,
             frameCount: frameCount,
             atTime: nil,
-            completionHandler: nil)
+            completionHandler: completionHandler)
         internalPlayer.play()
     }
     
