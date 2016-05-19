@@ -46,8 +46,6 @@ class PlaygroundView: AKPlaygroundView {
     
     func stop() {
         recorder.stop()
-        AudioKit.stop()
-        AudioKit.start()
     }
 }
 

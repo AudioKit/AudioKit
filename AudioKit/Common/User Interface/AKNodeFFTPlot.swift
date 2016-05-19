@@ -60,7 +60,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     /// - parameter width: Width of the view
     /// - parameter height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect, bufferSize:Int = 1024) {
+    public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
         super.init(frame: frame)
         self.plotType = .Buffer
         self.backgroundColor = AKColor.whiteColor()

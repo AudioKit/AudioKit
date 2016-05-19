@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public typealias Beat=Double
+public typealias Beat = Double
 
 /// Basic sequencer
 ///

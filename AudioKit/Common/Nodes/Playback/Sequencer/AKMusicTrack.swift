@@ -56,7 +56,7 @@ public class AKMusicTrack {
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public convenience init(musicTrack: MusicTrack, sequencer:AKSequencer) {
+    public convenience init(musicTrack: MusicTrack, sequencer: AKSequencer) {
         self.init()
         internalMusicTrack = musicTrack
         trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
