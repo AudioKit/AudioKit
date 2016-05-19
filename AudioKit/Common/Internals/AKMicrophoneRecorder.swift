@@ -1,8 +1,8 @@
 //
 //  AKMicrophoneRecorder.swift
-//  AudioKit For OSX
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 5/18/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

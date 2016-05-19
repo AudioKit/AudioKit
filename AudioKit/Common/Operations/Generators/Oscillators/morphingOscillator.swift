@@ -2,7 +2,7 @@
 //  morphingOscillator.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 1/17/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
