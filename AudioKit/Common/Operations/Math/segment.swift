@@ -2,7 +2,7 @@
 //  segment.swift
 //  AudioKit
 //
-//  Created by Aurelius Prochazka on 1/16/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

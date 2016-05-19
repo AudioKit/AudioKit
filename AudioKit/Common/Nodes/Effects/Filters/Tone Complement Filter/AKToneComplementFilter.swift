@@ -24,7 +24,7 @@ public class AKToneComplementFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -34,7 +34,7 @@ public class AKToneComplementFilter: AKNode, AKToggleable {
 
     /// Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     public var halfPowerPoint: Double = 1000 {
-        willSet(newValue) {
+        willSet {
             if halfPowerPoint != newValue {
                 if internalAU!.isSetUp() {
                     halfPowerPointParameter?.setValue(Float(newValue), originator: token!)

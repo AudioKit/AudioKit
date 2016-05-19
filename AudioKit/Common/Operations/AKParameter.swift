@@ -32,12 +32,3 @@ extension AKParameter {
         return AKStereoOperation("\(self) \(self) ")
     }
 }
-
-/// Doubles are valid AKParameters
-extension Double: AKParameter {}
-
-/// Floats are valid AKParameters
-extension Float: AKParameter {}
-
-/// Integers are valid AKParameters
-extension Int: AKParameter {}

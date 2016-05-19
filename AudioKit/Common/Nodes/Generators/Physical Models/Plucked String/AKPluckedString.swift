@@ -28,7 +28,7 @@ public class AKPluckedString: AKVoice {
     
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -38,7 +38,7 @@ public class AKPluckedString: AKVoice {
 
     /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
     public var frequency: Double = 110 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 frequencyParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -47,7 +47,7 @@ public class AKPluckedString: AKVoice {
 
     /// Amplitude
     public var amplitude: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -62,7 +62,7 @@ public class AKPluckedString: AKVoice {
     // MARK: - Initialization
 
     /// Initialize the pluck with defaults
-    convenience override init() {
+    override convenience init() {
         self.init(frequency: 110)
     }
     
@@ -128,7 +128,7 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func duplicate() -> AKVoice {
+    override public func duplicate() -> AKVoice {
         let copy = AKPluckedString(frequency: self.frequency, amplitude: self.amplitude, lowestFrequency: self.lowestFrequency)
         return copy
     }
@@ -145,12 +145,12 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func start() {
+    override public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop() {
+    override public func stop() {
         self.internalAU!.stop()
     }
 }

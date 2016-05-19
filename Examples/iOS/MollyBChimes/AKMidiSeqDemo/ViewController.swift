@@ -204,7 +204,8 @@ class ViewController: UIViewController {
     func genSDSeq(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { seq.tracks[2].clear() }
         let numSteps = Int(Float(seqLen)/stepSize)
-        for (var i = 1; i < numSteps; i += 2) {
+    
+        for i in 1.stride(to: numSteps, by: 2) {
             let step = (Float(i) * stepSize)
             seq.tracks[2].addNote(60, velocity: 80, position: Double(step), duration: 1)
         }

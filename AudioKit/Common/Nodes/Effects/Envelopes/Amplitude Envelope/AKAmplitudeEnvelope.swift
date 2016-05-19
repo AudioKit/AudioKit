@@ -30,7 +30,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +40,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
     /// Attack time
     public var attackDuration: Double = 0.1 {
-        willSet(newValue) {
+        willSet {
             if attackDuration != newValue {
                 if internalAU!.isSetUp() {
                     attackDurationParameter?.setValue(Float(newValue), originator: token!)
@@ -52,7 +52,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     }
     /// Decay time
     public var decayDuration: Double = 0.1 {
-        willSet(newValue) {
+        willSet {
             if decayDuration != newValue {
                 if internalAU!.isSetUp() {
                     decayDurationParameter?.setValue(Float(newValue), originator: token!)
@@ -64,7 +64,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     }
     /// Sustain Level
     public var sustainLevel: Double = 1.0 {
-        willSet(newValue) {
+        willSet {
             if sustainLevel != newValue {
                 if internalAU!.isSetUp() {
                     sustainLevelParameter?.setValue(Float(newValue), originator: token!)
@@ -76,7 +76,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
     }
     /// Release time
     public var releaseDuration: Double = 0.1 {
-        willSet(newValue) {
+        willSet {
             if releaseDuration != newValue {
                 if internalAU!.isSetUp() {
                     releaseDurationParameter?.setValue(Float(newValue), originator: token!)

@@ -32,6 +32,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Envelopes
 #import "AKAmplitudeEnvelopeAudioUnit.h"
+#import "AKTremoloAudioUnit.h"
 
 // Efffects / Filters
 #import "AKAutoWahAudioUnit.h"
