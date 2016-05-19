@@ -9,6 +9,8 @@
 import Foundation
 import AVFoundation
 
+public typealias AKCallback = Void -> Void
+
 /// Top level AudioKit managing class
 @objc public class AudioKit: NSObject {
     
