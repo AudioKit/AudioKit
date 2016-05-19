@@ -37,7 +37,7 @@ public class AKDrip: AKNode {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -47,7 +47,7 @@ public class AKDrip: AKNode {
 
     /// The intensity of the dripping sound.
     public var intensity: Double = 10 {
-        willSet(newValue) {
+        willSet {
             if intensity != newValue {
                 intensityParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -56,7 +56,7 @@ public class AKDrip: AKNode {
 
     /// The damping factor. Maximum value is 2.0.
     public var dampingFactor: Double = 0.2 {
-        willSet(newValue) {
+        willSet {
             if dampingFactor != newValue {
                 dampingFactorParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -65,7 +65,7 @@ public class AKDrip: AKNode {
 
     /// The amount of energy to add back into the system.
     public var energyReturn: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if energyReturn != newValue {
                 energyReturnParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -74,7 +74,7 @@ public class AKDrip: AKNode {
 
     /// Main resonant frequency.
     public var mainResonantFrequency: Double = 450 {
-        willSet(newValue) {
+        willSet {
             if mainResonantFrequency != newValue {
                 mainResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -83,7 +83,7 @@ public class AKDrip: AKNode {
 
     /// The first resonant frequency.
     public var firstResonantFrequency: Double = 600 {
-        willSet(newValue) {
+        willSet {
             if firstResonantFrequency != newValue {
                 firstResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -92,7 +92,7 @@ public class AKDrip: AKNode {
 
     /// The second resonant frequency.
     public var secondResonantFrequency: Double = 750 {
-        willSet(newValue) {
+        willSet {
             if secondResonantFrequency != newValue {
                 secondResonantFrequencyParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -101,7 +101,7 @@ public class AKDrip: AKNode {
 
     /// Amplitude.
     public var amplitude: Double = 0.3 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
             }

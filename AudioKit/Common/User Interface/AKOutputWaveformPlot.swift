@@ -23,7 +23,7 @@ public class AKOutputWaveformPlot: EZAudioPlot {
         }
     }
 
-    internal var bufferSize: UInt32 = 1024
+    internal let bufferSize: UInt32 = 1024
     
     deinit {
         AudioKit.engine.outputNode.removeTapOnBus(0)
@@ -33,9 +33,8 @@ public class AKOutputWaveformPlot: EZAudioPlot {
     ///
     /// - parameter frame: CGRect in which to draw the plot
     ///
-    public init(frame: CGRect, bufferSize:Int = 1024) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
-        self.bufferSize = UInt32(bufferSize)
         setupNode()
     }
     
@@ -54,19 +53,17 @@ public class AKOutputWaveformPlot: EZAudioPlot {
     /// - parameter width: Width of the view
     /// - parameter height: Height of the view
     ///
-    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0, color: UIColor = AKColor.blueColor(), backgroundColor: UIColor = AKColor.whiteColor()) -> AKView {
+    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
 
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKOutputWaveformPlot(frame: frame)
         
         plot.plotType = .Buffer
+        plot.backgroundColor = AKColor.whiteColor()
         plot.shouldCenterYAxis = true
-        plot.color = color
-        plot.backgroundColor = backgroundColor
         
         let containerView = AKView(frame: frame)
         containerView.addSubview(plot)
         return containerView
     }
-    
 }

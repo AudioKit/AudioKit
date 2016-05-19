@@ -31,6 +31,7 @@
         <page name='Flat Frequency Response Reverb Operation'/>
         <page name='FM Oscillator'/>
         <page name='FM Oscillator Operation'/>
+        <page name='Formant Filter'/>
         <page name='General Purpose Oscillator'/>
         <page name='Graphic Equalizer'/>
         <page name='High Pass Butterworth Filter'/>
@@ -79,6 +80,7 @@
         <page name='Sawtooth Wave Oscillator Operation'/>
         <page name='Sean Costello Reverb'/>
         <page name='Sean Costello Reverb Operation'/>
+        <page name='SelectorClock'/>
         <page name='Sequencer - Multiple output'/>
         <page name='Sequencer - Single output'/>
         <page name='Simple Reverb'/>
@@ -90,7 +92,9 @@
         <page name='String Resonator'/>
         <page name='Tanh Distortion'/>
         <page name='Telephone'/>
+        <page name='Three-Pole Low Pass Filter'/>
         <page name='Time Stretching and Pitch Shifting'/>
+        <page name='Tone and Tone Complement Filters'/>
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency'/>
         <page name='Tracking Microphone Input'/>

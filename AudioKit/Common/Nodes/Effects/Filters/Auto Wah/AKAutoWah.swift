@@ -28,7 +28,7 @@ public class AKAutoWah: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -38,7 +38,7 @@ public class AKAutoWah: AKNode, AKToggleable {
 
     /// Wah Amount
     public var wah: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if wah != newValue {
                 if internalAU!.isSetUp() {
                     wahParameter?.setValue(Float(newValue), originator: token!)
@@ -50,7 +50,7 @@ public class AKAutoWah: AKNode, AKToggleable {
     }
     /// Dry/Wet Mix
     public var mix: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if mix != newValue {
                 if internalAU!.isSetUp() {
                     mixParameter?.setValue(Float(newValue * 100.0), originator: token!)
@@ -62,7 +62,7 @@ public class AKAutoWah: AKNode, AKToggleable {
     }
     /// Overall level
     public var amplitude: Double = 0.1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)

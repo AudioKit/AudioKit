@@ -27,7 +27,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -37,7 +37,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
     /// Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
     public var time: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if time != newValue {
                 if internalAU!.isSetUp() {
                     timeParameter?.setValue(Float(newValue), originator: token!)
@@ -49,7 +49,7 @@ public class AKVariableDelay: AKNode, AKToggleable {
     }
     /// Feedback amount. Should be a value between 0-1.
     public var feedback: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if feedback != newValue {
                 if internalAU!.isSetUp() {
                     feedbackParameter?.setValue(Float(newValue), originator: token!)

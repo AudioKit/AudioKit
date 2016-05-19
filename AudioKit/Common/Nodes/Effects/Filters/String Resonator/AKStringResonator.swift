@@ -31,7 +31,7 @@ public class AKStringResonator: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -41,7 +41,7 @@ public class AKStringResonator: AKNode, AKToggleable {
 
     /// Fundamental frequency of string.
     public var fundamentalFrequency: Double = 100 {
-        willSet(newValue) {
+        willSet {
             if fundamentalFrequency != newValue {
                 if internalAU!.isSetUp() {
                     fundamentalFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -53,7 +53,7 @@ public class AKStringResonator: AKNode, AKToggleable {
     }
     /// Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     public var feedback: Double = 0.95 {
-        willSet(newValue) {
+        willSet {
             if feedback != newValue {
                 if internalAU!.isSetUp() {
                     feedbackParameter?.setValue(Float(newValue), originator: token!)

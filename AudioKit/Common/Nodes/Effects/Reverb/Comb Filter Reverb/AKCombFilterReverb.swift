@@ -29,7 +29,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -39,7 +39,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
 
     /// The time in seconds for a signal to decay to 1/1000, or 60dB from its original amplitude. (aka RT-60).
     public var reverbDuration: Double = 1.0 {
-        willSet(newValue) {
+        willSet {
             if reverbDuration != newValue {
                 if internalAU!.isSetUp() {
                     reverbDurationParameter?.setValue(Float(newValue), originator: token!)
