@@ -10,6 +10,9 @@ import Foundation
 import CoreAudio
 import AudioToolbox
 
+public typealias MIDINoteNumber = Int
+public typealias MIDIVelocity = Int
+
 // MARK: - Randomization Helpers
 
 /// Global function for random integers
