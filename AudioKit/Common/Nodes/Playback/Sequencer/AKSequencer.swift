@@ -188,6 +188,13 @@ public class AKSequencer {
         for track in tracks {
             track.setLength(length)
         }
+        
+        let size: UInt32 = 0
+        var len = MusicTimeStamp(length)
+        var tempoTrack: MusicTrack = nil
+        MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+        MusicTrackSetProperty(tempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
+        
         if isAvSeq {
             for track in avSeq.tracks {
                 track.lengthInBeats = length
@@ -404,7 +411,7 @@ public class AKSequencer {
             MusicSequenceNewTrack(sequence, &newMusicTrack)
             var count: UInt32 = 0
             MusicSequenceGetTrackCount(sequence, &count)
-            tracks.append(AKMusicTrack(musicTrack: newMusicTrack))
+            tracks.append(AKMusicTrack(musicTrack: newMusicTrack, sequencer: self))
             initTracks()
             return tracks.last!
         } else {
