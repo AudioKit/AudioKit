@@ -14,11 +14,12 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     
     public var callbacks = [AKMIDICallback]()
     
-    public init() {
+    public init(callback: AKMIDICallback) {
         // Dummy Instrument
         super.init(instrument: AKPolyphonicInstrument(voice: AKVoice(), voiceCount: 0))
         let midi = AKMIDI()
         self.enableMIDI(midi.client, name: "callback midi in")
+        callbacks.append(callback)
     }
     
     private func triggerCallbacks(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
