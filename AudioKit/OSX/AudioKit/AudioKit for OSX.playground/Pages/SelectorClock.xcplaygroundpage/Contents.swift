@@ -12,7 +12,13 @@ class SelectorClock {
     init(tempo: Double = 120, division: Int = 4)
     {
         bpm = tempo
-        callbacker = AKCallbackInstrument()
+        
+        callbacker = AKCallbackInstrument() { status, note, velocity in
+            if note == 60 && status == .NoteOn {
+                print("myClock -> Start Note 60 at  \(myClock.sequencer.currentPositionInBeats)")
+            }
+        }
+        
         output = callbacker
 
         let clickTrack = sequencer.newTrack()
@@ -55,24 +61,16 @@ class SelectorClock {
     }
 }
 
-
 // at Tempo 120, that will trigger every sixteenth note
 var myClock = SelectorClock(tempo: 120, division: 1)
 
-func xFunction(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
-    if note == 60 && status == .NoteOn {
-        print("myClock -> Start Note 60 at  \(myClock.sequencer.currentPositionInBeats)")
-    }
-}
-
-func yFunction(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
+func myFunction(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
     if note == 80 && status == .NoteOn {
         print("myClock -> Start Note 80 at  \(myClock.sequencer.currentPositionInBeats)")
     }
 }
 
-myClock.callbacker?.callbacks.append(xFunction)
-myClock.callbacker?.callbacks.append(yFunction)
+myClock.callbacker?.callbacks.append(myFunction)
 
 // We must link the clock's output to AudioKit (even if we don't need the sound)
 AudioKit.output = myClock.output
