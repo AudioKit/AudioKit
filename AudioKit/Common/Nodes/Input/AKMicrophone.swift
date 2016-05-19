@@ -32,7 +32,7 @@ public class AKMicrophone: AKNode, AKToggleable {
     }
     
     /// Initialize the microphone 
-    public override init() {
+    override public init() {
         #if !os(tvOS)
             super.init()
             self.avAudioNode = mixer

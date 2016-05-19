@@ -118,7 +118,7 @@ public class AKMorphingOscillator: AKVoice {
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    override public convenience init() {
         self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
     }
     
@@ -216,18 +216,18 @@ public class AKMorphingOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func duplicate() -> AKVoice {
+    override public func duplicate() -> AKVoice {
         let copy = AKMorphingOscillator(waveformArray: self.waveformArray, frequency: self.frequency, amplitude: self.amplitude, index: self.index, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier, phase: self.phase)
         return copy
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func start() {
+    override public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop() {
+    override public func stop() {
         self.internalAU!.stop()
     }
 }

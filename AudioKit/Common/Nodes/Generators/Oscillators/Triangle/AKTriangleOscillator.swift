@@ -99,7 +99,7 @@ public class AKTriangleOscillator: AKVoice {
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    override public convenience init() {
         self.init(frequency: 440)
     }
 
@@ -176,18 +176,18 @@ public class AKTriangleOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func duplicate() -> AKVoice {
+    override public func duplicate() -> AKVoice {
         let copy = AKTriangleOscillator(frequency: self.frequency, amplitude: self.amplitude, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
         return copy
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func start() {
+    override public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop() {
+    override public func stop() {
         self.internalAU!.stop()
     }
 }

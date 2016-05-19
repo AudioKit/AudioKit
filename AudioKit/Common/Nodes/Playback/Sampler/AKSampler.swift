@@ -30,7 +30,7 @@ public class AKSampler: AKNode {
     // MARK: - Initializers
     
     /// Initialize the sampler node
-    public override init() {
+    override public init() {
         super.init()
         self.avAudioNode = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit

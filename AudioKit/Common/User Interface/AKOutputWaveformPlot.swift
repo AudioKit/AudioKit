@@ -33,7 +33,7 @@ public class AKOutputWaveformPlot: EZAudioPlot {
     ///
     /// - parameter frame: CGRect in which to draw the plot
     ///
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setupNode()
     }
