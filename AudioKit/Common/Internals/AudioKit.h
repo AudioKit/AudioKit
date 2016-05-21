@@ -55,6 +55,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKToneComplementFilterAudioUnit.h"
 #import "AKToneFilterAudioUnit.h"
 
+// Effects / Pitch Shifter
+#import "AKPitchShifterAudioUnit.h"
+
 // Effects / Reverb
 #import "AKChowningReverbAudioUnit.h"
 #import "AKConvolutionAudioUnit.h"
