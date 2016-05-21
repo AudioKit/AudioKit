@@ -16,6 +16,7 @@
         <page name='Comb Filter Reverb'/>
         <page name='Connecting Nodes'/>
         <page name='Convolution'/>
+        <page name='Critters'/>
         <page name='Custom Generator'/>
         <page name='Decimator'/>
         <page name='Delay'/>
@@ -26,6 +27,7 @@
         <page name='Dynamics Processor'/>
         <page name='Fatten Effect'/>
         <page name='FFT Analysis'/>
+        <page name='Filter Envelope'/>
         <page name='Filter Section Example'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Flat Frequency Response Reverb Operation'/>
@@ -67,8 +69,9 @@
         <page name='Phase-Locked Vocoder'/>
         <page name='Phasor Operation'/>
         <page name='Pink and White Noise Generators'/>
-        <page name='Plucked String'/>
         <page name='Playback Speed'/>
+        <page name='Plucked String'/>
+        <page name='Pitch Shifter'/>
         <page name='Plucked String Operation'/>
         <page name='Recording from Microphone'/>
         <page name='Ring Modulator'/>
@@ -105,6 +108,5 @@
         <page name='Variable Delay'/>
         <page name='Variable Delay Operation'/>
         <page name='XY Pad'/>
-        <page name='Filter Envelope'/>
     </pages>
 </playground>
