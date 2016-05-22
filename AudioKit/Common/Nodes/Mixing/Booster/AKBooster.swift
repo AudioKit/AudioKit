@@ -24,10 +24,10 @@ public class AKBooster: AKNode, AKToggleable {
     /// Amplification Factor in db
     public var dB: Double {
         set {
-            gain  = pow(10.0,Double(newValue/20))
+            gain  = pow(10.0, Double(newValue / 20))
         }
         get {
-            return 20.0*log10(gain)
+            return 20.0 * log10(gain)
         }
     }
     
