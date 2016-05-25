@@ -11,6 +11,10 @@ AudioKit V3
 
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
+If you need support, the best thing to do is to join AudioKit's google group:
+
+https://groups.google.com/forum/#!forum/audiokit
+
 ### Version 3
 The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
 
