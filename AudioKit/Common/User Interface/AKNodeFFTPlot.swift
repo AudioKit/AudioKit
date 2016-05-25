@@ -26,7 +26,7 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
         }
     }
     
-    internal let bufferSize: UInt32 = 512
+    internal var bufferSize: UInt32 = 1024
     
     /// EZAudioFFT container
     private var fft: EZAudioFFT?
@@ -60,12 +60,12 @@ public class AKNodeFFTPlot: EZAudioPlot, EZAudioFFTDelegate {
     /// - parameter width: Width of the view
     /// - parameter height: Height of the view
     ///
-    public init(_ input: AKNode, frame: CGRect) {
+    public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
         super.init(frame: frame)
         self.plotType = .Buffer
         self.backgroundColor = AKColor.whiteColor()
         self.shouldCenterYAxis = true
-        
+        self.bufferSize = UInt32(bufferSize)
         setupNode(input)
         
     }

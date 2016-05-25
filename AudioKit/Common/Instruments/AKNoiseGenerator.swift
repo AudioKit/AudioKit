@@ -69,7 +69,7 @@ public class AKNoiseGenerator: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    override internal func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let noiseVoice = voice as! AKNoiseVoice
         noiseVoice.whiteNoise.amplitude = Double(velocity) / 127.0
         noiseVoice.pinkNoise.amplitude = Double(velocity) / 127.0
@@ -81,7 +81,7 @@ public class AKNoiseGenerator: AKPolyphonicInstrument {
     /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    public override func stopVoice(voice: AKVoice, note: Int) {
+    override internal func stopVoice(voice: AKVoice, note: Int) {
         let noise = voice as! AKNoiseVoice
         noise.stop()
     }

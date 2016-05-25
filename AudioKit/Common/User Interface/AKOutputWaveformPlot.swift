@@ -23,7 +23,7 @@ public class AKOutputWaveformPlot: EZAudioPlot {
         }
     }
 
-    internal let bufferSize: UInt32 = 512
+    internal var bufferSize: UInt32 = 1024
     
     deinit {
         AudioKit.engine.outputNode.removeTapOnBus(0)
@@ -33,11 +33,22 @@ public class AKOutputWaveformPlot: EZAudioPlot {
     ///
     /// - parameter frame: CGRect in which to draw the plot
     ///
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setupNode()
     }
     
+    /// Initialize the plot in a frame with a different buffer size
+    ///
+    /// - parameter frame: CGRect in which to draw the plot
+    /// - parameter bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
+    ///
+    public init(frame: CGRect, bufferSize: Int) {
+        super.init(frame: frame)
+        self.bufferSize = UInt32(bufferSize)
+        setupNode()
+    }
+
     /// Required coder-based initialization (for use with Interface Builder)
     ///
     /// - parameter coder: NSCoder

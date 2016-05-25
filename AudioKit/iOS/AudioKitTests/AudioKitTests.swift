@@ -11,7 +11,7 @@ import XCTest
 
 class AKTestCase: XCTestCase {
     
-    var duration = 2
+    var duration = 1.0
     
     override func setUp() {
         super.setUp()
@@ -20,22 +20,38 @@ class AKTestCase: XCTestCase {
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        AudioKit.stop()
         super.tearDown()
     }
     
     func testFMOscillator() {
-        let samples = duration * AKSettings.sampleRate
+        let samples = Int(duration * AKSettings.sampleRate * 2.0) // Doubling for stereo
         
-        //: Try changing the table type to triangle or another AKTableType
-        //: or changing the number of points to a smaller number (has to be a power of 2)
         let fm = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
         AudioKit.testOutput(fm, samples: samples)
         AudioKit.start()
-        print("IS testing %@", AudioKit.tester!.isTesting())
-        while AudioKit.tester!.isTesting() {
-            usleep(10)
-        }
-        print("Got this MD5: \(AudioKit.tester!.getMD5())")
+        fm.start()
+
+        while AudioKit.tester!.isStarted { usleep(10) }
+        
+        let expectedMD5 = "1b8e1a3b9ed6d9da25f2e87d6c53849b"
+        let md5 = AudioKit.tester!.MD5
+        XCTAssertEqual(expectedMD5, md5, "Expected \(expectedMD5) but got \(md5)")
+    }
+
+    func testFMOscillatorSquareWave() {
+        let samples = Int(duration * AKSettings.sampleRate * 2.0) // Doubling for stereo
+        
+        let fm = AKFMOscillator(waveform: AKTable(.Square, size: 4096))
+        AudioKit.testOutput(fm, samples: samples)
+        AudioKit.start()
+        fm.start()
+
+        while AudioKit.tester!.isStarted { usleep(10) }
+        
+        let expectedMD5 = "8bd2d4b2db6e7060627da6fd33f7b4b0"
+        let md5 = AudioKit.tester!.MD5
+        XCTAssertEqual(expectedMD5, md5, "Expected \(expectedMD5) but got \(md5)")
     }
 
     

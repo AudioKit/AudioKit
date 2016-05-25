@@ -30,7 +30,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +40,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
 
     /// Cutoff frequency. (in Hertz)
     public var cutoffFrequency: Double = 500 {
-        willSet(newValue) {
+        willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -52,7 +52,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     }
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     public var resonance: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if resonance != newValue {
                 if internalAU!.isSetUp() {
                     resonanceParameter?.setValue(Float(newValue), originator: token!)
@@ -64,7 +64,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     }
     /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
     public var distortion: Double = 2.0 {
-        willSet(newValue) {
+        willSet {
             if distortion != newValue {
                 if internalAU!.isSetUp() {
                     distortionParameter?.setValue(Float(newValue), originator: token!)
@@ -76,7 +76,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
     }
     /// Asymmetry of resonance. Value is between 0-1
     public var resonanceAsymmetry: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if resonanceAsymmetry != newValue {
                 if internalAU!.isSetUp() {
                     resonanceAsymmetryParameter?.setValue(Float(newValue), originator: token!)

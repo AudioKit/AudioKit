@@ -1,8 +1,8 @@
 //
 //  AKMIDI+SendingMIDI.swift
-//  AudioKit For OSX
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 4/30/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -46,7 +46,7 @@ extension AKMIDI {
             let endpointNameStr = (endpointName?.takeRetainedValue())! as String
             if namedOutput.isEmpty || namedOutput == endpointNameStr {
                 print("Found destination at \(endpointNameStr)")
-                endpoints.append(MIDIGetDestination(i))
+                endpoints[endpointNameStr] = MIDIGetDestination(i)
                 foundDest = true
             }
         }
@@ -63,10 +63,12 @@ extension AKMIDI {
         var packet: UnsafeMutablePointer<MIDIPacket> = nil
         packet = MIDIPacketListInit(packetListPointer)
         packet = MIDIPacketListAdd(packetListPointer, 1024, packet, 0, data.count, data)
-        for _ in 0 ..< endpoints.count {
-            result = MIDISend(outputPort, endpoints[0], packetListPointer)
-            if result != noErr {
-                print("error sending midi : \(result)")
+        for endpointName in endpoints.keys {
+            if let endpoint = endpoints[endpointName] {
+                result = MIDISend(outputPort, endpoint, packetListPointer)
+                if result != noErr {
+                    print("error sending midi : \(result)")
+                }
             }
         }
         

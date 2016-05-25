@@ -31,7 +31,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -41,7 +41,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
 
     /// Center frequency. (in Hertz)
     public var centerFrequency: Double = 1000 {
-        willSet(newValue) {
+        willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -53,7 +53,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
     }
     /// The peak/notch bandwidth in Hertz
     public var bandwidth: Double = 100 {
-        willSet(newValue) {
+        willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
                     bandwidthParameter?.setValue(Float(newValue), originator: token!)
@@ -65,7 +65,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
     }
     /// The peak/notch gain
     public var gain: Double = 10 {
-        willSet(newValue) {
+        willSet {
             if gain != newValue {
                 if internalAU!.isSetUp() {
                     gainParameter?.setValue(Float(newValue), originator: token!)
