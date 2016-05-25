@@ -30,3 +30,6 @@ public func -(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().minus(right)
 }
 
+public prefix func -(x: AKParameter) -> AKOperation {
+    return AKOperation("(0 \(x) -)")
+}

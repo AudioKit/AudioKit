@@ -7,8 +7,6 @@ AudioKit V3
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://github.com/CocoaPods/Specs/tree/master/Specs/AudioKit)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
-*This document was last updated: January 29, 2016*
-
 AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
 If you need support, the best thing to do is to join AudioKit's google group:
@@ -33,6 +31,9 @@ Nodes are interconnectable signal processing components.  Each node has at least
 
 ### Operations
 Operations are similar to nodes, except that they are a series of signal processing components that exist inside of a single node.  Operations can be used as parameters to other operations to create very complex processing results.
+
+### Taps
+Taps use nodes as their data source, but do not redirect the audio signal away from the source nodes output into other nodes.   This allows a tap to be moved from node to node more freely and can be added after the audio signal path has started.
 
 ## Installation
 
@@ -85,7 +86,7 @@ Because Playgrounds have very different capabilities depending on whether they a
 There are many playground pages within the AudioKit for iOS Playground.  Each playground includes a demo of a node or operation or an example of sound design.  The first playground is a Table of Contents in which the playgrounds are organized via markup.  The playground may also be opened up to view the playgrounds alphabetically.
 
 ### AudioKit for OS X Playgrounds
-OS X Playgrounds are able to launch NSWindows that can be used to control the AudioKit effects processors, so these playgrounds have a UI that allow you to adjust the parameters of an effect very easily.  However, OS X playgrounds at this point do not support AudioKit nodes that do not use Apple AudioUnit processors, so there are fewer things that we can demonstrate in OSX playgrounds.  Hopefully this will be fixed in the future - it is unclear whether the problem is in AudioKit or within the Xcode playground audio implementation.
+OS X Playgrounds have slightly different capabilities from iOS ones, so while most playgrounds are the same across the two platforms, a few playgrounds only exist on one or the other.  As of this writing, access to a microphone is only capable on the OS X playgrounds, for instance.
 
 ## Tests
 

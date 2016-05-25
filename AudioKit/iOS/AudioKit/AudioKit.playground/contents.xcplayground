@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -7,7 +7,9 @@
         <page name='AutoWah Operation'/>
         <page name='Auto Wah Wah'/>
         <page name='Balancing Nodes'/>
+        <page name='Band Pass Butterworth Filter'/>
         <page name='Band Pass Filter'/>
+        <page name='Band Reject Butterworth Filter'/>
         <page name='Bit Crush Effect'/>
         <page name='Bit Crush Operation'/>
         <page name='Clipper'/>
@@ -31,7 +33,10 @@
         <page name='Flat Frequency Response Reverb Operation'/>
         <page name='FM Oscillator'/>
         <page name='FM Oscillator Operation'/>
+        <page name='Formant Filter'/>
         <page name='General Purpose Oscillator'/>
+        <page name='Graphic Equalizer'/>
+        <page name='High Pass Butterworth Filter'/>
         <page name='High Pass Filter'/>
         <page name='High Pass Filter Operation'/>
         <page name='High Shelf Filter'/>
@@ -39,6 +44,7 @@
         <page name='iOS-only Reverb'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Linear and Exponential Segment Operations'/>
+        <page name='Low Pass Butterworth Filter'/>
         <page name='Low Pass Filter'/>
         <page name='Low Pass Filter Operation'/>
         <page name='Low Shelf Filter'/>
@@ -68,6 +74,7 @@
         <page name='Pink and White Noise Generators'/>
         <page name='Playback Speed'/>
         <page name='Plucked String'/>
+        <page name='Pitch Shifter'/>
         <page name='Plucked String Operation'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
@@ -86,11 +93,16 @@
         <page name='Sporth Based Effect'/>
         <page name='Square Wave Oscillator'/>
         <page name='Stereo Panning'/>
+        <page name='String Resonator'/>
+        <page name='Tanh Distortion'/>
         <page name='Telephone'/>
+        <page name='Three-Pole Low Pass Filter'/>
         <page name='Time Stretching and Pitch Shifting'/>
+        <page name='Tone and Tone Complement Filters'/>
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency'/>
         <page name='Tracking Frequency of Audio File'/>
+        <page name='Tremolo'/>
         <page name='Triangular Wave Oscillator'/>
         <page name='Using Functions'/>
         <page name='Using Functions Part 2'/>

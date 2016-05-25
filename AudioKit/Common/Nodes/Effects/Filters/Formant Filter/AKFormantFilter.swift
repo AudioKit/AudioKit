@@ -30,7 +30,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +40,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
     /// Center frequency.
     public var centerFrequency: Double = 1000 {
-        willSet(newValue) {
+        willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -52,7 +52,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
     }
     /// Impulse response attack time (in seconds).
     public var attackDuration: Double = 0.007 {
-        willSet(newValue) {
+        willSet {
             if attackDuration != newValue {
                 if internalAU!.isSetUp() {
                     attackDurationParameter?.setValue(Float(newValue), originator: token!)
@@ -64,7 +64,7 @@ public class AKFormantFilter: AKNode, AKToggleable {
     }
     /// Impulse reponse decay time (in seconds)
     public var decayDuration: Double = 0.04 {
-        willSet(newValue) {
+        willSet {
             if decayDuration != newValue {
                 if internalAU!.isSetUp() {
                     decayDurationParameter?.setValue(Float(newValue), originator: token!)

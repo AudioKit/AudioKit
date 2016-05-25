@@ -30,7 +30,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +40,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
     /// Filter cutoff frequency.
     public var cutoffFrequency: Double = 1000 {
-        willSet(newValue) {
+        willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
                     cutoffFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -52,7 +52,7 @@ public class AKMoogLadder: AKNode, AKToggleable {
     }
     /// Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     public var resonance: Double = 0.5 {
-        willSet(newValue) {
+        willSet {
             if resonance != newValue {
                 if internalAU!.isSetUp() {
                     resonanceParameter?.setValue(Float(newValue), originator: token!)

@@ -19,7 +19,7 @@ import AVFoundation
     internal var connectionPoints = [AVAudioConnectionPoint]()
 
     /// Create the node
-    public override init() {
+    override public init() {
         self.avAudioNode = AVAudioNode()
     }
     

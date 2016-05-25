@@ -97,7 +97,7 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        // For each sample.
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
@@ -105,16 +105,15 @@ public:
             limit = limitRamper.getAndStep();
             clip->lim = (float)limit;
 
-            if (!started) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-                return;
-            }
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-
-                sp_clip_compute(sp, clip, in, out);
+                
+                if (started) {
+                    sp_clip_compute(sp, clip, in, out);
+                } else {
+                    *out = *in;
+                }
             }
         }
     }
