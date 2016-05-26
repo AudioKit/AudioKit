@@ -490,6 +490,7 @@
 		C4D4F9E41CE5B4770034CC07 /* AKTremoloAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D4F9E01CE5B4770034CC07 /* AKTremoloAudioUnit.mm */; };
 		C4D4F9E51CE5B4770034CC07 /* AKTremoloDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D4F9E11CE5B4770034CC07 /* AKTremoloDSPKernel.hpp */; };
 		C4D4F9E71CE5B5400034CC07 /* trem.c in Sources */ = {isa = PBXBuildFile; fileRef = C4D4F9E61CE5B5400034CC07 /* trem.c */; };
+		C4D5EBDE1CF6D74C00306D79 /* adsrEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D5EBDD1CF6D74C00306D79 /* adsrEnvelope.swift */; };
 		C4DA4BE41C248EC200AA3771 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE11C248EC200AA3771 /* jitter.swift */; };
 		C4DA4BE51C248EC200AA3771 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE21C248EC200AA3771 /* randomNumberPulse.swift */; };
 		C4DA4BE61C248EC200AA3771 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BE31C248EC200AA3771 /* randomVertexPulse.swift */; };
@@ -1043,6 +1044,7 @@
 		C4D4F9E01CE5B4770034CC07 /* AKTremoloAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTremoloAudioUnit.mm; sourceTree = "<group>"; };
 		C4D4F9E11CE5B4770034CC07 /* AKTremoloDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTremoloDSPKernel.hpp; sourceTree = "<group>"; };
 		C4D4F9E61CE5B5400034CC07 /* trem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trem.c; sourceTree = "<group>"; };
+		C4D5EBDD1CF6D74C00306D79 /* adsrEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adsrEnvelope.swift; sourceTree = "<group>"; };
 		C4DA4BE11C248EC200AA3771 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C4DA4BE21C248EC200AA3771 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
 		C4DA4BE31C248EC200AA3771 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
@@ -2130,6 +2132,7 @@
 		C4A916521C2504F2006C1A15 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				C4D5EBDD1CF6D74C00306D79 /* adsrEnvelope.swift */,
 				C4A916531C2504F2006C1A15 /* metronome.swift */,
 				C4A916541C2504F2006C1A15 /* periodicTrigger.swift */,
 				C4A916551C2504F2006C1A15 /* portamento.swift */,
@@ -3007,6 +3010,7 @@
 				C4B191041C3B340400C0F330 /* jitter.c in Sources */,
 				C4B190D41C3B340400C0F330 /* tone.c in Sources */,
 				C4B190A41C3B340400C0F330 /* ftbl.c in Sources */,
+				C4D5EBDE1CF6D74C00306D79 /* adsrEnvelope.swift in Sources */,
 				C4B190B41C3B340400C0F330 /* panst.c in Sources */,
 				C453837D1C3A5E4300A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C4E8ED131C43A5BC0041965F /* AKConvolution.swift in Sources */,
