@@ -16,7 +16,6 @@
         <page name='Comb Filter Reverb'/>
         <page name='Connecting Nodes'/>
         <page name='Convolution'/>
-        <page name='Critters'/>
         <page name='Custom Generator'/>
         <page name='Decimator'/>
         <page name='Delay'/>
@@ -62,7 +61,7 @@
         <page name='Non-Audio Tutorial'/>
         <page name='Oscillator'/>
         <page name='Output Waveform Plot'/>
-        <page name='Parameter Inertia'/>
+        <page name='Parameter Ramp Time'/>
         <page name='Parametric Equalizer'/>
         <page name='Peak Limiter'/>
         <page name='Pedestrians'/>
