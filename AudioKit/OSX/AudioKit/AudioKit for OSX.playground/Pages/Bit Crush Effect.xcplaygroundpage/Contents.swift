@@ -30,8 +30,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Bit Crusher")
 
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
@@ -41,28 +45,34 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setSampleRate), value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()
     }
 
-    func setBitDepth(slider: Slider) {
-        bitcrusher.bitDepth = Double(slider.value)
-        let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
-        bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
-    }
-
-    func setSampleRate(slider: Slider) {
-        bitcrusher.sampleRate = Double(slider.value)
-        let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
-        sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
-    }
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    

@@ -32,8 +32,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("High Pass Butterworth Filter")
         
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         addLabel("High Pass Filter Parameters")
@@ -47,31 +51,31 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
     
-    func stop() {
-        player.stop()
+    func startDrumLoop() {
+        startLoop("drum")
     }
-    
-    func process() {
-        highPassFilter.start()
-    }
-    
-    func bypass() {
-        highPassFilter.bypass()
-    }
-    
-    func setCutoffFrequency(slider: Slider) {
-        highPassFilter.cutoffFrequency = Double(slider.value)
-        let cutoffFrequency = String(format: "%0.1f", highPassFilter.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
-    }
-}
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
+    func

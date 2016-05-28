@@ -36,7 +36,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Convolution")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLineBreak()
@@ -50,22 +54,11 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setIRMix), value: mixer.balance)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
-    func stop() {
-        player.stop()
-    }
-
-    func setIRMix(slider: Slider) {
-        mixer.balance = Double(slider.value)
-    }
-
-    func setDryWet(slider: Slider) {
-        dryWetMixer.balance = Double(slider.value)
-    }
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:400))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+    
+    func startDr
