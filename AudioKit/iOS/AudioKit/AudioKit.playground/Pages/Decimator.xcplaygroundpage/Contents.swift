@@ -36,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Decimator")
 
-        addLabel("Audio Player")
+        addLabel("Audio Playback")
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
 
@@ -52,8 +52,31 @@ class PlaygroundView: AKPlaygroundView {
 
     //: Handle UI Events
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()
@@ -68,19 +91,4 @@ class PlaygroundView: AKPlaygroundView {
     func setRounding(slider: Slider) {
         decimator.rounding = Double(slider.value)
         let rounding = String(format: "%0.3f", decimator.rounding)
-        roundingLabel!.text = "Rounding: \(rounding)"
-    }
-
-    func setMix(slider: Slider) {
-        decimator.mix = Double(slider.value)
-        let mix = String(format: "%0.3f", decimator.mix)
-        mixLabel!.text = "Mix: \(mix)"
-    }
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        roundingLabel!.text = "Round

@@ -38,8 +38,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Tanh Distortion")
         
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         addLabel("Distortion Parameters")
@@ -63,8 +67,31 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     
     func stop() {
@@ -93,20 +120,4 @@ class PlaygroundView: AKPlaygroundView {
 
     func setPositiveShapeParameter(slider: Slider) {
         distortion.postiveShapeParameter = Double(slider.value)
-        let postiveShapeParameter = String(format: "%0.2f", distortion.postiveShapeParameter)
-        postiveShapeParameterLabel!.text = "Positive Shape Parameter: \(postiveShapeParameter)"
-    }
-
-    func setNegativeShapeParameter(slider: Slider) {
-        distortion.negativeShapeParameter = Double(slider.value)
-        let negativeShapeParameter = String(format: "%0.2f", distortion.negativeShapeParameter)
-        negativeShapeParameterLabel!.text = "Negative Shape Parameter: \(negativeShapeParameter)"
-    }
-
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        let postiveShapeParameter = String(format: "%0.2f",
