@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Graphic Equalizer")
         
-        addLabel("Audio Player")
+        addLabel("Audio Playback")
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
         
@@ -50,8 +50,31 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     
     func stop() {
@@ -67,20 +90,4 @@ class PlaygroundView: AKPlaygroundView {
     func setMidGain(slider: Slider) {
         midFilter.gain = Double(slider.value)
         let gain = String(format: "%0.3f", midFilter.gain)
-        midLabel!.text = "Mid: \(gain)"
-    }
-
-    func setHighGain(slider: Slider) {
-        highFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", highFilter.gain)
-        highLabel!.text = "High: \(gain)"
-    }
-
-}
-
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        midLabel!.text = "Mid: \(gai

@@ -33,7 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("String Resonator")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         fundamentalFrequencyLabel = addLabel("Fundamental Frequency: \(stringResonator.fundamentalFrequency)")
@@ -43,27 +47,34 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setFeedback), value: stringResonator.feedback, minimum: 0, maximum: 0.99)
     }
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()
     }
     
-    func setFundamentalFrequency(slider: Slider) {
-        stringResonator.fundamentalFrequency = Double(slider.value)
-        fundamentalFrequencyLabel!.text = "Fundamental Frequency: \(String(format: "%0.0f", stringResonator.fundamentalFrequency))"
-    }
-    
-    func setFeedback(slider: Slider) {
-        stringResonator.feedback = Double(slider.value)
-        feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", stringResonator.feedback))"
-    }
-    
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    func
