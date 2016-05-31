@@ -16,7 +16,7 @@ public class AKMusicTrack {
     /// The representation of Apple's underlying music track
     public var internalMusicTrack: MusicTrack = nil
     
-    public var owningSequencer = AKSequencer()
+    public var sequencer = AKSequencer()
     
     /// Pointer to the Music Track
     public var trackPtr: UnsafeMutablePointer<MusicTrack>
@@ -60,7 +60,7 @@ public class AKMusicTrack {
         self.init()
         internalMusicTrack = musicTrack
         trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
-        owningSequencer = sequencer
+        self.sequencer = sequencer
     }
     
     /// Set the Node Output
