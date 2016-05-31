@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='osx' display-mode='raw'>
+<playground version='6.0' target-platform='osx' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -16,7 +16,6 @@
         <page name='Comb Filter Reverb'/>
         <page name='Connecting Nodes'/>
         <page name='Convolution'/>
-        <page name='Critters'/>
         <page name='Custom Generator'/>
         <page name='Decimator'/>
         <page name='Delay'/>
@@ -62,7 +61,7 @@
         <page name='Non-Audio Tutorial'/>
         <page name='Oscillator'/>
         <page name='Output Waveform Plot'/>
-        <page name='Parameter Inertia'/>
+        <page name='Parameter Ramp Time'/>
         <page name='Parametric Equalizer'/>
         <page name='Peak Limiter'/>
         <page name='Pedestrians'/>
@@ -102,6 +101,7 @@
         <page name='Tracking Frequency'/>
         <page name='Tracking Microphone Input'/>
         <page name='Tracking Frequency of Audio File'/>
+        <page name='Tremolo'/>
         <page name='Triangular Wave Oscillator'/>
         <page name='Using Functions'/>
         <page name='Using Functions Part 2'/>

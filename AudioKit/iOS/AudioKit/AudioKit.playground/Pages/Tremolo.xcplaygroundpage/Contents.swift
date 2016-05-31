@@ -2,22 +2,21 @@
 //:
 //: ---
 //:
-//: ## Sean Costello Reverb
-//: ### This is a great sounding reverb that we just love.
+//: ## Tremolo
+//: ### 
 import XCPlayground
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+let file = bundle.pathForResource("guitarloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
-var reverb = AKCostelloReverb(player)
+var tremolo = AKTremolo(player, waveform: AKTable(.PositiveSquare))
 
-//: Set the parameters of the reverb here
-reverb.cutoffFrequency = 9900 // Hz
-reverb.feedback = 0.92
+//: Set the parameters of the tremolo here
+tremolo.frequency = 8
 
-AudioKit.output = reverb
+AudioKit.output = tremolo
 AudioKit.start()
 
 player.play()
@@ -25,13 +24,12 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-
-    var cutoffFrequencyLabel: Label?
-    var feedbackLabel: Label?
-
+    
+    var tremoloLabel: Label?
+    
     override func setup() {
-        addTitle("Sean Costello Reverb")
-
+        addTitle("Tremolo")
+        
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -39,14 +37,11 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-
-        cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
-        addSlider(#selector(setCutoffFrequency), value: reverb.cutoffFrequency, minimum: 0, maximum: 5000)
-
-        feedbackLabel = addLabel("Feedback: \(reverb.feedback)")
-        addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
+        
+        tremoloLabel = addLabel("Frequency: \(tremolo.frequency)")
+        addSlider(#selector(setFrequency), value: tremolo.frequency, minimum: 0, maximum: 20)
     }
-
+    
     func startLoop(part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
@@ -59,16 +54,4 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func startBassLoop() {
-        startLoop("bass")
-    }
-    
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-    
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-    
-    func startMixLoop() {
-        startLoop
+        sta

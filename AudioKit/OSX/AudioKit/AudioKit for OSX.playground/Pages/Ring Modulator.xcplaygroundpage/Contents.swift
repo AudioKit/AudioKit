@@ -37,8 +37,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Ring Modulator")
 
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Ring Modulator Parameters")
@@ -62,8 +66,31 @@ class PlaygroundView: AKPlaygroundView {
 
     //: Handle UI Events
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+
+    func startMixLoop() {
+        startLoop("mix")
     }
 
     func stop() {
@@ -87,24 +114,4 @@ class PlaygroundView: AKPlaygroundView {
         ringModulator.frequency2 = Double(slider.value)
         let ringModFreq2 = String(format: "%0.1f", ringModulator.frequency2)
         ringModFreq2Label!.text = "Frequency 2: \(ringModFreq2) Hertz"
-    }
-
-    func setBalance(slider: Slider) {
-        ringModulator.balance = Double(slider.value)
-        let ringModBalance = String(format: "%0.1f", ringModulator.balance)
-        ringModBalanceLabel!.text = "Balance: \(ringModBalance)"
-    }
-
-    func setMix(slider: Slider) {
-        ringModulator.mix = Double(slider.value)
-        let finalMix = String(format: "%0.1f", ringModulator.mix)
-        finalMixLabel!.text = "Mix: \(finalMix)"
-    }
-
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+   

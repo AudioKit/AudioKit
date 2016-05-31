@@ -31,7 +31,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Apple Reverb")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLineBreak()
@@ -60,8 +64,31 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setDryWet), value: reverb.dryWetMix)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()
@@ -103,34 +130,4 @@ class PlaygroundView: AKPlaygroundView {
         reverb.loadFactoryPreset(.MediumHall2)
     }
 
-    func loadMediumHall3() {
-        reverb.loadFactoryPreset(.MediumHall3)
-    }
-
-    func loadMediumRoom() {
-        reverb.loadFactoryPreset(.MediumRoom)
-    }
-
-    func loadPlate() {
-        reverb.loadFactoryPreset(.Plate)
-    }
-
-    func loadSmallRoom() {
-        reverb.loadFactoryPreset(.SmallRoom)
-    }
-
-
-
-
-    func setDryWet(slider: Slider) {
-        reverb.dryWetMix = Double(slider.value)
-    }
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 550, height: 600))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    func loadMediumHall
