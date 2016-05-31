@@ -33,7 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Three Pole Low Pass Filter")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(filter.cutoffFrequency)")
@@ -49,27 +53,30 @@ class PlaygroundView: AKPlaygroundView {
                   maximum: 0.99)
     }
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
-    func stop() {
-        player.stop()
-    }
     
-    func setCutoffFrequency(slider: Slider) {
-        filter.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", filter.cutoffFrequency))"
+    func startDrumLoop() {
+        startLoop("drum")
     }
-    
-    func setResonance(slider: Slider) {
-        filter.resonance = Double(slider.value)
-        resonanceLabel!.text = "Resonance: \(String(format: "%0.3f", filter.resonance))"
-    }
-    
-}
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    func st

@@ -37,7 +37,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Ring Modulator")
 
-        addLabel("Audio Player")
+        addLabel("Audio Playback")
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
 
@@ -62,8 +62,31 @@ class PlaygroundView: AKPlaygroundView {
 
     //: Handle UI Events
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
 
     func stop() {
@@ -94,17 +117,3 @@ class PlaygroundView: AKPlaygroundView {
         let ringModBalance = String(format: "%0.1f", ringModulator.balance)
         ringModBalanceLabel!.text = "Balance: \(ringModBalance)"
     }
-
-    func setMix(slider: Slider) {
-        ringModulator.mix = Double(slider.value)
-        let finalMix = String(format: "%0.1f", ringModulator.mix)
-        finalMixLabel!.text = "Mix: \(finalMix)"
-    }
-
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -33,7 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Sean Costello Reverb")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
@@ -43,27 +47,28 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
-    func stop() {
-        player.stop()
+    
+    func startDrumLoop() {
+        startLoop("drum")
     }
 
-    func setCutoffFrequency(slider: Slider) {
-        reverb.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", reverb.cutoffFrequency))"
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
     }
 
-    func setFeedback(slider: Slider) {
-        reverb.feedback = Double(slider.value)
-        feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
-    }
-
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    func startMixLoop() {
+        startLoop("mix")
