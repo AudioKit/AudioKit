@@ -16,10 +16,11 @@ public class AKMusicTrack {
     /// The representation of Apple's underlying music track
     public var internalMusicTrack: MusicTrack = nil
     
+    /// Sequencer this music track is part of
     public var sequencer = AKSequencer()
     
     /// Pointer to the Music Track
-    public var trackPtr: UnsafeMutablePointer<MusicTrack>
+    public var trackPointer: UnsafeMutablePointer<MusicTrack>
     
     /// Total duration of the music track
     public var length: MusicTimeStamp {
@@ -39,7 +40,7 @@ public class AKMusicTrack {
     /// - parameter musicTrack: An Apple Music Track
     ///
     public init() {
-        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
     
     /// Initialize with a music track
@@ -49,7 +50,7 @@ public class AKMusicTrack {
     public convenience init(musicTrack: MusicTrack) {
         self.init()
         internalMusicTrack = musicTrack
-        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
     
     /// Initialize with a music track and the AKSequence
@@ -59,7 +60,7 @@ public class AKMusicTrack {
     public convenience init(musicTrack: MusicTrack, sequencer: AKSequencer) {
         self.init()
         internalMusicTrack = musicTrack
-        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
         self.sequencer = sequencer
     }
     
@@ -204,6 +205,6 @@ public class AKMusicTrack {
     
     /// Debug by showing the track pointer.
     public func debug() {
-        CAShow(trackPtr)
+        CAShow(trackPointer)
     }
 }
