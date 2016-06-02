@@ -465,25 +465,4 @@ public class AKSampler: AKNode {
         templateStr.appendContentsOf("</plist>\n")
         return templateStr
     }
-    
-    // MARK: - Deprecated
-    
-    
-    /* createAUPresetFromDict
-     was moved to AKAUPresetBuilder
-     */
-    static public func createAUPresetFromDict(dict: NSDictionary, path: String, instName: String, attack: Double? = 0, release: Double? = 0){
-        NSException(name: "Deprecated", reason: "createAUPresetFromDict was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.createAUPresetFromDict with AKAUPresetBuilder.createAUPresetFromDict. Thank you.", userInfo: nil).raise()
-    }//end func createAUPresetFromDict
-    
-    // This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that
-    // into createAUPresetFromDict
-    public static func generateTemplateDictionary(
-        rootNote: Int,
-        filename: String,
-        startNote: Int,
-        endNote: Int) -> NSMutableDictionary {
-        NSException(name: "Deprecated", reason: "generateTemplateDictionary was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.generateTemplateDictionary with AKAUPresetBuilder.generateDictionary. Thank you.", userInfo: nil).raise()
-        return NSMutableDictionary()
-    }
 }
