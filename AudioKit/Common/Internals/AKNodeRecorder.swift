@@ -17,6 +17,8 @@ public class AKNodeRecorder {
     private var format: AVAudioFormat
     private var url: NSURL
     private var node: AKNode?
+    
+    /// Whether or not the recorder is currently recording
     public var isRecording = false
     
     /// Initialize the recorder to record a node's output to a file
