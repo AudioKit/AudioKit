@@ -465,11 +465,16 @@ public class AKSequencer {
         }
     }
     
-    public static func beatsFromSamples(samples: Int, fs: Int, bpm: Double) -> Beat {
-        let timeInSecs = Double(samples) / Double(fs)
-        let beatsPerSec = bpm / 60.0
-        let beatLenInSecs = Double(1.0 / beatsPerSec)
-        let numBeats = timeInSecs / beatLenInSecs
-        return numBeats
+    /// Calculates beats in to a file based on it samples, sample rate, and tempo
+    ///
+    /// - parameter samples:    Number of samples in
+    /// - parameter sampleRate: Sample frequency
+    /// - parameter tempo:      Tempo, in beats per minute
+    ///
+    public static func beatsFromSamples(samples: Int, sampleRate: Int, tempo: Double) -> Beat {
+        let timeInSecs = Double(samples) / Double(sampleRate)
+        let beatsPerSec = tempo / 60.0
+        let beatLengthInSecs = Double(1.0 / beatsPerSec)
+        return timeInSecs / beatLengthInSecs
     }
 }

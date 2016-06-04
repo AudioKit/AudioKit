@@ -76,6 +76,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// Initialize the player
     ///
     /// - parameter file: Path to the audio file
+    /// - parameter completionHandler: Function to run when the player completes
     ///
     public init(_ file: String, completionHandler: AKCallback? = nil) {
         internalFile = file
