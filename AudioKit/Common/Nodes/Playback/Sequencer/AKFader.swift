@@ -87,11 +87,11 @@ public class AKFader {
     }
     
     /// Start the fade WITH the offset
-    public func start() { //starts the fade WITH the offset
+    public func start() {
         scheduleFade(0.0)
     }
     /// Start the fade WITHOUT the offset
-    public func startImmediately() { //skips the offset
+    public func startImmediately() {
         //this starts the recurring timer
         let millis = NSDate().timeIntervalSince1970*1000
         print("starting fade \(millis) \(directionString)")
@@ -130,13 +130,12 @@ public class AKFader {
                                                           maximum: finalVolume,
                                                           taper: curvature)
             case .EqualPower:
-                scaledControlAmount = pow((0.5 + 0.5 * direction * cos(π * controlAmount)), 0.5) //direction will be negative if going up
+                //direction will be negative if going up
+                scaledControlAmount = pow((0.5 + 0.5 * direction * cos(π * controlAmount)), 0.5)
             }
             
             output!.gain = scaledControlAmount
             stepCounter += 1
-            //print(scaledControlAmount)
-            
         } else {
             endFade()
         }
@@ -164,7 +163,7 @@ public class AKFader {
             var adjustedMaximum: Double = 0.0
             if minimum == 0 { adjustedMinimum = 0.00000000001 }
             if maximum == 0 { adjustedMaximum = 0.00000000001 }
-            return log(input / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)//not working right for 0 values
+            return log(input / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum) //not working right for 0 values
         }
     }
     
