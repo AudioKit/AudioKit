@@ -46,7 +46,7 @@ public class AKFader {
     var fadeTimer = NSTimer()
     var fadeScheduleTimer = NSTimer()
     
-    let cadTimerRate: Double = 1/60
+    let cadTimerRate: Double = 1 / 60
     var cadDelayTimer: CADisplayLink?
     var cadUpdateTimer: CADisplayLink?
     var cadTimerIncrement: Int = 0
@@ -74,6 +74,10 @@ public class AKFader {
         self.output = output
     }
     
+    /// Schedule a fade to start after fireTime
+    ///
+    /// - parameter fireTime: Time to start the fade at
+    ///
     func scheduleFade(fireTime: Double) {
         //this schedules a fade to start after fireTime + the offset
         let millis = NSDate().timeIntervalSince1970*1000
@@ -82,9 +86,11 @@ public class AKFader {
         output!.gain = initialVolume
     }
     
+    /// Start the fade WITH the offset
     public func start() { //starts the fade WITH the offset
         scheduleFade(0.0)
     }
+    /// Start the fade WITHOUT the offset
     public func startImmediately() { //skips the offset
         //this starts the recurring timer
         let millis = NSDate().timeIntervalSince1970*1000
@@ -108,7 +114,8 @@ public class AKFader {
         if numberOfSteps == 0{
             endFade()
         }else if stepCounter <= numberOfSteps {
-            let controlAmount: Double = Double(stepCounter) / Double(numberOfSteps) //normalized 0-1 value
+            //normalized 0-1 value
+            let controlAmount: Double = Double(stepCounter) / Double(numberOfSteps)
             var scaledControlAmount: Double = 0.0
             
             switch curveType {
@@ -144,7 +151,10 @@ public class AKFader {
         stepCounter = 0
     }
     
-    static func denormalize(input: Double, minimum: Double, maximum: Double, taper: Double) -> Double {
+    static func denormalize(input: Double,
+                            minimum: Double,
+                            maximum: Double,
+                            taper: Double) -> Double {
         if taper > 0 {
             // algebraic taper
             return minimum + (maximum - minimum) * pow(input, taper)
@@ -154,7 +164,7 @@ public class AKFader {
             var adjustedMaximum: Double = 0.0
             if minimum == 0 { adjustedMinimum = 0.00000000001 }
             if maximum == 0 { adjustedMaximum = 0.00000000001 }
-            return log(input / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum);//not working right for 0 values
+            return log(input / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)//not working right for 0 values
         }
     }
     
@@ -163,22 +173,30 @@ public class AKFader {
                                     duration: Double = 1.0,
                                     type: CurveType = .Exponential,
                                     curvature: Double = 1.0,
-                                    controlRate: Double = 1/60) -> [Double] {
+                                    controlRate: Double = 1 / 60) -> [Double] {
         var curvePoints = [Double]()
         let stepCount = Int(floor(duration / controlRate))
         var counter = 0
         let direction: Double = source > target ? 1.0 : -1.0
         if counter <= stepCount {
-            let controlAmount: Double = Double(counter) / Double(stepCount) //normalised 0-1 value
+            //normalized 0-1 value
+            let controlAmount: Double = Double(counter) / Double(stepCount)
             var scaledControlAmount: Double = 0.0
             
             switch type {
             case .Linear:
-                scaledControlAmount = denormalize(controlAmount, minimum: source, maximum: target, taper: 1)
+                scaledControlAmount = denormalize(controlAmount,
+                                                  minimum: source,
+                                                  maximum: target,
+                                                  taper: 1)
             case .Exponential:
-                scaledControlAmount = denormalize(controlAmount, minimum: source, maximum: target, taper: curvature)
+                scaledControlAmount = denormalize(controlAmount,
+                                                  minimum: source,
+                                                  maximum: target,
+                                                  taper: curvature)
             case .EqualPower:
-                scaledControlAmount = pow((0.5 + 0.5 * direction * cos(M_PI * controlAmount)), 0.5) //direction will be negative if going up
+                //direction will be negative if going up
+                scaledControlAmount = pow((0.5 + 0.5 * direction * cos(M_PI * controlAmount)), 0.5)
             }
             curvePoints.append(scaledControlAmount)
             counter += 1
