@@ -12,7 +12,7 @@ public enum CurveType {
     case Linear, EqualPower, Exponential
     
     public static func fromString(curve: String) -> CurveType {
-        
+
         switch curve {
         case "linear":
             return .Linear
@@ -31,29 +31,38 @@ public class AKFader {
     let π = M_PI
     
     var output: AKBooster?
+
+    var initialVolume: Double = 1.0 //make these only 0 or 1 right now
+    var finalVolume: Double = 0.0 //make these only 0 or 1 right now
     
-    var initialVolume: Double = 1.0 // make these only 0 or 1 right now
-    var finalVolume: Double = 0.0   // make these only 0 or 1 right now
-    
-    var controlRate: Double = 1 / 30 // 30 times per second
+    var controlRate: Double = 1 / 60 // 60 times per second
     var curveType: CurveType = .Linear
-    var curvature: Double = 0.5 // doesn't apply to linear
-    var duration: Double = 1.0 // seconds
+    var curvature: Double = 0.5 //doesn't apply to linear
+    var duration: Double = 1.0 //seconds
     var offset: Double = 0.0
     var stepCounter = 0
-    var stepCount = 0
+    var numberOfSteps = 0
     
     var fadeTimer = NSTimer()
     var fadeScheduleTimer = NSTimer()
     
-    /// Initialize the fader with a single control output
+    let cadTimerRate: Double = 1 / 60
+    var cadDelayTimer: CADisplayLink?
+    var cadUpdateTimer: CADisplayLink?
+    var cadTimerIncrement: Int = 0
+    
+    var directionString: String {
+        return (finalVolume > initialVolume ? "up" : "down")
+    }
+    
+    /// Init with a single control output
     public init(initialVolume: Double,
-                finalVolume: Double,
-                duration: Double = 1.0,
-                type: CurveType = .Exponential,
-                curvature: Double = 1.0,
-                offset: Double = 0.0,
-                output: AKBooster) {
+         finalVolume: Double,
+         duration: Double = 1.0,
+         type: CurveType = .Exponential,
+         curvature: Double = 1.0,
+         offset: Double = 0.0,
+         output: AKBooster) {
         
         self.initialVolume = initialVolume
         self.finalVolume = finalVolume
@@ -61,7 +70,7 @@ public class AKFader {
         self.curvature = curvature
         self.duration = duration
         self.offset = offset
-        stepCount = Int(floor(duration / controlRate))
+        numberOfSteps = Int(floor(duration / controlRate))
         self.output = output
     }
     
@@ -70,49 +79,43 @@ public class AKFader {
     /// - parameter fireTime: Time to start the fade at
     ///
     func scheduleFade(fireTime: Double) {
-        
-        fadeScheduleTimer = NSTimer.scheduledTimerWithTimeInterval(
-            fireTime + offset,
-            target: self,
-            selector: #selector(scheduleFadeTimer),
-            userInfo: nil,
-            repeats: false)
-        
+        //this schedules a fade to start after fireTime + the offset
+        let millis = NSDate().timeIntervalSince1970*1000
+        print("scheduling fade @\(millis) for \(millis + fireTime*1000) \(directionString)")
+        scheduleCADTimer(fireTime + offset)
         output!.gain = initialVolume
-    }
-    
-    @objc func scheduleFadeTimer(timer: NSTimer) {
-        startImmediately()
     }
     
     /// Start the fade WITH the offset
     public func start() {
         scheduleFade(0.0)
     }
-    
     /// Start the fade WITHOUT the offset
     public func startImmediately() {
+        //this starts the recurring timer
+        let millis = NSDate().timeIntervalSince1970*1000
+        print("starting fade \(millis) \(directionString)")
         stepCounter = 0
         
-        if fadeTimer.valid {
-            fadeTimer.invalidate()
+        if cadUpdateTimer != nil{
+            cadUpdateTimer?.invalidate()
         }
-        fadeTimer = NSTimer.scheduledTimerWithTimeInterval(controlRate,
-                                                           target: self,
-                                                           selector: #selector(updateFade),
-                                                           userInfo: nil,
-                                                           repeats: true)
-    }
+        if numberOfSteps == 0{ //if no steps to run, go ahead and set the volume early
+            output!.gain = finalVolume
+        }
+        cadUpdateTimer = CADisplayLink(target: self, selector: #selector(updateFadeFromCADTimer))
+        cadUpdateTimer?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        }
     
-    @objc func updateFade(timer: NSTimer) {
+    @objc func updateFadeFromCADTimer() {
         let direction: Double = (initialVolume > finalVolume ? 1.0 : -1.0)
-        
-        if stepCount == 0 {
+        let millis = NSDate().timeIntervalSince1970*1000
+        print("updatingFade fade \(millis) - \(stepCounter) \(directionString)")
+        if numberOfSteps == 0{
             endFade()
-        } else if stepCounter <= stepCount {
-            
-            // normalized 0-1 value
-            let controlAmount: Double = Double(stepCounter) / Double(stepCount)
+        }else if stepCounter <= numberOfSteps {
+            //normalized 0-1 value
+            let controlAmount: Double = Double(stepCounter) / Double(numberOfSteps)
             var scaledControlAmount: Double = 0.0
             
             switch curveType {
@@ -133,15 +136,16 @@ public class AKFader {
             
             output!.gain = scaledControlAmount
             stepCounter += 1
-            
         } else {
             endFade()
         }
         
     }//end updateFade
     
-    func endFade() {
-        fadeTimer.invalidate()
+    func endFade(){
+        let millis = NSDate().timeIntervalSince1970*1000
+        print("ending fade \(millis) - \(numberOfSteps) \(directionString)")
+        cadUpdateTimer?.invalidate()
         output!.gain = finalVolume
         stepCounter = 0
     }
@@ -159,7 +163,7 @@ public class AKFader {
             var adjustedMaximum: Double = 0.0
             if minimum == 0 { adjustedMinimum = 0.00000000001 }
             if maximum == 0 { adjustedMaximum = 0.00000000001 }
-            return log(input / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum) // not working right for 0 values
+            return log(input / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum) //not working right for 0 values
         }
     }
     
@@ -168,15 +172,14 @@ public class AKFader {
                                     duration: Double = 1.0,
                                     type: CurveType = .Exponential,
                                     curvature: Double = 1.0,
-                                    controlRate: Double = 1 / 30) -> [Double] {
+                                    controlRate: Double = 1 / 60) -> [Double] {
         var curvePoints = [Double]()
         let stepCount = Int(floor(duration / controlRate))
         var counter = 0
         let direction: Double = source > target ? 1.0 : -1.0
         if counter <= stepCount {
-            
-            // normalized 0-1 value
-            let controlAmount = Double(counter) / Double(stepCount)
+            //normalized 0-1 value
+            let controlAmount: Double = Double(counter) / Double(stepCount)
             var scaledControlAmount: Double = 0.0
             
             switch type {
@@ -198,5 +201,28 @@ public class AKFader {
             counter += 1
         }
         return curvePoints
+    }
+    
+    func scheduleCADTimer(seconds: Double) {
+        if seconds == 0 {
+            startImmediately()
+        }else{
+            let delayRate = (seconds / cadTimerRate)
+            let frameDelay = Int(floor(delayRate))
+            cadDelayTimer = CADisplayLink(target: self, selector: #selector(startFadeFromCADTimer))
+            cadDelayTimer?.frameInterval = frameDelay
+            cadDelayTimer?.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        }
+    }
+    
+    @objc func startFadeFromCADTimer() {
+        let millis = NSDate().timeIntervalSince1970*1000
+        print("startFadeFromCADTimer fired \(millis) - \(cadTimerIncrement) \(directionString)")
+        //runs twice, once when scheduled and again at next frame, so we have to skip the first one and run the second.
+        if cadTimerIncrement > 0 {
+            cadDelayTimer?.invalidate()
+            startImmediately()
+        }
+        cadTimerIncrement += 1
     }
 }
