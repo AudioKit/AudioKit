@@ -100,4 +100,16 @@ class PlaygroundView: AKPlaygroundView {
         lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
     }
 
-    f
+    func setDryWetMix(slider: Slider) {
+        delay.dryWetMix = Double(slider.value)
+        let dryWetMix = String(format: "%0.2f", delay.dryWetMix)
+        dryWetMixLabel!.text = "Mix: \(dryWetMix)"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

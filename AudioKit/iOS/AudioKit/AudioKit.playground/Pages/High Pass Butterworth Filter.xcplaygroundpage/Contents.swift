@@ -77,4 +77,28 @@ class PlaygroundView: AKPlaygroundView {
     func startMixLoop() {
         startLoop("mix")
     }
+
+    func stop() {
+        player.stop()
+    }
     
+    func process() {
+        highPassFilter.start()
+    }
+    
+    func bypass() {
+        highPassFilter.bypass()
+    }
+    
+    func setCutoffFrequency(slider: Slider) {
+        highPassFilter.cutoffFrequency = Double(slider.value)
+        let cutoffFrequency = String(format: "%0.1f", highPassFilter.cutoffFrequency)
+        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
+    }
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

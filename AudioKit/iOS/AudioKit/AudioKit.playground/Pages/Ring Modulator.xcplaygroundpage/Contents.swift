@@ -117,3 +117,17 @@ class PlaygroundView: AKPlaygroundView {
         let ringModBalance = String(format: "%0.1f", ringModulator.balance)
         ringModBalanceLabel!.text = "Balance: \(ringModBalance)"
     }
+
+    func setMix(slider: Slider) {
+        ringModulator.mix = Double(slider.value)
+        let finalMix = String(format: "%0.1f", ringModulator.mix)
+        finalMixLabel!.text = "Mix: \(finalMix)"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

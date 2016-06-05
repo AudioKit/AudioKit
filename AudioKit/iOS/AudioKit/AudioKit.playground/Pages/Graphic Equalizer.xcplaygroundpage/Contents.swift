@@ -90,4 +90,20 @@ class PlaygroundView: AKPlaygroundView {
     func setMidGain(slider: Slider) {
         midFilter.gain = Double(slider.value)
         let gain = String(format: "%0.3f", midFilter.gain)
-        midLabel!.text = "Mid: \(gai
+        midLabel!.text = "Mid: \(gain)"
+    }
+
+    func setHighGain(slider: Slider) {
+        highFilter.gain = Double(slider.value)
+        let gain = String(format: "%0.3f", highFilter.gain)
+        highLabel!.text = "High: \(gain)"
+    }
+
+}
+
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

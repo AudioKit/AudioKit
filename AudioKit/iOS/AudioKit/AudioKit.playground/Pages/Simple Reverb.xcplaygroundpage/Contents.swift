@@ -130,4 +130,34 @@ class PlaygroundView: AKPlaygroundView {
         reverb.loadFactoryPreset(.MediumHall2)
     }
 
-    func loadMe
+    func loadMediumHall3() {
+        reverb.loadFactoryPreset(.MediumHall3)
+    }
+
+    func loadMediumRoom() {
+        reverb.loadFactoryPreset(.MediumRoom)
+    }
+
+    func loadPlate() {
+        reverb.loadFactoryPreset(.Plate)
+    }
+
+    func loadSmallRoom() {
+        reverb.loadFactoryPreset(.SmallRoom)
+    }
+
+
+
+
+    func setDryWet(slider: Slider) {
+        reverb.dryWetMix = Double(slider.value)
+    }
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

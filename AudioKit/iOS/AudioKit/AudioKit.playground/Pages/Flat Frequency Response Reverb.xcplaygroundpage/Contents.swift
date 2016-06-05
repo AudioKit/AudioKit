@@ -53,4 +53,19 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func startBassLoop() {
-        s
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+    }
+    func stop() {
+        player.stop()
+}
