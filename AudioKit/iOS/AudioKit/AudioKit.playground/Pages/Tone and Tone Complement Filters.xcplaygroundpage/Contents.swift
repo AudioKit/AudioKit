@@ -28,8 +28,12 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Tone Filters")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
-        addButton("Stop",  action: #selector(stop))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
+        addButton("Stop", action: #selector(stop))
         
         addLabel("Tone Filter: ")
         addButton("Process", action: #selector(processTone))
