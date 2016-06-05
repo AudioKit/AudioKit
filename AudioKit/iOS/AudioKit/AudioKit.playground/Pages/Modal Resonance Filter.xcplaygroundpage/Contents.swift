@@ -71,4 +71,27 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func startMixLoop() {
-        star
+        startLoop("mix")
+    }
+
+    func stop() {
+        player.stop()
+    }
+
+    func setFrequency(slider: Slider) {
+        filter.frequency = Double(slider.value)
+        frequencyLabel!.text = "Frequency: \(String(format: "%0.0f", filter.frequency))"
+    }
+
+    func setQualityFactor(slider: Slider) {
+        filter.qualityFactor = Double(slider.value)
+        qualityFactorLabel!.text = "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -70,4 +70,35 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func startLeadLoop() {
-        startLoop("lead
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
+    func stop() {
+        player.stop()
+    }
+    
+    func process() {
+        pitchshifter.start()
+    }
+    
+    func bypass() {
+        pitchshifter.bypass()
+    }
+
+    func setPitch(slider: Slider) {
+        pitchshifter.shift = Double(slider.value)
+        let pitch = String(format: "%0.1f", pitchshifter.shift)
+        pitchLabel!.text = "Pitch: \(pitch) Cents"
+    }
+    
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -104,4 +104,16 @@ class PlaygroundView: AKPlaygroundView {
         label1!.text = "Tone Filter 1/2 Power Point: \(hp)"
     }
     
-    func setToneComplementHalfPowerPoint(slider: Slider)
+    func setToneComplementHalfPowerPoint(slider: Slider) {
+        toneComplement.halfPowerPoint = Double(slider.value)
+        let hp = String(format: "%0.1f", toneComplement.halfPowerPoint)
+        label2!.text = "Tone Complement 1/2 Power Point: \(hp)"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

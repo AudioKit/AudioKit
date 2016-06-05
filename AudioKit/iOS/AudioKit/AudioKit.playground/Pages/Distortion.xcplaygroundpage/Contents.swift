@@ -171,4 +171,22 @@ class PlaygroundView: AKPlaygroundView {
         polynomialMixLabel!.text = "polynomialMix: \(polynomialMix)"
     }
 
-    func setS
+    func setSoftClipGain(slider: Slider) {
+        distortion.softClipGain = Double(slider.value)
+        let softClipGain = String(format: "%0.3f", distortion.softClipGain)
+        softClipGainLabel!.text = "softClipGain: \(softClipGain) dB"
+    }
+
+    func setFinalMix(slider: Slider) {
+        distortion.finalMix = Double(slider.value)
+        let finalMix = String(format: "%0.3f", distortion.finalMix)
+        finalMixLabel!.text = "finalMix: \(finalMix)"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

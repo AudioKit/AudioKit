@@ -94,4 +94,18 @@ class PlaygroundView: AKPlaygroundView {
         lowShelfFilter.cutoffFrequency = Double(slider.value)
         let cutoffFrequency = String(format: "%0.1f", lowShelfFilter.cutoffFrequency)
         cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
-  
+    }
+
+    func setgain(slider: Slider) {
+        lowShelfFilter.gain = Double(slider.value)
+        let gain = String(format: "%0.1f", lowShelfFilter.gain)
+        gainLabel!.text = "Gain: \(gain) dB"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

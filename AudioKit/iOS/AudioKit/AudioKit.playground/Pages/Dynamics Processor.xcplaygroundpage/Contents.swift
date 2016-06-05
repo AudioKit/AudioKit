@@ -151,4 +151,15 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func setMasterGain(slider: Slider) {
-    
+        dynamicsProcessor.masterGain = Double(slider.value)
+        let masterGain = String(format: "%0.3f", dynamicsProcessor.masterGain)
+        masterGainLabel!.text = "Master Gain: \(masterGain) dB"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

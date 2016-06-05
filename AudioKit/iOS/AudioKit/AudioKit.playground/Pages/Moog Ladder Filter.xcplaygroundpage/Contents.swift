@@ -72,4 +72,25 @@ class PlaygroundView: AKPlaygroundView {
     func startMixLoop() {
         startLoop("mix")
     }
-    fun
+
+    func stop() {
+        player.stop()
+    }
+
+    func setCutoffFrequency(slider: Slider) {
+        moogLadder.cutoffFrequency = Double(slider.value)
+        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder.cutoffFrequency))"
+    }
+
+    func setResonance(slider: Slider) {
+        moogLadder.resonance = Double(slider.value)
+        resonanceLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder.resonance))"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
