@@ -38,7 +38,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Ring Modulator")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Ring Modulator Parameters")
@@ -47,10 +51,10 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         ringModFreq1Label = addLabel("Frequency 1: \(ringModulator.frequency1) Hertz")
-        addSlider("setFreq1:", value: ringModulator.frequency1, minimum: 0.5, maximum: 8000)
+        addSlider(#selector(setFreq1), value: ringModulator.frequency1, minimum: 0.5, maximum: 8000)
 
         ringModFreq2Label = addLabel("Frequency 2: \(ringModulator.frequency2) Hertz")
-        addSlider("setFreq2:", value: ringModulator.frequency2, minimum: 0.5, maximum: 8000)
+        addSlider(#selector(setFreq2), value: ringModulator.frequency2, minimum: 0.5, maximum: 8000)
 
         ringModBalanceLabel = addLabel("Balance: \(ringModulator.balance)")
         addSlider(#selector(setBalance), value: ringModulator.balance)

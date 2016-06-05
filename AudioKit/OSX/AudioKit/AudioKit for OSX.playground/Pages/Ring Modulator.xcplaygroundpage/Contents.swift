@@ -51,10 +51,10 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
         
         ringModFreq1Label = addLabel("Frequency 1: \(ringModulator.frequency1) Hertz")
-        addSlider("setFreq1:", value: ringModulator.frequency1, minimum: 0.5, maximum: 8000)
+        addSlider(#selector(setFreq1), value: ringModulator.frequency1, minimum: 0.5, maximum: 8000)
         
         ringModFreq2Label = addLabel("Frequency 2: \(ringModulator.frequency2) Hertz")
-        addSlider("setFreq2:", value: ringModulator.frequency2, minimum: 0.5, maximum: 8000)
+        addSlider(#selector(setFreq2), value: ringModulator.frequency2, minimum: 0.5, maximum: 8000)
         
         ringModBalanceLabel = addLabel("Balance: \(ringModulator.balance)")
         addSlider(#selector(setBalance), value: ringModulator.balance)
