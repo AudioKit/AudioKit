@@ -37,7 +37,7 @@ public class AKFader {
     
     var controlRate: Double = 1 / 60 // 60 times per second
     var curveType: CurveType = .Linear
-    var curvature: Double = 0.5 //doesn't apply to linear
+    var taper: Double = 0.5 //doesn't apply to linear
     var duration: Double = 1.0 //seconds
     var offset: Double = 0.0
     var stepCounter = 0
@@ -60,14 +60,14 @@ public class AKFader {
          finalVolume: Double,
          duration: Double = 1.0,
          type: CurveType = .Exponential,
-         curvature: Double = 1.0,
+         taper: Double = 1.0,
          offset: Double = 0.0,
          output: AKBooster) {
         
         self.initialVolume = initialVolume
         self.finalVolume = finalVolume
         curveType = type
-        self.curvature = curvature
+        self.taper = taper
         self.duration = duration
         self.offset = offset
         numberOfSteps = Int(floor(duration / controlRate))
@@ -126,7 +126,7 @@ public class AKFader {
             case .Exponential:
                 scaledControlAmount = controlAmount.denormalized(minimum: initialVolume,
                                                                  maximum: finalVolume,
-                                                                 taper: curvature)
+                                                                 taper: taper)
             case .EqualPower:
                 //direction will be negative if going up
                 scaledControlAmount = pow((0.5 + 0.5 * direction * cos(π * controlAmount)), 0.5)
@@ -150,7 +150,7 @@ public class AKFader {
                                     target: Double,
                                     duration: Double = 1.0,
                                     type: CurveType = .Exponential,
-                                    curvature: Double = 1.0,
+                                    taper: Double = 1.0,
                                     controlRate: Double = 1 / 60) -> [Double] {
         var curvePoints = [Double]()
         let stepCount = Int(floor(duration / controlRate))
@@ -169,7 +169,7 @@ public class AKFader {
             case .Exponential:
                 scaledControlAmount = controlAmount.denormalized(minimum: source,
                                                                  maximum: target,
-                                                                 taper: curvature)
+                                                                 taper: taper)
             case .EqualPower:
                 //direction will be negative if going up
                 scaledControlAmount = pow((0.5 + 0.5 * direction * cos(M_PI * controlAmount)), 0.5)
