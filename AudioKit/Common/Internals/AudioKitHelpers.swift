@@ -53,19 +53,63 @@ public func random(minimum: Double, _ maximum: Double) -> Double {
 /// Extension to calculate scaling factors, useful for UI controls
 extension Double {
     
-    /// Convert a value on [min, max] to a [0, 1] range, according to a taper
+    /// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
     ///
-    /// - parameter min: Minimum of the source range (cannot be zero if taper is not positive)
-    /// - parameter max: Maximum of the source range
+    /// - parameter minimum: Minimum of the source range (cannot be zero if taper is not positive)
+    /// - parameter maximum: Maximum of the source range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func normalize(min: Double, max: Double, taper: Double) {
+    public func normalized(
+        minimum minimum: Double,
+                maximum: Double,
+                taper: Double) -> Double {
+        
         if taper > 0 {
             // algebraic taper
-            self = pow(((self - min) / (max - min)), (1.0 / taper))
+            return pow(((self - minimum) / (maximum - minimum)), (1.0 / taper))
         } else {
             // exponential taper
-            self = log(self / min) / log(max / min)
+            return minimum * exp(log(maximum / minimum) * self)
+        }
+    }
+    
+    /// Convert a value on [minimum, maximum] to a [0, 1] range, according to a taper
+    ///
+    /// - parameter minimum: Minimum of the source range (cannot be zero if taper is not positive)
+    /// - parameter maximum: Maximum of the source range
+    /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
+    public mutating func normalize(minimum: Double, maximum: Double, taper: Double) {
+        self = self.normalized(minimum: minimum, maximum: maximum, taper: taper)
+    }
+    
+    /// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
+    ///
+    /// - parameter minimum: Minimum of the target range (cannot be zero if taper is not positive)
+    /// - parameter maximum: Maximum of the target range
+    /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+    ///
+    public func denormalized(
+        minimum minimum: Double,
+                maximum: Double,
+                taper: Double) -> Double {
+        
+        // Avoiding division by zero in this trivial case
+        if minimum == maximum {
+            return minimum
+        }
+        
+        if taper > 0 {
+            // algebraic taper
+            return minimum + (maximum - minimum) * pow(self, taper)
+        } else {
+            // exponential taper
+            var adjustedMinimum: Double = 0.0
+            var adjustedMaximum: Double = 0.0
+            if minimum == 0 { adjustedMinimum = 0.00000000001 }
+            if maximum == 0 { adjustedMaximum = 0.00000000001 }
+            
+            return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
         }
     }
     
@@ -75,14 +119,8 @@ extension Double {
     /// - parameter max: Maximum of the target range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func denormalize(min: Double, max: Double, taper: Double) {
-        if taper > 0 {
-            // algebraic taper
-            self = min + (max - min) * pow(self, taper)
-        } else {
-            // exponential taper
-            self = min * exp(log(max / min) * self)
-        }
+    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double) {
+        self = self.denormalized(minimum: minimum, maximum: maximum, taper: taper)
     }
 }
 

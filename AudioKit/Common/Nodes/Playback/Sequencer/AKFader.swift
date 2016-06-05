@@ -97,10 +97,10 @@ public class AKFader {
         print("starting fade \(millis) \(directionString)")
         stepCounter = 0
         
-        if cadUpdateTimer != nil{
+        if cadUpdateTimer != nil {
             cadUpdateTimer?.invalidate()
         }
-        if numberOfSteps == 0{ //if no steps to run, go ahead and set the volume early
+        if numberOfSteps == 0 { //if no steps to run, go ahead and set the volume early
             output!.gain = finalVolume
         }
         cadUpdateTimer = CADisplayLink(target: self, selector: #selector(updateFadeFromCADTimer))
@@ -111,24 +111,22 @@ public class AKFader {
         let direction: Double = (initialVolume > finalVolume ? 1.0 : -1.0)
         let millis = NSDate().timeIntervalSince1970*1000
         print("updatingFade fade \(millis) - \(stepCounter) \(directionString)")
-        if numberOfSteps == 0{
+        if numberOfSteps == 0 {
             endFade()
-        }else if stepCounter <= numberOfSteps {
+        } else if stepCounter <= numberOfSteps {
             //normalized 0-1 value
             let controlAmount: Double = Double(stepCounter) / Double(numberOfSteps)
             var scaledControlAmount: Double = 0.0
             
             switch curveType {
             case .Linear:
-                scaledControlAmount = AKFader.denormalize(controlAmount,
-                                                          minimum: initialVolume,
-                                                          maximum: finalVolume,
-                                                          taper: 1)
+                scaledControlAmount = controlAmount.denormalized(minimum: initialVolume,
+                                                                 maximum: finalVolume,
+                                                                 taper: 1)
             case .Exponential:
-                scaledControlAmount = AKFader.denormalize(controlAmount,
-                                                          minimum: initialVolume,
-                                                          maximum: finalVolume,
-                                                          taper: curvature)
+                scaledControlAmount = controlAmount.denormalized(minimum: initialVolume,
+                                                                 maximum: finalVolume,
+                                                                 taper: curvature)
             case .EqualPower:
                 //direction will be negative if going up
                 scaledControlAmount = pow((0.5 + 0.5 * direction * cos(π * controlAmount)), 0.5)
@@ -139,34 +137,15 @@ public class AKFader {
         } else {
             endFade()
         }
-        
-    }//end updateFade
+    }
     
-    func endFade(){
+    func endFade() {
         let millis = NSDate().timeIntervalSince1970*1000
         print("ending fade \(millis) - \(numberOfSteps) \(directionString)")
         cadUpdateTimer?.invalidate()
         output!.gain = finalVolume
         stepCounter = 0
     }
-    
-    static func denormalize(input: Double,
-                            minimum: Double,
-                            maximum: Double,
-                            taper: Double) -> Double {
-        if taper > 0 {
-            // algebraic taper
-            return minimum + (maximum - minimum) * pow(input, taper)
-        } else {
-            // exponential taper
-            var adjustedMinimum: Double = 0.0
-            var adjustedMaximum: Double = 0.0
-            if minimum == 0 { adjustedMinimum = 0.00000000001 }
-            if maximum == 0 { adjustedMaximum = 0.00000000001 }
-            return log(input / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum) //not working right for 0 values
-        }
-    }
-    
     static func generateCurvePoints(source: Double,
                                     target: Double,
                                     duration: Double = 1.0,
@@ -184,15 +163,13 @@ public class AKFader {
             
             switch type {
             case .Linear:
-                scaledControlAmount = denormalize(controlAmount,
-                                                  minimum: source,
-                                                  maximum: target,
-                                                  taper: 1)
+                scaledControlAmount = controlAmount.denormalized(minimum: source,
+                                                                 maximum: target,
+                                                                 taper: 1)
             case .Exponential:
-                scaledControlAmount = denormalize(controlAmount,
-                                                  minimum: source,
-                                                  maximum: target,
-                                                  taper: curvature)
+                scaledControlAmount = controlAmount.denormalized(minimum: source,
+                                                                 maximum: target,
+                                                                 taper: curvature)
             case .EqualPower:
                 //direction will be negative if going up
                 scaledControlAmount = pow((0.5 + 0.5 * direction * cos(M_PI * controlAmount)), 0.5)
@@ -206,7 +183,7 @@ public class AKFader {
     func scheduleCADTimer(seconds: Double) {
         if seconds == 0 {
             startImmediately()
-        }else{
+        } else {
             let delayRate = (seconds / cadTimerRate)
             let frameDelay = Int(floor(delayRate))
             cadDelayTimer = CADisplayLink(target: self, selector: #selector(startFadeFromCADTimer))
