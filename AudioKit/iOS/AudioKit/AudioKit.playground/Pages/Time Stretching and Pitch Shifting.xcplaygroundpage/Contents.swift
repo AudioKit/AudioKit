@@ -103,4 +103,25 @@ class PlaygroundView: AKPlaygroundView {
     func setRate(slider: Slider) {
         timePitch.rate = Double(slider.value)
         let rate = String(format: "%0.1f", timePitch.rate)
-        r
+        rateLabel!.text = "Rate: \(rate) rate"
+    }
+
+    func setPitch(slider: Slider) {
+        timePitch.pitch = Double(slider.value)
+        let pitch = String(format: "%0.1f", timePitch.pitch)
+        pitchLabel!.text = "Pitch: \(pitch) Cents"
+    }
+
+    func setOverlap(slider: Slider) {
+        timePitch.overlap = Double(slider.value)
+        let overlap = String(format: "%0.1f", timePitch.overlap)
+        overlapLabel!.text = "Overlap: \(overlap)"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

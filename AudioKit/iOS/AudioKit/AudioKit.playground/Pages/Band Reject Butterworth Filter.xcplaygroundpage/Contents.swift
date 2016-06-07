@@ -34,7 +34,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Band Reject Butterworth Filter")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         addLabel("Band Pass Filter Parameters")
@@ -96,4 +100,16 @@ class PlaygroundView: AKPlaygroundView {
         centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
     }
     
-    func setBandw
+    func setBandwidth(slider: Slider) {
+        filter.bandwidth = Double(slider.value)
+        let bandwidth = String(format: "%0.1f", filter.bandwidth)
+        bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
+    }
+}
+
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

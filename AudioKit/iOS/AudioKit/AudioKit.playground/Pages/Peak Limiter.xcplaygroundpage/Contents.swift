@@ -99,8 +99,29 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         peakLimiter.bypass()
     }
+    
     func setAttackTime(slider: Slider) {
         peakLimiter.attackTime = Double(slider.value)
         let attackTime = String(format: "%0.3f", peakLimiter.attackTime)
         attackTimeLabel!.text = "attackTime: \(attackTime) Secs"
- 
+    }
+
+    func setDecayTime(slider: Slider) {
+        peakLimiter.decayTime = Double(slider.value)
+        let decayTime = String(format: "%0.3f", peakLimiter.decayTime)
+        decayTimeLabel!.text = "decayTime: \(decayTime) Secs"
+    }
+
+    func setPreGain(slider: Slider) {
+        peakLimiter.preGain = Double(slider.value)
+        let preGain = String(format: "%0.3f", peakLimiter.preGain)
+        preGainLabel!.text = "preGain: \(preGain) dB"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

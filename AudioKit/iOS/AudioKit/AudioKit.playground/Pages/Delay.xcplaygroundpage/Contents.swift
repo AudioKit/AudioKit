@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKDelay
+//: ## Delay
 //: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
 import XCPlayground
 import AudioKit
@@ -34,7 +34,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Delay")
 
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         timeLabel = addLabel("Time: \(delay.time)")
@@ -100,4 +105,16 @@ class PlaygroundView: AKPlaygroundView {
         lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
     }
 
-    f
+    func setDryWetMix(slider: Slider) {
+        delay.dryWetMix = Double(slider.value)
+        let dryWetMix = String(format: "%0.2f", delay.dryWetMix)
+        dryWetMixLabel!.text = "Mix: \(dryWetMix)"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

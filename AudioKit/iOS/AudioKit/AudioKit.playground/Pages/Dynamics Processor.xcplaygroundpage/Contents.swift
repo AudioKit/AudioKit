@@ -44,7 +44,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Dynamics Processor")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Dynamics Processor Parameters")
@@ -151,4 +155,15 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func setMasterGain(slider: Slider) {
-    
+        dynamicsProcessor.masterGain = Double(slider.value)
+        let masterGain = String(format: "%0.3f", dynamicsProcessor.masterGain)
+        masterGainLabel!.text = "Master Gain: \(masterGain) dB"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

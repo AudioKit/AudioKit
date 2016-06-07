@@ -96,4 +96,21 @@ class PlaygroundView: AKPlaygroundView {
         lowPassFilter.bypass()
     }
     func setCutoffFrequency(slider: Slider) {
-        low
+        lowPassFilter.cutoffFrequency = Double(slider.value)
+        let cutoffFrequency = String(format: "%0.1f", lowPassFilter.cutoffFrequency)
+        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
+    }
+
+    func setResonance(slider: Slider) {
+        lowPassFilter.resonance = Double(slider.value)
+        let resonance = String(format: "%0.1f", lowPassFilter.resonance)
+        resonanceLabel!.text = "Resonance: \(resonance) dB"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

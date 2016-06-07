@@ -53,4 +53,34 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func startBassLoop() {
-        s
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
+    func stop() {
+        player.stop()
+    }
+
+    func setDuration(slider: Slider) {
+        reverb.reverbDuration = Double(slider.value)
+        durationLabel!.text = "Duration: \(String(format: "%0.3f", reverb.reverbDuration))"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

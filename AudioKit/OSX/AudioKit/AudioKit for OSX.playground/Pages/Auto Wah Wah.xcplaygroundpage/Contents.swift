@@ -25,12 +25,12 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-
+    
     var wahLabel: Label?
-
+    
     override func setup() {
         addTitle("Auto Wah Wah")
-
+        
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -38,11 +38,11 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-
+        
         wahLabel = addLabel("Wah: \(wah.wah)")
         addSlider(#selector(setWah), value: wah.wah)
     }
-
+    
     func startLoop(part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-
+    
     func startBassLoop() {
         startLoop("bass")
     }
@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-
+    
     func startMixLoop() {
         startLoop("mix")
     }
@@ -73,12 +73,17 @@ class PlaygroundView: AKPlaygroundView {
     func stop() {
         player.stop()
     }
-
+    
     func setWah(slider: Slider) {
         wah.wah = Double(slider.value)
         wahLabel!.text = "Wah: \(String(format: "%0.3f", wah.wah))"
     }
-
+    
 }
 
-let view 
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

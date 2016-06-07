@@ -108,5 +108,6 @@
         <page name='Using Functions Part 2'/>
         <page name='Variable Delay'/>
         <page name='Variable Delay Operation'/>
+        <page name='3D Panner'/>
     </pages>
 </playground>
