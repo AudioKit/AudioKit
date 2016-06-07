@@ -109,7 +109,7 @@ class ViewController: UIViewController {
         genSDGhostSeq()
 
         seq.enableLooping()
-        seq.setBPM(100)
+        seq.setTempo(100)
         seq.play()
     }
 
@@ -164,7 +164,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func adjustBpm(sender: UISlider) {
-        seq.setBPM(Double(sender.value))
+        seq.setTempo(Double(sender.value))
         rotateElement(mollyButt, amount: (Float(M_PI) * sender.value/280.0) - 20.0)
     }
 
@@ -349,7 +349,7 @@ class SDVoice: AKVoice {
 }
 class SDInst: AKPolyphonicInstrument {
     init(voiceCount: Int, dur: Double = 0.143, res: Double = 0.9) {
-        super.init(voice: SDVoice(dur: dur, res:res), voiceCount: voiceCount)
+        super.init(voice: SDVoice(dur: dur, res:res),  voiceCount: voiceCount)
     }
     override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let tempVoice = voice as! SDVoice
