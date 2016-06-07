@@ -111,7 +111,7 @@ public class AKFader {
     
     @objc func updateFadeFromCADTimer() {
         let direction: Double = (initialVolume > finalVolume ? 1.0 : -1.0)
-        let millis = NSDate().timeIntervalSince1970*1000
+        //let millis = NSDate().timeIntervalSince1970*1000
         //print("updatingFade fade \(millis) - \(stepCounter) \(directionString)")
         if numberOfSteps == 0 {
             endFade()
