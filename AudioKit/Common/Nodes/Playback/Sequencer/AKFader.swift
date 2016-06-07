@@ -9,7 +9,7 @@
 import Foundation
 
 public enum CurveType {
-    case Linear, EqualPower, Exponential
+    case Linear, EqualPower, Exponential, SCurve
     
     public static func fromString(curve: String) -> CurveType {
 
@@ -20,6 +20,8 @@ public enum CurveType {
             return .Exponential
         case "equalpower":
             return .EqualPower
+        case "scurve":
+            return .SCurve
         default:
             return .Linear
         }
@@ -110,7 +112,7 @@ public class AKFader {
     @objc func updateFadeFromCADTimer() {
         let direction: Double = (initialVolume > finalVolume ? 1.0 : -1.0)
         let millis = NSDate().timeIntervalSince1970*1000
-        print("updatingFade fade \(millis) - \(stepCounter) \(directionString)")
+        //print("updatingFade fade \(millis) - \(stepCounter) \(directionString)")
         if numberOfSteps == 0 {
             endFade()
         } else if stepCounter <= numberOfSteps {
@@ -130,8 +132,12 @@ public class AKFader {
             case .EqualPower:
                 //direction will be negative if going up
                 scaledControlAmount = pow((0.5 + 0.5 * direction * cos(π * controlAmount)), 0.5)
+        
+            case .SCurve:
+                //direction will be negative if going up
+                scaledControlAmount = pow((0.5 + 0.5 * direction * cos(π * controlAmount)), 1)
             }
-            
+        
             output!.gain = scaledControlAmount
             stepCounter += 1
         } else {
@@ -173,6 +179,10 @@ public class AKFader {
             case .EqualPower:
                 //direction will be negative if going up
                 scaledControlAmount = pow((0.5 + 0.5 * direction * cos(M_PI * controlAmount)), 0.5)
+                
+            case .SCurve:
+                //direction will be negative if going up
+                scaledControlAmount = 0.5 + 0.5 * direction * cos(M_PI * controlAmount)
             }
             curvePoints.append(scaledControlAmount)
             counter += 1
