@@ -34,7 +34,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Low Shelf Filter")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Low Shelf Filter Parameters")
@@ -94,4 +98,18 @@ class PlaygroundView: AKPlaygroundView {
         lowShelfFilter.cutoffFrequency = Double(slider.value)
         let cutoffFrequency = String(format: "%0.1f", lowShelfFilter.cutoffFrequency)
         cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
-  
+    }
+
+    func setgain(slider: Slider) {
+        lowShelfFilter.gain = Double(slider.value)
+        let gain = String(format: "%0.1f", lowShelfFilter.gain)
+        gainLabel!.text = "Gain: \(gain) dB"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

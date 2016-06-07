@@ -59,4 +59,38 @@ class PlaygroundView: AKPlaygroundView {
         player.play()
     }
     
-    func startDr
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    func stop() {
+        player.stop()
+    }
+
+    func setIRMix(slider: Slider) {
+        mixer.balance = Double(slider.value)
+    }
+
+    func setDryWet(slider: Slider) {
+        dryWetMixer.balance = Double(slider.value)
+    }
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:400))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view

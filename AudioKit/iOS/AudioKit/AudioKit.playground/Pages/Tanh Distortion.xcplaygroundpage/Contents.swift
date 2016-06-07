@@ -120,4 +120,20 @@ class PlaygroundView: AKPlaygroundView {
 
     func setPositiveShapeParameter(slider: Slider) {
         distortion.postiveShapeParameter = Double(slider.value)
-        let postiveShapeParameter = String(format: "%0.2f",
+        let postiveShapeParameter = String(format: "%0.2f", distortion.postiveShapeParameter)
+        postiveShapeParameterLabel!.text = "Positive Shape Parameter: \(postiveShapeParameter)"
+    }
+
+    func setNegativeShapeParameter(slider: Slider) {
+        distortion.negativeShapeParameter = Double(slider.value)
+        let negativeShapeParameter = String(format: "%0.2f", distortion.negativeShapeParameter)
+        negativeShapeParameterLabel!.text = "Negative Shape Parameter: \(negativeShapeParameter)"
+    }
+
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

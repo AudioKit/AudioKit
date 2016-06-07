@@ -61,13 +61,40 @@ public class AKSampler: AKNode {
         loadInstrument(file, type: "exs")
     }
     
-    /// Load a SoundFont SF2 sample data file
+
+    private func loadSoundFont(file: String, preset: Int, type: Int) {
+        guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "sf2") else {
+            fatalError("file not found.")
+        }
+        do {
+            try samplerUnit.loadSoundBankInstrumentAtURL(
+                url,
+                program: UInt8(preset),
+                bankMSB: UInt8(type),
+                bankLSB: UInt8(kAUSampler_DefaultBankLSB))
+        } catch {
+            print("Error loading SoundFont.")
+        }
+    }
+    
+    /// Load a Melodic SoundFont SF2 sample data file
     ///
     /// - parameter file: Name of the SoundFont SF2 file without the .sf2 extension
+    /// - parameter preset: Number of the program to use
     ///
-    public func loadSoundFont(file: String) {
-        loadInstrument(file, type: "sf2")
+    public func loadMelodicSoundFont(file: String, preset: Int) {
+        loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
     }
+
+    /// Load a Percussive SoundFont SF2 sample data file
+    ///
+    /// - parameter file: Name of the SoundFont SF2 file without the .sf2 extension
+    /// - parameter preset: Number of the program to use
+    ///
+    public func loadPercussiveSoundFont(file: String, preset: Int) {
+        loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
+    }
+
     
     /// Load a file path
     ///
@@ -89,7 +116,7 @@ public class AKSampler: AKNode {
         do {
             try samplerUnit.loadInstrumentAtURL(url)
         } catch {
-            print("error")
+            print("Error loading instrument.")
         }
     }
     

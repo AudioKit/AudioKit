@@ -73,4 +73,34 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func startLeadLoop() {
-  
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
+    func stop() {
+        player.stop()
+    }
+    
+    func process() {
+        variSpeed.start()
+    }
+    
+    func bypass() {
+        variSpeed.bypass()
+    }
+    func setRate(slider: Slider) {
+        variSpeed.rate = Double(slider.value)
+        let rate = String(format: "%0.3f", variSpeed.rate)
+        rateLabel!.text = "Rate: \(rate) rate"
+    }
+    
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

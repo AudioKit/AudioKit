@@ -73,4 +73,23 @@ class PlaygroundView: AKPlaygroundView {
     }
     func stop() {
         player.stop()
-   
+    }
+
+    func setBitDepth(slider: Slider) {
+        bitcrusher.bitDepth = Double(slider.value)
+        let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
+        bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
+    }
+
+    func setSampleRate(slider: Slider) {
+        bitcrusher.sampleRate = Double(slider.value)
+        let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
+        sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
+    }
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -79,4 +79,28 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func startMixLoop() {
+        startLoop("mix")
+    }
+    
+    func stop() {
+        player.stop()
+    }
+    
+    func setTime(slider: Slider) {
+        fatten.parameters = [Double(slider.value), fatten.parameters[1]]
+        timeLabel!.text = "Time: \(String(format: "%0.3f", fatten.parameters[0]))"
+    }
+    
+    func setMix(slider: Slider) {
+        fatten.parameters = [fatten.parameters[0], Double(slider.value)]
+        mixLabel!.text = "Mix: \(String(format: "%0.3f", fatten.parameters[1]))"
+    }
+    
+}
+
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = view
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
         startLoo
