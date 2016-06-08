@@ -16,6 +16,8 @@ public class AKMusicTrack {
     /// The representation of Apple's underlying music track
     public var internalMusicTrack: MusicTrack = nil
     
+    private var name: String = "Unnamed"
+    
     /// Sequencer this music track is part of
     public var sequencer = AKSequencer()
     
@@ -47,10 +49,30 @@ public class AKMusicTrack {
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public convenience init(musicTrack: MusicTrack) {
+    public convenience init(musicTrack: MusicTrack, name: String = "Unnamed") {
         self.init()
+        self.name = name
         internalMusicTrack = musicTrack
         trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+        
+        let data = [UInt8](name.utf8)
+        
+        var metaEvent = MIDIMetaEvent()
+        metaEvent.metaEventType = 3 // track or sequence name
+        metaEvent.dataLength = UInt32(data.count)
+        
+        withUnsafeMutablePointer(&metaEvent.data, {
+            ptr in
+            for i in 0 ..< data.count {
+                ptr[i] = data[i]
+            }
+        })
+
+        print("Creating meta event for \(name)")
+        let result = MusicTrackNewMetaEvent(internalMusicTrack, MusicTimeStamp(0), &metaEvent)
+        if result != 0 {
+            print("Unable to name Track")
+        }
     }
     
     /// Initialize with a music track and the AKSequence
