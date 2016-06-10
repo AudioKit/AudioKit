@@ -52,26 +52,17 @@ public class AKTremolo: AKNode, AKToggleable {
     }
 
     // MARK: - Initialization
-    
-    /// Initialize this tremolo node with a sine wave tremolo shape
-    ///
-    /// - parameter input: Input node to process
-    /// - parameter frequency: Frequency (Hz)
-    ///
-    public convenience init(_ input: AKNode, frequency: Double = 10) {
-        self.init(input, frequency: frequency, waveform: AKTable(.Sine))
-    }
 
     /// Initialize this tremolo node
     ///
     /// - parameter input: Input node to process
     /// - parameter frequency: Frequency (Hz)
-    /// - parameter waveform:  Shape of the tremolo
+    /// - parameter waveform:  Shape of the tremolo (default to sine)
     ///
     public init(
         _ input: AKNode,
         frequency: Double = 10,
-        waveform: AKTable) {
+        waveform: AKTable = AKTable(.PositiveSine)) {
 
         self.waveform = waveform
         self.frequency = frequency
@@ -109,7 +100,7 @@ public class AKTremolo: AKNode, AKToggleable {
         guard let tree = internalAU?.parameterTree else { return }
 
         frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-
+        
         token = tree.tokenByAddingParameterObserver {
             address, value in
 

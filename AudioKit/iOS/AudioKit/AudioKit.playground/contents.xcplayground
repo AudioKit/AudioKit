@@ -102,10 +102,12 @@
         <page name='Tracking Amplitude'/>
         <page name='Tracking Frequency'/>
         <page name='Tracking Frequency of Audio File'/>
+        <page name='Tremolo'/>
         <page name='Triangular Wave Oscillator'/>
         <page name='Using Functions'/>
         <page name='Using Functions Part 2'/>
         <page name='Variable Delay'/>
         <page name='Variable Delay Operation'/>
+        <page name='3D Panner'/>
     </pages>
 </playground>

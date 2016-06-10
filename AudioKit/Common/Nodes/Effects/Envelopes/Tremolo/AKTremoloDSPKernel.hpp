@@ -111,7 +111,7 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             frequency = frequencyRamper.getAndStep();
-            trem->freq = (float)frequency * 0.25; // temporary hack
+            trem->freq = (float)frequency * 0.5; //Divide by two for stereo
 
             if (!started) {
                 outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];

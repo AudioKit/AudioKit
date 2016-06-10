@@ -41,7 +41,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Analog Synth X Fatten")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         timeLabel = addLabel("Time: \(fatten.parameters[0])")
@@ -51,23 +55,47 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setMix), value: fatten.parameters[1])
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
     func stop() {
         player.stop()
     }
-
+    
     func setTime(slider: Slider) {
         fatten.parameters = [Double(slider.value), fatten.parameters[1]]
         timeLabel!.text = "Time: \(String(format: "%0.3f", fatten.parameters[0]))"
     }
-
+    
     func setMix(slider: Slider) {
         fatten.parameters = [fatten.parameters[0], Double(slider.value)]
         mixLabel!.text = "Mix: \(String(format: "%0.3f", fatten.parameters[1]))"
     }
-
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
@@ -75,3 +103,4 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        startLoo

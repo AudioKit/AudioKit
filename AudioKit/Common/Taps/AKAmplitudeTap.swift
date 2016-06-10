@@ -8,8 +8,14 @@
 
 import Foundation
 
-public class AKRMS {
+/// Tap to do basic amplitude analysis on any node
+public class AKAmplitudeTap {
     internal let bufferSize: UInt32 = 1024
+    
+    /// Intialize the ampltiude tap
+    ///
+    /// - parameter input: Node to analyze
+    ///
     public init(_ input: AKNode) {
         input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) {
             (buffer, time) in
