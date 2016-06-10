@@ -54,11 +54,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Mixer")
 
         addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
+        addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Drums Volume")
