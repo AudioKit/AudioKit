@@ -119,7 +119,7 @@ extension Double {
     /// - parameter max: Maximum of the target range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double) {
+    public mutating func denormalize(minimum minimum: Double, maximum: Double, taper: Double) {
         self = self.denormalized(minimum: minimum, maximum: maximum, taper: taper)
     }
 }
