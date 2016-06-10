@@ -12,7 +12,10 @@ import Foundation
 public class AKMicrophoneRecorder {
     
     private var internalRecorder: AVAudioRecorder
+    
+#if os(iOS)
     private var recordingSession: AVAudioSession
+#endif
     
     /// Initialize the recorder
     ///
@@ -20,7 +23,8 @@ public class AKMicrophoneRecorder {
     /// - parameter settings: File format settings (defaults to WAV)
     ///
     public init(_ file: String, settings: [String: AnyObject] = AudioKit.format.settings) {
-        
+
+        #if os(iOS)
         self.recordingSession = AVAudioSession.sharedInstance()
         do {
             try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker)
@@ -28,6 +32,7 @@ public class AKMicrophoneRecorder {
         } catch {
             print("lacking permission to record!\n")
         }
+        #endif
         
         let url = NSURL.fileURLWithPath(file, isDirectory: false)
         try! internalRecorder = AVAudioRecorder(URL: url, settings: settings)
