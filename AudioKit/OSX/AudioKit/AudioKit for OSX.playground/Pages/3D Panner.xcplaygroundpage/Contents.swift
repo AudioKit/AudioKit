@@ -2,9 +2,8 @@
 //:
 //: ---
 //:
-//: ## Time Stretching and Pitch Shifting
-//: ### With AKTimePitch you can easily change the pitch and speed of a player-generated sound.  It does not work on live input or generated signals.
-//:
+//: ## 3D Panner
+//: ###
 import XCPlayground
 import AudioKit
 
@@ -13,21 +12,22 @@ let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 
-var pitchshifter = AKPitchShifter(player)
+let panner = AK3DPanner(player)
 
-AudioKit.output = pitchshifter
+AudioKit.output = panner
 AudioKit.start()
-player.play()
 
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
     
     //: UI Elements we'll need to be able to access
-    var pitchLabel: Label?
+    var xLabel: Label?
+    var yLabel: Label?
+    var zLabel: Label?
     
     override func setup() {
-        addTitle("Time/Pitch")
+        addTitle("3D Panner")
         
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
@@ -37,14 +37,17 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
-        addLabel("Time/Pitch Parameters")
+        addLabel("Parameters")
         
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
         
-        pitchLabel = addLabel("Pitch: \(pitchshifter.shift) Cents")
-        addSlider(#selector(setPitch), value: pitchshifter.shift, minimum: -2400, maximum: 2400)
+        xLabel = addLabel("x: \(panner.x)")
+        addSlider(#selector(setX), value: Double(panner.x), minimum: -10, maximum: 10)
         
+        yLabel = addLabel("y: \(panner.y)")
+        addSlider(#selector(setY), value: Double(panner.y), minimum: -10, maximum: 10)
+        
+        zLabel = addLabel("z: \(panner.z)")
+        addSlider(#selector(setZ), value: Double(panner.z), minimum: -10, maximum: 10)
         
     }
     
@@ -81,24 +84,25 @@ class PlaygroundView: AKPlaygroundView {
         player.stop()
     }
     
-    func process() {
-        pitchshifter.start()
+    func setX(slider: Slider) {
+        panner.x = Double(slider.value)
+        xLabel!.text = "x: \(panner.x)"
     }
-    
-    func bypass() {
-        pitchshifter.bypass()
+    func setY(slider: Slider) {
+        panner.y = Double(slider.value)
+        yLabel!.text = "y: \(panner.y)"
+        
     }
-    
-    func setPitch(slider: Slider) {
-        pitchshifter.shift = Double(slider.value)
-        let pitch = String(format: "%0.1f", pitchshifter.shift)
-        pitchLabel!.text = "Pitch: \(pitch) Cents"
+    func setZ(slider: Slider) {
+        panner.z = Double(slider.value)
+        zLabel!.text = "z: \(panner.z)"
+        
     }
     
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous]
