@@ -115,7 +115,7 @@ public class AKAUPresetBuilder {
             sampleZoneXML.appendContentsOf(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum")
             loadSoundsArr.append(soundDict)
-        }
+        }//end sounds
         
         let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
         let str = AKAUPresetBuilder.buildInstrument(instrumentName, envelopes: envelopesXML, zones: sampleZoneXML, filerefs: sampleIDXML)
@@ -128,7 +128,7 @@ public class AKAUPresetBuilder {
             print("Could not write to \(path)")
             print(error)
         }
-    }
+    }//end func createAUPresetFromDict
     
     /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that into createAUPresetFromDict
     /// - parameter rootNote:  Note at which the sample playback is unchanged
@@ -188,7 +188,7 @@ public class AKAUPresetBuilder {
             presetXML.appendContentsOf(closeLayer())
         } else {
             presetXML.appendContentsOf(layers)
-        }
+        }//end if layers provided
         
         presetXML.appendContentsOf(closeLayers())
         presetXML.appendContentsOf(closeInstrument())

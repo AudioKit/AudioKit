@@ -33,7 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Graphic Equalizer")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         addLabel("Equalizer Gains")
@@ -60,7 +64,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
@@ -72,7 +76,7 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
@@ -83,27 +87,4 @@ class PlaygroundView: AKPlaygroundView {
     
     func setLowGain(slider: Slider) {
         lowFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", lowFilter.gain)
-        lowLabel!.text = "Low: \(gain)"
-    }
-    
-    func setMidGain(slider: Slider) {
-        midFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", midFilter.gain)
-        midLabel!.text = "Mid: \(gain)"
-    }
-    
-    func setHighGain(slider: Slider) {
-        highFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", highFilter.gain)
-        highLabel!.text = "High: \(gain)"
-    }
-    
-}
-
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        let gain = String(format: "%0.3f", 

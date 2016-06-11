@@ -82,6 +82,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     }
     
     func noteOff(note: Int) {
+        print(note)
         synth.gate = 0
     }
     

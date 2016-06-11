@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Tremolo
-//: ###
+//: ### 
 import XCPlayground
 import AudioKit
 
@@ -52,37 +52,6 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
-        startLoop("bass")
-    }
-    
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-    
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-    
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    
-    func stop() {
-        player.stop()
-    }
-    
-    func setFrequency(slider: Slider) {
-        tremolo.frequency = Double(slider.value)
-        tremoloLabel!.text = "Frequency: \(String(format: "%0.3f", tremolo.frequency))"
-    }
-    
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        startLo

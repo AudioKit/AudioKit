@@ -38,12 +38,8 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Tanh Distortion")
         
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
+        addLabel("Audio Player")
+        addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
         
         addLabel("Distortion Parameters")
@@ -67,31 +63,8 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func startLoop(part: String) {
-        player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+    func start() {
         player.play()
-    }
-    
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-    
-    func startBassLoop() {
-        startLoop("bass")
-    }
-    
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-    
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-    
-    func startMixLoop() {
-        startLoop("mix")
     }
     
     func stop() {

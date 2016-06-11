@@ -14,6 +14,7 @@ player.looping = true
 var moogLadder = AKMoogLadder(player)
 
 //: Set the parameters of the Moog Ladder Filter here.
+
 moogLadder.cutoffFrequency = 300 // Hz
 moogLadder.resonance = 0.6
 
@@ -23,14 +24,15 @@ AudioKit.start()
 player.play()
 
 //: User Interface Set up
+
 class PlaygroundView: AKPlaygroundView {
-    
+
     var cutoffFrequencyLabel: Label?
     var resonanceLabel: Label?
-    
+
     override func setup() {
         addTitle("Moog Ladder Filter")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -38,14 +40,14 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(moogLadder.cutoffFrequency)")
         addSlider(#selector(setCutoffFrequency), value: moogLadder.cutoffFrequency, minimum: 0, maximum: 5000)
-        
+
         resonanceLabel = addLabel("Resonance: \(moogLadder.resonance)")
         addSlider(#selector(setResonance), value: moogLadder.resonance, minimum: 0, maximum: 0.99)
     }
-    
+
     func startLoop(part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
@@ -56,7 +58,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
@@ -68,29 +70,8 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
-    func stop() {
-        player.stop()
-    }
-    
-    func setCutoffFrequency(slider: Slider) {
-        moogLadder.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder.cutoffFrequency))"
-    }
-    
-    func setResonance(slider: Slider) {
-        moogLadder.resonance = Double(slider.value)
-        resonanceLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder.resonance))"
-    }
-    
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    func stop()

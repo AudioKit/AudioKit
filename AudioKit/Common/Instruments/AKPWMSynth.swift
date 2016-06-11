@@ -73,7 +73,7 @@ public class AKPWMSynth: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    override internal func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
         let squareVoice = voice as! AKSquareVoice
@@ -87,7 +87,7 @@ public class AKPWMSynth: AKPolyphonicInstrument {
     /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    override public func stopVoice(voice: AKVoice, note: Int) {
+    override internal func stopVoice(voice: AKVoice, note: Int) {
         let squareVoice = voice as! AKSquareVoice //you'll need to cast the voice to its original form
         squareVoice.stop()
     }

@@ -16,13 +16,10 @@ public class AKMusicTrack {
     /// The representation of Apple's underlying music track
     public var internalMusicTrack: MusicTrack = nil
     
-    private var name: String = "Unnamed"
-    
-    /// Sequencer this music track is part of
     public var sequencer = AKSequencer()
     
     /// Pointer to the Music Track
-    public var trackPointer: UnsafeMutablePointer<MusicTrack>
+    public var trackPtr: UnsafeMutablePointer<MusicTrack>
     
     /// Total duration of the music track
     public var length: MusicTimeStamp {
@@ -42,37 +39,17 @@ public class AKMusicTrack {
     /// - parameter musicTrack: An Apple Music Track
     ///
     public init() {
-        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
     
     /// Initialize with a music track
     ///
     /// - parameter musicTrack: An Apple Music Track
     ///
-    public convenience init(musicTrack: MusicTrack, name: String = "Unnamed") {
+    public convenience init(musicTrack: MusicTrack) {
         self.init()
-        self.name = name
         internalMusicTrack = musicTrack
-        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
-        
-        let data = [UInt8](name.utf8)
-        
-        var metaEvent = MIDIMetaEvent()
-        metaEvent.metaEventType = 3 // track or sequence name
-        metaEvent.dataLength = UInt32(data.count)
-        
-        withUnsafeMutablePointer(&metaEvent.data, {
-            ptr in
-            for i in 0 ..< data.count {
-                ptr[i] = data[i]
-            }
-        })
-
-        print("Creating meta event for \(name)")
-        let result = MusicTrackNewMetaEvent(internalMusicTrack, MusicTimeStamp(0), &metaEvent)
-        if result != 0 {
-            print("Unable to name Track")
-        }
+        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
     }
     
     /// Initialize with a music track and the AKSequence
@@ -82,7 +59,7 @@ public class AKMusicTrack {
     public convenience init(musicTrack: MusicTrack, sequencer: AKSequencer) {
         self.init()
         internalMusicTrack = musicTrack
-        trackPointer = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
+        trackPtr = UnsafeMutablePointer<MusicTrack>(internalMusicTrack)
         self.sequencer = sequencer
     }
     
@@ -227,6 +204,6 @@ public class AKMusicTrack {
     
     /// Debug by showing the track pointer.
     public func debug() {
-        CAShow(trackPointer)
+        CAShow(trackPtr)
     }
 }
