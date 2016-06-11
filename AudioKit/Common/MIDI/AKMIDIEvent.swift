@@ -53,6 +53,9 @@ public struct AKMIDIEvent {
     }
     
     var data: UInt16 {
+        if internalData.count < 2{
+            return 0
+        }
         let x = UInt16(internalData[1])
         let y = UInt16(internalData[2]) << 7
         return y + x
@@ -77,7 +80,9 @@ public struct AKMIDIEvent {
         if packet.data.0 < 0xF0 {
             let status = AKMIDIStatus(rawValue: Int(packet.data.0) >> 4)
             let channel = UInt8(packet.data.0 & 0xF)
-            fillWithStatus(status!, channel: channel, byte1: packet.data.1, byte2: packet.data.2)
+            if let statusExists = status {
+                fillWithStatus(statusExists, channel: channel, byte1: packet.data.1, byte2: packet.data.2)
+            }
         } else {
             if isSysex(packet) {
                 internalData = [] //reset internalData
@@ -90,7 +95,7 @@ public struct AKMIDIEvent {
                     if value as! UInt8 == 247 {
                         break
                     }
-                }//end voodoo
+                }
             } else {
                 fillWithCommand(
                     AKMIDISystemCommand(rawValue: packet.data.0)!,
