@@ -41,8 +41,8 @@ public:
         sp_pshift_create(&pshift);
         sp_pshift_init(sp, pshift);
         *pshift->shift = 0;
-        *pshift->window = 1000.0;
-        *pshift->xfade = 10.0;
+        *pshift->window = 1024.0;
+        *pshift->xfade = 512.0;
     }
 
     void start() {
