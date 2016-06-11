@@ -404,21 +404,22 @@ public class AKSequencer {
         for i in 0 ..< count {
             var musicTrack: MusicTrack = nil
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
-            tracks.append(AKMusicTrack(musicTrack: musicTrack))
+            tracks.append(AKMusicTrack(musicTrack: musicTrack, name: "InitializedTrack"))
         }
     }
     
     /// Get a new track
-    public func newTrack() -> AKMusicTrack? {
-        
+    public func newTrack(name: String = "Unnamed") -> AKMusicTrack? {
         if isAVSequencer { return nil }
         
         var newMusicTrack: MusicTrack = nil
         MusicSequenceNewTrack(sequence, &newMusicTrack)
         var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
-        tracks.append(AKMusicTrack(musicTrack: newMusicTrack))
-        initTracks()
+        tracks.append(AKMusicTrack(musicTrack: newMusicTrack, name: name))
+        
+        //print("Calling initTracks() from newTrack")
+        //initTracks()
         return tracks.last!
     }
     
@@ -465,11 +466,16 @@ public class AKSequencer {
         }
     }
     
-    public static func beatsFromSamples(samples: Int, fs: Int, bpm: Double) -> Beat {
-        let timeInSecs = Double(samples) / Double(fs)
-        let beatsPerSec = bpm / 60.0
-        let beatLenInSecs = Double(1.0 / beatsPerSec)
-        let numBeats = timeInSecs / beatLenInSecs
-        return numBeats
+    /// Calculates beats in to a file based on it samples, sample rate, and tempo
+    ///
+    /// - parameter samples:    Number of samples in
+    /// - parameter sampleRate: Sample frequency
+    /// - parameter tempo:      Tempo, in beats per minute
+    ///
+    public static func beatsFromSamples(samples: Int, sampleRate: Int, tempo: Double) -> Beat {
+        let timeInSecs = Double(samples) / Double(sampleRate)
+        let beatsPerSec = tempo / 60.0
+        let beatLengthInSecs = Double(1.0 / beatsPerSec)
+        return timeInSecs / beatLengthInSecs
     }
 }

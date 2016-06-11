@@ -25,32 +25,60 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-
+    
     var wahLabel: Label?
-
+    
     override func setup() {
         addTitle("Auto Wah Wah")
-
+        
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-
+        
         wahLabel = addLabel("Wah: \(wah.wah)")
         addSlider(#selector(setWah), value: wah.wah)
     }
-
-    func start() {
+    
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
     func stop() {
         player.stop()
     }
-
+    
     func setWah(slider: Slider) {
         wah.wah = Double(slider.value)
         wahLabel!.text = "Wah: \(String(format: "%0.3f", wah.wah))"
     }
-
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

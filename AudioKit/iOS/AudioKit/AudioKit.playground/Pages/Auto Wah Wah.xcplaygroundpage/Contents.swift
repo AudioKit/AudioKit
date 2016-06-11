@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Auto Wah Wah
-//: ### One of the most iconic guitar effects is the wah-pedal. Here, we run an audio loop of a guitar through an AKAutoWah node. 
+//: ### One of the most iconic guitar effects is the wah-pedal. Here, we run an audio loop of a guitar through an AKAutoWah node.
 import XCPlayground
 import AudioKit
 
@@ -32,16 +32,44 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Auto Wah Wah")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         wahLabel = addLabel("Wah: \(wah.wah)")
         addSlider(#selector(setWah), value: wah.wah)
     }
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
     func stop() {
         player.stop()
     }

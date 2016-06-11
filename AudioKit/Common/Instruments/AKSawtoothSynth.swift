@@ -62,7 +62,7 @@ public class AKSawtoothSynth: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    override internal func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
         let sawtoothVoice = voice as! AKSawtoothVoice
@@ -76,7 +76,7 @@ public class AKSawtoothSynth: AKPolyphonicInstrument {
     /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    override internal func stopVoice(voice: AKVoice, note: Int) {
+    override public func stopVoice(voice: AKVoice, note: Int) {
         let sawtoothVoice = voice as! AKSawtoothVoice //you'll need to cast the voice to its original form
         sawtoothVoice.stop()
     }

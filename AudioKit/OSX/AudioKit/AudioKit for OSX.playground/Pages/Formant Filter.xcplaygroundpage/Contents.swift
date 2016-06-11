@@ -29,8 +29,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Formant Filter")
         
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         addLabel("Formant Filter Parameters")
@@ -43,16 +47,39 @@ class PlaygroundView: AKPlaygroundView {
         
         attackLabel = addLabel("Attack: \(filter.attackDuration) Seconds")
         addSlider(#selector(setAttack), value: filter.attackDuration, minimum: 0, maximum: 0.1)
-
+        
         decayLabel = addLabel("Decay: \(filter.decayDuration) Seconds")
         addSlider(#selector(setDecay), value: filter.decayDuration, minimum: 0, maximum: 0.1)
-
+        
     }
     
     //: Handle UI Events
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     
     func stop() {
@@ -78,13 +105,13 @@ class PlaygroundView: AKPlaygroundView {
         let attack = String(format: "%0.3f", filter.attackDuration)
         attackLabel!.text = "Attack: \(attack) Seconds"
     }
-
+    
     func setDecay(slider: Slider) {
         filter.decayDuration = Double(slider.value)
         let decay = String(format: "%0.3f", filter.decayDuration)
         decayLabel!.text = "Decay: \(decay) Seconds"
     }
-
+    
 }
 
 
