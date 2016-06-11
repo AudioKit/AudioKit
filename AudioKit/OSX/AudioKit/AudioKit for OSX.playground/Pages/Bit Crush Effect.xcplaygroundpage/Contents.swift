@@ -23,13 +23,13 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var bitDepthLabel: Label?
     var sampleRateLabel: Label?
-    
+
     override func setup() {
         addTitle("Bit Crusher")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -37,14 +37,14 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
         addSlider(#selector(setBitDepth), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
-        
+
         sampleRateLabel = addLabel("Sample Rate: \(bitcrusher.sampleRate)")
         addSlider(#selector(setSampleRate), value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
     }
-    
+
     func startLoop(part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
@@ -67,30 +67,12 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
     func stop() {
         player.stop()
     }
-    
-    func setBitDepth(slider: Slider) {
-        bitcrusher.bitDepth = Double(slider.value)
-        let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
-        bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
-    }
-    
-    func setSampleRate(slider: Slider) {
-        bitcrusher.sampleRate = Double(slider.value)
-        let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
-        sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
-    }
-}
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    

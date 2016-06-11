@@ -13,7 +13,6 @@ import Foundation
 ///  Helps with casting Int, Float, Double to angles and us repeating ourselves
 ///  when making arithmetic operators.
 public protocol Numeric: AKParameter {
-    /// Raw value of the numeric parameter
     func value() -> Double
 }
 

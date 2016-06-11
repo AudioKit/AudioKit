@@ -11,9 +11,8 @@ custom_categories:
   - name: AudioKit Core
     children:
     - AudioKit
+    - AKAudioRecorder
     - AKDevice
-    - AKMicrophoneRecorder
-    - AKNodeRecorder
     - AKSettings
     - AKTable
     - AKTableType
@@ -21,7 +20,6 @@ custom_categories:
 
   - name: Instruments
     children:
-    - AKCallbackInstrument
     - AKPolyphonicInstrument
     - AKVoice
     - AKFMSynth
@@ -57,6 +55,7 @@ custom_categories:
   - name: Analysis Nodes
     children:
     - AKAmplitudeTracker
+    - AKFFT
     - AKFrequencyTracker
 
   - name: Delay Nodes
@@ -83,7 +82,6 @@ custom_categories:
   - name: Envelopes
     children:
     - AKAmplitudeEnvelope
-    - AKTremolo
 
   - name: Filter Nodes
     children:
@@ -148,7 +146,6 @@ custom_categories:
 
   - name: Mixing Nodes
     children:
-    - AK3DPanner
     - AKBalancer
     - AKBooster
     - AKDryWetMixer
@@ -199,9 +196,6 @@ custom_categories:
     - AKNodeOutputPlot
     - AKOutputWaveformPlot
 
-  - name: Taps
-    children:
-    - AKAmplitudeTap
-    - AKFFTTap
+
 
 

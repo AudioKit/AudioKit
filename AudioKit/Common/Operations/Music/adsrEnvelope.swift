@@ -1,6 +1,6 @@
 //
 //  adsrEnvelope.swift
-//  AudioKit
+//  AudioKit For iOS
 //
 //  Created by Aurelius Prochazka on 3/21/16.
 //  Copyright © 2016 AudioKit. All rights reserved.

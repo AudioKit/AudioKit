@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
@@ -77,7 +77,7 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
@@ -94,22 +94,4 @@ class PlaygroundView: AKPlaygroundView {
         filter.bypass()
     }
     
-    func setCenterFrequency(slider: Slider) {
-        filter.centerFrequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", filter.centerFrequency)
-        centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
-    }
-    
-    func setBandwidth(slider: Slider) {
-        filter.bandwidth = Double(slider.value)
-        let bandwidth = String(format: "%0.1f", filter.bandwidth)
-        bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
-    }
-}
-
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+    func setCenterFrequency(sli

@@ -25,14 +25,14 @@ AudioKit.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var centerFrequencyLabel: Label?
     var bandwidthLabel: Label?
-    
+
     override func setup() {
         addTitle("Band Pass Filter")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -40,21 +40,21 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         addLabel("Band Pass Filter Parameters")
-        
+
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-        
-        centerFrequencyLabel = addLabel("Center Frequency: \(bandPassFilter.centerFrequency) Hz")
-        addSlider(#selector(setCenterFrequency), value: bandPassFilter.centerFrequency, minimum: 20, maximum: 22050)
-        
-        bandwidthLabel = addLabel("Bandwidth \(bandPassFilter.bandwidth) Cents")
-        addSlider(#selector(setBandwidth), value: bandPassFilter.bandwidth, minimum: 100, maximum: 12000)
+
+        centerFrequencyLabel = addLabel("Center Frequency: 5000 Hz")
+        addSlider(#selector(setCenterFrequency), value: 5000, minimum: 20, maximum: 22050)
+
+        bandwidthLabel = addLabel("Bandwidth 600 Cents")
+        addSlider(#selector(setBandwidth), value: 600, minimum: 100, maximum: 12000)
     }
-    
+
     //: Handle UI Events
-    
+
     func startLoop(part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
@@ -77,39 +77,22 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         bandPassFilter.play()
     }
-    
+
     func bypass() {
         bandPassFilter.bypass()
     }
-    
+
     func setCenterFrequency(slider: Slider) {
-        bandPassFilter.centerFrequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", bandPassFilter.centerFrequency)
-        centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
-    }
-    
-    func setBandwidth(slider: Slider) {
-        bandPassFilter.bandwidth = Double(slider.value)
-        let bandwidth = String(format: "%0.1f", bandPassFilter.bandwidth)
-        bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
-    }
-}
-
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        bandP

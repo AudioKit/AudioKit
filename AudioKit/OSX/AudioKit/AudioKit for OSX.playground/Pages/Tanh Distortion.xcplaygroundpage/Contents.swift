@@ -53,16 +53,16 @@ class PlaygroundView: AKPlaygroundView {
         
         pregainLabel = addLabel("Pregain: \(distortion.pregain) Hz")
         addSlider(#selector(setPregain), value: distortion.pregain, minimum: 0, maximum: 10)
-        
+
         postgainLabel = addLabel("Postgain: \(distortion.postgain) Hz")
         addSlider(#selector(setPostgain), value: distortion.postgain, minimum: 0, maximum: 10)
-        
+
         postiveShapeParameterLabel = addLabel("Postive Shape Parameter: \(distortion.postiveShapeParameter)")
         addSlider(#selector(setPositiveShapeParameter), value: distortion.postiveShapeParameter, minimum: -10, maximum: 10)
-        
+
         negativeShapeParameterLabel = addLabel("Negative Shape Parameter: \(distortion.negativeShapeParameter)")
         addSlider(#selector(setNegativeShapeParameter), value: distortion.negativeShapeParameter, minimum: -10, maximum: 10)
-        
+
     }
     
     //: Handle UI Events
@@ -77,7 +77,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
@@ -89,7 +89,7 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
@@ -111,29 +111,13 @@ class PlaygroundView: AKPlaygroundView {
         let pregain = String(format: "%0.2f", distortion.pregain)
         pregainLabel!.text = "Pregain: \(pregain) Hz"
     }
-    
+
     func setPostgain(slider: Slider) {
         distortion.postgain = Double(slider.value)
         let postgain = String(format: "%0.2f", distortion.postgain)
         postgainLabel!.text = "Postgain: \(postgain) Hz"
     }
-    
+
     func setPositiveShapeParameter(slider: Slider) {
         distortion.postiveShapeParameter = Double(slider.value)
-        let postiveShapeParameter = String(format: "%0.2f", distortion.postiveShapeParameter)
-        postiveShapeParameterLabel!.text = "Positive Shape Parameter: \(postiveShapeParameter)"
-    }
-    
-    func setNegativeShapeParameter(slider: Slider) {
-        distortion.negativeShapeParameter = Double(slider.value)
-        let negativeShapeParameter = String(format: "%0.2f", distortion.negativeShapeParameter)
-        negativeShapeParameterLabel!.text = "Negative Shape Parameter: \(negativeShapeParameter)"
-    }
-    
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        let postiveShapeParameter = String(format: "%0.2f", distort
