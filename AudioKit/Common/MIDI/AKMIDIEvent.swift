@@ -95,7 +95,7 @@ public struct AKMIDIEvent {
                     if value as! UInt8 == 247 {
                         break
                     }
-                }
+                }//end voodoo
             } else {
                 fillWithCommand(
                     AKMIDISystemCommand(rawValue: packet.data.0)!,

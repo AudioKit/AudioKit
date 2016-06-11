@@ -28,11 +28,13 @@ stairwellConvolution.start()
 dishConvolution.start()
 player.play()
 
+//: User Interface Set up
+
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Convolution")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -40,18 +42,18 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         addLineBreak()
-        
+
         addLabel("Convolution Parameters")
-        
+
         addLabel("Mix: Dry Audio to Fully Convolved")
         addSlider(#selector(setDryWet), value: dryWetMixer.balance)
-        
+
         addLabel("Impulse Response: Stairwell to Dish")
         addSlider(#selector(setIRMix), value: mixer.balance)
     }
-    
+
     func startLoop(part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
@@ -59,38 +61,4 @@ class PlaygroundView: AKPlaygroundView {
         player.play()
     }
     
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-    
-    func startBassLoop() {
-        startLoop("bass")
-    }
-    
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-    
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-    
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    func stop() {
-        player.stop()
-    }
-    
-    func setIRMix(slider: Slider) {
-        mixer.balance = Double(slider.value)
-    }
-    
-    func setDryWet(slider: Slider) {
-        dryWetMixer.balance = Double(slider.value)
-    }
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:400))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+    func startDr

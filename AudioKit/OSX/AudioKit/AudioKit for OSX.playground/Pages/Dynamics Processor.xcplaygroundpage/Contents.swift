@@ -30,7 +30,7 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var thresholdLabel: Label?
     var headRoomLabel: Label?
@@ -39,10 +39,10 @@ class PlaygroundView: AKPlaygroundView {
     var attackTimeLabel: Label?
     var releaseTimeLabel: Label?
     var masterGainLabel: Label?
-    
+
     override func setup() {
         addTitle("Dynamics Processor")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -50,36 +50,36 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         addLabel("Dynamics Processor Parameters")
-        
+
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-        
+
         thresholdLabel = addLabel("Threshold: \(dynamicsProcessor.threshold) dB")
         addSlider(#selector(setThreshold), value: dynamicsProcessor.threshold, minimum: -40, maximum: 20)
-        
+
         headRoomLabel = addLabel("Head Room: \(dynamicsProcessor.headRoom) dB")
         addSlider(#selector(setHeadRoom), value: dynamicsProcessor.headRoom, minimum: 0.1, maximum: 40.0)
-        
+
         expansionRatioLabel = addLabel("Expansion Ratio: \(dynamicsProcessor.expansionRatio) rate")
         addSlider(#selector(setExpansionRatio), value: dynamicsProcessor.expansionRatio, minimum: 1, maximum: 50.0)
-        
+
         expansionThresholdLabel = addLabel("Expansion Threshold: \(dynamicsProcessor.expansionThreshold) rate")
         addSlider(#selector(setExpansionThreshold), value: dynamicsProcessor.expansionThreshold, minimum: 1, maximum: 50.0)
-        
+
         attackTimeLabel = addLabel("Attack Time: \(dynamicsProcessor.attackTime) secs")
         addSlider(#selector(setAttackTime), value: dynamicsProcessor.attackTime, minimum: 0.0001, maximum: 0.2)
-        
+
         releaseTimeLabel = addLabel("Release Time: \(dynamicsProcessor.releaseTime) secs")
         addSlider(#selector(setReleaseTime), value: dynamicsProcessor.releaseTime, minimum: 0.01, maximum: 3)
-        
+
         masterGainLabel = addLabel("Master Gain: \(dynamicsProcessor.masterGain) dB")
         addSlider(#selector(setMasterGain), value: dynamicsProcessor.masterGain, minimum: -40, maximum: 40)
     }
-    
+
     //: Handle UI Events
-    
+
     func startLoop(part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
@@ -90,7 +90,7 @@ class PlaygroundView: AKPlaygroundView {
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
@@ -102,19 +102,19 @@ class PlaygroundView: AKPlaygroundView {
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         dynamicsProcessor.start()
     }
-    
+
     func bypass() {
         dynamicsProcessor.bypass()
     }
@@ -123,47 +123,30 @@ class PlaygroundView: AKPlaygroundView {
         let threshold = String(format: "%0.3f", dynamicsProcessor.threshold)
         thresholdLabel!.text = "Threshold: \(threshold) dB"
     }
-    
+
     func setHeadRoom(slider: Slider) {
         dynamicsProcessor.headRoom = Double(slider.value)
         let headRoom = String(format: "%0.3f", dynamicsProcessor.headRoom)
         headRoomLabel!.text = "Head Room: \(headRoom) dB"
     }
-    
+
     func setExpansionRatio(slider: Slider) {
         dynamicsProcessor.expansionRatio = Double(slider.value)
         let expansionRatio = String(format: "%0.3f", dynamicsProcessor.expansionRatio)
         expansionRatioLabel!.text = "Expansion Ratio: \(expansionRatio) rate"
     }
-    
+
     func setExpansionThreshold(slider: Slider) {
         dynamicsProcessor.expansionThreshold = Double(slider.value)
         let expansionThreshold = String(format: "%0.3f", dynamicsProcessor.expansionThreshold)
         expansionThresholdLabel!.text = "Expansion Threshold: \(expansionThreshold) rate"
     }
-    
+
     func setAttackTime(slider: Slider) {
         dynamicsProcessor.attackTime = Double(slider.value)
         let attackTime = String(format: "%0.3f", dynamicsProcessor.attackTime)
         attackTimeLabel!.text = "Attack Time: \(attackTime) secs"
     }
-    
+
     func setReleaseTime(slider: Slider) {
-        dynamicsProcessor.releaseTime = Double(slider.value)
-        let releaseTime = String(format: "%0.3f", dynamicsProcessor.releaseTime)
-        releaseTimeLabel!.text = "Release Time: \(releaseTime) secs"
-    }
-    
-    func setMasterGain(slider: Slider) {
-        dynamicsProcessor.masterGain = Double(slider.value)
-        let masterGain = String(format: "%0.3f", dynamicsProcessor.masterGain)
-        masterGainLabel!.text = "Master Gain: \(masterGain) dB"
-    }
-    
-}
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+        dynamicsProce
