@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		084F1D901D0DED02006ECB18 /* AKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084F1D8F1D0DED02006ECB18 /* AKAudioFile.swift */; };
 		5251477B1CC4AD7E00421C52 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251477A1CC4AD7E00421C52 /* AKNotifications.swift */; };
 		898DED261C6944430026FCC3 /* AKVariSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DED251C6944430026FCC3 /* AKVariSpeed.swift */; };
 		C40869AF1C197AF200EF9DED /* biscale.c in Sources */ = {isa = PBXBuildFile; fileRef = C40869AE1C197AF200EF9DED /* biscale.c */; };
@@ -571,6 +572,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		084F1D8F1D0DED02006ECB18 /* AKAudioFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioFile.swift; sourceTree = "<group>"; };
 		5251477A1CC4AD7E00421C52 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
 		898DED251C6944430026FCC3 /* AKVariSpeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariSpeed.swift; sourceTree = "<group>"; };
 		C40869AE1C197AF200EF9DED /* biscale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = biscale.c; sourceTree = "<group>"; };
@@ -1427,6 +1429,7 @@
 		C42F350D1C057F4C000E937C /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				084F1D8F1D0DED02006ECB18 /* AKAudioFile.swift */,
 				C40C411C1C40E2E1009D870B /* AudioKit.swift */,
 				C4FE01601CED2DB40062B3A3 /* AKMicrophoneRecorder.swift */,
 				C4FE01611CED2DB40062B3A3 /* AKNodeRecorder.swift */,
@@ -3157,6 +3160,7 @@
 				C4537FCD1C3A438D00A51738 /* AKHighShelfParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C463010D1C20C342009B44D9 /* trand.c in Sources */,
 				C4E958E11C0ADBFD00516A6A /* switch.c in Sources */,
+				084F1D901D0DED02006ECB18 /* AKAudioFile.swift in Sources */,
 				C4E958971C0ADBFD00516A6A /* atone.c in Sources */,
 				C46300D51C20C342009B44D9 /* autowah.c in Sources */,
 				C463028C1C20E7A7009B44D9 /* phasor.swift in Sources */,
