@@ -39,11 +39,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Dry Wet Mix")
         
         addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
+        addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
         
         balanceLabel = addLabel("Balance: \(mixture.balance)")
