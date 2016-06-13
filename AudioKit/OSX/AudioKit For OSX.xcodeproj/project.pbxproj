@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		084F1D941D0DED3A006ECB18 /* AKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084F1D931D0DED3A006ECB18 /* AKAudioFile.swift */; };
 		524B77BC1CC4B074001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77BB1CC4B074001D82D1 /* AKNotifications.swift */; };
 		C40695B71CB6ED1500AD89F8 /* AKMIDISampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40695B61CB6ED1500AD89F8 /* AKMIDISampler.swift */; };
 		C40AD6A21C463E3600B638AF /* AKSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AD6A11C463E3600B638AF /* AKSampler.swift */; };
@@ -556,6 +557,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		084F1D931D0DED3A006ECB18 /* AKAudioFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioFile.swift; sourceTree = "<group>"; };
 		524B77BB1CC4B074001D82D1 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
 		C40695B61CB6ED1500AD89F8 /* AKMIDISampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDISampler.swift; sourceTree = "<group>"; };
 		C40AD6A11C463E3600B638AF /* AKSampler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSampler.swift; sourceTree = "<group>"; };
@@ -1309,6 +1311,7 @@
 		C42F36D91C058442000E937C /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				084F1D931D0DED3A006ECB18 /* AKAudioFile.swift */,
 				C4FE015E1CED270E0062B3A3 /* AKMicrophoneRecorder.swift */,
 				C46B30191C69E431008CEB43 /* AKNodeRecorder.swift */,
 				EA6949EA1C5A2F720035B5DF /* AKSettings.swift */,
@@ -3130,6 +3133,7 @@
 				C4B190C31C3B340400C0F330 /* reverse.c in Sources */,
 				C4B190951C3B340400C0F330 /* count.c in Sources */,
 				C4B190E41C3B340400C0F330 /* plumber.c in Sources */,
+				084F1D941D0DED3A006ECB18 /* AKAudioFile.swift in Sources */,
 				C45383201C3A5E4300A51738 /* AKAmplitudeTrackerAudioUnit.mm in Sources */,
 				C45383431C3A5E4300A51738 /* AKAutoWahAudioUnit.mm in Sources */,
 				C4E752031C23885400688A1B /* max.swift in Sources */,
