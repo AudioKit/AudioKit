@@ -17,7 +17,6 @@ var pitchshifter = AKPitchShifter(player)
 
 AudioKit.output = pitchshifter
 AudioKit.start()
-player.play()
 
 //: User Interface Set up
 
@@ -27,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
     var pitchLabel: Label?
     
     override func setup() {
-        addTitle("Time/Pitch")
+        addTitle("Pitch Shifter")
         
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
