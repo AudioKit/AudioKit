@@ -141,7 +141,7 @@ extension AKMIDI {
     
     internal func MyMIDIReadBlock(
         _ packetList: UnsafePointer<MIDIPacketList>,
-        srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
+        srcConnRefCon: UnsafeMutablePointer<Void>?) -> Void {
         /*
          //can't yet figure out how to access the port passed via srcConnRefCon
          //maybe having this port is not that necessary though...
