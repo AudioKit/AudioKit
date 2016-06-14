@@ -93,8 +93,16 @@ class PlaygroundView: AKPlaygroundView {
         pitchshifter.shift = Double(slider.value)
         let pitch = String(format: "%0.1f", pitchshifter.shift)
         pitchLabel!.text = "Pitch: \(pitch) Cents"
+        printCode()
     }
     
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    shift = \(String(format: "%0.3f", pitchshifter.shift))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
