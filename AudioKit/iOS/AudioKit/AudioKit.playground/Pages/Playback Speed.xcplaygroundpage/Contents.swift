@@ -91,10 +91,20 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         variSpeed.bypass()
     }
+    
     func setRate(slider: Slider) {
         variSpeed.rate = Double(slider.value)
         let rate = String(format: "%0.3f", variSpeed.rate)
         rateLabel!.text = "Rate: \(rate) rate"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    rate = \(String(format: "%0.3f", variSpeed.rate))")
+        print("}\n")
     }
     
 }

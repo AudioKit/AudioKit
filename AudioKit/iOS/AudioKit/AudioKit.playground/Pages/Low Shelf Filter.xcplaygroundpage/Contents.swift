@@ -94,18 +94,31 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         lowShelfFilter.bypass()
     }
+    
     func setcutoffFrequency(slider: Slider) {
         lowShelfFilter.cutoffFrequency = Double(slider.value)
         let cutoffFrequency = String(format: "%0.1f", lowShelfFilter.cutoffFrequency)
         cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
+        printCode()
     }
 
     func setgain(slider: Slider) {
         lowShelfFilter.gain = Double(slider.value)
         let gain = String(format: "%0.1f", lowShelfFilter.gain)
         gainLabel!.text = "Gain: \(gain) dB"
+        printCode()
     }
 
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    cutoffFrequency = \(String(format: "%0.3f", lowShelfFilter.cutoffFrequency))")
+        
+        print("    gain = \(String(format: "%0.3f", lowShelfFilter.gain))")
+        
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
