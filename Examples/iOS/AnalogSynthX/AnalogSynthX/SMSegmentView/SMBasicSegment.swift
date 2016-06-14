@@ -24,16 +24,16 @@ public class SMBasicSegment : UIView {
     }
     
     // MARK: Selections
-    internal func setSelected(selected: Bool, inView view: SMBasicSegmentView) {
+    internal func setSelected(_ selected: Bool, inView view: SMBasicSegmentView) {
         self.isSelected = selected
     }
     
-    public func orientationChangedTo(mode: SegmentOrganiseMode){
+    public func orientationChangedTo(_ mode: SegmentOrganiseMode){
         
     }
     
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
         if self.isSelected == false{
             self.segmentView?.selectSegmentAtIndex(self.index)
         }

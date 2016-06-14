@@ -40,7 +40,7 @@ class Knob: UIView {
     var lastX: CGFloat = 0
     var lastY: CGFloat = 0
 
-    func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
+    func setPercentagesWithTouchPoint(_ touchPoint: CGPoint) {
         // Knobs assume up or right is increasing, and down or left is decreasing
 
         let horizontalChange = Double(touchPoint.x - lastX) * knobSensitivity

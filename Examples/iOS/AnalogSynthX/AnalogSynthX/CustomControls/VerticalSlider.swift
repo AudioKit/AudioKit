@@ -11,7 +11,7 @@
 import UIKit
 
 protocol VerticalSliderDelegate {
-    func sliderValueDidChange(value: Double, tag: Int)
+    func sliderValueDidChange(_ value: Double, tag: Int)
 }
 
 @IBDesignable
@@ -53,7 +53,7 @@ extension VerticalSlider {
         barLength = bounds.height - (barMargin * 2)
     }
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         VerticalSliderStyles.drawVerticalSlider(controlFrame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height), knobRect: knobRect)
     }
 
@@ -65,12 +65,12 @@ extension VerticalSlider {
 
 // MARK: - Helpers
 extension VerticalSlider {
-    func convertYToValue(y: CGFloat) -> CGFloat {
+    func convertYToValue(_ y: CGFloat) -> CGFloat {
         let offsetY = bounds.height - barMargin - y
         let value = (offsetY * maxValue) / barLength
         return value
     }
-    func convertValueToY(value: CGFloat) -> CGFloat {
+    func convertValueToY(_ value: CGFloat) -> CGFloat {
         let rawY = (value * barLength) / maxValue
         let offsetY = bounds.height - barMargin - rawY
         return offsetY
@@ -79,15 +79,15 @@ extension VerticalSlider {
 
 // MARK: - Control Touch Handling
 extension VerticalSlider {
-    override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        if CGRectContainsPoint(knobRect, touch.locationInView(self)) {
+    override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        if knobRect.contains(touch.location(in: self)) {
             isSliding = true
         }
         return true
     }
 
-    override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
-        let rawY = touch.locationInView(self).y
+    override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+        let rawY = touch.location(in: self).y
 
         if isSliding {
             let value = convertYToValue(rawY)
@@ -101,7 +101,7 @@ extension VerticalSlider {
         return true
     }
 
-    override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
+    override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         isSliding = false
     }
 }

@@ -11,7 +11,7 @@ public class VerticalSliderStyles: NSObject {
 
     //// Drawing Methods
 
-    public class func drawVerticalSlider(controlFrame controlFrame: CGRect = CGRect(x: 0, y: 0, width: 40, height: 216), knobRect: CGRect = CGRect(x: 0, y: 89, width: 36, height: 32)) {
+    public class func drawVerticalSlider(controlFrame: CGRect = CGRect(x: 0, y: 0, width: 40, height: 216), knobRect: CGRect = CGRect(x: 0, y: 89, width: 36, height: 32)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -21,21 +21,21 @@ public class VerticalSliderStyles: NSObject {
         let slider_track = UIImage(named: "slider_track.png")!
 
         //// Background Drawing
-        let backgroundRect = CGRectMake(controlFrame.minX + 2, controlFrame.minY + 10, 38, 144)
+        let backgroundRect = CGRect(x: controlFrame.minX + 2, y: controlFrame.minY + 10, width: 38, height: 144)
         let backgroundPath = UIBezierPath(rect: backgroundRect)
-        CGContextSaveGState(context)
+        context?.saveGState()
         backgroundPath.addClip()
-        slider_track.drawInRect(CGRectMake(floor(backgroundRect.minX + 0.5), floor(backgroundRect.minY + 0.5), slider_track.size.width, slider_track.size.height))
-        CGContextRestoreGState(context)
+        slider_track.draw(in: CGRect(x: floor(backgroundRect.minX + 0.5), y: floor(backgroundRect.minY + 0.5), width: slider_track.size.width, height: slider_track.size.height))
+        context?.restoreGState()
 
 
         //// Slider Top Drawing
-        let sliderTopRect = CGRectMake(knobRect.origin.x, knobRect.origin.y, knobRect.size.width, knobRect.size.height)
+        let sliderTopRect = CGRect(x: knobRect.origin.x, y: knobRect.origin.y, width: knobRect.size.width, height: knobRect.size.height)
         let sliderTopPath = UIBezierPath(rect: sliderTopRect)
-        CGContextSaveGState(context)
+        context?.saveGState()
         sliderTopPath.addClip()
-        slider_top.drawInRect(CGRectMake(floor(sliderTopRect.minX + 0.5), floor(sliderTopRect.minY + 0.5), slider_top.size.width, slider_top.size.height))
-        CGContextRestoreGState(context)
+        slider_top.draw(in: CGRect(x: floor(sliderTopRect.minX + 0.5), y: floor(sliderTopRect.minY + 0.5), width: slider_top.size.width, height: slider_top.size.height))
+        context?.restoreGState()
     }
 
 }

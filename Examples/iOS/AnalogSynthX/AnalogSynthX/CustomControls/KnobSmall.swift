@@ -9,7 +9,7 @@
 import UIKit
 
 protocol KnobSmallDelegate {
-    func updateKnobValue(value: Double, tag: Int)
+    func updateKnobValue(_ value: Double, tag: Int)
 }
 
 @IBDesignable
@@ -17,12 +17,12 @@ class KnobSmall: Knob {
 
     var delegate: KnobSmallDelegate?
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         SynthStyleKit.drawKnobSmall(knobValue: knobValue)
     }
 
     // MARK: - Set Percentages
-    override func setPercentagesWithTouchPoint(touchPoint: CGPoint) {
+    override func setPercentagesWithTouchPoint(_ touchPoint: CGPoint) {
         super.setPercentagesWithTouchPoint(touchPoint)
         delegate?.updateKnobValue(value, tag: self.tag)
         setNeedsDisplay()
