@@ -147,10 +147,17 @@ class PlaygroundView: AKPlaygroundView {
     }
 
 
-
-
     func setDryWet(slider: Slider) {
         reverb.dryWetMix = Double(slider.value)
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    feedback = \(String(format: "%0.3f", reverb.dryWetMix))")
+        print("}\n")
     }
 }
 

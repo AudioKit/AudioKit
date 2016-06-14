@@ -118,46 +118,68 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         dynamicsProcessor.bypass()
     }
+    
     func setThreshold(slider: Slider) {
         dynamicsProcessor.threshold = Double(slider.value)
         let threshold = String(format: "%0.3f", dynamicsProcessor.threshold)
         thresholdLabel!.text = "Threshold: \(threshold) dB"
+        printCode()
     }
 
     func setHeadRoom(slider: Slider) {
         dynamicsProcessor.headRoom = Double(slider.value)
         let headRoom = String(format: "%0.3f", dynamicsProcessor.headRoom)
         headRoomLabel!.text = "Head Room: \(headRoom) dB"
+        printCode()
     }
 
     func setExpansionRatio(slider: Slider) {
         dynamicsProcessor.expansionRatio = Double(slider.value)
         let expansionRatio = String(format: "%0.3f", dynamicsProcessor.expansionRatio)
         expansionRatioLabel!.text = "Expansion Ratio: \(expansionRatio) rate"
+        printCode()
     }
 
     func setExpansionThreshold(slider: Slider) {
         dynamicsProcessor.expansionThreshold = Double(slider.value)
         let expansionThreshold = String(format: "%0.3f", dynamicsProcessor.expansionThreshold)
         expansionThresholdLabel!.text = "Expansion Threshold: \(expansionThreshold) rate"
+        printCode()
     }
 
     func setAttackTime(slider: Slider) {
         dynamicsProcessor.attackTime = Double(slider.value)
         let attackTime = String(format: "%0.3f", dynamicsProcessor.attackTime)
         attackTimeLabel!.text = "Attack Time: \(attackTime) secs"
+        printCode()
     }
 
     func setReleaseTime(slider: Slider) {
         dynamicsProcessor.releaseTime = Double(slider.value)
         let releaseTime = String(format: "%0.3f", dynamicsProcessor.releaseTime)
         releaseTimeLabel!.text = "Release Time: \(releaseTime) secs"
+        printCode()
     }
 
     func setMasterGain(slider: Slider) {
         dynamicsProcessor.masterGain = Double(slider.value)
         let masterGain = String(format: "%0.3f", dynamicsProcessor.masterGain)
         masterGainLabel!.text = "Master Gain: \(masterGain) dB"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    threshold = \(String(format: "%0.3f", dynamicsProcessor.threshold))")
+        print("    headRoom = \(String(format: "%0.3f", dynamicsProcessor.headRoom))")
+        print("    expansionRatio = \(String(format: "%0.3f", dynamicsProcessor.expansionRatio))")
+        print("    expansionThreshold = \(String(format: "%0.3f", dynamicsProcessor.expansionThreshold))")
+        print("    attackTime = \(String(format: "%0.3f", dynamicsProcessor.attackTime))")
+        print("    releaseTime = \(String(format: "%0.3f", dynamicsProcessor.releaseTime))")
+        print("    masterGain = \(String(format: "%0.3f", dynamicsProcessor.masterGain))")
+        print("}\n")
     }
 
 }

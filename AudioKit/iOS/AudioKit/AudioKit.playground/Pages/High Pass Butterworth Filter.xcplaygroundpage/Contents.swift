@@ -94,6 +94,16 @@ class PlaygroundView: AKPlaygroundView {
         highPassFilter.cutoffFrequency = Double(slider.value)
         let cutoffFrequency = String(format: "%0.1f", highPassFilter.cutoffFrequency)
         cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    cutoffFrequency = \(String(format: "%0.3f", highPassFilter.cutoffFrequency))")
+        
+        print("}\n")
     }
 }
 
