@@ -379,8 +379,8 @@ public class AKSequencer {
     public func loadMIDIFile(_ filename: String) {
         let bundle = Bundle.main()
         let file = bundle.pathForResource(filename, ofType: "mid")
-        let fileURL = URL.fileURL(withPath: file!)
-        MusicSequenceFileLoad(sequence, fileURL, MusicSequenceFileTypeID.midiType, MusicSequenceLoadFlags())
+        let fileURL = URL.init(fileURLWithPath: file!)
+        MusicSequenceFileLoad(sequence!, fileURL, MusicSequenceFileTypeID.midiType, MusicSequenceLoadFlags())
         if isAVSequencer {
             do {
                try avSequencer.load(from: fileURL, options: AVMusicSequenceLoadOptions())

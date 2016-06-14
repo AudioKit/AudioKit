@@ -34,7 +34,7 @@ public class AKMicrophoneRecorder {
         }
         #endif
         
-        let url = URL.fileURL(withPath: file, isDirectory: false)
+        let url = URL.init(fileURLWithPath: file, isDirectory: false)
         try! internalRecorder = AVAudioRecorder(url: url, settings: settings)
     }
     
