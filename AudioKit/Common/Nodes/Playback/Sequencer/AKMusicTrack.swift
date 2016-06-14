@@ -121,11 +121,9 @@ public class AKMusicTrack {
         let size: UInt32 = 0
         var len = MusicTimeStamp(duration)
         var tmpSeq: MusicSequence? = nil
-        var seqPtr: UnsafeMutablePointer<MusicSequence>
         var tmpTrack: MusicTrack? = nil
-        seqPtr = UnsafeMutablePointer<MusicSequence>(tmpSeq!)
         NewMusicSequence(&tmpSeq)
-        MusicTrackGetSequence(internalMusicTrack!, seqPtr)
+        MusicTrackGetSequence(internalMusicTrack!, &tmpSeq)
         MusicSequenceNewTrack(tmpSeq!, &tmpTrack)
         MusicTrackSetProperty(tmpTrack!, kSequenceTrackProperty_TrackLength, &len, size)
         MusicTrackCopyInsert(internalMusicTrack!, 0, len, tmpTrack!, 0)
