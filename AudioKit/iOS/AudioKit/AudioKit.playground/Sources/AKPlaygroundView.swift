@@ -21,7 +21,7 @@ public class AKPlaygroundView: UIView {
     
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white()
         setup()
     }
     
@@ -36,9 +36,9 @@ public class AKPlaygroundView: UIView {
     public func addTitle(text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
         newLabel.text = text
-        newLabel.textAlignment = .Center
+        newLabel.textAlignment = .center
         newLabel.frame.origin.y = 0
-        newLabel.font = UIFont.boldSystemFontOfSize(24)
+        newLabel.font = UIFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
         yPosition += horizontalSpacing
         return newLabel
@@ -46,11 +46,11 @@ public class AKPlaygroundView: UIView {
     
     public func addButton(label: String, action: Selector) -> UIButton {
         
-        let newButton = UIButton(type: .Custom)
+        let newButton = UIButton(type: .custom)
         newButton.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight)
-        newButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        newButton.backgroundColor = UIColor.blueColor()
-        newButton.setTitle("  \(label)  ", forState: .Normal)
+        newButton.setTitleColor(UIColor.white(), for: [])
+        newButton.backgroundColor = UIColor.blue()
+        newButton.setTitle("  \(label)  ", for: [])
         newButton.setNeedsDisplay()
         // Line up multiple buttons in a row
         if let button = lastButton {
@@ -59,7 +59,7 @@ public class AKPlaygroundView: UIView {
         }
         
         newButton.frame.origin.y = CGFloat(yPosition)
-        newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
+        newButton.addTarget(self, action: action, for: .touchDown)
         newButton.sizeToFit()
         self.addSubview(newButton)
         yPosition += horizontalSpacing
@@ -72,7 +72,7 @@ public class AKPlaygroundView: UIView {
         lastButton = nil
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
-        newLabel.font = UIFont.systemFontOfSize(18)
+        newLabel.font = UIFont.systemFont(ofSize: 18)
         newLabel.frame.origin.y = CGFloat(yPosition)
         self.addSubview(newLabel)
         yPosition += horizontalSpacing
@@ -84,16 +84,16 @@ public class AKPlaygroundView: UIView {
         lastButton = nil
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
-        newLabel.font = UIFont.systemFontOfSize(18)
+        newLabel.font = UIFont.systemFont(ofSize: 18)
         newLabel.frame.origin.y = CGFloat(yPosition)
         self.addSubview(newLabel)
         
         let newTextField =  UITextField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
         newTextField.frame.origin.y = CGFloat(yPosition)
         newTextField.text = "\(value)"
-        newTextField.textAlignment = .Right
+        newTextField.textAlignment = .right
         newTextField.setNeedsDisplay()
-        newTextField.addTarget(self, action: action, forControlEvents: .AllEvents)
+        newTextField.addTarget(self, action: action, for: .allEvents)
         self.addSubview(newTextField)
         yPosition += horizontalSpacing
         
@@ -108,7 +108,7 @@ public class AKPlaygroundView: UIView {
         newSlider.maximumValue = Float(maximum)
         newSlider.value = Float(value)
         newSlider.setNeedsDisplay()
-        newSlider.addTarget(self, action: action, forControlEvents: .ValueChanged)
+        newSlider.addTarget(self, action: action, for: .valueChanged)
         self.addSubview(newSlider)
         yPosition += horizontalSpacing
 

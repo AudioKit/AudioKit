@@ -29,18 +29,18 @@ public class KeyboardView: UIView {
         let height = Int(frame.height)
         
         let blackFrame = UIView(frame: CGRect(x: 0, y: 0, width: (keyWidth + 1) * totalKeys + 1, height: height))
-        blackFrame.backgroundColor = UIColor.blackColor()
+        blackFrame.backgroundColor = UIColor.black()
         self.addSubview(blackFrame)
         
         var keyCount = 0
         var increment = 0
         while keyCount < totalKeys {
-            if  allowedNotes.indexOf(notesWithFlats[(lowestKey + increment) % 12]) != nil || allowedNotes.indexOf(notesWithSharps[(lowestKey + increment) % 12]) != nil {
+            if  allowedNotes.index(of: notesWithFlats[(lowestKey + increment) % 12]) != nil || allowedNotes.index(of: notesWithSharps[(lowestKey + increment) % 12]) != nil {
                 let newButton = UIView(frame:CGRect(x: 0, y: 0, width: keyWidth, height: height - 2))
-                if notesWithSharps[(lowestKey + increment) % 12].rangeOfString("#") != nil {
-                    newButton.backgroundColor = UIColor.blackColor()
+                if notesWithSharps[(lowestKey + increment) % 12].contains("#") {
+                    newButton.backgroundColor = UIColor.black()
                 } else {
-                    newButton.backgroundColor = UIColor.whiteColor()
+                    newButton.backgroundColor = UIColor.white()
                 }
                 
                 newButton.setNeedsDisplay()
@@ -66,24 +66,24 @@ public class KeyboardView: UIView {
     // MARK: - Handle Touches
     // *********************************************************
     
-    override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             
             for key in keys {
-                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
-                    delegate?.noteOn(key.tag)
+                if key.frame.contains(touch.location(in: self)) {
+                    delegate?.noteOn(note: key.tag)
                 }
             }
             
         }
     }
     
-    override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
 
             for key in keys {
-                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
-                    delegate?.noteOn(key.tag)
+                if key.frame.contains(touch.location(in: self)) {
+                    delegate?.noteOn(note: key.tag)
                 }
             }
             
@@ -92,11 +92,11 @@ public class KeyboardView: UIView {
         }
     }
     
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             for key in keys {
-                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
-                    delegate?.noteOff(key.tag)
+                if key.frame.contains(touch.location(in: self)) {
+                    delegate?.noteOff(note: key.tag)
                 }
             }
         }
