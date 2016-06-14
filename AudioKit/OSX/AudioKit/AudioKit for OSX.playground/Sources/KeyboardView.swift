@@ -15,11 +15,11 @@ public protocol KeyboardDelegate {
 }
 
 public class KeyView: NSView {
-    public var backgroundColor = NSColor.blackColor()
+    public var backgroundColor = NSColor.black()
     public var midiNote = -1
     public var delegate: KeyboardDelegate?
     
-    override public func drawRect(dirtyRect: NSRect) {
+    override public func draw(_ dirtyRect: NSRect) {
         backgroundColor.setFill()
         NSRectFill(self.bounds)
     }
@@ -33,8 +33,8 @@ public class KeyboardView: NSView {
     let notesWithFlats  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     
-    override public func drawRect(dirtyRect: NSRect) {
-        NSColor.blackColor().setFill()
+    override public func draw(_ dirtyRect: NSRect) {
+        NSColor.black().setFill()
         NSRectFill(self.bounds)
     }
     
@@ -47,18 +47,18 @@ public class KeyboardView: NSView {
         let height = Int(frame.height)
         
         let blackFrame = NSView(frame: CGRect(x: 0, y: 0, width: (keyWidth + 1) * totalKeys + 1, height: height))
-        blackFrame.layer?.backgroundColor = CGColorCreateGenericGray(0.5, 0.5)
+        blackFrame.layer?.backgroundColor = CGColor(gray: 0.5, alpha: 0.5)
         self.addSubview(blackFrame)
         
         var keyCount = 0
         var increment = 0
         while keyCount < totalKeys {
-            if  allowedNotes.indexOf(notesWithFlats[(lowestKey + increment) % 12]) != nil || allowedNotes.indexOf(notesWithSharps[(lowestKey + increment) % 12]) != nil {
+            if  allowedNotes.index(of: notesWithFlats[(lowestKey + increment) % 12]) != nil || allowedNotes.index(of: notesWithSharps[(lowestKey + increment) % 12]) != nil {
                 let newButton = KeyView(frame:CGRect(x: 0, y: 0, width: keyWidth, height: height - 2))
-                if notesWithSharps[(lowestKey + increment) % 12].rangeOfString("#") != nil {
-                    newButton.backgroundColor = NSColor.blackColor()
+                if notesWithSharps[(lowestKey + increment) % 12].contains("#") {
+                    newButton.backgroundColor = NSColor.black()
                 } else {
-                    newButton.backgroundColor = NSColor.whiteColor()
+                    newButton.backgroundColor = NSColor.white()
                 }
                 
                 newButton.frame.origin.x = CGFloat(keyCount * (keyWidth + 1)) + 1
@@ -77,20 +77,20 @@ public class KeyboardView: NSView {
         }
     }
     
-    override public func mouseDragged(event: NSEvent) {
+    override public func mouseDragged(_ event: NSEvent) {
         let x = event.locationInWindow.x - self.frame.origin.x
         let y = event.locationInWindow.y - self.frame.origin.y
         
         for key in keys {
             if key.frame.contains(CGPoint(x: x, y: y)) {
-                delegate?.noteOn(key.midiNote)
+                delegate?.noteOn(note: key.midiNote)
             }
             
         }
     }
     
-    override public func mouseUp(event: NSEvent) {
-        delegate?.noteOff(0)
+    override public func mouseUp(_ event: NSEvent) {
+        delegate?.noteOff(note: 0)
     }
     
     required public init?(coder aDecoder: NSCoder) {

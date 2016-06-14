@@ -62,10 +62,10 @@ public class AKPlaygroundView: NSView {
     public func setup() {
     }
     
-    override public func drawRect(dirtyRect: NSRect) {
-        NSColor.whiteColor().setFill()
+    override public func draw(_ dirtyRect: NSRect) {
+        NSColor.white().setFill()
         NSRectFill(dirtyRect)
-        super.drawRect(dirtyRect)
+        super.draw(dirtyRect)
     }
     
     public func addLineBreak() {
@@ -76,12 +76,12 @@ public class AKPlaygroundView: NSView {
     public func addTitle(text: String) -> NSTextField {
         let newLabel = NSTextField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
         newLabel.stringValue = text
-        newLabel.editable = false
+        newLabel.isEditable = false
         newLabel.drawsBackground = false
-        newLabel.bezeled = false
+        newLabel.isBezeled = false
         newLabel.alignment = NSCenterTextAlignment
         newLabel.frame.origin.y = self.bounds.height - CGFloat(2 * horizontalSpacing)
-        newLabel.font = NSFont.boldSystemFontOfSize(24)
+        newLabel.font = NSFont.boldSystemFont(ofSize: 24)
         self.addSubview(newLabel)
         yPosition += horizontalSpacing
         return newLabel
@@ -90,7 +90,7 @@ public class AKPlaygroundView: NSView {
     public func addButton(label: String, action: Selector) -> NSButton {
         let newButton = NSButton(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newButton.title = "\(label)    "
-        newButton.font = NSFont.systemFontOfSize(18)
+        newButton.font = NSFont.systemFont(ofSize: 18)
         
         // Line up multiple buttons in a row
         if let button = lastButton {
@@ -100,7 +100,7 @@ public class AKPlaygroundView: NSView {
         
         newButton.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         newButton.sizeToFit()
-        newButton.bezelStyle = NSBezelStyle.ShadowlessSquareBezelStyle
+        newButton.bezelStyle = NSBezelStyle.shadowlessSquareBezelStyle
         newButton.target = self
         newButton.action = action
         self.addSubview(newButton)
@@ -113,10 +113,10 @@ public class AKPlaygroundView: NSView {
         lastButton = nil
         let newLabel = AKLabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.stringValue = text
-        newLabel.editable = false
+        newLabel.isEditable = false
         newLabel.drawsBackground = false
-        newLabel.bezeled = false
-        newLabel.font = NSFont.systemFontOfSize(18)
+        newLabel.isBezeled = false
+        newLabel.font = NSFont.systemFont(ofSize: 18)
         newLabel.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         self.addSubview(newLabel)
         yPosition += horizontalSpacing

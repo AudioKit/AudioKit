@@ -58,7 +58,7 @@ public typealias AKCallback = (Void) -> Void
     /// The name of the current preferred input device, if available.
     public static var inputDevice: AKDevice? {
         #if os(OSX)
-            if let dev = EZAudioDevice.currentInputDevice() {
+            if let dev = EZAudioDevice.currentInput() {
                 return AKDevice(name: dev.name, deviceID: dev.deviceID)
             }
         #else
