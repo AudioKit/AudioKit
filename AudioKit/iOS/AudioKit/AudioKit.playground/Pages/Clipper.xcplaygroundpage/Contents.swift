@@ -29,7 +29,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Clipper")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Start", action: #selector(startLoop))
         addButton("Stop", action: #selector(stop))
         
         limitLabel = addLabel("Limit: \(clipper.limit)")
