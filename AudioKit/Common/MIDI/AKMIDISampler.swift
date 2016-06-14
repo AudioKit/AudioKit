@@ -30,7 +30,23 @@ public class AKMIDISampler: AKSampler {
     ///
     public func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
         var result: OSStatus
-        result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
+        
+        let midiReadBlock: MIDIReadBlock = { packetList, srcConnRefCon in
+                
+            let packetCount = Int(packetList.pointee.numPackets)
+            let packet = packetList.pointee.packet as MIDIPacket
+            var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer(allocatingCapacity: 1)
+            packetPointer.initialize(with: packet)
+            
+            for _ in 0 ..< packetCount {
+                let event = AKMIDIEvent(packet: packetPointer.pointee)
+                //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
+                self.handleMIDI(UInt32(event.internalData[0]), data2: UInt32(event.internalData[1]), data3: UInt32(event.internalData[2]))
+                packetPointer = MIDIPacketNext(packetPointer)
+            }
+        }
+        
+        result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, midiReadBlock)
         CheckError(result)
     }
     
@@ -86,20 +102,4 @@ public class AKMIDISampler: AKSampler {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
     
-    private func MyMIDIReadBlock(
-        _ packetList: UnsafePointer<MIDIPacketList>,
-        srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
-        
-        let packetCount = Int(packetList.pointee.numPackets)
-        let packet = packetList.pointee.packet as MIDIPacket
-        var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer(allocatingCapacity: 1)
-        packetPointer.initialize(with: packet)
-        
-        for _ in 0 ..< packetCount {
-            let event = AKMIDIEvent(packet: packetPointer.pointee)
-            //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
-            handleMIDI(UInt32(event.internalData[0]), data2: UInt32(event.internalData[1]), data3: UInt32(event.internalData[2]))
-            packetPointer = MIDIPacketNext(packetPointer)
-        }
-    }
 }
