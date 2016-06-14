@@ -74,47 +74,47 @@ public class AKAUPresetBuilder {
         
         //iterate over the sounds
         for i in 0 ..< dict.count {
-            let sound = dict.allValues[i]
-            var soundDict: NSMutableDictionary
-            var alreadyLoaded = false
-            var sampleNum = 0
-            soundDict = sound.mutableCopy() as! NSMutableDictionary
-            //check if this sample is already loaded
-            for loadedSoundDict in loadSoundsArr {
-                let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as! String
-                let newLoadingSound: String = soundDict.object(forKey: filenameKey) as! String
-                if alreadyLoadedSound == newLoadingSound {
-                    alreadyLoaded = true
-                    sampleNum = loadedSoundDict.object(forKey: "sampleNum") as! Int
-                }
-            }
-            
-            if sound.object(forKey: startNoteKey) == nil || sound.object(forKey: endNoteKey) == nil {
-                soundDict.setObject(sound.object(forKey: rootNoteKey)!, forKey: startNoteKey)
-                soundDict.setObject(sound.object(forKey: rootNoteKey)!, forKey: endNoteKey)
-            }
-            if sound.object(forKey: rootNoteKey) == nil {
-                //error
-            } else {
-                soundDict.setObject(sound.object(forKey: rootNoteKey)!, forKey: rootNoteKey)
-            }
-            
-            if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
-                sampleNum = sampleNumStart + sampleIteration
-                let idXML = AKAUPresetBuilder.generateFileRef(sampleNum, samplePath: sound.object(forKey: "filename")! as! String)
-                sampleIDXML.append(idXML)
-                
-                sampleIteration += 1
-            }
-            
-            let startNote = soundDict.object(forKey: startNoteKey)! as! Int
-            let endNote = soundDict.object(forKey: endNoteKey)! as! Int
-            let rootNote = soundDict.object(forKey: rootNoteKey)! as! Int
-            let tempSampleZoneXML: String = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote, endNote: endNote, wavRef: sampleNum)
-            
-            sampleZoneXML.append(tempSampleZoneXML)
-            soundDict.setObject(sampleNum, forKey: "sampleNum")
-            loadSoundsArr.append(soundDict)
+//            let sound = dict.allValues[i]
+//            var soundDict: NSMutableDictionary
+//            var alreadyLoaded = false
+//            var sampleNum = 0
+//            soundDict = sound.mutable sound.mutableCopy() as! NSMutableDictionary
+//            //check if this sample is already loaded
+//            for loadedSoundDict in loadSoundsArr {
+//                let alreadyLoadedSound: String = loadedSoundDict.object(forKey: filenameKey) as! String
+//                let newLoadingSound: String = soundDict.object(forKey: filenameKey) as! String
+//                if alreadyLoadedSound == newLoadingSound {
+//                    alreadyLoaded = true
+//                    sampleNum = loadedSoundDict.object(forKey: "sampleNum") as! Int
+//                }
+//            }
+//            
+//            if sound.object(forKey: startNoteKey) == nil || sound.object(forKey: endNoteKey) == nil {
+//                soundDict.setObject(sound.object(forKey: rootNoteKey)!, forKey: startNoteKey)
+//                soundDict.setObject(sound.object(forKey: rootNoteKey)!, forKey: endNoteKey)
+//            }
+//            if sound.object(forKey: rootNoteKey) == nil {
+//                //error
+//            } else {
+//                soundDict.setObject(sound.object(forKey: rootNoteKey)!, forKey: rootNoteKey)
+//            }
+//            
+//            if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
+//                sampleNum = sampleNumStart + sampleIteration
+//                let idXML = AKAUPresetBuilder.generateFileRef(sampleNum, samplePath: sound.object(forKey: "filename")! as! String)
+//                sampleIDXML.append(idXML)
+//                
+//                sampleIteration += 1
+//            }
+//            
+//            let startNote = soundDict.object(forKey: startNoteKey)! as! Int
+//            let endNote = soundDict.object(forKey: endNoteKey)! as! Int
+//            let rootNote = soundDict.object(forKey: rootNoteKey)! as! Int
+//            let tempSampleZoneXML: String = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote, endNote: endNote, wavRef: sampleNum)
+//            
+//            sampleZoneXML.append(tempSampleZoneXML)
+//            soundDict.setObject(sampleNum, forKey: "sampleNum")
+//            loadSoundsArr.append(soundDict)
         }
         
         let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
