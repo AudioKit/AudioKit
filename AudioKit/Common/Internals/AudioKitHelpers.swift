@@ -21,8 +21,8 @@ public typealias MIDIVelocity = Int
 /// - parameter range: Range of valid integers to choose from
 ///
 public func randomInt(_ range: Range<Int>) -> Int {
-    let width = range.max()! - range.min()!
-    return Int(arc4random_uniform(UInt32(width))) + range.min()!
+    let width = range.upperBound - range.lowerBound
+    return Int(arc4random_uniform(UInt32(width))) + range.lowerBound
 }
 
 /// Extension to Array for Random Element
