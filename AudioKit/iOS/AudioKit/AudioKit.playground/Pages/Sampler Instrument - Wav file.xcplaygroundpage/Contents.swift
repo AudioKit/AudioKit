@@ -13,11 +13,13 @@ let pulse = 0.23 // seconds
 //: We are going to load an EXS24 instrument and send it random notes
 
 let sampler = AKSampler()
-
+sampler.samplerUnit.masterGain = -3
+sampler.samplerUnit.stereoPan = -100
 //: Here is where we reference the Wav file as it is in the app bundle
 sampler.loadWav("Sounds/fmpia1")
 
 let ampedSampler = AKBooster(sampler, gain: 3.0)
+sampler.pan = -1
 
 var delay  = AKDelay(ampedSampler)
 delay.time = pulse * 1.5
@@ -34,6 +36,12 @@ AudioKit.start()
 //: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here
 AKPlaygroundLoop(every: pulse) {
+    print("Sampler pan: \(sampler.samplerUnit.stereoPan)")
+    if sampler.pan < 0 {
+        sampler.pan = 1
+    } else {
+        sampler.pan = -1
+    }
     let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()
     let octave = randomInt(3...6)  * 12
