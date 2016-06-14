@@ -18,7 +18,6 @@ let sampler = AKSampler()
 sampler.loadWav("Sounds/fmpia1")
 
 let ampedSampler = AKBooster(sampler, gain: 3.0)
-sampler.pan = -1
 
 var delay  = AKDelay(ampedSampler)
 delay.time = pulse * 1.5
@@ -35,7 +34,6 @@ AudioKit.start()
 //: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here
 AKPlaygroundLoop(every: pulse) {
-    print("Sampler pan: \(sampler.samplerUnit.stereoPan)")
     if sampler.pan < 0 {
         sampler.pan = 1
     } else {
