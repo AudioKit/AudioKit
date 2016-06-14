@@ -27,24 +27,28 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Tone Filters")
         
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop",  action: #selector(stop))
         
         addLabel("Tone Filter: ")
         addButton("Process", action: #selector(processTone))
         addButton("Bypass",  action: #selector(bypassTone))
-
+        
         label1 = addLabel("Tone Filter 1/2 Power Point: \(toneFilter.halfPowerPoint)")
         addSlider(#selector(setToneFilterHalfPowerPoint),
                   value: toneFilter.halfPowerPoint,
                   minimum: 1,
                   maximum: 10000)
-
+        
         addLabel("Tone Complement Filter: ")
         addButton("Process", action: #selector(processToneComplement))
         addButton("Bypass", action: #selector(bypassToneComplement))
-
+        
         label2 = addLabel("Tone Complement 1/2 Power Point: \(toneComplement.halfPowerPoint)")
         addSlider(#selector(setToneComplementHalfPowerPoint),
                   value: toneComplement.halfPowerPoint,
@@ -52,8 +56,31 @@ class PlaygroundView: AKPlaygroundView {
                   maximum: 10000)
     }
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()
@@ -86,7 +113,7 @@ class PlaygroundView: AKPlaygroundView {
         let hp = String(format: "%0.1f", toneComplement.halfPowerPoint)
         label2!.text = "Tone Complement 1/2 Power Point: \(hp)"
     }
-
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))

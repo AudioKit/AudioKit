@@ -26,45 +26,72 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-
+    
     //: UI Elements we'll need to be able to access
     var cutOffFrequencyLabel: Label?
     var gainLabel: Label?
-
+    
     override func setup() {
         addTitle("High Shelf Filter")
-
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-
+        
         addLabel("High Shelf Filter Parameters")
-
+        
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-
+        
         cutOffFrequencyLabel = addLabel("Cut-off Frequency: 10000 Hz")
         addSlider(#selector(setCutOffFrequency), value: 10000, minimum: 10000, maximum: 22050)
-
+        
         gainLabel = addLabel("Gain: 0 dB")
         addSlider(#selector(setGain), value: 0, minimum: -40, maximum: 40)
-
+        
     }
-
+    
     //: Handle UI Events
-
-    func start() {
+    
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
-
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
     func stop() {
         player.stop()
     }
-
+    
     func process() {
         highShelfFilter.start()
     }
-
+    
     func bypass() {
         highShelfFilter.bypass()
     }
@@ -73,13 +100,13 @@ class PlaygroundView: AKPlaygroundView {
         let cutOffFrequency = String(format: "%0.1f", highShelfFilter.cutOffFrequency)
         cutOffFrequencyLabel!.text = "Cut-off Frequency: \(cutOffFrequency) Hz"
     }
-
+    
     func setGain(slider: Slider) {
         highShelfFilter.gain = Double(slider.value)
         let gain = String(format: "%0.1f", highShelfFilter.gain)
         gainLabel!.text = "Gain: \(gain) dB"
     }
-
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
