@@ -13,8 +13,7 @@ let pulse = 0.23 // seconds
 //: We are going to load an EXS24 instrument and send it random notes
 
 let sampler = AKSampler()
-sampler.samplerUnit.masterGain = -3
-sampler.samplerUnit.stereoPan = -100
+
 //: Here is where we reference the Wav file as it is in the app bundle
 sampler.loadWav("Sounds/fmpia1")
 
