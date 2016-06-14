@@ -99,24 +99,37 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         parametricEQ.bypass()
     }
+    
     func setCenterFreq(slider: Slider) {
         parametricEQ.centerFrequency = Double(slider.value)
         let centerFrequency = String(format: "%0.1f", parametricEQ.centerFrequency)
         centerFreqLabel!.text = "Center Frequency: \(centerFrequency) Hz"
+        printCode()
     }
 
     func setQ(slider: Slider) {
         parametricEQ.q = Double(slider.value)
         let q = String(format: "%0.1f", parametricEQ.q)
         qLabel!.text = "Q: \(q) Hz"
+        printCode()
     }
 
     func setGain(slider: Slider) {
         parametricEQ.gain = Double(slider.value)
         let gain = String(format: "%0.1f", parametricEQ.gain)
         gainLabel!.text = "gain: \(gain) dB"
+        printCode()
     }
-
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    centerFrequency = \(String(format: "%0.3f", parametricEQ.centerFrequency))")
+        print("    q = \(String(format: "%0.3f", parametricEQ.q))")
+        print("    gain = \(String(format: "%0.3f", parametricEQ.gain))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))

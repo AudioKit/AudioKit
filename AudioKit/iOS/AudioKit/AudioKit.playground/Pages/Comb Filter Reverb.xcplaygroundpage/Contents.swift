@@ -76,6 +76,16 @@ class PlaygroundView: AKPlaygroundView {
         filter.reverbDuration = Double(slider.value)
         durationLabel!.text = "Duration: \(String(format: "%0.3f", filter.reverbDuration))"
         filter.reverbDuration // to plot value history
+        
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    reverbDuration = \(String(format: "%0.3f", filter.reverbDuration))")
+        print("}\n")
     }
     
 }
