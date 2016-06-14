@@ -22,7 +22,7 @@ extension AKComputedParameter {
     /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1. (Default: 0.5, Minimum: 0.0, Maximum: 2.0)
      ///
     public func moogLadderFilter(
-        cutoffFrequency cutoffFrequency: AKParameter = 1000,
+        cutoffFrequency: AKParameter = 1000,
         resonance: AKParameter = 0.5
         ) -> AKOperation {
             return AKOperation("(\(self.toMono()) \(cutoffFrequency) \(resonance) moogladder)")

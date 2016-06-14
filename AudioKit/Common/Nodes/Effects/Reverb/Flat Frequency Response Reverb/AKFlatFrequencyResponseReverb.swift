@@ -79,32 +79,32 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKFlatFrequencyResponseReverbAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKFlatFrequencyResponseReverb",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKFlatFrequencyResponseReverbAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU!.setLoopDuration(Float(loopDuration))
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        reverbDurationParameter = tree.valueForKey("reverbDuration") as? AUParameter
+        reverbDurationParameter = tree.value(forKey: "reverbDuration") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.reverbDurationParameter!.address {
                     self.reverbDuration = Double(value)
                 }

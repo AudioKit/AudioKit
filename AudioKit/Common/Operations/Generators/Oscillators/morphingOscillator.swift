@@ -18,7 +18,7 @@ extension AKOperation {
     /// - parameter index: Index of waveform 0.0 - 3.0 where 0 = sine, 1 = square, 2 = sawtooth, 3 = reversed sawtooth
     ///
     public static func morphingOscillator(
-        frequency frequency: AKParameter = 440,
+        frequency: AKParameter = 440,
         amplitude: AKParameter = 1,
         index: AKParameter = 0
         ) -> AKOperation {

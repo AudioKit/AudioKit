@@ -29,7 +29,7 @@ public class AKCallbackInstrument: AKMIDIInstrument {
         callbacks.append(callback)
     }
     
-    private func triggerCallbacks(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
+    private func triggerCallbacks(_ status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
         for callback in callbacks {
             callback(status, note, velocity)
         }
@@ -41,8 +41,8 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     /// - parameter velocity: MIDI Velocity (0-127)
     /// - parameter channel:  MIDI Channel
     ///
-    override public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
-        triggerCallbacks(.NoteOn, note: note, velocity: velocity)
+    override public func startNote(_ note: Int, withVelocity velocity: Int, onChannel channel: Int) {
+        triggerCallbacks(.noteOn, note: note, velocity: velocity)
     }
 
     /// Will trigger in response to any noteOff Message
@@ -51,7 +51,7 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     /// - parameter velocity: MIDI Velocity (0-127)
     /// - parameter channel:  MIDI Channel
     ///
-    override public func stopNote(note: Int, onChannel channel: Int) {
-        triggerCallbacks(.NoteOff, note: note, velocity: 0)
+    override public func stopNote(_ note: Int, onChannel channel: Int) {
+        triggerCallbacks(.noteOff, note: note, velocity: 0)
     }
 }

@@ -18,7 +18,7 @@ extension AKOperation {
     /// - parameter maximum: Maximum value to scale to. (Default: 1)
     ///
     public func scale(
-        minimum minimum: AKParameter = 0,
+        minimum: AKParameter = 0,
         maximum: AKParameter = 1
         ) -> AKOperation {
             return AKOperation("(\(self) \(minimum) \(maximum) biscale)")

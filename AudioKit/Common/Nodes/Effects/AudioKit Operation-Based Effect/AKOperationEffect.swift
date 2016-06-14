@@ -74,19 +74,19 @@ public class AKOperationEffect: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKOperationEffectAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKOperationEffect",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationEffectAudioUnit
-            AudioKit.engine.attachNode(self.avAudioNode)
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKOperationEffectAudioUnit
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setSporth(sporth)
         }

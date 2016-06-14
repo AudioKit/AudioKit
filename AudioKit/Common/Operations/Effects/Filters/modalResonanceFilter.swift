@@ -20,7 +20,7 @@ extension AKComputedParameter {
     /// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency. (Default: 50.0, Minimum: 0.0, Maximum: 100.0)
      ///
     public func modalResonanceFilter(
-        frequency frequency: AKParameter = 500.0,
+        frequency: AKParameter = 500.0,
         qualityFactor: AKParameter = 50.0
         ) -> AKOperation {
             return AKOperation("(\(self.toMono()) \(frequency) \(qualityFactor) mode)")

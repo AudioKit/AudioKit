@@ -94,32 +94,32 @@ public class AKStringResonator: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKStringResonatorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKStringResonator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKStringResonatorAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKStringResonatorAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        fundamentalFrequencyParameter = tree.valueForKey("fundamentalFrequency") as? AUParameter
-        feedbackParameter             = tree.valueForKey("feedback")             as? AUParameter
+        fundamentalFrequencyParameter = tree.value(forKey: "fundamentalFrequency") as? AUParameter
+        feedbackParameter             = tree.value(forKey: "feedback")             as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.fundamentalFrequencyParameter!.address {
                     self.fundamentalFrequency = Double(value)
                 } else if address == self.feedbackParameter!.address {

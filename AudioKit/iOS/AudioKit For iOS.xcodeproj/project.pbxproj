@@ -2931,6 +2931,7 @@
 				TargetAttributes = {
 					C42F34FF1C057E03000E937C = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					C43792771C0CE2E0001E9160 = {
 						CreatedOnToolsVersion = 7.2;
@@ -3536,6 +3537,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -3560,6 +3562,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

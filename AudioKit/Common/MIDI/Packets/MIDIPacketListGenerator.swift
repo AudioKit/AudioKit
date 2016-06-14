@@ -7,7 +7,7 @@
 //
 
 /// Generator for MIDIPacketList allowing iteration over its list of MIDIPacket objects.
-public struct MIDIPacketListGenerator: GeneratorType {
+public struct MIDIPacketListGenerator: IteratorProtocol {
     public typealias Element = MIDIPacket
     
     /// Initialize the packet list generator with a packet list
@@ -15,8 +15,8 @@ public struct MIDIPacketListGenerator: GeneratorType {
     /// - parameter packetList: MIDI Packet List
     ///
     init(packetList: MIDIPacketList) {
-        let ptr = UnsafeMutablePointer<MIDIPacket>.alloc(1)
-        ptr.initialize(packetList.packet)
+        let ptr = UnsafeMutablePointer<MIDIPacket>(allocatingCapacity: 1)
+        ptr.initialize(with: packetList.packet)
         self.packet = ptr
         self.count = packetList.numPackets
     }
@@ -28,7 +28,7 @@ public struct MIDIPacketListGenerator: GeneratorType {
         let lastPacket = self.packet!
         self.packet = MIDIPacketNext(self.packet!)
         self.index += 1
-        return lastPacket.memory
+        return lastPacket.pointee
     }
     
     // Extracted packet list info

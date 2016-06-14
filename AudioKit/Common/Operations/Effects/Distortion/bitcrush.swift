@@ -18,7 +18,7 @@ extension AKComputedParameter {
     /// - parameter sampleRate: The sample rate of signal output. (Default: 10000, Minimum: 0.0, Maximum: 20000.0)
      ///
     public func bitCrush(
-        bitDepth bitDepth: AKParameter = 8,
+        bitDepth: AKParameter = 8,
         sampleRate: AKParameter = 10000
         ) -> AKOperation {
             return AKOperation("(\(self.toMono()) \(bitDepth) \(sampleRate) bitcrush)")

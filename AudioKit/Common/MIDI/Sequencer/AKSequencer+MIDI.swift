@@ -11,7 +11,7 @@ import Foundation
 extension AKSequencer {
     
     /// Set the midi output for all tracks
-    public func setGlobalMIDIOutput(midiEndpoint: MIDIEndpointRef) {
+    public func setGlobalMIDIOutput(_ midiEndpoint: MIDIEndpointRef) {
         if isAVSequencer {
             for track in avSequencer.tracks {
                 track.destinationMIDIEndpoint = midiEndpoint

@@ -48,7 +48,7 @@ public class AKVariSpeed: AKNode, AKToggleable {
         
         super.init()
         self.avAudioNode = variSpeedAU
-        AudioKit.engine.attachNode(self.avAudioNode)
+        AudioKit.engine.attach(self.avAudioNode)
         input.addConnectionPoint(self)
     }
     

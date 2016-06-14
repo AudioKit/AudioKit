@@ -106,33 +106,33 @@ public class AKPitchShifter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKPitchShifterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKPitchShifter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKPitchShifterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKPitchShifterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        shiftParameter      = tree.valueForKey("shift")      as? AUParameter
-        windowSizeParameter = tree.valueForKey("windowSize") as? AUParameter
-        crossfadeParameter  = tree.valueForKey("crossfade")  as? AUParameter
+        shiftParameter      = tree.value(forKey: "shift")      as? AUParameter
+        windowSizeParameter = tree.value(forKey: "windowSize") as? AUParameter
+        crossfadeParameter  = tree.value(forKey: "crossfade")  as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.shiftParameter!.address {
                     self.shift = Double(value)
                 } else if address == self.windowSizeParameter!.address {

@@ -28,7 +28,7 @@ public class AKMIDISampler: AKSampler {
     /// - parameter midiClient: A refernce to the MIDI client
     /// - parameter name: Name to connect with
     ///
-    public func enableMIDI(midiClient: MIDIClientRef, name: String) {
+    public func enableMIDI(_ midiClient: MIDIClientRef, name: String) {
         var result: OSStatus
         result = MIDIDestinationCreateWithBlock(midiClient, name, &midiIn, MyMIDIReadBlock)
         CheckError(result)
@@ -37,15 +37,15 @@ public class AKMIDISampler: AKSampler {
     // MARK: - Handling MIDI Data
     
     // Send MIDI data to the audio unit
-    func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
+    func handleMIDI(_ data1: UInt32, data2: UInt32, data3: UInt32) {
         let status = data1 >> 4
         let channel = data1 & 0xF
         
-        if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0 {
+        if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 > 0 {
             startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
-        } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
+        } else if Int(status) == AKMIDIStatus.noteOn.rawValue && data3 == 0 {
             stopNote(Int(data2), onChannel: Int(channel))
-        } else if Int(status) == AKMIDIStatus.ControllerChange.rawValue {
+        } else if Int(status) == AKMIDIStatus.controllerChange.rawValue {
             midiCC(Int(data2), value: Int(data3), channel: Int(channel))
         }
     }
@@ -56,7 +56,7 @@ public class AKMIDISampler: AKSampler {
     /// - parameter velocity: MIDI velocity
     /// - parameter channel: MIDI channel
     ///
-    public func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
+    public func receivedMIDINoteOn(_ note: Int, velocity: Int, channel: Int) {
         if velocity > 0 {
             startNote(note, withVelocity: velocity, onChannel: channel)
         } else {
@@ -70,33 +70,33 @@ public class AKMIDISampler: AKSampler {
     /// - parameter value: MIDI cc value
     /// - parameter channel: MIDI cc channel
     ///
-    public func midiCC(cc: Int, value: Int, channel: Int) {
+    public func midiCC(_ cc: Int, value: Int, channel: Int) {
         samplerUnit.sendController(UInt8(cc), withValue: UInt8(value), onChannel: UInt8(channel))
     }
     
     // MARK: - MIDI Note Start/Stop
     
     /// Start a note
-    public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
+    public func startNote(_ note: Int, withVelocity velocity: Int, onChannel channel: Int) {
         samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
     
     /// Stop a note
-    public func stopNote(note: Int, onChannel channel: Int) {
+    public func stopNote(_ note: Int, onChannel channel: Int) {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
     
     private func MyMIDIReadBlock(
-        packetList: UnsafePointer<MIDIPacketList>,
+        _ packetList: UnsafePointer<MIDIPacketList>,
         srcConnRefCon: UnsafeMutablePointer<Void>) -> Void {
         
-        let packetCount = Int(packetList.memory.numPackets)
-        let packet = packetList.memory.packet as MIDIPacket
-        var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer.alloc(1)
-        packetPointer.initialize(packet)
+        let packetCount = Int(packetList.pointee.numPackets)
+        let packet = packetList.pointee.packet as MIDIPacket
+        var packetPointer: UnsafeMutablePointer<MIDIPacket> = UnsafeMutablePointer(allocatingCapacity: 1)
+        packetPointer.initialize(with: packet)
         
         for _ in 0 ..< packetCount {
-            let event = AKMIDIEvent(packet: packetPointer.memory)
+            let event = AKMIDIEvent(packet: packetPointer.pointee)
             //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
             handleMIDI(UInt32(event.internalData[0]), data2: UInt32(event.internalData[1]), data3: UInt32(event.internalData[2]))
             packetPointer = MIDIPacketNext(packetPointer)

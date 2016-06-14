@@ -60,9 +60,9 @@ public class AKMIDI {
     public init() {
 
         #if os(iOS)
-            MIDINetworkSession.defaultSession().enabled = true
-            MIDINetworkSession.defaultSession().connectionPolicy =
-                MIDINetworkConnectionPolicy.Anyone
+            MIDINetworkSession.default().isEnabled = true
+            MIDINetworkSession.default().connectionPolicy =
+                MIDINetworkConnectionPolicy.anyone
         #endif
         var result = noErr
         if client == 0 {
@@ -76,7 +76,7 @@ public class AKMIDI {
     // MARK: - Virtual MIDI
     
     /// Create set of virtual MIDI ports
-    public func createVirtualPorts(uniqueId: Int32 = 2000000) {
+    public func createVirtualPorts(_ uniqueId: Int32 = 2000000) {
 
         destroyVirtualPorts()
         

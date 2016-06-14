@@ -19,7 +19,7 @@ extension AKComputedParameter {
     /// - parameter amplitude: Overall level (Default: 0.1, Minimum: 0, Maximum: 1)
      ///
     public func autoWah(
-        wah wah: AKParameter = 0,
+        wah: AKParameter = 0,
         mix: AKParameter = 1,
         amplitude: AKParameter = 0.1
         ) -> AKOperation {

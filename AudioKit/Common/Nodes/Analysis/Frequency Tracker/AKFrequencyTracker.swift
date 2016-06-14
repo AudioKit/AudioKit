@@ -50,19 +50,19 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKFrequencyTrackerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKFrequencyTracker",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKFrequencyTrackerAudioUnit
-            AudioKit.engine.attachNode(self.avAudioNode)
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKFrequencyTrackerAudioUnit
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             self.internalAU?.setFrequencyLimitsWithMinimum(Float(minimumFrequency/2), maximum: Float(maximumFrequency/2))
         }

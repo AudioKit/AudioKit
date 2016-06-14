@@ -15,7 +15,7 @@ public class AKNodeRecorder {
     private var avAudioFile: AVAudioFile?
     private var settings: [String: AnyObject]
     private var format: AVAudioFormat
-    private var url: NSURL
+    private var url: URL
     private var node: AKNode?
     
     /// Whether or not the recorder is currently recording
@@ -30,7 +30,7 @@ public class AKNodeRecorder {
         _ file: String,
           node: AKNode = AudioKit.output!) {
         self.node = node
-        url = NSURL.fileURLWithPath(file, isDirectory: false)
+        url = URL.init(fileURLWithPath: file, isDirectory: false)
         
         format = AudioKit.format
         settings = AudioKit.format.settings
@@ -60,10 +60,10 @@ public class AKNodeRecorder {
         isRecording = true
         
         if let recordingNode = node {
-            recordingNode.avAudioNode.installTapOnBus(0, bufferSize: 1024, format: format) {
+            recordingNode.avAudioNode.installTap(onBus: 0, bufferSize: 1024, format: format) {
                 (buffer, time) in
                 do {
-                    try self.avAudioFile?.writeFromBuffer(buffer)
+                    try self.avAudioFile?.write(from: buffer)
                 } catch {
                     print("Could not record.")
                 }
@@ -76,7 +76,7 @@ public class AKNodeRecorder {
     public func stop() {
         isRecording = false
         if let recordingNode = node {
-            recordingNode.avAudioNode.removeTapOnBus(0)
+            recordingNode.avAudioNode.removeTap(onBus: 0)
             print("Stopped recording.")
         }
     }

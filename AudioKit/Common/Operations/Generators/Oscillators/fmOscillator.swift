@@ -20,7 +20,7 @@ extension AKOperation {
     /// - parameter amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 10.0)
      ///
     public static func fmOscillator(
-        baseFrequency baseFrequency: AKParameter = 440,
+        baseFrequency: AKParameter = 440,
         carrierMultiplier: AKParameter = 1.0,
         modulatingMultiplier: AKParameter = 1.0,
         modulationIndex: AKParameter = 1.0,

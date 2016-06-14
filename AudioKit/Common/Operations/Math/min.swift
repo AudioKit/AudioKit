@@ -15,7 +15,7 @@ import Foundation
 /// - parameter x: 1st operation
 /// - parameter y: 2nd operation
 ///
-public func min(x: AKComputedParameter, _ y: AKComputedParameter) -> AKOperation {
+public func min(_ x: AKComputedParameter, _ y: AKComputedParameter) -> AKOperation {
     return AKOperation("(\(x.toMono()) \(y.toMono()) min)")
 }
 
@@ -25,7 +25,7 @@ public func min(x: AKComputedParameter, _ y: AKComputedParameter) -> AKOperation
 /// - parameter x: parameter
 /// - parameter y: operation
 ///
-public func min(operation: AKComputedParameter, _ parameter: AKParameter) -> AKOperation {
+public func min(_ operation: AKComputedParameter, _ parameter: AKParameter) -> AKOperation {
     return AKOperation("(\(operation.toMono()) \(parameter) min)")
 }
 
@@ -35,6 +35,6 @@ public func min(operation: AKComputedParameter, _ parameter: AKParameter) -> AKO
 /// - parameter x: parameter
 /// - parameter y: operation
 ///
-public func min(parameter: AKParameter, _ operation: AKComputedParameter) -> AKOperation {
+public func min(_ parameter: AKParameter, _ operation: AKComputedParameter) -> AKOperation {
     return min(operation, parameter)
 }

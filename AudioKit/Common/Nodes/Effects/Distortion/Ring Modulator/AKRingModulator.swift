@@ -28,7 +28,7 @@ public class AKRingModulator: AKNode, AKToggleable {
         componentFlagsMask: 0)
 
     internal var internalEffect = AVAudioUnitEffect()
-    internal var internalAU: AudioUnit = nil
+    internal var internalAU: AudioUnit? = nil
     
     private var lastKnownMix: Double = 1
         
@@ -41,7 +41,7 @@ public class AKRingModulator: AKNode, AKToggleable {
             if frequency1 > 8000 {
                 frequency1 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(frequency1), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq1, kAudioUnitScope_Global, 0, Float(frequency1), 0)
         }
     }
     
@@ -54,7 +54,7 @@ public class AKRingModulator: AKNode, AKToggleable {
             if frequency2 > 8000 {
                 frequency2 = 8000
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(frequency2), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq2, kAudioUnitScope_Global, 0, Float(frequency2), 0)
         }
     }
     
@@ -67,7 +67,7 @@ public class AKRingModulator: AKNode, AKToggleable {
             if balance > 1 {
                 balance = 1
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
         }
     }
     
@@ -80,7 +80,7 @@ public class AKRingModulator: AKNode, AKToggleable {
             if mix > 1 {
                 mix = 1
             }
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_FinalMix, kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
         }
     }
     
@@ -113,17 +113,17 @@ public class AKRingModulator: AKNode, AKToggleable {
             
             super.init()
             avAudioNode = internalEffect
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             internalAU = internalEffect.audioUnit
 
             // Since this is the Ring Modulator, mix it to 100% and use the final mix as the mix parameter
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModMix, kAudioUnitScope_Global, 0, 100, 0)
             
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq1,   kAudioUnitScope_Global, 0, Float(frequency1), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModFreq2,   kAudioUnitScope_Global, 0, Float(frequency2), 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
-            AudioUnitSetParameter(internalAU, kDistortionParam_FinalMix,       kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq1,   kAudioUnitScope_Global, 0, Float(frequency1), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModFreq2,   kAudioUnitScope_Global, 0, Float(frequency2), 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_RingModBalance, kAudioUnitScope_Global, 0, Float(balance) * 100.0, 0)
+            AudioUnitSetParameter(internalAU!, kDistortionParam_FinalMix,       kAudioUnitScope_Global, 0, Float(mix) * 100.0, 0)
             
     }
     

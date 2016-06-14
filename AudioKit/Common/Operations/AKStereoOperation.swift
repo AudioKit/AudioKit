@@ -19,7 +19,7 @@ public struct AKStereoOperation: AKComputedParameter {
     
     /// Redefining description to return the operation string
     public var description: String {
-        return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
+        return "\(operationString.trimmingCharacters(in: CharacterSet.whitespaces)) "
     }
     
     /// Initialize the stereo operation with a Sporth string

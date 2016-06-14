@@ -27,20 +27,20 @@ public class AKMicrophoneRecorder {
         #if os(iOS)
         self.recordingSession = AVAudioSession.sharedInstance()
         do {
-            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker)
+            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
             try recordingSession.setActive(true)
         } catch {
             print("lacking permission to record!\n")
         }
         #endif
         
-        let url = NSURL.fileURLWithPath(file, isDirectory: false)
-        try! internalRecorder = AVAudioRecorder(URL: url, settings: settings)
+        let url = URL.fileURL(withPath: file, isDirectory: false)
+        try! internalRecorder = AVAudioRecorder(url: url, settings: settings)
     }
     
     /// Record audio
     public func record() {
-        if internalRecorder.recording == false {
+        if internalRecorder.isRecording == false {
             internalRecorder.prepareToRecord()
             internalRecorder.record()
         }
@@ -48,7 +48,7 @@ public class AKMicrophoneRecorder {
     
     /// Stop recording
     public func stop() {
-        if internalRecorder.recording == true {
+        if internalRecorder.isRecording == true {
             internalRecorder.stop()
         }
     }

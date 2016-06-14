@@ -18,7 +18,7 @@ extension AKOperation {
     /// - parameter amplitude: Output Amplitude. (Default: 0.5, Minimum: 0.0, Maximum: 1.0)
      ///
     public static func sawtoothWave(
-        frequency frequency: AKParameter = 440,
+        frequency: AKParameter = 440,
         amplitude: AKParameter = 0.5
         ) -> AKOperation {
             return AKOperation("(\(frequency) \(amplitude) blsaw)")

@@ -14,7 +14,7 @@ extension AKMusicTrack {
     ///
     /// - parameter endpoint: MIDI Endpoint Port
     ///
-    public func setMIDIOutput(endpoint: MIDIEndpointRef) {
+    public func setMIDIOutput(_ endpoint: MIDIEndpointRef) {
         MusicTrackSetDestMIDIEndpoint(internalMusicTrack, endpoint)
     }
     

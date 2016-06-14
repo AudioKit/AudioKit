@@ -37,7 +37,7 @@ public class AKMicrophone: AKNode, AKToggleable {
             super.init()
             self.avAudioNode = mixer
             AKSettings.audioInputEnabled = true
-            AudioKit.engine.attachNode(mixer)
+            AudioKit.engine.attach(mixer)
             AudioKit.engine.connect(AudioKit.engine.inputNode!, to: self.avAudioNode, format: nil)
         #endif
     }

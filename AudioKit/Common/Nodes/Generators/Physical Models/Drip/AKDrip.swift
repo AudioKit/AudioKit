@@ -157,36 +157,36 @@ public class AKDrip: AKNode {
 
         AUAudioUnit.registerSubclass(
             AKDripAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKDrip",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKDripAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKDripAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        intensityParameter               = tree.valueForKey("intensity")               as? AUParameter
-        dampingFactorParameter           = tree.valueForKey("dampingFactor")           as? AUParameter
-        energyReturnParameter            = tree.valueForKey("energyReturn")            as? AUParameter
-        mainResonantFrequencyParameter   = tree.valueForKey("mainResonantFrequency")   as? AUParameter
-        firstResonantFrequencyParameter  = tree.valueForKey("firstResonantFrequency")  as? AUParameter
-        secondResonantFrequencyParameter = tree.valueForKey("secondResonantFrequency") as? AUParameter
-        amplitudeParameter               = tree.valueForKey("amplitude")               as? AUParameter
+        intensityParameter               = tree.value(forKey: "intensity")               as? AUParameter
+        dampingFactorParameter           = tree.value(forKey: "dampingFactor")           as? AUParameter
+        energyReturnParameter            = tree.value(forKey: "energyReturn")            as? AUParameter
+        mainResonantFrequencyParameter   = tree.value(forKey: "mainResonantFrequency")   as? AUParameter
+        firstResonantFrequencyParameter  = tree.value(forKey: "firstResonantFrequency")  as? AUParameter
+        secondResonantFrequencyParameter = tree.value(forKey: "secondResonantFrequency") as? AUParameter
+        amplitudeParameter               = tree.value(forKey: "amplitude")               as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.intensityParameter!.address {
                     self.intensity = Double(value)
                 } else if address == self.dampingFactorParameter!.address {

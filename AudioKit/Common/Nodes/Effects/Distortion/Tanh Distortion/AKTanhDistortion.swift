@@ -123,34 +123,34 @@ public class AKTanhDistortion: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKTanhDistortionAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKTanhDistortion",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKTanhDistortionAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKTanhDistortionAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        pregainParameter                = tree.valueForKey("pregain")                as? AUParameter
-        postgainParameter               = tree.valueForKey("postgain")               as? AUParameter
-        postiveShapeParameterParameter  = tree.valueForKey("postiveShapeParameter")  as? AUParameter
-        negativeShapeParameterParameter = tree.valueForKey("negativeShapeParameter") as? AUParameter
+        pregainParameter                = tree.value(forKey: "pregain")                as? AUParameter
+        postgainParameter               = tree.value(forKey: "postgain")               as? AUParameter
+        postiveShapeParameterParameter  = tree.value(forKey: "postiveShapeParameter")  as? AUParameter
+        negativeShapeParameterParameter = tree.value(forKey: "negativeShapeParameter") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.pregainParameter!.address {
                     self.pregain = Double(value)
                 } else if address == self.postgainParameter!.address {

@@ -25,7 +25,7 @@ public struct AKOperation: AKComputedParameter {
     /// - returns: AKComputedParameter
     /// - parameter i: Number of the parameter to recall
     ///
-    public static func parameters(i: Int) -> AKOperation {
+    public static func parameters(_ i: Int) -> AKOperation {
         return AKOperation("(\(i+2) p)")
     }
     
@@ -90,7 +90,7 @@ public struct AKOperation: AKComputedParameter {
     
     /// Redefining description to return the operation string
     public var description: String {
-        return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
+        return "\(operationString.trimmingCharacters(in: CharacterSet.whitespaces)) "
     }
     
     /// Initialize the operation as a constant value
@@ -115,7 +115,7 @@ public struct AKOperation: AKComputedParameter {
 /// - returns: AKComputedParameter
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func abs(parameter: AKOperation) -> AKOperation {
+public func abs(_ parameter: AKOperation) -> AKOperation {
     return parameter.abs()
 }
 
@@ -124,7 +124,7 @@ public func abs(parameter: AKOperation) -> AKOperation {
 /// - returns: AKComputedParameter
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func floor(operation: AKOperation) -> AKOperation {
+public func floor(_ operation: AKOperation) -> AKOperation {
     return operation.floor()
 }
 
@@ -133,7 +133,7 @@ public func floor(operation: AKOperation) -> AKOperation {
 /// - returns: AKComputedParameter
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func fract(operation: AKOperation) -> AKOperation {
+public func fract(_ operation: AKOperation) -> AKOperation {
     return operation.fract()
 }
 
@@ -142,7 +142,7 @@ public func fract(operation: AKOperation) -> AKOperation {
 /// - returns: AKComputedParameter
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func log(operation: AKOperation) -> AKOperation {
+public func log(_ operation: AKOperation) -> AKOperation {
     return operation.log()
 }
 
@@ -151,7 +151,7 @@ public func log(operation: AKOperation) -> AKOperation {
 /// - returns: AKComputedParameter
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func log10(operation: AKOperation) -> AKOperation {
+public func log10(_ operation: AKOperation) -> AKOperation {
     return operation.log10()
     
 }
@@ -161,6 +161,6 @@ public func log10(operation: AKOperation) -> AKOperation {
 /// - returns: AKComputedParameter
 /// - parameter operation: AKComputedParameter to operate on
 ///
-public func round(operation: AKOperation) -> AKOperation {
+public func round(_ operation: AKOperation) -> AKOperation {
     return operation.round()
 }

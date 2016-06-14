@@ -19,7 +19,7 @@ extension AKComputedParameter {
     /// - parameter maximumDelayTime: The maximum delay time, in seconds. (Default: 5.0, Minimum: 0.0, Maximum: 10.0)
      ///
     public func variableDelay(
-        time time: AKParameter = 1.0,
+        time: AKParameter = 1.0,
         feedback: AKParameter = 0.0,
         maximumDelayTime: Double = 5.0
         ) -> AKOperation {

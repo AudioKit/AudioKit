@@ -151,38 +151,38 @@ public class AKFMOscillator: AKVoice {
 
         AUAudioUnit.registerSubclass(
             AKFMOscillatorAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKFMOscillator",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.auAudioUnit as? AKFMOscillatorAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
             for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
+                self.internalAU?.setWaveformValue(waveform.values[i], at: UInt32(i))
             }
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        baseFrequencyParameter        = tree.valueForKey("baseFrequency")        as? AUParameter
-        carrierMultiplierParameter    = tree.valueForKey("carrierMultiplier")    as? AUParameter
-        modulatingMultiplierParameter = tree.valueForKey("modulatingMultiplier") as? AUParameter
-        modulationIndexParameter      = tree.valueForKey("modulationIndex")      as? AUParameter
-        amplitudeParameter            = tree.valueForKey("amplitude")            as? AUParameter
+        baseFrequencyParameter        = tree.value(forKey: "baseFrequency")        as? AUParameter
+        carrierMultiplierParameter    = tree.value(forKey: "carrierMultiplier")    as? AUParameter
+        modulatingMultiplierParameter = tree.value(forKey: "modulatingMultiplier") as? AUParameter
+        modulationIndexParameter      = tree.value(forKey: "modulationIndex")      as? AUParameter
+        amplitudeParameter            = tree.value(forKey: "amplitude")            as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.baseFrequencyParameter!.address {
                     self.baseFrequency = Double(value)
                 } else if address == self.carrierMultiplierParameter!.address {

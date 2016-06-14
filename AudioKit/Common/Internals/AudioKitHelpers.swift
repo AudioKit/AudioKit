@@ -20,9 +20,9 @@ public typealias MIDIVelocity = Int
 /// - returns: Random integer in the range
 /// - parameter range: Range of valid integers to choose from
 ///
-public func randomInt(range: Range<Int>) -> Int {
-    let width = range.maxElement()! - range.minElement()!
-    return Int(arc4random_uniform(UInt32(width))) + range.minElement()!
+public func randomInt(_ range: Range<Int>) -> Int {
+    let width = range.max()! - range.min()!
+    return Int(arc4random_uniform(UInt32(width))) + range.min()!
 }
 
 /// Extension to Array for Random Element
@@ -41,7 +41,7 @@ extension Array {
 /// - parameter minimum: Lower bound of randomization
 /// - parameter maximum: Upper bound of randomization
 ///
-public func random(minimum: Double, _ maximum: Double) -> Double {
+public func random(_ minimum: Double, _ maximum: Double) -> Double {
     let precision = 1000000
     let width = maximum - minimum
     
@@ -60,7 +60,7 @@ extension Double {
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
     public func normalized(
-        minimum minimum: Double,
+        minimum: Double,
                 maximum: Double,
                 taper: Double) -> Double {
         
@@ -79,7 +79,7 @@ extension Double {
     /// - parameter maximum: Maximum of the source range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func normalize(minimum: Double, maximum: Double, taper: Double) {
+    public mutating func normalize(_ minimum: Double, maximum: Double, taper: Double) {
         self = self.normalized(minimum: minimum, maximum: maximum, taper: taper)
     }
     
@@ -90,7 +90,7 @@ extension Double {
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
     public func denormalized(
-        minimum minimum: Double,
+        minimum: Double,
                 maximum: Double,
                 taper: Double) -> Double {
         
@@ -119,7 +119,7 @@ extension Double {
     /// - parameter max: Maximum of the target range
     /// - parameter taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
     ///
-    public mutating func denormalize(minimum minimum: Double, maximum: Double, taper: Double) {
+    public mutating func denormalize(minimum: Double, maximum: Double, taper: Double) {
         self = self.denormalized(minimum: minimum, maximum: maximum, taper: taper)
     }
 }
@@ -131,7 +131,7 @@ extension Int {
     ///
     /// - returns: Frequency (Double) in Hz
     ///
-    public func midiNoteToFrequency(aRef: Double = 440.0) -> Double {
+    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
         return pow(2.0, (Double(self) - 69.0) / 12.0) * aRef
     }
 }
@@ -143,7 +143,7 @@ extension Double {
     ///
     /// - returns: Frequency (Double) in Hz
     ///
-    public func midiNoteToFrequency(aRef: Double = 440.0) -> Double {
+    public func midiNoteToFrequency(_ aRef: Double = 440.0) -> Double {
         return pow(2.0, (self - 69.0) / 12.0) * aRef
     }
     

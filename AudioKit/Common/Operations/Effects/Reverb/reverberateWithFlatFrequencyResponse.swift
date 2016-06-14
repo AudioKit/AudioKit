@@ -22,7 +22,7 @@ extension AKComputedParameter {
     /// - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation. (Default: 0.1, Minimum: 0, Maximum: 1)
     ///
     public func reverberateWithFlatFrequencyResponse(
-        reverbDuration reverbDuration: AKParameter = 0.5,
+        reverbDuration: AKParameter = 0.5,
         loopDuration: Double = 0.1
         ) -> AKOperation {
             return AKOperation("(\(self.toMono()) \(reverbDuration) \(loopDuration) allpass)")

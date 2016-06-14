@@ -15,7 +15,7 @@ extension AKOperation {
     /// - returns: AKOperation
     /// - parameter period: Time between triggers (in seconds). This will update at the start of each trigger. (Default: 1.0)
      ///
-    public static func periodicTrigger(period: AKParameter = 1.0) -> AKOperation {
+    public static func periodicTrigger(_ period: AKParameter = 1.0) -> AKOperation {
         return AKOperation("(\(period) dmetro)")
     }
 }

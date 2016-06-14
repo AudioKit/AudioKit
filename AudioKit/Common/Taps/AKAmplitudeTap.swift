@@ -17,14 +17,14 @@ public class AKAmplitudeTap {
     /// - parameter input: Node to analyze
     ///
     public init(_ input: AKNode) {
-        input.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) {
+        input.avAudioNode.installTap(onBus: 0, bufferSize: bufferSize, format: AudioKit.format) {
             (buffer, time) in
             
             var sum: Float = 0
             
             // do a quick calc from the buffer values
             for i in 0 ..< Int(self.bufferSize) {
-                sum += pow(Float(buffer.floatChannelData.memory[i]), 2)
+                sum += pow(Float((buffer.floatChannelData?.pointee[i])!), 2)
             }
             
             print(NSString(format:"%0.5f",sqrt(sum/Float(self.bufferSize))))

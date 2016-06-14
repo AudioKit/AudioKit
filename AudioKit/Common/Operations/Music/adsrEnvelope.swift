@@ -19,7 +19,7 @@ extension AKOperation {
     /// - parameter release: Release time, in seconds. (Default: 0.2)
     ///
     public func gatedADSREnvelope(
-        gate: AKParameter,
+        _ gate: AKParameter,
         attack:  AKParameter = 0.1,
         decay:   AKParameter = 0.0,
         sustain: AKParameter = 1,

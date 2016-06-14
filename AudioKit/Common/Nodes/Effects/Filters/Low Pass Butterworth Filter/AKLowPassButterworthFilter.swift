@@ -73,31 +73,31 @@ public class AKLowPassButterworthFilter: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKLowPassButterworthFilterAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKLowPassButterworthFilter",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKLowPassButterworthFilterAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKLowPassButterworthFilterAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        cutoffFrequencyParameter = tree.valueForKey("cutoffFrequency") as? AUParameter
+        cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
 
-        token = tree.tokenByAddingParameterObserver {
+        token = tree.token {
             address, value in
 
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 }

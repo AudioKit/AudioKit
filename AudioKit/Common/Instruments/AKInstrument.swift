@@ -104,7 +104,7 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public func playNote(note: Int, velocity: Int) {
+    public func playNote(_ note: Int, velocity: Int) {
         if let voice = availableVoices.popLast() {
             activeVoices.append(voice)
             activeNotes.append(note)
@@ -116,12 +116,12 @@ public class AKPolyphonicInstrument: AKNode {
     ///
     /// - parameter note: MIDI Note Number
     ///
-    public func stopNote(note: Int) {
-        if let index  = activeNotes.indexOf(note) {
-            let voice = activeVoices.removeAtIndex(index)
+    public func stopNote(_ note: Int) {
+        if let index  = activeNotes.index(of: note) {
+            let voice = activeVoices.remove(at: index)
             voice.stop()
-            availableVoices.insert(voice, atIndex: 0)
-            activeNotes.removeAtIndex(index)
+            availableVoices.insert(voice, at: 0)
+            activeNotes.remove(at: index)
         }
     }
     
@@ -131,7 +131,7 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    public func playVoice(_ voice: AKVoice, note: Int, velocity: Int) {
         // Override in subclass
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
@@ -141,7 +141,7 @@ public class AKPolyphonicInstrument: AKNode {
     /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    public func stopVoice(voice: AKVoice, note: Int) {
+    public func stopVoice(_ voice: AKVoice, note: Int) {
         /// Override in subclass
         print("Stopping voice\(voice) - note:\(note)")
     }

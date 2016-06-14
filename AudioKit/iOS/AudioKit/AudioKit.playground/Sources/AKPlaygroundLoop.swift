@@ -26,7 +26,7 @@ public class AKPlaygroundLoop {
         internalHandler = handler
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
         displayLink.frameInterval = 1
-        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        displayLink.add(to: RunLoop.current(), forMode: RunLoopMode.commonModes.rawValue)
     }
     
     /// Repeat this loop at a given frequency with a code block
@@ -39,7 +39,7 @@ public class AKPlaygroundLoop {
         internalHandler = handler
         let displayLink = CADisplayLink(target: self, selector: #selector(update))
         displayLink.frameInterval = 1
-        displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        displayLink.add(to: RunLoop.current(), forMode: RunLoopMode.commonModes.rawValue)
     }
     
     /// Callback function for CADisplayLink

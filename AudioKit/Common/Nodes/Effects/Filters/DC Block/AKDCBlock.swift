@@ -46,20 +46,20 @@ public class AKDCBlock: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKDCBlockAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKDCBlock",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKDCBlockAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKDCBlockAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
         }
     }

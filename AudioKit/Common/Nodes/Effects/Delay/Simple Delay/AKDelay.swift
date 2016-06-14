@@ -23,7 +23,7 @@ public class AKDelay: AKNode, AKToggleable {
     private var lastKnownMix: Double = 0.5
     
     /// Delay time in seconds (Default: 1)
-    public var time: NSTimeInterval = 1 {
+    public var time: TimeInterval = 1 {
         didSet {
             if time < 0 {
                 time = 0
@@ -62,7 +62,7 @@ public class AKDelay: AKNode, AKToggleable {
         }
     }
     
-    internal func internalSetDryWetMix(value: Double) {
+    internal func internalSetDryWetMix(_ value: Double) {
         var newValue = value
         if newValue < 0 {
             newValue = 0
@@ -91,14 +91,14 @@ public class AKDelay: AKNode, AKToggleable {
         lowPassCutoff: Double = 15000,
         dryWetMix: Double = 0.5) {
             
-            self.time = NSTimeInterval(Double(time))
+            self.time = TimeInterval(Double(time))
             self.feedback = feedback
             self.lowPassCutoff = lowPassCutoff
             self.dryWetMix = dryWetMix
             
             super.init()
             self.avAudioNode = delayAU
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             
             

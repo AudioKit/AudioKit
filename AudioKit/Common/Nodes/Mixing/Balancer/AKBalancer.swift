@@ -48,24 +48,24 @@ public class AKBalancer: AKNode, AKToggleable {
 
         AUAudioUnit.registerSubclass(
             AKBalancerAudioUnit.self,
-            asComponentDescription: description,
+            as: description,
             name: "Local AKBalancer",
             version: UInt32.max)
 
         super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+        AVAudioUnit.instantiate(with: description, options: []) {
             avAudioUnit, error in
 
             guard let avAudioUnitEffect = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKBalancerAudioUnit
+            self.internalAU = avAudioUnitEffect.auAudioUnit as? AKBalancerAudioUnit
 
-            AudioKit.engine.attachNode(self.avAudioNode)
+            AudioKit.engine.attach(self.avAudioNode)
             input.addConnectionPoint(self)
             
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self.avAudioNode, bus: 1))
-            AudioKit.engine.connect(comparator.avAudioNode, toConnectionPoints: comparator.connectionPoints, fromBus: 0, format: nil)
+            AudioKit.engine.connect(comparator.avAudioNode, to: comparator.connectionPoints, fromBus: 0, format: nil)
         }
     }
     
