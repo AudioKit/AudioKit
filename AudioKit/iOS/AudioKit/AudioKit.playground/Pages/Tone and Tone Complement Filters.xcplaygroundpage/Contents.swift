@@ -27,9 +27,13 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Tone Filters")
         
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
-        addButton("Stop",  action: #selector(stop))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
+        addButton("Stop", action: #selector(stop))
         
         addLabel("Tone Filter: ")
         addButton("Process", action: #selector(processTone))
@@ -52,8 +56,31 @@ class PlaygroundView: AKPlaygroundView {
                   maximum: 10000)
     }
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()

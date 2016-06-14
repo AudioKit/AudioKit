@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Object to handle notifications for events that can affect the audio
 @objc public class AKNotifications: NSObject {
     /// After the audio route is changed, (headphones plugged in, for example) AudioKit restarts,
     ///  and engineRestartAfterRouteChange is sent.
