@@ -190,11 +190,11 @@ public class AKMorphingOscillator: AKVoice {
         indexParameter              = tree.value(forKey: "index")              as? AUParameter
         detuningOffsetParameter     = tree.value(forKey: "detuningOffset")     as? AUParameter
         detuningMultiplierParameter = tree.value(forKey: "detuningMultiplier") as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
@@ -207,7 +207,11 @@ public class AKMorphingOscillator: AKVoice {
                     self.detuningMultiplier = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)

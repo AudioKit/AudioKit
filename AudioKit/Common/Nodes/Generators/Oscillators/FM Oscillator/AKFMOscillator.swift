@@ -179,10 +179,10 @@ public class AKFMOscillator: AKVoice {
         modulationIndexParameter      = tree.value(forKey: "modulationIndex")      as? AUParameter
         amplitudeParameter            = tree.value(forKey: "amplitude")            as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.baseFrequencyParameter!.address {
                     self.baseFrequency = Double(value)
                 } else if address == self.carrierMultiplierParameter!.address {
@@ -195,7 +195,11 @@ public class AKFMOscillator: AKVoice {
                     self.amplitude = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.baseFrequency = Float(baseFrequency)
         internalAU?.carrierMultiplier = Float(carrierMultiplier)
         internalAU?.modulatingMultiplier = Float(modulatingMultiplier)

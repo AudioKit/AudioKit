@@ -130,11 +130,11 @@ public class AKFormantFilter: AKNode, AKToggleable {
         centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
         attackDurationParameter  = tree.value(forKey: "attackDuration")  as? AUParameter
         decayDurationParameter   = tree.value(forKey: "decayDuration")   as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.attackDurationParameter!.address {
@@ -143,7 +143,11 @@ public class AKFormantFilter: AKNode, AKToggleable {
                     self.decayDuration = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)

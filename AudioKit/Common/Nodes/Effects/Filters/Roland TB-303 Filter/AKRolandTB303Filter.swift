@@ -146,11 +146,11 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
         resonanceParameter          = tree.value(forKey: "resonance")          as? AUParameter
         distortionParameter         = tree.value(forKey: "distortion")         as? AUParameter
         resonanceAsymmetryParameter = tree.value(forKey: "resonanceAsymmetry") as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 } else if address == self.resonanceParameter!.address {
@@ -161,7 +161,11 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
                     self.resonanceAsymmetry = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)
         internalAU?.distortion = Float(distortion)

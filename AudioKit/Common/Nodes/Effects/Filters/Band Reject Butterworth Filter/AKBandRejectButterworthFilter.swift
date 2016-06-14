@@ -112,17 +112,22 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
         centerFrequencyParameter = tree.value(forKey: "centerFrequency") as? AUParameter
         bandwidthParameter       = tree.value(forKey: "bandwidth")       as? AUParameter
 
-        token = tree.token {
-            address, value in
 
-            DispatchQueue.main.async {
+        let observer: AUParameterObserver = {
+            address, value in
+            
+            let executionBlock = {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.bandwidthParameter!.address {
                     self.bandwidth = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.bandwidth = Float(bandwidth)
     }

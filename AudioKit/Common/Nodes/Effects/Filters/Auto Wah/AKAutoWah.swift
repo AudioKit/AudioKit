@@ -129,10 +129,10 @@ public class AKAutoWah: AKNode, AKToggleable {
         mixParameter       = tree.value(forKey: "mix")       as? AUParameter
         amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.wahParameter!.address {
                     self.wah = Double(value)
                 } else if address == self.mixParameter!.address {
@@ -141,7 +141,11 @@ public class AKAutoWah: AKNode, AKToggleable {
                     self.amplitude = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.wah = Float(wah)
         internalAU?.mix = Float(mix * 100.0)
         internalAU?.amplitude = Float(amplitude)

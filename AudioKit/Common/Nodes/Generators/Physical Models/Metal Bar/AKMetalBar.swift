@@ -182,11 +182,11 @@ public class AKMetalBar: AKNode {
         positionParameter               = tree.value(forKey: "position")               as? AUParameter
         strikeVelocityParameter         = tree.value(forKey: "strikeVelocity")         as? AUParameter
         strikeWidthParameter            = tree.value(forKey: "strikeWidth")            as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.leftBoundaryConditionParameter!.address {
                     self.leftBoundaryCondition = Double(value)
                 } else if address == self.rightBoundaryConditionParameter!.address {
@@ -203,7 +203,11 @@ public class AKMetalBar: AKNode {
                     self.strikeWidth = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.leftBoundaryCondition = Float(leftBoundaryCondition)
         internalAU?.rightBoundaryCondition = Float(rightBoundaryCondition)
         internalAU?.decayDuration = Float(decayDuration)

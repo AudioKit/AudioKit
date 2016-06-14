@@ -129,10 +129,10 @@ public class AKPitchShifter: AKNode, AKToggleable {
         windowSizeParameter = tree.value(forKey: "windowSize") as? AUParameter
         crossfadeParameter  = tree.value(forKey: "crossfade")  as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.shiftParameter!.address {
                     self.shift = Double(value)
                 } else if address == self.windowSizeParameter!.address {
@@ -141,7 +141,11 @@ public class AKPitchShifter: AKNode, AKToggleable {
                     self.crossfade = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.shift = Float(shift)
         internalAU?.windowSize = Float(windowSize)
         internalAU?.crossfade = Float(crossfade)

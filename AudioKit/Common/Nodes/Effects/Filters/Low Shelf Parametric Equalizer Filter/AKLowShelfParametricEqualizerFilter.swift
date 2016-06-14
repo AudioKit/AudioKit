@@ -128,11 +128,11 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
         cornerFrequencyParameter = tree.value(forKey: "cornerFrequency") as? AUParameter
         gainParameter            = tree.value(forKey: "gain")            as? AUParameter
         qParameter               = tree.value(forKey: "q")               as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.cornerFrequencyParameter!.address {
                     self.cornerFrequency = Double(value)
                 } else if address == self.gainParameter!.address {
@@ -141,7 +141,11 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
                     self.q = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.cornerFrequency = Float(cornerFrequency)
         internalAU?.gain = Float(gain)
         internalAU?.q = Float(q)

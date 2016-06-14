@@ -146,11 +146,11 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
         decayDurationParameter   = tree.value(forKey: "decayDuration")   as? AUParameter
         sustainLevelParameter    = tree.value(forKey: "sustainLevel")    as? AUParameter
         releaseDurationParameter = tree.value(forKey: "releaseDuration") as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.attackDurationParameter!.address {
                     self.attackDuration = Double(value)
                 } else if address == self.decayDurationParameter!.address {
@@ -161,7 +161,11 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
                     self.releaseDuration = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
         internalAU?.sustainLevel = Float(sustainLevel)

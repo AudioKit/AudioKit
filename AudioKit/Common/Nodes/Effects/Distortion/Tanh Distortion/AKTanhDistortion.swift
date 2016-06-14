@@ -147,10 +147,10 @@ public class AKTanhDistortion: AKNode, AKToggleable {
         postiveShapeParameterParameter  = tree.value(forKey: "postiveShapeParameter")  as? AUParameter
         negativeShapeParameterParameter = tree.value(forKey: "negativeShapeParameter") as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.pregainParameter!.address {
                     self.pregain = Double(value)
                 } else if address == self.postgainParameter!.address {
@@ -161,7 +161,11 @@ public class AKTanhDistortion: AKNode, AKToggleable {
                     self.negativeShapeParameter = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.pregain = Float(pregain)
         internalAU?.postgain = Float(postgain)
         internalAU?.postiveShapeParameter = Float(postiveShapeParameter)

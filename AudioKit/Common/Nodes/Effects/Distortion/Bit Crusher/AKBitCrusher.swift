@@ -111,17 +111,21 @@ public class AKBitCrusher: AKNode, AKToggleable {
         bitDepthParameter   = tree.value(forKey: "bitDepth")   as? AUParameter
         sampleRateParameter = tree.value(forKey: "sampleRate") as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.bitDepthParameter!.address {
                     self.bitDepth = Double(value)
                 } else if address == self.sampleRateParameter!.address {
                     self.sampleRate = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.bitDepth = Float(bitDepth)
         internalAU?.sampleRate = Float(sampleRate)
     }

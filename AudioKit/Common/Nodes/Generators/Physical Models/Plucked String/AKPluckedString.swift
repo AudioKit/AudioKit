@@ -111,18 +111,22 @@ public class AKPluckedString: AKVoice {
 
         frequencyParameter       = tree.value(forKey: "frequency")       as? AUParameter
         amplitudeParameter       = tree.value(forKey: "amplitude")       as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
     }

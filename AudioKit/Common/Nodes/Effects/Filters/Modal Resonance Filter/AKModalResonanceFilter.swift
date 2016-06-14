@@ -112,18 +112,22 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
         frequencyParameter     = tree.value(forKey: "frequency")     as? AUParameter
         qualityFactorParameter = tree.value(forKey: "qualityFactor") as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 } else if address == self.qualityFactorParameter!.address {
                     self.qualityFactor = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.frequency = Float(frequency)
         internalAU?.qualityFactor = Float(qualityFactor)
     }

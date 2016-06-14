@@ -94,15 +94,19 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
 
         cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }
 

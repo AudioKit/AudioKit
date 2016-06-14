@@ -93,16 +93,20 @@ public class AKClipper: AKNode, AKToggleable {
         guard let tree = internalAU?.parameterTree else { return }
 
         limitParameter = tree.value(forKey: "limit") as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.limitParameter!.address {
                     self.limit = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.limit = Float(limit)
     }
 

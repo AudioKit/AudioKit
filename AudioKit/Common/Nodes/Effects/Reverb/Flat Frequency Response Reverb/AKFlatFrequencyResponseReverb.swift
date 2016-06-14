@@ -101,15 +101,19 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
         reverbDurationParameter = tree.value(forKey: "reverbDuration") as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.reverbDurationParameter!.address {
                     self.reverbDuration = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.reverbDuration = Float(reverbDuration)
     }
 

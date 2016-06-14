@@ -113,18 +113,22 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
         timeParameter             = tree.value(forKey: "time")             as? AUParameter
         feedbackParameter         = tree.value(forKey: "feedback")         as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.timeParameter!.address {
                     self.time = Double(value)
                 } else if address == self.feedbackParameter!.address {
                     self.feedback = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.time = Float(time)
         internalAU?.feedback = Float(feedback)
     }

@@ -129,10 +129,10 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
         gainParameter            = tree.value(forKey: "gain")            as? AUParameter
         qParameter               = tree.value(forKey: "q")               as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.gainParameter!.address {
@@ -141,7 +141,11 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
                     self.q = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.gain = Float(gain)
         internalAU?.q = Float(q)

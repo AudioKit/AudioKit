@@ -182,11 +182,11 @@ public class AKDrip: AKNode {
         firstResonantFrequencyParameter  = tree.value(forKey: "firstResonantFrequency")  as? AUParameter
         secondResonantFrequencyParameter = tree.value(forKey: "secondResonantFrequency") as? AUParameter
         amplitudeParameter               = tree.value(forKey: "amplitude")               as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.intensityParameter!.address {
                     self.intensity = Double(value)
                 } else if address == self.dampingFactorParameter!.address {
@@ -203,7 +203,11 @@ public class AKDrip: AKNode {
                     self.amplitude = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.intensity = Float(intensity)
         internalAU?.dampingFactor = Float(dampingFactor)
         internalAU?.energyReturn = Float(energyReturn)

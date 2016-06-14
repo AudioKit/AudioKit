@@ -115,18 +115,22 @@ public class AKStringResonator: AKNode, AKToggleable {
 
         fundamentalFrequencyParameter = tree.value(forKey: "fundamentalFrequency") as? AUParameter
         feedbackParameter             = tree.value(forKey: "feedback")             as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.fundamentalFrequencyParameter!.address {
                     self.fundamentalFrequency = Double(value)
                 } else if address == self.feedbackParameter!.address {
                     self.feedback = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.fundamentalFrequency = Float(fundamentalFrequency)
         internalAU?.feedback = Float(feedback)
     }

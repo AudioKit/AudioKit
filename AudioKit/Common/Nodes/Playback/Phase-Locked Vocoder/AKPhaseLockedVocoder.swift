@@ -136,10 +136,10 @@ public class AKPhaseLockedVocoder: AKNode {
         amplitudeParameter  = tree.value(forKey: "amplitude")  as? AUParameter
         pitchRatioParameter = tree.value(forKey: "pitchRatio") as? AUParameter
         
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
             
-            DispatchQueue.main.async {
+            let executionBlock = {
                 if address == self.positionParameter!.address {
                     self.position = Double(value)
                 } else if address == self.amplitudeParameter!.address {
@@ -148,7 +148,11 @@ public class AKPhaseLockedVocoder: AKNode {
                     self.pitchRatio = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.position = Float(position)
         internalAU?.amplitude = Float(amplitude)
         internalAU?.pitchRatio = Float(pitchRatio)

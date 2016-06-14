@@ -112,18 +112,22 @@ public class AKCostelloReverb: AKNode, AKToggleable {
 
         feedbackParameter        = tree.value(forKey: "feedback")        as? AUParameter
         cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.feedbackParameter!.address {
                     self.feedback = Double(value)
                 } else if address == self.cutoffFrequencyParameter!.address {
                     self.cutoffFrequency = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.feedback = Float(feedback)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }

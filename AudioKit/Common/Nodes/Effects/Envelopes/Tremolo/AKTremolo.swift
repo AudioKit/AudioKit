@@ -100,16 +100,20 @@ public class AKTremolo: AKNode, AKToggleable {
         guard let tree = internalAU?.parameterTree else { return }
 
         frequencyParameter = tree.value(forKey: "frequency") as? AUParameter
-        
-        token = tree.token {
-            address, value in
 
-            DispatchQueue.main.async {
+        let observer: AUParameterObserver = {
+            address, value in
+            
+            let executionBlock = {
                 if address == self.frequencyParameter!.address {
                     self.frequency = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.frequency = Float(frequency)
     }
 

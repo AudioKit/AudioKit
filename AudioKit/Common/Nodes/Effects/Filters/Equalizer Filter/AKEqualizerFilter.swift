@@ -132,10 +132,10 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
         bandwidthParameter       = tree.value(forKey: "bandwidth")       as? AUParameter
         gainParameter            = tree.value(forKey: "gain")            as? AUParameter
         
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.centerFrequencyParameter!.address {
                     self.centerFrequency = Double(value)
                 } else if address == self.bandwidthParameter!.address {
@@ -144,7 +144,11 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
                     self.gain = Double(value)
                 }
             }
+
+            DispatchQueue.main.async(execute: executionBlock)
         }
+
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.bandwidth = Float(bandwidth)
         internalAU?.gain = Float(gain)

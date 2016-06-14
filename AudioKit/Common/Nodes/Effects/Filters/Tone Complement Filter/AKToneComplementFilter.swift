@@ -93,15 +93,19 @@ public class AKToneComplementFilter: AKNode, AKToggleable {
 
         halfPowerPointParameter = tree.value(forKey: "halfPowerPoint") as? AUParameter
 
-        token = tree.token {
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.halfPowerPointParameter!.address {
                     self.halfPowerPoint = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.halfPowerPoint = Float(halfPowerPoint)
     }
 

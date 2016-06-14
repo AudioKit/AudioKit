@@ -86,16 +86,20 @@ public class AKWhiteNoise: AKVoice {
         guard let tree = internalAU?.parameterTree else { return }
 
         amplitudeParameter = tree.value(forKey: "amplitude") as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.amplitude = Float(amplitude)
     }
 

@@ -128,11 +128,11 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
         distortionParameter      = tree.value(forKey: "distortion")      as? AUParameter
         cutoffFrequencyParameter = tree.value(forKey: "cutoffFrequency") as? AUParameter
         resonanceParameter       = tree.value(forKey: "resonance")       as? AUParameter
-
-        token = tree.token {
+        
+        let observer: AUParameterObserver = {
             address, value in
-
-            DispatchQueue.main.async {
+            
+            let executionBlock = {
                 if address == self.distortionParameter!.address {
                     self.distortion = Double(value)
                 } else if address == self.cutoffFrequencyParameter!.address {
@@ -141,7 +141,11 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
                     self.resonance = Double(value)
                 }
             }
+            
+            DispatchQueue.main.async(execute: executionBlock)
         }
+        
+        token = tree.token(byAddingParameterObserver: observer)
         internalAU?.distortion = Float(distortion)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)
