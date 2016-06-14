@@ -12,6 +12,7 @@
         <page name='Band Reject Butterworth Filter'/>
         <page name='Bit Crush Effect'/>
         <page name='Bit Crush Operation'/>
+        <page name='Clipper'/>
         <page name='Clip Operation'/>
         <page name='Comb Filter Reverb'/>
         <page name='Connecting Nodes'/>
