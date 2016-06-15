@@ -4,10 +4,10 @@
 //:
 //: ## Phase-Locked Vocoder
 //: ### A different kind of time and pitch stretching 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let url = bundle.URLForResource("guitarloop", withExtension: "wav")
 let phaseLockedVocoder = AKPhaseLockedVocoder(audioFileURL: url!)
 
@@ -28,5 +28,5 @@ AKPlaygroundLoop(every: timeStep) {
     if phaseLockedVocoder.position < 0.01 && timeStep < 0 { timeStep = random(0.1, 0.3) }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

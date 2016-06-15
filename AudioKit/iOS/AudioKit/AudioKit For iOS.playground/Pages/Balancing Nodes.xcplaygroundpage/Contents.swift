@@ -4,11 +4,11 @@
 //:
 //: ## Balancing Nodes
 //: ### Sometimes you want to ensure that an audio signal that you're processing remains at a volume similar to where it started.  Such an application is perfect for the AKBalancer node.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: This section prepares the players
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var source = AKAudioPlayer(file!)
 source.looping = true
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 200))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

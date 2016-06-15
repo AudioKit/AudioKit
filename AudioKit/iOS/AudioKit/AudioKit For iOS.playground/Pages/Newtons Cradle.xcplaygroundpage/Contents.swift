@@ -1,8 +1,8 @@
 import UIKit
-import XCPlayground
+import PlaygroundSupport
 
 import AudioKit
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("click", ofType: "wav")
 var tink = AKAudioPlayer(file!)
 
@@ -52,7 +52,7 @@ for attachmentBehavior in newtonsCradle.attachmentBehaviors {
     attachmentBehavior.length = 100
 }
 
-XCPlaygroundPage.currentPage.liveView = newtonsCradle
+PlaygroundPage.current.liveView = newtonsCradle
 
 public class NewtonsCradle: UIView, UICollisionBehaviorDelegate {
     

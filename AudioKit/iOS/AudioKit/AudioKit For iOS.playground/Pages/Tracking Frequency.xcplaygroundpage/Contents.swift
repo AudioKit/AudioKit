@@ -4,7 +4,7 @@
 //:
 //: ## Tracking Frequency
 //: ### Tracking frequency is just as easy as tracking amplitude, and even includes amplitude, but it is more CPU intensive, so if you just need amplitude, use the amplitude tracker.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Let's set up the volume to be changing in the shape of a sine wave
@@ -36,7 +36,7 @@ AKPlaygroundLoop(every: 0.1) {
 }
 
 //: This keeps the playground running so that audio can play for a long time
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

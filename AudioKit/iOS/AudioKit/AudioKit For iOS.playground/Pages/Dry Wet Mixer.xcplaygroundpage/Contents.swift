@@ -4,11 +4,11 @@
 //:
 //: ## Dry Wet Mixer
 //: ### It's a very common operation to mix exactly two inputs, one before processing occurs, and one after, and then mixing down to a combination of the two.  This is so common that most of the AudioKit nodes have a dry/wet mix parameter built in.  But, if you are building your own custom effects, or making a long chain of effects, you can use AKDryWetMixer to blend your signals.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: This section prepares the players
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
 var drums  = AKAudioPlayer(drumFile!)
 drums.looping  = true
@@ -61,7 +61,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

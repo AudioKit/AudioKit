@@ -4,7 +4,7 @@
 //:
 //: ## Using Functions Part 2
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 func instrument(noteNumber: Int, rate: Double, amplitude: Double) -> AKOperation {
@@ -30,6 +30,6 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

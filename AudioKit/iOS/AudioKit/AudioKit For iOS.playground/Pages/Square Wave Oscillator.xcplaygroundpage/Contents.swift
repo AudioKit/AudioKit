@@ -4,7 +4,7 @@
 //:
 //: ## Square Wave Oscillator
 //: 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKSquareWaveOscillator()
@@ -81,7 +81,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

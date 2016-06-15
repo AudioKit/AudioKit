@@ -4,11 +4,11 @@
 //:
 //: ## Splitting Nodes
 //: ### All nodes in AudioKit can have multiple destinations, the only caveat is that all of the destinations do have to eventually be mixed back together and none of the parallel signal paths can have any time stretching.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Prepare the source audio player
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -28,6 +28,6 @@ AudioKit.output = mixer
 AudioKit.start()
 player.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

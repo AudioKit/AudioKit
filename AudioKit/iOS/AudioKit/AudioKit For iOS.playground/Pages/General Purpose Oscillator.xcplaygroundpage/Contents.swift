@@ -4,7 +4,7 @@
 //:
 //: ## General Purpose Oscillator
 //: ### This oscillator can be loaded with a wavetable of your own design, or with one of the defaults.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let square = AKTable(.Square, size: 16)
@@ -96,7 +96,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

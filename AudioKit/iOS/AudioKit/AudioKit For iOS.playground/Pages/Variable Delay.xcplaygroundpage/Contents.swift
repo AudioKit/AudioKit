@@ -4,10 +4,10 @@
 //:
 //: ## Variable Delay
 //: ### When you smoothly vary effect parameters, you get completely new kinds of effects.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -33,6 +33,6 @@ AKPlaygroundLoop(every: timeStep) {
     time += timeStep
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

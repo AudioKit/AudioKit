@@ -4,7 +4,7 @@
 //:
 //: ## Telephone
 //: ### AudioKit is great for sound design. Here, we show you how to create some telephone sounds.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: ### Dial Tone
@@ -174,9 +174,9 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 320, height: 650))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

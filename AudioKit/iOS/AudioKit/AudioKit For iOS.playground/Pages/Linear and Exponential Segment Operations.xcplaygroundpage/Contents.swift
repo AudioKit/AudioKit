@@ -5,7 +5,7 @@
 //: ## Linear and Exponential Segment Operations
 //: ### You can create segments that vary parameters in operations over a certain duration.  Here we create an alien apocalypse.
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let updateRate = AKOperation.parameters(0)
@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

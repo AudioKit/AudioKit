@@ -4,7 +4,7 @@
 //:
 //: ## Parameter Ramp Time
 //: ### Ramping to values at different rates
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var noise = AKWhiteNoise(amplitude: 1)
@@ -35,5 +35,5 @@ AKPlaygroundLoop(frequency: 2.66) {
     counter += 1
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

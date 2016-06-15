@@ -4,7 +4,7 @@
 //:
 //: ## FM Oscillator Operation
 //: 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Set up the operations that will be used to make a generator node
@@ -37,6 +37,6 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -5,7 +5,7 @@
 //: ## Interactive Oscillator
 //: ### Open the timeline view to use the controls this playground sets up.
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKOscillator()
@@ -62,7 +62,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

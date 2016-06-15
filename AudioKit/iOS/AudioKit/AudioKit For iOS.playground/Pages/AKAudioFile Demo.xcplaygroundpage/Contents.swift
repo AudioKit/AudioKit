@@ -5,7 +5,7 @@
 //: ## AKAudioFile
 //:
 //: AKAudioFile inherits from AVAudioFile so you can use it just like any AVAudioFile :
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 // Let's create an AKaudioFile :
@@ -98,6 +98,6 @@ if customFile != nil {
 //: Check AKAudioFile.swift to learn more about its properties and methods...
 
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

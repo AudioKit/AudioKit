@@ -5,7 +5,7 @@
 //: ## Dripping Sounds
 //: ### Physical model of a water drop letting hitting a pool.  What's this good for?  We don't know, but hey it's cool. :)
 import AudioKit
-import XCPlayground
+import PlaygroundSupport
 
 let playRate = 2.0
 
@@ -27,5 +27,5 @@ AKPlaygroundLoop(frequency: playRate) {
     drip.trigger()
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

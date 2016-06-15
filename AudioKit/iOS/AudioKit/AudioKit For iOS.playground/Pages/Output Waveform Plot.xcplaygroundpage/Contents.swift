@@ -4,7 +4,7 @@
 //:
 //: ## Output Waveform Plot
 //: ### If you open the Assitant editor and make sure it shows the Output Waveform Plot.xcplaygroundpage (Timeline) view, you should see a plot of the waveform in real time
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var fmOscillator = AKFMOscillator(waveform: AKTable(.Sine, size: 4096))
@@ -22,7 +22,7 @@ AKPlaygroundLoop(frequency: 1.0) {
 }
 
 let plotView = AKOutputWaveformPlot.createView()
-XCPlaygroundPage.currentPage.liveView = plotView
+PlaygroundPage.current.liveView = plotView
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

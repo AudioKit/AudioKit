@@ -4,10 +4,10 @@
 //:
 //: ## Tracking Frequency of an Audio File
 //: ### Here is a more real-world example of tracking the pitch of an audio stream
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("leadloop", ofType: "wav")
 
 var player = AKAudioPlayer(file!)
@@ -26,7 +26,7 @@ AKPlaygroundLoop(every: 0.1) {
 }
 
 //: This keeps the playground running so that audio can play for a long time
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

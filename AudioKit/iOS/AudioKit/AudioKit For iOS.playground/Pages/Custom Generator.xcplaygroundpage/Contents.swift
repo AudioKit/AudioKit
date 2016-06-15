@@ -4,7 +4,7 @@
 //:
 //: ## Custom Generator
 //: ### This is an example of building a sound generator from scratch
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let slowSine = round(AKOperation.sineWave(frequency: 1)  * 12) / 12
@@ -22,6 +22,6 @@ AudioKit.output = generator
 AudioKit.start()
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -4,7 +4,7 @@
 //:
 //: ## AutoPan Operation
 //: 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: This first section sets up parameter naming in such a way to make the operation code easier to read below.
@@ -35,7 +35,7 @@ extension AKOperationEffect {
 
 //: Here we'll use the struct and the extension to refer to the autopan parameters by name
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -74,7 +74,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     
-    func startLoop(part: String) {
+    func startLoop(_ part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
         player.replaceFile(file!)
@@ -116,7 +116,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

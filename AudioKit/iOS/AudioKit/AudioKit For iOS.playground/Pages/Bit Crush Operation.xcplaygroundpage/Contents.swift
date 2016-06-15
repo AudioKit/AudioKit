@@ -4,7 +4,7 @@
 //:
 //: ## Bit Crush Operation
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let sinusoid = AKOperation.sineWave(frequency: 1)
@@ -21,6 +21,6 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

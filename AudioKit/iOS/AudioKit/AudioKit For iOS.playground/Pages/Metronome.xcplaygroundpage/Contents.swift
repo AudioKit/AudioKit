@@ -5,7 +5,7 @@
 //: ## Metronome
 //:
 import AudioKit
-import XCPlayground
+import PlaygroundSupport
 
 var currentFrequency = 60.0
 let beep = AKOperation.sineWave(frequency: 480)
@@ -43,6 +43,6 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -4,7 +4,7 @@
 //:
 //: ## Drum Synthesizers
 //: ### These can also be hooked up to MIDI or a sequencer.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Here we set up the instruments, which can be polyphnic, but we only need mono for this example
@@ -39,5 +39,5 @@ AKPlaygroundLoop(frequency: 4.44) {
     counter += 1
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

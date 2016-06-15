@@ -4,7 +4,7 @@
 //:
 //: ## Using Functions
 //: ### You can encapsualate functionality of operations into functions.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 func drone(frequency: Double, rate: Double) -> AKOperation {
@@ -24,6 +24,6 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

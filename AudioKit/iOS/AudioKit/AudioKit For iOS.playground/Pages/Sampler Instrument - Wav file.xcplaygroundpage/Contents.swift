@@ -5,7 +5,7 @@
 //: ## Sampler Instrument - Wav File
 //: ### Loading a sampler with a reference wav file
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let pulse = 0.23 // seconds
@@ -42,5 +42,5 @@ AKPlaygroundLoop(every: pulse) {
     if random(0, 6) > 1.0 { sampler.playNote(note + octave) }
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

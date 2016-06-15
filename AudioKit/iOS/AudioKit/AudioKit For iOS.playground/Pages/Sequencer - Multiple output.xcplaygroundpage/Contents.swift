@@ -4,7 +4,7 @@
 //:
 //: ## Sequencer - Multiple output
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Create the sequencer, but we can't init it until we do some basic setup
@@ -43,6 +43,6 @@ sequencer.avTracks[4].destinationAudioUnit = sampler2.samplerUnit
 AudioKit.start()
 sequencer.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

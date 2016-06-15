@@ -5,10 +5,10 @@
 //: ## iOS-only Reverb
 //: ### For some reason, this reverb is only supplied on iOS devices. It is super-powerful.
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -38,6 +38,6 @@ AKPlaygroundLoop(every: 3.428) { () -> () in
     reverb2.isBypassed ? "Bypassed" : "Processing" // Open Quicklook for this
 }
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

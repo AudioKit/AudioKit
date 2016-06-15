@@ -5,7 +5,7 @@
 //: ## Sampler Instrument - EXS24
 //: ### Loading a sampler with an EXS24 instrument
 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let pulse = 0.5 // seconds
@@ -42,5 +42,5 @@ let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 //    if random(0, 6) > 1.0 { sampler.playNote(note + octave) }
 //}
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

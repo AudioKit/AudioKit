@@ -4,10 +4,10 @@
 //:
 //: ## Decimator
 //: ### Decimation is a type of digital distortion like bit crushing, but instead of directly stating what bit depth and sample rate you want, it is done through setting "decimation" and "rounding" parameters.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func startLoop(part: String) {
+    func startLoop(_ part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
         player.replaceFile(file!)
@@ -106,8 +106,8 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

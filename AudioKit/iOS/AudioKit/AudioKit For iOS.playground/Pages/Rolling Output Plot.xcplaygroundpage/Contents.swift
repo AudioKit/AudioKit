@@ -4,10 +4,10 @@
 //:
 //: ## Rolling Output Plot
 //: ###  If you open the Assitant editor and make sure it shows the Rolling Output Plot.xcplaygroundpage (Timeline) view, you should see a plot of the amplitude peaks scrolling in the view
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 
 var player = AKAudioPlayer(file!)
@@ -19,7 +19,7 @@ player.play()
 
 let plotView = AKRollingOutputPlot.createView()
 
-XCPlaygroundPage.currentPage.liveView = plotView
+PlaygroundPage.current.liveView = plotView
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

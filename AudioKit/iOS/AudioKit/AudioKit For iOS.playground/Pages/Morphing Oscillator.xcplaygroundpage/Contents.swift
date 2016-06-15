@@ -4,7 +4,7 @@
 //:
 //: ## Morphing Oscillator
 //: ### Oscillator with four different waveforms built in
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Try changing the table type to triangle or another AKTableType
@@ -75,7 +75,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

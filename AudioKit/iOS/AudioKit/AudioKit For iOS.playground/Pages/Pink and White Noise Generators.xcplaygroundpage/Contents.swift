@@ -4,7 +4,7 @@
 //:
 //: ## Pink and White Noise Generators
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var pink = AKPinkNoise(amplitude: 0.1)
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

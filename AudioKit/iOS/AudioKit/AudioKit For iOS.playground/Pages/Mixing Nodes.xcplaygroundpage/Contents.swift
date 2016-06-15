@@ -4,11 +4,11 @@
 //:
 //: ## Mixing Nodes
 //: ### So, what about connecting multiple sources to the output instead of feeding operations into each other in sequential order? To do that, you'll need a mixer.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: This section prepares the players
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
 let bassFile   = bundle.pathForResource("bassloop", ofType: "wav")
 let guitarFile = bundle.pathForResource("guitarloop", ofType: "wav")
@@ -129,7 +129,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

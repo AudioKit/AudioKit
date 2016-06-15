@@ -4,10 +4,10 @@
 //:
 //: ## Node Output Plot
 //: ### What's interesting here is that we're plotting the waveform BEFORE the delay is processed
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 
 var player = AKAudioPlayer(file!)
@@ -30,7 +30,7 @@ plot.shouldFill = true
 plot.shouldMirror = true
 plot.color = UIColor.blueColor()
 
-XCPlaygroundPage.currentPage.liveView = plot
+PlaygroundPage.current.liveView = plot
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -4,7 +4,7 @@
 //:
 //: ## Node FFT Plot
 //: ### You can also do spectral analysis of your signal by looking at FFT Plot. Here we create spikes in the plot by randomly playing an osccilator at a specific frequency.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 var oscillator = AKOscillator(waveform: AKTable(.Sine, size: 4096))
@@ -26,7 +26,7 @@ plot.shouldMirror = false
 plot.shouldCenterYAxis = false
 plot.color = UIColor.purpleColor()
 
-XCPlaygroundPage.currentPage.liveView = plot
+PlaygroundPage.current.liveView = plot
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

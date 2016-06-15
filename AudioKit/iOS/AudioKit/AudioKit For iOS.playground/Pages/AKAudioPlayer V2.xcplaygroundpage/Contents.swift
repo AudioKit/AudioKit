@@ -4,7 +4,7 @@
 //:
 //: ## AKAudioPlayer
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 //: Let's set a callback function that will be triggered when the player's playhead reaches the end and stop. (This will only occur when player.looping is set to false)
@@ -168,7 +168,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

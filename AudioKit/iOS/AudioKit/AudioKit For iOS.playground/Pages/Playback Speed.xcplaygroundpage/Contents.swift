@@ -5,10 +5,10 @@
 //: ## Playback Speed
 //: ### Here we'll use the AKVariSpeed node to change the playback speed of a file (which also affects the pitch)
 //:
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("mixloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func startLoop(part: String) {
+    func startLoop(_ part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
         player.replaceFile(file!)
@@ -100,7 +100,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -4,7 +4,7 @@
 //:
 //: ## Amplitude Envelope
 //: ### Enveloping an FM Oscillator with an ADSR envelope
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 
@@ -130,7 +130,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 560))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

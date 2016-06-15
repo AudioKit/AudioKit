@@ -4,10 +4,10 @@
 //:
 //: ## Filter Section
 //: ### This is where we created the filter for the Analog Synth X example project.
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
 
 //: Here we set up a player to the loop the file's playback
@@ -32,5 +32,5 @@ AudioKit.start()
 
 player.play()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

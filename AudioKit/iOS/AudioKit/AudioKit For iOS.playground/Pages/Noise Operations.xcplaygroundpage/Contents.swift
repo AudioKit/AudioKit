@@ -4,7 +4,7 @@
 //:
 //: ## Noise Operations
 //: 
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
 let white = AKOperation.whiteNoise()
@@ -21,6 +21,6 @@ AudioKit.start()
 
 generator.start()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+PlaygroundPage.current.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
