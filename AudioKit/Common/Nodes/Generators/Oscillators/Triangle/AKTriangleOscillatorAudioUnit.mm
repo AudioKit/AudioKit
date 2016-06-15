@@ -38,6 +38,9 @@
 - (void)setAmplitude:(float)amplitude {
     _kernel.setAmplitude(amplitude);
 }
+- (void)setCrest:(float)crest {
+    _kernel.setCrest(crest);
+}
 - (void)setDetuningOffset:(float)detuningOffset {
     _kernel.setDetuningOffset(detuningOffset);
 }
@@ -102,6 +105,18 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
+    // Create a parameter object for the crest.
+    AUParameter *crestAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"crest"
+                                              name:@"Crest"
+                                           address:crestAddress
+                                               min:0.0
+                                               max:1.0
+                                              unit:kAudioUnitParameterUnit_Generic
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
     // Create a parameter object for the detuningOffset.
     AUParameter *detuningOffsetAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
@@ -130,6 +145,7 @@
     // Initialize the parameter values.
     frequencyAUParameter.value = 440;
     amplitudeAUParameter.value = 0.5;
+    crestAUParameter.value = 0.5;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
     
@@ -137,6 +153,7 @@
 
     _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
     _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);
+    _kernel.setParameter(crestAddress,              crestAUParameter.value);
     _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
@@ -144,6 +161,7 @@
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         frequencyAUParameter,
         amplitudeAUParameter,
+        crestAUParameter,
         detuningOffsetAUParameter,
         detuningMultiplierAUParameter
     ]];

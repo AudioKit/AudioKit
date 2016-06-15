@@ -241,9 +241,10 @@ int sp_blsquare_compute(sp_data *sp, sp_blsquare *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     void *ud;
     int argpos;
-    SPFLOAT *args[2];
+    SPFLOAT *args[3];
     SPFLOAT *freq;
     SPFLOAT *amp;
+    SPFLOAT *crest;
 } sp_bltriangle;
 
 int sp_bltriangle_create(sp_bltriangle **p);
