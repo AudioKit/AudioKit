@@ -1,0 +1,22 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_whitespace
+  - force_try
+  - line_length
+
+type_body_length:
+  - 400 # warning
+  - 1000 # error
+
+function_body_length:
+  - 400 # warning
+  - 1000 # error
+
+variable_name_min_length:
+  - 1 # warning
+  - 0 # error
+
+line_length:
+  - 120 # warning
+  - 500 # error
+
+force_cast: warning
