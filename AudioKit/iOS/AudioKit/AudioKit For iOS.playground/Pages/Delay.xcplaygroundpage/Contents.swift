@@ -4,10 +4,10 @@
 //:
 //: ## Delay
 //: ### Exploring the powerful effect of repeating sounds after varying length delay times and feedback amounts
-import XCPlayground
+import PlaygroundSupport
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
+let bundle = Bundle.main()
 let file = bundle.pathForResource("drumloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -24,16 +24,16 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-
+    
     //: UI Elements we'll need to be able to access
     var timeLabel: Label?
     var feedbackLabel: Label?
     var lowPassCutoffFrequencyLabel: Label?
     var dryWetMixLabel: Label?
-
+    
     override func setup() {
         addTitle("Delay")
-
+        
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -41,23 +41,23 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-
+        
         timeLabel = addLabel("Time: \(delay.time)")
         addSlider(#selector(setTime), value: delay.time, minimum: 0, maximum: 1)
-
+        
         feedbackLabel = addLabel("Feedback: \(delay.feedback)")
         addSlider(#selector(setFeedback), value: delay.feedback)
-
+        
         lowPassCutoffFrequencyLabel = addLabel("Low Pass Cutoff Frequency: \(delay.lowPassCutoff)")
         addSlider(#selector(setLowPassCutoffFrequency), value: delay.lowPassCutoff, minimum: 0, maximum: 22050)
-
+        
         dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
         addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
     }
-
+    
     //: Handle UI Events
-
-    func startLoop(part: String) {
+    
+    func startLoop(_ part: String) {
         player.stop()
         let file = bundle.pathForResource("\(part)loop", ofType: "wav")
         player.replaceFile(file!)
@@ -86,35 +86,35 @@ class PlaygroundView: AKPlaygroundView {
     func stop() {
         player.stop()
     }
-
+    
     func setTime(slider: Slider) {
         delay.time = Double(slider.value)
         let time = String(format: "%0.3f", delay.time)
         timeLabel!.text = "Time: \(time)"
     }
-
+    
     func setFeedback(slider: Slider) {
         delay.feedback = Double(slider.value)
         let feedback = String(format: "%0.2f", delay.feedback)
         feedbackLabel!.text = "Feedback: \(feedback)"
     }
-
+    
     func setLowPassCutoffFrequency(slider: Slider) {
         delay.lowPassCutoff = Double(slider.value)
         let lowPassCutoff = String(format: "%0.2f Hz", delay.lowPassCutoff)
         lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
     }
-
+    
     func setDryWetMix(slider: Slider) {
         delay.dryWetMix = Double(slider.value)
         let dryWetMix = String(format: "%0.2f", delay.dryWetMix)
         dryWetMixLabel!.text = "Mix: \(dryWetMix)"
     }
-
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+PlaygroundPage.current.needsIndefiniteExecution = true
+PlaygroundPage.current.liveView = view
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

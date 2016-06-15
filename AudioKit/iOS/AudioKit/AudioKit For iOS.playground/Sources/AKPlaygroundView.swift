@@ -33,7 +33,7 @@ public class AKPlaygroundView: UIView {
     }
     
     
-    public func addTitle(text: String) -> UILabel {
+    public func addTitle(_ text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
         newLabel.text = text
         newLabel.textAlignment = .center
@@ -44,7 +44,7 @@ public class AKPlaygroundView: UIView {
         return newLabel
     }
     
-    public func addButton(label: String, action: Selector) -> UIButton {
+    public func addButton(_ label: String, action: Selector) -> UIButton {
         
         let newButton = UIButton(type: .custom)
         newButton.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight)
@@ -68,7 +68,7 @@ public class AKPlaygroundView: UIView {
         return newButton
     }
     
-    public func addLabel(text: String) -> UILabel {
+    public func addLabel(_ text: String) -> UILabel {
         lastButton = nil
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
@@ -80,7 +80,7 @@ public class AKPlaygroundView: UIView {
         return newLabel
     }
     
-    public func addTextField(action: Selector, text: String, value: Double = 0) -> UITextField {
+    public func addTextField(_ action: Selector, text: String, value: Double = 0) -> UITextField {
         lastButton = nil
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
@@ -100,7 +100,7 @@ public class AKPlaygroundView: UIView {
         return newTextField
     }
     
-    public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> UISlider {
+    public func addSlider(_ action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> UISlider {
         lastButton = nil
         let newSlider = UISlider(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
         newSlider.frame.origin.y = CGFloat(yPosition)
