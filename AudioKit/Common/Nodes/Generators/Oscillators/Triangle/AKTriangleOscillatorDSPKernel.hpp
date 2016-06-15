@@ -22,7 +22,8 @@ enum {
     frequencyAddress = 0,
     amplitudeAddress = 1,
     detuningOffsetAddress = 2,
-    detuningMultiplierAddress = 3
+    detuningMultiplierAddress = 3,
+    crestAddress = 4
 };
 
 class AKTriangleOscillatorDSPKernel : public DSPKernel {
@@ -43,6 +44,7 @@ public:
         sp_bltriangle_init(sp, bltriangle);
         *bltriangle->freq = 440;
         *bltriangle->amp = 0.5;
+        *bltriangle->crest = 0.5;
     }
 
 
@@ -73,6 +75,11 @@ public:
         amplitudeRamper.setImmediate(amplitude);
     }
     
+    void setCrest(float crest) {
+        crest = crest;
+        crestRamper.setImmediate(crest);
+    }
+    
     void setDetuningOffset(float detuneOffset) {
         detuningOffset = detuneOffset;
         detuningOffsetRamper.setImmediate(detuneOffset);
@@ -100,6 +107,10 @@ public:
             case detuningMultiplierAddress:
                 detuningMultiplierRamper.setUIValue(clamp(value, (float)0.9, (float)1.11));
                 break;
+                
+            case crestAddress:
+                crestRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
+                break;
 
         }
     }
@@ -117,6 +128,9 @@ public:
 
             case detuningMultiplierAddress:
                 return detuningMultiplierRamper.getUIValue();
+                
+            case crestAddress:
+                return crestRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -139,6 +153,10 @@ public:
             case detuningMultiplierAddress:
                 detuningMultiplierRamper.startRamp(clamp(value, (float)0.9, (float)1.11), duration);
                 break;
+                
+            case crestAddress:
+                crestRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
+                break;
 
         }
     }
@@ -154,11 +172,13 @@ public:
 
             frequency = double(frequencyRamper.getAndStep());
             amplitude = double(amplitudeRamper.getAndStep());
+            crest = double(crestRamper.getAndStep());
             detuningOffset = double(detuningOffsetRamper.getAndStep());
             detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
 
             *bltriangle->freq = frequency * detuningMultiplier + detuningOffset;
             *bltriangle->amp = amplitude;
+            *bltriangle->crest = crest;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
@@ -190,6 +210,7 @@ private:
 
     float frequency = 440;
     float amplitude = 0.5;
+    float crest = 0.5;
     float detuningOffset = 0;
     float detuningMultiplier = 1;
 
@@ -198,6 +219,7 @@ public:
     bool resetted = false;
     ParameterRamper frequencyRamper = 440;
     ParameterRamper amplitudeRamper = 0.5;
+    ParameterRamper crestRamper = 0.5;
     ParameterRamper detuningOffsetRamper = 0;
     ParameterRamper detuningMultiplierRamper = 1;
 };
