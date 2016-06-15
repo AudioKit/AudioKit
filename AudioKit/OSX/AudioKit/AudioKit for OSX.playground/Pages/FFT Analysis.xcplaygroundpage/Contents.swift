@@ -17,7 +17,7 @@ player.looping = true
 AudioKit.output = player
 AudioKit.start()
 player.play()
-let fft = AKFFT(player)
+let fft = AKFFTTap(player)
 
 //: And here's where we monitor the results of tracking the amplitude.
 AKPlaygroundLoop(every: 0.1) {

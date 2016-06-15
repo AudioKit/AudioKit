@@ -7,13 +7,40 @@
 import XCPlayground
 import AudioKit
 
+//: This first section sets up parameter naming in such a way to make the operation code easier to read below.
+
+enum AutoPanParameter: Int {
+    case Speed, Depth
+}
+
+struct AutoPan {
+    static var speed: AKOperation {
+        return AKOperation.parameters(AutoPanParameter.Speed.rawValue)
+    }
+    static var depth: AKOperation {
+        return AKOperation.parameters(AutoPanParameter.Depth.rawValue)
+    }
+}
+
+extension AKOperationEffect {
+    var speed: Double {
+        get { return self.parameters[AutoPanParameter.Speed.rawValue] }
+        set(newValue) { self.parameters[AutoPanParameter.Speed.rawValue] = newValue }
+    }
+    var depth: Double {
+        get { return self.parameters[AutoPanParameter.Depth.rawValue] }
+        set(newValue) { self.parameters[AutoPanParameter.Depth.rawValue] = newValue }
+    }
+}
+
+//: Here we'll use the struct and the extension to refer to the autopan parameters by name
 
 let bundle = NSBundle.mainBundle()
 let file = bundle.pathForResource("guitarloop", ofType: "wav")
 var player = AKAudioPlayer(file!)
 player.looping = true
 
-let oscillator = AKOperation.sineWave(frequency: AKOperation.parameters(0), amplitude: AKOperation.parameters(1))
+let oscillator = AKOperation.sineWave(frequency: AutoPan.speed, amplitude: AutoPan.depth)
 
 let panner = AKOperation.input.pan(oscillator)
 
@@ -32,31 +59,59 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("AutoPan")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
-        speedLabel = addLabel("Speed: \(effect.parameters[0])")
-        addSlider(#selector(setSpeed), value: effect.parameters[0], minimum: 0.1, maximum: 25)
+        speedLabel = addLabel("Speed: \(effect.speed)")
+        addSlider(#selector(setSpeed), value: effect.speed, minimum: 0.1, maximum: 25)
         
-        depthLabel = addLabel("Depth: \(effect.parameters[1])")
-        addSlider(#selector(setDepth), value: effect.parameters[1])
+        depthLabel = addLabel("Depth: \(effect.depth)")
+        addSlider(#selector(setDepth), value: effect.depth)
     }
     
-    func start() {
+    
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()
     }
     
     func setSpeed(slider: Slider) {
-        effect.parameters[0] = Double(slider.value)
-        speedLabel!.text = "Speed: \(String(format: "%0.3f", effect.parameters[0]))"
+        effect.speed = Double(slider.value)
+        speedLabel!.text = "Speed: \(String(format: "%0.3f", effect.speed))"
     }
     
     func setDepth(slider: Slider) {
-        effect.parameters[1] = Double(slider.value)
-        depthLabel!.text = "Depth: \(String(format: "%0.3f", effect.parameters[1]))"
+        effect.depth = Double(slider.value)
+        depthLabel!.text = "Depth: \(String(format: "%0.3f", effect.depth))"
     }
 }
 

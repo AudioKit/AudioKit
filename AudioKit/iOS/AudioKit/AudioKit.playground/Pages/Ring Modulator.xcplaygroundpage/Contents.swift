@@ -37,8 +37,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Ring Modulator")
 
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Ring Modulator Parameters")
@@ -47,10 +51,10 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         ringModFreq1Label = addLabel("Frequency 1: \(ringModulator.frequency1) Hertz")
-        addSlider("setFreq1:", value: ringModulator.frequency1, minimum: 0.5, maximum: 8000)
+        addSlider(#selector(setFreq1), value: ringModulator.frequency1, minimum: 0.5, maximum: 8000)
 
         ringModFreq2Label = addLabel("Frequency 2: \(ringModulator.frequency2) Hertz")
-        addSlider("setFreq2:", value: ringModulator.frequency2, minimum: 0.5, maximum: 8000)
+        addSlider(#selector(setFreq2), value: ringModulator.frequency2, minimum: 0.5, maximum: 8000)
 
         ringModBalanceLabel = addLabel("Balance: \(ringModulator.balance)")
         addSlider(#selector(setBalance), value: ringModulator.balance)
@@ -62,8 +66,31 @@ class PlaygroundView: AKPlaygroundView {
 
     //: Handle UI Events
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
 
     func stop() {
@@ -81,26 +108,40 @@ class PlaygroundView: AKPlaygroundView {
         ringModulator.frequency1 = Double(slider.value)
         let ringModFreq1 = String(format: "%0.1f", ringModulator.frequency1)
         ringModFreq1Label!.text = "Frequency 1: \(ringModFreq1) Hertz"
+        printCode()
     }
 
     func setFreq2(slider: Slider) {
         ringModulator.frequency2 = Double(slider.value)
         let ringModFreq2 = String(format: "%0.1f", ringModulator.frequency2)
         ringModFreq2Label!.text = "Frequency 2: \(ringModFreq2) Hertz"
+        printCode()
     }
 
     func setBalance(slider: Slider) {
         ringModulator.balance = Double(slider.value)
         let ringModBalance = String(format: "%0.1f", ringModulator.balance)
         ringModBalanceLabel!.text = "Balance: \(ringModBalance)"
+        printCode()
     }
 
     func setMix(slider: Slider) {
         ringModulator.mix = Double(slider.value)
         let finalMix = String(format: "%0.1f", ringModulator.mix)
         finalMixLabel!.text = "Mix: \(finalMix)"
+        printCode()
     }
 
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    frequency1 = \(String(format: "%0.3f", ringModulator.frequency1))")
+        print("    frequency2 = \(String(format: "%0.3f", ringModulator.frequency2))")
+        print("    balance = \(String(format: "%0.3f", ringModulator.balance))")
+        print("    mix = \(String(format: "%0.3f", ringModulator.mix))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))

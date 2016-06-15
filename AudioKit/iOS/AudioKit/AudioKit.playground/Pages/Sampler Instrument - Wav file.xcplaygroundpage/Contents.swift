@@ -34,6 +34,11 @@ AudioKit.start()
 //: This is a loop to send a random note to the sampler
 //: The sampler 'playNote' function is very useful here
 AKPlaygroundLoop(every: pulse) {
+    if sampler.pan < 0 {
+        sampler.pan = 1
+    } else {
+        sampler.pan = -1
+    }
     let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()
     let octave = randomInt(3...6)  * 12

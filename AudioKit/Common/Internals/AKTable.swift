@@ -24,6 +24,23 @@ public enum AKTableType: String {
     
     /// Reversed sawtooth waveform
     case ReverseSawtooth
+    
+    /// Sine wave from 0-1
+    case PositiveSine
+    
+    /// Triangle waveform from 0-1
+    case PositiveTriangle
+
+    /// Square waveform from 0-1
+    case PositiveSquare
+    
+    /// Sawtooth waveform from 0-1
+    case PositiveSawtooth
+    
+    /// Reversed sawtooth waveform from 0-1
+    case PositiveReverseSawtooth
+
+    
 }
 
 /// A table of values accessible as a waveform or lookup mechanism
@@ -61,6 +78,16 @@ public struct AKTable {
             self.standardReverseSawtoothWave()
         case .Square:
             self.standardSquareWave()
+        case .PositiveSine:
+            self.positiveSineWave()
+        case .PositiveSawtooth:
+            self.positiveSawtoothWave()
+        case .PositiveTriangle:
+            self.positiveTriangleWave()
+        case .PositiveReverseSawtooth:
+            self.positiveReverseSawtoothWave()
+        case .PositiveSquare:
+            self.positiveSquareWave()
         }
     }
     
@@ -110,6 +137,55 @@ public struct AKTable {
         values = [Float]()
         for i in 0..<size {
             values.append(sin(2 * 3.14159265 * Float(i)/Float(size)))
+        }
+    }
+    
+    /// Instantiate the table as a triangle wave
+    mutating func positiveTriangleWave() {
+        values = [Float]()
+        let slope = Float(2.0) / Float(size)
+        for i in 0..<size {
+            if i < size / 2 {
+                values.append(slope * Float(i))
+            } else {
+                values.append(slope * Float(-i) + 2.0)
+            }
+        }
+    }
+    
+    /// Instantiate the table as a square wave
+    mutating func positiveSquareWave() {
+        values = [Float]()
+        for i in 0..<size {
+            if i < size / 2 {
+                values.append(0.0)
+            } else {
+                values.append(1.0)
+            }
+        }
+    }
+    
+    /// Instantiate the table as a sawtooth wave
+    mutating func positiveSawtoothWave() {
+        values = [Float]()
+        for i in 0..<size {
+            values.append(Float(i)/Float(size))
+        }
+    }
+    
+    /// Instantiate the table as a reverse sawtooth wave
+    mutating func positiveReverseSawtoothWave() {
+        values = [Float]()
+        for i in 0..<size {
+            values.append(1.0 - Float(i)/Float(size))
+        }
+    }
+    
+    /// Instantiate the table as a sine wave
+    mutating func positiveSineWave() {
+        values = [Float]()
+        for i in 0..<size {
+            values.append(0.5 + 0.5 * sin(2 * 3.14159265 * Float(i)/Float(size)))
         }
     }
 }

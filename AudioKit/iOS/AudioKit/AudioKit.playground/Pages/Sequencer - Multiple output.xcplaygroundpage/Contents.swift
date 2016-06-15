@@ -16,6 +16,8 @@ var sampler2 = AKSampler()
 sampler1.loadEXS24("Sounds/sawPiano1")
 sampler2.loadEXS24("Sounds/sqrTone1")
 
+//: NOTE: As of Xcode 7.3, the EXS24 sampler has stopped working properly in playgrounds. We have filed a bug report and we hope that Apple fixes it in the future.  With that hope, we haven't deleted this playground.  The EXS24 works just fine in a project setting, just not in playgrounds.  To see how it used to work visit: https://vimeo.com/152230901
+
 var mixer = AKMixer()
 mixer.connect(sampler1)
 mixer.connect(sampler2)

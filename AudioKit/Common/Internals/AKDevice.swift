@@ -35,7 +35,7 @@ public typealias DeviceID = String
     }
     
     /// Printable device description
-    public override var description: String {
+    override public var description: String {
         return "<Device: \(name) (\(deviceID))>"
     }
 }

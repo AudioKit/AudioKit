@@ -23,7 +23,7 @@ var filterMix = 0.9
 var lfoAmplitude = 1000
 var lfoRate = 1.0 / 3.428
 
-let lfo = AKOperation.morphingOscillator(frequency: lfoRate, amplitude: lfoAmplitude, index: 1)
+let lfo = AKOperation.sineWave(frequency: lfoRate, amplitude: lfoAmplitude)
 let moog = AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency, resonance: resonance)
 let filterSectionEffect = AKOperationEffect(player, operation: moog)
 

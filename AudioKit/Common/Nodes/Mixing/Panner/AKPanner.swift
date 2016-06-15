@@ -24,7 +24,7 @@ public class AKPanner: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -34,7 +34,7 @@ public class AKPanner: AKNode, AKToggleable {
 
     /// Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     public var pan: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if pan != newValue {
                 if internalAU!.isSetUp() {
                     panParameter?.setValue(Float(newValue), originator: token!)

@@ -63,7 +63,7 @@ public class AKWavetableSynth: AKPolyphonicInstrument {
     /// - parameter note: MIDI Note Number
     /// - parameter velocity: MIDI Velocity (0-127)
     ///
-    public override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    override public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let frequency = note.midiNoteToFrequency()
         let amplitude = Double(velocity) / 127.0 * 0.3
         let oscillatorVoice = voice as! AKOscillatorVoice
@@ -77,7 +77,7 @@ public class AKWavetableSynth: AKPolyphonicInstrument {
     /// - parameter voice: Voice to stop
     /// - parameter note: MIDI Note Number
     ///
-    public override func stopVoice(voice: AKVoice, note: Int) {
+    override public func stopVoice(voice: AKVoice, note: Int) {
         let oscillatorVoice = voice as! AKOscillatorVoice 
         oscillatorVoice.stop()
     }

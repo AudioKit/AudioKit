@@ -13,6 +13,7 @@ import AVFoundation
 ///
 /// - parameter frequency: In cycles per second, or Hz.
 /// - parameter amplitude: Output Amplitude.
+/// - parameter crest: Crest Offset.
 /// - parameter detuningOffset: Frequency offset in Hz.
 /// - parameter detuningMultiplier: Frequency detuning multiplier
 ///
@@ -25,12 +26,13 @@ public class AKTriangleOscillator: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
+    private var crestParameter: AUParameter?
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
     
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +42,7 @@ public class AKTriangleOscillator: AKVoice {
     
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
                     frequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -53,7 +55,7 @@ public class AKTriangleOscillator: AKVoice {
     
     /// Output Amplitude.
     public var amplitude: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)
@@ -64,9 +66,22 @@ public class AKTriangleOscillator: AKVoice {
         }
     }
     
+    /// Crest Offset.
+    public var crest: Double = 0.5 {
+        willSet {
+            if crest != newValue {
+                if internalAU!.isSetUp() {
+                    crestParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.crest = Float(newValue)
+                }
+            }
+        }
+    }
+    
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
                     detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
@@ -79,7 +94,7 @@ public class AKTriangleOscillator: AKVoice {
     
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
                     detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
@@ -99,7 +114,7 @@ public class AKTriangleOscillator: AKVoice {
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    override public convenience init() {
         self.init(frequency: 440)
     }
 
@@ -113,12 +128,14 @@ public class AKTriangleOscillator: AKVoice {
     public init(
         frequency: Double,
         amplitude: Double = 0.5,
+        crest: Double = 0.5,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
 
         self.frequency = frequency
         self.amplitude = amplitude
+        self.crest = crest
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
@@ -151,6 +168,7 @@ public class AKTriangleOscillator: AKVoice {
 
         frequencyParameter          = tree.valueForKey("frequency")          as? AUParameter
         amplitudeParameter          = tree.valueForKey("amplitude")          as? AUParameter
+        crestParameter              = tree.valueForKey("crest")          as? AUParameter
         detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
         detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
 
@@ -162,6 +180,8 @@ public class AKTriangleOscillator: AKVoice {
                     self.frequency = Double(value)
                 } else if address == self.amplitudeParameter!.address {
                     self.amplitude = Double(value)
+                } else if address == self.crestParameter!.address {
+                    self.crest = Double(value)
                 } else if address == self.detuningOffsetParameter!.address {
                     self.detuningOffset = Double(value)
                 } else if address == self.detuningMultiplierParameter!.address {
@@ -171,23 +191,24 @@ public class AKTriangleOscillator: AKVoice {
         }
         internalAU?.frequency = Float(frequency)
         internalAU?.amplitude = Float(amplitude)
+        internalAU?.crest = Float(crest)
         internalAU?.detuningOffset = Float(detuningOffset)
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func duplicate() -> AKVoice {
-        let copy = AKTriangleOscillator(frequency: self.frequency, amplitude: self.amplitude, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
+    override public func duplicate() -> AKVoice {
+        let copy = AKTriangleOscillator(frequency: self.frequency, amplitude: self.amplitude, crest: self.crest, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
         return copy
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func start() {
+    override public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop() {
+    override public func stop() {
         self.internalAU!.stop()
     }
 }

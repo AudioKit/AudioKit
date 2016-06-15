@@ -13,7 +13,7 @@ import CoreAudio
 ///
 /// 1) init the audio unit like this: var sampler = AKSampler()
 /// 2) load a sound a file: sampler.loadWav("path/to/your/sound/file/in/app/bundle") (without wav extension)
-/// 3) connect to the avengine: AudioKit.output = sampler
+/// 3) connect to the engine: AudioKit.output = sampler
 /// 4) start the engine AudioKit.start()
 ///
 public class AKSampler: AKNode {
@@ -30,7 +30,7 @@ public class AKSampler: AKNode {
     // MARK: - Initializers
     
     /// Initialize the sampler node
-    public override init() {
+    override public init() {
         super.init()
         self.avAudioNode = samplerUnit
         self.internalAU = samplerUnit.AUAudioUnit
@@ -61,13 +61,40 @@ public class AKSampler: AKNode {
         loadInstrument(file, type: "exs")
     }
     
-    /// Load a SoundFont SF2 sample data file
+
+    private func loadSoundFont(file: String, preset: Int, type: Int) {
+        guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "sf2") else {
+            fatalError("file not found.")
+        }
+        do {
+            try samplerUnit.loadSoundBankInstrumentAtURL(
+                url,
+                program: UInt8(preset),
+                bankMSB: UInt8(type),
+                bankLSB: UInt8(kAUSampler_DefaultBankLSB))
+        } catch {
+            print("Error loading SoundFont.")
+        }
+    }
+    
+    /// Load a Melodic SoundFont SF2 sample data file
     ///
     /// - parameter file: Name of the SoundFont SF2 file without the .sf2 extension
+    /// - parameter preset: Number of the program to use
     ///
-    public func loadSoundFont(file: String) {
-        loadInstrument(file, type: "sf2")
+    public func loadMelodicSoundFont(file: String, preset: Int) {
+        loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
     }
+
+    /// Load a Percussive SoundFont SF2 sample data file
+    ///
+    /// - parameter file: Name of the SoundFont SF2 file without the .sf2 extension
+    /// - parameter preset: Number of the program to use
+    ///
+    public func loadPercussiveSoundFont(file: String, preset: Int) {
+        loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
+    }
+
     
     /// Load a file path
     ///
@@ -89,7 +116,7 @@ public class AKSampler: AKNode {
         do {
             try samplerUnit.loadInstrumentAtURL(url)
         } catch {
-            print("error")
+            print("Error loading instrument.")
         }
     }
     
@@ -107,11 +134,21 @@ public class AKSampler: AKNode {
     /// Default: 1
     public var volume: Double = 1 {
         didSet {
-            var newGain = volume
-            newGain.denormalize(-90.0, max: 0.0, taper: 1)
+            let newGain = volume.denormalized(minimum: -90.0, maximum: 0.0, taper: 1)
             samplerUnit.masterGain = Float(newGain)
         }
     }
+    
+    /// Pan.
+    /// Range:   -1 - 1
+    /// Default: 0
+    public var pan: Double = 0 {
+        didSet {
+            samplerUnit.stereoPan = Float(100.0 * pan)
+        }
+    }
+    
+    
     // MARK: - Playback
     
     /// Play a MIDI Note
@@ -464,26 +501,5 @@ public class AKSampler: AKNode {
         templateStr.appendContentsOf("    </dict>\n")
         templateStr.appendContentsOf("</plist>\n")
         return templateStr
-    }
-    
-    // MARK: - Deprecated
-    
-    
-    /* createAUPresetFromDict
-     was moved to AKAUPresetBuilder
-     */
-    static public func createAUPresetFromDict(dict: NSDictionary, path: String, instName: String, attack: Double? = 0, release: Double? = 0){
-        NSException(name: "Deprecated", reason: "createAUPresetFromDict was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.createAUPresetFromDict with AKAUPresetBuilder.createAUPresetFromDict. Thank you.", userInfo: nil).raise()
-    }//end func createAUPresetFromDict
-    
-    // This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that
-    // into createAUPresetFromDict
-    public static func generateTemplateDictionary(
-        rootNote: Int,
-        filename: String,
-        startNote: Int,
-        endNote: Int) -> NSMutableDictionary {
-        NSException(name: "Deprecated", reason: "generateTemplateDictionary was moved to AKAUPresetBuilder. You can safely replace all instances of AKSampler.generateTemplateDictionary with AKAUPresetBuilder.generateDictionary. Thank you.", userInfo: nil).raise()
-        return NSMutableDictionary()
     }
 }

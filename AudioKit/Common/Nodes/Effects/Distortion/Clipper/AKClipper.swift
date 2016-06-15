@@ -25,7 +25,7 @@ public class AKClipper: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -35,7 +35,7 @@ public class AKClipper: AKNode, AKToggleable {
 
     /// Threshold / limiting value.
     public var limit: Double = 1.0 {
-        willSet(newValue) {
+        willSet {
             if limit != newValue {
                 if internalAU!.isSetUp() {
                     limitParameter?.setValue(Float(newValue), originator: token!)

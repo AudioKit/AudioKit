@@ -35,8 +35,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Parametric EQ")
 
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Parametric EQ Parameters")
@@ -57,8 +61,31 @@ class PlaygroundView: AKPlaygroundView {
 
     //: Handle UI Events
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
 
     func stop() {
@@ -72,24 +99,37 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         parametricEQ.bypass()
     }
+    
     func setCenterFreq(slider: Slider) {
         parametricEQ.centerFrequency = Double(slider.value)
         let centerFrequency = String(format: "%0.1f", parametricEQ.centerFrequency)
         centerFreqLabel!.text = "Center Frequency: \(centerFrequency) Hz"
+        printCode()
     }
 
     func setQ(slider: Slider) {
         parametricEQ.q = Double(slider.value)
         let q = String(format: "%0.1f", parametricEQ.q)
         qLabel!.text = "Q: \(q) Hz"
+        printCode()
     }
 
     func setGain(slider: Slider) {
         parametricEQ.gain = Double(slider.value)
         let gain = String(format: "%0.1f", parametricEQ.gain)
         gainLabel!.text = "gain: \(gain) dB"
+        printCode()
     }
-
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    centerFrequency = \(String(format: "%0.3f", parametricEQ.centerFrequency))")
+        print("    q = \(String(format: "%0.3f", parametricEQ.q))")
+        print("    gain = \(String(format: "%0.3f", parametricEQ.gain))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
