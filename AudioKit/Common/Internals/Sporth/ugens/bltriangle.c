@@ -6,6 +6,7 @@ int sporth_bltriangle(sporth_stack *stack, void *ud)
     SPFLOAT out;
     SPFLOAT freq;
     SPFLOAT amp;
+    SPFLOAT crest;
     sp_bltriangle *bltriangle;
     
     switch(pd->mode) {
@@ -43,6 +44,7 @@ int sporth_bltriangle(sporth_stack *stack, void *ud)
             bltriangle = pd->last->ud;
             *bltriangle->freq = freq;
             *bltriangle->amp = amp;
+            *bltriangle->crest = crest;
             sp_bltriangle_compute(pd->sp, bltriangle, NULL, &out);
             sporth_stack_push_float(stack, out);
             break;
