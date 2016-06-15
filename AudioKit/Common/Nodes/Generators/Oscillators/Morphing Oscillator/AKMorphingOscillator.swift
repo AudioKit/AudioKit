@@ -37,7 +37,7 @@ public class AKMorphingOscillator: AKVoice {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -47,7 +47,7 @@ public class AKMorphingOscillator: AKVoice {
     
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 if internalAU!.isSetUp() {
                     frequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -60,7 +60,7 @@ public class AKMorphingOscillator: AKVoice {
     
     /// Output Amplitude.
     public var amplitude: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)
@@ -74,7 +74,7 @@ public class AKMorphingOscillator: AKVoice {
 
     /// Index of the wavetable to use (fractional are okay).
     public var index: Double = 0.0 {
-        willSet(newValue) {
+        willSet {
             let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
 //            if internalAU!.isSetUp() {
 //                indexParameter?.setValue(Float(transformedValue), originator: token!)
@@ -86,7 +86,7 @@ public class AKMorphingOscillator: AKVoice {
 
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if detuningOffset != newValue {
                 if internalAU!.isSetUp() {
                     detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
@@ -99,7 +99,7 @@ public class AKMorphingOscillator: AKVoice {
     
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if detuningMultiplier != newValue {
                 if internalAU!.isSetUp() {
                     detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
@@ -118,7 +118,7 @@ public class AKMorphingOscillator: AKVoice {
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    override public convenience init() {
         self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
     }
     
@@ -216,18 +216,18 @@ public class AKMorphingOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func duplicate() -> AKVoice {
+    override public func duplicate() -> AKVoice {
         let copy = AKMorphingOscillator(waveformArray: self.waveformArray, frequency: self.frequency, amplitude: self.amplitude, index: self.index, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier, phase: self.phase)
         return copy
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func start() {
+    override public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop() {
+    override public func stop() {
         self.internalAU!.stop()
     }
 }

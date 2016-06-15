@@ -26,49 +26,76 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-
+    
     //: UI Elements we'll need to be able to access
     var centerFreqLabel: Label?
     var qLabel: Label?
     var gainLabel: Label?
-
+    
     override func setup() {
         addTitle("Parametric EQ")
-
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-
+        
         addLabel("Parametric EQ Parameters")
-
+        
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-
+        
         centerFreqLabel = addLabel("Center Frequency: \(parametricEQ.centerFrequency) Hz")
         addSlider(#selector(setCenterFreq), value: parametricEQ.centerFrequency, minimum: 20, maximum: 22050)
-
+        
         qLabel = addLabel("Q: \(parametricEQ.q) Hz")
         addSlider(#selector(setQ), value: parametricEQ.q, minimum: 0.1, maximum: 20)
-
+        
         gainLabel = addLabel("Gain: \(parametricEQ.gain) dB")
         addSlider(#selector(setGain), value: parametricEQ.gain, minimum: -20, maximum: 20)
-
+        
     }
-
+    
     //: Handle UI Events
-
-    func start() {
+    
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
-
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
     func stop() {
         player.stop()
     }
-
+    
     func process() {
         parametricEQ.start()
     }
-
+    
     func bypass() {
         parametricEQ.bypass()
     }
@@ -77,19 +104,19 @@ class PlaygroundView: AKPlaygroundView {
         let centerFrequency = String(format: "%0.1f", parametricEQ.centerFrequency)
         centerFreqLabel!.text = "Center Frequency: \(centerFrequency) Hz"
     }
-
+    
     func setQ(slider: Slider) {
         parametricEQ.q = Double(slider.value)
         let q = String(format: "%0.1f", parametricEQ.q)
         qLabel!.text = "Q: \(q) Hz"
     }
-
+    
     func setGain(slider: Slider) {
         parametricEQ.gain = Double(slider.value)
         let gain = String(format: "%0.1f", parametricEQ.gain)
         gainLabel!.text = "gain: \(gain) dB"
     }
-
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))

@@ -33,7 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Modal Resonance Filter")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         frequencyLabel = addLabel("Frequency: \(filter.frequency)")
@@ -43,9 +47,33 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setQualityFactor), value: filter.qualityFactor, minimum: 0, maximum: 20)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+
     func stop() {
         player.stop()
     }
@@ -53,13 +81,23 @@ class PlaygroundView: AKPlaygroundView {
     func setFrequency(slider: Slider) {
         filter.frequency = Double(slider.value)
         frequencyLabel!.text = "Frequency: \(String(format: "%0.0f", filter.frequency))"
+        printCode()
     }
 
     func setQualityFactor(slider: Slider) {
         filter.qualityFactor = Double(slider.value)
         qualityFactorLabel!.text = "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
+        printCode()
     }
 
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    frequency = \(String(format: "%0.3f", filter.frequency))")
+        print("    qualityFactor = \(String(format: "%0.3f", filter.qualityFactor))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

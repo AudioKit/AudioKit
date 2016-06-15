@@ -52,7 +52,6 @@ int sp_butbp_compute(sp_data *sp, sp_butbp *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT *a = p->a;
     SPFLOAT t, y;
 
-    *out = p->sr;
     if (p->bw <= 0.0) {
        *out = 0;
        return SP_OK;

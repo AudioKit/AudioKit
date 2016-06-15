@@ -32,6 +32,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Effects / Envelopes
 #import "AKAmplitudeEnvelopeAudioUnit.h"
+#import "AKTremoloAudioUnit.h"
 
 // Efffects / Filters
 #import "AKAutoWahAudioUnit.h"
@@ -53,6 +54,9 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKThreePoleLowpassFilterAudioUnit.h"
 #import "AKToneComplementFilterAudioUnit.h"
 #import "AKToneFilterAudioUnit.h"
+
+// Effects / Pitch Shifter
+#import "AKPitchShifterAudioUnit.h"
 
 // Effects / Reverb
 #import "AKChowningReverbAudioUnit.h"

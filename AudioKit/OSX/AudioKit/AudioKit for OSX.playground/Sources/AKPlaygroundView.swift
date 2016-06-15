@@ -13,7 +13,7 @@ public typealias Slider = AKSlider
 
 public class AKLabel: NSTextField {
     
-    public override init(frame frameRect: NSRect) {
+    override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
     
@@ -30,7 +30,7 @@ public class AKLabel: NSTextField {
 
 public class AKSlider: NSSlider {
     
-    public override init(frame frameRect: NSRect) {
+    override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
     
@@ -54,7 +54,7 @@ public class AKPlaygroundView: NSView {
     public var horizontalSpacing = 40
     public var lastButton: NSButton?
     
-    public override init(frame frameRect: NSRect) {
+    override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setup()
     }
@@ -62,7 +62,7 @@ public class AKPlaygroundView: NSView {
     public func setup() {
     }
     
-    public override func drawRect(dirtyRect: NSRect) {
+    override public func drawRect(dirtyRect: NSRect) {
         NSColor.whiteColor().setFill()
         NSRectFill(dirtyRect)
         super.drawRect(dirtyRect)

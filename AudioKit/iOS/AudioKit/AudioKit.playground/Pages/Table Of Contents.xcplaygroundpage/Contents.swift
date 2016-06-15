@@ -67,6 +67,7 @@
 //:
 //: Over the course of viewing the playgrounds so far, you've come across AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't require a playground of its own, but there are some playback-oriented nodes that are very useful and cool.
 //:
+//: * [AKAudioPlayer V2](AKAudioPlayer%20V2)
 //: * [Sampler Instrument - EXS24](Sampler%20Instrument%20-%20EXS24)
 //: * [Sampler Instrument - Wav file](Sampler%20Instrument%20-%20Wav%20file)
 //: * [Sequencer - Single output](Sequencer%20-%20Single%20output)
@@ -119,6 +120,7 @@
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
 //: * [Decimator](Decimator)
 //: * [Ring Modulation](Ring%20Modulation)
+//: * [Tanh Distortion](Tanh%20Distortion)
 //: * [Complex Distortion](Complex%20Distortion)
 //:
 //: ### Dynamics Processing
@@ -132,15 +134,24 @@
 //:
 //: * [Amplitude Envelope](Amplitude%20Envelope)
 //: * [Auto Wah Wah](Auto%20Wah%20Wah)
+//: * [Band Pass Butterworth Filter](Band%20Pass%20Butterworth%20Filter)
 //: * [Band Pass Filter](Band%20Pass%20Filter)
+//: * [Band Reject Butterworth Filter](Band%20Reject%20Butterworth%20Filter)
+//: * [Formant Filter](Formant%20Filter)
+//: * [Graphic Equalizer](Graphic%20Equalizer)
+//: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
+//: * [Low Pass Butterworth Filter](Loiw%20Pass%20Butterworth%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
 //: * [Modal Resonance Filter](Modal%20Resonance%20Filter)
 //: * [Moog Ladder Filter](Moog%20Ladder%20Filter)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
 //: * [Roland TB-303 Filter](Roland%20TB-303%20Filter)
+//: * [String Resonator](String%20Resonator)
+//: * [Three-Pole Low Pass Filter](Three-Pole%20Low%20Pass%20Filter)
+//: * [Tone and Tone Complement Filters](Tone%20and%20Tone%20Complement%20Filters)
 //:
 //: ### Reverb
 //:

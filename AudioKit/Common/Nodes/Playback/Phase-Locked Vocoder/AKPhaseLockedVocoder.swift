@@ -30,7 +30,7 @@ public class AKPhaseLockedVocoder: AKNode {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +40,7 @@ public class AKPhaseLockedVocoder: AKNode {
     
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     public var position: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if position != newValue {
                 if internalAU!.isSetUp() {
                     positionParameter?.setValue(Float(newValue), originator: token!)
@@ -53,7 +53,7 @@ public class AKPhaseLockedVocoder: AKNode {
     
     /// Amplitude.
     public var amplitude: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
                     amplitudeParameter?.setValue(Float(newValue), originator: token!)
@@ -66,7 +66,7 @@ public class AKPhaseLockedVocoder: AKNode {
     
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     public var pitchRatio: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if pitchRatio != newValue {
                 if internalAU!.isSetUp() {
                     pitchRatioParameter?.setValue(Float(newValue), originator: token!)

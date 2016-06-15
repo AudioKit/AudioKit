@@ -16,6 +16,8 @@ var sampler2 = AKSampler()
 sampler1.loadEXS24("Sounds/sawPiano1")
 sampler2.loadEXS24("Sounds/sqrTone1")
 
+//: NOTE: As of Xcode 7.3, the EXS24 sampler has stopped working properly in playgrounds. We have filed a bug report and we hope that Apple fixes it in the future.  With that hope, we haven't deleted this playground.  The EXS24 works just fine in a project setting, just not in playgrounds.  To see how it used to work visit: https://vimeo.com/152230901
+
 var mixer = AKMixer()
 mixer.connect(sampler1)
 mixer.connect(sampler2)
@@ -29,7 +31,7 @@ sequencer = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
 
 //: Do some basic setup to make the sequence loop correctly
 sequencer.setLength(4)
-sequencer.loopOn()
+sequencer.enableLooping()
 //: Here we set each alternating track to a different instrument
 //: (Note that track 0 in our case is just meta information...not actual notes)
 sequencer.avTracks[1].destinationAudioUnit = sampler1.samplerUnit

@@ -30,7 +30,7 @@ public class AKSawtoothOscillator: AKVoice {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -40,7 +40,7 @@ public class AKSawtoothOscillator: AKVoice {
     
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
-        willSet(newValue) {
+        willSet {
             if frequency != newValue {
                 frequencyParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -49,7 +49,7 @@ public class AKSawtoothOscillator: AKVoice {
     
     /// Output Amplitude.
     public var amplitude: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if amplitude != newValue {
                 amplitudeParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -58,7 +58,7 @@ public class AKSawtoothOscillator: AKVoice {
     
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if detuningOffset != newValue {
                 detuningOffsetParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -67,7 +67,7 @@ public class AKSawtoothOscillator: AKVoice {
     
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
-        willSet(newValue) {
+        willSet {
             if detuningMultiplier != newValue {
                 detuningMultiplierParameter?.setValue(Float(newValue), originator: token!)
             }
@@ -82,7 +82,7 @@ public class AKSawtoothOscillator: AKVoice {
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
-    public convenience override init() {
+    override public convenience init() {
         self.init(frequency: 440)
     }
 
@@ -159,18 +159,18 @@ public class AKSawtoothOscillator: AKVoice {
     }
 
     /// Function create an identical new node for use in creating polyphonic instruments
-    public override func duplicate() -> AKVoice {
+    override public func duplicate() -> AKVoice {
         let copy = AKSawtoothOscillator(frequency: self.frequency, amplitude: self.amplitude, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
         return copy
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func start() {
+    override public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    public override func stop() {
+    override public func stop() {
         self.internalAU!.stop()
     }
 }

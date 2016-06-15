@@ -26,7 +26,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -36,7 +36,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
 
     /// The bit depth of signal output. Typically in range (1-24). Non-integer values are OK.
     public var bitDepth: Double = 8 {
-        willSet(newValue) {
+        willSet {
             if bitDepth != newValue {
                 if internalAU!.isSetUp() {
                     bitDepthParameter?.setValue(Float(newValue), originator: token!)
@@ -48,7 +48,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
     }
     /// The sample rate of signal output.
     public var sampleRate: Double = 10000 {
-        willSet(newValue) {
+        willSet {
             if sampleRate != newValue {
                 if internalAU!.isSetUp() {
                     sampleRateParameter?.setValue(Float(newValue), originator: token!)

@@ -28,7 +28,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -38,7 +38,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
 
     /// Center frequency.
     public var centerFrequency: Double = 1000 {
-        willSet(newValue) {
+        willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
                     centerFrequencyParameter?.setValue(Float(newValue), originator: token!)
@@ -50,7 +50,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     }
     /// Amount at which the center frequency value shall be increased or decreased. A value of 1 is a flat response.
     public var gain: Double = 1.0 {
-        willSet(newValue) {
+        willSet {
             if gain != newValue {
                 if internalAU!.isSetUp() {
                     gainParameter?.setValue(Float(newValue), originator: token!)
@@ -62,7 +62,7 @@ public class AKPeakingParametricEqualizerFilter: AKNode, AKToggleable {
     }
     /// Q of the filter. sqrt(0.5) is no resonance.
     public var q: Double = 0.707 {
-        willSet(newValue) {
+        willSet {
             if q != newValue {
                 if internalAU!.isSetUp() {
                     qParameter?.setValue(Float(newValue), originator: token!)

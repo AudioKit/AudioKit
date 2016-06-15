@@ -78,24 +78,20 @@ public:
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
         
-        if (!started) {
-            outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-            outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-            return;
-        }
-        
-        // For each sample.
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
-
 
             for (int channel = 0; channel < channels; ++channel) {
                 float *in   = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *comp = (float *)compBufferListPtr->mBuffers[channel].mData + frameOffset;
                 float *out  = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-//                *out = *in;
-                sp_bal_compute(sp, bal, in, comp, out);
+                
+                if (started) {
+                    sp_bal_compute(sp, bal, in, comp, out);
+                } else {
+                    *out = *in;
+                }
             }
         }
     }

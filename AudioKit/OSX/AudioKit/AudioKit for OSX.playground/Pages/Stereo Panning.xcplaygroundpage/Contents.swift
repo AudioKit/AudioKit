@@ -28,7 +28,7 @@ let timeStep = 0.05
 AKPlaygroundLoop(every: timeStep) {
     panner.pan
     panner.pan = sin(time)
-    t += timeStep
+    time += timeStep
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
