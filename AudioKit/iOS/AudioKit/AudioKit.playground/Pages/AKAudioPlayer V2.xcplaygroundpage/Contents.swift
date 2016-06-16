@@ -19,6 +19,7 @@ let player = try? AKAudioPlayer(AKAudioFile: guitarLoop!, completionHandler: myC
 
 AudioKit.output = player
 AudioKit.start()
+player?.looping = true
 
 //: Don't forget to show the "debug area" to see what messages are printed by the player and open the timeline view to use the controls this playground sets up....
 
@@ -37,10 +38,10 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("AKAudioPlayer")
 
-        fileNameLabel = addLabel("File name: \(player?.akAudioFile.fileNameWithExtension)")
+        fileNameLabel = addLabel("File name: \(player?.audioFile.fileNameWithExtension)")
 
 
-        durationTextField = addTextField(nil, text: "Duration", value: player!.akAudioFile.duration)
+        durationTextField = addTextField(nil, text: "Duration", value: player!.audioFile.duration)
 
         addLineBreak()
 
@@ -144,10 +145,10 @@ class PlaygroundView: AKPlaygroundView {
 
         let outPos = String(format: "%0.2f", player!.endTime)
         outPosTextField!.text = "\(outPos)"
-        let duration = String(format: "%0.2f", player!.akAudioFile.duration)
+        let duration = String(format: "%0.2f", player!.audioFile.duration)
         durationTextField!.text = duration
 
-        let fileName = player!.akAudioFile.fileNameWithExtension
+        let fileName = player!.audioFile.fileNameWithExtension
         fileNameLabel!.text = "File name: \(fileName)"
     }
 
