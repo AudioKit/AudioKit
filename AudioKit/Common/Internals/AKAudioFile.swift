@@ -31,6 +31,7 @@ public class AKAudioFile: AVAudioFile
         case aif
         case mp4
         case m4a
+        case caf
 
 
         private var UTI:CFString {
@@ -39,15 +40,17 @@ public class AKAudioFile: AVAudioFile
             case aif: return AVFileTypeAIFF
             case mp4: return AVFileTypeAppleM4A
             case m4a: return AVFileTypeAppleM4A
+            case caf: return AVFileTypeCoreAudioFormat
             }
         }
 
 
         static var arrayOfStrings: [String] {
-            return ["wav","aif","caf","mp4","m4a","mp3"]
+            return ["wav","aif","mp4","m4a","caf"]
         }
-
+        
     }
+
 
     // MARK: - private vars
     // Used for exporting, can be accessed with public .avAsset property
@@ -117,14 +120,21 @@ public class AKAudioFile: AVAudioFile
     }
 
     // to convert an AVAudioFile to an AKAudiofile
-    public convenience init(fromAVAudioFile avAudioFile:AVAudioFile) throws
+    public convenience init(forReadingAVAudioFile avAudioFile:AVAudioFile) throws
     {
         try self.init(forReading: avAudioFile.url)
     }
 
+    public convenience init(forWritingAVAudioFile avAudioFile:AVAudioFile) throws
+    {
+        let avSettings = avAudioFile.processingFormat.settings
+        try self.init(forWriting: avAudioFile.url, settings: avSettings)
+    }
+
+
     // Creates a Wav files set with AudioKit AKSettings
     // for recording / writing purpose
-    public convenience init(forWritingInBaseDirectory baseDir:BaseDirectory = .temp, withFileName fileName:String = "", andFileExtension fileExtension :String = "wav", withSettings settings :[String : AnyObject] = AKSettings.audioFormat.settings, commonFormat format: AVAudioCommonFormat = AKSettings.audioFormat.commonFormat, interleaved interleavedStatus: Bool = AKSettings.audioFormat.interleaved) throws {
+    public convenience init(forWritingInBaseDirectory baseDir:BaseDirectory = .temp, withFileName fileName:String = "", andFileExtension fileExtension :String = "caf", withSettings settings :[String : AnyObject] = AKSettings.audioFormat.settings, commonFormat format: AVAudioCommonFormat = AKSettings.audioFormat.commonFormat, interleaved interleavedStatus: Bool = AKSettings.audioFormat.interleaved) throws {
 
 
 
@@ -214,7 +224,6 @@ public class AKAudioFile: AVAudioFile
     }
 
     /*  commonFormatAsString translates commonFormat in an human readable string.
-
      enum AVAudioCommonFormat : UInt {
      case OtherFormat
      case PCMFormatFloat32
@@ -344,7 +353,7 @@ public class AKAudioFile: AVAudioFile
 
     public class ExportSession  {
 
-        private var outputAKAudioFile: AKAudioFile?
+        private var outputAudioFile: AKAudioFile?
         private var exporter: AVAssetExportSession
         private var callBack: AKCallback
 
@@ -451,11 +460,8 @@ public class AKAudioFile: AVAudioFile
                 // Export succeeded !
                 // We create an AKAudioFile from the exported audioFile
                 let url = NSURL(string: exporter.outputURL!.path!)
-                //       print(" string Url = \(NSURL(string: (url?.absoluteString)!))")
-                //       print(" fileURLWithPath Url = \(NSURL(fileURLWithPath: (url?.absoluteString)!))")
-
                 do {
-                    outputAKAudioFile = try AKAudioFile(forReading: url!)
+                    outputAudioFile = try AKAudioFile(forReading: url!)
                 } catch let error as NSError {
                     print("ERROR AKAudioFile export: Couldn't create AKAudioFile with url: \"\(url)\" !...")
                     print(error.localizedDescription)
@@ -496,8 +502,8 @@ public class AKAudioFile: AVAudioFile
         }
         
         // returns the exported file as an AKAudioFile if export suceeded.
-        public var exportedAKAudioFile:AKAudioFile? {
-            return outputAKAudioFile
+        public var exportedAudioFile:AKAudioFile? {
+            return outputAudioFile
         }
         
         // if an error occured...
@@ -512,6 +518,3 @@ public class AKAudioFile: AVAudioFile
     }
     
 }
-
-
-
