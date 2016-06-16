@@ -73,7 +73,7 @@ public class AKPluckedString: AKVoice {
     /// - parameter lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
     public init(
-        frequency: Double,
+        frequency: Double = 440,
         amplitude: Double = 0.5,
         lowestFrequency: Double = 110) {
 
