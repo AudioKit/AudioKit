@@ -69,6 +69,7 @@
 		C40C42981C41CB3E009D870B /* AKDripAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40C42941C41CB3E009D870B /* AKDripAudioUnit.mm */; };
 		C40C42991C41CB3E009D870B /* AKDripDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C42951C41CB3E009D870B /* AKDripDSPKernel.hpp */; };
 		C410C9AA1C5C54D900EF8C37 /* mix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C410C9A91C5C54D900EF8C37 /* mix.swift */; };
+		C41E18F81D12645800A80DD6 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E18F71D12645800A80DD6 /* Beat.swift */; };
 		C42AE0011C2DF59D000CEED2 /* AKOutputWaveformPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFF1C2DF59D000CEED2 /* AKOutputWaveformPlot.swift */; };
 		C42AE0021C2DF59D000CEED2 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42AE0001C2DF59D000CEED2 /* AKRollingOutputPlot.swift */; };
 		C42BF6CA1CE6D19E00155BE7 /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BF6C91CE6D19E00155BE7 /* Numeric.swift */; };
@@ -619,6 +620,7 @@
 		C40C42941C41CB3E009D870B /* AKDripAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKDripAudioUnit.mm; sourceTree = "<group>"; };
 		C40C42951C41CB3E009D870B /* AKDripDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKDripDSPKernel.hpp; sourceTree = "<group>"; };
 		C410C9A91C5C54D900EF8C37 /* mix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mix.swift; sourceTree = "<group>"; };
+		C41E18F71D12645800A80DD6 /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		C42ADFFF1C2DF59D000CEED2 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
 		C42AE0001C2DF59D000CEED2 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C42BF6C91CE6D19E00155BE7 /* Numeric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
@@ -2546,6 +2548,7 @@
 			children = (
 				FE70451B1CC55FC000260D36 /* AKMusicTrack.swift */,
 				C4E13D4F1C427138008F0A3C /* AKSequencer.swift */,
+				C41E18F71D12645800A80DD6 /* Beat.swift */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -3041,6 +3044,7 @@
 				C4B1911F1C3B340400C0F330 /* streson.c in Sources */,
 				C48DB7D41CD577E100D1EC13 /* AKMusicTrack+MIDI.swift in Sources */,
 				C4B1912A1C3B340400C0F330 /* tog.c in Sources */,
+				C41E18F81D12645800A80DD6 /* Beat.swift in Sources */,
 				C4B190A51C3B340400C0F330 /* gbuzz.c in Sources */,
 				C4B190EF1C3B340400C0F330 /* bltriangle.c in Sources */,
 				C48DB7991CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift in Sources */,
