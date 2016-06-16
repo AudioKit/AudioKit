@@ -30,7 +30,6 @@ class ViewController: UIViewController {
             oscillator.start()
             sender.setTitle("Stop Sine Wave at \(Int(oscillator.frequency))Hz", forState: .Normal)
         }
-        sender.setNeedsDisplay()
     }
 
 }

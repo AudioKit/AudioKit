@@ -10,6 +10,11 @@
 import Foundation
 import AVFoundation
 
+@objc public protocol AKAudioPlayerDelegate: class {
+    optional func playerStoppedOrFinished()
+    optional func playHeadSnapshot(playHead: Double)
+}
+
 /// Not so simple audio playback class
 public class AKAudioPlayer : AKNode, AKToggleable{
 
@@ -26,12 +31,16 @@ public class AKAudioPlayer : AKNode, AKToggleable{
     private var lastCurrentTime:Double = 0
     private var paused = false
     private var playing = false
-
+    private var currentTimeTimer: NSTimer?
+    
 
     // MARK: - public vars
 
-    // Will be triggered when AKAudioPlayer has finished to play.
-    // (will not as long as loop is on)
+    /// AKAudioPLayer delegate
+    public weak var delegate:AKAudioPlayerDelegate?
+    
+    /// Will be triggered when AKAudioPlayer has finished to play.
+    /// (will not as long as loop is on)
     public var completionHandler: AKCallback?
 
     // Boolean indicating whether or not to loop the playback
@@ -76,6 +85,11 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         return lastCurrentTime
     }
 
+    ///Snapshot playhead
+    public func timerPlayerHead() {
+        self.delegate?.playHeadSnapshot?(self.playhead)
+    }
+    
     /// Time within the audio file at the current time
     public var playhead: Double {
 
@@ -111,8 +125,8 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         }
     }
 
-    // sets the start time, If it is playing, player will
-    // restart playing from the start time each time end time is set
+    /// sets the start time, If it is playing, player will
+    /// restart playing from the start time each time end time is set
     public var startTime :Double
         {
         get {
@@ -136,8 +150,8 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         }
     }
 
-    // sets the end time, If it is playing, player will
-    // restart playing from the start time each time end time is set
+    /// sets the end time, If it is playing, player will
+    /// restart playing from the start time each time end time is set
     public var endTime :Double
         {
         get {
@@ -165,7 +179,7 @@ public class AKAudioPlayer : AKNode, AKToggleable{
 
     // MARK: - public inits
 
-    // the safest way to proceed is to use an AKAudioFile
+    /// the safest way to proceed is to use an AKAudioFile
     public init (AKAudioFile file: AKAudioFile, completionHandler: AKCallback? = nil) throws {
 
         self.audioFile = file
@@ -176,7 +190,8 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         AudioKit.engine.attachNode(internalPlayer)
         let mixer = AVAudioMixerNode()
         AudioKit.engine.attachNode(mixer)
-        AudioKit.engine.connect(internalPlayer, to: mixer, format: AudioKit.format)
+        let format = AVAudioFormat(standardFormatWithSampleRate: self.audioFile.sampleRate, channels: self.audioFile.channelCount)
+        AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
         self.avAudioNode = mixer
 
         internalPlayer.volume = 1.0
@@ -186,9 +201,9 @@ public class AKAudioPlayer : AKNode, AKToggleable{
     }
 
 
-    // To stay compatible with ealier version
-    // Should be deprecated because you cannot handle errors at run time...
-    // :-/
+    /// To stay compatible with ealier version
+    /// Should be deprecated because you cannot handle errors at run time...
+    /// :-/
     public convenience init(_ file: String, completionHandler: AKCallback? = nil) {
 
         // build an empty AKAudioFile as a backup if we fail to create a valid one from "file"
@@ -225,6 +240,10 @@ public class AKAudioPlayer : AKNode, AKToggleable{
             playing = true
             paused = false
             internalPlayer.play()
+            self.currentTimeTimer?.invalidate()
+            self.currentTimeTimer = nil
+            self.currentTimeTimer = NSTimer(timeInterval: 0.1, target: self, selector: #selector(AKAudioPlayer.timerPlayerHead), userInfo: nil, repeats: true)
+            NSRunLoop.currentRunLoop().addTimer(self.currentTimeTimer!, forMode: NSRunLoopCommonModes)
         }
 
     }
@@ -247,10 +266,12 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         playing = false
         paused = true
         internalPlayer.pause()
+        self.currentTimeTimer?.invalidate()
+        self.currentTimeTimer = nil
     }
 
 
-    // resets in and out times for playing
+    /// resets in and out times for playing
     public func reloadFile()
     {
        var newAudioFile:AKAudioFile?
@@ -286,10 +307,10 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         }
     }
 
-    // To stay compatible with ealier version
-    // Should be deprecated...
-    // (very ugly !)
-    // File is replaced only if a valid AKAudioFile can be instanciated from the file (Path As String)
+    /// To stay compatible with ealier version
+    /// Should be deprecated...
+    /// (very ugly !)
+    /// File is replaced only if a valid AKAudioFile can be instanciated from the file (Path As String)
     public func replaceFile(newFile: String) {
 
         func warnFailed()
@@ -337,6 +358,10 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         if (endingFrame > startingFrame ){
             stop()
             play()
+            self.currentTimeTimer?.invalidate()
+            self.currentTimeTimer = nil
+            self.currentTimeTimer = NSTimer(timeInterval: 0.1, target: self, selector: #selector(AKAudioPlayer.timerPlayerHead), userInfo: nil, repeats: true)
+            NSRunLoop.currentRunLoop().addTimer(self.currentTimeTimer!, forMode: NSRunLoopCommonModes)
         }
         else {
             print("ERROR AKaudioPlayer:  cannot play, \(audioFile.fileNameWithExtension) is empty or segment is too short!")
@@ -371,8 +396,6 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         }
     }
 
-
-
     private func scheduleBuffer(){
         if audioFileBuffer != nil {
             internalPlayer.scheduleBuffer(audioFileBuffer!, completionHandler: internalCompletionHandler)
@@ -396,15 +419,18 @@ public class AKAudioPlayer : AKNode, AKToggleable{
         }
     }
     
-    // Triggered when the player stops playing
+    /// Triggered when the player stops playing
     private func internalCompletionHandler()
     {
         if playing{
             if looping {
                 scheduleBuffer()
             } else {
+                self.currentTimeTimer?.invalidate()
+                self.currentTimeTimer = nil
                 stop()
                 completionHandler?()
+                self.delegate?.playerStoppedOrFinished?()
             }
         }
     }

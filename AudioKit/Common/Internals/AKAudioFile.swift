@@ -85,9 +85,9 @@ public class AKAudioFile: AVAudioFile
 
         switch baseDir {
         case .temp:
-            filePath =  (NSTemporaryDirectory() as String) + fileNameWithExtension
+            filePath =  (NSTemporaryDirectory() as String) + "/" + fileNameWithExtension
         case .documents:
-            filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + fileNameWithExtension
+            filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "/" + fileNameWithExtension
         case .resources:
             let path =  NSBundle.mainBundle().pathForResource(fileName, ofType: ext)
             if path == nil
@@ -111,7 +111,7 @@ public class AKAudioFile: AVAudioFile
             }
 
         } else {
-            print( "ERROR: AKAudioFile cannot find \"\(fileName).\(ext)\"!...")
+            print( "ERROR: AKAudioFile cannot find \"\(fileName).\(ext)\"!... aka \(filePath)")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotOpenFile, userInfo: nil)
         }
     }

@@ -95,16 +95,30 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         lowPassFilter.bypass()
     }
+    
     func setCutoffFrequency(slider: Slider) {
         lowPassFilter.cutoffFrequency = Double(slider.value)
         let cutoffFrequency = String(format: "%0.1f", lowPassFilter.cutoffFrequency)
         cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
+        printCode()
     }
 
     func setResonance(slider: Slider) {
         lowPassFilter.resonance = Double(slider.value)
         let resonance = String(format: "%0.1f", lowPassFilter.resonance)
         resonanceLabel!.text = "Resonance: \(resonance) dB"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    cutoffFrequency = \(String(format: "%0.3f", lowPassFilter.cutoffFrequency))")
+
+        print("    resonance = \(String(format: "%0.3f", lowPassFilter.resonance))")
+        
+        print("}\n")
     }
 
 }

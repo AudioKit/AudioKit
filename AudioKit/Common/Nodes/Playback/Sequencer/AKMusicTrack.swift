@@ -101,7 +101,7 @@ public class AKMusicTrack {
     ///
     public func setLoopInfo(duration: Beat, numberOfLoops: Int) {
         let size: UInt32 = UInt32(sizeof(MusicTrackLoopInfo))
-        let loopDuration = MusicTimeStamp(duration)
+        let loopDuration = duration.musicTimeStamp
         var loopInfo = MusicTrackLoopInfo(loopDuration: loopDuration,
                                           numberOfLoops: Int32(numberOfLoops))
         MusicTrackSetProperty(internalMusicTrack,
@@ -119,7 +119,7 @@ public class AKMusicTrack {
     public func setLength(duration: Beat) {
         
         let size: UInt32 = 0
-        var len = MusicTimeStamp(duration)
+        var len = duration.musicTimeStamp
         var tmpSeq: MusicSequence = nil
         var seqPtr: UnsafeMutablePointer<MusicSequence>
         var tmpTrack: MusicTrack = nil
@@ -157,8 +157,8 @@ public class AKMusicTrack {
                 let velocity = data.memory.velocity
                 let dur = data.memory.duration
                 
-                if Beat(eventTime) + Beat(dur) > duration {
-                    var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(Beat(duration) - Beat(eventTime)))
+                if eventTime + dur > duration.value {
+                    var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(duration.value - eventTime))
                     MusicEventIteratorSetEventInfo(iterator, eventType, &newNote)
                 }
             }
@@ -175,7 +175,7 @@ public class AKMusicTrack {
     ///
     public func setLengthSoft(duration: Beat) {
         let size: UInt32 = 0
-        var len = MusicTimeStamp(duration)
+        var len = duration.musicTimeStamp
         MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
     }
     
@@ -190,7 +190,7 @@ public class AKMusicTrack {
     /// - parameter duration: Duration of the range to clear, in beats
     ///
     public func clearRange(start: Beat, duration: Beat) {
-        MusicTrackClear(internalMusicTrack, start, duration)
+        MusicTrackClear(internalMusicTrack, start.value, duration.value)
     }
     
     /// Add Note to sequence
@@ -208,9 +208,9 @@ public class AKMusicTrack {
             note: UInt8(note),
             velocity: UInt8(velocity),
             releaseVelocity: 0,
-            duration: Float32(duration))
+            duration: Float32(duration.value))
         
-        MusicTrackNewMIDINoteEvent(internalMusicTrack, MusicTimeStamp(position), &noteMessage)
+        MusicTrackNewMIDINoteEvent(internalMusicTrack, position.musicTimeStamp, &noteMessage)
     }
     /// Add Controller change to sequence
     ///
@@ -222,7 +222,7 @@ public class AKMusicTrack {
     public func addController(controller: Int, value: Int, position: Beat, channel: Int = 0) {
         
         var controlMessage = MIDIChannelMessage(status: UInt8(11 << 4) | UInt8((channel) & 0xf), data1: UInt8(controller), data2: UInt8(value), reserved: 0)
-        MusicTrackNewMIDIChannelEvent(internalMusicTrack, MusicTimeStamp(position), &controlMessage)
+        MusicTrackNewMIDIChannelEvent(internalMusicTrack, position.musicTimeStamp, &controlMessage)
     }
     
     /// Debug by showing the track pointer.

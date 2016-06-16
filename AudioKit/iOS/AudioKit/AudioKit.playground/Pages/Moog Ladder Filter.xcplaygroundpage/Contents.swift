@@ -80,13 +80,23 @@ class PlaygroundView: AKPlaygroundView {
     func setCutoffFrequency(slider: Slider) {
         moogLadder.cutoffFrequency = Double(slider.value)
         cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder.cutoffFrequency))"
+        printCode()
     }
 
     func setResonance(slider: Slider) {
         moogLadder.resonance = Double(slider.value)
         resonanceLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder.resonance))"
+        printCode()
     }
 
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    cutoffFrequency = \(String(format: "%0.3f", moogLadder.cutoffFrequency))")
+        print("    resonance = \(String(format: "%0.3f", moogLadder.resonance))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
