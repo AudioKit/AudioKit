@@ -113,5 +113,6 @@
         <page name='AKAudioFile Demo'/>
         <page name='AKAudioPlayer V2'/>
         <page name='Sequencer - single output'/>
+        <page name='AKMagneto'/>
     </pages>
 </playground>
