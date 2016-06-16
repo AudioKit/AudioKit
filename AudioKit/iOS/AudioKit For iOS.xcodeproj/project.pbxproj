@@ -86,6 +86,7 @@
 		C41863771C23FE6600A06E41 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863741C23FE6600A06E41 /* jitter.swift */; };
 		C41863781C23FE6600A06E41 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863751C23FE6600A06E41 /* randomNumberPulse.swift */; };
 		C41863791C23FE6600A06E41 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41863761C23FE6600A06E41 /* randomVertexPulse.swift */; };
+		C41E18F61D12481500A80DD6 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E18F51D12481500A80DD6 /* Beat.swift */; };
 		C4261E341C0AD97000E472A8 /* CUI.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E1C1C0AD97000E472A8 /* CUI.h */; };
 		C4261E3B1C0AD97000E472A8 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C4261E251C0AD97000E472A8 /* ini.h */; };
 		C42ADFFE1C2C9E37000CEED2 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */; };
@@ -651,6 +652,7 @@
 		C41863741C23FE6600A06E41 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C41863751C23FE6600A06E41 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
 		C41863761C23FE6600A06E41 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
+		C41E18F51D12481500A80DD6 /* Beat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		C4261E1C1C0AD97000E472A8 /* CUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CUI.h; sourceTree = "<group>"; };
 		C4261E251C0AD97000E472A8 /* ini.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ini.h; sourceTree = "<group>"; };
 		C4261E271C0AD97000E472A8 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -1310,6 +1312,7 @@
 			children = (
 				FE7045191CC55F5F00260D36 /* AKMusicTrack.swift */,
 				C40C42B11C420C1D009D870B /* AKSequencer.swift */,
+				C41E18F51D12481500A80DD6 /* Beat.swift */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -3151,6 +3154,7 @@
 				C40C42711C41B22A009D870B /* AKPluckedStringAudioUnit.mm in Sources */,
 				C40C41511C40E3A5009D870B /* EZAudioDevice.m in Sources */,
 				C4DBDA231C21FCF50033494B /* squareWave.swift in Sources */,
+				C41E18F61D12481500A80DD6 /* Beat.swift in Sources */,
 				C4E8ED0C1C4391C70041965F /* AKConvolutionAudioUnit.mm in Sources */,
 				C46300DA1C20C342009B44D9 /* buthp.c in Sources */,
 				C4E751B11C23675A00688A1B /* moogLadderFilter.swift in Sources */,

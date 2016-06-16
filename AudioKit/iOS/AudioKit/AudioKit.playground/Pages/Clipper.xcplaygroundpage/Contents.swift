@@ -29,7 +29,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Clipper")
         
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         limitLabel = addLabel("Limit: \(clipper.limit)")
@@ -70,8 +74,16 @@ class PlaygroundView: AKPlaygroundView {
         clipper.limit = Double(slider.value)
         let limit = String(format: "%0.1f", clipper.limit)
         limitLabel!.text = "Limit: \(limit)"
+        printCode()
     }
     
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    limit = \(String(format: "%0.3f", clipper.limit))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))

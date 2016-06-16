@@ -138,6 +138,17 @@ public class AKSampler: AKNode {
             samplerUnit.masterGain = Float(newGain)
         }
     }
+    
+    /// Pan.
+    /// Range:   -1 - 1
+    /// Default: 0
+    public var pan: Double = 0 {
+        didSet {
+            samplerUnit.stereoPan = Float(100.0 * pan)
+        }
+    }
+    
+    
     // MARK: - Playback
     
     /// Play a MIDI Note

@@ -108,26 +108,40 @@ class PlaygroundView: AKPlaygroundView {
         ringModulator.frequency1 = Double(slider.value)
         let ringModFreq1 = String(format: "%0.1f", ringModulator.frequency1)
         ringModFreq1Label!.text = "Frequency 1: \(ringModFreq1) Hertz"
+        printCode()
     }
 
     func setFreq2(slider: Slider) {
         ringModulator.frequency2 = Double(slider.value)
         let ringModFreq2 = String(format: "%0.1f", ringModulator.frequency2)
         ringModFreq2Label!.text = "Frequency 2: \(ringModFreq2) Hertz"
+        printCode()
     }
 
     func setBalance(slider: Slider) {
         ringModulator.balance = Double(slider.value)
         let ringModBalance = String(format: "%0.1f", ringModulator.balance)
         ringModBalanceLabel!.text = "Balance: \(ringModBalance)"
+        printCode()
     }
 
     func setMix(slider: Slider) {
         ringModulator.mix = Double(slider.value)
         let finalMix = String(format: "%0.1f", ringModulator.mix)
         finalMixLabel!.text = "Mix: \(finalMix)"
+        printCode()
     }
 
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    frequency1 = \(String(format: "%0.3f", ringModulator.frequency1))")
+        print("    frequency2 = \(String(format: "%0.3f", ringModulator.frequency2))")
+        print("    balance = \(String(format: "%0.3f", ringModulator.balance))")
+        print("    mix = \(String(format: "%0.3f", ringModulator.mix))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
