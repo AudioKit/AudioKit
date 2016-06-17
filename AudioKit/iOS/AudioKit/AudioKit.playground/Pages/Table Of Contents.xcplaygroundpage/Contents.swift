@@ -67,6 +67,7 @@
 //:
 //: Over the course of viewing the playgrounds so far, you've come across AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't require a playground of its own, but there are some playback-oriented nodes that are very useful and cool.
 //:
+//: * [AKAudioPlayer V2](AKAudioPlayer%20V2)
 //: * [Sampler Instrument - EXS24](Sampler%20Instrument%20-%20EXS24)
 //: * [Sampler Instrument - Wav file](Sampler%20Instrument%20-%20Wav%20file)
 //: * [Sequencer - Single output](Sequencer%20-%20Single%20output)

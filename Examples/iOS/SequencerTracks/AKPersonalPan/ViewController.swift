@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func adjustTempo() {
-        seq?.setRate(rateSlider.value)
+        seq?.setTempo(Double(rateSlider.value))
     }
     
     @IBAction func adjustsyn1Vol() {
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
     }
     @IBAction func adjustFilt() {
         var val = Double(filterSlider.value)
-        val.denormalize(Double(30.0), max: Double(20000.00), taper: 3.03)
+        val.denormalize(Double(30.0), maximum: Double(20000.00), taper: 3.03)
         filter?.cutoffFrequency = val
     }
     @IBAction func playSeq() {

@@ -9,8 +9,6 @@
 import Foundation
 import AVFoundation
 
-public typealias Beat = Double
-
 /// Basic sequencer
 ///
 /// This  is currently in transistion from old c core audio apis, to the more
@@ -128,7 +126,7 @@ public class AKSequencer {
         if isAVSequencer {
             for track in avSequencer.tracks {
                 track.loopingEnabled = true
-                track.loopRange = AVMakeBeatRange(0, self.length)
+                track.loopRange = AVMakeBeatRange(0, self.length.value)
             }
         } else {
             setLoopInfo(length, numberOfLoops: 0)
@@ -144,7 +142,7 @@ public class AKSequencer {
         if isAVSequencer {
             for track in avSequencer.tracks {
                 track.loopingEnabled = true
-                track.loopRange = AVMakeBeatRange(0, self.length)
+                track.loopRange = AVMakeBeatRange(0, self.length.value)
             }
         } else {
             setLoopInfo(loopLength, numberOfLoops: 0)
@@ -159,7 +157,7 @@ public class AKSequencer {
                 track.loopingEnabled = false
             }
         } else {
-            setLoopInfo(0, numberOfLoops: 0)
+            setLoopInfo(Beat(0), numberOfLoops: 0)
         }
         loopEnabled = false
     }
@@ -190,15 +188,15 @@ public class AKSequencer {
         }
         
         let size: UInt32 = 0
-        var len = MusicTimeStamp(length)
+        var len = length.musicTimeStamp
         var tempoTrack: MusicTrack = nil
         MusicSequenceGetTempoTrack(sequence, &tempoTrack)
         MusicTrackSetProperty(tempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
         
         if isAVSequencer {
             for track in avSequencer.tracks {
-                track.lengthInBeats = length
-                track.loopRange = AVMakeBeatRange(0, length)
+                track.lengthInBeats = length.value
+                track.loopRange = AVMakeBeatRange(0, length.value)
             }
         }
     }
@@ -253,10 +251,10 @@ public class AKSequencer {
         if isPlaying {
             var currTime: MusicTimeStamp = 0
             MusicPlayerGetTime(musicPlayer, &currTime)
-            currTime = fmod(currTime, length)
+            currTime = fmod(currTime, length.value)
             MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, Double(newTempo))
         }
-        MusicTrackClear(tempoTrack, 0, length)
+        MusicTrackClear(tempoTrack, 0, length.value)
         MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo))
     
     }
@@ -266,7 +264,7 @@ public class AKSequencer {
     /// - parameter bpm: Tempo in beats per minute
     /// - parameter position: Point in time in beats
     ///
-    public func addTempoEvent(bpm: Double, position: Beat) {
+    public func addTempoEventAt(tempo bpm: Double, position: Beat) {
         if isAVSequencer { return }
 
         var newTempo = bpm
@@ -276,7 +274,7 @@ public class AKSequencer {
         var tempoTrack: MusicTrack = nil
         
         MusicSequenceGetTempoTrack(sequence, &tempoTrack)
-        MusicTrackNewExtendedTempoEvent(tempoTrack, position, Double(newTempo))
+        MusicTrackNewExtendedTempoEvent(tempoTrack, position.value, Double(newTempo))
 
     }
     
@@ -285,8 +283,8 @@ public class AKSequencer {
     /// - parameter seconds: time in seconds
     ///
     public func beatsForSeconds(seconds: Double) -> Beat {
-        var outBeats: Beat = MusicTimeStamp()
-        MusicSequenceGetBeatsForSeconds(sequence, Float64(seconds), &outBeats)
+        var outBeats = Beat(MusicTimeStamp())
+        MusicSequenceGetBeatsForSeconds(sequence, Float64(seconds), &(outBeats.value))
         return outBeats
     }
     
@@ -296,7 +294,7 @@ public class AKSequencer {
     ///
     public func secondsForBeats(beats: Beat) -> Double {
         var outSecs: Double = MusicTimeStamp()
-        MusicSequenceGetSecondsForBeats(sequence, beats, &outSecs)
+        MusicSequenceGetSecondsForBeats(sequence, beats.value, &outSecs)
         return outSecs
     }
     
@@ -354,13 +352,13 @@ public class AKSequencer {
     }
     
     /// Current Time
-    public var currentPositionInBeats: Beat {
+    public var currentPosition: Beat {
         if isAVSequencer {
-            return avSequencer.currentPositionInBeats
+            return Beat(avSequencer.currentPositionInBeats)
         } else {
-            var currTime = MusicTimeStamp()
-            MusicPlayerGetTime(musicPlayer, &currTime)
-            return currTime
+            var currentTime = MusicTimeStamp()
+            MusicPlayerGetTime(musicPlayer, &currentTime)
+            return Beat(currentTime)
         }
     }
     
@@ -404,21 +402,22 @@ public class AKSequencer {
         for i in 0 ..< count {
             var musicTrack: MusicTrack = nil
             MusicSequenceGetIndTrack(sequence, UInt32(i), &musicTrack)
-            tracks.append(AKMusicTrack(musicTrack: musicTrack))
+            tracks.append(AKMusicTrack(musicTrack: musicTrack, name: "InitializedTrack"))
         }
     }
     
     /// Get a new track
-    public func newTrack() -> AKMusicTrack? {
-        
+    public func newTrack(name: String = "Unnamed") -> AKMusicTrack? {
         if isAVSequencer { return nil }
         
         var newMusicTrack: MusicTrack = nil
         MusicSequenceNewTrack(sequence, &newMusicTrack)
         var count: UInt32 = 0
         MusicSequenceGetTrackCount(sequence, &count)
-        tracks.append(AKMusicTrack(musicTrack: newMusicTrack))
-        initTracks()
+        tracks.append(AKMusicTrack(musicTrack: newMusicTrack, name: name))
+        
+        //print("Calling initTracks() from newTrack")
+        //initTracks()
         return tracks.last!
     }
     
@@ -465,11 +464,16 @@ public class AKSequencer {
         }
     }
     
-    public static func beatsFromSamples(samples: Int, fs: Int, bpm: Double) -> Beat {
-        let timeInSecs = Double(samples) / Double(fs)
-        let beatsPerSec = bpm / 60.0
-        let beatLenInSecs = Double(1.0 / beatsPerSec)
-        let numBeats = timeInSecs / beatLenInSecs
-        return numBeats
+    /// Calculates beats in to a file based on it samples, sample rate, and tempo
+    ///
+    /// - parameter samples:    Number of samples in
+    /// - parameter sampleRate: Sample frequency
+    /// - parameter tempo:      Tempo, in beats per minute
+    ///
+    public static func beatsFromSamples(samples: Int, sampleRate: Int, tempo: Double) -> Beat {
+        let timeInSecs = Double(samples) / Double(sampleRate)
+        let beatsPerSec = tempo / 60.0
+        let beatLengthInSecs = Double(1.0 / beatsPerSec)
+        return Beat(timeInSecs / beatLengthInSecs)
     }
 }

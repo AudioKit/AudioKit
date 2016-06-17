@@ -25,41 +25,69 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-
+    
     var frequencyLabel: Label?
     var qualityFactorLabel: Label?
-
+    
     override func setup() {
         addTitle("Modal Resonance Filter")
-
+        
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-
+        
         frequencyLabel = addLabel("Frequency: \(filter.frequency)")
         addSlider(#selector(setFrequency), value: filter.frequency, minimum: 0, maximum: 5000)
-
+        
         qualityFactorLabel = addLabel("Quality Factor: \(filter.qualityFactor)")
         addSlider(#selector(setQualityFactor), value: filter.qualityFactor, minimum: 0, maximum: 20)
     }
-
-    func start() {
+    
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
     func stop() {
         player.stop()
     }
-
+    
     func setFrequency(slider: Slider) {
         filter.frequency = Double(slider.value)
         frequencyLabel!.text = "Frequency: \(String(format: "%0.0f", filter.frequency))"
     }
-
+    
     func setQualityFactor(slider: Slider) {
         filter.qualityFactor = Double(slider.value)
         qualityFactorLabel!.text = "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
     }
-
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

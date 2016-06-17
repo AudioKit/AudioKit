@@ -51,6 +51,7 @@ class PlaygroundView: AKPlaygroundView {
     func start() {
         morph.play()
     }
+    
     func stop() {
         morph.stop()
     }
@@ -59,18 +60,31 @@ class PlaygroundView: AKPlaygroundView {
         morph.frequency = Double(slider.value)
         let frequency = String(format: "%0.1f", morph.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
+        printCode()
     }
 
     func setAmplitude(slider: Slider) {
         morph.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", morph.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
+        printCode()
     }
 
     func setMorphIndex(slider: Slider) {
         morph.index = Double(slider.value)
         let index = String(format: "%0.3f", morph.index)
         morphIndexLabel!.text = "Morph Index: \(index)"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    frequency = \(String(format: "%0.3f", morph.frequency))")
+        print("    amplitude = \(String(format: "%0.3f", morph.amplitude))")
+        print("    index = \(String(format: "%0.3f", morph.index))")
+        print("}\n")
     }
 }
 
