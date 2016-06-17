@@ -30,7 +30,9 @@ public:
     void init(int channelCount, double inSampleRate) {
         channels = channelCount;
 
+        sp_create(&sp);
         sampleRate = float(inSampleRate);
+        sp_srand(sp, 12345);
     }
 
     void setSamples(UInt32 numberOfSamples)  {
@@ -113,6 +115,7 @@ private:
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
 
+    sp_data *sp = nil;
     sp_test *sp_test = nil;
     UInt32 samples = 0;
     UInt32 totalSamples = 0;

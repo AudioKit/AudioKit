@@ -373,6 +373,8 @@
 		C46C79611C4C61CF00F6CE3D /* thresh.c in Sources */ = {isa = PBXBuildFile; fileRef = C46C79601C4C61CF00F6CE3D /* thresh.c */; };
 		C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */; };
 		C46EECD11C9FF615007FEA1B /* adsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C46EECD01C9FF615007FEA1B /* adsr.c */; };
+		C47471621D13817C00DCDD93 /* butbp.c in Sources */ = {isa = PBXBuildFile; fileRef = C47471601D13817C00DCDD93 /* butbp.c */; };
+		C47471631D13817C00DCDD93 /* butbr.c in Sources */ = {isa = PBXBuildFile; fileRef = C47471611D13817C00DCDD93 /* butbr.c */; };
 		C474B1651CE43A9D00EB8D8E /* AKAmplitudeTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */; };
 		C474B1661CE43A9D00EB8D8E /* AKFFTTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */; };
 		C48443551C311523007BE794 /* blsaw.c in Sources */ = {isa = PBXBuildFile; fileRef = C48443521C311523007BE794 /* blsaw.c */; };
@@ -1171,6 +1173,8 @@
 		C46C79601C4C61CF00F6CE3D /* thresh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = thresh.c; sourceTree = "<group>"; };
 		C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adsrEnvelope.swift; sourceTree = "<group>"; };
 		C46EECD01C9FF615007FEA1B /* adsr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adsr.c; sourceTree = "<group>"; };
+		C47471601D13817C00DCDD93 /* butbp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = butbp.c; sourceTree = "<group>"; };
+		C47471611D13817C00DCDD93 /* butbr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = butbr.c; sourceTree = "<group>"; };
 		C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAmplitudeTap.swift; sourceTree = "<group>"; };
 		C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFFTTap.swift; sourceTree = "<group>"; };
 		C48443521C311523007BE794 /* blsaw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blsaw.c; sourceTree = "<group>"; };
@@ -2739,6 +2743,8 @@
 				C48443541C311523007BE794 /* bltriangle.c */,
 				C463009A1C20C342009B44D9 /* biscale.c */,
 				C463009B1C20C342009B44D9 /* bitcrush.c */,
+				C47471601D13817C00DCDD93 /* butbp.c */,
+				C47471611D13817C00DCDD93 /* butbr.c */,
 				C463009C1C20C342009B44D9 /* buthp.c */,
 				C463009D1C20C342009B44D9 /* butlp.c */,
 				C463009E1C20C342009B44D9 /* clip.c */,
@@ -3911,6 +3917,7 @@
 				C41863781C23FE6600A06E41 /* randomNumberPulse.swift in Sources */,
 				C46300F61C20C342009B44D9 /* p.c in Sources */,
 				C4E958A71C0ADBFD00516A6A /* dist.c in Sources */,
+				C47471631D13817C00DCDD93 /* butbr.c in Sources */,
 				C4A928A91D1343AE0095E429 /* DelayA.cpp in Sources */,
 				C4A9289F1D1343AE0095E429 /* Blit.cpp in Sources */,
 				C4A928BB1D1343AE0095E429 /* HevyMetl.cpp in Sources */,
@@ -4127,6 +4134,7 @@
 				C453808F1C3A5C0C00A51738 /* AKPinkNoiseAudioUnit.mm in Sources */,
 				C40C41CE1C40E4EE009D870B /* AKTester.swift in Sources */,
 				C4A9289B1D1343AE0095E429 /* Asymp.cpp in Sources */,
+				C47471621D13817C00DCDD93 /* butbp.c in Sources */,
 				C496149E1C2F33B400ACAB4E /* reverberateWithCostello.swift in Sources */,
 				C40C41D01C40E4EE009D870B /* AKTesterAudioUnit.mm in Sources */,
 				C4537F3C1C39FCF700A51738 /* AKPeakLimiter.swift in Sources */,
