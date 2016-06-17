@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## AKMagneto
-//: # You can attach insert the AKMagneto at anymoint of the signal chain. For demo purpose, you listen here to the source mixed with the AKMagneto output. But you may use it as an insert. Here, AKMagneto is patched to the generator output before it passes thru the reverb. Record is appended to the file as long as you don't reset (tape is cleared).
+//: # You can attach insert the AKMagneto at any point of the signal chain. For demo purpose, you listen here to the source mixed with the AKMagneto output. But you may use it as an insert. Here, AKMagneto is patched to the generator output before it passes thru the reverb. Record is appended to the file as long as you don't reset (tape is cleared).
 
 import XCPlayground
 import AudioKit
