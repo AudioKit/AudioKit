@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='3D Panner'/>
         <page name='AKAudioFile Demo'/>
-        <page name='AKAudioPlayer V2'/>
         <page name='AKMagneto'/>
         <page name='Amplitude Envelope'/>
         <page name='Auto Wah Wah'/>
+        <page name='Audio Player'/>
         <page name='AutoPan Operation'/>
         <page name='AutoWah Operation'/>
         <page name='Balancing Nodes'/>
@@ -109,10 +109,10 @@
         <page name='Tracking Frequency'/>
         <page name='Tremolo'/>
         <page name='Triangular Wave Oscillator'/>
-        <page name='Untitled Pagebar Organ'/>
         <page name='Using Functions Part 2'/>
         <page name='Using Functions'/>
         <page name='Variable Delay Operation'/>
         <page name='Variable Delay'/>
+        <page name='Drawbar Organ'/>
     </pages>
 </playground>

@@ -115,7 +115,7 @@ public class AKMagneto {
 
         readingTape = try AKAudioFile(forReadingAVAudioFile: self.tape)
         do {
-            internalPlayer = try AKAudioPlayer(AKAudioFile: readingTape!)
+            internalPlayer = try AKAudioPlayer(file: readingTape!)
         } catch let error as NSError {
 
             print ("AKMagneto Error: cannot create an internal player with \(tape?.fileNameWithExtension)")
