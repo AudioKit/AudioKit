@@ -29,8 +29,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Formant Filter")
         
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         addLabel("Formant Filter Parameters")
@@ -51,8 +55,31 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     
     func stop() {
@@ -71,20 +98,33 @@ class PlaygroundView: AKPlaygroundView {
         filter.centerFrequency = Double(slider.value)
         let frequency = String(format: "%0.1f", filter.centerFrequency)
         centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
+        printCode()
     }
     
     func setAttack(slider: Slider) {
         filter.attackDuration = Double(slider.value)
         let attack = String(format: "%0.3f", filter.attackDuration)
         attackLabel!.text = "Attack: \(attack) Seconds"
+        printCode()
     }
 
     func setDecay(slider: Slider) {
         filter.decayDuration = Double(slider.value)
         let decay = String(format: "%0.3f", filter.decayDuration)
         decayLabel!.text = "Decay: \(decay) Seconds"
+        printCode()
     }
-
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")
+        print("    attackDuration = \(String(format: "%0.3f", filter.attackDuration))")
+        print("    decayDuration = \(String(format: "%0.3f", filter.decayDuration))")
+        
+        print("}\n")
+    }
 }
 
 

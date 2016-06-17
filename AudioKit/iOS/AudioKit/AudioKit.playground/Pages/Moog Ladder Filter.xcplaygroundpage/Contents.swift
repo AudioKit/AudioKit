@@ -32,7 +32,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Moog Ladder Filter")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(moogLadder.cutoffFrequency)")
@@ -42,9 +46,33 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setResonance), value: moogLadder.resonance, minimum: 0, maximum: 0.99)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+
     func stop() {
         player.stop()
     }
@@ -52,13 +80,23 @@ class PlaygroundView: AKPlaygroundView {
     func setCutoffFrequency(slider: Slider) {
         moogLadder.cutoffFrequency = Double(slider.value)
         cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder.cutoffFrequency))"
+        printCode()
     }
 
     func setResonance(slider: Slider) {
         moogLadder.resonance = Double(slider.value)
         resonanceLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder.resonance))"
+        printCode()
     }
 
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    cutoffFrequency = \(String(format: "%0.3f", moogLadder.cutoffFrequency))")
+        print("    resonance = \(String(format: "%0.3f", moogLadder.resonance))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

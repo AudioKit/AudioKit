@@ -11,26 +11,9 @@
 		C472E1941CD40E2000C748F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C472E1931CD40E2000C748F4 /* ViewController.swift */; };
 		C472E1961CD40E2000C748F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C472E1951CD40E2000C748F4 /* Assets.xcassets */; };
 		C472E1991CD40E2000C748F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C472E1971CD40E2000C748F4 /* Main.storyboard */; };
-		C472E1A61CD4141A00C748F4 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C472E1A51CD413FB00C748F4 /* AudioKit.framework */; };
-		C472E1A71CD4141A00C748F4 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C472E1A51CD413FB00C748F4 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA8B8AA91D0AAFD100D4C3B2 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA8B8AA81D0AAFD100D4C3B2 /* AudioKit.framework */; };
+		EA8B8AAB1D0AAFE400D4C3B2 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA8B8AA81D0AAFD100D4C3B2 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C472E1A41CD413FB00C748F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C472E1A01CD413FB00C748F4 /* AudioKit For OSX.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C42F36CC1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-		C472E1A81CD4141A00C748F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C472E1A01CD413FB00C748F4 /* AudioKit For OSX.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = C42F36CB1C0582E6000E937C;
-			remoteInfo = AudioKit;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		C472E1AA1CD4141B00C748F4 /* Embed Frameworks */ = {
@@ -39,7 +22,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C472E1A71CD4141A00C748F4 /* AudioKit.framework in Embed Frameworks */,
+				EA8B8AAB1D0AAFE400D4C3B2 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,7 +36,7 @@
 		C472E1951CD40E2000C748F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C472E1981CD40E2000C748F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C472E19A1CD40E2000C748F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C472E1A01CD413FB00C748F4 /* AudioKit For OSX.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For OSX.xcodeproj"; path = "../../../AudioKit/OSX/AudioKit For OSX.xcodeproj"; sourceTree = "<group>"; };
+		EA8B8AA81D0AAFD100D4C3B2 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-OSX/AudioKit.framework"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C472E1A61CD4141A00C748F4 /* AudioKit.framework in Frameworks */,
+				EA8B8AA91D0AAFD100D4C3B2 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,8 +54,8 @@
 		C472E1851CD40E2000C748F4 = {
 			isa = PBXGroup;
 			children = (
-				C472E1A01CD413FB00C748F4 /* AudioKit For OSX.xcodeproj */,
 				C472E1901CD40E2000C748F4 /* MidiMonitor */,
+				EA8B8AA71D0AAFA800D4C3B2 /* Frameworks */,
 				C472E18F1CD40E2000C748F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -97,12 +80,12 @@
 			path = MidiMonitor;
 			sourceTree = "<group>";
 		};
-		C472E1A11CD413FB00C748F4 /* Products */ = {
+		EA8B8AA71D0AAFA800D4C3B2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C472E1A51CD413FB00C748F4 /* AudioKit.framework */,
+				EA8B8AA81D0AAFD100D4C3B2 /* AudioKit.framework */,
 			);
-			name = Products;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +103,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C472E1A91CD4141A00C748F4 /* PBXTargetDependency */,
 			);
 			name = MidiMonitor;
 			productName = MidiMonitor;
@@ -153,28 +135,12 @@
 			mainGroup = C472E1851CD40E2000C748F4;
 			productRefGroup = C472E18F1CD40E2000C748F4 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C472E1A11CD413FB00C748F4 /* Products */;
-					ProjectRef = C472E1A01CD413FB00C748F4 /* AudioKit For OSX.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				C472E18D1CD40E2000C748F4 /* MidiMonitor */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C472E1A51CD413FB00C748F4 /* AudioKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AudioKit.framework;
-			remoteRef = C472E1A41CD413FB00C748F4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C472E18C1CD40E2000C748F4 /* Resources */ = {
@@ -199,14 +165,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C472E1A91CD4141A00C748F4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = AudioKit;
-			targetProxy = C472E1A81CD4141A00C748F4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C472E1971CD40E2000C748F4 /* Main.storyboard */ = {
@@ -308,6 +266,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-OSX";
 				INFOPLIST_FILE = MidiMonitor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MidiMonitor;
@@ -321,6 +280,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-OSX";
 				INFOPLIST_FILE = MidiMonitor/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.MidiMonitor;

@@ -33,7 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Sean Costello Reverb")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
@@ -43,9 +47,33 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
     }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
+    }
+    
     func stop() {
         player.stop()
     }
@@ -53,13 +81,23 @@ class PlaygroundView: AKPlaygroundView {
     func setCutoffFrequency(slider: Slider) {
         reverb.cutoffFrequency = Double(slider.value)
         cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", reverb.cutoffFrequency))"
+        printCode()
     }
 
     func setFeedback(slider: Slider) {
         reverb.feedback = Double(slider.value)
         feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
+        printCode()
     }
-
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")
+        print("    feedback = \(String(format: "%0.3f", reverb.feedback))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

@@ -38,8 +38,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Tanh Distortion")
         
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
         
         addLabel("Distortion Parameters")
@@ -63,8 +67,31 @@ class PlaygroundView: AKPlaygroundView {
     
     //: Handle UI Events
     
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     
     func stop() {
@@ -83,26 +110,40 @@ class PlaygroundView: AKPlaygroundView {
         distortion.pregain = Double(slider.value)
         let pregain = String(format: "%0.2f", distortion.pregain)
         pregainLabel!.text = "Pregain: \(pregain) Hz"
+        printCode()
     }
 
     func setPostgain(slider: Slider) {
         distortion.postgain = Double(slider.value)
         let postgain = String(format: "%0.2f", distortion.postgain)
         postgainLabel!.text = "Postgain: \(postgain) Hz"
+        printCode()
     }
 
     func setPositiveShapeParameter(slider: Slider) {
         distortion.postiveShapeParameter = Double(slider.value)
         let postiveShapeParameter = String(format: "%0.2f", distortion.postiveShapeParameter)
         postiveShapeParameterLabel!.text = "Positive Shape Parameter: \(postiveShapeParameter)"
+        printCode()
     }
 
     func setNegativeShapeParameter(slider: Slider) {
         distortion.negativeShapeParameter = Double(slider.value)
         let negativeShapeParameter = String(format: "%0.2f", distortion.negativeShapeParameter)
         negativeShapeParameterLabel!.text = "Negative Shape Parameter: \(negativeShapeParameter)"
+        printCode()
     }
-
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    pregain = \(String(format: "%0.3f", distortion.pregain))")
+        print("    postgain = \(String(format: "%0.3f", distortion.postgain))")
+        print("    feedback = \(String(format: "%0.3f", distortion.postiveShapeParameter))")
+        print("    negativeShapeParameter = \(String(format: "%0.3f", distortion.negativeShapeParameter))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))

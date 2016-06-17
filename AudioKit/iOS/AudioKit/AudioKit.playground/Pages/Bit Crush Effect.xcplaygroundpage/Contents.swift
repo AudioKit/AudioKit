@@ -30,8 +30,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Bit Crusher")
 
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
@@ -41,8 +45,31 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setSampleRate), value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
     }
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
     func stop() {
         player.stop()
@@ -52,12 +79,24 @@ class PlaygroundView: AKPlaygroundView {
         bitcrusher.bitDepth = Double(slider.value)
         let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
         bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
+        printCode()
     }
 
     func setSampleRate(slider: Slider) {
         bitcrusher.sampleRate = Double(slider.value)
         let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
         sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
+        print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
+
+        print("}\n")
     }
 }
 

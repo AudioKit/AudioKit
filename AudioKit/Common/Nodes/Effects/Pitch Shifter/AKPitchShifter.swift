@@ -49,7 +49,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
         }
     }
     /// Window size (in samples)
-    public var windowSize: Double = 1000.0 {
+    public var windowSize: Double = 1024 {
         willSet(newValue) {
             if windowSize != newValue {
                 if internalAU!.isSetUp() {
@@ -61,7 +61,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
         }
     }
     /// Crossfade (in samples)
-    public var crossfade: Double = 10.0 {
+    public var crossfade: Double = 512 {
         willSet(newValue) {
             if crossfade != newValue {
                 if internalAU!.isSetUp() {
@@ -90,8 +90,8 @@ public class AKPitchShifter: AKNode, AKToggleable {
     public init(
         _ input: AKNode,
         shift: Double = 0,
-        windowSize: Double = 1000.0,
-        crossfade: Double = 10.0) {
+        windowSize: Double = 1024.0,
+        crossfade: Double = 512.0) {
 
         self.shift = shift
         self.windowSize = windowSize

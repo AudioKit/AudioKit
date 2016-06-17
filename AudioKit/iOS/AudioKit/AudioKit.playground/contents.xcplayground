@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='raw'>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -48,6 +48,7 @@
         <page name='Low Pass Filter'/>
         <page name='Low Pass Filter Operation'/>
         <page name='Low Shelf Filter'/>
+        <page name='Mandolin'/>
         <page name='Metal Bar'/>
         <page name='Metronome'/>
         <page name='Mixing Nodes'/>
@@ -108,5 +109,10 @@
         <page name='Using Functions Part 2'/>
         <page name='Variable Delay'/>
         <page name='Variable Delay Operation'/>
+        <page name='3D Panner'/>
+        <page name='AKAudioFile Demo'/>
+        <page name='AKAudioPlayer V2'/>
+        <page name='Sequencer - single output'/>
+        <page name='AKMagneto'/>
     </pages>
 </playground>

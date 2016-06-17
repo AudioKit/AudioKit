@@ -35,8 +35,12 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Peak Limiter")
 
-        addLabel("Audio Player")
-        addButton("Start", action: #selector(start))
+        addLabel("Audio Playback")
+        addButton("Drums", action: #selector(startDrumLoop))
+        addButton("Bass", action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead", action: #selector(startLeadLoop))
+        addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
         addLabel("Peak Limiter Parameters")
@@ -57,8 +61,31 @@ class PlaygroundView: AKPlaygroundView {
 
     //: Handle UI Events
 
-    func start() {
+    func startLoop(part: String) {
+        player.stop()
+        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
+        player.replaceFile(file!)
         player.play()
+    }
+    
+    func startDrumLoop() {
+        startLoop("drum")
+    }
+    
+    func startBassLoop() {
+        startLoop("bass")
+    }
+    
+    func startGuitarLoop() {
+        startLoop("guitar")
+    }
+    
+    func startLeadLoop() {
+        startLoop("lead")
+    }
+    
+    func startMixLoop() {
+        startLoop("mix")
     }
 
     func stop() {
@@ -72,24 +99,37 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         peakLimiter.bypass()
     }
+    
     func setAttackTime(slider: Slider) {
         peakLimiter.attackTime = Double(slider.value)
         let attackTime = String(format: "%0.3f", peakLimiter.attackTime)
         attackTimeLabel!.text = "attackTime: \(attackTime) Secs"
+        printCode()
     }
 
     func setDecayTime(slider: Slider) {
         peakLimiter.decayTime = Double(slider.value)
         let decayTime = String(format: "%0.3f", peakLimiter.decayTime)
         decayTimeLabel!.text = "decayTime: \(decayTime) Secs"
+        printCode()
     }
 
     func setPreGain(slider: Slider) {
         peakLimiter.preGain = Double(slider.value)
         let preGain = String(format: "%0.3f", peakLimiter.preGain)
         preGainLabel!.text = "preGain: \(preGain) dB"
+        printCode()
     }
-
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    attackTime = \(String(format: "%0.3f", peakLimiter.attackTime))")
+        print("    decayTime = \(String(format: "%0.3f", peakLimiter.decayTime))")
+        print("    preGain = \(String(format: "%0.3f", peakLimiter.preGain))")
+        print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
