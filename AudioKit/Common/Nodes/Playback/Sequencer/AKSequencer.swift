@@ -264,7 +264,7 @@ public class AKSequencer {
     /// - parameter bpm: Tempo in beats per minute
     /// - parameter position: Point in time in beats
     ///
-    public func addTempoEvent(bpm: Double, position: Beat) {
+    public func addTempoEventAt(tempo bpm: Double, position: Beat) {
         if isAVSequencer { return }
 
         var newTempo = bpm
