@@ -62,13 +62,6 @@ class PlaygroundView: AKPlaygroundView {
         player.play()
     }
     
-    func startLoop(part: String) {
-        player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
-        player.play()
-    }
-    
     func startDrumLoop() {
         startLoop("drum")
     }
