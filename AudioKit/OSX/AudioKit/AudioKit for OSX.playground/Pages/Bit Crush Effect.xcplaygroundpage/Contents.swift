@@ -80,12 +80,23 @@ class PlaygroundView: AKPlaygroundView {
         bitcrusher.bitDepth = Double(slider.value)
         let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
         bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
+        printCode()
     }
     
     func setSampleRate(slider: Slider) {
         bitcrusher.sampleRate = Double(slider.value)
         let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
         sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
+        self.print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
+        self.print("}\n")
     }
 }
 

@@ -98,12 +98,23 @@ class PlaygroundView: AKPlaygroundView {
         bandPassFilter.centerFrequency = Double(slider.value)
         let frequency = String(format: "%0.1f", bandPassFilter.centerFrequency)
         centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
+        printCode()
     }
     
     func setBandwidth(slider: Slider) {
         bandPassFilter.bandwidth = Double(slider.value)
         let bandwidth = String(format: "%0.1f", bandPassFilter.bandwidth)
         bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    centerFrequency = \(String(format: "%0.3f", bandPassFilter.centerFrequency))")
+        self.print("    bandwidth = \(String(format: "%0.3f", bandPassFilter.bandwidth))")
+        self.print("}\n")
     }
 }
 
