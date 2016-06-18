@@ -90,24 +90,39 @@ class PlaygroundView: AKPlaygroundView {
         delay.time = Double(slider.value)
         let time = String(format: "%0.3f", delay.time)
         timeLabel!.text = "Time: \(time)"
+        printCode()
     }
     
     func setFeedback(slider: Slider) {
         delay.feedback = Double(slider.value)
         let feedback = String(format: "%0.2f", delay.feedback)
         feedbackLabel!.text = "Feedback: \(feedback)"
+        printCode()
     }
     
     func setLowPassCutoffFrequency(slider: Slider) {
         delay.lowPassCutoff = Double(slider.value)
         let lowPassCutoff = String(format: "%0.2f Hz", delay.lowPassCutoff)
         lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
+        printCode()
     }
     
     func setDryWetMix(slider: Slider) {
         delay.dryWetMix = Double(slider.value)
         let dryWetMix = String(format: "%0.2f", delay.dryWetMix)
         dryWetMixLabel!.text = "Mix: \(dryWetMix)"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    time = \(String(format: "%0.3f", delay.time))")
+        self.print("    feedback = \(String(format: "%0.3f", delay.feedback))")
+        self.print("    lowPassCutoff = \(String(format: "%0.3f", delay.lowPassCutoff))")
+        self.print("    dryWetMix = \(String(format: "%0.3f", delay.dryWetMix))")
+        self.print("}\n")
     }
     
 }
