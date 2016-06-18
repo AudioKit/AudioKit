@@ -54,18 +54,29 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         oscillator.amplitude = 0
     }
     
-    
     func setAmplitude(slider: Slider) {
         currentAmplitude = Double(slider.value)
         let amp = String(format: "%0.3f", currentAmplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
+        printCode()
     }
     
     func setRampTime(slider: Slider) {
         currentRampTime = Double(slider.value)
         let rampTime = String(format: "%0.3f", currentRampTime)
         rampTimeLabel!.text = "Ramp Time: \(rampTime)"
+        printCode()
     }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    currentAmplitude = \(String(format: "%0.3f", currentAmplitude))")
+        self.print("    currentRampTime = \(String(format: "%0.3f", currentRampTime))")
+        self.print("}\n")
+    }
+    
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))

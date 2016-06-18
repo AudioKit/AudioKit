@@ -104,18 +104,31 @@ class PlaygroundView: AKPlaygroundView {
         peakLimiter.attackTime = Double(slider.value)
         let attackTime = String(format: "%0.3f", peakLimiter.attackTime)
         attackTimeLabel!.text = "attackTime: \(attackTime) Secs"
+        printCode()
     }
     
     func setDecayTime(slider: Slider) {
         peakLimiter.decayTime = Double(slider.value)
         let decayTime = String(format: "%0.3f", peakLimiter.decayTime)
         decayTimeLabel!.text = "decayTime: \(decayTime) Secs"
+        printCode()
     }
     
     func setPreGain(slider: Slider) {
         peakLimiter.preGain = Double(slider.value)
         let preGain = String(format: "%0.3f", peakLimiter.preGain)
         preGainLabel!.text = "preGain: \(preGain) dB"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    attackTime = \(String(format: "%0.3f", peakLimiter.attackTime))")
+        self.print("    decayTime = \(String(format: "%0.3f", peakLimiter.decayTime))")
+        self.print("    preGain = \(String(format: "%0.3f", peakLimiter.preGain))")
+        self.print("}\n")
     }
     
 }
