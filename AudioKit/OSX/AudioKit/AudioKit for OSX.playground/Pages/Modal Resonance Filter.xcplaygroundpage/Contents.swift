@@ -81,11 +81,22 @@ class PlaygroundView: AKPlaygroundView {
     func setFrequency(slider: Slider) {
         filter.frequency = Double(slider.value)
         frequencyLabel!.text = "Frequency: \(String(format: "%0.0f", filter.frequency))"
+        printCode()
     }
     
     func setQualityFactor(slider: Slider) {
         filter.qualityFactor = Double(slider.value)
         qualityFactorLabel!.text = "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    frequency = \(String(format: "%0.3f", filter.frequency))")
+        self.print("    qualityFactor = \(String(format: "%0.3f", filter.qualityFactor))")
+        self.print("}\n")
     }
     
 }

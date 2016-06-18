@@ -76,8 +76,16 @@ class PlaygroundView: AKPlaygroundView {
     func setFrequency(slider: Slider) {
         tremolo.frequency = Double(slider.value)
         tremoloLabel!.text = "Frequency: \(String(format: "%0.3f", tremolo.frequency))"
+        printCode()
     }
     
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    frequency = \(String(format: "%0.3f", tremolo.frequency))")
+        self.print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
