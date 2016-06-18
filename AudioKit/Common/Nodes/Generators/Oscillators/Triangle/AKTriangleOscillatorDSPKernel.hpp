@@ -75,8 +75,8 @@ public:
         amplitudeRamper.setImmediate(amplitude);
     }
     
-    void setCrest(float crest) {
-        crest = crest;
+    void setCrest(float cst) {
+        crest = cst;
         crestRamper.setImmediate(crest);
     }
     
@@ -109,7 +109,7 @@ public:
                 break;
                 
             case crestAddress:
-                crestRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
+                crestRamper.setUIValue(clamp(value, (float)0.05, (float)0.95));
                 break;
 
         }
@@ -155,7 +155,7 @@ public:
                 break;
                 
             case crestAddress:
-                crestRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
+                crestRamper.startRamp(clamp(value, (float)0.05, (float)0.95), duration);
                 break;
 
         }
