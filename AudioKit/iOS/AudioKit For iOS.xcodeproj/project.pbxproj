@@ -411,6 +411,10 @@
 		C493520E1C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49352051C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp */; };
 		C496149E1C2F33B400ACAB4E /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */; };
 		C49614A81C2F361400ACAB4E /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49614A71C2F361400ACAB4E /* variableDelay.swift */; };
+		C49F29221D162448000A2D2F /* AKFlute.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49F291E1D162448000A2D2F /* AKFlute.swift */; };
+		C49F29231D162448000A2D2F /* AKFluteAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49F291F1D162448000A2D2F /* AKFluteAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49F29241D162448000A2D2F /* AKFluteAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49F29201D162448000A2D2F /* AKFluteAudioUnit.mm */; };
+		C49F29251D162448000A2D2F /* AKFluteDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49F29211D162448000A2D2F /* AKFluteDSPKernel.hpp */; };
 		C4A916091C24B40B006C1A15 /* mix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916081C24B40B006C1A15 /* mix.swift */; };
 		C4A916121C24ED23006C1A15 /* pluckedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A916111C24ED23006C1A15 /* pluckedString.swift */; };
 		C4A9164E1C24F95E006C1A15 /* metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A9164A1C24F95E006C1A15 /* metronome.swift */; };
@@ -1211,6 +1215,10 @@
 		C49352051C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBalancerDSPKernel.hpp; sourceTree = "<group>"; };
 		C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
 		C49614A71C2F361400ACAB4E /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
+		C49F291E1D162448000A2D2F /* AKFlute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlute.swift; sourceTree = "<group>"; };
+		C49F291F1D162448000A2D2F /* AKFluteAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKFluteAudioUnit.h; sourceTree = "<group>"; };
+		C49F29201D162448000A2D2F /* AKFluteAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKFluteAudioUnit.mm; sourceTree = "<group>"; };
+		C49F29211D162448000A2D2F /* AKFluteDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKFluteDSPKernel.hpp; sourceTree = "<group>"; };
 		C4A916081C24B40B006C1A15 /* mix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mix.swift; sourceTree = "<group>"; };
 		C4A916111C24ED23006C1A15 /* pluckedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pluckedString.swift; sourceTree = "<group>"; };
 		C4A9164A1C24F95E006C1A15 /* metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = metronome.swift; sourceTree = "<group>"; };
@@ -1719,6 +1727,7 @@
 			isa = PBXGroup;
 			children = (
 				C40C42871C41C3D6009D870B /* Drip */,
+				C49F291D1D162448000A2D2F /* Flute */,
 				C4E371661D1348B100FDB70D /* Mandolin */,
 				C46501101C727DFE00EF6CF7 /* Metal Bar */,
 				C40C426A1C41B22A009D870B /* Plucked String */,
@@ -3074,6 +3083,17 @@
 			path = Booster;
 			sourceTree = "<group>";
 		};
+		C49F291D1D162448000A2D2F /* Flute */ = {
+			isa = PBXGroup;
+			children = (
+				C49F291E1D162448000A2D2F /* AKFlute.swift */,
+				C49F291F1D162448000A2D2F /* AKFluteAudioUnit.h */,
+				C49F29201D162448000A2D2F /* AKFluteAudioUnit.mm */,
+				C49F29211D162448000A2D2F /* AKFluteDSPKernel.hpp */,
+			);
+			path = Flute;
+			sourceTree = "<group>";
+		};
 		C4A916101C24ED23006C1A15 /* Physical Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -3492,6 +3512,7 @@
 				C4261E341C0AD97000E472A8 /* CUI.h in Headers */,
 				C4A9290F1D1343AE0095E429 /* Resonate.h in Headers */,
 				C45380131C3A4CCE00A51738 /* AKCostelloReverbAudioUnit.h in Headers */,
+				C49F29231D162448000A2D2F /* AKFluteAudioUnit.h in Headers */,
 				C4537FC21C3A438D00A51738 /* AKFormantFilterAudioUnit.h in Headers */,
 				C4537F361C39D2A300A51738 /* AKTanhDistortionDSPKernel.hpp in Headers */,
 				C40C41521C40E3A5009D870B /* EZAudioDisplayLink.h in Headers */,
@@ -3566,6 +3587,7 @@
 				C4A929331D1343AE0095E429 /* WvOut.h in Headers */,
 				C4A928E61D1343AE0095E429 /* FM.h in Headers */,
 				C4537FB41C3A438D00A51738 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
+				C49F29251D162448000A2D2F /* AKFluteDSPKernel.hpp in Headers */,
 				C4A928FE1D1343AE0095E429 /* MidiFileIn.h in Headers */,
 				C4537FE51C3A438D00A51738 /* AKPeakingParametricEqualizerFilterDSPKernel.hpp in Headers */,
 				C4A928D61D1343AE0095E429 /* Delay.h in Headers */,
@@ -4056,6 +4078,7 @@
 				C4E751B11C23675A00688A1B /* moogLadderFilter.swift in Sources */,
 				C48DB7E81CD5797100D1EC13 /* MIDIPacket+SequenceType.swift in Sources */,
 				C41863771C23FE6600A06E41 /* jitter.swift in Sources */,
+				C49F29241D162448000A2D2F /* AKFluteAudioUnit.mm in Sources */,
 				C4A9298B1D1343AE0095E429 /* Sphere.cpp in Sources */,
 				C4A929821D1343AE0095E429 /* Shakers.cpp in Sources */,
 				C46300D91C20C342009B44D9 /* bitcrush.c in Sources */,
@@ -4308,6 +4331,7 @@
 				C4537FC11C3A438D00A51738 /* AKFormantFilter.swift in Sources */,
 				C4E958AD1C0ADBFD00516A6A /* eqfil.c in Sources */,
 				C4E958991C0ADBFD00516A6A /* bal.c in Sources */,
+				C49F29221D162448000A2D2F /* AKFlute.swift in Sources */,
 				C46501231C729B1700EF6CF7 /* pshift.c in Sources */,
 				C4A929451D1343AE0095E429 /* OnePole.cpp in Sources */,
 				C46300EC1C20C342009B44D9 /* jcrev.c in Sources */,
