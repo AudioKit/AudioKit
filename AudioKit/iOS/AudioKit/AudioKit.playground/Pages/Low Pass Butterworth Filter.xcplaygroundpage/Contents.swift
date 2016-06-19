@@ -8,9 +8,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("mixloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var filter = AKLowPassButterworthFilter(player)
@@ -25,13 +25,13 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var cutoffFrequencyLabel: Label?
-    
+
     override func setup() {
         addTitle("Low Pass Butterworth Filter")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -39,57 +39,57 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         addLabel("Low Pass Filter Parameters")
-        
+
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-        
+
         cutoffFrequencyLabel = addLabel("Cut-off Frequency: \(filter.cutoffFrequency) Hz")
         addSlider(#selector(setCutoffFrequency), value: filter.cutoffFrequency, minimum: 10, maximum: 22050)
     }
-    
+
     //: Handle UI Events
-    
+
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
+        player.replaceAudioFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func process() {
         filter.start()
     }
-    
+
     func bypass() {
         filter.bypass()
     }
-    
+
     func setCutoffFrequency(slider: Slider) {
         filter.cutoffFrequency = Double(slider.value)
         let cutoffFrequency = String(format: "%0.1f", filter.cutoffFrequency)

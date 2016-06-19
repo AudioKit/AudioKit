@@ -7,13 +7,11 @@
 import XCPlayground
 import AudioKit
 
+let file = try AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
 
-let file = try? AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
-
-let player = try? AKAudioPlayer(file: file!)
-
-player!.looping = true
-var moogLadder = AKMoogLadder(player!)
+let player = try AKAudioPlayer(file: file)
+player.looping = true
+var moogLadder = AKMoogLadder(player)
 
 //: Set the parameters of the Moog Ladder Filter here.
 moogLadder.cutoffFrequency = 300 // Hz
@@ -22,7 +20,7 @@ moogLadder.resonance = 0.6
 AudioKit.output = moogLadder
 AudioKit.start()
 
-player!.play()
+player.play()
 
 //: User Interface Set up
 class PlaygroundView: AKPlaygroundView {
@@ -53,10 +51,10 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func startLoop(part: String) {
-        player!.stop()
+        player.stop()
         let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
-        player!.replaceAudioFile(file!)
-        player!.play()
+        player.replaceAudioFile(file!)
+        player.play()
     }
     
     func startDrumLoop() {
@@ -80,7 +78,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func stop() {
-        player!.stop()
+        player.stop()
     }
 
     func setCutoffFrequency(slider: Slider) {

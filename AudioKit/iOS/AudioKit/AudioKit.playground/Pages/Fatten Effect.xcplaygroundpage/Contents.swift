@@ -57,45 +57,45 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
+        player.replaceAudioFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func setTime(slider: Slider) {
         fatten.parameters = [Double(slider.value), fatten.parameters[1]]
         timeLabel!.text = "Time: \(String(format: "%0.3f", fatten.parameters[0]))"
     }
-    
+
     func setMix(slider: Slider) {
         fatten.parameters = [fatten.parameters[0], Double(slider.value)]
         mixLabel!.text = "Mix: \(String(format: "%0.3f", fatten.parameters[1]))"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))

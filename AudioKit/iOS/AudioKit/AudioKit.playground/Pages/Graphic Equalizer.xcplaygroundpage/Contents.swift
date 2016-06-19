@@ -7,9 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("mixloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var lowFilter = AKEqualizerFilter(player, centerFrequency: 50, bandwidth: 100, gain: 1.0)
@@ -23,15 +23,15 @@ AudioKit.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var lowLabel: Label?
     var midLabel: Label?
     var highLabel: Label?
-    
+
     override func setup() {
         addTitle("Graphic Equalizer")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -39,52 +39,52 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         addLabel("Equalizer Gains")
-        
+
         lowLabel = addLabel("Low: \(lowFilter.gain)")
         addSlider(#selector(setLowGain), value: lowFilter.gain, minimum: 0, maximum: 10)
-        
+
         midLabel = addLabel("Mid: \(midFilter.gain)")
         addSlider(#selector(setMidGain), value: midFilter.gain, minimum: 0, maximum: 10)
-        
+
         highLabel = addLabel("High: \(highFilter.gain)")
         addSlider(#selector(setHighGain), value: highFilter.gain, minimum: 0, maximum: 10)
     }
-    
+
     //: Handle UI Events
-    
+
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
+        player.replaceAudioFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func setLowGain(slider: Slider) {
         lowFilter.gain = Double(slider.value)
         let gain = String(format: "%0.3f", lowFilter.gain)
