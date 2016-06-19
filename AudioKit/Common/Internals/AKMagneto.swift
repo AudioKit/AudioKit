@@ -20,16 +20,16 @@ public class AKMagneto {
 
 
     // The file to record to
-    private var tape:AKAudioFile
+    private var tape: AKAudioFile
     // The file to read when playing back
     // Must be different to avoid framePosition conflicts
-    private var readingTape:AKAudioFile?
+    private var readingTape: AKAudioFile?
 
-    private var node:AKNode
-    private var internalPlayer:AKAudioPlayer
+    private var node: AKNode
+    private var internalPlayer: AKAudioPlayer
 
     // mix input and playback to feed the output
-    private var mixer:AKDryWetMixer
+    private var mixer: AKDryWetMixer
 
     // The balance between player and node input audio
     // If 0, input is passed thru. If 1, input is muted
@@ -37,12 +37,12 @@ public class AKMagneto {
 
     // the size of the recording buffer
     // Not tested, default is 1024
-    private var bufferSize:AVAudioFrameCount
+    private var bufferSize: AVAudioFrameCount
     private var recording = false
 
     // CallBack triggered when playback ends to play
     // can be set during init or later...
-    public var callBack:AKCallback?
+    public var callBack: AKCallback?
 
     // If true, input sound is passed thru
     // while playback is not playing...
@@ -51,8 +51,7 @@ public class AKMagneto {
         willSet {
             if newValue == true {
                 idleBalance = 0
-            }
-            else {
+            } else {
                 idleBalance = 1
             }
             self.mixer.balance = idleBalance
@@ -60,8 +59,7 @@ public class AKMagneto {
     }
 
 
-    public init(node:AKNode = AudioKit.output! , tape:AKAudioFile? = nil, callBack:AKCallback? = nil, buffer bufferSize:UInt32 = 1024  ) throws
-    {
+    public init(node: AKNode = AudioKit.output!, tape: AKAudioFile? = nil, callBack: AKCallback? = nil, buffer bufferSize: UInt32 = 1024  ) throws {
         self.callBack = callBack
 
 
@@ -78,7 +76,7 @@ public class AKMagneto {
         if !permissionGranted {
             print("Permission to record not granted")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
-        } else  {
+        } else {
             print("Permission to record granted ! ")
         }
 
@@ -87,8 +85,7 @@ public class AKMagneto {
         if tape == nil {
             // We create a record file in temp directory
             do {
-                self.tape = try AKAudioFile() }
-            catch let error as NSError {
+                self.tape = try AKAudioFile() } catch let error as NSError {
                 print ("AKMagneto Error: Cannot create an empty tape")
                 throw error
             }
@@ -103,7 +100,7 @@ public class AKMagneto {
         }
 
         self.bufferSize = bufferSize
-        let ioBufferDuration:NSTimeInterval = Double(bufferSize) / 44100.0
+        let ioBufferDuration: NSTimeInterval = Double(bufferSize) / 44100.0
 
         // AVAudioSession setup
         do {
@@ -122,18 +119,17 @@ public class AKMagneto {
             throw error
         }
 
-        mixer = AKDryWetMixer(node,internalPlayer,balance: idleBalance)
+        mixer = AKDryWetMixer(node, internalPlayer, balance: idleBalance)
     }
 
     // used to balance the dry/wet mix (auto-input)
-    private func internalCallback(){
+    private func internalCallback() {
         self.mixer.balance = idleBalance
         callBack?()
         print ("replay ended")
     }
 
-    private func refreshTapeForReading() throws
-    {
+    private func refreshTapeForReading() throws {
         // It seems that we have to reinstantiate the file to
         // get the correct data about length
         do {
@@ -148,9 +144,8 @@ public class AKMagneto {
     }
 
     // PlayBack what was recorded
-    public func replay(){
-        if internalPlayer.isPlaying
-        { return }
+    public func replay() {
+        if internalPlayer.isPlaying { return }
 
         if tape.samplesCount > 0 {
 
@@ -171,7 +166,7 @@ public class AKMagneto {
     }
 
     // Stop to replay
-    public func stopReplay(){
+    public func stopReplay() {
         if internalPlayer.isPlaying {
             internalPlayer.stop()
         } else {
@@ -179,12 +174,12 @@ public class AKMagneto {
         }
     }
 
-    public var output:AKDryWetMixer {
+    public var output: AKDryWetMixer {
         return mixer
     }
 
     // return the tape as an AKAudioFile for reading
-    public var audioFile : AKAudioFile {
+    public var audioFile: AKAudioFile {
         // update before returning the file
         do {
             try refreshTapeForReading()
@@ -204,13 +199,11 @@ public class AKMagneto {
 
         recording = true
 
-        node.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: tape.processingFormat, block:
-            { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
-                do{
+        node.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: tape.processingFormat, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
+                do {
                     try self.tape.writeFromBuffer(buffer)
                     print("writing ( file duration:  \(self.tape.duration) seconds)")
-                }
-                catch let error as NSError{
+                } catch let error as NSError {
                     print("Write failed: error -> \(error.localizedDescription)")
                 }
         })
@@ -226,11 +219,9 @@ public class AKMagneto {
     }
 
     // Reset the tape (erase the recording file)
-    public func reset() throws
-    {
+    public func reset() throws {
 
-        if internalPlayer.isPlaying
-        {
+        if internalPlayer.isPlaying {
             internalPlayer.stop()
         }
 
@@ -241,8 +232,7 @@ public class AKMagneto {
 
         do {
             try fileManager.removeItemAtPath(tape.url.absoluteString)
-        }
-        catch let error as NSError {
+        } catch let error as NSError {
             print ("AKMagneto Error: cannot delete Recording file:  \(tape.fileNameWithExtension)")
             throw error
         }
@@ -251,15 +241,13 @@ public class AKMagneto {
 
         let avTape: AVAudioFile
         do {
-            avTape = try AVAudioFile(forWriting: url, settings: settings)}
-        catch let error as NSError {
+            avTape = try AVAudioFile(forWriting: url, settings: settings)} catch let error as NSError {
             print ("AKMagneto Error: cannot delete AVAudioFile from file:  \(tape.fileNameWithExtension)")
             throw error
         }
 
         do {
-            tape = try AKAudioFile(forWritingAVAudioFile: avTape) }
-        catch let error as NSError {
+            tape = try AKAudioFile(forWritingAVAudioFile: avTape) } catch let error as NSError {
             print ("AKMagneto Error: cannot delete AKAudioFile from file:  \(tape.fileNameWithExtension)")
             throw error
         }
@@ -267,9 +255,7 @@ public class AKMagneto {
     
     // MARK: - public vars
     // True if we are recording.
-    public var isRecording:Bool{
+    public var isRecording: Bool {
         return recording
     }
 }
-
-
