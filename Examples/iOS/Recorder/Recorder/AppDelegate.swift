@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  SongProcessor
+//  Recorder
 //
 //  Created by Kanstantsin Linou on 6/17/16.
 //  Copyright © 2016 AudioKit. All rights reserved.

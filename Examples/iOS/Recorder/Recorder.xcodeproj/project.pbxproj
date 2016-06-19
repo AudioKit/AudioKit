@@ -12,8 +12,8 @@
 		C4ADA0421D174EF700A857E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA03B1D174EF700A857E5 /* AppDelegate.swift */; };
 		C4ADA0431D174EF700A857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4ADA03C1D174EF700A857E5 /* Assets.xcassets */; };
 		C4ADA0461D174EF700A857E5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA03F1D174EF700A857E5 /* PlayerState.swift */; };
-		C4ADA0471D174EF700A857E5 /* PlaySongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA0401D174EF700A857E5 /* PlaySongViewController.swift */; };
-		C4ADA0481D174EF700A857E5 /* RecordSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA0411D174EF700A857E5 /* RecordSongViewController.swift */; };
+		C4ADA0471D174EF700A857E5 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA0401D174EF700A857E5 /* PlayViewController.swift */; };
+		C4ADA0481D174EF700A857E5 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA0411D174EF700A857E5 /* RecordViewController.swift */; };
 		C4ADA04B1D174F2D00A857E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4ADA0491D174F2D00A857E5 /* Main.storyboard */; };
 		C4ADA04E1D174F3500A857E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4ADA04C1D174F3500A857E5 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -39,8 +39,8 @@
 		C4ADA03C1D174EF700A857E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Recorder/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		C4ADA03E1D174EF700A857E5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Recorder/Info.plist; sourceTree = SOURCE_ROOT; };
 		C4ADA03F1D174EF700A857E5 /* PlayerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerState.swift; path = Recorder/PlayerState.swift; sourceTree = SOURCE_ROOT; };
-		C4ADA0401D174EF700A857E5 /* PlaySongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaySongViewController.swift; path = Recorder/PlaySongViewController.swift; sourceTree = SOURCE_ROOT; };
-		C4ADA0411D174EF700A857E5 /* RecordSongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordSongViewController.swift; path = Recorder/RecordSongViewController.swift; sourceTree = SOURCE_ROOT; };
+		C4ADA0401D174EF700A857E5 /* PlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayViewController.swift; path = Recorder/PlayViewController.swift; sourceTree = SOURCE_ROOT; };
+		C4ADA0411D174EF700A857E5 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordViewController.swift; path = Recorder/RecordViewController.swift; sourceTree = SOURCE_ROOT; };
 		C4ADA04A1D174F2D00A857E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Recorder/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		C4ADA04D1D174F3500A857E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Recorder/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -89,8 +89,8 @@
 				C4ADA03C1D174EF700A857E5 /* Assets.xcassets */,
 				C4ADA03E1D174EF700A857E5 /* Info.plist */,
 				C4ADA03F1D174EF700A857E5 /* PlayerState.swift */,
-				C4ADA0401D174EF700A857E5 /* PlaySongViewController.swift */,
-				C4ADA0411D174EF700A857E5 /* RecordSongViewController.swift */,
+				C4ADA0401D174EF700A857E5 /* PlayViewController.swift */,
+				C4ADA0411D174EF700A857E5 /* RecordViewController.swift */,
 				C4ADA0491D174F2D00A857E5 /* Main.storyboard */,
 				C4ADA04C1D174F3500A857E5 /* LaunchScreen.storyboard */,
 			);
@@ -171,8 +171,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4ADA0481D174EF700A857E5 /* RecordSongViewController.swift in Sources */,
-				C4ADA0471D174EF700A857E5 /* PlaySongViewController.swift in Sources */,
+				C4ADA0481D174EF700A857E5 /* RecordViewController.swift in Sources */,
+				C4ADA0471D174EF700A857E5 /* PlayViewController.swift in Sources */,
 				C4ADA0461D174EF700A857E5 /* PlayerState.swift in Sources */,
 				C4ADA0421D174EF700A857E5 /* AppDelegate.swift in Sources */,
 			);
@@ -296,7 +296,7 @@
 				);
 				INFOPLIST_FILE = Recorder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Recorder;
 				PRODUCT_NAME = Recorder;
 			};
 			name = Debug;
@@ -312,7 +312,7 @@
 				);
 				INFOPLIST_FILE = Recorder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Recorder;
 				PRODUCT_NAME = Recorder;
 			};
 			name = Release;
