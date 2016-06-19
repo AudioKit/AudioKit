@@ -283,14 +283,6 @@
     _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKMetalBarDSPKernel *blockKernel = &_kernel;
-
-    // Go back to setting parameters instead of scheduling them.
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {
