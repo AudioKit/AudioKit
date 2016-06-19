@@ -142,7 +142,7 @@ public class AKMagneto {
             throw error
         }
 
-        internalPlayer.replaceAKAudioFile(readingTape!)
+        internalPlayer.replaceAudioFile(readingTape!)
 
 
     }

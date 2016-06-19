@@ -289,10 +289,10 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     /// Replace the current audio file with a new AKAudioFile file
-    public func replaceAKAudioFile(newAKAudioFile: AKAudioFile) {
+    public func replaceAudioFile(file: AKAudioFile) {
         print ("replace")
         print("Before -> \(internalAudioFile.length)")
-        self.internalAudioFile = newAKAudioFile
+        self.internalAudioFile = file
         print("After -> \(internalAudioFile.length)")
         let wasPlaying = playing
         playing = false
@@ -307,19 +307,19 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// Should be deprecated...
     /// (very ugly !)
     /// File is replaced only if a valid AKAudioFile can be instanciated from the file (Path As String)
-    public func replaceFile(newFile: String) {
+    public func replaceFile(file: String) {
 
         func warnFailed() {
-            print("Cannot replace with file:\(newFile)")
+            print("Cannot replace with file:\(file)")
         }
 
-        let nsurl = NSURL(string:newFile)
+        let nsurl = NSURL(string:file)
         if nsurl != nil {
             let newAvAudioFile = try? AVAudioFile(forReading: nsurl!)
             if newAvAudioFile != nil {
-                let  newAKAudioFile = try? AKAudioFile(forReadingAVAudioFile: newAvAudioFile!)
-                if newAKAudioFile != nil {
-                    replaceAKAudioFile(newAKAudioFile!)
+                let  audioFile = try? AKAudioFile(forReadingAVAudioFile: newAvAudioFile!)
+                if audioFile != nil {
+                    replaceAudioFile(audioFile!)
                 } else {
                     warnFailed()
                 }

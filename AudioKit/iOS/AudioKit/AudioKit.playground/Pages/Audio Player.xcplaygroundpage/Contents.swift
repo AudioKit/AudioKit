@@ -99,7 +99,7 @@ class PlaygroundView: AKPlaygroundView {
     func loadDrumLoop() {
         let loopMp3 = try? AKAudioFile(forReadingFileName: "drumloop", withExtension: "wav", fromBaseDirectory: .resources)
         
-        player!.replaceAKAudioFile(loopMp3!)
+        player!.replaceAudioFile(loopMp3!)
         updateUI()
     }
     
@@ -110,7 +110,7 @@ class PlaygroundView: AKPlaygroundView {
     
     func loadMixLoop() {
         let mixloop = try? AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
-        player!.replaceAKAudioFile(mixloop!)
+        player!.replaceAudioFile(mixloop!)
         updateUI()
     }
     
