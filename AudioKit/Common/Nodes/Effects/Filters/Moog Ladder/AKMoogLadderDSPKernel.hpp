@@ -41,6 +41,9 @@ public:
         sp_moogladder_init(sp, moogladder);
         moogladder->freq = 1000;
         moogladder->res = 0.5;
+        
+        cutoffFrequencyRamper.init();
+        resonanceRamper.init();
     }
 
     void start() {
@@ -58,27 +61,29 @@ public:
 
     void reset() {
         resetted = true;
+        cutoffFrequencyRamper.reset();
+        resonanceRamper.reset();
     }
 
-    void setCutoffFrequency(float freq) {
-        cutoffFrequency = freq;
-        cutoffFrequencyRamper.setImmediate(freq);
+    void setCutoffFrequency(float value) {
+        cutoffFrequency = clamp(value, 12.0f, 20000.0f);
+        cutoffFrequencyRamper.setImmediate(cutoffFrequency);
     }
 
-    void setResonance(float res) {
-        resonance = res;
-        resonanceRamper.setImmediate(res);
+    void setResonance(float value) {
+        resonance = clamp(value, 0.0f, 2.0f);
+        resonanceRamper.setImmediate(resonance);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                cutoffFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case resonanceAddress:
-                resonanceRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
+                resonanceRamper.setUIValue(clamp(value, 0.0f, 2.0f));
                 break;
 
         }
@@ -99,11 +104,11 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case resonanceAddress:
-                resonanceRamper.startRamp(clamp(value, (float)0.0, (float)2.0), duration);
+                resonanceRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
                 break;
 
         }
@@ -141,7 +146,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
