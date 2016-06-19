@@ -6,10 +6,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Record Song View Controller-->
+        <!--Record View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="RecordSongViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RecordViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -19,19 +19,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="db4-9x-o5N">
-                                <rect key="frame" x="220" y="277" width="161" height="45"/>
+                                <rect key="frame" x="258" y="277" width="84" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="244" id="ptA-lO-tms"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <state key="normal" title="Tap to Record"/>
+                                <state key="normal" title="Record"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="ptA-lO-tms"/>
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="recordSong:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zcu-2H-pQ3"/>
+                                    <action selector="record:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i0h-7F-wbU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnE-7k-833">
@@ -47,7 +47,7 @@
                                     </mask>
                                 </variation>
                                 <connections>
-                                    <action selector="stopRecordSong:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ScK-w1-BcU"/>
+                                    <action selector="stop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mjr-6e-w3l"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -78,10 +78,10 @@
             </objects>
             <point key="canvasLocation" x="1131" y="426"/>
         </scene>
-        <!--Play Song View Controller-->
+        <!--Play View Controller-->
         <scene sceneID="kBL-EA-7Uv">
             <objects>
-                <viewController id="zic-wA-Vze" customClass="PlaySongViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zic-wA-Vze" customClass="PlayViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xKj-1J-owq"/>
                         <viewControllerLayoutGuide type="bottom" id="pLS-dc-sgw"/>
@@ -98,7 +98,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <state key="normal" title="Play"/>
                                         <connections>
-                                            <action selector="playSong:" destination="zic-wA-Vze" eventType="touchUpInside" id="emT-Wb-IOc"/>
+                                            <action selector="play:" destination="zic-wA-Vze" eventType="touchUpInside" id="Zqf-y3-tMA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXV-M1-2mM">
@@ -106,7 +106,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <state key="normal" title="Stop"/>
                                         <connections>
-                                            <action selector="stopSong:" destination="zic-wA-Vze" eventType="touchUpInside" id="fyT-IF-Iw8"/>
+                                            <action selector="stop:" destination="zic-wA-Vze" eventType="touchUpInside" id="Jzc-Bd-Ssh"/>
                                         </connections>
                                     </button>
                                 </subviews>

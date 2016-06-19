@@ -1,6 +1,6 @@
 //
-//  PlaySongViewController.swift
-//  SongProcessor
+//  PlayViewController.swift
+//  Recorder
 //
 //  Created by Kanstantsin Linou on 6/17/16.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,25 +9,25 @@
 import UIKit
 import AudioKit
 
-class PlaySongViewController: UIViewController, AKAudioPlayerDelegate {
+class PlayViewController: UIViewController, AKAudioPlayerDelegate {
     
     @IBOutlet var playingButton: UIButton!
     @IBOutlet var stopPlayingButton: UIButton!
     @IBOutlet var cutoffFrequencyLabel: UILabel!
     @IBOutlet var resonanceLabel: UILabel!
-    var recordedSongURL: NSURL!
+    var recordedURL: NSURL!
     var player: AKAudioPlayer!
-    var songFile: AKAudioFile!
+    var audioFile: AKAudioFile!
     var moogLadder: AKMoogLadder!
     
     
     
-    @IBAction func stopSong(sender: AnyObject) {
+    @IBAction func stop(sender: AnyObject) {
         player?.stop()
         updateUI(for: PlayerState.Stopped)
     }
     
-    @IBAction func playSong(sender: AnyObject) {
+    @IBAction func play(sender: AnyObject) {
         player?.play()
         updateUI(for: PlayerState.Playing)
     }
@@ -52,22 +52,22 @@ class PlaySongViewController: UIViewController, AKAudioPlayerDelegate {
         
         updateUI(for: PlayerState.Stopped)
         setupFile()
-        setupSongEffects()
+        setupEffects()
     }
     
     func setupFile() {
         do {
-            let fileName = (recordedSongURL.URLByDeletingPathExtension?.lastPathComponent)!
-            let fileExtension = (recordedSongURL.pathExtension)!
-            songFile = try AKAudioFile(forReadingFileName: fileName, withExtension: fileExtension, fromBaseDirectory: AKAudioFile.BaseDirectory.temp)
-            player = try? AKAudioPlayer(file: songFile)
+            let fileName = (recordedURL.URLByDeletingPathExtension?.lastPathComponent)!
+            let fileExtension = (recordedURL.pathExtension)!
+            audioFile = try AKAudioFile(forReadingFileName: fileName, withExtension: fileExtension, fromBaseDirectory: AKAudioFile.BaseDirectory.temp)
+            player = try? AKAudioPlayer(file: audioFile)
             player?.delegate = self
         } catch {
-            print("\((recordedSongURL.lastPathComponent)!) wasn't found.")
+            print("\((recordedURL.lastPathComponent)!) wasn't found.")
         }
     }
     
-    func setupSongEffects() {
+    func setupEffects() {
         moogLadder = AKMoogLadder(player)
         AudioKit.output = moogLadder
         AudioKit.start()
