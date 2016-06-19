@@ -7,9 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingFileName: "drumloop", withExtension: "wav", fromBaseDirectory: .resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 var reverb = AKCostelloReverb(player)
 
@@ -25,13 +25,13 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var cutoffFrequencyLabel: Label?
     var feedbackLabel: Label?
-    
+
     override func setup() {
         addTitle("Sean Costello Reverb")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -39,66 +39,66 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
         addSlider(#selector(setCutoffFrequency), value: reverb.cutoffFrequency, minimum: 0, maximum: 5000)
-        
+
         feedbackLabel = addLabel("Feedback: \(reverb.feedback)")
         addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
     }
-    
+
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
+        player.replaceAudioFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func setCutoffFrequency(slider: Slider) {
         reverb.cutoffFrequency = Double(slider.value)
         cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", reverb.cutoffFrequency))"
         printCode()
     }
-    
+
     func setFeedback(slider: Slider) {
         reverb.feedback = Double(slider.value)
         feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
         printCode()
     }
-    
+
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
-        
+
         self.print("public func presetXXXXXX() {")
         self.print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")
         self.print("    feedback = \(String(format: "%0.3f", reverb.feedback))")
         self.print("}\n")
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

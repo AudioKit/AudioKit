@@ -9,9 +9,9 @@ import AudioKit
 
 let mic = AKMicrophone()
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("recording", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingFileName: "recording", withExtension: "wav", fromBaseDirectory: .resources)
+
+let player = try AKAudioPlayer(file: file)
 
 var reverb =  AKReverb(mic)
 reverb.loadFactoryPreset(.Plate)
@@ -20,9 +20,9 @@ AudioKit.output = AKMixer(reverb, player)
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var recorder = AKMicrophoneRecorder(file!)
-    
+
     override func setup() {
         addTitle("Recording from Microphone")
 
@@ -33,17 +33,17 @@ class PlaygroundView: AKPlaygroundView {
 
         addButton("Play", action: #selector(play))
     }
-    
+
     func play() {
         player.stop()
         player.replaceFile(file!)
         player.play()
     }
-    
+
     func record() {
         recorder.record()
     }
-    
+
     func stop() {
         recorder.stop()
     }
