@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		789093041D172E0E00F2069E /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789093031D172E0E00F2069E /* PlayerState.swift */; };
 		7890930A1D17319C00F2069E /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789093091D17319C00F2069E /* AudioKit.framework */; };
 		7890930B1D17319C00F2069E /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 789093091D17319C00F2069E /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		78C20D9C1D1455DD001561C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C20D9B1D1455DD001561C3 /* AppDelegate.swift */; };
-		78C20D9E1D1455DD001561C3 /* RecordSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C20D9D1D1455DD001561C3 /* RecordSongViewController.swift */; };
-		78C20DA11D1455DE001561C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78C20D9F1D1455DE001561C3 /* Main.storyboard */; };
-		78C20DA31D1455DE001561C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78C20DA21D1455DE001561C3 /* Assets.xcassets */; };
-		78C20DA61D1455DE001561C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78C20DA41D1455DE001561C3 /* LaunchScreen.storyboard */; };
-		78C20DCD1D148937001561C3 /* PlaySongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C20DCC1D148937001561C3 /* PlaySongViewController.swift */; };
+		C4ADA0421D174EF700A857E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA03B1D174EF700A857E5 /* AppDelegate.swift */; };
+		C4ADA0431D174EF700A857E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4ADA03C1D174EF700A857E5 /* Assets.xcassets */; };
+		C4ADA0461D174EF700A857E5 /* PlayerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA03F1D174EF700A857E5 /* PlayerState.swift */; };
+		C4ADA0471D174EF700A857E5 /* PlaySongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA0401D174EF700A857E5 /* PlaySongViewController.swift */; };
+		C4ADA0481D174EF700A857E5 /* RecordSongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4ADA0411D174EF700A857E5 /* RecordSongViewController.swift */; };
+		C4ADA04B1D174F2D00A857E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4ADA0491D174F2D00A857E5 /* Main.storyboard */; };
+		C4ADA04E1D174F3500A857E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4ADA04C1D174F3500A857E5 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,16 +33,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		789093031D172E0E00F2069E /* PlayerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerState.swift; sourceTree = "<group>"; };
 		789093091D17319C00F2069E /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		78C20D981D1455DD001561C3 /* SongProcessor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongProcessor.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		78C20D9B1D1455DD001561C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		78C20D9D1D1455DD001561C3 /* RecordSongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordSongViewController.swift; sourceTree = "<group>"; };
-		78C20DA01D1455DE001561C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		78C20DA21D1455DE001561C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		78C20DA51D1455DE001561C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		78C20DA71D1455DE001561C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		78C20DCC1D148937001561C3 /* PlaySongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySongViewController.swift; sourceTree = "<group>"; };
+		78C20D981D1455DD001561C3 /* Recorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4ADA03B1D174EF700A857E5 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Recorder/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		C4ADA03C1D174EF700A857E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Recorder/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		C4ADA03E1D174EF700A857E5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Recorder/Info.plist; sourceTree = SOURCE_ROOT; };
+		C4ADA03F1D174EF700A857E5 /* PlayerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayerState.swift; path = Recorder/PlayerState.swift; sourceTree = SOURCE_ROOT; };
+		C4ADA0401D174EF700A857E5 /* PlaySongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaySongViewController.swift; path = Recorder/PlaySongViewController.swift; sourceTree = SOURCE_ROOT; };
+		C4ADA0411D174EF700A857E5 /* RecordSongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecordSongViewController.swift; path = Recorder/RecordSongViewController.swift; sourceTree = SOURCE_ROOT; };
+		C4ADA04A1D174F2D00A857E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Recorder/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		C4ADA04D1D174F3500A857E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Recorder/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +68,7 @@
 		78C20D8F1D1455DD001561C3 = {
 			isa = PBXGroup;
 			children = (
-				78C20D9A1D1455DD001561C3 /* SongProcessor */,
+				78C20D9A1D1455DD001561C3 /* Recorder */,
 				7890930C1D17319F00F2069E /* Frameworks */,
 				78C20D991D1455DD001561C3 /* Products */,
 			);
@@ -77,32 +77,33 @@
 		78C20D991D1455DD001561C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				78C20D981D1455DD001561C3 /* SongProcessor.app */,
+				78C20D981D1455DD001561C3 /* Recorder.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		78C20D9A1D1455DD001561C3 /* SongProcessor */ = {
+		78C20D9A1D1455DD001561C3 /* Recorder */ = {
 			isa = PBXGroup;
 			children = (
-				78C20D9B1D1455DD001561C3 /* AppDelegate.swift */,
-				78C20D9D1D1455DD001561C3 /* RecordSongViewController.swift */,
-				78C20DCC1D148937001561C3 /* PlaySongViewController.swift */,
-				789093031D172E0E00F2069E /* PlayerState.swift */,
-				78C20D9F1D1455DE001561C3 /* Main.storyboard */,
-				78C20DA21D1455DE001561C3 /* Assets.xcassets */,
-				78C20DA41D1455DE001561C3 /* LaunchScreen.storyboard */,
-				78C20DA71D1455DE001561C3 /* Info.plist */,
+				C4ADA03B1D174EF700A857E5 /* AppDelegate.swift */,
+				C4ADA03C1D174EF700A857E5 /* Assets.xcassets */,
+				C4ADA03E1D174EF700A857E5 /* Info.plist */,
+				C4ADA03F1D174EF700A857E5 /* PlayerState.swift */,
+				C4ADA0401D174EF700A857E5 /* PlaySongViewController.swift */,
+				C4ADA0411D174EF700A857E5 /* RecordSongViewController.swift */,
+				C4ADA0491D174F2D00A857E5 /* Main.storyboard */,
+				C4ADA04C1D174F3500A857E5 /* LaunchScreen.storyboard */,
 			);
+			name = Recorder;
 			path = SongProcessor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		78C20D971D1455DD001561C3 /* SongProcessor */ = {
+		78C20D971D1455DD001561C3 /* Recorder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 78C20DAA1D1455DE001561C3 /* Build configuration list for PBXNativeTarget "SongProcessor" */;
+			buildConfigurationList = 78C20DAA1D1455DE001561C3 /* Build configuration list for PBXNativeTarget "Recorder" */;
 			buildPhases = (
 				78C20D941D1455DD001561C3 /* Sources */,
 				78C20D951D1455DD001561C3 /* Frameworks */,
@@ -113,9 +114,9 @@
 			);
 			dependencies = (
 			);
-			name = SongProcessor;
+			name = Recorder;
 			productName = SongProcessor;
-			productReference = 78C20D981D1455DD001561C3 /* SongProcessor.app */;
+			productReference = 78C20D981D1455DD001561C3 /* Recorder.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -134,7 +135,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 78C20D931D1455DD001561C3 /* Build configuration list for PBXProject "SongProcessor" */;
+			buildConfigurationList = 78C20D931D1455DD001561C3 /* Build configuration list for PBXProject "Recorder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -147,7 +148,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				78C20D971D1455DD001561C3 /* SongProcessor */,
+				78C20D971D1455DD001561C3 /* Recorder */,
 			);
 		};
 /* End PBXProject section */
@@ -157,9 +158,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78C20DA61D1455DE001561C3 /* LaunchScreen.storyboard in Resources */,
-				78C20DA31D1455DE001561C3 /* Assets.xcassets in Resources */,
-				78C20DA11D1455DE001561C3 /* Main.storyboard in Resources */,
+				C4ADA04B1D174F2D00A857E5 /* Main.storyboard in Resources */,
+				C4ADA04E1D174F3500A857E5 /* LaunchScreen.storyboard in Resources */,
+				C4ADA0431D174EF700A857E5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,28 +171,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				78C20D9E1D1455DD001561C3 /* RecordSongViewController.swift in Sources */,
-				78C20DCD1D148937001561C3 /* PlaySongViewController.swift in Sources */,
-				789093041D172E0E00F2069E /* PlayerState.swift in Sources */,
-				78C20D9C1D1455DD001561C3 /* AppDelegate.swift in Sources */,
+				C4ADA0481D174EF700A857E5 /* RecordSongViewController.swift in Sources */,
+				C4ADA0471D174EF700A857E5 /* PlaySongViewController.swift in Sources */,
+				C4ADA0461D174EF700A857E5 /* PlayerState.swift in Sources */,
+				C4ADA0421D174EF700A857E5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		78C20D9F1D1455DE001561C3 /* Main.storyboard */ = {
+		C4ADA0491D174F2D00A857E5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				78C20DA01D1455DE001561C3 /* Base */,
+				C4ADA04A1D174F2D00A857E5 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		78C20DA41D1455DE001561C3 /* LaunchScreen.storyboard */ = {
+		C4ADA04C1D174F3500A857E5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				78C20DA51D1455DE001561C3 /* Base */,
+				C4ADA04D1D174F3500A857E5 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -293,10 +294,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = SongProcessor/Info.plist;
+				INFOPLIST_FILE = Recorder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Recorder;
 			};
 			name = Debug;
 		};
@@ -309,17 +310,17 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = SongProcessor/Info.plist;
+				INFOPLIST_FILE = Recorder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Recorder;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		78C20D931D1455DD001561C3 /* Build configuration list for PBXProject "SongProcessor" */ = {
+		78C20D931D1455DD001561C3 /* Build configuration list for PBXProject "Recorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				78C20DA81D1455DE001561C3 /* Debug */,
@@ -328,7 +329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		78C20DAA1D1455DE001561C3 /* Build configuration list for PBXNativeTarget "SongProcessor" */ = {
+		78C20DAA1D1455DE001561C3 /* Build configuration list for PBXNativeTarget "Recorder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				78C20DAB1D1455DE001561C3 /* Debug */,

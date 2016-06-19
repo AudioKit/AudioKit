@@ -9,7 +9,7 @@
         <!--Record Song View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="RecordSongViewController" customModule="SongProcessor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RecordSongViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -35,7 +35,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnE-7k-833">
-                                <rect key="frame" x="272.5" y="330" width="55" height="45"/>
+                                <rect key="frame" x="273" y="330" width="55" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="66" id="wNL-zX-NTT"/>
                                 </constraints>
@@ -81,7 +81,7 @@
         <!--Play Song View Controller-->
         <scene sceneID="kBL-EA-7Uv">
             <objects>
-                <viewController id="zic-wA-Vze" customClass="PlaySongViewController" customModule="SongProcessor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zic-wA-Vze" customClass="PlaySongViewController" customModule="Recorder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xKj-1J-owq"/>
                         <viewControllerLayoutGuide type="bottom" id="pLS-dc-sgw"/>
@@ -111,8 +111,8 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Moog Ladder Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rij-wk-6Er">
-                                <rect key="frame" x="191" y="72" width="219.5" height="33"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Moog Ladder Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rij-wk-6Er">
+                                <rect key="frame" x="191" y="72" width="220" height="33"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
