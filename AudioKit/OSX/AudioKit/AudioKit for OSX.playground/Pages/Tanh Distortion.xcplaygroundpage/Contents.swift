@@ -110,24 +110,39 @@ class PlaygroundView: AKPlaygroundView {
         distortion.pregain = Double(slider.value)
         let pregain = String(format: "%0.2f", distortion.pregain)
         pregainLabel!.text = "Pregain: \(pregain) Hz"
+        printCode()
     }
     
     func setPostgain(slider: Slider) {
         distortion.postgain = Double(slider.value)
         let postgain = String(format: "%0.2f", distortion.postgain)
         postgainLabel!.text = "Postgain: \(postgain) Hz"
+        printCode()
     }
     
     func setPositiveShapeParameter(slider: Slider) {
         distortion.postiveShapeParameter = Double(slider.value)
         let postiveShapeParameter = String(format: "%0.2f", distortion.postiveShapeParameter)
         postiveShapeParameterLabel!.text = "Positive Shape Parameter: \(postiveShapeParameter)"
+        printCode()
     }
     
     func setNegativeShapeParameter(slider: Slider) {
         distortion.negativeShapeParameter = Double(slider.value)
         let negativeShapeParameter = String(format: "%0.2f", distortion.negativeShapeParameter)
         negativeShapeParameterLabel!.text = "Negative Shape Parameter: \(negativeShapeParameter)"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    pregain = \(String(format: "%0.3f", distortion.pregain))")
+        self.print("    postgain = \(String(format: "%0.3f", distortion.postgain))")
+        self.print("    postiveShapeParameter = \(String(format: "%0.3f", distortion.postiveShapeParameter))")
+        self.print("    negativeShapeParameter = \(String(format: "%0.3f", distortion.negativeShapeParameter))")
+        self.print("}\n")
     }
     
 }

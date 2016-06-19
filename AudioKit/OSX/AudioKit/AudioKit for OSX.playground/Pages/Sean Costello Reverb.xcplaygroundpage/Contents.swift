@@ -81,11 +81,22 @@ class PlaygroundView: AKPlaygroundView {
     func setCutoffFrequency(slider: Slider) {
         reverb.cutoffFrequency = Double(slider.value)
         cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", reverb.cutoffFrequency))"
+        printCode()
     }
     
     func setFeedback(slider: Slider) {
         reverb.feedback = Double(slider.value)
         feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")
+        self.print("    feedback = \(String(format: "%0.3f", reverb.feedback))")
+        self.print("}\n")
     }
     
 }

@@ -146,11 +146,17 @@ class PlaygroundView: AKPlaygroundView {
         reverb.loadFactoryPreset(.SmallRoom)
     }
     
-    
-    
-    
     func setDryWet(slider: Slider) {
         reverb.dryWetMix = Double(slider.value)
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    dryWetMix = \(String(format: "%0.3f", reverb.dryWetMix))")
+        self.print("}\n")
     }
 }
 
