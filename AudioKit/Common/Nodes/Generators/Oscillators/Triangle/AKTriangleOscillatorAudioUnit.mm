@@ -99,7 +99,7 @@
                                               name:@"Amplitude"
                                            address:amplitudeAddress
                                                min:0.0
-                                               max:1.0
+                                               max:10.0
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
@@ -110,8 +110,8 @@
     [AUParameterTree createParameterWithIdentifier:@"crest"
                                               name:@"Crest"
                                            address:crestAddress
-                                               min:0.0
-                                               max:1.0
+                                               min:0.05
+                                               max:0.95
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0

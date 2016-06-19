@@ -98,20 +98,33 @@ class PlaygroundView: AKPlaygroundView {
         filter.centerFrequency = Double(slider.value)
         let frequency = String(format: "%0.1f", filter.centerFrequency)
         centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
+        printCode()
     }
     
     func setAttack(slider: Slider) {
         filter.attackDuration = Double(slider.value)
         let attack = String(format: "%0.3f", filter.attackDuration)
         attackLabel!.text = "Attack: \(attack) Seconds"
+        printCode()
     }
     
     func setDecay(slider: Slider) {
         filter.decayDuration = Double(slider.value)
         let decay = String(format: "%0.3f", filter.decayDuration)
         decayLabel!.text = "Decay: \(decay) Seconds"
+        printCode()
     }
     
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")
+        self.print("    attackDuration = \(String(format: "%0.3f", filter.attackDuration))")
+        self.print("    decayDuration = \(String(format: "%0.3f", filter.decayDuration))")
+        self.print("}\n")
+    }
+
 }
 
 

@@ -90,19 +90,34 @@ class PlaygroundView: AKPlaygroundView {
         decimator.decimation = Double(slider.value)
         let decimation = String(format: "%0.3f", decimator.decimation)
         decimationLabel!.text = "Decimation: \(decimation)"
+        printCode()
     }
     
     func setRounding(slider: Slider) {
         decimator.rounding = Double(slider.value)
         let rounding = String(format: "%0.3f", decimator.rounding)
         roundingLabel!.text = "Rounding: \(rounding)"
+        printCode()
     }
     
     func setMix(slider: Slider) {
         decimator.mix = Double(slider.value)
         let mix = String(format: "%0.3f", decimator.mix)
         mixLabel!.text = "Mix: \(mix)"
+        printCode()
     }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        self.print("public func presetXXXXXX() {")
+        self.print("    decimation = \(String(format: "%0.3f", decimator.decimation))")
+        self.print("    rounding = \(String(format: "%0.3f", decimator.rounding))")
+        self.print("    mix = \(String(format: "%0.3f", decimator.mix))")
+
+        self.print("}\n")
+    }
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))

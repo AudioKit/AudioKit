@@ -66,14 +66,18 @@ public class AKTriangleOscillator: AKVoice {
         }
     }
     
-    /// Crest Offset.
+    /// Crest Offset min .05 to max .95.
     public var crest: Double = 0.5 {
         willSet {
             if crest != newValue {
                 if internalAU!.isSetUp() {
                     crestParameter?.setValue(Float(newValue), originator: token!)
                 } else {
-                    internalAU?.crest = Float(newValue)
+                    if (!(Float(newValue)<=0.95 && Float(newValue)>=0.05)) {
+                        internalAU?.crest = 0.05
+                    } else {
+                        internalAU?.crest = Float(newValue)
+                    }
                 }
             }
         }
