@@ -174,7 +174,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - public inits
 
     /// the safest way to proceed is to use an AKAudioFile
-    public init (file: AKAudioFile, completionHandler: AKCallback? = nil) throws {
+    public init(file: AKAudioFile, completionHandler: AKCallback? = nil) throws {
 
         self.internalAudioFile = file
         self.completionHandler = completionHandler
@@ -313,13 +313,11 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             print("Cannot replace with file:\(file)")
         }
 
-        let nsurl = NSURL(string:file)
-        if nsurl != nil {
-            let newAvAudioFile = try? AVAudioFile(forReading: nsurl!)
-            if newAvAudioFile != nil {
-                let  audioFile = try? AKAudioFile(forReadingAVAudioFile: newAvAudioFile!)
-                if audioFile != nil {
-                    replaceAudioFile(audioFile!)
+        if let nsurl = NSURL(string:file) {
+            if let newAvAudioFile = try? AVAudioFile(forReading: nsurl) {
+                
+                if let audioFile = try? AKAudioFile(forReadingAVAudioFile: newAvAudioFile) {
+                    replaceAudioFile(audioFile)
                 } else {
                     warnFailed()
                 }
