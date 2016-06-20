@@ -45,6 +45,11 @@ public:
         tbvcf->res = 0.5;
         tbvcf->dist = 2.0;
         tbvcf->asym = 0.5;
+
+        cutoffFrequencyRamper.init();
+        resonanceRamper.init();
+        distortionRamper.init();
+        resonanceAsymmetryRamper.init();
     }
 
     void start() {
@@ -62,45 +67,49 @@ public:
 
     void reset() {
         resetted = true;
+        cutoffFrequencyRamper.reset();
+        resonanceRamper.reset();
+        distortionRamper.reset();
+        resonanceAsymmetryRamper.reset();
     }
 
-    void setCutoffFrequency(float fco) {
-        cutoffFrequency = fco;
-        cutoffFrequencyRamper.setImmediate(fco);
+    void setCutoffFrequency(float value) {
+        cutoffFrequency = clamp(value, 12.0f, 20000.0f);
+        cutoffFrequencyRamper.setImmediate(cutoffFrequency);
     }
 
-    void setResonance(float res) {
-        resonance = res;
-        resonanceRamper.setImmediate(res);
+    void setResonance(float value) {
+        resonance = clamp(value, 0.0f, 2.0f);
+        resonanceRamper.setImmediate(resonance);
     }
 
-    void setDistortion(float dist) {
-        distortion = dist;
-        distortionRamper.setImmediate(dist);
+    void setDistortion(float value) {
+        distortion = clamp(value, 0.0f, 4.0f);
+        distortionRamper.setImmediate(distortion);
     }
 
-    void setResonanceAsymmetry(float asym) {
-        resonanceAsymmetry = asym;
-        resonanceAsymmetryRamper.setImmediate(asym);
+    void setResonanceAsymmetry(float value) {
+        resonanceAsymmetry = clamp(value, 0.0f, 1.0f);
+        resonanceAsymmetryRamper.setImmediate(resonanceAsymmetry);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                cutoffFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case resonanceAddress:
-                resonanceRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
+                resonanceRamper.setUIValue(clamp(value, 0.0f, 2.0f));
                 break;
 
             case distortionAddress:
-                distortionRamper.setUIValue(clamp(value, (float)0.0, (float)4.0));
+                distortionRamper.setUIValue(clamp(value, 0.0f, 4.0f));
                 break;
 
             case resonanceAsymmetryAddress:
-                resonanceAsymmetryRamper.setUIValue(clamp(value, (float)0.0, (float)1.0));
+                resonanceAsymmetryRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
         }
@@ -127,19 +136,19 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case resonanceAddress:
-                resonanceRamper.startRamp(clamp(value, (float)0.0, (float)2.0), duration);
+                resonanceRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
                 break;
 
             case distortionAddress:
-                distortionRamper.startRamp(clamp(value, (float)0.0, (float)4.0), duration);
+                distortionRamper.startRamp(clamp(value, 0.0f, 4.0f), duration);
                 break;
 
             case resonanceAsymmetryAddress:
-                resonanceAsymmetryRamper.startRamp(clamp(value, (float)0.0, (float)1.0), duration);
+                resonanceAsymmetryRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
         }
@@ -168,7 +177,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_tbvcf_compute(sp, tbvcf, in, out);
                 } else {
@@ -181,7 +190,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

@@ -127,6 +127,7 @@ public class AKStringResonator: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.fundamentalFrequency = Float(fundamentalFrequency)
         internalAU?.feedback = Float(feedback)
     }
