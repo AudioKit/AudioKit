@@ -7,11 +7,11 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingFileName: "drumloop", withExtension: "wav", fromBaseDirectory: .resources)
+let file = try? AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
-var bitcrusher = AKBitCrusher(player)
+let player = try? AKAudioPlayer(file: file!)
+player!.looping = true
+var bitcrusher = AKBitCrusher(player!)
 
 //: Set the parameters of the bitcrusher here
 bitcrusher.bitDepth = 16
@@ -20,7 +20,7 @@ bitcrusher.sampleRate = 3333
 AudioKit.output = bitcrusher
 AudioKit.start()
 
-player.play()
+player!.play()
 
 class PlaygroundView: AKPlaygroundView {
 
@@ -46,10 +46,10 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
-        player.replaceAudioFile(file!)
-        player.play()
+        player!.stop()
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player!.replaceFile(file!)
+        player!.play()
     }
 
     func startDrumLoop() {
@@ -72,7 +72,7 @@ class PlaygroundView: AKPlaygroundView {
         startLoop("mix")
     }
     func stop() {
-        player.stop()
+        player!.stop()
     }
 
     func setBitDepth(slider: Slider) {

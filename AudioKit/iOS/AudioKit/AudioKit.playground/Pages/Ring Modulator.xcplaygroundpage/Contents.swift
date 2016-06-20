@@ -7,10 +7,12 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingFileName: "leadloop", withExtension: "wav", fromBaseDirectory: .resources)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
-let player = try AKAudioPlayer(file: file)
+//: Here we set up a player to the loop the file's playback
+var player = try AKAudioPlayer(file: file)
 player.looping = true
+
 
 var ringModulator = AKRingModulator(player)
 
@@ -68,8 +70,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
-        player.replaceAudioFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
 

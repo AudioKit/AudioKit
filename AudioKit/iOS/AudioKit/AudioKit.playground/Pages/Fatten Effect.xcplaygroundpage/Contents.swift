@@ -7,11 +7,11 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
 
 //: Here we set up a player to the loop the file's playback
-var player = AKAudioPlayer(file!)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: Define parameters that will be required
@@ -57,8 +57,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
-        player.replaceAudioFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
 

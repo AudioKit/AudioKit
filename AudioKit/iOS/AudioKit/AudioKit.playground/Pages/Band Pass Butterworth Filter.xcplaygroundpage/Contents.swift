@@ -7,13 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
+let file = try? AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
-let player = try AKAudioPlayer(file: file)
-player.looping = true
+let player = try? AKAudioPlayer(file: file!)
+player!.looping = true
 
 //: Next, we'll connect the audio sources to a band pass filter
-var filter = AKBandPassButterworthFilter(player)
+var filter = AKBandPassButterworthFilter(player!)
 
 //: Set the parameters of the band pass filter here
 filter.centerFrequency = 5000 // Hz
@@ -56,10 +56,10 @@ class PlaygroundView: AKPlaygroundView {
     //: Handle UI Events
 
     func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
-        player.replaceAudioFile(file!)
-        player.play()
+        player!.stop()
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player!.replaceFile(file!)
+        player!.play()
     }
 
     func startDrumLoop() {
@@ -83,7 +83,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func stop() {
-        player.stop()
+        player!.stop()
     }
 
     func process() {
