@@ -14,7 +14,7 @@ func myCompletionCallBack(){
 }
 
 //: Then, we create a player to play some guitar.
-let guitarLoop = try? AKAudioFile(forReadingFileName: "guitarloop", withExtension: "wav", fromBaseDirectory: .resources)
+let guitarLoop = try? AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
 let player = try? AKAudioPlayer(file: guitarLoop!, completionHandler: myCompletionCallBack)
 
@@ -97,20 +97,20 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func loadDrumLoop() {
-        let loopMp3 = try? AKAudioFile(forReadingFileName: "drumloop", withExtension: "wav", fromBaseDirectory: .resources)
+        let loopMp3 = try? AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
         
-        player!.replaceAudioFile(loopMp3!)
+        try? player!.replaceFile(loopMp3!)
         updateUI()
     }
     
     func reloadFile() {
-        player!.reloadFile()
+        try? player!.reloadFile()
         updateUI()
     }
     
     func loadMixLoop() {
-        let mixloop = try? AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
-        player!.replaceAudioFile(mixloop!)
+        let mixloop = try? AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player!.replaceFile(mixloop!)
         updateUI()
     }
     

@@ -7,10 +7,14 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingFileName: "drumloop", withExtension: "wav", fromBaseDirectory: .resources)
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
+
+//: Here we set up a player to the loop the file's playback
 let player = try AKAudioPlayer(file: file)
 player.looping = true
+
+//: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom
 var reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.1)
 
 //: Set the parameters of the delay here
@@ -43,8 +47,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(forReadingFileName: "\(part)loop", withExtension: "wav", fromBaseDirectory: .resources)
-        player.replaceAudioFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
 

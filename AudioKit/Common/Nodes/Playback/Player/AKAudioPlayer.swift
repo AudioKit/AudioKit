@@ -10,11 +10,6 @@
 import Foundation
 import AVFoundation
 
-@objc public protocol AKAudioPlayerDelegate: class {
-    optional func playerStoppedOrFinished()
-    optional func playHeadSnapshot(playHead: Double)
-}
-
 /// Not so simple audio playback class
 public class AKAudioPlayer: AKNode, AKToggleable {
 
@@ -31,22 +26,18 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     private var lastCurrentTime: Double = 0
     private var paused = false
     private var playing = false
-    private var currentTimeTimer: NSTimer?
-    
+
 
     // MARK: - public vars
 
-    /// AKAudioPLayer delegate
-    public weak var delegate: AKAudioPlayerDelegate?
-    
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
     public var completionHandler: AKCallback?
 
-    // Boolean indicating whether or not to loop the playback
+    /// Boolean indicating whether or not to loop the playback
     public var looping: Bool = false
 
-    // return the current AKAudioFile
+    /// return the current played AKAudioFile
     public var audioFile: AKAudioFile {
         return internalAudioFile
     }
@@ -85,11 +76,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         return lastCurrentTime
     }
 
-    ///Snapshot playhead
-    public func timerPlayerHead() {
-        self.delegate?.playHeadSnapshot?(self.playhead)
-    }
-    
+
     /// Time within the audio file at the current time
     public var playhead: Double {
 
@@ -179,7 +166,6 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         self.internalAudioFile = file
         self.completionHandler = completionHandler
 
-        // Conforms to protocoles...
         super.init()
         AudioKit.engine.attachNode(internalPlayer)
         let mixer = AVAudioMixerNode()
@@ -194,140 +180,114 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
     }
 
+    /*
+     /// To stay compatible with ealier version
+     /// Should be deprecated because you cannot handle errors at run time...
+     /// :-/
+     public convenience init(_ file: String, completionHandler: AKCallback? = nil) {
 
-    /// To stay compatible with ealier version
-    /// Should be deprecated because you cannot handle errors at run time...
-    /// :-/
-    public convenience init(_ file: String, completionHandler: AKCallback? = nil) {
 
-        // build an empty AKAudioFile as a backup if we fail to create a valid one from "file"
-        var akAudioFile = try? AKAudioFile()
+     print ("AKAudioPlayer Warning: init using a file path string will be deprecated and won't throw error if it fails to init properly. Please init using an AKAudioFile (safer and lets you catch errors if something goes wrong).")
+     // build an empty AKAudioFile as a backup if we fail to create a valid one from "file"
+     var audioFile = try? AKAudioFile()
 
-        let nsurl = NSURL(string:file)
-        if nsurl != nil {
-            do {
-                let avAudioFile = try AVAudioFile(forReading: nsurl!)
-                do {
-                    akAudioFile = try AKAudioFile(forWritingAVAudioFile: avAudioFile)
-                } catch let error as NSError {
-                    print ("Couldn't create an AKAudioFile with file: \(file) !...")
-                    print("Error: \(error)")
-                }
+     let nsurl = NSURL(string:file)
+     if nsurl != nil {
+     do {
+     audioFile = try AKAudioFile(forReading: nsurl!)
+     } catch let error as NSError {
+     print ("Couldn't create an AKAudioFile with file: \(file) !...")
+     print("Error: \(error)")
+     }
 
-            } catch let error as NSError {
-                print ("Couldn't create an AVAudioFile with file: \(file) !...")
-                print("Error: \(error)")
-            }
-        } else {
-            print("Cannot create a valid nsurl with file:\(file)")
-        }
-        //
-        try! self.init (file: akAudioFile!, completionHandler: completionHandler)
-    }
-
+     } else {
+     print("Cannot create a valid nsurl with file:\(file)")
+     }
+     //
+     try! self.init (file: audioFile!, completionHandler: completionHandler)
+     }
+     */
 
     // MARK: - public func
 
     public func start() {
 
         if (!playing) {
-            playing = true
-            paused = false
-            internalPlayer.play()
-            self.currentTimeTimer?.invalidate()
-            self.currentTimeTimer = nil
-            self.currentTimeTimer = NSTimer(timeInterval: 0.1, target: self, selector: #selector(AKAudioPlayer.timerPlayerHead), userInfo: nil, repeats: true)
-            NSRunLoop.currentRunLoop().addTimer(self.currentTimeTimer!, forMode: NSRunLoopCommonModes)
+            if (audioFileBuffer != nil)
+            {
+                playing = true
+                paused = false
+                internalPlayer.play()
+            }
+            else {
+                print ("AKAudioPlayer Warning: cannot play an empty file!...")
+            }
+        } else {
+            print ("AKAudioPlayer Warning: already playing!...")
         }
-
     }
 
     /// Stop playback
     public func stop() {
-
-        lastCurrentTime = Double(startTime / internalAudioFile.sampleRate)
-        playing = false
-        paused = false
-        internalPlayer.stop()
-        setPCMBuffer()
-        scheduleBuffer()
-
+            lastCurrentTime = Double(startTime / internalAudioFile.sampleRate)
+            playing = false
+            paused = false
+            internalPlayer.stop()
+            setPCMBuffer()
+            scheduleBuffer()
     }
 
     /// Pause playback
     public func pause() {
+        if playing {
+            if !paused {
         lastCurrentTime = currentTime
         playing = false
         paused = true
         internalPlayer.pause()
-        self.currentTimeTimer?.invalidate()
-        self.currentTimeTimer = nil
+            }
+            else {
+                print ("AKAudioPlayer Warning: already paused!...")
+            }
+        } else {
+             print ("AKAudioPlayer Warning: Cannot pause when not playing!...")
+        }
     }
 
     /// resets in and out times for playing
-    public func reloadFile() {
+    public func reloadFile() throws {
         stop()
 
         var newAudioFile: AKAudioFile?
 
         do {
-            newAudioFile = try AKAudioFile(forReadingAVAudioFile: audioFile)
+            newAudioFile = try AKAudioFile(forReadingFromAVAudioFile: audioFile)
         } catch let error as NSError {
-            print ("Couldn't reLoadFile !...")
+            print ("AKAudioPlayer Error:Couldn't reLoadFile !...")
             print("Error: \(error)")
-
+            throw error
         }
-        if newAudioFile != nil {
-            internalAudioFile = newAudioFile!
-            initialize()
 
-        } else {
-            print ("Couldn't reLoadFile, newAudioFile is not valid !...")
-        }
-        
-        
+        internalAudioFile = newAudioFile!
+        initialize()
     }
 
     /// Replace the current audio file with a new AKAudioFile file
-    public func replaceAudioFile(file: AKAudioFile) {
-        print ("replace")
-        print("Before -> \(internalAudioFile.length)")
-        self.internalAudioFile = file
-        print("After -> \(internalAudioFile.length)")
+    public func replaceFile(file: AKAudioFile) throws {
         let wasPlaying = playing
-        playing = false
-        internalPlayer.stop()
-        internalPlayer.reset()
-        initialize()
+        stop()
+        self.internalAudioFile = file
+        do {
+            try reloadFile()
+        } catch let error as NSError {
+            print ("AKAudioPlayer Error: Couldn't replace File !...")
+            print("Error: \(error)")
+        }
         if wasPlaying {
             play()
         }
     }
-    /// To stay compatible with ealier version
-    /// Should be deprecated...
-    /// (very ugly !)
-    /// File is replaced only if a valid AKAudioFile can be instanciated from the file (Path As String)
-    public func replaceFile(file: String) {
 
-        func warnFailed() {
-            print("Cannot replace with file:\(file)")
-        }
-
-        if let nsurl = NSURL(string:file) {
-            if let newAvAudioFile = try? AVAudioFile(forReading: nsurl) {
-                
-                if let audioFile = try? AKAudioFile(forReadingAVAudioFile: newAvAudioFile) {
-                    replaceAudioFile(audioFile)
-                } else {
-                    warnFailed()
-                }
-            } else {
-                warnFailed()
-            }
-        } else {
-            warnFailed()
-        }
-    }
 
     /*
      /// Play the file back from a certain time to an end time (if set)
@@ -348,10 +308,6 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         if (endingFrame > startingFrame ) {
             stop()
             play()
-            self.currentTimeTimer?.invalidate()
-            self.currentTimeTimer = nil
-            self.currentTimeTimer = NSTimer(timeInterval: 0.1, target: self, selector: #selector(AKAudioPlayer.timerPlayerHead), userInfo: nil, repeats: true)
-            NSRunLoop.currentRunLoop().addTimer(self.currentTimeTimer!, forMode: NSRunLoopCommonModes)
         } else {
             print("ERROR AKaudioPlayer:  cannot play, \(internalAudioFile.fileNameWithExtension) is empty or segment is too short!")
         }
@@ -406,17 +362,14 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
     
-    /// Triggered when the player stops playing
+    /// Triggered when the player reaches the end of its playing range
     private func internalCompletionHandler() {
         if playing {
             if looping {
                 scheduleBuffer()
             } else {
-                self.currentTimeTimer?.invalidate()
-                self.currentTimeTimer = nil
                 stop()
                 completionHandler?()
-                self.delegate?.playerStoppedOrFinished?()
             }
         }
     }
