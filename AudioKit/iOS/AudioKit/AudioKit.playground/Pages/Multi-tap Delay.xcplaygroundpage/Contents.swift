@@ -7,10 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
-var player = AKAudioPlayer(file!)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: ### In AudioKit, you can create a multitap easily through creating a function that mixes together several delays and gains.

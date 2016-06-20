@@ -2,9 +2,10 @@ import UIKit
 import XCPlayground
 
 import AudioKit
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("click", ofType: "wav")
-var tink = AKAudioPlayer(file!)
+
+
+let file = try AKAudioFile(forReadingWithFileName: "click", andExtension: "wav", fromBaseDirectory: .Resources)
+var tink = try AKAudioPlayer(file: file)
 
 var reverb = AKCostelloReverb(tink)
 let gravity = 0.166
