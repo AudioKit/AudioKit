@@ -38,7 +38,9 @@ public:
         sp->nchan = channels;
         sp_buthp_create(&buthp);
         sp_buthp_init(sp, buthp);
-        buthp->freq = 500;
+        buthp->freq = 500.0;
+
+        cutoffFrequencyRamper.init();
     }
 
     void start() {
@@ -56,18 +58,19 @@ public:
 
     void reset() {
         resetted = true;
+        cutoffFrequencyRamper.reset();
     }
 
-    void setCutoffFrequency(float freq) {
-        cutoffFrequency = freq;
-        cutoffFrequencyRamper.setImmediate(freq);
+    void setCutoffFrequency(float value) {
+        cutoffFrequency = clamp(value, 12.0f, 20000.0f);
+        cutoffFrequencyRamper.setImmediate(cutoffFrequency);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                cutoffFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
         }
@@ -85,7 +88,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
         }
@@ -108,7 +111,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_buthp_compute(sp, buthp, in, out);
                 } else {
@@ -121,7 +124,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -131,12 +133,12 @@ private:
     sp_data *sp;
     sp_buthp *buthp;
 
-    float cutoffFrequency = 500;
+    float cutoffFrequency = 500.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper cutoffFrequencyRamper = 500;
+    ParameterRamper cutoffFrequencyRamper = 500.0;
 };
 
 #endif /* AKHighPassButterworthFilterDSPKernel_hpp */
