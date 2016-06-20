@@ -41,7 +41,7 @@ public:
         sp_moogladder_init(sp, moogladder);
         moogladder->freq = 1000;
         moogladder->res = 0.5;
-        
+
         cutoffFrequencyRamper.init();
         resonanceRamper.init();
     }
@@ -133,7 +133,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_moogladder_compute(sp, moogladder, in, out);
                 } else {
