@@ -45,6 +45,11 @@ public:
         dist->postgain = 0.5;
         dist->shape1 = 0.0;
         dist->shape2 = 0.0;
+
+        pregainRamper.init();
+        postgainRamper.init();
+        postiveShapeParameterRamper.init();
+        negativeShapeParameterRamper.init();
     }
 
     void start() {
@@ -62,45 +67,49 @@ public:
 
     void reset() {
         resetted = true;
+        pregainRamper.reset();
+        postgainRamper.reset();
+        postiveShapeParameterRamper.reset();
+        negativeShapeParameterRamper.reset();
     }
 
-    void setPregain(float pregain) {
-        pregain = pregain;
+    void setPregain(float value) {
+        pregain = clamp(value, 0.0f, 10.0f);
         pregainRamper.setImmediate(pregain);
     }
 
-    void setPostgain(float postgain) {
-        postgain = postgain;
+    void setPostgain(float value) {
+        postgain = clamp(value, 0.0f, 10.0f);
         postgainRamper.setImmediate(postgain);
     }
 
-    void setPostiveShapeParameter(float shape1) {
-        postiveShapeParameter = shape1;
-        postiveShapeParameterRamper.setImmediate(shape1);
+    void setPostiveShapeParameter(float value) {
+        postiveShapeParameter = clamp(value, -10.0f, 10.0f);
+        postiveShapeParameterRamper.setImmediate(postiveShapeParameter);
     }
 
-    void setNegativeShapeParameter(float shape2) {
-        negativeShapeParameter = shape2;
-        negativeShapeParameterRamper.setImmediate(shape2);
+    void setNegativeShapeParameter(float value) {
+        negativeShapeParameter = clamp(value, -10.0f, 10.0f);
+        negativeShapeParameterRamper.setImmediate(negativeShapeParameter);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case pregainAddress:
-                pregainRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
+                pregainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
             case postgainAddress:
-                postgainRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
+                postgainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
             case postiveShapeParameterAddress:
-                postiveShapeParameterRamper.setUIValue(clamp(value, (float)-10.0, (float)10.0));
+                postiveShapeParameterRamper.setUIValue(clamp(value, -10.0f, 10.0f));
                 break;
 
             case negativeShapeParameterAddress:
-                negativeShapeParameterRamper.setUIValue(clamp(value, (float)-10.0, (float)10.0));
+                negativeShapeParameterRamper.setUIValue(clamp(value, -10.0f, 10.0f));
                 break;
 
         }
@@ -127,19 +136,19 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case pregainAddress:
-                pregainRamper.startRamp(clamp(value, (float)0.0, (float)10.0), duration);
+                pregainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
             case postgainAddress:
-                postgainRamper.startRamp(clamp(value, (float)0.0, (float)10.0), duration);
+                postgainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
             case postiveShapeParameterAddress:
-                postiveShapeParameterRamper.startRamp(clamp(value, (float)-10.0, (float)10.0), duration);
+                postiveShapeParameterRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
                 break;
 
             case negativeShapeParameterAddress:
-                negativeShapeParameterRamper.startRamp(clamp(value, (float)-10.0, (float)10.0), duration);
+                negativeShapeParameterRamper.startRamp(clamp(value, -10.0f, 10.0f), duration);
                 break;
 
         }
@@ -168,7 +177,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_dist_compute(sp, dist, in, out);
                 } else {
@@ -181,7 +190,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

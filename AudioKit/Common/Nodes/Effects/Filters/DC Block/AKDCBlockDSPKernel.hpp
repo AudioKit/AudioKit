@@ -35,6 +35,7 @@ public:
         sp->nchan = channels;
         sp_dcblock_create(&dcblock);
         sp_dcblock_init(sp, dcblock);
+
     }
 
     void start() {
@@ -51,7 +52,9 @@ public:
     }
 
     void reset() {
+        resetted = true;
     }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -80,10 +83,11 @@ public:
 
             int frameOffset = int(frameIndex + bufferOffset);
 
+
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_dcblock_compute(sp, dcblock, in, out);
                 } else {
@@ -96,7 +100,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -106,8 +109,10 @@ private:
     sp_data *sp;
     sp_dcblock *dcblock;
 
+
 public:
     bool started = true;
+    bool resetted = false;
 };
 
 #endif /* AKDCBlockDSPKernel_hpp */

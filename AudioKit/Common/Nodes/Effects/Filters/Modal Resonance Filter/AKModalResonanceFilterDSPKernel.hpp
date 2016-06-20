@@ -41,6 +41,9 @@ public:
         sp_mode_init(sp, mode);
         mode->freq = 500.0;
         mode->q = 50.0;
+
+        frequencyRamper.init();
+        qualityFactorRamper.init();
     }
 
     void start() {
@@ -58,27 +61,29 @@ public:
 
     void reset() {
         resetted = true;
+        frequencyRamper.reset();
+        qualityFactorRamper.reset();
     }
 
-    void setFrequency(float freq) {
-        frequency = freq;
-        frequencyRamper.setImmediate(freq);
+    void setFrequency(float value) {
+        frequency = clamp(value, 12.0f, 20000.0f);
+        frequencyRamper.setImmediate(frequency);
     }
 
-    void setQualityFactor(float q) {
-        qualityFactor = q;
-        qualityFactorRamper.setImmediate(q);
+    void setQualityFactor(float value) {
+        qualityFactor = clamp(value, 0.0f, 100.0f);
+        qualityFactorRamper.setImmediate(qualityFactor);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                frequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case qualityFactorAddress:
-                qualityFactorRamper.setUIValue(clamp(value, (float)0.0, (float)100.0));
+                qualityFactorRamper.setUIValue(clamp(value, 0.0f, 100.0f));
                 break;
 
         }
@@ -99,11 +104,11 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                frequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case qualityFactorAddress:
-                qualityFactorRamper.startRamp(clamp(value, (float)0.0, (float)100.0), duration);
+                qualityFactorRamper.startRamp(clamp(value, 0.0f, 100.0f), duration);
                 break;
 
         }
@@ -141,7 +146,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
