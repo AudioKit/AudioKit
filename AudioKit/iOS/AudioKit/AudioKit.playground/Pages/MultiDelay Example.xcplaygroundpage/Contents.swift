@@ -7,12 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
 //: Here we set up a player to the loop the file's playback
-var player = AKAudioPlayer(file!)
+var player = try AKAudioPlayer(file: file)
 player.looping = true
+
+
 
 func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
