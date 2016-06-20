@@ -269,6 +269,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
 
         internalAudioFile = newAudioFile!
+        internalPlayer.reset()
         initialize()
     }
 
