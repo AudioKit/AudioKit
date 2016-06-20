@@ -30,6 +30,7 @@ public class AKNodeRecorder {
 
         // requestRecordPermission...
         var permissionGranted: Bool = false
+#if os(iOS)
         AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
             if granted {
                 permissionGranted = true
@@ -39,30 +40,31 @@ public class AKNodeRecorder {
         })
 
         if !permissionGranted {
-            print("AKMagneto Error: Permission to record not granted")
+            print("AKNodeRecorder Error: Permission to record not granted")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
         }
-
+#endif
+        
         // AVAudioSession setup
 
         self.bufferSize = bufferSize
         let ioBufferDuration: NSTimeInterval = Double(bufferSize) / 44100.0
 
+#if os(iOS)
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
         } catch {
             assertionFailure("AKAudioFileRecorder Error: AVAudioSession setup error: \(error)")
         }
-
-
+#endif
 
         if file == nil {
             // We create a record file in temp directory
             do {
                 self.tape = try AKAudioFile()
             } catch let error as NSError {
-                print ("AKMagneto Error: Cannot create an empty tape")
+                print ("AKNodeRecorder Error: Cannot create an empty tape")
                 throw error
             }
 
@@ -72,7 +74,7 @@ public class AKNodeRecorder {
                 // We initialize tape AKAudioFile for writing (and check that we can write to)
                 self.tape = try AKAudioFile(forWritingFromAVAudioFile: file!)
             } catch let error as NSError {
-                print ("AKMagneto Error: cannot write to \(file!.fileNameWithExtension)")
+                print ("AKNodeRecorder Error: cannot write to \(file!.fileNameWithExtension)")
                 throw error
             }
         }
@@ -83,7 +85,7 @@ public class AKNodeRecorder {
     // Record !
     public func record() {
         if recording {
-            print ("AKMagneto Warning: already recording !")
+            print ("AKNodeRecorder Warning: already recording !")
             return
         }
 
@@ -100,7 +102,7 @@ public class AKNodeRecorder {
                 }
             })
         } else {
-            print ("AKMagneto Error: input node is not available")
+            print ("AKNodeRecorder Error: input node is not available")
         }
     }
 
@@ -108,7 +110,7 @@ public class AKNodeRecorder {
     /// Stop recording
     public func stop() {
         if !recording {
-            print ("AKMagneto Warning: Cannot stop recording, already stopped !")
+            print ("AKNodeRecorder Warning: Cannot stop recording, already stopped !")
             return
         }
 
@@ -117,7 +119,7 @@ public class AKNodeRecorder {
             node!.avAudioNode.removeTapOnBus(0)
             print("Recording Stopped.")
         } else {
-            print ("AKMagneto Error: input node is not available")
+            print ("AKNodeRecorder Error: input node is not available")
         }
     }
 
@@ -133,16 +135,16 @@ public class AKNodeRecorder {
         do {
             try fileManager.removeItemAtPath(tape.url.absoluteString)
         } catch let error as NSError {
-            print ("AKMagneto Error: cannot delete Recording file:  \(tape.fileNameWithExtension)")
+            print ("AKNodeRecorder Error: cannot delete Recording file:  \(tape.fileNameWithExtension)")
             throw error
         }
 
         // Creates a blanck new tape
         do {
             tape = try AKAudioFile(forWriting: url, settings: settings)
-            print ("AKMagneto: tape has been cleared")
+            print ("AKNodeRecorder: tape has been cleared")
         } catch let error as NSError {
-            print ("AKMagneto Error: cannot create an new tape from file:  \(tape.fileNameWithExtension)")
+            print ("AKNodeRecorder Error: cannot create an new tape from file:  \(tape.fileNameWithExtension)")
             throw error
         }
     }
