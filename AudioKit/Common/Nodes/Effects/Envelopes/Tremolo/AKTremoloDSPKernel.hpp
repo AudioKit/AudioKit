@@ -39,6 +39,8 @@ public:
         sp_trem_create(&trem);
         sp_trem_init(sp, trem, tbl);
         trem->freq = 10;
+
+        frequencyRamper.init();
     }
     void setupWaveform(uint32_t size) {
         tbl_size = size;
@@ -64,18 +66,19 @@ public:
 
     void reset() {
         resetted = true;
+        frequencyRamper.reset();
     }
 
-    void setFrequency(float freq) {
-        frequency = freq;
-        frequencyRamper.setImmediate(freq);
+    void setFrequency(float value) {
+        frequency = clamp(value, 0.0f, 100.0f);
+        frequencyRamper.setImmediate(frequency);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.setUIValue(clamp(value, (float)0, (float)100));
+                frequencyRamper.setUIValue(clamp(value, 0.0f, 100.0f));
                 break;
 
         }
@@ -93,7 +96,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.startRamp(clamp(value, (float)0, (float)100), duration);
+                frequencyRamper.startRamp(clamp(value, 0.0f, 100.0f), duration);
                 break;
 
         }
@@ -105,7 +108,7 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        // For each sample.
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
@@ -113,16 +116,15 @@ public:
             frequency = frequencyRamper.getAndStep();
             trem->freq = (float)frequency * 0.5; //Divide by two for stereo
 
-            if (!started) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-                return;
-            }
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_trem_compute(sp, trem, in, out);
+                if (started) {
+                    sp_trem_compute(sp, trem, in, out);
+                } else {
+                    *out = *in;
+                }
             }
         }
     }
@@ -130,7 +132,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -142,12 +143,12 @@ private:
     sp_ftbl *tbl;
     UInt32 tbl_size = 4096;
 
-    float frequency = 10;
+    float frequency = 10.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper frequencyRamper = 10;
+    ParameterRamper frequencyRamper = 10.0;
 };
 
 #endif /* AKTremoloDSPKernel_hpp */
