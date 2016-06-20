@@ -38,7 +38,9 @@ public:
         sp->nchan = channels;
         sp_atone_create(&atone);
         sp_atone_init(sp, atone);
-        atone->hp = 1000;
+        atone->hp = 1000.0;
+
+        halfPowerPointRamper.init();
     }
 
     void start() {
@@ -56,18 +58,19 @@ public:
 
     void reset() {
         resetted = true;
+        halfPowerPointRamper.reset();
     }
 
-    void setHalfPowerPoint(float hp) {
-        halfPowerPoint = hp;
-        halfPowerPointRamper.setImmediate(hp);
+    void setHalfPowerPoint(float value) {
+        halfPowerPoint = clamp(value, 12.0f, 20000.0f);
+        halfPowerPointRamper.setImmediate(halfPowerPoint);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case halfPowerPointAddress:
-                halfPowerPointRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                halfPowerPointRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
         }
@@ -85,7 +88,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case halfPowerPointAddress:
-                halfPowerPointRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                halfPowerPointRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
         }
@@ -97,19 +100,18 @@ public:
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-            
+
             int frameOffset = int(frameIndex + bufferOffset);
 
             halfPowerPoint = halfPowerPointRamper.getAndStep();
             atone->hp = (float)halfPowerPoint;
 
             for (int channel = 0; channel < channels; ++channel) {
-                
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_atone_compute(sp, atone, in, out);
                 } else {
@@ -122,7 +124,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -132,12 +133,12 @@ private:
     sp_data *sp;
     sp_atone *atone;
 
-    float halfPowerPoint = 1000;
+    float halfPowerPoint = 1000.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper halfPowerPointRamper = 1000;
+    ParameterRamper halfPowerPointRamper = 1000.0;
 };
 
 #endif /* AKToneComplementFilterDSPKernel_hpp */
