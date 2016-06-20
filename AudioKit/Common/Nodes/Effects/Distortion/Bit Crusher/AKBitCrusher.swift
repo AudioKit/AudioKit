@@ -122,6 +122,7 @@ public class AKBitCrusher: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.bitDepth = Float(bitDepth)
         internalAU?.sampleRate = Float(sampleRate)
     }
