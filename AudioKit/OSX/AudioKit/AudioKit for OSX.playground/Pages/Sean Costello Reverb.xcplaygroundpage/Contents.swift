@@ -93,10 +93,10 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")
-        self.print("    feedback = \(String(format: "%0.3f", reverb.feedback))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")
+        Swift.print("    feedback = \(String(format: "%0.3f", reverb.feedback))")
+        Swift.print("}\n")
     }
 
 }

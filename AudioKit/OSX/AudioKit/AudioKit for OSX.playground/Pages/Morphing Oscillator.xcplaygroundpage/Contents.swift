@@ -74,15 +74,15 @@ class PlaygroundView: AKPlaygroundView {
         morphIndexLabel!.text = "Morph Index: \(index)"
         printCode()
     }
-    
+
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
-        
-        self.print("public func presetXXXXXX() {")
-        self.print("    frequency = \(String(format: "%0.3f", morph.frequency))")
-        self.print("    resonance = \(String(format: "%0.3f", morph.amplitude))")
-        self.print("    index = \(String(format: "%0.3f", morph.index))")
-        self.print("}\n")
+
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    frequency = \(String(format: "%0.3f", morph.frequency))")
+        Swift.print("    resonance = \(String(format: "%0.3f", morph.amplitude))")
+        Swift.print("    index = \(String(format: "%0.3f", morph.index))")
+        Swift.print("}\n")
     }
 }
 

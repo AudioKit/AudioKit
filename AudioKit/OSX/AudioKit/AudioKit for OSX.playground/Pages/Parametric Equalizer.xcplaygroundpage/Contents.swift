@@ -124,11 +124,11 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    centerFrequency = \(String(format: "%0.3f", parametricEQ.centerFrequency))")
-        self.print("    q = \(String(format: "%0.3f", parametricEQ.q))")
-        self.print("    gain = \(String(format: "%0.3f", parametricEQ.gain))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    centerFrequency = \(String(format: "%0.3f", parametricEQ.centerFrequency))")
+        Swift.print("    q = \(String(format: "%0.3f", parametricEQ.q))")
+        Swift.print("    gain = \(String(format: "%0.3f", parametricEQ.gain))")
+        Swift.print("}\n")
     }
 
 }

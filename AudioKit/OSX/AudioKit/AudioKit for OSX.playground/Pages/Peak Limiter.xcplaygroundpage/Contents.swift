@@ -124,11 +124,11 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    attackTime = \(String(format: "%0.3f", peakLimiter.attackTime))")
-        self.print("    decayTime = \(String(format: "%0.3f", peakLimiter.decayTime))")
-        self.print("    preGain = \(String(format: "%0.3f", peakLimiter.preGain))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    attackTime = \(String(format: "%0.3f", peakLimiter.attackTime))")
+        Swift.print("    decayTime = \(String(format: "%0.3f", peakLimiter.decayTime))")
+        Swift.print("    preGain = \(String(format: "%0.3f", peakLimiter.preGain))")
+        Swift.print("}\n")
     }
 
 }

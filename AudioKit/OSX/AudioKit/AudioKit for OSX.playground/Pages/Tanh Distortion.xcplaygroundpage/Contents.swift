@@ -137,12 +137,12 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    pregain = \(String(format: "%0.3f", distortion.pregain))")
-        self.print("    postgain = \(String(format: "%0.3f", distortion.postgain))")
-        self.print("    postiveShapeParameter = \(String(format: "%0.3f", distortion.postiveShapeParameter))")
-        self.print("    negativeShapeParameter = \(String(format: "%0.3f", distortion.negativeShapeParameter))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    pregain = \(String(format: "%0.3f", distortion.pregain))")
+        Swift.print("    postgain = \(String(format: "%0.3f", distortion.postgain))")
+        Swift.print("    postiveShapeParameter = \(String(format: "%0.3f", distortion.postiveShapeParameter))")
+        Swift.print("    negativeShapeParameter = \(String(format: "%0.3f", distortion.negativeShapeParameter))")
+        Swift.print("}\n")
     }
 
 }
