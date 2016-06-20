@@ -10,7 +10,6 @@
 		084F1D901D0DED02006ECB18 /* AKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084F1D8F1D0DED02006ECB18 /* AKAudioFile.swift */; };
 		5251477B1CC4AD7E00421C52 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251477A1CC4AD7E00421C52 /* AKNotifications.swift */; };
 		898DED261C6944430026FCC3 /* AKVariSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DED251C6944430026FCC3 /* AKVariSpeed.swift */; };
-		8DC6EA161D13044100A6A002 /* AKMagneto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC6EA151D13044100A6A002 /* AKMagneto.swift */; };
 		C40869AF1C197AF200EF9DED /* biscale.c in Sources */ = {isa = PBXBuildFile; fileRef = C40869AE1C197AF200EF9DED /* biscale.c */; };
 		C40AD69A1C463B2600B638AF /* AKMIDIEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AD6951C463B2600B638AF /* AKMIDIEvent.swift */; };
 		C40AD69B1C463B2600B638AF /* AKMIDIInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AD6961C463B2600B638AF /* AKMIDIInstrument.swift */; };
@@ -809,7 +808,6 @@
 		084F1D8F1D0DED02006ECB18 /* AKAudioFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAudioFile.swift; sourceTree = "<group>"; };
 		5251477A1CC4AD7E00421C52 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
 		898DED251C6944430026FCC3 /* AKVariSpeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariSpeed.swift; sourceTree = "<group>"; };
-		8DC6EA151D13044100A6A002 /* AKMagneto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMagneto.swift; sourceTree = "<group>"; };
 		C40869AE1C197AF200EF9DED /* biscale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = biscale.c; sourceTree = "<group>"; };
 		C40AD6951C463B2600B638AF /* AKMIDIEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIEvent.swift; sourceTree = "<group>"; };
 		C40AD6961C463B2600B638AF /* AKMIDIInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIInstrument.swift; sourceTree = "<group>"; };
@@ -1915,7 +1913,6 @@
 				C45C34FC1C08EE5700E3C7F0 /* Sporth */,
 				C4A927951D1343AE0095E429 /* STK */,
 				C40C41C91C40E4EE009D870B /* Testing */,
-				8DC6EA151D13044100A6A002 /* AKMagneto.swift */,
 			);
 			name = Internals;
 			path = ../../Common/Internals;
@@ -4318,7 +4315,6 @@
 				C48444EB1C36FE14007BE794 /* sawtooth.swift in Sources */,
 				C40BB0801C4716E0004C138D /* AKCombFilterReverb.swift in Sources */,
 				C4E958B61C0ADBFD00516A6A /* gbuzz.c in Sources */,
-				8DC6EA161D13044100A6A002 /* AKMagneto.swift in Sources */,
 				C40C428E1C41C3D6009D870B /* AKDripAudioUnit.mm in Sources */,
 				C46300F91C20C342009B44D9 /* pinknoise.c in Sources */,
 				C4E958CF1C0ADBFD00516A6A /* posc3.c in Sources */,
