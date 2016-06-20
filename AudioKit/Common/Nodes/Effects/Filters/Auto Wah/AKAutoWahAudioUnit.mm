@@ -80,8 +80,8 @@
     [AUParameterTree createParameterWithIdentifier:@"wah"
                                               name:@"Wah Amount"
                                            address:wahAddress
-                                               min:0
-                                               max:1
+                                               min:0.0
+                                               max:1.0
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
@@ -92,8 +92,8 @@
     [AUParameterTree createParameterWithIdentifier:@"mix"
                                               name:@"Dry/Wet Mix"
                                            address:mixAddress
-                                               min:0
-                                               max:100
+                                               min:0.0
+                                               max:1.0
                                               unit:kAudioUnitParameterUnit_Percent
                                           unitName:nil
                                              flags:0
@@ -104,8 +104,8 @@
     [AUParameterTree createParameterWithIdentifier:@"amplitude"
                                               name:@"Overall level"
                                            address:amplitudeAddress
-                                               min:0
-                                               max:1
+                                               min:0.0
+                                               max:1.0
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
@@ -114,8 +114,8 @@
 
 
     // Initialize the parameter values.
-    wahAUParameter.value = 0;
-    mixAUParameter.value = 100;
+    wahAUParameter.value = 0.0;
+    mixAUParameter.value = 1.0;
     amplitudeAUParameter.value = 0.1;
 
     _rampTime = AKSettings.rampTime;
@@ -144,16 +144,35 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKAutoWahDSPKernel *blockKernel = &_kernel;
+    __block AKAutoWahDSPKernel *autoWahKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        autoWahKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return autoWahKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case wahAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case mixAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case amplitudeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
