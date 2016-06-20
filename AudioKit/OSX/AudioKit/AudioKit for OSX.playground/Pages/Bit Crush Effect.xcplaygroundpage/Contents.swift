@@ -93,10 +93,10 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
-        self.print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
+        Swift.print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
+        Swift.print("}\n")
     }
 }
 

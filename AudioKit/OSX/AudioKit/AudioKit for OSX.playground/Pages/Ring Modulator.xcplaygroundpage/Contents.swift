@@ -136,12 +136,12 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    frequency1 = \(String(format: "%0.3f", ringModulator.frequency1))")
-        self.print("    frequency2 = \(String(format: "%0.3f", ringModulator.frequency2))")
-        self.print("    balance = \(String(format: "%0.3f", ringModulator.balance))")
-        self.print("    mix = \(String(format: "%0.3f", ringModulator.mix))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    frequency1 = \(String(format: "%0.3f", ringModulator.frequency1))")
+        Swift.print("    frequency2 = \(String(format: "%0.3f", ringModulator.frequency2))")
+        Swift.print("    balance = \(String(format: "%0.3f", ringModulator.balance))")
+        Swift.print("    mix = \(String(format: "%0.3f", ringModulator.mix))")
+        Swift.print("}\n")
     }
 
 }

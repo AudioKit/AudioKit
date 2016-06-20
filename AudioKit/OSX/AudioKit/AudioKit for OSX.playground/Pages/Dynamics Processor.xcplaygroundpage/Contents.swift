@@ -171,14 +171,14 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    threshold = \(String(format: "%0.3f", dynamicsProcessor.threshold))")
-        self.print("    headRoom = \(String(format: "%0.3f", dynamicsProcessor.headRoom))")
-        self.print("    expansionRatio = \(String(format: "%0.3f", dynamicsProcessor.expansionRatio))")
-        self.print("    attackTime = \(String(format: "%0.3f", dynamicsProcessor.attackTime))")
-        self.print("    releaseTime = \(String(format: "%0.3f", dynamicsProcessor.releaseTime))")
-        self.print("    masterGain = \(String(format: "%0.3f", dynamicsProcessor.masterGain))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    threshold = \(String(format: "%0.3f", dynamicsProcessor.threshold))")
+        Swift.print("    headRoom = \(String(format: "%0.3f", dynamicsProcessor.headRoom))")
+        Swift.print("    expansionRatio = \(String(format: "%0.3f", dynamicsProcessor.expansionRatio))")
+        Swift.print("    attackTime = \(String(format: "%0.3f", dynamicsProcessor.attackTime))")
+        Swift.print("    releaseTime = \(String(format: "%0.3f", dynamicsProcessor.releaseTime))")
+        Swift.print("    masterGain = \(String(format: "%0.3f", dynamicsProcessor.masterGain))")
+        Swift.print("}\n")
     }
 }
 

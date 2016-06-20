@@ -92,15 +92,15 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    cutoffFrequency = \(String(format: "%0.3f", moogLadder.cutoffFrequency))")
-        self.print("    resonance = \(String(format: "%0.3f", moogLadder.resonance))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    cutoffFrequency = \(String(format: "%0.3f", moogLadder.cutoffFrequency))")
+        Swift.print("    resonance = \(String(format: "%0.3f", moogLadder.resonance))")
+        Swift.print("}\n")
     }
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

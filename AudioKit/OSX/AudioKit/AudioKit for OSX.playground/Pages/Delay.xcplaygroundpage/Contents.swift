@@ -117,12 +117,12 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    time = \(String(format: "%0.3f", delay.time))")
-        self.print("    feedback = \(String(format: "%0.3f", delay.feedback))")
-        self.print("    lowPassCutoff = \(String(format: "%0.3f", delay.lowPassCutoff))")
-        self.print("    dryWetMix = \(String(format: "%0.3f", delay.dryWetMix))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    time = \(String(format: "%0.3f", delay.time))")
+        Swift.print("    feedback = \(String(format: "%0.3f", delay.feedback))")
+        Swift.print("    lowPassCutoff = \(String(format: "%0.3f", delay.lowPassCutoff))")
+        Swift.print("    dryWetMix = \(String(format: "%0.3f", delay.dryWetMix))")
+        Swift.print("}\n")
     }
 
 }

@@ -110,12 +110,12 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    decimation = \(String(format: "%0.3f", decimator.decimation))")
-        self.print("    rounding = \(String(format: "%0.3f", decimator.rounding))")
-        self.print("    mix = \(String(format: "%0.3f", decimator.mix))")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    decimation = \(String(format: "%0.3f", decimator.decimation))")
+        Swift.print("    rounding = \(String(format: "%0.3f", decimator.rounding))")
+        Swift.print("    mix = \(String(format: "%0.3f", decimator.mix))")
 
-        self.print("}\n")
+        Swift.print("}\n")
     }
 
 }

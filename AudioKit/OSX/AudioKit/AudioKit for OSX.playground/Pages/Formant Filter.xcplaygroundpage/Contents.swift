@@ -118,11 +118,11 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")
-        self.print("    attackDuration = \(String(format: "%0.3f", filter.attackDuration))")
-        self.print("    decayDuration = \(String(format: "%0.3f", filter.decayDuration))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")
+        Swift.print("    attackDuration = \(String(format: "%0.3f", filter.attackDuration))")
+        Swift.print("    decayDuration = \(String(format: "%0.3f", filter.decayDuration))")
+        Swift.print("}\n")
     }
 
 }

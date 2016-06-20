@@ -195,17 +195,17 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    delay = \(String(format: "%0.3f", distortion.delay))")
-        self.print("    decay = \(String(format: "%0.3f", distortion.decay))")
-        self.print("    delayMix = \(String(format: "%0.3f", distortion.delayMix))")
-        self.print("    linearTerm = \(String(format: "%0.3f", distortion.linearTerm))")
-        self.print("    squaredTerm = \(String(format: "%0.3f", distortion.squaredTerm))")
-        self.print("    cubicTerm = \(String(format: "%0.3f", distortion.cubicTerm))")
-        self.print("    polynomialMix = \(String(format: "%0.3f", distortion.polynomialMix))")
-        self.print("    softClipGain = \(String(format: "%0.3f", distortion.softClipGain))")
-        self.print("    finalMix = \(String(format: "%0.3f", distortion.finalMix))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    delay = \(String(format: "%0.3f", distortion.delay))")
+        Swift.print("    decay = \(String(format: "%0.3f", distortion.decay))")
+        Swift.print("    delayMix = \(String(format: "%0.3f", distortion.delayMix))")
+        Swift.print("    linearTerm = \(String(format: "%0.3f", distortion.linearTerm))")
+        Swift.print("    squaredTerm = \(String(format: "%0.3f", distortion.squaredTerm))")
+        Swift.print("    cubicTerm = \(String(format: "%0.3f", distortion.cubicTerm))")
+        Swift.print("    polynomialMix = \(String(format: "%0.3f", distortion.polynomialMix))")
+        Swift.print("    softClipGain = \(String(format: "%0.3f", distortion.softClipGain))")
+        Swift.print("    finalMix = \(String(format: "%0.3f", distortion.finalMix))")
+        Swift.print("}\n")
     }
 
 }

@@ -113,10 +113,10 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        self.print("public func presetXXXXXX() {")
-        self.print("    cutOffFrequency = \(String(format: "%0.3f", lowPassFilter.cutoffFrequency))")
-        self.print("    resonance = \(String(format: "%0.3f", lowPassFilter.resonance))")
-        self.print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    cutOffFrequency = \(String(format: "%0.3f", lowPassFilter.cutoffFrequency))")
+        Swift.print("    resonance = \(String(format: "%0.3f", lowPassFilter.resonance))")
+        Swift.print("}\n")
     }
 
 }
