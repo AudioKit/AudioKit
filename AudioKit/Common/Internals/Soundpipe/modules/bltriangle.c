@@ -116,14 +116,11 @@ void buildUserInterfacebltriangle(bltriangle* dsp, UIGlue* interface) {
 
 float computeampangle(bltriangle* dsp) {
     float ampAngle = 0.5f;
-    printf("Crest Val: %f", dsp->fHslider2);
-    if ((float)dsp->fHslider2<=.95f && (float)dsp->fHslider2>=.05f) {
-        if ((float)dsp->fHslider2<=0.5f) {
-            ampAngle = fabsf(.5f-(float)dsp->fHslider2);
-            
-        } else {
-            ampAngle = fabsf((float)dsp->fHslider2-.5f);
-        }
+    if ((float)dsp->fHslider2<=0.5f) {
+        ampAngle = fabsf(.5f-(float)dsp->fHslider2);
+        
+    } else {
+        ampAngle = fabsf((float)dsp->fHslider2-.5f);
     }
     return ampAngle;
 }

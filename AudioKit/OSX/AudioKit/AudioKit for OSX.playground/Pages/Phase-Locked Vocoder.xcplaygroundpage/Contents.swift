@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
-let url = bundle.URLForResource("guitarloop", withExtension: "wav")
+let url = bundle.URLForResource("guitarloop", andExtension: "wav")
 let phaseLockedVocoder = AKPhaseLockedVocoder(audioFileURL: url!)
 
 AudioKit.output = phaseLockedVocoder
