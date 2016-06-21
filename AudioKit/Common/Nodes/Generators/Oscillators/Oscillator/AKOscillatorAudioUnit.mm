@@ -164,16 +164,16 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKOscillatorDSPKernel *blockKernel = &_kernel;
+    __block AKOscillatorDSPKernel *oscillatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        oscillatorKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return oscillatorKernel->getParameter(param.address);
     };
 
     self.maximumFramesToRender = 512;
