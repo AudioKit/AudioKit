@@ -73,11 +73,7 @@ public class AKTriangleOscillator: AKVoice {
                 if internalAU!.isSetUp() {
                     crestParameter?.setValue(Float(newValue), originator: token!)
                 } else {
-                    if (!(Float(newValue)<=0.95 && Float(newValue)>=0.05)) {
-                        internalAU?.crest = 0.05
-                    } else {
-                        internalAU?.crest = Float(newValue)
-                    }
+                    internalAU?.crest = Float(newValue)
                 }
             }
         }
