@@ -78,11 +78,11 @@
         // Create a parameter object for the shift.
     AUParameter *shiftAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"shift"
-                                              name:@"Pitch shift (in cents)"
+                                              name:@"Pitch shift (in semitones)"
                                            address:shiftAddress
-                                               min:-2400
-                                               max:2400
-                                              unit:kAudioUnitParameterUnit_Cents
+                                               min:-24.0
+                                               max:24.0
+                                              unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
@@ -115,8 +115,8 @@
 
     // Initialize the parameter values.
     shiftAUParameter.value = 0;
-    windowSizeAUParameter.value = 1000.0;
-    crossfadeAUParameter.value = 10.0;
+    windowSizeAUParameter.value = 1024;
+    crossfadeAUParameter.value = 512;
 
     _rampTime = AKSettings.rampTime;
 
@@ -144,16 +144,35 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKPitchShifterDSPKernel *blockKernel = &_kernel;
+    __block AKPitchShifterDSPKernel *pitchshifterKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        pitchshifterKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return pitchshifterKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case shiftAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case windowSizeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case crossfadeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
