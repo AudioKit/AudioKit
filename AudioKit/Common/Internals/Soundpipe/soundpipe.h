@@ -1270,7 +1270,7 @@ int sp_trand_destroy(sp_trand **p);
 int sp_trand_init(sp_data *sp, sp_trand *p);
 int sp_trand_compute(sp_data *sp, sp_trand *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
-    SPFLOAT freq, iphs;
+    SPFLOAT freq, depth, iphs;
     sp_ftbl *tbl;
     int32_t lphs;
     int inc;
