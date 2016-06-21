@@ -31,10 +31,7 @@ public class AKSquareWaveOscillator: AKVoice {
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
 
-
-
-
-    /// Ramp Time represents the speed at which parameters are allowed to change
+   /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet {
             if rampTime != newValue {
@@ -43,7 +40,7 @@ public class AKSquareWaveOscillator: AKVoice {
             }
         }
     }
-    
+
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         willSet {
@@ -56,9 +53,9 @@ public class AKSquareWaveOscillator: AKVoice {
             }
         }
     }
-    
-    /// Output Amplitude.
-    public var amplitude: Double = 1 {
+
+    /// Output amplitude
+    public var amplitude: Double = 1.0 {
         willSet {
             if amplitude != newValue {
                 if internalAU!.isSetUp() {
@@ -69,7 +66,7 @@ public class AKSquareWaveOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
         willSet {
@@ -82,7 +79,7 @@ public class AKSquareWaveOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
         willSet {
@@ -95,12 +92,12 @@ public class AKSquareWaveOscillator: AKVoice {
             }
         }
     }
+
     
     /// Duty cycle width (range 0-1).
     public var pulseWidth: Double = 0.5 {
         willSet {
             if pulseWidth != newValue {
-                pulseWidthParameter?.setValue(Float(newValue), originator: token!)
                 if internalAU!.isSetUp() {
                     pulseWidthParameter?.setValue(Float(newValue), originator: token!)
                 } else {
