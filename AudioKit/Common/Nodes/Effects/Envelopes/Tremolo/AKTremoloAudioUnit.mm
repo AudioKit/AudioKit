@@ -36,6 +36,10 @@
     _kernel.setFrequency(frequency);
 }
 
+- (void)setDepth:(float)depth {
+    _kernel.setDepth(depth);
+}
+
 - (void)setupWaveform:(int)size {
     _kernel.setupWaveform((uint32_t)size);
 }
@@ -87,18 +91,35 @@
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
+    
+    // Create a parameter object for the depth.
+    AUParameter *depthAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"depth"
+                                              name:@"Depth"
+                                           address:depthAddress
+                                               min:0.0
+                                               max:2.0
+                                              unit:kAudioUnitParameterUnit_Hertz
+                                          unitName:nil
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
 
 
     // Initialize the parameter values.
     frequencyAUParameter.value = 10.0;
+    // Initialize the parameter values.
+    depthAUParameter.value = 1.0;
 
     _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(frequencyAddress, frequencyAUParameter.value);
+    _kernel.setParameter(depthAddress, depthAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        frequencyAUParameter
+        frequencyAUParameter,
+        depthAUParameter
     ]];
 
     // Create the input and output busses.
@@ -133,7 +154,8 @@
         switch (param.address) {
             case frequencyAddress:
                 return [NSString stringWithFormat:@"%.3f", value];
-
+            case depthAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
             default:
                 return @"?";
         }
