@@ -93,8 +93,8 @@
     [AUParameterTree createParameterWithIdentifier:@"frequency"
                                               name:@"Frequency (in Hz)"
                                            address:frequencyAddress
-                                               min:0
-                                               max:22050
+                                               min:0.0
+                                               max:22050.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -105,8 +105,8 @@
     [AUParameterTree createParameterWithIdentifier:@"amplitude"
                                               name:@"Amplitude (typically a value between 0 and 1)."
                                            address:amplitudeAddress
-                                               min:0
-                                               max:1
+                                               min:0.0
+                                               max:1.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -129,8 +129,8 @@
     [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
                                               name:@"Frequency offset (Hz)"
                                            address:detuningOffsetAddress
-                                               min:-1000
-                                               max:1000
+                                               min:-1000.0
+                                               max:1000.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -149,13 +149,14 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     frequencyAUParameter.value = 440;
     amplitudeAUParameter.value = 0.5;
     indexAUParameter.value = 0.0;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
-    
+
     _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
@@ -182,16 +183,41 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKMorphingOscillatorDSPKernel *blockKernel = &_kernel;
+    __block AKMorphingOscillatorDSPKernel *oscillatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        oscillatorKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return oscillatorKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case frequencyAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case amplitudeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case indexAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case detuningOffsetAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case detuningMultiplierAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
@@ -225,10 +251,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
