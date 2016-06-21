@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='osx' display-mode='rendered'>
+<playground version='6.0' target-platform='osx' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -31,7 +31,6 @@
         <page name='Filter Section Example'/>
         <page name='Flat Frequency Response Reverb'/>
         <page name='Flat Frequency Response Reverb Operation'/>
-        <page name='Flute'/>
         <page name='FM Oscillator'/>
         <page name='FM Oscillator Operation'/>
         <page name='Formant Filter'/>
@@ -112,6 +111,5 @@
         <page name='Variable Delay Operation'/>
         <page name='XY Pad'/>
         <page name='3D Panner'/>
-        <page name='Drawbar Organ'/>
     </pages>
 </playground>

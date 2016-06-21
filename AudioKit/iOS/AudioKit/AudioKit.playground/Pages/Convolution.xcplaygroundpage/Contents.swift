@@ -14,8 +14,8 @@ player.looping = true
 
 
 let bundle = NSBundle.mainBundle()
-let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
-let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
+let stairwell = bundle.URLForResource("Impulse Responses/stairwell", andExtension: "wav")!
+let dish = bundle.URLForResource("Impulse Responses/dish", andExtension: "wav")!
 
 var stairwellConvolution = AKConvolution.init(player, impulseResponseFileURL: stairwell, partitionLength: 8192)
 var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, partitionLength: 8192)
