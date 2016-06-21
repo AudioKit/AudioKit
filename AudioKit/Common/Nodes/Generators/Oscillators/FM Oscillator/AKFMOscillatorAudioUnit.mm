@@ -116,8 +116,8 @@
     [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
                                               name:@"Modulating Multiplier"
                                            address:modulatingMultiplierAddress
-                                               min:0
-                                               max:1000
+                                               min:0.0
+                                               max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
@@ -128,8 +128,8 @@
     [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
                                               name:@"Modulation Index"
                                            address:modulationIndexAddress
-                                               min:0
-                                               max:1000
+                                               min:0.0
+                                               max:1000.0
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
@@ -140,13 +140,14 @@
     [AUParameterTree createParameterWithIdentifier:@"amplitude"
                                               name:@"Amplitude"
                                            address:amplitudeAddress
-                                               min:0
-                                               max:10
+                                               min:0.0
+                                               max:10.0
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
+
 
     // Initialize the parameter values.
     baseFrequencyAUParameter.value = 440;
@@ -154,7 +155,7 @@
     modulatingMultiplierAUParameter.value = 1;
     modulationIndexAUParameter.value = 1;
     amplitudeAUParameter.value = 1;
-    
+
     _rampTime = AKSettings.rampTime;
 
     _kernel.setParameter(baseFrequencyAddress,        baseFrequencyAUParameter.value);
@@ -182,16 +183,41 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKFMOscillatorDSPKernel *blockKernel = &_kernel;
+    __block AKFMOscillatorDSPKernel *oscillatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        oscillatorKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return oscillatorKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case baseFrequencyAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case carrierMultiplierAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case modulatingMultiplierAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case modulationIndexAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case amplitudeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
@@ -213,9 +239,9 @@
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
-    
+
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -225,10 +251,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
