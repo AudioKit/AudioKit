@@ -16,7 +16,7 @@ let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so tha
 let filteredNoise = AKOperationEffect(whiteNoise, operation: filter)
 
 //: Music Example
-let file = try AKAudioFile(forReadingFileName: "mixloop", withExtension: "wav", fromBaseDirectory: .resources)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -33,4 +33,4 @@ player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@nex

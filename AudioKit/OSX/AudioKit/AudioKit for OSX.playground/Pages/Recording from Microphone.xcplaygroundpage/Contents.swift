@@ -9,7 +9,7 @@ import AudioKit
 
 let mic = AKMicrophone()
 
-let file = try AKAudioFile(forReadingFileName: "recording", withExtension: "wav", fromBaseDirectory: .resources)
+let file = try AKAudioFile(forReadingWithFileName: "recording", andExtension: "wav", fromBaseDirectory: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 
@@ -53,4 +53,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@nex
