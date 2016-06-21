@@ -28,7 +28,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
-        willSet(newValue) {
+        willSet {
             if rampTime != newValue {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
@@ -38,7 +38,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
 
     /// Pitch shift (in semitones)
     public var shift: Double = 0 {
-        willSet(newValue) {
+        willSet {
             if shift != newValue {
                 if internalAU!.isSetUp() {
                     shiftParameter?.setValue(Float(newValue), originator: token!)
@@ -50,7 +50,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
     }
     /// Window size (in samples)
     public var windowSize: Double = 1024 {
-        willSet(newValue) {
+        willSet {
             if windowSize != newValue {
                 if internalAU!.isSetUp() {
                     windowSizeParameter?.setValue(Float(newValue), originator: token!)
@@ -62,7 +62,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
     }
     /// Crossfade (in samples)
     public var crossfade: Double = 512 {
-        willSet(newValue) {
+        willSet {
             if crossfade != newValue {
                 if internalAU!.isSetUp() {
                     crossfadeParameter?.setValue(Float(newValue), originator: token!)
@@ -90,8 +90,8 @@ public class AKPitchShifter: AKNode, AKToggleable {
     public init(
         _ input: AKNode,
         shift: Double = 0,
-        windowSize: Double = 1024.0,
-        crossfade: Double = 512.0) {
+        windowSize: Double = 1024,
+        crossfade: Double = 512) {
 
         self.shift = shift
         self.windowSize = windowSize
@@ -142,6 +142,7 @@ public class AKPitchShifter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.shift = Float(shift)
         internalAU?.windowSize = Float(windowSize)
         internalAU?.crossfade = Float(crossfade)

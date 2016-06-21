@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' auto-termination-delay='233.2161' display-mode='rendered' executeOnSourceChanges='false' timelineScrubberEnabled='true'>
+<playground version='6.0' target-platform='ios' display-mode='rendered' executeOnSourceChanges='false'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='3D Panner'/>

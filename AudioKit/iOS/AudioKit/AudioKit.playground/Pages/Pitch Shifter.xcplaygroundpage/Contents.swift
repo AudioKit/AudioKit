@@ -29,7 +29,7 @@ class PlaygroundView: AKPlaygroundView {
     var pitchLabel: Label?
 
     override func setup() {
-        addTitle("Time/Pitch")
+        addTitle("Pitch Shifter")
 
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
@@ -44,8 +44,8 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        pitchLabel = addLabel("Pitch: \(pitchshifter.shift) Cents")
-        addSlider(#selector(setPitch), value: pitchshifter.shift, minimum: -2400, maximum: 2400)
+        pitchLabel = addLabel("Pitch: \(pitchshifter.shift) Semitones")
+        addSlider(#selector(setPitch), value: pitchshifter.shift, minimum: -24, maximum: 24)
 
 
     }
@@ -94,7 +94,7 @@ class PlaygroundView: AKPlaygroundView {
     func setPitch(slider: Slider) {
         pitchshifter.shift = Double(slider.value)
         let pitch = String(format: "%0.1f", pitchshifter.shift)
-        pitchLabel!.text = "Pitch: \(pitch) Cents"
+        pitchLabel!.text = "Pitch: \(pitch) Semitones"
         printCode()
     }
 
