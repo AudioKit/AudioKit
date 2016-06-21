@@ -37,7 +37,7 @@ public class AKSawtoothOscillator: AKVoice {
             }
         }
     }
-    
+
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         willSet {
@@ -46,7 +46,7 @@ public class AKSawtoothOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Output Amplitude.
     public var amplitude: Double = 1 {
         willSet {
@@ -55,7 +55,7 @@ public class AKSawtoothOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
         willSet {
@@ -64,7 +64,7 @@ public class AKSawtoothOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
         willSet {
@@ -73,12 +73,12 @@ public class AKSawtoothOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     override public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
     
     /// Initialize the oscillator with defaults
