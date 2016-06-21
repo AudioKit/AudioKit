@@ -25,7 +25,8 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var tremoloLabel: Label?
+    var tremoloFreqLabel: Label?
+    var tremoloDepthLabel: Label?
 
     override func setup() {
         addTitle("Tremolo")
@@ -38,8 +39,10 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
-        tremoloLabel = addLabel("Frequency: \(tremolo.frequency)")
+        tremoloFreqLabel = addLabel("Frequency: \(tremolo.frequency)")
         addSlider(#selector(setFrequency), value: tremolo.frequency, minimum: 0, maximum: 20)
+        tremoloDepthLabel = addLabel("Depth: \(tremolo.depth)")
+        addSlider(#selector(setDepth), value: tremolo.depth, minimum: 0, maximum: 2.0)
     }
 
     func startLoop(part: String) {
@@ -75,7 +78,13 @@ class PlaygroundView: AKPlaygroundView {
 
     func setFrequency(slider: Slider) {
         tremolo.frequency = Double(slider.value)
-        tremoloLabel!.text = "Frequency: \(String(format: "%0.3f", tremolo.frequency))"
+        tremoloFreqLabel!.text = "Frequency: \(String(format: "%0.3f", tremolo.frequency))"
+        printCode()
+    }
+    
+    func setDepth(slider: Slider) {
+        tremolo.depth = Double(slider.value)
+        tremoloDepthLabel!.text = "Depth: \(String(format: "%0.3f", tremolo.depth))"
         printCode()
     }
 
@@ -88,7 +97,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
