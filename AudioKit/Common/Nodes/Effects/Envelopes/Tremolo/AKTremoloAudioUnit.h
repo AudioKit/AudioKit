@@ -13,6 +13,7 @@
 
 @interface AKTremoloAudioUnit : AUAudioUnit
 @property (nonatomic) float frequency;
+@property (nonatomic) float depth;
 
 - (void)setupWaveform:(int)size;
 - (void)setWaveformValue:(float)value atIndex:(UInt32)index;
