@@ -33,8 +33,8 @@ class ViewController: UIViewController {
     var mixer = AKMixer()
     var pumper: AKCompressor?
 
-    let scale1: [Int] = [0, 2,4, 7,9]
-    let scale2: [Int] = [0, 3,5, 7,10]
+    let scale1: [Int] = [0, 2, 4, 7, 9]
+    let scale2: [Int] = [0, 3, 5, 7, 10]
     let seqLen = Beat(8.0)
 
     @IBOutlet var mollyButt: UIButton!
@@ -204,7 +204,7 @@ class ViewController: UIViewController {
     func genSDSeq(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { seq.tracks[2].clear() }
         let numSteps = Int(Float(seqLen.value)/stepSize)
-    
+
         for i in 1.stride(to: numSteps, by: 2) {
             let step = (Double(i) * stepSize)
             seq.tracks[2].addNote(60, velocity: 80, position: Beat(step), duration: Beat(1))
@@ -349,7 +349,7 @@ class SDVoice: AKVoice {
 }
 class SDInst: AKPolyphonicInstrument {
     init(voiceCount: Int, dur: Double = 0.143, res: Double = 0.9) {
-        super.init(voice: SDVoice(dur: dur, res:res),  voiceCount: voiceCount)
+        super.init(voice: SDVoice(dur: dur, res:res), voiceCount: voiceCount)
     }
     override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let tempVoice = voice as! SDVoice
