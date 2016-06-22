@@ -13,7 +13,7 @@ import AVFoundation
 class RecordViewController: UIViewController {
     @IBOutlet var recordingButton: UIButton!
     @IBOutlet var stopRecordingButton: UIButton!
-    var recorder: AKMagneto!
+    var recorder: AKNodeRecorder!
     var mic: AKMicrophone!
     
     override func viewDidLoad() {
@@ -26,15 +26,15 @@ class RecordViewController: UIViewController {
         mic = AKMicrophone()
         AudioKit.output = mic
         AudioKit.start()
-        try! recorder = AKMagneto()
+        try! recorder = AKNodeRecorder()
         recorder.record()
     }
     @IBAction func stop(sender: UIButton) {
         recordingButton.setTitle("Record", forState: .Normal)
         updateUI(for: PlayerState.Stopped)
-        recorder.stopRecord()
+        recorder.stop()
         AudioKit.stop()
-        self.performSegueWithIdentifier("stop", sender: recorder.audioFile.url)
+        self.performSegueWithIdentifier("stop", sender: recorder.audioFile!.url)
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "stop") {
