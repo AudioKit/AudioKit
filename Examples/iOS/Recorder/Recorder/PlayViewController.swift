@@ -9,7 +9,7 @@
 import UIKit
 import AudioKit
 
-class PlayViewController: UIViewController, AKAudioPlayerDelegate {
+class PlayViewController: UIViewController {
     
     @IBOutlet var playingButton: UIButton!
     @IBOutlet var stopPlayingButton: UIButton!
@@ -59,9 +59,8 @@ class PlayViewController: UIViewController, AKAudioPlayerDelegate {
         do {
             let fileName = (recordedURL.URLByDeletingPathExtension?.lastPathComponent)!
             let fileExtension = (recordedURL.pathExtension)!
-            audioFile = try AKAudioFile(forReadingFileName: fileName, withExtension: fileExtension, fromBaseDirectory: AKAudioFile.BaseDirectory.temp)
-            player = try? AKAudioPlayer(file: audioFile)
-            player?.delegate = self
+            audioFile = try AKAudioFile(forReadingWithFileName: fileName, andExtension: fileExtension, fromBaseDirectory: .Temp)
+            player = try? AKAudioPlayer(file: audioFile, completionHandler:  playerStoppedOrFinished)
         } catch {
             print("\((recordedURL.lastPathComponent)!) wasn't found.")
         }

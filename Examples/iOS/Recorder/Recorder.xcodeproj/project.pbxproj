@@ -95,7 +95,7 @@
 				C4ADA04C1D174F3500A857E5 /* LaunchScreen.storyboard */,
 			);
 			name = Recorder;
-			path = SongProcessor;
+			path = Recorder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -115,7 +115,7 @@
 			dependencies = (
 			);
 			name = Recorder;
-			productName = SongProcessor;
+			productName = Recorder;
 			productReference = 78C20D981D1455DD001561C3 /* Recorder.app */;
 			productType = "com.apple.product-type.application";
 		};
