@@ -20,6 +20,10 @@ public struct Beat {
     public init(_ value: Double) {
         self.value = value
     }
+    
+    public var description: String {
+        return "\(value)"
+    }
 }
 
 public func ceil(beat: Beat) -> Beat {
