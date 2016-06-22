@@ -8,9 +8,7 @@
 
 import Foundation
 
-//public typealias Beat = Double
-
-public struct Beat {
+public struct Beat: CustomStringConvertible {
     public var value: Double
     
     public var musicTimeStamp: MusicTimeStamp {
