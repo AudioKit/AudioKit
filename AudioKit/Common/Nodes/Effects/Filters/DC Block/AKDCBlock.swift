@@ -17,7 +17,6 @@ public class AKDCBlock: AKNode, AKToggleable {
 
     // MARK: - Properties
 
-
     internal var internalAU: AKDCBlockAudioUnit?
     internal var token: AUParameterObserverToken?
 
@@ -27,7 +26,7 @@ public class AKDCBlock: AKNode, AKToggleable {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     // MARK: - Initialization
 
     /// Initialize this filter node
@@ -63,7 +62,7 @@ public class AKDCBlock: AKNode, AKToggleable {
             input.addConnectionPoint(self)
         }
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

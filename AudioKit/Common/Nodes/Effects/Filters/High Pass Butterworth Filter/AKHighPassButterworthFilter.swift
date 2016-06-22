@@ -34,7 +34,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
     }
 
     /// Cutoff frequency. (in Hertz)
-    public var cutoffFrequency: Double = 500 {
+    public var cutoffFrequency: Double = 500.0 {
         willSet {
             if cutoffFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -60,7 +60,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
     ///
     public init(
         _ input: AKNode,
-        cutoffFrequency: Double = 500) {
+        cutoffFrequency: Double = 500.0) {
 
         self.cutoffFrequency = cutoffFrequency
 
@@ -103,6 +103,7 @@ public class AKHighPassButterworthFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }
 

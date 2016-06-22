@@ -33,9 +33,9 @@ class ViewController: UIViewController {
     var mixer = AKMixer()
     var pumper: AKCompressor?
 
-    let scale1: [Int] = [0, 2,4, 7,9]
-    let scale2: [Int] = [0, 3,5, 7,10]
-    let seqLen = 8.0
+    let scale1: [Int] = [0, 2, 4, 7, 9]
+    let scale2: [Int] = [0, 3, 5, 7, 10]
+    let seqLen = Beat(8.0)
 
     @IBOutlet var mollyButt: UIButton!
 
@@ -171,11 +171,11 @@ class ViewController: UIViewController {
     func genNewMelodicSequence(stepSize: Float = 1/8, minor: Bool = false, clear: Bool = true) {
         if (clear) { seq.tracks[0].clear() }
         seq.setLength(seqLen)
-        let numSteps = Int(Float(seqLen)/stepSize)
+        let numSteps = Int(Float(seqLen.value)/stepSize)
         //print("steps in seq: \(numSteps)")
         for i in 0 ..< numSteps {
             if (random(0, 16) > 12) {
-                let step = (Float(i) * stepSize)
+                let step = Double(i) * stepSize
                 //print("step is \(step)")
                 let scale = (minor ? scale2 : scale1)
                 let scaleOffset = random(0, Double(scale.count-1))
@@ -186,7 +186,7 @@ class ViewController: UIViewController {
                 }
                 //print("octave offset is \(octaveOffset)")
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
-                seq.tracks[0].addNote(noteToAdd, velocity: 100, position: Double(step), duration: 1)
+                seq.tracks[0].addNote(noteToAdd, velocity: 100, position: Beat(step), duration: Beat(1))
             }
         }
         seq.setLength(seqLen)
@@ -194,31 +194,31 @@ class ViewController: UIViewController {
 
     func genBDSeq(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { seq.tracks[1].clear() }
-        let numSteps = Int(Float(seqLen)/stepSize)
+        let numSteps = Int(Float(seqLen.value)/stepSize)
         for i in 0 ..< numSteps {
-            let step = (Float(i) * stepSize)
-            seq.tracks[1].addNote(60, velocity: 100, position: Double(step), duration: 1)
+            let step = Double(i) * stepSize
+            seq.tracks[1].addNote(60, velocity: 100, position: Beat(step), duration: Beat(1))
         }
     }
 
     func genSDSeq(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { seq.tracks[2].clear() }
-        let numSteps = Int(Float(seqLen)/stepSize)
-    
+        let numSteps = Int(Float(seqLen.value)/stepSize)
+
         for i in 1.stride(to: numSteps, by: 2) {
-            let step = (Float(i) * stepSize)
-            seq.tracks[2].addNote(60, velocity: 80, position: Double(step), duration: 1)
+            let step = (Double(i) * stepSize)
+            seq.tracks[2].addNote(60, velocity: 80, position: Beat(step), duration: Beat(1))
         }
     }
 
     func genSDGhostSeq(stepSize: Float = 1/8, clear: Bool = true) {
         if (clear) { seq.tracks[3].clear() }
-        let numSteps = Int(Float(seqLen)/stepSize)
+        let numSteps = Int(Float(seqLen.value)/stepSize)
         //print("steps in seq: \(numSteps)")
         for i in 0 ..< numSteps {
             if(random(0, 16) > 14.0) {
-                let step = (Float(i) * stepSize)
-                seq.tracks[3].addNote(60, velocity: Int(random(1, 66)), position: Double(step), duration: 0.1)
+                let step = Double(i) * stepSize
+                seq.tracks[3].addNote(60, velocity: Int(random(1, 66)), position: Beat(step), duration: Beat(0.1))
             }
         }
         seq.setLength(seqLen)
@@ -349,7 +349,7 @@ class SDVoice: AKVoice {
 }
 class SDInst: AKPolyphonicInstrument {
     init(voiceCount: Int, dur: Double = 0.143, res: Double = 0.9) {
-        super.init(voice: SDVoice(dur: dur, res:res),  voiceCount: voiceCount)
+        super.init(voice: SDVoice(dur: dur, res:res), voiceCount: voiceCount)
     }
     override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         let tempVoice = voice as! SDVoice

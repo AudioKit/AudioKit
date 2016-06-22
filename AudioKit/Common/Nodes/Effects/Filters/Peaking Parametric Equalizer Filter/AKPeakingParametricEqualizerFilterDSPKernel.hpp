@@ -44,6 +44,10 @@ public:
         pareq->v = 1.0;
         pareq->q = 0.707;
         pareq->mode = 0;
+
+        centerFrequencyRamper.init();
+        gainRamper.init();
+        qRamper.init();
     }
 
     void start() {
@@ -61,20 +65,23 @@ public:
 
     void reset() {
         resetted = true;
+        centerFrequencyRamper.reset();
+        gainRamper.reset();
+        qRamper.reset();
     }
 
-    void setCenterFrequency(float fc) {
-        centerFrequency = fc;
-        centerFrequencyRamper.setImmediate(fc);
+    void setCenterFrequency(float value) {
+        centerFrequency = clamp(value, 12.0f, 20000.0f);
+        centerFrequencyRamper.setImmediate(centerFrequency);
     }
 
-    void setGain(float v) {
-        gain = v;
-        gainRamper.setImmediate(v);
+    void setGain(float value) {
+        gain = clamp(value, 0.0f, 10.0f);
+        gainRamper.setImmediate(gain);
     }
 
-    void setQ(float q) {
-        q = q;
+    void setQ(float value) {
+        q = clamp(value, 0.0f, 2.0f);
         qRamper.setImmediate(q);
     }
 
@@ -82,15 +89,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                centerFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case gainAddress:
-                gainRamper.setUIValue(clamp(value, (float)0.0, (float)10.0));
+                gainRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
             case qAddress:
-                qRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
+                qRamper.setUIValue(clamp(value, 0.0f, 2.0f));
                 break;
 
         }
@@ -114,15 +121,15 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                centerFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case gainAddress:
-                gainRamper.startRamp(clamp(value, (float)0.0, (float)10.0), duration);
+                gainRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
             case qAddress:
-                qRamper.startRamp(clamp(value, (float)0.0, (float)2.0), duration);
+                qRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
                 break;
 
         }
@@ -162,7 +169,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

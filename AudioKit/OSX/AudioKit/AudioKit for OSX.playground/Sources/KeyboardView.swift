@@ -77,6 +77,18 @@ public class KeyboardView: NSView {
         }
     }
     
+    override public func mouseDown(event: NSEvent) {
+        let x = event.locationInWindow.x - self.frame.origin.x
+        let y = event.locationInWindow.y - self.frame.origin.y
+        
+        for key in keys {
+            if key.frame.contains(CGPoint(x: x, y: y)) {
+                delegate?.noteOn(key.midiNote)
+            }
+            
+        }
+    }
+    
     override public func mouseDragged(event: NSEvent) {
         let x = event.locationInWindow.x - self.frame.origin.x
         let y = event.locationInWindow.y - self.frame.origin.y

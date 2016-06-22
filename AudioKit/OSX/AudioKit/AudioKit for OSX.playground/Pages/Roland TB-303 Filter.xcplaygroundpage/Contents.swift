@@ -3,13 +3,13 @@
 //: ---
 //:
 //: ## Roland TB-303 Filter
-//: 
+//:
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 var filter = AKRolandTB303Filter(player)
 
@@ -26,14 +26,14 @@ var time = 0.0
 let timeStep = 0.02
 
 AKPlaygroundLoop(every: timeStep) {
-    
+
     let hz = 2.0
     filter.cutoffFrequency = (1.0 - cos(2 * 3.14 * hz * time)) * 600 + 700
 //    filter.resonance = (1.0 - sin(2 * 3.14 * 2 * hz * time)) * 0.5
-    
+
     time += timeStep
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@nex

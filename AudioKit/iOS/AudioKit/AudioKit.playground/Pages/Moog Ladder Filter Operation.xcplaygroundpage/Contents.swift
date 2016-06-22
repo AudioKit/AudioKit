@@ -3,13 +3,13 @@
 //: ---
 //:
 //: ## Moog Ladder Filter Operation
-//: 
+//:
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("leadloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "leadloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let frequency = AKOperation.sineWave(frequency: 1).scale(minimum: 500, maximum: 1000)

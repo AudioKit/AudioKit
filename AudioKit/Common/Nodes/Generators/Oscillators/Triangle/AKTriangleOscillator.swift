@@ -66,7 +66,7 @@ public class AKTriangleOscillator: AKVoice {
         }
     }
     
-    /// Crest Offset.
+    /// Crest Offset min .05 to max .95.
     public var crest: Double = 0.5 {
         willSet {
             if crest != newValue {

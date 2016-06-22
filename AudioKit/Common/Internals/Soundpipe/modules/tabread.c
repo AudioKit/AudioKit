@@ -25,13 +25,13 @@ int sp_tabread_destroy(sp_tabread **p)
     return SP_OK;
 }
 
-int sp_tabread_init(sp_data *sp, sp_tabread *p, sp_ftbl *ft)
+int sp_tabread_init(sp_data *sp, sp_tabread *p, sp_ftbl *ft, int mode)
 {
     p->ft = ft;
     
     p->lenmask = (int)ft->size - 1;
     p->np2 = p->lenmask ? 0 : 1;
-    p->mode = 1;
+    p->mode = (SPFLOAT) mode;
     p->offset = 0;
 
     if (p->mode) {

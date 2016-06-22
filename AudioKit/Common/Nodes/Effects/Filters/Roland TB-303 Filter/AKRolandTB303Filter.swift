@@ -162,6 +162,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)
         internalAU?.distortion = Float(distortion)

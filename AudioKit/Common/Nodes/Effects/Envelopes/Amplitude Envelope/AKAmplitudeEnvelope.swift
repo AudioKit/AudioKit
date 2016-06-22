@@ -162,6 +162,7 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.decayDuration = Float(decayDuration)
         internalAU?.sustainLevel = Float(sustainLevel)

@@ -42,6 +42,11 @@ public:
         sp->nchan = channels;
         sp_oscmorph_create(&oscmorph);
 
+        frequencyRamper.init();
+        amplitudeRamper.init();
+        indexRamper.init();
+        detuningOffsetRamper.init();
+        detuningMultiplierRamper.init();
     }
 
     void setupWaveform(uint32_t waveform, uint32_t size) {
@@ -72,54 +77,59 @@ public:
         oscmorph->amp = 0.5;
         oscmorph->wtpos = 0.0;
         resetted = true;
+        frequencyRamper.reset();
+        amplitudeRamper.reset();
+        indexRamper.reset();
+        detuningOffsetRamper.reset();
+        detuningMultiplierRamper.reset();
     }
 
-    void setFrequency(float freq) {
-        frequency = freq;
-        frequencyRamper.setImmediate(freq);
+    void setFrequency(float value) {
+        frequency = clamp(value, 0.0f, 22050.0f);
+        frequencyRamper.setImmediate(frequency);
     }
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
+    void setAmplitude(float value) {
+        amplitude = clamp(value, 0.0f, 1.0f);
+        amplitudeRamper.setImmediate(amplitude);
     }
 
-    void setIndex(float wtpos) {
-        index = wtpos;
-        indexRamper.setImmediate(wtpos);
+    void setIndex(float value) {
+        index = clamp(value, 0.0f, 1000.0f);
+        indexRamper.setImmediate(index);
     }
 
-    void setDetuningOffset(float detuneOffset) {
-        detuningOffset = detuneOffset;
-        detuningOffsetRamper.setImmediate(detuneOffset);
+    void setDetuningOffset(float value) {
+        detuningOffset = clamp(value, -1000.0f, 1000.0f);
+        detuningOffsetRamper.setImmediate(detuningOffset);
     }
 
-    void setDetuningMultiplier(float detuneScale) {
-        detuningMultiplier = detuneScale;
-        detuningMultiplierRamper.setImmediate(detuneScale);
+    void setDetuningMultiplier(float value) {
+        detuningMultiplier = clamp(value, 0.9f, 1.11f);
+        detuningMultiplierRamper.setImmediate(detuningMultiplier);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.setUIValue(clamp(value, (float)0, (float)22050));
+                frequencyRamper.setUIValue(clamp(value, 0.0f, 22050.0f));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
             case indexAddress:
-                indexRamper.setUIValue(clamp(value, (float)0.0, (float)1000.0));
+                indexRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
             case detuningOffsetAddress:
-                detuningOffsetRamper.setUIValue(clamp(value, (float)-1000, (float)1000));
+                detuningOffsetRamper.setUIValue(clamp(value, -1000.0f, 1000.0f));
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.setUIValue(clamp(value, (float)0.9, (float)1.11));
+                detuningMultiplierRamper.setUIValue(clamp(value, 0.9f, 1.11f));
                 break;
 
         }
@@ -149,23 +159,23 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case frequencyAddress:
-                frequencyRamper.startRamp(clamp(value, (float)0, (float)22050), duration);
+                frequencyRamper.startRamp(clamp(value, 0.0f, 22050.0f), duration);
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)1), duration);
+                amplitudeRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
             case indexAddress:
-                indexRamper.startRamp(clamp(value, (float)0.0, (float)1000.0), duration);
+                indexRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
 
             case detuningOffsetAddress:
-                detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                detuningOffsetRamper.startRamp(clamp(value, -1000.0f, 1000.0f), duration);
                 break;
 
             case detuningMultiplierAddress:
-                detuningMultiplierRamper.startRamp(clamp(value, (float)0.9, (float)1.11), duration);
+                detuningMultiplierRamper.startRamp(clamp(value, 0.9f, 1.11f), duration);
                 break;
 
         }
@@ -178,6 +188,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
 
             frequency = double(frequencyRamper.getAndStep());
@@ -192,6 +203,7 @@ public:
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
+
                 if (started) {
                     if (channel == 0) {
                         sp_oscmorph_compute(sp, oscmorph, nil, &temp);
@@ -207,7 +219,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

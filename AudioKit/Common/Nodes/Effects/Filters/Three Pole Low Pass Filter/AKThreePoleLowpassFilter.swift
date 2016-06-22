@@ -142,6 +142,7 @@ public class AKThreePoleLowpassFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.distortion = Float(distortion)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
         internalAU?.resonance = Float(resonance)

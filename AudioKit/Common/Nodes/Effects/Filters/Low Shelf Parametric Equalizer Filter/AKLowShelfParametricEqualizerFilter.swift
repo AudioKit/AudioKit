@@ -142,6 +142,7 @@ public class AKLowShelfParametricEqualizerFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.cornerFrequency = Float(cornerFrequency)
         internalAU?.gain = Float(gain)
         internalAU?.q = Float(q)

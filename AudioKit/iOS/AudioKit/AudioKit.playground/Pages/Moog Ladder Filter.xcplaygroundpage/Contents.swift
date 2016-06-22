@@ -7,9 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("mixloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 var moogLadder = AKMoogLadder(player)
 
@@ -27,7 +27,8 @@ class PlaygroundView: AKPlaygroundView {
 
     var cutoffFrequencyLabel: Label?
     var resonanceLabel: Label?
-
+    var rampTimeLabel: Label?
+    
     override func setup() {
         addTitle("Moog Ladder Filter")
 
@@ -44,15 +45,18 @@ class PlaygroundView: AKPlaygroundView {
 
         resonanceLabel = addLabel("Resonance: \(moogLadder.resonance)")
         addSlider(#selector(setResonance), value: moogLadder.resonance, minimum: 0, maximum: 0.99)
+        
+        rampTimeLabel = addLabel("Ramp Time: \(moogLadder.rampTime)")
+        addSlider(#selector(setRampTime), value: moogLadder.rampTime, minimum: 0, maximum: 2)
     }
 
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
@@ -88,6 +92,12 @@ class PlaygroundView: AKPlaygroundView {
         resonanceLabel!.text = "Resonance: \(String(format: "%0.3f", moogLadder.resonance))"
         printCode()
     }
+    
+    func setRampTime(slider: Slider) {
+        moogLadder.rampTime = Double(slider.value)
+        let rampTime = String(format: "%0.3f", moogLadder.rampTime)
+        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
+    }
 
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
@@ -99,7 +109,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 450))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

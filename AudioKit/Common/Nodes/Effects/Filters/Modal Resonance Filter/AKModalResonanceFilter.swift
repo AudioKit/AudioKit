@@ -124,6 +124,7 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.frequency = Float(frequency)
         internalAU?.qualityFactor = Float(qualityFactor)
     }

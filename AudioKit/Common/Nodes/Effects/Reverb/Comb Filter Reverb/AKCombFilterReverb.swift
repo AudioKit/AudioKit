@@ -110,6 +110,7 @@ public class AKCombFilterReverb: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.reverbDuration = Float(reverbDuration)
     }
 

@@ -48,8 +48,13 @@ public:
         fosc->mod = 1;
         fosc->indx = 1;
         fosc->amp = 1;
-    }
 
+        baseFrequencyRamper.init();
+        carrierMultiplierRamper.init();
+        modulatingMultiplierRamper.init();
+        modulationIndexRamper.init();
+        amplitudeRamper.init();
+    }
     void setupWaveform(uint32_t size) {
         ftbl_size = size;
         sp_ftbl_create(sp, &ftbl, ftbl_size);
@@ -74,54 +79,59 @@ public:
 
     void reset() {
         resetted = true;
+        baseFrequencyRamper.reset();
+        carrierMultiplierRamper.reset();
+        modulatingMultiplierRamper.reset();
+        modulationIndexRamper.reset();
+        amplitudeRamper.reset();
     }
 
-    void setBaseFrequency(float freq) {
-        baseFrequency = freq;
-        baseFrequencyRamper.setImmediate(freq);
+    void setBaseFrequency(float value) {
+        baseFrequency = clamp(value, 0.0f, 20000.0f);
+        baseFrequencyRamper.setImmediate(baseFrequency);
     }
 
-    void setCarrierMultiplier(float car) {
-        carrierMultiplier = car;
-        carrierMultiplierRamper.setImmediate(car);
+    void setCarrierMultiplier(float value) {
+        carrierMultiplier = clamp(value, 0.0f, 1000.0f);
+        carrierMultiplierRamper.setImmediate(carrierMultiplier);
     }
 
-    void setModulatingMultiplier(float mod) {
-        modulatingMultiplier = mod;
-        modulatingMultiplierRamper.setImmediate(mod);
+    void setModulatingMultiplier(float value) {
+        modulatingMultiplier = clamp(value, 0.0f, 1000.0f);
+        modulatingMultiplierRamper.setImmediate(modulatingMultiplier);
     }
 
-    void setModulationIndex(float indx) {
-        modulationIndex = indx;
-        modulationIndexRamper.setImmediate(indx);
+    void setModulationIndex(float value) {
+        modulationIndex = clamp(value, 0.0f, 1000.0f);
+        modulationIndexRamper.setImmediate(modulationIndex);
     }
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
+    void setAmplitude(float value) {
+        amplitude = clamp(value, 0.0f, 10.0f);
+        amplitudeRamper.setImmediate(amplitude);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case baseFrequencyAddress:
-                baseFrequencyRamper.setUIValue(clamp(value, (float)0.0, (float)20000.0));
+                baseFrequencyRamper.setUIValue(clamp(value, 0.0f, 20000.0f));
                 break;
 
             case carrierMultiplierAddress:
-                carrierMultiplierRamper.setUIValue(clamp(value, (float)0.0, (float)1000.0));
+                carrierMultiplierRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
             case modulatingMultiplierAddress:
-                modulatingMultiplierRamper.setUIValue(clamp(value, (float)0, (float)1000));
+                modulatingMultiplierRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
             case modulationIndexAddress:
-                modulationIndexRamper.setUIValue(clamp(value, (float)0, (float)1000));
+                modulationIndexRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)10));
+                amplitudeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
         }
@@ -151,23 +161,23 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case baseFrequencyAddress:
-                baseFrequencyRamper.startRamp(clamp(value, (float)0.0, (float)20000.0), duration);
+                baseFrequencyRamper.startRamp(clamp(value, 0.0f, 20000.0f), duration);
                 break;
 
             case carrierMultiplierAddress:
-                carrierMultiplierRamper.startRamp(clamp(value, (float)0.0, (float)1000.0), duration);
+                carrierMultiplierRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
 
             case modulatingMultiplierAddress:
-                modulatingMultiplierRamper.startRamp(clamp(value, (float)0, (float)1000), duration);
+                modulatingMultiplierRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
 
             case modulationIndexAddress:
-                modulationIndexRamper.startRamp(clamp(value, (float)0, (float)1000), duration);
+                modulationIndexRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
                 break;
 
             case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)10), duration);
+                amplitudeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
         }
@@ -180,6 +190,7 @@ public:
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
 
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
 
             baseFrequency = double(baseFrequencyRamper.getAndStep());
@@ -212,7 +223,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -220,7 +230,6 @@ private:
 
     sp_data *sp;
     sp_fosc *fosc;
-
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
 
@@ -233,7 +242,7 @@ private:
 public:
     bool started = false;
     bool resetted = false;
-    ParameterRamper baseFrequencyRamper = 220;
+    ParameterRamper baseFrequencyRamper = 440;
     ParameterRamper carrierMultiplierRamper = 1.0;
     ParameterRamper modulatingMultiplierRamper = 1;
     ParameterRamper modulationIndexRamper = 1;

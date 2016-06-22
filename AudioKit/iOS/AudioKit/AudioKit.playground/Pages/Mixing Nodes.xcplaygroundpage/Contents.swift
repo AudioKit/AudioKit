@@ -8,16 +8,19 @@ import XCPlayground
 import AudioKit
 
 //: This section prepares the players
-let bundle = NSBundle.mainBundle()
-let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
-let bassFile   = bundle.pathForResource("bassloop", ofType: "wav")
-let guitarFile = bundle.pathForResource("guitarloop", ofType: "wav")
-let leadFile   = bundle.pathForResource("leadloop", ofType: "wav")
+let drumFile   = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
-var drums  = AKAudioPlayer(drumFile!)
-var bass   = AKAudioPlayer(bassFile!)
-var guitar = AKAudioPlayer(guitarFile!)
-var lead   = AKAudioPlayer(leadFile!)
+let bassFile   = try AKAudioFile(forReadingWithFileName: "bassloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let guitarFile   = try AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let leadFile   = try AKAudioFile(forReadingWithFileName: "leadloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+
+var drums  = try AKAudioPlayer(file: drumFile)
+var bass   = try AKAudioPlayer(file: bassFile)
+var guitar = try AKAudioPlayer(file: guitarFile)
+var lead   = try AKAudioPlayer(file: leadFile)
 
 drums.looping  = true
 bass.looping   = true

@@ -103,6 +103,7 @@ public class AKClipper: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.limit = Float(limit)
     }
 

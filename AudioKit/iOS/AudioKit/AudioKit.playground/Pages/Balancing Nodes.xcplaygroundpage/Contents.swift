@@ -9,19 +9,21 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var source = AKAudioPlayer(file!)
-source.looping = true
+let file = try? AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
-let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)
+
+var source = try? AKAudioPlayer(file: file!)
+source!.looping = true
+
+let highPassFiltering = AKHighPassFilter(source!, cutoffFrequency: 900)
 let lowPassFiltering = AKLowPassFilter(highPassFiltering, cutoffFrequency: 300)
 
 //: At this point you don't have much signal left, so you balance it against the original signal!
-let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source)
+let rebalancedWithSource = AKBalancer(lowPassFiltering, comparator: source!)
 
 AudioKit.output = rebalancedWithSource
 AudioKit.start()
-source.play()
+source!.play()
 
 //: User Interface Set up
 

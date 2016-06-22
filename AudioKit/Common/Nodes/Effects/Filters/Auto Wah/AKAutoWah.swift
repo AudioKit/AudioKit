@@ -37,7 +37,7 @@ public class AKAutoWah: AKNode, AKToggleable {
     }
 
     /// Wah Amount
-    public var wah: Double = 0 {
+    public var wah: Double = 0.0 {
         willSet {
             if wah != newValue {
                 if internalAU!.isSetUp() {
@@ -49,13 +49,13 @@ public class AKAutoWah: AKNode, AKToggleable {
         }
     }
     /// Dry/Wet Mix
-    public var mix: Double = 1 {
+    public var mix: Double = 1.0 {
         willSet {
             if mix != newValue {
                 if internalAU!.isSetUp() {
-                    mixParameter?.setValue(Float(newValue * 100.0), originator: token!)
+                    mixParameter?.setValue(Float(newValue), originator: token!)
                 } else {
-                    internalAU?.mix = Float(newValue * 100.0)
+                    internalAU?.mix = Float(newValue)
                 }
             }
         }
@@ -80,7 +80,7 @@ public class AKAutoWah: AKNode, AKToggleable {
 
     // MARK: - Initialization
 
-    /// Initialize this Auto-Wah node
+    /// Initialize this autoWah node
     ///
     /// - parameter input: Input node to process
     /// - parameter wah: Wah Amount
@@ -89,8 +89,8 @@ public class AKAutoWah: AKNode, AKToggleable {
     ///
     public init(
         _ input: AKNode,
-        wah: Double = 0,
-        mix: Double = 1,
+        wah: Double = 0.0,
+        mix: Double = 1.0,
         amplitude: Double = 0.1) {
 
         self.wah = wah
@@ -142,8 +142,9 @@ public class AKAutoWah: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.wah = Float(wah)
-        internalAU?.mix = Float(mix * 100.0)
+        internalAU?.mix = Float(mix)
         internalAU?.amplitude = Float(amplitude)
     }
 

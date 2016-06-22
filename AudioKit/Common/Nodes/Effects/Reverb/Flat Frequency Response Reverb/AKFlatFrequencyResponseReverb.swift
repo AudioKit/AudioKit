@@ -110,6 +110,7 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.reverbDuration = Float(reverbDuration)
     }
 
