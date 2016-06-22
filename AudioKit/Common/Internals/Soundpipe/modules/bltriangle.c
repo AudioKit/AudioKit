@@ -111,11 +111,11 @@ void initbltriangle(bltriangle* dsp, int samplingFreq) {
 void buildUserInterfacebltriangle(bltriangle* dsp, UIGlue* interface) {
 	interface->addHorizontalSlider(interface->uiInterface, "freq", &dsp->fHslider0, 440.f, 0.f, 20000.f, 0.0001f);
 	interface->addHorizontalSlider(interface->uiInterface, "amp", &dsp->fHslider1, 1.f, 0.f, 1.f, 1e-05f);
-    interface->addHorizontalSlider(interface->uiInterface, "crest", &dsp->fHslider2, 0.5f, .01f, .99f, .001f);
+    interface->addHorizontalSlider(interface->uiInterface, "crest", &dsp->fHslider2, 0.5f, .05f, .95f, .001f);
 }
 
 float computeampangle(bltriangle* dsp) {
-    float ampAngle;
+    float ampAngle = 0.5f;
     if ((float)dsp->fHslider2<=0.5f) {
         ampAngle = fabsf(.5f-(float)dsp->fHslider2);
         
@@ -129,7 +129,7 @@ void computebltriangle(bltriangle* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLO
 	FAUSTFLOAT* output0 = outputs[0];
     float ampAngle = computeampangle(dsp);
 	float fSlow0 = (float)dsp->fHslider0;
-	float fSlow1 = (dsp->fConst1 * (fSlow0 * (((float)dsp->fHslider1)/cosf(M_PI*(99.0f/100.0f)*ampAngle))));
+	float fSlow1 = (dsp->fConst1 * (fSlow0 * (((float)dsp->fHslider1)/cosf(M_PI*ampAngle))));
 	float fSlow2 = max(fSlow0, 23.4489f);
 	float fSlow3 = max(0.f, min(2047.f, ((float)dsp->fHslider2 * dsp->fConst2 / fSlow2)));
 	int iSlow4 = (int)fSlow3;

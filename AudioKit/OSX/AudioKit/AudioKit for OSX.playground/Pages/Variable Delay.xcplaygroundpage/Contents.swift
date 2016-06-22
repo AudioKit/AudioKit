@@ -7,9 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("mixloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 var delay = AKVariableDelay(player)
 delay.rampTime = 0.2
@@ -35,4 +35,4 @@ AKPlaygroundLoop(every: timeStep) {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne

@@ -44,6 +44,9 @@ public:
         char *sporthCode = (char *)[sporth UTF8String];
         plumber_parse_string(&pd, sporthCode);
         plumber_compute(&pd, PLUMBER_INIT);
+
+        timeRamper.init();
+        feedbackRamper.init();
     }
 
     void start() {
@@ -61,19 +64,21 @@ public:
 
     void reset() {
         resetted = true;
+        timeRamper.reset();
+        feedbackRamper.reset();
     }
-    
+
     void setMaxDelayTime(float duration) {
         internalMaxDelay = duration;
     }
-
-    void setTime(float del) {
-        time = del;
-        timeRamper.setImmediate(del);
+    
+    void setTime(float value) {
+        time = clamp(value, 0.0f, 10.0f);
+        timeRamper.setImmediate(time);
     }
 
-    void setFeedback(float feedback) {
-        feedback = feedback;
+    void setFeedback(float value) {
+        feedback = clamp(value, 0.0f, 1.0f);
         feedbackRamper.setImmediate(feedback);
     }
 
@@ -81,11 +86,11 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case timeAddress:
-                timeRamper.setUIValue(clamp(value, (float)0, (float)10));
+                timeRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
             case feedbackAddress:
-                feedbackRamper.setUIValue(clamp(value, (float)0, (float)1));
+                feedbackRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
         }
@@ -106,11 +111,11 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case timeAddress:
-                timeRamper.startRamp(clamp(value, (float)0, (float)10), duration);
+                timeRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
             case feedbackAddress:
-                feedbackRamper.startRamp(clamp(value, (float)0, (float)1), duration);
+                feedbackRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
         }
@@ -155,7 +160,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

@@ -7,9 +7,10 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("mixloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+//: Here we set up a player to the loop the file's playback
+var player = try AKAudioPlayer(file: file)
 player.looping = true
 var toneFilter = AKToneFilter(player)
 var toneComplement = AKToneComplementFilter(toneFilter)
@@ -20,13 +21,13 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var label1: Label?
     var label2: Label?
-    
+
     override func setup() {
         addTitle("Tone Filters")
-        
+
         addLabel("Audio Playback")
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
@@ -34,7 +35,7 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         addLabel("Tone Filter: ")
         addButton("Process", action: #selector(processTone))
         addButton("Bypass",  action: #selector(bypassTone))
@@ -55,59 +56,59 @@ class PlaygroundView: AKPlaygroundView {
                   minimum: 1,
                   maximum: 10000)
     }
-    
+
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
     func stop() {
         player.stop()
     }
-    
+
     func processTone() {
         toneFilter.start()
     }
-    
+
     func bypassTone() {
         toneFilter.bypass()
     }
-    
+
     func processToneComplement() {
         toneComplement.start()
     }
-    
+
     func bypassToneComplement() {
         toneComplement.bypass()
     }
-    
+
     func setToneFilterHalfPowerPoint(slider: Slider) {
         toneFilter.halfPowerPoint = Double(slider.value)
         let hp = String(format: "%0.1f", toneFilter.halfPowerPoint)
         label1!.text = "Tone Filter 1/2 Power Point: \(hp)"
     }
-    
+
     func setToneComplementHalfPowerPoint(slider: Slider) {
         toneComplement.halfPowerPoint = Double(slider.value)
         let hp = String(format: "%0.1f", toneComplement.halfPowerPoint)

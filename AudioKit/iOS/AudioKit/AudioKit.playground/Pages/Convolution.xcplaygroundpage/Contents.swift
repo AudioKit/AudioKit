@@ -7,13 +7,15 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
-let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
+
+let bundle = NSBundle.mainBundle()
+let stairwell = bundle.URLForResource("Impulse Responses/stairwell", andExtension: "wav")!
+let dish = bundle.URLForResource("Impulse Responses/dish", andExtension: "wav")!
 
 var stairwellConvolution = AKConvolution.init(player, impulseResponseFileURL: stairwell, partitionLength: 8192)
 var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, partitionLength: 8192)
@@ -54,27 +56,27 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }

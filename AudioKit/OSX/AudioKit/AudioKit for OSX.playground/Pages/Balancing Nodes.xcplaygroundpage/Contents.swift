@@ -9,8 +9,8 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var source = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+var source = try AKAudioPlayer(file: file)
 source.looping = true
 
 let highPassFiltering = AKHighPassFilter(source, cutoffFrequency: 900)

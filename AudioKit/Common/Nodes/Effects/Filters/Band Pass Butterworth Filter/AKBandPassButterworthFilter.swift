@@ -36,7 +36,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
     }
 
     /// Center frequency. (in Hertz)
-    public var centerFrequency: Double = 2000 {
+    public var centerFrequency: Double = 2000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -48,7 +48,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
         }
     }
     /// Bandwidth. (in Hertz)
-    public var bandwidth: Double = 100 {
+    public var bandwidth: Double = 100.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
@@ -75,8 +75,8 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 2000,
-        bandwidth: Double = 100) {
+        centerFrequency: Double = 2000.0,
+        bandwidth: Double = 100.0) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
@@ -123,6 +123,7 @@ public class AKBandPassButterworthFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.bandwidth = Float(bandwidth)
     }

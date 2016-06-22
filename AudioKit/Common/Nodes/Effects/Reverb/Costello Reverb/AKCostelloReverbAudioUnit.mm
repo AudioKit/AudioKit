@@ -126,16 +126,32 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKCostelloReverbDSPKernel *blockKernel = &_kernel;
+    __block AKCostelloReverbDSPKernel *reverbKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        reverbKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return reverbKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case feedbackAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case cutoffFrequencyAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
@@ -197,14 +213,6 @@
     _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKCostelloReverbDSPKernel *blockKernel = &_kernel;
-
-    // Go back to setting parameters instead of scheduling them.
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {

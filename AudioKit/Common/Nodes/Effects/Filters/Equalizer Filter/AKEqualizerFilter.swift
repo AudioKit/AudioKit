@@ -40,7 +40,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
     }
 
     /// Center frequency. (in Hertz)
-    public var centerFrequency: Double = 1000 {
+    public var centerFrequency: Double = 1000.0 {
         willSet {
             if centerFrequency != newValue {
                 if internalAU!.isSetUp() {
@@ -52,7 +52,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
         }
     }
     /// The peak/notch bandwidth in Hertz
-    public var bandwidth: Double = 100 {
+    public var bandwidth: Double = 100.0 {
         willSet {
             if bandwidth != newValue {
                 if internalAU!.isSetUp() {
@@ -64,7 +64,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
         }
     }
     /// The peak/notch gain
-    public var gain: Double = 10 {
+    public var gain: Double = 10.0 {
         willSet {
             if gain != newValue {
                 if internalAU!.isSetUp() {
@@ -92,9 +92,9 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
     ///
     public init(
         _ input: AKNode,
-        centerFrequency: Double = 1000,
-        bandwidth: Double = 100,
-        gain: Double = 10) {
+        centerFrequency: Double = 1000.0,
+        bandwidth: Double = 100.0,
+        gain: Double = 10.0) {
 
         self.centerFrequency = centerFrequency
         self.bandwidth = bandwidth
@@ -145,6 +145,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.bandwidth = Float(bandwidth)
         internalAU?.gain = Float(gain)

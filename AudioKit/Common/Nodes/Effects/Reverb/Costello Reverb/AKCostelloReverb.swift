@@ -124,6 +124,7 @@ public class AKCostelloReverb: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.feedback = Float(feedback)
         internalAU?.cutoffFrequency = Float(cutoffFrequency)
     }

@@ -50,10 +50,10 @@ int sp_adsr_compute(sp_data *sp, sp_adsr *p, SPFLOAT *in, SPFLOAT *out)
         p->mode = ATTACK;
         p->timer = 0;
         /* quick fix: uncomment if broken */
-        //pole = tau2pole(sp, p, p->atk * 0.75);
-        //p->atk_time = p->atk * sp->sr * 1.5;
-        pole = tau2pole(sp, p, p->atk * 0.6);
-        p->atk_time = p->atk * sp->sr;
+        pole = tau2pole(sp, p, p->atk * 0.75);
+        p->atk_time = p->atk * sp->sr * 1.5;
+//        pole = tau2pole(sp, p, p->atk * 0.6); needs work
+//        p->atk_time = p->atk * sp->sr;
         p->a = pole;
         p->b = 1 - pole;
     } else if(p->x > *in) {
@@ -73,8 +73,9 @@ int sp_adsr_compute(sp_data *sp, sp_adsr *p, SPFLOAT *in, SPFLOAT *out)
             p->timer++;
             *out = adsr_filter(sp, p);
             /* quick fix: uncomment if broken */
-            //if(p->timer > p->atk_time) {
-            if(*out > 0.9999) {
+            if(p->timer > p->atk_time) {
+
+//            if(*out > 0.9999) { needs work
                 p->mode = DECAY;
                 pole = tau2pole(sp, p, p->dec);
                 p->a = pole;

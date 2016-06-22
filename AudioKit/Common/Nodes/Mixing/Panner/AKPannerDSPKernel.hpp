@@ -39,6 +39,8 @@ public:
         sp_panst_create(&panst);
         sp_panst_init(sp, panst);
         panst->pan = 0;
+
+        panRamper.init();
     }
 
     void start() {
@@ -56,10 +58,11 @@ public:
 
     void reset() {
         resetted = true;
+        panRamper.reset();
     }
 
-    void setPan(float pan) {
-        pan = pan;
+    void setPan(float value) {
+        pan = clamp(value, -1.0f, 1.0f);
         panRamper.setImmediate(pan);
     }
 
@@ -67,7 +70,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case panAddress:
-                panRamper.setUIValue(clamp(value, (float)-1, (float)1));
+                panRamper.setUIValue(clamp(value, -1.0f, 1.0f));
                 break;
 
         }
@@ -85,7 +88,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case panAddress:
-                panRamper.startRamp(clamp(value, (float)-1, (float)1), duration);
+                panRamper.startRamp(clamp(value, -1.0f, 1.0f), duration);
                 break;
 
         }
@@ -129,7 +132,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

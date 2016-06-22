@@ -35,6 +35,7 @@ class PlaygroundView: AKPlaygroundView {
     func start() {
         oscillator.play()
     }
+
     func stop() {
         oscillator.stop()
     }
@@ -43,12 +44,23 @@ class PlaygroundView: AKPlaygroundView {
         oscillator.frequency = Double(slider.value)
         let frequency = String(format: "%0.1f", oscillator.frequency)
         frequencyLabel!.text = "Frequency: \(frequency)"
+        printCode()
     }
 
     func setAmplitude(slider: Slider) {
         oscillator.amplitude = Double(slider.value)
         let amp = String(format: "%0.3f", oscillator.amplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
+        printCode()
+    }
+
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    frequency = \(String(format: "%0.3f", oscillator.frequency))")
+        Swift.print("    amplitude = \(String(format: "%0.3f", oscillator.amplitude))")
+        Swift.print("}\n")
     }
 }
 

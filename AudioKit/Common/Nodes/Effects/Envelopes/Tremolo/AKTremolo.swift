@@ -12,6 +12,7 @@ import AVFoundation
 ///
 /// - parameter input: Input node to process
 /// - parameter frequency: Frequency (Hz)
+/// - parameter depth: Depth
 ///
 public class AKTremolo: AKNode, AKToggleable {
 
@@ -22,6 +23,7 @@ public class AKTremolo: AKNode, AKToggleable {
 
     private var waveform: AKTable?
     private var frequencyParameter: AUParameter?
+    private var depthParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
@@ -45,6 +47,19 @@ public class AKTremolo: AKNode, AKToggleable {
             }
         }
     }
+    
+    /// Depth
+    public var depth: Double = 1 {
+        willSet {
+            if depth != newValue {
+                if internalAU!.isSetUp() {
+                    depthParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.depth = Float(newValue)
+                }
+            }
+        }
+    }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
@@ -57,11 +72,13 @@ public class AKTremolo: AKNode, AKToggleable {
     ///
     /// - parameter input: Input node to process
     /// - parameter frequency: Frequency (Hz)
+    /// - parameter depth: Depth
     /// - parameter waveform:  Shape of the tremolo (default to sine)
     ///
     public init(
         _ input: AKNode,
         frequency: Double = 10,
+        depth: Double = 1.0,
         waveform: AKTable = AKTable(.PositiveSine)) {
 
         self.waveform = waveform
@@ -111,6 +128,19 @@ public class AKTremolo: AKNode, AKToggleable {
             }
         }
         internalAU?.frequency = Float(frequency)
+        
+        depthParameter = tree.valueForKey("depth") as? AUParameter
+        
+        token = tree.tokenByAddingParameterObserver {
+            address, value in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                if address == self.depthParameter!.address {
+                    self.depth = Double(value)
+                }
+            }
+        }
+        internalAU?.depth = Float(depth)
     }
 
     // MARK: - Control

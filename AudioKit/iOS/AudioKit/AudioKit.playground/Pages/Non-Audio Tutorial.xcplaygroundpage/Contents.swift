@@ -10,19 +10,17 @@ import AudioKit
 //: Another import line you will see in most playgrounds enables `XCPlayground` functions for plotting, keeping the playground alive while audio plays, and more.
 import XCPlayground
 
-//: This main bundle line just helps the playground find the files (such as audio clips) it will be able to play and process.
-let bundle = NSBundle.mainBundle()
 
-//: To reference a file, you use the bundle from about and the `pathForResource` method that includes the name with the extension given in the `ofType` parameter.
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+//: To reference a file, you may use AKAudioFile: Here, we load a file from the resources folder (the files embeded in your application).
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
 
-//: You are not limited to using the sound files provided with AudioKit, in fact we encourage you to drag your own sound files to the Resources folder.  Ideally, to keep things running quickly, loopable 10-20 second `.wav` or `.aiff` files are recommended.  Many free loops are avaiable online at sites such as [looperman.com](http://www.looperman.com/) or [freesound.org](http://www.freesound.org/).
+//: You are not limited to using the sound files provided with AudioKit, in fact we encourage you to drag your own sound files to the Resources folder.  Ideally, to keep things running quickly, loopable 10-20 second `.wav` or `.aiff` files are recommended.  Many free loops are avaiable online at sites such as [looperman.com](http://www.looperman.com/) or [freesound.org](https://www.freesound.org/).
 //:
 //: ![drag](http://audiokit.io/playgrounds/DragResource.gif "drag")
 //:
 
 //: While we will do our best to annotate the playgrounds well, you can also get more information about the different code elements on the page by clicking on them and looking at the Quick Help Inspector.  Or, you can also option-click on any class, method, or variable name to show information about that element.  Try it with the lines below:
-let player = AKAudioPlayer(file!)
+let player = try AKAudioPlayer(file: file)
 let effect = AKMoogLadder(player)
 
 //: We'll often use the notation above which is `let variable = AKClass(input)` but for the best code completion, this is equivalent to `let variable = AKClass.init(input)` which has the added benefit of providing better code completion and inline documentation.  This may not be necessary as Xcode's support for Swift code completion improves.

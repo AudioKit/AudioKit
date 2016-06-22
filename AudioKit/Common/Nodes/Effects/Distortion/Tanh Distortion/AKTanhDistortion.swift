@@ -162,6 +162,7 @@ public class AKTanhDistortion: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.pregain = Float(pregain)
         internalAU?.postgain = Float(postgain)
         internalAU?.postiveShapeParameter = Float(postiveShapeParameter)

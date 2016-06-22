@@ -33,7 +33,7 @@ public class AKToneFilter: AKNode, AKToggleable {
     }
 
     /// The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
-    public var halfPowerPoint: Double = 1000 {
+    public var halfPowerPoint: Double = 1000.0 {
         willSet {
             if halfPowerPoint != newValue {
                 if internalAU!.isSetUp() {
@@ -59,7 +59,7 @@ public class AKToneFilter: AKNode, AKToggleable {
     ///
     public init(
         _ input: AKNode,
-        halfPowerPoint: Double = 1000) {
+        halfPowerPoint: Double = 1000.0) {
 
         self.halfPowerPoint = halfPowerPoint
 
@@ -102,6 +102,7 @@ public class AKToneFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.halfPowerPoint = Float(halfPowerPoint)
     }
 

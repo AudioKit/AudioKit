@@ -1148,7 +1148,7 @@ typedef struct {
 
 int sp_tabread_create(sp_tabread **p);
 int sp_tabread_destroy(sp_tabread **p);
-int sp_tabread_init(sp_data *sp, sp_tabread *p, sp_ftbl *ft);
+int sp_tabread_init(sp_data *sp, sp_tabread *p, sp_ftbl *ft, int mode);
 int sp_tabread_compute(sp_data *sp, sp_tabread *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
     SPFLOAT value;
@@ -1270,7 +1270,7 @@ int sp_trand_destroy(sp_trand **p);
 int sp_trand_init(sp_data *sp, sp_trand *p);
 int sp_trand_compute(sp_data *sp, sp_trand *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
-    SPFLOAT freq, iphs;
+    SPFLOAT freq, depth, iphs;
     sp_ftbl *tbl;
     int32_t lphs;
     int inc;

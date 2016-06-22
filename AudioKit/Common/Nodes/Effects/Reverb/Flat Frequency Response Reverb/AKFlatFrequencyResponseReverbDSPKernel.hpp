@@ -39,6 +39,8 @@ public:
         sp_allpass_create(&allpass);
         sp_allpass_init(sp, allpass, internalLoopDuration);
         allpass->revtime = 0.5;
+
+        reverbDurationRamper.init();
     }
 
     void start() {
@@ -56,11 +58,12 @@ public:
 
     void reset() {
         resetted = true;
+        reverbDurationRamper.reset();
     }
 
-    void setReverbDuration(float revtime) {
-        reverbDuration = revtime;
-        reverbDurationRamper.setImmediate(revtime);
+    void setReverbDuration(float value) {
+        reverbDuration = clamp(value, 0.0f, 10.0f);
+        reverbDurationRamper.setImmediate(reverbDuration);
     }
 
     void setLoopDuration(float duration) {
@@ -70,7 +73,7 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.setUIValue(clamp(value, (float)0, (float)10));
+                reverbDurationRamper.setUIValue(clamp(value, 0.0f, 10.0f));
                 break;
 
         }
@@ -88,7 +91,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case reverbDurationAddress:
-                reverbDurationRamper.startRamp(clamp(value, (float)0, (float)10), duration);
+                reverbDurationRamper.startRamp(clamp(value, 0.0f, 10.0f), duration);
                 break;
 
         }
@@ -111,7 +114,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_allpass_compute(sp, allpass, in, out);
                 } else {
@@ -124,7 +127,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

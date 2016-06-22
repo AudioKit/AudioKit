@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C4CB57541D1AFB1500479598 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57531D1AFB1500479598 /* AppDelegate.swift */; };
+		C4CB57591D1AFB1500479598 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CB57571D1AFB1500479598 /* Main.storyboard */; };
+		C4CB575B1D1AFB1500479598 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CB575A1D1AFB1500479598 /* Assets.xcassets */; };
+		C4CB575E1D1AFB1500479598 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CB575C1D1AFB1500479598 /* LaunchScreen.storyboard */; };
+		C4CB57671D1AFB8F00479598 /* LoopsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57661D1AFB8F00479598 /* LoopsViewController.swift */; };
+		C4CB576A1D1AFBCB00479598 /* MoogLadderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57691D1AFBCB00479598 /* MoogLadderViewController.swift */; };
+		C4CB576C1D1AFBEB00479598 /* CostelloReverbViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB576B1D1AFBEB00479598 /* CostelloReverbViewController.swift */; };
+		C4CB576E1D1AFC0300479598 /* VariableDelayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB576D1D1AFC0300479598 /* VariableDelayViewController.swift */; };
+		C4CB57711D1AFC5200479598 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57701D1AFC5200479598 /* AlbumsViewController.swift */; };
+		C4CB57731D1AFC6100479598 /* ArtistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57721D1AFC6100479598 /* ArtistsViewController.swift */; };
+		C4CB57751D1AFC7300479598 /* SongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57741D1AFC7300479598 /* SongsViewController.swift */; };
+		C4CB57771D1AFC8200479598 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57761D1AFC8200479598 /* SongViewController.swift */; };
+		C4CB577E1D1AFCBD00479598 /* bassloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB57791D1AFCBD00479598 /* bassloop.wav */; };
+		C4CB577F1D1AFCBD00479598 /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577A1D1AFCBD00479598 /* drumloop.wav */; };
+		C4CB57801D1AFCBD00479598 /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577B1D1AFCBD00479598 /* guitarloop.wav */; };
+		C4CB57811D1AFCBD00479598 /* leadloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577C1D1AFCBD00479598 /* leadloop.wav */; };
+		C4CB57821D1AFCBD00479598 /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577D1D1AFCBD00479598 /* mixloop.wav */; };
+		C4CB57841D1AFCFE00479598 /* SongProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57831D1AFCFE00479598 /* SongProcessor.swift */; };
+		C4CB57951D1B190600479598 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CB57931D1B18F700479598 /* AudioKit.framework */; };
+		C4CB57961D1B190600479598 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4CB57931D1B18F700479598 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C4CB57921D1AFE1F00479598 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C4CB57961D1B190600479598 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C4CB57501D1AFB1500479598 /* SongProcessor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongProcessor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4CB57531D1AFB1500479598 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C4CB57581D1AFB1500479598 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C4CB575A1D1AFB1500479598 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C4CB575D1D1AFB1500479598 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C4CB575F1D1AFB1500479598 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4CB57661D1AFB8F00479598 /* LoopsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoopsViewController.swift; path = "View Controllers/LoopsViewController.swift"; sourceTree = "<group>"; };
+		C4CB57691D1AFBCB00479598 /* MoogLadderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MoogLadderViewController.swift; path = "View Controllers/MoogLadderViewController.swift"; sourceTree = "<group>"; };
+		C4CB576B1D1AFBEB00479598 /* CostelloReverbViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CostelloReverbViewController.swift; path = "View Controllers/CostelloReverbViewController.swift"; sourceTree = "<group>"; };
+		C4CB576D1D1AFC0300479598 /* VariableDelayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VariableDelayViewController.swift; path = "View Controllers/VariableDelayViewController.swift"; sourceTree = "<group>"; };
+		C4CB57701D1AFC5200479598 /* AlbumsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlbumsViewController.swift; path = "View Controllers/iTunes Library Access/AlbumsViewController.swift"; sourceTree = "<group>"; };
+		C4CB57721D1AFC6100479598 /* ArtistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistsViewController.swift; path = "View Controllers/iTunes Library Access/ArtistsViewController.swift"; sourceTree = "<group>"; };
+		C4CB57741D1AFC7300479598 /* SongsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongsViewController.swift; path = "View Controllers/iTunes Library Access/SongsViewController.swift"; sourceTree = "<group>"; };
+		C4CB57761D1AFC8200479598 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongViewController.swift; path = "View Controllers/iTunes Library Access/SongViewController.swift"; sourceTree = "<group>"; };
+		C4CB57791D1AFCBD00479598 /* bassloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bassloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/bassloop.wav; sourceTree = "<group>"; };
+		C4CB577A1D1AFCBD00479598 /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
+		C4CB577B1D1AFCBD00479598 /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
+		C4CB577C1D1AFCBD00479598 /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
+		C4CB577D1D1AFCBD00479598 /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mixloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/mixloop.wav; sourceTree = "<group>"; };
+		C4CB57831D1AFCFE00479598 /* SongProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongProcessor.swift; sourceTree = "<group>"; };
+		C4CB57931D1B18F700479598 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C4CB574D1D1AFB1500479598 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4CB57951D1B190600479598 /* AudioKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C4CB57471D1AFB1500479598 = {
+			isa = PBXGroup;
+			children = (
+				C4CB57931D1B18F700479598 /* AudioKit.framework */,
+				C4CB57521D1AFB1500479598 /* SongProcessor */,
+				C4CB57511D1AFB1500479598 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C4CB57511D1AFB1500479598 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4CB57501D1AFB1500479598 /* SongProcessor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C4CB57521D1AFB1500479598 /* SongProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				C4CB57831D1AFCFE00479598 /* SongProcessor.swift */,
+				C4CB57681D1AFB9500479598 /* View Controllers */,
+				C4CB57781D1AFC9100479598 /* Loops */,
+				C4CB57571D1AFB1500479598 /* Main.storyboard */,
+				C4CB575C1D1AFB1500479598 /* LaunchScreen.storyboard */,
+				C4CB57531D1AFB1500479598 /* AppDelegate.swift */,
+				C4CB575A1D1AFB1500479598 /* Assets.xcassets */,
+				C4CB575F1D1AFB1500479598 /* Info.plist */,
+			);
+			path = SongProcessor;
+			sourceTree = "<group>";
+		};
+		C4CB57681D1AFB9500479598 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4CB576F1D1AFC1700479598 /* iTunes Library Access */,
+				C4CB57661D1AFB8F00479598 /* LoopsViewController.swift */,
+				C4CB57691D1AFBCB00479598 /* MoogLadderViewController.swift */,
+				C4CB576B1D1AFBEB00479598 /* CostelloReverbViewController.swift */,
+				C4CB576D1D1AFC0300479598 /* VariableDelayViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		C4CB576F1D1AFC1700479598 /* iTunes Library Access */ = {
+			isa = PBXGroup;
+			children = (
+				C4CB57701D1AFC5200479598 /* AlbumsViewController.swift */,
+				C4CB57721D1AFC6100479598 /* ArtistsViewController.swift */,
+				C4CB57741D1AFC7300479598 /* SongsViewController.swift */,
+				C4CB57761D1AFC8200479598 /* SongViewController.swift */,
+			);
+			name = "iTunes Library Access";
+			sourceTree = "<group>";
+		};
+		C4CB57781D1AFC9100479598 /* Loops */ = {
+			isa = PBXGroup;
+			children = (
+				C4CB57791D1AFCBD00479598 /* bassloop.wav */,
+				C4CB577A1D1AFCBD00479598 /* drumloop.wav */,
+				C4CB577B1D1AFCBD00479598 /* guitarloop.wav */,
+				C4CB577C1D1AFCBD00479598 /* leadloop.wav */,
+				C4CB577D1D1AFCBD00479598 /* mixloop.wav */,
+			);
+			name = Loops;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C4CB574F1D1AFB1500479598 /* SongProcessor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4CB57621D1AFB1500479598 /* Build configuration list for PBXNativeTarget "SongProcessor" */;
+			buildPhases = (
+				C4CB574C1D1AFB1500479598 /* Sources */,
+				C4CB574D1D1AFB1500479598 /* Frameworks */,
+				C4CB574E1D1AFB1500479598 /* Resources */,
+				C4CB57921D1AFE1F00479598 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SongProcessor;
+			productName = SongProcessor;
+			productReference = C4CB57501D1AFB1500479598 /* SongProcessor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C4CB57481D1AFB1500479598 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = AudioKit;
+				TargetAttributes = {
+					C4CB574F1D1AFB1500479598 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = C4CB574B1D1AFB1500479598 /* Build configuration list for PBXProject "SongProcessor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C4CB57471D1AFB1500479598;
+			productRefGroup = C4CB57511D1AFB1500479598 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C4CB574F1D1AFB1500479598 /* SongProcessor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C4CB574E1D1AFB1500479598 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4CB577F1D1AFCBD00479598 /* drumloop.wav in Resources */,
+				C4CB575E1D1AFB1500479598 /* LaunchScreen.storyboard in Resources */,
+				C4CB575B1D1AFB1500479598 /* Assets.xcassets in Resources */,
+				C4CB57811D1AFCBD00479598 /* leadloop.wav in Resources */,
+				C4CB57591D1AFB1500479598 /* Main.storyboard in Resources */,
+				C4CB57801D1AFCBD00479598 /* guitarloop.wav in Resources */,
+				C4CB577E1D1AFCBD00479598 /* bassloop.wav in Resources */,
+				C4CB57821D1AFCBD00479598 /* mixloop.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C4CB574C1D1AFB1500479598 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4CB57711D1AFC5200479598 /* AlbumsViewController.swift in Sources */,
+				C4CB57841D1AFCFE00479598 /* SongProcessor.swift in Sources */,
+				C4CB57751D1AFC7300479598 /* SongsViewController.swift in Sources */,
+				C4CB57671D1AFB8F00479598 /* LoopsViewController.swift in Sources */,
+				C4CB576E1D1AFC0300479598 /* VariableDelayViewController.swift in Sources */,
+				C4CB576A1D1AFBCB00479598 /* MoogLadderViewController.swift in Sources */,
+				C4CB57541D1AFB1500479598 /* AppDelegate.swift in Sources */,
+				C4CB57771D1AFC8200479598 /* SongViewController.swift in Sources */,
+				C4CB576C1D1AFBEB00479598 /* CostelloReverbViewController.swift in Sources */,
+				C4CB57731D1AFC6100479598 /* ArtistsViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C4CB57571D1AFB1500479598 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C4CB57581D1AFB1500479598 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C4CB575C1D1AFB1500479598 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C4CB575D1D1AFB1500479598 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C4CB57601D1AFB1500479598 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C4CB57611D1AFB1500479598 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C4CB57631D1AFB1500479598 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				INFOPLIST_FILE = SongProcessor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C4CB57641D1AFB1500479598 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				INFOPLIST_FILE = SongProcessor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SongProcessor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C4CB574B1D1AFB1500479598 /* Build configuration list for PBXProject "SongProcessor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4CB57601D1AFB1500479598 /* Debug */,
+				C4CB57611D1AFB1500479598 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4CB57621D1AFB1500479598 /* Build configuration list for PBXNativeTarget "SongProcessor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4CB57631D1AFB1500479598 /* Debug */,
+				C4CB57641D1AFB1500479598 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C4CB57481D1AFB1500479598 /* Project object */;
+}

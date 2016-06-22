@@ -7,11 +7,11 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
-player.looping = true
-var bitcrusher = AKBitCrusher(player)
+let file = try? AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try? AKAudioPlayer(file: file!)
+player!.looping = true
+var bitcrusher = AKBitCrusher(player!)
 
 //: Set the parameters of the bitcrusher here
 bitcrusher.bitDepth = 16
@@ -20,7 +20,7 @@ bitcrusher.sampleRate = 3333
 AudioKit.output = bitcrusher
 AudioKit.start()
 
-player.play()
+player!.play()
 
 class PlaygroundView: AKPlaygroundView {
 
@@ -46,33 +46,33 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func startLoop(part: String) {
-        player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
-        player.play()
+        player!.stop()
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player!.replaceFile(file!)
+        player!.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
     func stop() {
-        player.stop()
+        player!.stop()
     }
 
     func setBitDepth(slider: Slider) {
@@ -88,10 +88,10 @@ class PlaygroundView: AKPlaygroundView {
         sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
         printCode()
     }
-    
+
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
-        
+
         print("public func presetXXXXXX() {")
         print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
         print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")

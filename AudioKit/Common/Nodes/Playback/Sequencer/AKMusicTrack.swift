@@ -68,7 +68,6 @@ public class AKMusicTrack {
             }
         })
 
-        print("Creating meta event for \(name)")
         let result = MusicTrackNewMetaEvent(internalMusicTrack, MusicTimeStamp(0), &metaEvent)
         if result != 0 {
             print("Unable to name Track")

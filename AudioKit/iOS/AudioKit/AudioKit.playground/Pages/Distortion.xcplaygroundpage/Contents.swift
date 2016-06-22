@@ -8,9 +8,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("mixloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var distortion = AKDistortion(player)
@@ -93,27 +93,27 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
@@ -129,7 +129,7 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         distortion.bypass()
     }
-    
+
     func setDelay(slider: Slider) {
         distortion.delay = Double(slider.value)
         let delay = String(format: "%0.3f", distortion.delay)
@@ -195,7 +195,7 @@ class PlaygroundView: AKPlaygroundView {
 
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
-        
+
         print("public func presetXXXXXX() {")
         print("    delay = \(String(format: "%0.3f", distortion.delay))")
         print("    decay = \(String(format: "%0.3f", distortion.decay))")

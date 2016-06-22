@@ -43,6 +43,10 @@ public:
         lpf18->dist = 0.5;
         lpf18->cutoff = 1500;
         lpf18->res = 0.5;
+
+        distortionRamper.init();
+        cutoffFrequencyRamper.init();
+        resonanceRamper.init();
     }
 
     void start() {
@@ -60,36 +64,39 @@ public:
 
     void reset() {
         resetted = true;
+        distortionRamper.reset();
+        cutoffFrequencyRamper.reset();
+        resonanceRamper.reset();
     }
 
-    void setDistortion(float dist) {
-        distortion = dist;
-        distortionRamper.setImmediate(dist);
+    void setDistortion(float value) {
+        distortion = clamp(value, 0.0f, 2.0f);
+        distortionRamper.setImmediate(distortion);
     }
 
-    void setCutoffFrequency(float cutoff) {
-        cutoffFrequency = cutoff;
-        cutoffFrequencyRamper.setImmediate(cutoff);
+    void setCutoffFrequency(float value) {
+        cutoffFrequency = clamp(value, 12.0f, 20000.0f);
+        cutoffFrequencyRamper.setImmediate(cutoffFrequency);
     }
 
-    void setResonance(float res) {
-        resonance = res;
-        resonanceRamper.setImmediate(res);
+    void setResonance(float value) {
+        resonance = clamp(value, 0.0f, 2.0f);
+        resonanceRamper.setImmediate(resonance);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case distortionAddress:
-                distortionRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
+                distortionRamper.setUIValue(clamp(value, 0.0f, 2.0f));
                 break;
 
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                cutoffFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case resonanceAddress:
-                resonanceRamper.setUIValue(clamp(value, (float)0.0, (float)2.0));
+                resonanceRamper.setUIValue(clamp(value, 0.0f, 2.0f));
                 break;
 
         }
@@ -113,15 +120,15 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case distortionAddress:
-                distortionRamper.startRamp(clamp(value, (float)0.0, (float)2.0), duration);
+                distortionRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
                 break;
 
             case cutoffFrequencyAddress:
-                cutoffFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                cutoffFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case resonanceAddress:
-                resonanceRamper.startRamp(clamp(value, (float)0.0, (float)2.0), duration);
+                resonanceRamper.startRamp(clamp(value, 0.0f, 2.0f), duration);
                 break;
 
         }
@@ -161,7 +168,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

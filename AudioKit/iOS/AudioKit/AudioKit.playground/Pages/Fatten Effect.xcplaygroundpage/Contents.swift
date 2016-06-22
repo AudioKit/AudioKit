@@ -7,11 +7,11 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
 
 //: Here we set up a player to the loop the file's playback
-var player = AKAudioPlayer(file!)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: Define parameters that will be required
@@ -57,45 +57,45 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
-    
+
     func stop() {
         player.stop()
     }
-    
+
     func setTime(slider: Slider) {
         fatten.parameters = [Double(slider.value), fatten.parameters[1]]
         timeLabel!.text = "Time: \(String(format: "%0.3f", fatten.parameters[0]))"
     }
-    
+
     func setMix(slider: Slider) {
         fatten.parameters = [fatten.parameters[0], Double(slider.value)]
         mixLabel!.text = "Mix: \(String(format: "%0.3f", fatten.parameters[1]))"
     }
-    
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))

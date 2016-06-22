@@ -39,7 +39,7 @@ int sporth_tabread(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
 
-            sp_tabread_init(pd->sp, tabread, ft);
+            sp_tabread_init(pd->sp, tabread, ft, mode);
             sporth_stack_push_float(stack, 0);
             free(ftname);
             break;

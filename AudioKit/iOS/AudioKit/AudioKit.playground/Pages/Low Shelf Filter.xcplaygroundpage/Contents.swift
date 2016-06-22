@@ -7,9 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("mixloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var lowShelfFilter = AKLowShelfFilter(player)
@@ -58,27 +58,27 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
@@ -94,7 +94,7 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         lowShelfFilter.bypass()
     }
-    
+
     func setcutoffFrequency(slider: Slider) {
         lowShelfFilter.cutoffFrequency = Double(slider.value)
         let cutoffFrequency = String(format: "%0.1f", lowShelfFilter.cutoffFrequency)
@@ -111,12 +111,12 @@ class PlaygroundView: AKPlaygroundView {
 
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
-        
+
         print("public func presetXXXXXX() {")
         print("    cutoffFrequency = \(String(format: "%0.3f", lowShelfFilter.cutoffFrequency))")
-        
+
         print("    gain = \(String(format: "%0.3f", lowShelfFilter.gain))")
-        
+
         print("}\n")
     }
 }

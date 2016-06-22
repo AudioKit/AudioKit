@@ -142,6 +142,7 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
                 }
             }
         }
+
         internalAU?.centerFrequency = Float(centerFrequency)
         internalAU?.gain = Float(gain)
         internalAU?.q = Float(q)

@@ -32,6 +32,8 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+
+
 - (void)start {
     _kernel.start();
 }
@@ -42,6 +44,10 @@
 
 - (BOOL)isPlaying {
     return _kernel.started;
+}
+
+- (BOOL)isSetUp {
+    return _kernel.resetted;
 }
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
@@ -61,8 +67,8 @@
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
     
-    // Initialize the parameter values.
 
+    // Initialize the parameter values.
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
@@ -81,16 +87,16 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKDCBlockDSPKernel *blockKernel = &_kernel;
+    __block AKDCBlockDSPKernel *filterKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        filterKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return filterKernel->getParameter(param.address);
     };
 
     self.maximumFramesToRender = 512;
@@ -127,35 +133,15 @@
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
-    /*
-     While rendering, we want to schedule all parameter changes. Setting them
-     off the render thread is not thread safe.
-     */
-    __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
-
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
-    };
-
     return YES;
 }
+
 
 - (void)deallocateRenderResources {
     [super deallocateRenderResources];
     _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKDCBlockDSPKernel *blockKernel = &_kernel;
-
-    // Go back to setting parameters instead of scheduling them.
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {

@@ -40,9 +40,13 @@ public:
         sp->nchan = channels;
         sp_eqfil_create(&eqfil);
         sp_eqfil_init(sp, eqfil);
-        eqfil->freq = 1000;
-        eqfil->bw = 100;
-        eqfil->gain = 10;
+        eqfil->freq = 1000.0;
+        eqfil->bw = 100.0;
+        eqfil->gain = 10.0;
+
+        centerFrequencyRamper.init();
+        bandwidthRamper.init();
+        gainRamper.init();
     }
 
     void start() {
@@ -60,20 +64,23 @@ public:
 
     void reset() {
         resetted = true;
+        centerFrequencyRamper.reset();
+        bandwidthRamper.reset();
+        gainRamper.reset();
     }
 
-    void setCenterFrequency(float freq) {
-        centerFrequency = freq;
-        centerFrequencyRamper.setImmediate(freq);
+    void setCenterFrequency(float value) {
+        centerFrequency = clamp(value, 12.0f, 20000.0f);
+        centerFrequencyRamper.setImmediate(centerFrequency);
     }
 
-    void setBandwidth(float bw) {
-        bandwidth = bw;
-        bandwidthRamper.setImmediate(bw);
+    void setBandwidth(float value) {
+        bandwidth = clamp(value, 0.0f, 20000.0f);
+        bandwidthRamper.setImmediate(bandwidth);
     }
 
-    void setGain(float gain) {
-        gain = gain;
+    void setGain(float value) {
+        gain = clamp(value, -100.0f, 100.0f);
         gainRamper.setImmediate(gain);
     }
 
@@ -81,15 +88,15 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.setUIValue(clamp(value, (float)12.0, (float)20000.0));
+                centerFrequencyRamper.setUIValue(clamp(value, 12.0f, 20000.0f));
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.setUIValue(clamp(value, (float)0.0, (float)20000.0));
+                bandwidthRamper.setUIValue(clamp(value, 0.0f, 20000.0f));
                 break;
 
             case gainAddress:
-                gainRamper.setUIValue(clamp(value, (float)-100.0, (float)100.0));
+                gainRamper.setUIValue(clamp(value, -100.0f, 100.0f));
                 break;
 
         }
@@ -113,15 +120,15 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case centerFrequencyAddress:
-                centerFrequencyRamper.startRamp(clamp(value, (float)12.0, (float)20000.0), duration);
+                centerFrequencyRamper.startRamp(clamp(value, 12.0f, 20000.0f), duration);
                 break;
 
             case bandwidthAddress:
-                bandwidthRamper.startRamp(clamp(value, (float)0.0, (float)20000.0), duration);
+                bandwidthRamper.startRamp(clamp(value, 0.0f, 20000.0f), duration);
                 break;
 
             case gainAddress:
-                gainRamper.startRamp(clamp(value, (float)-100.0, (float)100.0), duration);
+                gainRamper.startRamp(clamp(value, -100.0f, 100.0f), duration);
                 break;
 
         }
@@ -148,7 +155,7 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-                
+
                 if (started) {
                     sp_eqfil_compute(sp, eqfil, in, out);
                 } else {
@@ -161,7 +168,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 
@@ -171,16 +177,16 @@ private:
     sp_data *sp;
     sp_eqfil *eqfil;
 
-    float centerFrequency = 1000;
-    float bandwidth = 100;
-    float gain = 10;
+    float centerFrequency = 1000.0;
+    float bandwidth = 100.0;
+    float gain = 10.0;
 
 public:
     bool started = true;
     bool resetted = false;
-    ParameterRamper centerFrequencyRamper = 1000;
-    ParameterRamper bandwidthRamper = 100;
-    ParameterRamper gainRamper = 10;
+    ParameterRamper centerFrequencyRamper = 1000.0;
+    ParameterRamper bandwidthRamper = 100.0;
+    ParameterRamper gainRamper = 10.0;
 };
 
 #endif /* AKEqualizerFilterDSPKernel_hpp */

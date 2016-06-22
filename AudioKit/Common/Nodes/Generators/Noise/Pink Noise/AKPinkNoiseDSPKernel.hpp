@@ -39,6 +39,8 @@ public:
         sp_pinknoise_create(&pinknoise);
         sp_pinknoise_init(sp, pinknoise);
         *pinknoise->amp = 1;
+
+        amplitudeRamper.init();
     }
 
     void start() {
@@ -56,18 +58,19 @@ public:
 
     void reset() {
         resetted = true;
+        amplitudeRamper.reset();
     }
 
-    void setAmplitude(float amp) {
-        amplitude = amp;
-        amplitudeRamper.setImmediate(amp);
+    void setAmplitude(float value) {
+        amplitude = clamp(value, 0.0f, 1.0f);
+        amplitudeRamper.setImmediate(amplitude);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case amplitudeAddress:
-                amplitudeRamper.setUIValue(clamp(value, (float)0, (float)1));
+                amplitudeRamper.setUIValue(clamp(value, 0.0f, 1.0f));
                 break;
 
         }
@@ -85,7 +88,7 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case amplitudeAddress:
-                amplitudeRamper.startRamp(clamp(value, (float)0, (float)1), duration);
+                amplitudeRamper.startRamp(clamp(value, 0.0f, 1.0f), duration);
                 break;
 
         }
@@ -122,7 +125,6 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
 

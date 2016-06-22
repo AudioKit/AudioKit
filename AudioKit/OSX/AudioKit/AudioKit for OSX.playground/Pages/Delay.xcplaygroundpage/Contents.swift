@@ -7,9 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var delay = AKDelay(player)
@@ -24,96 +24,111 @@ AudioKit.start()
 player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var timeLabel: Label?
     var feedbackLabel: Label?
     var lowPassCutoffFrequencyLabel: Label?
     var dryWetMixLabel: Label?
-    
+
     override func setup() {
         addTitle("Delay")
-        
+
         addButton("Drums", action: #selector(startDrumLoop))
         addButton("Bass", action: #selector(startBassLoop))
         addButton("Guitar", action: #selector(startGuitarLoop))
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
-        
+
         timeLabel = addLabel("Time: \(delay.time)")
         addSlider(#selector(setTime), value: delay.time, minimum: 0, maximum: 1)
-        
+
         feedbackLabel = addLabel("Feedback: \(delay.feedback)")
         addSlider(#selector(setFeedback), value: delay.feedback)
-        
+
         lowPassCutoffFrequencyLabel = addLabel("Low Pass Cutoff Frequency: \(delay.lowPassCutoff)")
         addSlider(#selector(setLowPassCutoffFrequency), value: delay.lowPassCutoff, minimum: 0, maximum: 22050)
-        
+
         dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
         addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
     }
-    
+
     //: Handle UI Events
-    
+
     func startLoop(part: String) {
         player.stop()
-        let file = bundle.pathForResource("\(part)loop", ofType: "wav")
-        player.replaceFile(file!)
+        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
-    
+
     func startDrumLoop() {
         startLoop("drum")
     }
-    
+
     func startBassLoop() {
         startLoop("bass")
     }
-    
+
     func startGuitarLoop() {
         startLoop("guitar")
     }
-    
+
     func startLeadLoop() {
         startLoop("lead")
     }
-    
+
     func startMixLoop() {
         startLoop("mix")
     }
     func stop() {
         player.stop()
     }
-    
+
     func setTime(slider: Slider) {
         delay.time = Double(slider.value)
         let time = String(format: "%0.3f", delay.time)
         timeLabel!.text = "Time: \(time)"
+        printCode()
     }
-    
+
     func setFeedback(slider: Slider) {
         delay.feedback = Double(slider.value)
         let feedback = String(format: "%0.2f", delay.feedback)
         feedbackLabel!.text = "Feedback: \(feedback)"
+        printCode()
     }
-    
+
     func setLowPassCutoffFrequency(slider: Slider) {
         delay.lowPassCutoff = Double(slider.value)
         let lowPassCutoff = String(format: "%0.2f Hz", delay.lowPassCutoff)
         lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
+        printCode()
     }
-    
+
     func setDryWetMix(slider: Slider) {
         delay.dryWetMix = Double(slider.value)
         let dryWetMix = String(format: "%0.2f", delay.dryWetMix)
         dryWetMixLabel!.text = "Mix: \(dryWetMix)"
+        printCode()
     }
-    
+
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    time = \(String(format: "%0.3f", delay.time))")
+        Swift.print("    feedback = \(String(format: "%0.3f", delay.feedback))")
+        Swift.print("    lowPassCutoff = \(String(format: "%0.3f", delay.lowPassCutoff))")
+        Swift.print("    dryWetMix = \(String(format: "%0.3f", delay.dryWetMix))")
+        Swift.print("}\n")
+    }
+
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@
