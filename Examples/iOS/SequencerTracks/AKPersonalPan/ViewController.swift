@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         seq!.avTracks[3].destinationAudioUnit = syn3.samplerUnit
         seq!.avTracks[4].destinationAudioUnit = drmKit.samplerUnit
 
-        seq!.setLength(4)
+        seq!.setLength(Beat(4))
     }
     
     @IBAction func adjustTempo() {
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
     }
     @IBAction func adjustFilt() {
         var val = Double(filterSlider.value)
-        val.denormalize(Double(30.0), maximum: Double(20000.00), taper: 3.03)
+        val.denormalize(minimum: Double(30.0), maximum: Double(20000.00), taper: 3.03)
         filter?.cutoffFrequency = val
     }
     @IBAction func playSeq() {
@@ -127,23 +127,23 @@ class ViewController: UIViewController {
         print("loop enabled: \(seq!.loopEnabled)")
     }
     @IBAction func setLength1() {
-        seq!.setLength(1)
+        seq!.setLength(Beat(1))
         seq!.rewind()
     }
     @IBAction func setLength2() {
-        seq!.setLength(2)
+        seq!.setLength(Beat(2))
         seq!.rewind()
     }
     @IBAction func setLength4() {
-        seq!.setLength(4)
+        seq!.setLength(Beat(4))
         seq!.rewind()
     }
     @IBAction func setLength8() {
-        seq!.setLength(8)
+        seq!.setLength(Beat(8))
         seq!.rewind()
     }
     @IBAction func setLength16() {
-        seq!.setLength(16)
+        seq!.setLength(Beat(16))
         seq!.rewind()
     }
     @IBAction func useSound1(sender: UIButton) {
