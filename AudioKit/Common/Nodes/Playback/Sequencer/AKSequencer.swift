@@ -283,8 +283,11 @@ public class AKSequencer {
     /// - parameter seconds: time in seconds
     ///
     public func beatsForSeconds(seconds: Double) -> Beat {
+        let sign = seconds > 0 ? 1.0 : -1.0
+        let absoluteValueSeconds = fabs(seconds)
         var outBeats = Beat(MusicTimeStamp())
-        MusicSequenceGetBeatsForSeconds(sequence, Float64(seconds), &(outBeats.value))
+        MusicSequenceGetBeatsForSeconds(sequence, Float64(absoluteValueSeconds), &(outBeats.value))
+        outBeats.value = outBeats.value * sign
         return outBeats
     }
     
@@ -293,8 +296,11 @@ public class AKSequencer {
     /// - parameter beats: number of beats (can be fractional)
     ///
     public func secondsForBeats(beats: Beat) -> Double {
+        let sign = beats.value > 0 ? 1.0 : -1.0
+        let absoluteValueBeats = fabs(beats.value)
         var outSecs: Double = MusicTimeStamp()
-        MusicSequenceGetSecondsForBeats(sequence, beats.value, &outSecs)
+        MusicSequenceGetSecondsForBeats(sequence, absoluteValueBeats, &outSecs)
+        outSecs = outSecs * sign
         return outSecs
     }
     
