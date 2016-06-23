@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+let file = bundle.pathForResource("drumloop.wav", ofType: "wav")
 
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -22,4 +22,4 @@ let plotView = AKRollingOutputPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne

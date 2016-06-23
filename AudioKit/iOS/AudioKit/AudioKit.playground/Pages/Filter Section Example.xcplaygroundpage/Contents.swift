@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(forReadingWithFileName: "guitarloop.wav",  fromBaseDirectory: .resources)
 
 
 //: Here we set up a player to the loop the file's playback

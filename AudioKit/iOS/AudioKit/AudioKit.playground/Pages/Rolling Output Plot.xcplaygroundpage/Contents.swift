@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(forReadingWithFileName: "mixloop.wav",  fromBaseDirectory: .resources)
 
 //: Here we set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
@@ -22,4 +22,4 @@ let plotView = AKRollingOutputPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne

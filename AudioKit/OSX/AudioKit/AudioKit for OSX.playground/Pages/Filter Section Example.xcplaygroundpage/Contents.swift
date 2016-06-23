@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("guitarloop", ofType: "wav")
+let file = bundle.pathForResource("guitarloop.wav", ofType: "wav")
 
 //: Here we set up a player to the loop the file's playback
 var player = AKAudioPlayer(file!)
@@ -33,4 +33,4 @@ AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne

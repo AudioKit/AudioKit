@@ -9,10 +9,10 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
-let bassFile   = bundle.pathForResource("bassloop", ofType: "wav")
-let guitarFile = bundle.pathForResource("guitarloop", ofType: "wav")
-let leadFile   = bundle.pathForResource("leadloop", ofType: "wav")
+let drumFile   = bundle.pathForResource("drumloop.wav", ofType: "wav")
+let bassFile   = bundle.pathForResource("bassloop.wav.wav", ofType: "wav")
+let guitarFile = bundle.pathForResource("guitarloop.wav", ofType: "wav")
+let leadFile   = bundle.pathForResource("leadloop.wav", ofType: "wav")
 
 var drums  = AKAudioPlayer(drumFile!)
 var bass   = AKAudioPlayer(bassFile!)
@@ -132,4 +132,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previou

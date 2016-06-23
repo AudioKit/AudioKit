@@ -9,7 +9,7 @@ import AudioKit
 
 //: This section prepares the players
 let bundle = NSBundle.mainBundle()
-let file = try? AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try? AKAudioFile(forReadingWithFileName: "drumloop.wav", fromBaseDirectory: .resources)
 
 
 var source = try? AKAudioPlayer(file: file!)
@@ -49,4 +49,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 200))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne

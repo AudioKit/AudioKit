@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("leadloop", ofType: "wav")
+let file = bundle.pathForResource("leadloop.wav", ofType: "wav")
 
 var player = AKAudioPlayer(file!)
 player.looping = true

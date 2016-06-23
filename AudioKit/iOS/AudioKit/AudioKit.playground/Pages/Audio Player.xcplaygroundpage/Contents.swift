@@ -14,7 +14,7 @@ func myCompletionCallBack(){
 }
 
 //: Then, we create a player to play some guitar.
-let guitarLoop = try? AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let guitarLoop = try? AKAudioFile(forReadingWithFileName: "guitarloop.wav", fromBaseDirectory: .resources)
 
 let player = try? AKAudioPlayer(file: guitarLoop!, completionHandler: myCompletionCallBack)
 
@@ -97,7 +97,7 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func loadDrumLoop() {
-        let loopMp3 = try? AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+        let loopMp3 = try? AKAudioFile(forReadingWithFileName: "drumloop.wav", fromBaseDirectory: .resources)
         
         try? player!.replaceFile(loopMp3!)
         updateUI()
@@ -109,7 +109,7 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func loadMixLoop() {
-        let mixloop = try? AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+        let mixloop = try? AKAudioFile(forReadingWithFileName: "mixloop.wav", fromBaseDirectory: .resources)
         try? player!.replaceFile(mixloop!)
         updateUI()
     }
@@ -166,4 +166,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next]
