@@ -11,7 +11,7 @@ import AudioKit
 // Let's create an AKaudioFile :
 let ak = try? AKAudioFile(forReadingWithFileName: "click",
                           andExtension: "wav",
-                          fromBaseDirectory: .Resources)
+                          fromBaseDirectory: .resources)
 
 // converted in an AVAudioFile
 let av = ak! as AVAudioFile
@@ -21,33 +21,33 @@ let ak2 = try? AKAudioFile(forReadingFromAVAudioFile: av)
 
 
 //: The baseDirectory parameter if an enum value from AKAudioFile.BaseDirectory :
-let documentsDir = AKAudioFile.BaseDirectory.Documents
-let resourcesDir = AKAudioFile.BaseDirectory.Resources
-let tempDir = AKAudioFile.BaseDirectory.Temp
+let documentsDir = AKAudioFile.BaseDirectory.documents
+let resourcesDir = AKAudioFile.BaseDirectory.resources
+let tempDir = AKAudioFile.BaseDirectory.temp
 
 // So to load an AKAudiofile from this playground Resources folder :
 let drumloop = try? AKAudioFile(forReadingWithFileName: "drumloop",
                                 andExtension: "wav",
-                                fromBaseDirectory: .Resources)
+                                fromBaseDirectory: .resources)
 
 //: You can load a file from a sub directory like this:
 let fmpia = try? AKAudioFile(forReadingWithFileName: "Sounds/fmpia1",
                              andExtension: "wav",
-                             fromBaseDirectory: .Resources)
+                             fromBaseDirectory: .resources)
 
 //: As AKAudioFile is an optional, it will be set to nil if a problem occurs. Notice that an error message is printed in the debug area, and an error is thrown...
 do {
     let nonExistentFile = try AKAudioFile(forReadingWithFileName: "nonExistent",
                                           andExtension: "wav",
-                                          fromBaseDirectory: .Resources)
+                                          fromBaseDirectory: .resources)
 } catch let error as NSError {
     print ("There's an error: \(error)")
 }
 
-//: So it's a good idea to check that the AKAudioFile is valid before using it. let's display some info about drumloop :
-if drumloop != nil{
-    print("drumloop!.sampleRate:  \(drumloop!.sampleRate)")
-    print("drumloop!.duration:  \(drumloop!.duration)")
+//: So it's a good idea to check that the AKAudioFile is valid before using it. let's display some info about drumloop.wav :
+if drumloop.wav != nil{
+   drumloop!.sampleRate
+   drumloop!.duration
     // and so on...
 }
 
@@ -76,9 +76,9 @@ func myExportCallBack(){
     }
 }
 
-//: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be written in documents directory. If the destination file exists, it will be overwritten.
-let myExport = try? drumloop?.export(withFileName: "drumloopExported",
-                                     andExtension: .m4a, toDirectory: .Documents,
+//: Then, we can extract from 1 to 2 seconds of drumloop.wav, as an mp4 file that will be written in documents directory. If the destination file exists, it will be overwritten.
+let myExport = try? drumloop.wav?.export(withFileName: "drumloopExported",
+                                     andExtension: .m4a, toDirectory: .documents,
                                      callBack: myExportCallBack,
                                      from: 1, to: 2)
 
@@ -106,7 +106,7 @@ let custom16bitsLinearSettings:[String : AnyObject] = [
     AVLinearPCMBitDepthKey: NSNumber(int: Int32(16)) ]
 
 
-let customFile = try? AKAudioFile(forWritingIn:.Documents, withFileName: "customFile", andFileExtension: "aif", withSettings:custom16bitsLinearSettings)
+let customFile = try? AKAudioFile(forWritingIn:.documents, withFileName: "customFile", andFileExtension: "aif", withSettings:custom16bitsLinearSettings)
 if customFile != nil {
     let customFileSettings = customFile!.fileFormat.settings
     print("customFileSettings: \(customFileSettings)")
@@ -116,4 +116,4 @@ if customFile != nil {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) 

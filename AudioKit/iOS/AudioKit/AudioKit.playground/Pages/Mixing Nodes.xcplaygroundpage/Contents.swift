@@ -8,13 +8,13 @@ import XCPlayground
 import AudioKit
 
 //: This section prepares the players
-let drumFile   = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let drumFile   = try AKAudioFile(forReadingWithFileName: "drumloop.wav", fromBaseDirectory: .resources)
 
-let bassFile   = try AKAudioFile(forReadingWithFileName: "bassloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let bassFile   = try AKAudioFile(forReadingWithFileName: "bassloop.wav", fromBaseDirectory: .resources)
 
-let guitarFile   = try AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let guitarFile   = try AKAudioFile(forReadingWithFileName: "guitarloop.wav", fromBaseDirectory: .resources)
 
-let leadFile   = try AKAudioFile(forReadingWithFileName: "leadloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let leadFile   = try AKAudioFile(forReadingWithFileName: "leadloop.wav", fromBaseDirectory: .resources)
 
 
 var drums  = try AKAudioPlayer(file: drumFile)
@@ -135,4 +135,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Ne

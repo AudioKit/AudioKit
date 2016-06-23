@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("leadloop", ofType: "wav")
+let file = bundle.pathForResource("leadloop.wav", ofType: "wav")
 
 var player = AKAudioPlayer(file!)
 player.looping = true
@@ -29,4 +29,4 @@ AKPlaygroundLoop(every: 0.1) {
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@ne

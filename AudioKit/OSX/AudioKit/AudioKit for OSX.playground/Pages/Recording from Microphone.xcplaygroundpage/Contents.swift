@@ -9,7 +9,7 @@ import AudioKit
 
 let mic = AKMicrophone()
 
-let file = try AKAudioFile(forReadingWithFileName: "recording", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(forReadingWithFileName: "recording",  fromBaseDirectory: .resources)
 
 let player = try AKAudioPlayer(file: file)
 

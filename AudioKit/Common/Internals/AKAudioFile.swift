@@ -22,13 +22,13 @@ public class AKAudioFile: AVAudioFile {
      - Documents: Documents Directory
      - Resources: Resources Directory (Shouldn't be used for writing / recording files).
      
-     Ex: let directory = AKAudioFile.BaseDirectory.Temp
+     Ex: let directory = AKAudioFile.BaseDirectory.temp
 
      */
     public enum BaseDirectory {
-        case Temp
-        case Documents
-        case Resources
+        case temp
+        case documents
+        case resources
     }
     /**
      ExportFormat enum to set target format when exporting AKAudiofiles
@@ -181,7 +181,7 @@ public class AKAudioFile: AVAudioFile {
      - Parameters:
      - fileName: the name of the file without its extension (String).
      - ext: the extension of the file without "." (String).
-     - baseDir: where the file is located, can be set to .Resources,  .Documents or .Temp
+     - baseDir: where the file is located, can be set to .resources,  .documents or .temp
 
      - Throws: NSError if init failed .
 
@@ -189,21 +189,22 @@ public class AKAudioFile: AVAudioFile {
 
     */
     public convenience init(forReadingWithFileName fileName: String,
-                            andExtension ext: String,
                             fromBaseDirectory baseDir: BaseDirectory) throws {
         
         let filePath: String
-        let fileNameWithExtension = fileName + "." + ext
         
         switch baseDir {
-        case .Temp:
-            filePath =  (NSTemporaryDirectory() as String) + "/" + fileNameWithExtension
-        case .Documents:
-            filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "/" + fileNameWithExtension
-        case .Resources:
-            let path =  NSBundle.mainBundle().pathForResource(fileName, ofType: ext)
+        case .temp:
+            filePath =  (NSTemporaryDirectory() as String) + "/" + fileName
+        case .documents:
+            filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "/" + fileName
+        case .resources:
+            func pathForResource(name: String?) -> String? {
+                return NSBundle.mainBundle().pathForResource(fileName, ofType: nil)
+            }
+            let path =  pathForResource(fileName)
             if path == nil {
-                print( "ERROR: AKAudioFile cannot find \"\(fileName).\(ext)\" in resources!...")
+                print( "ERROR: AKAudioFile cannot find \"\(fileName)\" in resources!...")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist, userInfo: nil)
             }
             filePath = path!
@@ -216,13 +217,13 @@ public class AKAudioFile: AVAudioFile {
             do {
                 try self.init(forReading: fileUrl!)
             } catch let error as NSError {
-                print ("Error !!! AKAudioFile: \"\(fileName).\(ext)\" doesn't seem to be a valid AudioFile !...")
+                print ("Error !!! AKAudioFile: \"\(fileName)\" doesn't seem to be a valid AudioFile !...")
                 print(error.localizedDescription)
                 throw error
             }
             
         } else {
-            print( "ERROR: AKAudioFile cannot find \"\(fileName).\(ext)\"!... aka \(filePath)")
+            print( "ERROR: AKAudioFile cannot find \"\(fileName)\"!... aka \(filePath)")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotOpenFile, userInfo: nil)
         }
     }
@@ -272,7 +273,7 @@ public class AKAudioFile: AVAudioFile {
      - Parameters:
         - fileName: the name of the file without its extension (String).
         - fileExtension: the extension of the file without "." (String).
-        - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+        - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
         - settings: The settings of the file to create.
         - format: The processing commonFormat to use when writing.
         - interleaved: Bool (Whether to use an interleaved processing format.)
@@ -293,7 +294,7 @@ public class AKAudioFile: AVAudioFile {
      let recordFile = AKAudioFile()
      
      */
-    public convenience init( forWritingIn baseDir: BaseDirectory = .Temp,
+    public convenience init( forWritingIn baseDir: BaseDirectory = .temp,
         withFileName fileName: String = "",
         andFileExtension fileExtension: String = "caf",
         withSettings settings: [String : AnyObject] = AKSettings.audioFormat.settings,
@@ -310,11 +311,11 @@ public class AKAudioFile: AVAudioFile {
         
         var filePath: String
         switch baseDir {
-        case .Temp:
+        case .temp:
             filePath =  (NSTemporaryDirectory() as String) + "/" + fileNameWithExtension
-        case .Documents:
+        case .documents:
             filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "/" + fileNameWithExtension
-        case .Resources:
+        case .resources:
             print( "ERROR AKAudioFile: cannot create a file in applications resources!...")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
         }
@@ -470,7 +471,7 @@ public class AKAudioFile: AVAudioFile {
      - Parameters:
         - fileName: the name of the file without its extension (String).
         - outExt: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
-        - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+        - baseDir: where the file will be located, can be set to .resources,  .documents or .temp
         - callBack: AKCallback function that will be triggered when export completed.
         - inTime: start range time value in seconds
         - outTime: end range time value in seconds.
@@ -576,11 +577,11 @@ public class AKAudioFile: AVAudioFile {
             
             var filePath: String
             switch baseDir {
-            case .Temp:
+            case .temp:
                 filePath =  (NSTemporaryDirectory() as String) + fileName + "." + String(outputFileExtension)
-            case .Documents:
+            case .documents:
                 filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) +  "/" + fileName + "." + String(outputFileExtension)
-            case .Resources:
+            case .resources:
                 print( "ERROR AKAudioFile export: cannot create a file in applications resources!...")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
