@@ -60,8 +60,11 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
         
-        frequencyLabel = addLabel("Midi Note: 440")
-        addSlider(#selector(setFrequency), value: 60, minimum:0 , maximum: 127)
+        frequencyLabel = addLabel("Midi Note: 60")
+        let freqSlider = addSlider(#selector(setFrequency), value: 60, minimum:0 , maximum: 127)
+        freqSlider.numberOfTickMarks = 128
+        freqSlider.allowsTickMarkValuesOnly = true
+        setFrequency(freqSlider)
         amplitudeLabel1 = addLabel("Amplitude 16: 0.1")
         addSlider(#selector(setAmplitude1), value: 0.1)
         amplitudeLabel2 = addLabel("Amplitude 5 1/3: 0.1")
@@ -109,7 +112,7 @@ class PlaygroundView: AKPlaygroundView {
         oscillator1.frequency = (Double(slider.value)-12).midiNoteToFrequency()
         oscillator2.frequency = (Double(slider.value)+7).midiNoteToFrequency()
         oscillator3.frequency = (Double(slider.value)).midiNoteToFrequency()
-        let frequency = String(format: "%0.1f", oscillator3.frequency)
+        let frequency = String(format: "%1.0f", oscillator3.frequency.frequencyToMidiNote())
         frequencyLabel!.text = "Midi Note: \(frequency)"
         oscillator4.frequency = (Double(slider.value)+12).midiNoteToFrequency()
         oscillator5.frequency = (Double(slider.value)+19).midiNoteToFrequency()
