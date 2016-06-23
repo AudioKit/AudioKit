@@ -28,6 +28,14 @@ public func ceil(beat: Beat) -> Beat {
     return Beat(ceil(beat.value))
 }
 
+public func +=(inout lhs: Beat, rhs: Beat) {
+    lhs.value = lhs.value + rhs.value
+}
+
+public func -=(inout lhs: Beat, rhs: Beat) {
+    lhs.value = lhs.value - rhs.value
+}
+
 public func ==(lhs: Beat, rhs: Beat) -> Bool {
     return lhs.value == rhs.value
 }
