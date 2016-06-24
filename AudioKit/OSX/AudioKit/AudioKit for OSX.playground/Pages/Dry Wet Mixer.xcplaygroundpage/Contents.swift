@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 //: This section prepares the players
-let file = try AKAudioFile(readFilename: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 var drums = try AKAudioPlayer(file: file)
 drums.looping  = true
 

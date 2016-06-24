@@ -9,8 +9,8 @@ import AudioKit
 
 let bundle = NSBundle.mainBundle()
 
-let file = bundle.pathForResource("drumloop", ofType: "wav")
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+var player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let input  = AKStereoOperation.input

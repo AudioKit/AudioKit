@@ -7,15 +7,15 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 
 let bundle = NSBundle.mainBundle()
-let stairwell = bundle.URLForResource("Impulse Responses/stairwell", andExtension: "wav")!
-let dish = bundle.URLForResource("Impulse Responses/dish", andExtension: "wav")!
+let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
+let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
 
 var stairwellConvolution = AKConvolution.init(player, impulseResponseFileURL: stairwell, partitionLength: 8192)
 var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, partitionLength: 8192)
@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
