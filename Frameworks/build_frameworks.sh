@@ -33,7 +33,7 @@ create_universal_framework()
 	OUTPUT="$DIR/${PROJECT_NAME}.framework"
 	rm -rf "$OUTPUT"
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" -xcconfig simulator.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY || exit 2
+	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" ONLY_ACTIVE_ARCH=$ACTIVE_ARCH -xcconfig simulator.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "$OUTPUT"
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "$DIR"
 	cp -v fix-framework.sh "$OUTPUT/"
