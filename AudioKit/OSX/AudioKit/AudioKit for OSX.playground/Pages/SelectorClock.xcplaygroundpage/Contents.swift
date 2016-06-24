@@ -1,3 +1,5 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+
 import XCPlayground
 import AudioKit
 
@@ -15,7 +17,7 @@ class SelectorClock {
         
         callbacker = AKCallbackInstrument() { status, note, velocity in
             if note == 60 && status == .NoteOn {
-                print("myClock -> Start Note 60 at  \(myClock.sequencer.currentPositionInBeats)")
+                print("myClock -> Start Note 60 at  \(myClock.sequencer.currentPosition)")
             }
         }
         
@@ -23,12 +25,12 @@ class SelectorClock {
 
         let clickTrack = sequencer.newTrack()
         for i in 0 ..< division {
-            clickTrack?.addNote(80, velocity: 100, position: Double(i) / Double(division) , duration: Double(0.1 / Double(division)))
-            clickTrack?.addNote(60, velocity: 100, position: (Double(i) + 0.5) / Double(division) , duration: Double(0.1 / Double(division)))
+            clickTrack?.addNote(80, velocity: 100, position: Beat(Double(i) / Double(division)) , duration: Beat(Double(0.1 / Double(division))))
+            clickTrack?.addNote(60, velocity: 100, position: Beat((Double(i) + 0.5) / Double(division)) , duration: Beat(Double(0.1 / Double(division))))
         }
         
         clickTrack?.setMIDIOutput((callbacker?.midiIn)!)
-        clickTrack?.setLoopInfo(1.0, numberOfLoops: 0)
+        clickTrack?.setLoopInfo(Beat(1.0), numberOfLoops: 0)
         sequencer.setTempo(bpm)
     }
     
@@ -66,7 +68,7 @@ var myClock = SelectorClock(tempo: 120, division: 1)
 
 func myFunction(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
     if note == 80 && status == .NoteOn {
-        print("myClock -> Start Note 80 at  \(myClock.sequencer.currentPositionInBeats)")
+        print("myClock -> Start Note 80 at  \(myClock.sequencer.currentPosition)")
     }
 }
 
@@ -81,3 +83,5 @@ AudioKit.start()
 myClock.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

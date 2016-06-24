@@ -8,7 +8,7 @@ import XCPlayground
 import AudioKit
 
 //: Set up the audio player
-let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFilename: "drumloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -32,4 +32,4 @@ AKPlaygroundLoop(every: timeStep) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@nex
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
