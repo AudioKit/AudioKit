@@ -9,15 +9,14 @@ import XCPlayground
 import AudioKit
 
 // Let's create an AKaudioFile :
-let ak = try? AKAudioFile(forReadingWithFileName: "click",
-                          andExtension: "wav",
-                          fromBaseDirectory: .Resources)
+let ak = try? AKAudioFile(readFileName: "click.wav",
+                          baseDir: .Resources)
 
 // converted in an AVAudioFile
 let av = ak! as AVAudioFile
 
 //converted back into an AKAudioFile
-let ak2 = try? AKAudioFile(forReadingFromAVAudioFile: av)
+let ak2 = try? AKAudioFile(readAVAudioFile: av)
 
 
 //: The baseDirectory parameter if an enum value from AKAudioFile.BaseDirectory :
@@ -26,20 +25,17 @@ let resourcesDir = AKAudioFile.BaseDirectory.Resources
 let tempDir = AKAudioFile.BaseDirectory.Temp
 
 // So to load an AKAudiofile from this playground Resources folder :
-let drumloop = try? AKAudioFile(forReadingWithFileName: "drumloop",
-                                andExtension: "wav",
-                                fromBaseDirectory: .Resources)
+let drumloop = try? AKAudioFile(readFileName: "drumloop.wav",
+                                baseDir: .Resources)
 
 //: You can load a file from a sub directory like this:
-let fmpia = try? AKAudioFile(forReadingWithFileName: "Sounds/fmpia1",
-                             andExtension: "wav",
-                             fromBaseDirectory: .Resources)
+let fmpia = try? AKAudioFile(readFileName: "Sounds/fmpia1.wav",
+                             baseDir: .Resources)
 
 //: As AKAudioFile is an optional, it will be set to nil if a problem occurs. Notice that an error message is printed in the debug area, and an error is thrown...
 do {
-    let nonExistentFile = try AKAudioFile(forReadingWithFileName: "nonExistent",
-                                          andExtension: "wav",
-                                          fromBaseDirectory: .Resources)
+    let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav",
+                                          baseDir: .Resources)
 } catch let error as NSError {
     print ("There's an error: \(error)")
 }
@@ -64,7 +60,7 @@ func myExportCallBack(){
         // If it is valid, we can play it :
         if exportedfile != nil {
 
-            print (exportedfile?.fileNameWithExtension)
+            print (exportedfile?.fileNamePlusExtension)
             let player = try? AKAudioPlayer(file: exportedfile!)
             AudioKit.output = player
             AudioKit.start()
@@ -77,10 +73,10 @@ func myExportCallBack(){
 }
 
 //: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be written in documents directory. If the destination file exists, it will be overwritten.
-let myExport = try? drumloop?.export(withFileName: "drumloopExported",
-                                     andExtension: .m4a, toDirectory: .Documents,
+let myExport = try? drumloop?.export("drumloopExported",
+                                     ext: .m4a, baseDir: .Documents,
                                      callBack: myExportCallBack,
-                                     from: 1, to: 2)
+                                     inTime: 1, outTime: 2)
 
 
 
@@ -91,8 +87,8 @@ let mySecondWorkingFile = try? AKAudioFile()
 
 //: If you set no parameter, an AKAudioFile is created in temp directory, set to match AudioKit AKSettings (a stereo empty 32 bits float wav file at 44.1 kHz, with a unique name identifier :
 if myWorkingFile != nil && mySecondWorkingFile != nil {
-    print ("myWorkingFile name is \(myWorkingFile!.fileNameWithExtension)")
-    print ("mySecondWorkingFile name is \(mySecondWorkingFile!.fileNameWithExtension)")
+    print ("myWorkingFile name is \(myWorkingFile!.fileNamePlusExtension)")
+    print ("mySecondWorkingFile name is \(mySecondWorkingFile!.fileNamePlusExtension)")
 }
 
 //: But you can create a custom AKAudioFile too :
@@ -106,7 +102,7 @@ let custom16bitsLinearSettings:[String : AnyObject] = [
     AVLinearPCMBitDepthKey: NSNumber(int: Int32(16)) ]
 
 
-let customFile = try? AKAudioFile(forWritingIn:.Documents, withFileName: "customFile", andFileExtension: "aif", withSettings:custom16bitsLinearSettings)
+let customFile = try? AKAudioFile(writeIn:.Documents, name: "customFile", ext: "aif", settings:custom16bitsLinearSettings)
 if customFile != nil {
     let customFileSettings = customFile!.fileFormat.settings
     print("customFileSettings: \(customFileSettings)")

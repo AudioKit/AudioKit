@@ -72,9 +72,9 @@ public class AKNodeRecorder {
 
             do {
                 // We initialize tape AKAudioFile for writing (and check that we can write to)
-                self.tape = try AKAudioFile(forWritingFromAVAudioFile: file!)
+                self.tape = try AKAudioFile(writeAVAudioFile: file!)
             } catch let error as NSError {
-                print ("AKNodeRecorder Error: cannot write to \(file!.fileNameWithExtension)")
+                print ("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
                 throw error
             }
         }
@@ -135,7 +135,7 @@ public class AKNodeRecorder {
         do {
             try fileManager.removeItemAtPath(tape.url.absoluteString)
         } catch let error as NSError {
-            print ("AKNodeRecorder Error: cannot delete Recording file:  \(tape.fileNameWithExtension)")
+            print ("AKNodeRecorder Error: cannot delete Recording file:  \(tape.fileNamePlusExtension)")
             throw error
         }
 
@@ -144,7 +144,7 @@ public class AKNodeRecorder {
             tape = try AKAudioFile(forWriting: url, settings: settings)
             print ("AKNodeRecorder: tape has been cleared")
         } catch let error as NSError {
-            print ("AKNodeRecorder Error: cannot create an new tape from file:  \(tape.fileNameWithExtension)")
+            print ("AKNodeRecorder Error: cannot create an new tape from file:  \(tape.fileNamePlusExtension)")
             throw error
         }
     }
@@ -165,7 +165,7 @@ public class AKNodeRecorder {
 
         var tapeForReading: AKAudioFile
         do {
-            tapeForReading = try AKAudioFile(forReadingFromAVAudioFile: tape)
+            tapeForReading = try AKAudioFile(readAVAudioFile: tape)
              return tapeForReading
         } catch let error as NSError {
             print ("Cannot create readingTape")

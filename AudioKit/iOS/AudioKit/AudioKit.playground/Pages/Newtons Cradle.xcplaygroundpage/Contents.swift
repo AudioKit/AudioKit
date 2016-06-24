@@ -4,7 +4,7 @@ import XCPlayground
 import AudioKit
 
 
-let file = try AKAudioFile(forReadingWithFileName: "click", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFileName: "click.wav", baseDir: .Resources)
 var tink = try AKAudioPlayer(file: file)
 
 var reverb = AKCostelloReverb(tink)
