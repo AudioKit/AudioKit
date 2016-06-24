@@ -5,10 +5,10 @@
         <page name='3D Panner'/>
         <page name='AKAudioFile Demo'/>
         <page name='Amplitude Envelope'/>
-        <page name='Auto Wah Wah'/>
         <page name='Audio Player'/>
         <page name='AutoPan Operation'/>
         <page name='AutoWah Operation'/>
+        <page name='Auto Wah Wah'/>
         <page name='Balancing Nodes'/>
         <page name='Band Pass Butterworth Filter'/>
         <page name='Band Pass Filter'/>
