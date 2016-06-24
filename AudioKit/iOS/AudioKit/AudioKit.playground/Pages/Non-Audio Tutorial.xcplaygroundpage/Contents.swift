@@ -12,7 +12,7 @@ import XCPlayground
 
 
 //: To reference a file, you may use AKAudioFile: Here, we load a file from the resources folder (the files embeded in your application).
-let file = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
 //: You are not limited to using the sound files provided with AudioKit, in fact we encourage you to drag your own sound files to the Resources folder.  Ideally, to keep things running quickly, loopable 10-20 second `.wav` or `.aiff` files are recommended.  Many free loops are avaiable online at sites such as [looperman.com](http://www.looperman.com/) or [freesound.org](https://www.freesound.org/).
 //:

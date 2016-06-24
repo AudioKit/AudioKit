@@ -16,7 +16,7 @@ let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so tha
 let filteredNoise = AKOperationEffect(whiteNoise, operation: filter)
 
 //: Music Example
-let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true

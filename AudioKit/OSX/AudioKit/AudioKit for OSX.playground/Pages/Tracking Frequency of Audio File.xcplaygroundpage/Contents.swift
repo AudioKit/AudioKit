@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFilename: "leadloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true

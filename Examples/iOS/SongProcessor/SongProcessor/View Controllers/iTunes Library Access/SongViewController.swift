@@ -83,7 +83,7 @@ class SongViewController: UIViewController {
         
         playButton.hidden = false
         
-        songProcessor.audioFile = try? AKAudioFile(forReadingWithFileName: "exported", andExtension: "wav", fromBaseDirectory: .Documents)
+        songProcessor.audioFile = try? AKAudioFile(readFileName: "exported.wav", baseDir: .Documents)
         
         let _ = try? songProcessor.audioFilePlayer?.replaceFile(songProcessor.audioFile!)
         

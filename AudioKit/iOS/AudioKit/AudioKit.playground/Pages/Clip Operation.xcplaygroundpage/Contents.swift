@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true

@@ -11,7 +11,7 @@ let mic = AKMicrophone()
 
 let bundle = NSBundle.mainBundle()
 let url = bundle.pathForResource("guitarloop", ofType: "wav")
-let file = try AKAudioFile(readFilename: "recording.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "recording.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 

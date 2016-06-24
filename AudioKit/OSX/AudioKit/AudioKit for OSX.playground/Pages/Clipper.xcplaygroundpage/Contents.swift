@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFilename: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(readFilename: "\(part)loop", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(part)loop", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }

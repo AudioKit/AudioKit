@@ -187,7 +187,7 @@ public class AKAudioFile: AVAudioFile {
      - Returns: An initialized AKAudioFile for reading, or nil if init failed.
 
     */
-    public convenience init(readFilename name: String,
+    public convenience init(readFileName name: String,
                             baseDir: BaseDirectory = .Resources) throws {
         
         let filePath: String

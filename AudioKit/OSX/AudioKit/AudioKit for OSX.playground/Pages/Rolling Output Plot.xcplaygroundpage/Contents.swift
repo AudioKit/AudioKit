@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFilename: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
