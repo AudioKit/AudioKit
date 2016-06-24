@@ -14,8 +14,10 @@ if test "$TRAVIS" = true;
 then
 	echo "Travis detected, build #$TRAVIS_BUILD_NUMBER"
 	ACTIVE_ARCH=YES
+	XCSUFFIX="-travis"
 else
 	ACTIVE_ARCH=NO
+	XCSUFFIX=""
 fi
 
 if which xcpretty > /dev/null 2>&1;
@@ -33,11 +35,11 @@ create_universal_framework()
 	OUTPUT="$DIR/${PROJECT_NAME}.framework"
 	rm -rf "$OUTPUT"
 	mkdir -p "$DIR"
-	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" -xcconfig simulator.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY || exit 2
+	xcodebuild -project "$PROJECT" -target "${PROJECT_NAME}" -xcconfig simulator${XCSUFFIX}.xcconfig -configuration ${CONFIGURATION} -sdk $2 BUILD_DIR="${BUILD_DIR}" clean build | $XCPRETTY || exit 2
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "$OUTPUT"
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "$DIR"
 	cp -v fix-framework.sh "$OUTPUT/"
-	if test "$TRAVIS" = true;
+	if test "$TRAVIS" = truex;
 	then
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${OUTPUT}/${PROJECT_NAME}"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"* "${OUTPUT}/Modules/${PROJECT_NAME}.swiftmodule/"
