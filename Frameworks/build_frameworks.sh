@@ -39,7 +39,7 @@ create_universal_framework()
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework" "$OUTPUT"
 	cp -av "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework.dSYM" "$DIR"
 	cp -v fix-framework.sh "$OUTPUT/"
-	if test "$TRAVIS" = truex;
+	if test "$TRAVIS" = true;
 	then
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/${PROJECT_NAME}" "${OUTPUT}/${PROJECT_NAME}"
 		cp -v "${BUILD_DIR}/${CONFIGURATION}-$2/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/"* "${OUTPUT}/Modules/${PROJECT_NAME}.swiftmodule/"
