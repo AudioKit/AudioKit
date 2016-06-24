@@ -82,7 +82,7 @@ public class AKPhaseLockedVocoder: AKNode {
         return internalAU!.isPlaying()
     }
 
-    private var audioFileURL: CFURL
+    private var avAudiofile: AVAudioFile
     
     // MARK: - Initialization
 
@@ -94,7 +94,7 @@ public class AKPhaseLockedVocoder: AKNode {
     /// - parameter pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
     public init(
-        audioFileURL: NSURL,
+        file: AVAudioFile,
         position: Double = 0,
         amplitude: Double = 1,
         pitchRatio: Double = 1) {
@@ -102,7 +102,7 @@ public class AKPhaseLockedVocoder: AKNode {
         self.position = position
         self.amplitude = amplitude
         self.pitchRatio = pitchRatio
-        self.audioFileURL = audioFileURL
+        self.avAudiofile = file
         
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
@@ -167,7 +167,7 @@ public class AKPhaseLockedVocoder: AKNode {
             var theData: UnsafeMutablePointer<CChar> = nil
             var theOutputFormat: AudioStreamBasicDescription = AudioStreamBasicDescription()
 
-            err = ExtAudioFileOpenURL(self.audioFileURL, &extRef)
+            err = ExtAudioFileOpenURL(self.avAudiofile.url, &extRef)
             if err != 0 { print("ExtAudioFileOpenURL FAILED, Error = \(err)"); break Exit }
             // Get the audio data format
             err = ExtAudioFileGetProperty(extRef, kExtAudioFileProperty_FileDataFormat, &thePropertySize, &theFileFormat)

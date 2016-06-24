@@ -8,7 +8,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFilename: "mixloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -64,7 +64,7 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        let file = try? AKAudioFile(readFilename: "\(part)loop", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
@@ -124,4 +124,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

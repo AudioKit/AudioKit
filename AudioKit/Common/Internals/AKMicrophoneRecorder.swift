@@ -22,7 +22,7 @@ public class AKMicrophoneRecorder {
     /// - parameter file: Path to the audio file
     /// - parameter settings: File format settings (defaults to WAV)
     ///
-    public init(_ file: String, settings: [String: AnyObject] = AudioKit.format.settings) {
+    public init(_ file: AKAudioFile, settings: [String: AnyObject] = AudioKit.format.settings) {
 
         #if os(iOS)
         self.recordingSession = AVAudioSession.sharedInstance()
@@ -34,8 +34,7 @@ public class AKMicrophoneRecorder {
         }
         #endif
         
-        let url = NSURL.fileURLWithPath(file, isDirectory: false)
-        try! internalRecorder = AVAudioRecorder(URL: url, settings: settings)
+        try! internalRecorder = AVAudioRecorder(URL: file.url, settings: settings)
     }
     
     /// Record audio

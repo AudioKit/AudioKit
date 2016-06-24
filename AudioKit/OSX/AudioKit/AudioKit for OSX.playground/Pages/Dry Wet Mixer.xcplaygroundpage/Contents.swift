@@ -8,9 +8,8 @@ import XCPlayground
 import AudioKit
 
 //: This section prepares the players
-let bundle = NSBundle.mainBundle()
-let drumFile   = bundle.pathForResource("drumloop", ofType: "wav")
-var drums  = AKAudioPlayer(drumFile!)
+let file = try AKAudioFile(readFilename: "drumloop.wav", baseDir: .Resources)
+var drums = try AKAudioPlayer(file: file)
 drums.looping  = true
 
 //: Let's build a chain:

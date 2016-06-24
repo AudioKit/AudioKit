@@ -7,11 +7,10 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("drumloop", ofType: "wav")
+let file = try AKAudioFile(readFilename: "drumloop.wav", baseDir: .Resources)
 
 //: Here we set up a player to the loop the file's playback
-var player = AKAudioPlayer(file!)
+var player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: Next we'll connect the audio player to a delay effect

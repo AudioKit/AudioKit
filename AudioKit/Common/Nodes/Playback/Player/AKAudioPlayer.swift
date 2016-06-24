@@ -261,7 +261,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         var newAudioFile: AKAudioFile?
 
         do {
-            newAudioFile = try AKAudioFile(forReadingFromAVAudioFile: audioFile)
+            newAudioFile = try AKAudioFile(readAVAudioFile: audioFile)
         } catch let error as NSError {
             print ("AKAudioPlayer Error:Couldn't reLoadFile !...")
             print("Error: \(error)")
@@ -310,7 +310,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             stop()
             play()
         } else {
-            print("ERROR AKaudioPlayer:  cannot play, \(internalAudioFile.fileNameWithExtension) is empty or segment is too short!")
+            print("ERROR AKaudioPlayer:  cannot play, \(internalAudioFile.fileNamePlusExtension) is empty or segment is too short!")
         }
     }
 
@@ -326,7 +326,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
         // Warning if file's samplerate don't match with AKSettings.samplesRate
         if internalAudioFile.sampleRate != AKSettings.sampleRate {
-            print ("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNameWithExtension)\" has a different sample rate from AudioKit's Settings !")
+            print ("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" has a different sample rate from AudioKit's Settings !")
 
             print ("Audio will be played at a bad pitch/speed, in / out time will not be set properly !")
         }
@@ -337,7 +337,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             scheduleBuffer()
 
         } else {
-            print ("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNameWithExtension)\" is an empty file")
+            print ("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" is an empty file")
         }
     }
 

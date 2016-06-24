@@ -7,10 +7,9 @@
 import XCPlayground
 import AudioKit
 
-let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("leadloop", ofType: "wav")
+let file = try AKAudioFile(readFilename: "leadloop.wav", baseDir: .Resources)
 
-var player = AKAudioPlayer(file!)
+var player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let tracker = AKFrequencyTracker(player, minimumFrequency: 400, maximumFrequency: 600)

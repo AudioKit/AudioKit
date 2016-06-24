@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let file = try AKAudioFile(readFilename: "guitarloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -47,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(forReadingWithFileName: "\(part)loop", andExtension: "wav", fromBaseDirectory: .Resources)
+        let file = try? AKAudioFile(readFilename: "\(part)loop.wav", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
@@ -102,4 +102,4 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -179,8 +179,7 @@ public class AKAudioFile: AVAudioFile {
      Opens a file for reading.
 
      - Parameters:
-     - fileName: the name of the file without its extension (String).
-     - ext: the extension of the file without "." (String).
+     - name: the name of the file without its extension (String).
      - baseDir: where the file is located, can be set to .Resources,  .Documents or .Temp
 
      - Throws: NSError if init failed .
@@ -188,22 +187,24 @@ public class AKAudioFile: AVAudioFile {
      - Returns: An initialized AKAudioFile for reading, or nil if init failed.
 
     */
-    public convenience init(forReadingWithFileName fileName: String,
-                            andExtension ext: String,
-                            fromBaseDirectory baseDir: BaseDirectory) throws {
+    public convenience init(readFilename name: String,
+                            baseDir: BaseDirectory = .Resources) throws {
         
         let filePath: String
-        let fileNameWithExtension = fileName + "." + ext
+        let fileNameWithExtension = name
         
         switch baseDir {
         case .Temp:
-            filePath =  (NSTemporaryDirectory() as String) + "/" + fileNameWithExtension
+            filePath =  (NSTemporaryDirectory() as String) + "/" + name
         case .Documents:
-            filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "/" + fileNameWithExtension
+            filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "/" + name
         case .Resources:
-            let path =  NSBundle.mainBundle().pathForResource(fileName, ofType: ext)
+            func resourcePath(name: String?) -> String? {
+                return NSBundle.mainBundle().pathForResource(name, ofType: "")
+            }
+            let path =  resourcePath(name)
             if path == nil {
-                print( "ERROR: AKAudioFile cannot find \"\(fileName).\(ext)\" in resources!...")
+                print( "ERROR: AKAudioFile cannot find \"\(name)\" in resources!...")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist, userInfo: nil)
             }
             filePath = path!
@@ -216,13 +217,13 @@ public class AKAudioFile: AVAudioFile {
             do {
                 try self.init(forReading: fileUrl!)
             } catch let error as NSError {
-                print ("Error !!! AKAudioFile: \"\(fileName).\(ext)\" doesn't seem to be a valid AudioFile !...")
+                print ("Error !!! AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile !...")
                 print(error.localizedDescription)
                 throw error
             }
             
         } else {
-            print( "ERROR: AKAudioFile cannot find \"\(fileName).\(ext)\"!... aka \(filePath)")
+            print( "ERROR: AKAudioFile cannot find \"\(name)\"!... aka \(name)")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotOpenFile, userInfo: nil)
         }
     }
@@ -239,7 +240,7 @@ public class AKAudioFile: AVAudioFile {
      - Returns: An initialized AKAudioFile for reading, or nil if init failed.
      
      */
-    public convenience init(forReadingFromAVAudioFile avAudioFile: AVAudioFile) throws {
+    public convenience init(readAVAudioFile avAudioFile: AVAudioFile) throws {
         try self.init(forReading: avAudioFile.url)
     }
 
@@ -254,7 +255,7 @@ public class AKAudioFile: AVAudioFile {
      - Returns: An initialized AKAudioFile for writing, or nil if init failed.
      
      */
-    public convenience init(forWritingFromAVAudioFile avAudioFile: AVAudioFile) throws {
+    public convenience init(writeAVAudioFile avAudioFile: AVAudioFile) throws {
         var avSettings = avAudioFile.processingFormat.settings
         // Avoid a warning complaining about interleavead setting value
         avSettings["AVLinearPCMIsNonInterleaved"] = NSNumber(bool: false)
@@ -270,8 +271,8 @@ public class AKAudioFile: AVAudioFile {
 
 
      - Parameters:
-        - fileName: the name of the file without its extension (String).
-        - fileExtension: the extension of the file without "." (String).
+        - name: the name of the file without its extension (String).
+        - ext: the extension of the file without "." (String).
         - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
         - settings: The settings of the file to create.
         - format: The processing commonFormat to use when writing.
@@ -293,19 +294,19 @@ public class AKAudioFile: AVAudioFile {
      let recordFile = AKAudioFile()
      
      */
-    public convenience init( forWritingIn baseDir: BaseDirectory = .Temp,
-        withFileName fileName: String = "",
-        andFileExtension fileExtension: String = "caf",
-        withSettings settings: [String : AnyObject] = AKSettings.audioFormat.settings,
+    public convenience init(writeIn baseDir: BaseDirectory = .Temp,
+        name: String = "",
+        ext: String = "caf",
+        settings: [String : AnyObject] = AKSettings.audioFormat.settings,
         commonFormat format: AVAudioCommonFormat = AKSettings.audioFormat.commonFormat,
         interleaved: Bool = AKSettings.audioFormat.interleaved) throws {
         
         let fileNameWithExtension: String
         // Create a unique file name if fileName == ""
-        if fileName == "" {
-            fileNameWithExtension =  NSUUID().UUIDString + "." + fileExtension
+        if name == "" {
+            fileNameWithExtension =  NSUUID().UUIDString + "." + ext
         } else {
-            fileNameWithExtension = fileName + "." + fileExtension
+            fileNameWithExtension = name + "." + ext
         }
         
         var filePath: String
@@ -385,7 +386,7 @@ public class AKAudioFile: AVAudioFile {
         }
     }
     
-    /**  commonFormatAsString translates commonFormat in an human readable string.
+    /**  commonFormatString translates commonFormat in an human readable string.
      enum AVAudioCommonFormat : UInt {
      case OtherFormat
      case PCMFormatFloat32
@@ -394,7 +395,7 @@ public class AKAudioFile: AVAudioFile {
      case PCMFormatInt32
      }  */
     
-    public var commonFormatAsString: String {
+    public var commonFormatString: String {
         get {
             
             switch self.fileFormat.commonFormat.rawValue {
@@ -420,7 +421,7 @@ public class AKAudioFile: AVAudioFile {
     }
     
     /// the file name with extension as a String
-    public var fileNameWithExtension: String {
+    public var fileNamePlusExtension: String {
         get {
             return self.url.lastPathComponent!
         }
@@ -434,7 +435,7 @@ public class AKAudioFile: AVAudioFile {
     }
     
     /// the file extension as a String (without ".")
-    public var fileExtension: String {
+    public var fileExt: String {
         get {
             return (self.url.pathExtension!)
         }
@@ -468,8 +469,8 @@ public class AKAudioFile: AVAudioFile {
 
 
      - Parameters:
-        - fileName: the name of the file without its extension (String).
-        - outExt: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
+        - name: the name of the file without its extension (String).
+        - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
         - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
         - callBack: AKCallback function that will be triggered when export completed.
         - inTime: start range time value in seconds
@@ -485,14 +486,14 @@ public class AKAudioFile: AVAudioFile {
      
      */
     public func export(
-                    withFileName fileName: String,
-                    andExtension outExt: ExportFormat,
-                    toDirectory baseDir: BaseDirectory,
+                    name: String,
+                    ext: ExportFormat,
+                    baseDir: BaseDirectory,
                     callBack: (AKCallback),
-                    from inTime: Double = 0,
-                    to outTime: Double  = 0 ) throws -> ExportSession {
+                    inTime: Double = 0,
+                    outTime: Double  = 0 ) throws -> ExportSession {
         
-        let fromFileExt = fileExtension.lowercaseString
+        let fromFileExt = fileExt.lowercaseString
         
         // Only mp4, m4a, .wav, .aif can be exported...
         guard   ExportFormat.arrayOfStrings.contains(fromFileExt) else {
@@ -503,14 +504,14 @@ public class AKAudioFile: AVAudioFile {
         
         // Compressed formats cannot be exported to PCM
         let fromFileFormatIsCompressed: Bool  = (fromFileExt == "m4a" || fromFileExt == "mp4")
-        let outFileFormatIsCompressed: Bool  = (outExt == .mp4 || outExt == .m4a )
+        let outFileFormatIsCompressed: Bool  = (ext == .mp4 || ext == .m4a )
         
         // set avExportPreset
         var avExportPreset: String
         
         if fromFileFormatIsCompressed {
             if !outFileFormatIsCompressed {
-                print( "ERROR AKAudioFile: cannot convert from .\(fileExtension) to .\(String(outExt))!...")
+                print( "ERROR AKAudioFile: cannot convert from .\(fileExt) to .\(String(ext))!...")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             } else {
                 avExportPreset = AVAssetExportPresetPassthrough
@@ -524,12 +525,12 @@ public class AKAudioFile: AVAudioFile {
         }
         
         
-        return try ExportSession(fileName: fileName,
+        return try ExportSession(fileName: name,
                                  baseDir: baseDir,
                                  callBack: callBack,
                                  presetName: avExportPreset,
                                  file: self,
-                                 outputFileExtension:outExt,
+                                 outputFileExtension:ext,
                                  from: inTime,
                                  to: outTime)
     }
