@@ -8,13 +8,13 @@ import XCPlayground
 import AudioKit
 
 //: This section prepares the players
-let drumFile   = try AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let drumFile   = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
-let bassFile   = try AKAudioFile(forReadingWithFileName: "bassloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let bassFile   = try AKAudioFile(readFileName: "bassloop.wav", baseDir: .Resources)
 
-let guitarFile   = try AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let guitarFile   = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 
-let leadFile   = try AKAudioFile(forReadingWithFileName: "leadloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let leadFile   = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
 
 
 var drums  = try AKAudioPlayer(file: drumFile)

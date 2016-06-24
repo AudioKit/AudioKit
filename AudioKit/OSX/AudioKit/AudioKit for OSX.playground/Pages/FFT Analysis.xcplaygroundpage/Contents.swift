@@ -8,9 +8,10 @@ import XCPlayground
 import AudioKit
 
 let bundle = NSBundle.mainBundle()
-let file = bundle.pathForResource("leadloop", ofType: "wav")
 
-var player = AKAudioPlayer(file!)
+let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
+
+var player = try AKAudioPlayer(file: file)
 player.looping = true
 
 //: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom

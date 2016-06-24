@@ -14,7 +14,7 @@ func myCompletionCallBack(){
 }
 
 //: Then, we create a player to play some guitar.
-let guitarLoop = try? AKAudioFile(forReadingWithFileName: "guitarloop", andExtension: "wav", fromBaseDirectory: .Resources)
+let guitarLoop = try? AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 
 let player = try? AKAudioPlayer(file: guitarLoop!, completionHandler: myCompletionCallBack)
 
@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Audio Player")
         
-        fileNameLabel = addLabel("File name: \(player?.audioFile.fileNameWithExtension)")
+        fileNameLabel = addLabel("File name: \(player?.audioFile.fileNamePlusExtension)")
         
         addButton("Load Drum Loop", action: #selector(loadDrumLoop))
         addButton("Load Mix Loop", action: #selector(loadMixLoop))
@@ -97,7 +97,7 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func loadDrumLoop() {
-        let loopMp3 = try? AKAudioFile(forReadingWithFileName: "drumloop", andExtension: "wav", fromBaseDirectory: .Resources)
+        let loopMp3 = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
         
         try? player!.replaceFile(loopMp3!)
         updateUI()
@@ -109,7 +109,7 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func loadMixLoop() {
-        let mixloop = try? AKAudioFile(forReadingWithFileName: "mixloop", andExtension: "wav", fromBaseDirectory: .Resources)
+        let mixloop = try? AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
         try? player!.replaceFile(mixloop!)
         updateUI()
     }
@@ -141,7 +141,7 @@ class PlaygroundView: AKPlaygroundView {
         let duration = String(format: "%0.2f", player!.audioFile.duration)
         durationTextField!.text = duration
         
-        let fileName = player!.audioFile.fileNameWithExtension
+        let fileName = player!.audioFile.fileNamePlusExtension
         fileNameLabel!.text = "File name: \(fileName)"
     }
     

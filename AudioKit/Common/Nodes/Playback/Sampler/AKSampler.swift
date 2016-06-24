@@ -70,7 +70,7 @@ public class AKSampler: AKNode {
         do {
             try samplerUnit.loadAudioFilesAtURLs([file.url])
         } catch let error as NSError{
-            print("AKSampler Error loading \"\(file.fileNameWithExtension)\" !...")
+            print("AKSampler Error loading \"\(file.fileNamePlusExtension)\" !...")
             throw error
         }
     }

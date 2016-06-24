@@ -9,7 +9,9 @@ import AudioKit
 
 let mic = AKMicrophone()
 
-let file = try AKAudioFile(forReadingWithFileName: "recording", andExtension: "wav", fromBaseDirectory: .Resources)
+let bundle = NSBundle.mainBundle()
+let url = bundle.pathForResource("guitarloop", ofType: "wav")
+let file = try AKAudioFile(readFileName: "recording.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 
@@ -21,7 +23,7 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var recorder = AKMicrophoneRecorder(file!)
+    var recorder = AKMicrophoneRecorder(file)
 
     override func setup() {
         addTitle("Recording from Microphone")
@@ -36,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
 
     func play() {
         player.stop()
-        player.replaceFile(file!)
+        try! player.replaceFile(file)
         player.play()
     }
 
@@ -53,4 +55,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@nex
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
