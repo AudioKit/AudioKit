@@ -32,6 +32,12 @@
 }
 @synthesize parameterTree = _parameterTree;
 
+- (void)setAttackDuration:(float)attackDuration {
+    _kernel.setAttackDuration(attackDuration);
+}
+- (void)setReleaseDuration:(float)releaseDuration {
+    _kernel.setReleaseDuration(releaseDuration);
+}
 - (void)setDetuningOffset:(float)detuningOffset {
     _kernel.setDetuningOffset(detuningOffset);
 }
@@ -74,6 +80,33 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
+    
+    AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
+
+    // Create a parameter object for the attackDuration.
+    AUParameter *attackDurationAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"attackDuration"
+                                              name:@"Attack time"
+                                           address:attackDurationAddress
+                                               min:0
+                                               max:10
+                                              unit:kAudioUnitParameterUnit_Seconds
+                                          unitName:nil
+                                             flags:flags
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    // Create a parameter object for the releaseDuration.
+    AUParameter *releaseDurationAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"releaseDuration"
+                                              name:@"Release time"
+                                           address:releaseDurationAddress
+                                               min:0
+                                               max:100
+                                              unit:kAudioUnitParameterUnit_Seconds
+                                          unitName:nil
+                                             flags:flags
+                                      valueStrings:nil
+                               dependentParameters:nil];
     // Create a parameter object for the detuningOffset.
     AUParameter *detuningOffsetAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
@@ -100,16 +133,22 @@
                                dependentParameters:nil];
 
     // Initialize the parameter values.
+    attackDurationAUParameter.value = 0.0;
+    releaseDurationAUParameter.value = 0.0;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
     
     _rampTime = AKSettings.rampTime;
 
+    _kernel.setParameter(attackDurationAddress,     attackDurationAUParameter.value);
+    _kernel.setParameter(releaseDurationAddress,    releaseDurationAUParameter.value);
     _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
+        attackDurationAUParameter,
+        releaseDurationAUParameter,
         detuningOffsetAUParameter,
         detuningMultiplierAUParameter
     ]];
