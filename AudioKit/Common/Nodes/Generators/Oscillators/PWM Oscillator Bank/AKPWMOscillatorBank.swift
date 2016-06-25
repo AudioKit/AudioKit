@@ -115,7 +115,7 @@ public class AKPWMOscillatorBank: AKMIDINode {
     public init(
         pulseWidth: Double = 0.5,
         attackDuration: Double = 0.001,
-        releaseDuration: Double = 0,
+        releaseDuration: Double = 0.001,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 

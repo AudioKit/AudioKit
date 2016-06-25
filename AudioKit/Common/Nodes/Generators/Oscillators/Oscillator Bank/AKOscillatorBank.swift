@@ -103,7 +103,7 @@ public class AKOscillatorBank: AKMIDINode {
     public init(
         waveform: AKTable = AKTable(.Sine),
         attackDuration: Double = 0.001,
-        releaseDuration: Double = 0,
+        releaseDuration: Double = 0.001,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 

@@ -150,7 +150,7 @@ public class AKFMOscillatorBank: AKMIDINode {
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,
         attackDuration: Double = 0.001,
-        releaseDuration: Double = 0,
+        releaseDuration: Double = 0.001,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
