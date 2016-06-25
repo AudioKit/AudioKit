@@ -1,5 +1,5 @@
 //
-//  AKPolyphonicOscillator.swift
+//  AKMorphingPolyphonicOscillator.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -14,14 +14,14 @@ import AVFoundation
 /// - parameter detuningOffset: Frequency offset in Hz.
 /// - parameter detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKPolyphonicOscillator: AKMIDINode {
+public class AKMorphingPolyphonicOscillator: AKMIDINode {
 
     // MARK: - Properties
 
-    internal var internalAU: AKPolyphonicOscillatorAudioUnit?
+    internal var internalAU: AKMorphingPolyphonicOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var waveform: AKTable?
+    private var waveformArray = [AKTable]()
 
     private var attackDurationParameter: AUParameter?
     private var releaseDurationParameter: AUParameter?
@@ -35,6 +35,14 @@ public class AKPolyphonicOscillator: AKMIDINode {
                 internalAU?.rampTime = newValue
                 internalAU?.setUpParameterRamp()
             }
+        }
+    }
+    
+    /// Index of the wavetable to use (fractional are okay).
+    public var index: Double = 0.0 {
+        willSet {
+            let transformedValue = Float(newValue) / Float(waveformArray.count - 1)
+            internalAU?.index = Float(transformedValue)
         }
     }
 
@@ -94,7 +102,7 @@ public class AKPolyphonicOscillator: AKMIDINode {
     
     /// Initialize the oscillator with defaults
     override public convenience init() {
-        self.init(waveform: AKTable(.Sine))
+        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
     }
 
     /// Initialize this oscillator node
@@ -106,14 +114,16 @@ public class AKPolyphonicOscillator: AKMIDINode {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable,
+        waveformArray: [AKTable],
+        index: Double = 0,
         attackDuration: Double = 0.001,
         releaseDuration: Double = 0,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
+        self.waveformArray = waveformArray
+        self.index = index
 
-        self.waveform = waveform
         self.attackDuration = attackDuration
         self.releaseDuration = releaseDuration
         self.detuningOffset = detuningOffset
@@ -121,15 +131,15 @@ public class AKPolyphonicOscillator: AKMIDINode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x706f7363 /*'posc'*/
+        description.componentSubType      = 0x706f7361 /*'posc'*/ //AOP
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
-            AKPolyphonicOscillatorAudioUnit.self,
+            AKMorphingPolyphonicOscillatorAudioUnit.self,
             asComponentDescription: description,
-            name: "Local AKPolyphonicOscillator",
+            name: "Local AKMorphingPolyphonicOscillator",
             version: UInt32.max)
 
         super.init()
@@ -139,12 +149,14 @@ public class AKPolyphonicOscillator: AKMIDINode {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPolyphonicOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingPolyphonicOscillatorAudioUnit
 
             AudioKit.engine.attachNode(self.avAudioNode)
-            self.internalAU?.setupWaveform(Int32(waveform.size))
-            for i in 0 ..< waveform.size {
-                self.internalAU?.setWaveformValue(waveform.values[i], atIndex: UInt32(i))
+            for i in 0 ..< waveformArray.count {
+                self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
+                for j in 0 ..< waveformArray[i].size{
+                    self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
+                }
             }
         }
 
@@ -170,6 +182,8 @@ public class AKPolyphonicOscillator: AKMIDINode {
                 }
             }
         }
+        internalAU?.index = Float(index) / Float(waveformArray.count - 1)
+        
         internalAU?.attackDuration = Float(attackDuration)
         internalAU?.releaseDuration = Float(releaseDuration)
         internalAU?.detuningOffset = Float(detuningOffset)

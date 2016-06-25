@@ -227,10 +227,6 @@ private:
     sp_data *sp;
     sp_oscmorph *oscmorph;
     
-    sp_ftbl *ftbl0;
-    sp_ftbl *ftbl1;
-    sp_ftbl *ftbl2;
-    sp_ftbl *ftbl3;
     sp_ftbl *ft_array[4];
     UInt32 tbl_size = 4096;
 
