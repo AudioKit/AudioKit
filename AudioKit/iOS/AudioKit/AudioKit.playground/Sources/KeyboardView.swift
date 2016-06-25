@@ -71,7 +71,7 @@ public class KeyboardView: UIView {
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
             
-            for key in keys {
+            for key in keys where !onKeys.contains(key) {
                 if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOn(key.tag)
                     unhighlightKeys()
@@ -86,7 +86,7 @@ public class KeyboardView: UIView {
     override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
 
-            for key in keys {
+            for key in keys where !onKeys.contains(key) {
                 if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOn(key.tag)
                     unhighlightKeys()
@@ -102,7 +102,7 @@ public class KeyboardView: UIView {
     
     override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
-            for key in keys {
+            for key in keys where onKeys.contains(key) {
                 if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOff(key.tag)
                     unhighlightKeys()

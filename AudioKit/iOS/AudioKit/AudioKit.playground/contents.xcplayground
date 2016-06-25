@@ -116,6 +116,7 @@
         <page name='Variable Delay Operation'/>
         <page name='Variable Delay'/>
         <page name='Drawbar Organ'/>
+        <page name='Drawbar Organ 2'/>
         <page name='AKTapeRecorder2'/>
     </pages>
 </playground>
