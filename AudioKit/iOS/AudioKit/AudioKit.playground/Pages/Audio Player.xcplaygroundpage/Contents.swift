@@ -34,9 +34,22 @@ class PlaygroundView: AKPlaygroundView {
     var inPosTextField: TextField?
     var outPosTextField: TextField?
     var fileNameLabel: Label?
-    
+    var playingPosSlider: Slider?
+    var playheadTextField: TextField?
+
     
     override func setup() {
+
+        AKPlaygroundLoop(every: 1/60.0)
+        {
+            if player!.duration > 0 {
+            self.playingPosSlider?.value = Float( player!.playhead / player!.duration)
+
+            self.playheadTextField?.text = String(Int(100 * player!.playhead / player!.duration)) + " %"
+
+            }
+
+        }
         addTitle("Audio Player")
         
         fileNameLabel = addLabel("File name: \(player?.audioFile.fileNamePlusExtension)")
@@ -51,7 +64,6 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Play", action: #selector(play))
         addButton("Stop", action: #selector(stop))
         addButton("Pause", action: #selector(pause))
-        addButton("Print Playhead Position", action: #selector(printPosition))
         addLineBreak()
         
         addButton("Enable Looping", action: #selector(enableLooping))
@@ -66,7 +78,12 @@ class PlaygroundView: AKPlaygroundView {
         outPosTextField = addTextField(#selector(setOutPosition), text: "Out Position", value: player!.endTime)
         
         outPosSlider = addSlider(#selector(slideOutPosition), value: player!.endTime, minimum: 0.0, maximum: 4.0)
-        
+
+
+        playheadTextField  = addTextField(nil, text: "PlayHead", value: 0)
+
+        playingPosSlider = addSlider(#selector(playBackSlidePosTouched), value: player!.playhead, minimum: 0.0, maximum: 1.0)
+
         updateUI()
     }
     
@@ -84,10 +101,7 @@ class PlaygroundView: AKPlaygroundView {
         player!.pause()
     }
 
-    func printPosition() {
-        print ("playhead is at: \(player!.playhead) seconds")
-    }
-    
+
     func enableLooping() {
         player!.looping = true
     }
@@ -133,12 +147,12 @@ class PlaygroundView: AKPlaygroundView {
     }
     
     func updateTextFields() {
-        let inPos = String(format: "%0.2f", player!.startTime)
+        let inPos = String(format: "%0.2f", player!.startTime) + " seconds"
         inPosTextField!.text = "\(inPos)"
         
-        let outPos = String(format: "%0.2f", player!.endTime)
+        let outPos = String(format: "%0.2f", player!.endTime) + " seconds"
         outPosTextField!.text = "\(outPos)"
-        let duration = String(format: "%0.2f", player!.audioFile.duration)
+        let duration = String(format: "%0.2f", player!.audioFile.duration) + " seconds"
         durationTextField!.text = duration
         
         let fileName = player!.audioFile.fileNamePlusExtension
@@ -158,6 +172,12 @@ class PlaygroundView: AKPlaygroundView {
     func updateUI() {
         updateTextFields()
         updateSliders()
+    }
+
+
+    func playBackSlidePosTouched()
+    {
+        playingPosSlider?.value = Float( player!.playhead)
     }
     
 }
