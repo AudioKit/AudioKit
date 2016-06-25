@@ -16,7 +16,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var detuningMultiplierLabel: Label?
     
     override func setup() {
-        addTitle("Morphing Polyphonic Oscillator")
+        addTitle("Morphing Oscillator Bank")
         indexLabel = addLabel("Index: \(osc.index)")
         addSlider(#selector(setIndex), value: osc.index, minimum: 0.0, maximum: 2.9999)
 

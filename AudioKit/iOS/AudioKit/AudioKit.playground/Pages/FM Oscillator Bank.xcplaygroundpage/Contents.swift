@@ -16,7 +16,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var releaseLabel: Label?
     
     override func setup() {
-        addTitle("Polyphonic FM Oscillator")
+        addTitle("FM Oscillator Bank")
         
         
         carrierMultiplierLabel = addLabel("Carrier Multiplier: \(osc.carrierMultiplier)")
