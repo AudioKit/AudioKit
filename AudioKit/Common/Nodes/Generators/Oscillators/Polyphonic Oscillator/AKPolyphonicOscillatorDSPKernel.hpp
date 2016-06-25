@@ -20,6 +20,8 @@ extern "C" {
 }
 
 enum {
+    attackDurationAddress = 0,
+    releaseDurationAddress = 1,
     detuningOffsetAddress = 2,
     detuningMultiplierAddress = 3
 };
@@ -42,29 +44,25 @@ public:
         AKPolyphonicOscillatorDSPKernel* kernel;
         
         enum { stageOff, stageAttack, stageSustain, stageRelease };
-        double oscFreq = 0.;
-        double oscPhase = 0.;
         double envLevel = 0.;
         double envSlope = 0.;
-        double ampL = 1.;
-        double ampR = 1.;
+  
+        int stage = stageOff;
+        int envRampSamples = 0;
         
         sp_osc *osc;
         
         void init() {
             sp_osc_create(&osc);
             sp_osc_init(kernel->sp, osc, kernel->ftbl, 0);
-            osc->freq = 440;
-            osc->amp = 1;
+            osc->freq = 0;
+            osc->amp = 0;
         }
-        
-        int stage = stageOff;
-        int envRampSamples = 0;
+
         
         void clear() {
             stage = stageOff;
             envLevel = 0.;
-            oscPhase = 0.;
         }
         
         // linked list management
@@ -95,22 +93,18 @@ public:
             if (velocity == 0) {
                 if (stage == stageAttack || stage == stageSustain) {
                     stage = stageRelease;
-//                    envRampSamples = kernel->releaseSamples;
-//                    envSlope = -envLevel / envRampSamples;
+                    envRampSamples = kernel->releaseSamples;
+                    envSlope = -envLevel / envRampSamples;
+                    NSLog(@"rs %d", envRampSamples);
                 }
             } else {
                 if (stage == stageOff) { add(); }
-                oscFreq = noteToHz(noteNumber); //* kernel->frequencyScale;
-//                double pan = (noteNumber - 66.) / 42.; // pan from note number
-                double amp = pow2(velocity / 127.) * .2; // amplitude from velocity
-                osc->freq = (float)oscFreq;
-                osc->amp = (float)amp;
-//                ampL = amp * panValue(-pan);
-//                ampR = amp * panValue(pan);
-//                oscPhase = 0.;
+                osc->freq = (float)noteToHz(noteNumber);
+                osc->amp = (float)pow2(velocity / 127.) * .2;
                 stage = stageAttack;
-//                envRampSamples = kernel->attackSamples;
-//                envSlope = (1.0 - envLevel) / envRampSamples;
+                envRampSamples = kernel->attackSamples;
+                NSLog(@"as %d", envRampSamples);
+                envSlope = (1.0 - envLevel) / envRampSamples;
             }
         }
         
@@ -122,27 +116,24 @@ public:
             float originalFrequency = osc->freq;
             osc->freq *= kernel->detuningMultiplier;
             osc->freq += kernel->detuningOffset;
-
+            osc->freq = clamp(osc->freq, 0.0f, 22050.0f);//clamp(osc->freq, 0., 22050.);
+            
             while (framesRemaining) {
                 switch (stage) {
                     case stageOff :
                         NSLog(@"stageOff on playingNotes list!");
                         return;
                     case stageAttack : {
-                        NSLog(@"attack %f %f", osc->freq, osc->amp);
-
                         int framesThisTime = std::min(framesRemaining, envRampSamples);
                         for (int i = 0; i < framesThisTime; ++i) {
                             float x = 0;
                             sp_osc_compute(kernel->sp, osc, nil, &x);
-//                            double x = envLevel * pow3(sin(oscPhase)); // cubing the sine adds 3rd harmonic.
-                            *outL++ += ampL * x;
-                            *outR++ += ampR * x;
+                            *outL++ += envLevel * x;
+                            *outR++ += envLevel * x;
                             
                             envLevel += envSlope;
-//                            oscPhase += oscFreq;
-//                            if (oscPhase >= kTwoPi) oscPhase -= kTwoPi;
                         }
+
                         framesRemaining -= framesThisTime;
                         envRampSamples -= framesThisTime;
                         if (envRampSamples == 0) {
@@ -155,27 +146,20 @@ public:
                         for (int i = 0; i < framesRemaining; ++i) {
                             float x = 0;
                             sp_osc_compute(kernel->sp, osc, nil, &x);
-//                            double x = pow3(sin(oscPhase));
-                            *outL++ += ampL * x;
-                            *outR++ += ampR * x;
-//                            oscPhase += oscFreq;
-//                            if (oscPhase >= kTwoPi) oscPhase -= kTwoPi;
+                            *outL++ += envLevel * x;
+                            *outR++ += envLevel * x;
                         }
                         osc->freq = originalFrequency;
                         return;
                     }
                     case stageRelease : {
-                        NSLog(@"rel");
-                              
                         int framesThisTime = std::min(framesRemaining, envRampSamples);
                         for (int i = 0; i < framesThisTime; ++i) {
                             float x = 0;
                             sp_osc_compute(kernel->sp, osc, nil, &x);
-//                            double x = envLevel * pow3(sin(oscPhase));
-                            *outL++ += ampL * x;
-                            *outR++ += ampR * x;
+                            *outL++ += envLevel * x;
+                            *outR++ += envLevel * x;
                             envLevel += envSlope;
-//                            oscPhase += oscFreq;
                         }
                         envRampSamples -= framesThisTime;
                         osc->freq = originalFrequency;
@@ -224,7 +208,6 @@ public:
     }
 
     void startNote(int note, int velocity) {
-        NSLog(@"Got to the DSPKernal startNote");
         noteStates[note].noteOn(note, 127);
     }
 
@@ -245,6 +228,19 @@ public:
         resetted = true;
     }
 
+    void setAttackDuration(float value) {
+        attackDuration = clamp(value, (float)0, (float)10);
+        attackDurationRamper.setImmediate(attackDuration);
+        attackSamples = sampleRate * attackDuration;
+        NSLog(@"fdsa");
+    }
+
+    void setReleaseDuration(float value) {
+        releaseDuration = clamp(value, (float)0, (float)100);
+        releaseDurationRamper.setImmediate(releaseDuration);
+        releaseSamples = sampleRate * releaseDuration;
+    }
+    
     void setDetuningOffset(float value) {
         detuningOffset = clamp(value, (float)-1000, (float)1000);
         detuningOffsetRamper.setImmediate(detuningOffset);
@@ -259,6 +255,17 @@ public:
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
 
+            case attackDurationAddress:
+                attackDuration = clamp(value, 0.001f, 10.f);
+                attackSamples = sampleRate * attackDuration;
+                NSLog(@"fdsa2");
+                break;
+                
+            case releaseDurationAddress:
+                releaseDuration = clamp(value, 0.001f, 100.f);
+                releaseSamples = sampleRate * releaseDuration;
+                break;
+                
             case detuningOffsetAddress:
                 detuningOffsetRamper.setUIValue(clamp(value, (float)-1000, (float)1000));
                 break;
@@ -273,6 +280,12 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
 
+            case attackDurationAddress:
+                return attackDurationRamper.getUIValue();
+
+            case releaseDurationAddress:
+                return releaseDurationRamper.getUIValue();
+            
             case detuningOffsetAddress:
                 return detuningOffsetRamper.getUIValue();
 
@@ -285,6 +298,14 @@ public:
 
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
+                
+            case attackDurationAddress:
+                attackDurationRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                break;
+                
+            case releaseDurationAddress:
+                releaseDurationRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                break;
 
             case detuningOffsetAddress:
                 detuningOffsetRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
@@ -339,7 +360,11 @@ public:
 
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
-        
+
+        attackDuration = double(attackDurationRamper.getAndStep());
+        attackSamples = sampleRate * attackDuration;
+        releaseDuration = double(releaseDurationRamper.getAndStep());
+        releaseSamples = sampleRate * releaseDuration;
         detuningOffset = double(detuningOffsetRamper.getAndStep());
         detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
         
@@ -370,7 +395,10 @@ private:
     sp_data *sp;
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
-    
+
+    float attackDuration = 0;
+    float releaseDuration = 0;
+
     float detuningOffset = 0;
     float detuningMultiplier = 1;
 
@@ -378,7 +406,13 @@ public:
     NoteState* playingNotes = nullptr;
     int playingNotesCount = 0;
     bool resetted = false;
+
+    int attackSamples   = sampleRate * attackDuration;
+    int releaseSamples  = sampleRate * releaseDuration;
     
+    ParameterRamper attackDurationRamper = 0;
+    ParameterRamper releaseDurationRamper = 0;
+
     ParameterRamper detuningOffsetRamper = 0;
     ParameterRamper detuningMultiplierRamper = 1;
 };

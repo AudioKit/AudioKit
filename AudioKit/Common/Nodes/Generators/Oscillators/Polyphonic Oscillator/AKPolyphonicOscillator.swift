@@ -23,6 +23,8 @@ public class AKPolyphonicOscillator: AKMIDINode {
 
     private var waveform: AKTable?
 
+    private var attackDurationParameter: AUParameter?
+    private var releaseDurationParameter: AUParameter?
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
     
@@ -36,6 +38,32 @@ public class AKPolyphonicOscillator: AKMIDINode {
         }
     }
 
+    /// Attack time in seconds
+    public var attackDuration: Double = 0 {
+        willSet {
+            if attackDuration != newValue {
+                if internalAU!.isSetUp() {
+                    attackDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.attackDuration = Float(newValue)
+                }
+            }
+        }
+    }
+    
+    /// Release time in seconds
+    public var releaseDuration: Double = 0 {
+        willSet {
+            if releaseDuration != newValue {
+                if internalAU!.isSetUp() {
+                    releaseDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.releaseDuration = Float(newValue)
+                }
+            }
+        }
+    }
+    
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
         willSet {
@@ -79,11 +107,15 @@ public class AKPolyphonicOscillator: AKMIDINode {
     ///
     public init(
         waveform: AKTable,
+        attackDuration: Double = 0,
+        releaseDuration: Double = 0,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
 
         self.waveform = waveform
+        self.attackDuration = attackDuration
+        self.releaseDuration = releaseDuration
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
 
@@ -125,21 +157,25 @@ public class AKPolyphonicOscillator: AKMIDINode {
             address, value in
 
             dispatch_async(dispatch_get_main_queue()) {
-                if address == self.detuningOffsetParameter!.address {
+                if address == self.attackDurationParameter!.address {
+                    self.attackDuration = Double(value)
+                } else if address == self.releaseDurationParameter!.address {
+                    self.releaseDuration = Double(value)
+                } else if address == self.detuningOffsetParameter!.address {
                     self.detuningOffset = Double(value)
                 } else if address == self.detuningMultiplierParameter!.address {
                     self.detuningMultiplier = Double(value)
                 }
             }
         }
+        internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.releaseDuration = Float(releaseDuration)
         internalAU?.detuningOffset = Float(detuningOffset)
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
-
     }
 
     /// Function to start, play, or activate the node, all do the same thing
     override public func start(note note: Int, withVelocity velocity: Int, onChannel channel: Int) {
-        print("Trying to start \(note) \(velocity) \(channel)")
         self.internalAU!.startNote(Int32(note), velocity: Int32(velocity))
     }
 

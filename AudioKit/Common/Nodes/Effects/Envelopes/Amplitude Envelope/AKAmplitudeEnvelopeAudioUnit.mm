@@ -78,7 +78,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-        // Create a parameter object for the attackDuration.
+    // Create a parameter object for the attackDuration.
     AUParameter *attackDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"attackDuration"
                                               name:@"Attack time"

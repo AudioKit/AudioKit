@@ -12,6 +12,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKPolyphonicOscillatorAudioUnit : AUAudioUnit
+@property (nonatomic) float attackDuration;
+@property (nonatomic) float releaseDuration;
 @property (nonatomic) float detuningOffset;
 @property (nonatomic) float detuningMultiplier;
 
