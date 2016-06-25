@@ -26,7 +26,7 @@ public class AKNodeRecorder {
     private var recording = false
 
 
-    private let previousAVAudioSessionCategory: String?
+    private var previousAVAudioSessionCategory: String?
 
     public init(node: AKNode = AudioKit.output!, file: AKAudioFile? = nil, buffer bufferSize: UInt32 = 1024  ) throws {
 
