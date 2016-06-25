@@ -46,7 +46,7 @@ public class AKTapeRecorder
         do {
             self.recorder = try AKNodeRecorder(node: node, file: file)
         } catch let error as NSError {
-            print ("ERROR TapeRecorder: couldn't initialize AKNodeRecorder ")
+            print ("ERROR AKTapeRecorder: couldn't initialize AKNodeRecorder ")
             throw error
         }
 
@@ -55,7 +55,7 @@ public class AKTapeRecorder
         do {
             player = try AKAudioPlayer(file: recorder.audioFile!)
         } catch let error as NSError {
-            print ("ERROR TapeRecorder: couldn't initialize AKAudioPlayer ")
+            print ("ERROR AKTapeRecorder: couldn't initialize AKAudioPlayer ")
             throw error
         }
 
@@ -89,7 +89,7 @@ public class AKTapeRecorder
             player.stop()
             mixer.balance = idleBalance
         } else {
-            print ("ERROR TapeRecorder: Cannot stop, AKMagneto is not replaying!")
+            print ("ERROR AKTapeRecorder: Cannot stop, AKTapeRecorder is not replaying!")
         }
 
     }
