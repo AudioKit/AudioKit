@@ -193,12 +193,6 @@ public class AKPWMOscillator: AKVoice {
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKPWMOscillator(frequency: self.frequency, amplitude: self.amplitude, pulseWidth: self.pulseWidth, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
-        return copy
-    }
-
     /// Function to start, play, or activate the node, all do the same thing
     override public func start() {
         self.internalAU!.start()

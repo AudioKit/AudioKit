@@ -179,12 +179,6 @@ public class AKOscillator: AKVoice {
 
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKOscillator(waveform: self.waveform!, frequency: self.frequency, amplitude: self.amplitude, detuningOffset: self.detuningOffset, detuningMultiplier: self.detuningMultiplier)
-        return copy
-    }
-
     /// Function to start, play, or activate the node, all do the same thing
     override public func start() {
         self.internalAU!.start()

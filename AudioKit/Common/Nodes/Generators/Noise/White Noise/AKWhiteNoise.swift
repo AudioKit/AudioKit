@@ -99,12 +99,6 @@ public class AKWhiteNoise: AKVoice {
         internalAU?.amplitude = Float(amplitude)
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKWhiteNoise(amplitude: self.amplitude)
-        return copy
-    }
-
     /// Function to start, play, or activate the node, all do the same thing
     override public func start() {
         self.internalAU!.start()
