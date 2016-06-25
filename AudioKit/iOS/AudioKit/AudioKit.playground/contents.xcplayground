@@ -58,6 +58,7 @@
         <page name='Mixing Nodes'/>
         <page name='Modal Resonance Filter Operation'/>
         <page name='Modal Resonance Filter'/>
+        <page name='Mono Synth'/>
         <page name='Moog Ladder Filter Operation'/>
         <page name='Moog Ladder Filter'/>
         <page name='Morphing Oscillator'/>
@@ -88,7 +89,6 @@
         <page name='Rolling Output Plot'/>
         <page name='Sampler Instrument - EXS24'/>
         <page name='Sampler Instrument - Wav file'/>
-        <page name='Sawtooth Oscillator'/>
         <page name='Sawtooth Wave Oscillator Operation'/>
         <page name='Sean Costello Reverb Operation'/>
         <page name='Sean Costello Reverb'/>
@@ -110,7 +110,6 @@
         <page name='Tracking Frequency of Audio File'/>
         <page name='Tracking Frequency'/>
         <page name='Tremolo'/>
-        <page name='Triangular Wave Oscillator'/>
         <page name='Using Functions Part 2'/>
         <page name='Using Functions'/>
         <page name='Variable Delay Operation'/>
