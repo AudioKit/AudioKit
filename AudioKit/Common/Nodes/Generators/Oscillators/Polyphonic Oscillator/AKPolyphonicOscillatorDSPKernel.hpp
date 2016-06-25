@@ -95,7 +95,6 @@ public:
                     stage = stageRelease;
                     envRampSamples = kernel->releaseSamples;
                     envSlope = -envLevel / envRampSamples;
-                    NSLog(@"rs %d", envRampSamples);
                 }
             } else {
                 if (stage == stageOff) { add(); }
@@ -103,7 +102,6 @@ public:
                 osc->amp = (float)pow2(velocity / 127.) * .2;
                 stage = stageAttack;
                 envRampSamples = kernel->attackSamples;
-                NSLog(@"as %d", envRampSamples);
                 envSlope = (1.0 - envLevel) / envRampSamples;
             }
         }
@@ -196,6 +194,11 @@ public:
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = channels;
+        
+        attackDurationRamper.init();
+        releaseDurationRamper.init();
+        detuningOffsetRamper.init();
+        detuningMultiplierRamper.init();
     }
 
     void setupWaveform(uint32_t size) {
@@ -226,13 +229,17 @@ public:
         playingNotes = nullptr;
         playingNotesCount = 0;
         resetted = true;
+        
+        attackDurationRamper.reset();
+        releaseDurationRamper.reset();
+        detuningOffsetRamper.reset();
+        detuningMultiplierRamper.reset();
     }
 
     void setAttackDuration(float value) {
         attackDuration = clamp(value, (float)0, (float)10);
         attackDurationRamper.setImmediate(attackDuration);
         attackSamples = sampleRate * attackDuration;
-        NSLog(@"fdsa");
     }
 
     void setReleaseDuration(float value) {
@@ -258,7 +265,6 @@ public:
             case attackDurationAddress:
                 attackDuration = clamp(value, 0.001f, 10.f);
                 attackSamples = sampleRate * attackDuration;
-                NSLog(@"fdsa2");
                 break;
                 
             case releaseDurationAddress:
