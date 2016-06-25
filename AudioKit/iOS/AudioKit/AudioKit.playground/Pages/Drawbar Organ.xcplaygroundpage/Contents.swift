@@ -8,42 +8,30 @@
 import XCPlayground
 import AudioKit
 
-var oscillator1 = AKOscillator()
-oscillator1.amplitude = 0.1
-var oscillator2 = AKOscillator()
-oscillator2.amplitude = 0.1
-var oscillator3 = AKOscillator()
-oscillator3.amplitude = 0.1
-var oscillator4 = AKOscillator()
-oscillator4.amplitude = 0.1
-var oscillator5 = AKOscillator()
-oscillator5.amplitude = 0.1
-var oscillator6 = AKOscillator()
-oscillator6.amplitude = 0.1
-var oscillator7 = AKOscillator()
-oscillator7.amplitude = 0.1
-var oscillator8 = AKOscillator()
-oscillator8.amplitude = 0.1
-var oscillator9 = AKOscillator()
-oscillator9.amplitude = 0.1
+let oscillator1 = AKOscillator()
+let oscillator2 = AKOscillator()
+let oscillator3 = AKOscillator()
+let oscillator4 = AKOscillator()
+let oscillator5 = AKOscillator()
+let oscillator6 = AKOscillator()
+let oscillator7 = AKOscillator()
+let oscillator8 = AKOscillator()
+let oscillator9 = AKOscillator()
 
+
+var oscillArr: [AKOscillator] = [oscillator1, oscillator2, oscillator3, oscillator4, oscillator5, oscillator6, oscillator7,oscillator8, oscillator9]
+
+for i in 0...8 {
+    oscillArr[i].amplitude = 0.1
+    oscillArr[i].rampTime = 0.1
+}
 
 let mixer = AKMixer(oscillator1, oscillator2, oscillator3, oscillator4, oscillator5, oscillator6, oscillator7, oscillator8, oscillator9)
 AudioKit.output = mixer
 AudioKit.start()
-oscillator1.play()
-oscillator2.play()
-oscillator3.play()
-oscillator4.play()
-oscillator5.play()
-oscillator6.play()
-oscillator7.play()
-oscillator8.play()
-oscillator9.play()
 
-class PlaygroundView: AKPlaygroundView {
+class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
-    var frequencyLabel: Label?
     var amplitudeLabel1: Label?
     var amplitudeLabel2: Label?
     var amplitudeLabel3: Label?
@@ -55,118 +43,126 @@ class PlaygroundView: AKPlaygroundView {
     var amplitudeLabel9: Label?
     
     override func setup() {
-        addTitle("Oscillator")
+        addTitle("Drawbar Organ")
         
-        addButton("Start", action: #selector(start))
-        addButton("Stop", action: #selector(stop))
+        let keyboard = KeyboardView(width: 500, height: 100, delegate: self)
+        keyboard.frame.origin.y = 60
         
-        frequencyLabel = addLabel("Midi Note: 440")
-        addSlider(#selector(setFrequency), value: 60, minimum:0 , maximum: 127)
-        amplitudeLabel1 = addLabel("Amplitude 16: 0.1")
-        addSlider(#selector(setAmplitude1), value: 0.1)
-        amplitudeLabel2 = addLabel("Amplitude 5 1/3: 0.1")
-        addSlider(#selector(setAmplitude2), value: 0.1)
-        amplitudeLabel3 = addLabel("Amplitude 8: 0.1")
-        addSlider(#selector(setAmplitude3), value: 0.1)
-        amplitudeLabel4 = addLabel("Amplitude 4: 0.1")
-        addSlider(#selector(setAmplitude4), value: 0.1)
-        amplitudeLabel5 = addLabel("Amplitude 2 2/3: 0.1")
-        addSlider(#selector(setAmplitude5), value: 0.1)
-        amplitudeLabel6 = addLabel("Amplitude 2: 0.1")
-        addSlider(#selector(setAmplitude6), value: 0.1)
-        amplitudeLabel7 = addLabel("Amplitude 1 3/5: 0.1")
-        addSlider(#selector(setAmplitude7), value: 0.1)
-        amplitudeLabel8 = addLabel("Amplitude 1 1/3: 0.1")
-        addSlider(#selector(setAmplitude8), value: 0.1)
-        amplitudeLabel9 = addLabel("Amplitude 1: 0.1")
-        addSlider(#selector(setAmplitude9), value: 0.1)
+        self.addSubview(keyboard)
+        
+        amplitudeLabel1 = addLabel("16")
+        amplitudeLabel1!.frame = CGRectMake(10, 225, 40, 80)
+        let ampSli1 = addSlider(#selector(setAmplitude1), value: 0.1)
+        ampSli1.frame = CGRectMake(10, 170, 20, 80)
+        amplitudeLabel2 = addLabel("5\n1/3")
+        amplitudeLabel2!.frame = CGRectMake(65, 225, 40, 80)
+        
+        let ampSli2 = addSlider(#selector(setAmplitude2), value: 0.1)
+        ampSli2.frame = CGRectMake(65, 170, 20, 80)
+        amplitudeLabel3 = addLabel("8")
+        amplitudeLabel3!.frame = CGRectMake(120, 225, 40, 80)
+        let ampSli3 = addSlider(#selector(setAmplitude3), value: 0.1)
+        ampSli3.frame = CGRectMake(120, 170, 20, 80)
+        amplitudeLabel4 = addLabel("4")
+        amplitudeLabel4!.frame = CGRectMake(175, 225, 40, 80)
+        let ampSli4 = addSlider(#selector(setAmplitude4), value: 0.1)
+        ampSli4.frame = CGRectMake(175, 170, 20, 80)
+        amplitudeLabel5 = addLabel("2\n2/3")
+        amplitudeLabel5!.frame = CGRectMake(230, 225, 40, 80)
+        let ampSli5 = addSlider(#selector(setAmplitude5), value: 0.1)
+        ampSli5.frame = CGRectMake(230, 170, 20, 80)
+        amplitudeLabel6 = addLabel("2")
+        amplitudeLabel6!.frame = CGRectMake(285, 225, 40, 80)
+        let ampSli6 = addSlider(#selector(setAmplitude6), value: 0.1)
+        ampSli6.frame = CGRectMake(285, 170, 20, 80)
+        amplitudeLabel7 = addLabel("1\n3/5")
+        amplitudeLabel7!.frame = CGRectMake(340, 225, 40, 80)
+        
+        let ampSli7 = addSlider(#selector(setAmplitude7), value: 0.1)
+        ampSli7.frame = CGRectMake(340, 170, 20, 80)
+        amplitudeLabel8 = addLabel("1\n1/3")
+        amplitudeLabel8!.frame = CGRectMake(395, 225, 40, 80)
+        let ampSli8 = addSlider(#selector(setAmplitude8), value: 0.1)
+        ampSli8.frame = CGRectMake(395, 170, 20, 80)
+        amplitudeLabel9 = addLabel("1")
+        amplitudeLabel9!.frame = CGRectMake(450, 225, 40, 80)
+        let ampSli9 = addSlider(#selector(setAmplitude9), value: 0.1)
+        ampSli9.frame = CGRectMake(450, 170, 20, 80)
+        let rampSli = addSlider(#selector(setRamp), value: 0.1)
+        rampSli.frame.origin.y = 10
+        let rampLab = addLabel("Portamento")
+        rampLab.frame = CGRectMake(200, 30, 120, 20)
+    }
+    
+    func noteOn(note: Int) {
+        setFrequency(note)
+        start()
+    }
+    
+    func noteOff(note: Int) {
+        stop()
     }
     
     func start() {
-        oscillator1.play()
-        oscillator2.play()
-        oscillator3.play()
-        oscillator4.play()
-        oscillator5.play()
-        oscillator6.play()
-        oscillator7.play()
-        oscillator8.play()
-        oscillator9.play()
+        
+        for i in 0...8 {
+            oscillArr[i].play()
+        }
     }
     func stop() {
-        oscillator1.stop()
-        oscillator2.stop()
-        oscillator3.stop()
-        oscillator4.stop()
-        oscillator5.stop()
-        oscillator6.stop()
-        oscillator7.stop()
-        oscillator8.stop()
-        oscillator9.stop()
+        for i in 0...8 {
+            oscillArr[i].stop()
+        }
     }
     
-    func setFrequency(slider: Slider) {
-        oscillator1.frequency = (Double(slider.value)-12).midiNoteToFrequency()
-        oscillator2.frequency = (Double(slider.value)+7).midiNoteToFrequency()
-        oscillator3.frequency = (Double(slider.value)).midiNoteToFrequency()
-        let frequency = String(format: "%0.1f", oscillator3.frequency)
-        frequencyLabel!.text = "Midi Note: \(frequency)"
-        oscillator4.frequency = (Double(slider.value)+12).midiNoteToFrequency()
-        oscillator5.frequency = (Double(slider.value)+19).midiNoteToFrequency()
-        oscillator6.frequency = (Double(slider.value)+24).midiNoteToFrequency()
-        oscillator7.frequency = (Double(slider.value)+28).midiNoteToFrequency()
-        oscillator8.frequency = (Double(slider.value)+31).midiNoteToFrequency()
-        oscillator9.frequency = (Double(slider.value)+36).midiNoteToFrequency()
+    func setRamp(slider: Slider) {
+        for i in 0...8 {
+            oscillArr[i].rampTime = Double(slider.value)
+        }
+    }
+    
+    func setFrequency(val: Int) {
+        oscillator1.frequency = (val-12).midiNoteToFrequency()
+        oscillator2.frequency = (val+7).midiNoteToFrequency()
+        oscillator3.frequency = val.midiNoteToFrequency()
+        oscillator4.frequency = (val+12).midiNoteToFrequency()
+        oscillator5.frequency = (val+19).midiNoteToFrequency()
+        oscillator6.frequency = (val+24).midiNoteToFrequency()
+        oscillator7.frequency = (val+28).midiNoteToFrequency()
+        oscillator8.frequency = (val+31).midiNoteToFrequency()
+        oscillator9.frequency = (val+36).midiNoteToFrequency()
     }
     
     func setAmplitude1(slider: Slider) {
         oscillator1.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator1.amplitude)
-        amplitudeLabel1!.text = "Amplitude 16: \(amp)"
     }
     func setAmplitude2(slider: Slider) {
         oscillator2.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator2.amplitude)
-        amplitudeLabel2!.text = "Amplitude 5 1/3: \(amp)"
     }
     func setAmplitude3(slider: Slider) {
         oscillator3.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator3.amplitude)
-        amplitudeLabel3!.text = "Amplitude 8: \(amp)"
     }
     func setAmplitude4(slider: Slider) {
         oscillator4.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator4.amplitude)
-        amplitudeLabel4!.text = "Amplitude 4: \(amp)"
     }
     func setAmplitude5(slider: Slider) {
         oscillator5.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator5.amplitude)
-        amplitudeLabel5!.text = "Amplitude 2 2/3: \(amp)"
     }
     func setAmplitude6(slider: Slider) {
         oscillator6.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator6.amplitude)
-        amplitudeLabel6!.text = "Amplitude 2: \(amp)"
     }
     func setAmplitude7(slider: Slider) {
         oscillator7.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator7.amplitude)
-        amplitudeLabel7!.text = "Amplitude 1 3/5: \(amp)"
     }
     func setAmplitude8(slider: Slider) {
         oscillator8.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator8.amplitude)
-        amplitudeLabel8!.text = "Amplitude 1 1/3: \(amp)"
     }
     func setAmplitude9(slider: Slider) {
         oscillator9.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator9.amplitude)
-        amplitudeLabel9!.text = "Amplitude 1: \(amp)"
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
