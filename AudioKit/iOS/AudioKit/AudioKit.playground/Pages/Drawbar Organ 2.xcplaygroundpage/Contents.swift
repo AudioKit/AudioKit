@@ -21,28 +21,14 @@ var baseNote = 0
 class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
     var amplitudeLabels = [Label]()
-    
+    var sliders = [Slider]()
     override func setup() {
         addTitle("Drawbar Organ")
-        
-        amplitudeLabels.append(addLabel("Amplitude 16: 0.1"))
-        addSlider(#selector(setAmplitude1), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 5 1/3: 0.1"))
-        addSlider(#selector(setAmplitude2), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 8: 0.1"))
-        addSlider(#selector(setAmplitude3), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 4: 0.1"))
-        addSlider(#selector(setAmplitude4), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 2 2/3: 0.1"))
-        addSlider(#selector(setAmplitude5), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 2: 0.1"))
-        addSlider(#selector(setAmplitude6), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 1 3/5: 0.1"))
-        addSlider(#selector(setAmplitude7), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 1 1/3: 0.1"))
-        addSlider(#selector(setAmplitude8), value: 0.1)
-        amplitudeLabels.append(addLabel("Amplitude 1: 0.1"))
-        addSlider(#selector(setAmplitude9), value: 0.1)
+        for i in 0 ..< noteCount {
+            amplitudeLabels.append(addLabel("Amplitude \(names[i]): \(amplitudes[i])"))
+            sliders.append(addSlider(#selector(setAmplitude), value: amplitudes[i]))
+            
+        }
         
         let keyboard = KeyboardView(width: 500, height: 100, lowestKey: 48, totalKeys: 12)
         keyboard.frame.origin.y = CGFloat(yPosition)
@@ -74,22 +60,13 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         }
     }
     
-    func setAmplitude(index: Int, slider: Slider) {
-        amplitudes[index - 1] = Double(slider.value)
-        let amp = String(format: "%0.3f", amplitudes[index - 1])
-        amplitudeLabels[index - 1].text = "Amplitude \(names[index - 1]): \(amp)"
+    func setAmplitude(slider: Slider) {
+        if let index = sliders.indexOf(slider) {
+            amplitudes[index] = Double(slider.value)
+            let amp = String(format: "%0.3f", amplitudes[index])
+            amplitudeLabels[index].text = "Amplitude \(names[index]): \(amp)"
+        }
     }
-    
-    func setAmplitude1(slider: Slider) { setAmplitude(1, slider: slider) }
-    func setAmplitude2(slider: Slider) { setAmplitude(2, slider: slider) }
-    func setAmplitude3(slider: Slider) { setAmplitude(3, slider: slider) }
-    func setAmplitude4(slider: Slider) { setAmplitude(4, slider: slider) }
-    func setAmplitude5(slider: Slider) { setAmplitude(5, slider: slider) }
-    func setAmplitude6(slider: Slider) { setAmplitude(6, slider: slider) }
-    func setAmplitude7(slider: Slider) { setAmplitude(7, slider: slider) }
-    func setAmplitude8(slider: Slider) { setAmplitude(8, slider: slider) }
-    func setAmplitude9(slider: Slider) { setAmplitude(9, slider: slider) }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
