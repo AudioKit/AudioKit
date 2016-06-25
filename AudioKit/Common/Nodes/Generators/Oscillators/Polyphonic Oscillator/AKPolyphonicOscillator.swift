@@ -121,7 +121,7 @@ public class AKPolyphonicOscillator: AKMIDINode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x6f73636c /*'oscl'*/
+        description.componentSubType      = 0x706f7363 /*'posc'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0

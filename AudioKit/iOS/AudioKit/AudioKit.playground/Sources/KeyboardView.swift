@@ -18,6 +18,8 @@ public class KeyboardView: UIView {
     public var delegate: KeyboardDelegate?
     var keys: [UIView] = []
     
+    var onKeys: Set<UIView> = []
+    
     let notesWithFlats  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
     
@@ -72,6 +74,9 @@ public class KeyboardView: UIView {
             for key in keys {
                 if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOn(key.tag)
+                    unhighlightKeys()
+                    key.backgroundColor = UIColor.redColor()
+                    onKeys.insert(key)
                 }
             }
             
@@ -84,6 +89,9 @@ public class KeyboardView: UIView {
             for key in keys {
                 if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOn(key.tag)
+                    unhighlightKeys()
+                    key.backgroundColor = UIColor.redColor()
+                    onKeys.insert(key)
                 }
             }
             
@@ -97,8 +105,20 @@ public class KeyboardView: UIView {
             for key in keys {
                 if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
                     delegate?.noteOff(key.tag)
+                    unhighlightKeys()
                 }
             }
         }
+    }
+    
+    func unhighlightKeys() {
+        for key in onKeys {
+            if notesWithSharps[key.tag % 12].rangeOfString("#") != nil {
+                key.backgroundColor = UIColor.blackColor()
+            } else {
+                key.backgroundColor = UIColor.whiteColor()
+            }
+        }
+        onKeys.removeAll()
     }
 }
