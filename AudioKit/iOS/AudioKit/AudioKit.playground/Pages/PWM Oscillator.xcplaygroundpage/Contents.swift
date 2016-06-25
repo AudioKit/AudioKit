@@ -2,12 +2,12 @@
 //:
 //: ---
 //:
-//: ## Square Wave Oscillator
+//: ## PWM Oscillator
 //: 
 import XCPlayground
 import AudioKit
 
-var oscillator = AKSquareWaveOscillator()
+var oscillator = AKPWMOscillator()
 oscillator.pulseWidth = 0.5
 var currentAmplitude = 0.1
 var currentRampTime = 0.0
@@ -25,7 +25,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var rampTimeLabel: Label?
     
     override func setup() {
-        addTitle("Square Wave Oscillator")
+        addTitle("PWM Oscillator")
         
         amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
         addSlider(#selector(setAmplitude), value: currentAmplitude)

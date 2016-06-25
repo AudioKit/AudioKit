@@ -2,7 +2,7 @@ import XCPlayground
 import AudioKit
 
 //let osc = InstrumentDemo()
-let osc = AKPolyphonicOscillator(waveform: AKTable(.Sine), attackDuration: 0.001, releaseDuration: 0)
+let osc = AKOscillatorBank(waveform: AKTable(.Sine), attackDuration: 0.001, releaseDuration: 0)
 
 AudioKit.output = osc
 AudioKit.start()

@@ -1,17 +1,17 @@
 //
-//  AKPolyphonicOscillatorAudioUnit.h
+//  AKOscillatorBankAudioUnit.h
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPolyphonicOscillatorAudioUnit_h
-#define AKPolyphonicOscillatorAudioUnit_h
+#ifndef AKOscillatorBankAudioUnit_h
+#define AKOscillatorBankAudioUnit_h
 
 #import <AudioToolbox/AudioToolbox.h>
 
-@interface AKPolyphonicOscillatorAudioUnit : AUAudioUnit
+@interface AKOscillatorBankAudioUnit : AUAudioUnit
 @property (nonatomic) float attackDuration;
 @property (nonatomic) float releaseDuration;
 @property (nonatomic) float detuningOffset;
@@ -28,4 +28,4 @@
 
 @end
 
-#endif /* AKPolyphonicOscillatorAudioUnit_h */
+#endif /* AKOscillatorBankAudioUnit_h */

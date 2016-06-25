@@ -2,7 +2,7 @@ import XCPlayground
 import AudioKit
 
 //let osc = InstrumentDemo()
-let osc = AKMorphingPolyphonicOscillator()
+let osc = AKMorphingOscillatorBank()
 
 AudioKit.output = osc
 AudioKit.start()

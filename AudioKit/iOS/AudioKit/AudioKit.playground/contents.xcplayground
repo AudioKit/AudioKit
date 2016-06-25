@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='3D Panner'/>
@@ -24,6 +24,8 @@
         <page name='Decimator'/>
         <page name='Delay'/>
         <page name='Distortion'/>
+        <page name='Drawbar Organ'/>
+        <page name='Drawbar Organ 2'/>
         <page name='Dripping Sounds'/>
         <page name='Drum Synthesizers'/>
         <page name='Dry Wet Mixer'/>
@@ -37,6 +39,7 @@
         <page name='Flute'/>
         <page name='FM Oscillator Operation'/>
         <page name='FM Oscillator'/>
+        <page name='FM Oscillator Bank'/>
         <page name='Formant Filter'/>
         <page name='General Purpose Oscillator'/>
         <page name='Graphic Equalizer'/>
@@ -62,7 +65,7 @@
         <page name='Moog Ladder Filter Operation'/>
         <page name='Moog Ladder Filter'/>
         <page name='Morphing Oscillator'/>
-        <page name='Morphing Polyphonic Oscillator'/>
+        <page name='Morphing Oscillator Bank'/>
         <page name='Multi-tap Delay'/>
         <page name='MultiDelay Example'/>
         <page name='Newtons Cradle'/>
@@ -71,6 +74,7 @@
         <page name='Noise Operations'/>
         <page name='Non-Audio Tutorial'/>
         <page name='Oscillator'/>
+        <page name='Oscillator Bank'/>
         <page name='Output Waveform Plot'/>
         <page name='Parameter Ramp Time'/>
         <page name='Parametric Equalizer'/>
@@ -83,8 +87,6 @@
         <page name='Playback Speed'/>
         <page name='Plucked String Operation'/>
         <page name='Plucked String'/>
-        <page name='Polyphonic Oscillator'/>
-        <page name='Polyphonic FM Oscillator'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>
@@ -115,8 +117,6 @@
         <page name='Using Functions'/>
         <page name='Variable Delay Operation'/>
         <page name='Variable Delay'/>
-        <page name='Drawbar Organ'/>
-        <page name='Drawbar Organ 2'/>
         <page name='AKTapeRecorder2'/>
     </pages>
 </playground>

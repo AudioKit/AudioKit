@@ -1,13 +1,13 @@
 //
-//  AKPolyphonicOscillatorDSPKernel.hpp
+//  AKOscillatorBankDSPKernel.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKPolyphonicOscillatorDSPKernel_hpp
-#define AKPolyphonicOscillatorDSPKernel_hpp
+#ifndef AKOscillatorBankDSPKernel_hpp
+#define AKOscillatorBankDSPKernel_hpp
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -35,13 +35,13 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKPolyphonicOscillatorDSPKernel : public DSPKernel {
+class AKOscillatorBankDSPKernel : public DSPKernel {
 public:
     // MARK: Types
     struct NoteState {
         NoteState* next;
         NoteState* prev;
-        AKPolyphonicOscillatorDSPKernel* kernel;
+        AKOscillatorBankDSPKernel* kernel;
         
         enum { stageOff, stageAttack, stageSustain, stageRelease };
         double envLevel = 0.;
@@ -179,7 +179,7 @@ public:
 
     // MARK: Member Functions
 
-    AKPolyphonicOscillatorDSPKernel() {
+    AKOscillatorBankDSPKernel() {
         noteStates.resize(128);
         for (NoteState& state : noteStates) {
             state.kernel = this;
@@ -428,4 +428,4 @@ public:
     ParameterRamper detuningMultiplierRamper = 1;
 };
 
-#endif /* AKPolyphonicOscillatorDSPKernel_hpp */
+#endif /* AKOscillatorBankDSPKernel_hpp */

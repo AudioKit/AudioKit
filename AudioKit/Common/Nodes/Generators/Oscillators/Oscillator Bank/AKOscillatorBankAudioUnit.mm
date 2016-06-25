@@ -1,20 +1,20 @@
 //
-//  AKPolyphonicOscillatorAudioUnit.mm
+//  AKOscillatorBankAudioUnit.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKPolyphonicOscillatorAudioUnit.h"
-#import "AKPolyphonicOscillatorDSPKernel.hpp"
+#import "AKOscillatorBankAudioUnit.h"
+#import "AKOscillatorBankDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKPolyphonicOscillatorAudioUnit()
+@interface AKOscillatorBankAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
 
@@ -24,9 +24,9 @@
 
 @end
 
-@implementation AKPolyphonicOscillatorAudioUnit {
+@implementation AKOscillatorBankAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKPolyphonicOscillatorDSPKernel _kernel;
+    AKOscillatorBankDSPKernel _kernel;
 
     BufferedInputBus _inputBus;
 }
@@ -163,7 +163,7 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKPolyphonicOscillatorDSPKernel *oscillatorKernel = &_kernel;
+    __block AKOscillatorBankDSPKernel *oscillatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -227,7 +227,7 @@
      Capture in locals to avoid ObjC member lookups. If "self" is captured in
      render, we're doing it wrong.
      */
-    __block AKPolyphonicOscillatorDSPKernel *state = &_kernel;
+    __block AKOscillatorBankDSPKernel *state = &_kernel;
     __block BufferedInputBus *input = &_inputBus;
 
     return ^AUAudioUnitStatus(
