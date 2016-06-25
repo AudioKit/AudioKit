@@ -74,7 +74,7 @@ public:
             
             if (next) next->prev = prev;
             
-            prev = next = nullptr;
+            //prev = next = nullptr; Had to remove due to a click, potentially bad
             
             --kernel->playingNotesCount;
 

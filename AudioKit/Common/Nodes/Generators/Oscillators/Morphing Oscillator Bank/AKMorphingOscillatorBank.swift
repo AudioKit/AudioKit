@@ -112,7 +112,7 @@ public class AKMorphingOscillatorBank: AKMIDINode {
         waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
         index: Double = 0,
         attackDuration: Double = 0.001,
-        releaseDuration: Double = 0,
+        releaseDuration: Double = 0.001,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
