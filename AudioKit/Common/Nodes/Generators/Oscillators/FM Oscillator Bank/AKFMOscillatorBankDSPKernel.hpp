@@ -1,13 +1,13 @@
 //
-//  AKMorphingPolyphonicOscillatorDSPKernel.hpp
+//  AKFMOscillatorBankDSPKernel.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKMorphingPolyphonicOscillatorDSPKernel_hpp
-#define AKMorphingPolyphonicOscillatorDSPKernel_hpp
+#ifndef AKFMOscillatorBankDSPKernel_hpp
+#define AKFMOscillatorBankDSPKernel_hpp
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -20,10 +20,13 @@ extern "C" {
 }
 
 enum {
-    attackDurationAddress = 0,
-    releaseDurationAddress = 1,
-    detuningOffsetAddress = 2,
-    detuningMultiplierAddress = 3
+    carrierMultiplierAddress = 0,
+    modulatingMultiplierAddress = 1,
+    modulationIndexAddress = 2,
+    attackDurationAddress = 3,
+    releaseDurationAddress = 4,
+    detuningOffsetAddress = 5,
+    detuningMultiplierAddress = 6
 };
 
 static inline double pow2(double x) {
@@ -35,13 +38,13 @@ static inline double noteToHz(int noteNumber)
     return 440. * exp2((noteNumber - 69)/12.);
 }
 
-class AKMorphingPolyphonicOscillatorDSPKernel : public DSPKernel {
+class AKFMOscillatorBankDSPKernel : public DSPKernel {
 public:
     // MARK: Types
     struct NoteState {
         NoteState* next;
         NoteState* prev;
-        AKMorphingPolyphonicOscillatorDSPKernel* kernel;
+        AKFMOscillatorBankDSPKernel* kernel;
         
         enum { stageOff, stageAttack, stageSustain, stageRelease };
         double envLevel = 0.;
@@ -50,14 +53,13 @@ public:
         int stage = stageOff;
         int envRampSamples = 0;
         
-        sp_oscmorph *osc;
+        sp_fosc *fosc;
         
         void init() {
-            sp_oscmorph_create(&osc);
-            sp_oscmorph_init(kernel->sp, osc, kernel->ft_array, 4, 0);
-            osc->freq = 0;
-            osc->amp = 0;
-            osc->wtpos = 0;
+            sp_fosc_create(&fosc);
+            sp_fosc_init(kernel->sp, fosc, kernel->ftbl);
+            fosc->freq = 0;
+            fosc->amp = 0;
         }
 
         
@@ -77,7 +79,7 @@ public:
             
             --kernel->playingNotesCount;
 
-            sp_oscmorph_destroy(&osc);
+            sp_fosc_destroy(&fosc);
         }
         
         void add() {
@@ -99,8 +101,8 @@ public:
                 }
             } else {
                 if (stage == stageOff) { add(); }
-                osc->freq = (float)noteToHz(noteNumber);
-                osc->amp = (float)pow2(velocity / 127.);
+                fosc->freq = (float)noteToHz(noteNumber);
+                fosc->amp = (float)pow2(velocity / 127.);
                 stage = stageAttack;
                 envRampSamples = kernel->attackSamples;
                 envSlope = (1.0 - envLevel) / envRampSamples;
@@ -112,11 +114,13 @@ public:
         {
             int framesRemaining = n;
             
-            float originalFrequency = osc->freq;
-            osc->freq *= kernel->detuningMultiplier;
-            osc->freq += kernel->detuningOffset;
-            osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
-            osc->wtpos = kernel->index;
+            float originalFrequency = fosc->freq;
+            fosc->freq *= kernel->detuningMultiplier;
+            fosc->freq += kernel->detuningOffset;
+            fosc->freq = clamp(fosc->freq, 0.0f, 22050.0f);
+            fosc->car = kernel->carrierMultiplier;
+            fosc->mod = kernel->modulatingMultiplier;
+            fosc->indx = kernel->modulationIndex;
             
             while (framesRemaining) {
                 switch (stage) {
@@ -127,7 +131,7 @@ public:
                         int framesThisTime = std::min(framesRemaining, envRampSamples);
                         for (int i = 0; i < framesThisTime; ++i) {
                             float x = 0;
-                            sp_oscmorph_compute(kernel->sp, osc, nil, &x);
+                            sp_fosc_compute(kernel->sp, fosc, nil, &x);
                             *outL++ += envLevel * x;
                             *outR++ += envLevel * x;
                             
@@ -139,30 +143,30 @@ public:
                         if (envRampSamples == 0) {
                             stage = stageSustain;
                         }
-                        osc->freq = originalFrequency;
+                        fosc->freq = originalFrequency;
                         break;
                     }
                     case stageSustain : {
                         for (int i = 0; i < framesRemaining; ++i) {
                             float x = 0;
-                            sp_oscmorph_compute(kernel->sp, osc, nil, &x);
+                            sp_fosc_compute(kernel->sp, fosc, nil, &x);
                             *outL++ += envLevel * x;
                             *outR++ += envLevel * x;
                         }
-                        osc->freq = originalFrequency;
+                        fosc->freq = originalFrequency;
                         return;
                     }
                     case stageRelease : {
                         int framesThisTime = std::min(framesRemaining, envRampSamples);
                         for (int i = 0; i < framesThisTime; ++i) {
                             float x = 0;
-                            sp_oscmorph_compute(kernel->sp, osc, nil, &x);
+                            sp_fosc_compute(kernel->sp, fosc, nil, &x);
                             *outL++ += envLevel * x;
                             *outR++ += envLevel * x;
                             envLevel += envSlope;
                         }
                         envRampSamples -= framesThisTime;
-                        osc->freq = originalFrequency;
+                        fosc->freq = originalFrequency;
                         if (envRampSamples == 0) {
                             clear();
                             remove();
@@ -181,7 +185,7 @@ public:
 
     // MARK: Member Functions
 
-    AKMorphingPolyphonicOscillatorDSPKernel() {
+    AKFMOscillatorBankDSPKernel() {
         noteStates.resize(128);
         for (NoteState& state : noteStates) {
             state.kernel = this;
@@ -203,17 +207,13 @@ public:
         detuningMultiplierRamper.init();
     }
 
-    void setupWaveform(uint32_t waveform, uint32_t size) {
-        tbl_size = size;
-        sp_ftbl_create(sp, &ft_array[waveform], tbl_size);
+    void setupWaveform(uint32_t size) {
+        ftbl_size = size;
+        sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
-    
-    void setWaveformValue(uint32_t waveform, uint32_t index, float value) {
-        ft_array[waveform]->tbl[index] = value;
-    }
-    
-    void setIndex(float value) {
-        index = clamp(value, 0.0f, 1000.0f);
+
+    void setWaveformValue(uint32_t index, float value) {
+        ftbl->tbl[index] = value;
     }
 
     void startNote(int note, int velocity) {
@@ -241,6 +241,21 @@ public:
         detuningOffsetRamper.reset();
         detuningMultiplierRamper.reset();
     }
+    
+    void setCarrierMultiplier(float value) {
+        carrierMultiplier = clamp(value, 0.0f, 1000.0f);
+        carrierMultiplierRamper.setImmediate(carrierMultiplier);
+    }
+    
+    void setModulatingMultiplier(float value) {
+        modulatingMultiplier = clamp(value, 0.0f, 1000.0f);
+        modulatingMultiplierRamper.setImmediate(modulatingMultiplier);
+    }
+    
+    void setModulationIndex(float value) {
+        modulationIndex = clamp(value, 0.0f, 1000.0f);
+        modulationIndexRamper.setImmediate(modulationIndex);
+    }
 
     void setAttackDuration(float value) {
         attackDuration = clamp(value, (float)0, (float)10);
@@ -267,6 +282,18 @@ public:
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
+                
+            case carrierMultiplierAddress:
+                carrierMultiplierRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
+                break;
+                
+            case modulatingMultiplierAddress:
+                modulatingMultiplierRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
+                break;
+                
+            case modulationIndexAddress:
+                modulationIndexRamper.setUIValue(clamp(value, 0.0f, 1000.0f));
+                break;
 
             case attackDurationAddress:
                 attackDuration = clamp(value, 0.001f, 10.f);
@@ -292,6 +319,15 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
 
+            case carrierMultiplierAddress:
+                return carrierMultiplierRamper.getUIValue();
+                
+            case modulatingMultiplierAddress:
+                return modulatingMultiplierRamper.getUIValue();
+                
+            case modulationIndexAddress:
+                return modulationIndexRamper.getUIValue();
+                
             case attackDurationAddress:
                 return attackDurationRamper.getUIValue();
 
@@ -311,6 +347,17 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
                 
+            case carrierMultiplierAddress:
+                carrierMultiplierRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
+                break;
+                
+            case modulatingMultiplierAddress:
+                modulatingMultiplierRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
+                break;
+                
+            case modulationIndexAddress:
+                modulationIndexRamper.startRamp(clamp(value, 0.0f, 1000.0f), duration);
+                break;
             case attackDurationAddress:
                 attackDurationRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
                 break;
@@ -373,6 +420,9 @@ public:
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
+        carrierMultiplier = double(carrierMultiplierRamper.getAndStep());
+        modulatingMultiplier = double(modulatingMultiplierRamper.getAndStep());
+        modulationIndex = double(modulationIndexRamper.getAndStep());
         attackDuration = double(attackDurationRamper.getAndStep());
         attackSamples = sampleRate * attackDuration;
         releaseDuration = double(releaseDurationRamper.getAndStep());
@@ -410,11 +460,12 @@ private:
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
+    sp_ftbl *ftbl;
+    UInt32 ftbl_size = 4096;
     
-    sp_ftbl *ft_array[4];
-    UInt32 tbl_size = 4096;
-
-    float index = 0;
+    float carrierMultiplier = 1.0;
+    float modulatingMultiplier = 1;
+    float modulationIndex = 1;
 
     float attackDuration = 0;
     float releaseDuration = 0;
@@ -429,7 +480,12 @@ public:
 
     int attackSamples   = sampleRate * attackDuration;
     int releaseSamples  = sampleRate * releaseDuration;
+
     
+    ParameterRamper carrierMultiplierRamper = 1.0;
+    ParameterRamper modulatingMultiplierRamper = 1;
+    ParameterRamper modulationIndexRamper = 1;
+
     ParameterRamper attackDurationRamper = 0;
     ParameterRamper releaseDurationRamper = 0;
 
@@ -437,4 +493,4 @@ public:
     ParameterRamper detuningMultiplierRamper = 1;
 };
 
-#endif /* AKMorphingPolyphonicOscillatorDSPKernel_hpp */
+#endif /* AKFMOscillatorBankDSPKernel_hpp */
