@@ -77,9 +77,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKMorphingPolyphonicOscillatorAudioUnit.h"
 #import "AKOscillatorAudioUnit.h"
 #import "AKPolyphonicOscillatorAudioUnit.h"
-#import "AKSawtoothOscillatorAudioUnit.h"
 #import "AKSquareWaveOscillatorAudioUnit.h"
-#import "AKTriangleOscillatorAudioUnit.h"
 
 // Generators / Physical Models
 #import "AKDripAudioUnit.h"

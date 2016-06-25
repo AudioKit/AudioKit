@@ -83,10 +83,10 @@
 //:
 //: * [FM Oscillator](FM%20Oscillator)
 //: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
+//: * [Mono Synth](Mono%20Synth)
 //: * [Morphing Oscillator](Morphing%20Oscillator)
 //: * [Sawtooth Oscillator](Sawtooth%20Oscillator)
 //: * [Square Wave Oscillator](Square%20Wave%20Oscillator)
-//: * [Triangular Wave Oscillator](Triangular%20Wave%20Oscillator)
 //:
 //: ### Noise Generators
 //:

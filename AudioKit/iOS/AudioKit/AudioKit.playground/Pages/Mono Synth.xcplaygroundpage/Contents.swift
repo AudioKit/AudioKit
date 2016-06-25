@@ -2,13 +2,18 @@
 //:
 //: ---
 //:
-//: ## Triangular Wave Oscillator
-//:
+//: ## Mono Synth
+//: 
 import XCPlayground
 import AudioKit
 
-var oscillator = AKTriangleOscillator()
-var currentAmplitude = 0.5
+//: Choose the waveform shape here
+
+let waveform = AKTable(.Sawtooth) // .Triangle, etc.
+
+var oscillator = AKOscillator(waveform: waveform)
+
+var currentAmplitude = 0.1
 var currentRampTime = 0.0
 
 AudioKit.output = oscillator
@@ -23,7 +28,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var rampTimeLabel: Label?
     
     override func setup() {
-        addTitle("Triangular Wave Oscillator")
+        addTitle("Mono Synth")
         
         amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
         addSlider(#selector(setAmplitude), value: currentAmplitude)
@@ -72,5 +77,3 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
