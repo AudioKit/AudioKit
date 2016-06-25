@@ -87,6 +87,8 @@
         <page name='Playback Speed'/>
         <page name='Plucked String Operation'/>
         <page name='Plucked String'/>
+        <page name='PWM Oscillator'/>
+        <page name='PWM Oscillator Bank'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>
@@ -101,7 +103,6 @@
         <page name='Splitting Nodes'/>
         <page name='Sporth Based Effect'/>
         <page name='Sporth Based Generator'/>
-        <page name='Square Wave Oscillator'/>
         <page name='Stereo Panning'/>
         <page name='String Resonator'/>
         <page name='Tanh Distortion'/>
