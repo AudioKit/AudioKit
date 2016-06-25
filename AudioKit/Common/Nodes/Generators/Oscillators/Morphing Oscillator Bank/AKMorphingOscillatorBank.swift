@@ -99,11 +99,6 @@ public class AKMorphingOscillatorBank: AKMIDINode {
     }
 
     // MARK: - Initialization
-    
-    /// Initialize the oscillator with defaults
-    override public convenience init() {
-        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
-    }
 
     /// Initialize this oscillator node
     ///
@@ -114,7 +109,7 @@ public class AKMorphingOscillatorBank: AKMIDINode {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveformArray: [AKTable],
+        waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
         index: Double = 0,
         attackDuration: Double = 0.001,
         releaseDuration: Double = 0,
