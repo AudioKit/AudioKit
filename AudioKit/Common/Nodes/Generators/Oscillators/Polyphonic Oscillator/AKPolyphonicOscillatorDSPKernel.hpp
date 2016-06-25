@@ -49,25 +49,13 @@ public:
         double ampL = 1.;
         double ampR = 1.;
         
-        sp_data *sp;
         sp_osc *osc;
-        sp_ftbl *ftbl;
-        UInt32 ftbl_size = 4096;
         
         void init() {
-            NSLog(@"Init NoteState");
-
-            sp_create(&sp);
-            sp->sr = 44100.; // AOP
-            sp->nchan = 2; // AOP
-            sp_ftbl_create(sp, &ftbl, 2048);  //AOP TEMP
             sp_osc_create(&osc);
-            
-            sp_gen_sine(sp, ftbl); //AOP TEMP
-            sp_osc_init(sp, osc, ftbl, 0);
+            sp_osc_init(kernel->sp, osc, kernel->ftbl, 0);
             osc->freq = 440;
             osc->amp = 1;
-            NSLog(@"Finished Init NoteState");
         }
         
         int stage = stageOff;
@@ -91,8 +79,6 @@ public:
             --kernel->playingNotesCount;
 
             sp_osc_destroy(&osc);
-            sp_destroy(&sp);
-
         }
         
         void add() {
@@ -106,7 +92,6 @@ public:
         
         void noteOn(int noteNumber, int velocity)
         {
-            NSLog(@"Got to the NoteState noteOn");
             if (velocity == 0) {
                 if (stage == stageAttack || stage == stageSustain) {
                     stage = stageRelease;
@@ -133,6 +118,10 @@ public:
         void run(int n, float* outL, float* outR)
         {
             int framesRemaining = n;
+            
+            float originalFrequency = osc->freq;
+            osc->freq *= kernel->detuningMultiplier;
+            osc->freq += kernel->detuningOffset;
 
             while (framesRemaining) {
                 switch (stage) {
@@ -145,7 +134,7 @@ public:
                         int framesThisTime = std::min(framesRemaining, envRampSamples);
                         for (int i = 0; i < framesThisTime; ++i) {
                             float x = 0;
-                            sp_osc_compute(sp, osc, nil, &x);
+                            sp_osc_compute(kernel->sp, osc, nil, &x);
 //                            double x = envLevel * pow3(sin(oscPhase)); // cubing the sine adds 3rd harmonic.
                             *outL++ += ampL * x;
                             *outR++ += ampR * x;
@@ -159,18 +148,20 @@ public:
                         if (envRampSamples == 0) {
                             stage = stageSustain;
                         }
+                        osc->freq = originalFrequency;
                         break;
                     }
                     case stageSustain : {
                         for (int i = 0; i < framesRemaining; ++i) {
                             float x = 0;
-                            sp_osc_compute(sp, osc, nil, &x);
+                            sp_osc_compute(kernel->sp, osc, nil, &x);
 //                            double x = pow3(sin(oscPhase));
                             *outL++ += ampL * x;
                             *outR++ += ampR * x;
 //                            oscPhase += oscFreq;
 //                            if (oscPhase >= kTwoPi) oscPhase -= kTwoPi;
                         }
+                        osc->freq = originalFrequency;
                         return;
                     }
                     case stageRelease : {
@@ -179,7 +170,7 @@ public:
                         int framesThisTime = std::min(framesRemaining, envRampSamples);
                         for (int i = 0; i < framesThisTime; ++i) {
                             float x = 0;
-                            sp_osc_compute(sp, osc, nil, &x);
+                            sp_osc_compute(kernel->sp, osc, nil, &x);
 //                            double x = envLevel * pow3(sin(oscPhase));
                             *outL++ += ampL * x;
                             *outR++ += ampR * x;
@@ -187,6 +178,7 @@ public:
 //                            oscPhase += oscFreq;
                         }
                         envRampSamples -= framesThisTime;
+                        osc->freq = originalFrequency;
                         if (envRampSamples == 0) {
                             clear();
                             remove();
@@ -198,6 +190,7 @@ public:
                         return;
                 }
             }
+            
         }
         
     };
@@ -216,22 +209,18 @@ public:
 
         sampleRate = float(inSampleRate);
 
-//        sp_create(&sp);
-//        sp->sr = sampleRate;
-//        sp->nchan = channels;
-//        sp_osc_create(&osc);
-//        sp_osc_init(sp, osc, ftbl, 0);
-//        osc->freq = 440;
-//        osc->amp = 1;
+        sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
     }
 
     void setupWaveform(uint32_t size) {
-//        ftbl_size = size;
-//        sp_ftbl_create(sp, &ftbl, ftbl_size);
+        ftbl_size = size;
+        sp_ftbl_create(sp, &ftbl, ftbl_size);
     }
 
     void setWaveformValue(uint32_t index, float value) {
-//        ftbl->tbl[index] = value;
+        ftbl->tbl[index] = value;
     }
 
     void startNote(int note, int velocity) {
@@ -244,8 +233,7 @@ public:
     }
 
     void destroy() {
-//        sp_osc_destroy(&osc);
-//        sp_destroy(&sp);
+        sp_destroy(&sp);
     }
 
     void reset() {
@@ -352,6 +340,9 @@ public:
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
         
+        detuningOffset = double(detuningOffsetRamper.getAndStep());
+        detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
+        
         NoteState* noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
@@ -363,29 +354,6 @@ public:
             outL[i] *= .1f;
             outR[i] *= .1f;
         }
-        
-//        for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
-//            int frameOffset = int(frameIndex + bufferOffset);
-//
-//            detuningOffset = double(detuningOffsetRamper.getAndStep());
-//            detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
-//
-//            osc->freq = frequency * detuningMultiplier + detuningOffset;
-//            osc->amp = amplitude;
-//
-//            float temp = 0;
-//            for (int channel = 0; channel < channels; ++channel) {
-//                float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
-//                if (started) {
-//                    if (channel == 0) {
-//                        sp_osc_compute(sp, osc, nil, &temp);
-//                    }
-//                    *out = temp;
-//                } else {
-//                    *out = 0.0;
-//                }
-//            }
-//        }
     }
 
     // MARK: Member Variables
@@ -399,6 +367,7 @@ private:
 
     AudioBufferList *outBufferListPtr = nullptr;
 
+    sp_data *sp;
     sp_ftbl *ftbl;
     UInt32 ftbl_size = 4096;
     
