@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView {
     var amplitudeLabel9: Label?
     
     override func setup() {
-        addTitle("Oscillator")
+        addTitle("Drawbar Organ")
         
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
