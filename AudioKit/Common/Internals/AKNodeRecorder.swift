@@ -25,40 +25,35 @@ public class AKNodeRecorder {
     private var bufferSize: AVAudioFrameCount
     private var recording = false
 
+
+    private let previousAVAudioSessionCategory: String?
+
     public init(node: AKNode = AudioKit.output!, file: AKAudioFile? = nil, buffer bufferSize: UInt32 = 1024  ) throws {
 
 
         // requestRecordPermission...
         var permissionGranted: Bool = false
-#if os(iOS)
-        AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
-            if granted {
-                permissionGranted = true
-            } else {
-                permissionGranted = false
-            }
-        })
+        #if os(iOS)
 
-        if !permissionGranted {
-            print("AKNodeRecorder Error: Permission to record not granted")
-            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
-        }
-#endif
-        
-        // AVAudioSession setup
+            self.previousAVAudioSessionCategory = AVAudioSession.sharedInstance().category
+
+            AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
+                if granted {
+                    permissionGranted = true
+                } else {
+                    permissionGranted = false
+                }
+            })
+
+            if !permissionGranted {
+                print("AKNodeRecorder Error: Permission to record not granted")
+                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
+            }
+        #endif
+
+        // AVAudioSession buffer setup
 
         self.bufferSize = bufferSize
-        let ioBufferDuration: NSTimeInterval = Double(bufferSize) / 44100.0
-
-#if os(iOS)
-        do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(ioBufferDuration)
-        } catch {
-            assertionFailure("AKAudioFileRecorder Error: AVAudioSession setup error: \(error)")
-        }
-#endif
-
         if file == nil {
             // We create a record file in temp directory
             do {
@@ -89,9 +84,24 @@ public class AKNodeRecorder {
             return
         }
 
+        // Sets AVAudioSession Category to be Play and Record
+        #if os(iOS)
+            do {
+                let session = AVAudioSession.sharedInstance()
+                let ioBufferDuration: NSTimeInterval = Double(bufferSize) / 44100.0
+                try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
+                try session.setPreferredIOBufferDuration(ioBufferDuration)
+                try session.setActive(true)
+            } catch {
+                assertionFailure("AKAudioFileRecorder Error: AVAudioSession setup error: \(error)")
+            }
+        #endif
+
+
+
+
         if  node != nil {
             recording = true
-
             print ("recording")
             node!.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: tape.processingFormat, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                 do {
@@ -113,6 +123,24 @@ public class AKNodeRecorder {
             print ("AKNodeRecorder Warning: Cannot stop recording, already stopped !")
             return
         }
+
+        // Revert AVAudioSession Category to previous settings
+        #if os(iOS)
+            do {
+                if previousAVAudioSessionCategory != nil {
+                    try AVAudioSession.sharedInstance().setCategory(previousAVAudioSessionCategory!)
+                } else {
+                    try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+                    print ("AKNodeRecorder Error: previousAVAudioSessionCategory is nil !")
+                    print ("AKNodeRecorder: AVAudioSession Category set to \"Ambient\".")
+                }
+            } catch {
+                assertionFailure("AKAudioFileRecorder Error: AVAudioSession setup error: \(error)")
+            }
+        #endif
+
+
+
 
         recording = false
         if  node != nil {
@@ -166,13 +194,13 @@ public class AKNodeRecorder {
         var tapeForReading: AKAudioFile
         do {
             tapeForReading = try AKAudioFile(readAVAudioFile: tape)
-             return tapeForReading
+            return tapeForReading
         } catch let error as NSError {
             print ("Cannot create readingTape")
             print ("Error: \(error.localizedDescription)")
             return nil
         }
-
+        
     }
-
+    
 }
