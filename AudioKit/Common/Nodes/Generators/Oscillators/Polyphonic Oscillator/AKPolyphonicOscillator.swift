@@ -150,6 +150,8 @@ public class AKPolyphonicOscillator: AKMIDINode {
 
         guard let tree = internalAU?.parameterTree else { return }
 
+        attackDurationParameter     = tree.valueForKey("attackDuration")     as? AUParameter
+        releaseDurationParameter    = tree.valueForKey("releaseDuration")    as? AUParameter
         detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
         detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
 
