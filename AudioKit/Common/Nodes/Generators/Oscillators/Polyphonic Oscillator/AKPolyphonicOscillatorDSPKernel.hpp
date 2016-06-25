@@ -99,7 +99,7 @@ public:
             } else {
                 if (stage == stageOff) { add(); }
                 osc->freq = (float)noteToHz(noteNumber);
-                osc->amp = (float)pow2(velocity / 127.) * .2;
+                osc->amp = (float)pow2(velocity / 127.);
                 stage = stageAttack;
                 envRampSamples = kernel->attackSamples;
                 envSlope = (1.0 - envLevel) / envRampSamples;
@@ -114,7 +114,7 @@ public:
             float originalFrequency = osc->freq;
             osc->freq *= kernel->detuningMultiplier;
             osc->freq += kernel->detuningOffset;
-            osc->freq = clamp(osc->freq, 0.0f, 22050.0f);//clamp(osc->freq, 0., 22050.);
+            osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
             
             while (framesRemaining) {
                 switch (stage) {
@@ -211,7 +211,7 @@ public:
     }
 
     void startNote(int note, int velocity) {
-        noteStates[note].noteOn(note, 127);
+        noteStates[note].noteOn(note, velocity);
     }
 
     void stopNote(int note) {
@@ -374,6 +374,11 @@ public:
         detuningOffset = double(detuningOffsetRamper.getAndStep());
         detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
         
+        for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
+            outL[i] = 0.0f;
+            outR[i] = 0.0f;
+        }
+        
         NoteState* noteState = playingNotes;
         while (noteState) {
             noteState->run(frameCount, outL, outR);
@@ -382,8 +387,8 @@ public:
 
         
         for (AUAudioFrameCount i = 0; i < frameCount; ++i) {
-            outL[i] *= .1f;
-            outR[i] *= .1f;
+            outL[i] *= .5f;
+            outR[i] *= .5f;
         }
     }
 

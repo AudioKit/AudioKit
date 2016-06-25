@@ -81,6 +81,7 @@
         <page name='Playback Speed'/>
         <page name='Plucked String Operation'/>
         <page name='Plucked String'/>
+        <page name='Polyphonic Oscillator'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>
