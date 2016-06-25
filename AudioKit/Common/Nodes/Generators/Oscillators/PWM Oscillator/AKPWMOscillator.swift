@@ -113,11 +113,6 @@ public class AKPWMOscillator: AKVoice {
     }
 
     // MARK: - Initialization
-    
-    /// Initialize the oscillator with defaults
-    override public convenience init() {
-        self.init(frequency: 440)
-    }
 
     /// Initialize this oscillator node
     ///
@@ -128,7 +123,7 @@ public class AKPWMOscillator: AKVoice {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        frequency: Double,
+        frequency: Double = 440,
         amplitude: Double = 1.0,
         pulseWidth: Double = 0.5,
         detuningOffset: Double = 0,

@@ -135,11 +135,6 @@ public class AKFMOscillatorBank: AKMIDINode {
     }
 
     // MARK: - Initialization
-    
-    /// Initialize the oscillator with defaults
-    override public convenience init() {
-        self.init(waveform: AKTable(.Sine))
-    }
 
     /// Initialize this oscillator node
     ///
@@ -150,7 +145,7 @@ public class AKFMOscillatorBank: AKMIDINode {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.Sine),
         carrierMultiplier: Double = 1.0,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,

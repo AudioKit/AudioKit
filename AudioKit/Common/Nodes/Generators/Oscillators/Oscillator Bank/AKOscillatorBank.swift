@@ -92,11 +92,6 @@ public class AKOscillatorBank: AKMIDINode {
 
     // MARK: - Initialization
     
-    /// Initialize the oscillator with defaults
-    override public convenience init() {
-        self.init(waveform: AKTable(.Sine))
-    }
-
     /// Initialize this oscillator node
     ///
     /// - parameter waveform:  The waveform of oscillation
@@ -106,7 +101,7 @@ public class AKOscillatorBank: AKMIDINode {
     /// - parameter detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable,
+        waveform: AKTable = AKTable(.Sine),
         attackDuration: Double = 0.001,
         releaseDuration: Double = 0,
         detuningOffset: Double = 0,

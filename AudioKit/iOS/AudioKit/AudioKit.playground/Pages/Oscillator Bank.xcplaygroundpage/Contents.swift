@@ -1,8 +1,7 @@
 import XCPlayground
 import AudioKit
 
-//let osc = InstrumentDemo()
-let osc = AKOscillatorBank(waveform: AKTable(.Sine), attackDuration: 0.001, releaseDuration: 0)
+let osc = AKOscillatorBank()
 
 AudioKit.output = osc
 AudioKit.start()
