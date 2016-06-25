@@ -1,7 +1,7 @@
 import XCPlayground
 import AudioKit
 
-let osc = AKOscillatorBank()
+let osc = AKOscillatorBank(waveform: AKTable(.Sine), attackDuration: 0.001, releaseDuration: 1.0)
 
 AudioKit.output = osc
 AudioKit.start()
@@ -14,7 +14,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var detuningMultiplierLabel: Label?
     
     override func setup() {
-        addTitle("Polyphonic Oscillator")
+        addTitle("Oscillator Bank")
         attackLabel = addLabel("Attack: \(osc.attackDuration)")
         addSlider(#selector(setAttack), value: osc.attackDuration, minimum: 0.0, maximum: 2.0)
 

@@ -8,7 +8,7 @@
 import XCPlayground
 import AudioKit
 
-var oscillator = AKPolyphonicOscillator()
+var oscillator = AKOscillatorBank()
 AudioKit.output = oscillator
 AudioKit.start()
 
