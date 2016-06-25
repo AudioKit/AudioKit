@@ -1,20 +1,20 @@
 //
-//  AKPolyphonicFMOscillatorAudioUnit.mm
+//  AKMorphingOscillatorBankAudioUnit.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKPolyphonicFMOscillatorAudioUnit.h"
-#import "AKPolyphonicFMOscillatorDSPKernel.hpp"
+#import "AKMorphingOscillatorBankAudioUnit.h"
+#import "AKMorphingOscillatorBankDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKPolyphonicFMOscillatorAudioUnit()
+@interface AKMorphingOscillatorBankAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
 
@@ -24,22 +24,16 @@
 
 @end
 
-@implementation AKPolyphonicFMOscillatorAudioUnit {
+@implementation AKMorphingOscillatorBankAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKPolyphonicFMOscillatorDSPKernel _kernel;
+    AKMorphingOscillatorBankDSPKernel _kernel;
 
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setCarrierMultiplier:(float)carrierMultiplier {
-    _kernel.setCarrierMultiplier(carrierMultiplier);
-}
-- (void)setModulatingMultiplier:(float)modulatingMultiplier {
-    _kernel.setModulatingMultiplier(modulatingMultiplier);
-}
-- (void)setModulationIndex:(float)modulationIndex {
-    _kernel.setModulationIndex(modulationIndex);
+- (void)setIndex:(float)index {
+    _kernel.setIndex(index);
 }
 
 - (void)setAttackDuration:(float)attackDuration {
@@ -55,11 +49,12 @@
     _kernel.setDetuningMultiplier(detuningMultiplier);
 }
 
-- (void)setupWaveform:(int)size {
-    _kernel.setupWaveform((uint32_t)size);
+- (void)setupWaveform:(UInt32)waveform size:(int)size {
+    _kernel.setupWaveform(waveform, (uint32_t)size);
 }
-- (void)setWaveformValue:(float)value atIndex:(UInt32)index; {
-    _kernel.setWaveformValue(index, value);
+
+- (void)setWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index {
+    _kernel.setWaveformValue(waveform, index, value);
 }
 
 - (void)startNote:(int)note velocity:(int)velocity {
@@ -93,42 +88,6 @@
     
     AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
 
-    // Create a parameter object for the carrierMultiplier.
-    AUParameter *carrierMultiplierAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"carrierMultiplier"
-                                              name:@"Carrier Multiplier"
-                                           address:carrierMultiplierAddress
-                                               min:0.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the modulatingMultiplier.
-    AUParameter *modulatingMultiplierAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"modulatingMultiplier"
-                                              name:@"Modulating Multiplier"
-                                           address:modulatingMultiplierAddress
-                                               min:0.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
-    // Create a parameter object for the modulationIndex.
-    AUParameter *modulationIndexAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"modulationIndex"
-                                              name:@"Modulation Index"
-                                           address:modulationIndexAddress
-                                               min:0.0
-                                               max:1000.0
-                                              unit:kAudioUnitParameterUnit_Generic
-                                          unitName:nil
-                                             flags:0
-                                      valueStrings:nil
-                               dependentParameters:nil];
     // Create a parameter object for the attackDuration.
     AUParameter *attackDurationAUParameter =
     [AUParameterTree createParameterWithIdentifier:@"attackDuration"
@@ -179,20 +138,12 @@
                                dependentParameters:nil];
 
     // Initialize the parameter values.
-    carrierMultiplierAUParameter.value = 1.0;
-    modulatingMultiplierAUParameter.value = 1;
-    modulationIndexAUParameter.value = 1;
-
     attackDurationAUParameter.value = 0.0;
     releaseDurationAUParameter.value = 0.0;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
     
     _rampTime = AKSettings.rampTime;
-
-    _kernel.setParameter(carrierMultiplierAddress,    carrierMultiplierAUParameter.value);
-    _kernel.setParameter(modulatingMultiplierAddress, modulatingMultiplierAUParameter.value);
-    _kernel.setParameter(modulationIndexAddress,      modulationIndexAUParameter.value);
 
     _kernel.setParameter(attackDurationAddress,     attackDurationAUParameter.value);
     _kernel.setParameter(releaseDurationAddress,    releaseDurationAUParameter.value);
@@ -201,9 +152,6 @@
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        carrierMultiplierAUParameter,
-        modulatingMultiplierAUParameter,
-        modulationIndexAUParameter,
         attackDurationAUParameter,
         releaseDurationAUParameter,
         detuningOffsetAUParameter,
@@ -220,7 +168,7 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKPolyphonicFMOscillatorDSPKernel *oscillatorKernel = &_kernel;
+    __block AKMorphingOscillatorBankDSPKernel *oscillatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -284,7 +232,7 @@
      Capture in locals to avoid ObjC member lookups. If "self" is captured in
      render, we're doing it wrong.
      */
-    __block AKPolyphonicFMOscillatorDSPKernel *state = &_kernel;
+    __block AKMorphingOscillatorBankDSPKernel *state = &_kernel;
     __block BufferedInputBus *input = &_inputBus;
 
     return ^AUAudioUnitStatus(

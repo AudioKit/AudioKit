@@ -1,20 +1,20 @@
 //
-//  AKMorphingPolyphonicOscillatorAudioUnit.mm
+//  AKPWMOscillatorAudioUnit.mm
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#import "AKMorphingPolyphonicOscillatorAudioUnit.h"
-#import "AKMorphingPolyphonicOscillatorDSPKernel.hpp"
+#import "AKPWMOscillatorAudioUnit.h"
+#import "AKPWMOscillatorDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
 #import "BufferedAudioBus.hpp"
 
 #import <AudioKit/AudioKit-Swift.h>
 
-@interface AKMorphingPolyphonicOscillatorAudioUnit()
+@interface AKPWMOscillatorAudioUnit()
 
 @property AUAudioUnitBus *outputBus;
 
@@ -24,23 +24,22 @@
 
 @end
 
-@implementation AKMorphingPolyphonicOscillatorAudioUnit {
+@implementation AKPWMOscillatorAudioUnit {
     // C++ members need to be ivars; they would be copied on access if they were properties.
-    AKMorphingPolyphonicOscillatorDSPKernel _kernel;
+    AKPWMOscillatorDSPKernel _kernel;
 
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setIndex:(float)index {
-    _kernel.setIndex(index);
+- (void)setFrequency:(float)frequency {
+    _kernel.setFrequency(frequency);
 }
-
-- (void)setAttackDuration:(float)attackDuration {
-    _kernel.setAttackDuration(attackDuration);
+- (void)setAmplitude:(float)amplitude {
+    _kernel.setAmplitude(amplitude);
 }
-- (void)setReleaseDuration:(float)releaseDuration {
-    _kernel.setReleaseDuration(releaseDuration);
+- (void)setPulseWidth:(float)pulseWidth {
+    _kernel.setPulseWidth(pulseWidth);
 }
 - (void)setDetuningOffset:(float)detuningOffset {
     _kernel.setDetuningOffset(detuningOffset);
@@ -49,20 +48,17 @@
     _kernel.setDetuningMultiplier(detuningMultiplier);
 }
 
-- (void)setupWaveform:(UInt32)waveform size:(int)size {
-    _kernel.setupWaveform(waveform, (uint32_t)size);
+
+- (void)start {
+    _kernel.start();
 }
 
-- (void)setWaveform:(UInt32)waveform withValue:(float)value atIndex:(UInt32)index {
-    _kernel.setWaveformValue(waveform, index, value);
+- (void)stop {
+    _kernel.stop();
 }
 
-- (void)startNote:(int)note velocity:(int)velocity {
-    _kernel.startNote(note, velocity);
-}
-
-- (void)stopNote:(int)note {
-    _kernel.stopNote(note);
+- (BOOL)isPlaying {
+    return _kernel.started;
 }
 
 - (BOOL)isSetUp {
@@ -85,31 +81,40 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-    
-    AudioUnitParameterOptions flags = kAudioUnitParameterFlag_IsWritable | kAudioUnitParameterFlag_IsReadable | kAudioUnitParameterFlag_DisplayLogarithmic;
-
-    // Create a parameter object for the attackDuration.
-    AUParameter *attackDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"attackDuration"
-                                              name:@"Attack time"
-                                           address:attackDurationAddress
-                                               min:0
-                                               max:10
-                                              unit:kAudioUnitParameterUnit_Seconds
+        // Create a parameter object for the frequency.
+    AUParameter *frequencyAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"frequency"
+                                              name:@"Frequency (Hz)"
+                                           address:frequencyAddress
+                                               min:0.0
+                                               max:20000.0
+                                              unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
-                                             flags:flags
+                                             flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the releaseDuration.
-    AUParameter *releaseDurationAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"releaseDuration"
-                                              name:@"Release time"
-                                           address:releaseDurationAddress
-                                               min:0
-                                               max:100
-                                              unit:kAudioUnitParameterUnit_Seconds
+    // Create a parameter object for the amplitude.
+    AUParameter *amplitudeAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"amplitude"
+                                              name:@"Amplitude"
+                                           address:amplitudeAddress
+                                               min:0.0
+                                               max:10.0
+                                              unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
-                                             flags:flags
+                                             flags:0
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    // Create a parameter object for the pulseWidth.
+    AUParameter *pulseWidthAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"pulseWidth"
+                                              name:@"Pulse Width"
+                                           address:pulseWidthAddress
+                                               min:0.0
+                                               max:1.0
+                                              unit:kAudioUnitParameterUnit_Generic
+                                          unitName:nil
+                                             flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
     // Create a parameter object for the detuningOffset.
@@ -117,8 +122,8 @@
     [AUParameterTree createParameterWithIdentifier:@"detuningOffset"
                                               name:@"Frequency offset (Hz)"
                                            address:detuningOffsetAddress
-                                               min:-1000
-                                               max:1000
+                                               min:-1000.0
+                                               max:1000.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil
                                              flags:0
@@ -137,23 +142,27 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
-    attackDurationAUParameter.value = 0.0;
-    releaseDurationAUParameter.value = 0.0;
+    frequencyAUParameter.value = 440;
+    amplitudeAUParameter.value = 1.0;
+    pulseWidthAUParameter.value = 0.5;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
-    
+
     _rampTime = AKSettings.rampTime;
 
-    _kernel.setParameter(attackDurationAddress,     attackDurationAUParameter.value);
-    _kernel.setParameter(releaseDurationAddress,    releaseDurationAUParameter.value);
+    _kernel.setParameter(frequencyAddress,          frequencyAUParameter.value);
+    _kernel.setParameter(amplitudeAddress,          amplitudeAUParameter.value);
+    _kernel.setParameter(pulseWidthAddress,         pulseWidthAUParameter.value);
     _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        attackDurationAUParameter,
-        releaseDurationAUParameter,
+        frequencyAUParameter,
+        amplitudeAUParameter,
+        pulseWidthAUParameter,
         detuningOffsetAUParameter,
         detuningMultiplierAUParameter
     ]];
@@ -168,7 +177,7 @@
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKMorphingPolyphonicOscillatorDSPKernel *oscillatorKernel = &_kernel;
+    __block AKPWMOscillatorDSPKernel *oscillatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
@@ -178,6 +187,31 @@
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
         return oscillatorKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case frequencyAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case amplitudeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case pulseWidthAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case detuningOffsetAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case detuningMultiplierAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
@@ -201,7 +235,7 @@
     _kernel.reset();
 
     [self setUpParameterRamp];
-    
+
     return YES;
 }
 
@@ -211,10 +245,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-    
+
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-    
+
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
@@ -232,7 +266,7 @@
      Capture in locals to avoid ObjC member lookups. If "self" is captured in
      render, we're doing it wrong.
      */
-    __block AKMorphingPolyphonicOscillatorDSPKernel *state = &_kernel;
+    __block AKPWMOscillatorDSPKernel *state = &_kernel;
     __block BufferedInputBus *input = &_inputBus;
 
     return ^AUAudioUnitStatus(

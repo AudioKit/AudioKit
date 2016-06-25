@@ -1,13 +1,13 @@
 //
-//  AKSquareWaveOscillatorDSPKernel.hpp
+//  AKPWMOscillatorDSPKernel.hpp
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
-#ifndef AKSquareWaveOscillatorDSPKernel_hpp
-#define AKSquareWaveOscillatorDSPKernel_hpp
+#ifndef AKPWMOscillatorDSPKernel_hpp
+#define AKPWMOscillatorDSPKernel_hpp
 
 #import "DSPKernel.hpp"
 #import "ParameterRamper.hpp"
@@ -26,11 +26,11 @@ enum {
     detuningMultiplierAddress = 4
 };
 
-class AKSquareWaveOscillatorDSPKernel : public DSPKernel {
+class AKPWMOscillatorDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
-    AKSquareWaveOscillatorDSPKernel() {}
+    AKPWMOscillatorDSPKernel() {}
 
     void init(int channelCount, double inSampleRate) {
         channels = channelCount;
@@ -234,4 +234,4 @@ public:
     ParameterRamper detuningMultiplierRamper = 1;
 };
 
-#endif /* AKSquareWaveOscillatorDSPKernel_hpp */
+#endif /* AKPWMOscillatorDSPKernel_hpp */

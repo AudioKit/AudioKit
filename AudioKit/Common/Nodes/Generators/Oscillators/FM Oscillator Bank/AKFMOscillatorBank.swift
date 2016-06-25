@@ -1,5 +1,5 @@
 //
-//  AKPolyphonicFMOscillator.swift
+//  AKFMOscillatorBank.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -14,11 +14,11 @@ import AVFoundation
 /// - parameter detuningOffset: Frequency offset in Hz.
 /// - parameter detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKPolyphonicFMOscillator: AKMIDINode {
+public class AKFMOscillatorBank: AKMIDINode {
 
     // MARK: - Properties
 
-    internal var internalAU: AKPolyphonicFMOscillatorAudioUnit?
+    internal var internalAU: AKFMOscillatorBankAudioUnit?
     internal var token: AUParameterObserverToken?
 
     private var waveform: AKTable?
@@ -178,9 +178,9 @@ public class AKPolyphonicFMOscillator: AKMIDINode {
         description.componentFlagsMask    = 0
 
         AUAudioUnit.registerSubclass(
-            AKPolyphonicFMOscillatorAudioUnit.self,
+            AKFMOscillatorBankAudioUnit.self,
             asComponentDescription: description,
-            name: "Local AKPolyphonicFMOscillator",
+            name: "Local AKFMOscillatorBank",
             version: UInt32.max)
 
         super.init()
@@ -190,7 +190,7 @@ public class AKPolyphonicFMOscillator: AKMIDINode {
             guard let avAudioUnitGenerator = avAudioUnit else { return }
 
             self.avAudioNode = avAudioUnitGenerator
-            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPolyphonicFMOscillatorAudioUnit
+            self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKFMOscillatorBankAudioUnit
 
             AudioKit.engine.attachNode(self.avAudioNode)
             self.internalAU?.setupWaveform(Int32(waveform.size))
