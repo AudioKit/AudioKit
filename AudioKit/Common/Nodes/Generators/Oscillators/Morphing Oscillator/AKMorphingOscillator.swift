@@ -141,7 +141,6 @@ public class AKMorphingOscillator: AKVoice {
         detuningMultiplier: Double = 1,
         phase: Double = 0) {
 
-        // AOP Note: Waveforms are currently hardcoded, need to upgrade this
         self.waveformArray = waveformArray
         self.frequency = frequency
         self.amplitude = amplitude
@@ -174,7 +173,6 @@ public class AKMorphingOscillator: AKVoice {
 
             AudioKit.engine.attachNode(self.avAudioNode)
             
-            /// AOP need to set up phase
             for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
                 for j in 0 ..< waveformArray[i].size{

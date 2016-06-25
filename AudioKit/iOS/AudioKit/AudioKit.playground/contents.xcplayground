@@ -61,6 +61,7 @@
         <page name='Moog Ladder Filter Operation'/>
         <page name='Moog Ladder Filter'/>
         <page name='Morphing Oscillator'/>
+        <page name='Morphing Polyphonic Oscillator'/>
         <page name='Multi-tap Delay'/>
         <page name='MultiDelay Example'/>
         <page name='Newtons Cradle'/>
