@@ -2758,10 +2758,10 @@
 				C4E374701D13508100FDB70D /* Noise.cpp */,
 				C4E374721D13508100FDB70D /* OnePole.cpp */,
 				C4E374781D13508100FDB70D /* PoleZero.cpp */,
-				C4E3747A1D13508100FDB70D /* rawwaves */,
 				C4E374AA1D13508100FDB70D /* SineWave.cpp */,
 				C4E374B21D13508100FDB70D /* Stk.cpp */,
 				C4E374B41D13508100FDB70D /* Twang.cpp */,
+				C4E3747A1D13508100FDB70D /* rawwaves */,
 			);
 			path = STK;
 			sourceTree = "<group>";

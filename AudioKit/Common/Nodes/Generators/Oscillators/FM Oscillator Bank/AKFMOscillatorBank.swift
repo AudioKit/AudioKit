@@ -167,7 +167,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x706f1363 /*'pfmo'*/ //AOP
+        description.componentSubType      = 0x666d6f62 /*'fmob'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0

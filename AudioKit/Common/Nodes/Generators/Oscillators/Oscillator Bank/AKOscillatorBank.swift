@@ -116,7 +116,7 @@ public class AKOscillatorBank: AKPolyphonicNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x706f7363 /*'posc'*/
+        description.componentSubType      = 0x6f736362 /*'oscb'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
