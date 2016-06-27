@@ -17,8 +17,9 @@ public class AKNodeRecorder {
 
     // The node we record from
     private var node: AKNode?
+    
     // The file to record to
-    private var tape: AKAudioFile
+    private var internalAudioFile: AKAudioFile
 
     // the size of the recording buffer
     // Not tested, default is 1024
@@ -28,7 +29,15 @@ public class AKNodeRecorder {
 
     private let previousAVAudioSessionCategory: String?
 
-    public init(node: AKNode = AudioKit.output!, file: AKAudioFile? = nil, buffer bufferSize: UInt32 = 1024  ) throws {
+    /// Initialize the node recorder
+    ///
+    /// - parameter node:       Node to record from
+    /// - parameter file:       Audio file to record to
+    /// - parameter bufferSize: Size of the buffer to use
+    ///
+    public init(node: AKNode = AudioKit.output!,
+                file: AKAudioFile? = nil,
+                buffer bufferSize: UInt32 = 1024  ) throws {
 
 
         // requestRecordPermission...
@@ -37,13 +46,14 @@ public class AKNodeRecorder {
 
             self.previousAVAudioSessionCategory = AVAudioSession.sharedInstance().category
 
-            AVAudioSession.sharedInstance().requestRecordPermission({(granted: Bool)-> Void in
+            AVAudioSession.sharedInstance().requestRecordPermission() {
+                (granted: Bool)-> Void in
                 if granted {
                     permissionGranted = true
                 } else {
                     permissionGranted = false
                 }
-            })
+            }
 
             if !permissionGranted {
                 print("AKNodeRecorder Error: Permission to record not granted")
@@ -57,17 +67,17 @@ public class AKNodeRecorder {
         if file == nil {
             // We create a record file in temp directory
             do {
-                self.tape = try AKAudioFile()
+                self.internalAudioFile = try AKAudioFile()
             } catch let error as NSError {
-                print ("AKNodeRecorder Error: Cannot create an empty tape")
+                print ("AKNodeRecorder Error: Cannot create an empty audio file")
                 throw error
             }
 
         } else {
 
             do {
-                // We initialize tape AKAudioFile for writing (and check that we can write to)
-                self.tape = try AKAudioFile(writeAVAudioFile: file!)
+                // We initialize AKAudioFile for writing (and check that we can write to)
+                self.internalAudioFile = try AKAudioFile(writeAVAudioFile: file!)
             } catch let error as NSError {
                 print ("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
                 throw error
@@ -103,10 +113,10 @@ public class AKNodeRecorder {
         if  node != nil {
             recording = true
             print ("recording")
-            node!.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: tape.processingFormat, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
+            node!.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: internalAudioFile.processingFormat, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                 do {
-                    try self.tape.writeFromBuffer(buffer)
-                    print("writing ( file duration:  \(self.tape.duration) seconds)")
+                    try self.internalAudioFile.writeFromBuffer(buffer)
+                    print("writing ( file duration:  \(self.internalAudioFile.duration) seconds)")
                 } catch let error as NSError {
                     print("Write failed: error -> \(error.localizedDescription)")
                 }
@@ -155,48 +165,49 @@ public class AKNodeRecorder {
     /// Reset the AKAudioFile to clear previous recordings
     public func reset() throws {
 
-        // Delete the current file tape
+        // Delete the current file audio file
         let fileManager = NSFileManager.defaultManager()
-        let url = tape.url
-        let settings = tape.processingFormat.settings
+        let url = internalAudioFile.url
+        let settings = internalAudioFile.processingFormat.settings
 
         do {
-            try fileManager.removeItemAtPath(tape.url.absoluteString)
+            try fileManager.removeItemAtPath(internalAudioFile.url.absoluteString)
         } catch let error as NSError {
-            print ("AKNodeRecorder Error: cannot delete Recording file:  \(tape.fileNamePlusExtension)")
+            print ("AKNodeRecorder Error: cannot delete Recording file:  \(internalAudioFile.fileNamePlusExtension)")
             throw error
         }
 
-        // Creates a blanck new tape
+        // Creates a blank new file
         do {
-            tape = try AKAudioFile(forWriting: url, settings: settings)
-            print ("AKNodeRecorder: tape has been cleared")
+            internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
+            print ("AKNodeRecorder: file has been cleared")
         } catch let error as NSError {
-            print ("AKNodeRecorder Error: cannot create an new tape from file:  \(tape.fileNamePlusExtension)")
+            print ("AKNodeRecorder Error: cannot record to file: \(internalAudioFile.fileNamePlusExtension)")
             throw error
         }
     }
 
     // MARK: - public vars
-    // True if we are recording.
+    
+    /// True if we are recording.
     public var isRecording: Bool {
         return recording
     }
 
-    // True if we are recording.
+    // Duration of recording
     public var recordedDuration: Double {
-        return tape.duration
+        return internalAudioFile.duration
     }
 
-    // return the tape as an AKAudioFile for reading
+    /// return the AKAudioFile for reading
     public var audioFile: AKAudioFile? {
 
-        var tapeForReading: AKAudioFile
+        var internalAudioFileForReading: AKAudioFile
         do {
-            tapeForReading = try AKAudioFile(readAVAudioFile: tape)
-            return tapeForReading
+            internalAudioFileForReading = try AKAudioFile(readAVAudioFile: internalAudioFile)
+            return internalAudioFileForReading
         } catch let error as NSError {
-            print ("Cannot create readingTape")
+            print ("Cannot create internal audio file for reading")
             print ("Error: \(error.localizedDescription)")
             return nil
         }
