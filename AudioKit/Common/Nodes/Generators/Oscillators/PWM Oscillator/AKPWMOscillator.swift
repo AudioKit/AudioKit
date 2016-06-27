@@ -138,7 +138,7 @@ public class AKPWMOscillator: AKVoice {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x7371726f /*'sqro'*/
+        description.componentSubType      = 0x70776d6f /*'pwmo'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
