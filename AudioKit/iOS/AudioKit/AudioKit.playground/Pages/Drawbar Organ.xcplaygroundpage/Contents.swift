@@ -26,10 +26,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         addTitle("Drawbar Organ")
         for i in 0 ..< noteCount {
             amplitudeLabels.append(addLabel("Amplitude \(names[i]): \(amplitudes[i])"))
-            amplitudeLabels[i].frame.origin.y = 800-CGFloat(i)*60
             sliders.append(addSlider(#selector(setAmplitude), value: amplitudes[i]))
-            sliders[i].frame.origin.y = 780-CGFloat(i)*60
-            
         }
         
         let keyboard = KeyboardView(width: 500, height: 100, lowestKey: 48, totalKeys: 24)
