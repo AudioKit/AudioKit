@@ -122,7 +122,7 @@ public class AKTapeRecorder
 }
 
 
-var oscillator = AKSawtoothOscillator()
+var oscillator = AKOscillator(waveform: AKTable(.Sawtooth))
 var currentAmplitude = 0.1
 var currentRampTime = 0.2
 
