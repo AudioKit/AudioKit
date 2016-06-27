@@ -15,8 +15,8 @@ import AudioKit
 class ViewController: UIViewController {
     let midi = AKMIDI()
 
-    var fmOsc1 = AKFMSynth(voiceCount: 4)
-    var melodicSound: AKMIDIInstrument?
+    var fmOsc1 = AKFMOscillatorBank()
+    var melodicSound: AKMIDINode?
     var verb: AKReverb2?
 
     var bassDrumInst: BDInst?
@@ -45,8 +45,8 @@ class ViewController: UIViewController {
 
         fmOsc1.modulatingMultiplier = 3
         fmOsc1.modulationIndex = 0.3
-        fmOsc1.amplitude = 0.11
-        melodicSound = AKMIDIInstrument(instrument: fmOsc1)
+
+        melodicSound = AKMIDINode(node: fmOsc1)
         melodicSound?.enableMIDI(midi.client, name: "melodicSound midi in")
         verb = AKReverb2(melodicSound!)
         verb?.dryWetMix = 0.5
