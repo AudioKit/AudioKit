@@ -27,7 +27,7 @@ public class AKNodeRecorder {
     private var recording = false
 
 
-    private let previousAVAudioSessionCategory: String?
+    private var previousAVAudioSessionCategory: String?
 
     /// Initialize the node recorder
     ///
