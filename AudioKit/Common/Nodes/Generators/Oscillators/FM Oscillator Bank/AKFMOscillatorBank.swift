@@ -14,7 +14,7 @@ import AVFoundation
 /// - parameter detuningOffset: Frequency offset in Hz.
 /// - parameter detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKFMOscillatorBank: AKMIDINode {
+public class AKFMOscillatorBank: AKPolyphonicNode {
 
     // MARK: - Properties
 
@@ -237,13 +237,15 @@ public class AKFMOscillatorBank: AKMIDINode {
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
+    // MARK: - AKPolyphonic
+    
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start(note note: Int, withVelocity velocity: Int, onChannel channel: Int) {
+    public override func play(note note: Int, velocity: Int) {
         self.internalAU!.startNote(Int32(note), velocity: Int32(velocity))
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop(note note: Int, onChannel channel: Int) {
+    public override func stop(note note: Int) {
         self.internalAU!.stopNote(Int32(note))
     }
 }
