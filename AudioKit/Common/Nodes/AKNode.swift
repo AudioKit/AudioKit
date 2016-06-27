@@ -33,6 +33,22 @@ import AVFoundation
     }
 }
 
+public protocol AKPolyphonic {
+    func play(note note: Int, velocity: Int)
+    func stop(note note: Int)
+}
+
+public class AKPolyphonicNode: AKNode, AKPolyphonic {
+    public func play(note note: Int, velocity: Int) {
+        print("Playing note \(note), with velocity \(velocity), override in subclass")
+    }
+    
+    public func stop(note note: Int) {
+        print("Stopping note \(note), override in subclass")
+    }
+}
+
+
 /// Protocol for dictating that a node can be in a started or stopped state
 public protocol AKToggleable {
     /// Tells whether the node is processing (ie. started, playing, or active)
