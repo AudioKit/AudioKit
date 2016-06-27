@@ -45,8 +45,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     override func setup() {
         addTitle("Drawbar Organ")
         
-        let keyboard = KeyboardView(width: 500, height: 100)
-        keyboard.delegate = self
+        let keyboard = KeyboardView(width: 500, height: 100, delegate: self)
         keyboard.frame.origin.y = 60
         
         self.addSubview(keyboard)
