@@ -17,6 +17,23 @@ public class AKMIDINode: AKNode, AKMIDIListener {
     
     /// MIDI Input
     public var midiIn = MIDIEndpointRef()
+    
+    /// Name of the instrument
+    public var name = "AKMIDIInstrument"
+    
+    internal var internalNode: AKPolyphonicNode
+    
+    // MARK: - Initialization
+    
+    /// Initialize the MIDI node
+    ///
+    /// - parameter node: A polyphonic node that will be triggered via MIDI
+    ///
+    public init(node: AKPolyphonicNode) {
+        internalNode = node
+        super.init()
+        avAudioNode = internalNode.avAudioNode
+    }
 
 
     /// Enable MIDI input from a given MIDI client
@@ -52,9 +69,9 @@ public class AKMIDINode: AKNode, AKMIDIListener {
     ///
     public func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
         if velocity > 0 {
-            start(note: note, withVelocity: velocity, onChannel: channel)
+            internalNode.play(note: note, velocity: velocity)
         } else {
-            stop(note: note, onChannel: channel)
+            internalNode.stop(note: note)
         }
     }
     // MARK: - MIDI Note Start/Stop

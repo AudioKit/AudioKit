@@ -12,7 +12,7 @@ class Conductor: AKMIDIListener {
     /// Globally accessible singleton
     static let sharedInstance = Conductor()
 
-    var core = CoreInstrument(voiceCount: 5)
+    var core = GeneratorBank()
     var bitCrusher: AKBitCrusher
     var fatten: Fatten
     var filterSection: FilterSection
@@ -58,14 +58,14 @@ class Conductor: AKMIDIListener {
     // MARK: - AKMIDIListener protocol functions
 
     func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
-        core.playNote(note, velocity: velocity)
+        core.play(note: note, velocity: velocity)
     }
     func receivedMIDINoteOff(note: Int, velocity: Int, channel: Int) {
-        core.stopNote(note)
+        core.stop(note: note)
     }
     func receivedMIDIPitchWheel(pitchWheelValue: Int, channel: Int) {
         let bendSemi =  (Double(pitchWheelValue - 8192) / 8192.0) * midiBendRange
-        core.globalbend = bendSemi
+//        core.globalbend = bendSemi
     }
 
 }

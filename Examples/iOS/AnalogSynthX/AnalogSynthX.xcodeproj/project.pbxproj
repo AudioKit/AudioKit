@@ -33,6 +33,7 @@
 		C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */; };
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
 		C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */; };
+		C49D697A1D1F2CB000BF018A /* GeneratorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D69791D1F2CB000BF018A /* GeneratorBank.swift */; };
 		C4B5B8171C4769AF00CE0168 /* CoreInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B5B8161C4769AF00CE0168 /* CoreInstrument.swift */; };
 		C4B5B8191C476A2100CE0168 /* CoreVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B5B8181C476A2100CE0168 /* CoreVoice.swift */; };
 		C4E8ED221C43AA8E0041965F /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E8ED211C43AA8E0041965F /* Conductor.swift */; };
@@ -95,6 +96,7 @@
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42FFC051C3DDAAC00823BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C49D69791D1F2CB000BF018A /* GeneratorBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeneratorBank.swift; path = AudioSystem/GeneratorBank.swift; sourceTree = "<group>"; };
 		C4B5B8161C4769AF00CE0168 /* CoreInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreInstrument.swift; path = AudioSystem/CoreInstrument.swift; sourceTree = "<group>"; };
 		C4B5B8181C476A2100CE0168 /* CoreVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreVoice.swift; path = AudioSystem/CoreVoice.swift; sourceTree = "<group>"; };
 		C4E8ED211C43AA8E0041965F /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Conductor.swift; path = AudioSystem/Conductor.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E8ED211C43AA8E0041965F /* Conductor.swift */,
+				C49D69791D1F2CB000BF018A /* GeneratorBank.swift */,
 				C4B5B8161C4769AF00CE0168 /* CoreInstrument.swift */,
 				C4B5B8181C476A2100CE0168 /* CoreVoice.swift */,
 			);
@@ -365,6 +368,7 @@
 			files = (
 				94C8EC781C4C1C7600AAA604 /* SynthVC+Delegates.swift in Sources */,
 				C4E8ED2B1C43B04A0041965F /* MultiDelay.swift in Sources */,
+				C49D697A1D1F2CB000BF018A /* GeneratorBank.swift in Sources */,
 				949B1C531C431E5400BFFA10 /* SMBasicSegmentView.swift in Sources */,
 				C4E8ED291C43ADA10041965F /* FilterSection.swift in Sources */,
 				949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */,

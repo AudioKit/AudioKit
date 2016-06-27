@@ -118,15 +118,15 @@ class SynthViewController: UIViewController {
 
         // Set Preset Values
         conductor.masterVolume.volume = 25.0 // Master Volume
-        conductor.core.offset1 = 0 // VCO1 Semitones
+        conductor.core.vco1.detuningOffset = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
-        conductor.core.detune = 0.0 // VCO2 Detune (Hz)
-        conductor.core.vcoBalance = 0.5 // VCO1/VCO2 Mix
-        conductor.core.subOscMix = 0.0 // SubOsc Mix
-        conductor.core.fmOscMix = 0.0 // FM Mix
-        conductor.core.fmMod = 0.0 // FM Modulation Amt
+        conductor.core.vco2.detuningOffset = 0.0 // VCO2 Detune (Hz)
+        conductor.core.vcoBalancer.balance = 0.5 // VCO1/VCO2 Mix
+        conductor.core.subOscMixer.volume = 0.0 // SubOsc Mix
+        conductor.core.fmOscMixer.volume = 0.0 // FM Mix
+        conductor.core.fmOsc.modulationIndex = 0.0 // FM Modulation Amt
         conductor.core.morph = 0.0 // Morphing between waveforms
-        conductor.core.noiseMix = 0.0 // Noise Mix
+        conductor.core.noiseMixer.volume = 0.0 // Noise Mix
         conductor.filterSection.lfoAmplitude = 0.0 // LFO Amp (Hz)
         conductor.filterSection.lfoRate = 1.4 // LFO Rate
         conductor.filterSection.resonance = 0.5 // Filter Q/Rez
@@ -170,13 +170,13 @@ class SynthViewController: UIViewController {
 
         osc2DetuneKnob.minimum = -4
         osc2DetuneKnob.maximum = 4
-        osc2DetuneKnob.value = conductor.core.detune
+        osc2DetuneKnob.value = conductor.core.vco2.detuningOffset
 
         subMixKnob.maximum = 4.5
-        subMixKnob.value = conductor.core.subOscMix
+        subMixKnob.value = conductor.core.subOscMixer.volume
 
         fmMixKnob.maximum = 1.25
-        fmMixKnob.value = conductor.core.fmOscMix
+        fmMixKnob.value = conductor.core.fmOscMixer.volume
 
         fmModKnob.maximum = 15
 
@@ -184,9 +184,9 @@ class SynthViewController: UIViewController {
         morphKnob.maximum = 0.99
         morphKnob.value = conductor.core.morph
 
-        noiseMixKnob.value = conductor.core.noiseMix
+        noiseMixKnob.value = conductor.core.noiseMixer.volume
 
-        oscMixKnob.value = conductor.core.vcoBalance
+        oscMixKnob.value = conductor.core.vcoBalancer.balance
 
         lfoAmtKnob.maximum = 1200
         lfoAmtKnob.value = conductor.filterSection.lfoAmplitude
@@ -446,20 +446,20 @@ class SynthViewController: UIViewController {
         updateKeyToDownPosition(key)
         let midiNote = midiNoteFromTag(key.tag)
         statusLabel.text = "Key Pressed: \(noteNameFromMidiNote(midiNote))"
-        conductor.core.playNote(midiNote, velocity: 127)
+        conductor.core.play(note: midiNote, velocity: 127)
     }
 
     func turnOffKey(key: UIButton) {
         updateKeyToUpPosition(key)
         statusLabel.text = "Key Released"
-        conductor.core.stopNote(midiNoteFromTag(key.tag))
+        conductor.core.stop(note: midiNoteFromTag(key.tag))
     }
 
     func turnOffHeldKeys() {
         updateAllKeysToUpPosition()
 
         for note in 0...127 {
-            conductor.core.stopNote(note)
+            conductor.core.stop(note: note)
         }
         midiNotesHeld.removeAll(keepCapacity: false)
     }
@@ -565,11 +565,11 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
 
         case ControlTag.Vco2Detune.rawValue:
             statusLabel.text = "Detune: \(value.decimalString) Hz"
-            conductor.core.detune = value
+            conductor.core.vco2.detuningOffset = value
 
         case ControlTag.OscMix.rawValue:
             statusLabel.text = "OscMix: \(value.decimalString)"
-            conductor.core.vcoBalance = value
+            conductor.core.vcoBalancer.balance = value
 
         case ControlTag.Morph.rawValue:
             statusLabel.text = "Morph Waveform: \(value.decimalString)"
@@ -578,19 +578,19 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         // Additional OSCs
         case ControlTag.SubMix.rawValue:
             statusLabel.text = "Sub Osc: \(subMixKnob.knobValue.percentageString)"
-            conductor.core.subOscMix = value
+            conductor.core.subOscMixer.volume = value
 
         case ControlTag.FmMix.rawValue:
             statusLabel.text = "FM Amt: \(fmMixKnob.knobValue.percentageString)"
-            conductor.core.fmOscMix = value
+            conductor.core.fmOscMixer.volume = value
 
         case ControlTag.FmMod.rawValue:
             statusLabel.text = "FM Mod: \(fmModKnob.knobValue.percentageString)"
-            conductor.core.fmMod = value
+            conductor.core.fmOsc.modulationIndex = value
 
         case ControlTag.NoiseMix.rawValue:
             statusLabel.text = "Noise Amt: \(noiseMixKnob.knobValue.percentageString)"
-            conductor.core.noiseMix = value
+            conductor.core.noiseMixer.volume = value
 
         // LFO
         case ControlTag.LfoAmt.rawValue:
