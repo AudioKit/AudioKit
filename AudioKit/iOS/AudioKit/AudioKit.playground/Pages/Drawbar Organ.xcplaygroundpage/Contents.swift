@@ -32,8 +32,9 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
             
         }
         
-        let keyboard = KeyboardView(width: 500, height: 100, delegate: self, lowestKey: 48, totalKeys: 24)
+        let keyboard = KeyboardView(width: 500, height: 100, lowestKey: 48, totalKeys: 24)
         keyboard.frame.origin.y = CGFloat(yPosition)
+        keyboard.delegate = self
         self.addSubview(keyboard)
         
     }
