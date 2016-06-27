@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /// Bandlimited triangleoscillator This is a bandlimited triangle oscillator
+    /// This is a bandlimited triangle oscillator
     /// ported from the "triangle" function from the Faust programming language.
     ///
     /// - returns: AKOperation
