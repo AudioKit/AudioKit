@@ -80,7 +80,6 @@
         <page name='Rolling Output Plot'/>
         <page name='Sampler Instrument - EXS24'/>
         <page name='Sampler Instrument - Wav file'/>
-        <page name='Sawtooth Oscillator'/>
         <page name='Sawtooth Wave Oscillator Operation'/>
         <page name='Sean Costello Reverb'/>
         <page name='Sean Costello Reverb Operation'/>
@@ -91,7 +90,6 @@
         <page name='Splitting Nodes'/>
         <page name='Sporth Based Generator'/>
         <page name='Sporth Based Effect'/>
-        <page name='Square Wave Oscillator'/>
         <page name='Stereo Panning'/>
         <page name='String Resonator'/>
         <page name='Tanh Distortion'/>
