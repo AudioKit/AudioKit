@@ -55,9 +55,11 @@ public class AKMIDINode: AKNode, AKMIDIListener {
         let status = data1 >> 4
         let channel = data1 & 0xF
         if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
-            start(note: Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
+            internalNode.play(note: Int(data2), velocity: Int(data3))
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
-            stop(note: Int(data2), onChannel: Int(channel))
+            internalNode.stop(note: Int(data2))
+        } else if Int(status) == AKMIDIStatus.NoteOff.rawValue {
+            internalNode.stop(note: Int(data2))
         }
     }
     
@@ -73,17 +75,6 @@ public class AKMIDINode: AKNode, AKMIDIListener {
         } else {
             internalNode.stop(note: note)
         }
-    }
-    // MARK: - MIDI Note Start/Stop
-    
-    /// Start a note
-    public func start(note note: Int, withVelocity velocity: Int, onChannel channel: Int) {
-        print("Start: Override in subclass")
-    }
-    
-    /// Stop a note
-    public func stop(note note: Int, onChannel channel: Int) {
-        print("Stop: Override in subclass")
     }
     
     private func MyMIDIReadBlock(
