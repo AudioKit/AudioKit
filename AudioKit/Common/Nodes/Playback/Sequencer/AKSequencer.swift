@@ -300,8 +300,8 @@ public class AKSequencer {
             // do work here
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize);
             if eventType == kMusicEventType_ExtendedTempo {
-                let tempoEvent = eventData as! ExtendedTempoEvent
-                dump(tempoEvent)
+                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(eventData)
+                tempoOut = tempoEventPointer.memory.bpm
             }
             MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent);
         }
