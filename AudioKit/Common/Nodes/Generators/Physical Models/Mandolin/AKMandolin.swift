@@ -8,21 +8,28 @@
 
 import AVFoundation
 
-/// STK Mandoline
+/// Reads from the table sequentially and repeatedly at given frequency. Linear
+/// interpolation is applied for table look up from internal phase values.
 ///
-/// - parameter frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-/// - parameter amplitude: Amplitude
+/// - parameter detuningOffset: Frequency offset in Hz.
+/// - parameter detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKMandolin: AKVoice {
+public class AKMandolin: AKNode {
 
     // MARK: - Properties
 
     internal var internalAU: AKMandolinAudioUnit?
     internal var token: AUParameterObserverToken?
 
-    private var frequencyParameter: AUParameter?
-    private var amplitudeParameter: AUParameter?
-    
+    private var detuneParameter: AUParameter?
+    private var bodySizeParameter: AUParameter?
+
+    // Maybe eventually allow each string to have a rampable frequency
+//    private var course1FrequencyParameter: AUParameter?
+//    private var course2FrequencyParameter: AUParameter?
+//    private var course3FrequencyParameter: AUParameter?
+//    private var course4FrequencyParameter: AUParameter?
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -32,50 +39,40 @@ public class AKMandolin: AKVoice {
             }
         }
     }
-
-    /// Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    public var frequency: Double = 110 {
+    
+    public var detune: Double = 1 {
         willSet {
-            if frequency != newValue {
-                frequencyParameter?.setValue(Float(newValue), originator: token!)
+            if detune != newValue {
+                if internalAU!.isSetUp() {
+                    detuneParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.detune = Float(newValue)
+                }
             }
         }
     }
 
-    /// Amplitude
-    public var amplitude: Double = 0.5 {
+    public var bodySize: Double = 1 {
         willSet {
-            if amplitude != newValue {
-                amplitudeParameter?.setValue(Float(newValue), originator: token!)
+            if bodySize != newValue {
+                if internalAU!.isSetUp() {
+                    bodySizeParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.bodySize = Float(newValue)
+                }
             }
         }
-    }
-
-    /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
-        return internalAU!.isPlaying()
     }
 
     // MARK: - Initialization
 
-    /// Initialize the mandolin with defaults
-    override convenience init() {
-        self.init(frequency: 110)
-    }
-    
-    /// Initialize the STK Mandolin model
-    ///
-    /// - parameter frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    /// - parameter amplitude: Amplitude
-    ///
     public init(
-        frequency: Double = 440,
-        amplitude: Double = 0.5) {
+        detune: Double = 1,
+        bodySize: Double = 1) {
 
+        self.detune = detune
+        self.bodySize = bodySize
 
-        self.frequency = frequency
-        self.amplitude = amplitude
-        
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x706c756b /*'mand'*/
@@ -103,48 +100,57 @@ public class AKMandolin: AKVoice {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter       = tree.valueForKey("frequency")       as? AUParameter
-        amplitudeParameter       = tree.valueForKey("amplitude")       as? AUParameter
+        detuneParameter   = tree.valueForKey("detune")   as? AUParameter
+        bodySizeParameter = tree.valueForKey("bodySize") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
 
             dispatch_async(dispatch_get_main_queue()) {
-                if address == self.frequencyParameter!.address {
-                    self.frequency = Double(value)
-                } else if address == self.amplitudeParameter!.address {
-                    self.amplitude = Double(value)
+                if address == self.detuneParameter!.address {
+                    self.detune = Double(value)
+                } else if address == self.bodySizeParameter!.address {
+                    self.bodySize = Double(value)
                 }
             }
         }
-        internalAU?.frequency = Float(frequency)
-        internalAU?.amplitude = Float(amplitude)
+        internalAU?.detune = Float(detune)
+        internalAU?.bodySize = Float(bodySize)
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKMandolin(frequency: self.frequency, amplitude: self.amplitude)
-        return copy
+    public func prepareChord(course1Note: Int,
+                      _ course2Note: Int,
+                      _ course3Note: Int,
+                      _ course4Note: Int) {
+        fret(note: course1Note, course: 0)
+        fret(note: course2Note, course: 1)
+        fret(note: course3Note, course: 2)
+        fret(note: course4Note, course: 3)
     }
     
-    /// Trigger the sound with an optional set of parameters
-    /// - parameter frequency: Frequency in Hz
-    /// - amplitude amplitude: Volume
-    ///
-    public func trigger(frequency frequency: Double, amplitude: Double = 1) {
-        self.frequency = frequency
-        self.amplitude = amplitude
-        self.internalAU!.start()
-        self.internalAU!.triggerFrequency(Float(frequency), amplitude: Float(amplitude))
+    public func fret(note note: Int, course: Int) {
+        internalAU?.setFrequency(Float(note.midiNoteToFrequency()), course: Int32(course))
+    }
+    
+    public func pluck(course course: Int, position: Double, velocity: Int) {
+        internalAU?.pluckCourse(Int32(course), position: Float(position), velocity: Int32(velocity))
+    }
+    
+    public func strum(position: Double, velocity: Int) {
+        pluck(course: 0, position: position, velocity: velocity)
+        pluck(course: 1, position: position, velocity: velocity)
+        pluck(course: 2, position: position, velocity: velocity)
+        pluck(course: 3, position: position, velocity: velocity)
     }
 
-    /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
-        self.internalAU!.start()
+    public func mute(course course: Int) {
+        
     }
-
-    /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
-        self.internalAU!.stop()
+    
+    public func muteAllStrings() {
+        mute(course: 0)
+        mute(course: 1)
+        mute(course: 2)
+        mute(course: 3)
     }
 }

@@ -31,30 +31,21 @@
     BufferedInputBus _inputBus;
 }
 @synthesize parameterTree = _parameterTree;
-
-- (void)setFrequency:(float)frequency {
-    _kernel.setFrequency(frequency);
+- (void)setDetune:(float)detune {
+    _kernel.setDetune(detune);
 }
-- (void)setAmplitude:(float)amplitude {
-    _kernel.setAmplitude(amplitude);
-}
-
-- (void)triggerFrequency:(float)frequency amplitude:(float)amplitude {
-    _kernel.setFrequency(frequency);
-    _kernel.setAmplitude(amplitude);
-    _kernel.trigger();
+- (void)setBodySize:(float)bodySize {
+    _kernel.setBodySize(bodySize);
 }
 
-- (void)start {
-    _kernel.start();
+- (void)setFrequency:(float)frequency course:(int)course {
+    _kernel.setFrequency(frequency, course);
 }
-
-- (void)stop {
-    _kernel.stop();
+- (void)pluckCourse:(int)course position:(float)position velocity:(int)velocity {
+    _kernel.pluck(course, position, velocity);
 }
-
-- (BOOL)isPlaying {
-    return _kernel.started;
+- (void)muteCourse:(int)course {
+    _kernel.mute(course);
 }
 
 - (BOOL)isSetUp {
@@ -77,67 +68,66 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-        // Create a parameter object for the frequency.
-    AUParameter *frequencyAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"frequency"
-                                              name:@"Variable frequency. Values less than the initial frequency  will be doubled until it is greater than that."
-                                           address:frequencyAddress
-                                               min:0
-                                               max:22000
-                                              unit:kAudioUnitParameterUnit_Hertz
+    // Create a parameter object for the detune.
+    AUParameter *detuneAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"detune"
+                                              name:@"Detune"
+                                           address:detuneAddress
+                                               min:0.0001
+                                               max:100.0
+                                              unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the amplitude.
-    AUParameter *amplitudeAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"amplitude"
-                                              name:@"Amplitude"
-                                           address:amplitudeAddress
+    // Create a parameter object for the body size.
+    AUParameter *bodySizeAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"bodySize"
+                                              name:@"Body size"
+                                           address:bodySizeAddress
                                                min:0
-                                               max:1
+                                               max:10
                                               unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
 
-
     // Initialize the parameter values.
-    frequencyAUParameter.value = 110;
-    amplitudeAUParameter.value = 0.5;
-
+    detuneAUParameter.value = 1.0;
+    bodySizeAUParameter.value = 1.0;
+    
     _rampTime = AKSettings.rampTime;
-
-    _kernel.setParameter(frequencyAddress,       frequencyAUParameter.value);
-    _kernel.setParameter(amplitudeAddress,       amplitudeAUParameter.value);
+    
+    _kernel.setParameter(detuneAddress,        detuneAUParameter.value);
+    _kernel.setParameter(bodySizeAddress,      bodySizeAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
-        frequencyAUParameter,
-        amplitudeAUParameter
+        detuneAUParameter,
+        bodySizeAUParameter
     ]];
 
     // Create the input and output busses.
     _inputBus.init(defaultFormat, 8);
     _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
 
-    // Create the output bus arrays.
+    // Create the output bus array.
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKMandolinDSPKernel *blockKernel = &_kernel;
+    __block AKMandolinDSPKernel *oscillatorKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        oscillatorKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return oscillatorKernel->getParameter(param.address);
     };
 
     self.maximumFramesToRender = 512;
@@ -155,24 +145,13 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
-    if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
-        if (outError) {
-            *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
-                                            code:kAudioUnitErr_FailedInitialization
-                                        userInfo:nil];
-        }
-        // Notify superclass that initialization was not successful
-        self.renderResourcesAllocated = NO;
-
-        return NO;
-    }
     _inputBus.allocateRenderResources(self.maximumFramesToRender);
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
     [self setUpParameterRamp];
-
+    
     return YES;
 }
 
@@ -182,10 +161,10 @@
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
-
+    
     // Ramp over rampTime in seconds.
     __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
-
+    
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
