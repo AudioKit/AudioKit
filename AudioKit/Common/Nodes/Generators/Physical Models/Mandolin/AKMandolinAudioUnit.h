@@ -12,13 +12,15 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKMandolinAudioUnit : AUAudioUnit
-@property (nonatomic) float frequency;
-@property (nonatomic) float amplitude;
+@property (nonatomic) float detune;
+@property (nonatomic) float bodySize;
 
-- (void)triggerFrequency:(float)frequency amplitude:(float)amplitude;
-- (void)start;
-- (void)stop;
-- (BOOL)isPlaying;
+- (void)setFrequency:(float)frequency course:(int)course;
+- (void)pluckCourse:(int)course position:(float)position velocity:(int)velocity;
+- (void)muteCourse:(int)course;
+
+//- (void)startNote:(int)note velocity:(int)velocity;
+//- (void)stopNote:(int)note;
 - (void)setUpParameterRamp;
 - (BOOL)isSetUp;
 
