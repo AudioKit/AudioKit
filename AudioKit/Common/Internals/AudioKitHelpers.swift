@@ -153,9 +153,9 @@ extension Int {
     
     /// Calculate MIDI Note Number from a frequency in Hz
     ///
-    /// - returns: Midi Note (Double)
+    /// - returns: MIDI Note (Double)
     ///
-    public func frequencyToMidiNote(aRef: Double = 440.0) -> Double {
+    public func frequencyToMIDINote(aRef: Double = 440.0) -> Double {
         return 69 + 12*log2(Double(self)/aRef);
     }
 }
@@ -165,9 +165,9 @@ extension Double {
     
     /// Calculate MIDI Note Number from a frequency in Hz
     ///
-    /// - returns: Midi Note Number (Double) in Hz
+    /// - returns: MIDI Note Number (Double) in Hz
     ///
-    public func frequencyToMidiNote(aRef: Double = 440.0) -> Double {
+    public func frequencyToMIDINote(aRef: Double = 440.0) -> Double {
         return 69 + 12*log2(self/aRef);
     }
     

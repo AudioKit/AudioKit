@@ -6,7 +6,7 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
-/** Implement the AKMidiListener protocol on any classes that need to respond
+/** Implement the AKMIDIListener protocol on any classes that need to respond
 to incoming MIDI events.  Every method in the protocol is optional to allow
 the classes complete freedom to respond to only the particular MIDI messages
 of interest.

@@ -13,7 +13,7 @@ import CoreMIDI
 ///
 /// You add midi listeners like this:
 /// ```
-/// var midiIn = AKMidi()
+/// var midiIn = AKMIDI()
 /// midi.openInput()
 /// midi.addListener(someClass)
 /// ```
