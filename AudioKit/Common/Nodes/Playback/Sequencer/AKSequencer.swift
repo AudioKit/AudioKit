@@ -279,7 +279,7 @@ public class AKSequencer {
     }
     
     public var tempo: Double {
-        var tempoOut: Double = 0.0
+        var tempoOut: Double = 120.0
         
         var tempoTrack: MusicTrack = nil
         MusicSequenceGetTempoTrack(sequence, &tempoTrack)
@@ -293,17 +293,15 @@ public class AKSequencer {
         var eventDataSize: UInt32 = 0
         
         var hasPreviousEvent: DarwinBoolean = false
-        MusicEventIteratorSeek(iterator,kMusicTimeStamp_EndOfTrack)
+        MusicEventIteratorSeek(iterator,currentPosition.value)
         MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
-        while hasPreviousEvent {
+        if hasPreviousEvent {
             MusicEventIteratorPreviousEvent(iterator)
-            // do work here
             MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize);
             if eventType == kMusicEventType_ExtendedTempo {
                 let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(eventData)
                 tempoOut = tempoEventPointer.memory.bpm
             }
-            MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent);
         }
 
         return tempoOut
@@ -501,16 +499,4 @@ public class AKSequencer {
         }
     }
     
-    /// Calculates beats in to a file based on it samples, sample rate, and tempo
-    ///
-    /// - parameter samples:    Number of samples in
-    /// - parameter sampleRate: Sample frequency
-    /// - parameter tempo:      Tempo, in beats per minute
-    ///
-    public static func beatsFromSamples(samples: Int, sampleRate: Int, tempo: Double) -> Beat {
-        let timeInSecs = Double(samples) / Double(sampleRate)
-        let beatsPerSec = tempo / 60.0
-        let beatLengthInSecs = Double(1.0 / beatsPerSec)
-        return Beat(timeInSecs / beatLengthInSecs)
-    }
 }
