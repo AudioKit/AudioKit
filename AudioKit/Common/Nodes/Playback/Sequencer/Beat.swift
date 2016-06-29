@@ -8,6 +8,35 @@
 
 import Foundation
 
+public extension Double {
+    
+    /// Calculates beats for a given tempo
+    ///
+    /// - parameter tempo: Tempo, in beats per minute
+    ///
+    public func beats(tempo tempo: Double) -> Beat {
+        let timeInSecs = self
+        let beatsPerSec = tempo / 60.0
+        let beatLengthInSecs = Double(1.0 / beatsPerSec)
+        return Beat(timeInSecs / beatLengthInSecs)
+    }
+}
+
+public extension Int {
+    
+    /// Calculates beats in to a file based on it samples, sample rate, and tempo
+    ///
+    /// - parameter sampleRate: Sample frequency
+    /// - parameter tempo:      Tempo, in beats per minute
+    ///
+    public func beatsFromSamples(sampleRate sampleRate: Int, tempo: Double) -> Beat {
+        let timeInSecs = Double(self) / Double(sampleRate)
+        let beatsPerSec = tempo / 60.0
+        let beatLengthInSecs = Double(1.0 / beatsPerSec)
+        return Beat(timeInSecs / beatLengthInSecs)
+    }
+}
+
 public struct Beat: CustomStringConvertible {
     public var value: Double
     
@@ -22,6 +51,11 @@ public struct Beat: CustomStringConvertible {
     public var description: String {
         return "\(value)"
     }
+    
+    public func seconds(tempo tempo: Double) -> Double {
+        return (self.value / tempo) * 60.0
+    }
+
 }
 
 public func ceil(beat: Beat) -> Beat {
