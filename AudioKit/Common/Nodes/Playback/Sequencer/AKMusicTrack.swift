@@ -202,7 +202,7 @@ public class AKMusicTrack {
     ///   - duration: How long to hold the note (would be better if they let us just use noteOffs...oh well)
     ///   - channel: MIDI channel for this note
     ///
-    public func addNote(note: Int, velocity: Int, position: Beat, duration: Beat, channel: Int = 0) {
+    public func addNote(note: Int, velocity: MIDIVelocity, position: Beat, duration: Beat, channel: Int = 0) {
 
         var noteMessage = MIDINoteMessage(
             channel: UInt8(channel),

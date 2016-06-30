@@ -42,7 +42,7 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     ///   - velocity: MIDI Velocity (0-127)
     ///   - channel:  MIDI Channel
     ///
-    override public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
+    override public func startNote(note: Int, withVelocity velocity: MIDIVelocity, onChannel channel: Int) {
         triggerCallbacks(.NoteOn, note: note, velocity: velocity)
     }
 
