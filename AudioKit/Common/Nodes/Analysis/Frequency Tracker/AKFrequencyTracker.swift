@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-/// This tracks the pitch of signal using the 
+/// This tracks the pitch of signal using the
 /// AMDF (Average Magnitude Difference Function) method of pitch following.
 public class AKFrequencyTracker: AKNode, AKToggleable {
 
@@ -21,12 +21,12 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
-    
+
     /// Detected Amplitude (Use AKAmplitude tracker if you don't need frequency)
     public var amplitude: Double {
         return Double(self.internalAU!.getAmplitude()) / sqrt(2.0) * 2.0
     }
-    
+
     /// Detected frequency
     public var frequency: Double {
         return Double(self.internalAU!.getFrequency()) * 2.0
@@ -34,11 +34,12 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
 
     // MARK: - Initialization
 
-    /// Initialize this Pitch-detection node 
+    /// Initialize this Pitch-detection node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter minimumFrequency: Lower bound of frequency detection
-    /// - parameter maximumFrequency: Upper bound of frequency detection
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - minimumFrequency: Lower bound of frequency detection
+    ///   - maximumFrequency: Upper bound of frequency detection
     public init(_ input: AKNode, minimumFrequency: Double, maximumFrequency: Double) {
 
         var description = AudioComponentDescription()
@@ -67,12 +68,12 @@ public class AKFrequencyTracker: AKNode, AKToggleable {
             self.internalAU?.setFrequencyLimitsWithMinimum(Float(minimumFrequency/2), maximum: Float(maximumFrequency/2))
         }
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         internalAU!.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         internalAU!.stop()

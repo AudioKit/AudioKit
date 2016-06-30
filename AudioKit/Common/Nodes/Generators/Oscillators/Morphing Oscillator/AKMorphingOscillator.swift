@@ -11,13 +11,14 @@ import AVFoundation
 /// This is an oscillator with linear interpolation that is capable of morphing
 /// between an arbitrary number of wavetables.
 ///
-/// - parameter waveformArray:      An array of exactly four waveforms
-/// - parameter frequency:          Frequency (in Hz)
-/// - parameter amplitude:          Amplitude (typically a value between 0 and 1).
-/// - parameter index:              Index of the wavetable to use (fractional are okay).
-/// - parameter detuningOffset:     Frequency offset in Hz.
-/// - parameter detuningMultiplier: Frequency detuning multiplier
-/// - parameter phase:              Initial phase of waveform, expects a value 0-1
+/// - Parameters:
+///   - waveformArray:      An array of exactly four waveforms
+///   - frequency:          Frequency (in Hz)
+///   - amplitude:          Amplitude (typically a value between 0 and 1).
+///   - index:              Index of the wavetable to use (fractional are okay).
+///   - detuningOffset:     Frequency offset in Hz.
+///   - detuningMultiplier: Frequency detuning multiplier
+///   - phase:              Initial phase of waveform, expects a value 0-1
 ///
 public class AKMorphingOscillator: AKVoice {
 
@@ -44,7 +45,7 @@ public class AKMorphingOscillator: AKVoice {
             }
         }
     }
-    
+
     /// In cycles per second, or Hz.
     public var frequency: Double = 440 {
         willSet {
@@ -57,7 +58,7 @@ public class AKMorphingOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Output Amplitude.
     public var amplitude: Double = 1 {
         willSet {
@@ -96,7 +97,7 @@ public class AKMorphingOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Frequency detuning multiplier
     public var detuningMultiplier: Double = 1 {
         willSet {
@@ -116,16 +117,17 @@ public class AKMorphingOscillator: AKVoice {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize this Morpher node
     ///
-    /// - parameter waveformArray:      An array of exactly four waveforms
-    /// - parameter frequency:          Frequency (in Hz)
-    /// - parameter amplitude:          Amplitude (typically a value between 0 and 1).
-    /// - parameter index:              Index of the wavetable to use (fractional are okay).
-    /// - parameter detuningOffset:     Frequency offset in Hz.
-    /// - parameter detuningMultiplier: Frequency detuning multiplier
-    /// - parameter phase:              Initial phase of waveform, expects a value 0-1
+    /// - Parameters:
+    ///   - waveformArray:      An array of exactly four waveforms
+    ///   - frequency:          Frequency (in Hz)
+    ///   - amplitude:          Amplitude (typically a value between 0 and 1).
+    ///   - index:              Index of the wavetable to use (fractional are okay).
+    ///   - detuningOffset:     Frequency offset in Hz.
+    ///   - detuningMultiplier: Frequency detuning multiplier
+    ///   - phase:              Initial phase of waveform, expects a value 0-1
     ///
     public init(
         waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
@@ -167,7 +169,7 @@ public class AKMorphingOscillator: AKVoice {
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKMorphingOscillatorAudioUnit
 
             AudioKit.engine.attachNode(self.avAudioNode)
-            
+
             for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
                 for j in 0 ..< waveformArray[i].size{

@@ -15,8 +15,9 @@ import AVFoundation
 /// should be noted that this modifies amplitude only; output signal is not
 /// altered in any other respect.
 ///
-/// - parameter input: Input node to process
-/// - parameter comparator: Audio to match power with
+/// - Parameters:
+///   - input: Input node to process
+///   - comparator: Audio to match power with
 ///
 public class AKBalancer: AKNode, AKToggleable {
 
@@ -24,7 +25,7 @@ public class AKBalancer: AKNode, AKToggleable {
 
 
     internal var internalAU: AKBalancerAudioUnit?
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -34,8 +35,9 @@ public class AKBalancer: AKNode, AKToggleable {
 
     /// Initialize this balance node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter comparator: Audio to match power with
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - comparator: Audio to match power with
     ///
     public init( _ input: AKNode, comparator: AKNode) {
 
@@ -63,17 +65,17 @@ public class AKBalancer: AKNode, AKToggleable {
 
             AudioKit.engine.attachNode(self.avAudioNode)
             input.addConnectionPoint(self)
-            
+
             comparator.connectionPoints.append(AVAudioConnectionPoint(node: self.avAudioNode, bus: 1))
             AudioKit.engine.connect(comparator.avAudioNode, toConnectionPoints: comparator.connectionPoints, fromBus: 0, format: nil)
         }
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         self.internalAU!.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         self.internalAU!.stop()

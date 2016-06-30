@@ -13,14 +13,14 @@ import AVFoundation
 public class AKBooster: AKNode, AKToggleable {
     private let mixer = AVAudioMixerNode()
 
-    
+
     /// Amplification Factor
     public var gain: Double = 1.0 {
         didSet {
             mixer.outputVolume = Float(gain)
         }
     }
-    
+
     /// Amplification Factor in db
     public var dB: Double {
         set {
@@ -30,36 +30,37 @@ public class AKBooster: AKNode, AKToggleable {
             return 20.0 * log10(gain)
         }
     }
-    
+
     private var lastKnownGain: Double = 1.0
-    
+
     /// Tells whether or not the booster is actually changing the volume of its source.
     public var isStarted: Bool {
         return gain != 1.0
     }
-    
+
     /// Initialize this amplification node
     ///
-    /// - parameter input: AKNode whose output will be amplified
-    /// - parameter gain: Amplification factor (Default: 1, Minimum: 0)
+    /// - Parameters:
+    ///   - input: AKNode whose output will be amplified
+    ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(_ input: AKNode, gain: Double = 1.0) {
-            
+
         super.init()
         self.avAudioNode = mixer
         AudioKit.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)
-            
+
         mixer.outputVolume = Float(gain)
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         if isStopped {
             gain = lastKnownGain
         }
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {

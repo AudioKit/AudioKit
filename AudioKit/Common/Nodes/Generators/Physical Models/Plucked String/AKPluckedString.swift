@@ -10,9 +10,10 @@ import AVFoundation
 
 /// Karplus-Strong plucked string instrument.
 ///
-/// - parameter frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-/// - parameter amplitude: Amplitude
-/// - parameter lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
+/// - Parameters:
+///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
+///   - amplitude: Amplitude
+///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
 ///
 public class AKPluckedString: AKVoice {
 
@@ -25,7 +26,7 @@ public class AKPluckedString: AKVoice {
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
     private var lowestFrequency: Double
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -65,12 +66,13 @@ public class AKPluckedString: AKVoice {
     override convenience init() {
         self.init(frequency: 110)
     }
-    
+
     /// Initialize this pluck node
     ///
-    /// - parameter frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    /// - parameter amplitude: Amplitude
-    /// - parameter lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
+    /// - Parameters:
+    ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
+    ///   - amplitude: Amplitude
+    ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
     ///
     public init(
         frequency: Double = 440,
@@ -81,7 +83,7 @@ public class AKPluckedString: AKVoice {
         self.frequency = frequency
         self.amplitude = amplitude
         self.lowestFrequency = lowestFrequency
-            
+
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x706c756b /*'pluk'*/
@@ -132,9 +134,9 @@ public class AKPluckedString: AKVoice {
         let copy = AKPluckedString(frequency: self.frequency, amplitude: self.amplitude, lowestFrequency: self.lowestFrequency)
         return copy
     }
-    
+
     /// Trigger the sound with an optional set of parameters
-    /// - parameter frequency: Frequency in Hz
+    ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
     ///
     public func trigger(frequency frequency: Double, amplitude: Double = 1) {

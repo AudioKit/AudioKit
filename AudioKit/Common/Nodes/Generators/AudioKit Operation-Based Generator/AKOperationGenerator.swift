@@ -49,8 +49,9 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
     /// Initialize the generator with a two mono operations for the left and right channel and indicate whether it responds to a trigger
     ///
-    /// - parameter left: AKOperation to be heard from the left output
-    /// - parameter right: AKOperation to be heard from the right output
+    /// - Parameters:
+    ///   - left: AKOperation to be heard from the left output
+    ///   - right: AKOperation to be heard from the right output
     ///
     public convenience init(left: AKOperation, right: AKOperation) {
         let operationString = "\(right) \(left)"
@@ -88,15 +89,16 @@ public class AKOperationGenerator: AKNode, AKToggleable {
             self.internalAU?.setSporth(sporth)
         }
     }
-    
+
     /// Trigger the sound with current parameters
     ///
     public func trigger() {
         self.internalAU!.trigger(self.parameters)
     }
-    
+
 
     /// Trigger the sound with a set of parameters
+    ///
     /// - parameter parameters: An array of doubles to use as parameters
     ///
     public func trigger(parameters: [Double]) {

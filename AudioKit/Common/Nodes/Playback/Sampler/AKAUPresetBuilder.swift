@@ -9,7 +9,7 @@
 import Foundation
 
 public class AKAUPresetBuilder {
-    
+
     public var presetXML = ""
     public var layers = [String]()
     public var connections = [String]()
@@ -18,15 +18,17 @@ public class AKAUPresetBuilder {
     public var zones = [String]()
     public var fileRefs = [String]()
     public var filters = [String]()
-    
+
     /// Create preset with the given components
-    /// - parameter name:        Coded instrument name
-    /// - parameter connections: Connection XML
-    /// - parameter envelopes:   Envelopes XML
-    /// - parameter filter:      Filter XML
-    /// - parameter lfos:        Low Frequency Oscillator XML
-    /// - parameter zones:       Zones XML
-    /// - parameter filerefs:    File references XML
+    ///
+    /// - Parameters:
+    ///   - name:        Coded instrument name
+    ///   - connections: Connection XML
+    ///   - envelopes:   Envelopes XML
+    ///   - filter:      Filter XML
+    ///   - lfos:        Low Frequency Oscillator XML
+    ///   - zones:       Zones XML
+    ///   - filerefs:    File references XML
     ///
     init(name: String = "Coded Instrument Name",
          connections: String = "***CONNECTIONS***\n",
@@ -43,20 +45,22 @@ public class AKAUPresetBuilder {
                                                       zones: zones,
                                                       filerefs: filerefs)
     }
-    
+
     /// Create an AUPreset from a collection of dictionaries.
     /// dict is a collection of other dictionaries that have the format like this:
-    /// ***Key:Value***
-    /// filename:string
-    /// rootnote:int
-    /// startnote:int (optional)
-    /// endnote:int (optional)
+    ///   - ***Key:Value***
+    ///   - filename:string
+    ///   - rootnote:int
+    ///   - startnote:int (optional)
+    ///   - endnote:int (optional)
     ///
-    /// - parameter dict:           Collection of dictionaries with format as given above
-    /// - parameter path:           Where the AUPreset will be created
-    /// - parameter instrumentName: The name of the AUPreset
-    /// - parameter attack:         Attack time in seconds
-    /// - parameter release:        Release time in seconds
+    /// - Parameters:
+    ///   - dict:           Collection of dictionaries with format as given above
+    ///   - path:           Where the AUPreset will be created
+    ///   - instrumentName: The name of the AUPreset
+    ///   - attack:         Attack time in seconds
+    ///   - release:        Release time in seconds
+    ///
     static public func createAUPresetFromDict(dict: NSDictionary,
                                               path: String,
                                               instrumentName: String,
@@ -71,7 +75,7 @@ public class AKAUPresetBuilder {
         var sampleIDXML = ""
         var sampleIteration = 0
         let sampleNumStart = 268435457
-        
+
         //iterate over the sounds
         for i in 0 ..< dict.count {
             let sound = dict.allValues[i]
@@ -88,7 +92,7 @@ public class AKAUPresetBuilder {
                     sampleNum = loadedSoundDict.objectForKey("sampleNum") as! Int
                 }
             }
-            
+
             if sound.objectForKey(startNoteKey) == nil || sound.objectForKey(endNoteKey) == nil {
                 soundDict.setObject(sound.objectForKey(rootNoteKey)!, forKey: startNoteKey)
                 soundDict.setObject(sound.objectForKey(rootNoteKey)!, forKey: endNoteKey)
@@ -98,28 +102,28 @@ public class AKAUPresetBuilder {
             } else {
                 soundDict.setObject(sound.objectForKey(rootNoteKey)!, forKey: rootNoteKey)
             }
-            
+
             if !alreadyLoaded { //if this is a new sound, then add it to samplefile xml
                 sampleNum = sampleNumStart + sampleIteration
                 let idXML = AKAUPresetBuilder.generateFileRef(sampleNum, samplePath: sound.objectForKey("filename")! as! String)
                 sampleIDXML.appendContentsOf(idXML)
-                
+
                 sampleIteration += 1
             }
-            
+
             let startNote = soundDict.objectForKey(startNoteKey)! as! Int
             let endNote = soundDict.objectForKey(endNoteKey)! as! Int
             let rootNote = soundDict.objectForKey(rootNoteKey)! as! Int
             let tempSampleZoneXML: String = AKAUPresetBuilder.generateZone(i, rootNote: rootNote, startNote: startNote, endNote: endNote, wavRef: sampleNum)
-            
+
             sampleZoneXML.appendContentsOf(tempSampleZoneXML)
             soundDict.setObject(sampleNum, forKey: "sampleNum")
             loadSoundsArr.append(soundDict)
         }
-        
+
         let envelopesXML = AKAUPresetBuilder.generateEnvelope(0, delay: 0, attack: attack!, hold: 0, decay: 0, sustain: 1, release: release!)
         let str = AKAUPresetBuilder.buildInstrument(instrumentName, envelopes: envelopesXML, zones: sampleZoneXML, filerefs: sampleIDXML)
-        
+
         //write to file
         do {
             print("Writing to \(path)")
@@ -129,19 +133,21 @@ public class AKAUPresetBuilder {
             print(error)
         }
     }
-    
+
     /// This functions returns 1 dictionary entry for a particular sample zone. You then add this to an array, and feed that into createAUPresetFromDict
-    /// - parameter rootNote:  Note at which the sample playback is unchanged
-    /// - parameter filename:  Name of the file
-    /// - parameter startNote: First note in range
-    /// - parameter endNote:   Last note in range
+    ///
+    /// - Parameters:
+    ///   - rootNote:  Note at which the sample playback is unchanged
+    ///   - filename:  Name of the file
+    ///   - startNote: First note in range
+    ///   - endNote:   Last note in range
     ///
     public static func generateDictionary(
         rootNote: Int,
         filename: String,
         startNote: Int,
         endNote: Int) -> NSMutableDictionary {
-        
+
         let rootNoteKey = "rootnote"
         let startNoteKey = "startnote"
         let endNoteKey = "endnote"
@@ -150,11 +156,11 @@ public class AKAUPresetBuilder {
         let keys = [rootNoteKey, startNoteKey, endNoteKey, filenameKey]
         return NSMutableDictionary.init(objects: defaultObjects, forKeys: keys)
     }
-    
+
     static func spaces(count: Int) -> String {
         return String(count: count, repeatedValue: (" " as Character))
     }
-    
+
     static public func buildInstrument(name: String = "Coded Instrument Name",
                                        connections: String = "",
                                        envelopes: String = "",
@@ -166,7 +172,7 @@ public class AKAUPresetBuilder {
         var presetXML = openPreset()
         presetXML.appendContentsOf(openInstrument())
         presetXML.appendContentsOf(openLayers())
-        
+
         if layers == "" {
             presetXML.appendContentsOf(openLayer())
             presetXML.appendContentsOf(openConnections())
@@ -189,7 +195,7 @@ public class AKAUPresetBuilder {
         } else {
             presetXML.appendContentsOf(layers)
         }
-        
+
         presetXML.appendContentsOf(closeLayers())
         presetXML.appendContentsOf(closeInstrument())
         presetXML.appendContentsOf(genCoarseTune())
@@ -582,7 +588,7 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("</plist>\n")
         return str
     }
-    
+
     static public func generateLayer(connections: String, envelopes: String = "", filter: String = "", lfos: String = "", zones: String = "", layer: Int = 0, numVoices: Int = 16, ignoreNoteOff: Bool = false) -> String {
         var str = ""
         str.appendContentsOf(openLayer())
@@ -781,7 +787,7 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("                        </dict>\n")
         return str
     }
-    
+
     static func genFULLXML() -> String {
         var str: String
         str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -1121,7 +1127,7 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("</plist>\n")
         return str
     }
-    
+
 }
 /*
  making notes of parameters as I reverse engineer them...
@@ -1129,15 +1135,15 @@ public class AKAUPresetBuilder {
  destinations:
  1343225856 = amp gain
  818937856 = samplestart factor
- 
+
  816840704 = layer1pitch
  816840960 = layer2pitch (+256)
  816841216 = layer3pitch (+256)
- 
+
  1343225856 = layer1gain
  1343226112 = layer2gain (+256)
  1343226368 = layer3gain (+256)
- 
+
  sources:
  300 = keynumber
  301 = keyvelocity
@@ -1145,5 +1151,5 @@ public class AKAUPresetBuilder {
  536871168 = layer2envelope (+256)536871424
  268435456 = layer1LFO1
  268435457 = layer1LFO2
- 
+
  */

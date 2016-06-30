@@ -22,13 +22,13 @@ public class AKRollingOutputPlot: EZAudioPlot {
             }
         }
     }
-    
+
     internal var bufferSize: UInt32 = 1024
-    
+
     deinit {
         AudioKit.engine.outputNode.removeTapOnBus(0)
     }
-    
+
     /// Initialize the plot in a frame
     ///
     /// - parameter frame: CGRect in which to draw the plot
@@ -37,11 +37,12 @@ public class AKRollingOutputPlot: EZAudioPlot {
         super.init(frame: frame)
         setupNode()
     }
-    
+
     /// Initialize the plot in a frame with a different buffer size
     ///
-    /// - parameter frame: CGRect in which to draw the plot
-    /// - parameter bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
+    /// - Parameters:
+    ///   - frame: CGRect in which to draw the plot
+    ///   - bufferSize: size of the buffer - raise this number if the device struggles with generating the waveform
     ///
     public init(frame: CGRect, bufferSize: Int) {
         super.init(frame: frame)
@@ -60,22 +61,22 @@ public class AKRollingOutputPlot: EZAudioPlot {
 
     /// Create a View with the plot (usually for playgrounds)
     ///
-    /// - returns: AKView
-    /// - parameter width: Width of the view
-    /// - parameter height: Height of the view
+    /// - Parameters:
+    ///   - width: Width of the view
+    ///   - height: Height of the view
     ///
     public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
-        
+
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKRollingOutputPlot(frame: frame)
-        
+
         plot.plotType = .Rolling
         plot.backgroundColor = AKColor.whiteColor()
         plot.color = AKColor.greenColor()
         plot.shouldFill = true
         plot.shouldMirror = true
         plot.shouldCenterYAxis = true
-        
+
         let containerView = AKView(frame: frame)
         containerView.addSubview(plot)
         return containerView

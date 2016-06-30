@@ -16,10 +16,10 @@ public struct AKMIDIEvent {
 
     /// Internal data - defaults to 3 bytes
     var internalData = [UInt8](count: 3, repeatedValue: 0)
-    
+
     /// The length in bytes for this MIDI message (1 to 3 bytes)
     var length: UInt8?
-    
+
     /// Status
     var status: AKMIDIStatus {
         let status = internalData[0] >> 4
@@ -43,15 +43,15 @@ public struct AKMIDIEvent {
         }
         return 0
     }
-    
+
     var data1: UInt8 {
         return internalData[1]
     }
-    
+
     var data2: UInt8 {
         return internalData[2]
     }
-    
+
     var data: UInt16 {
         if internalData.count < 2{
             return 0
@@ -64,7 +64,7 @@ public struct AKMIDIEvent {
     var bytes: NSData {
         return NSData(bytes: [internalData[0], internalData[1], internalData[2]] as [UInt8], length: 3)
     }
-    
+
     static private let statusBit:   UInt8 = 0b10000000
     static private let dataMask:    UInt8 = 0b01111111
     static private let messageMask: UInt8 = 0b01110000
@@ -107,15 +107,16 @@ public struct AKMIDIEvent {
 
     /// Initialize the MIDI Event from a status message
     ///
-    /// - parameter status:  MIDI Status
-    /// - parameter channel: Channel on which the event occurs
-    /// - parameter byte1:   First data byte
-    /// - parameter byte2:   Second data byte
+    /// - Parameters:
+    ///   - status:  MIDI Status
+    ///   - channel: Channel on which the event occurs
+    ///   - byte1:   First data byte
+    ///   - byte2:   Second data byte
     ///
     init(status: AKMIDIStatus, channel: UInt8, byte1: UInt8, byte2: UInt8) {
         fillWithStatus(status, channel: channel, byte1: byte1, byte2: byte2)
     }
-    
+
     private mutating func fillWithStatus(status: AKMIDIStatus, channel: UInt8, byte1: UInt8, byte2: UInt8) {
         internalData[0] = UInt8(status.rawValue << 4) | UInt8((channel) & 0xf)
         internalData[1] = byte1 & 0x7F
@@ -125,7 +126,7 @@ public struct AKMIDIEvent {
         case .ControllerChange:
             if byte1 < AKMIDIControl.DataEntryPlus.rawValue ||
                 byte1 == AKMIDIControl.LocalControlOnOff.rawValue {
-                
+
                 length = 3
             } else {
                 length = 2
@@ -140,9 +141,11 @@ public struct AKMIDIEvent {
 
     /// Initialize the MIDI Event from a system command message
     ///
-    /// - parameter command: MIDI System Command
-    /// - parameter byte1:   First data byte
-    /// - parameter byte2:   Second data byte    ///
+    /// - Parameters:
+    ///   - command: MIDI System Command
+    ///   - byte1:   First data byte
+    ///   - byte2:   Second data byte 
+    ///
     init(command: AKMIDISystemCommand, byte1: UInt8, byte2: UInt8) {
         fillWithCommand(command, byte1: byte1, byte2: byte2)
     }
@@ -164,7 +167,7 @@ public struct AKMIDIEvent {
     }
 
     // MARK: - Utility constructors for common MIDI events
-    
+
     /// Determine whether a given byte is the status byte for a MIDI event
     ///
     /// - parameter byte: Byte to test
@@ -172,7 +175,7 @@ public struct AKMIDIEvent {
     static func isStatusByte(byte: UInt8) -> Bool {
         return (byte & AKMIDIEvent.statusBit) == AKMIDIEvent.statusBit
     }
-    
+
     /// Determine whether a given byte is a data byte for a MIDI Event
     ///
     /// - parameter byte: Byte to test
@@ -192,43 +195,47 @@ public struct AKMIDIEvent {
 
     /// Create note on event
     ///
-    /// - parameter note:     MIDI Note number
-    /// - parameter velocity: MIDI Note velocity (0-127)
-    /// - parameter channel:  Channel on which the note appears
+    /// - Parameters:
+    ///   - note:     MIDI Note number
+    ///   - velocity: MIDI Note velocity (0-127)
+    ///   - channel:  Channel on which the note appears
     ///
     static public func eventWithNoteOn(note: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMIDIEvent {
         return AKMIDIEvent(status: .NoteOn, channel: channel, byte1: note, byte2: velocity)
     }
-    
+
     /// Create note off event
     ///
-    /// - parameter note:     MIDI Note number
-    /// - parameter velocity: MIDI Note velocity (0-127)
-    /// - parameter channel:  Channel on which the note appears
+    /// - Parameters:
+    ///   - note:     MIDI Note number
+    ///   - velocity: MIDI Note velocity (0-127)
+    ///   - channel:  Channel on which the note appears
     ///
     static public func eventWithNoteOff(note: UInt8, velocity: UInt8, channel: UInt8) -> AKMIDIEvent {
         return AKMIDIEvent(status: .NoteOff, channel: channel, byte1: note, byte2: velocity)
     }
-    
+
     /// Create program change event
     ///
-    /// - parameter program: Program change byte
-    /// - parameter channel: Channel on which the program change appears
+    /// - Parameters:
+    ///   - program: Program change byte
+    ///   - channel: Channel on which the program change appears
     ///
     static public func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMIDIEvent {
         return AKMIDIEvent(status: .ProgramChange, channel: channel, byte1: program, byte2: 0)
     }
-    
+
     /// Create controller event
     ///
-    /// - parameter controller: Controller number
-    /// - parameter value:      Value of the controller
-    /// - parameter channel:    Channel on which the controller value has changed
+    /// - Parameters:
+    ///   - controller: Controller number
+    ///   - value:      Value of the controller
+    ///   - channel:    Channel on which the controller value has changed
     ///
     static public func eventWithController(controller: UInt8, value: UInt8, channel: UInt8) -> AKMIDIEvent {
         return AKMIDIEvent(status: .ControllerChange, channel: channel, byte1: controller, byte2: value)
     }
-    
+
     private func isSysex(packet: MIDIPacket) -> Bool {
         return packet.data.0 == AKMIDISystemCommand.Sysex.rawValue
     }

@@ -12,10 +12,11 @@ import AVFoundation
 /// file loaded into an ftable like a sampler would. Unlike a typical sampler,
 /// mincer allows time and pitch to be controlled separately.
 ///
-/// - parameter audioFileURL: Location of the audio file to use.
-/// - parameter position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-/// - parameter amplitude: Amplitude.
-/// - parameter pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
+/// - Parameters:
+///   - audioFileURL: Location of the audio file to use.
+///   - position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
+///   - amplitude: Amplitude.
+///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
 ///
 public class AKPhaseLockedVocoder: AKNode {
 
@@ -37,7 +38,7 @@ public class AKPhaseLockedVocoder: AKNode {
             }
         }
     }
-    
+
     /// Position in time. When non-changing it will do a spectral freeze of a the current point in time.
     public var position: Double = 0 {
         willSet {
@@ -50,7 +51,7 @@ public class AKPhaseLockedVocoder: AKNode {
             }
         }
     }
-    
+
     /// Amplitude.
     public var amplitude: Double = 1 {
         willSet {
@@ -63,7 +64,7 @@ public class AKPhaseLockedVocoder: AKNode {
             }
         }
     }
-    
+
     /// Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     public var pitchRatio: Double = 1 {
         willSet {
@@ -83,15 +84,16 @@ public class AKPhaseLockedVocoder: AKNode {
     }
 
     private var avAudiofile: AVAudioFile
-    
+
     // MARK: - Initialization
 
     /// Initialize this Phase-Locked Vocoder node
     ///
-    /// - parameter audioFileURL: Location of the audio file to use.
-    /// - parameter position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
-    /// - parameter amplitude: Amplitude.
-    /// - parameter pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
+    /// - Parameters:
+    ///   - audioFileURL: Location of the audio file to use.
+    ///   - position: Position in time. When non-changing it will do a spectral freeze of a the current point in time.
+    ///   - amplitude: Amplitude.
+    ///   - pitchRatio: Pitch ratio. A value of. 1  normal, 2 is double speed, 0.5 is halfspeed, etc.
     ///
     public init(
         file: AVAudioFile,
@@ -103,42 +105,42 @@ public class AKPhaseLockedVocoder: AKNode {
         self.amplitude = amplitude
         self.pitchRatio = pitchRatio
         self.avAudiofile = file
-        
+
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x6d696e63 /*'minc'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
-        
+
         AUAudioUnit.registerSubclass(
             AKPhaseLockedVocoderAudioUnit.self,
             asComponentDescription: description,
             name: "Local AKPhaseLockedVocoder",
             version: UInt32.max)
-        
+
         super.init()
-        
+
         AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
             avAudioUnit, error in
-            
+
             guard let avAudioUnitGenerator = avAudioUnit else { return }
-            
+
             self.avAudioNode = avAudioUnitGenerator
             self.internalAU = avAudioUnitGenerator.AUAudioUnit as? AKPhaseLockedVocoderAudioUnit
-            
+
             AudioKit.engine.attachNode(self.avAudioNode)
         }
-        
+
         guard let tree = internalAU?.parameterTree else { return }
-        
+
         positionParameter   = tree.valueForKey("position")   as? AUParameter
         amplitudeParameter  = tree.valueForKey("amplitude")  as? AUParameter
         pitchRatioParameter = tree.valueForKey("pitchRatio") as? AUParameter
-        
+
         token = tree.tokenByAddingParameterObserver {
             address, value in
-            
+
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.positionParameter!.address {
                     self.position = Double(value)

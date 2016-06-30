@@ -10,8 +10,9 @@ import AVFoundation
 
 /// Stereo Panner
 ///
-/// - parameter input: Input node to process
-/// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
+/// - Parameters:
+///   - input: Input node to process
+///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
 ///
 public class AKPanner: AKNode, AKToggleable {
 
@@ -54,8 +55,9 @@ public class AKPanner: AKNode, AKToggleable {
 
     /// Initialize this panner node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - pan: Panning. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
     ///
     public init(
         _ input: AKNode,

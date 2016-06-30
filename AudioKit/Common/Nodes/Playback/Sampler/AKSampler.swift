@@ -17,18 +17,18 @@ import CoreAudio
 /// 4) start the engine AudioKit.start()
 ///
 public class AKSampler: AKNode {
-    
+
     // MARK: - Properties
-    
+
     private var internalAU: AUAudioUnit?
 
     private var token: AUParameterObserverToken?
-    
+
     /// Sampler AV Audio Unit
     public var samplerUnit = AVAudioUnitSampler()
-    
+
     // MARK: - Initializers
-    
+
     /// Initialize the sampler node
     override public init() {
         super.init()
@@ -37,7 +37,7 @@ public class AKSampler: AKNode {
         AudioKit.engine.attachNode(self.avAudioNode)
         //you still need to connect the output, and you must do this before starting the processing graph
     }
-    
+
     /// Load a wav file
     ///
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
@@ -52,7 +52,7 @@ public class AKSampler: AKNode {
             print("Error loading wav file at the given file location.")
         }
     }
-    
+
     /// Load an EXS24 sample data file
     ///
     /// - parameter file: Name of the EXS24 file without the .exs extension
@@ -89,11 +89,12 @@ public class AKSampler: AKNode {
             print("Error loading SoundFont.")
         }
     }
-    
+
     /// Load a Melodic SoundFont SF2 sample data file
     ///
-    /// - parameter file: Name of the SoundFont SF2 file without the .sf2 extension
-    /// - parameter preset: Number of the program to use
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - preset: Number of the program to use
     ///
     public func loadMelodicSoundFont(file: String, preset: Int) {
         loadSoundFont(file, preset: preset, type: kAUSampler_DefaultMelodicBankMSB)
@@ -101,14 +102,15 @@ public class AKSampler: AKNode {
 
     /// Load a Percussive SoundFont SF2 sample data file
     ///
-    /// - parameter file: Name of the SoundFont SF2 file without the .sf2 extension
-    /// - parameter preset: Number of the program to use
+    /// - Parameters:
+    ///   - file: Name of the SoundFont SF2 file without the .sf2 extension
+    ///   - preset: Number of the program to use
     ///
     public func loadPercussiveSoundFont(file: String, preset: Int) {
         loadSoundFont(file, preset: preset, type: kAUSampler_DefaultPercussionBankMSB)
     }
 
-    
+
     /// Load a file path
     ///
     /// - parameter file: Name of the file with the extension
@@ -120,7 +122,7 @@ public class AKSampler: AKNode {
             print("Error loading file at given file path.")
         }
     }
-    
+
     internal func loadInstrument(file: String, type: String) {
         print("filename is \(file)")
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: type) else {
@@ -132,56 +134,57 @@ public class AKSampler: AKNode {
             print("Error loading instrument.")
         }
     }
-    
+
     /// Output Amplitude.
-    /// Range: -90.0 -> +12 db
-    /// Default: 0 db
+    ///   - Range: -90.0 -> +12 db
+    ///   - Default: 0 db
     public var amplitude: Double = 0 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
-    
+
     /// Normalized Output Volume.
-    /// Range:   0 - 1
-    /// Default: 1
+    ///   - Range:   0 - 1
+    ///   - Default: 1
     public var volume: Double = 1 {
         didSet {
             let newGain = volume.denormalized(minimum: -90.0, maximum: 0.0, taper: 1)
             samplerUnit.masterGain = Float(newGain)
         }
     }
-    
+
     /// Pan.
-    /// Range:   -1 - 1
-    /// Default: 0
+    ///   - Range:   -1 - 1
+    ///   - Default: 0
     public var pan: Double = 0 {
         didSet {
             samplerUnit.stereoPan = Float(100.0 * pan)
         }
     }
-    
-    
+
+
     // MARK: - Playback
-    
+
     /// Play a MIDI Note
     ///
-    /// - parameter note: MIDI Note Number to play
-    /// - parameter velocity: MIDI Velocity
-    /// - parameter channel: MIDI Channnel
+    /// - Parameters:
+    ///   - note: MIDI Note Number to play
+    ///   - velocity: MIDI Velocity
+    ///   - channel: MIDI Channnel
     ///
     public func playNote(note: Int = 60, velocity: Int = 127, channel: Int = 0) {
         samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
-    
+
     /// Stop a MIDI Note
-    /// - parameter note: MIDI Note Number to stop
-    /// - parameter channel: MIDI Channnel
+    ///   - note: MIDI Note Number to stop
+    ///   - channel: MIDI Channnel
     ///
     public func stopNote(note: Int = 60, channel: Int = 0) {
         samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
     }
-    
+
     static func getAUPresetXML() -> String{
         var templateStr:String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"

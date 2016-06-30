@@ -11,7 +11,6 @@ import Foundation
 extension AKOperation {
     /// Division of parameters
     ///
-    /// - returns: AKOperation
     /// - parameter parameter: The amount to divide
     ///
     public func dividedBy(parameter: AKParameter) -> AKOperation {
@@ -21,9 +20,9 @@ extension AKOperation {
 
 /// Helper function for Division
 ///
-/// - returns: AKOperation
-/// - parameter left: 1st parameter
-/// - parameter right: 2nd parameter
+/// - Parameters:
+///   - left: 1st parameter
+///   - right: 2nd parameter
 ///
 public func /(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().dividedBy(right)

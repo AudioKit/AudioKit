@@ -11,11 +11,12 @@ import AVFoundation
 /// This is a bandlimited square oscillator ported from the "square" function
 /// from the Faust programming language.
 ///
-/// - parameter frequency: In cycles per second, or Hz.
-/// - parameter amplitude: Output amplitude
-/// - parameter pulseWidth: Duty cycle width (range 0-1).
-/// - parameter detuningOffset: Frequency offset in Hz.
-/// - parameter detuningMultiplier: Frequency detuning multiplier
+/// - Parameters:
+///   - frequency: In cycles per second, or Hz.
+///   - amplitude: Output amplitude
+///   - pulseWidth: Duty cycle width (range 0-1).
+///   - detuningOffset: Frequency offset in Hz.
+///   - detuningMultiplier: Frequency detuning multiplier
 ///
 public class AKPWMOscillator: AKVoice {
 
@@ -93,7 +94,7 @@ public class AKPWMOscillator: AKVoice {
         }
     }
 
-    
+
     /// Duty cycle width (range 0-1).
     public var pulseWidth: Double = 0.5 {
         willSet {
@@ -106,7 +107,7 @@ public class AKPWMOscillator: AKVoice {
             }
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     override public var isStarted: Bool {
         return internalAU!.isPlaying()
@@ -116,11 +117,12 @@ public class AKPWMOscillator: AKVoice {
 
     /// Initialize this oscillator node
     ///
-    /// - parameter frequency: In cycles per second, or Hz.
-    /// - parameter amplitude: Output amplitude
-    /// - parameter pulseWidth: Duty cycle width (range 0-1).
-    /// - parameter detuningOffset: Frequency offset in Hz.
-    /// - parameter detuningMultiplier: Frequency detuning multiplier
+    /// - Parameters:
+    ///   - frequency: In cycles per second, or Hz.
+    ///   - amplitude: Output amplitude
+    ///   - pulseWidth: Duty cycle width (range 0-1).
+    ///   - detuningOffset: Frequency offset in Hz.
+    ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
         frequency: Double = 440,

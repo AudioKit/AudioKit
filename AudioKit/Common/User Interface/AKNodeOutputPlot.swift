@@ -22,9 +22,9 @@ public class AKNodeOutputPlot: EZAudioPlot {
             }
         }
     }
-    
+
     internal var bufferSize: UInt32 = 1024
-    
+
     /// The node whose output to graph
     public var node: AKNode? {
         willSet {
@@ -34,7 +34,7 @@ public class AKNodeOutputPlot: EZAudioPlot {
             setupNode(node)
         }
     }
-    
+
     deinit {
         node?.avAudioNode.removeTapOnBus(0)
     }
@@ -50,9 +50,10 @@ public class AKNodeOutputPlot: EZAudioPlot {
 
     /// Initialize the plot with the output from a given node and optional plot size
     ///
-    /// - parameter input: AKNode from which to get the plot data
-    /// - parameter width: Width of the view
-    /// - parameter height: Height of the view
+    /// - Parameters:
+    ///   - input: AKNode from which to get the plot data
+    ///   - width: Width of the view
+    ///   - height: Height of the view
     ///
     public init(_ input: AKNode, frame: CGRect, bufferSize: Int = 1024) {
         super.init(frame: frame)
@@ -60,8 +61,8 @@ public class AKNodeOutputPlot: EZAudioPlot {
         self.backgroundColor = AKColor.whiteColor()
         self.shouldCenterYAxis = true
         self.bufferSize = UInt32(bufferSize)
-        
+
         setupNode(input)
     }
-    
+
 }

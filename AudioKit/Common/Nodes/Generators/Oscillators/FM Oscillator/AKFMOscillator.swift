@@ -10,11 +10,12 @@ import AVFoundation
 
 /// Classic FM Synthesis audio generation.
 ///
-/// - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-/// - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
-/// - parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
-/// - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
-/// - parameter amplitude: Output Amplitude.
+/// - Parameters:
+///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
+///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
+///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
+///   - amplitude: Output Amplitude.
 ///
 public class AKFMOscillator: AKVoice {
 
@@ -30,7 +31,7 @@ public class AKFMOscillator: AKVoice {
     private var modulatingMultiplierParameter: AUParameter?
     private var modulationIndexParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -112,7 +113,7 @@ public class AKFMOscillator: AKVoice {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(waveform: AKTable(.Sine))
@@ -120,11 +121,12 @@ public class AKFMOscillator: AKVoice {
 
     /// Initialize this oscillator node
     ///
-    /// - parameter baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
-    /// - parameter carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
-    /// - parameter modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
-    /// - parameter modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
-    /// - parameter amplitude: Output Amplitude.
+    /// - Parameters:
+    ///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
+    ///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
+    ///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
+    ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
+    ///   - amplitude: Output Amplitude.
     ///
     public init(
         waveform: AKTable,

@@ -11,7 +11,6 @@ import Foundation
 extension AKOperation {
     /// Subtraction of parameters
     ///
-    /// - returns: AKOperation
     /// - parameter subtrahend: The amount to subtract
     ///
     public func minus(subtrahend: AKParameter) -> AKOperation {
@@ -22,14 +21,18 @@ extension AKOperation {
 
 /// Helper function for Subtraction
 ///
-/// - returns: AKOperation
-/// - left: 1st parameter
-/// - right: 2nd parameter
+/// - Parameters:
+///   - left: 1st parameter
+///   - right: 2nd parameter
 ///
 public func -(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().minus(right)
 }
 
+/// Negation
+///
+/// - parameter parameter: Parameter to negate
+///
 public prefix func -(x: AKParameter) -> AKOperation {
     return AKOperation("(0 \(x) -)")
 }

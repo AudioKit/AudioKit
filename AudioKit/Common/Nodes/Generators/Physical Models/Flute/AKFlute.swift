@@ -10,8 +10,9 @@ import AVFoundation
 
 /// STK Flutee
 ///
-/// - parameter frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-/// - parameter amplitude: Amplitude
+/// - Parameters:
+///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
+///   - amplitude: Amplitude
 ///
 public class AKFlute: AKVoice {
 
@@ -22,7 +23,7 @@ public class AKFlute: AKVoice {
 
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -62,11 +63,12 @@ public class AKFlute: AKVoice {
     override convenience init() {
         self.init(frequency: 110)
     }
-    
+
     /// Initialize the STK Flute model
     ///
-    /// - parameter frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
-    /// - parameter amplitude: Amplitude
+    /// - Parameters:
+    ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
+    ///   - amplitude: Amplitude
     ///
     public init(
         frequency: Double = 440,
@@ -75,7 +77,7 @@ public class AKFlute: AKVoice {
 
         self.frequency = frequency
         self.amplitude = amplitude
-        
+
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
         description.componentSubType      = 0x706c756b /*'mand'*/
@@ -126,9 +128,9 @@ public class AKFlute: AKVoice {
         let copy = AKFlute(frequency: self.frequency, amplitude: self.amplitude)
         return copy
     }
-    
+
     /// Trigger the sound with an optional set of parameters
-    /// - parameter frequency: Frequency in Hz
+    ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
     ///
     public func trigger(frequency frequency: Double, amplitude: Double = 1) {

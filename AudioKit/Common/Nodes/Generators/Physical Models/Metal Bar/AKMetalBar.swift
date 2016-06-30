@@ -8,17 +8,18 @@
 
 import AVFoundation
 
-/// 
 ///
-/// - parameter leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-/// - parameter rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-/// - parameter decayDuration: 30db decay time (in seconds).
-/// - parameter scanSpeed: Speed of scanning the output location.
-/// - parameter position: Position along bar that strike occurs.
-/// - parameter strikeVelocity: Normalized strike velocity
-/// - parameter strikeWidth: Spatial width of strike.
-/// - parameter stiffness: Dimensionless stiffness parameter
-/// - parameter highFrequencyDamping: High-frequency loss parameter. Keep this small
+///
+/// - Parameters:
+///   - leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
+///   - rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
+///   - decayDuration: 30db decay time (in seconds).
+///   - scanSpeed: Speed of scanning the output location.
+///   - position: Position along bar that strike occurs.
+///   - strikeVelocity: Normalized strike velocity
+///   - strikeWidth: Spatial width of strike.
+///   - stiffness: Dimensionless stiffness parameter
+///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
 ///
 public class AKMetalBar: AKNode {
 
@@ -118,15 +119,16 @@ public class AKMetalBar: AKNode {
 
     /// Initialize this Bar node
     ///
-    /// - parameter leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    /// - parameter rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
-    /// - parameter decayDuration: 30db decay time (in seconds).
-    /// - parameter scanSpeed: Speed of scanning the output location.
-    /// - parameter position: Position along bar that strike occurs.
-    /// - parameter strikeVelocity: Normalized strike velocity
-    /// - parameter strikeWidth: Spatial width of strike.
-    /// - parameter stiffness: Dimensionless stiffness parameter
-    /// - parameter highFrequencyDamping: High-frequency loss parameter. Keep this small
+    /// - Parameters:
+    ///   - leftBoundaryCondition: Boundary condition at left end of bar. 1 = clamped, 2 = pivoting, 3 = free
+    ///   - rightBoundaryCondition: Boundary condition at right end of bar. 1 = clamped, 2 = pivoting, 3 = free
+    ///   - decayDuration: 30db decay time (in seconds).
+    ///   - scanSpeed: Speed of scanning the output location.
+    ///   - position: Position along bar that strike occurs.
+    ///   - strikeVelocity: Normalized strike velocity
+    ///   - strikeWidth: Spatial width of strike.
+    ///   - stiffness: Dimensionless stiffness parameter
+    ///   - highFrequencyDamping: High-frequency loss parameter. Keep this small
     ///
     public init(
         leftBoundaryCondition: Double = 1,
@@ -212,9 +214,9 @@ public class AKMetalBar: AKNode {
         internalAU?.strikeVelocity = Float(strikeVelocity)
         internalAU?.strikeWidth = Float(strikeWidth)
     }
-    
+
     // MARK: - Control
-    
+
     /// Trigger the sound with an optional set of parameters
     ///
     public func trigger() {

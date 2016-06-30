@@ -13,9 +13,8 @@ extension AKOperation {
     /// Metro produces a series of 1-sample ticks at a regular rate. Typically, this
     /// is used alongside trigger-driven modules.
     ///
-    /// - returns: AKOperation
     /// - parameter frequency: The frequency to repeat. (Default: 2.0)
-     ///
+    ///
     public static func metronome(frequency: AKParameter = 2.0) -> AKOperation {
         return AKOperation("(\(frequency) metro)")
     }

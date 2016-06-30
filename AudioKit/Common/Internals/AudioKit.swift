@@ -13,26 +13,26 @@ public typealias AKCallback = Void -> Void
 
 /// Top level AudioKit managing class
 @objc public class AudioKit: NSObject {
-    
+
     // MARK: Global audio format (44.1K, Stereo)
-    
+
     /// Format of AudioKit Nodes
     public static let format = AKSettings.audioFormat
 
     // MARK: - Internal audio engine mechanics
-    
+
     /// Reference to the AV Audio Engine
     public static let engine = AVAudioEngine()
-    
+
     static var shouldBeRunning = false
-    
+
     /// An audio output operation that most applications will need to use last
     public static var output: AKNode? {
         didSet {
             engine.connect(output!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
         }
     }
-    
+
     /// Enumerate the list of available input devices.
     public static var availableInputs: [AKDevice]? {
         #if os(OSX)
@@ -68,7 +68,7 @@ public typealias AKCallback = Void -> Void
         #endif
         return nil
     }
-    
+
     /// Change the preferred input device, giving it one of the names from the list of available inputs.
     public static func setInputDevice(input: AKDevice) throws {
         #if os(OSX)
@@ -105,7 +105,7 @@ public typealias AKCallback = Void -> Void
             //not available on ios
         #endif
     }
-    
+
     /// Start up the audio engine
     public static func start() {
         if output == nil {
@@ -114,9 +114,9 @@ public typealias AKCallback = Void -> Void
         // Start the engine.
         do {
             self.engine.prepare()
-            
+
             #if os(iOS)
-                
+
                 NSNotificationCenter.defaultCenter().addObserver(
                     self,
                     selector: #selector(AudioKit.restartEngineAfterRouteChange(_:)),
@@ -125,14 +125,14 @@ public typealias AKCallback = Void -> Void
             #endif
             #if !os(OSX)
                 if AKSettings.audioInputEnabled {
-                    
+
                 #if os(iOS)
                     if AKSettings.defaultToSpeaker {
-                        
+
                         try AVAudioSession.sharedInstance().setCategory(
                             AVAudioSessionCategoryPlayAndRecord,
                             withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
-                        
+
                         // listen to AVAudioEngineConfigurationChangeNotification
                         // and restart the engine if it's stopped.
                         NSNotificationCenter.defaultCenter().addObserver(
@@ -140,17 +140,17 @@ public typealias AKCallback = Void -> Void
                             selector: #selector(AudioKit.audioEngineConfigurationChange(_:)),
                             name: AVAudioEngineConfigurationChangeNotification,
                             object: engine)
-                                                
+
                     } else {
                         try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-                        
+
                     }
                 #else
                     // tvOS
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
-                    
+
                 #endif
-                    
+
                 } else if AKSettings.playbackWhileMuted {
                     try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 } else {
@@ -161,16 +161,16 @@ public typealias AKCallback = Void -> Void
             #endif
 
             #endif
-            
+
             try self.engine.start()
-            
+
             shouldBeRunning = true
         } catch {
             fatalError("AudioKit: Could not start engine. error: \(error).")
         }
-        
+
     }
-    
+
     /// Stop the audio engine
     public static func stop() {
         // Stop the engine.
@@ -184,26 +184,27 @@ public typealias AKCallback = Void -> Void
         }
         #endif
     }
-    
+
     // MARK: Testing
-    
+
     /// Testing AKNode
     public static var tester: AKTester?
 
     /// Test the output of a given node
     ///
-    /// - parameter node: AKNode to test
-    /// - parameter samples: Number of samples to generate in the test
+    /// - Parameters:
+    ///   - node: AKNode to test
+    ///   - samples: Number of samples to generate in the test
     ///
     public static func testOutput(node: AKNode, samples: Int) {
         tester = AKTester(node, samples: samples)
         output = tester
     }
-    
-    // Listen to changes in audio configuration 
+
+    // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
     @objc private static func audioEngineConfigurationChange(notification: NSNotification) -> Void {
-        
+
         if (shouldBeRunning == true && self.engine.running == false) {
             do {
                 try self.engine.start()
@@ -213,7 +214,7 @@ public typealias AKCallback = Void -> Void
         }
 
     }
-    
+
     // Restarts the engine after audio output has been changed, like headphones plugged in.
     @objc private static func restartEngineAfterRouteChange(notification: NSNotification) {
         if shouldBeRunning {
@@ -225,14 +226,14 @@ public typealias AKCallback = Void -> Void
                         AKNotifications.engineRestartedAfterRouteChange,
                         object: nil,
                         userInfo: notification.userInfo)
-                    
+
                 }
             } catch {
                 print("error restarting engine after route change")
             }
         }
     }
-    
+
     deinit {
         #if os(iOS)
             NSNotificationCenter.defaultCenter().removeObserver(

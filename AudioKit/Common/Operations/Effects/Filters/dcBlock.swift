@@ -10,12 +10,11 @@ import Foundation
 
 extension AKComputedParameter {
 
-    /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1]) 
+    /// Implements the DC blocking filter Y[i] = X[i] - X[i-1] + (igain * Y[i-1])
     /// Based on work by Perry Cook.
     ///
-    /// - returns: AKComputedParameter
     /// - parameter input: Input audio signal
-     ///
+    ///
     public func dcBlock(
         ) -> AKOperation {
             return AKOperation("(\(self.toMono()) dcblock)")
