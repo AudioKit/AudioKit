@@ -12,17 +12,17 @@ import AVFoundation
 public class AKTester: AKNode, AKToggleable {
 
     // MARK: - Properties
-    
+
     private var internalAU: AKTesterAudioUnit?
 
     private var token: AUParameterObserverToken?
     var totalSamples = 0
-    
+
     /// Calculate the MD5
     public var MD5: String {
         return (self.internalAU?.getMD5())!
     }
-    
+
     /// Flag on whether or not the test is still in progress
     public var isStarted: Bool {
         return Int((self.internalAU?.getSamples())!) < totalSamples
@@ -32,11 +32,12 @@ public class AKTester: AKNode, AKToggleable {
 
     /// Initialize this test node
     ///
-    /// - parameter input: AKNode to test
-    /// - parameter sample: Number of sample to product
+    /// - Parameters:
+    ///   - input: AKNode to test
+    ///   - sample: Number of sample to product
     ///
     public init(_ input: AKNode, samples: Int) {
-        
+
         totalSamples = samples
 
         var description = AudioComponentDescription()
@@ -66,12 +67,12 @@ public class AKTester: AKNode, AKToggleable {
             self.internalAU?.setSamples(Int32(samples))
         }
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         self.internalAU!.start()
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         self.internalAU!.stop()

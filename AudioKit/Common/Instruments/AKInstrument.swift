@@ -11,23 +11,23 @@ import AVFoundation
 
 /// Parent class for nodes that can be included in a polyphonic instrument
 public class AKVoice: AKNode, AKToggleable {
-    
+
     /// Required for the AKToggleable protocol
     public var isStarted: Bool {
         return false
         // override in subclass
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         // override in subclass
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         // override in subclass
     }
-    
+
     /// Return a duplication of this voice
     public func duplicate() -> AKVoice {
         return AKVoice()
@@ -35,32 +35,32 @@ public class AKVoice: AKNode, AKToggleable {
     }
 }
 
-/// This class is for generator nodes that consist of a number of voices that 
+/// This class is for generator nodes that consist of a number of voices that
 /// can be played simultaneously for polyphony
 public class AKPolyphonicInstrument: AKNode {
 
     // MARK: - Voice Properties
-    
+
     /// Array of all voices
     public var voices: [AKVoice] {
         return activeVoices + availableVoices
     }
-    
+
     /// Array of available voices
     public var availableVoices = [AKVoice]()
-    
+
     /// Array of only voices currently playing
     public var activeVoices = [AKVoice]()
-    
+
     /// Array of notes being played on the active instruments
     public var activeNotes = [Int]()
-    
+
     var voiceCount: Int
-    
+
     // MARK: - Output properties
-    
+
     private let output = AKMixer()
-    
+
     /// Output level
     public var volume: Double = 1.0 {
         didSet {
@@ -75,34 +75,36 @@ public class AKPolyphonicInstrument: AKNode {
             output.volume = amplitude
         }
     }
-    
+
     // MARK: - Initialization
-    
+
     /// Initialize the polyphonic instrument with a voice and a count
     ///
-    /// - parameter voice: Template voice which will be copied
-    /// - parameter voiceCount: Maximum number of simultaneous voices
+    /// - Parameters:
+    ///   - voice: Template voice which will be copied
+    ///   - voiceCount: Maximum number of simultaneous voices
     ///
     public init(voice: AKVoice, voiceCount: Int = 1) {
-        
+
         self.voiceCount = voiceCount
-        
+
         super.init()
         avAudioNode = output.avAudioNode
-        
+
         for _ in 0 ..< voiceCount {
             let voice = voice.duplicate()
             availableVoices.append(voice)
             output.connect(voice)
         }
     }
-    
+
     // MARK: - Playback control
-    
+
     /// Start playback with MIDI style note and velocity
     ///
-    /// - parameter note: MIDI Note Number
-    /// - parameter velocity: MIDI Velocity (0-127)
+    /// - Parameters:
+    ///   - note: MIDI Note Number
+    ///   - velocity: MIDI Velocity (0-127)
     ///
     public func playNote(note: Int, velocity: Int) {
         if let voice = availableVoices.popLast() {
@@ -111,7 +113,7 @@ public class AKPolyphonicInstrument: AKNode {
             playVoice(voice, note: note, velocity: velocity)
         }
     }
-    
+
     /// Stop playback of a particular note
     ///
     /// - parameter note: MIDI Note Number
@@ -124,28 +126,30 @@ public class AKPolyphonicInstrument: AKNode {
             activeNotes.removeAtIndex(index)
         }
     }
-    
+
     /// Start playback of a particular voice with MIDI style note and velocity
     ///
-    /// - parameter voice: Voice to start
-    /// - parameter note: MIDI Note Number
-    /// - parameter velocity: MIDI Velocity (0-127)
+    /// - Parameters:
+    ///   - voice: Voice to start
+    ///   - note: MIDI Note Number
+    ///   - velocity: MIDI Velocity (0-127)
     ///
     public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
         // Override in subclass
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }
-    
+
     /// Stop playback of a particular voice
     ///
-    /// - parameter voice: Voice to stop
-    /// - parameter note: MIDI Note Number
+    /// - Parameters:
+    ///   - voice: Voice to stop
+    ///   - note: MIDI Note Number
     ///
     public func stopVoice(voice: AKVoice, note: Int) {
         /// Override in subclass
         print("Stopping voice\(voice) - note:\(note)")
     }
-    
+
     /// Stop all voices
     public func panic() {
         for voice in voices {
@@ -153,5 +157,5 @@ public class AKPolyphonicInstrument: AKNode {
             availableVoices.append(voice)
         }
         activeVoices.removeAll()
-    }    
+    }
 }

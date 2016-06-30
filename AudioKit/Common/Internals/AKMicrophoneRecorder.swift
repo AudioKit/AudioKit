@@ -10,17 +10,18 @@ import Foundation
 
 /// Simple microphone recorder class
 public class AKMicrophoneRecorder {
-    
+
     private var internalRecorder: AVAudioRecorder
-    
+
 #if os(iOS)
     private var recordingSession: AVAudioSession
 #endif
-    
+
     /// Initialize the recorder
     ///
-    /// - parameter file: Path to the audio file
-    /// - parameter settings: File format settings (defaults to WAV)
+    /// - Parameters:
+    ///   - file: Path to the audio file
+    ///   - settings: File format settings (defaults to WAV)
     ///
     public init(_ file: AKAudioFile, settings: [String: AnyObject] = AudioKit.format.settings) {
 
@@ -33,10 +34,10 @@ public class AKMicrophoneRecorder {
             print("lacking permission to record!\n")
         }
         #endif
-        
+
         try! internalRecorder = AVAudioRecorder(URL: file.url, settings: settings)
     }
-    
+
     /// Record audio
     public func record() {
         if internalRecorder.recording == false {
@@ -44,7 +45,7 @@ public class AKMicrophoneRecorder {
             internalRecorder.record()
         }
     }
-    
+
     /// Stop recording
     public func stop() {
         if internalRecorder.recording == true {
