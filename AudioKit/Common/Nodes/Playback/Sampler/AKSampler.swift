@@ -173,7 +173,7 @@ public class AKSampler: AKNode {
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channnel
     ///
-    public func playNote(note: Int = 60, velocity: Int = 127, channel: Int = 0) {
+    public func playNote(note: Int = 60, velocity: MIDIVelocity = 127, channel: Int = 0) {
         samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
 

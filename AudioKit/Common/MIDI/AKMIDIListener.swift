@@ -24,7 +24,7 @@ public protocol AKMIDIListener {
     ///   - velocity: MIDI Velocity (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int)
+    func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int)
 
     /// Receive the MIDI note off event
     ///
@@ -33,7 +33,7 @@ public protocol AKMIDIListener {
     ///   - velocity: MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOff(note: Int, velocity: Int, channel: Int)
+    func receivedMIDINoteOff(note: Int, velocity: MIDIVelocity, channel: Int)
 
     /// Receive a generic controller value
     ///
@@ -94,7 +94,7 @@ public extension AKMIDIListener {
     ///   - velocity: MIDI Velocity (0-127)
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
+    func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int) {
         print("channel: \(channel) noteOn: \(note) velocity: \(velocity)")
     }
 
@@ -105,7 +105,7 @@ public extension AKMIDIListener {
     ///   - velocity: MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:  MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOff(note: Int, velocity: Int, channel: Int) {
+    func receivedMIDINoteOff(note: Int, velocity: MIDIVelocity, channel: Int) {
         print("channel: \(channel) noteOff: \(note) velocity: \(velocity)")
     }
 

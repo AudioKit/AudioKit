@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
     func startAll() {
         for i in 0 ..< noteCount {
-            oscillator.play(note: baseNote + offsets[i], velocity: Int(amplitudes[i] * 127))
+            oscillator.play(note: baseNote + offsets[i], velocity: MIDIVelocity(amplitudes[i] * 127))
         }
     }
     
@@ -73,4 +73,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next

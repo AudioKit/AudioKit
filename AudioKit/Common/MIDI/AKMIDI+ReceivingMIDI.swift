@@ -110,11 +110,11 @@ extension AKMIDI {
                                                 channel: Int(event.channel))
             case AKMIDIStatus.NoteOn:
                 listener.receivedMIDINoteOn(Int(event.internalData[1]),
-                                            velocity: Int(event.internalData[2]),
+                                            velocity: MIDIVelocity(event.internalData[2]),
                                             channel: Int(event.channel))
             case AKMIDIStatus.NoteOff:
                 listener.receivedMIDINoteOff(Int(event.internalData[1]),
-                                             velocity: Int(event.internalData[2]),
+                                             velocity: MIDIVelocity(event.internalData[2]),
                                              channel: Int(event.channel))
             case AKMIDIStatus.PitchWheel:
                 listener.receivedMIDIPitchWheel(Int(event.data),

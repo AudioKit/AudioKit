@@ -57,7 +57,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     ///   - velocity: MIDI velocity
     ///   - channel: MIDI channel
     ///
-    public func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
+    public func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int) {
         if velocity > 0 {
             startNote(note, withVelocity: velocity, onChannel: channel)
         } else {
@@ -74,7 +74,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     ///   - velocity: Velocity at which to play the note (0 - 127)
     ///   - channel:  Channel on which to play the note
     ///
-    public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
+    public func startNote(note: Int, withVelocity velocity: MIDIVelocity, onChannel channel: Int) {
         internalInstrument!.playNote(note, velocity: velocity)
     }
 
@@ -95,7 +95,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
         let status = data1 >> 4
         let channel = data1 & 0xF
         if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
-            startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
+            startNote(Int(data2), withVelocity: MIDIVelocity(data3), onChannel: Int(channel))
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
             stopNote(Int(data2), onChannel: Int(channel))
         }

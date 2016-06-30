@@ -106,7 +106,7 @@ public class AKPolyphonicInstrument: AKNode {
     ///   - note: MIDI Note Number
     ///   - velocity: MIDI Velocity (0-127)
     ///
-    public func playNote(note: Int, velocity: Int) {
+    public func playNote(note: Int, velocity: MIDIVelocity) {
         if let voice = availableVoices.popLast() {
             activeVoices.append(voice)
             activeNotes.append(note)
@@ -134,7 +134,7 @@ public class AKPolyphonicInstrument: AKNode {
     ///   - note: MIDI Note Number
     ///   - velocity: MIDI Velocity (0-127)
     ///
-    public func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    public func playVoice(voice: AKVoice, note: Int, velocity: MIDIVelocity) {
         // Override in subclass
         print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
     }

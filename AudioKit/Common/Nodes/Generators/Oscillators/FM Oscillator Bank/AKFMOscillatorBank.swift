@@ -242,7 +242,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     // MARK: - AKPolyphonic
 
     /// Function to start, play, or activate the node, all do the same thing
-    public override func play(note note: Int, velocity: Int) {
+    public override func play(note note: Int, velocity: MIDIVelocity) {
         self.internalAU!.startNote(Int32(note), velocity: Int32(velocity))
     }
 

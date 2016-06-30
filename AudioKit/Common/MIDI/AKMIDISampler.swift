@@ -43,7 +43,7 @@ public class AKMIDISampler: AKSampler {
         let channel = data1 & 0xF
 
         if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0 {
-            startNote(Int(data2), withVelocity: Int(data3), onChannel: Int(channel))
+            startNote(Int(data2), withVelocity: MIDIVelocity(data3), onChannel: Int(channel))
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
             stopNote(Int(data2), onChannel: Int(channel))
         } else if Int(status) == AKMIDIStatus.ControllerChange.rawValue {
@@ -58,7 +58,7 @@ public class AKMIDISampler: AKSampler {
     ///   - velocity: MIDI velocity
     ///   - channel: MIDI channel
     ///
-    public func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
+    public func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int) {
         if velocity > 0 {
             startNote(note, withVelocity: velocity, onChannel: channel)
         } else {
@@ -80,7 +80,7 @@ public class AKMIDISampler: AKSampler {
     // MARK: - MIDI Note Start/Stop
 
     /// Start a note
-    public func startNote(note: Int, withVelocity velocity: Int, onChannel channel: Int) {
+    public func startNote(note: Int, withVelocity velocity: MIDIVelocity, onChannel channel: Int) {
         samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
 

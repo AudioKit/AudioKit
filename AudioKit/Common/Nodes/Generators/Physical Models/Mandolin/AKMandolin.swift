@@ -133,11 +133,11 @@ public class AKMandolin: AKNode {
         internalAU?.setFrequency(Float(note.midiNoteToFrequency()), course: Int32(course))
     }
 
-    public func pluck(course course: Int, position: Double, velocity: Int) {
+    public func pluck(course course: Int, position: Double, velocity: MIDIVelocity) {
         internalAU?.pluckCourse(Int32(course), position: Float(position), velocity: Int32(velocity))
     }
 
-    public func strum(position: Double, velocity: Int) {
+    public func strum(position: Double, velocity: MIDIVelocity) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
         pluck(course: 2, position: position, velocity: velocity)
