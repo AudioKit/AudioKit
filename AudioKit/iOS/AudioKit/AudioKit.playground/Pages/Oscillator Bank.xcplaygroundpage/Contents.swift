@@ -34,11 +34,11 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     }
     
     func noteOn(note: Int) {
-        osc.play(note: note, velocity: 80)
+        osc.play(noteNumber: note, velocity: 80)
     }
     
     func noteOff(note: Int) {
-        osc.stop(note: note)
+        osc.stop(noteNumber: note)
     }
     
     func setAttack(slider: Slider) {

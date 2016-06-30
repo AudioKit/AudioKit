@@ -81,11 +81,11 @@ AKPlaygroundLoop(frequency: playRate) {
 
 
     if random(0, 6) > 1.0 {
-        mandolin.fret(note: note1+octave1, course: course1 - 1)
+        mandolin.fret(noteNumber: note1+octave1, course: course1 - 1)
         mandolin.pluck(course: course1 - 1, position: pluckPosition, velocity: 127)
     }
     if random(0, 6) > 3.0 {
-        mandolin.fret(note: note2+octave2, course: course2 - 1)
+        mandolin.fret(noteNumber: note2+octave2, course: course2 - 1)
         mandolin.pluck(course: course2 - 1, position: pluckPosition, velocity: 127)
     }
 
