@@ -258,7 +258,6 @@ public class AKSequencer {
         }
         MusicTrackClear(tempoTrack, 0, length.value)
         MusicTrackNewExtendedTempoEvent(tempoTrack, 0, Double(newTempo))
-
     }
 
     /// Add a  tempo change to the score
@@ -280,7 +279,36 @@ public class AKSequencer {
         MusicTrackNewExtendedTempoEvent(tempoTrack, position.value, Double(newTempo))
 
     }
+    
+    public var tempo: Double {
+        var tempoOut: Double = 120.0
+        
+        var tempoTrack: MusicTrack = nil
+        MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+        
+        var iterator:MusicEventIterator = nil
+        NewMusicEventIterator(tempoTrack, &iterator);
+        
+        var eventTime: MusicTimeStamp = 0
+        var eventType: MusicEventType = kMusicEventType_ExtendedTempo
+        var eventData: UnsafePointer<Void> = nil
+        var eventDataSize: UInt32 = 0
+        
+        var hasPreviousEvent: DarwinBoolean = false
+        MusicEventIteratorSeek(iterator,currentPosition.value)
+        MusicEventIteratorHasPreviousEvent(iterator, &hasPreviousEvent)
+        if hasPreviousEvent {
+            MusicEventIteratorPreviousEvent(iterator)
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize);
+            if eventType == kMusicEventType_ExtendedTempo {
+                let tempoEventPointer: UnsafePointer<ExtendedTempoEvent> = UnsafePointer(eventData)
+                tempoOut = tempoEventPointer.memory.bpm
+            }
+        }
 
+        return tempoOut
+    }
+    
     /// Convert seconds into beats
     ///
     /// - parameter seconds: time in seconds
