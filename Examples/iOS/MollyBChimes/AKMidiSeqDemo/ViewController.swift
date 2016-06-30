@@ -186,7 +186,10 @@ class ViewController: UIViewController {
                 }
                 //print("octave offset is \(octaveOffset)")
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
-                seq.tracks[0].addNote(noteToAdd, velocity: 100, position: Beat(step), duration: Beat(1))
+                seq.tracks[0].add(noteNumber: noteToAdd,
+                                  velocity: 100,
+                                  position: Beat(step),
+                                  duration: Beat(1))
             }
         }
         seq.setLength(seqLen)
@@ -197,7 +200,10 @@ class ViewController: UIViewController {
         let numSteps = Int(Float(seqLen.value)/stepSize)
         for i in 0 ..< numSteps {
             let step = Double(i) * stepSize
-            seq.tracks[1].addNote(60, velocity: 100, position: Beat(step), duration: Beat(1))
+            seq.tracks[1].add(noteNumber: 60,
+                              velocity: 100,
+                              position: Beat(step),
+                              duration: Beat(1))
         }
     }
 
@@ -207,7 +213,10 @@ class ViewController: UIViewController {
 
         for i in 1.stride(to: numSteps, by: 2) {
             let step = (Double(i) * stepSize)
-            seq.tracks[2].addNote(60, velocity: 80, position: Beat(step), duration: Beat(1))
+            seq.tracks[2].add(noteNumber: 60,
+                              velocity: 80,
+                              position: Beat(step),
+                              duration: Beat(1))
         }
     }
 
@@ -218,7 +227,10 @@ class ViewController: UIViewController {
         for i in 0 ..< numSteps {
             if(random(0, 16) > 14.0) {
                 let step = Double(i) * stepSize
-                seq.tracks[3].addNote(60, velocity: Int(random(1, 66)), position: Beat(step), duration: Beat(0.1))
+                seq.tracks[3].add(noteNumber: 60,
+                                  velocity: Int(random(1, 66)),
+                                  position: Beat(step),
+                                  duration: Beat(0.1))
             }
         }
         seq.setLength(seqLen)
@@ -287,10 +299,10 @@ class BDInst: AKPolyphonicInstrument {
     init(voiceCount: Int) {
         super.init(voice: BDVoice(), voiceCount: voiceCount)
     }
-    override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    override func play(voice voice: AKVoice, noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         voice.start()
     }
-    override func stopVoice(voice: AKVoice, note: Int) {
+    override func stop(voice voice: AKVoice, noteNumber: MIDINoteNumber) {
 
     }
 }
@@ -351,12 +363,12 @@ class SDInst: AKPolyphonicInstrument {
     init(voiceCount: Int, dur: Double = 0.143, res: Double = 0.9) {
         super.init(voice: SDVoice(dur: dur, res:res), voiceCount: voiceCount)
     }
-    override func playVoice(voice: AKVoice, note: Int, velocity: Int) {
+    override func play(voice voice: AKVoice, noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         let tempVoice = voice as! SDVoice
         tempVoice.cutoff = (Double(velocity)/127.0 * 1600.0) + 300.0
         voice.start()
     }
-    override func stopVoice(voice: AKVoice, note: Int) {
+    override func stop(voice voice: AKVoice, noteNumber: MIDINoteNumber) {
 
     }
 }

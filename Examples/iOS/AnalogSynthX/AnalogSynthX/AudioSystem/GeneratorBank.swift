@@ -43,18 +43,18 @@ class GeneratorBank: AKPolyphonicNode {
     
     var offset1 = 0 {
         willSet {
-            for note in onNotes {
-                vco1.stop(note: note + offset1)
-                vco1.play(note: note + newValue, velocity: 127)
+            for noteNumber in onNotes {
+                vco1.stop(noteNumber: noteNumber + offset1)
+                vco1.play(noteNumber: noteNumber + newValue, velocity: 127)
             }
         }
     }
     
     var offset2 = 0 {
         willSet {
-            for note in onNotes {
-                vco2.stop(note: note + offset2)
-                vco2.play(note: note + newValue, velocity: 127)
+            for noteNumber in onNotes {
+                vco2.stop(noteNumber: noteNumber + offset2)
+                vco2.play(noteNumber: noteNumber + newValue, velocity: 127)
             }
         }
     }
@@ -176,25 +176,25 @@ class GeneratorBank: AKPolyphonicNode {
     
     
     /// Function to start, play, or activate the node, all do the same thing
-    override func play(note note: Int, velocity: Int) {
+    override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         
-        vco1.play(note: note + offset1, velocity: velocity)
-        vco2.play(note: note + offset2, velocity: velocity)
-        subOsc.play(note: note, velocity: velocity)
-        fmOsc.play(note: note, velocity: velocity)
+        vco1.play(noteNumber: noteNumber + offset1, velocity: velocity)
+        vco2.play(noteNumber: noteNumber + offset2, velocity: velocity)
+        subOsc.play(noteNumber: noteNumber, velocity: velocity)
+        fmOsc.play(noteNumber: noteNumber, velocity: velocity)
         if onNotes.count == 0 {
             noise.start()
         }
-        onNotes.insert(note)
+        onNotes.insert(noteNumber)
     }
     
     /// Function to stop or bypass the node, both are equivalent
-    override func stop(note note: Int) {
-        vco1.stop(note: note)
-        vco2.stop(note: note)
-        subOsc.stop(note: note)
-        fmOsc.stop(note: note)
-        onNotes.remove(note)
+    override func stop(noteNumber noteNumber: MIDINoteNumber) {
+        vco1.stop(noteNumber: noteNumber)
+        vco2.stop(noteNumber: noteNumber)
+        subOsc.stop(noteNumber: noteNumber)
+        fmOsc.stop(noteNumber: noteNumber)
+        onNotes.remove(noteNumber)
         if onNotes.count == 0 {
             noise.stop()
         }
