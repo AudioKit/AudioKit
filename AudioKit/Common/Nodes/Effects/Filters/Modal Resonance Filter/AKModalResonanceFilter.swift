@@ -12,9 +12,10 @@ import AVFoundation
 /// can be created using  passing an impulse through a combination of modal
 /// filters.
 ///
-/// - parameter input: Input node to process
-/// - parameter frequency: Resonant frequency of the filter.
-/// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
+/// - Parameters:
+///   - input: Input node to process
+///   - frequency: Resonant frequency of the filter.
+///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
 ///
 public class AKModalResonanceFilter: AKNode, AKToggleable {
 
@@ -70,9 +71,10 @@ public class AKModalResonanceFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter frequency: Resonant frequency of the filter.
-    /// - parameter qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - frequency: Resonant frequency of the filter.
+    ///   - qualityFactor: Quality factor of the filter. Roughly equal to Q/frequency.
     ///
     public init(
         _ input: AKNode,

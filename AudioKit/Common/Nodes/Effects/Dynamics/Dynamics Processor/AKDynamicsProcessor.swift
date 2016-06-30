@@ -10,17 +10,18 @@ import AVFoundation
 
 /// AudioKit version of Apple's DynamicsProcessor Audio Unit
 ///
-/// - parameter input: Input node to process
-/// - parameter threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
-/// - parameter headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
-/// - parameter expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
-/// - parameter expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
-/// - parameter attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-/// - parameter releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
-/// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
-/// - parameter compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0) (read only)
-/// - parameter inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
-/// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
+/// - Parameters:
+///   - input: Input node to process
+///   - threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
+///   - headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
+///   - expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
+///   - expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
+///   - attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
+///   - releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
+///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
+///   - compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0) (read only)
+///   - inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
+///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0) (read only)
 ///
 public class AKDynamicsProcessor: AKNode, AKToggleable {
 
@@ -35,7 +36,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
     internal var internalAU: AudioUnit = nil
 
     private var mixer: AKMixer
-    
+
     private var internalCompressionAmount:AudioUnitParameterValue = 0.0
     private var internalInputAmplitude:AudioUnitParameterValue = 0.0
     private var internalOutputAmplitude:AudioUnitParameterValue = 0.0
@@ -45,7 +46,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         didSet {
             if threshold < -40 {
                 threshold = -40
-            }            
+            }
             if threshold > 20 {
                 threshold = 20
             }
@@ -62,7 +63,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         didSet {
             if headRoom < 0.1 {
                 headRoom = 0.1
-            }            
+            }
             if headRoom > 40.0 {
                 headRoom = 40.0
             }
@@ -79,7 +80,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         didSet {
             if expansionRatio < 1 {
                 expansionRatio = 1
-            }            
+            }
             if expansionRatio > 50.0 {
                 expansionRatio = 50.0
             }
@@ -96,7 +97,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         didSet {
             if expansionThreshold < 1 {
                 expansionThreshold = 1
-            }            
+            }
             if expansionThreshold > 50.0 {
                 expansionThreshold = 50.0
             }
@@ -113,7 +114,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         didSet {
             if attackTime < 0.0001 {
                 attackTime = 0.0001
-            }            
+            }
             if attackTime > 0.2 {
                 attackTime = 0.2
             }
@@ -130,7 +131,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         didSet {
             if releaseTime < 0.01 {
                 releaseTime = 0.01
-            }            
+            }
             if releaseTime > 3 {
                 releaseTime = 3
             }
@@ -147,7 +148,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
         didSet {
             if masterGain < -40 {
                 masterGain = -40
-            }            
+            }
             if masterGain > 40 {
                 masterGain = 40
             }
@@ -158,19 +159,19 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
                 Float(masterGain), 0)
         }
     }
-    
+
     /// Compression Amount (dB) read only
     public var compressionAmount: Double {
         AudioUnitGetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalCompressionAmount)
         return Double(internalCompressionAmount)
     }
-    
+
     /// Input Amplitude (dB) read only
     public var inputAmplitude:Double {
         AudioUnitGetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalInputAmplitude)
         return Double(internalInputAmplitude)
     }
-    
+
     /// Output Amplitude (dB) read only
     public var outputAmplitude: Double {
         AudioUnitGetParameter(internalAU, kDynamicsProcessorParam_CompressionAmount, kAudioUnitScope_Global, 0,&internalOutputAmplitude)
@@ -200,17 +201,18 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
 
     /// Initialize the dynamics processor node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
-    /// - parameter headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
-    /// - parameter expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
-    /// - parameter expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
-    /// - parameter attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
-    /// - parameter releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
-    /// - parameter masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
-    /// - parameter compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0)
-    /// - parameter inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
-    /// - parameter outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - threshold: Threshold (dB) ranges from -40 to 20 (Default: -20)
+    ///   - headRoom: Head Room (dB) ranges from 0.1 to 40.0 (Default: 5)
+    ///   - expansionRatio: Expansion Ratio (rate) ranges from 1 to 50.0 (Default: 2)
+    ///   - expansionThreshold: Expansion Threshold (rate) ranges from 1 to 50.0 (Default: 2)
+    ///   - attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
+    ///   - releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
+    ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
+    ///   - compressionAmount: Compression Amount (dB) ranges from -40 to 40 (Default: 0)
+    ///   - inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (Default: 0)
+    ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
         _ input: AKNode,
@@ -245,7 +247,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
             AudioKit.engine.connect(internalEffect, to: mixer.avAudioNode, format: AudioKit.format)
-            
+
             super.init()
             avAudioNode = mixer.avAudioNode
 
@@ -257,7 +259,7 @@ public class AKDynamicsProcessor: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_ReleaseTime, kAudioUnitScope_Global, 0, Float(releaseTime), 0)
             AudioUnitSetParameter(internalAU, kDynamicsProcessorParam_MasterGain, kAudioUnitScope_Global, 0, Float(masterGain), 0)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

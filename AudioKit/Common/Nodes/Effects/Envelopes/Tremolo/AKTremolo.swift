@@ -10,9 +10,10 @@ import AVFoundation
 
 /// Table-lookup tremolo with linear interpolation
 ///
-/// - parameter input: Input node to process
-/// - parameter frequency: Frequency (Hz)
-/// - parameter depth: Depth
+/// - Parameters:
+///   - input: Input node to process
+///   - frequency: Frequency (Hz)
+///   - depth: Depth
 ///
 public class AKTremolo: AKNode, AKToggleable {
 
@@ -47,7 +48,7 @@ public class AKTremolo: AKNode, AKToggleable {
             }
         }
     }
-    
+
     /// Depth
     public var depth: Double = 1 {
         willSet {
@@ -70,10 +71,11 @@ public class AKTremolo: AKNode, AKToggleable {
 
     /// Initialize this tremolo node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter frequency: Frequency (Hz)
-    /// - parameter depth: Depth
-    /// - parameter waveform:  Shape of the tremolo (default to sine)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - frequency: Frequency (Hz)
+    ///   - depth: Depth
+    ///   - waveform:  Shape of the tremolo (default to sine)
     ///
     public init(
         _ input: AKNode,
@@ -117,7 +119,7 @@ public class AKTremolo: AKNode, AKToggleable {
         guard let tree = internalAU?.parameterTree else { return }
 
         frequencyParameter = tree.valueForKey("frequency") as? AUParameter
-        
+
         token = tree.tokenByAddingParameterObserver {
             address, value in
 
@@ -128,12 +130,12 @@ public class AKTremolo: AKNode, AKToggleable {
             }
         }
         internalAU?.frequency = Float(frequency)
-        
+
         depthParameter = tree.valueForKey("depth") as? AUParameter
-        
+
         token = tree.tokenByAddingParameterObserver {
             address, value in
-            
+
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.depthParameter!.address {
                     self.depth = Double(value)

@@ -10,10 +10,11 @@ import AVFoundation
 
 /// Faust-based pitch shfiter
 ///
-/// - parameter input: Input node to process
-/// - parameter shift: Pitch shift (in semitones)
-/// - parameter windowSize: Window size (in samples)
-/// - parameter crossfade: Crossfade (in samples)
+/// - Parameters:
+///   - input: Input node to process
+///   - shift: Pitch shift (in semitones)
+///   - windowSize: Window size (in samples)
+///   - crossfade: Crossfade (in samples)
 ///
 public class AKPitchShifter: AKNode, AKToggleable {
 
@@ -82,10 +83,11 @@ public class AKPitchShifter: AKNode, AKToggleable {
 
     /// Initialize this pitchshifter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter shift: Pitch shift (in semitones)
-    /// - parameter windowSize: Window size (in samples)
-    /// - parameter crossfade: Crossfade (in samples)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - shift: Pitch shift (in semitones)
+    ///   - windowSize: Window size (in samples)
+    ///   - crossfade: Crossfade (in samples)
     ///
     public init(
         _ input: AKNode,

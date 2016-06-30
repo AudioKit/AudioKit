@@ -10,10 +10,11 @@ import AVFoundation
 
 /// 16-band channel vocoder
 ///
-/// - parameter input: Input node to process
-/// - parameter attackTime: Attack time (seconds)
-/// - parameter rel: Release time
-/// - parameter bandwidthRatio: Coeffecient to adjust the bandwidth of each band
+/// - Parameters:
+///   - input: Input node to process
+///   - attackTime: Attack time (seconds)
+///   - rel: Release time
+///   - bandwidthRatio: Coeffecient to adjust the bandwidth of each band
 ///
 public class AKVocoder: AKNode {
 
@@ -74,10 +75,11 @@ public class AKVocoder: AKNode {
 
     /// Initialize this vocoder node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter attackTime: Attack time (seconds)
-    /// - parameter rel: Release time
-    /// - parameter bandwidthRatio: Coeffecient to adjust the bandwidth of each band
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - attackTime: Attack time (seconds)
+    ///   - rel: Release time
+    ///   - bandwidthRatio: Coeffecient to adjust the bandwidth of each band
     ///
     public init(
         var _ input: AKNode,

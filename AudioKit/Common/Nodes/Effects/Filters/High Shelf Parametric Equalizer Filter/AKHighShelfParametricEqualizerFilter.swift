@@ -10,10 +10,11 @@ import AVFoundation
 
 /// This is an implementation of Zoelzer's parametric equalizer filter.
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Corner frequency.
-/// - parameter gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-/// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Corner frequency.
+///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+///   - q: Q of the filter. sqrt(0.5) is no resonance.
 ///
 public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
@@ -82,10 +83,11 @@ public class AKHighShelfParametricEqualizerFilter: AKNode, AKToggleable {
 
     /// Initialize this equalizer node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Corner frequency.
-    /// - parameter gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
-    /// - parameter q: Q of the filter. sqrt(0.5) is no resonance.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Corner frequency.
+    ///   - gain: Amount at which the corner frequency value shall be increased or decreased. A value of 1 is a flat response.
+    ///   - q: Q of the filter. sqrt(0.5) is no resonance.
     ///
     public init(
         _ input: AKNode,

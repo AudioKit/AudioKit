@@ -14,9 +14,10 @@ import AVFoundation
 /// 1/1000, or 60dB down from its original amplitude).  Output will begin to
 /// appear immediately.
 ///
-/// - parameter input: Input node to process
-/// - parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-/// - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
+/// - Parameters:
+///   - input: Input node to process
+///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
+///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
 ///
 public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
@@ -59,9 +60,10 @@ public class AKFlatFrequencyResponseReverb: AKNode, AKToggleable {
 
     /// Initialize this reverb node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
-    /// - parameter loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - reverbDuration: The duration in seconds for a signal to decay to 1/1000, or 60dB down from its original amplitude.
+    ///   - loopDuration: The loop duration of the filter, in seconds. This can also be thought of as the delay time or “echo density” of the reverberation.
     ///
     public init(
         _ input: AKNode,

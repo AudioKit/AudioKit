@@ -10,10 +10,11 @@ import AVFoundation
 
 /// An automatic wah effect, ported from Guitarix via Faust.
 ///
-/// - parameter input: Input node to process
-/// - parameter wah: Wah Amount
-/// - parameter mix: Dry/Wet Mix
-/// - parameter amplitude: Overall level
+/// - Parameters:
+///   - input: Input node to process
+///   - wah: Wah Amount
+///   - mix: Dry/Wet Mix
+///   - amplitude: Overall level
 ///
 public class AKAutoWah: AKNode, AKToggleable {
 
@@ -82,10 +83,11 @@ public class AKAutoWah: AKNode, AKToggleable {
 
     /// Initialize this autoWah node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter wah: Wah Amount
-    /// - parameter mix: Dry/Wet Mix
-    /// - parameter amplitude: Overall level
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - wah: Wah Amount
+    ///   - mix: Dry/Wet Mix
+    ///   - amplitude: Overall level
     ///
     public init(
         _ input: AKNode,

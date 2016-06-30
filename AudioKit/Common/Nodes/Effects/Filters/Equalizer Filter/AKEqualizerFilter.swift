@@ -13,10 +13,11 @@ import AVFoundation
 /// a peak at the center frequency with a width dependent on bandwidth. If gain
 /// is less than 1, a notch is formed around the center frequency.
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Center frequency. (in Hertz)
-/// - parameter bandwidth: The peak/notch bandwidth in Hertz
-/// - parameter gain: The peak/notch gain
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Center frequency. (in Hertz)
+///   - bandwidth: The peak/notch bandwidth in Hertz
+///   - gain: The peak/notch gain
 ///
 public class AKEqualizerFilter: AKNode, AKToggleable {
 
@@ -85,10 +86,11 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Center frequency. (in Hertz)
-    /// - parameter bandwidth: The peak/notch bandwidth in Hertz
-    /// - parameter gain: The peak/notch gain
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Center frequency. (in Hertz)
+    ///   - bandwidth: The peak/notch bandwidth in Hertz
+    ///   - gain: The peak/notch gain
     ///
     public init(
         _ input: AKNode,

@@ -10,11 +10,12 @@ import AVFoundation
 
 /// Triggerable classic ADSR envelope
 ///
-/// - parameter input: Input node to process
-/// - parameter attackDuration: Attack time
-/// - parameter decayDuration: Decay time
-/// - parameter sustainLevel: Sustain Level
-/// - parameter releaseDuration: Release time
+/// - Parameters:
+///   - input: Input node to process
+///   - attackDuration: Attack time
+///   - decayDuration: Decay time
+///   - sustainLevel: Sustain Level
+///   - releaseDuration: Release time
 ///
 public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
@@ -96,11 +97,12 @@ public class AKAmplitudeEnvelope: AKNode, AKToggleable {
 
     /// Initialize this envelope node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter attackDuration: Attack time
-    /// - parameter decayDuration: Decay time
-    /// - parameter sustainLevel: Sustain Level
-    /// - parameter releaseDuration: Release time
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - attackDuration: Attack time
+    ///   - decayDuration: Decay time
+    ///   - sustainLevel: Sustain Level
+    ///   - releaseDuration: Release time
     ///
     public init(
         _ input: AKNode,

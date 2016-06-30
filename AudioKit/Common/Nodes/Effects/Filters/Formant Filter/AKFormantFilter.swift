@@ -12,10 +12,11 @@ import AVFoundation
 /// grains. Overlapping will occur when 1/freq < dec, but there is no upper
 /// limit on the number of overlaps.
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Center frequency.
-/// - parameter attackDuration: Impulse response attack time (in seconds).
-/// - parameter decayDuration: Impulse reponse decay time (in seconds)
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Center frequency.
+///   - attackDuration: Impulse response attack time (in seconds).
+///   - decayDuration: Impulse reponse decay time (in seconds)
 ///
 public class AKFormantFilter: AKNode, AKToggleable {
 
@@ -84,10 +85,11 @@ public class AKFormantFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Center frequency.
-    /// - parameter attackDuration: Impulse response attack time (in seconds).
-    /// - parameter decayDuration: Impulse reponse decay time (in seconds)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Center frequency.
+    ///   - attackDuration: Impulse response attack time (in seconds).
+    ///   - decayDuration: Impulse reponse decay time (in seconds)
     ///
     public init(
         _ input: AKNode,

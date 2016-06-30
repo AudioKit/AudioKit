@@ -10,10 +10,11 @@ import AVFoundation
 
 /// AudioKit version of Apple's ParametricEQ Audio Unit
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
-/// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
-/// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Center Freq (Hz) ranges from 20 to 22050 (Default: 2000)
+///   - q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
+///   - gain: Gain (dB) ranges from -20 to 20 (Default: 0)
 ///
 public class AKParametricEQ: AKNode, AKToggleable {
 
@@ -34,7 +35,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
         didSet {
             if centerFrequency < 20 {
                 centerFrequency = 20
-            }            
+            }
             if centerFrequency > 22050 {
                 centerFrequency = 22050
             }
@@ -51,7 +52,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
         didSet {
             if q < 0.1 {
                 q = 0.1
-            }            
+            }
             if q > 20 {
                 q = 20
             }
@@ -68,7 +69,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
         didSet {
             if gain < -20 {
                 gain = -20
-            }            
+            }
             if gain > 20 {
                 gain = 20
             }
@@ -100,15 +101,16 @@ public class AKParametricEQ: AKNode, AKToggleable {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
-    
+
     // MARK: - Initialization
 
     /// Initialize the parametric eq node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000)
-    /// - parameter q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
-    /// - parameter gain: Gain (dB) ranges from -20 to 20 (Default: 0)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 2000)
+    ///   - q: Q (Hz) ranges from 0.1 to 20 (Default: 1.0)
+    ///   - gain: Gain (dB) ranges from -20 to 20 (Default: 0)
     ///
     public init(
         _ input: AKNode,
@@ -129,7 +131,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
-            
+
             AudioKit.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
@@ -140,7 +142,7 @@ public class AKParametricEQ: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kParametricEQParam_Q, kAudioUnitScope_Global, 0, Float(q), 0)
             AudioUnitSetParameter(internalAU, kParametricEQParam_Gain, kAudioUnitScope_Global, 0, Float(gain), 0)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

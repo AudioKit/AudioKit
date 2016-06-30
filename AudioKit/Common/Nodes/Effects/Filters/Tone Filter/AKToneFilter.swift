@@ -10,8 +10,9 @@ import AVFoundation
 
 /// A first-order recursive low-pass filter with variable frequency response.
 ///
-/// - parameter input: Input node to process
-/// - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
+/// - Parameters:
+///   - input: Input node to process
+///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
 ///
 public class AKToneFilter: AKNode, AKToggleable {
 
@@ -54,8 +55,9 @@ public class AKToneFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - halfPowerPoint: The response curve's half-power point, in Hertz. Half power is defined as peak power / root 2.
     ///
     public init(
         _ input: AKNode,
