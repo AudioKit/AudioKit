@@ -196,23 +196,23 @@ public struct AKMIDIEvent {
     /// Create note on event
     ///
     /// - Parameters:
-    ///   - note:     MIDI Note number
-    ///   - velocity: MIDI Note velocity (0-127)
-    ///   - channel:  Channel on which the note appears
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI Note velocity (0-127)
+    ///   - channel:    Channel on which the note appears
     ///
-    static public func eventWithNoteOn(note: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .NoteOn, channel: channel, byte1: note, byte2: velocity)
+    static public func eventWithNoteOn(noteNumber noteNumber: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMIDIEvent {
+        return AKMIDIEvent(status: .NoteOn, channel: channel, byte1: noteNumber, byte2: velocity)
     }
 
     /// Create note off event
     ///
     /// - Parameters:
-    ///   - note:     MIDI Note number
-    ///   - velocity: MIDI Note velocity (0-127)
-    ///   - channel:  Channel on which the note appears
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI Note velocity (0-127)
+    ///   - channel:    Channel on which the note appears
     ///
-    static public func eventWithNoteOff(note: UInt8, velocity: UInt8, channel: UInt8) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .NoteOff, channel: channel, byte1: note, byte2: velocity)
+    static public func eventWithNoteOff(noteNumber noteNumber: UInt8, velocity: UInt8, channel: UInt8) -> AKMIDIEvent {
+        return AKMIDIEvent(status: .NoteOff, channel: channel, byte1: noteNumber, byte2: velocity)
     }
 
     /// Create program change event

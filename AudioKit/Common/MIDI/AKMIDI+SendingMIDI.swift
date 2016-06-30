@@ -86,9 +86,9 @@ extension AKMIDI {
     }
     
     /// Send a Note On Message
-    public func sendNoteMessage(note: Int, velocity: MIDIVelocity, channel: Int = 0) {
+    public func sendNoteMessage(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int = 0) {
         let noteCommand: UInt8 = UInt8(0x90) + UInt8(channel)
-        let message: [UInt8] = [noteCommand, UInt8(note), UInt8(velocity)]
+        let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
         self.sendMessage(message)
     }
     

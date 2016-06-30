@@ -196,17 +196,21 @@ public class AKMusicTrack {
     /// Add Note to sequence
     ///
     /// - Parameters:
-    ///   - note: The midi note number to insert
+    ///   - noteNumber: The midi note number to insert
     ///   - velocity: The velocity to insert note at
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - duration: How long to hold the note (would be better if they let us just use noteOffs...oh well)
     ///   - channel: MIDI channel for this note
     ///
-    public func addNote(note: Int, velocity: MIDIVelocity, position: Beat, duration: Beat, channel: Int = 0) {
+    public func add(noteNumber noteNumber: MIDINoteNumber,
+                               velocity: MIDIVelocity,
+                               position: Beat,
+                               duration: Beat,
+                               channel: Int = 0) {
 
         var noteMessage = MIDINoteMessage(
             channel: UInt8(channel),
-            note: UInt8(note),
+            note: UInt8(noteNumber),
             velocity: UInt8(velocity),
             releaseVelocity: 0,
             duration: Float32(duration.value))

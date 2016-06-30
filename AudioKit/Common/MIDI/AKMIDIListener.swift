@@ -20,20 +20,20 @@ public protocol AKMIDIListener {
     /// Receive the MIDI note on event
     ///
     /// - Parameters:
-    ///   - note:     Note number of activated note
-    ///   - velocity: MIDI Velocity (0-127)
-    ///   - channel:  MIDI Channel (1-16)
+    ///   - noteNumber: MIDI Note number of activated note
+    ///   - velocity:   MIDI Velocity (0-127)
+    ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int)
+    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int)
 
     /// Receive the MIDI note off event
     ///
     /// - Parameters:
-    ///   - note:     Note number of released note
-    ///   - velocity: MIDI Velocity (0-127) usually speed of release, often 0.
-    ///   - channel:  MIDI Channel (1-16)
+    ///   - noteNumber: MIDI Note number of released note
+    ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
+    ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOff(note: Int, velocity: MIDIVelocity, channel: Int)
+    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int)
 
     /// Receive a generic controller value
     ///
@@ -47,11 +47,11 @@ public protocol AKMIDIListener {
     /// Receive single note based aftertouch event
     ///
     /// - Parameters:
-    ///   - note:     Note number of touched note
-    ///   - pressure: Pressure applied to the note (0-127)
-    ///   - channel:  MIDI Channel (1-16)
+    ///   - noteNumber: Note number of touched note
+    ///   - pressure:   Pressure applied to the note (0-127)
+    ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDIAftertouchOnNote(note: Int, pressure: Int, channel: Int)
+    func receivedMIDIAftertouch(noteNumber noteNumber: MIDINoteNumber, pressure: Int, channel: Int)
 
     /// Receive global aftertouch
     ///
@@ -90,23 +90,23 @@ public extension AKMIDIListener {
     /// Receive the MIDI note on event
     ///
     /// - Parameters:
-    ///   - note:     Note number of activated note
-    ///   - velocity: MIDI Velocity (0-127)
-    ///   - channel:  MIDI Channel (1-16)
+    ///   - noteNumber: Note number of activated note
+    ///   - velocity:   MIDI Velocity (0-127)
+    ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int) {
-        print("channel: \(channel) noteOn: \(note) velocity: \(velocity)")
+    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+        print("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity)")
     }
 
     /// Receive the MIDI note off event
     ///
     /// - Parameters:
-    ///   - note:     Note number of released note
-    ///   - velocity: MIDI Velocity (0-127) usually speed of release, often 0.
-    ///   - channel:  MIDI Channel (1-16)
+    ///   - noteNumber: Note number of released note
+    ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
+    ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOff(note: Int, velocity: MIDIVelocity, channel: Int) {
-        print("channel: \(channel) noteOff: \(note) velocity: \(velocity)")
+    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+        print("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity)")
     }
 
     /// Receive a generic controller value
@@ -123,12 +123,12 @@ public extension AKMIDIListener {
     /// Receive single note based aftertouch event
     ///
     /// - Parameters:
-    ///   - note:     Note number of touched note
-    ///   - pressure: Pressure applied to the note (0-127)
-    ///   - channel:  MIDI Channel (1-16)
+    ///   - noteNumber: Note number of touched note
+    ///   - pressure:   Pressure applied to the note (0-127)
+    ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDIAftertouchOnNote(note: Int, pressure: Int, channel: Int) {
-        print("channel: \(channel) midiAftertouchOnNote: \(note) pressure: \(pressure)")
+    func receivedMIDIAftertouch(noteNumber noteNumber: MIDINoteNumber, pressure: Int, channel: Int) {
+        print("channel: \(channel) midiAftertouch Note: \(noteNumber) pressure: \(pressure)")
     }
 
     /// Receive global aftertouch

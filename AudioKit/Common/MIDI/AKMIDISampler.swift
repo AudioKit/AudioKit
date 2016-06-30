@@ -43,9 +43,9 @@ public class AKMIDISampler: AKSampler {
         let channel = data1 & 0xF
 
         if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0 {
-            startNote(Int(data2), withVelocity: MIDIVelocity(data3), onChannel: Int(channel))
+            play(noteNumber: Int(data2), velocity: MIDIVelocity(data3), channel: Int(channel))
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
-            stopNote(Int(data2), onChannel: Int(channel))
+            stop(noteNumber: Int(data2), channel: Int(channel))
         } else if Int(status) == AKMIDIStatus.ControllerChange.rawValue {
             midiCC(Int(data2), value: Int(data3), channel: Int(channel))
         }
@@ -54,15 +54,15 @@ public class AKMIDISampler: AKSampler {
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
-    ///   - note: MIDI Note number
-    ///   - velocity: MIDI velocity
-    ///   - channel: MIDI channel
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI velocity
+    ///   - channel:    MIDI channel
     ///
-    public func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int) {
+    public func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
         if velocity > 0 {
-            startNote(note, withVelocity: velocity, onChannel: channel)
+            play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
-            stopNote(note, onChannel: channel)
+            stop(noteNumber: noteNumber, channel: channel)
         }
     }
 
@@ -80,13 +80,13 @@ public class AKMIDISampler: AKSampler {
     // MARK: - MIDI Note Start/Stop
 
     /// Start a note
-    public func startNote(note: Int, withVelocity velocity: MIDIVelocity, onChannel channel: Int) {
-        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
+    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+        samplerUnit.startNote(UInt8(noteNumber), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
 
     /// Stop a note
-    public func stopNote(note: Int, onChannel channel: Int) {
-        samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
+    public override func stop(noteNumber noteNumber: MIDINoteNumber, channel: Int) {
+        samplerUnit.stopNote(UInt8(noteNumber), onChannel: UInt8(channel))
     }
 
     private func MyMIDIReadBlock(

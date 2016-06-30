@@ -34,17 +34,17 @@ import AVFoundation
 }
 
 public protocol AKPolyphonic {
-    func play(note note: Int, velocity: MIDIVelocity)
-    func stop(note note: Int)
+    func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity)
+    func stop(noteNumber noteNumber: MIDINoteNumber)
 }
 
 public class AKPolyphonicNode: AKNode, AKPolyphonic {
-    public func play(note note: Int, velocity: MIDIVelocity) {
-        print("Playing note \(note), with velocity \(velocity), override in subclass")
+    public func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+        print("Playing note \(noteNumber), with velocity \(velocity), override in subclass")
     }
     
-    public func stop(note note: Int) {
-        print("Stopping note \(note), override in subclass")
+    public func stop(noteNumber noteNumber: MIDINoteNumber) {
+        print("Stopping note \(noteNumber), override in subclass")
     }
 }
 

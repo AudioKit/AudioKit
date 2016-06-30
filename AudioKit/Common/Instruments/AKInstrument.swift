@@ -103,23 +103,23 @@ public class AKPolyphonicInstrument: AKNode {
     /// Start playback with MIDI style note and velocity
     ///
     /// - Parameters:
-    ///   - note: MIDI Note Number
+    ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity (0-127)
     ///
-    public func playNote(note: Int, velocity: MIDIVelocity) {
+    public func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         if let voice = availableVoices.popLast() {
             activeVoices.append(voice)
-            activeNotes.append(note)
-            playVoice(voice, note: note, velocity: velocity)
+            activeNotes.append(noteNumber)
+            play(voice: voice, noteNumber: noteNumber, velocity: velocity)
         }
     }
 
     /// Stop playback of a particular note
     ///
-    /// - parameter note: MIDI Note Number
+    /// - parameter noteNumber: MIDI Note Number
     ///
-    public func stopNote(note: Int) {
-        if let index  = activeNotes.indexOf(note) {
+    public func stop(noteNumber noteNumber: MIDINoteNumber) {
+        if let index  = activeNotes.indexOf(noteNumber) {
             let voice = activeVoices.removeAtIndex(index)
             voice.stop()
             availableVoices.insert(voice, atIndex: 0)
@@ -131,23 +131,23 @@ public class AKPolyphonicInstrument: AKNode {
     ///
     /// - Parameters:
     ///   - voice: Voice to start
-    ///   - note: MIDI Note Number
+    ///   - noteNumber: MIDI Note Number
     ///   - velocity: MIDI Velocity (0-127)
     ///
-    public func playVoice(voice: AKVoice, note: Int, velocity: MIDIVelocity) {
+    public func play(voice voice: AKVoice, noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         // Override in subclass
-        print("Voice playing is \(voice) - note:\(note) - vel:\(velocity)")
+        print("Voice playing is \(voice) - noteNumber: \(noteNumber) - velocity: \(velocity)")
     }
 
     /// Stop playback of a particular voice
     ///
     /// - Parameters:
     ///   - voice: Voice to stop
-    ///   - note: MIDI Note Number
+    ///   - noteNumber: MIDI Note Number
     ///
-    public func stopVoice(voice: AKVoice, note: Int) {
+    public func stop(voice voice: AKVoice, noteNumber: MIDINoteNumber) {
         /// Override in subclass
-        print("Stopping voice\(voice) - note:\(note)")
+        print("Stopping voice\(voice) - noteNumber: \(noteNumber)")
     }
 
     /// Stop all voices

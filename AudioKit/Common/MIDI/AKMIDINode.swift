@@ -54,30 +54,30 @@ public class AKMIDINode: AKNode, AKMIDIListener {
     // Send MIDI data to the audio unit
     func handleMIDI(data1 data1: UInt32, data2: UInt32, data3: UInt32) {
         let status = Int(data1 >> 4)
-        let note = Int(data2)
+        let noteNumber = Int(data2)
         let velocity = Int(data3)
 
         if status == AKMIDIStatus.NoteOn.rawValue && velocity > 0 {
-            internalNode.play(note: note, velocity: velocity)
+            internalNode.play(noteNumber: noteNumber, velocity: velocity)
         } else if status == AKMIDIStatus.NoteOn.rawValue && velocity == 0 {
-            internalNode.stop(note: note)
+            internalNode.stop(noteNumber: noteNumber)
         } else if status == AKMIDIStatus.NoteOff.rawValue {
-            internalNode.stop(note: note)
+            internalNode.stop(noteNumber: noteNumber)
         }
     }
 
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
-    ///   - note: MIDI Note number
-    ///   - velocity: MIDI velocity
-    ///   - channel: MIDI channel
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI velocity
+    ///   - channel:    MIDI channel
     ///
-    public func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int) {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
         if velocity > 0 {
-            internalNode.play(note: note, velocity: velocity)
+            internalNode.play(noteNumber: noteNumber, velocity: velocity)
         } else {
-            internalNode.stop(note: note)
+            internalNode.stop(noteNumber: noteNumber)
         }
     }
 

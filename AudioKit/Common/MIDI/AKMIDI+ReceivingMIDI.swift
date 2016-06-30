@@ -109,20 +109,20 @@ extension AKMIDI {
                 listener.receivedMIDIAfterTouch(Int(event.internalData[1]),
                                                 channel: Int(event.channel))
             case AKMIDIStatus.NoteOn:
-                listener.receivedMIDINoteOn(Int(event.internalData[1]),
+                listener.receivedMIDINoteOn(noteNumber: Int(event.internalData[1]),
                                             velocity: MIDIVelocity(event.internalData[2]),
                                             channel: Int(event.channel))
             case AKMIDIStatus.NoteOff:
-                listener.receivedMIDINoteOff(Int(event.internalData[1]),
+                listener.receivedMIDINoteOff(noteNumber: Int(event.internalData[1]),
                                              velocity: MIDIVelocity(event.internalData[2]),
                                              channel: Int(event.channel))
             case AKMIDIStatus.PitchWheel:
                 listener.receivedMIDIPitchWheel(Int(event.data),
                                                 channel: Int(event.channel))
             case AKMIDIStatus.PolyphonicAftertouch:
-                listener.receivedMIDIAftertouchOnNote(Int(event.internalData[1]),
-                                                      pressure: Int(event.internalData[2]),
-                                                      channel: Int(event.channel))
+                listener.receivedMIDIAftertouch(noteNumber: Int(event.internalData[1]),
+                                                pressure: Int(event.internalData[2]),
+                                                channel: Int(event.channel))
             case AKMIDIStatus.ProgramChange:
                 listener.receivedMIDIProgramChange(Int(event.internalData[1]),
                                                    channel: Int(event.channel))

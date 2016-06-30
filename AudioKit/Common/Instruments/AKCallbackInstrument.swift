@@ -29,31 +29,31 @@ public class AKCallbackInstrument: AKMIDIInstrument {
         callbacks.append(callback)
     }
 
-    private func triggerCallbacks(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVelocity) {
+    private func triggerCallbacks(status: AKMIDIStatus, noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         for callback in callbacks {
-            callback(status, note, velocity)
+            callback(status, noteNumber, velocity)
         }
     }
 
     /// Will trigger in response to any noteOn Message
     ///
     /// - Parameters:
-    ///   - note:     MIDI Note being started
-    ///   - velocity: MIDI Velocity (0-127)
-    ///   - channel:  MIDI Channel
+    ///   - noteNumber: MIDI Note Number being started
+    ///   - velocity:   MIDI Velocity (0-127)
+    ///   - channel:    MIDI Channel
     ///
-    override public func startNote(note: Int, withVelocity velocity: MIDIVelocity, onChannel channel: Int) {
-        triggerCallbacks(.NoteOn, note: note, velocity: velocity)
+    override public func start(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+        triggerCallbacks(.NoteOn, noteNumber: noteNumber, velocity: velocity)
     }
 
     /// Will trigger in response to any noteOff Message
     ///
     /// - Parameters:
-    ///   - note:     MIDI Note being stopped
-    ///   - velocity: MIDI Velocity (0-127)
-    ///   - channel:  MIDI Channel
+    ///   - noteNumber: MIDI Note Number being stopped
+    ///   - velocity:   MIDI Velocity (0-127)
+    ///   - channel:    MIDI Channel
     ///
-    override public func stopNote(note: Int, onChannel channel: Int) {
-        triggerCallbacks(.NoteOff, note: note, velocity: 0)
+    override public func stop(noteNumber noteNumber: MIDINoteNumber, channel: Int) {
+        triggerCallbacks(.NoteOff, noteNumber: noteNumber, velocity: 0)
     }
 }
