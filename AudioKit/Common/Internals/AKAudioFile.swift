@@ -11,6 +11,7 @@
 import Foundation
 import AVFoundation
 
+/// Audio file, inherits from AVAudioFile and adds functionality
 public class AKAudioFile: AVAudioFile {
     
     // MARK: - embedded enums

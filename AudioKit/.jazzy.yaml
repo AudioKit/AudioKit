@@ -24,13 +24,8 @@ custom_categories:
     - AKCallbackInstrument
     - AKPolyphonicInstrument
     - AKVoice
-    - AKFMSynth
-    - AKNoiseGenerator
-    - AKPWMSynth
-    - AKSawtoothSynth
     - AKSynthKick
     - AKSynthSnare
-    - AKWavetableSynth
 
   - name: MIDI
     children:
@@ -130,11 +125,13 @@ custom_categories:
   - name: Oscillator Nodes
     children:
     - AKFMOscillator
+    - AKFMOscillatorBank
     - AKMorphingOscillator
+    - AKMorphingOscillatorBank
     - AKOscillator
-    - AKSawtoothOscillator
-    - AKSquareWaveOscillator
-    - AKTriangleOscillator
+    - AKOscillatorBank
+    - AKPWMOscillator
+    - AKPWMOscillatorBank
 
   - name: Physical Models
     children:

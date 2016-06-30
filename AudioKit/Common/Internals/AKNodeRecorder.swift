@@ -17,7 +17,7 @@ public class AKNodeRecorder {
 
     // The node we record from
     private var node: AKNode?
-    
+
     // The file to record to
     private var internalAudioFile: AKAudioFile
 
@@ -31,9 +31,10 @@ public class AKNodeRecorder {
 
     /// Initialize the node recorder
     ///
-    /// - parameter node:       Node to record from
-    /// - parameter file:       Audio file to record to
-    /// - parameter bufferSize: Size of the buffer to use
+    /// - Parameters:
+    ///   - node:       Node to record from
+    ///   - file:       Audio file to record to
+    ///   - bufferSize: Size of the buffer to use
     ///
     public init(node: AKNode = AudioKit.output!,
                 file: AKAudioFile? = nil,
@@ -188,7 +189,7 @@ public class AKNodeRecorder {
     }
 
     // MARK: - public vars
-    
+
     /// True if we are recording.
     public var isRecording: Bool {
         return recording
@@ -211,7 +212,7 @@ public class AKNodeRecorder {
             print ("Error: \(error.localizedDescription)")
             return nil
         }
-        
+
     }
-    
+
 }
