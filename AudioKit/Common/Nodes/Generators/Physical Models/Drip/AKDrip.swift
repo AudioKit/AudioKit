@@ -11,13 +11,14 @@ import AVFoundation
 /// Physical model of the sound of dripping water. When triggered, it will
 /// produce a droplet of water.
 ///
-/// - parameter intensity: The intensity of the dripping sound.
-/// - parameter dampingFactor: The damping factor. Maximum value is 2.0.
-/// - parameter energyReturn: The amount of energy to add back into the system.
-/// - parameter mainResonantFrequency: Main resonant frequency.
-/// - parameter firstResonantFrequency: The first resonant frequency.
-/// - parameter secondResonantFrequency: The second resonant frequency.
-/// - parameter amplitude: Amplitude.
+/// - Parameters:
+///   - intensity: The intensity of the dripping sound.
+///   - dampingFactor: The damping factor. Maximum value is 2.0.
+///   - energyReturn: The amount of energy to add back into the system.
+///   - mainResonantFrequency: Main resonant frequency.
+///   - firstResonantFrequency: The first resonant frequency.
+///   - secondResonantFrequency: The second resonant frequency.
+///   - amplitude: Amplitude.
 ///
 public class AKDrip: AKNode {
 
@@ -114,7 +115,7 @@ public class AKDrip: AKNode {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the drip with defaults
     convenience override init() {
         self.init(intensity: 10)
@@ -122,13 +123,14 @@ public class AKDrip: AKNode {
 
     /// Initialize this drip node
     ///
-    /// - parameter intensity: The intensity of the dripping sound.
-    /// - parameter dampingFactor: The damping factor. Maximum value is 2.0.
-    /// - parameter energyReturn: The amount of energy to add back into the system.
-    /// - parameter mainResonantFrequency: Main resonant frequency.
-    /// - parameter firstResonantFrequency: The first resonant frequency.
-    /// - parameter secondResonantFrequency: The second resonant frequency.
-    /// - parameter amplitude: Amplitude.
+    /// - Parameters:
+    ///   - intensity: The intensity of the dripping sound.
+    ///   - dampingFactor: The damping factor. Maximum value is 2.0.
+    ///   - energyReturn: The amount of energy to add back into the system.
+    ///   - mainResonantFrequency: Main resonant frequency.
+    ///   - firstResonantFrequency: The first resonant frequency.
+    ///   - secondResonantFrequency: The second resonant frequency.
+    ///   - amplitude: Amplitude.
     ///
     public init(
         intensity: Double,
@@ -212,9 +214,9 @@ public class AKDrip: AKNode {
         internalAU?.secondResonantFrequency = Float(secondResonantFrequency)
         internalAU?.amplitude = Float(amplitude)
     }
-    
+
     // MARK: - Control
-    
+
     /// Trigger the sound with an optional set of parameters
     ///
     public func trigger() {

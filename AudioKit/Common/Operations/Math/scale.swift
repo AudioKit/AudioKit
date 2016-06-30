@@ -13,9 +13,9 @@ extension AKOperation {
 
     /// This scales from -1 to 1 to a range defined by a minimum and maximum point in the input and output domain.
     ///
-    /// - returns: AKOperation
-    /// - parameter minimum: Minimum value to scale to. (Default: 0)
-    /// - parameter maximum: Maximum value to scale to. (Default: 1)
+    /// - Parameters:
+    ///   - minimum: Minimum value to scale to. (Default: 0)
+    ///   - maximum: Maximum value to scale to. (Default: 1)
     ///
     public func scale(
         minimum minimum: AKParameter = 0,

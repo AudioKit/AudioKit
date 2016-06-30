@@ -293,8 +293,8 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /*
      /// Play the file back from a certain time to an end time (if set)
      ///
-     /// - parameter time: Time into the file at which to start playing back
-     /// - parameter endTime: Time into the file at which to playing back will stop / Loop
+     ///   - time: Time into the file at which to start playing back
+     ///   - endTime: Time into the file at which to playing back will stop / Loop
      ///
      */
     public func playFrom(time: Double, to endTime: Double = 0) {
@@ -362,7 +362,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             }
         }
     }
-    
+
     /// Triggered when the player reaches the end of its playing range
     private func internalCompletionHandler() {
         if playing {
@@ -374,6 +374,6 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             }
         }
     }
-    
-    
+
+
 }

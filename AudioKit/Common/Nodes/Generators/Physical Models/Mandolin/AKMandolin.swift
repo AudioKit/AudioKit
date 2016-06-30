@@ -11,8 +11,9 @@ import AVFoundation
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-/// - parameter detuningOffset: Frequency offset in Hz.
-/// - parameter detuningMultiplier: Frequency detuning multiplier
+/// - Parameters:
+///   - detuningOffset: Frequency offset in Hz.
+///   - detuningMultiplier: Frequency detuning multiplier
 ///
 public class AKMandolin: AKNode {
 
@@ -39,7 +40,7 @@ public class AKMandolin: AKNode {
             }
         }
     }
-    
+
     public var detune: Double = 1 {
         willSet {
             if detune != newValue {
@@ -127,15 +128,15 @@ public class AKMandolin: AKNode {
         fret(note: course3Note, course: 2)
         fret(note: course4Note, course: 3)
     }
-    
+
     public func fret(note note: Int, course: Int) {
         internalAU?.setFrequency(Float(note.midiNoteToFrequency()), course: Int32(course))
     }
-    
+
     public func pluck(course course: Int, position: Double, velocity: Int) {
         internalAU?.pluckCourse(Int32(course), position: Float(position), velocity: Int32(velocity))
     }
-    
+
     public func strum(position: Double, velocity: Int) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
@@ -144,9 +145,9 @@ public class AKMandolin: AKNode {
     }
 
     public func mute(course course: Int) {
-        
+
     }
-    
+
     public func muteAllStrings() {
         mute(course: 0)
         mute(course: 1)

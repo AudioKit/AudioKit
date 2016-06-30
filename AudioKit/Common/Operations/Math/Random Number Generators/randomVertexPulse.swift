@@ -12,11 +12,11 @@ extension AKOperation {
 
     /// Line segments with vertices at random points
     ///
-    /// - returns: AKOperation
-    /// - parameter minimum: Minimum value (Default: 0)
-    /// - parameter maximum: Maximum value (Default: 1)
-    /// - parameter updateFrequency: Frequency to change values. (Default: 3)
-     ///
+    /// - Parameters:
+    ///   - minimum: Minimum value (Default: 0)
+    ///   - maximum: Maximum value (Default: 1)
+    ///   - updateFrequency: Frequency to change values. (Default: 3)
+    ///
     public static func randomVertexPulse(
         minimum minimum: AKParameter = 0,
         maximum: AKParameter = 1,

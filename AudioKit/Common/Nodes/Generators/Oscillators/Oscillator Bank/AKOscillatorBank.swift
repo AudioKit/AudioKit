@@ -11,8 +11,9 @@ import AVFoundation
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-/// - parameter detuningOffset: Frequency offset in Hz.
-/// - parameter detuningMultiplier: Frequency detuning multiplier
+/// - Parameters:
+///   - detuningOffset: Frequency offset in Hz.
+///   - detuningMultiplier: Frequency detuning multiplier
 ///
 public class AKOscillatorBank: AKPolyphonicNode {
 
@@ -27,7 +28,7 @@ public class AKOscillatorBank: AKPolyphonicNode {
     private var releaseDurationParameter: AUParameter?
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -50,7 +51,7 @@ public class AKOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     /// Release time in seconds
     public var releaseDuration: Double = 0 {
         willSet {
@@ -63,7 +64,7 @@ public class AKOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
         willSet {
@@ -91,14 +92,15 @@ public class AKOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize this oscillator node
     ///
-    /// - parameter waveform:  The waveform of oscillation
-    /// - parameter frequency: Frequency in cycles per second
-    /// - parameter amplitude: Output Amplitude.
-    /// - parameter detuningOffset: Frequency offset in Hz.
-    /// - parameter detuningMultiplier: Frequency detuning multiplier
+    /// - Parameters:
+    ///   - waveform:  The waveform of oscillation
+    ///   - frequency: Frequency in cycles per second
+    ///   - amplitude: Output Amplitude.
+    ///   - detuningOffset: Frequency offset in Hz.
+    ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
         waveform: AKTable = AKTable(.Sine),
@@ -172,12 +174,12 @@ public class AKOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - AKPolyphonic
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public override func play(note note: Int, velocity: Int) {
         self.internalAU!.startNote(Int32(note), velocity: Int32(velocity))
     }
-    
+
     /// Function to stop or bypass the node, both are equivalent
     public override func stop(note note: Int) {
         self.internalAU!.stopNote(Int32(note))

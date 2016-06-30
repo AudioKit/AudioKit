@@ -11,8 +11,9 @@ import AVFoundation
 /// Reads from the table sequentially and repeatedly at given frequency. Linear
 /// interpolation is applied for table look up from internal phase values.
 ///
-/// - parameter detuningOffset: Frequency offset in Hz.
-/// - parameter detuningMultiplier: Frequency detuning multiplier
+/// - Parameters:
+///   - detuningOffset: Frequency offset in Hz.
+///   - detuningMultiplier: Frequency detuning multiplier
 ///
 public class AKFMOscillatorBank: AKPolyphonicNode {
 
@@ -25,12 +26,12 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     private var carrierMultiplierParameter: AUParameter?
     private var modulatingMultiplierParameter: AUParameter?
     private var modulationIndexParameter: AUParameter?
-    
+
     private var attackDurationParameter: AUParameter?
     private var releaseDurationParameter: AUParameter?
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
-    
+
     /// Ramp Time represents the speed at which parameters are allowed to change
     public var rampTime: Double = AKSettings.rampTime {
         willSet {
@@ -40,7 +41,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     /// This multiplied by the baseFrequency gives the carrier frequency.
     public var carrierMultiplier: Double = 1.0 {
         willSet {
@@ -53,7 +54,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     /// This multiplied by the baseFrequency gives the modulating frequency.
     public var modulatingMultiplier: Double = 1 {
         willSet {
@@ -66,7 +67,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     /// This multiplied by the modulating frequency gives the modulation amplitude.
     public var modulationIndex: Double = 1 {
         willSet {
@@ -79,7 +80,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
 
 
     /// Attack time in seconds
@@ -94,7 +95,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     /// Release time in seconds
     public var releaseDuration: Double = 0 {
         willSet {
@@ -107,7 +108,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-    
+
     /// Frequency offset in Hz.
     public var detuningOffset: Double = 0 {
         willSet {
@@ -138,11 +139,12 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
 
     /// Initialize this oscillator node
     ///
-    /// - parameter waveform:  The waveform of oscillation
-    /// - parameter frequency: Frequency in cycles per second
-    /// - parameter amplitude: Output Amplitude.
-    /// - parameter detuningOffset: Frequency offset in Hz.
-    /// - parameter detuningMultiplier: Frequency detuning multiplier
+    /// - Parameters:
+    ///   - waveform:  The waveform of oscillation
+    ///   - frequency: Frequency in cycles per second
+    ///   - amplitude: Output Amplitude.
+    ///   - detuningOffset: Frequency offset in Hz.
+    ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
         waveform: AKTable = AKTable(.Sine),
@@ -226,7 +228,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
                 }
             }
         }
-        
+
         internalAU?.carrierMultiplier = Float(carrierMultiplier)
         internalAU?.modulatingMultiplier = Float(modulatingMultiplier)
         internalAU?.modulationIndex = Float(modulationIndex)
@@ -238,7 +240,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - AKPolyphonic
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public override func play(note note: Int, velocity: Int) {
         self.internalAU!.startNote(Int32(note), velocity: Int32(velocity))

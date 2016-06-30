@@ -11,7 +11,6 @@ import Foundation
 extension AKOperation {
     /// Multiplication of parameters
     ///
-    /// - returns: AKOperation
     /// - parameter parameter: The amount to multiply
     ///
     public func times(parameter: AKParameter) -> AKOperation {
@@ -20,7 +19,6 @@ extension AKOperation {
 
     /// Offsetting by way of multiplication
     ///
-    /// - returns: AKOperation
     /// - parameter parameter: The amount to scale by
     ///
     public func scaledBy(parameter: AKParameter) -> AKOperation {
@@ -30,9 +28,9 @@ extension AKOperation {
 
 /// Helper function for Multiplication
 ///
-/// - returns: AKOperation
-/// - left: 1st parameter
-/// - right: 2nd parameter
+/// - Parameters:
+///   - left: 1st parameter
+///   - right: 2nd parameter
 ///
 public func *(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().times(right)

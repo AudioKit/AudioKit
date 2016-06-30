@@ -9,13 +9,13 @@
 import Foundation
 
 extension AKOperation {
-    
+
     /// Morphing Oscillator (under development, subject to change)
     ///
-    /// - returns: AKOperation
-    /// - parameter frequency: Frequency in cycles per second (Default: 440)
-    /// - parameter amplitude: Amplitude of the output (Default: 1)
-    /// - parameter index: Index of waveform 0.0 - 3.0 where 0 = sine, 1 = square, 2 = sawtooth, 3 = reversed sawtooth
+    /// - Parameters:
+    ///   - frequency: Frequency in cycles per second (Default: 440)
+    ///   - amplitude: Amplitude of the output (Default: 1)
+    ///   - index: Index of waveform 0.0 - 3.0 where 0 = sine, 1 = square, 2 = sawtooth, 3 = reversed sawtooth
     ///
     public static func morphingOscillator(
         frequency frequency: AKParameter = 440,

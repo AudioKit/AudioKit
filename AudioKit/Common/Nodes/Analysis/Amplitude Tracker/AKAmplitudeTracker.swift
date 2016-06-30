@@ -11,8 +11,9 @@ import AVFoundation
 /// Performs a "root-mean-square" on a signal to get overall amplitude of a
 /// signal. The output signal looks similar to that of a classic VU meter.
 ///
-/// - parameter input: Input node to process
-/// - parameter halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
+/// - Parameters:
+///   - input: Input node to process
+///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
 ///
 public class AKAmplitudeTracker: AKNode, AKToggleable {
 
@@ -48,8 +49,9 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
 
     /// Initialize this amplitude tracker node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - halfPowerPoint: Half-power point (in Hz) of internal lowpass filter.
     ///
     public init(
         _ input: AKNode,
@@ -98,7 +100,7 @@ public class AKAmplitudeTracker: AKNode, AKToggleable {
         }
         halfPowerPointParameter?.setValue(Float(halfPowerPoint), originator: token!)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing
