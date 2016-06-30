@@ -50,13 +50,13 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
     func stopAll() {
         for i in 0 ..< noteCount {
-            oscillator.stop(note: baseNote + offsets[i])
+            oscillator.stop(noteNumber: baseNote + offsets[i])
         }
     }
     
     func startAll() {
         for i in 0 ..< noteCount {
-            oscillator.play(note: baseNote + offsets[i], velocity: MIDIVelocity(amplitudes[i] * 127))
+            oscillator.play(noteNumber: baseNote + offsets[i], velocity: MIDIVelocity(amplitudes[i] * 127))
         }
     }
     
