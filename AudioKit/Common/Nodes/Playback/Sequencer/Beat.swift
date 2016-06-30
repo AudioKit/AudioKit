@@ -8,101 +8,142 @@
 
 import Foundation
 
-public extension Double {
-    
-    /// Calculates beats for a given tempo
-    ///
-    /// - parameter tempo: Tempo, in beats per minute
-    ///
-    public func beats(tempo tempo: Double) -> Beat {
-        let timeInSecs = self
-        let beatsPerSec = tempo / 60.0
-        let beatLengthInSecs = Double(1.0 / beatsPerSec)
-        return Beat(timeInSecs / beatLengthInSecs)
-    }
-}
+public typealias BPM = Double
 
-public extension Int {
-    
-    /// Calculates beats in to a file based on it samples, sample rate, and tempo
-    ///
-    /// - parameter sampleRate: Sample frequency
-    /// - parameter tempo:      Tempo, in beats per minute
-    ///
-    public func beatsFromSamples(sampleRate sampleRate: Int, tempo: Double) -> Beat {
-        let timeInSecs = Double(self) / Double(sampleRate)
-        let beatsPerSec = tempo / 60.0
-        let beatLengthInSecs = Double(1.0 / beatsPerSec)
-        return Beat(timeInSecs / beatLengthInSecs)
-    }
-}
+public struct AKDuration: CustomStringConvertible {
+    let secondsPerMinute = 60
 
-public struct Beat: CustomStringConvertible {
-    public var value: Double
+    /// The sample is the most precise unit of time measurement we can possibly have
+    public var samples: Int
+    
+    /// Samples per second
+    public var sampleRate: Double = 44100
+    
+    /// Regular time measurement
+    public var seconds: Double {
+        return Double(samples) / sampleRate
+    }
+    
+    /// Useful for math using tempo in BPM (beats per minute)
+    public var minutes: Double {
+        return seconds / 60.0
+    }
+
+    /// Tempo in BPM (beats per minute)
+    public var tempo: BPM = 60.0
+    
+    /// Duration in beats
+    public var beats: Double {
+        didSet {
+            samples = Int(beats / tempo * secondsPerMinute * sampleRate)
+        }
+    }
     
     public var musicTimeStamp: MusicTimeStamp {
-        return MusicTimeStamp(value)
+        return MusicTimeStamp(beats)
     }
     
-    public init(_ value: Double) {
-        self.value = value
-    }
-    
+    /// Pretty printout
     public var description: String {
-        return "\(value)"
+        return "\(samples) samples at \(sampleRate) = \(beats) Beats at \(tempo) BPM = \(seconds)s"
     }
     
-    public func seconds(tempo tempo: Double) -> Double {
-        return (self.value / tempo) * 60.0
+//    public func seconds(tempo tempo: Double) -> Double {
+//        return (self.beats / tempo) * 60.0
+//    }
+    
+    /// Initialize with samples
+    ///
+    /// - Parameters:
+    ///   - samples:    Number of samples
+    ///   - sampleRate: Sample rate in samples per second
+    ///
+    public init(samples: Int, sampleRate: Double = 44100, tempo: BPM = 60) {
+        self.samples = samples
+        self.beats = tempo * (samples / sampleRate) / secondsPerMinute
+        self.sampleRate = sampleRate
     }
 
+    /// Initialize from a beat perspective
+    ///
+    /// - Parameters:
+    ///   - beats: Duration in beats
+    ///   - tempo: AKDurations per minute
+    ///
+    public init(beats: Double, tempo: BPM = 60) {
+        self.beats = beats
+        self.tempo = tempo
+        self.samples = Int((beats / tempo) * secondsPerMinute * sampleRate)
+    }
+
+    /// Initialize from a normal time perspective
+    ///
+    /// - Parameters:
+    ///   - seconds:    Duration in seconds
+    ///   - sampleRate: Samples per second (Default: 44100)
+    ///
+    public init(seconds: Double, sampleRate: Double = 44100, tempo: BPM = 60) {
+        self.sampleRate = sampleRate
+        self.tempo = tempo
+        self.samples = Int(seconds * sampleRate)
+        self.beats = tempo * (samples / sampleRate) / secondsPerMinute
+    }
 }
 
-public func ceil(beat: Beat) -> Beat {
-    return Beat(ceil(beat.value))
+
+public func ceil(duration: AKDuration) -> AKDuration {
+    var copy = duration
+    copy.beats = ceil(copy.beats)
+    return copy
 }
 
-public func +=(inout lhs: Beat, rhs: Beat) {
-    lhs.value = lhs.value + rhs.value
+public func +=(inout lhs: AKDuration, rhs: AKDuration) {
+    lhs.beats = lhs.beats + rhs.beats
 }
 
-public func -=(inout lhs: Beat, rhs: Beat) {
-    lhs.value = lhs.value - rhs.value
+public func -=(inout lhs: AKDuration, rhs: AKDuration) {
+    lhs.beats = lhs.beats - rhs.beats
 }
 
-public func ==(lhs: Beat, rhs: Beat) -> Bool {
-    return lhs.value == rhs.value
+public func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    return lhs.beats == rhs.beats
 }
 
-public func !=(lhs: Beat, rhs: Beat) -> Bool {
-    return lhs.value != rhs.value
+public func !=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    return lhs.beats != rhs.beats
 }
 
 
-public func >=(lhs: Beat, rhs: Beat) -> Bool {
-    return lhs.value >= rhs.value
+public func >=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    return lhs.beats >= rhs.beats
 }
 
-public func <=(lhs: Beat, rhs: Beat) -> Bool {
-    return lhs.value <= rhs.value
+public func <=(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    return lhs.beats <= rhs.beats
 }
 
-public func <(lhs: Beat, rhs: Beat) -> Bool {
-    return lhs.value < rhs.value
+public func <(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    return lhs.beats < rhs.beats
 }
 
-public func >(lhs: Beat, rhs: Beat) -> Bool {
-    return lhs.value > rhs.value
+public func >(lhs: AKDuration, rhs: AKDuration) -> Bool {
+    return lhs.beats > rhs.beats
 }
 
-public func +(lhs: Beat, rhs: Beat) -> Beat {
-    return Beat(lhs.value + rhs.value)
+public func +(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+    var newDuration = lhs
+    newDuration.beats += rhs.beats
+    return newDuration
 }
 
-public func -(lhs: Beat, rhs: Beat) -> Beat {
-    return Beat(lhs.value - rhs.value)
+public func -(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+    var newDuration = lhs
+    newDuration.beats -= rhs.beats
+    return newDuration
 }
 
-public func %(lhs: Beat, rhs: Beat) -> Beat {
-    return Beat(lhs.value % rhs.value)
+public func %(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
+    var copy = lhs
+    copy.beats = lhs.beats % rhs.beats
+    return copy
 }
