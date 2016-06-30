@@ -11,8 +11,9 @@ import AVFoundation
 /// Clips a signal to a predefined limit, in a "soft" manner, using one of three
 /// methods.
 ///
-/// - parameter input: Input node to process
-/// - parameter limit: Threshold / limiting value.
+/// - Parameters:
+///   - input: Input node to process
+///   - limit: Threshold / limiting value.
 ///
 public class AKClipper: AKNode, AKToggleable {
 
@@ -55,8 +56,9 @@ public class AKClipper: AKNode, AKToggleable {
 
     /// Initialize this clipper node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter limit: Threshold / limiting value.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - limit: Threshold / limiting value.
     ///
     public init(
         _ input: AKNode,

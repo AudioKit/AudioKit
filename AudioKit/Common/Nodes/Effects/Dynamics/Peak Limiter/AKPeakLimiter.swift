@@ -10,10 +10,11 @@ import AVFoundation
 
 /// AudioKit version of Apple's PeakLimiter Audio Unit
 ///
-/// - parameter input: Input node to process
-/// - parameter attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-/// - parameter decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-/// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
+/// - Parameters:
+///   - input: Input node to process
+///   - attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
 ///
 public class AKPeakLimiter: AKNode, AKToggleable {
 
@@ -34,7 +35,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
         didSet {
             if attackTime < 0.001 {
                 attackTime = 0.001
-            }            
+            }
             if attackTime > 0.03 {
                 attackTime = 0.03
             }
@@ -51,7 +52,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
         didSet {
             if decayTime < 0.001 {
                 decayTime = 0.001
-            }            
+            }
             if decayTime > 0.06 {
                 decayTime = 0.06
             }
@@ -68,7 +69,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
         didSet {
             if preGain < -40 {
                 preGain = -40
-            }            
+            }
             if preGain > 40 {
                 preGain = 40
             }
@@ -103,10 +104,11 @@ public class AKPeakLimiter: AKNode, AKToggleable {
 
     /// Initialize the peak limiter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
-    /// - parameter decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
-    /// - parameter preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - attackTime: Attack Time (Secs) ranges from 0.001 to 0.03 (Default: 0.012)
+    ///   - decayTime: Decay Time (Secs) ranges from 0.001 to 0.06 (Default: 0.024)
+    ///   - preGain: Pre Gain (dB) ranges from -40 to 40 (Default: 0)
     ///
     public init(
         _ input: AKNode,
@@ -137,7 +139,7 @@ public class AKPeakLimiter: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kLimiterParam_DecayTime, kAudioUnitScope_Global, 0, Float(decayTime), 0)
             AudioUnitSetParameter(internalAU, kLimiterParam_PreGain, kAudioUnitScope_Global, 0, Float(preGain), 0)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

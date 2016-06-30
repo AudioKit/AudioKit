@@ -10,11 +10,12 @@ import AVFoundation
 
 /// Emulation of the Roland TB-303 filter
 ///
-/// - parameter input: Input node to process
-/// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
-/// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-/// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-/// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
+/// - Parameters:
+///   - input: Input node to process
+///   - cutoffFrequency: Cutoff frequency. (in Hertz)
+///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
+///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
 ///
 public class AKRolandTB303Filter: AKNode, AKToggleable {
 
@@ -62,7 +63,7 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
             }
         }
     }
-    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
+    /// Distortion. Value is typically 2.0; deviation from this can cause stability issues.
     public var distortion: Double = 2.0 {
         willSet {
             if distortion != newValue {
@@ -96,11 +97,12 @@ public class AKRolandTB303Filter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter cutoffFrequency: Cutoff frequency. (in Hertz)
-    /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
-    /// - parameter distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues. 
-    /// - parameter resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - cutoffFrequency: Cutoff frequency. (in Hertz)
+    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    ///   - distortion: Distortion. Value is typically 2.0; deviation from this can cause stability issues.
+    ///   - resonanceAsymmetry: Asymmetry of resonance. Value is between 0-1
     ///
     public init(
         _ input: AKNode,

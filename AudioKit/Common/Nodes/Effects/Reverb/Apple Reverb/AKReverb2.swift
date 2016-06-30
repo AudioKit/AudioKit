@@ -10,14 +10,15 @@ import AVFoundation
 
 /// AudioKit version of Apple's Reverb2 Audio Unit
 ///
-/// - parameter input: Input node to process
-/// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to  (Default: 0.5)
-/// - parameter gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
-/// - parameter minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
-/// - parameter maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
-/// - parameter decayTimeAt0Hz: Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
-/// - parameter decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-/// - parameter randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
+/// - Parameters:
+///   - input: Input node to process
+///   - dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to  (Default: 0.5)
+///   - gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
+///   - minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
+///   - maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
+///   - decayTimeAt0Hz: Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
+///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
+///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
 ///
 public class AKReverb2: AKNode, AKToggleable {
 
@@ -32,13 +33,13 @@ public class AKReverb2: AKNode, AKToggleable {
     internal var internalAU: AudioUnit = nil
 
     private var lastKnownMix: Double = 50
-    
+
     /// Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
     public var dryWetMix: Double = 0.5 {
         didSet {
             if dryWetMix < 0 {
                 dryWetMix = 0
-            }            
+            }
             if dryWetMix > 1 {
                 dryWetMix = 1
             }
@@ -55,7 +56,7 @@ public class AKReverb2: AKNode, AKToggleable {
         didSet {
             if gain < -20 {
                 gain = -20
-            }            
+            }
             if gain > 20 {
                 gain = 20
             }
@@ -72,7 +73,7 @@ public class AKReverb2: AKNode, AKToggleable {
         didSet {
             if minDelayTime < 0.0001 {
                 minDelayTime = 0.0001
-            }            
+            }
             if minDelayTime > 1.0 {
                 minDelayTime = 1.0
             }
@@ -89,7 +90,7 @@ public class AKReverb2: AKNode, AKToggleable {
         didSet {
             if maxDelayTime < 0.0001 {
                 maxDelayTime = 0.0001
-            }            
+            }
             if maxDelayTime > 1.0 {
                 maxDelayTime = 1.0
             }
@@ -106,7 +107,7 @@ public class AKReverb2: AKNode, AKToggleable {
         didSet {
             if decayTimeAt0Hz < 0.001 {
                 decayTimeAt0Hz = 0.001
-            }            
+            }
             if decayTimeAt0Hz > 20.0 {
                 decayTimeAt0Hz = 20.0
             }
@@ -123,7 +124,7 @@ public class AKReverb2: AKNode, AKToggleable {
         didSet {
             if decayTimeAtNyquist < 0.001 {
                 decayTimeAtNyquist = 0.001
-            }            
+            }
             if decayTimeAtNyquist > 20.0 {
                 decayTimeAtNyquist = 20.0
             }
@@ -140,7 +141,7 @@ public class AKReverb2: AKNode, AKToggleable {
         didSet {
             if randomizeReflections < 1 {
                 randomizeReflections = 1
-            }            
+            }
             if randomizeReflections > 1000 {
                 randomizeReflections = 1000
             }
@@ -157,14 +158,15 @@ public class AKReverb2: AKNode, AKToggleable {
 
     /// Initialize the reverb2 node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
-    /// - parameter gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
-    /// - parameter minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
-    /// - parameter maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
-    /// - parameter decayTimeAt0Hz: Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
-    /// - parameter decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
-    /// - parameter randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - dryWetMix: Dry Wet Mix (CrossFade) ranges from 0 to 1 (Default: 0.5)
+    ///   - gain: Gain (Decibels) ranges from -20 to 20 (Default: 0)
+    ///   - minDelayTime: Min Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.008)
+    ///   - maxDelayTime: Max Delay Time (Secs) ranges from 0.0001 to 1.0 (Default: 0.050)
+    ///   - decayTimeAt0Hz: Decay Time At0 Hz (Secs) ranges from 0.001 to 20.0 (Default: 1.0)
+    ///   - decayTimeAtNyquist: Decay Time At Nyquist (Secs) ranges from 0.001 to 20.0 (Default: 0.5)
+    ///   - randomizeReflections: Randomize Reflections (Integer) ranges from 1 to 1000 (Default: 1)
     ///
     public init(
         _ input: AKNode,
@@ -185,7 +187,7 @@ public class AKReverb2: AKNode, AKToggleable {
             self.randomizeReflections = randomizeReflections
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
-            
+
             super.init()
             self.avAudioNode = internalEffect
             AudioKit.engine.attachNode(self.avAudioNode)
@@ -200,7 +202,7 @@ public class AKReverb2: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kReverb2Param_DecayTimeAtNyquist, kAudioUnitScope_Global, 0, Float(decayTimeAtNyquist), 0)
             AudioUnitSetParameter(internalAU, kReverb2Param_RandomizeReflections, kAudioUnitScope_Global, 0, Float(randomizeReflections), 0)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

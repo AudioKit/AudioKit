@@ -11,9 +11,10 @@ import AVFoundation
 /// These filters are Butterworth second-order IIR filters. They offer an almost
 /// flat passband and very good precision and stopband attenuation.
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Center frequency. (in Hertz)
-/// - parameter bandwidth: Bandwidth. (in Hertz)
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Center frequency. (in Hertz)
+///   - bandwidth: Bandwidth. (in Hertz)
 ///
 public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
 
@@ -69,9 +70,10 @@ public class AKBandRejectButterworthFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Center frequency. (in Hertz)
-    /// - parameter bandwidth: Bandwidth. (in Hertz)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Center frequency. (in Hertz)
+    ///   - bandwidth: Bandwidth. (in Hertz)
     ///
     public init(
         _ input: AKNode,

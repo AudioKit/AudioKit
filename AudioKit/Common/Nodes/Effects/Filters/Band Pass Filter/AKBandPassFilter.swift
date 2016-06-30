@@ -10,9 +10,10 @@ import AVFoundation
 
 /// AudioKit version of Apple's BandPassFilter Audio Unit
 ///
-/// - parameter input: Input node to process
-/// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
-/// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
+/// - Parameters:
+///   - input: Input node to process
+///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
+///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
 ///
 public class AKBandPassFilter: AKNode, AKToggleable {
 
@@ -33,7 +34,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
         didSet {
             if centerFrequency < 20 {
                 centerFrequency = 20
-            }            
+            }
             if centerFrequency > 22050 {
                 centerFrequency = 22050
             }
@@ -50,7 +51,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
         didSet {
             if bandwidth < 100 {
                 bandwidth = 100
-            }            
+            }
             if bandwidth > 12000 {
                 bandwidth = 12000
             }
@@ -82,14 +83,15 @@ public class AKBandPassFilter: AKNode, AKToggleable {
 
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
-    
+
     // MARK: - Initialization
 
     /// Initialize the band pass filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
-    /// - parameter bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - centerFrequency: Center Frequency (Hz) ranges from 20 to 22050 (Default: 5000)
+    ///   - bandwidth: Bandwidth (Cents) ranges from 100 to 12000 (Default: 600)
     ///
     public init(
         _ input: AKNode,
@@ -108,7 +110,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
 
             internalEffect = AVAudioUnitEffect(audioComponentDescription: cd)
             super.init()
-            
+
             AudioKit.engine.attachNode(internalEffect)
             internalAU = internalEffect.audioUnit
             AudioKit.engine.connect((effectGain?.avAudioNode)!, to: internalEffect, format: AudioKit.format)
@@ -118,7 +120,7 @@ public class AKBandPassFilter: AKNode, AKToggleable {
             AudioUnitSetParameter(internalAU, kBandpassParam_CenterFrequency, kAudioUnitScope_Global, 0, Float(centerFrequency), 0)
             AudioUnitSetParameter(internalAU, kBandpassParam_Bandwidth, kAudioUnitScope_Global, 0, Float(bandwidth), 0)
     }
-    
+
     // MARK: - Control
 
     /// Function to start, play, or activate the node, all do the same thing

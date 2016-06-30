@@ -15,9 +15,10 @@ import AVFoundation
 /// fundamentalFrequency.  This operation can be used to simulate sympathetic
 /// resonances to an input signal.
 ///
-/// - parameter input: Input node to process
-/// - parameter fundamentalFrequency: Fundamental frequency of string.
-/// - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+/// - Parameters:
+///   - input: Input node to process
+///   - fundamentalFrequency: Fundamental frequency of string.
+///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
 ///
 public class AKStringResonator: AKNode, AKToggleable {
 
@@ -73,9 +74,10 @@ public class AKStringResonator: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter fundamentalFrequency: Fundamental frequency of string.
-    /// - parameter feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - fundamentalFrequency: Fundamental frequency of string.
+    ///   - feedback: Feedback amount (value between 0-1). A value close to 1 creates a slower decay and a more pronounced resonance. Small values may leave the input signal unaffected. Depending on the filter frequency, typical values are > .9.
     ///
     public init(
         _ input: AKNode,

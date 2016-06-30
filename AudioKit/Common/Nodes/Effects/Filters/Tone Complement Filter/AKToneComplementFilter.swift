@@ -10,8 +10,9 @@ import AVFoundation
 
 /// A complement to the AKLowPassFilter.
 ///
-/// - parameter input: Input node to process
-/// - parameter halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
+/// - Parameters:
+///   - input: Input node to process
+///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
 ///
 public class AKToneComplementFilter: AKNode, AKToggleable {
 
@@ -54,8 +55,9 @@ public class AKToneComplementFilter: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - halfPowerPoint: Half-Power Point in Hertz. Half power is defined as peak power / square root of 2.
     ///
     public init(
         _ input: AKNode,

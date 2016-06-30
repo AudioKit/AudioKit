@@ -10,10 +10,11 @@ import AVFoundation
 
 /// A delay line with cubic interpolation.
 ///
-/// - parameter input: Input node to process
-/// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
-/// - parameter feedback: Feedback amount. Should be a value between 0-1.
-/// - parameter maximumDelayTime: The maximum delay time, in seconds.
+/// - Parameters:
+///   - input: Input node to process
+///   - time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+///   - feedback: Feedback amount. Should be a value between 0-1.
+///   - maximumDelayTime: The maximum delay time, in seconds.
 ///
 public class AKVariableDelay: AKNode, AKToggleable {
 
@@ -69,10 +70,11 @@ public class AKVariableDelay: AKNode, AKToggleable {
 
     /// Initialize this delay node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
-    /// - parameter feedback: Feedback amount. Should be a value between 0-1.
-    /// - parameter maximumDelayTime: The maximum delay time, in seconds.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - time: Delay time (in seconds) that can be changed during performance. This value must not exceed the maximum delay time.
+    ///   - feedback: Feedback amount. Should be a value between 0-1.
+    ///   - maximumDelayTime: The maximum delay time, in seconds.
     ///
     public init(
         _ input: AKNode,

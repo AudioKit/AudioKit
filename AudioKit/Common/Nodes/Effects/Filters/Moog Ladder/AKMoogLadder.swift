@@ -14,9 +14,10 @@ import AVFoundation
 /// Napoli). This implementation is probably a more accurate digital
 /// representation of the original analogue filter.
 ///
-/// - parameter input: Input node to process
-/// - parameter cutoffFrequency: Filter cutoff frequency.
-/// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+/// - Parameters:
+///   - input: Input node to process
+///   - cutoffFrequency: Filter cutoff frequency.
+///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
 ///
 public class AKMoogLadder: AKNode, AKToggleable {
 
@@ -72,9 +73,10 @@ public class AKMoogLadder: AKNode, AKToggleable {
 
     /// Initialize this filter node
     ///
-    /// - parameter input: Input node to process
-    /// - parameter cutoffFrequency: Filter cutoff frequency.
-    /// - parameter resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
+    /// - Parameters:
+    ///   - input: Input node to process
+    ///   - cutoffFrequency: Filter cutoff frequency.
+    ///   - resonance: Resonance, generally < 1, but not limited to it. Higher than 1 resonance values might cause aliasing, analogue synths generally allow resonances to be above 1.
     ///
     public init(
         _ input: AKNode,

@@ -11,14 +11,15 @@ import AVFoundation
 
 /// AudioKit version of Apple's Reverb Audio Unit
 ///
-/// - parameter input: AKNode to reverberate
-/// - parameter dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
+/// - Parameters:
+///   - input: AKNode to reverberate
+///   - dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
 ///
 public class AKReverb: AKNode, AKToggleable {
     private let reverbAU = AVAudioUnitReverb()
 
     private var lastKnownMix: Double = 0.5
-    
+
     /// Dry/Wet Mix (Default 0.5)
     public var dryWetMix: Double = 0.5 {
         didSet {
@@ -31,31 +32,32 @@ public class AKReverb: AKNode, AKToggleable {
             reverbAU.wetDryMix = Float(dryWetMix) * 100
         }
     }
-    
+
     /// Tells whether the node is processing (ie. started, playing, or active)
     public var isStarted = true
-    
+
     /// Initialize the reverb node
     ///
-    /// - parameter input: AKNode to reverberate
-    /// - parameter dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
+    /// - Parameters:
+    ///   - input: AKNode to reverberate
+    ///   - dryWetMix: Amount of processed signal (Default: 0.5, Minimum: 0, Maximum: 1)
     ///
     public init(_ input: AKNode, dryWetMix: Double = 0.5) {
         self.dryWetMix = dryWetMix
         super.init()
-        
+
         self.avAudioNode = reverbAU
         AudioKit.engine.attachNode(self.avAudioNode)
         input.addConnectionPoint(self)
-        
+
         reverbAU.wetDryMix = Float(dryWetMix) * 100.0
     }
-    
+
     /// Load an Apple Factory Preset
     public func loadFactoryPreset(preset: AVAudioUnitReverbPreset) {
         reverbAU.loadFactoryPreset(preset)
     }
-    
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         if isStopped {
@@ -63,7 +65,7 @@ public class AKReverb: AKNode, AKToggleable {
             isStarted = true
         }
     }
-        
+
     /// Function to stop or bypass the node, both are equivalent
     public func stop() {
         if isPlaying {
