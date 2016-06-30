@@ -269,14 +269,12 @@ public class AKSequencer {
     public func addTempoEventAt(tempo bpm: Double, position: Beat) {
         if isAVSequencer { return }
 
-        var newTempo = bpm
-        if newTempo > 280 { newTempo = 280 } //bpm limits
-        if newTempo < 10 { newTempo = 10 }
+        let constrainedTempo = min(max(bpm, 10.0), 280.0)
 
         var tempoTrack: MusicTrack = nil
 
         MusicSequenceGetTempoTrack(sequence, &tempoTrack)
-        MusicTrackNewExtendedTempoEvent(tempoTrack, position.value, Double(newTempo))
+        MusicTrackNewExtendedTempoEvent(tempoTrack, position.value, constrainedTempo)
 
     }
     
