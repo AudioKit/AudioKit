@@ -119,18 +119,18 @@ public class AKMandolin: AKNode {
         internalAU?.bodySize = Float(bodySize)
     }
 
-    public func prepareChord(course1Note: Int,
-                      _ course2Note: Int,
-                      _ course3Note: Int,
-                      _ course4Note: Int) {
-        fret(note: course1Note, course: 0)
-        fret(note: course2Note, course: 1)
-        fret(note: course3Note, course: 2)
-        fret(note: course4Note, course: 3)
+    public func prepareChord(course1Note: MIDINoteNumber,
+                      _ course2Note: MIDINoteNumber,
+                      _ course3Note: MIDINoteNumber,
+                      _ course4Note: MIDINoteNumber) {
+        fret(noteNumber: course1Note, course: 0)
+        fret(noteNumber: course2Note, course: 1)
+        fret(noteNumber: course3Note, course: 2)
+        fret(noteNumber: course4Note, course: 3)
     }
 
-    public func fret(note note: Int, course: Int) {
-        internalAU?.setFrequency(Float(note.midiNoteToFrequency()), course: Int32(course))
+    public func fret(noteNumber noteNumber: MIDINoteNumber, course: Int) {
+        internalAU?.setFrequency(Float(noteNumber.midiNoteToFrequency()), course: Int32(course))
     }
 
     public func pluck(course course: Int, position: Double, velocity: MIDIVelocity) {

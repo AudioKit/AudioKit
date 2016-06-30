@@ -53,15 +53,17 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     /// Handle MIDI commands that come in externally
     ///
     /// - Parameters:
-    ///   - note: MIDI Note number
-    ///   - velocity: MIDI velocity
-    ///   - channel: MIDI channel
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI velocity
+    ///   - channel:    MIDI channel
     ///
-    public func receivedMIDINoteOn(note: Int, velocity: MIDIVelocity, channel: Int) {
+    public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
+                                   velocity: MIDIVelocity,
+                                   channel: Int) {
         if velocity > 0 {
-            startNote(note, withVelocity: velocity, onChannel: channel)
+            start(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
-            stopNote(note, onChannel: channel)
+            stop(noteNumber: noteNumber, channel: channel)
         }
     }
     
@@ -70,22 +72,22 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     /// Start a note
     ///
     /// - Parameters:
-    ///   - note:     Note to play
-    ///   - velocity: Velocity at which to play the note (0 - 127)
-    ///   - channel:  Channel on which to play the note
+    ///   - noteNumber: Note number to play
+    ///   - velocity:   Velocity at which to play the note (0 - 127)
+    ///   - channel:    Channel on which to play the note
     ///
-    public func startNote(note: Int, withVelocity velocity: MIDIVelocity, onChannel channel: Int) {
-        internalInstrument!.playNote(note, velocity: velocity)
+    public func start(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+        internalInstrument!.play(noteNumber: noteNumber, velocity: velocity)
     }
 
     /// Stop a note
     ///
     /// - Parameters:
-    ///   - note:     Note to stop
-    ///   - channel:  Channel on which to stop the note
+    ///   - noteNumber: Note number to stop
+    ///   - channel:    Channel on which to stop the note
     ///
-    public func stopNote(note: Int, onChannel channel: Int) {
-        internalInstrument!.stopNote(note)
+    public func stop(noteNumber noteNumber: MIDINoteNumber, channel: Int) {
+        internalInstrument!.stop(noteNumber: noteNumber)
     }
     
     // MARK: - Private functions
@@ -95,9 +97,9 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
         let status = data1 >> 4
         let channel = data1 & 0xF
         if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
-            startNote(Int(data2), withVelocity: MIDIVelocity(data3), onChannel: Int(channel))
+            start(noteNumber: MIDINoteNumber(data2), velocity: MIDIVelocity(data3), channel: Int(channel))
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
-            stopNote(Int(data2), onChannel: Int(channel))
+            stop(noteNumber: MIDINoteNumber(data2), channel: Int(channel))
         }
     }
 

@@ -169,20 +169,20 @@ public class AKSampler: AKNode {
     /// Play a MIDI Note
     ///
     /// - Parameters:
-    ///   - note: MIDI Note Number to play
+    ///   - noteNumber: MIDI Note Number to play
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channnel
     ///
-    public func playNote(note: Int = 60, velocity: MIDIVelocity = 127, channel: Int = 0) {
-        samplerUnit.startNote(UInt8(note), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
+    public func play(noteNumber noteNumber: MIDINoteNumber = 60, velocity: MIDIVelocity = 127, channel: Int = 0) {
+        samplerUnit.startNote(UInt8(noteNumber), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
     }
 
     /// Stop a MIDI Note
-    ///   - note: MIDI Note Number to stop
+    ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    public func stopNote(note: Int = 60, channel: Int = 0) {
-        samplerUnit.stopNote(UInt8(note), onChannel: UInt8(channel))
+    public func stop(noteNumber noteNumber: MIDINoteNumber = 60, channel: Int = 0) {
+        samplerUnit.stopNote(UInt8(noteNumber), onChannel: UInt8(channel))
     }
 
     static func getAUPresetXML() -> String{

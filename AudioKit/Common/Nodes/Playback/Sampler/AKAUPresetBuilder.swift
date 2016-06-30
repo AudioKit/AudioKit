@@ -49,10 +49,10 @@ public class AKAUPresetBuilder {
     /// Create an AUPreset from a collection of dictionaries.
     /// dict is a collection of other dictionaries that have the format like this:
     ///   - ***Key:Value***
-    ///   - filename:string
-    ///   - rootnote:int
-    ///   - startnote:int (optional)
-    ///   - endnote:int (optional)
+    ///   - filename: string
+    ///   - rootnote: int
+    ///   - startnote: int (optional)
+    ///   - endnote: int (optional)
     ///
     /// - Parameters:
     ///   - dict:           Collection of dictionaries with format as given above
