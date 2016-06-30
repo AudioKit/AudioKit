@@ -35,7 +35,7 @@ class ViewController: UIViewController {
 
     let scale1: [Int] = [0, 2, 4, 7, 9]
     let scale2: [Int] = [0, 3, 5, 7, 10]
-    let seqLen = Beat(8.0)
+    let seqLen = AKDuration(beats: 8.0)
 
     @IBOutlet var mollyButt: UIButton!
 
@@ -171,7 +171,7 @@ class ViewController: UIViewController {
     func genNewMelodicSequence(stepSize: Float = 1/8, minor: Bool = false, clear: Bool = true) {
         if (clear) { seq.tracks[0].clear() }
         seq.setLength(seqLen)
-        let numSteps = Int(Float(seqLen.value)/stepSize)
+        let numSteps = Int(Float(seqLen.beats)/stepSize)
         //print("steps in seq: \(numSteps)")
         for i in 0 ..< numSteps {
             if (random(0, 16) > 12) {
@@ -188,8 +188,8 @@ class ViewController: UIViewController {
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
                 seq.tracks[0].add(noteNumber: noteToAdd,
                                   velocity: 100,
-                                  position: Beat(step),
-                                  duration: Beat(1))
+                                  position: AKDuration(beats: step),
+                                  duration: AKDuration(beats: 1))
             }
         }
         seq.setLength(seqLen)
@@ -197,40 +197,40 @@ class ViewController: UIViewController {
 
     func genBDSeq(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { seq.tracks[1].clear() }
-        let numSteps = Int(Float(seqLen.value)/stepSize)
+        let numSteps = Int(Float(seqLen.beats)/stepSize)
         for i in 0 ..< numSteps {
             let step = Double(i) * stepSize
             seq.tracks[1].add(noteNumber: 60,
                               velocity: 100,
-                              position: Beat(step),
-                              duration: Beat(1))
+                              position: AKDuration(beats: step),
+                              duration: AKDuration(beats: 1))
         }
     }
 
     func genSDSeq(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { seq.tracks[2].clear() }
-        let numSteps = Int(Float(seqLen.value)/stepSize)
+        let numSteps = Int(Float(seqLen.beats)/stepSize)
 
         for i in 1.stride(to: numSteps, by: 2) {
             let step = (Double(i) * stepSize)
             seq.tracks[2].add(noteNumber: 60,
                               velocity: 80,
-                              position: Beat(step),
-                              duration: Beat(1))
+                              position: AKDuration(beats: step),
+                              duration: AKDuration(beats: 1))
         }
     }
 
     func genSDGhostSeq(stepSize: Float = 1/8, clear: Bool = true) {
         if (clear) { seq.tracks[3].clear() }
-        let numSteps = Int(Float(seqLen.value)/stepSize)
+        let numSteps = Int(Float(seqLen.beats)/stepSize)
         //print("steps in seq: \(numSteps)")
         for i in 0 ..< numSteps {
             if(random(0, 16) > 14.0) {
                 let step = Double(i) * stepSize
                 seq.tracks[3].add(noteNumber: 60,
                                   velocity: Int(random(1, 66)),
-                                  position: Beat(step),
-                                  duration: Beat(0.1))
+                                  position: AKDuration(beats: step),
+                                  duration: AKDuration(beats: 0.1))
             }
         }
         seq.setLength(seqLen)
