@@ -12,16 +12,38 @@ public typealias BPM = Double
 
 public struct AKDuration: CustomStringConvertible {
     let secondsPerMinute = 60
-
-    /// The sample is the most precise unit of time measurement we can possibly have
-    public var samples: Int
     
+    /// Duration in beats
+    public var beats: Double
+
     /// Samples per second
     public var sampleRate: Double = 44100
     
+    /// Tempo in BPM (beats per minute)
+    public var tempo: BPM = 60.0
+    
+
+    /// While samples is the most accurate, they blow up too fast, so using beat as standard
+    public var samples: Int {
+        get {
+            let doubleSamples = beats / tempo * secondsPerMinute * sampleRate
+            if doubleSamples <= Double(Int.max) {
+                return Int(doubleSamples)
+            } else {
+                print("Warning: Samples exceeds the maximum number.")
+                return Int.max
+            }
+        }
+        set {
+            beats = (newValue / sampleRate) / secondsPerMinute * tempo
+        }
+    }
+
     /// Regular time measurement
     public var seconds: Double {
-        return Double(samples) / sampleRate
+        get {
+            return Double(samples) / sampleRate
+        }
     }
     
     /// Useful for math using tempo in BPM (beats per minute)
@@ -29,15 +51,6 @@ public struct AKDuration: CustomStringConvertible {
         return seconds / 60.0
     }
 
-    /// Tempo in BPM (beats per minute)
-    public var tempo: BPM = 60.0
-    
-    /// Duration in beats
-    public var beats: Double {
-        didSet {
-            samples = Int(beats / tempo * secondsPerMinute * sampleRate)
-        }
-    }
     
     public var musicTimeStamp: MusicTimeStamp {
         return MusicTimeStamp(beats)
@@ -48,9 +61,6 @@ public struct AKDuration: CustomStringConvertible {
         return "\(samples) samples at \(sampleRate) = \(beats) Beats at \(tempo) BPM = \(seconds)s"
     }
     
-//    public func seconds(tempo tempo: Double) -> Double {
-//        return (self.beats / tempo) * 60.0
-//    }
     
     /// Initialize with samples
     ///
@@ -59,9 +69,9 @@ public struct AKDuration: CustomStringConvertible {
     ///   - sampleRate: Sample rate in samples per second
     ///
     public init(samples: Int, sampleRate: Double = 44100, tempo: BPM = 60) {
-        self.samples = samples
         self.beats = tempo * (samples / sampleRate) / secondsPerMinute
         self.sampleRate = sampleRate
+        self.tempo = tempo
     }
 
     /// Initialize from a beat perspective
@@ -73,7 +83,6 @@ public struct AKDuration: CustomStringConvertible {
     public init(beats: Double, tempo: BPM = 60) {
         self.beats = beats
         self.tempo = tempo
-        self.samples = Int((beats / tempo) * secondsPerMinute * sampleRate)
     }
 
     /// Initialize from a normal time perspective
@@ -85,8 +94,7 @@ public struct AKDuration: CustomStringConvertible {
     public init(seconds: Double, sampleRate: Double = 44100, tempo: BPM = 60) {
         self.sampleRate = sampleRate
         self.tempo = tempo
-        self.samples = Int(seconds * sampleRate)
-        self.beats = tempo * (samples / sampleRate) / secondsPerMinute
+        self.beats = tempo * (seconds / secondsPerMinute)
     }
 }
 
