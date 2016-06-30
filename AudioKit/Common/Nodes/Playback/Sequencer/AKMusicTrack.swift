@@ -98,7 +98,7 @@ public class AKMusicTrack {
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     /// - paramter numberOfLoops: how many times to loop. 0 is infinte
     ///
-    public func setLoopInfo(duration: Beat, numberOfLoops: Int) {
+    public func setLoopInfo(duration: AKDuration, numberOfLoops: Int) {
         let size: UInt32 = UInt32(sizeof(MusicTrackLoopInfo))
         let loopDuration = duration.musicTimeStamp
         var loopInfo = MusicTrackLoopInfo(loopDuration: loopDuration,
@@ -115,7 +115,7 @@ public class AKMusicTrack {
     /// If any of your notes are longer than the new length, this will truncate those notes
     /// This will truncate your sequence if you shorten it - so make a copy if you plan on doing that.
     ///
-    public func setLength(duration: Beat) {
+    public func setLength(duration: AKDuration) {
 
         let size: UInt32 = 0
         var len = duration.musicTimeStamp
@@ -156,8 +156,8 @@ public class AKMusicTrack {
                 let velocity = data.memory.velocity
                 let dur = data.memory.duration
 
-                if eventTime + dur > duration.value {
-                    var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(duration.value - eventTime))
+                if eventTime + dur > duration.beats {
+                    var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(duration.beats - eventTime))
                     MusicEventIteratorSetEventInfo(iterator, eventType, &newNote)
                 }
             }
@@ -172,7 +172,7 @@ public class AKMusicTrack {
     ///
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
-    public func setLengthSoft(duration: Beat) {
+    public func setLengthSoft(duration: AKDuration) {
         let size: UInt32 = 0
         var len = duration.musicTimeStamp
         MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
@@ -189,8 +189,8 @@ public class AKMusicTrack {
     ///   - start:    Start of the range to clear, in beats
     ///   - duration: Duration of the range to clear, in beats
     ///
-    public func clearRange(start: Beat, duration: Beat) {
-        MusicTrackClear(internalMusicTrack, start.value, duration.value)
+    public func clearRange(start: AKDuration, duration: AKDuration) {
+        MusicTrackClear(internalMusicTrack, start.beats, duration.beats)
     }
 
     /// Add Note to sequence
@@ -204,8 +204,8 @@ public class AKMusicTrack {
     ///
     public func add(noteNumber noteNumber: MIDINoteNumber,
                                velocity: MIDIVelocity,
-                               position: Beat,
-                               duration: Beat,
+                               position: AKDuration,
+                               duration: AKDuration,
                                channel: Int = 0) {
 
         var noteMessage = MIDINoteMessage(
@@ -213,7 +213,7 @@ public class AKMusicTrack {
             note: UInt8(noteNumber),
             velocity: UInt8(velocity),
             releaseVelocity: 0,
-            duration: Float32(duration.value))
+            duration: Float32(duration.beats))
 
         MusicTrackNewMIDINoteEvent(internalMusicTrack, position.musicTimeStamp, &noteMessage)
     }
@@ -225,7 +225,7 @@ public class AKMusicTrack {
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this note
     ///
-    public func addController(controller: Int, value: Int, position: Beat, channel: Int = 0) {
+    public func addController(controller: Int, value: Int, position: AKDuration, channel: Int = 0) {
 
         var controlMessage = MIDIChannelMessage(status: UInt8(11 << 4) | UInt8((channel) & 0xf), data1: UInt8(controller), data2: UInt8(value), reserved: 0)
         MusicTrackNewMIDIChannelEvent(internalMusicTrack, position.musicTimeStamp, &controlMessage)
