@@ -446,20 +446,20 @@ class SynthViewController: UIViewController {
         updateKeyToDownPosition(key)
         let midiNote = midiNoteFromTag(key.tag)
         statusLabel.text = "Key Pressed: \(noteNameFromMidiNote(midiNote))"
-        conductor.core.play(note: midiNote, velocity: 127)
+        conductor.core.play(noteNumber: midiNote, velocity: 127)
     }
 
     func turnOffKey(key: UIButton) {
         updateKeyToUpPosition(key)
         statusLabel.text = "Key Released"
-        conductor.core.stop(note: midiNoteFromTag(key.tag))
+        conductor.core.stop(noteNumber: midiNoteFromTag(key.tag))
     }
 
     func turnOffHeldKeys() {
         updateAllKeysToUpPosition()
 
         for note in 0...127 {
-            conductor.core.stop(note: note)
+            conductor.core.stop(noteNumber: note)
         }
         midiNotesHeld.removeAll(keepCapacity: false)
     }
