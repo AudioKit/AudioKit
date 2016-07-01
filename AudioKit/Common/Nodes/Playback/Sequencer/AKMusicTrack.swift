@@ -189,7 +189,7 @@ public class AKMusicTrack {
     ///   - start:    Start of the range to clear, in beats
     ///   - duration: Duration of the range to clear, in beats
     ///
-    public func clearRange(start: AKDuration, duration: AKDuration) {
+    public func clearRange(start start: AKDuration, duration: AKDuration) {
         MusicTrackClear(internalMusicTrack, start.beats, duration.beats)
     }
 
