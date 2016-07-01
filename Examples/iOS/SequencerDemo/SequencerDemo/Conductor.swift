@@ -33,7 +33,7 @@ class Conductor {
     
     let scale1: [Int] = [0, 2, 4, 7, 9]
     let scale2: [Int] = [0, 3, 5, 7, 10]
-    let sequenceLength = Beat(8.0)
+    let sequenceLength = AKDuration(beats: 8.0)
 
     init() {
         fmOscillator.modulatingMultiplier = 3
@@ -108,7 +108,7 @@ class Conductor {
     func generateNewMelodicSequence(stepSize: Float = 1/8, minor: Bool = false, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.Melody.rawValue].clear() }
         sequence.setLength(sequenceLength)
-        let numberOfSteps = Int(Float(sequenceLength.value)/stepSize)
+        let numberOfSteps = Int(Float(sequenceLength.beats)/stepSize)
         //print("steps in sequence: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
             if (arc4random_uniform(17) > 12) {
@@ -125,8 +125,8 @@ class Conductor {
                 let noteToAdd = 60 + scale[Int(scaleOffset)] + octaveOffset
                 sequence.tracks[Sequence.Melody.rawValue].add(noteNumber: noteToAdd,
                                        velocity: 100,
-                                       position: Beat(step),
-                                       duration: Beat(1))
+                                       position: AKDuration(beats: step),
+                                       duration: AKDuration(beats: 1))
             }
         }
         sequence.setLength(sequenceLength)
@@ -134,41 +134,41 @@ class Conductor {
     
     func generateBassDrumSequence(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.BassDrum.rawValue].clear() }
-        let numberOfSteps = Int(Float(sequenceLength.value)/stepSize)
+        let numberOfSteps = Int(Float(sequenceLength.beats)/stepSize)
         for i in 0 ..< numberOfSteps {
             let step = Double(i) * stepSize
             
             sequence.tracks[Sequence.BassDrum.rawValue].add(noteNumber: 60,
                                    velocity: 100,
-                                   position: Beat(step),
-                                   duration: Beat(1))
+                                   position: AKDuration(beats: step),
+                                   duration: AKDuration(beats: 1))
         }
     }
     
     func generateSnareDrumSequence(stepSize: Float = 1, clear: Bool = true) {
         if (clear) { sequence.tracks[2].clear() }
-        let numberOfSteps = Int(Float(sequenceLength.value)/stepSize)
+        let numberOfSteps = Int(Float(sequenceLength.beats)/stepSize)
         
         for i in 1.stride(to: numberOfSteps, by: 2) {
             let step = (Double(i) * stepSize)
             sequence.tracks[Sequence.SnareDrum.rawValue].add(noteNumber: 60,
                                    velocity: 80,
-                                   position: Beat(step),
-                                   duration: Beat(1))
+                                   position: AKDuration(beats: step),
+                                   duration: AKDuration(beats: 1))
         }
     }
     
     func generateSnareDrumGhostSequence(stepSize: Float = 1/8, clear: Bool = true) {
         if (clear) { sequence.tracks[Sequence.SnareDrumGhost.rawValue].clear() }
-        let numberOfSteps = Int(Float(sequenceLength.value)/stepSize)
+        let numberOfSteps = Int(Float(sequenceLength.beats)/stepSize)
         //print("steps in sequnce: \(numberOfSteps)")
         for i in 0 ..< numberOfSteps {
             if(arc4random_uniform(17) > 14) {
                 let step = Double(i) * stepSize
                 sequence.tracks[Sequence.SnareDrumGhost.rawValue].add(noteNumber: 60,
                                        velocity: Int(arc4random_uniform(65) + 1),
-                                       position: Beat(step),
-                                       duration: Beat(0.1))
+                                       position: AKDuration(beats: step),
+                                       duration: AKDuration(beats: 0.1))
             }
         }
         sequence.setLength(sequenceLength)
