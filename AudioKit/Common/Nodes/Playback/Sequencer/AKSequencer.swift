@@ -457,11 +457,16 @@ public class AKSequencer {
     }
 
     /// Clear some events from the track
-    public func clearRange(start: AKDuration, duration: AKDuration) {
+    //
+    /// - Parameters:
+    ///   - start:    Starting position of clearing
+    ///   - duration: Length of time after the start position to clear
+    ///
+    public func clearRange(start start: AKDuration, duration: AKDuration) {
         if isAVSequencer { return }
 
         for track in tracks {
-            track.clearRange(start, duration: duration)
+            track.clearRange(start: start, duration: duration)
         }
     }
 
