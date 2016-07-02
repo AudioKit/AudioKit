@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  AKMidiSeqDemo
+//  SequencerDemo
 //
-//  Created by Jeff Cooper on 1/16/16.
-//  Copyright © 2016 Jeff Cooper. All rights reserved.
+//  Created by Kanstantsin Linou on 6/30/16.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import UIKit
