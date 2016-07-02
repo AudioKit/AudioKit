@@ -76,9 +76,9 @@ public struct AKTable {
     ///   - tableType: AKTableType of teh new table
     ///   - size: Size of the table (multiple of 2)
     ///
-    public init(_ tableType: AKTableType = .Sine, phase phs: Double = 0, size tableSize: Int = 4096) {
+    public init(_ tableType: AKTableType = .Sine, phase: Double = 0, size tableSize: Int = 4096) {
         type = tableType
-        phase = phs
+        self.phase = phase
         size = tableSize
         switch type {
         case .Sine:
