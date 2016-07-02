@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         seq!.avTracks[3].destinationAudioUnit = syn3.samplerUnit
         seq!.avTracks[4].destinationAudioUnit = drmKit.samplerUnit
 
-        seq!.setLength(Beat(4))
+        seq!.setLength(AKDuration(beats: 4))
     }
     
     @IBAction func adjustTempo() {
@@ -127,23 +127,23 @@ class ViewController: UIViewController {
         print("loop enabled: \(seq!.loopEnabled)")
     }
     @IBAction func setLength1() {
-        seq!.setLength(Beat(1))
+        seq!.setLength(AKDuration(beats: 1))
         seq!.rewind()
     }
     @IBAction func setLength2() {
-        seq!.setLength(Beat(2))
+        seq!.setLength(AKDuration(beats: 2))
         seq!.rewind()
     }
     @IBAction func setLength4() {
-        seq!.setLength(Beat(4))
+        seq!.setLength(AKDuration(beats: 4))
         seq!.rewind()
     }
     @IBAction func setLength8() {
-        seq!.setLength(Beat(8))
+        seq!.setLength(AKDuration(beats: 8))
         seq!.rewind()
     }
     @IBAction func setLength16() {
-        seq!.setLength(Beat(16))
+        seq!.setLength(AKDuration(beats: 16))
         seq!.rewind()
     }
     @IBAction func useSound1(sender: UIButton) {
