@@ -48,21 +48,32 @@ class PlaygroundView: AKPlaygroundView {
         mandolin.detune = Double(slider.value)
         let detune = String(format: "%0.2f", mandolin.detune)
         detuneLabel!.text = "Detune: \(detune)"
+        printCode()
     }
     
     func setBodySize(slider: Slider) {
         mandolin.bodySize = Double(slider.value)
         let bodySize = String(format: "%0.2f", mandolin.bodySize)
         bodySizeLabel!.text = "Body Size: \(bodySize)"
+        printCode()
     }
     
     func setPluckPosition(slider: Slider) {
         pluckPosition = Double(slider.value)
         let position = String(format: "%0.2f",pluckPosition)
         pluckPositionLabel!.text = "Pluck Position: \(position)"
-        
+        printCode()
     }
     
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    detune = \(String(format: "%0.3f", mandolin.detune))")
+        Swift.print("    bodySize = \(String(format: "%0.3f", mandolin.bodySize))")
+        Swift.print("    pluckPosition = \(String(format: "%0.3f", pluckPosition))")
+        Swift.print("}\n")
+    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
@@ -81,11 +92,11 @@ AKPlaygroundLoop(frequency: playRate) {
     
     
     if random(0, 6) > 1.0 {
-        mandolin.fret(note: note1+octave1, course: course1 - 1)
+        mandolin.fret(noteNumber: note1+octave1, course: course1 - 1)
         mandolin.pluck(course: course1 - 1, position: pluckPosition, velocity: 127)
     }
     if random(0, 6) > 3.0 {
-        mandolin.fret(note: note2+octave2, course: course2 - 1)
+        mandolin.fret(noteNumber: note2+octave2, course: course2 - 1)
         mandolin.pluck(course: course2 - 1, position: pluckPosition, velocity: 127)
     }
     

@@ -85,6 +85,7 @@ class PlaygroundView: AKPlaygroundView {
 
         print("public func presetXXXXXX() {")
         print("    frequency = \(String(format: "%0.3f", tremolo.frequency))")
+        print("    depth = \(String(format: "%0.3f", tremolo.depth))")
         print("}\n")
     }
 }
