@@ -11,6 +11,7 @@ let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
+
 var clipper = AKClipper(player)
 
 //: Set the initial limit of the clipper here
@@ -72,8 +73,9 @@ class PlaygroundView: AKPlaygroundView {
 
     func setLimit(slider: Slider) {
         clipper.limit = Double(slider.value)
-        let limit = String(format: "%0.1f", clipper.limit)
+        let limit = String(format: "%0.3f", clipper.limit)
         limitLabel!.text = "Limit: \(limit)"
+        printCode()
     }
 
 
