@@ -71,7 +71,7 @@ class Conductor {
         
         pumper?.headRoom = 0.10
         pumper?.threshold = -15
-        pumper?.masterGain = 15
+        pumper?.masterGain = 10
         pumper?.attackTime = 0.01
         pumper?.releaseTime = 0.3
         
