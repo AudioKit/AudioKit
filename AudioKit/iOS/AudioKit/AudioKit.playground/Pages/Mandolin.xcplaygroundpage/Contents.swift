@@ -48,19 +48,31 @@ class PlaygroundView: AKPlaygroundView {
         mandolin.detune = Double(slider.value)
         let detune = String(format: "%0.2f", mandolin.detune)
         detuneLabel!.text = "Detune: \(detune)"
+        printCode()
     }
 
     func setBodySize(slider: Slider) {
         mandolin.bodySize = Double(slider.value)
         let bodySize = String(format: "%0.2f", mandolin.bodySize)
         bodySizeLabel!.text = "Body Size: \(bodySize)"
+        printCode()
     }
     
     func setPluckPosition(slider: Slider) {
         pluckPosition = Double(slider.value)
         let position = String(format: "%0.2f",pluckPosition)
         pluckPositionLabel!.text = "Pluck Position: \(position)"
+        printCode()
+    }
+    
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
         
+        print("public func presetXXXXXX() {")
+        print("    detune = \(String(format: "%0.3f", mandolin.detune))")
+        print("    bodySize = \(String(format: "%0.3f", mandolin.bodySize))")
+        print("    pluckPosition = \(String(format: "%0.3f", pluckPosition))")
+        print("}\n")
     }
     
 }
