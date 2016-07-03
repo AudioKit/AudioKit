@@ -35,3 +35,13 @@ extension AKOperation {
 public func +(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().plus(right)
 }
+
+/// Helper function for addition
+///
+/// - Parameters:
+///   - first: 1st parameter
+///   - second: 2nd parameter
+///
+public func +(first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
+    return AKStereoOperation("\(first.left()) \(second.left()) + \(first.right()) \(second.right()) +")
+}
