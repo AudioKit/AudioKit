@@ -71,7 +71,6 @@ class PlaygroundView: AKPlaygroundView {
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    detune = \(String(format: "%0.3f", mandolin.detune))")
         Swift.print("    bodySize = \(String(format: "%0.3f", mandolin.bodySize))")
-        Swift.print("    pluckPosition = \(String(format: "%0.3f", pluckPosition))")
         Swift.print("}\n")
     }
 }
