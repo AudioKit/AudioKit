@@ -96,9 +96,9 @@ public class AKAudioFile: AVAudioFile {
      Super.init inherited from AVAudioFile superclass
 
      - Parameters:
-     - fileURL: NSURL of the file.
-     - format: The processing commonFormat to use when reading from the file.
-     - interleaved: Bool (Whether to use an interleaved processing format.)
+       - fileURL: NSURL of the file.
+       - format: The processing commonFormat to use when reading from the file.
+       - interleaved: Bool (Whether to use an interleaved processing format.)
 
      - Throws: NSError if init failed .
 
@@ -147,41 +147,39 @@ public class AKAudioFile: AVAudioFile {
     }
 
 
-    /**
-     Super.init inherited from AVAudioFile superclass
-
-     - Parameters:
-     - fileURL: NSURL of the file.
-     - settings: The settings of the file to create.
-
-     - Throws: NSError if init failed .
-
-     - Returns: An initialized AKAudioFile for writing, or nil if init failed.
-
-     From Apple doc: The file type to create is inferred from the file extension of fileURL.
-     This method will overwrite a file at the specified URL if a file already exists.
-
-     The file is opened for writing using the standard format, AVAudioPCMFormatFloat32.
-
-     Note: It seems that Apple's AVAudioFile class has a bug with .wav files. They cannot be set
-     with a floating Point encoding. As a consequence, such files will fail to record properly.
-     So it's better to use .caf (or .aif) files for recording purpose.
-
-     */
+    /// Super.init inherited from AVAudioFile superclass
+    ///
+    /// - Parameters:
+    ///   - fileURL: NSURL of the file.
+    ///   - settings: The settings of the file to create.
+    ///
+    /// - Throws: NSError if init failed .
+    ///
+    /// - Returns: An initialized AKAudioFile for writing, or nil if init failed.
+    ///
+    /// From Apple doc: The file type to create is inferred from the file extension of fileURL.
+    /// This method will overwrite a file at the specified URL if a file already exists.
+    ///
+    /// The file is opened for writing using the standard format, AVAudioPCMFormatFloat32.
+    ///
+    /// Note: It seems that Apple's AVAudioFile class has a bug with .wav files. They cannot be set
+    /// with a floating Point encoding. As a consequence, such files will fail to record properly.
+    /// So it's better to use .caf (or .aif) files for recording purpose.
+    ///
     public override init(forWriting fileURL: NSURL, settings: [String:AnyObject]) throws {
         try super.init(forWriting: fileURL, settings: settings)
     }
 
 
-    // MARK: - convenience inits
+    // MARK: - Convenience Initializers
 
 
     /**
      Opens a file for reading.
 
      - Parameters:
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file is located, can be set to .Resources,  .Documents or .Temp
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file is located, can be set to .Resources,  .Documents or .Temp
 
      - Throws: NSError if init failed .
 
@@ -227,7 +225,7 @@ public class AKAudioFile: AVAudioFile {
      Converts an AVAudioFile to an AKAudioFile for reading.
 
      - Parameters:
-     - avAudioFile: an AVAudioFile.
+       - avAudioFile: an AVAudioFile.
 
      - Throws: NSError if init failed .
 
@@ -242,7 +240,7 @@ public class AKAudioFile: AVAudioFile {
      Converts an AVAudioFile to an AKAudioFile for writing.
 
      - Parameters:
-     - avAudioFile: an AVAudioFile.
+       - avAudioFile: an AVAudioFile.
 
      - Throws: NSError if init failed .
 
@@ -265,12 +263,12 @@ public class AKAudioFile: AVAudioFile {
 
 
      - Parameters:
-     - name: the name of the file without its extension (String).
-     - ext: the extension of the file without "." (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-     - settings: The settings of the file to create.
-     - format: The processing commonFormat to use when writing.
-     - interleaved: Bool (Whether to use an interleaved processing format.)
+       - name: the name of the file without its extension (String).
+       - ext: the extension of the file without "." (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - settings: The settings of the file to create.
+       - format: The processing commonFormat to use when writing.
+       - interleaved: Bool (Whether to use an interleaved processing format.)
 
 
      - Throws: NSError if init failed .
@@ -538,12 +536,12 @@ public class AKAudioFile: AVAudioFile {
 
 
      - Parameters:
-     - name: the name of the file without its extension (String).
-     - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-     - callBack: AKCallback function that will be triggered when export completed.
-     - inTime: start range time value in seconds
-     - outTime: end range time value in seconds.
+       - name: the name of the file without its extension (String).
+       - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - callBack: AKCallback function that will be triggered when export completed.
+       - inTime: start range time value in seconds
+       - outTime: end range time value in seconds.
 
      - Throws: NSError if init failed .
 
@@ -790,7 +788,7 @@ public class AKAudioFile: AVAudioFile {
 
 extension AKAudioFile {
 
-    /*
+    /**
     Convenience init to instantiate a file from Floats Arrays.
     To create a stereo file, you pass [leftChannelFloats, rightChannelFloats]
     where leftChannelFloats and rightChannelFloats are 2 arrays of FLoat values.
@@ -843,13 +841,13 @@ extension AKAudioFile {
 
     }
 
-    /*
+    /**
      Convenience init to instantiate a file from an AVAudioPCMBuffer.
 
      - Parameters:
-     - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
 
      - Throws: NSError if failed .
 
@@ -875,13 +873,13 @@ extension AKAudioFile {
 
 
 
-    /*
+    /**
     Returns an AKAudioFile with audio data of the current AKAudioFile normalized to have a peak of newMaxLevel dB.
 
     - Parameters:
-    - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-     - newMaxLevel: max level targeted as a Float value (default if 0 dB)
+      - name: the name of the file without its extension (String).
+      - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+      - newMaxLevel: max level targeted as a Float value (default if 0 dB)
 
     - Throws: NSError if failed .
 
@@ -920,12 +918,12 @@ extension AKAudioFile {
     }
 
 
-    /*
+    /**
      Returns an AKAudioFile with audio reversed (will playback in reverse from end to beginning).
 
      - Parameters:
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
 
      - Throws: NSError if failed .
 
@@ -952,12 +950,13 @@ extension AKAudioFile {
     }
 
 
-    /*
+    /**
      Returns an AKAudioFile with appended audio data from another AKAudioFile.
+     
      - Parameters:
-     - file: an AKAudioFile that will be used to append audio from.
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - file: an AKAudioFile that will be used to append audio from.
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
 
      - Throws: NSError if failed .
 
@@ -997,13 +996,14 @@ extension AKAudioFile {
     }
 
 
-    /*
+    /**
      Returns an AKAudioFile that will contain a range of samples from the current AKAudioFile
+     
      - Parameters:
-     - from: the starting sampleFrame for extraction.
-     - to: the ending sampleFrame for extraction
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - from: the starting sampleFrame for extraction.
+       - to: the ending sampleFrame for extraction
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
 
      - Throws: NSError if failed .
 
@@ -1029,13 +1029,14 @@ extension AKAudioFile {
         return try AKAudioFile(forReading: newFile.url)
     }
 
-    /*
+    /**
      Returns a silent AKAudioFile with a length set in samples. 
      For a silent file of one second, set samples value to 44100...
+     
      - Parameters:
-     - samples: the number of samples to generate ( equals length in seconds multiplied by sample rate)
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - samples: the number of samples to generate ( equals length in seconds multiplied by sample rate)
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
 
      - Throws: NSError if failed .
 
