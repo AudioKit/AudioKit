@@ -163,7 +163,19 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// the safest way to proceed is to use an AKAudioFile
     public init(file: AKAudioFile, completionHandler: AKCallback? = nil) throws {
 
-        self.internalAudioFile = file
+        let readFile:AKAudioFile
+
+        // Open the file for reading to avoid a crash when setting frame position
+        // if the file was instantiated for writing
+        do {
+            readFile = try AKAudioFile(forReading: file.url)
+
+        } catch let error as NSError {
+            print ("AKAudioPlayer Error: cannot open file \(file.fileNamePlusExtension) for reading!...")
+            print ("Error: \(error)")
+            throw error
+        }
+        self.internalAudioFile = readFile
         self.completionHandler = completionHandler
 
         super.init()
@@ -173,11 +185,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         let format = AVAudioFormat(standardFormatWithSampleRate: self.internalAudioFile.sampleRate, channels: self.internalAudioFile.channelCount)
         AudioKit.engine.connect(internalPlayer, to: mixer, format: format)
         self.avAudioNode = mixer
-
         internalPlayer.volume = 1.0
-
+        
         initialize()
-
     }
 
     /*
