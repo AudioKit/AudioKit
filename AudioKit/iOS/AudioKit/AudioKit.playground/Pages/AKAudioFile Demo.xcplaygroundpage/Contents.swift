@@ -47,7 +47,7 @@ if drumloop != nil{
     // and so on...
 }
 
-//: The benefit of AKAudioFile versus AVAudioFile is that you can easily trim and export it. First, you must set a callback function that will be triggered upon export has been completed.
+//: AKAudioFile can easily be trimmed and exported. First, you must set a callback function that will be triggered upon export has been completed.
 func myExportCallBack(){
     print ("myExportCallBack has been triggered. It means that export ended")
     if myExport!!.succeeded
@@ -73,7 +73,7 @@ func myExportCallBack(){
 }
 
 //: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be written in documents directory. If the destination file exists, it will be overwritten.
-let myExport = try? drumloop?.export("drumloopExported",
+let myExport = try? drumloop?.export("exported",
                                      ext: .m4a, baseDir: .Documents,
                                      callBack: myExportCallBack,
                                      inTime: 1, outTime: 2)
@@ -87,28 +87,11 @@ let mySecondWorkingFile = try? AKAudioFile()
 
 //: If you set no parameter, an AKAudioFile is created in temp directory, set to match AudioKit AKSettings (a stereo empty 32 bits float wav file at 44.1 kHz, with a unique name identifier :
 if myWorkingFile != nil && mySecondWorkingFile != nil {
-    print ("myWorkingFile name is \(myWorkingFile!.fileNamePlusExtension)")
-    print ("mySecondWorkingFile name is \(mySecondWorkingFile!.fileNamePlusExtension)")
+    let myWorkingFileName1 = myWorkingFile!.fileNamePlusExtension
+    let mySecondWorkingFileName = mySecondWorkingFile!.fileNamePlusExtension
 }
 
-//: But you can create a custom AKAudioFile too :
-let custom16bitsLinearSettings:[String : AnyObject] = [
-    AVSampleRateKey : NSNumber(float: Float(AKSettings.sampleRate)),
-    AVLinearPCMIsFloatKey: NSNumber(bool: false),
-    AVFormatIDKey : NSNumber(int: Int32(kAudioFormatLinearPCM)),
-    AVNumberOfChannelsKey : NSNumber(int: Int32(AKSettings.numberOfChannels)),
-    AVLinearPCMIsNonInterleaved: NSNumber(bool: false),
-    AVLinearPCMIsBigEndianKey: NSNumber(bool: false),
-    AVLinearPCMBitDepthKey: NSNumber(int: Int32(16)) ]
-
-
-let customFile = try? AKAudioFile(writeIn:.Documents, name: "customFile", ext: "aif", settings:custom16bitsLinearSettings)
-if customFile != nil {
-    let customFileSettings = customFile!.fileFormat.settings
-    print("customFileSettings: \(customFileSettings)")
-}
-//: Check AKAudioFile.swift to learn more about its properties and methods...
-
+//: But the benefits of using AKAudioFile instead of AVAudioFile, is that you can normalize, reverse them or extract samples as float arrays. You can even perform audio edits very easily. Have a look to AKAudioFile Part 2... 
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
