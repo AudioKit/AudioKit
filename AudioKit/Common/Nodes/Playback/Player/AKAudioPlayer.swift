@@ -14,7 +14,7 @@ import AVFoundation
 public class AKAudioPlayer: AKNode, AKToggleable {
 
 
-    // MARK: - private vars
+    // MARK: - Private variables
 
     private var internalAudioFile: AKAudioFile
     private var internalPlayer = AVAudioPlayerNode()
@@ -28,7 +28,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     private var playing = false
 
 
-    // MARK: - public vars
+    // MARK: - Properties
 
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
@@ -156,9 +156,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
     }
 
-
-
-    // MARK: - public inits
+    // MARK: - Initialization
 
     /// the safest way to proceed is to use an AKAudioFile
     public init(file: AKAudioFile, completionHandler: AKCallback? = nil) throws {
@@ -218,8 +216,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
      }
      */
 
-    // MARK: - public func
+    // MARK: - Methods
 
+    /// Start playback
     public func start() {
 
         if (!playing) {
@@ -300,13 +299,12 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
 
-    /*
-     /// Play the file back from a certain time to an end time (if set)
-     ///
-     ///   - time: Time into the file at which to start playing back
-     ///   - endTime: Time into the file at which to playing back will stop / Loop
-     ///
-     */
+    /// Play the file back from a certain time to an end time (if set)
+    ///
+    ///  - Parameters:
+    ///    - time: Time into the file at which to start playing back
+    ///    - endTime: Time into the file at which to playing back will stop / Loop
+    ///
     public func playFrom(time: Double, to endTime: Double = 0) {
 
         if endTime > 0 {
@@ -325,7 +323,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
 
-    // MARK: - private funcs
+    // MARK: - Private Methods
 
     private func initialize() {
 

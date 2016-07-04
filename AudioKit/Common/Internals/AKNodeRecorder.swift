@@ -15,6 +15,8 @@ import AVFoundation
 /// Simple audio recorder class
 public class AKNodeRecorder {
 
+    // MARK: - Properties
+
     // The node we record from
     private var node: AKNode?
 
@@ -26,8 +28,34 @@ public class AKNodeRecorder {
     private var bufferSize: AVAudioFrameCount
     private var recording = false
 
-
     private var previousAVAudioSessionCategory: String?
+    
+    /// True if we are recording.
+    public var isRecording: Bool {
+        return recording
+    }
+    
+    /// Duration of recording
+    public var recordedDuration: Double {
+        return internalAudioFile.duration
+    }
+    
+    /// return the AKAudioFile for reading
+    public var audioFile: AKAudioFile? {
+        
+        var internalAudioFileForReading: AKAudioFile
+        do {
+            internalAudioFileForReading = try AKAudioFile(readAVAudioFile: internalAudioFile)
+            return internalAudioFileForReading
+        } catch let error as NSError {
+            print ("Cannot create internal audio file for reading")
+            print ("Error: \(error.localizedDescription)")
+            return nil
+        }
+        
+    }
+    
+    // MARK: - Initialization
 
     /// Initialize the node recorder
     ///
@@ -87,8 +115,9 @@ public class AKNodeRecorder {
         self.node = node
     }
 
+    // MARK: - Methods
 
-    // Record !
+    /// Start recording
     public func record() {
         if recording {
             print ("AKNodeRecorder Warning: already recording !")
@@ -186,33 +215,6 @@ public class AKNodeRecorder {
             print ("AKNodeRecorder Error: cannot record to file: \(internalAudioFile.fileNamePlusExtension)")
             throw error
         }
-    }
-
-    // MARK: - public vars
-
-    /// True if we are recording.
-    public var isRecording: Bool {
-        return recording
-    }
-
-    // Duration of recording
-    public var recordedDuration: Double {
-        return internalAudioFile.duration
-    }
-
-    /// return the AKAudioFile for reading
-    public var audioFile: AKAudioFile? {
-
-        var internalAudioFileForReading: AKAudioFile
-        do {
-            internalAudioFileForReading = try AKAudioFile(readAVAudioFile: internalAudioFile)
-            return internalAudioFileForReading
-        } catch let error as NSError {
-            print ("Cannot create internal audio file for reading")
-            print ("Error: \(error.localizedDescription)")
-            return nil
-        }
-
     }
 
 }
