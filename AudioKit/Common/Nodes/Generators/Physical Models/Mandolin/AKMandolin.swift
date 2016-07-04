@@ -8,12 +8,11 @@
 
 import AVFoundation
 
-/// Reads from the table sequentially and repeatedly at given frequency. Linear
-/// interpolation is applied for table look up from internal phase values.
+/// Physical model of a 4 course mandolin
 ///
 /// - Parameters:
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
+///   - detune:   Detuning of second string in the course (1=Unison (deault), 2=Octave)
+///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
 ///
 public class AKMandolin: AKNode {
 
@@ -41,6 +40,7 @@ public class AKMandolin: AKNode {
         }
     }
 
+    /// Detuning of second string in the course (1=Unison (deault), 2=Octave)
     public var detune: Double = 1 {
         willSet {
             if detune != newValue {
@@ -53,6 +53,7 @@ public class AKMandolin: AKNode {
         }
     }
 
+    /// Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
     public var bodySize: Double = 1 {
         willSet {
             if bodySize != newValue {
@@ -67,6 +68,12 @@ public class AKMandolin: AKNode {
 
     // MARK: - Initialization
 
+    /// Initialize the 4 course (string-pair) Mandolin
+    ///
+    /// - Parameters:
+    ///   - detune:   Detuning of second string in the course (1=Unison (deault), 2=Octave)
+    ///   - bodySize: Relative size of the mandoline (Default: 1, ranges ~ 0.5 - 2)
+    ///
     public init(
         detune: Double = 1,
         bodySize: Double = 1) {
@@ -119,6 +126,13 @@ public class AKMandolin: AKNode {
         internalAU?.bodySize = Float(bodySize)
     }
 
+    /// Virutally pressing fingers on all the strings of the mandolin
+    ///
+    /// - Parameters:
+    ///   - course1Note: MIDI note number for course 1
+    ///   - course2Note: MIDI note number for course 2
+    ///   - course3Note: MIDI note number for course 3
+    ///   - course4Note: MIDI note number for course 4
     public func prepareChord(course1Note: MIDINoteNumber,
                       _ course2Note: MIDINoteNumber,
                       _ course3Note: MIDINoteNumber,
@@ -129,14 +143,33 @@ public class AKMandolin: AKNode {
         fret(noteNumber: course4Note, course: 3)
     }
 
+    /// Pressing a finger on a course of the mandolin
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI note number of fretted note
+    ///   - course:     Which set of strings to press
+    ///
     public func fret(noteNumber noteNumber: MIDINoteNumber, course: Int) {
         internalAU?.setFrequency(Float(noteNumber.midiNoteToFrequency()), course: Int32(course))
     }
 
+    /// Pluck an individual course
+    ///
+    /// - Parameters:
+    ///   - course:   Which set of string parirs to pluck
+    ///   - position: Position lengthwise along the string to pluck (0 - 1)
+    ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
+    ///
     public func pluck(course course: Int, position: Double, velocity: MIDIVelocity) {
         internalAU?.pluckCourse(Int32(course), position: Float(position), velocity: Int32(velocity))
     }
 
+    /// Strum all strings of the mandolin
+    ///
+    /// - Parameters:
+    ///   - position: Position lengthwise along the string to pluck (0 - 1)
+    ///   - velocity: MIDI Velocity as an amplitude of the pluck (0 - 127)
+    ///
     public func strum(position: Double, velocity: MIDIVelocity) {
         pluck(course: 0, position: position, velocity: velocity)
         pluck(course: 1, position: position, velocity: velocity)
@@ -144,14 +177,15 @@ public class AKMandolin: AKNode {
         pluck(course: 3, position: position, velocity: velocity)
     }
 
-    public func mute(course course: Int) {
-
-    }
-
-    public func muteAllStrings() {
-        mute(course: 0)
-        mute(course: 1)
-        mute(course: 2)
-        mute(course: 3)
-    }
+// TODO: - Add Mute Functionality
+//
+//    public func mute(course course: Int) {
+//    }
+//
+//    public func muteAllStrings() {
+//        mute(course: 0)
+//        mute(course: 1)
+//        mute(course: 2)
+//        mute(course: 3)
+//    }
 }

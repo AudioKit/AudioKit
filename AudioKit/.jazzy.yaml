@@ -11,6 +11,7 @@ custom_categories:
   - name: AudioKit Core
     children:
     - AudioKit
+    - AKAudioFile
     - AKDevice
     - AKMicrophoneRecorder
     - AKNodeRecorder
@@ -34,6 +35,7 @@ custom_categories:
     - AKMIDIControl
     - AKMIDIInstrument
     - AKMIDIListener
+    - AKMIDINode
     - AKMIDISampler
     - AKMIDIStatus
     - AKMIDISystemCommand
@@ -45,8 +47,9 @@ custom_categories:
   - name: Nodes
     children:
     - AKNode
+    - AKPolyphonic
+    - AKPolyphonicNode
     - AKToggleable
-    - AKOperationEffect
     - AKOperationGenerator
 
   - name: Analysis Nodes
@@ -74,6 +77,11 @@ custom_categories:
     - AKDynamicsProcessor
     - AKExpander
     - AKPeakLimiter
+
+  - name: Effects Nodes
+    children:
+    - AKOperationEffect
+    - AKPitchShifter
 
   - name: Envelopes
     children:
@@ -136,6 +144,8 @@ custom_categories:
   - name: Physical Models
     children:
     - AKDrip
+    - AKFlute
+    - AKMandolin
     - AKMetalBar
     - AKPluckedString
 
