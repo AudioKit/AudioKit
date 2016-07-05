@@ -184,13 +184,10 @@ custom_categories:
     - AKStereoOperation
     - Numeric
 
-  - name: Function Operations
+  - name: Math
     children:
-    - "*(_:_:)"
-    - "+(_:_:)"
-    - "-(_:_:)"
-    - "/(_:_:)"
     - abs(_:)
+    - ceil(_:)
     - floor(_:)
     - fract(_:)
     - log(_:)
@@ -199,17 +196,16 @@ custom_categories:
     - min(_:_:)
     - mixer(_:_:balance:)
     - round(_:)
-
-  - name: Duration Operations
-    children:
-    - "ceil(_:)"
+    - "*(_:_:)"
+    - "+(_:_:)"
+    - "-(_:_:)"
+    - "/(_:_:)"
     - "==(_:_:)"
     - "!=(_:_:)"
     - "<(_:_:)"
     - "<=(_:_:)"
     - ">(_:_:)"
     - ">=(_:_:)"
-    - "-(_:)"
     - "%(_:_:)"
     - "+=(_:_:)"
     - "-=(_:_:)"
