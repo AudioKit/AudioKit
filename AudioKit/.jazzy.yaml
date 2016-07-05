@@ -39,10 +39,15 @@ custom_categories:
     - AKMIDISampler
     - AKMIDIStatus
     - AKMIDISystemCommand
-    - AKMusicTrack
     - MIDIPacket
     - MIDIPacketList
     - MIDIPacketListGenerator
+
+  - name: Sequencer
+    children:
+    - AKSequencer
+    - AKDuration
+    - AKMusicTrack
 
   - name: Nodes
     children:
@@ -177,6 +182,7 @@ custom_categories:
     - AKComputedParameter
     - AKOperation
     - AKStereoOperation
+    - Numeric
 
   - name: Function Operations
     children:
@@ -193,6 +199,20 @@ custom_categories:
     - min(_:_:)
     - mixer(_:_:balance:)
     - round(_:)
+
+  - name: Duration Operations
+    children:
+    - "ceil(_:)"
+    - "==(_:_:)"
+    - "!=(_:_:)"
+    - "<(_:_:)"
+    - "<=(_:_:)"
+    - ">(_:_:)"
+    - ">=(_:_:)"
+    - "-(_:)"
+    - "%(_:_:)"
+    - "+=(_:_:)"
+    - "-=(_:_:)"
 
   - name: Random Number Generators
     children:

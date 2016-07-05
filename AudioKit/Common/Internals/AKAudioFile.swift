@@ -27,8 +27,13 @@ public class AKAudioFile: AVAudioFile {
 
      */
     public enum BaseDirectory {
+        /// Temporary directory
         case Temp
+        
+        /// Documents directory
         case Documents
+        
+        /// Resources directory
         case Resources
     }
     /**
@@ -44,10 +49,19 @@ public class AKAudioFile: AVAudioFile {
 
      */
     public enum ExportFormat {
+        /// Waveform Audio File Format (WAVE, or more commonly known as WAV due to its filename extension)
         case wav
+        
+        /// Audio Interchange File Format
         case aif
+        
+        /// MPEG-4 Part 14 Compression
         case mp4
+        
+        /// MPEG 4 Audio
         case m4a
+        
+        /// Core Audio Format
         case caf
 
         // Returns a Uniform Type identifier for each audio file format
@@ -455,7 +469,7 @@ public class AKAudioFile: AVAudioFile {
     ///     - arraysOfFloats[0] will contain an Array of left channel samples as Floats
     ///     - arraysOfFloats[1] will contains an Array of right channel samples as Floats
     public lazy var arraysOfFloats: [[Float]] = {
-        var arrays:[[Float]] = []
+        var arrays: [[Float]] = []
 
         if self.samplesCount > 0 {
             let buf = self.pcmBuffer
@@ -490,12 +504,12 @@ public class AKAudioFile: AVAudioFile {
     ///
     /// returns the peak level expressed in dB ( -> Float).
     public lazy var maxLevel: Float = {
-        var maxLev:Float = 0
+        var maxLev: Float = 0
 
         let buffer = self.pcmBuffer
 
         if self.samplesCount > 0 {
-            for c in 0..<Int(self.channelCount){
+            for c in 0..<Int(self.channelCount) {
                 let floats = UnsafeBufferPointer(start: buffer.floatChannelData[c], count:Int(buffer.frameLength))
                 let cmax = floats.maxElement()
                 let cmin = floats.minElement()
@@ -512,8 +526,7 @@ public class AKAudioFile: AVAudioFile {
             }
         }
 
-        if maxLev == 0
-        {
+        if maxLev == 0 {
             return FLT_MIN
         } else {
             return (10 * log10(maxLev))
@@ -618,6 +631,20 @@ public class AKAudioFile: AVAudioFile {
         private var exporter: AVAssetExportSession
         private var callBack: AKCallback
 
+        /// Initalization
+        ///
+        /// - Parameters:
+        ///   - fileName:            Name of the file
+        ///   - baseDir:             Base directory
+        ///   - callBack:            Callback function
+        ///   - presetName:          Name of the preset
+        ///   - file:                AKAudioFile
+        ///   - outputFileExtension: Extension to use for output
+        ///   - inTime:              Starting time
+        ///   - outTime:             Ending time
+        ///
+        /// - throws: NSError if failed
+        ///
         public init(fileName: String, baseDir: BaseDirectory,
                     callBack: AKCallback,
                     presetName: String,
@@ -803,7 +830,7 @@ extension AKAudioFile {
      
      Returns a .caf AKAudioFile set to AudioKit settings (32 bits float @ 44100 Hz)
      */
-    public convenience init(createFileFromFloats floatsArrays:[[Float]],
+    public convenience init(createFileFromFloats floatsArrays: [[Float]],
                                                  baseDir: BaseDirectory = .Temp,
                                                  name: String = "") throws {
 
@@ -854,7 +881,7 @@ extension AKAudioFile {
      Returns a .caf AKAudioFile set to AudioKit settings (32 bits float @ 44100 Hz)
      */
 
-    public convenience init(fromAVAudioPCMBuffer buffer:AVAudioPCMBuffer,
+    public convenience init(fromAVAudioPCMBuffer buffer: AVAudioPCMBuffer,
                                                  baseDir: BaseDirectory = .Temp,
                                                  name: String = "") throws {
 
@@ -885,13 +912,12 @@ extension AKAudioFile {
 
     - Returns: An AKAudioFile, or nil if init failed.*/
     public func normalize( baseDir: BaseDirectory = .Temp,
-                           name:String = "", newMaxLevel:Float = 0.0 ) throws -> AKAudioFile {
+                           name: String = "", newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
 
         let level = self.maxLevel
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
 
-        if self.samplesCount == 0
-        {
+        if self.samplesCount == 0 {
             print( "WARNING AKAudioFile: cannot normalize an empty file")
              return try AKAudioFile(forReading: outputFile.url)
         }
@@ -907,9 +933,9 @@ extension AKAudioFile {
 
         let arrays = self.arraysOfFloats
 
-        var newArrays:[[Float]] = []
+        var newArrays: [[Float]] = []
         for array in arrays {
-            let newArray = array.map{$0 * gainFactor}
+            let newArray = array.map {$0 * gainFactor}
             newArrays.append(newArray)
         }
 
@@ -929,19 +955,18 @@ extension AKAudioFile {
 
      - Returns: An AKAudioFile, or nil if init failed.*/
     public func reverse( baseDir: BaseDirectory = .Temp,
-                         name:String = "" ) throws -> AKAudioFile {
+                         name: String = "" ) throws -> AKAudioFile {
 
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
 
-        if self.samplesCount == 0
-        {
+        if self.samplesCount == 0 {
             return try AKAudioFile(forReading: outputFile.url)
         }
         
         
         let arrays = self.arraysOfFloats
         
-        var newArrays:[[Float]] = []
+        var newArrays: [[Float]] = []
         for array in arrays {
             newArrays.append(Array(array.reverse()))
         }
@@ -961,9 +986,9 @@ extension AKAudioFile {
      - Throws: NSError if failed .
 
      - Returns: An AKAudioFile, or nil if init failed.*/
-    public func append( file:AKAudioFile,
+    public func append( file: AKAudioFile,
                         baseDir: BaseDirectory = .Temp,
-                        name:String  = "") throws -> AKAudioFile {
+                        name: String  = "") throws -> AKAudioFile {
 
         if self.fileFormat != file.fileFormat {
             print( "ERROR AKAudioFile: appended file must be of the same format!")
@@ -1008,8 +1033,8 @@ extension AKAudioFile {
      - Throws: NSError if failed .
 
      - Returns: An AKAudioFile, or nil if init failed.*/
-    public func extract(from:Int64,to:Int64, baseDir: BaseDirectory = .Temp,
-                        name:String = "") throws -> AKAudioFile {
+    public func extract(from: Int64, to: Int64, baseDir: BaseDirectory = .Temp,
+                        name: String = "") throws -> AKAudioFile {
         if from < 0 || to > Int64(self.samplesCount) || to <= from {
             print( "ERROR AKAudioFile: cannot extract, not a valid range !")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
@@ -1018,7 +1043,7 @@ extension AKAudioFile {
 
         let arrays = self.arraysOfFloats
 
-        var newArrays:[[Float]] = []
+        var newArrays: [[Float]] = []
 
         for array in arrays {
             let extract = Array(array[Int(from)..<Int(to)])
@@ -1041,9 +1066,9 @@ extension AKAudioFile {
      - Throws: NSError if failed .
 
      - Returns: An AKAudioFile, or nil if init failed.*/
-    static public func silent(samples:Int64,
+    static public func silent(samples: Int64,
                               baseDir: BaseDirectory = .Temp,
-                              name:String = "") throws -> AKAudioFile {
+                              name: String = "") throws -> AKAudioFile {
 
         if samples < 0 {
             print( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count !")
@@ -1055,10 +1080,9 @@ extension AKAudioFile {
         }
 
         let array = [Float](count:Int(samples), repeatedValue: 0.0)
-        let silentFile = try AKAudioFile(createFileFromFloats: [array,array], baseDir: baseDir, name: name)
+        let silentFile = try AKAudioFile(createFileFromFloats: [array, array], baseDir: baseDir, name: name)
 
         return try AKAudioFile(forReading: silentFile.url)
     }
 
 }
-
