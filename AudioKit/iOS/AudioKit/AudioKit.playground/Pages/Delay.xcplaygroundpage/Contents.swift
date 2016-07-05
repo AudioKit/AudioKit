@@ -30,6 +30,11 @@ class PlaygroundView: AKPlaygroundView {
     var feedbackLabel: Label?
     var lowPassCutoffFrequencyLabel: Label?
     var dryWetMixLabel: Label?
+    
+    var timeSlider: Slider?
+    var feedbackSlider: Slider?
+    var lowPassCutoffFrequencySlider: Slider?
+    var dryWetMixSlider: Slider?
 
     override func setup() {
         addTitle("Delay")
@@ -43,16 +48,20 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Stop", action: #selector(stop))
 
         timeLabel = addLabel("Time: \(delay.time)")
-        addSlider(#selector(setTime), value: delay.time, minimum: 0, maximum: 1)
+        dryWetMixSlider = addSlider(#selector(setTime), value: delay.time, minimum: 0, maximum: 1)
 
         feedbackLabel = addLabel("Feedback: \(delay.feedback)")
-        addSlider(#selector(setFeedback), value: delay.feedback)
+        feedbackSlider = addSlider(#selector(setFeedback), value: delay.feedback)
 
         lowPassCutoffFrequencyLabel = addLabel("Low Pass Cutoff Frequency: \(delay.lowPassCutoff)")
-        addSlider(#selector(setLowPassCutoffFrequency), value: delay.lowPassCutoff, minimum: 0, maximum: 22050)
+        lowPassCutoffFrequencySlider = addSlider(#selector(setLowPassCutoffFrequency), value: delay.lowPassCutoff, minimum: 0, maximum: 22050)
 
         dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
-        addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
+        dryWetMixSlider = addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
+        
+        addButton("Short Tail Delay", action: #selector(presetShortTailDelay))
+        addButton("Dense Long Tail Delay", action: #selector(presetDenseLongTailDelay))
+        addButton("Electric Circuits Delay", action: #selector(presetElectricCircuitsDelay))
     }
 
     //: Handle UI Events
@@ -115,6 +124,46 @@ class PlaygroundView: AKPlaygroundView {
         printCode()
     }
 
+    func presetShortTailDelay() {
+        delay.presetShortTailDelay()
+        delay.start()
+        updateUI()
+    }
+    
+    func presetDenseLongTailDelay() {
+        delay.presetDenseLongTailDelay()
+        delay.start()
+        updateUI()
+    }
+    
+    func presetElectricCircuitsDelay() {
+        delay.presetElectricCircuitsDelay()
+        delay.start()
+        updateUI()
+    }
+    
+    func updateSliders() {
+        timeSlider?.value = Float(delay.time)
+        feedbackSlider?.value = Float(delay.feedback)
+        lowPassCutoffFrequencySlider?.value = Float(delay.lowPassCutoff)
+        dryWetMixSlider?.value = Float(delay.dryWetMix)
+    }
+    
+    func updateTextFields() {
+        let delayTime = String(format: "%0.1f", delay.time)
+        timeLabel!.text = "\(delayTime)"
+        
+        let feedback = String(format: "%0.3f", delay.feedback)
+        feedbackLabel!.text = "\(feedback)"
+        
+        let lowPassCutoff = String(format: "%0.3f", delay.lowPassCutoff)
+        lowPassCutoffFrequencyLabel!.text = "\(lowPassCutoff)"
+
+        let dryWetMix = String(format: "%0.3f", delay.dryWetMix)
+        dryWetMixLabel!.text = "\(dryWetMix)"
+
+    }
+
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
@@ -124,6 +173,12 @@ class PlaygroundView: AKPlaygroundView {
         print("    lowPassCutoff = \(String(format: "%0.3f", delay.lowPassCutoff))")
         print("    dryWetMix = \(String(format: "%0.3f", delay.dryWetMix))")
         print("}\n")
+    }
+    
+    func updateUI() {
+        updateTextFields()
+        updateSliders()
+        printCode()
     }
 
 }
