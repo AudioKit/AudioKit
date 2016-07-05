@@ -28,6 +28,9 @@ class PlaygroundView: AKPlaygroundView {
     var cutoffFrequencyLabel: Label?
     var resonanceLabel: Label?
     var rampTimeLabel: Label?
+    var cutoffFrequencySlider: Slider?
+    var resonanceSlider: Slider?
+    var rampTimeSlider: Slider?
     
     override func setup() {
         addTitle("Moog Ladder Filter")
@@ -41,13 +44,16 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Stop", action: #selector(stop))
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(moogLadder.cutoffFrequency)")
-        addSlider(#selector(setCutoffFrequency), value: moogLadder.cutoffFrequency, minimum: 0, maximum: 5000)
+        cutoffFrequencySlider = addSlider(#selector(setCutoffFrequency), value: moogLadder.cutoffFrequency, minimum: 0, maximum: 5000)
 
         resonanceLabel = addLabel("Resonance: \(moogLadder.resonance)")
-        addSlider(#selector(setResonance), value: moogLadder.resonance, minimum: 0, maximum: 0.99)
+        resonanceSlider =  addSlider(#selector(setResonance), value: moogLadder.resonance, minimum: 0, maximum: 0.99)
         
         rampTimeLabel = addLabel("Ramp Time: \(moogLadder.rampTime)")
-        addSlider(#selector(setRampTime), value: moogLadder.rampTime, minimum: 0, maximum: 2)
+        rampTimeSlider = addSlider(#selector(setRampTime), value: moogLadder.rampTime, minimum: 0, maximum: 2)
+        
+        addButton("Fog Filter", action: #selector(presetFogMoogLadder))
+        addButton("Short Tail Delay", action: #selector(presetDullNoiseMoogLadder))
     }
 
     func startLoop(part: String) {
@@ -97,6 +103,42 @@ class PlaygroundView: AKPlaygroundView {
         moogLadder.rampTime = Double(slider.value)
         let rampTime = String(format: "%0.3f", moogLadder.rampTime)
         rampTimeLabel!.text = "Ramp Time: \(rampTime)"
+    }
+    
+    
+    //: Audition Presets
+    
+    func presetFogMoogLadder() {
+        moogLadder.presetFogMoogLadder()
+        updateUI()
+    }
+    
+    func presetDullNoiseMoogLadder() {
+        moogLadder.presetDullNoiseMoogLadder()
+        updateUI()
+    }
+    
+    func updateUI() {
+        updateTextFields()
+        updateSliders()
+        printCode()
+    }
+    
+    func updateSliders() {
+        cutoffFrequencySlider?.value = Float(moogLadder.cutoffFrequency)
+        resonanceSlider?.value = Float(moogLadder.resonance)
+        rampTimeSlider?.value = Float(moogLadder.rampTime)
+    }
+    
+    func updateTextFields() {
+        let cutoffFrequency = String(format: "%0.3f", moogLadder.cutoffFrequency)
+        cutoffFrequencyLabel!.text = "\(cutoffFrequency)"
+        
+        let resonance = String(format: "%0.3f", moogLadder.resonance)
+        resonanceLabel!.text = "\(resonance)"
+        
+        let rampTime = String(format: "%0.3f", moogLadder.rampTime)
+        rampTimeLabel!.text = "\(rampTime)"
     }
 
     func printCode() {
