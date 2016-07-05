@@ -38,16 +38,24 @@ public class AKMIDISampler: AKSampler {
     // MARK: - Handling MIDI Data
 
     // Send MIDI data to the audio unit
-    func handleMIDI(data1: UInt32, data2: UInt32, data3: UInt32) {
+    func handleMIDI(data1 data1: UInt32, data2: UInt32, data3: UInt32) {
         let status = data1 >> 4
         let channel = data1 & 0xF
 
         if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0 {
-            play(noteNumber: Int(data2), velocity: MIDIVelocity(data3), channel: Int(channel))
+            
+            play(noteNumber: Int(data2),
+                 velocity: MIDIVelocity(data3),
+                 channel: Int(channel))
+            
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
+            
             stop(noteNumber: Int(data2), channel: Int(channel))
+            
         } else if Int(status) == AKMIDIStatus.ControllerChange.rawValue {
+            
             midiCC(Int(data2), value: Int(data3), channel: Int(channel))
+            
         }
     }
 
@@ -58,7 +66,9 @@ public class AKMIDISampler: AKSampler {
     ///   - velocity:   MIDI velocity
     ///   - channel:    MIDI channel
     ///
-    public func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+    public func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber,
+                                              velocity: MIDIVelocity,
+                                              channel: Int) {
         if velocity > 0 {
             play(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
@@ -74,14 +84,20 @@ public class AKMIDISampler: AKSampler {
     ///   - channel: MIDI cc channel
     ///
     public func midiCC(cc: Int, value: Int, channel: Int) {
-        samplerUnit.sendController(UInt8(cc), withValue: UInt8(value), onChannel: UInt8(channel))
+        samplerUnit.sendController(UInt8(cc),
+                                   withValue: UInt8(value),
+                                   onChannel: UInt8(channel))
     }
 
     // MARK: - MIDI Note Start/Stop
 
     /// Start a note
-    public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
-        samplerUnit.startNote(UInt8(noteNumber), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
+    public override func play(noteNumber noteNumber: MIDINoteNumber,
+                                         velocity: MIDIVelocity,
+                                         channel: Int) {
+        samplerUnit.startNote(UInt8(noteNumber),
+                              withVelocity: UInt8(velocity),
+                              onChannel: UInt8(channel))
     }
 
     /// Stop a note
@@ -101,7 +117,9 @@ public class AKMIDISampler: AKSampler {
         for _ in 0 ..< packetCount {
             let event = AKMIDIEvent(packet: packetPointer.memory)
             //the next line is unique for midiInstruments - otherwise this function is the same as AKMIDI
-            handleMIDI(UInt32(event.internalData[0]), data2: UInt32(event.internalData[1]), data3: UInt32(event.internalData[2]))
+            handleMIDI(data1: UInt32(event.internalData[0]),
+                       data2: UInt32(event.internalData[1]),
+                       data3: UInt32(event.internalData[2]))
             packetPointer = MIDIPacketNext(packetPointer)
         }
     }
