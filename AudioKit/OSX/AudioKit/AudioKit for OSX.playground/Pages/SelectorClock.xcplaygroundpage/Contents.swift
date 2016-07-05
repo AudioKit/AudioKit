@@ -25,12 +25,12 @@ class SelectorClock {
 
         let clickTrack = sequencer.newTrack()
         for i in 0 ..< division {
-            clickTrack?.addNote(80, velocity: 100, position: Beat(Double(i) / Double(division)) , duration: Beat(Double(0.1 / Double(division))))
-            clickTrack?.addNote(60, velocity: 100, position: Beat((Double(i) + 0.5) / Double(division)) , duration: Beat(Double(0.1 / Double(division))))
+            clickTrack?.add(noteNumber: 80, velocity: 100, position: AKDuration(beats: Double(i) / Double(division)) , duration: AKDuration(beats: Double(0.1 / Double(division))))
+            clickTrack?.add(noteNumber: 60, velocity: 100, position: AKDuration(beats: (Double(i) + 0.5) / Double(division)) , duration: AKDuration(beats: Double(0.1 / Double(division))))
         }
         
-        clickTrack?.setMIDIOutput((callbacker?.midiIn)!)
-        clickTrack?.setLoopInfo(Beat(1.0), numberOfLoops: 0)
+        //clickTrack?.setMIDIOutput((callbacker?.midiIn)!)
+        clickTrack?.setLoopInfo(AKDuration(beats: 1.0), numberOfLoops: 1)
         sequencer.setTempo(bpm)
     }
     

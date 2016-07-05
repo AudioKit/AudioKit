@@ -45,8 +45,8 @@ let silence = try?  AKAudioFile.silent(oneSixteenthLength)
 let samplesBox: [AKAudioFile] = [kick!, snare!, kick!, snare!, kick!, snare!, normalizedHihat!, reverseKick! , reverseSnare!, reverseHihat!, silence!, silence!, silence!, silence!, silence! ]
 
 //: Now, we'll play the original loop three times,
-let twoTimesLoop =  try? fixedLoop!.append(fixedLoop!)
-var sequence = try? twoTimesLoop!.append(fixedLoop!)
+let threeTimesLoop =  try? fixedLoop!.append(fixedLoop!)
+var sequence = try? threeTimesLoop!.append(fixedLoop!)
 //: Next, we append a random sequence of 16 sixteenth of audio to build our random drum solo...
 
 for i in 0..<16 {
