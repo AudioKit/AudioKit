@@ -81,6 +81,7 @@ class PlaygroundView: AKPlaygroundView {
             updateSliders()
         }
     }
+    
     func slideBaseFrequency(slider: Slider) {
         oscillator.baseFrequency = Double(slider.value)
         updateTextFields()
@@ -92,6 +93,7 @@ class PlaygroundView: AKPlaygroundView {
             updateSliders()
         }
     }
+    
     func slideCarrierMultiplier(slider: Slider) {
         oscillator.carrierMultiplier = Double(slider.value)
         updateTextFields()
@@ -103,6 +105,7 @@ class PlaygroundView: AKPlaygroundView {
             updateSliders()
         }
     }
+    
     func slideModulatingMultiplier(slider: Slider) {
         oscillator.modulatingMultiplier = Double(slider.value)
         updateTextFields()
@@ -125,6 +128,7 @@ class PlaygroundView: AKPlaygroundView {
             updateSliders()
         }
     }
+    
     func slideAmplitude(slider: Slider) {
         oscillator.amplitude = Double(slider.value)
         updateTextFields()
@@ -136,6 +140,7 @@ class PlaygroundView: AKPlaygroundView {
             updateSliders()
         }
     }
+    
     func slideRampTime(slider: Slider) {
         oscillator.rampTime = Double(slider.value)
         updateTextFields()
@@ -230,6 +235,7 @@ class PlaygroundView: AKPlaygroundView {
     func updateUI() {
         updateTextFields()
         updateSliders()
+        printCode()
     }
     
 }
