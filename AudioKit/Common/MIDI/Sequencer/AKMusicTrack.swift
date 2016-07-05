@@ -231,6 +231,14 @@ public class AKMusicTrack {
         MusicTrackNewMIDIChannelEvent(internalMusicTrack, position.musicTimeStamp, &controlMessage)
     }
 
+    /// Set the MIDI Ouput
+    ///
+    /// - parameter endpoint: MIDI Endpoint Port
+    ///
+    public func setMIDIOutput(endpoint: MIDIEndpointRef) {
+        MusicTrackSetDestMIDIEndpoint(internalMusicTrack, endpoint)
+    }
+    
     /// Debug by showing the track pointer.
     public func debug() {
         CAShow(trackPointer)

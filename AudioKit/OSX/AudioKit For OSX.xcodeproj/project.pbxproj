@@ -277,8 +277,6 @@
 		C48DB7CD1CD56B3000D1EC13 /* AKMIDIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7CA1CD56B3000D1EC13 /* AKMIDIControl.swift */; };
 		C48DB7CE1CD56B3000D1EC13 /* AKMIDIStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7CB1CD56B3000D1EC13 /* AKMIDIStatus.swift */; };
 		C48DB7CF1CD56B3000D1EC13 /* AKMIDISystemCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7CC1CD56B3000D1EC13 /* AKMIDISystemCommand.swift */; };
-		C48DB7D41CD577E100D1EC13 /* AKMusicTrack+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7D21CD577E100D1EC13 /* AKMusicTrack+MIDI.swift */; };
-		C48DB7D51CD577E100D1EC13 /* AKSequencer+MIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7D31CD577E100D1EC13 /* AKSequencer+MIDI.swift */; };
 		C48DB7DB1CD5788F00D1EC13 /* MIDIPacket+SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7D81CD5788F00D1EC13 /* MIDIPacket+SequenceType.swift */; };
 		C48DB7DC1CD5788F00D1EC13 /* MIDIPacketList+SequenceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7D91CD5788F00D1EC13 /* MIDIPacketList+SequenceType.swift */; };
 		C48DB7DD1CD5788F00D1EC13 /* MIDIPacketListGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7DA1CD5788F00D1EC13 /* MIDIPacketListGenerator.swift */; };
@@ -895,8 +893,6 @@
 		C48DB7CA1CD56B3000D1EC13 /* AKMIDIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIControl.swift; sourceTree = "<group>"; };
 		C48DB7CB1CD56B3000D1EC13 /* AKMIDIStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDIStatus.swift; sourceTree = "<group>"; };
 		C48DB7CC1CD56B3000D1EC13 /* AKMIDISystemCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMIDISystemCommand.swift; sourceTree = "<group>"; };
-		C48DB7D21CD577E100D1EC13 /* AKMusicTrack+MIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMusicTrack+MIDI.swift"; sourceTree = "<group>"; };
-		C48DB7D31CD577E100D1EC13 /* AKSequencer+MIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKSequencer+MIDI.swift"; sourceTree = "<group>"; };
 		C48DB7D81CD5788F00D1EC13 /* MIDIPacket+SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDIPacket+SequenceType.swift"; sourceTree = "<group>"; };
 		C48DB7D91CD5788F00D1EC13 /* MIDIPacketList+SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDIPacketList+SequenceType.swift"; sourceTree = "<group>"; };
 		C48DB7DA1CD5788F00D1EC13 /* MIDIPacketListGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIPacketListGenerator.swift; sourceTree = "<group>"; };
@@ -2253,8 +2249,6 @@
 				C49E9DF91D2B1FEE00E5E8BF /* AKDuration.swift */,
 				C49E9DFA1D2B1FEE00E5E8BF /* AKMusicTrack.swift */,
 				C49E9DFB1D2B1FEE00E5E8BF /* AKSequencer.swift */,
-				C48DB7D21CD577E100D1EC13 /* AKMusicTrack+MIDI.swift */,
-				C48DB7D31CD577E100D1EC13 /* AKSequencer+MIDI.swift */,
 			);
 			path = Sequencer;
 			sourceTree = "<group>";
@@ -3339,7 +3333,6 @@
 				C4B190F51C3B340400C0F330 /* count.c in Sources */,
 				C453835A1C3A5E4300A51738 /* AKFormantFilter.swift in Sources */,
 				C4B1911F1C3B340400C0F330 /* streson.c in Sources */,
-				C48DB7D41CD577E100D1EC13 /* AKMusicTrack+MIDI.swift in Sources */,
 				C4B1912A1C3B340400C0F330 /* tog.c in Sources */,
 				C4B190A51C3B340400C0F330 /* gbuzz.c in Sources */,
 				C49DCD341D20FF9000BF018A /* AKPWMOscillatorBank.swift in Sources */,
@@ -3546,7 +3539,6 @@
 				C4B1910D1C3B340400C0F330 /* p.c in Sources */,
 				C4E752081C23885400688A1B /* subtract.swift in Sources */,
 				C4B190DC1C3B340400C0F330 /* test.c in Sources */,
-				C48DB7D51CD577E100D1EC13 /* AKSequencer+MIDI.swift in Sources */,
 				C4B190AE1C3B340400C0F330 /* mode.c in Sources */,
 				C48444F21C3702F8007BE794 /* sawtooth.swift in Sources */,
 				C48DB7DD1CD5788F00D1EC13 /* MIDIPacketListGenerator.swift in Sources */,

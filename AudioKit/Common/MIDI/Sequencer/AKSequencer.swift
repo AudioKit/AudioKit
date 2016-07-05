@@ -503,18 +503,17 @@ public class AKSequencer {
             CAShow(sequencePointer)
         }
     }
-
-//    /// Calculates beats in to a file based on it samples, sample rate, and tempo
-//    ///
-//    /// - Parameters:
-//    ///   - samples:    Number of samples in
-//    ///   - sampleRate: Sample frequency
-//    ///   - tempo:      Tempo, in beats per minute
-//    ///
-//    public static func beatsFromSamples(samples: Int, sampleRate: Int, tempo: Double) -> Beat {
-//        let timeInSecs = Double(samples) / Double(sampleRate)
-//        let beatsPerSec = tempo / 60.0
-//        let beatLengthInSecs = Double(1.0 / beatsPerSec)
-//        return Beat(timeInSecs / beatLengthInSecs)
-//    }
+    
+    /// Set the midi output for all tracks
+    public func setGlobalMIDIOutput(midiEndpoint: MIDIEndpointRef) {
+        if isAVSequencer {
+            for track in avSequencer.tracks {
+                track.destinationMIDIEndpoint = midiEndpoint
+            }
+        } else {
+            for track in tracks {
+                track.setMIDIOutput(midiEndpoint)
+            }
+        }
+    }
 }
