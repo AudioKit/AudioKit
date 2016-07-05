@@ -24,7 +24,9 @@ public protocol AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int)
+    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber,
+                                       velocity: MIDIVelocity,
+                                       channel: Int)
 
     /// Receive the MIDI note off event
     ///
@@ -33,7 +35,9 @@ public protocol AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int)
+    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber,
+                                        velocity: MIDIVelocity,
+                                        channel: Int)
 
     /// Receive a generic controller value
     ///
@@ -51,7 +55,9 @@ public protocol AKMIDIListener {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDIAftertouch(noteNumber noteNumber: MIDINoteNumber, pressure: Int, channel: Int)
+    func receivedMIDIAftertouch(noteNumber noteNumber: MIDINoteNumber,
+                                           pressure: Int,
+                                           channel: Int)
 
     /// Receive global aftertouch
     ///
@@ -94,7 +100,9 @@ public extension AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber,
+                                       velocity: MIDIVelocity,
+                                       channel: Int) {
         print("channel: \(channel) noteOn: \(noteNumber) velocity: \(velocity)")
     }
 
@@ -105,7 +113,9 @@ public extension AKMIDIListener {
     ///   - velocity:   MIDI Velocity (0-127) usually speed of release, often 0.
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber,
+                                        velocity: MIDIVelocity,
+                                        channel: Int) {
         print("channel: \(channel) noteOff: \(noteNumber) velocity: \(velocity)")
     }
 
@@ -127,7 +137,9 @@ public extension AKMIDIListener {
     ///   - pressure:   Pressure applied to the note (0-127)
     ///   - channel:    MIDI Channel (1-16)
     ///
-    func receivedMIDIAftertouch(noteNumber noteNumber: MIDINoteNumber, pressure: Int, channel: Int) {
+    func receivedMIDIAftertouch(noteNumber noteNumber: MIDINoteNumber,
+                                           pressure: Int,
+                                           channel: Int) {
         print("channel: \(channel) midiAftertouch Note: \(noteNumber) pressure: \(pressure)")
     }
 
