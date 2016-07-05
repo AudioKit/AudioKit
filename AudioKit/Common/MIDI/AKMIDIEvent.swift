@@ -81,11 +81,15 @@ public struct AKMIDIEvent {
             let status = AKMIDIStatus(rawValue: Int(packet.data.0) >> 4)
             let channel = UInt8(packet.data.0 & 0xF)
             if let statusExists = status {
-                fillWithStatus(statusExists, channel: channel, byte1: packet.data.1, byte2: packet.data.2)
+                fillData(status: statusExists,
+                         channel: channel,
+                         byte1: packet.data.1,
+                         byte2: packet.data.2)
             }
         } else {
             if isSysex(packet) {
                 internalData = [] //reset internalData
+                
                 //voodoo
                 let mirrorData = Mirror(reflecting: data)
                 var i = 0
@@ -97,10 +101,9 @@ public struct AKMIDIEvent {
                     }
                 }
             } else {
-                fillWithCommand(
-                    AKMIDISystemCommand(rawValue: packet.data.0)!,
-                    byte1: packet.data.1,
-                    byte2: packet.data.2)
+                fillData(command: AKMIDISystemCommand(rawValue: packet.data.0)!,
+                         byte1: packet.data.1,
+                         byte2: packet.data.2)
             }
         }
     }
@@ -114,10 +117,13 @@ public struct AKMIDIEvent {
     ///   - byte2:   Second data byte
     ///
     init(status: AKMIDIStatus, channel: UInt8, byte1: UInt8, byte2: UInt8) {
-        fillWithStatus(status, channel: channel, byte1: byte1, byte2: byte2)
+        fillData(status: status, channel: channel, byte1: byte1, byte2: byte2)
     }
 
-    private mutating func fillWithStatus(status: AKMIDIStatus, channel: UInt8, byte1: UInt8, byte2: UInt8) {
+    private mutating func fillData(status status: AKMIDIStatus,
+                                          channel: UInt8,
+                                          byte1: UInt8,
+                                          byte2: UInt8) {
         internalData[0] = UInt8(status.rawValue << 4) | UInt8((channel) & 0xf)
         internalData[1] = byte1 & 0x7F
         internalData[2] = byte2 & 0x7F
@@ -147,10 +153,12 @@ public struct AKMIDIEvent {
     ///   - byte2:   Second data byte 
     ///
     init(command: AKMIDISystemCommand, byte1: UInt8, byte2: UInt8) {
-        fillWithCommand(command, byte1: byte1, byte2: byte2)
+        fillData(command: command, byte1: byte1, byte2: byte2)
     }
 
-    private mutating func fillWithCommand(command: AKMIDISystemCommand, byte1: UInt8, byte2: UInt8) {
+    private mutating func fillData(command command: AKMIDISystemCommand,
+                                           byte1: UInt8,
+                                           byte2: UInt8) {
         internalData[0] = command.rawValue
         switch command {
         case .Sysex: break
@@ -200,8 +208,13 @@ public struct AKMIDIEvent {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-    static public func eventWithNoteOn(noteNumber noteNumber: UInt8, velocity: UInt8, channel: UInt8 ) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .NoteOn, channel: channel, byte1: noteNumber, byte2: velocity)
+    static public func eventWithNoteOn(noteNumber noteNumber: UInt8,
+                                                  velocity: UInt8,
+                                                  channel: UInt8 ) -> AKMIDIEvent {
+        return AKMIDIEvent(status: .NoteOn,
+                           channel: channel,
+                           byte1: noteNumber,
+                           byte2: velocity)
     }
 
     /// Create note off event
@@ -211,8 +224,13 @@ public struct AKMIDIEvent {
     ///   - velocity:   MIDI Note velocity (0-127)
     ///   - channel:    Channel on which the note appears
     ///
-    static public func eventWithNoteOff(noteNumber noteNumber: UInt8, velocity: UInt8, channel: UInt8) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .NoteOff, channel: channel, byte1: noteNumber, byte2: velocity)
+    static public func eventWithNoteOff(noteNumber noteNumber: UInt8,
+                                                   velocity: UInt8,
+                                                   channel: UInt8) -> AKMIDIEvent {
+        return AKMIDIEvent(status: .NoteOff,
+                           channel: channel,
+                           byte1: noteNumber,
+                           byte2: velocity)
     }
 
     /// Create program change event
@@ -221,8 +239,12 @@ public struct AKMIDIEvent {
     ///   - program: Program change byte
     ///   - channel: Channel on which the program change appears
     ///
-    static public func eventWithProgramChange(program: UInt8, channel: UInt8) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .ProgramChange, channel: channel, byte1: program, byte2: 0)
+    static public func eventWithProgramChange(program: UInt8,
+                                              channel: UInt8) -> AKMIDIEvent {
+        return AKMIDIEvent(status: .ProgramChange,
+                           channel: channel,
+                           byte1: program,
+                           byte2: 0)
     }
 
     /// Create controller event
@@ -232,8 +254,13 @@ public struct AKMIDIEvent {
     ///   - value:      Value of the controller
     ///   - channel:    Channel on which the controller value has changed
     ///
-    static public func eventWithController(controller: UInt8, value: UInt8, channel: UInt8) -> AKMIDIEvent {
-        return AKMIDIEvent(status: .ControllerChange, channel: channel, byte1: controller, byte2: value)
+    static public func eventWithController(controller: UInt8,
+                                           value: UInt8,
+                                           channel: UInt8) -> AKMIDIEvent {
+        return AKMIDIEvent(status: .ControllerChange,
+                           channel: channel,
+                           byte1: controller,
+                           byte2: value)
     }
 
     private func isSysex(packet: MIDIPacket) -> Bool {
