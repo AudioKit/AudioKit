@@ -28,6 +28,8 @@ class PlaygroundView: AKPlaygroundView {
 
     var cutoffFrequencyLabel: Label?
     var feedbackLabel: Label?
+    var cutoffFrequencySlider: Slider?
+    var feedbackSlider: Slider?
 
     override func setup() {
         addTitle("Sean Costello Reverb")
@@ -45,6 +47,9 @@ class PlaygroundView: AKPlaygroundView {
 
         feedbackLabel = addLabel("Feedback: \(reverb.feedback)")
         addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
+        
+        addButton("Short Tail", action: #selector(presetShortTail))
+        addButton("Low Ringing Tail", action: #selector(presetLowRingingTail))
     }
 
     func startLoop(part: String) {
@@ -89,6 +94,37 @@ class PlaygroundView: AKPlaygroundView {
         feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
         printCode()
     }
+    
+    //: Audition Presets
+    
+    func presetShortTail() {
+        reverb.presetShortTailCostelloReverb()
+        updateUI()
+    }
+    
+    func presetLowRingingTail() {
+        reverb.presetLowRingingLongTailCostelloReverb()
+        updateUI()
+    }
+    
+    func updateUI() {
+        updateTextFields()
+        updateSliders()
+        printCode()
+    }
+    
+    func updateSliders() {
+        cutoffFrequencySlider?.value = Float(reverb.cutoffFrequency)
+        feedbackSlider?.value = Float(reverb.feedback)
+    }
+    
+    func updateTextFields() {
+        let cutoffFrequency = String(format: "%0.3f", reverb.cutoffFrequency)
+        cutoffFrequencyLabel!.text = "\(cutoffFrequency)"
+        
+        let feedback = String(format: "%0.3f", reverb.feedback)
+        feedbackLabel!.text = "\(feedback)"
+    }
 
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
@@ -100,7 +136,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
