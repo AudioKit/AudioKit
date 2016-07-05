@@ -25,7 +25,7 @@ AudioKit.output = reverb
 sequencer = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
 
 //: Do some basic setup to make the sequence loop correctly
-sequencer.setLength(Beat(4))
+sequencer.setLength(AKDuration(beats: 4))
 sequencer.enableLooping()
 
 //: Here we set all tracks of the sequencer to the same audioUnit
