@@ -10,6 +10,7 @@ import Foundation
 
 public typealias BPM = Double
 
+/// Container for the notion of time in sequencing
 public struct AKDuration: CustomStringConvertible {
     let secondsPerMinute = 60
     
@@ -51,7 +52,7 @@ public struct AKDuration: CustomStringConvertible {
         return seconds / 60.0
     }
 
-    
+    /// Music time stamp for the duration in beats
     public var musicTimeStamp: MusicTimeStamp {
         return MusicTimeStamp(beats)
     }
@@ -60,7 +61,6 @@ public struct AKDuration: CustomStringConvertible {
     public var description: String {
         return "\(samples) samples at \(sampleRate) = \(beats) Beats at \(tempo) BPM = \(seconds)s"
     }
-    
     
     /// Initialize with samples
     ///
@@ -98,58 +98,115 @@ public struct AKDuration: CustomStringConvertible {
     }
 }
 
-
+/// Upper bound of a duration, in beats
+///
+/// - parameter duration: AKDuration
+///
 public func ceil(duration: AKDuration) -> AKDuration {
     var copy = duration
     copy.beats = ceil(copy.beats)
     return copy
 }
 
+/// Add to a duration
+///
+/// - parameter lhs: Starting duration
+/// - parameter rhs: Amount to add
+///
 public func +=(inout lhs: AKDuration, rhs: AKDuration) {
     lhs.beats = lhs.beats + rhs.beats
 }
 
+/// Subtract from a duration
+///
+/// - parameter lhs: Starting duration
+/// - parameter rhs: Amount to subtract
+///
 public func -=(inout lhs: AKDuration, rhs: AKDuration) {
     lhs.beats = lhs.beats - rhs.beats
 }
 
+/// Duration equality
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func ==(lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats == rhs.beats
 }
 
+/// Duration inequality
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func !=(lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats != rhs.beats
 }
 
-
+/// Duration greater than or equal to
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func >=(lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats >= rhs.beats
 }
 
+/// Duration less than or equal to
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func <=(lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats <= rhs.beats
 }
 
+/// Duration less than
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func <(lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats < rhs.beats
 }
 
+/// Duration greater than
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func >(lhs: AKDuration, rhs: AKDuration) -> Bool {
     return lhs.beats > rhs.beats
 }
 
+/// Adding durations
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func +(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var newDuration = lhs
     newDuration.beats += rhs.beats
     return newDuration
 }
 
+/// Subtracting durations
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func -(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var newDuration = lhs
     newDuration.beats -= rhs.beats
     return newDuration
 }
 
+/// Modulus of the duration's beats
+///
+/// - parameter lhs: One duration
+/// - parameter rhs: Another duration
+///
 public func %(lhs: AKDuration, rhs: AKDuration) -> AKDuration {
     var copy = lhs
     copy.beats = lhs.beats % rhs.beats
