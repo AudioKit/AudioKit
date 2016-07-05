@@ -15,7 +15,7 @@ var stringResonator = AKStringResonator(player)
 
 //: Set the parameters of the String Resonator here.
 stringResonator.feedback = 0.9
-stringResonator.fundamentalFrequency = 1000
+stringResonator.fundamentalFrequency = 100
 stringResonator.rampTime = 0.1
 
 AudioKit.output = stringResonator
@@ -41,7 +41,7 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Stop", action: #selector(stop))
 
         fundamentalFrequencyLabel = addLabel("Fundamental Frequency: \(stringResonator.fundamentalFrequency)")
-        addSlider(#selector(setFundamentalFrequency), value: stringResonator.fundamentalFrequency, minimum: 0, maximum: 5000)
+        addSlider(#selector(setFundamentalFrequency), value: stringResonator.fundamentalFrequency, minimum: 0, maximum: 400)
 
         feedbackLabel = addLabel("Feedback: \(stringResonator.feedback)")
         addSlider(#selector(setFeedback), value: stringResonator.feedback, minimum: 0, maximum: 0.99)
