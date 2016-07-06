@@ -118,6 +118,8 @@ public struct AKMIDIEvent {
             } else {
                 if let cmd = AKMIDISystemCommand(rawValue: packet.data.0) {
                     fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
+                } else {
+                    print("AKMIDISystemCommand failure due to bad data - need to investigate")
                 }
             }
         }
