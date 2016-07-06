@@ -17,40 +17,51 @@ public protocol Numeric: AKParameter {
     func value() -> Double
 }
 
+/// Numeric extension for integers
 extension Int: Numeric {
+    /// Get basic value as a double
     public func value() -> Double {
         return Double(self)
     }
 }
 
+/// Numeric extension for floats
 extension Float: Numeric {
+    /// Get basic value as a double
     public func value() -> Double {
         return Double(self)
     }
 }
 
+/// Numeric extension for doubles
 extension Double: Numeric {
+    /// Get basic value as a double
     public func value() -> Double {
         return Double(self)
     }
 }
 
+/// Equality
 public func ==(lhs: Numeric, rhs: Numeric) -> Bool {
     return lhs.value() == rhs.value()
 }
 
+/// Addition
 public func +(lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() + rhs.value()
 }
 
+/// Subtraction
 public func -(lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() - rhs.value()
 }
 
+/// Division
 public func /(lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() / rhs.value()
 }
 
+/// Multiplication
 public func *(lhs: Numeric, rhs: Numeric) -> Double {
     return lhs.value() * rhs.value()
 }

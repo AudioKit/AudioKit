@@ -40,19 +40,17 @@ extension MIDIPacket: SequenceType {
                 var data1: UInt8 = 0
                 var data2: UInt8 = 0
                 var mstat = AKMIDIEvent.statusFromValue(status)
+                
                 switch  mstat {
-                case .NoteOff,
-                .NoteOn,
-                .PolyphonicAftertouch,
-                .ControllerChange,
-                .PitchWheel:
+                    
+                case .NoteOff, .NoteOn, .PolyphonicAftertouch, .ControllerChange, .PitchWheel:
                     data1 = pop(); data2 = pop()
                     
-                case .ProgramChange,
-                .ChannelAftertouch:
+                case .ProgramChange, .ChannelAftertouch:
                     data1 = pop()
                     
-                case .SystemCommand: break
+                case .SystemCommand:
+                    break
                 }
                 
                 if mstat == .NoteOn && data2 == 0 {
@@ -60,24 +58,33 @@ extension MIDIPacket: SequenceType {
                     mstat = .NoteOff
                 }
                 
-                let chan = (status & 0xF)
+                let chan = status & 0xF
                 return AKMIDIEvent(status: mstat, channel: chan, byte1: data1, byte2: data2)
+                
             } else if status == 0xF0 {
                 // sysex - guaranteed by coremidi to be the entire packet
                 index = self.length
                 return AKMIDIEvent(packet: self)
+                
             } else {
                 let cmd = AKMIDISystemCommand(rawValue: status)!
                 var data1: UInt8 = 0
                 var data2: UInt8 = 0
+                
                 switch  cmd {
-                case .Sysex: break
+                    
+                case .Sysex:
+                    break
+                    
                 case .SongPosition:
                     data1 = pop()
                     data2 = pop()
+                    
                 case .SongSelect:
                     data1 = pop()
-                default: break
+                    
+                default:
+                    break
                 }
                 
                 return AKMIDIEvent(command: cmd, byte1: data1, byte2: data2)

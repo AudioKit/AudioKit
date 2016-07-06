@@ -93,6 +93,7 @@ class PlaygroundView: AKPlaygroundView {
 
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    frequency = \(String(format: "%0.3f", tremolo.frequency))")
+        Swift.print("    depth = \(String(format: "%0.3f", tremolo.depth))")
         Swift.print("}\n")
     }
 }

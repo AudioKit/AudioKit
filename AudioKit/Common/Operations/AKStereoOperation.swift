@@ -30,10 +30,21 @@ public struct AKStereoOperation: AKComputedParameter {
         self.operationString = operationString
     }
     
-    /// Create a mono signal by droppigng the right channel
+    /// Create a mono signal by dropping the right channel
     public func toMono() -> AKOperation {
+        return self.left()
+    }
+    
+    /// Create a mono signal by dropping the right channel
+    public func left() -> AKOperation {
         return AKOperation("(\(self) drop)")
     }
+
+    /// Create a mono signal by dropping the left channel
+    public func right() -> AKOperation {
+        return AKOperation("(\(self) swap drop)")
+    }
+
     
     /// An operation is requiring a parameter to be stereo, which in this case, it is, so just return self
     public func toStereo() -> AKStereoOperation {

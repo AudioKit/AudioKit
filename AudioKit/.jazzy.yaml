@@ -11,6 +11,7 @@ custom_categories:
   - name: AudioKit Core
     children:
     - AudioKit
+    - AKAudioFile
     - AKDevice
     - AKMicrophoneRecorder
     - AKNodeRecorder
@@ -34,19 +35,26 @@ custom_categories:
     - AKMIDIControl
     - AKMIDIInstrument
     - AKMIDIListener
+    - AKMIDINode
     - AKMIDISampler
     - AKMIDIStatus
     - AKMIDISystemCommand
-    - AKMusicTrack
     - MIDIPacket
     - MIDIPacketList
     - MIDIPacketListGenerator
 
+  - name: Sequencer
+    children:
+    - AKSequencer
+    - AKDuration
+    - AKMusicTrack
+
   - name: Nodes
     children:
     - AKNode
+    - AKPolyphonic
+    - AKPolyphonicNode
     - AKToggleable
-    - AKOperationEffect
     - AKOperationGenerator
 
   - name: Analysis Nodes
@@ -74,6 +82,11 @@ custom_categories:
     - AKDynamicsProcessor
     - AKExpander
     - AKPeakLimiter
+
+  - name: Effects Nodes
+    children:
+    - AKOperationEffect
+    - AKPitchShifter
 
   - name: Envelopes
     children:
@@ -136,6 +149,8 @@ custom_categories:
   - name: Physical Models
     children:
     - AKDrip
+    - AKFlute
+    - AKMandolin
     - AKMetalBar
     - AKPluckedString
 
@@ -167,14 +182,12 @@ custom_categories:
     - AKComputedParameter
     - AKOperation
     - AKStereoOperation
+    - Numeric
 
-  - name: Function Operations
+  - name: Math
     children:
-    - "*(_:_:)"
-    - "+(_:_:)"
-    - "-(_:_:)"
-    - "/(_:_:)"
     - abs(_:)
+    - ceil(_:)
     - floor(_:)
     - fract(_:)
     - log(_:)
@@ -183,6 +196,19 @@ custom_categories:
     - min(_:_:)
     - mixer(_:_:balance:)
     - round(_:)
+    - "*(_:_:)"
+    - "+(_:_:)"
+    - "-(_:_:)"
+    - "/(_:_:)"
+    - "==(_:_:)"
+    - "!=(_:_:)"
+    - "<(_:_:)"
+    - "<=(_:_:)"
+    - ">(_:_:)"
+    - ">=(_:_:)"
+    - "%(_:_:)"
+    - "+=(_:_:)"
+    - "-=(_:_:)"
 
   - name: Random Number Generators
     children:

@@ -111,13 +111,13 @@ pod 'AudioKit', '~> 3.1'
 AudioKit was created by the following team whose contributions are fully chronicled in Github, and summarized below in alphabetical order by first name:
 
 * **[Aurelius Prochazka](https://github.com/aure)**: Primary programmer of AudioKit. Lives for this stuff.  Your life line if you need help.
+* **[Brandon Barber](https://github.com/roecrew/)**: Deep diver.  Contributed a lot of great pull requests.
 * **[Jeff Cooper](https://github.com/eljeff)**: Rearchitected all things MIDI, sampler, and sequencer related in AudioKit 3.
+* **[Laurent Veliscek](https://github.com/laurentVeliscek/)**: Master of the AKAudioFile, AKAudioPlayer, and recording nodes.
 * **[Matthew Fecher](https://github.com/swiftcodex)**: Sound design, graphic design, and programming of the Analog Synth X example.
 * **[Nicholas Arner](https://github.com/narner)**: Longtime contributor to AudioKit and AudioKit's web site.
 * **[Paul Batchelor](https://github.com/PaulBatchelor)**: The author of [Soundpipe](https://github.com/paulbatchelor/soundpipe), and [Sporth](https://github.com/paulbatchelor/sporth), which serve as two primary audio engines in AudioKit 3.
-* **[Simon Gladman](https://github.com/FlexMonkey)**: Longtime user of AudioKit, contributed his AudioKitParticles project to AudioKit 3.
 * **[Stephane Peter](https://github.com/megastep)**: Installation and configuration czar and code reviewer.
-* **[Syed Haris Ali](https://github.com/syedhali)**: The author of [EZAudio](https://github.com/syedhali/EZAudio) which is AudioKit's included waveform plotter and FFT analysis engine.
 
 ## Contributing Code
 

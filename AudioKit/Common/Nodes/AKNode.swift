@@ -33,16 +33,41 @@ import AVFoundation
     }
 }
 
+/// Protocol for responding to play and stop of MIDI notes
 public protocol AKPolyphonic {
+    
+    /// Play a sound corresponding to a MIDI note
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
+    ///
     func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity)
+    
+    /// Stop a sound corresponding to a MIDI note
+    ///
+    /// - parameter noteNumber: MIDI Note Number
+    ///
     func stop(noteNumber noteNumber: MIDINoteNumber)
 }
 
+/// Bare bones implementation of AKPolyphonic protocol
 public class AKPolyphonicNode: AKNode, AKPolyphonic {
+    
+    /// Play a sound corresponding to a MIDI note
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity:   MIDI Velocity
+    ///
     public func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         print("Playing note \(noteNumber), with velocity \(velocity), override in subclass")
     }
     
+    /// Stop a sound corresponding to a MIDI note
+    ///
+    /// - parameter noteNumber: MIDI Note Number
+    ///
     public func stop(noteNumber noteNumber: MIDINoteNumber) {
         print("Stopping note \(noteNumber), override in subclass")
     }

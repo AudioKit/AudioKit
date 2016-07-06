@@ -128,7 +128,6 @@ class SongExporter {
                         assetWriterInput.markAsFinished()
                         assetWriter.finishWritingWithCompletionHandler(){
                             self.isReadyToPlay = true
-                            //                            self.playButton.hidden = false
                         }
                         assetReader.cancelReading()
                         break

@@ -29,10 +29,28 @@ public func -(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().minus(right)
 }
 
+/// Helper function for subtraction
+///
+/// - Parameters:
+///   - first: 1st parameter
+///   - second: 2nd parameter
+///
+public func -(first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
+    return AKStereoOperation("\(first.left()) \(second.left()) - \(first.right()) \(second.right()) -")
+}
+
 /// Negation
 ///
 /// - parameter parameter: Parameter to negate
 ///
 public prefix func -(x: AKParameter) -> AKOperation {
     return AKOperation("(0 \(x) -)")
+}
+
+/// Negation
+///
+/// - parameter parameter: Parameter to negate
+///
+public prefix func -(x: AKStereoOperation) -> AKStereoOperation {
+    return AKStereoOperation("(0 \(x.left()) -) (0 \(x.right()) -)")
 }
