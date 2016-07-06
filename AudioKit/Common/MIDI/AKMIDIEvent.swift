@@ -116,10 +116,11 @@ public struct AKMIDIEvent {
                 }
                 
             } else {
-                
-                fillData(command: AKMIDISystemCommand(rawValue: packet.data.0)!,
-                         byte1: packet.data.1,
-                         byte2: packet.data.2)
+                if let cmd = AKMIDISystemCommand(rawValue: packet.data.0) {
+                    fillData(command: cmd, byte1: packet.data.1, byte2: packet.data.2)
+                } else {
+                    print("AKMIDISystemCommand failure due to bad data - need to investigate")
+                }
             }
         }
     }
