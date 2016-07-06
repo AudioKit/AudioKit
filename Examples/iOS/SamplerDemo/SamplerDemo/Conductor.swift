@@ -116,4 +116,8 @@ class Conductor {
             bassSynthesizer.loadEXS24(path)
         }
     }
+    
+    func adjustTempo(tempo: Float) {
+        sequence?.setTempo(Double(tempo))
+    }
 }

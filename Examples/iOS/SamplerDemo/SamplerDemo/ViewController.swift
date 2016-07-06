@@ -69,6 +69,10 @@ class ViewController: UIViewController {
         conductor.adjustFilterFrequency(sender.value)
     }
     
+    @IBAction func adjustTempo(sender: UISlider) {
+        conductor.adjustTempo(sender.value)
+    }
+    
     @IBAction func setLength(sender: UIButton) {
         guard let title = sender.currentTitle, length = Double(title) else {
             print("Length wasn't detected")
@@ -89,4 +93,3 @@ class ViewController: UIViewController {
         conductor.playSequence()
     }
 }
-
