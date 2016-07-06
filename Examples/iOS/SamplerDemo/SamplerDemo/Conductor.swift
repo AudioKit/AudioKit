@@ -68,7 +68,7 @@ class Conductor {
     
     func adjustFilterFrequency(frequency: Float) {
         var value = Double(frequency)
-        value.denormalize(minimum: Double(30.0), maximum: Double(20000.00), taper: 3.03)
+        value.denormalize(minimum: 30.0, maximum: 20000.0, taper: 3.03)
         filter?.cutoffFrequency = value
     }
     
@@ -118,6 +118,6 @@ class Conductor {
     }
     
     func adjustTempo(tempo: Float) {
-        sequence?.setTempo(Double(tempo))
+        sequence?.rate = Double(tempo)
     }
 }
