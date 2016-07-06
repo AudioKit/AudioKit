@@ -8,16 +8,17 @@
 
 import Foundation
 
+/// Builds presets for Apple sampler to read from
 public class AKAUPresetBuilder {
 
-    public var presetXML = ""
-    public var layers = [String]()
-    public var connections = [String]()
-    public var envelopes = [String]()
-    public var lfos = [String]()
-    public var zones = [String]()
-    public var fileRefs = [String]()
-    public var filters = [String]()
+    private var presetXML = ""
+    private var layers = [String]()
+    private var connections = [String]()
+    private var envelopes = [String]()
+    private var lfos = [String]()
+    private var zones = [String]()
+    private var fileRefs = [String]()
+    private var filters = [String]()
 
     /// Create preset with the given components
     ///
@@ -161,6 +162,18 @@ public class AKAUPresetBuilder {
         return String(count: count, repeatedValue: (" " as Character))
     }
 
+    /// Build the instrument file
+    ///
+    /// - Parameters:
+    ///   - name:        Coded instrument name
+    ///   - connections: Connection XML
+    ///   - envelopes:   Envelopes XML
+    ///   - filter:      Filter XML
+    ///   - lfos:        Low Frequency Oscillator XML
+    ///   - zones:       Zones XML
+    ///   - filerefs:    File references XML
+    ///   - layers:      Combined xml
+    ///
     static public func buildInstrument(name: String = "Coded Instrument Name",
                                        connections: String = "",
                                        envelopes: String = "",
@@ -215,7 +228,8 @@ public class AKAUPresetBuilder {
         presetXML.appendContentsOf(closePreset())
         return presetXML
     }
-    static public func openPreset() -> String {
+    
+    static func openPreset() -> String {
         var str: String = ""
         str = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         str.appendContentsOf("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
@@ -225,20 +239,22 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("        <real>1</real>\n")
         return str
     }
-    static public func openInstrument() -> String {
+    
+    static func openInstrument() -> String {
         var str: String = ""
         str.appendContentsOf("        <key>Instrument</key>\n")
         str.appendContentsOf("        <dict>\n")
         return str
     }
-    static public func openLayers() -> String {
+    
+    static func openLayers() -> String {
         var str: String = ""
         str.appendContentsOf("            <key>Layers</key>\n")
         str.appendContentsOf("            <array>\n")
         return str
     }
 
-    static public func openLayer() -> String {
+    static func openLayer() -> String {
         var str = ""
         str.appendContentsOf("\(spaces(16))<dict>\n")
         str.appendContentsOf("\(spaces(16))    <key>Amplifier</key>\n")
@@ -250,13 +266,15 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("\(spaces(16))    </dict>\n")
         return str
     }
-    static public func openConnections() -> String {
+    
+    static func openConnections() -> String {
         var str = ""
         str.appendContentsOf("                    <key>Connections</key>\n")
         str.appendContentsOf("                    <array>\n")
         return str
     }
-    static public func generateConnectionDict(id: Int,
+    
+    static func generateConnectionDict(id: Int,
                                               source: Int,
                                               destination: Int,
                                               scale: Int,
@@ -283,24 +301,27 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("\(spaces(34))</dict>\n")
         return str
     }
-    static public func closeConnections() -> String {
+    
+    static func closeConnections() -> String {
         var str = ""
         str.appendContentsOf("                    </array>\n")
         return str
     }
-    static public func openEnvelopes() -> String {
+    
+    static func openEnvelopes() -> String {
         var str = ""
         str.appendContentsOf("                    <key>Envelopes</key>\n")
         str.appendContentsOf("                    <array>\n")
         return str
     }
-    static public func generateEnvelope(id: Int = 0,
-                                        delay: Double = 0.0,
-                                        attack: Double = 0.0,
-                                        hold: Double = 0.0,
-                                        decay: Double = 0.0,
-                                        sustain: Double = 1.0,
-                                        release: Double = 0.0) -> String {
+    
+    static func generateEnvelope(id: Int = 0,
+                                 delay: Double = 0.0,
+                                 attack: Double = 0.0,
+                                 hold: Double = 0.0,
+                                 decay: Double = 0.0,
+                                 sustain: Double = 1.0,
+                                 release: Double = 0.0) -> String {
         var str = ""
         str.appendContentsOf("\(spaces(34))<dict>\n")
         str.appendContentsOf("\(spaces(34))    <key>ID</key>\n")
@@ -367,12 +388,14 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("\(spaces(34))</dict>\n")
         return str
     }
-    static public func closeEnvelopes() -> String {
+    
+    static func closeEnvelopes() -> String {
         var str = ""
         str.appendContentsOf("                    </array>\n")
         return str
     }
-    static public func generateFilter(cutoffHz: Double = 20000.0, resonanceDb: Double = 0.0) -> String {
+    
+    static func generateFilter(cutoffHz: Double = 20000.0, resonanceDb: Double = 0.0) -> String {
         var str = ""
         str.appendContentsOf("                    <key>Filters</key>\n")
         str.appendContentsOf("                    <dict>\n")
@@ -389,19 +412,25 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("                    </dict>\n")
         return str
     }
-    static public func generateID(id: Int = 0) -> String {
+    
+    static func generateID(id: Int = 0) -> String {
         var str = ""
         str.appendContentsOf("                    <key>ID</key>\n")
         str.appendContentsOf("                    <integer>\(id)</integer>\n")
         return str
     }
-    static public func openLFOs() -> String {
+    
+    static func openLFOs() -> String {
         var str = ""
         str.appendContentsOf("                    <key>LFOs</key>\n")
         str.appendContentsOf("                    <array>\n")
         return str
     }
-    static public func generateLFO(id: Int = 0, delay: Double = 0.0, rate: Double = 3.0, waveform: Int = 0) -> String {
+    
+    static func generateLFO(id: Int = 0,
+                            delay: Double = 0.0,
+                            rate: Double = 3.0,
+                            waveform: Int = 0) -> String {
         //0 = triangle, 29 = reverseSaw, 26 = saw, 28 = square, 25 = sine, 75 = sample/hold, 76 = randomInterpolated
         var str = ""
         str.appendContentsOf("                        <dict>\n")
@@ -420,12 +449,14 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("                        </dict>\n")
         return str
     }
-    static public func closeLFOs() -> String {
+    
+    static func closeLFOs() -> String {
         var str = ""
         str.appendContentsOf("                    </array>\n")
         return str
     }
-    static public func generateOscillator() -> String {
+    
+    static func generateOscillator() -> String {
         var str = ""
         str.appendContentsOf("                    <key>Oscillator</key>\n")
         str.appendContentsOf("                    <dict>\n")
@@ -436,13 +467,21 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("                    </dict>\n")
         return str
     }
-    static public func openZones() -> String {
+    
+    static func openZones() -> String {
         var str = ""
         str.appendContentsOf("                    <key>Zones</key>\n")
         str.appendContentsOf("                    <array>\n")
         return str
     }
-    static public func generateZone(id: Int, rootNote: Int, startNote: Int, endNote: Int, wavRef: Int = 268435457, offset: Int = 0, loopEnabled:Bool = false) -> String {
+    
+    static func generateZone(id: Int,
+                             rootNote: Int,
+                             startNote: Int,
+                             endNote: Int,
+                             wavRef: Int = 268435457,
+                             offset: Int = 0,
+                             loopEnabled: Bool = false) -> String {
         let wavRefNum = wavRef+offset
         var str = ""
         str.appendContentsOf("                    <dict>\n")
@@ -463,49 +502,57 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("                     </dict>\n")
         return str
     }
-    static public func closeZones() -> String {
+    
+    static func closeZones() -> String {
         var str = ""
         str.appendContentsOf("                    </array>\n")
         return str
     }
-    static public func layerIgnoreNoteOff(ignore: Bool = false) -> String {
+    
+    static func layerIgnoreNoteOff(ignore: Bool = false) -> String {
         var str = ""
-        if ignore{
+        if ignore {
             str.appendContentsOf("        <key>trigger mode</key>\n")
             str.appendContentsOf("        <integer>11</integer>\n")
         }
         return str
     }
-    static public func layerSetVoiceCount(count: Int = 16) -> String {
+    
+    static func layerSetVoiceCount(count: Int = 16) -> String {
         var str = ""
         str.appendContentsOf("        <key>voice count</key>\n")
         str.appendContentsOf("        <integer>\(count)</integer>\n")
         return str
     }
-    static public func closeLayer() -> String {
+    
+    static func closeLayer() -> String {
         var str = ""
         str.appendContentsOf("                </dict>\n")
         return str
     }
-    static public func closeLayers() -> String {
+    
+    static func closeLayers() -> String {
         var str: String = ""
         str.appendContentsOf("            </array>\n")
         return str
     }
-    static public func closeInstrument(name: String = "Code Generated Instrument") -> String {
+    
+    static func closeInstrument(name: String = "Code Generated Instrument") -> String {
         var str: String = ""
         str.appendContentsOf("            <key>name</key>\n")
         str.appendContentsOf("            <string>\(name)</string>\n")
         str.appendContentsOf("        </dict>\n")
         return str
     }
-    static public func genCoarseTune(tune: Int = 0) -> String {
+    
+    static func genCoarseTune(tune: Int = 0) -> String {
         var str: String = ""
         str.appendContentsOf("        <key>coarse tune</key>\n")
         str.appendContentsOf("        <integer>\(tune)</integer>\n")
         return str
     }
-    static public func genDataBlob() -> String {
+    
+    static func genDataBlob() -> String {
         var str: String = ""
         str.appendContentsOf("        <key>data</key>\n")
         str.appendContentsOf("        <data>\n")
@@ -513,60 +560,70 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("        </data>\n")
         return str
     }
-    static public func openFileRefs() -> String {
+    
+    static func openFileRefs() -> String {
         var str: String = ""
         str.appendContentsOf("        <key>file-references</key>\n")
         str.appendContentsOf("        <dict>\n")
         return str
     }
-    static public func generateFileRef(wavRef: Int = 268435457, samplePath: String) -> String {
+    
+    static func generateFileRef(wavRef: Int = 268435457, samplePath: String) -> String {
         var str: String = ""
         str.appendContentsOf("            <key>Sample:\(wavRef)</key>\n")
         str.appendContentsOf("            <string>\(samplePath)</string>\n")
         return str
     }
-    static public func closeFileRefs() -> String {
+    
+    static func closeFileRefs() -> String {
         var str: String = ""
         str.appendContentsOf("        </dict>\n")
         return str
     }
-    static public func generateFineTune(tune: Double = 0.0) -> String {
+    
+    static func generateFineTune(tune: Double = 0.0) -> String {
         var str: String = ""
         str.appendContentsOf("        <key>fine tune</key>\n")
         str.appendContentsOf("        <real>\(tune)</real>\n")
         return str
     }
-    static public func generateGain(gain: Double = 0.0) -> String {
+    
+    static func generateGain(gain: Double = 0.0) -> String {
         var str: String = ""
         str.appendContentsOf("        <key>gain</key>\n")
         str.appendContentsOf("        <real>\(gain)</real>\n")
         return str
     }
-    static public func generateManufacturer(manufacturer: Int = 1634758764) -> String {
+    
+    static func generateManufacturer(manufacturer: Int = 1634758764) -> String {
         var str: String = ""
         str.appendContentsOf("        <key>manufacturer</key>\n")
         str.appendContentsOf("        <integer>\(manufacturer)</integer>\n")
         return str
     }
-    static public func generateInstrumentName(name: String = "Coded Instrument Name") -> String {
+    
+    static func generateInstrumentName(name: String = "Coded Instrument Name") -> String {
         var str: String = ""
         str.appendContentsOf("        <key>name</key>\n")
         str.appendContentsOf("        <string>\(name)</string>\n")
         return str
     }
-    static public func generateOutput(output: Int = 0) -> String {
+    
+    static func generateOutput(output: Int = 0) -> String {
         var str: String = ""
         str.appendContentsOf("        <key>output</key>\n")
         str.appendContentsOf("        <integer>\(output)</integer>\n")
         return str
     }
-    static public func generatePan(pan: Double = 0.0) -> String {
+    
+    static func generatePan(pan: Double = 0.0) -> String {
         var str: String = ""
         str.appendContentsOf("        <key>pan</key>\n")
         str.appendContentsOf("        <real>\(pan)</real>\n")
         return str
     }
-    static public func generateTypeAndSubType() -> String {
+    
+    static func generateTypeAndSubType() -> String {
         var str: String = ""
         str.appendContentsOf("        <key>subtype</key>\n")
         str.appendContentsOf("        <integer>1935764848</integer>\n")
@@ -576,20 +633,29 @@ public class AKAUPresetBuilder {
         str.appendContentsOf("        <integer>0</integer>\n")
         return str
     }
-    static public func generateVoiceCount(count: Int = 16) -> String {
+    
+    static func generateVoiceCount(count: Int = 16) -> String {
         var str: String = ""
         str.appendContentsOf("        <key>voice count</key>\n")
         str.appendContentsOf("        <integer>\(count)</integer>\n")
         return str
     }
-    static public func closePreset() -> String {
+    
+    static func closePreset() -> String {
         var str: String = ""
         str.appendContentsOf("    </dict>\n")
         str.appendContentsOf("</plist>\n")
         return str
     }
 
-    static public func generateLayer(connections: String, envelopes: String = "", filter: String = "", lfos: String = "", zones: String = "", layer: Int = 0, numVoices: Int = 16, ignoreNoteOff: Bool = false) -> String {
+    static func generateLayer(connections: String,
+                              envelopes: String = "",
+                              filter: String = "",
+                              lfos: String = "",
+                              zones: String = "",
+                              layer: Int = 0,
+                              numVoices: Int = 16,
+                              ignoreNoteOff: Bool = false) -> String {
         var str = ""
         str.appendContentsOf(openLayer())
         str.appendContentsOf(openConnections())
@@ -612,7 +678,8 @@ public class AKAUPresetBuilder {
         str.appendContentsOf(closeLayer())
         return str
     }
-    static public func generateLayers(connections: [String], envelopes: [String], filters: [String], lfos: [String], zones: [String]) -> String {
+    
+    static func generateLayers(connections: [String], envelopes: [String], filters: [String], lfos: [String], zones: [String]) -> String {
         //make sure all arrays are same size
         var str = ""
         for i in 0..<connections.count {
@@ -620,7 +687,8 @@ public class AKAUPresetBuilder {
         }
         return str
     }
-    static public func generateMinimalConnections(layer: Int = 0) -> String {
+    
+    static func generateMinimalConnections(layer: Int = 0) -> String {
         let layerOffset: Int = 256*layer
         let pitchDest: Int = 816840704+layerOffset
         let envelopeSource: Int = 536870912+layerOffset
@@ -631,7 +699,8 @@ public class AKAUPresetBuilder {
         str.appendContentsOf(generateConnectionDict(2, source: 301, destination: gainDest, scale: -96, transform: 2, invert: true))
         return str
     }
-    static public func genDefaultConnections() -> String {
+    
+    static func genDefaultConnections() -> String {
         var str = ""
         str.appendContentsOf("                        <dict>\n")
         str.appendContentsOf("                            <key>ID</key>\n")

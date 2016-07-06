@@ -27,45 +27,108 @@ let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
 class PlaygroundView: AKPlaygroundView {
     
+    // UI Elements we'll need to be able to access
     var detuneLabel: Label?
     var bodySizeLabel: Label?
     var pluckPositionLabel: Label?
-    
+    var detuneSlider: Slider?
+    var bodySizeSlider: Slider?
+
     override func setup() {
         addTitle("Mandolin")
 
         detuneLabel = addLabel("Detune: \(mandolin.detune)")
-        addSlider(#selector(setDetune), value: mandolin.detune, minimum: 0.5, maximum: 2.0)
+        detuneSlider = addSlider(#selector(setDetune), value: mandolin.detune, minimum: 0.5, maximum: 2.0)
 
         bodySizeLabel = addLabel("Body Size: \(mandolin.bodySize)")
-        addSlider(#selector(setBodySize), value: mandolin.bodySize, minimum: 0.2, maximum: 3.0)
+        bodySizeSlider = addSlider(#selector(setBodySize), value: mandolin.bodySize, minimum: 0.2, maximum: 3.0)
         
         pluckPositionLabel = addLabel("Pluck Position: \(pluckPosition)")
         addSlider(#selector(setPluckPosition), value: pluckPosition)
+        
+        
+        addButton("Large Resonant Mandolin", action: #selector(presetLargeResonance))
+        addButton("Electric Guitar Mandolin", action: #selector(presetElectricGuitar))
+        addButton("Small-Bodied Distorted Mandolin", action: #selector(presetSmallDistortedMandolin))
+        addButton("Acid Mandolin", action: #selector(presetAcidMandolin))
+        addLineBreak()
     }
 
     func setDetune(slider: Slider) {
         mandolin.detune = Double(slider.value)
         let detune = String(format: "%0.2f", mandolin.detune)
         detuneLabel!.text = "Detune: \(detune)"
+        printCode()
     }
 
     func setBodySize(slider: Slider) {
         mandolin.bodySize = Double(slider.value)
         let bodySize = String(format: "%0.2f", mandolin.bodySize)
         bodySizeLabel!.text = "Body Size: \(bodySize)"
+        printCode()
     }
     
     func setPluckPosition(slider: Slider) {
         pluckPosition = Double(slider.value)
         let position = String(format: "%0.2f",pluckPosition)
         pluckPositionLabel!.text = "Pluck Position: \(position)"
+        printCode()
+    }
+    
+    
+    //: Audition Presets
+    
+    func presetLargeResonance() {
+        mandolin.presetLargeResonantMandolin()
+        updateUI()
+    }
+    
+    func presetElectricGuitar() {
+        mandolin.presetElectricGuitarMandolin()
+        updateUI()
+    }
+    
+    func presetSmallDistortedMandolin() {
+        mandolin.presetSmallBodiedDistortedMandolin()
+        updateUI()
+    }
+    
+    func presetAcidMandolin() {
+        mandolin.presetAcidMandolin()
+        updateUI()
+    }
+    
+    func updateUI() {
+        updateTextFields()
+        updateSliders()
+        printCode()
+    }
+    
+    func updateSliders() {
+        detuneSlider?.value = Float(mandolin.detune)
+        bodySizeSlider?.value = Float(mandolin.bodySize)
+    }
+    
+    func updateTextFields() {
+        let detune = String(format: "%0.3f", mandolin.detune)
+        detuneLabel!.text = "\(detune)"
         
+        let bodySize = String(format: "%0.3f", mandolin.bodySize)
+        bodySizeLabel!.text = "\(bodySize)"
+    }
+
+    func printCode() {
+        // Here we're just printing out the preset so it can be copy and pasted into code
+        
+        print("public func presetXXXXXX() {")
+        print("    detune = \(String(format: "%0.3f", mandolin.detune))")
+        print("    bodySize = \(String(format: "%0.3f", mandolin.bodySize))")
+        print("}\n")
     }
     
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 850, height: 500))
 XCPlaygroundPage.currentPage.liveView = view
 
 AKPlaygroundLoop(frequency: playRate) {
