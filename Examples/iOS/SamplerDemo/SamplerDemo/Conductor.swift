@@ -50,7 +50,7 @@ class Conductor {
         sequence!.avTracks[2].destinationAudioUnit = padSynthesizer.samplerUnit
         sequence!.avTracks[3].destinationAudioUnit = bassSynthesizer.samplerUnit
         sequence!.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
-        sequence!.setLength(Beat(4))
+        sequence!.setLength(AKDuration(beats: 4))
     }
     
     func adjustVolume(volume: Float, instrument: Instrument) {
@@ -68,7 +68,7 @@ class Conductor {
     
     func adjustFilterFrequency(frequency: Float) {
         var value = Double(frequency)
-        value.denormalize(Double(30.0), max: Double(20000.00), taper: 3.03)
+        value.denormalize(minimum: Double(30.0), maximum: Double(20000.00), taper: 3.03)
         filter?.cutoffFrequency = value
     }
     
@@ -85,7 +85,7 @@ class Conductor {
     }
     
     func setLength(length: Double) {
-        sequence!.setLength(Beat(length))
+        sequence!.setLength(AKDuration(beats: length))
         sequence!.rewind()
     }
     
