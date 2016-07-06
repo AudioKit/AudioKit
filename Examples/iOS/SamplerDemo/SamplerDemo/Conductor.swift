@@ -47,8 +47,8 @@ class Conductor {
         sequence = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
         sequence?.enableLooping()
         sequence!.avTracks[1].destinationAudioUnit = arpeggioSynthesizer.samplerUnit
-        sequence!.avTracks[2].destinationAudioUnit = padSynthesizer.samplerUnit
-        sequence!.avTracks[3].destinationAudioUnit = bassSynthesizer.samplerUnit
+        sequence!.avTracks[2].destinationAudioUnit = bassSynthesizer.samplerUnit
+        sequence!.avTracks[3].destinationAudioUnit = padSynthesizer.samplerUnit
         sequence!.avTracks[4].destinationAudioUnit = drumKit.samplerUnit
         sequence!.setLength(AKDuration(beats: 4))
     }
