@@ -111,10 +111,10 @@ class PlaygroundView: AKPlaygroundView {
     
     func updateTextFields() {
         let detune = String(format: "%0.3f", mandolin.detune)
-        detuneLabel!.text = "\(detune)"
+        detuneLabel!.text = "Detune: \(detune)"
         
         let bodySize = String(format: "%0.3f", mandolin.bodySize)
-        bodySizeLabel!.text = "\(bodySize)"
+        bodySizeLabel!.text = "Body Size: \(bodySize)"
     }
     
     func printCode() {
