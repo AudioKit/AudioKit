@@ -47,10 +47,11 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setPluckPosition), value: pluckPosition)
         
         
-        addButton("Large Resonant Mandolin", action: #selector(presetLargeResonance))
-        addButton("Electric Guitar Mandolin", action: #selector(presetElectricGuitar))
-        addButton("Small-Bodied Distorted Mandolin", action: #selector(presetSmallDistortedMandolin))
-        addButton("Acid Mandolin", action: #selector(presetAcidMandolin))
+        addButton("Large Resonant", action: #selector(presetLargeResonance))
+        addButton("Octaves", action: #selector(presetOctaveUp))
+        addButton("Electric Guitar", action: #selector(presetElectricGuitar))
+        addButton("Small-Bodied Distorted", action: #selector(presetSmallDistortedMandolin))
+        addButton("Acid", action: #selector(presetAcidMandolin))
         addLineBreak()
     }
 
@@ -82,7 +83,12 @@ class PlaygroundView: AKPlaygroundView {
         mandolin.presetLargeResonantMandolin()
         updateUI()
     }
-    
+
+    func presetOctaveUp() {
+        mandolin.presetOctaveUpMandolin()
+        updateUI()
+    }
+
     func presetElectricGuitar() {
         mandolin.presetElectricGuitarMandolin()
         updateUI()
@@ -128,7 +134,7 @@ class PlaygroundView: AKPlaygroundView {
     
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 850, height: 500))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 XCPlaygroundPage.currentPage.liveView = view
 
 AKPlaygroundLoop(frequency: playRate) {
