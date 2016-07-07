@@ -129,6 +129,7 @@ typedef struct {
     SPFLOAT b;
     SPFLOAT y;
     SPFLOAT x;
+    SPFLOAT prev;
     int mode;
 } sp_adsr;
 
