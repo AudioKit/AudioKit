@@ -16,6 +16,12 @@ public extension AKMandolin {
         bodySize = 2.865
     }
 
+    public func presetOctaveUpMandolin() {
+        detune = 1.996
+        bodySize = 1.0
+    }
+
+    
     public func presetElectricGuitarMandolin() {
         detune = 0.996
         bodySize = 1.954

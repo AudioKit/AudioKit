@@ -53,7 +53,7 @@ class PlaygroundView: AKPlaygroundView {
         rampTimeSlider = addSlider(#selector(setRampTime), value: moogLadder.rampTime, minimum: 0, maximum: 2)
         
         addButton("Fog Filter", action: #selector(presetFogMoogLadder))
-        addButton("Short Tail Delay", action: #selector(presetDullNoiseMoogLadder))
+        addButton("Dull Noise", action: #selector(presetDullNoiseMoogLadder))
     }
 
     func startLoop(part: String) {
