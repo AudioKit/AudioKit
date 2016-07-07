@@ -11,14 +11,14 @@ import Foundation
 /// Preset for the AKDelay
 public extension AKDelay {
 
-    public func presetShortTailDelay() {
+    public func presetShortDelay() {
         time = 0.125
         feedback = 0.204
         lowPassCutoff = 5077.644
         dryWetMix = 0.100
     }
     
-    public func presetDenseLongTailDelay() {
+    public func presetDenseLongDelay() {
         time = 0.795
         feedback = 0.900
         lowPassCutoff = 5453.823
