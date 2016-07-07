@@ -59,8 +59,8 @@ class PlaygroundView: AKPlaygroundView {
         dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
         dryWetMixSlider = addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
         
-        addButton("Short Tail Delay", action: #selector(presetShortTailDelay))
-        addButton("Dense Long Tail Delay", action: #selector(presetDenseLongTailDelay))
+        addButton("Short Delay", action: #selector(presetShortDelay))
+        addButton("Dense Long Delay", action: #selector(presetDenseLongDelay))
         addButton("Electric Circuits Delay", action: #selector(presetElectricCircuitsDelay))
     }
 
@@ -124,14 +124,14 @@ class PlaygroundView: AKPlaygroundView {
         printCode()
     }
 
-    func presetShortTailDelay() {
-        delay.presetShortTailDelay()
+    func presetShortDelay() {
+        delay.presetShortDelay()
         delay.start()
         updateUI()
     }
     
-    func presetDenseLongTailDelay() {
-        delay.presetDenseLongTailDelay()
+    func presetDenseLongDelay() {
+        delay.presetDenseLongDelay()
         delay.start()
         updateUI()
     }
