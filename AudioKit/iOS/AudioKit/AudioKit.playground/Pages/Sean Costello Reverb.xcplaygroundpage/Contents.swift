@@ -120,10 +120,10 @@ class PlaygroundView: AKPlaygroundView {
     
     func updateTextFields() {
         let cutoffFrequency = String(format: "%0.3f", reverb.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "\(cutoffFrequency)"
+        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(cutoffFrequency)"
         
         let feedback = String(format: "%0.3f", reverb.feedback)
-        feedbackLabel!.text = "\(feedback)"
+        feedbackLabel!.text = "Feedback: \(feedback)"
     }
 
     func printCode() {

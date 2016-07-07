@@ -132,13 +132,13 @@ class PlaygroundView: AKPlaygroundView {
     
     func updateTextFields() {
         let cutoffFrequency = String(format: "%0.3f", moogLadder.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "\(cutoffFrequency)"
+        cutoffFrequencyLabel!.text = " Cutoff Frequency: \(cutoffFrequency)"
         
         let resonance = String(format: "%0.3f", moogLadder.resonance)
-        resonanceLabel!.text = "\(resonance)"
+        resonanceLabel!.text = "Resonance: \(resonance)"
         
         let rampTime = String(format: "%0.3f", moogLadder.rampTime)
-        rampTimeLabel!.text = "\(rampTime)"
+        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 
     func printCode() {
@@ -147,6 +147,7 @@ class PlaygroundView: AKPlaygroundView {
         print("public func presetXXXXXX() {")
         print("    cutoffFrequency = \(String(format: "%0.3f", moogLadder.cutoffFrequency))")
         print("    resonance = \(String(format: "%0.3f", moogLadder.resonance))")
+        print("    ramp time = \(String(format: "%0.3f", moogLadder.rampTime))")
         print("}\n")
     }
 }
