@@ -151,16 +151,16 @@ class PlaygroundView: AKPlaygroundView {
     
     func updateTextFields() {
         let delayTime = String(format: "%0.1f", delay.time)
-        timeLabel!.text = "\(delayTime)"
+        timeLabel!.text = "Time: \(delayTime)"
         
         let feedback = String(format: "%0.3f", delay.feedback)
-        feedbackLabel!.text = "\(feedback)"
+        feedbackLabel!.text = "Feedback: \(feedback)"
         
         let lowPassCutoff = String(format: "%0.3f", delay.lowPassCutoff)
-        lowPassCutoffFrequencyLabel!.text = "\(lowPassCutoff)"
+        lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
 
         let dryWetMix = String(format: "%0.3f", delay.dryWetMix)
-        dryWetMixLabel!.text = "\(dryWetMix)"
+        dryWetMixLabel!.text = "Mix: \(dryWetMix)"
 
     }
 
