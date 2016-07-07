@@ -59,8 +59,8 @@ class PlaygroundView: AKPlaygroundView {
         dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
         dryWetMixSlider = addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
         
-        addButton("Short Tail Delay", action: #selector(presetShortTailDelay))
-        addButton("Dense Long Tail Delay", action: #selector(presetDenseLongTailDelay))
+        addButton("Short Delay", action: #selector(presetShortDelay))
+        addButton("Dense Long Delay", action: #selector(presetDenseLongDelay))
         addButton("Electric Circuits Delay", action: #selector(presetElectricCircuitsDelay))
     }
     
@@ -124,14 +124,14 @@ class PlaygroundView: AKPlaygroundView {
         printCode()
     }
     
-    func presetShortTailDelay() {
-        delay.presetShortTailDelay()
+    func presetShortDelay() {
+        delay.presetShortDelay()
         delay.start()
         updateUI()
     }
     
-    func presetDenseLongTailDelay() {
-        delay.presetDenseLongTailDelay()
+    func presetDenseLongDelay() {
+        delay.presetDenseLongDelay()
         delay.start()
         updateUI()
     }
@@ -151,17 +151,16 @@ class PlaygroundView: AKPlaygroundView {
     
     func updateTextFields() {
         let delayTime = String(format: "%0.1f", delay.time)
-        timeLabel!.text = "\(delayTime)"
+        timeLabel!.text = "Time: \(delayTime)"
         
         let feedback = String(format: "%0.3f", delay.feedback)
-        feedbackLabel!.text = "\(feedback)"
+        feedbackLabel!.text = "Feedback: \(feedback)"
         
         let lowPassCutoff = String(format: "%0.3f", delay.lowPassCutoff)
-        lowPassCutoffFrequencyLabel!.text = "\(lowPassCutoff)"
+        lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
         
         let dryWetMix = String(format: "%0.3f", delay.dryWetMix)
-        dryWetMixLabel!.text = "\(dryWetMix)"
-        
+        dryWetMixLabel!.text = "Mix: \(dryWetMix)"        
     }
     
     func printCode() {

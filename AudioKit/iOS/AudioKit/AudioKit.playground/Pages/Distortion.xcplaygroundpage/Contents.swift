@@ -233,28 +233,31 @@ class PlaygroundView: AKPlaygroundView {
     
     func updateTextFields() {
         let delay = String(format: "%0.3f", distortion.delayMix)
-        delayLabel!.text = "\(delay)"
+        delayLabel!.text = "Delay: \(delay) Milliseconds"
         
         let decay = String(format: "%0.3f", distortion.decay)
-        decayLabel!.text = "\(decay)"
+        decayLabel!.text = "Decay: \(decay) Rate"
         
         let delayMix = String(format: "%0.3f", distortion.delayMix)
-        delayMixLabel!.text = "\(delayMix)"
+        delayMixLabel!.text = "Delay Mix: \(delayMix)"
 
         let linearTerm = String(format: "%0.3f", distortion.linearTerm)
-        linearTermLabel!.text = "\(linearTerm)"
+        linearTermLabel!.text = "Linear Term: \(linearTerm)"
 
         let squaredTerm = String(format: "%0.3f", distortion.squaredTerm)
-        squaredTermLabel!.text = "\(squaredTerm)"
+        squaredTermLabel!.text = "Squared Term:\(squaredTerm)"
 
         let cubicTerm = String(format: "%0.3f", distortion.cubicTerm)
-        cubicTermLabel!.text = "\(cubicTerm)"
+        cubicTermLabel!.text = "Cubic Term: \(cubicTerm)"
 
         let polynomialMix = String(format: "%0.3f", distortion.polynomialMix)
-        polynomialMixLabel!.text = "\(polynomialMix)"
+        polynomialMixLabel!.text = "Polynomial Mix: \(polynomialMix)"
+
+        let softClipGain = String(format: "%0.3f", distortion.softClipGain)
+        softClipGainLabel!.text = "Soft Clip Gain: \(softClipGain) dB"
 
         let finalMix = String(format: "%0.3f", distortion.finalMix)
-        finalMixLabel!.text = "\(finalMix)"
+        finalMixLabel!.text = "Final Mix:\(finalMix)"
     }
 
     func printCode() {
