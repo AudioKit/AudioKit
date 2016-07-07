@@ -14,11 +14,18 @@ public protocol AKComputedParameter: AKParameter {}
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
 public struct AKOperation: AKComputedParameter {
 
-    /// Default input to any operation stack
+    /// Default input to any operation
     public static var input = AKOperation("(0 p)")
+    
+    /// Left input to any stereo operation
+    public static var leftInput = AKOperation("(0 p)")
 
+    /// Right input to any stereo operation
+    public static var rightInput = AKOperation("(1 p)")
+
+    
     /// Dummy trigger
-    public static var trigger = AKOperation("0 p")
+    public static var trigger = AKOperation("(0 p)")
 
     /// Call up a numbered parameter to the internal operation
     ///
