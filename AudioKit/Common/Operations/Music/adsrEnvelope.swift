@@ -25,10 +25,6 @@ extension AKOperation {
         sustain: AKParameter = 1,
         release: AKParameter = 0.2
         ) -> AKOperation {
-        var sustainLevel = "0.00000001"
-        if Double(sustain.description) > 0 {
-            sustainLevel = sustain.description
-        }
-        return AKOperation("((\(gate) \(attack) \(decay) \(sustainLevel) \(release) adsr) \(self.toMono()) *)")
+        return AKOperation("((\(gate) \(attack) \(decay) \(sustain) \(release) adsr) \(self.toMono()) *)")
     }
 }
