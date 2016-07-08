@@ -377,7 +377,7 @@ public class AKSequencer {
     
     /// Load a MIDI file
     public func loadMIDIFile(_ filename: String) {
-        let bundle = Bundle.main()
+        let bundle = Bundle.main
         let file = bundle.pathForResource(filename, ofType: "mid")
         let fileURL = URL.init(fileURLWithPath: file!)
         MusicSequenceFileLoad(sequence!, fileURL, MusicSequenceFileTypeID.midiType, MusicSequenceLoadFlags())

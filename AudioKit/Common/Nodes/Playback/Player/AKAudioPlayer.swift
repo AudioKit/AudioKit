@@ -242,7 +242,7 @@ public class AKAudioPlayer : AKNode, AKToggleable{
             self.currentTimeTimer?.invalidate()
             self.currentTimeTimer = nil
             self.currentTimeTimer = Timer(timeInterval: 0.1, target: self, selector: #selector(AKAudioPlayer.timerPlayerHead), userInfo: nil, repeats: true)
-            RunLoop.current().add(self.currentTimeTimer!, forMode: RunLoopMode.commonModes)
+            RunLoop.current.add(self.currentTimeTimer!, forMode: RunLoopMode.commonModes)
         }
 
     }
@@ -360,7 +360,7 @@ public class AKAudioPlayer : AKNode, AKToggleable{
             self.currentTimeTimer?.invalidate()
             self.currentTimeTimer = nil
             self.currentTimeTimer = Timer(timeInterval: 0.1, target: self, selector: #selector(AKAudioPlayer.timerPlayerHead), userInfo: nil, repeats: true)
-            RunLoop.current().add(self.currentTimeTimer!, forMode: RunLoopMode.commonModes)
+            RunLoop.current.add(self.currentTimeTimer!, forMode: RunLoopMode.commonModes)
         }
         else {
             print("ERROR AKaudioPlayer:  cannot play, \(audioFile.fileNameWithExtension) is empty or segment is too short!")

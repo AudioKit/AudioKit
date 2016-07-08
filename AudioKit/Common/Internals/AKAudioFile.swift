@@ -89,7 +89,7 @@ public class AKAudioFile: AVAudioFile
         case .documents:
             filePath =  (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]) + fileNameWithExtension
         case .resources:
-            let path =  Bundle.main().pathForResource(fileName, ofType: ext)
+            let path =  Bundle.main.pathForResource(fileName, ofType: ext)
             if path == nil
             {
                 print( "ERROR: AKAudioFile cannot find \"\(fileName).\(ext)\" in resources!...")
@@ -98,7 +98,7 @@ public class AKAudioFile: AVAudioFile
             filePath = path!
 
         }
-        let fileManager = FileManager.default()
+        let fileManager = FileManager.default
         if fileManager.fileExists(atPath: filePath) {
             let fileUrl = URL(string: filePath)
 
@@ -154,7 +154,7 @@ public class AKAudioFile: AVAudioFile
         }
         let directoryPath = try! nsurl!.deletingLastPathComponent()
         // Check if directory exists
-        let fileManager = FileManager.default()
+        let fileManager = FileManager.default
         if fileManager.fileExists(atPath: (directoryPath.absoluteString)!) == false {
             print( "ERROR AKAudioFile: directory \"\(directoryPath)\" doesn't exists!...")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
@@ -385,7 +385,7 @@ public class AKAudioFile: AVAudioFile
             }
             let directoryPath = try! nsurl!.deletingLastPathComponent()
             // Check if directory exists
-            let fileManager = FileManager.default()
+            let fileManager = FileManager.default
             if fileManager.fileExists(atPath: (directoryPath.absoluteString)!) == false {
                 print( "ERROR AKAudioFile export: directory \"\(directoryPath)\" doesn't exists!...")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)

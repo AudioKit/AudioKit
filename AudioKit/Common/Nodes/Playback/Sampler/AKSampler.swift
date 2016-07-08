@@ -43,7 +43,7 @@ public class AKSampler: AKNode {
     /// - parameter file: Name of the file without an extension (assumed to be accessible from the bundle)
     ///
     public func loadWav(_ file: String) {
-        guard let url = Bundle.main().urlForResource(file, withExtension: "wav") else {
+        guard let url = Bundle.main.urlForResource(file, withExtension: "wav") else {
                 fatalError("file not found.")
         }
         do {
@@ -63,7 +63,7 @@ public class AKSampler: AKNode {
     
 
     private func loadSoundFont(_ file: String, preset: Int, type: Int) {
-        guard let url = Bundle.main().urlForResource(file, withExtension: "sf2") else {
+        guard let url = Bundle.main.urlForResource(file, withExtension: "sf2") else {
             fatalError("file not found.")
         }
         do {
@@ -110,7 +110,7 @@ public class AKSampler: AKNode {
     
     internal func loadInstrument(_ file: String, type: String) {
         print("filename is \(file)")
-        guard let url = Bundle.main().urlForResource(file, withExtension: type) else {
+        guard let url = Bundle.main.urlForResource(file, withExtension: type) else {
                 fatalError("file not found.")
         }
         do {
