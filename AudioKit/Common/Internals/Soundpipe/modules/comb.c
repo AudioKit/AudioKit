@@ -47,6 +47,7 @@ int sp_comb_compute(sp_data *sp, sp_comb *p, SPFLOAT *in, SPFLOAT *out)
     SPFLOAT tmp = 0;
     SPFLOAT coef = p->coef;
     SPFLOAT outsamp = 0;
+    SPFLOAT *buf = (SPFLOAT *)p->aux.ptr;
 
     if(p->prvt != p->revtime) {
         p->prvt = p->revtime;
@@ -57,11 +58,11 @@ int sp_comb_compute(sp_data *sp, sp_comb *p, SPFLOAT *in, SPFLOAT *out)
             coef = p->coef = exp(exp_arg);
         }
     }
-    sp_auxdata_getbuf(&p->aux, p->bufpos, &outsamp);
+    outsamp = buf[p->bufpos];
     tmp = outsamp;
     tmp *= coef;
     tmp += *in;
-    sp_auxdata_setbuf(&p->aux, p->bufpos, &tmp);
+    buf[p->bufpos] = tmp;
     *out = outsamp;
 
     p->bufpos++;

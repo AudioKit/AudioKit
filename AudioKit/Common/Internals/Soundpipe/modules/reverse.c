@@ -27,8 +27,9 @@ int sp_reverse_init(sp_data *sp, sp_reverse *p, SPFLOAT delay)
 
 int sp_reverse_compute(sp_data *sp, sp_reverse *p, SPFLOAT *in, SPFLOAT *out)
 {
-    sp_auxdata_getbuf(&p->buf, p->bufpos, out);
-    sp_auxdata_setbuf(&p->buf, (p->bufsize - 1) - p->bufpos, in);
+    SPFLOAT *buf = (SPFLOAT *)p->buf.ptr;
+    *out = buf[p->bufpos];
+    buf[(p->bufsize - 1) - p->bufpos] = *in;
     p->bufpos = (p->bufpos + 1) % p->bufsize;
     return SP_OK;
 }
