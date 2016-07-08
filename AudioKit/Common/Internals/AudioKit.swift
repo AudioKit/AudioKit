@@ -221,7 +221,7 @@ public typealias AKCallback = (Void) -> Void
                 try self.engine.start()
                 // Sends notification after restarting the engine, so it is safe to resume AudioKit functions.
                 if AKSettings.notificationsEnabled {
-                    NotificationCenter.default().post(
+                    NotificationCenter.default.post(
                         name: Notification.Name(rawValue: AKNotifications.engineRestartedAfterRouteChange),
                         object: nil,
                         userInfo: (notification as NSNotification).userInfo)

@@ -100,7 +100,7 @@ public class AKPlaygroundView: NSView {
         
         newButton.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         newButton.sizeToFit()
-        newButton.bezelStyle = NSBezelStyle.shadowlessSquareBezelStyle
+        newButton.bezelStyle = NSBezelStyle.shadowlessSquare
         newButton.target = self
         newButton.action = action
         self.addSubview(newButton)
