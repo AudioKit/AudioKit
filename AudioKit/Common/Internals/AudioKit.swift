@@ -79,7 +79,7 @@ public typealias AKCallback = (Void) -> Void
             var devid = input.deviceID
             AudioObjectSetPropertyData(
                 AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+                &address, 0, nil, UInt32(sizeof(AudioDeviceID.self)), &devid)
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
                 for dev in devices {
@@ -100,7 +100,7 @@ public typealias AKCallback = (Void) -> Void
             var devid = output.deviceID
             AudioObjectSetPropertyData(
                 AudioObjectID(kAudioObjectSystemObject),
-                &address, 0, nil, UInt32(sizeof(AudioDeviceID)), &devid)
+                &address, 0, nil, UInt32(sizeof(AudioDeviceID.self)), &devid)
         #else
             //not available on ios
         #endif

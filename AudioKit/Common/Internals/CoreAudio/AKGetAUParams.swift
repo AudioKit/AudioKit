@@ -24,7 +24,7 @@ public struct AKGetAUParams {
             0,
             &size,
             &propertyBool)
-        let numParams = Int(size)/sizeof(AudioUnitParameterID)
+        let numParams = Int(size)/sizeof(AudioUnitParameterID.self)
         var parameterIDs = [AudioUnitParameterID](repeating: 0, count: Int(numParams))
         AudioUnitGetProperty(
             inputAU,
@@ -35,7 +35,7 @@ public struct AKGetAUParams {
             &size)
         var paramInfo = AudioUnitParameterInfo()
         var outParams = [AudioUnitParameterInfo]()
-        var parameterInfoSize: UInt32 = UInt32(sizeof(AudioUnitParameterInfo))
+        var parameterInfoSize: UInt32 = UInt32(sizeof(AudioUnitParameterInfo.self))
         for paramID in parameterIDs {
             AudioUnitGetProperty(
                 inputAU,

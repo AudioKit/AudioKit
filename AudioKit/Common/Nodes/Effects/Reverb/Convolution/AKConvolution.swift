@@ -97,9 +97,9 @@ public class AKConvolution: AKNode, AKToggleable {
             theOutputFormat.mSampleRate = AKSettings.sampleRate
             theOutputFormat.mFormatID = kAudioFormatLinearPCM
             theOutputFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat
-            theOutputFormat.mBitsPerChannel = UInt32(strideof(Float)) * 8
+            theOutputFormat.mBitsPerChannel = UInt32(strideof(Float.self)) * 8
             theOutputFormat.mChannelsPerFrame = 1; // Mono
-            theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(strideof(Float))
+            theOutputFormat.mBytesPerFrame = theOutputFormat.mChannelsPerFrame * UInt32(strideof(Float.self))
             theOutputFormat.mFramesPerPacket = 1
             theOutputFormat.mBytesPerPacket = theOutputFormat.mFramesPerPacket * theOutputFormat.mBytesPerFrame
             

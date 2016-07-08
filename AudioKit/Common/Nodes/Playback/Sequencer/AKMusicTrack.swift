@@ -100,7 +100,7 @@ public class AKMusicTrack {
     /// - paramter numberOfLoops: how many times to loop. 0 is infinte
     ///
     public func setLoopInfo(_ duration: Beat, numberOfLoops: Int) {
-        let size: UInt32 = UInt32(sizeof(MusicTrackLoopInfo))
+        let size: UInt32 = UInt32(sizeof(MusicTrackLoopInfo.self))
         let loopDuration = MusicTimeStamp(duration)
         var loopInfo = MusicTrackLoopInfo(loopDuration: loopDuration,
                                           numberOfLoops: Int32(numberOfLoops))
