@@ -1,3 +1,4 @@
+/* THIS IS A GENERATED FILE. DO NOT EDIT BY HAND */
 /*
  FFT library
  based on public domain code by John Green <green_jt@vsdec.npt.nuwc.navy.mil>
@@ -77,344 +78,344 @@ static void fftBRInit(int M, int16_t *BRLow)
  * parts of ffts1 *
  *****************/
 
-//static void bitrevR2(SPFLOAT *ioptr, int M, int16_t *BRLow)
-//{
-//    /*** bit reverse and first radix 2 stage of forward or inverse fft ***/
-//    SPFLOAT f0r;
-//    SPFLOAT f0i;
-//    SPFLOAT f1r;
-//    SPFLOAT f1i;
-//    SPFLOAT f2r;
-//    SPFLOAT f2i;
-//    SPFLOAT f3r;
-//    SPFLOAT f3i;
-//    SPFLOAT f4r;
-//    SPFLOAT f4i;
-//    SPFLOAT f5r;
-//    SPFLOAT f5i;
-//    SPFLOAT f6r;
-//    SPFLOAT f6i;
-//    SPFLOAT f7r;
-//    SPFLOAT f7i;
-//    SPFLOAT t0r;
-//    SPFLOAT t0i;
-//    SPFLOAT t1r;
-//    SPFLOAT t1i;
-//    SPFLOAT *p0r;
-//    SPFLOAT *p1r;
-//    SPFLOAT *IOP;
-//    SPFLOAT *iolimit;
-//    int Colstart;
-//    int iCol;
-//    unsigned int posA;
-//    unsigned int posAi;
-//    unsigned int posB;
-//    unsigned int posBi;
-//    
-//    const unsigned int Nrems2 = POW2((M + 3) / 2);
-//    const unsigned int Nroot_1_ColInc = POW2(M) - Nrems2;
-//    const unsigned int Nroot_1 = POW2(M / 2 - 1) - 1;
-//    const unsigned int ColstartShift = (M + 1) / 2 + 1;
-//    
-//    posA = POW2(M);               /* 1/2 of POW2(M) complexes */
-//    posAi = posA + 1;
-//    posB = posA + 2;
-//    posBi = posB + 1;
-//    
-//    iolimit = ioptr + Nrems2;
-//    for (; ioptr < iolimit; ioptr += POW2(M / 2 + 1)) {
-//        for (Colstart = Nroot_1; Colstart >= 0; Colstart--) {
-//            iCol = Nroot_1;
-//            p0r = ioptr + Nroot_1_ColInc + BRLow[Colstart] * 4;
-//            IOP = ioptr + (Colstart << ColstartShift);
-//            p1r = IOP + BRLow[iCol] * 4;
-//            f0r = *(p0r);
-//            f0i = *(p0r + 1);
-//            f1r = *(p0r + posA);
-//            f1i = *(p0r + posAi);
-//            for (; iCol > Colstart;) {
-//                f2r = *(p0r + 2);
-//                f2i = *(p0r + (2 + 1));
-//                f3r = *(p0r + posB);
-//                f3i = *(p0r + posBi);
-//                f4r = *(p1r);
-//                f4i = *(p1r + 1);
-//                f5r = *(p1r + posA);
-//                f5i = *(p1r + posAi);
-//                f6r = *(p1r + 2);
-//                f6i = *(p1r + (2 + 1));
-//                f7r = *(p1r + posB);
-//                f7i = *(p1r + posBi);
-//                
-//                t0r = f0r + f1r;
-//                t0i = f0i + f1i;
-//                f1r = f0r - f1r;
-//                f1i = f0i - f1i;
-//                t1r = f2r + f3r;
-//                t1i = f2i + f3i;
-//                f3r = f2r - f3r;
-//                f3i = f2i - f3i;
-//                f0r = f4r + f5r;
-//                f0i = f4i + f5i;
-//                f5r = f4r - f5r;
-//                f5i = f4i - f5i;
-//                f2r = f6r + f7r;
-//                f2i = f6i + f7i;
-//                f7r = f6r - f7r;
-//                f7i = f6i - f7i;
-//                
-//                *(p1r) = t0r;
-//                *(p1r + 1) = t0i;
-//                *(p1r + 2) = f1r;
-//                *(p1r + (2 + 1)) = f1i;
-//                *(p1r + posA) = t1r;
-//                *(p1r + posAi) = t1i;
-//                *(p1r + posB) = f3r;
-//                *(p1r + posBi) = f3i;
-//                *(p0r) = f0r;
-//                *(p0r + 1) = f0i;
-//                *(p0r + 2) = f5r;
-//                *(p0r + (2 + 1)) = f5i;
-//                *(p0r + posA) = f2r;
-//                *(p0r + posAi) = f2i;
-//                *(p0r + posB) = f7r;
-//                *(p0r + posBi) = f7i;
-//                
-//                p0r -= Nrems2;
-//                f0r = *(p0r);
-//                f0i = *(p0r + 1);
-//                f1r = *(p0r + posA);
-//                f1i = *(p0r + posAi);
-//                iCol -= 1;
-//                p1r = IOP + BRLow[iCol] * 4;
-//            }
-//            f2r = *(p0r + 2);
-//            f2i = *(p0r + (2 + 1));
-//            f3r = *(p0r + posB);
-//            f3i = *(p0r + posBi);
-//            
-//            t0r = f0r + f1r;
-//            t0i = f0i + f1i;
-//            f1r = f0r - f1r;
-//            f1i = f0i - f1i;
-//            t1r = f2r + f3r;
-//            t1i = f2i + f3i;
-//            f3r = f2r - f3r;
-//            f3i = f2i - f3i;
-//            
-//            *(p0r) = t0r;
-//            *(p0r + 1) = t0i;
-//            *(p0r + 2) = f1r;
-//            *(p0r + (2 + 1)) = f1i;
-//            *(p0r + posA) = t1r;
-//            *(p0r + posAi) = t1i;
-//            *(p0r + posB) = f3r;
-//            *(p0r + posBi) = f3i;
-//        }
-//    }
-//}
-//
-//static void fft2pt(SPFLOAT *ioptr)
-//{
-//    /***   RADIX 2 fft      ***/
-//    SPFLOAT f0r, f0i, f1r, f1i;
-//    SPFLOAT t0r, t0i;
-//    
-//    /* bit reversed load */
-//    f0r = ioptr[0];
-//    f0i = ioptr[1];
-//    f1r = ioptr[2];
-//    f1i = ioptr[3];
-//    
-//    /* Butterflys           */
-//    /*
-//     f0   -       -       t0
-//     f1   -  1 -  f1
-//     */
-//    
-//    t0r = f0r + f1r;
-//    t0i = f0i + f1i;
-//    f1r = f0r - f1r;
-//    f1i = f0i - f1i;
-//    
-//    /* store result */
-//    ioptr[0] = t0r;
-//    ioptr[1] = t0i;
-//    ioptr[2] = f1r;
-//    ioptr[3] = f1i;
-//}
-//
-//static void fft4pt(SPFLOAT *ioptr)
-//{
-//    /***   RADIX 4 fft      ***/
-//    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
-//    SPFLOAT t0r, t0i, t1r, t1i;
-//    
-//    /* bit reversed load */
-//    f0r = ioptr[0];
-//    f0i = ioptr[1];
-//    f1r = ioptr[4];
-//    f1i = ioptr[5];
-//    f2r = ioptr[2];
-//    f2i = ioptr[3];
-//    f3r = ioptr[6];
-//    f3i = ioptr[7];
-//    
-//    /* Butterflys           */
-//    /*
-//     f0   -       -       t0      -       -       f0
-//     f1   -  1 -  f1      -       -       f1
-//     f2   -       -       f2      -  1 -  f2
-//     f3   -  1 -  t1      - -i -  f3
-//     */
-//    
-//    t0r = f0r + f1r;
-//    t0i = f0i + f1i;
-//    f1r = f0r - f1r;
-//    f1i = f0i - f1i;
-//    
-//    t1r = f2r - f3r;
-//    t1i = f2i - f3i;
-//    f2r = f2r + f3r;
-//    f2i = f2i + f3i;
-//    
-//    f0r = t0r + f2r;
-//    f0i = t0i + f2i;
-//    f2r = t0r - f2r;
-//    f2i = t0i - f2i;
-//    
-//    f3r = f1r - t1i;
-//    f3i = f1i + t1r;
-//    f1r = f1r + t1i;
-//    f1i = f1i - t1r;
-//    
-//    /* store result */
-//    ioptr[0] = f0r;
-//    ioptr[1] = f0i;
-//    ioptr[2] = f1r;
-//    ioptr[3] = f1i;
-//    ioptr[4] = f2r;
-//    ioptr[5] = f2i;
-//    ioptr[6] = f3r;
-//    ioptr[7] = f3i;
-//}
-//
-//static void fft8pt(SPFLOAT *ioptr)
-//{
-//    /***   RADIX 8 fft      ***/
-//    SPFLOAT w0r = (SPFLOAT)(1.0 / MYROOT2);    /* cos(pi/4)   */
-//    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
-//    SPFLOAT f4r, f4i, f5r, f5i, f6r, f6i, f7r, f7i;
-//    SPFLOAT t0r, t0i, t1r, t1i;
-//    const SPFLOAT Two = 2.0;
-//    
-//    /* bit reversed load */
-//    f0r = ioptr[0];
-//    f0i = ioptr[1];
-//    f1r = ioptr[8];
-//    f1i = ioptr[9];
-//    f2r = ioptr[4];
-//    f2i = ioptr[5];
-//    f3r = ioptr[12];
-//    f3i = ioptr[13];
-//    f4r = ioptr[2];
-//    f4i = ioptr[3];
-//    f5r = ioptr[10];
-//    f5i = ioptr[11];
-//    f6r = ioptr[6];
-//    f6i = ioptr[7];
-//    f7r = ioptr[14];
-//    f7i = ioptr[15];
-//    /* Butterflys           */
-//    /*
-//     f0   -       -       t0      -       -       f0      -       -       f0
-//     f1   -  1 -  f1      -       -       f1      -       -       f1
-//     f2   -       -       f2      -  1 -  f2      -       -       f2
-//     f3   -  1 -  t1      - -i -  f3      -       -       f3
-//     f4   -       -       t0      -       -       f4      -  1 -  t0
-//     f5   -  1 -  f5      -       -       f5      - w3 -  f4
-//     f6   -       -       f6      -  1 -  f6      - -i -  t1
-//     f7   -  1 -  t1      - -i -  f7      - iw3-  f6
-//     */
-//    
-//    t0r = f0r + f1r;
-//    t0i = f0i + f1i;
-//    f1r = f0r - f1r;
-//    f1i = f0i - f1i;
-//    
-//    t1r = f2r - f3r;
-//    t1i = f2i - f3i;
-//    f2r = f2r + f3r;
-//    f2i = f2i + f3i;
-//    
-//    f0r = t0r + f2r;
-//    f0i = t0i + f2i;
-//    f2r = t0r - f2r;
-//    f2i = t0i - f2i;
-//    
-//    f3r = f1r - t1i;
-//    f3i = f1i + t1r;
-//    f1r = f1r + t1i;
-//    f1i = f1i - t1r;
-//    
-//    t0r = f4r + f5r;
-//    t0i = f4i + f5i;
-//    f5r = f4r - f5r;
-//    f5i = f4i - f5i;
-//    
-//    t1r = f6r - f7r;
-//    t1i = f6i - f7i;
-//    f6r = f6r + f7r;
-//    f6i = f6i + f7i;
-//    
-//    f4r = t0r + f6r;
-//    f4i = t0i + f6i;
-//    f6r = t0r - f6r;
-//    f6i = t0i - f6i;
-//    
-//    f7r = f5r - t1i;
-//    f7i = f5i + t1r;
-//    f5r = f5r + t1i;
-//    f5i = f5i - t1r;
-//    
-//    t0r = f0r - f4r;
-//    t0i = f0i - f4i;
-//    f0r = f0r + f4r;
-//    f0i = f0i + f4i;
-//    
-//    t1r = f2r - f6i;
-//    t1i = f2i + f6r;
-//    f2r = f2r + f6i;
-//    f2i = f2i - f6r;
-//    
-//    f4r = f1r - f5r * w0r - f5i * w0r;
-//    f4i = f1i + f5r * w0r - f5i * w0r;
-//    f1r = f1r * Two - f4r;
-//    f1i = f1i * Two - f4i;
-//    
-//    f6r = f3r + f7r * w0r - f7i * w0r;
-//    f6i = f3i + f7r * w0r + f7i * w0r;
-//    f3r = f3r * Two - f6r;
-//    f3i = f3i * Two - f6i;
-//    
-//    /* store result */
-//    ioptr[0] = f0r;
-//    ioptr[1] = f0i;
-//    ioptr[2] = f1r;
-//    ioptr[3] = f1i;
-//    ioptr[4] = f2r;
-//    ioptr[5] = f2i;
-//    ioptr[6] = f3r;
-//    ioptr[7] = f3i;
-//    ioptr[8] = t0r;
-//    ioptr[9] = t0i;
-//    ioptr[10] = f4r;
-//    ioptr[11] = f4i;
-//    ioptr[12] = t1r;
-//    ioptr[13] = t1i;
-//    ioptr[14] = f6r;
-//    ioptr[15] = f6i;
-//}
+static void bitrevR2(SPFLOAT *ioptr, int M, int16_t *BRLow)
+{
+    /*** bit reverse and first radix 2 stage of forward or inverse fft ***/
+    SPFLOAT f0r;
+    SPFLOAT f0i;
+    SPFLOAT f1r;
+    SPFLOAT f1i;
+    SPFLOAT f2r;
+    SPFLOAT f2i;
+    SPFLOAT f3r;
+    SPFLOAT f3i;
+    SPFLOAT f4r;
+    SPFLOAT f4i;
+    SPFLOAT f5r;
+    SPFLOAT f5i;
+    SPFLOAT f6r;
+    SPFLOAT f6i;
+    SPFLOAT f7r;
+    SPFLOAT f7i;
+    SPFLOAT t0r;
+    SPFLOAT t0i;
+    SPFLOAT t1r;
+    SPFLOAT t1i;
+    SPFLOAT *p0r;
+    SPFLOAT *p1r;
+    SPFLOAT *IOP;
+    SPFLOAT *iolimit;
+    int Colstart;
+    int iCol;
+    unsigned int posA;
+    unsigned int posAi;
+    unsigned int posB;
+    unsigned int posBi;
+    
+    const unsigned int Nrems2 = POW2((M + 3) / 2);
+    const unsigned int Nroot_1_ColInc = POW2(M) - Nrems2;
+    const unsigned int Nroot_1 = POW2(M / 2 - 1) - 1;
+    const unsigned int ColstartShift = (M + 1) / 2 + 1;
+    
+    posA = POW2(M);               /* 1/2 of POW2(M) complexes */
+    posAi = posA + 1;
+    posB = posA + 2;
+    posBi = posB + 1;
+    
+    iolimit = ioptr + Nrems2;
+    for (; ioptr < iolimit; ioptr += POW2(M / 2 + 1)) {
+        for (Colstart = Nroot_1; Colstart >= 0; Colstart--) {
+            iCol = Nroot_1;
+            p0r = ioptr + Nroot_1_ColInc + BRLow[Colstart] * 4;
+            IOP = ioptr + (Colstart << ColstartShift);
+            p1r = IOP + BRLow[iCol] * 4;
+            f0r = *(p0r);
+            f0i = *(p0r + 1);
+            f1r = *(p0r + posA);
+            f1i = *(p0r + posAi);
+            for (; iCol > Colstart;) {
+                f2r = *(p0r + 2);
+                f2i = *(p0r + (2 + 1));
+                f3r = *(p0r + posB);
+                f3i = *(p0r + posBi);
+                f4r = *(p1r);
+                f4i = *(p1r + 1);
+                f5r = *(p1r + posA);
+                f5i = *(p1r + posAi);
+                f6r = *(p1r + 2);
+                f6i = *(p1r + (2 + 1));
+                f7r = *(p1r + posB);
+                f7i = *(p1r + posBi);
+                
+                t0r = f0r + f1r;
+                t0i = f0i + f1i;
+                f1r = f0r - f1r;
+                f1i = f0i - f1i;
+                t1r = f2r + f3r;
+                t1i = f2i + f3i;
+                f3r = f2r - f3r;
+                f3i = f2i - f3i;
+                f0r = f4r + f5r;
+                f0i = f4i + f5i;
+                f5r = f4r - f5r;
+                f5i = f4i - f5i;
+                f2r = f6r + f7r;
+                f2i = f6i + f7i;
+                f7r = f6r - f7r;
+                f7i = f6i - f7i;
+                
+                *(p1r) = t0r;
+                *(p1r + 1) = t0i;
+                *(p1r + 2) = f1r;
+                *(p1r + (2 + 1)) = f1i;
+                *(p1r + posA) = t1r;
+                *(p1r + posAi) = t1i;
+                *(p1r + posB) = f3r;
+                *(p1r + posBi) = f3i;
+                *(p0r) = f0r;
+                *(p0r + 1) = f0i;
+                *(p0r + 2) = f5r;
+                *(p0r + (2 + 1)) = f5i;
+                *(p0r + posA) = f2r;
+                *(p0r + posAi) = f2i;
+                *(p0r + posB) = f7r;
+                *(p0r + posBi) = f7i;
+                
+                p0r -= Nrems2;
+                f0r = *(p0r);
+                f0i = *(p0r + 1);
+                f1r = *(p0r + posA);
+                f1i = *(p0r + posAi);
+                iCol -= 1;
+                p1r = IOP + BRLow[iCol] * 4;
+            }
+            f2r = *(p0r + 2);
+            f2i = *(p0r + (2 + 1));
+            f3r = *(p0r + posB);
+            f3i = *(p0r + posBi);
+            
+            t0r = f0r + f1r;
+            t0i = f0i + f1i;
+            f1r = f0r - f1r;
+            f1i = f0i - f1i;
+            t1r = f2r + f3r;
+            t1i = f2i + f3i;
+            f3r = f2r - f3r;
+            f3i = f2i - f3i;
+            
+            *(p0r) = t0r;
+            *(p0r + 1) = t0i;
+            *(p0r + 2) = f1r;
+            *(p0r + (2 + 1)) = f1i;
+            *(p0r + posA) = t1r;
+            *(p0r + posAi) = t1i;
+            *(p0r + posB) = f3r;
+            *(p0r + posBi) = f3i;
+        }
+    }
+}
+
+static void fft2pt(SPFLOAT *ioptr)
+{
+    /***   RADIX 2 fft      ***/
+    SPFLOAT f0r, f0i, f1r, f1i;
+    SPFLOAT t0r, t0i;
+    
+    /* bit reversed load */
+    f0r = ioptr[0];
+    f0i = ioptr[1];
+    f1r = ioptr[2];
+    f1i = ioptr[3];
+    
+    /* Butterflys           */
+    /*
+     f0   -       -       t0
+     f1   -  1 -  f1
+     */
+    
+    t0r = f0r + f1r;
+    t0i = f0i + f1i;
+    f1r = f0r - f1r;
+    f1i = f0i - f1i;
+    
+    /* store result */
+    ioptr[0] = t0r;
+    ioptr[1] = t0i;
+    ioptr[2] = f1r;
+    ioptr[3] = f1i;
+}
+
+static void fft4pt(SPFLOAT *ioptr)
+{
+    /***   RADIX 4 fft      ***/
+    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
+    SPFLOAT t0r, t0i, t1r, t1i;
+    
+    /* bit reversed load */
+    f0r = ioptr[0];
+    f0i = ioptr[1];
+    f1r = ioptr[4];
+    f1i = ioptr[5];
+    f2r = ioptr[2];
+    f2i = ioptr[3];
+    f3r = ioptr[6];
+    f3i = ioptr[7];
+    
+    /* Butterflys           */
+    /*
+     f0   -       -       t0      -       -       f0
+     f1   -  1 -  f1      -       -       f1
+     f2   -       -       f2      -  1 -  f2
+     f3   -  1 -  t1      - -i -  f3
+     */
+    
+    t0r = f0r + f1r;
+    t0i = f0i + f1i;
+    f1r = f0r - f1r;
+    f1i = f0i - f1i;
+    
+    t1r = f2r - f3r;
+    t1i = f2i - f3i;
+    f2r = f2r + f3r;
+    f2i = f2i + f3i;
+    
+    f0r = t0r + f2r;
+    f0i = t0i + f2i;
+    f2r = t0r - f2r;
+    f2i = t0i - f2i;
+    
+    f3r = f1r - t1i;
+    f3i = f1i + t1r;
+    f1r = f1r + t1i;
+    f1i = f1i - t1r;
+    
+    /* store result */
+    ioptr[0] = f0r;
+    ioptr[1] = f0i;
+    ioptr[2] = f1r;
+    ioptr[3] = f1i;
+    ioptr[4] = f2r;
+    ioptr[5] = f2i;
+    ioptr[6] = f3r;
+    ioptr[7] = f3i;
+}
+
+static void fft8pt(SPFLOAT *ioptr)
+{
+    /***   RADIX 8 fft      ***/
+    SPFLOAT w0r = (SPFLOAT)(1.0 / MYROOT2);    /* cos(pi/4)   */
+    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
+    SPFLOAT f4r, f4i, f5r, f5i, f6r, f6i, f7r, f7i;
+    SPFLOAT t0r, t0i, t1r, t1i;
+    const SPFLOAT Two = 2.0;
+    
+    /* bit reversed load */
+    f0r = ioptr[0];
+    f0i = ioptr[1];
+    f1r = ioptr[8];
+    f1i = ioptr[9];
+    f2r = ioptr[4];
+    f2i = ioptr[5];
+    f3r = ioptr[12];
+    f3i = ioptr[13];
+    f4r = ioptr[2];
+    f4i = ioptr[3];
+    f5r = ioptr[10];
+    f5i = ioptr[11];
+    f6r = ioptr[6];
+    f6i = ioptr[7];
+    f7r = ioptr[14];
+    f7i = ioptr[15];
+    /* Butterflys           */
+    /*
+     f0   -       -       t0      -       -       f0      -       -       f0
+     f1   -  1 -  f1      -       -       f1      -       -       f1
+     f2   -       -       f2      -  1 -  f2      -       -       f2
+     f3   -  1 -  t1      - -i -  f3      -       -       f3
+     f4   -       -       t0      -       -       f4      -  1 -  t0
+     f5   -  1 -  f5      -       -       f5      - w3 -  f4
+     f6   -       -       f6      -  1 -  f6      - -i -  t1
+     f7   -  1 -  t1      - -i -  f7      - iw3-  f6
+     */
+    
+    t0r = f0r + f1r;
+    t0i = f0i + f1i;
+    f1r = f0r - f1r;
+    f1i = f0i - f1i;
+    
+    t1r = f2r - f3r;
+    t1i = f2i - f3i;
+    f2r = f2r + f3r;
+    f2i = f2i + f3i;
+    
+    f0r = t0r + f2r;
+    f0i = t0i + f2i;
+    f2r = t0r - f2r;
+    f2i = t0i - f2i;
+    
+    f3r = f1r - t1i;
+    f3i = f1i + t1r;
+    f1r = f1r + t1i;
+    f1i = f1i - t1r;
+    
+    t0r = f4r + f5r;
+    t0i = f4i + f5i;
+    f5r = f4r - f5r;
+    f5i = f4i - f5i;
+    
+    t1r = f6r - f7r;
+    t1i = f6i - f7i;
+    f6r = f6r + f7r;
+    f6i = f6i + f7i;
+    
+    f4r = t0r + f6r;
+    f4i = t0i + f6i;
+    f6r = t0r - f6r;
+    f6i = t0i - f6i;
+    
+    f7r = f5r - t1i;
+    f7i = f5i + t1r;
+    f5r = f5r + t1i;
+    f5i = f5i - t1r;
+    
+    t0r = f0r - f4r;
+    t0i = f0i - f4i;
+    f0r = f0r + f4r;
+    f0i = f0i + f4i;
+    
+    t1r = f2r - f6i;
+    t1i = f2i + f6r;
+    f2r = f2r + f6i;
+    f2i = f2i - f6r;
+    
+    f4r = f1r - f5r * w0r - f5i * w0r;
+    f4i = f1i + f5r * w0r - f5i * w0r;
+    f1r = f1r * Two - f4r;
+    f1i = f1i * Two - f4i;
+    
+    f6r = f3r + f7r * w0r - f7i * w0r;
+    f6i = f3i + f7r * w0r + f7i * w0r;
+    f3r = f3r * Two - f6r;
+    f3i = f3i * Two - f6i;
+    
+    /* store result */
+    ioptr[0] = f0r;
+    ioptr[1] = f0i;
+    ioptr[2] = f1r;
+    ioptr[3] = f1i;
+    ioptr[4] = f2r;
+    ioptr[5] = f2i;
+    ioptr[6] = f3r;
+    ioptr[7] = f3i;
+    ioptr[8] = t0r;
+    ioptr[9] = t0i;
+    ioptr[10] = f4r;
+    ioptr[11] = f4i;
+    ioptr[12] = t1r;
+    ioptr[13] = t1i;
+    ioptr[14] = f6r;
+    ioptr[15] = f6i;
+}
 
 static void bfR2(SPFLOAT *ioptr, int M, int NDiffU)
 {
@@ -1067,50 +1068,50 @@ static void fftrecurs(SPFLOAT *ioptr, int M, SPFLOAT *Utbl, int Ustride, int NDi
     }
 }
 
-//static void ffts1(SPFLOAT *ioptr, int M, SPFLOAT *Utbl, int16_t *BRLow)
-//{
-//    /* Compute in-place complex fft on the rows of the input array  */
-//    /* INPUTS                                                       */
-//    /*   *ioptr = input data array                                  */
-//    /*   M = log2 of fft size (ex M=10 for 1024 point fft)          */
-//    /*   *Utbl = cosine table                                       */
-//    /*   *BRLow = bit reversed counter table                        */
-//    /* OUTPUTS                                                      */
-//    /*   *ioptr = output data array                                 */
-//    
-//    int StageCnt;
-//    int NDiffU;
-//    
-//    switch (M) {
-//        case 0:
-//            break;
-//        case 1:
-//            fft2pt(ioptr);            /* a 2 pt fft */
-//            break;
-//        case 2:
-//            fft4pt(ioptr);            /* a 4 pt fft */
-//            break;
-//        case 3:
-//            fft8pt(ioptr);            /* an 8 pt fft */
-//            break;
-//        default:
-//            bitrevR2(ioptr, M, BRLow);  /* bit reverse and first radix 2 stage */
-//            StageCnt = (M - 1) / 3;     /* number of radix 8 stages           */
-//            NDiffU = 2;                 /* one radix 2 stage already complete */
-//            if ((M - 1 - (StageCnt * 3)) == 1) {
-//                bfR2(ioptr, M, NDiffU); /* 1 radix 2 stage */
-//                NDiffU *= 2;
-//            }
-//            if ((M - 1 - (StageCnt * 3)) == 2) {
-//                bfR4(ioptr, M, NDiffU); /* 1 radix 4 stage */
-//                NDiffU *= 4;
-//            }
-//            if (M <= (int) MCACHE)
-//                bfstages(ioptr, M, Utbl, 1, NDiffU, StageCnt);  /* RADIX 8 Stages */
-//            else
-//                fftrecurs(ioptr, M, Utbl, 1, NDiffU, StageCnt); /* RADIX 8 Stages */
-//    }
-//}
+static void ffts1(SPFLOAT *ioptr, int M, SPFLOAT *Utbl, int16_t *BRLow)
+{
+    /* Compute in-place complex fft on the rows of the input array  */
+    /* INPUTS                                                       */
+    /*   *ioptr = input data array                                  */
+    /*   M = log2 of fft size (ex M=10 for 1024 point fft)          */
+    /*   *Utbl = cosine table                                       */
+    /*   *BRLow = bit reversed counter table                        */
+    /* OUTPUTS                                                      */
+    /*   *ioptr = output data array                                 */
+    
+    int StageCnt;
+    int NDiffU;
+    
+    switch (M) {
+        case 0:
+            break;
+        case 1:
+            fft2pt(ioptr);            /* a 2 pt fft */
+            break;
+        case 2:
+            fft4pt(ioptr);            /* a 4 pt fft */
+            break;
+        case 3:
+            fft8pt(ioptr);            /* an 8 pt fft */
+            break;
+        default:
+            bitrevR2(ioptr, M, BRLow);  /* bit reverse and first radix 2 stage */
+            StageCnt = (M - 1) / 3;     /* number of radix 8 stages           */
+            NDiffU = 2;                 /* one radix 2 stage already complete */
+            if ((M - 1 - (StageCnt * 3)) == 1) {
+                bfR2(ioptr, M, NDiffU); /* 1 radix 2 stage */
+                NDiffU *= 2;
+            }
+            if ((M - 1 - (StageCnt * 3)) == 2) {
+                bfR4(ioptr, M, NDiffU); /* 1 radix 4 stage */
+                NDiffU *= 4;
+            }
+            if (M <= (int) MCACHE)
+                bfstages(ioptr, M, Utbl, 1, NDiffU, StageCnt);  /* RADIX 8 Stages */
+            else
+                fftrecurs(ioptr, M, Utbl, 1, NDiffU, StageCnt); /* RADIX 8 Stages */
+    }
+}
 
 /******************
  * parts of iffts1 *
@@ -1253,208 +1254,208 @@ static void scbitrevR2(SPFLOAT *ioptr, int M, int16_t *BRLow, SPFLOAT scale)
     }
 }
 
-//static void ifft2pt(SPFLOAT *ioptr, SPFLOAT scale)
-//{
-//    /***   RADIX 2 ifft     ***/
-//    SPFLOAT f0r, f0i, f1r, f1i;
-//    SPFLOAT t0r, t0i;
-//    
-//    /* bit reversed load */
-//    f0r = ioptr[0];
-//    f0i = ioptr[1];
-//    f1r = ioptr[2];
-//    f1i = ioptr[3];
-//    
-//    /* Butterflys           */
-//    /*
-//     f0   -       -       t0
-//     f1   -  1 -  f1
-//     */
-//    
-//    t0r = f0r + f1r;
-//    t0i = f0i + f1i;
-//    f1r = f0r - f1r;
-//    f1i = f0i - f1i;
-//    
-//    /* store result */
-//    ioptr[0] = scale * t0r;
-//    ioptr[1] = scale * t0i;
-//    ioptr[2] = scale * f1r;
-//    ioptr[3] = scale * f1i;
-//}
-//
-//static void ifft4pt(SPFLOAT *ioptr, SPFLOAT scale)
-//{
-//    /***   RADIX 4 ifft     ***/
-//    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
-//    SPFLOAT t0r, t0i, t1r, t1i;
-//    
-//    /* bit reversed load */
-//    f0r = ioptr[0];
-//    f0i = ioptr[1];
-//    f1r = ioptr[4];
-//    f1i = ioptr[5];
-//    f2r = ioptr[2];
-//    f2i = ioptr[3];
-//    f3r = ioptr[6];
-//    f3i = ioptr[7];
-//    
-//    /* Butterflys           */
-//    /*
-//     f0   -       -       t0      -       -       f0
-//     f1   -  1 -  f1      -       -       f1
-//     f2   -       -       f2      -  1 -  f2
-//     f3   -  1 -  t1      -  i -  f3
-//     */
-//    
-//    t0r = f0r + f1r;
-//    t0i = f0i + f1i;
-//    f1r = f0r - f1r;
-//    f1i = f0i - f1i;
-//    
-//    t1r = f2r - f3r;
-//    t1i = f2i - f3i;
-//    f2r = f2r + f3r;
-//    f2i = f2i + f3i;
-//    
-//    f0r = t0r + f2r;
-//    f0i = t0i + f2i;
-//    f2r = t0r - f2r;
-//    f2i = t0i - f2i;
-//    
-//    f3r = f1r + t1i;
-//    f3i = f1i - t1r;
-//    f1r = f1r - t1i;
-//    f1i = f1i + t1r;
-//    
-//    /* store result */
-//    ioptr[0] = scale * f0r;
-//    ioptr[1] = scale * f0i;
-//    ioptr[2] = scale * f1r;
-//    ioptr[3] = scale * f1i;
-//    ioptr[4] = scale * f2r;
-//    ioptr[5] = scale * f2i;
-//    ioptr[6] = scale * f3r;
-//    ioptr[7] = scale * f3i;
-//}
-//
-//static void ifft8pt(SPFLOAT *ioptr, SPFLOAT scale)
-//{
-//    /***   RADIX 8 ifft     ***/
-//    SPFLOAT w0r = 1.0 / MYROOT2;    /* cos(pi/4)   */
-//    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
-//    SPFLOAT f4r, f4i, f5r, f5i, f6r, f6i, f7r, f7i;
-//    SPFLOAT t0r, t0i, t1r, t1i;
-//    const SPFLOAT Two = 2.0;
-//    
-//    /* bit reversed load */
-//    f0r = ioptr[0];
-//    f0i = ioptr[1];
-//    f1r = ioptr[8];
-//    f1i = ioptr[9];
-//    f2r = ioptr[4];
-//    f2i = ioptr[5];
-//    f3r = ioptr[12];
-//    f3i = ioptr[13];
-//    f4r = ioptr[2];
-//    f4i = ioptr[3];
-//    f5r = ioptr[10];
-//    f5i = ioptr[11];
-//    f6r = ioptr[6];
-//    f6i = ioptr[7];
-//    f7r = ioptr[14];
-//    f7i = ioptr[15];
-//    
-//    /* Butterflys           */
-//    /*
-//     f0   -       -       t0      -       -       f0      -       -       f0
-//     f1   -  1 -  f1      -       -       f1      -       -       f1
-//     f2   -       -       f2      -  1 -  f2      -       -       f2
-//     f3   -  1 -  t1      -  i -  f3      -       -       f3
-//     f4   -       -       t0      -       -       f4      -  1 -  t0
-//     f5   -  1 -  f5      -       -       f5      - w3 -  f4
-//     f6   -       -       f6      -  1 -  f6      -  i -  t1
-//     f7   -  1 -  t1      -  i -  f7      - iw3-  f6
-//     */
-//    
-//    t0r = f0r + f1r;
-//    t0i = f0i + f1i;
-//    f1r = f0r - f1r;
-//    f1i = f0i - f1i;
-//    
-//    t1r = f2r - f3r;
-//    t1i = f2i - f3i;
-//    f2r = f2r + f3r;
-//    f2i = f2i + f3i;
-//    
-//    f0r = t0r + f2r;
-//    f0i = t0i + f2i;
-//    f2r = t0r - f2r;
-//    f2i = t0i - f2i;
-//    
-//    f3r = f1r + t1i;
-//    f3i = f1i - t1r;
-//    f1r = f1r - t1i;
-//    f1i = f1i + t1r;
-//    
-//    t0r = f4r + f5r;
-//    t0i = f4i + f5i;
-//    f5r = f4r - f5r;
-//    f5i = f4i - f5i;
-//    
-//    t1r = f6r - f7r;
-//    t1i = f6i - f7i;
-//    f6r = f6r + f7r;
-//    f6i = f6i + f7i;
-//    
-//    f4r = t0r + f6r;
-//    f4i = t0i + f6i;
-//    f6r = t0r - f6r;
-//    f6i = t0i - f6i;
-//    
-//    f7r = f5r + t1i;
-//    f7i = f5i - t1r;
-//    f5r = f5r - t1i;
-//    f5i = f5i + t1r;
-//    
-//    t0r = f0r - f4r;
-//    t0i = f0i - f4i;
-//    f0r = f0r + f4r;
-//    f0i = f0i + f4i;
-//    
-//    t1r = f2r + f6i;
-//    t1i = f2i - f6r;
-//    f2r = f2r - f6i;
-//    f2i = f2i + f6r;
-//    
-//    f4r = f1r - f5r * w0r + f5i * w0r;
-//    f4i = f1i - f5r * w0r - f5i * w0r;
-//    f1r = f1r * Two - f4r;
-//    f1i = f1i * Two - f4i;
-//    
-//    f6r = f3r + f7r * w0r + f7i * w0r;
-//    f6i = f3i - f7r * w0r + f7i * w0r;
-//    f3r = f3r * Two - f6r;
-//    f3i = f3i * Two - f6i;
-//    
-//    /* store result */
-//    ioptr[0] = scale * f0r;
-//    ioptr[1] = scale * f0i;
-//    ioptr[2] = scale * f1r;
-//    ioptr[3] = scale * f1i;
-//    ioptr[4] = scale * f2r;
-//    ioptr[5] = scale * f2i;
-//    ioptr[6] = scale * f3r;
-//    ioptr[7] = scale * f3i;
-//    ioptr[8] = scale * t0r;
-//    ioptr[9] = scale * t0i;
-//    ioptr[10] = scale * f4r;
-//    ioptr[11] = scale * f4i;
-//    ioptr[12] = scale * t1r;
-//    ioptr[13] = scale * t1i;
-//    ioptr[14] = scale * f6r;
-//    ioptr[15] = scale * f6i;
-//}
+static void ifft2pt(SPFLOAT *ioptr, SPFLOAT scale)
+{
+    /***   RADIX 2 ifft     ***/
+    SPFLOAT f0r, f0i, f1r, f1i;
+    SPFLOAT t0r, t0i;
+    
+    /* bit reversed load */
+    f0r = ioptr[0];
+    f0i = ioptr[1];
+    f1r = ioptr[2];
+    f1i = ioptr[3];
+    
+    /* Butterflys           */
+    /*
+     f0   -       -       t0
+     f1   -  1 -  f1
+     */
+    
+    t0r = f0r + f1r;
+    t0i = f0i + f1i;
+    f1r = f0r - f1r;
+    f1i = f0i - f1i;
+    
+    /* store result */
+    ioptr[0] = scale * t0r;
+    ioptr[1] = scale * t0i;
+    ioptr[2] = scale * f1r;
+    ioptr[3] = scale * f1i;
+}
+
+static void ifft4pt(SPFLOAT *ioptr, SPFLOAT scale)
+{
+    /***   RADIX 4 ifft     ***/
+    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
+    SPFLOAT t0r, t0i, t1r, t1i;
+    
+    /* bit reversed load */
+    f0r = ioptr[0];
+    f0i = ioptr[1];
+    f1r = ioptr[4];
+    f1i = ioptr[5];
+    f2r = ioptr[2];
+    f2i = ioptr[3];
+    f3r = ioptr[6];
+    f3i = ioptr[7];
+    
+    /* Butterflys           */
+    /*
+     f0   -       -       t0      -       -       f0
+     f1   -  1 -  f1      -       -       f1
+     f2   -       -       f2      -  1 -  f2
+     f3   -  1 -  t1      -  i -  f3
+     */
+    
+    t0r = f0r + f1r;
+    t0i = f0i + f1i;
+    f1r = f0r - f1r;
+    f1i = f0i - f1i;
+    
+    t1r = f2r - f3r;
+    t1i = f2i - f3i;
+    f2r = f2r + f3r;
+    f2i = f2i + f3i;
+    
+    f0r = t0r + f2r;
+    f0i = t0i + f2i;
+    f2r = t0r - f2r;
+    f2i = t0i - f2i;
+    
+    f3r = f1r + t1i;
+    f3i = f1i - t1r;
+    f1r = f1r - t1i;
+    f1i = f1i + t1r;
+    
+    /* store result */
+    ioptr[0] = scale * f0r;
+    ioptr[1] = scale * f0i;
+    ioptr[2] = scale * f1r;
+    ioptr[3] = scale * f1i;
+    ioptr[4] = scale * f2r;
+    ioptr[5] = scale * f2i;
+    ioptr[6] = scale * f3r;
+    ioptr[7] = scale * f3i;
+}
+
+static void ifft8pt(SPFLOAT *ioptr, SPFLOAT scale)
+{
+    /***   RADIX 8 ifft     ***/
+    SPFLOAT w0r = 1.0 / MYROOT2;    /* cos(pi/4)   */
+    SPFLOAT f0r, f0i, f1r, f1i, f2r, f2i, f3r, f3i;
+    SPFLOAT f4r, f4i, f5r, f5i, f6r, f6i, f7r, f7i;
+    SPFLOAT t0r, t0i, t1r, t1i;
+    const SPFLOAT Two = 2.0;
+    
+    /* bit reversed load */
+    f0r = ioptr[0];
+    f0i = ioptr[1];
+    f1r = ioptr[8];
+    f1i = ioptr[9];
+    f2r = ioptr[4];
+    f2i = ioptr[5];
+    f3r = ioptr[12];
+    f3i = ioptr[13];
+    f4r = ioptr[2];
+    f4i = ioptr[3];
+    f5r = ioptr[10];
+    f5i = ioptr[11];
+    f6r = ioptr[6];
+    f6i = ioptr[7];
+    f7r = ioptr[14];
+    f7i = ioptr[15];
+    
+    /* Butterflys           */
+    /*
+     f0   -       -       t0      -       -       f0      -       -       f0
+     f1   -  1 -  f1      -       -       f1      -       -       f1
+     f2   -       -       f2      -  1 -  f2      -       -       f2
+     f3   -  1 -  t1      -  i -  f3      -       -       f3
+     f4   -       -       t0      -       -       f4      -  1 -  t0
+     f5   -  1 -  f5      -       -       f5      - w3 -  f4
+     f6   -       -       f6      -  1 -  f6      -  i -  t1
+     f7   -  1 -  t1      -  i -  f7      - iw3-  f6
+     */
+    
+    t0r = f0r + f1r;
+    t0i = f0i + f1i;
+    f1r = f0r - f1r;
+    f1i = f0i - f1i;
+    
+    t1r = f2r - f3r;
+    t1i = f2i - f3i;
+    f2r = f2r + f3r;
+    f2i = f2i + f3i;
+    
+    f0r = t0r + f2r;
+    f0i = t0i + f2i;
+    f2r = t0r - f2r;
+    f2i = t0i - f2i;
+    
+    f3r = f1r + t1i;
+    f3i = f1i - t1r;
+    f1r = f1r - t1i;
+    f1i = f1i + t1r;
+    
+    t0r = f4r + f5r;
+    t0i = f4i + f5i;
+    f5r = f4r - f5r;
+    f5i = f4i - f5i;
+    
+    t1r = f6r - f7r;
+    t1i = f6i - f7i;
+    f6r = f6r + f7r;
+    f6i = f6i + f7i;
+    
+    f4r = t0r + f6r;
+    f4i = t0i + f6i;
+    f6r = t0r - f6r;
+    f6i = t0i - f6i;
+    
+    f7r = f5r + t1i;
+    f7i = f5i - t1r;
+    f5r = f5r - t1i;
+    f5i = f5i + t1r;
+    
+    t0r = f0r - f4r;
+    t0i = f0i - f4i;
+    f0r = f0r + f4r;
+    f0i = f0i + f4i;
+    
+    t1r = f2r + f6i;
+    t1i = f2i - f6r;
+    f2r = f2r - f6i;
+    f2i = f2i + f6r;
+    
+    f4r = f1r - f5r * w0r + f5i * w0r;
+    f4i = f1i - f5r * w0r - f5i * w0r;
+    f1r = f1r * Two - f4r;
+    f1i = f1i * Two - f4i;
+    
+    f6r = f3r + f7r * w0r + f7i * w0r;
+    f6i = f3i - f7r * w0r + f7i * w0r;
+    f3r = f3r * Two - f6r;
+    f3i = f3i * Two - f6i;
+    
+    /* store result */
+    ioptr[0] = scale * f0r;
+    ioptr[1] = scale * f0i;
+    ioptr[2] = scale * f1r;
+    ioptr[3] = scale * f1i;
+    ioptr[4] = scale * f2r;
+    ioptr[5] = scale * f2i;
+    ioptr[6] = scale * f3r;
+    ioptr[7] = scale * f3i;
+    ioptr[8] = scale * t0r;
+    ioptr[9] = scale * t0i;
+    ioptr[10] = scale * f4r;
+    ioptr[11] = scale * f4i;
+    ioptr[12] = scale * t1r;
+    ioptr[13] = scale * t1i;
+    ioptr[14] = scale * f6r;
+    ioptr[15] = scale * f6i;
+}
 
 static void ibfR2(SPFLOAT *ioptr, int M, int NDiffU)
 {
@@ -2110,52 +2111,52 @@ static void ifftrecurs(SPFLOAT *ioptr, int M, SPFLOAT *Utbl, int Ustride,
     }
 }
 
-//static void iffts1(SPFLOAT *ioptr, int M, SPFLOAT *Utbl, int16_t *BRLow)
-//{
-//    /* Compute in-place inverse complex fft on the rows of the input array  */
-//    /* INPUTS                                                               */
-//    /*   *ioptr = input data array                                          */
-//    /*   M = log2 of fft size                                               */
-//    /*   *Utbl = cosine table                                               */
-//    /*   *BRLow = bit reversed counter table                                */
-//    /* OUTPUTS                                                              */
-//    /*   *ioptr = output data array                                         */
-//    
-//    int StageCnt;
-//    int NDiffU;
-//    const SPFLOAT scale = 1.0 / POW2(M);
-//    
-//    switch (M) {
-//        case 0:
-//            break;
-//        case 1:
-//            ifft2pt(ioptr, scale);    /* a 2 pt fft */
-//            break;
-//        case 2:
-//            ifft4pt(ioptr, scale);    /* a 4 pt fft */
-//            break;
-//        case 3:
-//            ifft8pt(ioptr, scale);    /* an 8 pt fft */
-//            break;
-//        default:
-//            /* bit reverse and first radix 2 stage */
-//            scbitrevR2(ioptr, M, BRLow, scale);
-//            StageCnt = (M - 1) / 3;   /* number of radix 8 stages */
-//            NDiffU = 2;               /* one radix 2 stage already complete */
-//            if ((M - 1 - (StageCnt * 3)) == 1) {
-//                ibfR2(ioptr, M, NDiffU);        /* 1 radix 2 stage */
-//                NDiffU *= 2;
-//            }
-//            if ((M - 1 - (StageCnt * 3)) == 2) {
-//                ibfR4(ioptr, M, NDiffU);        /* 1 radix 4 stage */
-//                NDiffU *= 4;
-//            }
-//            if (M <= (int) MCACHE)
-//                ibfstages(ioptr, M, Utbl, 1, NDiffU, StageCnt);  /* RADIX 8 Stages */
-//            else
-//                ifftrecurs(ioptr, M, Utbl, 1, NDiffU, StageCnt); /* RADIX 8 Stages */
-//    }
-//}
+static void iffts1(SPFLOAT *ioptr, int M, SPFLOAT *Utbl, int16_t *BRLow)
+{
+    /* Compute in-place inverse complex fft on the rows of the input array  */
+    /* INPUTS                                                               */
+    /*   *ioptr = input data array                                          */
+    /*   M = log2 of fft size                                               */
+    /*   *Utbl = cosine table                                               */
+    /*   *BRLow = bit reversed counter table                                */
+    /* OUTPUTS                                                              */
+    /*   *ioptr = output data array                                         */
+    
+    int StageCnt;
+    int NDiffU;
+    const SPFLOAT scale = 1.0 / POW2(M);
+    
+    switch (M) {
+        case 0:
+            break;
+        case 1:
+            ifft2pt(ioptr, scale);    /* a 2 pt fft */
+            break;
+        case 2:
+            ifft4pt(ioptr, scale);    /* a 4 pt fft */
+            break;
+        case 3:
+            ifft8pt(ioptr, scale);    /* an 8 pt fft */
+            break;
+        default:
+            /* bit reverse and first radix 2 stage */
+            scbitrevR2(ioptr, M, BRLow, scale);
+            StageCnt = (M - 1) / 3;   /* number of radix 8 stages */
+            NDiffU = 2;               /* one radix 2 stage already complete */
+            if ((M - 1 - (StageCnt * 3)) == 1) {
+                ibfR2(ioptr, M, NDiffU);        /* 1 radix 2 stage */
+                NDiffU *= 2;
+            }
+            if ((M - 1 - (StageCnt * 3)) == 2) {
+                ibfR4(ioptr, M, NDiffU);        /* 1 radix 4 stage */
+                NDiffU *= 4;
+            }
+            if (M <= (int) MCACHE)
+                ibfstages(ioptr, M, Utbl, 1, NDiffU, StageCnt);  /* RADIX 8 Stages */
+            else
+                ifftrecurs(ioptr, M, Utbl, 1, NDiffU, StageCnt); /* RADIX 8 Stages */
+    }
+}
 
 /******************
  * parts of rffts1 *
@@ -3097,7 +3098,7 @@ void sp_fft_init(sp_fft *fft, int M)
     //int16_t **BRLowArray;
     SPFLOAT *utbl;
     int16_t *BRLow;
-//    int i;
+    int i;
     
     //fft->FFT_table_1 = malloc(sizeof(SPFLOAT*) * 32);
     //fft->FFT_table_2 = malloc(sizeof(int16_t*) * 32);
@@ -3176,20 +3177,20 @@ void sp_fft_init(sp_fft *fft, int M)
 //    return 0;
 //}
 
-//static inline void getTablePointers(sp_fft *p, SPFLOAT **ct, int16_t **bt,
-//                                    int cn, int bn)
-//{
-//    /*if (!(p->FFT_max_size & (1 << cn)))
-//     fftInit(p, cn);
-//     */
-//    //*ct = ((SPFLOAT**) p->FFT_table_1)[cn];
-//    //*bt = ((int16_t**) p->FFT_table_2)[bn];
-//}
+static inline void getTablePointers(sp_fft *p, SPFLOAT **ct, int16_t **bt,
+                                    int cn, int bn)
+{
+    /*if (!(p->FFT_max_size & (1 << cn)))
+     fftInit(p, cn);
+     */
+    //*ct = ((SPFLOAT**) p->FFT_table_1)[cn];
+    //*bt = ((int16_t**) p->FFT_table_2)[bn];
+}
 
 void sp_fftr(sp_fft *fft, SPFLOAT *buf, int FFTsize)
 {
-//    SPFLOAT *Utbl;
-//    int16_t *BRLow;
+    SPFLOAT *Utbl;
+    int16_t *BRLow;
     int   M = log2(FFTsize);
     
     //M = ConvertFFTSize(fft, FFTsize);
@@ -3197,10 +3198,21 @@ void sp_fftr(sp_fft *fft, SPFLOAT *buf, int FFTsize)
     rffts1(buf, M, fft->utbl, fft->BRLow);
 }
 
+void sp_fft_cpx(sp_fft *fft, SPFLOAT *buf, int FFTsize)
+{
+    SPFLOAT *Utbl;
+    int16_t *BRLow;
+    int   M = log2(FFTsize);
+    
+    ffts1(buf, M, fft->utbl, fft->BRLow);
+}
+
+
+
 void sp_ifftr(sp_fft *fft, SPFLOAT *buf, int FFTsize)
 {
-//    SPFLOAT *Utbl;
-//    int16_t *BRLow;
+    SPFLOAT *Utbl;
+    int16_t *BRLow;
     int   M = log2(FFTsize);
     
     //M = ConvertFFTSize(fft, FFTsize);
