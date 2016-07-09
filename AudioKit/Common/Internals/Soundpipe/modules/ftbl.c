@@ -271,7 +271,8 @@ int sp_gen_gauss(sp_data *sp, sp_ftbl *ft, SPFLOAT scale, uint32_t seed)
     return SP_OK;
 }
 
-int sp_gen_sinecomp(sp_data *sp, sp_ftbl *ft, const char *argstring)
+/* based off of GEN 19 */
+int sp_gen_composite(sp_data *sp, sp_ftbl *ft, const char *argstring)
 {
     SPFLOAT phs, inc, amp, dc, tpdlen = 2 * M_PI/ (SPFLOAT) ft->size;
     int i, n;
