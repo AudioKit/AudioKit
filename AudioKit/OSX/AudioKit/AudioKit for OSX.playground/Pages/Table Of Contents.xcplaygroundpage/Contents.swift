@@ -18,12 +18,18 @@
 //: * [EXS24 Sampler](Sampler%20Instrument%20-%20EXS24)
 //: * [Crazy Drum Effects](Variable%20Delay)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
+//: * [Newton's Cradle](Newtons%20Cradle)
+//: * [3D Panner](3D%20Panner)
+//: * [Tremolo](Tremolo)
+//: * [Metronome](Metronome)
 //:
 //: ## Mac OS X Playgrounds
 //:
 //: These playgrounds are exclusive to OS X because they use some feature not availalable on iOS, for instance microphone input.
 //:
+//: * [Selector Clock](SelectorClock)
 //: * [Tracking Microphone Input](Tracking%20Microphone%20Input)
+//: * [Recording from Microphone](Recording%20From%20Microphone)
 //: * [XY Pad](XY%20Pad)
 //:
 //: ## Basic Tutorials
@@ -51,6 +57,8 @@
 //:
 //: * [Tracking Amplitude](Tracking%20Amplitude)
 //: * [Tracking Frequency](Tracking%20Frequency)
+//: * [Tracking Frequency of Audio File](Tracking%20Frequency%20of%20Audio%20File)
+//: * [FFT Analysis(FFT%20Analysis)
 //:
 //: ## "Analog Synth X" Example Project
 //:
@@ -78,6 +86,7 @@
 //: * [Sequencer - Single output](Sequencer%20-%20Single%20output)
 //: * [Sequencer - Multiple output](Sequencer%20-%20Multiple%20output)
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
+//: * [Pitch Shifter](Pitch%20Shifter)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //:
 //: ## Generator Nodes
@@ -86,6 +95,7 @@
 //:
 //: Oscillators are the bread and butter of audio synthesis and there's no shortage of them in AudioKit.
 //:
+//: * [Simple Oscillator](Simple%20Oscillator)
 //: * [FM Oscillator](FM%20Oscillator)
 //: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
 //: * [Morphing Oscillator](Morphing%20Oscillator)
@@ -104,8 +114,11 @@
 //:
 //: There are only a few of these to start off with, but we think they are a lot of fun and sound really good.  More on the way!
 //:
+//: * [Drawbar Organ](Drawbar%20Organ)
 //: * [Dripping Sounds](Dripping%20Sounds)
 //: * [Plucked String](Plucked%20String)
+//: * [Mandolin](Mandolin)
+//: * [Flute](Flute)
 //:
 //: ## Effect Processor Nodes
 //:
@@ -122,6 +135,7 @@
 //:
 //: Distortion is a category for nodes that do more than just filter a sound, and basically change something essential to the sound, usually making for a harsher sound, but that's a matter of taste.
 //:
+//: * [Distortion](Distortion)
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
 //: * [Decimator](Decimator)
 //: * [Ring Modulation](Ring%20Modulation)
@@ -134,6 +148,7 @@
 //:
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Peak Limiter](Peak%20Limiter)
+//: * [Clipper](Clipper)
 //:
 //: ### Filters
 //:
@@ -142,6 +157,7 @@
 //: * [Band Pass Butterworth Filter](Band%20Pass%20Butterworth%20Filter)
 //: * [Band Pass Filter](Band%20Pass%20Filter)
 //: * [Band Reject Butterworth Filter](Band%20Reject%20Butterworth%20Filter)
+//: * [Filter Envelope](Filter%20Envelope)
 //: * [Formant Filter](Formant%20Filter)
 //: * [Graphic Equalizer](Graphic%20Equalizer)
 //: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
@@ -149,7 +165,7 @@
 //: * [High Shelf Filter](High%20Shelf%20Filter)
 //: * [Low Pass Butterworth Filter](Loiw%20Pass%20Butterworth%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
-//: * [Low  Shelf Filter](Low%20Shelf%20Filter)
+//: * [Low Shelf Filter](Low%20Shelf%20Filter)
 //: * [Modal Resonance Filter](Modal%20Resonance%20Filter)
 //: * [Moog Ladder Filter](Moog%20Ladder%20Filter)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
@@ -184,6 +200,7 @@
 //: * [Using Functions](Using%20Functions)
 //: * [Using Functions Part 2](Using%20Functions%20Part%202)
 //: * [Muli-tap Delay](Multi-tap%20Delay)
+//: * [Noise Operations](Noise%20Operations)
 //:
 //: Many of the types of things you can do in nodes are also possible with operations, but with great flexibility in how the parameters are changed over time.
 //:
@@ -218,6 +235,7 @@
 //: These playgrounds are here basically for us to work on future AudioKit developments.  Proceed with caution!
 //:
 //: * [Parameter Intertia](Parameter%20Inertia)
+//: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
 //:
 //: Hey you got all the way to the bottom of this file, why not let us know by emailing audiokit@audiokit.io.  We'd love to hear from you!
 //:

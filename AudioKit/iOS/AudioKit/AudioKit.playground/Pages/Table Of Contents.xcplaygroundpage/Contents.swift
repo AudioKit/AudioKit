@@ -20,6 +20,7 @@
 //: * [Crazy Drum Effects](Variable%20Delay)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //: * [Newton's Cradle](Newtons%20Cradle)
+//: * [Tremolo](Tremolo)
 //:
 //: ## Basic Tutorials
 //:
@@ -35,6 +36,8 @@
 //: * [Recording Nodes](AKNodeRecorder)
 //: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
 //: * [3D Panner](3D%20Panner)
+//: * [Tremolo](Tremolo)
+//: * [Metronome](Metronome)
 //:
 //: ## Plotting
 //:
@@ -49,6 +52,8 @@
 //:
 //: * [Tracking Amplitude](Tracking%20Amplitude)
 //: * [Tracking Frequency](Tracking%20Frequency)
+//: * [Tracking Frequency of Audio File](Tracking%20Frequency%20of%20Audio%20File)
+//: * [FFT Analysis(FFT%20Analysis)
 //:
 //: ## "Analog Synth X" Example Project
 //:
@@ -89,6 +94,7 @@
 //: Oscillators are the bread and butter of audio synthesis and there's no shortage of them in AudioKit.
 //:
 //: * [FM Oscillator](FM%20Oscillator)
+//: * [FM OscillatorBank](FM%20Oscillator%20Bank)
 //: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
 //: * [Mono Synth](Mono%20Synth)
 //: * [Morphing Oscillator](Morphing%20Oscillator)
@@ -114,6 +120,7 @@
 //: * [Flute](Flute)
 //: * [Mandolin](Mandolin)
 //: * [Plucked String](Plucked%20String)
+//: * [Metal Bar](Metal%20Bar)
 //:
 //: ## Effect Processor Nodes
 //:
@@ -142,6 +149,7 @@
 //:
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Peak Limiter](Peak%20Limiter)
+//: * [Clipper](Clipper)
 //:
 //: ### Filters
 //:
