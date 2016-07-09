@@ -54,11 +54,11 @@
 		C40C411F1C40E2E1009D870B /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411C1C40E2E1009D870B /* AudioKit.swift */; };
 		C40C41201C40E2E1009D870B /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411D1C40E2E1009D870B /* AKTable.swift */; };
 		C40C41211C40E2E1009D870B /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */; };
-		C40C41281C40E344009D870B /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41231C40E344009D870B /* BufferedAudioBus.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
-		C40C41291C40E344009D870B /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41241C40E344009D870B /* DSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C40C41281C40E344009D870B /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41231C40E344009D870B /* BufferedAudioBus.hpp */; };
+		C40C41291C40E344009D870B /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41241C40E344009D870B /* DSPKernel.hpp */; };
 		C40C412A1C40E344009D870B /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40C41251C40E344009D870B /* DSPKernel.mm */; };
 		C40C412B1C40E344009D870B /* AKGetAUParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41261C40E344009D870B /* AKGetAUParams.swift */; };
-		C40C412C1C40E344009D870B /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41271C40E344009D870B /* ParameterRamper.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C40C412C1C40E344009D870B /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41271C40E344009D870B /* ParameterRamper.hpp */; };
 		C40C414E1C40E3A5009D870B /* EZAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C412E1C40E3A5009D870B /* EZAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C414F1C40E3A5009D870B /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C412F1C40E3A5009D870B /* EZAudio.m */; };
 		C40C41501C40E3A5009D870B /* EZAudioDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41301C40E3A5009D870B /* EZAudioDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -115,7 +115,7 @@
 		C42ADFFE1C2C9E37000CEED2 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */; };
 		C42BF6CC1CE80E6600155BE7 /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BF6CB1CE80E6600155BE7 /* Numeric.swift */; };
 		C42F35041C057E03000E937C /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35031C057E03000E937C /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C42F362D1C057F4C000E937C /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F353E1C057F4C000E937C /* soundpipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C42F362D1C057F4C000E937C /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F353E1C057F4C000E937C /* soundpipe.h */; };
 		C42FFBE41C3D195000823BD4 /* AKBooster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBE31C3D195000823BD4 /* AKBooster.swift */; };
 		C42FFBEC1C3D1FD100823BD4 /* AKDryWetMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBEB1C3D1FD100823BD4 /* AKDryWetMixer.swift */; };
 		C43622CD1CCDC70B00DB41DE /* AKMIDISampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43622CC1CCDC70B00DB41DE /* AKMIDISampler.swift */; };
