@@ -50,7 +50,7 @@ int sp_gen_padsynth(sp_data *sp, sp_ftbl *ps, sp_ftbl *amps,
     }
 
     for (i=0;i<N/2;i++) {
-        freq_phase[i]= (rand() / (RAND_MAX + 1.0)) * 2.0 * M_PI;
+        freq_phase[i]= (sp_rand(sp) / (RAND_MAX + 1.0)) * 2.0 * M_PI;
     };
 
     sp_padsynth_ifft(N,freq_amp,freq_phase,smp);
