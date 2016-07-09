@@ -38,7 +38,7 @@ int sporth_pinknoise(sporth_stack *stack, void *ud)
         case PLUMBER_COMPUTE:
             amp = sporth_stack_pop_float(stack);
             pinknoise = pd->last->ud;
-            *pinknoise->amp = amp;
+            pinknoise->amp = amp;
             sp_pinknoise_compute(pd->sp, pinknoise, NULL, &out);
             sporth_stack_push_float(stack, out);
             break;
@@ -47,7 +47,7 @@ int sporth_pinknoise(sporth_stack *stack, void *ud)
             sp_pinknoise_destroy(&pinknoise);
             break;
         default:
-            fprintf(stderr, "pinknoise: Uknown mode!\n");
+            fprintf(stderr, "pinknoise: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -38,7 +38,7 @@ public:
         sp->nchan = channels;
         sp_pinknoise_create(&pinknoise);
         sp_pinknoise_init(sp, pinknoise);
-        *pinknoise->amp = 1;
+        pinknoise->amp = 1;
 
         amplitudeRamper.init();
     }
@@ -105,7 +105,7 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             amplitude = amplitudeRamper.getAndStep();
-            *pinknoise->amp = (float)amplitude;
+            pinknoise->amp = (float)amplitude * 0.0001;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
