@@ -230,11 +230,11 @@ public class AKAudioFile: AVAudioFile {
     
     // MARK: - Public Other Properties
     
-    ///How many processes in queue - see AKAudioFile+Processing.swift
+    /// How many processes in queue - see AKAudioFile+Processing.swift
     static public var queueCount: Int32 = 0
     
-    ///ProcessProtocol Delegate
-    public var delegate: ProcessProtocol? = nil
+    /// AKAudioFile Delegate
+    public var delegate: AKAudioFileDelegate? = nil
     
     // MARK: - Initialization
     
