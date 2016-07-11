@@ -9,6 +9,15 @@
 import Foundation
 import AVFoundation
 
+/**
+ ProccesProtocol notifies that a process has completed (asyncReverse, asyncNormalize, or asyncExtract)
+*/
+@objc public protocol ProcessProtocol {
+    
+    optional func processCompleted(file: AKAudioFile?, name: String)
+    
+}
+
 extension AKAudioFile {
     /**
      Returns an AKAudioFile with audio data of the current AKAudioFile normalized to have a peak of newMaxLevel dB.
@@ -53,6 +62,53 @@ extension AKAudioFile {
         return try AKAudioFile(forReading: outputFile.url)
     }
     
+    /**
+     ProcessProtocol recieves an AKAudioFile with audio data of the current AKAudioFile normalized to have a peak of newMaxLevel dB.
+     
+     - Parameters:
+     - name: the name of the file without its extension (String).
+     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+     - newMaxLevel: max level targeted as a Float value (default if 0 dB)*/
+    public func asyncNormalize( baseDir: BaseDirectory = .Temp,
+                                name: String = "", newMaxLevel: Float = 0.0 ) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+            OSAtomicIncrement32(&AKAudioFile.queueCount)
+            
+            let level = self.maxLevel
+            var outputFile = try? AKAudioFile (writeIn: baseDir, name: name)
+            
+            if self.samplesCount == 0 {
+                print( "WARNING AKAudioFile: cannot normalize an empty file")
+                OSAtomicDecrement32(&AKAudioFile.queueCount)
+                self.delegate!.processCompleted?(try? AKAudioFile(forReading: outputFile!.url), name: name)
+            }
+            
+            if level == FLT_MIN {
+                print( "WARNING AKAudioFile: cannot normalize a silent file")
+                OSAtomicDecrement32(&AKAudioFile.queueCount)
+                self.delegate!.processCompleted?(try? AKAudioFile(forReading: outputFile!.url), name: name)
+            }
+            
+            
+            
+            let gainFactor = Float( pow(10.0, newMaxLevel/10.0) / pow(10.0, level / 10.0))
+            
+            let arrays = self.arraysOfFloats
+            
+            var newArrays: [[Float]] = []
+            for array in arrays {
+                let newArray = array.map {$0 * gainFactor}
+                newArrays.append(newArray)
+            }
+            
+            outputFile = try? AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
+            
+            OSAtomicDecrement32(&AKAudioFile.queueCount)
+            self.delegate!.processCompleted?(try? AKAudioFile(forReading: outputFile!.url), name: name)
+        }
+    }
     
     /**
      Returns an AKAudioFile with audio reversed (will playback in reverse from end to beginning).
@@ -84,6 +140,38 @@ extension AKAudioFile {
         return try AKAudioFile(forReading: outputFile.url)
     }
     
+    /**
+     ProcessProtocol recieves an AKAudioFile with audio reversed (will playback in reverse from end to beginning).
+     
+     - Parameters:
+     - name: the name of the file without its extension (String).
+     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp*/
+    public func asyncReverse( baseDir: BaseDirectory = .Temp,
+                              name: String = "" ) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+            OSAtomicIncrement32(&AKAudioFile.queueCount)
+            var outputFile = try? AKAudioFile (writeIn: baseDir, name: name)
+            
+            if self.samplesCount == 0 {
+                OSAtomicDecrement32(&AKAudioFile.queueCount)
+                self.delegate!.processCompleted?(try? AKAudioFile(forReading: outputFile!.url), name: name)
+            }
+            
+            let arrays = self.arraysOfFloats
+            
+            var newArrays: [[Float]] = []
+            for array in arrays {
+                newArrays.append(Array(array.reverse()))
+            }
+            
+            outputFile = try? AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
+            
+            OSAtomicDecrement32(&AKAudioFile.queueCount)
+            self.delegate!.processCompleted?(try? AKAudioFile(forReading: outputFile!.url), name: name)
+        }
+    }
     
     /**
      Returns an AKAudioFile with appended audio data from another AKAudioFile.
@@ -162,6 +250,44 @@ extension AKAudioFile {
         
         let newFile = try AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
         return try AKAudioFile(forReading: newFile.url)
+    }
+    
+    /**
+     ProcessProtocol recieves an AKAudioFile that will contain a range of samples from the current AKAudioFile
+     
+     - Parameters:
+     - from: the starting sampleFrame for extraction.
+     - to: the ending sampleFrame for extraction
+     - name: the name of the file without its extension (String).
+     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp*/
+    public func asyncExtract(from: Int64, to: Int64, baseDir: BaseDirectory = .Temp,
+                             name: String = "") {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+            OSAtomicIncrement32(&AKAudioFile.queueCount)
+            
+            if from < 0 || to > Int64(self.samplesCount) || to <= from {
+                print( "ERROR AKAudioFile: cannot extract, not a valid range !")
+                OSAtomicDecrement32(&AKAudioFile.queueCount)
+                return
+            }
+            
+            
+            let arrays = self.arraysOfFloats
+            
+            var newArrays: [[Float]] = []
+            
+            for array in arrays {
+                let extract = Array(array[Int(from)..<Int(to)])
+                newArrays.append(extract)
+            }
+            
+            let newFile = try? AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
+            
+            OSAtomicDecrement32(&AKAudioFile.queueCount)
+            self.delegate!.processCompleted?(try? AKAudioFile(forReading: newFile!.url), name: name)
+        }
     }
     
     /**
