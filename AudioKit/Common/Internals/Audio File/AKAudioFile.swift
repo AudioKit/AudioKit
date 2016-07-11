@@ -36,9 +36,9 @@ public class AKAudioFile: AVAudioFile {
         /// Resources directory
         case Resources
     }
-
+    
     // MARK: - private vars
-
+    
     // Used for exporting, can be accessed with public .avAsset property
     private lazy var internalAVAsset: AVURLAsset = {
         let avAssetUrl = NSURL(fileURLWithPath:self.url.absoluteString)
@@ -227,6 +227,14 @@ public class AKAudioFile: AVAudioFile {
             return (10 * log10(maxLev))
         }
     }()
+    
+    // MARK: - Public Other Properties
+    
+    /// How many processes in queue - see AKAudioFile+Processing.swift
+    static public var queueCount: Int32 = 0
+    
+    /// AKAudioFile Delegate
+    public var delegate: AKAudioFileDelegate? = nil
     
     // MARK: - Initialization
     
