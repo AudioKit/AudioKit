@@ -28,7 +28,11 @@ public class AKMicrophoneRecorder {
         #if os(iOS)
         self.recordingSession = AVAudioSession.sharedInstance()
         do {
-            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker)
+
+
+            //try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker)
+            try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord, withOptions:AVAudioSessionCategoryOptions.DefaultToSpeaker)
+
             try recordingSession.setActive(true)
         } catch {
             print("lacking permission to record!\n")
