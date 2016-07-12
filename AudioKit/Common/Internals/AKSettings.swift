@@ -146,5 +146,25 @@ import AVFoundation
             print ("AKSettings: Session.category is set to: \(session.categoryOptions)")
         }
     }
+
+    /// Checks if headphones are plugged
+    /// Returns true if headPhones are plugged, otherwise return false
+    static public var headPhonesPlugged:Bool {
+        let route = session.currentRoute
+        var headPhonesFound = false
+        if route.outputs.count > 0 {
+            for description in route.outputs {
+                if description.portType == AVAudioSessionPortHeadphones {
+                    headPhonesFound = true
+                    break
+                }
+            }
+        }
+        return headPhonesFound
+    }
+
     #endif
+
+
+
 }

@@ -16,7 +16,7 @@ let ak = try? AKAudioFile(readFileName: "click.wav",
 let av = ak! as AVAudioFile
 
 //converted back into an AKAudioFile
-let ak2 = try? AKAudioFile(readAVAudioFile: av)
+let ak2 = try? AKAudioFile(forReading: av.url)
 
 
 //: The baseDirectory parameter if an enum value from AKAudioFile.BaseDirectory :
@@ -24,9 +24,8 @@ let documentsDir = AKAudioFile.BaseDirectory.Documents
 let resourcesDir = AKAudioFile.BaseDirectory.Resources
 let tempDir = AKAudioFile.BaseDirectory.Temp
 
-// So to load an AKAudiofile from this playground Resources folder :
-let drumloop = try? AKAudioFile(readFileName: "drumloop.wav",
-                                baseDir: .Resources)
+// baseDir is defaulted to be .Resources, so loading an AKAudiofile from this playground Resources folder can be done like this :
+let drumloop = try? AKAudioFile(readFileName: "drumloop.wav")
 
 //: You can load a file from a sub directory like this:
 let fmpia = try? AKAudioFile(readFileName: "Sounds/fmpia1.wav",

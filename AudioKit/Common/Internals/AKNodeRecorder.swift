@@ -40,7 +40,7 @@ public class AKNodeRecorder {
 
         var internalAudioFileForReading: AKAudioFile
         do {
-            internalAudioFileForReading = try AKAudioFile(readAVAudioFile: internalAudioFile)
+            internalAudioFileForReading = try AKAudioFile(forReading: internalAudioFile.url)
             return internalAudioFileForReading
         } catch let error as NSError {
             print ("Cannot create internal audio file for reading")
@@ -97,7 +97,7 @@ public class AKNodeRecorder {
 
             do {
                 // We initialize AKAudioFile for writing (and check that we can write to)
-                self.internalAudioFile = try AKAudioFile(writeAVAudioFile: file!)
+                self.internalAudioFile = try AKAudioFile(forWriting: file!.url, settings: file!.processingFormat.settings)
             } catch let error as NSError {
                 print ("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
                 throw error
