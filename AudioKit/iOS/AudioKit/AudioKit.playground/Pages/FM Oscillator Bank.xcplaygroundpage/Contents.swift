@@ -1,7 +1,6 @@
 import XCPlayground
 import AudioKit
 
-//let osc = InstrumentDemo()
 let osc = AKFMOscillatorBank()
 
 AudioKit.output = osc
