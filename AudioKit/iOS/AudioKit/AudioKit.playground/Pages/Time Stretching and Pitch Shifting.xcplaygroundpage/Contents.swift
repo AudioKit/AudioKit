@@ -56,10 +56,6 @@ class PlaygroundView: AKPlaygroundView {
 
         pitchLabel = addLabel("Pitch: \(timePitch.pitch) Cents")
         addSlider(#selector(setPitch), value: timePitch.pitch, minimum: -2400, maximum: 2400)
-
-        overlapLabel = addLabel("Overlap: \(timePitch.overlap)")
-        addSlider(#selector(setOverlap), value: timePitch.overlap, minimum: 3.0, maximum: 32.0)
-
     }
 
     //: Handle UI Events
@@ -114,11 +110,6 @@ class PlaygroundView: AKPlaygroundView {
         pitchLabel!.text = "Pitch: \(pitch) Cents"
     }
 
-    func setOverlap(slider: Slider) {
-        timePitch.overlap = Double(slider.value)
-        let overlap = String(format: "%0.1f", timePitch.overlap)
-        overlapLabel!.text = "Overlap: \(overlap)"
-    }
 
 }
 
