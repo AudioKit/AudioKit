@@ -265,12 +265,14 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
     /// resets in and out times for playing
     public func reloadFile() throws {
-        stop()
-
+        let wasPlaying  = playing
+        if wasPlaying {
+            stop()
+        }
         var newAudioFile: AKAudioFile?
 
         do {
-            newAudioFile = try AKAudioFile(readAVAudioFile: audioFile)
+            newAudioFile = try AKAudioFile(forReading: internalAudioFile.url)
         } catch let error as NSError {
             print ("AKAudioPlayer Error:Couldn't reLoadFile !...")
             print("Error: \(error)")
@@ -280,22 +282,22 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalAudioFile = newAudioFile!
         internalPlayer.reset()
         initialize()
-    }
 
-    /// Replace the current audio file with a new AKAudioFile file
-    public func replaceFile(file: AKAudioFile) throws {
-        let wasPlaying = playing
-        stop()
-        self.internalAudioFile = file
-        do {
-            try reloadFile()
-        } catch let error as NSError {
-            print ("AKAudioPlayer Error: Couldn't replace File !...")
-            print("Error: \(error)")
-        }
         if wasPlaying {
             play()
         }
+    }
+
+    /// Replace player's file with a new AKAudioFile file
+    public func replaceFile(file: AKAudioFile) throws {
+        internalAudioFile = file
+        do {
+            try reloadFile()
+        } catch let error as NSError {
+            print ("AKAudioPlayer Error: Couldn't reload replaced File: \"\(file.fileNamePlusExtension)\" !...")
+            print("Error: \(error)")
+        }
+          print ("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
 
 
@@ -335,11 +337,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         // Warning if file's samplerate don't match with AKSettings.samplesRate
         if internalAudioFile.sampleRate != AKSettings.sampleRate {
             print ("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" has a different sample rate from AudioKit's Settings !")
-
             print ("Audio will be played at a bad pitch/speed, in / out time will not be set properly !")
         }
 
-        // stop will reset PCMbuffer and scheduleBuffer
         if internalAudioFile.length > 0 {
             setPCMBuffer()
             scheduleBuffer()
@@ -356,8 +356,8 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     }
 
     private func setPCMBuffer() {
-        if internalAudioFile.length > 0 {
-            internalAudioFile.framePosition = Int64(startingFrame)
+        if internalAudioFile.samplesCount > 0 {
+           internalAudioFile.framePosition = Int64(startingFrame)
             framesToPlayCount = endingFrame - startingFrame
             audioFileBuffer = AVAudioPCMBuffer(
                 PCMFormat: internalAudioFile.processingFormat,
@@ -368,6 +368,8 @@ public class AKAudioPlayer: AKNode, AKToggleable {
                 print("ERROR AKaudioPlayer: Could not read data into buffer.")
                 return
             }
+        } else {
+             print("ERROR setPCMBuffer: Could not set PCM buffer -> \(internalAudioFile.fileNamePlusExtension) samplesCount = 0.")
         }
     }
 

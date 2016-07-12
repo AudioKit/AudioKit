@@ -9,7 +9,6 @@ import XCPlayground
 import AudioKit
 
 //: Here we set up a source to be recorded
-
 var oscillator = AKOscillator(waveform: AKTable(.Sawtooth))
 var currentAmplitude = 0.1
 var currentRampTime = 0.2
@@ -144,19 +143,6 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 
     func noteOff(note: Int) {
         oscillator.amplitude = 0
-    }
-
-
-    func setAmplitude(slider: Slider) {
-        currentAmplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", currentAmplitude)
-        amplitudeLabel!.text = "Amplitude: \(amp)"
-    }
-
-    func setRampTime(slider: Slider) {
-        currentRampTime = Double(slider.value)
-        let rampTime = String(format: "%0.3f", currentRampTime)
-        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 }
 
