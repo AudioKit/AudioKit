@@ -108,8 +108,7 @@
 //:
 //: Two noise "colors" to start off with, but we aim to have a much larger spectrum soon.
 //:
-//: * [Pink Noise Generator](Pink%20Noise%20Generator)
-//: * [White Noise Generator](White%20Noise%20Generator)
+//: * [Pink and White Noise Generators](Pink%20and%20White%20Noise%20Generators)
 //:
 //: ### Physical Models & Instruments
 //:
@@ -139,9 +138,9 @@
 //:
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
 //: * [Decimator](Decimator)
-//: * [Ring Modulation](Ring%20Modulation)
+//: * [Ring Modulator](Ring%20Modulator)
+//: * [Distortion](Distortion)
 //: * [Tanh Distortion](Tanh%20Distortion)
-//: * [Complex Distortion](Complex%20Distortion)
 //:
 //: ### Dynamics Processing
 //:
@@ -163,7 +162,7 @@
 //: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
-//: * [Low Pass Butterworth Filter](Loiw%20Pass%20Butterworth%20Filter)
+//: * [Low Pass Butterworth Filter](Low%20Pass%20Butterworth%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
 //: * [Low  Shelf Filter](Low%20Shelf%20Filter)
 //: * [Modal Resonance Filter](Modal%20Resonance%20Filter)

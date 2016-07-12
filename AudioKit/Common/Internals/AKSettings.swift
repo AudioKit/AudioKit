@@ -11,7 +11,7 @@ import AVFoundation
 
 /// Global settings for AudioKit
 @objc public class AKSettings: NSObject {
-
+    
     /// Enum of available AVAudioSession Categories
     public enum SessionCategory: String {
         case Ambient = "AVAudioSessionCategoryAmbient"
@@ -22,7 +22,7 @@ import AVFoundation
         case AudioProcessing = "AVAudioSessionCategoryAudioProcessing"
         case MultiRoute = "AVAudioSessionCategoryMultiRoute"
     }
-
+    
     /// Enum of available buffer lengths
     /// from Shortest: 2 power 5 samples (32 samples = 0.7 ms @ 44100 kz)
     /// to Longest: 2 power 12 samples (4096 samples = 92.9 ms @ 44100 Hz)
@@ -35,64 +35,66 @@ import AVFoundation
         case VeryLong = 10
         case Huge = 11
         case Longest = 12
-
+        
         /// The buffer Length expressed as number of samples
         var samplesCount: AVAudioFrameCount {
-            return AVAudioFrameCount(pow(2.0,Double(self.rawValue)))
+            return AVAudioFrameCount(pow(2.0, Double(self.rawValue)))
         }
-
+        
         /// The buffer Length expressed as a duration in seconds
         var duration: Double {
             return Double(samplesCount) / AKSettings.sampleRate
         }
     }
-
-    /// Shortcut for AVAudioSession.sharedInstance()
-    public static let session = AVAudioSession.sharedInstance()
-
+    
     /// The sample rate in Hertz
     public static var sampleRate: Double = 44100
-
+    
     /// Number of audio channels: 2 for stereo, 1 for mono
     public static var numberOfChannels: UInt32 = 2
-
+    
     /// Whether we should be listening to audio input (microphone)
     public static var audioInputEnabled: Bool = false
-
+    
     /// Whether to allow audio playback to override the mute setting
     public static var playbackWhileMuted: Bool = false
-
+    
     /// Global audio format AudioKit will default to
     public static var audioFormat: AVAudioFormat {
         return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: numberOfChannels)
     }
-
+    
     /// Whether to DefaultToSpeaker when audio input is enabled
     public static var defaultToSpeaker: Bool = false
-
+    
     /// Global default rampTime value
     public static var rampTime: Double = 0.0002
-
+    
     /// Allows AudioKit to send Notifications
     public static var notificationsEnabled: Bool = false
-
+    
     /// AudioKit buffer length is set using AKSettings.BufferLength
     /// default is .Medium for a buffer set to 2 power 8 = 256 samples (58 ms)
     public static var bufferLength: BufferLength = .Medium
-
+    
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .Medium for a buffer set to 2 power 8 = 256 samples (58 ms)
     public static var recordingBufferLength: BufferLength = .Medium
-
+    
     /// Enable AudioKit AVAudioSession Category Management
     public static var disableAVAudioSessionCategoryManagement: Bool = false
+    
+    #if !os(OSX)
 
-
-
-    public static func setSessionCategory( category:SessionCategory, withOptions options: AVAudioSessionCategoryOptions? = nil ) throws {
-
+    /// Shortcut for AVAudioSession.sharedInstance()
+    public static let session = AVAudioSession.sharedInstance()
+    
+    public static func setSessionCategory(
+        category: SessionCategory,
+        withOptions options: AVAudioSessionCategoryOptions? = nil ) throws {
+        
         if AKSettings.disableAVAudioSessionCategoryManagement == false {
-
+            
             print( "ask for category: \(category.rawValue)")
             // Category
             if options != nil {
@@ -105,7 +107,7 @@ import AVFoundation
                 }
             }
         } else {
-
+            
             do {
                 try session.setCategory(category.rawValue)
             } catch let error as NSError {
@@ -114,17 +116,17 @@ import AVFoundation
                 throw error
             }
         }
-
+        
         // Preferred IO Buffer Duration
-
+        
         do {
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
-            print ("AKAsettings Error: Cannot set Preferred IOBufferDuration  to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
+            print ("AKAsettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
             print ("AKAsettings Error: \(error))")
             throw error
         }
-
+        
         // Activate session
         do {
             try session.setActive(true)
@@ -133,17 +135,16 @@ import AVFoundation
             print ("AKAsettings Error: \(error))")
             throw error
         }
-
+        
         
         // FOR DEBUG !
         print ("AKSettings: asked for: \(category.rawValue)")
         print ("AKSettings: Session.category is set to: \(session.category)")
-
+        
         if options != nil {
             print ("AKSettings: asked for options: \(options!)")
             print ("AKSettings: Session.category is set to: \(session.categoryOptions)")
         }
-     }
+    }
+    #endif
 }
-
-
