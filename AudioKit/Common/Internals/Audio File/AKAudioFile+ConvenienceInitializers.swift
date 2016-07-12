@@ -57,41 +57,7 @@ extension AKAudioFile {
         
         
     }
-    
-    /**
-     Converts an AVAudioFile to an AKAudioFile for reading.
-     
-     - Parameters:
-     - avAudioFile: an AVAudioFile.
-     
-     - Throws: NSError if init failed .
-     
-     - Returns: An initialized AKAudioFile for reading, or nil if init failed.
-     
-     */
-    public convenience init(readAVAudioFile avAudioFile: AVAudioFile) throws {
-        try self.init(forReading: avAudioFile.url)
-    }
-    
-    /**
-     Converts an AVAudioFile to an AKAudioFile for writing.
-     
-     - Parameters:
-     - avAudioFile: an AVAudioFile.
-     
-     - Throws: NSError if init failed .
-     
-     - Returns: An initialized AKAudioFile for writing, or nil if init failed.
-     
-     */
-    public convenience init(writeAVAudioFile avAudioFile: AVAudioFile) throws {
-        var avSettings = avAudioFile.processingFormat.settings
-        // Avoid a warning complaining about interleavead setting value
-        avSettings["AVLinearPCMIsNonInterleaved"] = NSNumber(bool: false)
-        try self.init(forWriting: avAudioFile.url, settings: avSettings)
-    }
-    
-    
+
     /**
      Creates file for recording / writing purpose
      Default is a .caf AKAudioFile with AudioKit settings
