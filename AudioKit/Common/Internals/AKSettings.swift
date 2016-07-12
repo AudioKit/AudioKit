@@ -79,7 +79,7 @@ import AVFoundation
     
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .Medium for a buffer set to 2 power 8 = 256 samples (58 ms)
-    public static var recordingBufferLength: BufferLength = .Medium
+    public static var recordingBufferLength: BufferLength = .Longest
     
     /// Enable AudioKit AVAudioSession Category Management
     public static var disableAVAudioSessionCategoryManagement: Bool = false
