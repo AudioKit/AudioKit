@@ -79,7 +79,7 @@ import AVFoundation
     
     /// AudioKit recording buffer length is set using AKSettings.BufferLength
     /// default is .Medium for a buffer set to 2 power 8 = 256 samples (58 ms)
-    public static var recordingBufferLength: BufferLength = .Medium
+    public static var recordingBufferLength: BufferLength = .Longest
     
     /// Enable AudioKit AVAudioSession Category Management
     public static var disableAVAudioSessionCategoryManagement: Bool = false
@@ -146,5 +146,25 @@ import AVFoundation
             print ("AKSettings: Session.category is set to: \(session.categoryOptions)")
         }
     }
+
+    /// Checks if headphones are plugged
+    /// Returns true if headPhones are plugged, otherwise return false
+    static public var headPhonesPlugged:Bool {
+        let route = session.currentRoute
+        var headPhonesFound = false
+        if route.outputs.count > 0 {
+            for description in route.outputs {
+                if description.portType == AVAudioSessionPortHeadphones {
+                    headPhonesFound = true
+                    break
+                }
+            }
+        }
+        return headPhonesFound
+    }
+
     #endif
+
+
+
 }
