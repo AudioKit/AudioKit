@@ -61,7 +61,8 @@ int sp_pinknoise_compute(sp_data *sp, sp_pinknoise *p, SPFLOAT *in, SPFLOAT *out
     p->seed = 1103515245 * p->seed + 12345;
     p->newrand = p->seed >> 3;
     short tmp = (short) ((((p->total + p->newrand) * (1.0f / (3 << 29)) - 1) - .25f) * 16384.0f);
-    *out = (SPFLOAT) tmp / sizeof(short) * p->amp;
+    
+    *out = ((SPFLOAT) tmp / 32767) * p->amp;
     p->counter = (p->counter + 1) % 0xFFFFFFFF;
     return SP_OK;
 }
