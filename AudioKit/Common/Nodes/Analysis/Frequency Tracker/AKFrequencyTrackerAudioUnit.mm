@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
 #import "AKFrequencyTrackerAudioUnit.h"
@@ -50,10 +50,6 @@
 - (float)getFrequency {
     return _kernel.trackedFrequency;
 }
-- (void)setFrequencyLimitsWithMinimum:(float)minimum maximum:(float)maximum {
-    _kernel.setFrequencyLimits(minimum, maximum);
-}
-
 
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
@@ -71,9 +67,7 @@
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
 
-    
     // Initialize the parameter values.
-
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
@@ -123,7 +117,7 @@
     if (![super allocateRenderResourcesAndReturnError:outError]) {
         return NO;
     }
-
+    
     if (self.outputBus.format.channelCount != _inputBus.bus.format.channelCount) {
         if (outError) {
             *outError = [NSError errorWithDomain:NSOSStatusErrorDomain
@@ -135,7 +129,7 @@
 
         return NO;
     }
-
+    
     _inputBus.allocateRenderResources(self.maximumFramesToRender);
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);

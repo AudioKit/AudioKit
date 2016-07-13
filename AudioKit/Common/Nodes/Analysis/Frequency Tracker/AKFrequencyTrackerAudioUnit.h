@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
 #ifndef AKFrequencyTrackerAudioUnit_h
@@ -14,7 +14,7 @@
 @interface AKFrequencyTrackerAudioUnit : AUAudioUnit
 - (float)getAmplitude;
 - (float)getFrequency;
-- (void)setFrequencyLimitsWithMinimum:(float)minimum maximum:(float)maximum;
+
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;

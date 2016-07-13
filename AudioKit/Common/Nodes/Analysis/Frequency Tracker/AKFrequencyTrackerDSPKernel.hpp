@@ -3,7 +3,7 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
 
 #ifndef AKFrequencyTrackerDSPKernel_hpp
@@ -33,8 +33,9 @@ public:
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = channels;
-        sp_pitchamdf_create(&pitchamdf);
-        sp_pitchamdf_init(sp, pitchamdf, minimumFrequency, maximumFrequency);
+        sp_ptrack_create(&ptrack);
+        sp_ptrack_init(sp, ptrack, hopSize, peakCount);
+
     }
     
     void start() {
@@ -46,17 +47,13 @@ public:
     }
 
     void destroy() {
-        sp_pitchamdf_destroy(&pitchamdf);
+        sp_ptrack_destroy(&ptrack);
         sp_destroy(&sp);
     }
     
     void reset() {
     }
-    
-    void setFrequencyLimits(float min, float max) {
-        minimumFrequency = min;
-        maximumFrequency = max;
-    }
+
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
@@ -91,7 +88,7 @@ public:
                 float temp = *in;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 if (started) {
-                    sp_pitchamdf_compute(sp, pitchamdf, in, &trackedFrequency, &trackedAmplitude);
+                    sp_ptrack_compute(sp, ptrack, in, &trackedFrequency, &trackedAmplitude);
                 } else {
                     trackedAmplitude = 0;
                     trackedFrequency = 0;
@@ -104,19 +101,19 @@ public:
     // MARK: Member Variables
 
 private:
-
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
     
-    float minimumFrequency = 20;
-    float maximumFrequency = 4000;
+    int hopSize = 4096;
+    int peakCount = 20;
 
-    AudioBufferList* inBufferListPtr = nullptr;
-    AudioBufferList* outBufferListPtr = nullptr;
+    AudioBufferList *inBufferListPtr = nullptr;
+    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
-    sp_pitchamdf *pitchamdf;
-    
+    sp_ptrack *ptrack;
+
+
 public:
     float trackedAmplitude = 0.0;
     float trackedFrequency = 0.0;
