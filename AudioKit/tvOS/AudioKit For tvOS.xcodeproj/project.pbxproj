@@ -364,7 +364,6 @@
 		C4B1923A1C3B342800C0F330 /* phaser.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B191791C3B342800C0F330 /* phaser.c */; };
 		C4B1923B1C3B342800C0F330 /* phasor.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B1917A1C3B342800C0F330 /* phasor.c */; };
 		C4B1923C1C3B342800C0F330 /* pinknoise.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B1917B1C3B342800C0F330 /* pinknoise.c */; };
-		C4B1923D1C3B342800C0F330 /* pitchamdf.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B1917C1C3B342800C0F330 /* pitchamdf.c */; };
 		C4B1923E1C3B342800C0F330 /* pluck.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B1917D1C3B342800C0F330 /* pluck.c */; };
 		C4B1923F1C3B342800C0F330 /* port.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B1917E1C3B342800C0F330 /* port.c */; };
 		C4B192401C3B342800C0F330 /* posc3.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B1917F1C3B342800C0F330 /* posc3.c */; };
@@ -497,6 +496,7 @@
 		C4D1FD091CE5BDC60043209E /* AKTremoloAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4D1FD051CE5BDC60043209E /* AKTremoloAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D1FD0A1CE5BDC60043209E /* AKTremoloAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4D1FD061CE5BDC60043209E /* AKTremoloAudioUnit.mm */; };
 		C4D1FD0B1CE5BDC60043209E /* AKTremoloDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4D1FD071CE5BDC60043209E /* AKTremoloDSPKernel.hpp */; };
+		C4D24F2C1D37089B0045060F /* ptrack.c in Sources */ = {isa = PBXBuildFile; fileRef = C4D24F2B1D37089B0045060F /* ptrack.c */; };
 		C4DA4BEF1C248F3000AA3771 /* jitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BEC1C248F3000AA3771 /* jitter.swift */; };
 		C4DA4BF01C248F3000AA3771 /* randomNumberPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BED1C248F3000AA3771 /* randomNumberPulse.swift */; };
 		C4DA4BF11C248F3000AA3771 /* randomVertexPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DA4BEE1C248F3000AA3771 /* randomVertexPulse.swift */; };
@@ -951,7 +951,6 @@
 		C4B191791C3B342800C0F330 /* phaser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = phaser.c; sourceTree = "<group>"; };
 		C4B1917A1C3B342800C0F330 /* phasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = phasor.c; sourceTree = "<group>"; };
 		C4B1917B1C3B342800C0F330 /* pinknoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinknoise.c; sourceTree = "<group>"; };
-		C4B1917C1C3B342800C0F330 /* pitchamdf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pitchamdf.c; sourceTree = "<group>"; };
 		C4B1917D1C3B342800C0F330 /* pluck.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pluck.c; sourceTree = "<group>"; };
 		C4B1917E1C3B342800C0F330 /* port.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = port.c; sourceTree = "<group>"; };
 		C4B1917F1C3B342800C0F330 /* posc3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posc3.c; sourceTree = "<group>"; };
@@ -1086,6 +1085,7 @@
 		C4D1FD051CE5BDC60043209E /* AKTremoloAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTremoloAudioUnit.h; sourceTree = "<group>"; };
 		C4D1FD061CE5BDC60043209E /* AKTremoloAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTremoloAudioUnit.mm; sourceTree = "<group>"; };
 		C4D1FD071CE5BDC60043209E /* AKTremoloDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTremoloDSPKernel.hpp; sourceTree = "<group>"; };
+		C4D24F2B1D37089B0045060F /* ptrack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ptrack.c; sourceTree = "<group>"; };
 		C4DA4BEC1C248F3000AA3771 /* jitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jitter.swift; sourceTree = "<group>"; };
 		C4DA4BED1C248F3000AA3771 /* randomNumberPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomNumberPulse.swift; sourceTree = "<group>"; };
 		C4DA4BEE1C248F3000AA3771 /* randomVertexPulse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = randomVertexPulse.swift; sourceTree = "<group>"; };
@@ -2268,13 +2268,13 @@
 				C4B191791C3B342800C0F330 /* phaser.c */,
 				C4B1917A1C3B342800C0F330 /* phasor.c */,
 				C4B1917B1C3B342800C0F330 /* pinknoise.c */,
-				C4B1917C1C3B342800C0F330 /* pitchamdf.c */,
 				C4B1917D1C3B342800C0F330 /* pluck.c */,
 				C4B1917E1C3B342800C0F330 /* port.c */,
 				C4B1917F1C3B342800C0F330 /* posc3.c */,
 				C4B191801C3B342800C0F330 /* progress.c */,
 				C4B191811C3B342800C0F330 /* prop.c */,
 				C46809851CEED77A00ADFC05 /* pshift.c */,
+				C4D24F2B1D37089B0045060F /* ptrack.c */,
 				C4B191821C3B342800C0F330 /* randh.c */,
 				C4B191831C3B342800C0F330 /* randi.c */,
 				C4B191841C3B342800C0F330 /* randmt.c */,
@@ -3109,7 +3109,6 @@
 				C40C42311C40E5C2009D870B /* EZOutput.m in Sources */,
 				C48444F91C370329007BE794 /* square.swift in Sources */,
 				C4B1921A1C3B342800C0F330 /* dcblock.c in Sources */,
-				C4B1923D1C3B342800C0F330 /* pitchamdf.c in Sources */,
 				C4E752511C23888700688A1B /* max.swift in Sources */,
 				C4ABF5371C82AEC00078EE8E /* AKMetalBar.swift in Sources */,
 				C4B1927C1C3B342800C0F330 /* dist.c in Sources */,
@@ -3353,6 +3352,7 @@
 				C48444FA1C370329007BE794 /* triangle.swift in Sources */,
 				C43E42A01D066DD30066BF7A /* AK3DPanner.swift in Sources */,
 				C4AC8BCB1C4E292D009EA58E /* AKExpander.swift in Sources */,
+				C4D24F2C1D37089B0045060F /* ptrack.c in Sources */,
 				C49DCD4A1D2100B400BF018A /* AKMorphingOscillatorBank.swift in Sources */,
 				EA6949E91C5A2F610035B5DF /* AKSettings.swift in Sources */,
 				C4E752381C23888700688A1B /* bitcrush.swift in Sources */,

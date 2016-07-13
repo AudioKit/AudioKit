@@ -118,13 +118,14 @@ int sp_ptrack_init(sp_data *sp, sp_ptrack *p, int ihopsize, int ipeaks)
     SPFLOAT *tmpb;
 
 
-    /*TODO: fix this warning */
+    /* TODO: fix this warning */
     if (winsize < MINWINSIZ || winsize > MAXWINSIZ) {
       fprintf(stderr, "Woops\n");
       return SP_NOT_OK;
     }
 
     tmp = winsize;
+
     powtwo = -1;
 
     while (tmp) {
@@ -132,13 +133,16 @@ int sp_ptrack_init(sp_data *sp, sp_ptrack *p, int ihopsize, int ipeaks)
       powtwo++;
     }
 
-    sp_fft_init(&p->fft, powtwo);
+    /* 3 days of debugging later... I found this off by one error */
+    /* powtwo needs to be powtwo - 1 for fft_init */
+    sp_fft_init(&p->fft, powtwo - 1) ;
 
     /* TODO: make this error better */
     if (winsize != (1 << powtwo)) {
-      fprintf(stderr, "Woops\n");
-      return SP_NOT_OK;
+        fprintf(stderr, "Woops\n");
+        return SP_NOT_OK;
     }
+
     p->hopsize = p->size;
 
     sp_auxdata_alloc(&p->signal, p->hopsize * sizeof(SPFLOAT));
@@ -148,15 +152,16 @@ int sp_ptrack_init(sp_data *sp, sp_ptrack *p, int ihopsize, int ipeaks)
     sp_auxdata_alloc(&p->spec1, (winsize*4)*sizeof(SPFLOAT));
 
     for (i = 0, tmpb = (SPFLOAT *)p->signal.ptr; i < p->hopsize; i++)
-      tmpb[i] = 0.0;
+        tmpb[i] = 0.0;
     for (i = 0, tmpb = (SPFLOAT *)p->prev.ptr; i < winsize + 4 * FLTLEN; i++)
-      tmpb[i] = 0.0;
-    for (i = 0, tmpb = (SPFLOAT *)p->sin.ptr; i < p->hopsize; i++)
-      tmpb[2*i] =   (SPFLOAT) cos((M_PI*i)/(winsize)),
+        tmpb[i] = 0.0;
+    for (i = 0, tmpb = (SPFLOAT *)p->sin.ptr; i < p->hopsize; i++) {
+        tmpb[2*i] =   (SPFLOAT) cos((M_PI*i)/(winsize));
         tmpb[2*i+1] = -(SPFLOAT)sin((M_PI*i)/(winsize));
+    }
 
     p->cnt = 0;
-   p->numpks = ipeaks;
+    p->numpks = ipeaks;
 
     sp_auxdata_alloc(&p->peakarray, (p->numpks+1)*sizeof(PEAK));
 
@@ -168,7 +173,7 @@ int sp_ptrack_init(sp_data *sp, sp_ptrack *p, int ihopsize, int ipeaks)
     p->amphi = MAXAMPS;
     p->npartial = 7;
     p->dbfs = 32768.0;
-    p->prevf = p->cps = 200.0;
+    p->prevf = p->cps = 100.0;
 
     return SP_OK;
 }
@@ -182,10 +187,10 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
     SPFLOAT *prev  = (SPFLOAT *)p->prev.ptr;
     PEAK  *peaklist = (PEAK *)p->peakarray.ptr;
     HISTOPEAK histpeak;
-    int i, j, k, hop = p->hopsize, n = 2*hop, npeak, logn = -1, count, tmp;
-    SPFLOAT totalpower, totalloudness, totaldb;
+    int i, j, k, hop = p->hopsize, n = 2*hop, npeak = 0, logn = -1, count, tmp;
+    SPFLOAT totalpower = 0, totalloudness = 0, totaldb = 0;
     SPFLOAT maxbin,  *histogram = spectmp + BINGUARD;
-    SPFLOAT hzperbin = p->sr / (n + n);
+    SPFLOAT hzperbin = (SPFLOAT) p->sr / (n + n);
     int numpks = p->numpks;
     int indx, halfhop = hop>>1;
     SPFLOAT best;
@@ -199,73 +204,76 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
 
     tmp = n;
     while (tmp) {
-      tmp >>= 1;
-      logn++;
+        tmp >>= 1;
+        logn++;
     }
     maxbin = BINPEROCT * (logn-2);
-
     for (i = 0, k = 0; i < hop; i++, k += 2) {
-      spec[k]   = sig[i] * sinus[k];
-      spec[k+1] = sig[i] * sinus[k+1];
+        spec[k]   = sig[i] * sinus[k];
+        spec[k+1] = sig[i] * sinus[k+1];
     }
 
     sp_fft_cpx(&p->fft, spec, hop);
 
     for (i = 0, k = 2*FLTLEN; i < hop; i+=2, k += 4) {
-      spectmp[k]   = spec[i];
-      spectmp[k+1] = spec[i+1];
+        spectmp[k]   = spec[i];
+        spectmp[k+1] = spec[i+1];
     }
+
     for (i = n - 2, k = 2*FLTLEN+2; i >= 0; i-=2, k += 4) {
-      spectmp[k]   = spec[i];
-      spectmp[k+1] = -spec[i+1];
+        spectmp[k]   = spec[i];
+        spectmp[k+1] = -spec[i+1];
     }
+
     for (i = (2*FLTLEN), k = (2*FLTLEN-2);i<FLTLEN*4; i+=2, k-=2) {
-      spectmp[k]   = spectmp[i];
-      spectmp[k+1] = -spectmp[i+1];
+        spectmp[k]   = spectmp[i];
+        spectmp[k+1] = -spectmp[i+1];
     }
+
     for (i = (2*FLTLEN+n-2), k =(2*FLTLEN+n); i>=0; i-=2, k+=2) {
-      spectmp[k]   = spectmp[i];
-      spectmp[k+1] = -spectmp[k+1];
+        spectmp[k]   = spectmp[i];
+        spectmp[k+1] = -spectmp[k+1];
     }
 
     for (i = j = 0, k = 2*FLTLEN; i < halfhop; i++, j+=8, k+=2) {
-      SPFLOAT re,  im;
+        SPFLOAT re,  im;
 
-      re= COEF1 * ( prev[k-2] - prev[k+1]  + spectmp[k-2] - prev[k+1]) +
-        COEF2 * ( prev[k-3] - prev[k+2]  + spectmp[k-3]  - spectmp[ 2]) +
-        COEF3 * (-prev[k-6] +prev[k+5]  -spectmp[k-6] +spectmp[k+5]) +
-        COEF4 * (-prev[k-7] +prev[k+6]  -spectmp[k-7] +spectmp[k+6]) +
-        COEF5 * ( prev[k-10] -prev[k+9]  +spectmp[k-10] -spectmp[k+9]);
+        re= COEF1 * ( prev[k-2] - prev[k+1]  + spectmp[k-2] - prev[k+1]) +
+            COEF2 * ( prev[k-3] - prev[k+2]  + spectmp[k-3]  - spectmp[ 2]) +
+            COEF3 * (-prev[k-6] +prev[k+5]  -spectmp[k-6] +spectmp[k+5]) +
+            COEF4 * (-prev[k-7] +prev[k+6]  -spectmp[k-7] +spectmp[k+6]) +
+            COEF5 * ( prev[k-10] -prev[k+9]  +spectmp[k-10] -spectmp[k+9]);
 
-      im= COEF1 * ( prev[k-1] +prev[k]  +spectmp[k-1] +spectmp[k]) +
-        COEF2 * (-prev[k-4] -prev[k+3]  -spectmp[k-4] -spectmp[k+3]) +
-        COEF3 * (-prev[k-5] -prev[k+4]  -spectmp[k-5] -spectmp[k+4]) +
-        COEF4 * ( prev[k-8] +prev[k+7]  +spectmp[k-8] +spectmp[k+7]) +
-        COEF5 * ( prev[k-9] +prev[k+8]  +spectmp[k-9] +spectmp[k+8]);
+        im= COEF1 * ( prev[k-1] +prev[k]  +spectmp[k-1] +spectmp[k]) +
+            COEF2 * (-prev[k-4] -prev[k+3]  -spectmp[k-4] -spectmp[k+3]) +
+            COEF3 * (-prev[k-5] -prev[k+4]  -spectmp[k-5] -spectmp[k+4]) +
+            COEF4 * ( prev[k-8] +prev[k+7]  +spectmp[k-8] +spectmp[k+7]) +
+            COEF5 * ( prev[k-9] +prev[k+8]  +spectmp[k-9] +spectmp[k+8]);
 
-      spec[j]   = 0.707106781186547524400844362104849 * (re + im);
-      spec[j+1] = 0.707106781186547524400844362104849 * (im - re);
-      spec[j+4] = prev[k] + spectmp[k+1];
-      spec[j+5] = prev[k+1] - spectmp[k];
+        spec[j]   = 0.707106781186547524400844362104849 * (re + im);
+        spec[j+1] = 0.707106781186547524400844362104849 * (im - re);
+        spec[j+4] = prev[k] + spectmp[k+1];
+        spec[j+5] = prev[k+1] - spectmp[k];
 
-      j += 8;
-      k += 2;
-      re= COEF1 * ( prev[k-2] -prev[k+1]  -spectmp[k-2] +spectmp[k+1]) +
-        COEF2 * ( prev[k-3] -prev[k+2]  -spectmp[k-3] +spectmp[k+2]) +
-        COEF3 * (-prev[k-6] +prev[k+5]  +spectmp[k-6] -spectmp[k+5]) +
-        COEF4 * (-prev[k-7] +prev[k+6]  +spectmp[k-7] -spectmp[k+6]) +
-        COEF5 * ( prev[k-10] -prev[k+9]  -spectmp[k-10] +spectmp[k+9]);
+        j += 8;
+        k += 2;
 
-      im= COEF1 * ( prev[k-1] +prev[k]  -spectmp[k-1] -spectmp[k]) +
-        COEF2 * (-prev[k-4] -prev[k+3]  +spectmp[k-4] +spectmp[k+3]) +
-        COEF3 * (-prev[k-5] -prev[k+4]  +spectmp[k-5] +spectmp[k+4]) +
-        COEF4 * ( prev[k-8] +prev[k+7]  -spectmp[k-8] -spectmp[k+7]) +
-        COEF5 * ( prev[k-9] +prev[k+8]  -spectmp[k-9] -spectmp[k+8]);
+        re= COEF1 * ( prev[k-2] -prev[k+1]  -spectmp[k-2] +spectmp[k+1]) +
+            COEF2 * ( prev[k-3] -prev[k+2]  -spectmp[k-3] +spectmp[k+2]) +
+            COEF3 * (-prev[k-6] +prev[k+5]  +spectmp[k-6] -spectmp[k+5]) +
+            COEF4 * (-prev[k-7] +prev[k+6]  +spectmp[k-7] -spectmp[k+6]) +
+            COEF5 * ( prev[k-10] -prev[k+9]  -spectmp[k-10] +spectmp[k+9]);
 
-      spec[j]   = 0.707106781186547524400844362104849 * (re + im);
-      spec[j+1] = 0.707106781186547524400844362104849 * (im - re);
-      spec[j+4] = prev[k] - spectmp[k+1];
-      spec[j+5] = prev[k+1] + spectmp[k];
+        im= COEF1 * ( prev[k-1] +prev[k]  -spectmp[k-1] -spectmp[k]) +
+            COEF2 * (-prev[k-4] -prev[k+3]  +spectmp[k-4] +spectmp[k+3]) +
+            COEF3 * (-prev[k-5] -prev[k+4]  +spectmp[k-5] +spectmp[k+4]) +
+            COEF4 * ( prev[k-8] +prev[k+7]  -spectmp[k-8] -spectmp[k+7]) +
+            COEF5 * ( prev[k-9] +prev[k+8]  -spectmp[k-9] -spectmp[k+8]);
+
+        spec[j]   = 0.707106781186547524400844362104849 * (re + im);
+        spec[j+1] = 0.707106781186547524400844362104849 * (im - re);
+        spec[j+4] = prev[k] - spectmp[k+1];
+        spec[j+5] = prev[k+1] + spectmp[k];
 
     }
 
@@ -275,15 +283,15 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
     for (i = 0; i < MINBIN; i++) spec[4*i + 2] = spec[4*i + 3] =0.0;
 
     for (i = 4*MINBIN, totalpower = 0; i < (n-2)*4; i += 4) {
-      SPFLOAT re = spec[i] - 0.5 * (spec[i-8] + spec[i+8]);
-      SPFLOAT im = spec[i+1] - 0.5 * (spec[i-7] + spec[i+9]);
-      spec[i+3] = (totalpower += (spec[i+2] = re * re + im * im));
+        SPFLOAT re = spec[i] - 0.5 * (spec[i-8] + spec[i+8]);
+        SPFLOAT im = spec[i+1] - 0.5 * (spec[i-7] + spec[i+9]);
+        spec[i+3] = (totalpower += (spec[i+2] = re * re + im * im));
     }
 
     if (totalpower > 1.0e-9) {
-      totaldb = DBSCAL * log(totalpower/n);
-      totalloudness = sqrt(sqrt(totalpower));
-      if (totaldb < 0) totaldb = 0;
+        totaldb = (SPFLOAT)DBSCAL * logf(totalpower/n);
+        totalloudness = (SPFLOAT)sqrtf((SPFLOAT)sqrtf(totalpower));
+        if (totaldb < 0) totaldb = 0;
     }
     else totaldb = totalloudness = 0.0;
 
@@ -325,7 +333,7 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
             if (var * totalpower > THRSH * height
             || var < 1.0e-30) continue;
 
-            stdev = (SPFLOAT)sqrt((double)var);
+            stdev = (SPFLOAT)sqrt((SPFLOAT)var);
             if (totalfreq < 4) totalfreq = 4;
 
 
@@ -339,7 +347,7 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
           if (npeak > numpks) npeak = numpks;
           for (i = 0; i < maxbin; i++) histogram[i] = 0;
           for (i = 0; i < npeak; i++) {
-            SPFLOAT pit = (SPFLOAT)(BPEROOVERLOG2 * log(peaklist[i].pfreq) - 96.0);
+            SPFLOAT pit = (SPFLOAT)(BPEROOVERLOG2 * logf(peaklist[i].pfreq) - 96.0);
             SPFLOAT binbandwidth = FACTORTOBINS * peaklist[i].pwidth/peaklist[i].pfreq;
             SPFLOAT putbandwidth = (binbandwidth < 2.0 ? 2.0 : binbandwidth);
             SPFLOAT weightbandwidth = (binbandwidth < 1.0 ? 1.0 : binbandwidth);
@@ -363,13 +371,17 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
           }
 
 
-        for (best = 0, indx = -1, j=0; j < maxbin; j++)
-            if (histogram[j] > best) indx = j,  best = histogram[j];
+        for (best = 0, indx = -1, j=0; j < maxbin; j++) {
+            if (histogram[j] > best) {
+                indx = j;  
+                best = histogram[j];
+            }
+        }
 
         histpeak.hvalue = best;
         histpeak.hindex = indx;
 
-        putfreq = exp((1.0 / BPEROOVERLOG2) * (histpeak.hindex + 96.0));
+        putfreq = expf((1.0 / BPEROOVERLOG2) * (histpeak.hindex + 96.0));
 
         for (j = 0; j < npeak; j++) {
             SPFLOAT fpnum = peaklist[j].pfreq/putfreq;
@@ -394,7 +406,7 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
         if ((nbelow8 < 4 || npartials < 7) && cumpow < 0.01 * totalpower) {
             histpeak.hvalue = 0;
         } else {
-            double pitchpow = (cumstrength * cumstrength);
+            SPFLOAT pitchpow = (cumstrength * cumstrength);
             SPFLOAT freqinbins = freqnum/freqden;
             pitchpow = pitchpow * pitchpow;
 
@@ -402,7 +414,7 @@ static void ptrack(sp_data *sp, sp_ptrack *p)
                 histpeak.hvalue = 0;
             } else {
                 p->cps = histpeak.hpitch = hzperbin * freqnum/freqden;
-                histpeak.hloud = DBSCAL * log(pitchpow/n);
+                histpeak.hloud = DBSCAL * logf(pitchpow/n);
             }
         }
     }
@@ -414,15 +426,16 @@ int sp_ptrack_compute(sp_data *sp, sp_ptrack *p, SPFLOAT *in, SPFLOAT *freq, SPF
     int pos = p->cnt, h = p->hopsize;
     SPFLOAT scale = p->dbfs;
 
-      if (pos == h) {
+    if (pos == h) {
         ptrack(sp,p);
         pos = 0;
-      }
-      buf[pos] = *in * scale;
+    }
+    buf[pos] = *in * scale;
+    pos++;
+
     *freq = p->cps;
 
-    *amp =  p->dbs[p->histcnt];
-    pos++;
+    *amp =  exp(p->dbs[p->histcnt]/20 * log(10));
     p->cnt = pos;
 
     return SP_OK;

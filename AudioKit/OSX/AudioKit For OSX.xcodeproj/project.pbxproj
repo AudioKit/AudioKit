@@ -271,6 +271,7 @@
 		C48444F21C3702F8007BE794 /* sawtooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444EF1C3702F8007BE794 /* sawtooth.swift */; };
 		C48444F31C3702F8007BE794 /* square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F01C3702F8007BE794 /* square.swift */; };
 		C48444F41C3702F8007BE794 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F11C3702F8007BE794 /* triangle.swift */; };
+		C485C64A1D33FA7E007D1BFD /* ptrack.c in Sources */ = {isa = PBXBuildFile; fileRef = C485C6491D33FA7E007D1BFD /* ptrack.c */; };
 		C48DB7911CD536CB00D1EC13 /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7901CD536CB00D1EC13 /* CheckError.swift */; };
 		C48DB7991CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */; };
 		C48DB79B1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */; };
@@ -385,7 +386,6 @@
 		C4B190B61C3B340400C0F330 /* phaser.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF51C3B340400C0F330 /* phaser.c */; };
 		C4B190B71C3B340400C0F330 /* phasor.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF61C3B340400C0F330 /* phasor.c */; };
 		C4B190B81C3B340400C0F330 /* pinknoise.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF71C3B340400C0F330 /* pinknoise.c */; };
-		C4B190B91C3B340400C0F330 /* pitchamdf.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF81C3B340400C0F330 /* pitchamdf.c */; };
 		C4B190BA1C3B340400C0F330 /* pluck.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF91C3B340400C0F330 /* pluck.c */; };
 		C4B190BB1C3B340400C0F330 /* port.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FFA1C3B340400C0F330 /* port.c */; };
 		C4B190BC1C3B340400C0F330 /* posc3.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FFB1C3B340400C0F330 /* posc3.c */; };
@@ -887,6 +887,7 @@
 		C48444EF1C3702F8007BE794 /* sawtooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtooth.swift; sourceTree = "<group>"; };
 		C48444F01C3702F8007BE794 /* square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = square.swift; sourceTree = "<group>"; };
 		C48444F11C3702F8007BE794 /* triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
+		C485C6491D33FA7E007D1BFD /* ptrack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ptrack.c; sourceTree = "<group>"; };
 		C48DB7901CD536CB00D1EC13 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
 		C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+SendingMIDI.swift"; sourceTree = "<group>"; };
 		C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+ReceivingMIDI.swift"; sourceTree = "<group>"; };
@@ -1004,7 +1005,6 @@
 		C4B18FF51C3B340400C0F330 /* phaser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = phaser.c; sourceTree = "<group>"; };
 		C4B18FF61C3B340400C0F330 /* phasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = phasor.c; sourceTree = "<group>"; };
 		C4B18FF71C3B340400C0F330 /* pinknoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinknoise.c; sourceTree = "<group>"; };
-		C4B18FF81C3B340400C0F330 /* pitchamdf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pitchamdf.c; sourceTree = "<group>"; };
 		C4B18FF91C3B340400C0F330 /* pluck.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pluck.c; sourceTree = "<group>"; };
 		C4B18FFA1C3B340400C0F330 /* port.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = port.c; sourceTree = "<group>"; };
 		C4B18FFB1C3B340400C0F330 /* posc3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posc3.c; sourceTree = "<group>"; };
@@ -2490,13 +2490,13 @@
 				C4B18FF51C3B340400C0F330 /* phaser.c */,
 				C4B18FF61C3B340400C0F330 /* phasor.c */,
 				C4B18FF71C3B340400C0F330 /* pinknoise.c */,
-				C4B18FF81C3B340400C0F330 /* pitchamdf.c */,
 				C4B18FF91C3B340400C0F330 /* pluck.c */,
 				C4B18FFA1C3B340400C0F330 /* port.c */,
 				C4B18FFB1C3B340400C0F330 /* posc3.c */,
 				C4B18FFC1C3B340400C0F330 /* progress.c */,
 				C4B18FFD1C3B340400C0F330 /* prop.c */,
 				C468097A1CEECF7500ADFC05 /* pshift.c */,
+				C485C6491D33FA7E007D1BFD /* ptrack.c */,
 				C4B18FFE1C3B340400C0F330 /* randh.c */,
 				C4B18FFF1C3B340400C0F330 /* randi.c */,
 				C4B190001C3B340400C0F330 /* randmt.c */,
@@ -3415,7 +3415,6 @@
 				C4B191301C3B340400C0F330 /* zeros.c in Sources */,
 				C49DCD301D20FF9000BF018A /* AKPWMOscillator.swift in Sources */,
 				C40C41B71C40E3EF009D870B /* EZMicrophone.m in Sources */,
-				C4B190B91C3B340400C0F330 /* pitchamdf.c in Sources */,
 				C4B1907F1C3B340400C0F330 /* kiss_fftr.c in Sources */,
 				C45383621C3A5E4300A51738 /* AKHighPassFilter.swift in Sources */,
 				C4E752011C23885400688A1B /* divide.swift in Sources */,
@@ -3612,6 +3611,7 @@
 				C4B190DE1C3B340400C0F330 /* func.c in Sources */,
 				C40AD6A91C463E4700B638AF /* AKMIDI.swift in Sources */,
 				C45383811C3A5E4300A51738 /* AKRolandTB303FilterAudioUnit.mm in Sources */,
+				C485C64A1D33FA7E007D1BFD /* ptrack.c in Sources */,
 				C4B1908E1C3B340400C0F330 /* butbp.c in Sources */,
 				C4B191161C3B340400C0F330 /* prop.c in Sources */,
 				C453833A1C3A5E4300A51738 /* AKRingModulator.swift in Sources */,
