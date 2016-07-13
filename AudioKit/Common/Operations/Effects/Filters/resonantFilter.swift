@@ -13,12 +13,12 @@ extension AKComputedParameter {
     /// A second-order resonant filter.
     ///
     /// - Parameters:
-    ///   - frequency: The center frequency of the filter, or frequency position of the peak response.
-    ///   - bandwidth: The bandwidth of the filter (the Hz difference between the upper and lower half-power points).
+    ///   - frequency: The center frequency of the filter, or frequency position of the peak response (defaults to 1000 Hz).
+    ///   - bandwidth: The bandwidth of the filter (the Hz difference between the upper and lower half-power points; defaults to 100 Hz).
     ///
     public func resonantFilter(
-        frequency frequency: AKParameter = 100.0,
-                  bandwidth: AKParameter = 0.95
+        frequency frequency: AKParameter = 1000.0,
+                  bandwidth: AKParameter = 100.0
         ) -> AKOperation {
         return AKOperation("(\(self.toMono()) \(frequency) \(bandwidth) reson)")
     }
