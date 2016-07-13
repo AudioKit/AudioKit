@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5251477B1CC4AD7E00421C52 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5251477A1CC4AD7E00421C52 /* AKNotifications.swift */; };
+		6520FFC21D361B030052410C /* resonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC11D361B030052410C /* resonantFilter.swift */; };
+		6520FFC81D362D100052410C /* reson.c in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC71D362D100052410C /* reson.c */; };
 		898DED261C6944430026FCC3 /* AKVariSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DED251C6944430026FCC3 /* AKVariSpeed.swift */; };
 		C40716381D21160C00665C02 /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40716371D21160C00665C02 /* ADSR.cpp */; };
 		C407163A1D21162900665C02 /* Twang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40716391D21162900665C02 /* Twang.cpp */; };
@@ -637,6 +639,8 @@
 
 /* Begin PBXFileReference section */
 		5251477A1CC4AD7E00421C52 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
+		6520FFC11D361B030052410C /* resonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resonantFilter.swift; sourceTree = "<group>"; };
+		6520FFC71D362D100052410C /* reson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reson.c; sourceTree = "<group>"; };
 		898DED251C6944430026FCC3 /* AKVariSpeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariSpeed.swift; sourceTree = "<group>"; };
 		C40716371D21160C00665C02 /* ADSR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSR.cpp; sourceTree = "<group>"; };
 		C40716391D21162900665C02 /* Twang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Twang.cpp; sourceTree = "<group>"; };
@@ -1693,6 +1697,7 @@
 				C4E958781C0ADBFD00516A6A /* randi.c */,
 				C4E958791C0ADBFD00516A6A /* randmt.c */,
 				C4E9587A1C0ADBFD00516A6A /* random.c */,
+				6520FFC71D362D100052410C /* reson.c */,
 				C4E9587B1C0ADBFD00516A6A /* reverse.c */,
 				C4E9587C1C0ADBFD00516A6A /* revsc.c */,
 				C4E9587D1C0ADBFD00516A6A /* rms.c */,
@@ -2520,6 +2525,7 @@
 				C46302701C20E7A7009B44D9 /* lowPassFilter.swift */,
 				C4E751AE1C23675A00688A1B /* modalResonanceFilter.swift */,
 				C4E751AF1C23675A00688A1B /* moogLadderFilter.swift */,
+				6520FFC11D361B030052410C /* resonantFilter.swift */,
 				C49E9E341D2C2C6700E5E8BF /* stringResonator.swift */,
 			);
 			path = Filters;
@@ -3304,6 +3310,7 @@
 				C46300FE1C20C342009B44D9 /* randi.c in Sources */,
 				C4FE01631CED2DB40062B3A3 /* AKNodeRecorder.swift in Sources */,
 				C45380731C3A5BDA00A51738 /* AKOscillator.swift in Sources */,
+				6520FFC81D362D100052410C /* reson.c in Sources */,
 				C46300E21C20C342009B44D9 /* dmetro.c in Sources */,
 				C46301011C20C342009B44D9 /* rpt.c in Sources */,
 				C46301021C20C342009B44D9 /* samphold.c in Sources */,
@@ -3325,6 +3332,7 @@
 				C49E9DF81D2B1F9100E5E8BF /* AKSequencer.swift in Sources */,
 				C46302831C20E7A7009B44D9 /* distort.swift in Sources */,
 				C46300F71C20C342009B44D9 /* pan.c in Sources */,
+				6520FFC21D361B030052410C /* resonantFilter.swift in Sources */,
 				C40C42B41C420C1D009D870B /* AKAudioPlayer.swift in Sources */,
 				C46300EB1C20C342009B44D9 /* in.c in Sources */,
 				C48443631C3115C3007BE794 /* bltriangle.c in Sources */,

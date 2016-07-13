@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		524B77BA1CC4B060001D82D1 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524B77B91CC4B060001D82D1 /* AKNotifications.swift */; };
+		6520FFC41D361B840052410C /* resonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC31D361B840052410C /* resonantFilter.swift */; };
+		6520FFCA1D362D440052410C /* reson.c in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC91D362D440052410C /* reson.c */; };
 		C40718281D211AB400665C02 /* ADSR.h in Headers */ = {isa = PBXBuildFile; fileRef = C407181B1D211AB400665C02 /* ADSR.h */; };
 		C40718291D211AB400665C02 /* DelayA.h in Headers */ = {isa = PBXBuildFile; fileRef = C407181C1D211AB400665C02 /* DelayA.h */; };
 		C407182A1D211AB400665C02 /* DelayL.h in Headers */ = {isa = PBXBuildFile; fileRef = C407181D1D211AB400665C02 /* DelayL.h */; };
@@ -592,6 +594,8 @@
 
 /* Begin PBXFileReference section */
 		524B77B91CC4B060001D82D1 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
+		6520FFC31D361B840052410C /* resonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resonantFilter.swift; sourceTree = "<group>"; };
+		6520FFC91D362D440052410C /* reson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reson.c; sourceTree = "<group>"; };
 		C407181B1D211AB400665C02 /* ADSR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADSR.h; sourceTree = "<group>"; };
 		C407181C1D211AB400665C02 /* DelayA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayA.h; sourceTree = "<group>"; };
 		C407181D1D211AB400665C02 /* DelayL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayL.h; sourceTree = "<group>"; };
@@ -2279,6 +2283,7 @@
 				C4B191831C3B342800C0F330 /* randi.c */,
 				C4B191841C3B342800C0F330 /* randmt.c */,
 				C4B191851C3B342800C0F330 /* random.c */,
+				6520FFC91D362D440052410C /* reson.c */,
 				C4B191861C3B342800C0F330 /* reverse.c */,
 				C4B191871C3B342800C0F330 /* revsc.c */,
 				C4B191881C3B342800C0F330 /* rms.c */,
@@ -2709,6 +2714,7 @@
 				C4E752181C23888700688A1B /* lowPassFilter.swift */,
 				C4E752191C23888700688A1B /* modalResonanceFilter.swift */,
 				C4E7521A1C23888700688A1B /* moogLadderFilter.swift */,
+				6520FFC31D361B840052410C /* resonantFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -3110,6 +3116,7 @@
 				C48444F91C370329007BE794 /* square.swift in Sources */,
 				C4B1921A1C3B342800C0F330 /* dcblock.c in Sources */,
 				C4B1923D1C3B342800C0F330 /* pitchamdf.c in Sources */,
+				6520FFC41D361B840052410C /* resonantFilter.swift in Sources */,
 				C4E752511C23888700688A1B /* max.swift in Sources */,
 				C4ABF5371C82AEC00078EE8E /* AKMetalBar.swift in Sources */,
 				C4B1927C1C3B342800C0F330 /* dist.c in Sources */,
@@ -3430,6 +3437,7 @@
 				C46809861CEED77A00ADFC05 /* pshift.c in Sources */,
 				C4B1922E1C3B342800C0F330 /* lpf18.c in Sources */,
 				C4B192831C3B342800C0F330 /* gen_sine.c in Sources */,
+				6520FFCA1D362D440052410C /* reson.c in Sources */,
 				C4B192221C3B342800C0F330 /* expon.c in Sources */,
 				C453822F1C3A5CBD00A51738 /* AKMixer.swift in Sources */,
 				C4B1926B1C3B342800C0F330 /* atone.c in Sources */,
