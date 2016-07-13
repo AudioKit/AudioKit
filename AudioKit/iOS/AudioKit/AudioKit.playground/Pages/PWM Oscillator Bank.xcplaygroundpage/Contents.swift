@@ -1,7 +1,12 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## PWM Oscillator Bank
+
 import XCPlayground
 import AudioKit
 
-//let osc = InstrumentDemo()
 let osc = AKPWMOscillatorBank()
 
 AudioKit.output = osc
