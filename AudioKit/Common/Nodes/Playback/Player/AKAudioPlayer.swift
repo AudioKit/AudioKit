@@ -380,7 +380,9 @@ public class AKAudioPlayer: AKNode, AKToggleable {
                 scheduleBuffer()
             } else {
                 stop()
-                completionHandler?()
+
+                    self.completionHandler?()
+
             }
         }
     }
