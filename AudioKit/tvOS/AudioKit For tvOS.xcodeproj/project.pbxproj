@@ -543,6 +543,7 @@
 		C4E729991D382C0800E0647E /* AKResonantFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E729951D382C0800E0647E /* AKResonantFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E7299A1D382C0800E0647E /* AKResonantFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E729961D382C0800E0647E /* AKResonantFilterAudioUnit.mm */; };
 		C4E7299B1D382C0800E0647E /* AKResonantFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E729971D382C0800E0647E /* AKResonantFilterDSPKernel.hpp */; };
+		C4E7299F1D3837DF00E0647E /* reson.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E7299E1D3837DF00E0647E /* reson.c */; };
 		C4E752361C23888700688A1B /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7520A1C23888700688A1B /* AKOperation.swift */; };
 		C4E752371C23888700688A1B /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7520D1C23888700688A1B /* delay.swift */; };
 		C4E752381C23888700688A1B /* bitcrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E7520F1C23888700688A1B /* bitcrush.swift */; };
@@ -1136,6 +1137,7 @@
 		C4E729951D382C0800E0647E /* AKResonantFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKResonantFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4E729961D382C0800E0647E /* AKResonantFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKResonantFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C4E729971D382C0800E0647E /* AKResonantFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKResonantFilterDSPKernel.hpp; sourceTree = "<group>"; };
+		C4E7299E1D3837DF00E0647E /* reson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reson.c; sourceTree = "<group>"; };
 		C4E7520A1C23888700688A1B /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
 		C4E7520D1C23888700688A1B /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		C4E7520F1C23888700688A1B /* bitcrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bitcrush.swift; sourceTree = "<group>"; };
@@ -2409,6 +2411,7 @@
 				C4B191DE1C3B342800C0F330 /* prop.c */,
 				C4B191DF1C3B342800C0F330 /* randh.c */,
 				C4B191E01C3B342800C0F330 /* randi.c */,
+				C4E7299E1D3837DF00E0647E /* reson.c */,
 				C4B191E11C3B342800C0F330 /* reverse.c */,
 				C4B191E21C3B342800C0F330 /* revsc.c */,
 				C4B191E31C3B342800C0F330 /* rms.c */,
@@ -3108,6 +3111,7 @@
 				C45381DF1C3A5CBD00A51738 /* AKParametricEQ.swift in Sources */,
 				C4B192191C3B342800C0F330 /* count.c in Sources */,
 				C45381DD1C3A5CBD00A51738 /* AKMoogLadderAudioUnit.mm in Sources */,
+				C4E7299F1D3837DF00E0647E /* reson.c in Sources */,
 				C4B1928F1C3B342800C0F330 /* noise.c in Sources */,
 				C4B1926E1C3B342800C0F330 /* basic.c in Sources */,
 				C4B192AB1C3B342800C0F330 /* tenvx.c in Sources */,

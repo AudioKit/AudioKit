@@ -511,6 +511,7 @@
 		C4E729871D382A3A00E0647E /* AKResonantFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E729831D382A3A00E0647E /* AKResonantFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E729881D382A3A00E0647E /* AKResonantFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E729841D382A3A00E0647E /* AKResonantFilterAudioUnit.mm */; };
 		C4E729891D382A3A00E0647E /* AKResonantFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E729851D382A3A00E0647E /* AKResonantFilterDSPKernel.hpp */; };
+		C4E7299D1D38373B00E0647E /* reson.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E7299C1D38373B00E0647E /* reson.c */; };
 		C4E751791C2204AD00688A1B /* sawtoothWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751781C2204AD00688A1B /* sawtoothWave.swift */; };
 		C4E7517B1C220A1900688A1B /* rms.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E7517A1C220A1900688A1B /* rms.c */; };
 		C4E7517D1C220A2400688A1B /* tphasor.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E7517C1C220A2400688A1B /* tphasor.c */; };
@@ -1151,6 +1152,7 @@
 		C4E729831D382A3A00E0647E /* AKResonantFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKResonantFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4E729841D382A3A00E0647E /* AKResonantFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKResonantFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C4E729851D382A3A00E0647E /* AKResonantFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKResonantFilterDSPKernel.hpp; sourceTree = "<group>"; };
+		C4E7299C1D38373B00E0647E /* reson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reson.c; sourceTree = "<group>"; };
 		C4E751781C2204AD00688A1B /* sawtoothWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtoothWave.swift; sourceTree = "<group>"; };
 		C4E7517A1C220A1900688A1B /* rms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rms.c; sourceTree = "<group>"; };
 		C4E7517C1C220A2400688A1B /* tphasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tphasor.c; sourceTree = "<group>"; };
@@ -2463,6 +2465,7 @@
 				C46300BE1C20C342009B44D9 /* prop.c */,
 				C46300BF1C20C342009B44D9 /* randh.c */,
 				C46300C01C20C342009B44D9 /* randi.c */,
+				C4E7299C1D38373B00E0647E /* reson.c */,
 				C46300C11C20C342009B44D9 /* reverse.c */,
 				C46300C21C20C342009B44D9 /* revsc.c */,
 				C4E7517A1C220A1900688A1B /* rms.c */,
@@ -3661,6 +3664,7 @@
 				C4E9589F1C0ADBFD00516A6A /* butbr.c in Sources */,
 				C44B596D1C4B04BF0008507F /* segment.swift in Sources */,
 				C40716561D2116ED00665C02 /* Noise.cpp in Sources */,
+				C4E7299D1D38373B00E0647E /* reson.c in Sources */,
 				C4E958E41C0ADBFD00516A6A /* tenv.c in Sources */,
 				C4E958D01C0ADBFD00516A6A /* progress.c in Sources */,
 				E4630B4C1D2BC79A00437E75 /* AKDistortionPresets.swift in Sources */,
