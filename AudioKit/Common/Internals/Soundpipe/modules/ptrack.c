@@ -434,8 +434,8 @@ int sp_ptrack_compute(sp_data *sp, sp_ptrack *p, SPFLOAT *in, SPFLOAT *freq, SPF
     pos++;
 
     *freq = p->cps;
-
-    *amp =  exp(p->dbs[p->histcnt]/20 * log(10));
+    *amp =  exp(p->dbs[p->histcnt] / 20.0 * log(10.0));
+    
     p->cnt = pos;
 
     return SP_OK;
