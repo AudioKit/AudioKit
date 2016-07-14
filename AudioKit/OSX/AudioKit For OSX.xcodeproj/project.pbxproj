@@ -703,8 +703,8 @@
 		C42AE0001C2DF59D000CEED2 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C42BF6C91CE6D19E00155BE7 /* Numeric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C42F36CF1C0582E6000E937C /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioKit.h; path = ../../Common/Internals/AudioKit.h; sourceTree = "<group>"; };
-		C42F36D11C0582E6000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C42F36CF1C0582E6000E937C /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
+		C42F36D11C0582E6000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../OSX/AudioKit/Info.plist; sourceTree = "<group>"; };
 		C42FFB971C3CFC3000823BD4 /* AKBalancer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBalancer.swift; sourceTree = "<group>"; };
 		C42FFB981C3CFC3000823BD4 /* AKBalancerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBalancerAudioUnit.h; sourceTree = "<group>"; };
 		C42FFB991C3CFC3000823BD4 /* AKBalancerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBalancerAudioUnit.mm; sourceTree = "<group>"; };
@@ -1440,8 +1440,6 @@
 		C42F36CE1C0582E6000E937C /* AudioKit */ = {
 			isa = PBXGroup;
 			children = (
-				C42F36D11C0582E6000E937C /* Info.plist */,
-				C42F36CF1C0582E6000E937C /* AudioKit.h */,
 				C40C41D21C40E59E009D870B /* Instruments */,
 				C42F36D91C058442000E937C /* Internals */,
 				C42F370B1C058442000E937C /* MIDI */,
@@ -1456,6 +1454,8 @@
 		C42F36D91C058442000E937C /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				C42F36D11C0582E6000E937C /* Info.plist */,
+				C42F36CF1C0582E6000E937C /* AudioKit.h */,
 				C4FE015E1CED270E0062B3A3 /* AKMicrophoneRecorder.swift */,
 				C46B30191C69E431008CEB43 /* AKNodeRecorder.swift */,
 				EA6949EA1C5A2F720035B5DF /* AKSettings.swift */,

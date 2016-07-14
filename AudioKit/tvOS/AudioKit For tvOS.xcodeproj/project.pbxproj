@@ -1077,8 +1077,8 @@
 		C4B192D81C3B639B00C0F330 /* AKAmplitudeEnvelopeDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKAmplitudeEnvelopeDSPKernel.hpp; sourceTree = "<group>"; };
 		C4BC441A1C49D2D300FECA77 /* adsr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adsr.c; sourceTree = "<group>"; };
 		C4BDE8391C12FFBC00207DA9 /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioKit.h; path = ../../Common/Internals/AudioKit.h; sourceTree = "<group>"; };
-		C4BDE83E1C12FFBC00207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
+		C4BDE83E1C12FFBC00207DA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../tvOS/AudioKit/Info.plist; sourceTree = "<group>"; };
 		C4BDE90B1C13004A00207DA9 /* AKNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNode.swift; sourceTree = "<group>"; };
 		C4D1FD011CE5BDB00043209E /* trem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trem.c; sourceTree = "<group>"; };
 		C4D1FD041CE5BDC60043209E /* AKTremolo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTremolo.swift; sourceTree = "<group>"; };
@@ -2478,8 +2478,6 @@
 		C4BDE83B1C12FFBC00207DA9 /* AudioKit */ = {
 			isa = PBXGroup;
 			children = (
-				C4BDE83E1C12FFBC00207DA9 /* Info.plist */,
-				C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */,
 				C40C42571C40F1F2009D870B /* Instruments */,
 				C4BDE8471C13004A00207DA9 /* Internals */,
 				C4BDE9081C13004A00207DA9 /* Nodes */,
@@ -2493,6 +2491,8 @@
 		C4BDE8471C13004A00207DA9 /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				C4BDE83E1C12FFBC00207DA9 /* Info.plist */,
+				C4BDE83C1C12FFBC00207DA9 /* AudioKit.h */,
 				EA6949E81C5A2F610035B5DF /* AKSettings.swift */,
 				EA6949EE1C5AE1EA0035B5DF /* AudioKit.swift */,
 				C4FE01641CED2DD40062B3A3 /* AKNodeRecorder.swift */,
