@@ -568,6 +568,7 @@
 		C4E729901D382BE900E0647E /* AKResonantFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C4E7298C1D382BE900E0647E /* AKResonantFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4E729911D382BE900E0647E /* AKResonantFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4E7298D1D382BE900E0647E /* AKResonantFilterAudioUnit.mm */; };
 		C4E729921D382BE900E0647E /* AKResonantFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C4E7298E1D382BE900E0647E /* AKResonantFilterDSPKernel.hpp */; };
+		C4E729A11D38380100E0647E /* reson.c in Sources */ = {isa = PBXBuildFile; fileRef = C4E729A01D38380100E0647E /* reson.c */; };
 		C4E751E81C23885400688A1B /* AKOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751BC1C23885400688A1B /* AKOperation.swift */; };
 		C4E751E91C23885400688A1B /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751BF1C23885400688A1B /* delay.swift */; };
 		C4E751EA1C23885400688A1B /* bitcrush.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E751C11C23885400688A1B /* bitcrush.swift */; };
@@ -1193,6 +1194,7 @@
 		C4E7298C1D382BE900E0647E /* AKResonantFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKResonantFilterAudioUnit.h; sourceTree = "<group>"; };
 		C4E7298D1D382BE900E0647E /* AKResonantFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKResonantFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C4E7298E1D382BE900E0647E /* AKResonantFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKResonantFilterDSPKernel.hpp; sourceTree = "<group>"; };
+		C4E729A01D38380100E0647E /* reson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reson.c; sourceTree = "<group>"; };
 		C4E751BC1C23885400688A1B /* AKOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOperation.swift; sourceTree = "<group>"; };
 		C4E751BF1C23885400688A1B /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		C4E751C11C23885400688A1B /* bitcrush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bitcrush.swift; sourceTree = "<group>"; };
@@ -2636,6 +2638,7 @@
 				C4B1905A1C3B340400C0F330 /* prop.c */,
 				C4B1905B1C3B340400C0F330 /* randh.c */,
 				C4B1905C1C3B340400C0F330 /* randi.c */,
+				C4E729A01D38380100E0647E /* reson.c */,
 				C4B1905D1C3B340400C0F330 /* reverse.c */,
 				C4B1905E1C3B340400C0F330 /* revsc.c */,
 				C4B1905F1C3B340400C0F330 /* rms.c */,
@@ -3255,6 +3258,7 @@
 				C4B190B21C3B340400C0F330 /* padsynth.c in Sources */,
 				C40C42961C41CB3E009D870B /* AKDrip.swift in Sources */,
 				C4E751F61C23885400688A1B /* reverberateWithChowning.swift in Sources */,
+				C4E729A11D38380100E0647E /* reson.c in Sources */,
 				C4B190821C3B340400C0F330 /* allpass.c in Sources */,
 				C40C41A11C40E3EF009D870B /* EZAudio.m in Sources */,
 				C42FFBB61C3CFC3000823BD4 /* AKPanner.swift in Sources */,
