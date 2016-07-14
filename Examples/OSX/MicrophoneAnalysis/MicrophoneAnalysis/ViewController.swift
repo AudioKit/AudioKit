@@ -39,7 +39,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         AKSettings.audioInputEnabled = true
         mic = AKMicrophone()
-        tracker = AKFrequencyTracker.init(mic, minimumFrequency: 200, maximumFrequency: 2000)
+        tracker = AKFrequencyTracker.init(mic)
         silence = AKBooster(tracker, gain: 0)
     }
     
