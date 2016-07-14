@@ -26,8 +26,13 @@ class RecordViewController: UIViewController {
         mic = AKMicrophone()
         AudioKit.output = mic
         AudioKit.start()
-        try! recorder = AKNodeRecorder()
-        recorder.record()
+        do {
+            try recorder = AKNodeRecorder()
+            try recorder.record()
+        } catch {
+            print("Recording failed")
+        }
+        
     }
     @IBAction func stop(sender: UIButton) {
         recordingButton.setTitle("Record", forState: .Normal)
