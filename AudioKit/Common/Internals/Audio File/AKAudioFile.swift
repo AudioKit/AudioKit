@@ -46,7 +46,6 @@ public class AKAudioFile: AVAudioFile {
     }()
 
 
-
     // MARK: - Public AKAudioFileFormat Properties
 
     /// The number of samples can be accessed by .length property,
@@ -227,16 +226,6 @@ public class AKAudioFile: AVAudioFile {
             return (10 * log10(maxLev))
         }
     }()
-    
-    // MARK: - Public Other Properties
-    
-    /// How many processes in queue - see AKAudioFile+Processing.swift
-    static public var queueCount: Int32 = 0
-    
-    /// AKAudioFile Delegate
-    public var delegate: AKAudioFileDelegate? = nil
-    
-    // MARK: - Initialization
     
     /**
      Super.init inherited from AVAudioFile superclass

@@ -11,8 +11,13 @@ import AVFoundation
 
 public typealias AKCallback = Void -> Void
 
+
 /// Top level AudioKit managing class
 @objc public class AudioKit: NSObject {
+
+
+    // Queue used for AKAudioFile Async Processings
+    static let AKAudioFileProcessQueue = dispatch_queue_create("AKAudioFileProcessQueue", DISPATCH_QUEUE_SERIAL)
 
     // MARK: Global audio format (44.1K, Stereo)
 

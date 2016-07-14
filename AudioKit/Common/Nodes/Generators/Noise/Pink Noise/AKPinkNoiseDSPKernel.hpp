@@ -105,7 +105,7 @@ public:
             int frameOffset = int(frameIndex + bufferOffset);
 
             amplitude = amplitudeRamper.getAndStep();
-            pinknoise->amp = (float)amplitude * 0.0001;
+            pinknoise->amp = (float)amplitude;
 
             float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
