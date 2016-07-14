@@ -1,0 +1,349 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		78BC40121D37AF83001A71C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC40111D37AF83001A71C4 /* AppDelegate.swift */; };
+		78BC40141D37AF83001A71C4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC40131D37AF83001A71C4 /* ViewController.swift */; };
+		78BC40161D37AF83001A71C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78BC40151D37AF83001A71C4 /* Assets.xcassets */; };
+		78BC40191D37AF83001A71C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78BC40171D37AF83001A71C4 /* Main.storyboard */; };
+		78BC40251D37B049001A71C4 /* SporthEditorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC40211D37B049001A71C4 /* SporthEditorBrain.swift */; };
+		78BC40261D37B049001A71C4 /* FileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC40221D37B049001A71C4 /* FileUtilities.swift */; };
+		78BC40271D37B049001A71C4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC40231D37B049001A71C4 /* Constants.swift */; };
+		78BC40281D37B049001A71C4 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BC40241D37B049001A71C4 /* Error.swift */; };
+		78EA71F91D3806D70064F891 /* ControlsViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78EA71F81D3806D70064F891 /* ControlsViewContoller.swift */; };
+		78EA71FB1D3836490064F891 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78EA71FA1D3836490064F891 /* AudioKit.framework */; };
+		78EA71FC1D3836490064F891 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 78EA71FA1D3836490064F891 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		78BC40331D37B0F8001A71C4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				78EA71FC1D3836490064F891 /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		78BC400E1D37AF83001A71C4 /* SporthEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SporthEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		78BC40111D37AF83001A71C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		78BC40131D37AF83001A71C4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		78BC40151D37AF83001A71C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		78BC40181D37AF83001A71C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		78BC401A1D37AF83001A71C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		78BC40211D37B049001A71C4 /* SporthEditorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SporthEditorBrain.swift; sourceTree = "<group>"; };
+		78BC40221D37B049001A71C4 /* FileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtilities.swift; sourceTree = "<group>"; };
+		78BC40231D37B049001A71C4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		78BC40241D37B049001A71C4 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		78EA71F81D3806D70064F891 /* ControlsViewContoller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlsViewContoller.swift; sourceTree = "<group>"; };
+		78EA71FA1D3836490064F891 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-OSX/AudioKit.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		78BC400B1D37AF83001A71C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78EA71FB1D3836490064F891 /* AudioKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		78BC40051D37AF83001A71C4 = {
+			isa = PBXGroup;
+			children = (
+				78EA71FD1D38364B0064F891 /* Frameworks */,
+				78BC40101D37AF83001A71C4 /* SporthEditor */,
+				78BC400F1D37AF83001A71C4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		78BC400F1D37AF83001A71C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				78BC400E1D37AF83001A71C4 /* SporthEditor.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		78BC40101D37AF83001A71C4 /* SporthEditor */ = {
+			isa = PBXGroup;
+			children = (
+				78BC40201D37B01C001A71C4 /* Supporting files */,
+				78BC40131D37AF83001A71C4 /* ViewController.swift */,
+				78BC40171D37AF83001A71C4 /* Main.storyboard */,
+				78BC40211D37B049001A71C4 /* SporthEditorBrain.swift */,
+				78EA71F81D3806D70064F891 /* ControlsViewContoller.swift */,
+				78BC40221D37B049001A71C4 /* FileUtilities.swift */,
+				78BC40231D37B049001A71C4 /* Constants.swift */,
+				78BC40241D37B049001A71C4 /* Error.swift */,
+			);
+			path = SporthEditor;
+			sourceTree = "<group>";
+		};
+		78BC40201D37B01C001A71C4 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				78BC40111D37AF83001A71C4 /* AppDelegate.swift */,
+				78BC40151D37AF83001A71C4 /* Assets.xcassets */,
+				78BC401A1D37AF83001A71C4 /* Info.plist */,
+			);
+			name = "Supporting files";
+			sourceTree = "<group>";
+		};
+		78EA71FD1D38364B0064F891 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				78EA71FA1D3836490064F891 /* AudioKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		78BC400D1D37AF83001A71C4 /* SporthEditor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 78BC401D1D37AF83001A71C4 /* Build configuration list for PBXNativeTarget "SporthEditor" */;
+			buildPhases = (
+				78BC400A1D37AF83001A71C4 /* Sources */,
+				78BC400B1D37AF83001A71C4 /* Frameworks */,
+				78BC400C1D37AF83001A71C4 /* Resources */,
+				78BC40331D37B0F8001A71C4 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SporthEditor;
+			productName = SporthEditor;
+			productReference = 78BC400E1D37AF83001A71C4 /* SporthEditor.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		78BC40061D37AF83001A71C4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = AudioKit;
+				TargetAttributes = {
+					78BC400D1D37AF83001A71C4 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 78BC40091D37AF83001A71C4 /* Build configuration list for PBXProject "SporthEditor" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 78BC40051D37AF83001A71C4;
+			productRefGroup = 78BC400F1D37AF83001A71C4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				78BC400D1D37AF83001A71C4 /* SporthEditor */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		78BC400C1D37AF83001A71C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78BC40161D37AF83001A71C4 /* Assets.xcassets in Resources */,
+				78BC40191D37AF83001A71C4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		78BC400A1D37AF83001A71C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				78EA71F91D3806D70064F891 /* ControlsViewContoller.swift in Sources */,
+				78BC40271D37B049001A71C4 /* Constants.swift in Sources */,
+				78BC40251D37B049001A71C4 /* SporthEditorBrain.swift in Sources */,
+				78BC40141D37AF83001A71C4 /* ViewController.swift in Sources */,
+				78BC40261D37B049001A71C4 /* FileUtilities.swift in Sources */,
+				78BC40281D37B049001A71C4 /* Error.swift in Sources */,
+				78BC40121D37AF83001A71C4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		78BC40171D37AF83001A71C4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				78BC40181D37AF83001A71C4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		78BC401B1D37AF83001A71C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		78BC401C1D37AF83001A71C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		78BC401E1D37AF83001A71C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"../../../Frameworks/AudioKit-OSX",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = SporthEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		78BC401F1D37AF83001A71C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"../../../Frameworks/AudioKit-OSX",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = SporthEditor/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.SporthEditor;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		78BC40091D37AF83001A71C4 /* Build configuration list for PBXProject "SporthEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78BC401B1D37AF83001A71C4 /* Debug */,
+				78BC401C1D37AF83001A71C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		78BC401D1D37AF83001A71C4 /* Build configuration list for PBXNativeTarget "SporthEditor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				78BC401E1D37AF83001A71C4 /* Debug */,
+				78BC401F1D37AF83001A71C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 78BC40061D37AF83001A71C4 /* Project object */;
+}
