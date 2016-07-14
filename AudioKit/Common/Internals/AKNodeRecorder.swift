@@ -62,26 +62,6 @@ public class AKNodeRecorder {
     public init(node: AKNode = AudioKit.output!,
                 file: AKAudioFile? = nil) throws {
 
-
-        // requestRecordPermission...
-        var permissionGranted: Bool = false
-        #if os(iOS)
-
-            AKSettings.session.requestRecordPermission() {
-                (granted: Bool)-> Void in
-                if granted {
-                    permissionGranted = true
-                } else {
-                    permissionGranted = false
-                }
-            }
-
-            if !permissionGranted {
-                print("AKNodeRecorder Error: Permission to record not granted")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
-            }
-        #endif
-
         // AVAudioSession buffer setup
 
         if file == nil {
@@ -109,32 +89,56 @@ public class AKNodeRecorder {
     // MARK: - Methods
 
     /// Start recording
-    public func record() {
+    public func record() throws {
         if recording {
             print ("AKNodeRecorder Warning: already recording !")
             return
         }
 
-        // Sets AVAudioSession Category to be Play and Record
+
         #if os(iOS)
+            // requestRecordPermission...
+            var permissionGranted: Bool = false
+            
+            AKSettings.session.requestRecordPermission() {
+                (granted: Bool)-> Void in
+                if granted {
+                    permissionGranted = true
+                } else {
+                    permissionGranted = false
+                }
+            }
+
+            if !permissionGranted {
+                print("AKNodeRecorder Error: Permission to record not granted")
+                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
+            }
+
+        // Sets AVAudioSession Category to be Play and Record
+
             // Here's the reason why I'd like to change record() to be a throwing method
             if (AKSettings.session != AKSettings.SessionCategory.PlayAndRecord.rawValue)
             {
-                try? AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord)
+                do {
+                    try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord)
+                } catch let error as NSError {
+                    print("AKNodeRecorder Error: Cannot set AVAudioSession Category to be .PlaybackAndRecord")
+                    throw error
+                }
             }
         #endif
 
 
         if  node != nil {
 
-           let recordingBufferLength:AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
+            let recordingBufferLength:AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
 
             print ("recording")
             node!.avAudioNode.installTapOnBus(0, bufferSize: recordingBufferLength, format: internalAudioFile.processingFormat, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                 do {
                     buffer.frameLength = recordingBufferLength
                     try self.internalAudioFile.writeFromBuffer(buffer)
-                     self.recording = true
+                    self.recording = true
                     print("writing ( file duration:  \(self.internalAudioFile.duration) seconds)")
                 } catch let error as NSError {
                     self.recording = false
