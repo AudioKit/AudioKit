@@ -88,7 +88,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 
     func record() {
         recordLabel!.text = "Recording..."
-        recorder?.record()
+        try? recorder?.record()
     }
 
     func stopRecord() {

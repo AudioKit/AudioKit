@@ -247,7 +247,7 @@ extension AKAudioFile {
      }
      */
 
-    public func reverse_Async( baseDir: BaseDirectory = .Temp,
+    public func reverseAsynchronously( baseDir: BaseDirectory = .Temp,
                                name: String = "",
                                completionCallBack: AKCallback) -> ReverseProcess {
 
@@ -275,7 +275,7 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func normalize_Async( baseDir: BaseDirectory = .Temp,
+    public func normalizeAsynchronously( baseDir: BaseDirectory = .Temp,
                                  name: String = "",
                                  newMaxLevel: Float = 0.0,
                                  completionCallBack: AKCallback) -> NormalizeProcess {
@@ -304,7 +304,7 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func append_Async( file: AKAudioFile,
+    public func appendAsynchronously( file: AKAudioFile,
                               baseDir: BaseDirectory = .Temp,
                               name: String = "",
                               newMaxLevel: Float = 0.0,
@@ -340,8 +340,7 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func extract_Async( file: AKAudioFile,
-                               from: Int64 = 0,
+    public func extractAsynchronously( from: Int64 = 0,
                                to: Int64 = 0,
                                baseDir: BaseDirectory = .Temp,
                                name: String = "",
