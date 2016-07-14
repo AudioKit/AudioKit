@@ -273,6 +273,7 @@
 		C48444F21C3702F8007BE794 /* sawtooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444EF1C3702F8007BE794 /* sawtooth.swift */; };
 		C48444F31C3702F8007BE794 /* square.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F01C3702F8007BE794 /* square.swift */; };
 		C48444F41C3702F8007BE794 /* triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48444F11C3702F8007BE794 /* triangle.swift */; };
+		C485C64A1D33FA7E007D1BFD /* ptrack.c in Sources */ = {isa = PBXBuildFile; fileRef = C485C6491D33FA7E007D1BFD /* ptrack.c */; };
 		C48DB7911CD536CB00D1EC13 /* CheckError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7901CD536CB00D1EC13 /* CheckError.swift */; };
 		C48DB7991CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */; };
 		C48DB79B1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */; };
@@ -387,7 +388,6 @@
 		C4B190B61C3B340400C0F330 /* phaser.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF51C3B340400C0F330 /* phaser.c */; };
 		C4B190B71C3B340400C0F330 /* phasor.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF61C3B340400C0F330 /* phasor.c */; };
 		C4B190B81C3B340400C0F330 /* pinknoise.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF71C3B340400C0F330 /* pinknoise.c */; };
-		C4B190B91C3B340400C0F330 /* pitchamdf.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF81C3B340400C0F330 /* pitchamdf.c */; };
 		C4B190BA1C3B340400C0F330 /* pluck.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FF91C3B340400C0F330 /* pluck.c */; };
 		C4B190BB1C3B340400C0F330 /* port.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FFA1C3B340400C0F330 /* port.c */; };
 		C4B190BC1C3B340400C0F330 /* posc3.c in Sources */ = {isa = PBXBuildFile; fileRef = C4B18FFB1C3B340400C0F330 /* posc3.c */; };
@@ -707,8 +707,8 @@
 		C42AE0001C2DF59D000CEED2 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C42BF6C91CE6D19E00155BE7 /* Numeric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C42F36CF1C0582E6000E937C /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioKit.h; path = ../../Common/Internals/AudioKit.h; sourceTree = "<group>"; };
-		C42F36D11C0582E6000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C42F36CF1C0582E6000E937C /* AudioKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioKit.h; sourceTree = "<group>"; };
+		C42F36D11C0582E6000E937C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../OSX/AudioKit/Info.plist; sourceTree = "<group>"; };
 		C42FFB971C3CFC3000823BD4 /* AKBalancer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBalancer.swift; sourceTree = "<group>"; };
 		C42FFB981C3CFC3000823BD4 /* AKBalancerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKBalancerAudioUnit.h; sourceTree = "<group>"; };
 		C42FFB991C3CFC3000823BD4 /* AKBalancerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKBalancerAudioUnit.mm; sourceTree = "<group>"; };
@@ -891,6 +891,7 @@
 		C48444EF1C3702F8007BE794 /* sawtooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sawtooth.swift; sourceTree = "<group>"; };
 		C48444F01C3702F8007BE794 /* square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = square.swift; sourceTree = "<group>"; };
 		C48444F11C3702F8007BE794 /* triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triangle.swift; sourceTree = "<group>"; };
+		C485C6491D33FA7E007D1BFD /* ptrack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ptrack.c; sourceTree = "<group>"; };
 		C48DB7901CD536CB00D1EC13 /* CheckError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckError.swift; sourceTree = "<group>"; };
 		C48DB7981CD5510600D1EC13 /* AKMIDI+SendingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+SendingMIDI.swift"; sourceTree = "<group>"; };
 		C48DB79A1CD5523800D1EC13 /* AKMIDI+ReceivingMIDI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKMIDI+ReceivingMIDI.swift"; sourceTree = "<group>"; };
@@ -1008,7 +1009,6 @@
 		C4B18FF51C3B340400C0F330 /* phaser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = phaser.c; sourceTree = "<group>"; };
 		C4B18FF61C3B340400C0F330 /* phasor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = phasor.c; sourceTree = "<group>"; };
 		C4B18FF71C3B340400C0F330 /* pinknoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pinknoise.c; sourceTree = "<group>"; };
-		C4B18FF81C3B340400C0F330 /* pitchamdf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pitchamdf.c; sourceTree = "<group>"; };
 		C4B18FF91C3B340400C0F330 /* pluck.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pluck.c; sourceTree = "<group>"; };
 		C4B18FFA1C3B340400C0F330 /* port.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = port.c; sourceTree = "<group>"; };
 		C4B18FFB1C3B340400C0F330 /* posc3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = posc3.c; sourceTree = "<group>"; };
@@ -1444,8 +1444,6 @@
 		C42F36CE1C0582E6000E937C /* AudioKit */ = {
 			isa = PBXGroup;
 			children = (
-				C42F36D11C0582E6000E937C /* Info.plist */,
-				C42F36CF1C0582E6000E937C /* AudioKit.h */,
 				C40C41D21C40E59E009D870B /* Instruments */,
 				C42F36D91C058442000E937C /* Internals */,
 				C42F370B1C058442000E937C /* MIDI */,
@@ -1460,6 +1458,8 @@
 		C42F36D91C058442000E937C /* Internals */ = {
 			isa = PBXGroup;
 			children = (
+				C42F36D11C0582E6000E937C /* Info.plist */,
+				C42F36CF1C0582E6000E937C /* AudioKit.h */,
 				C4FE015E1CED270E0062B3A3 /* AKMicrophoneRecorder.swift */,
 				C46B30191C69E431008CEB43 /* AKNodeRecorder.swift */,
 				EA6949EA1C5A2F720035B5DF /* AKSettings.swift */,
@@ -2494,13 +2494,13 @@
 				C4B18FF51C3B340400C0F330 /* phaser.c */,
 				C4B18FF61C3B340400C0F330 /* phasor.c */,
 				C4B18FF71C3B340400C0F330 /* pinknoise.c */,
-				C4B18FF81C3B340400C0F330 /* pitchamdf.c */,
 				C4B18FF91C3B340400C0F330 /* pluck.c */,
 				C4B18FFA1C3B340400C0F330 /* port.c */,
 				C4B18FFB1C3B340400C0F330 /* posc3.c */,
 				C4B18FFC1C3B340400C0F330 /* progress.c */,
 				C4B18FFD1C3B340400C0F330 /* prop.c */,
 				C468097A1CEECF7500ADFC05 /* pshift.c */,
+				C485C6491D33FA7E007D1BFD /* ptrack.c */,
 				C4B18FFE1C3B340400C0F330 /* randh.c */,
 				C4B18FFF1C3B340400C0F330 /* randi.c */,
 				C4B190001C3B340400C0F330 /* randmt.c */,
@@ -3422,7 +3422,6 @@
 				C4B191301C3B340400C0F330 /* zeros.c in Sources */,
 				C49DCD301D20FF9000BF018A /* AKPWMOscillator.swift in Sources */,
 				C40C41B71C40E3EF009D870B /* EZMicrophone.m in Sources */,
-				C4B190B91C3B340400C0F330 /* pitchamdf.c in Sources */,
 				C4B1907F1C3B340400C0F330 /* kiss_fftr.c in Sources */,
 				C45383621C3A5E4300A51738 /* AKHighPassFilter.swift in Sources */,
 				C4E752011C23885400688A1B /* divide.swift in Sources */,
@@ -3620,6 +3619,7 @@
 				C4B190DE1C3B340400C0F330 /* func.c in Sources */,
 				C40AD6A91C463E4700B638AF /* AKMIDI.swift in Sources */,
 				C45383811C3A5E4300A51738 /* AKRolandTB303FilterAudioUnit.mm in Sources */,
+				C485C64A1D33FA7E007D1BFD /* ptrack.c in Sources */,
 				C4B1908E1C3B340400C0F330 /* butbp.c in Sources */,
 				C4B191161C3B340400C0F330 /* prop.c in Sources */,
 				C453833A1C3A5E4300A51738 /* AKRingModulator.swift in Sources */,
@@ -3669,7 +3669,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -3715,6 +3715,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
