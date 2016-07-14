@@ -146,11 +146,11 @@ extension AKAudioFile {
      - Throws: NSError if failed .
      
      - Returns: An AKAudioFile, or nil if init failed.*/
-    public func extract(from: Int64 = 0, to: Int64 = 0, baseDir: BaseDirectory = .Temp,
+    public func extract(fromSample: Int64 = 0, toSample: Int64 = 0, baseDir: BaseDirectory = .Temp,
                         name: String = "") throws -> AKAudioFile {
 
-        let fixedFrom = abs(from)
-        let fixedTo:Int64 = to == 0 ? Int64(self.samplesCount) : min(to,Int64(self.samplesCount))
+        let fixedFrom = abs(fromSample)
+        let fixedTo:Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample,Int64(self.samplesCount))
         if fixedTo <= fixedFrom {
             print( "ERROR AKAudioFile: cannot extract, from must be less than to !")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
