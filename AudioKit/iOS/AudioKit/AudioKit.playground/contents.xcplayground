@@ -88,6 +88,8 @@
         <page name='Plucked String'/>
         <page name='PWM Oscillator'/>
         <page name='PWM Oscillator Bank'/>
+        <page name='Resonant Filter'/>
+        <page name='Resonant Filter Operation'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>
