@@ -28,6 +28,10 @@ enum {
     detuningMultiplierAddress = 5
 };
 
+static inline double pow2(double x) {
+    return x * x;
+}
+
 static inline double noteToHz(int noteNumber)
 {
     return 440. * exp2((noteNumber - 69)/12.);
@@ -99,6 +103,7 @@ public:
             } else {
                 if (stage == stageOff) { add(); }
                 osc->freq = (float)noteToHz(noteNumber);
+                osc->amp = (float)pow2(velocity / 127.);
                 stage = stageOn;
                 internalGate = 1;
             }
@@ -111,7 +116,6 @@ public:
             osc->freq *= kernel->detuningMultiplier;
             osc->freq += kernel->detuningOffset;
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
-            osc->amp  = 1.0;
             
             adsr->atk = (float)kernel->attackDuration;
             adsr->dec = (float)kernel->decayDuration;

@@ -21,9 +21,11 @@ extern "C" {
 
 enum {
     attackDurationAddress = 0,
-    releaseDurationAddress = 1,
-    detuningOffsetAddress = 2,
-    detuningMultiplierAddress = 3
+    decayDurationAddress = 1,
+    sustainLevelAddress = 2,
+    releaseDurationAddress = 3,
+    detuningOffsetAddress = 4,
+    detuningMultiplierAddress = 5
 };
 
 static inline double pow2(double x) {
@@ -43,16 +45,18 @@ public:
         NoteState* prev;
         AKMorphingOscillatorBankDSPKernel* kernel;
         
-        enum { stageOff, stageAttack, stageSustain, stageRelease };
-        double envLevel = 0.;
-        double envSlope = 0.;
-  
+        enum { stageOff, stageOn, stageRelease };
         int stage = stageOff;
-        int envRampSamples = 0;
         
+        float internalGate = 0;
+        float amp = 0;
+        
+        sp_adsr *adsr;
         sp_oscmorph *osc;
         
         void init() {
+            sp_adsr_create(&adsr);
+            sp_adsr_init(kernel->sp, adsr);
             sp_oscmorph_create(&osc);
             sp_oscmorph_init(kernel->sp, osc, kernel->ft_array, 4, 0);
             osc->freq = 0;
@@ -63,7 +67,7 @@ public:
         
         void clear() {
             stage = stageOff;
-            envLevel = 0.;
+            amp = 0;
         }
         
         // linked list management
@@ -92,89 +96,41 @@ public:
         void noteOn(int noteNumber, int velocity)
         {
             if (velocity == 0) {
-                if (stage == stageAttack || stage == stageSustain) {
+                if (stage == stageOn) {
                     stage = stageRelease;
-                    envRampSamples = kernel->releaseSamples;
-                    envSlope = -envLevel / envRampSamples;
+                    internalGate = 0;
                 }
             } else {
                 if (stage == stageOff) { add(); }
                 osc->freq = (float)noteToHz(noteNumber);
                 osc->amp = (float)pow2(velocity / 127.);
-                stage = stageAttack;
-                envRampSamples = kernel->attackSamples;
-                envSlope = (1.0 - envLevel) / envRampSamples;
+                stage = stageOn;
+                internalGate = 1;
             }
         }
         
         
-        void run(int n, float* outL, float* outR)
+        void run(int frameCount, float* outL, float* outR)
         {
-            int framesRemaining = n;
-            
             float originalFrequency = osc->freq;
             osc->freq *= kernel->detuningMultiplier;
             osc->freq += kernel->detuningOffset;
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
             osc->wtpos = kernel->index;
             
-            while (framesRemaining) {
-                switch (stage) {
-                    case stageOff :
-                        NSLog(@"stageOff on playingNotes list!");
-                        return;
-                    case stageAttack : {
-                        int framesThisTime = std::min(framesRemaining, envRampSamples);
-                        for (int i = 0; i < framesThisTime; ++i) {
-                            float x = 0;
-                            sp_oscmorph_compute(kernel->sp, osc, nil, &x);
-                            *outL++ += envLevel * x;
-                            *outR++ += envLevel * x;
-                            
-                            envLevel += envSlope;
-                        }
-
-                        framesRemaining -= framesThisTime;
-                        envRampSamples -= framesThisTime;
-                        if (envRampSamples == 0) {
-                            stage = stageSustain;
-                        }
-                        osc->freq = originalFrequency;
-                        break;
-                    }
-                    case stageSustain : {
-                        for (int i = 0; i < framesRemaining; ++i) {
-                            float x = 0;
-                            sp_oscmorph_compute(kernel->sp, osc, nil, &x);
-                            *outL++ += envLevel * x;
-                            *outR++ += envLevel * x;
-                        }
-                        osc->freq = originalFrequency;
-                        return;
-                    }
-                    case stageRelease : {
-                        int framesThisTime = std::min(framesRemaining, envRampSamples);
-                        for (int i = 0; i < framesThisTime; ++i) {
-                            float x = 0;
-                            sp_oscmorph_compute(kernel->sp, osc, nil, &x);
-                            *outL++ += envLevel * x;
-                            *outR++ += envLevel * x;
-                            envLevel += envSlope;
-                        }
-                        envRampSamples -= framesThisTime;
-                        osc->freq = originalFrequency;
-                        if (envRampSamples == 0) {
-                            clear();
-                            remove();
-                        }
-                        return;
-                    }
-                    default:
-                        NSLog(@"bad stage on playingNotes list!");
-                        return;
-                }
+            for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+                float x = 0;
+                sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
+                sp_oscmorph_compute(kernel->sp, osc, nil, &x);
+                *outL++ += amp * x;
+                *outR++ += amp * x;
+                
             }
-            
+            osc->freq = originalFrequency;
+            if (stage == stageRelease && amp < 0.00001) {
+                clear();
+                remove();
+            }
         }
         
     };
@@ -198,6 +154,8 @@ public:
         sp->nchan = channels;
         
         attackDurationRamper.init();
+        decayDurationRamper.init();
+        sustainLevelRamper.init();
         releaseDurationRamper.init();
         detuningOffsetRamper.init();
         detuningMultiplierRamper.init();
@@ -237,21 +195,31 @@ public:
         resetted = true;
         
         attackDurationRamper.reset();
+        decayDurationRamper.reset();
+        sustainLevelRamper.reset();
         releaseDurationRamper.reset();
         detuningOffsetRamper.reset();
         detuningMultiplierRamper.reset();
     }
 
     void setAttackDuration(float value) {
-        attackDuration = clamp(value, (float)0, (float)10);
+        attackDuration = clamp(value, 0.0f, 99.0f);
         attackDurationRamper.setImmediate(attackDuration);
-        attackSamples = sampleRate * attackDuration;
     }
-
+    
+    void setDecayDuration(float value) {
+        decayDuration = clamp(value, 0.0f, 99.0f);
+        decayDurationRamper.setImmediate(decayDuration);
+    }
+    
+    void setSustainLevel(float value) {
+        sustainLevel = clamp(value, 0.0f, 99.0f);
+        sustainLevelRamper.setImmediate(sustainLevel);
+    }
+    
     void setReleaseDuration(float value) {
-        releaseDuration = clamp(value, (float)0, (float)100);
+        releaseDuration = clamp(value, 0.0f, 99.0f);
         releaseDurationRamper.setImmediate(releaseDuration);
-        releaseSamples = sampleRate * releaseDuration;
     }
     
     void setDetuningOffset(float value) {
@@ -269,13 +237,19 @@ public:
         switch (address) {
 
             case attackDurationAddress:
-                attackDuration = clamp(value, 0.001f, 10.f);
-                attackSamples = sampleRate * attackDuration;
+                attackDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
+                break;
+                
+            case decayDurationAddress:
+                decayDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
+                break;
+                
+            case sustainLevelAddress:
+                sustainLevelRamper.setUIValue(clamp(value, 0.0f, 99.0f));
                 break;
                 
             case releaseDurationAddress:
-                releaseDuration = clamp(value, 0.001f, 100.f);
-                releaseSamples = sampleRate * releaseDuration;
+                releaseDurationRamper.setUIValue(clamp(value, 0.0f, 99.0f));
                 break;
                 
             case detuningOffsetAddress:
@@ -294,7 +268,13 @@ public:
 
             case attackDurationAddress:
                 return attackDurationRamper.getUIValue();
-
+                
+            case decayDurationAddress:
+                return decayDurationRamper.getUIValue();
+                
+            case sustainLevelAddress:
+                return sustainLevelRamper.getUIValue();
+                
             case releaseDurationAddress:
                 return releaseDurationRamper.getUIValue();
             
@@ -312,11 +292,19 @@ public:
         switch (address) {
                 
             case attackDurationAddress:
-                attackDurationRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                attackDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
+                break;
+                
+            case decayDurationAddress:
+                decayDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
+                break;
+                
+            case sustainLevelAddress:
+                sustainLevelRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
                 break;
                 
             case releaseDurationAddress:
-                releaseDurationRamper.startRamp(clamp(value, (float)-1000, (float)1000), duration);
+                releaseDurationRamper.startRamp(clamp(value, 0.0f, 99.0f), duration);
                 break;
 
             case detuningOffsetAddress:
@@ -373,10 +361,10 @@ public:
         float* outL = (float*)outBufferListPtr->mBuffers[0].mData + bufferOffset;
         float* outR = (float*)outBufferListPtr->mBuffers[1].mData + bufferOffset;
 
-        attackDuration = double(attackDurationRamper.getAndStep());
-        attackSamples = sampleRate * attackDuration;
-        releaseDuration = double(releaseDurationRamper.getAndStep());
-        releaseSamples = sampleRate * releaseDuration;
+        attackDuration = attackDurationRamper.getAndStep();
+        decayDuration = decayDurationRamper.getAndStep();
+        sustainLevel = sustainLevelRamper.getAndStep();
+        releaseDuration = releaseDurationRamper.getAndStep();
         detuningOffset = double(detuningOffsetRamper.getAndStep());
         detuningMultiplier = double(detuningMultiplierRamper.getAndStep());
         
@@ -416,8 +404,10 @@ private:
 
     float index = 0;
 
-    float attackDuration = 0;
-    float releaseDuration = 0;
+    float attackDuration = 0.1;
+    float decayDuration = 0.1;
+    float sustainLevel = 1.0;
+    float releaseDuration = 0.1;
 
     float detuningOffset = 0;
     float detuningMultiplier = 1;
@@ -427,11 +417,12 @@ public:
     int playingNotesCount = 0;
     bool resetted = false;
 
-    int attackSamples   = sampleRate * attackDuration;
-    int releaseSamples  = sampleRate * releaseDuration;
+
     
-    ParameterRamper attackDurationRamper = 0;
-    ParameterRamper releaseDurationRamper = 0;
+    ParameterRamper attackDurationRamper = 0.1;
+    ParameterRamper decayDurationRamper = 0.1;
+    ParameterRamper sustainLevelRamper = 1.0;
+    ParameterRamper releaseDurationRamper = 0.1;
 
     ParameterRamper detuningOffsetRamper = 0;
     ParameterRamper detuningMultiplierRamper = 1;
