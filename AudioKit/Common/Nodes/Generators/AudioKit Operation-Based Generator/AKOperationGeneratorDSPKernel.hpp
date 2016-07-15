@@ -52,7 +52,7 @@ public:
     }
     
     void setParameters(float params[]) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 14; i++) {
             parameters[i] = params[i];
         }
     };
@@ -127,6 +127,7 @@ public:
             if (internalTriggers[i] == 1) {
                 pd.p[i] = 0.0;
             }
+            parameters[i] = pd.p[i];
             internalTriggers[i] = 0;
         }
     }
@@ -138,7 +139,6 @@ private:
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
     int internalTriggers[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-    float parameters[14]     = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
     AudioBufferList *outBufferListPtr = nullptr;
 
@@ -147,6 +147,7 @@ private:
     char *sporthCode = nil;
     
 public:
+    float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     bool started = false;
 };
 
