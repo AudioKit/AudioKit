@@ -12,7 +12,7 @@ import Foundation
 public struct AKStereoOperation: AKComputedParameter {
     
     /// Default stereo input to any operation stack
-    public static var input = AKStereoOperation("((0 p) (1 p))")
+    public static var input = AKStereoOperation("((15 p) (16 p))")
     
     /// Sporth representation of the stereo operation
     var operationString = ""
