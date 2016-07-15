@@ -20,8 +20,9 @@ struct Constants {
     }
     
     struct File {
-        static let chat = "chat"
-        static let drone = "drone"
+        static let chat = "Chatting Robot"
+        static let drone = "Drone"
+        static let pluck = "Plucked Strings"
     }
     
     struct Path {
@@ -30,6 +31,9 @@ struct Constants {
         }
         static var drone: String {
             return NSBundle.mainBundle().pathForResource(Constants.File.drone, ofType: FileUtilities.fileExtension)!
+        }
+        static var pluck: String {
+            return NSBundle.mainBundle().pathForResource(Constants.File.pluck, ofType: FileUtilities.fileExtension)!
         }
     }
     

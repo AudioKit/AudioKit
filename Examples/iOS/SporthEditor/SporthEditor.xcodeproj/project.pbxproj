@@ -11,10 +11,11 @@
 		783F1E731D35299500DD1B58 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E721D35299500DD1B58 /* Error.swift */; };
 		783F1E751D352B4F00DD1B58 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E741D352B4F00DD1B58 /* Constants.swift */; };
 		783F1E771D35333D00DD1B58 /* SporthEditorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 783F1E761D35333D00DD1B58 /* SporthEditorBrain.swift */; };
-		783F1E7A1D353DB900DD1B58 /* chat.sp in Resources */ = {isa = PBXBuildFile; fileRef = 783F1E781D353DB900DD1B58 /* chat.sp */; };
-		783F1E7B1D353DB900DD1B58 /* drone.sp in Resources */ = {isa = PBXBuildFile; fileRef = 783F1E791D353DB900DD1B58 /* drone.sp */; };
+		783F1E7A1D353DB900DD1B58 /* Chatting Robot.sp in Resources */ = {isa = PBXBuildFile; fileRef = 783F1E781D353DB900DD1B58 /* Chatting Robot.sp */; };
+		783F1E7B1D353DB900DD1B58 /* Drone.sp in Resources */ = {isa = PBXBuildFile; fileRef = 783F1E791D353DB900DD1B58 /* Drone.sp */; };
 		78FFF99C1D36A91A009B2E07 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78FFF99B1D36A91A009B2E07 /* AudioKit.framework */; };
 		78FFF99D1D36A91A009B2E07 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 78FFF99B1D36A91A009B2E07 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C40ACAE41D38A098003A7431 /* Plucked Strings.sp in Resources */ = {isa = PBXBuildFile; fileRef = C40ACAE31D38A098003A7431 /* Plucked Strings.sp */; };
 		C485C6381D337759007D1BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6371D337759007D1BFD /* AppDelegate.swift */; };
 		C485C63A1D337759007D1BFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6391D337759007D1BFD /* ViewController.swift */; };
 		C485C63D1D337759007D1BFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C485C63B1D337759007D1BFD /* Main.storyboard */; };
@@ -41,9 +42,10 @@
 		783F1E721D35299500DD1B58 /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		783F1E741D352B4F00DD1B58 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		783F1E761D35333D00DD1B58 /* SporthEditorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SporthEditorBrain.swift; sourceTree = "<group>"; };
-		783F1E781D353DB900DD1B58 /* chat.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chat.sp; sourceTree = "<group>"; };
-		783F1E791D353DB900DD1B58 /* drone.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = drone.sp; sourceTree = "<group>"; };
+		783F1E781D353DB900DD1B58 /* Chatting Robot.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Chatting Robot.sp"; sourceTree = "<group>"; };
+		783F1E791D353DB900DD1B58 /* Drone.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Drone.sp; sourceTree = "<group>"; };
 		78FFF99B1D36A91A009B2E07 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C40ACAE31D38A098003A7431 /* Plucked Strings.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Plucked Strings.sp"; sourceTree = "<group>"; };
 		C485C6341D337759007D1BFD /* SporthEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SporthEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C485C6371D337759007D1BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C485C6391D337759007D1BFD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,8 +70,9 @@
 		783F1E7C1D353DCF00DD1B58 /* Preloaded files */ = {
 			isa = PBXGroup;
 			children = (
-				783F1E781D353DB900DD1B58 /* chat.sp */,
-				783F1E791D353DB900DD1B58 /* drone.sp */,
+				783F1E781D353DB900DD1B58 /* Chatting Robot.sp */,
+				783F1E791D353DB900DD1B58 /* Drone.sp */,
+				C40ACAE31D38A098003A7431 /* Plucked Strings.sp */,
 			);
 			name = "Preloaded files";
 			sourceTree = "<group>";
@@ -150,7 +153,7 @@
 				TargetAttributes = {
 					C485C6331D337759007D1BFD = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = PBK2PRY5LG;
+						DevelopmentTeam = 5D437HC99E;
 					};
 				};
 			};
@@ -177,8 +180,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				783F1E7A1D353DB900DD1B58 /* chat.sp in Resources */,
-				783F1E7B1D353DB900DD1B58 /* drone.sp in Resources */,
+				783F1E7A1D353DB900DD1B58 /* Chatting Robot.sp in Resources */,
+				C40ACAE41D38A098003A7431 /* Plucked Strings.sp in Resources */,
+				783F1E7B1D353DB900DD1B58 /* Drone.sp in Resources */,
 				C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */,
 				C485C63F1D337759007D1BFD /* Assets.xcassets in Resources */,
 				C485C63D1D337759007D1BFD /* Main.storyboard in Resources */,
