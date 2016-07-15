@@ -88,6 +88,8 @@
         <page name='Plucked String'/>
         <page name='PWM Oscillator'/>
         <page name='PWM Oscillator Bank'/>
+        <page name='Resonant Filter'/>
+        <page name='Resonant Filter Operation'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>
@@ -117,6 +119,8 @@
         <page name='Using Functions'/>
         <page name='Variable Delay Operation'/>
         <page name='Variable Delay'/>
-        <page name='AKTapeRecorder'/>
+        <page name='AKAudioFile part2'/>
+        <page name='AKNodeRecorder'/>
+        <page name='AKAudioFile part 3 Async Process'/>
     </pages>
 </playground>

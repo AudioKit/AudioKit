@@ -35,12 +35,8 @@
     _kernel.setSporth((char*)[sporth UTF8String]);
 }
 
-- (void)trigger:(NSArray *)parameters {
-    float params[10] = {0,0,0,0,0,0,0,0,0,0};
-    for (int i = 0; i < parameters.count; i++) {
-        params[i] =[parameters[i] floatValue];
-    }
-    _kernel.trigger(params);
+- (void)trigger:(int)trigger {
+    _kernel.trigger(trigger);
 }
 
 - (void)setParameters:(NSArray *)parameters {

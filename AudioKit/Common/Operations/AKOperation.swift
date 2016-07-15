@@ -15,14 +15,13 @@ public protocol AKComputedParameter: AKParameter {}
 public struct AKOperation: AKComputedParameter {
 
     /// Default input to any operation
-    public static var input = AKOperation("(0 p)")
+    public static var input = AKOperation("(15 p)")
     
     /// Left input to any stereo operation
-    public static var leftInput = AKOperation("(0 p)")
+    public static var leftInput = AKOperation("(15 p)")
 
     /// Right input to any stereo operation
-    public static var rightInput = AKOperation("(1 p)")
-
+    public static var rightInput = AKOperation("(16 p)")
     
     /// Dummy trigger
     public static var trigger = AKOperation("(0 p)")
@@ -32,7 +31,7 @@ public struct AKOperation: AKComputedParameter {
     /// - parameter i: Number of the parameter to recall
     ///
     public static func parameters(i: Int) -> AKOperation {
-        return AKOperation("(\(i+2) p)")
+        return AKOperation("(\(i) p)")
     }
 
     /// Performs absolute value on the operation

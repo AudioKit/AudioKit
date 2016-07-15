@@ -28,6 +28,8 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     private var modulationIndexParameter: AUParameter?
 
     private var attackDurationParameter: AUParameter?
+    private var decayDurationParameter: AUParameter?
+    private var sustainLevelParameter: AUParameter?
     private var releaseDurationParameter: AUParameter?
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
@@ -83,8 +85,8 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
 
 
 
-    /// Attack time in seconds
-    public var attackDuration: Double = 0 {
+    /// Attack time
+    public var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -95,9 +97,32 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-
-    /// Release time in seconds
-    public var releaseDuration: Double = 0 {
+    /// Decay time
+    public var decayDuration: Double = 0.1 {
+        willSet {
+            if decayDuration != newValue {
+                if internalAU!.isSetUp() {
+                    decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.decayDuration = Float(newValue)
+                }
+            }
+        }
+    }
+    /// Sustain Level
+    public var sustainLevel: Double = 1.0 {
+        willSet {
+            if sustainLevel != newValue {
+                if internalAU!.isSetUp() {
+                    sustainLevelParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.sustainLevel = Float(newValue)
+                }
+            }
+        }
+    }
+    /// Release time
+    public var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -151,8 +176,10 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
         carrierMultiplier: Double = 1.0,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,
-        attackDuration: Double = 0.001,
-        releaseDuration: Double = 0.001,
+        attackDuration: Double = 0.1,
+        decayDuration: Double = 0.1,
+        sustainLevel: Double = 1.0,
+        releaseDuration: Double = 0.1,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
@@ -163,6 +190,8 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
         self.modulationIndex = modulationIndex
 
         self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
+        self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
@@ -203,6 +232,8 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
         modulationIndexParameter      = tree.valueForKey("modulationIndex")      as? AUParameter
 
         attackDurationParameter     = tree.valueForKey("attackDuration")     as? AUParameter
+        decayDurationParameter      = tree.valueForKey("decayDuration")      as? AUParameter
+        sustainLevelParameter       = tree.valueForKey("sustainLevel")       as? AUParameter
         releaseDurationParameter    = tree.valueForKey("releaseDuration")    as? AUParameter
         detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
         detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
@@ -219,6 +250,10 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
                     self.modulationIndex = Double(value)
                 } else if address == self.attackDurationParameter!.address {
                     self.attackDuration = Double(value)
+                } else if address == self.decayDurationParameter!.address {
+                    self.decayDuration = Double(value)
+                } else if address == self.sustainLevelParameter!.address {
+                    self.sustainLevel = Double(value)
                 } else if address == self.releaseDurationParameter!.address {
                     self.releaseDuration = Double(value)
                 } else if address == self.detuningOffsetParameter!.address {
@@ -234,6 +269,8 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
         internalAU?.modulationIndex = Float(modulationIndex)
 
         internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.decayDuration = Float(decayDuration)
+        internalAU?.sustainLevel = Float(sustainLevel)
         internalAU?.releaseDuration = Float(releaseDuration)
         internalAU?.detuningOffset = Float(detuningOffset)
         internalAU?.detuningMultiplier = Float(detuningMultiplier)

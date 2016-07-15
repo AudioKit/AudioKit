@@ -16,6 +16,8 @@
 @property (nonatomic) float index;
 
 @property (nonatomic) float attackDuration;
+@property (nonatomic) float decayDuration;
+@property (nonatomic) float sustainLevel;
 @property (nonatomic) float releaseDuration;
 @property (nonatomic) float detuningOffset;
 @property (nonatomic) float detuningMultiplier;

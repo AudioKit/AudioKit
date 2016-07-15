@@ -9,7 +9,7 @@ import AudioKit
 
 let playRate = 2.0
 
-let frequency = (AKOperation.parameters(0) + 40).midiNoteToFrequency()
+let frequency = (AKOperation.parameters(1) + 40).midiNoteToFrequency()
 let pluck = AKOperation.pluckedString(trigger: AKOperation.trigger, frequency: frequency, amplitude: 0.5, lowestFrequency: 50)
 
 let pluckNode = AKOperationGenerator(operation: pluck)
@@ -34,7 +34,8 @@ AKPlaygroundLoop(frequency: playRate) {
     if !scale.contains(note % 12) { print("ACCIDENT!") }
 
     if random(0, 6) > 1.0 {
-        pluckNode.trigger([Double(note + octave)])
+        pluckNode.parameters = [0, Double(note + octave)]
+        pluckNode.trigger()
     }
 }
 
