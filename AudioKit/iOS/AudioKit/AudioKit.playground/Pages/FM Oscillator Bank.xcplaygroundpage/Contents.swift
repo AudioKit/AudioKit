@@ -1,3 +1,11 @@
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+//:
+//: ---
+//:
+//: ## FM Oscillator Bank
+//: ### Open the timeline view to use the controls this playground sets up.
+//:
+
 import XCPlayground
 import AudioKit
 
@@ -82,4 +90,4 @@ let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
-
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
