@@ -110,7 +110,22 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     @IBAction func trigger1(sender: UIButton) {
         print("triggering 1")
-        brain.generator?.trigger()
+        brain.generator?.trigger(0)
+    }
+    
+    @IBAction func trigger2(sender: UIButton) {
+        print("triggering 2")
+        brain.generator?.trigger(1)
+    }
+    
+    @IBAction func trigger3(sender: UIButton) {
+        print("triggering 3")
+        brain.generator?.trigger(2)
+    }
+    
+    @IBAction func trigger4(sender: UIButton) {
+        print("triggering 4")
+        brain.generator?.trigger(3)
     }
     
     @IBAction func activateGate1(sender: UIButton) {

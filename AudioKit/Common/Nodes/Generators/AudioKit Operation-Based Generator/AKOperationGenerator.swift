@@ -92,18 +92,8 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
     /// Trigger the sound with current parameters
     ///
-    public func trigger() {
-        self.internalAU!.trigger(self.parameters)
-    }
-
-
-    /// Trigger the sound with a set of parameters
-    ///
-    /// - parameter parameters: An array of doubles to use as parameters
-    ///
-    public func trigger(parameters: [Double]) {
-        self.parameters = parameters
-        self.internalAU!.trigger(parameters)
+    public func trigger(triggerNumber: Int = 0) {
+        self.internalAU!.trigger(Int32(triggerNumber))
     }
 
     /// Function to start, play, or activate the node, all do the same thing
