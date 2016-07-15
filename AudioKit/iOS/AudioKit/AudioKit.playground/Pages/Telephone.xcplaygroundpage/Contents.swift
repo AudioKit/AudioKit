@@ -152,7 +152,8 @@ class PlaygroundView: AKPlaygroundView {
         dialTone.stop()
         ringing.stop()
         busy.stop()
-        keypad.parameters = [0] + keys[text]!
+        keypad.parameters[1] = keys[text]![0]
+        keypad.parameters[2] = keys[text]![1]
         keypad.trigger()
         usleep(250000)
     }
