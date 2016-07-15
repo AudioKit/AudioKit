@@ -21,6 +21,7 @@
 		C40718321D211AB400665C02 /* SKINImsg.h in Headers */ = {isa = PBXBuildFile; fileRef = C40718251D211AB400665C02 /* SKINImsg.h */; };
 		C40718331D211AB400665C02 /* Stk.h in Headers */ = {isa = PBXBuildFile; fileRef = C40718261D211AB400665C02 /* Stk.h */; };
 		C40718341D211AB400665C02 /* Twang.h in Headers */ = {isa = PBXBuildFile; fileRef = C40718271D211AB400665C02 /* Twang.h */; };
+		C40ACAD91D38707F003A7431 /* reson.c in Sources */ = {isa = PBXBuildFile; fileRef = C40ACAD81D38707F003A7431 /* reson.c */; };
 		C40BB0921C4717C2004C138D /* AKCombFilterReverb.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB08E1C4717C2004C138D /* AKCombFilterReverb.swift */; };
 		C40BB0931C4717C2004C138D /* AKCombFilterReverbAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C40BB08F1C4717C2004C138D /* AKCombFilterReverbAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40BB0941C4717C2004C138D /* AKCombFilterReverbAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40BB0901C4717C2004C138D /* AKCombFilterReverbAudioUnit.mm */; };
@@ -610,6 +611,7 @@
 		C40718251D211AB400665C02 /* SKINImsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKINImsg.h; sourceTree = "<group>"; };
 		C40718261D211AB400665C02 /* Stk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stk.h; sourceTree = "<group>"; };
 		C40718271D211AB400665C02 /* Twang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Twang.h; sourceTree = "<group>"; };
+		C40ACAD81D38707F003A7431 /* reson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reson.c; sourceTree = "<group>"; };
 		C40BB08E1C4717C2004C138D /* AKCombFilterReverb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKCombFilterReverb.swift; sourceTree = "<group>"; };
 		C40BB08F1C4717C2004C138D /* AKCombFilterReverbAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKCombFilterReverbAudioUnit.h; sourceTree = "<group>"; };
 		C40BB0901C4717C2004C138D /* AKCombFilterReverbAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKCombFilterReverbAudioUnit.mm; sourceTree = "<group>"; };
@@ -2290,6 +2292,7 @@
 				C4B191831C3B342800C0F330 /* randi.c */,
 				C4B191841C3B342800C0F330 /* randmt.c */,
 				C4B191851C3B342800C0F330 /* random.c */,
+				C40ACAD81D38707F003A7431 /* reson.c */,
 				C4B191861C3B342800C0F330 /* reverse.c */,
 				C4B191871C3B342800C0F330 /* revsc.c */,
 				C4B191881C3B342800C0F330 /* rms.c */,
@@ -3431,6 +3434,7 @@
 				C45381DB1C3A5CBD00A51738 /* AKMoogLadder.swift in Sources */,
 				C45381F21C3A5CBD00A51738 /* AKToneComplementFilterAudioUnit.mm in Sources */,
 				C4B1926C1C3B342800C0F330 /* autowah.c in Sources */,
+				C40ACAD91D38707F003A7431 /* reson.c in Sources */,
 				C4B192081C3B342800C0F330 /* autowah.c in Sources */,
 				C45382151C3A5CBD00A51738 /* AKFMOscillatorAudioUnit.mm in Sources */,
 				C4B192121C3B342800C0F330 /* butbp.c in Sources */,
