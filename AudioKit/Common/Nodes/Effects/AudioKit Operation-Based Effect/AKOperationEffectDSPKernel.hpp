@@ -119,6 +119,10 @@ public:
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
                 *out = sporth_stack_pop_float(&pd.sporth.stack);
             }
+            
+            for (int i = 0; i < 14; i++) {
+                parameters[i] = pd.p[i];
+            }
         }
     }
 
@@ -128,7 +132,6 @@ private:
 
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
-    float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
@@ -137,6 +140,7 @@ private:
     plumber_data pd;
     char *sporthCode = nil;
 public:
+    float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     bool started = true;
 };
 

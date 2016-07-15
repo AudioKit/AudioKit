@@ -39,8 +39,16 @@
     _kernel.trigger(trigger);
 }
 
+- (NSArray *)parameters {
+    NSMutableArray *temp = [NSMutableArray arrayWithCapacity:14];
+    for (int i = 0; i < 14; i++) {
+        [temp setObject:[NSNumber numberWithFloat:_kernel.parameters[i]] atIndexedSubscript:i];
+    }
+    return [NSArray arrayWithArray:temp];
+}
+
 - (void)setParameters:(NSArray *)parameters {
-    float params[10] = {0,0,0,0,0,0,0,0,0,0};
+    float params[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     for (int i = 0; i < parameters.count; i++) {
         params[i] =[parameters[i] floatValue];
     }

@@ -21,9 +21,18 @@ public class AKOperationEffect: AKNode, AKToggleable {
     }
 
     /// Parameters for changing internal operations
-    public var parameters: [Double] = [] {
-        didSet {
-            internalAU?.setParameters(parameters)
+    public var parameters: [Double] {
+        get {
+            var result: [Double] = []
+            if let floatParameters = internalAU?.parameters as? [NSNumber] {
+                for number in floatParameters {
+                    result.append(number.doubleValue)
+                }
+            }
+            return result
+        }
+        set {
+            internalAU?.parameters = newValue
         }
     }
 

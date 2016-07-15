@@ -12,9 +12,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface AKOperationEffectAudioUnit : AUAudioUnit
+@property (nonatomic) NSArray *parameters;
 - (void)setSporth:(NSString *)sporth;
-
-- (void)setParameters:(NSArray *)parameters;
 - (void)start;
 - (void)stop;
 - (BOOL)isPlaying;
