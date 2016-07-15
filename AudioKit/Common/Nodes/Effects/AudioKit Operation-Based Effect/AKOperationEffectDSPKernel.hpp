@@ -48,7 +48,7 @@ public:
     }
     
     void setParameters(float params[]) {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 14; i++) {
             parameters[i] = params[i];
         }
     };
@@ -105,12 +105,12 @@ public:
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 if (channel < 2) {
-                    pd.p[channel] = *in;
+                    pd.p[channel+15] = *in;
                 }
             }
             
-            for (int i = 0; i < 16; i++) {
-                pd.p[i+2] = parameters[i];
+            for (int i = 0; i < 14; i++) {
+                pd.p[i] = parameters[i];
             }
             
             plumber_compute(&pd, PLUMBER_COMPUTE);
@@ -128,7 +128,7 @@ private:
 
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
-    float parameters[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    float parameters[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
     
     AudioBufferList *inBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;

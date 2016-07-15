@@ -125,7 +125,7 @@
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
                                                                                         <connections>
-                                                                                            <action selector="trigger1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sul-tB-4ne"/>
+                                                                                            <action selector="trigger1:" destination="BYZ-38-t0r" eventType="touchDown" id="Zr1-nB-hdt"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6P-gk-iMH">
@@ -192,6 +192,9 @@
                                                                                         <state key="normal" title="trig">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="trigger2:" destination="BYZ-38-t0r" eventType="touchDown" id="wUL-yu-iEZ"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eYa-Is-Hzg">
                                                                                         <rect key="frame" x="62" y="0.0" width="54" height="40"/>
@@ -257,6 +260,9 @@
                                                                                         <state key="normal" title="trig">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="trigger3:" destination="BYZ-38-t0r" eventType="touchDown" id="Nvr-kA-lG8"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="buW-pD-Qz4">
                                                                                         <rect key="frame" x="62" y="0.0" width="54" height="40"/>
@@ -322,6 +328,9 @@
                                                                                         <state key="normal" title="trig">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="trigger4:" destination="BYZ-38-t0r" eventType="touchDown" id="R1F-8N-pAE"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bmU-uS-CCx">
                                                                                         <rect key="frame" x="62" y="0.0" width="54" height="40"/>

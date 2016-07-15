@@ -47,11 +47,8 @@ public:
         sporthCode = sporth;
     }
     
-    void trigger(float params[]) {
-        internalTrigger = 1;
-        pd.p[0] = internalTrigger;
-        pd.p[1] = internalTrigger;
-        setParameters(params);
+    void trigger(int trigger) {
+        internalTriggers[trigger] = 1;
     }
     
     void setParameters(float params[]) {
@@ -102,12 +99,16 @@ public:
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
 
             int frameOffset = int(frameIndex + bufferOffset);
+
             
-            pd.p[0] = internalTrigger;
-            pd.p[1] = internalTrigger;
-            for (int i = 0; i < 10; i++) {
-                pd.p[i+2] = parameters[i];
+            for (int i = 0; i < 14; i++) {
+                if (internalTriggers[i] == 1) {
+                    pd.p[i] = 1.0;
+                } else {
+                    pd.p[i] = parameters[i];
+                }
             }
+
             if (started) {
                 plumber_compute(&pd, PLUMBER_COMPUTE);
             }
@@ -121,8 +122,12 @@ public:
                 }
             }
         }
-        if (internalTrigger == 1) {
-            internalTrigger = 0;
+        
+        for (int i = 0; i < 14; i++) {
+            if (internalTriggers[i] == 1) {
+                pd.p[i] = 0.0;
+            }
+            internalTriggers[i] = 0;
         }
     }
 
@@ -132,8 +137,8 @@ private:
 
     int channels = AKSettings.numberOfChannels;
     float sampleRate = AKSettings.sampleRate;
-    int internalTrigger = 0;
-    float parameters[10] = {0,0,0,0,0,0,0,0,0,0};
+    int internalTriggers[14] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    float parameters[14]     = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
     AudioBufferList *outBufferListPtr = nullptr;
 

@@ -2,7 +2,7 @@
 
 "seq2" "55 57 59 55 57 60 55 57 52 52 50 55" gen_vals
 
-125 2 p 125 * + 0 pset
+125 0 p 125 * + 0 pset
 
 60 0 p / 0.5 * dmetro 0.6 maytrig dup
 0 "seq" tseq mtof
