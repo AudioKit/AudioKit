@@ -15,13 +15,13 @@ public protocol AKComputedParameter: AKParameter {}
 public struct AKOperation: AKComputedParameter {
 
     /// Default input to any operation
-    public static var input = AKOperation("(15 p)")
+    public static var input = AKOperation("(14 p)")
     
     /// Left input to any stereo operation
-    public static var leftInput = AKOperation("(15 p)")
+    public static var leftInput = AKOperation("(14 p)")
 
     /// Right input to any stereo operation
-    public static var rightInput = AKOperation("(16 p)")
+    public static var rightInput = AKOperation("(15 p)")
     
     /// Dummy trigger
     public static var trigger = AKOperation("(0 p)")
