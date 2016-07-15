@@ -122,6 +122,11 @@ public:
             fosc->car = kernel->carrierMultiplier;
             fosc->mod = kernel->modulatingMultiplier;
             fosc->indx = kernel->modulationIndex;
+            
+            adsr->atk = (float)kernel->attackDuration;
+            adsr->dec = (float)kernel->decayDuration;
+            adsr->sus = (float)kernel->sustainLevel;
+            adsr->rel = (float)kernel->releaseDuration;
 
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;

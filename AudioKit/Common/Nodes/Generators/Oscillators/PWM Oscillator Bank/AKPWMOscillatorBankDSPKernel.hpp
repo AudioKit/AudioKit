@@ -119,6 +119,11 @@ public:
             *blsquare->freq = clamp(*blsquare->freq, 0.0f, 22050.0f);
             *blsquare->width = kernel->pulseWidth;
             
+            adsr->atk = (float)kernel->attackDuration;
+            adsr->dec = (float)kernel->decayDuration;
+            adsr->sus = (float)kernel->sustainLevel;
+            adsr->rel = (float)kernel->releaseDuration;
+            
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
