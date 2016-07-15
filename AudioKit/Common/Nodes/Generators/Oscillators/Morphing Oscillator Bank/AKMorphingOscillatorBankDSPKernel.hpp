@@ -118,6 +118,11 @@ public:
             osc->freq = clamp(osc->freq, 0.0f, 22050.0f);
             osc->wtpos = kernel->index;
             
+            adsr->atk = (float)kernel->attackDuration;
+            adsr->dec = (float)kernel->decayDuration;
+            adsr->sus = (float)kernel->sustainLevel;
+            adsr->rel = (float)kernel->releaseDuration;
+
             for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
                 float x = 0;
                 sp_adsr_compute(kernel->sp, adsr, &internalGate, &amp);
