@@ -176,6 +176,8 @@
     _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
     _kernel.setParameter(sustainLevelAddress,    sustainLevelAUParameter.value);
     _kernel.setParameter(releaseDurationAddress, releaseDurationAUParameter.value);
+    _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
+    _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[

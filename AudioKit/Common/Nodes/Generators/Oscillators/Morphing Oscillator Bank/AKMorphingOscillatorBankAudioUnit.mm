@@ -39,6 +39,12 @@
 - (void)setAttackDuration:(float)attackDuration {
     _kernel.setAttackDuration(attackDuration);
 }
+- (void)setDecayDuration:(float)decayDuration {
+    _kernel.setDecayDuration(decayDuration);
+}
+- (void)setSustainLevel:(float)sustainLevel {
+    _kernel.setSustainLevel(sustainLevel);
+}
 - (void)setReleaseDuration:(float)releaseDuration {
     _kernel.setReleaseDuration(releaseDuration);
 }
@@ -94,8 +100,32 @@
                                               name:@"Attack time"
                                            address:attackDurationAddress
                                                min:0
-                                               max:10
+                                               max:99
                                               unit:kAudioUnitParameterUnit_Seconds
+                                          unitName:nil
+                                             flags:flags
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    // Create a parameter object for the decayDuration.
+    AUParameter *decayDurationAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"decayDuration"
+                                              name:@"Decay time"
+                                           address:decayDurationAddress
+                                               min:0
+                                               max:99
+                                              unit:kAudioUnitParameterUnit_Seconds
+                                          unitName:nil
+                                             flags:flags
+                                      valueStrings:nil
+                               dependentParameters:nil];
+    // Create a parameter object for the sustainLevel.
+    AUParameter *sustainLevelAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"sustainLevel"
+                                              name:@"Sustain Level"
+                                           address:sustainLevelAddress
+                                               min:0
+                                               max:99
+                                              unit:kAudioUnitParameterUnit_Generic
                                           unitName:nil
                                              flags:flags
                                       valueStrings:nil
@@ -106,7 +136,7 @@
                                               name:@"Release time"
                                            address:releaseDurationAddress
                                                min:0
-                                               max:100
+                                               max:99
                                               unit:kAudioUnitParameterUnit_Seconds
                                           unitName:nil
                                              flags:flags
@@ -138,21 +168,25 @@
                                dependentParameters:nil];
 
     // Initialize the parameter values.
-    attackDurationAUParameter.value = 0.0;
-    releaseDurationAUParameter.value = 0.0;
+    attackDurationAUParameter.value = 0.1;
+    decayDurationAUParameter.value = 0.1;
     detuningOffsetAUParameter.value = 0;
     detuningMultiplierAUParameter.value = 1;
     
     _rampTime = AKSettings.rampTime;
 
-    _kernel.setParameter(attackDurationAddress,     attackDurationAUParameter.value);
-    _kernel.setParameter(releaseDurationAddress,    releaseDurationAUParameter.value);
+    _kernel.setParameter(attackDurationAddress,  attackDurationAUParameter.value);
+    _kernel.setParameter(decayDurationAddress,   decayDurationAUParameter.value);
+    _kernel.setParameter(sustainLevelAddress,    sustainLevelAUParameter.value);
+    _kernel.setParameter(releaseDurationAddress, releaseDurationAUParameter.value);
     _kernel.setParameter(detuningOffsetAddress,     detuningOffsetAUParameter.value);
     _kernel.setParameter(detuningMultiplierAddress, detuningMultiplierAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         attackDurationAUParameter,
+        decayDurationAUParameter,
+        sustainLevelAUParameter,
         releaseDurationAUParameter,
         detuningOffsetAUParameter,
         detuningMultiplierAUParameter

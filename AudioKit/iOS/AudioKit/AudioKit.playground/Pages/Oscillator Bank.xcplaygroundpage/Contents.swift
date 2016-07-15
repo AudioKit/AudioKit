@@ -66,12 +66,12 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     
     func setDecay(slider: Slider) {
         osc.decayDuration = Double(slider.value)
-        decayLabel!.text = "Decay Duration: \(osc.decayDuration)"
+        decayLabel!.text = "Decay: \(String(format: "%0.3f", osc.decayDuration))"
     }
     
     func setSustain(slider: Slider) {
         osc.sustainLevel = Double(slider.value)
-        sustainLabel!.text = "Sustain Label: \(osc.sustainLevel)"
+        sustainLabel!.text = "Sustain: \(String(format: "%0.3f", osc.sustainLevel))"
     }
 
     func setRelease(slider: Slider) {
