@@ -134,6 +134,11 @@
                                                                                         <state key="normal" title="gate">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="activateGate1:" destination="BYZ-38-t0r" eventType="touchDown" id="C0b-Q0-LaA"/>
+                                                                                            <action selector="deactivateGate1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="44Q-37-DBG"/>
+                                                                                            <action selector="deactivateGate1:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="9Kj-t7-U6m"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                             </stackView>
@@ -194,6 +199,11 @@
                                                                                         <state key="normal" title="gate">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="activateGate2:" destination="BYZ-38-t0r" eventType="touchDown" id="WZV-Y5-Jbb"/>
+                                                                                            <action selector="deactivateGate2:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="48P-pG-eLX"/>
+                                                                                            <action selector="deactivateGate2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QQs-AC-Yo9"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                             </stackView>
@@ -254,6 +264,11 @@
                                                                                         <state key="normal" title="gate">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="activateGate3:" destination="BYZ-38-t0r" eventType="touchDown" id="A8l-Up-5vS"/>
+                                                                                            <action selector="deactivateGate3:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="LfE-32-bkl"/>
+                                                                                            <action selector="deactivateGate3:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RGO-wZ-Y5z"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                             </stackView>
@@ -314,6 +329,11 @@
                                                                                         <state key="normal" title="gate">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="activateGate4:" destination="BYZ-38-t0r" eventType="touchDown" id="WAw-zV-TNE"/>
+                                                                                            <action selector="deactivateGate4:" destination="BYZ-38-t0r" eventType="touchUpOutside" id="GRm-gx-TOq"/>
+                                                                                            <action selector="deactivateGate4:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ITY-ep-OQH"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                 </subviews>
                                                                             </stackView>

@@ -113,6 +113,47 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         brain.generator?.trigger()
     }
     
+    @IBAction func activateGate1(sender: UIButton) {
+        brain.generator?.parameters[0] = 1.0
+        slider1.value = 1
+    }
+    
+    @IBAction func deactivateGate1(sender: UIButton) {
+        brain.generator?.parameters[0] = 0.0
+        slider1.value = 0
+    }
+    
+    @IBAction func activateGate2(sender: UIButton) {
+        brain.generator?.parameters[1] = 1.0
+        slider2.value = 1
+    }
+    
+    @IBAction func deactivateGate2(sender: UIButton) {
+        brain.generator?.parameters[1] = 0.0
+        slider2.value = 0
+    }
+    
+    @IBAction func activateGate3(sender: UIButton) {
+        brain.generator?.parameters[2] = 1.0
+        slider3.value = 1
+    }
+    
+    @IBAction func deactivateGate3(sender: UIButton) {
+        brain.generator?.parameters[2] = 0.0
+        slider3.value = 0
+    }
+    
+    @IBAction func activateGate4(sender: UIButton) {
+        brain.generator?.parameters[3] = 1.0
+        slider4.value = 1
+    }
+    
+    @IBAction func deactivateGate4(sender: UIButton) {
+        brain.generator?.parameters[3] = 0.0
+        slider4.value = 0
+    }
+    
+    
     @IBAction func updateParameter1(sender: UISlider) {
         print("value 1 = \(sender.value)")
         brain.generator?.parameters[0] = Double(sender.value)
