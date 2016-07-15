@@ -41,6 +41,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             try brain.save(Constants.File.chat, code: String(contentsOfFile: Constants.Path.chat, encoding: NSUTF8StringEncoding))
             try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: NSUTF8StringEncoding))
             try brain.save(Constants.File.pluck, code: String(contentsOfFile: Constants.Path.pluck, encoding: NSUTF8StringEncoding))
+            try brain.save(Constants.File.rhythmic, code: String(contentsOfFile: Constants.Path.rhythmic, encoding: NSUTF8StringEncoding))
             listOfSavedCodes.selectRow(0, inComponent: 1, animated: true)
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
             nameTextField.text = brain.names.first!

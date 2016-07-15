@@ -23,6 +23,7 @@ struct Constants {
         static let chat = "Chatting Robot"
         static let drone = "Drone"
         static let pluck = "Plucked Strings"
+        static let rhythmic = "Rhythmic"
     }
     
     struct Path {
@@ -34,6 +35,9 @@ struct Constants {
         }
         static var pluck: String {
             return NSBundle.mainBundle().pathForResource(Constants.File.pluck, ofType: FileUtilities.fileExtension)!
+        }
+        static var rhythmic: String {
+            return NSBundle.mainBundle().pathForResource(Constants.File.rhythmic, ofType: FileUtilities.fileExtension)!
         }
     }
     
