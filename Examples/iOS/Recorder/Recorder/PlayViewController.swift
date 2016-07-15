@@ -57,10 +57,10 @@ class PlayViewController: UIViewController {
     
     func setupFile() {
         do {
-            let fileName = (recordedURL.URLByDeletingPathExtension?.lastPathComponent)!
-            let fileExtension = (recordedURL.pathExtension)!
+            let fileName = (recordedURL.lastPathComponent)!
             audioFile = try AKAudioFile(readFileName: fileName, baseDir: .Temp)
-            player = try? AKAudioPlayer(file: audioFile, completionHandler:  playerStoppedOrFinished)
+            player = try? AKAudioPlayer(file: audioFile,
+                                        completionHandler:  playerStoppedOrFinished)
         } catch {
             print("\((recordedURL.lastPathComponent)!) wasn't found.")
         }

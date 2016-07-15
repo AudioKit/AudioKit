@@ -25,6 +25,8 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     private var waveformArray = [AKTable]()
 
     private var attackDurationParameter: AUParameter?
+    private var decayDurationParameter: AUParameter?
+    private var sustainLevelParameter: AUParameter?
     private var releaseDurationParameter: AUParameter?
     private var detuningOffsetParameter: AUParameter?
     private var detuningMultiplierParameter: AUParameter?
@@ -47,8 +49,8 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         }
     }
 
-    /// Attack time in seconds
-    public var attackDuration: Double = 0 {
+    /// Attack time
+    public var attackDuration: Double = 0.1 {
         willSet {
             if attackDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -59,9 +61,32 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
             }
         }
     }
-
-    /// Release time in seconds
-    public var releaseDuration: Double = 0 {
+    /// Decay time
+    public var decayDuration: Double = 0.1 {
+        willSet {
+            if decayDuration != newValue {
+                if internalAU!.isSetUp() {
+                    decayDurationParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.decayDuration = Float(newValue)
+                }
+            }
+        }
+    }
+    /// Sustain Level
+    public var sustainLevel: Double = 1.0 {
+        willSet {
+            if sustainLevel != newValue {
+                if internalAU!.isSetUp() {
+                    sustainLevelParameter?.setValue(Float(newValue), originator: token!)
+                } else {
+                    internalAU?.sustainLevel = Float(newValue)
+                }
+            }
+        }
+    }
+    /// Release time
+    public var releaseDuration: Double = 0.1 {
         willSet {
             if releaseDuration != newValue {
                 if internalAU!.isSetUp() {
@@ -113,8 +138,10 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     public init(
         waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
         index: Double = 0,
-        attackDuration: Double = 0.001,
-        releaseDuration: Double = 0.001,
+        attackDuration: Double = 0.1,
+        decayDuration: Double = 0.1,
+        sustainLevel: Double = 1.0,
+        releaseDuration: Double = 0.1,
         detuningOffset: Double = 0,
         detuningMultiplier: Double = 1) {
 
@@ -122,6 +149,8 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         self.index = index
 
         self.attackDuration = attackDuration
+        self.decayDuration = decayDuration
+        self.sustainLevel = sustainLevel
         self.releaseDuration = releaseDuration
         self.detuningOffset = detuningOffset
         self.detuningMultiplier = detuningMultiplier
@@ -160,6 +189,8 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         guard let tree = internalAU?.parameterTree else { return }
 
         attackDurationParameter     = tree.valueForKey("attackDuration")     as? AUParameter
+        decayDurationParameter      = tree.valueForKey("decayDuration")      as? AUParameter
+        sustainLevelParameter       = tree.valueForKey("sustainLevel")       as? AUParameter
         releaseDurationParameter    = tree.valueForKey("releaseDuration")    as? AUParameter
         detuningOffsetParameter     = tree.valueForKey("detuningOffset")     as? AUParameter
         detuningMultiplierParameter = tree.valueForKey("detuningMultiplier") as? AUParameter
@@ -170,6 +201,10 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
             dispatch_async(dispatch_get_main_queue()) {
                 if address == self.attackDurationParameter!.address {
                     self.attackDuration = Double(value)
+                } else if address == self.decayDurationParameter!.address {
+                    self.decayDuration = Double(value)
+                } else if address == self.sustainLevelParameter!.address {
+                    self.sustainLevel = Double(value)
                 } else if address == self.releaseDurationParameter!.address {
                     self.releaseDuration = Double(value)
                 } else if address == self.detuningOffsetParameter!.address {
@@ -182,6 +217,8 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)
 
         internalAU?.attackDuration = Float(attackDuration)
+        internalAU?.decayDuration = Float(decayDuration)
+        internalAU?.sustainLevel = Float(sustainLevel)
         internalAU?.releaseDuration = Float(releaseDuration)
         internalAU?.detuningOffset = Float(detuningOffset)
         internalAU?.detuningMultiplier = Float(detuningMultiplier)

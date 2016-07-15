@@ -60,8 +60,8 @@ keys["*"] = [941, 1209]
 keys["0"] = [941, 1336]
 keys["#"] = [941, 1477]
 
-let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(0)) +
-    AKOperation.sineWave(frequency: AKOperation.parameters(1))
+let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(1)) +
+    AKOperation.sineWave(frequency: AKOperation.parameters(2))
 
 let momentaryPress = keyPressTone.triggeredWithEnvelope(
     AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
@@ -152,7 +152,8 @@ class PlaygroundView: AKPlaygroundView {
         dialTone.stop()
         ringing.stop()
         busy.stop()
-        keypad.trigger(keys[text]!)
+        keypad.parameters = [0] + keys[text]!
+        keypad.trigger()
         usleep(250000)
     }
 

@@ -200,15 +200,15 @@ extension AKAudioFile {
         public let processType:ProcessType = .Append
 
         init (  sourceFile:AKAudioFile,
-                from: Int64,
-                to: Int64,
+                fromSample: Int64,
+                toSample: Int64,
                 baseDir: BaseDirectory,
                 name: String  = "",
                 completionCallBack:AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
-                    self.processedFile = try sourceFile.extract(from, to:to, baseDir: baseDir, name: name)
+                    self.processedFile = try sourceFile.extract(fromSample, toSample:toSample, baseDir: baseDir, name: name)
                 } catch let error as NSError {
                     self.status = .Failed
                     print( "ERROR AKAudioFile: Extract: \(error)")
@@ -247,7 +247,7 @@ extension AKAudioFile {
      }
      */
 
-    public func reverse_Async( baseDir: BaseDirectory = .Temp,
+    public func reverseAsynchronously( baseDir: BaseDirectory = .Temp,
                                name: String = "",
                                completionCallBack: AKCallback) -> ReverseProcess {
 
@@ -275,7 +275,7 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func normalize_Async( baseDir: BaseDirectory = .Temp,
+    public func normalizeAsynchronously( baseDir: BaseDirectory = .Temp,
                                  name: String = "",
                                  newMaxLevel: Float = 0.0,
                                  completionCallBack: AKCallback) -> NormalizeProcess {
@@ -304,7 +304,7 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func append_Async( file: AKAudioFile,
+    public func appendAsynchronously( file: AKAudioFile,
                               baseDir: BaseDirectory = .Temp,
                               name: String = "",
                               newMaxLevel: Float = 0.0,
@@ -340,20 +340,19 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func extract_Async( file: AKAudioFile,
-                               from: Int64 = 0,
-                               to: Int64 = 0,
+    public func extractAsynchronously( fromSample: Int64 = 0,
+                               toSample: Int64 = 0,
                                baseDir: BaseDirectory = .Temp,
                                name: String = "",
                                completionCallBack: AKCallback) -> ExtractProcess {
 
 
-        let fixedFrom = abs(from)
-        let fixedTo:Int64 = to == 0 ? Int64(self.samplesCount) : min(to,Int64(self.samplesCount))
+        let fixedFrom = abs(fromSample)
+        let fixedTo:Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample,Int64(self.samplesCount))
 
         let process = ExtractProcess(sourceFile: self,
-                                     from: fixedFrom,
-                                     to: fixedTo,
+                                     fromSample: fixedFrom,
+                                     toSample: fixedTo,
                                      baseDir: baseDir,
                                      name: name,
                                      completionCallBack: completionCallBack)
