@@ -13,9 +13,18 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var listOfSavedCodes: UIPickerView!
     
+    @IBOutlet var slider1: UISlider!
+    @IBOutlet var slider2: UISlider!
+    @IBOutlet var slider3: UISlider!
+    @IBOutlet var slider4: UISlider!
+    
     var brain = SporthEditorBrain()
     
     @IBAction func run(sender: UIButton) {
+        slider1.value = 0.0
+        slider2.value = 0.0
+        slider3.value = 0.0
+        slider4.value = 0.0
         brain.run(codeEditorTextView.text)
     }
     
@@ -31,6 +40,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         do {
             try brain.save(Constants.File.chat, code: String(contentsOfFile: Constants.Path.chat, encoding: NSUTF8StringEncoding))
             try brain.save(Constants.File.drone, code: String(contentsOfFile: Constants.Path.drone, encoding: NSUTF8StringEncoding))
+            try brain.save(Constants.File.pluck, code: String(contentsOfFile: Constants.Path.pluck, encoding: NSUTF8StringEncoding))
             listOfSavedCodes.selectRow(0, inComponent: 1, animated: true)
             codeEditorTextView.text = brain.knownCodes[brain.names.first!]
             nameTextField.text = brain.names.first!
@@ -96,4 +106,27 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         listOfSavedCodes.delegate = self
         nameTextField.delegate = self
     }
+    
+    @IBAction func trigger1(sender: UIButton) {
+        print("triggering 1")
+        brain.generator?.trigger()
+    }
+    
+    @IBAction func updateParameter1(sender: UISlider) {
+        print("value 1 = \(sender.value)")
+        brain.generator?.parameters[0] = Double(sender.value)
+    }
+    @IBAction func updateParameter2(sender: UISlider) {
+        print("value 2 = \(sender.value)")
+        brain.generator?.parameters[1] = Double(sender.value)
+    }
+    @IBAction func updateParameter3(sender: UISlider) {
+        print("value 3 = \(sender.value)")
+        brain.generator?.parameters[2] = Double(sender.value)
+    }
+    @IBAction func updateParameter4(sender: UISlider) {
+        print("value 4 = \(sender.value)")
+        brain.generator?.parameters[3] = Double(sender.value)
+    }
+
 }

@@ -24,7 +24,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="code editor area" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C5m-NR-d6t">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="364"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="CourierNewPS-BoldMT" family="Courier New" pointSize="26"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UsP-jl-Jdx">
@@ -105,7 +105,7 @@
                                                                                             <constraint firstAttribute="width" constant="10" id="VNh-58-vZI"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                         <variation key="default">
                                                                                             <mask key="constraints">
@@ -124,6 +124,9 @@
                                                                                         <state key="normal" title="trig">
                                                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                                                         </state>
+                                                                                        <connections>
+                                                                                            <action selector="trigger1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sul-tB-4ne"/>
+                                                                                        </connections>
                                                                                     </button>
                                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L6P-gk-iMH">
                                                                                         <rect key="frame" x="62" y="0.0" width="54" height="40"/>
@@ -139,8 +142,11 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eP8-ll-fyO">
                                                                         <rect key="frame" x="142" y="0.0" width="134" height="40"/>
                                                                         <subviews>
-                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hGa-Th-wXS">
+                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="hGa-Th-wXS">
                                                                                 <rect key="frame" x="-2" y="0.0" width="138" height="41"/>
+                                                                                <connections>
+                                                                                    <action selector="updateParameter1:" destination="BYZ-38-t0r" eventType="valueChanged" id="eDj-kk-9xG"/>
+                                                                                </connections>
                                                                             </slider>
                                                                         </subviews>
                                                                     </stackView>
@@ -162,7 +168,7 @@
                                                                                             <constraint firstAttribute="width" constant="10" id="pPj-6k-9Xs"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                         <variation key="default">
                                                                                             <mask key="constraints">
@@ -196,8 +202,11 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OW9-9V-hO9">
                                                                         <rect key="frame" x="142" y="0.0" width="134" height="40"/>
                                                                         <subviews>
-                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Q8-bb-BA7">
+                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6Q8-bb-BA7">
                                                                                 <rect key="frame" x="-2" y="0.0" width="138" height="41"/>
+                                                                                <connections>
+                                                                                    <action selector="updateParameter2:" destination="BYZ-38-t0r" eventType="valueChanged" id="sSK-bp-vP5"/>
+                                                                                </connections>
                                                                             </slider>
                                                                         </subviews>
                                                                     </stackView>
@@ -219,7 +228,7 @@
                                                                                             <constraint firstAttribute="width" constant="15" id="cvs-RX-ZKs"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                         <variation key="default">
                                                                                             <mask key="constraints">
@@ -253,8 +262,11 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9Or-by-fKP">
                                                                         <rect key="frame" x="142" y="0.0" width="134" height="40"/>
                                                                         <subviews>
-                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YPH-8e-pb7">
+                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="YPH-8e-pb7">
                                                                                 <rect key="frame" x="-2" y="0.0" width="138" height="41"/>
+                                                                                <connections>
+                                                                                    <action selector="updateParameter3:" destination="BYZ-38-t0r" eventType="valueChanged" id="a43-CA-sHC"/>
+                                                                                </connections>
                                                                             </slider>
                                                                         </subviews>
                                                                     </stackView>
@@ -276,7 +288,7 @@
                                                                                             <constraint firstAttribute="width" constant="10" id="bvB-Bd-FCe"/>
                                                                                         </constraints>
                                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                         <variation key="default">
                                                                                             <mask key="constraints">
@@ -310,8 +322,11 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eoF-5H-1qP">
                                                                         <rect key="frame" x="142" y="0.0" width="134" height="40"/>
                                                                         <subviews>
-                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZCp-XC-mIv">
+                                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZCp-XC-mIv">
                                                                                 <rect key="frame" x="-2" y="0.0" width="138" height="41"/>
+                                                                                <connections>
+                                                                                    <action selector="updateParameter4:" destination="BYZ-38-t0r" eventType="valueChanged" id="9JF-f9-9u6"/>
+                                                                                </connections>
                                                                             </slider>
                                                                         </subviews>
                                                                     </stackView>
@@ -355,6 +370,10 @@
                         <outlet property="codeEditorTextView" destination="C5m-NR-d6t" id="OEK-Ne-AIW"/>
                         <outlet property="listOfSavedCodes" destination="jc1-15-jl1" id="Dsf-Ia-tNO"/>
                         <outlet property="nameTextField" destination="HzP-t0-lDZ" id="kT1-cV-wXH"/>
+                        <outlet property="slider1" destination="hGa-Th-wXS" id="ppj-JH-O61"/>
+                        <outlet property="slider2" destination="6Q8-bb-BA7" id="3aF-iW-m9m"/>
+                        <outlet property="slider3" destination="YPH-8e-pb7" id="aZV-1e-lUP"/>
+                        <outlet property="slider4" destination="ZCp-XC-mIv" id="HIE-FE-a0Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
