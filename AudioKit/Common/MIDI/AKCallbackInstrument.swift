@@ -22,11 +22,12 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     /// - parameter callback: Initial callback
     ///
     public init(callback: AKMIDICallback) {
-        // Dummy Instrument
-        super.init(instrument: AKPolyphonicInstrument(voice: AKVoice(), voiceCount: 0))
+        super.init()
         let midi = AKMIDI()
         self.enableMIDI(midi.client, name: "callback midi in")
         callbacks.append(callback)
+        avAudioNode = AVAudioMixerNode()
+        AudioKit.engine.attachNode(self.avAudioNode)
     }
 
     private func triggerCallbacks(status: AKMIDIStatus, noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {

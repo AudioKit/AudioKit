@@ -15,7 +15,7 @@ import AVFoundation
 ///   - amplitude: Amplitude
 ///   - lowestFrequency: This frequency is used to allocate all the buffers needed for the delay. This should be the lowest frequency you plan on using.
 ///
-public class AKPluckedString: AKVoice {
+public class AKPluckedString: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -56,7 +56,7 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -129,12 +129,6 @@ public class AKPluckedString: AKVoice {
         internalAU?.amplitude = Float(amplitude)
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKPluckedString(frequency: self.frequency, amplitude: self.amplitude, lowestFrequency: self.lowestFrequency)
-        return copy
-    }
-
     /// Trigger the sound with an optional set of parameters
     ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
@@ -147,12 +141,12 @@ public class AKPluckedString: AKVoice {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    public func stop() {
         self.internalAU!.stop()
     }
 }

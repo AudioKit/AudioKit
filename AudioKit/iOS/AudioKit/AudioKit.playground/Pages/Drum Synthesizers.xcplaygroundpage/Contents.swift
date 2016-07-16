@@ -8,8 +8,8 @@ import XCPlayground
 import AudioKit
 
 //: Here we set up the instruments, which can be polyphnic, but we only need mono for this example
-var kick = AKSynthKick(voiceCount: 1)
-var snare = AKSynthSnare(voiceCount: 1, duration: 0.07)
+var kick = AKSynthKick()
+var snare = AKSynthSnare(duration: 0.07)
 
 var mix = AKMixer(kick, snare)
 var reverb = AKReverb(mix)
@@ -27,14 +27,14 @@ AKPlaygroundLoop(frequency: 4.44) {
     let randomHit = randomInt(0...3) == 0
     
     if onFirstBeat || randomHit {
-        kick.play(noteNumber:60, velocity: 100)
-        kick.stop(noteNumber:60)
+        kick.play(noteNumber: 60, velocity: 100)
+        kick.stop(noteNumber: 60)
     }
     
     if everyOtherBeat {
         let velocity = randomInt(1...100)
-        snare.play(noteNumber:60, velocity: velocity)
-        snare.stop(noteNumber:60)
+        snare.play(noteNumber: 60, velocity: velocity)
+        snare.stop(noteNumber: 60)
     }
     counter += 1
 }

@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// - parameter amplitude: Amplitude. (Value between 0-1).
 ///
-public class AKWhiteNoise: AKVoice {
+public class AKWhiteNoise: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -42,7 +42,7 @@ public class AKWhiteNoise: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -100,12 +100,12 @@ public class AKWhiteNoise: AKVoice {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    public func stop() {
         self.internalAU!.stop()
     }
 }

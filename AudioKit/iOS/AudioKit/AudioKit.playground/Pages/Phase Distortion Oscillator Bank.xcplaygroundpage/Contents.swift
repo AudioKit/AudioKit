@@ -23,7 +23,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     override func setup() {
         addTitle("Phase Distortion Oscillator Bank")
         phaseDistortionLabel = addLabel("Phase Distortion: \(osc.phaseDistortion)")
-        addSlider(#selector(setphaseDistortion), value: osc.phaseDistortion, minimum: 0.0, maximum: 0.9999)
+        addSlider(#selector(setphaseDistortion), value: osc.phaseDistortion, minimum: -1.0, maximum: 0.9999)
         
         attackLabel = addLabel("Attack: \(osc.attackDuration)")
         addSlider(#selector(setAttack), value: osc.attackDuration, minimum: 0.0, maximum: 2.0)

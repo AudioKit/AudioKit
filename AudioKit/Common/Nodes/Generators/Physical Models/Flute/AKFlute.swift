@@ -14,7 +14,7 @@ import AVFoundation
 ///   - frequency: Variable frequency. Values less than the initial frequency will be doubled until it is greater than that.
 ///   - amplitude: Amplitude
 ///
-public class AKFlute: AKVoice {
+public class AKFlute: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -53,7 +53,7 @@ public class AKFlute: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -123,12 +123,6 @@ public class AKFlute: AKVoice {
         internalAU?.amplitude = Float(amplitude)
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKFlute(frequency: self.frequency, amplitude: self.amplitude)
-        return copy
-    }
-
     /// Trigger the sound with an optional set of parameters
     ///   - frequency: Frequency in Hz
     /// - amplitude amplitude: Volume
@@ -141,12 +135,12 @@ public class AKFlute: AKVoice {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    public func stop() {
         self.internalAU!.stop()
     }
 }
