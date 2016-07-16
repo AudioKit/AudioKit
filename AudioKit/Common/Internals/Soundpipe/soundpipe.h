@@ -884,6 +884,14 @@ int sp_paulstretch_destroy(sp_paulstretch **p);
 int sp_paulstretch_init(sp_data *sp, sp_paulstretch *p, sp_ftbl *ft, SPFLOAT windowsize, SPFLOAT stretch);
 int sp_paulstretch_compute(sp_data *sp, sp_paulstretch *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    SPFLOAT amount, ibipolar, ifullscale;
+} sp_pdhalf;
+
+int sp_pdhalf_create(sp_pdhalf **p);
+int sp_pdhalf_destroy(sp_pdhalf **p);
+int sp_pdhalf_init(sp_data *sp, sp_pdhalf *p);
+int sp_pdhalf_compute(sp_data *sp, sp_pdhalf *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
     void *faust;
     int argpos;
     SPFLOAT *args[10];
@@ -1260,9 +1268,6 @@ typedef struct {
     SPFLOAT sig;
     SPFLOAT index, mode, offset, wrap;
     SPFLOAT mul;
-    int32_t np2;
-    int32_t len;
-    int32_t lenmask;
     sp_ftbl *ft;
 } sp_tabread;
 
