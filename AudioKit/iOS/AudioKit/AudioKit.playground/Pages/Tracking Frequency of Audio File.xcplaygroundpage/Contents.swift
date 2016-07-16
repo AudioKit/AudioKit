@@ -13,7 +13,7 @@ let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let tracker = AKFrequencyTracker(player, minimumFrequency: 400, maximumFrequency: 600)
+let tracker = AKFrequencyTracker(player)
 
 AudioKit.output = tracker
 AudioKit.start()

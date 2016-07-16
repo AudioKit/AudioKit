@@ -68,8 +68,8 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         if playing {
             if let nodeTime = internalPlayer.lastRenderTime,
                 let playerTime = internalPlayer.playerTimeForNodeTime(nodeTime) {
-                //return   Double(Double(startingFrame) / sampleRate)  +  Double( Double( playerTime.sampleTime ) / playerTime.sampleRate )
-                return    Double( Double( playerTime.sampleTime ) / playerTime.sampleRate )
+                //return   Double(Double(startingFrame) / sampleRate)  +  Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
+                return Double(Double(playerTime.sampleTime) / playerTime.sampleRate)
             }
 
         }
@@ -212,7 +212,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
      print("Cannot create a valid nsurl with file:\(file)")
      }
      //
-     try! self.init (file: audioFile!, completionHandler: completionHandler)
+     try! self.init(file: audioFile!, completionHandler: completionHandler)
      }
      */
 

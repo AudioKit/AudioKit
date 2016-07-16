@@ -319,6 +319,3 @@ public class AKAudioFile: AVAudioFile {
         try super.init(forWriting: fileURL, settings: settings)
     }
 }
-
-
-
