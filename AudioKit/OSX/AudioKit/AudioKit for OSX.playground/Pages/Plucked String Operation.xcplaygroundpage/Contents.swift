@@ -34,7 +34,8 @@ AKPlaygroundLoop(frequency: playRate) {
     if !scale.contains(note % 12) { print("ACCIDENT!") }
 
     if random(0, 6) > 1.0 {
-        pluckNode.trigger([Double(note + octave)])
+        pluckNode.parameters[1] = Double(note + octave)
+        pluckNode.trigger()
     }
 }
 

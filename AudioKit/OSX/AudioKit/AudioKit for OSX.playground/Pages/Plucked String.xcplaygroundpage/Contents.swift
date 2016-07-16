@@ -9,7 +9,7 @@ import XCPlayground
 
 let playRate = 2.0
 
-let pluckedString = AKMandolin(frequency: 1)
+let pluckedString = AKPluckedString()
 
 var delay  = AKDelay(pluckedString)
 delay.time = 1.5 / playRate
