@@ -28,31 +28,27 @@ int sp_tabread_destroy(sp_tabread **p)
 int sp_tabread_init(sp_data *sp, sp_tabread *p, sp_ftbl *ft, int mode)
 {
     p->ft = ft;
-    
-    p->lenmask = (int)ft->size - 1;
-    p->np2 = p->lenmask ? 0 : 1;
     p->mode = (SPFLOAT) mode;
     p->offset = 0;
-
-    if (p->mode) {
-        p->mul = p->ft->size;
-    }else {
-        p->mul = 1;
-    }
-
-    p->len = (int)p->ft->size;
     p->wrap = 0;
     return SP_OK;
 }
 
 int sp_tabread_compute(sp_data *sp, sp_tabread *p, SPFLOAT *in, SPFLOAT *out)
 {
-    int ndx, len = p->len;
-    int32_t mask = p->lenmask;
+    int ndx, len = (int)p->ft->size;
+    int32_t mask = (int)p->ft->size - 1;
     SPFLOAT index = p->index;
     SPFLOAT *tbl = p->ft->tbl;
     SPFLOAT offset = p->offset;
-    SPFLOAT mul = p->mul, tmp, frac;
+    SPFLOAT mul = 1, tmp, frac;
+
+    if (p->mode) {
+        mul = p->ft->size;
+    }else {
+        p->mul = 1;
+    }
+
     int32_t iwrap = (int32_t)p->wrap;
 
     SPFLOAT x1, x2;
@@ -60,7 +56,7 @@ int sp_tabread_compute(sp_data *sp, sp_tabread *p, SPFLOAT *in, SPFLOAT *out)
     ndx = floor(tmp);
     frac = tmp - ndx;
     if (iwrap) {
-        if (p->np2) {
+        if ((mask ? 0 : 1)) {
             while(ndx >= len) ndx -= len;
             while(ndx < 0)  ndx += len;
         }
