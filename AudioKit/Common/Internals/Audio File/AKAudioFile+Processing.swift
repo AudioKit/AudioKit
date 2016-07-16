@@ -2,7 +2,7 @@
 //  AKAudioFile+Processing.swift
 //  AudioKit For iOS
 //
-//  Created by Aurelius Prochazka and Laurent Veliscek on 7/4/16.
+//  Created by Laurent Veliscek, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 //

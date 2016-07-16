@@ -2,7 +2,7 @@
 //  Beat.swift
 //  AudioKit For iOS
 //
-//  Created by Aurelius Prochazka on 6/15/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
