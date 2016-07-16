@@ -257,7 +257,7 @@ public:
     bool resetted = false;
     ParameterRamper frequencyRamper = 440;
     ParameterRamper amplitudeRamper = 1.0;
-    ParameterRamper phaseDistortionRamper = 0.5;
+    ParameterRamper phaseDistortionRamper = 0.0;
     ParameterRamper detuningOffsetRamper = 0;
     ParameterRamper detuningMultiplierRamper = 1;
 };

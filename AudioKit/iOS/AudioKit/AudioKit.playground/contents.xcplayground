@@ -85,6 +85,7 @@
         <page name='Pitch Shifter'/>
         <page name='Playback Speed'/>
         <page name='Phase Distortion Oscillator'/>
+        <page name='Phase Distortion Oscillator Bank'/>
         <page name='Plucked String Operation'/>
         <page name='Plucked String'/>
         <page name='PWM Oscillator'/>
