@@ -13,16 +13,16 @@ import AudioKit
 let loop = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
 //: You may have noticed that the drumloop doesn't loop so well. Let's fix this...
-let fixedLoop = try? loop!.extract(0, to: Int64(3.42 * 44100))
+let fixedLoop = try? loop!.extract(fromSample: 0, toSample: Int64(3.42 * 44100))
 
 //: Now out drumloop is one bar long and perfectly loops. Let's extract the kick, the snare and hihat into sixteenth note long files :
 let oneBarLength = fixedLoop!.samplesCount
 
 let oneSixteenthLength = oneBarLength / 16
 
-let kick = try?  fixedLoop!.extract(0, to: oneSixteenthLength)
-let snare = try? fixedLoop!.extract(oneSixteenthLength * 4, to: oneSixteenthLength * 5)
-let hihat = try? fixedLoop!.extract(oneSixteenthLength * 2, to: oneSixteenthLength * 3)
+let kick = try?  fixedLoop!.extract(fromSample: 0, toSample: oneSixteenthLength)
+let snare = try? fixedLoop!.extract(fromSample: oneSixteenthLength * 4, toSample: oneSixteenthLength * 5)
+let hihat = try? fixedLoop!.extract(fromSample: oneSixteenthLength * 2, toSample: oneSixteenthLength * 3)
 
 //: Notice that we don't provide any name or location for those files (in fact, we don't care...) If no name / location are set, files will be created in temp directory with a unique name. But you could choose name and location if you wish. Let's check this:
 

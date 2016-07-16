@@ -11,7 +11,7 @@
 		6520FFC21D361B030052410C /* resonantFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC11D361B030052410C /* resonantFilter.swift */; };
 		6520FFC81D362D100052410C /* reson.c in Sources */ = {isa = PBXBuildFile; fileRef = 6520FFC71D362D100052410C /* reson.c */; };
 		898DED261C6944430026FCC3 /* AKVariSpeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898DED251C6944430026FCC3 /* AKVariSpeed.swift */; };
-		8D0E46581D3827970000CCF8 /* AKAudioFile+Async Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E46561D3827970000CCF8 /* AKAudioFile+Async Processing.swift */; };
+		8D0E46581D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E46561D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift */; };
 		8D0E46591D3827970000CCF8 /* AKAudioFile+Peripherals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0E46571D3827970000CCF8 /* AKAudioFile+Peripherals.swift */; };
 		C40716381D21160C00665C02 /* ADSR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40716371D21160C00665C02 /* ADSR.cpp */; };
 		C407163A1D21162900665C02 /* Twang.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C40716391D21162900665C02 /* Twang.cpp */; };
@@ -654,7 +654,7 @@
 		6520FFC11D361B030052410C /* resonantFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = resonantFilter.swift; sourceTree = "<group>"; };
 		6520FFC71D362D100052410C /* reson.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = reson.c; sourceTree = "<group>"; };
 		898DED251C6944430026FCC3 /* AKVariSpeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVariSpeed.swift; sourceTree = "<group>"; };
-		8D0E46561D3827970000CCF8 /* AKAudioFile+Async Processing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Async Processing.swift"; sourceTree = "<group>"; };
+		8D0E46561D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+ProcessingAsynchronously.swift"; sourceTree = "<group>"; };
 		8D0E46571D3827970000CCF8 /* AKAudioFile+Peripherals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Peripherals.swift"; sourceTree = "<group>"; };
 		C40716371D21160C00665C02 /* ADSR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ADSR.cpp; sourceTree = "<group>"; };
 		C40716391D21162900665C02 /* Twang.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Twang.cpp; sourceTree = "<group>"; };
@@ -2839,12 +2839,12 @@
 		C49E9E001D2B491500E5E8BF /* Audio File */ = {
 			isa = PBXGroup;
 			children = (
-				8D0E46561D3827970000CCF8 /* AKAudioFile+Async Processing.swift */,
-				8D0E46571D3827970000CCF8 /* AKAudioFile+Peripherals.swift */,
 				C49E9E011D2B491500E5E8BF /* AKAudioFile.swift */,
+				8D0E46571D3827970000CCF8 /* AKAudioFile+Peripherals.swift */,
 				C49E9E071D2B4A7100E5E8BF /* AKAudioFile+Exporting.swift */,
 				C49E9E051D2B4A1100E5E8BF /* AKAudioFile+ConvenienceInitializers.swift */,
 				C49E9E031D2B497B00E5E8BF /* AKAudioFile+Processing.swift */,
+				8D0E46561D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift */,
 			);
 			path = "Audio File";
 			sourceTree = "<group>";
@@ -3624,7 +3624,7 @@
 				C45380121C3A4CCE00A51738 /* AKCostelloReverb.swift in Sources */,
 				FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */,
 				C40C41651C40E3A5009D870B /* EZMicrophone.m in Sources */,
-				8D0E46581D3827970000CCF8 /* AKAudioFile+Async Processing.swift in Sources */,
+				8D0E46581D3827970000CCF8 /* AKAudioFile+ProcessingAsynchronously.swift in Sources */,
 				C46501171C727DFE00EF6CF7 /* AKMetalBarAudioUnit.mm in Sources */,
 				C48DB7931CD5373000D1EC13 /* CheckError.swift in Sources */,
 				C46302851C20E7A7009B44D9 /* highPassButterworthFilter.swift in Sources */,

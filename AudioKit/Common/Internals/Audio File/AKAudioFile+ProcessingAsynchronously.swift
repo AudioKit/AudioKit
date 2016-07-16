@@ -1,5 +1,5 @@
 //
-//  AKAudioFile+processing Async.swift
+//  AKAudioFile+ProcessingAsynchronously.swift
 //  AudioKit For iOS
 //
 //  Created by Laurent Veliscek and Brandon Barber on 12/07/2016.
@@ -14,8 +14,6 @@
 
 import Foundation
 import AVFoundation
-
-
 
 extension AKAudioFile {
 
@@ -58,16 +56,16 @@ extension AKAudioFile {
     */
     public class NormalizeProcess {
 
-        public var status:ProcessStatus = .Processing
+        public var status: ProcessStatus = .Processing
         public var processedFile: AKAudioFile?
-        public var error:NSError?
-        public let sourceFile:AKAudioFile
-        public let processType:ProcessType = .Normalize
+        public var error: NSError?
+        public let sourceFile: AKAudioFile
+        public let processType: ProcessType = .Normalize
 
-        init (  sourceFile:AKAudioFile, baseDir: BaseDirectory,
+        init (  sourceFile: AKAudioFile, baseDir: BaseDirectory,
                 name: String,
                 newMaxLevel: Float,
-                completionCallBack:AKCallback) {
+                completionCallBack: AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
@@ -102,15 +100,15 @@ extension AKAudioFile {
      */
     public class ReverseProcess {
 
-        public var status:ProcessStatus = .Processing
+        public var status: ProcessStatus = .Processing
         public var processedFile: AKAudioFile?
-        public var error:NSError?
-        public let sourceFile:AKAudioFile
-        public let processType:ProcessType = .Reverse
+        public var error: NSError?
+        public let sourceFile: AKAudioFile
+        public let processType: ProcessType = .Reverse
 
-        init (  sourceFile:AKAudioFile, baseDir: BaseDirectory,
+        init (  sourceFile: AKAudioFile, baseDir: BaseDirectory,
                 name: String,
-                completionCallBack:AKCallback) {
+                completionCallBack: AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
@@ -146,17 +144,17 @@ extension AKAudioFile {
      */
     public class AppendProcess {
 
-        public var status:ProcessStatus = .Processing
+        public var status: ProcessStatus = .Processing
         public var processedFile: AKAudioFile?
-        public var error:NSError?
-        public let sourceFile:AKAudioFile
-        public let processType:ProcessType = .Append
+        public var error: NSError?
+        public let sourceFile: AKAudioFile
+        public let processType: ProcessType = .Append
 
-        init (  sourceFile:AKAudioFile,
+        init (  sourceFile: AKAudioFile,
                 file: AKAudioFile,
                 baseDir: BaseDirectory,
                 name: String  = "",
-                completionCallBack:AKCallback) {
+                completionCallBack: AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
             do {
@@ -193,22 +191,25 @@ extension AKAudioFile {
      */
     public class ExtractProcess {
 
-        public var status:ProcessStatus = .Processing
+        public var status: ProcessStatus = .Processing
         public var processedFile: AKAudioFile?
-        public var error:NSError?
-        public let sourceFile:AKAudioFile
-        public let processType:ProcessType = .Append
+        public var error: NSError?
+        public let sourceFile: AKAudioFile
+        public let processType: ProcessType = .Append
 
-        init (  sourceFile:AKAudioFile,
-                fromSample: Int64,
-                toSample: Int64,
-                baseDir: BaseDirectory,
-                name: String  = "",
-                completionCallBack:AKCallback) {
+        init(sourceFile: AKAudioFile,
+             fromSample: Int64,
+             toSample: Int64,
+             baseDir: BaseDirectory,
+             name: String  = "",
+             completionCallBack: AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
-                    self.processedFile = try sourceFile.extract(fromSample, toSample:toSample, baseDir: baseDir, name: name)
+                    self.processedFile = try sourceFile.extract(fromSample: fromSample,
+                                                                toSample: toSample,
+                                                                baseDir: baseDir,
+                                                                name: name)
                 } catch let error as NSError {
                     self.status = .Failed
                     print( "ERROR AKAudioFile: Extract: \(error)")
@@ -251,7 +252,7 @@ extension AKAudioFile {
                                name: String = "",
                                completionCallBack: AKCallback) -> ReverseProcess {
 
-        let process = ReverseProcess(sourceFile: self, baseDir: baseDir, name: name,completionCallBack: completionCallBack)
+        let process = ReverseProcess(sourceFile: self, baseDir: baseDir, name: name, completionCallBack: completionCallBack)
         return process
     }
 
@@ -275,10 +276,10 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func normalizeAsynchronously( baseDir: BaseDirectory = .Temp,
-                                 name: String = "",
-                                 newMaxLevel: Float = 0.0,
-                                 completionCallBack: AKCallback) -> NormalizeProcess {
+    public func normalizeAsynchronously(baseDir: BaseDirectory = .Temp,
+                                        name: String = "",
+                                        newMaxLevel: Float = 0.0,
+                                        completionCallBack: AKCallback) -> NormalizeProcess {
 
         let process = NormalizeProcess(sourceFile: self, baseDir: baseDir, name: name, newMaxLevel: newMaxLevel, completionCallBack: completionCallBack)
         return process
@@ -304,11 +305,11 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func appendAsynchronously( file: AKAudioFile,
-                              baseDir: BaseDirectory = .Temp,
-                              name: String = "",
-                              newMaxLevel: Float = 0.0,
-                              completionCallBack: AKCallback) -> AppendProcess {
+    public func appendAsynchronously(file: AKAudioFile,
+                                     baseDir: BaseDirectory = .Temp,
+                                     name: String = "",
+                                     newMaxLevel: Float = 0.0,
+                                     completionCallBack: AKCallback) -> AppendProcess {
 
         let process = AppendProcess(sourceFile: self,
                                     file: file,
@@ -340,15 +341,15 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func extractAsynchronously( fromSample: Int64 = 0,
-                               toSample: Int64 = 0,
-                               baseDir: BaseDirectory = .Temp,
-                               name: String = "",
-                               completionCallBack: AKCallback) -> ExtractProcess {
+    public func extractAsynchronously(fromSample: Int64 = 0,
+                                      toSample: Int64 = 0,
+                                      baseDir: BaseDirectory = .Temp,
+                                      name: String = "",
+                                      completionCallBack: AKCallback) -> ExtractProcess {
 
 
         let fixedFrom = abs(fromSample)
-        let fixedTo:Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample,Int64(self.samplesCount))
+        let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
 
         let process = ExtractProcess(sourceFile: self,
                                      fromSample: fixedFrom,

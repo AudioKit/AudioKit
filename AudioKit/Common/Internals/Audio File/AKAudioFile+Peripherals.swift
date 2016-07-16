@@ -13,7 +13,7 @@ import AVFoundation
 extension AKAudioFile {
 
     /// Create an AKSampler loaded with the current AKAudioFile
-    public var sampler:AKSampler? {
+    public var sampler: AKSampler? {
         let fileSampler = AKSampler()
         do {
             try fileSampler.loadAKAudioFile(self)
@@ -24,8 +24,8 @@ extension AKAudioFile {
     }
 
     /// Create an AKAudioPlayer to play the current AKAudioFile
-    public var player:AKAudioPlayer? {
-        var filePlayer:AKAudioPlayer?
+    public var player: AKAudioPlayer? {
+        var filePlayer: AKAudioPlayer?
 
         do {
             try filePlayer = AKAudioPlayer(file: self)

@@ -146,7 +146,9 @@ extension AKAudioFile {
      - Throws: NSError if failed .
      
      - Returns: An AKAudioFile, or nil if init failed.*/
-    public func extract(fromSample: Int64 = 0, toSample: Int64 = 0, baseDir: BaseDirectory = .Temp,
+    public func extract(fromSample fromSample: Int64 = 0,
+                                   toSample: Int64 = 0,
+                                   baseDir: BaseDirectory = .Temp,
                         name: String = "") throws -> AKAudioFile {
 
         let fixedFrom = abs(fromSample)
