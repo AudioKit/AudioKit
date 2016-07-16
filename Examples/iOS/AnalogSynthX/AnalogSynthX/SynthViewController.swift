@@ -172,7 +172,7 @@ class SynthViewController: UIViewController {
         osc2DetuneKnob.maximum = 4
         osc2DetuneKnob.value = conductor.core.vco2.detuningOffset
 
-        subMixKnob.maximum = 4.5
+        subMixKnob.maximum = 1.0
         subMixKnob.value = conductor.core.subOscMixer.volume
 
         fmMixKnob.maximum = 1.25
@@ -204,7 +204,7 @@ class SynthViewController: UIViewController {
         reverbAmtKnob.value = conductor.reverb.feedback
         reverbMixKnob.value = conductor.reverbMixer.balance
 
-        masterVolKnob.maximum = 30.0
+        masterVolKnob.maximum = 1.0
         masterVolKnob.value = conductor.masterVolume.volume
 
         // Calculate Logarithmic scales based on knob position
@@ -214,10 +214,10 @@ class SynthViewController: UIViewController {
     }
 
     func setupSliderValues() {
-        attackSlider.maxValue = 2
+        attackSlider.maxValue = 1.0
         attackSlider.currentValue = CGFloat(conductor.core.attackDuration)
 
-        decaySlider.maxValue = 2
+        decaySlider.maxValue = 1.0
         decaySlider.currentValue = CGFloat(conductor.core.decayDuration)
 
         sustainSlider.currentValue = CGFloat(conductor.core.sustainLevel)
@@ -591,6 +591,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         case ControlTag.NoiseMix.rawValue:
             statusLabel.text = "Noise Amt: \(noiseMixKnob.knobValue.percentageString)"
             conductor.core.noiseMixer.volume = value
+            print(value)
 
         // LFO
         case ControlTag.LfoAmt.rawValue:
@@ -643,6 +644,7 @@ extension SynthViewController: KnobSmallDelegate, KnobMediumDelegate, KnobLargeD
         case ControlTag.MasterVol.rawValue:
             statusLabel.text = "Master Vol: \(masterVolKnob.knobValue.percentageString)"
             conductor.masterVolume.volume = value
+            print(value)
 
         default:
             break
@@ -660,11 +662,11 @@ extension SynthViewController: VerticalSliderDelegate {
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
             statusLabel.text = "Attack: \(attackSlider.sliderValue.percentageString)"
-            conductor.core.attackDuration = value
+            conductor.core.attackDuration = value / 10.0
 
         case ControlTag.adsrDecay.rawValue:
             statusLabel.text = "Decay: \(decaySlider.sliderValue.percentageString)"
-            conductor.core.decayDuration = value
+            conductor.core.decayDuration = value / 10.0
 
         case ControlTag.adsrSustain.rawValue:
             statusLabel.text = "Sustain: \(sustainSlider.sliderValue.percentageString)"
