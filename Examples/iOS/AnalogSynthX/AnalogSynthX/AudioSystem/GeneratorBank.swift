@@ -28,16 +28,12 @@ class GeneratorBank: AKPolyphonicNode {
     var waveform1 = 0.0 { didSet { updateWaveform1() } }
     var waveform2 = 0.0 { didSet { updateWaveform2() } }
     
-    var globalbend: Double = 0.0 {
+    var globalbend: Double = 1.0 {
         didSet {
-//            for i in 0..<activeVoices.count {
-//                let coreVoice = activeVoices[i] as! CoreVoice
-//                let note = Double(activeNotes[i] + offset1) + globalbend
-//                coreVoice.vco1.frequency = note.midiNoteToFrequency()
-//                let note2 = Double(activeNotes[i] + offset2) + globalbend
-//                coreVoice.vco2.frequency = note2.midiNoteToFrequency()
-//                coreVoice.subOsc.frequency = (Double(activeNotes[i] - 12) + globalbend).midiNoteToFrequency()
-//            }
+            vco1.detuningMultiplier = globalbend
+            vco2.detuningMultiplier = globalbend
+            subOsc.detuningMultiplier = globalbend
+            fmOsc.detuningMultiplier = globalbend
         }
     }
     
@@ -76,24 +72,29 @@ class GeneratorBank: AKPolyphonicNode {
             vco2.attackDuration = attackDuration
             subOsc.attackDuration = attackDuration
             fmOsc.attackDuration = attackDuration
+            noiseADSR.attackDuration = attackDuration
             
         }
     }
     /// Decay time
     var decayDuration: Double = 0.1 {
         didSet {
-//            if decayDuration < 0.02 { decayDuration = 0.02 }
-//            vco1.decayDuration = decayDuration
-//            vco2.decayDuration = decayDuration
-//            subOsc.decayDuration = decayDuration
-//            fmOsc.decayDuration = decayDuration
-            
+            if decayDuration < 0.02 { decayDuration = 0.02 }
+            vco1.decayDuration = decayDuration
+            vco2.decayDuration = decayDuration
+            subOsc.decayDuration = decayDuration
+            fmOsc.decayDuration = decayDuration
+            noiseADSR.decayDuration = decayDuration
         }
     }
     /// Sustain Level
     var sustainLevel: Double = 0.66 {
         didSet {
-//            adsr.sustainLevel = sustainLevel
+            vco1.sustainLevel = sustainLevel
+            vco2.sustainLevel = sustainLevel
+            subOsc.sustainLevel = sustainLevel
+            fmOsc.sustainLevel = sustainLevel
+            noiseADSR.sustainLevel = sustainLevel
         }
     }
     
@@ -105,7 +106,8 @@ class GeneratorBank: AKPolyphonicNode {
             vco2.releaseDuration = releaseDuration
             subOsc.releaseDuration = releaseDuration
             fmOsc.releaseDuration = releaseDuration
-        }
+            noiseADSR.releaseDuration = releaseDuration
+       }
     }
     
     var vco1On = true {
@@ -125,6 +127,7 @@ class GeneratorBank: AKPolyphonicNode {
     var subOsc = AKOscillatorBank()
     var fmOsc  = AKFMOscillatorBank()
     var noise  = AKWhiteNoise()
+    var noiseADSR: AKAmplitudeEnvelope
     
     // We'll be using these simply to control volume independent of velocity
     var vco1Mixer: AKMixer
@@ -154,11 +157,13 @@ class GeneratorBank: AKPolyphonicNode {
         vco1 = AKMorphingOscillatorBank(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
         vco2 = AKMorphingOscillatorBank(waveformArray: [triangle, square, squareWithHighPWM, sawtooth])
         
+        noiseADSR = AKAmplitudeEnvelope(noise)
+        
         vco1Mixer   = AKMixer(vco1)
         vco2Mixer   = AKMixer(vco2)
         subOscMixer = AKMixer(subOsc)
         fmOscMixer  = AKMixer(fmOsc)
-        noiseMixer  = AKMixer(noise)
+        noiseMixer  = AKMixer(noiseADSR)
         
         // Default non-VCO's off
         subOscMixer.volume = 0
@@ -184,19 +189,20 @@ class GeneratorBank: AKPolyphonicNode {
         fmOsc.play(noteNumber: noteNumber, velocity: velocity)
         if onNotes.count == 0 {
             noise.start()
+            noiseADSR.start()
         }
         onNotes.insert(noteNumber)
     }
     
     /// Function to stop or bypass the node, both are equivalent
     override func stop(noteNumber noteNumber: MIDINoteNumber) {
-        vco1.stop(noteNumber: noteNumber)
-        vco2.stop(noteNumber: noteNumber)
+        vco1.stop(noteNumber: noteNumber + offset1)
+        vco2.stop(noteNumber: noteNumber + offset2)
         subOsc.stop(noteNumber: noteNumber)
         fmOsc.stop(noteNumber: noteNumber)
         onNotes.remove(noteNumber)
         if onNotes.count == 0 {
-            noise.stop()
+            noiseADSR.stop()
         }
     }
 }
