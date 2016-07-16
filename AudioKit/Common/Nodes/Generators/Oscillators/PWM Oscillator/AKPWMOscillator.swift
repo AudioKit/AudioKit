@@ -18,7 +18,7 @@ import AVFoundation
 ///   - detuningOffset: Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
-public class AKPWMOscillator: AKVoice {
+public class AKPWMOscillator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -109,7 +109,7 @@ public class AKPWMOscillator: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -196,12 +196,12 @@ public class AKPWMOscillator: AKVoice {
     }
 
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-    override public func stop() {
+    public func stop() {
         self.internalAU!.stop()
     }
 }

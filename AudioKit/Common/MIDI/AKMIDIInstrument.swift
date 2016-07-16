@@ -11,7 +11,7 @@ import CoreAudio
 
 /// A version of AKInstrument specifically targeted to instruments that
 /// should be triggerable via MIDI or sequenced with the sequencer.
-public class AKMIDIInstrument: AKNode, AKMIDIListener {
+public class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
 
     // MARK: - Properties
 
@@ -20,20 +20,6 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
 
     /// Name of the instrument
     public var name = "AKMIDIInstrument"
-
-    internal var internalInstrument: AKPolyphonicInstrument?
-
-    // MARK: - Initialization
-
-    /// Initialize the MIDI instrument
-    ///
-    /// - parameter instrument: A polyphonic instrument that will be triggered via MIDI
-    ///
-    public init(instrument: AKPolyphonicInstrument) {
-        internalInstrument = instrument
-        super.init()
-        avAudioNode = (internalInstrument?.avAudioNode)!
-    }
 
     /// Enable MIDI input from a given MIDI client
     /// This is not in the init function because it must be called AFTER you start audiokit
@@ -79,7 +65,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     public func start(noteNumber noteNumber: MIDINoteNumber,
                                  velocity: MIDIVelocity,
                                  channel: Int) {
-        internalInstrument!.play(noteNumber: noteNumber, velocity: velocity)
+        play(noteNumber: noteNumber, velocity: velocity)
     }
 
     /// Stop a note
@@ -89,7 +75,7 @@ public class AKMIDIInstrument: AKNode, AKMIDIListener {
     ///   - channel:    Channel on which to stop the note
     ///
     public func stop(noteNumber noteNumber: MIDINoteNumber, channel: Int) {
-        internalInstrument!.stop(noteNumber: noteNumber)
+        // OVerride in subclass
     }
     
     // MARK: - Private functions

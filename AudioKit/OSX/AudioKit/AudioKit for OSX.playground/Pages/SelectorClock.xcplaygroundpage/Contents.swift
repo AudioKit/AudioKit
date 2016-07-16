@@ -9,8 +9,6 @@ class SelectorClock {
     var callbacker: AKCallbackInstrument?
     var bpm: Double
     
-    var output:AKNode?
-    
     init(tempo: Double = 120, division: Int = 4)
     {
         bpm = tempo
@@ -21,16 +19,14 @@ class SelectorClock {
             }
         }
         
-        output = callbacker
-
         let clickTrack = sequencer.newTrack()
         for i in 0 ..< division {
             clickTrack?.add(noteNumber: 80, velocity: 100, position: AKDuration(beats: Double(i) / Double(division)) , duration: AKDuration(beats: Double(0.1 / Double(division))))
             clickTrack?.add(noteNumber: 60, velocity: 100, position: AKDuration(beats: (Double(i) + 0.5) / Double(division)) , duration: AKDuration(beats: Double(0.1 / Double(division))))
         }
         
-        //clickTrack?.setMIDIOutput((callbacker?.midiIn)!)
-        clickTrack?.setLoopInfo(AKDuration(beats: 1.0), numberOfLoops: 1)
+        clickTrack?.setMIDIOutput((callbacker?.midiIn)!)
+        clickTrack?.setLoopInfo(AKDuration(beats: 1.0), numberOfLoops: 10)
         sequencer.setTempo(bpm)
     }
     
@@ -75,7 +71,7 @@ func myFunction(status: AKMIDIStatus, note: MIDINoteNumber, velocity: MIDIVeloci
 myClock.callbacker?.callbacks.append(myFunction)
 
 // We must link the clock's output to AudioKit (even if we don't need the sound)
-AudioKit.output = myClock.output
+AudioKit.output = myClock.callbacker
 
 AudioKit.start()
 

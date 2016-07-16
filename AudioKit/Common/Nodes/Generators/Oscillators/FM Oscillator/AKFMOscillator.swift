@@ -17,7 +17,7 @@ import AVFoundation
 ///   - modulationIndex: This multiplied by the modulating frequency gives the modulation amplitude.
 ///   - amplitude: Output Amplitude.
 ///
-public class AKFMOscillator: AKVoice {
+public class AKFMOscillator: AKNode, AKToggleable {
 
     // MARK: - Properties
 
@@ -108,7 +108,7 @@ public class AKFMOscillator: AKVoice {
     }
 
     /// Tells whether the node is processing (ie. started, playing, or active)
-    override public var isStarted: Bool {
+    public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
 
@@ -205,19 +205,13 @@ public class AKFMOscillator: AKVoice {
         internalAU?.amplitude = Float(amplitude)
     }
 
-    /// Function create an identical new node for use in creating polyphonic instruments
-    override public func duplicate() -> AKVoice {
-        let copy = AKFMOscillator(waveform: self.waveform!, baseFrequency: self.baseFrequency, carrierMultiplier: self.carrierMultiplier, modulatingMultiplier: self.modulatingMultiplier, modulationIndex: self.modulationIndex, amplitude: self.amplitude)
-        return copy
-    }
-
     /// Function to start, play, or activate the node, all do the same thing
-    override public func start() {
+    public func start() {
         self.internalAU!.start()
     }
 
     /// Function to stop or bypass the node, both are equivalent
-  override   public func stop() {
+    public func stop() {
         self.internalAU!.stop()
     }
 }
