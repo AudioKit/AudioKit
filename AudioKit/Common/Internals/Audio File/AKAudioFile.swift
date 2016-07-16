@@ -2,9 +2,7 @@
 //  AKAudioFile.swift
 //  AudioKit For iOS
 //
-//  Created by Laurent Veliscek on 08/06/2016.
-//  Credits to Gene de Lisa (http://www.rockhoppertech.com/blog/)
-//  who helped me a lot providing his tutos...
+//  Created by Laurent Veliscek, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

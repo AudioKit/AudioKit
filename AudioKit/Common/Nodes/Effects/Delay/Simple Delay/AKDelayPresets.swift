@@ -2,7 +2,7 @@
 //  AKDelayPresets.swift
 //  AudioKit
 //
-//  Created by Nicholas Arner on 7/2/16.
+//  Created by Nicholas Arner, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
