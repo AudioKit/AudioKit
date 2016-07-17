@@ -53,7 +53,7 @@ int sporth_thresh(sporth_stack *stack, void *ud)
             sp_thresh_destroy(&thresh);
             break;
         default:
-            fprintf(stderr, "thresh: Uknown mode!\n");
+            fprintf(stderr, "thresh: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

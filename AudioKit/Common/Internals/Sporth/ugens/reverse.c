@@ -49,7 +49,7 @@ int sporth_reverse(sporth_stack *stack, void *ud)
             sp_reverse_destroy(&reverse);
             break;
         default:
-            fprintf(stderr, "reverse: Uknown mode!\n");
+            fprintf(stderr, "reverse: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

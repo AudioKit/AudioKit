@@ -45,7 +45,7 @@ int sporth_rms(sporth_stack *stack, void *ud)
             sp_rms_destroy(&rms);
             break;
         default:
-            fprintf(stderr, "rms: Uknown mode!\n");
+            fprintf(stderr, "rms: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

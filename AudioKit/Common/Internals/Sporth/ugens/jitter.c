@@ -41,11 +41,6 @@ int sporth_jitter(sporth_stack *stack, void *ud)
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
-                fprintf(stderr,"Not enough arguments for jitter\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             cpsMax = sporth_stack_pop_float(stack);
             cpsMin = sporth_stack_pop_float(stack);
             amp = sporth_stack_pop_float(stack);
@@ -61,7 +56,7 @@ int sporth_jitter(sporth_stack *stack, void *ud)
             sp_jitter_destroy(&jitter);
             break;
         default:
-            fprintf(stderr, "jitter: Uknown mode!\n");
+            fprintf(stderr, "jitter: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

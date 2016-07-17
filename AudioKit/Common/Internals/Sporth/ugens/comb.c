@@ -55,7 +55,7 @@ int sporth_comb(sporth_stack *stack, void *ud)
             sp_comb_destroy(&comb);
             break;
         default:
-            fprintf(stderr, "comb: Uknown mode!\n");
+            fprintf(stderr, "comb: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

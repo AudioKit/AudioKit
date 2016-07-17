@@ -3,7 +3,29 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "sporth.h"
+#include "h/sporth.h"
+
+#ifdef DEBUG_MODE
+static void print_guts(sporth_stack *stack) 
+{
+    int i;
+    fprintf(stderr, "Dying stack contents:\n");
+    for(i = 0; i < stack->pos; i++) {
+        fprintf(stderr, "\t %d: ", i);
+        switch(stack->stack[i].type) {
+            case SPORTH_FLOAT:
+                fprintf(stderr, "%g\n", stack->stack[i].fval);
+                break;
+            case SPORTH_STRING:
+                fprintf(stderr, "%s\n", stack->stack[i].sval);
+                break;
+            default:
+                fprintf(stderr, "General type of %d\n", stack->stack[i].type);
+                break;
+        }
+    }
+}
+#endif
 
 int sporth_stack_push_float(sporth_stack *stack, float val)
 {
@@ -18,6 +40,9 @@ int sporth_stack_push_float(sporth_stack *stack, float val)
     } else {
         fprintf(stderr, "Stack limit of %d reached, cannot push float value.\n", stack->pos);
         stack->error++;
+#ifdef DEBUG_MODE
+        print_guts(stack);
+#endif
         return SPORTH_NOTOK;
     }
     return SPORTH_OK;
@@ -38,6 +63,9 @@ int sporth_stack_push_string(sporth_stack *stack, const char *str)
     } else {
         fprintf(stderr, "Stack limit of %d reached, cannot push float value.\n", stack->pos);
         stack->error++;
+#ifdef DEBUG_MODE
+        print_guts(stack);
+#endif
         return SPORTH_NOTOK;
     }
     return SPORTH_OK;

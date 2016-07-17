@@ -94,6 +94,7 @@ int sporth_tset(sporth_stack *stack, void *ud)
             ftname = sporth_stack_pop_string(stack);
             td->index = floor(sporth_stack_pop_float(stack));
             td->val = sporth_stack_pop_float(stack);
+            td->ft->tbl[td->index] = td->val;
             free(ftname);
             break;
 

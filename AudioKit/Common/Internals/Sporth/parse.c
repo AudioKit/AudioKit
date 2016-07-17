@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "sporth.h"
+#include "h/sporth.h"
 
 enum {
     SPACE,
@@ -17,7 +17,8 @@ enum {
     LEX_FUNC,
     LEX_ERROR,
     LEX_IGNORE,
-    LEX_DASH
+    LEX_DASH,
+    LEX_WORD
 };
 
 char * sporth_tokenizer(char *str,
@@ -123,6 +124,9 @@ int sporth_lexer(char *str, int32_t size)
                     case '\'':
                         mode = LEX_STRING;
                         break;
+                    case '_':
+                        mode = LEX_WORD;
+                        break;
                     case '#':
                         mode = LEX_IGNORE;
                         break;
@@ -190,6 +194,8 @@ int sporth_lexer(char *str, int32_t size)
                 break;
             case LEX_STRING:
                 break;
+            case LEX_WORD:
+                break;
             case LEX_FUNC:
                 break;
             case LEX_IGNORE:
@@ -206,6 +212,8 @@ int sporth_lexer(char *str, int32_t size)
             return SPORTH_FLOAT;
         case LEX_STRING:
             return SPORTH_STRING;
+        case LEX_WORD:
+            return SPORTH_WORD;
         case LEX_IGNORE:
             return SPORTH_IGNORE;
         case LEX_DASH:

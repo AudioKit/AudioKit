@@ -50,7 +50,7 @@ int sporth_clip(sporth_stack *stack, void *ud)
             sp_clip_destroy(&clip);
             break;
         default:
-            fprintf(stderr, "clip: Uknown mode!\n");
+            fprintf(stderr, "clip: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

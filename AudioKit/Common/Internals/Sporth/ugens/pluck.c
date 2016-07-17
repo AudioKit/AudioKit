@@ -77,7 +77,7 @@ int sporth_pluck(sporth_stack *stack, void *ud)
             sp_pluck_destroy(&pluck);
             break;
         default:
-            fprintf(stderr, "pluck: Uknown mode!\n");
+            fprintf(stderr, "pluck: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

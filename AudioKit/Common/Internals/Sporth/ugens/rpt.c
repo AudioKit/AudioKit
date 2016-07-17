@@ -69,7 +69,7 @@ int sporth_rpt(sporth_stack *stack, void *ud)
             sp_rpt_destroy(&rpt);
             break;
         default:
-            fprintf(stderr, "rpt: Uknown mode!\n");
+            fprintf(stderr, "rpt: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

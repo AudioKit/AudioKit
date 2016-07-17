@@ -28,10 +28,10 @@ typedef struct {
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fHslider1;
-    FAUSTFLOAT fHslider2;
 	float fConst2;
 	float fConst3;
 	float fConst4;
+	float fConst5;
 	int IOTA;
 
 } bltriangle;
@@ -60,10 +60,10 @@ void instanceInitbltriangle(bltriangle* dsp, int samplingFreq) {
 	dsp->fConst1 = (4.f / (float)dsp->iConst0);
 	dsp->fHslider0 = (FAUSTFLOAT)440.;
 	dsp->fHslider1 = (FAUSTFLOAT)1.;
-    dsp->fHslider2 = (FAUSTFLOAT)0.5;
 	dsp->fConst2 = (float)dsp->iConst0;
-	dsp->fConst3 = (0.25f * dsp->fConst2);
-	dsp->fConst4 = (1.f / dsp->fConst2);
+	dsp->fConst3 = (0.5f * dsp->fConst2);
+	dsp->fConst4 = (0.25f * dsp->fConst2);
+	dsp->fConst5 = (1.f / dsp->fConst2);
 	/* C99 loop */
 	{
 		int i1;
@@ -111,32 +111,19 @@ void initbltriangle(bltriangle* dsp, int samplingFreq) {
 void buildUserInterfacebltriangle(bltriangle* dsp, UIGlue* interface) {
 	interface->addHorizontalSlider(interface->uiInterface, "freq", &dsp->fHslider0, 440.f, 0.f, 20000.f, 0.0001f);
 	interface->addHorizontalSlider(interface->uiInterface, "amp", &dsp->fHslider1, 1.f, 0.f, 1.f, 1e-05f);
-    interface->addHorizontalSlider(interface->uiInterface, "crest", &dsp->fHslider2, 0.5f, .05f, .95f, .001f);
-}
-
-float computeampangle(bltriangle* dsp) {
-    float ampAngle = 0.5f;
-    if ((float)dsp->fHslider2<=0.5f) {
-        ampAngle = fabsf(.5f-(float)dsp->fHslider2);
-        
-    } else {
-        ampAngle = fabsf((float)dsp->fHslider2-.5f);
-    }
-    return ampAngle;
 }
 
 void computebltriangle(bltriangle* dsp, int count, FAUSTFLOAT** inputs, FAUSTFLOAT** outputs) {
 	FAUSTFLOAT* output0 = outputs[0];
-    float ampAngle = computeampangle(dsp);
 	float fSlow0 = (float)dsp->fHslider0;
-	float fSlow1 = (dsp->fConst1 * (fSlow0 * (((float)dsp->fHslider1)/cosf(M_PI*ampAngle))));
+	float fSlow1 = (dsp->fConst1 * (fSlow0 * (float)dsp->fHslider1));
 	float fSlow2 = max(fSlow0, 23.4489f);
-	float fSlow3 = max(0.f, min(2047.f, ((float)dsp->fHslider2 * dsp->fConst2 / fSlow2)));
+	float fSlow3 = max(0.f, min(2047.f, (dsp->fConst3 / fSlow2)));
 	int iSlow4 = (int)fSlow3;
 	int iSlow5 = (1 + iSlow4);
 	float fSlow6 = ((float)iSlow5 - fSlow3);
-	float fSlow7 = (dsp->fConst3 / fSlow2);
-	float fSlow8 = (dsp->fConst4 * fSlow2);
+	float fSlow7 = (dsp->fConst4 / fSlow2);
+	float fSlow8 = (dsp->fConst5 * fSlow2);
 	float fSlow9 = (fSlow3 - (float)iSlow4);
 	/* C99 loop */
 	{
@@ -196,7 +183,6 @@ int sp_bltriangle_init(sp_data *sp, sp_bltriangle *p)
 
     p->freq = p->args[0];
     p->amp = p->args[1];
-    p->crest = p->args[2];
 
     p->ud = dsp;
     return SP_OK;

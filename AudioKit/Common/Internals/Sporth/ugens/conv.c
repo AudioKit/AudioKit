@@ -65,7 +65,7 @@ int sporth_conv(sporth_stack *stack, void *ud)
             sp_conv_destroy(&conv);
             break;
         default:
-            fprintf(stderr, "conv: Uknown mode!\n");
+            fprintf(stderr, "conv: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

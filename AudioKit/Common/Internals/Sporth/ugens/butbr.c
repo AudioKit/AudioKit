@@ -53,7 +53,7 @@ int sporth_butbr(sporth_stack *stack, void *ud)
             sp_butbr_destroy(&butbr);
             break;
         default:
-            fprintf(stderr, "butbr: Uknown mode!\n");
+            fprintf(stderr, "butbr: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

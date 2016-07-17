@@ -46,48 +46,48 @@ int sp_destroy(sp_data **spp)
 
 #ifndef NO_LIBSNDFILE
 
-//int sp_process(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
-//{
-//    SNDFILE *sf[sp->nchan];
-//    char tmp[140];
-//    SF_INFO info;
-//    SPFLOAT buf[sp->nchan][SP_BUFSIZE];
-//    info.samplerate = sp->sr;
-//    info.channels = 1;
-//    info.format = SF_FORMAT_WAV | SF_FORMAT_PCM_24;
-//    int numsamps, i, chan;
-//    if(sp->nchan == 1) {
-//        sf[0] = sf_open(sp->filename, SFM_WRITE, &info);
-//    } else {
-//        for(chan = 0; chan < sp->nchan; chan++) {
-//            sprintf(tmp, "%02d_%s", chan, sp->filename);
-//            sf[chan] = sf_open(tmp, SFM_WRITE, &info);
-//        }
-//    }
-//
-//    while(sp->len > 0){
-//        if(sp->len < SP_BUFSIZE) {
-//            numsamps = sp->len;
-//        }else{
-//            numsamps = SP_BUFSIZE;
-//        }
-//        for(i = 0; i < numsamps; i++){
-//            callback(sp, ud);
-//            for(chan = 0; chan < sp->nchan; chan++) {
-//                buf[chan][i] = sp->out[chan];
-//            }
-//            sp->pos++;
-//        }
-//        for(chan = 0; chan < sp->nchan; chan++) {
-//            sf_write_float(sf[chan], buf[chan], numsamps);
-//        }
-//        sp->len -= numsamps;
-//    }
-//    for(i = 0; i < sp->nchan; i++) {
-//        sf_close(sf[i]);
-//    }
-//    return 0;
-//}
+int sp_process(sp_data *sp, void *ud, void (*callback)(sp_data *, void *))
+{
+    SNDFILE *sf[sp->nchan];
+    char tmp[140];
+    SF_INFO info;
+    SPFLOAT buf[sp->nchan][SP_BUFSIZE];
+    info.samplerate = sp->sr;
+    info.channels = 1;
+    info.format = SF_FORMAT_WAV | SF_FORMAT_PCM_24;
+    int numsamps, i, chan;
+    if(sp->nchan == 1) {
+        sf[0] = sf_open(sp->filename, SFM_WRITE, &info);
+    } else {
+        for(chan = 0; chan < sp->nchan; chan++) {
+            sprintf(tmp, "%02d_%s", chan, sp->filename);
+            sf[chan] = sf_open(tmp, SFM_WRITE, &info);
+        }
+    }
+
+    while(sp->len > 0){
+        if(sp->len < SP_BUFSIZE) {
+            numsamps = sp->len;
+        }else{
+            numsamps = SP_BUFSIZE;
+        }
+        for(i = 0; i < numsamps; i++){
+            callback(sp, ud);
+            for(chan = 0; chan < sp->nchan; chan++) {
+                buf[chan][i] = sp->out[chan];
+            }
+            sp->pos++;
+        }
+        for(chan = 0; chan < sp->nchan; chan++) {
+            sf_write_float(sf[chan], buf[chan], numsamps);
+        }
+        sp->len -= numsamps;
+    }
+    for(i = 0; i < sp->nchan; i++) {
+        sf_close(sf[i]);
+    }
+    return 0;
+}
 
 #endif
 
