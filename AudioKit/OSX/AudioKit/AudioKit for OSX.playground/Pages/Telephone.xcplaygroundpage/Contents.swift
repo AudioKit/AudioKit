@@ -61,8 +61,8 @@ keys["*"] = [941, 1209]
 keys["0"] = [941, 1336]
 keys["#"] = [941, 1477]
 
-let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(0)) +
-    AKOperation.sineWave(frequency: AKOperation.parameters(1))
+let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(1)) +
+    AKOperation.sineWave(frequency: AKOperation.parameters(2))
 
 let momentaryPress = keyPressTone.triggeredWithEnvelope(
     AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
@@ -135,57 +135,54 @@ class PlaygroundView: AKPlaygroundView {
     func stopBusySignal() {
         busy.stop()
     }
-    func touch1() {
-        keypad.trigger(keys["1"]!)
+    
+    func touchCall() {
+        busy.stop()
+        dialTone.stop()
+        if ringing.isStarted {
+            ringing.stop()
+            dialTone.start()
+        } else {
+            ringing.start()
+        }
+    }
+    
+    func touchBusy() {
+        ringing.stop()
+        dialTone.stop()
+        if busy.isStarted {
+            busy.stop()
+            dialTone.start()
+        } else {
+            busy.start()
+        }
+    }
+    
+    func touchKeyPad(text: String) {
+        dialTone.stop()
+        ringing.stop()
+        busy.stop()
+        keypad.parameters[1] = keys[text]![0]
+        keypad.parameters[2] = keys[text]![1]
+        keypad.trigger()
         usleep(250000)
     }
-    func touch2() {
-        keypad.trigger(keys["2"]!)
-        usleep(250000)
-    }
-    func touch3() {
-        keypad.trigger(keys["3"]!)
-        usleep(250000)
-    }
-
-    func touch4() {
-        keypad.trigger(keys["4"]!)
-        usleep(250000)
-    }
-    func touch5() {
-        keypad.trigger(keys["5"]!)
-        usleep(250000)
-    }
-    func touch6() {
-        keypad.trigger(keys["6"]!)
-        usleep(250000)
-    }
-
-    func touch7() {
-        keypad.trigger(keys["7"]!)
-        usleep(250000)
-    }
-    func touch8() {
-        keypad.trigger(keys["8"]!)
-        usleep(250000)
-    }
-    func touch9() {
-        keypad.trigger(keys["9"]!)
-        usleep(250000)
-    }
-
-    func touchStar() {
-        keypad.trigger(keys["*"]!)
-        usleep(250000)
-    }
-    func touch0() {
-        keypad.trigger(keys["0"]!)
-        usleep(250000)
-    }
-    func touchHash() {
-        keypad.trigger(keys["#"]!)
-        usleep(250000)
-    }
+    
+    func touch1() { touchKeyPad("1") }
+    func touch2() { touchKeyPad("2") }
+    func touch3() { touchKeyPad("3") }
+    
+    func touch4() { touchKeyPad("4") }
+    func touch5() { touchKeyPad("5") }
+    func touch6() { touchKeyPad("6") }
+    
+    func touch7() { touchKeyPad("7") }
+    func touch8() { touchKeyPad("8") }
+    func touch9() { touchKeyPad("9") }
+    
+    func touchStar() { touchKeyPad("*") }
+    func touch0() { touchKeyPad("0") }
+    func touchHash() { touchKeyPad("#") }
 }
 
 

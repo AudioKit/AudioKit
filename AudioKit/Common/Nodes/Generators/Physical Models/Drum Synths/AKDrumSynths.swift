@@ -36,6 +36,9 @@ public class AKSynthKick: AKMIDIInstrument {
     public override func play(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
         generator.trigger()
     }
+    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+        // Unneeded
+    }
 }
 
 /// Snare Drum Synthesizer Instrument
@@ -79,4 +82,8 @@ public class AKSynthSnare: AKMIDIInstrument {
         cutoff = (Double(velocity)/127.0 * 1600.0) + 300.0
         generator.trigger()
     }
+    public override func stop(noteNumber noteNumber: MIDINoteNumber) {
+        // Unneeded
+    }
+
 }
