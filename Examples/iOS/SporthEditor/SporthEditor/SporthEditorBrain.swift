@@ -23,7 +23,6 @@ class SporthEditorBrain {
         generator?.stop()
         AudioKit.stop()
         generator = AKOperationGenerator(operation: AKOperation(code))
-        generator?.parameters = [0, 0, 0, 0]
         AudioKit.output = generator
         AudioKit.start()
         generator?.start()
