@@ -65,7 +65,7 @@ class PlaygroundView: AKPlaygroundView {
 
     }
 
-    //: Handle UI Events
+    // Handle UI Events
     
 
     func start() {
