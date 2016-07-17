@@ -77,8 +77,6 @@
 //: Over the course of viewing the playgrounds so far, you've come across AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't require a playground of its own, but there are some playback-oriented nodes that are very useful and cool.
 //:
 //: * [Audio Player](Audio%20Player)
-//: * [AKAudioFile Demo](AKAudioFile%20Demo)
-//: * [AKAudioFile part2](AKAudioFile%20part2)
 //: * [Playback Speed](Playback%20Speed)
 //: * [Sampler Instrument - EXS24](Sampler%20Instrument%20-%20EXS24)
 //: * [Sampler Instrument - Wav file](Sampler%20Instrument%20-%20Wav%20file)
@@ -86,6 +84,13 @@
 //: * [Sequencer - Multiple output](Sequencer%20-%20Multiple%20output)
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
+
+//: ## Experimental AudioFile Playgrounds
+//: 
+//: These are playgrounds that are currently experimental, and in active development. Proceed with caution.
+//: * [AKAudioFile Demo](AKAudioFile%20Demo)
+//: * [AKAudioFile part2](AKAudioFile%20part2)
+//: * [AKAudioFile part3 Async Process](AKAudioFile%20part%203%20Async%20Process)
 //:
 //: ## Generator Nodes
 //:

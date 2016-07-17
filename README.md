@@ -1,4 +1,4 @@
-AudioKit V3
+AudioKit V3.2
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
@@ -13,7 +13,7 @@ If you need support, the best thing to do is to join AudioKit's google group:
 
 https://groups.google.com/forum/#!forum/audiokit
 
-### Version 3
+### Version 3.2
 The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
 
 * Installation as a framework
@@ -103,7 +103,7 @@ github "audiokit/AudioKit"
 If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
 
 ```
-pod 'AudioKit', '~> 3.1'
+pod 'AudioKit', '~> 3.2'
 ```
 
 ## About Us
