@@ -34,6 +34,7 @@ struct Constants {
         static let Creation = "SporthEditor: Error while creating a local storage directory at path:"
         static let Loading = "SporthEditor: Error while loading presaved files: chat.sp or drone.sp"
         static let Saving = "SporthEditor: Saving wasn't completed"
+        static let Identifier = "SporthEditor: Couldn't get an identifier for the 'gate' button"
     }
     
     struct Success {
