@@ -44,7 +44,7 @@ AKPlaygroundLoop(every: pulse) {
     let octave = randomInt(3...6)  * 12
     if random(0, 10) < 1.0 { note += 1 }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
-    if random(0, 6) > 1.0 { sampler.playNote(note + octave) }
+    if random(0, 6) > 1.0 { sampler.play(noteNumber: note + octave) }
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
