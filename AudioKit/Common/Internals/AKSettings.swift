@@ -95,7 +95,7 @@ import AVFoundation
         
         if AKSettings.disableAVAudioSessionCategoryManagement == false {
             
-            print( "ask for category: \(category.rawValue)")
+            // print( "ask for category: \(category.rawValue)")
             // Category
             if options != nil {
                 do {
@@ -138,12 +138,12 @@ import AVFoundation
         
         
         // FOR DEBUG !
-        print ("AKSettings: asked for: \(category.rawValue)")
-        print ("AKSettings: Session.category is set to: \(session.category)")
+        // print ("AKSettings: asked for: \(category.rawValue)")
+        // print ("AKSettings: Session.category is set to: \(session.category)")
         
         if options != nil {
-            print ("AKSettings: asked for options: \(options!)")
-            print ("AKSettings: Session.category is set to: \(session.categoryOptions)")
+            // print ("AKSettings: asked for options: \(options!)")
+            // print ("AKSettings: Session.category is set to: \(session.categoryOptions)")
         }
     }
 
