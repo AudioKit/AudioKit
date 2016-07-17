@@ -48,7 +48,7 @@ static int newpulse(sp_data *sp, sp_fog *p, sp_fog_overlap *ovp, SPFLOAT amp,
     ovp->timrem = (int32_t)(p->dur * sp->sr);
 
     if ((oct = p->oct) > 0.0) {
-        int32_t ioct = (int32_t)oct, bitpat = ~(-1L << ioct);
+        int32_t ioct = (int32_t)oct, bitpat = (int) ~(-1L << ioct);
         if (bitpat & ++p->fofcount) return(0);
         if ((bitpat += 1) & p->fofcount) octamp *= (1.0) + ioct - oct;
     }

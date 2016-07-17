@@ -52,7 +52,7 @@ int sporth_maygate(sporth_stack *stack, void *ud)
             sp_maygate_destroy(&maygate);
             break;
         default:
-            fprintf(stderr, "maygate: Uknown mode!\n");
+            fprintf(stderr, "maygate: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

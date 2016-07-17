@@ -56,7 +56,7 @@ int sporth_mode(sporth_stack *stack, void *ud)
             sp_mode_destroy(&mode);
             break;
         default:
-            fprintf(stderr, "mode: Uknown mode!\n");
+            fprintf(stderr, "mode: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

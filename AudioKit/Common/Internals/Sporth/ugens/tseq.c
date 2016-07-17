@@ -12,10 +12,6 @@ int sporth_tseq(sporth_stack *stack, void *ud)
     sp_ftbl *ft;
     sp_tseq *tseq;
 
-    if(pd->mode == PLUMBER_DESTROY) {
-fprintf(stderr, "WE IZ DESTROYING TSEQ!!!!\n");
-    }
-
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE

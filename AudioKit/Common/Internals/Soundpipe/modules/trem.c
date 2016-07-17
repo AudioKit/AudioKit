@@ -29,7 +29,6 @@ int sp_trem_destroy(sp_trem **trem)
 int sp_trem_init(sp_data *sp, sp_trem *trem, sp_ftbl *ft)
 {
     trem->freq = 10.0;
-    trem->depth = 1.0;
     trem->tbl = ft;
     trem->iphs = 0;
     trem->inc = 0;
@@ -55,7 +54,7 @@ int sp_trem_compute(sp_data *sp, sp_trem *trem, SPFLOAT *in, SPFLOAT *out)
     ftab = ft + (phs >> lobits);
     v1 = ftab[0];
     v2 = ftab[1];
-    *out = *in * (1+(-1.0*trem->depth*(v1 + (v2 - v1) * fract)));
+    *out = *in * (v1 + (v2 - v1) * fract);
     phs += trem->inc;
     phs &= SP_FT_PHMASK;
 

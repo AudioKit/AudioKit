@@ -63,10 +63,10 @@ int sp_adsr_compute(sp_data *sp, sp_adsr *p, SPFLOAT *in, SPFLOAT *out)
         p->a = pole;
         p->b = 1 - pole;
     }
-    
+
     p->x = *in;
     p->prev = *in;
-    
+
     switch(p->mode) {
         case CLEAR:
             *out = 0;
@@ -88,8 +88,8 @@ int sp_adsr_compute(sp_data *sp, sp_adsr *p, SPFLOAT *in, SPFLOAT *out)
             p->x *= p->sus;
             *out = adsr_filter(sp, p);
         default:
-            break;
+            break;        
     }
-    
+
     return SP_OK;
 }

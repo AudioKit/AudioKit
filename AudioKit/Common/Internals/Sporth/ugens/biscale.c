@@ -55,7 +55,7 @@ int sporth_biscale(sporth_stack *stack, void *ud)
             sp_biscale_destroy(&biscale);
             break;
         default:
-            fprintf(stderr, "biscale: Uknown mode!\n");
+            fprintf(stderr, "biscale: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

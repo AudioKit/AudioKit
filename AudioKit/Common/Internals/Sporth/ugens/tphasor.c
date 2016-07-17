@@ -59,7 +59,7 @@ int sporth_tphasor(sporth_stack *stack, void *ud)
             sp_phasor_destroy(&tphasor);
             break;
         default:
-            fprintf(stderr, "tphasor: Uknown mode!\n");
+            fprintf(stderr, "tphasor: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

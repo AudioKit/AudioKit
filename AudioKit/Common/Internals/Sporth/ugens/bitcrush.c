@@ -55,7 +55,7 @@ int sporth_bitcrush(sporth_stack *stack, void *ud)
             sp_bitcrush_destroy(&bitcrush);
             break;
         default:
-            fprintf(stderr, "bitcrush: Uknown mode!\n");
+            fprintf(stderr, "bitcrush: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

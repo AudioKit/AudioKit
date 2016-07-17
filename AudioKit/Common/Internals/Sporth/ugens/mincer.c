@@ -74,7 +74,7 @@ int sporth_mincer(sporth_stack *stack, void *ud)
             sp_mincer_destroy(&mincer);
             break;
         default:
-            fprintf(stderr, "mincer: Uknown mode!\n");
+            fprintf(stderr, "mincer: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

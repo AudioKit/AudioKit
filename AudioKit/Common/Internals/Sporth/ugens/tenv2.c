@@ -56,7 +56,7 @@ int sporth_tenv2(sporth_stack *stack, void *ud)
             sp_tenv2_destroy(&tenv2);
             break;
         default:
-            fprintf(stderr, "tenv2: Uknown mode!\n");
+            fprintf(stderr, "tenv2: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -38,11 +38,6 @@ int sporth_prop(sporth_stack *stack, void *ud)
             free(str);
             break;
         case PLUMBER_COMPUTE:
-            if(sporth_check_args(stack, "f") != SPORTH_OK) {
-                fprintf(stderr, "Not enough arguments for prop\n");
-                stack->error++;
-                return PLUMBER_NOTOK;
-            }
             bpm = sporth_stack_pop_float(stack);
             data = pd->last->ud;
             data->bpm = bpm;

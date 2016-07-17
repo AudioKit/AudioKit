@@ -55,7 +55,7 @@ int sporth_count(sporth_stack *stack, void *ud)
             sp_count_destroy(&cnt);
             break;
         default:
-            fprintf(stderr, "count: Uknown mode!\n");
+            fprintf(stderr, "count: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

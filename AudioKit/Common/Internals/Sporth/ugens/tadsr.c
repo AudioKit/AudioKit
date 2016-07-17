@@ -66,7 +66,7 @@ int sporth_tadsr(sporth_stack *stack, void *ud)
             sp_tadsr_destroy(&tadsr);
             break;
         default:
-            fprintf(stderr, "tadsr: Uknown mode!\n");
+            fprintf(stderr, "tadsr: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

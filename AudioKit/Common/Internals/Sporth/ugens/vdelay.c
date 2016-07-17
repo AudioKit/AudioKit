@@ -70,7 +70,7 @@ int sporth_vdelay(sporth_stack *stack, void *ud)
             free(vd);
             break;
         default:
-            fprintf(stderr, "vdelay: Uknown mode!\n");
+            fprintf(stderr, "vdelay: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

@@ -25,7 +25,7 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
             fprintf(stderr, "gbuzz: Creating\n");
 #endif
             gbuzz = malloc(sizeof(sporth_gbuzz_d));
-            sp_ftbl_create(pd->sp, &gbuzz->ft, 4096);
+            sp_ftbl_create(pd->sp, &gbuzz->ft, 8192);
             sp_gbuzz_create(&gbuzz->gbuzz);
             plumber_add_ugen(pd, SPORTH_GBUZZ, gbuzz);
             if(sporth_check_args(stack, "fffff") != SPORTH_OK) {
@@ -54,7 +54,7 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
 
             gbuzz = pd->last->ud;
             sp_gen_sine(pd->sp, gbuzz->ft);
-            sp_gbuzz_init(pd->sp, gbuzz->gbuzz, gbuzz->ft, 0);
+            sp_gbuzz_init(pd->sp, gbuzz->gbuzz, gbuzz->ft, 0.25);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:
@@ -82,7 +82,7 @@ int sporth_gbuzz(sporth_stack *stack, void *ud)
             free(gbuzz);
             break;
         default:
-            fprintf(stderr, "gbuzz: Uknown mode!\n");
+            fprintf(stderr, "gbuzz: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

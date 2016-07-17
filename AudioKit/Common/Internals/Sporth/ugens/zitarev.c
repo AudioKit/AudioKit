@@ -108,7 +108,7 @@ int sporth_zitarev(sporth_stack *stack, void *ud)
             sp_zitarev_destroy(&zitarev);
             break;
         default:
-            fprintf(stderr, "zitarev: Uknown mode!\n");
+            fprintf(stderr, "zitarev: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
@@ -191,7 +191,7 @@ int sporth_zrev(sporth_stack *stack, void *ud)
             sp_zitarev_destroy(&zitarev);
             break;
         default:
-            fprintf(stderr, "zrev: Uknown mode!\n");
+            fprintf(stderr, "zrev: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

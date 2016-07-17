@@ -76,7 +76,7 @@ int sporth_tabread(sporth_stack *stack, void *ud)
             sp_tabread_destroy(&tabread);
             break;
         default:
-            fprintf(stderr, "tabread: Uknown mode!\n");
+            fprintf(stderr, "tabread: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

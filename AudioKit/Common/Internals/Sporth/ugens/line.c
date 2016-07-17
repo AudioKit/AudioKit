@@ -57,7 +57,7 @@ int sporth_line(sporth_stack *stack, void *ud)
             sp_line_destroy(&line);
             break;
         default:
-            fprintf(stderr, "line: Uknown mode!\n");
+            fprintf(stderr, "line: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

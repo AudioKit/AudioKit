@@ -124,7 +124,7 @@ int sporth_oscmorph4(sporth_stack *stack, void *ud)
             free(oscmorph);
             break;
         default:
-            fprintf(stderr, "oscmorph: Uknown mode!\n");
+            fprintf(stderr, "oscmorph: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
@@ -200,7 +200,7 @@ int sporth_oscmorph2(sporth_stack *stack, void *ud)
             free(oscmorph);
             break;
         default:
-            fprintf(stderr, "oscmorph2: Uknown mode!\n");
+            fprintf(stderr, "oscmorph2: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;

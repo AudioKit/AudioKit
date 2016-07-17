@@ -50,7 +50,7 @@ int sporth_butlp(sporth_stack *stack, void *ud)
             sp_butlp_destroy(&butlp);
             break;
         default:
-            fprintf(stderr, "butlp: Uknown mode!\n");
+            fprintf(stderr, "butlp: Unknown mode!\n");
             break;
     }
     return PLUMBER_OK;
