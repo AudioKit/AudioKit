@@ -12,7 +12,7 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 var tremolo = AKTremolo(player, waveform: AKTable(.PositiveSquare))
-
+tremolo.depth = 0.5
 //: Set the parameters of the tremolo here
 tremolo.frequency = 8
 
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
         tremoloFreqLabel = addLabel("Frequency: \(tremolo.frequency)")
         addSlider(#selector(setFrequency), value: tremolo.frequency, minimum: 0, maximum: 20)
         tremoloDepthLabel = addLabel("Depth: \(tremolo.depth)")
-        addSlider(#selector(setDepth), value: tremolo.depth, minimum: 0, maximum: 2.0)
+        addSlider(#selector(setDepth), value: tremolo.depth, minimum: 0, maximum: 1.0)
     }
 
     func startLoop(part: String) {

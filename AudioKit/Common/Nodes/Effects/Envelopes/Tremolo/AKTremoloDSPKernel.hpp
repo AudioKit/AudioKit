@@ -38,10 +38,10 @@ public:
         sp_create(&sp);
         sp->sr = sampleRate;
         sp->nchan = channels;
-        sp_trem_create(&trem);
-        sp_trem_init(sp, trem, tbl);
+        sp_osc_create(&trem);
+        sp_osc_init(sp, trem, tbl, 0);
         trem->freq = 10;
-        trem->depth = 1;
+        trem->amp = 1;
 
         frequencyRamper.init();
         depthRamper.init();
@@ -64,7 +64,7 @@ public:
     }
 
     void destroy() {
-        sp_trem_destroy(&trem);
+        sp_osc_destroy(&trem);
         sp_destroy(&sp);
     }
 
@@ -134,14 +134,16 @@ public:
             trem->freq = (float)frequency * 0.5; //Divide by two for stereo
             
             depth = depthRamper.getAndStep();
-            trem->depth = (float)depth * 0.5; //Divide by two for stereo
+            trem->amp = (float)depth;
 
+            float temp = 0;
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
                 if (started) {
-                    sp_trem_compute(sp, trem, in, out);
+                    sp_osc_compute(sp, trem, NULL, &temp);
+                    *out = *in * (1.0 - temp);
                 } else {
                     *out = *in;
                 }
@@ -159,7 +161,7 @@ private:
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
-    sp_trem *trem;
+    sp_osc *trem;
     sp_ftbl *tbl;
     UInt32 tbl_size = 4096;
 
