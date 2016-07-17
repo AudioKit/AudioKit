@@ -65,7 +65,7 @@ class Conductor: AKMIDIListener {
     }
     func receivedMIDIPitchWheel(pitchWheelValue: Int, channel: Int) {
         let bendSemi =  (Double(pitchWheelValue - 8192) / 8192.0) * midiBendRange
-//        core.globalbend = bendSemi
+        core.globalbend = bendSemi
     }
 
 }
