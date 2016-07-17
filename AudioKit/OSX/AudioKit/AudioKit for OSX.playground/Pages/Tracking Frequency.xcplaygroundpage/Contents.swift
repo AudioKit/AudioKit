@@ -20,7 +20,7 @@ let oscillator = AKOperation.sineWave(frequency: frequency, amplitude: volume)
 
 //: Connect up the the nodes
 let oscillatorNode = AKOperationGenerator(operation: oscillator)
-let tracker = AKFrequencyTracker(oscillatorNode, minimumFrequency: minimum, maximumFrequency: maximum)
+let tracker = AKFrequencyTracker(oscillatorNode, hopSize: minimum, peakCount: maximum)
 
 
 //: The frequency tracker passes its input to the output, so we can insert into the signal chain at the bottom
