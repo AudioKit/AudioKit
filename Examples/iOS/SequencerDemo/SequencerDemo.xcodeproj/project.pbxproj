@@ -12,10 +12,6 @@
 		78ADAA0A1D255FB90095C0C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78ADAA081D255FB90095C0C7 /* Main.storyboard */; };
 		78ADAA0C1D255FB90095C0C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78ADAA0B1D255FB90095C0C7 /* Assets.xcassets */; };
 		78ADAA0F1D255FB90095C0C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78ADAA0D1D255FB90095C0C7 /* LaunchScreen.storyboard */; };
-		78ADAA1F1D2561E20095C0C7 /* SDInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA1E1D2561E20095C0C7 /* SDInstrument.swift */; };
-		78ADAA211D2562050095C0C7 /* SDVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA201D2562050095C0C7 /* SDVoice.swift */; };
-		78ADAA231D25621B0095C0C7 /* BDInstrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA221D25621B0095C0C7 /* BDInstrument.swift */; };
-		78ADAA251D25622E0095C0C7 /* BDVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA241D25622E0095C0C7 /* BDVoice.swift */; };
 		78ADAA271D2564210095C0C7 /* Conductor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA261D2564210095C0C7 /* Conductor.swift */; };
 		78ADAA291D2569810095C0C7 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78ADAA281D2569810095C0C7 /* Sequence.swift */; };
 		78C61D541D26A68C00D5B296 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C61D531D26A68C00D5B296 /* AudioKit.framework */; };
@@ -44,10 +40,6 @@
 		78ADAA0B1D255FB90095C0C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78ADAA0E1D255FB90095C0C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		78ADAA101D255FB90095C0C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		78ADAA1E1D2561E20095C0C7 /* SDInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDInstrument.swift; sourceTree = "<group>"; };
-		78ADAA201D2562050095C0C7 /* SDVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SDVoice.swift; sourceTree = "<group>"; };
-		78ADAA221D25621B0095C0C7 /* BDInstrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDInstrument.swift; sourceTree = "<group>"; };
-		78ADAA241D25622E0095C0C7 /* BDVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BDVoice.swift; sourceTree = "<group>"; };
 		78ADAA261D2564210095C0C7 /* Conductor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Conductor.swift; sourceTree = "<group>"; };
 		78ADAA281D2569810095C0C7 /* Sequence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
 		78C61D531D26A68C00D5B296 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
@@ -88,10 +80,6 @@
 				78ADAA041D255FB90095C0C7 /* AppDelegate.swift */,
 				78ADAA061D255FB90095C0C7 /* ViewController.swift */,
 				78ADAA261D2564210095C0C7 /* Conductor.swift */,
-				78ADAA241D25622E0095C0C7 /* BDVoice.swift */,
-				78ADAA221D25621B0095C0C7 /* BDInstrument.swift */,
-				78ADAA201D2562050095C0C7 /* SDVoice.swift */,
-				78ADAA1E1D2561E20095C0C7 /* SDInstrument.swift */,
 				78ADAA081D255FB90095C0C7 /* Main.storyboard */,
 				78ADAA281D2569810095C0C7 /* Sequence.swift */,
 				78ADAA0B1D255FB90095C0C7 /* Assets.xcassets */,
@@ -188,11 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				78ADAA071D255FB90095C0C7 /* ViewController.swift in Sources */,
-				78ADAA211D2562050095C0C7 /* SDVoice.swift in Sources */,
 				78ADAA291D2569810095C0C7 /* Sequence.swift in Sources */,
-				78ADAA251D25622E0095C0C7 /* BDVoice.swift in Sources */,
-				78ADAA231D25621B0095C0C7 /* BDInstrument.swift in Sources */,
-				78ADAA1F1D2561E20095C0C7 /* SDInstrument.swift in Sources */,
 				78ADAA051D255FB90095C0C7 /* AppDelegate.swift in Sources */,
 				78ADAA271D2564210095C0C7 /* Conductor.swift in Sources */,
 			);
