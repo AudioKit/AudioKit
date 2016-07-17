@@ -90,6 +90,7 @@
         <page name='Plucked String'/>
         <page name='PWM Oscillator'/>
         <page name='PWM Oscillator Bank'/>
+        <page name='Recording Nodes'/>
         <page name='Resonant Filter'/>
         <page name='Resonant Filter Operation'/>
         <page name='Ring Modulator'/>
@@ -122,7 +123,6 @@
         <page name='Variable Delay Operation'/>
         <page name='Variable Delay'/>
         <page name='AKAudioFile part2'/>
-        <page name='AKNodeRecorder'/>
         <page name='AKAudioFile part 3 Async Process'/>
     </pages>
 </playground>

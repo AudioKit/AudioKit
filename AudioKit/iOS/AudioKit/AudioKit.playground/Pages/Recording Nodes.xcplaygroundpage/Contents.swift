@@ -2,7 +2,9 @@
 //:
 //: ---
 //:
-//: ## AKNodeRecorder
+//: ## Recording Nodes
+//: ### AKNodeRecorder allows you to record the output of a specific node
+//: ##
 //: ### Let's record a sawtooth solo.
 
 import XCPlayground
