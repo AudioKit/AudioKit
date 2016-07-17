@@ -15,13 +15,9 @@ class Conductor {
     var melodicSound: AKMIDINode?
     var verb: AKReverb2?
     
-    var bassDrumInstrument: BDInstrument?
-    var bassDrum: AKMIDIInstrument?
-    
-    var snareDrumInstrument: SDInstrument?
-    var snareDrum: AKMIDIInstrument?
-    var snareGhostInstrument: SDInstrument?
-    var snareGhost: AKMIDIInstrument?
+    var bassDrum = AKSynthKick()
+    var snareDrum = AKSynthSnare()
+    var snareGhost = AKSynthSnare(duration: 0.06, resonance: 0.3)
     var snareMixer = AKMixer()
     var snareVerb: AKReverb?
     
@@ -48,23 +44,12 @@ class Conductor {
         verb?.randomizeReflections = 600
         verb?.gain = 1
         
-        bassDrumInstrument = BDInstrument(voiceCount: 1)
-        bassDrumInstrument?.amplitude = 1
-        bassDrum = AKMIDIInstrument(instrument: bassDrumInstrument!)
-        bassDrum?.enableMIDI(midi.client, name: "bassDrum midi in")
+        bassDrum.enableMIDI(midi.client, name: "bassDrum midi in")
+        snareDrum.enableMIDI(midi.client, name: "snareDrum midi in")
+        snareGhost.enableMIDI(midi.client, name: "snareGhost midi in")
         
-        snareDrumInstrument = SDInstrument(voiceCount: 1)
-        snareDrumInstrument?.amplitude = 0.3
-        snareDrum = AKMIDIInstrument(instrument: snareDrumInstrument!)
-        snareDrum?.enableMIDI(midi.client, name: "snareDrum midi in")
-        
-        snareGhostInstrument = SDInstrument(voiceCount: 1, dur: 0.06, res: 0.3)
-        snareGhostInstrument?.amplitude = 0.2
-        snareGhost = AKMIDIInstrument(instrument: snareGhostInstrument!)
-        snareGhost?.enableMIDI(midi.client, name: "snareGhost midi in")
-        
-        snareMixer.connect(snareDrum!)
-        snareMixer.connect(snareGhost!)
+        snareMixer.connect(snareDrum)
+        snareMixer.connect(snareGhost)
         snareVerb = AKReverb(snareMixer)
         
         pumper = AKCompressor(mixer)
@@ -76,9 +61,9 @@ class Conductor {
         pumper?.releaseTime = 0.3
         
         mixer.connect(verb!)
-        mixer.connect(bassDrum!)
-        mixer.connect(snareDrum!)
-        mixer.connect(snareGhost!)
+        mixer.connect(bassDrum)
+        mixer.connect(snareDrum)
+        mixer.connect(snareGhost)
         mixer.connect(snareVerb!)
         
         AudioKit.output = pumper
@@ -90,15 +75,15 @@ class Conductor {
         generateNewMelodicSequence(minor: false)
         
         sequence.newTrack()
-        sequence.tracks[Sequence.BassDrum.rawValue].setMIDIOutput((bassDrum?.midiIn)!)
+        sequence.tracks[Sequence.BassDrum.rawValue].setMIDIOutput(bassDrum.midiIn)
         generateBassDrumSequence()
         
         sequence.newTrack()
-        sequence.tracks[Sequence.SnareDrum.rawValue].setMIDIOutput((snareDrum?.midiIn)!)
+        sequence.tracks[Sequence.SnareDrum.rawValue].setMIDIOutput(snareDrum.midiIn)
         generateSnareDrumSequence()
         
         sequence.newTrack()
-        sequence.tracks[Sequence.SnareDrumGhost.rawValue].setMIDIOutput((snareGhost?.midiIn)!)
+        sequence.tracks[Sequence.SnareDrumGhost.rawValue].setMIDIOutput(snareGhost.midiIn)
         generateSnareDrumGhostSequence()
         
         sequence.enableLooping()

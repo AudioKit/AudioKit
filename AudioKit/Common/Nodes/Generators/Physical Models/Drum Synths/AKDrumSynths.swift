@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 /// Kick Drum Synthesizer Instrument
-public class AKSynthKick: AKPolyphonicNode {
+public class AKSynthKick: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
     var filter: AKMoogLadder
@@ -39,7 +39,7 @@ public class AKSynthKick: AKPolyphonicNode {
 }
 
 /// Snare Drum Synthesizer Instrument
-public class AKSynthSnare: AKPolyphonicNode {
+public class AKSynthSnare: AKMIDIInstrument {
 
     var generator: AKOperationGenerator
     var filter: AKMoogLadder
