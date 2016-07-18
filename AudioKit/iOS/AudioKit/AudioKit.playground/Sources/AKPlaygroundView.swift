@@ -13,26 +13,26 @@ public typealias Label     = UILabel
 public typealias TextField = UITextField
 
 public class AKPlaygroundView: UIView {
-    
+
     public var elementHeight: CGFloat = 30
     public var yPosition: Int = 0
     public var horizontalSpacing = 40
     public var lastButton: UIButton?
-    
+
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
         self.backgroundColor = UIColor.whiteColor()
         setup()
     }
-    
+
     public func setup() {
     }
-    
+
     public func addLineBreak() {
         lastButton = nil
     }
-    
-    
+
+
     public func addTitle(text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
         newLabel.text = text
@@ -43,9 +43,9 @@ public class AKPlaygroundView: UIView {
         yPosition += horizontalSpacing
         return newLabel
     }
-    
+
     public func addButton(label: String, action: Selector) -> UIButton {
-        
+
         let newButton = UIButton(type: .Custom)
         newButton.frame = CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight)
         newButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -57,7 +57,7 @@ public class AKPlaygroundView: UIView {
             newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
             yPosition -= horizontalSpacing
         }
-        
+
         newButton.frame.origin.y = CGFloat(yPosition)
         newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
         newButton.sizeToFit()
@@ -67,10 +67,11 @@ public class AKPlaygroundView: UIView {
         lastButton = newButton
         return newButton
     }
-    
+
     public func addLabel(text: String) -> UILabel {
         lastButton = nil
-        let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
+        let newLabel = UILabel(frame:
+            CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
         newLabel.font = UIFont.systemFontOfSize(18)
         newLabel.frame.origin.y = CGFloat(yPosition)
@@ -79,16 +80,18 @@ public class AKPlaygroundView: UIView {
 
         return newLabel
     }
-    
+
     public func addTextField(action: Selector, text: String, value: Double = 0) -> UITextField {
         lastButton = nil
-        let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
+        let newLabel = UILabel(frame:
+            CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
         newLabel.font = UIFont.systemFontOfSize(18)
         newLabel.frame.origin.y = CGFloat(yPosition)
         self.addSubview(newLabel)
-        
-        let newTextField =  UITextField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
+
+        let newTextField =  UITextField(frame:
+            CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
         newTextField.frame.origin.y = CGFloat(yPosition)
         newTextField.text = "\(value)"
         newTextField.textAlignment = .Right
@@ -96,11 +99,14 @@ public class AKPlaygroundView: UIView {
         newTextField.addTarget(self, action: action, forControlEvents: .AllEvents)
         self.addSubview(newTextField)
         yPosition += horizontalSpacing
-        
+
         return newTextField
     }
-    
-    public func addSlider(action: Selector, value: Double = 0, minimum: Double = 0, maximum: Double = 1) -> UISlider {
+
+    public func addSlider(action: Selector,
+                          value: Double = 0,
+                          minimum: Double = 0,
+                          maximum: Double = 1) -> UISlider {
         lastButton = nil
         let newSlider = UISlider(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
         newSlider.frame.origin.y = CGFloat(yPosition)
@@ -114,8 +120,8 @@ public class AKPlaygroundView: UIView {
 
         return newSlider
     }
-    
-    
+
+
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

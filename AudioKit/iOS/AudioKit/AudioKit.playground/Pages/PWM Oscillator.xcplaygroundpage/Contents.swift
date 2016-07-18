@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## PWM Oscillator
-//: 
+//:
 import XCPlayground
 import AudioKit
 
@@ -18,15 +18,15 @@ AudioKit.start()
 let playgroundWidth = 500
 
 class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
-    
+
     var frequencyLabel: Label?
     var pulseWidthLabel: Label?
     var amplitudeLabel: Label?
     var rampTimeLabel: Label?
-    
+
     override func setup() {
         addTitle("PWM Oscillator")
-        
+
         amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
         addSlider(#selector(setAmplitude), value: currentAmplitude)
 
@@ -35,44 +35,44 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 
         rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
         addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 5.0)
-        
+
         let keyboard = KeyboardView(width: playgroundWidth, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)
         keyboard.setNeedsDisplay()
         keyboard.delegate = self
         self.addSubview(keyboard)
     }
-    
+
     func noteOn(note: Int) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
-        
+
         // Still use rampTime for volume
         oscillator.rampTime = currentRampTime
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
-    
+
     func noteOff(note: Int) {
         oscillator.amplitude = 0
     }
-    
+
     func setPulseWidth(slider: Slider) {
         oscillator.pulseWidth = Double(slider.value)
         let pw = String(format: "%0.3f", oscillator.pulseWidth)
         pulseWidthLabel!.text = "Pulse Width: \(pw)"
     }
-    
-    
+
+
     func setAmplitude(slider: Slider) {
         currentAmplitude = Double(slider.value)
         let amp = String(format: "%0.3f", currentAmplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
-    
+
     func setRampTime(slider: Slider) {
         currentRampTime = Double(slider.value)
         let rampTime = String(format: "%0.3f", currentRampTime)

@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Convolution
-//: ### Allows you to create a large variety of effects, usually reverbs or environments, but it could also be for modeling.
+//: ### Allows you to create a large variety of effects, usually reverbs or environments,
+//: ### but it could also be for modeling.
 import XCPlayground
 import AudioKit
 
@@ -17,8 +18,12 @@ let bundle = NSBundle.mainBundle()
 let stairwell = bundle.URLForResource("Impulse Responses/stairwell", withExtension: "wav")!
 let dish = bundle.URLForResource("Impulse Responses/dish", withExtension: "wav")!
 
-var stairwellConvolution = AKConvolution.init(player, impulseResponseFileURL: stairwell, partitionLength: 8192)
-var dishConvolution = AKConvolution.init(player, impulseResponseFileURL: dish, partitionLength: 8192)
+var stairwellConvolution = AKConvolution.init(player,
+                                              impulseResponseFileURL: stairwell,
+                                              partitionLength: 8192)
+var dishConvolution = AKConvolution.init(player,
+                                         impulseResponseFileURL: dish,
+                                         partitionLength: 8192)
 
 var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 1)
 var dryWetMixer = AKDryWetMixer(player, mixer, balance: 1)

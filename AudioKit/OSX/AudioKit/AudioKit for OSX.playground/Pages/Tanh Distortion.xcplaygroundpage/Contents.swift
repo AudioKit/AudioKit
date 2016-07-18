@@ -57,11 +57,19 @@ class PlaygroundView: AKPlaygroundView {
         postgainLabel = addLabel("Postgain: \(distortion.postgain) Hz")
         addSlider(#selector(setPostgain), value: distortion.postgain, minimum: 0, maximum: 10)
 
-        postiveShapeParameterLabel = addLabel("Postive Shape Parameter: \(distortion.postiveShapeParameter)")
-        addSlider(#selector(setPositiveShapeParameter), value: distortion.postiveShapeParameter, minimum: -10, maximum: 10)
+        postiveShapeParameterLabel =
+            addLabel("Postive Shape Parameter: \(distortion.postiveShapeParameter)")
+        addSlider(#selector(setPositiveShapeParameter),
+                  value: distortion.postiveShapeParameter,
+                  minimum: -10,
+                  maximum: 10)
 
-        negativeShapeParameterLabel = addLabel("Negative Shape Parameter: \(distortion.negativeShapeParameter)")
-        addSlider(#selector(setNegativeShapeParameter), value: distortion.negativeShapeParameter, minimum: -10, maximum: 10)
+        negativeShapeParameterLabel =
+            addLabel("Negative Shape Parameter: \(distortion.negativeShapeParameter)")
+        addSlider(#selector(setNegativeShapeParameter),
+                  value: distortion.negativeShapeParameter,
+                  minimum: -10,
+                  maximum: 10)
 
     }
 

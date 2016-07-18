@@ -49,13 +49,22 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         attackTimeLabel = addLabel("Attack Time: \(peakLimiter.attackTime) Secs")
-        addSlider(#selector(setAttackTime), value: peakLimiter.attackTime, minimum: 0.001, maximum: 0.03)
+        addSlider(#selector(setAttackTime),
+                  value: peakLimiter.attackTime,
+                  minimum: 0.001,
+                  maximum: 0.03)
 
         decayTimeLabel = addLabel("Decay Time: \(peakLimiter.decayTime) Secs")
-        addSlider(#selector(setDecayTime), value: peakLimiter.decayTime, minimum: 0.001, maximum: 0.06)
+        addSlider(#selector(setDecayTime),
+                  value: peakLimiter.decayTime,
+                  minimum: 0.001,
+                  maximum: 0.06)
 
         preGainLabel = addLabel("Pre-gain: \(peakLimiter.preGain) dB")
-        addSlider(#selector(setPreGain), value: peakLimiter.preGain, minimum: -40, maximum: 40)
+        addSlider(#selector(setPreGain),
+                  value: peakLimiter.preGain,
+                  minimum: -40,
+                  maximum: 40)
 
     }
 

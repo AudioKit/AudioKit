@@ -14,10 +14,7 @@ let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-//: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom
 var reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.1)
-
-//: Set the parameters of the delay here
 reverb.reverbDuration = 1
 
 AudioKit.output = reverb

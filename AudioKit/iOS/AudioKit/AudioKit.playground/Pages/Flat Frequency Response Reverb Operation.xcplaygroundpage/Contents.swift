@@ -15,10 +15,10 @@ let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-//: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom
 let duration = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 5)
 
-let reverb = AKOperation.input.reverberateWithFlatFrequencyResponse(reverbDuration: duration, loopDuration: 0.1)
+let reverb = AKOperation.input.reverberateWithFlatFrequencyResponse(reverbDuration: duration,
+                                                                    loopDuration: 0.1)
 let effect = AKOperationEffect(player, operation: reverb)
 
 AudioKit.output = effect

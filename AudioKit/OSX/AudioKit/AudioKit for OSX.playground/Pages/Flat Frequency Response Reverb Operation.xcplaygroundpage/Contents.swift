@@ -15,7 +15,8 @@ player.looping = true
 
 let duration = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 5)
 
-let reverb = AKOperation.input.reverberateWithFlatFrequencyResponse(reverbDuration: duration, loopDuration: 0.1)
+let reverb = AKOperation.input.reverberateWithFlatFrequencyResponse(reverbDuration: duration,
+                                                                    loopDuration: 0.1)
 let effect = AKOperationEffect(player, operation: reverb)
 
 AudioKit.output = effect

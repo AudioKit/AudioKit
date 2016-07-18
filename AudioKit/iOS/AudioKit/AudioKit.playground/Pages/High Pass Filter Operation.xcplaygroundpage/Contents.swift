@@ -12,7 +12,8 @@ let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12000, maxim
 let filter = AKOperation.input.highPassFilter(halfPowerPoint: halfPower)
 
 //: Noise Example
-let whiteNoise = AKWhiteNoise(amplitude: 0.1) // Bring down the amplitude so that when it is mixed it is not so loud
+// Bring down the amplitude so that when it is mixed it is not so loud
+let whiteNoise = AKWhiteNoise(amplitude: 0.1)
 let filteredNoise = AKOperationEffect(whiteNoise, operation: filter)
 
 //: Music Example

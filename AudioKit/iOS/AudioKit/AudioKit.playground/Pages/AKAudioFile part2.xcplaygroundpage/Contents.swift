@@ -15,21 +15,26 @@ let loop = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 //: You may have noticed that the drumloop doesn't loop so well. Let's fix this...
 let fixedLoop = try? loop!.extract(fromSample: 0, toSample: Int64(3.42 * 44100))
 
-//: Now out drumloop is one bar long and perfectly loops. Let's extract the kick, the snare and hihat into sixteenth note long files :
+//: Now out drumloop is one bar long and perfectly loops. Let's extract the kick,
+//: the snare and hihat into sixteenth note long files:
 let oneBarLength = fixedLoop!.samplesCount
 
 let oneSixteenthLength = oneBarLength / 16
 
 let kick = try?  fixedLoop!.extract(fromSample: 0, toSample: oneSixteenthLength)
-let snare = try? fixedLoop!.extract(fromSample: oneSixteenthLength * 4, toSample: oneSixteenthLength * 5)
-let hihat = try? fixedLoop!.extract(fromSample: oneSixteenthLength * 2, toSample: oneSixteenthLength * 3)
+let snare = try? fixedLoop!.extract(fromSample: oneSixteenthLength * 4,
+                                    toSample: oneSixteenthLength * 5)
+let hihat = try? fixedLoop!.extract(fromSample: oneSixteenthLength * 2,
+                                    toSample: oneSixteenthLength * 3)
 
-//: Notice that we don't provide any name or location for those files (in fact, we don't care...) If no name / location are set, files will be created in temp directory with a unique name. But you could choose name and location if you wish. Let's check this:
+//: Notice that we don't provide any name or location for those files (in fact, we don't care...)
+//: If no name / location are set, files will be created in temp directory with a unique name.
+//: But you could choose name and location if you wish. Let's check this:
 
 let kickFileName = kick!.fileNamePlusExtension
 let kickFilePath = kick!.directoryPath
 
-//: I love hihat, so we gonna normalize our Hihat sample so it will play as loud as other instruments...
+//: I love hihat, so normalize our Hihat sample so it will be as loud as other instruments...
 let normalizedHihat = try? hihat!.normalize()
 
 //: Why not making some new files by reversing them
@@ -40,9 +45,12 @@ let reverseHihat = try? normalizedHihat!.reverse()
 // A sixteenth note silence could be handy...
 let silence = try?  AKAudioFile.silent(oneSixteenthLength)
 
-//: Now, we put all them in an array so we can later randomly pick samples. Some are doubled so they'll have more luck to be picked.
+//: Now, we put all them in an array so we can later randomly pick samples.
+//: Some are doubled so they'll have more luck to be picked.
 
-let samplesBox: [AKAudioFile] = [kick!, snare!, kick!, snare!, kick!, snare!, normalizedHihat!, reverseKick! , reverseSnare!, reverseHihat!, silence!, silence!, silence!, silence!, silence! ]
+let samplesBox: [AKAudioFile] = [kick!, snare!, kick!, snare!, kick!, snare!,
+                                 normalizedHihat!, reverseKick!, reverseSnare!, reverseHihat!,
+                                 silence!, silence!, silence!, silence!, silence!]
 
 //: Now, we'll play the original loop three times,
 let threeTimesLoop =  try? fixedLoop!.append(fixedLoop!)
@@ -57,7 +65,9 @@ for i in 0..<16 {
     sequence = newFile!
 }
 
-//: Each time you'll run this playground, the resulting audioFile will be different. Let's listen to our edited audiofile: Original Loop 3 times, followed by the "drum solo of the day"...
+//: Each time you'll run this playground, the resulting audioFile will be different.
+//: Let's listen to our edited audiofile: Original Loop 3 times,
+//: followed by the "drum solo of the day"...
 
 
 let sequencePlayer = try? AKAudioPlayer(file: sequence!)

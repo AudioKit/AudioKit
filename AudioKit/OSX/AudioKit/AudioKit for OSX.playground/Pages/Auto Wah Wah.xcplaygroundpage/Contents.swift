@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Auto Wah Wah
-//: ### One of the most iconic guitar effects is the wah-pedal. Here, we run an audio loop of a guitar through an AKAutoWah node.
+//: ### One of the most iconic guitar effects is the wah-pedal.
+//: ### Here, we run an audio loop of a guitar through an AKAutoWah node.
 import XCPlayground
 import AudioKit
 
@@ -45,7 +46,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(part)loop.wav",
+                                    baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }

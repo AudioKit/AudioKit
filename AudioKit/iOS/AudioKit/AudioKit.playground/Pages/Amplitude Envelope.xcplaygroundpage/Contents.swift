@@ -23,9 +23,9 @@ fmOscillator.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     var holdDuration = 1.0
-    
+
     var attackLabel: Label?
     var decayLabel: Label?
     var sustainLabel: Label?
@@ -54,7 +54,7 @@ class PlaygroundView: AKPlaygroundView {
 
         releaseLabel = addLabel("Release Duration: \(fmWithADSR.releaseDuration)")
         releaseSlider = addSlider(#selector(setRelease), value: fmWithADSR.releaseDuration)
-        
+
         durationLabel = addLabel("Hold Duration: \(holdDuration)")
         durationSlider = addSlider(#selector(setDuration),
                                    value: 1.0,
@@ -63,10 +63,10 @@ class PlaygroundView: AKPlaygroundView {
 
         addButton("Play Current", action: #selector(PlaygroundView.play))
         addButton("Randomize", action: #selector(randomize))
-        
+
 
     }
-    
+
     func setAttack(slider: Slider) {
         fmWithADSR.attackDuration = Double(slider.value)
         attackLabel!.text = "Attack Duration: \(fmWithADSR.attackDuration)"
@@ -86,7 +86,7 @@ class PlaygroundView: AKPlaygroundView {
         fmWithADSR.releaseDuration = Double(slider.value)
         releaseLabel!.text = "Release Duration: \(fmWithADSR.releaseDuration)"
     }
-    
+
     func setDuration(slider: Slider) {
         holdDuration = Double(slider.value)
         durationLabel!.text = "Hold Duration: \(holdDuration)"
@@ -97,11 +97,11 @@ class PlaygroundView: AKPlaygroundView {
         fmWithADSR.start()
         self.performSelector(#selector(stop), withObject: nil, afterDelay: holdDuration)
     }
-    
+
     func stop() {
         fmWithADSR.stop()
     }
-    
+
     func randomize() {
         fmWithADSR.attackDuration  = random(0.01, 0.5)
         fmWithADSR.decayDuration   = random(0.01, 0.2)
@@ -109,19 +109,19 @@ class PlaygroundView: AKPlaygroundView {
         fmWithADSR.releaseDuration = random(0.01, 1)
         holdDuration = fmWithADSR.attackDuration + fmWithADSR.decayDuration + 0.5
 
-        
+
         attackSlider!.value = Float(fmWithADSR.attackDuration)
         attackLabel!.text = "Attack Duration: \(fmWithADSR.attackDuration)"
-        
+
         decaySlider!.value = Float(fmWithADSR.decayDuration)
         decayLabel!.text = "Decay Duration: \(fmWithADSR.decayDuration)"
-        
+
         sustainSlider!.value = Float(fmWithADSR.sustainLevel)
         sustainLabel!.text = "Sustain Level: \(fmWithADSR.sustainLevel)"
-        
+
         releaseSlider!.value = Float(fmWithADSR.releaseDuration)
         releaseLabel!.text = "Release Duration: \(fmWithADSR.releaseDuration)"
-        
+
         durationSlider!.value = Float(holdDuration)
         durationLabel!.text = "Hold Duration: \(holdDuration)"
 

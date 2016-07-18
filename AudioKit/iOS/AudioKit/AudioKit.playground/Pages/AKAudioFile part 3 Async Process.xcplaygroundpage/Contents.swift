@@ -38,7 +38,7 @@ player4.looping = true
 let reverb = AKReverb(player4)
 
 //: we put all of them them in a mixer.
-let mixer = AKMixer(player1,player2,player3,reverb)
+let mixer = AKMixer(player1, player2, player3, reverb)
 
 //: Let's have some sound now.
 
@@ -46,9 +46,12 @@ AudioKit.output = mixer
 AudioKit.start()
 player1.play()
 
-//: Only player 1 is playing. The other players will play only when we'll have made some process to feed them. As we want to process in background, we need callbacks.
+//: Only player 1 is playing. The other players will play only when we'll have made
+//: some process to feed them. As we want to process in background, we need callbacks.
 
-//: These callback will be triggered when process has been completed. Then, we can get the processed file and use it to feed a player, and start the player. So player 2, 3 and 4 will start to play as soon process their processed file have been completed.
+//: These callbacks will be triggered when process has been completed. Then, we
+//: can get the processed file and use it to feed a player, and start the player.
+//: So player 2, 3 and 4 will start to play as soon as their processed file have been completed.
 
 //: player2 will loop an extract of the piano piece.
 
@@ -69,26 +72,32 @@ func callback3() {
     player4.play()
 }
 
-//: Now, the callbacks are ready, let's begin with the "extract" process. We must provide a number of samples. Lets say we want 10 % of our (beautiful) piano piece
+//: Now, the callbacks are ready, let's begin with the "extract" process. We must
+//: provide a number of samples. Lets say we want 10 % of our (beautiful) piano piece
 
 let tenPerCentsOfPiano = piano!.samplesCount / 10
 
-//: Fine, we'll pick a part from the beginning (but not at the beginning), so we extract from 10 % to 20 % of the piano song)
+//: Fine, we'll pick a part from the beginning (but not at the beginning),
+//: so we extract from 10 % to 20 % of the piano song)
 
-let extractProcess = piano!.extractAsynchronously(tenPerCentsOfPiano, toSample:tenPerCentsOfPiano * 2, completionCallBack: callback1)
+let extractProcess = piano!.extractAsynchronously(fromSample: tenPerCentsOfPiano,
+                                                  toSample:tenPerCentsOfPiano * 2,
+                                                  completionCallBack: callback1)
 //: We want another player to play the piano backward. So we need the reversed audiofile:
 let reverseProcess = piano!.reverseAsynchronously(completionCallBack: callback2)
 //: Then, as a tribute to Franckenstein, we append the guitarloop to the leadloop into a single file
 let appendProcess = lead!.appendAsynchronously(guitar!, completionCallBack: callback3)
 
-//: Process will occur in background, so they won't block the program. Notice that the print will occur before any process has ended. As soon as a process has been completed, its player will play, and newt file will be processed and so on.
+//: Process will occur in background, so they won't block the program.
+//: Notice that the print will occur before any process has ended.
+//: As soon as a process has been completed, its player will play,
+//: and new file will be processed and so on.
 
 print ("Can refresh UI or do anything while processing...")
 
-//: Okay, the result is not so musical. But you can experiment with your own files (copy them in the playground resources folder so you can play with them)
+//: Okay, the result is not so musical. But you can experiment with your own files
+//: (copy them in the playground resources folder so you can play with them)
 
 
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-

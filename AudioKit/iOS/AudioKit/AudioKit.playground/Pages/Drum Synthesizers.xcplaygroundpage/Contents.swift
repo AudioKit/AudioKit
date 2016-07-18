@@ -21,16 +21,16 @@ reverb.loadFactoryPreset(.MediumRoom)
 //: Generate a cheap electro beat
 var counter = 0
 AKPlaygroundLoop(frequency: 4.44) {
-    
+
     let onFirstBeat = counter == 0
     let everyOtherBeat = counter % 4 == 2
     let randomHit = randomInt(0...3) == 0
-    
+
     if onFirstBeat || randomHit {
         kick.play(noteNumber: 60, velocity: 100)
         kick.stop(noteNumber: 60)
     }
-    
+
     if everyOtherBeat {
         let velocity = randomInt(1...100)
         snare.play(noteNumber: 60, velocity: velocity)

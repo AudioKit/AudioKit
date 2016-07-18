@@ -47,10 +47,16 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         centerFrequencyLabel = addLabel("Center Frequency: \(bandPassFilter.centerFrequency) Hz")
-        addSlider(#selector(setCenterFrequency), value: bandPassFilter.centerFrequency, minimum: 20, maximum: 22050)
+        addSlider(#selector(setCenterFrequency),
+                  value: bandPassFilter.centerFrequency,
+                  minimum: 20,
+                  maximum: 22050)
 
         bandwidthLabel = addLabel("Bandwidth \(bandPassFilter.bandwidth) Cents")
-        addSlider(#selector(setBandwidth), value: bandPassFilter.bandwidth, minimum: 100, maximum: 12000)
+        addSlider(#selector(setBandwidth),
+                  value: bandPassFilter.bandwidth,
+                  minimum: 100,
+                  maximum: 12000)
     }
 
     //: Handle UI Events

@@ -46,7 +46,10 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         cutoffFrequencyLabel = addLabel("Cut-off Frequency: \(filter.cutoffFrequency) Hz")
-        addSlider(#selector(setCutoffFrequency), value: filter.cutoffFrequency, minimum: 10, maximum: 22050)
+        addSlider(#selector(setCutoffFrequency),
+                  value: filter.cutoffFrequency,
+                  minimum: 10,
+                  maximum: 22050)
     }
 
     //: Handle UI Events

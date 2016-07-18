@@ -81,7 +81,7 @@ class PlaygroundView: AKPlaygroundView {
         tremoloFreqLabel!.text = "Frequency: \(String(format: "%0.3f", tremolo.frequency))"
         printCode()
     }
-    
+
     func setDepth(slider: Slider) {
         tremolo.depth = Double(slider.value)
         tremoloDepthLabel!.text = "Depth: \(String(format: "%0.3f", tremolo.depth))"

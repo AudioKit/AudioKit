@@ -43,11 +43,14 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Stop", action: #selector(stop))
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
-        addSlider(#selector(setCutoffFrequency), value: reverb.cutoffFrequency, minimum: 0, maximum: 5000)
+        addSlider(#selector(setCutoffFrequency),
+                  value: reverb.cutoffFrequency,
+                  minimum: 0,
+                  maximum: 5000)
 
         feedbackLabel = addLabel("Feedback: \(reverb.feedback)")
         addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
-        
+
         addButton("Short Tail", action: #selector(presetShortTail))
         addButton("Low Ringing Tail", action: #selector(presetLowRingingTail))
     }
@@ -85,7 +88,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func setCutoffFrequency(slider: Slider) {
         reverb.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", reverb.cutoffFrequency))"
+        cutoffFrequencyLabel!.text =
+            "Cutoff Frequency: \(String(format: "%0.0f", reverb.cutoffFrequency))"
         printCode()
     }
 
@@ -94,34 +98,34 @@ class PlaygroundView: AKPlaygroundView {
         feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
         printCode()
     }
-    
+
     //: Audition Presets
-    
+
     func presetShortTail() {
         reverb.presetShortTailCostelloReverb()
         updateUI()
     }
-    
+
     func presetLowRingingTail() {
         reverb.presetLowRingingLongTailCostelloReverb()
         updateUI()
     }
-    
+
     func updateUI() {
         updateTextFields()
         updateSliders()
         printCode()
     }
-    
+
     func updateSliders() {
         cutoffFrequencySlider?.value = Float(reverb.cutoffFrequency)
         feedbackSlider?.value = Float(reverb.feedback)
     }
-    
+
     func updateTextFields() {
         let cutoffFrequency = String(format: "%0.3f", reverb.cutoffFrequency)
         cutoffFrequencyLabel!.text = "Cutoff Frequency: \(cutoffFrequency)"
-        
+
         let feedback = String(format: "%0.3f", reverb.feedback)
         feedbackLabel!.text = "Feedback: \(feedback)"
     }

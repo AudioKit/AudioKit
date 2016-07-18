@@ -85,20 +85,20 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Dial Tone")
         addButton("Start", action: #selector(startDialTone))
-        addButton("Stop",  action: #selector(stopDialTone))
+        addButton("Stop", action: #selector(stopDialTone))
 
         addLabel("Ringing")
         addButton("Start", action: #selector(startRinging))
-        addButton("Stop",  action: #selector(stopRinging))
+        addButton("Stop", action: #selector(stopRinging))
 
         addLabel("Busy Signal")
         addButton("Start", action: #selector(startBusySignal))
-        addButton("Stop",  action: #selector(stopBusySignal))
+        addButton("Stop", action: #selector(stopBusySignal))
         addLineBreak()
 
         addLabel("Keypad")
 
-        addTouchKey("1", text: "",    action: #selector(touch1))
+        addTouchKey("1", text: "", action: #selector(touch1))
         addTouchKey("2", text: "ABC", action: #selector(touch2))
         addTouchKey("3", text: "DEF", action: #selector(touch3))
         addLineBreak()
@@ -107,7 +107,7 @@ class PlaygroundView: AKPlaygroundView {
         addTouchKey("6", text: "MNO", action: #selector(touch6))
         addLineBreak()
         addTouchKey("7", text: "PQRS", action: #selector(touch7))
-        addTouchKey("8", text: "TUV",  action: #selector(touch8))
+        addTouchKey("8", text: "TUV", action: #selector(touch8))
         addTouchKey("9", text: "WXYZ", action: #selector(touch9))
         addLineBreak()
         addTouchKey("*", text: "GHI", action: #selector(touchStar))
@@ -135,7 +135,7 @@ class PlaygroundView: AKPlaygroundView {
     func stopBusySignal() {
         busy.stop()
     }
-    
+
     func touchCall() {
         busy.stop()
         dialTone.stop()
@@ -146,7 +146,7 @@ class PlaygroundView: AKPlaygroundView {
             ringing.start()
         }
     }
-    
+
     func touchBusy() {
         ringing.stop()
         dialTone.stop()
@@ -157,7 +157,7 @@ class PlaygroundView: AKPlaygroundView {
             busy.start()
         }
     }
-    
+
     func touchKeyPad(text: String) {
         dialTone.stop()
         ringing.stop()
@@ -167,19 +167,19 @@ class PlaygroundView: AKPlaygroundView {
         keypad.trigger()
         usleep(250000)
     }
-    
+
     func touch1() { touchKeyPad("1") }
     func touch2() { touchKeyPad("2") }
     func touch3() { touchKeyPad("3") }
-    
+
     func touch4() { touchKeyPad("4") }
     func touch5() { touchKeyPad("5") }
     func touch6() { touchKeyPad("6") }
-    
+
     func touch7() { touchKeyPad("7") }
     func touch8() { touchKeyPad("8") }
     func touch9() { touchKeyPad("9") }
-    
+
     func touchStar() { touchKeyPad("*") }
     func touch0() { touchKeyPad("0") }
     func touchHash() { touchKeyPad("#") }

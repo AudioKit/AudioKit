@@ -13,10 +13,16 @@ let updateRate = AKOperation.parameters(0)
 //: Vary the starting frequency and duration randomly
 let start = AKOperation.randomNumberPulse() * 2000 + 300
 let duration = AKOperation.randomNumberPulse()
-let frequency = AKOperation.lineSegment(AKOperation.metronome(updateRate), start: start, end: 0, duration: duration)
+let frequency = AKOperation.lineSegment(AKOperation.metronome(updateRate),
+                                        start: start,
+                                        end: 0,
+                                        duration: duration)
 
 //: Decrease the amplitude exponentially
-let amplitude = AKOperation.exponentialSegment(AKOperation.metronome(updateRate), start: 0.3, end: 0.01, duration: 1.0 / updateRate)
+let amplitude = AKOperation.exponentialSegment(AKOperation.metronome(updateRate),
+                                               start: 0.3,
+                                               end: 0.01,
+                                               duration: 1.0 / updateRate)
 let sine = AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
 
 let generator = AKOperationGenerator(operation:  sine)
@@ -37,15 +43,15 @@ generator.start()
 
 class PlaygroundView: AKPlaygroundView {
     var speedLabel: Label?
-    
+
     override func setup() {
         addTitle("Segment Operations")
-        
+
         speedLabel = addLabel("Update Rate: \(generator.parameters[0])")
         addSlider(#selector(setSpeed), value: generator.parameters[0], minimum: 0.1, maximum: 10)
-        
+
     }
-    
+
     func setSpeed(slider: Slider) {
         generator.parameters[0] = Double(slider.value)
         speedLabel!.text = "Update Rate: \(String(format: "%0.3f", generator.parameters[0]))"

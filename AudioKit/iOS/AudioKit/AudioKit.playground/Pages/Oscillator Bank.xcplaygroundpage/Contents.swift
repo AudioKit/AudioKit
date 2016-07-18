@@ -13,34 +13,34 @@ AudioKit.output = osc
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
-    
+
     var attackLabel: Label?
     var decayLabel: Label?
     var sustainLabel: Label?
     var releaseLabel: Label?
     var detuningOffsetLabel: Label?
     var detuningMultiplierLabel: Label?
-    
+
     override func setup() {
         addTitle("Oscillator Bank")
 
         attackLabel = addLabel("Attack: \(osc.attackDuration)")
         addSlider(#selector(setAttack), value: osc.attackDuration, minimum: 0.0, maximum: 2.0)
-        
+
         decayLabel = addLabel("Decay: \(osc.decayDuration)")
         addSlider(#selector(setDecay), value: osc.decayDuration, minimum: 0.0, maximum: 2.0)
 
         sustainLabel = addLabel("Sustain: \(osc.sustainLevel)")
         addSlider(#selector(setSustain), value: osc.sustainLevel, minimum: 0.0, maximum: 2.0)
 
-        
+
         releaseLabel = addLabel("Release: \(osc.releaseDuration)")
         addSlider(#selector(setRelease), value: osc.releaseDuration, minimum: 0.0, maximum: 2.0)
 
 
         detuningOffsetLabel = addLabel("Detuning Offset: \(osc.detuningOffset)")
         addSlider(#selector(setDetuningOffset), value: osc.detuningOffset, minimum: -1000, maximum: 1000)
-        
+
         detuningMultiplierLabel = addLabel("Detuning Multiplier: \(osc.detuningMultiplier)")
         addSlider(#selector(setDetuningMultiplier), value: osc.detuningMultiplier, minimum: 0.9, maximum: 1.1)
 
@@ -50,25 +50,25 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         keyboard.delegate = self
         self.addSubview(keyboard)
     }
-    
+
     func noteOn(note: Int) {
         osc.play(noteNumber: note, velocity: 80)
     }
-    
+
     func noteOff(note: Int) {
         osc.stop(noteNumber: note)
     }
-    
+
     func setAttack(slider: Slider) {
         osc.attackDuration = Double(slider.value)
         attackLabel!.text = "Attack: \(String(format: "%0.3f", osc.attackDuration))"
     }
-    
+
     func setDecay(slider: Slider) {
         osc.decayDuration = Double(slider.value)
         decayLabel!.text = "Decay: \(String(format: "%0.3f", osc.decayDuration))"
     }
-    
+
     func setSustain(slider: Slider) {
         osc.sustainLevel = Double(slider.value)
         sustainLabel!.text = "Sustain: \(String(format: "%0.3f", osc.sustainLevel))"
@@ -81,12 +81,14 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 
     func setDetuningOffset(slider: Slider) {
         osc.detuningOffset = Double(slider.value)
-        detuningOffsetLabel!.text = "Detuning Offset: \(String(format: "%0.3f", osc.detuningOffset))"
+        detuningOffsetLabel!.text =
+            "Detuning Offset: \(String(format: "%0.3f", osc.detuningOffset))"
     }
 
     func setDetuningMultiplier(slider: Slider) {
         osc.detuningMultiplier = Double(slider.value)
-        detuningMultiplierLabel!.text = "Detuning Multiplier: \(String(format: "%0.3f", osc.detuningMultiplier))"
+        detuningMultiplierLabel!.text =
+            "Detuning Multiplier: \(String(format: "%0.3f", osc.detuningMultiplier))"
     }
 
 }

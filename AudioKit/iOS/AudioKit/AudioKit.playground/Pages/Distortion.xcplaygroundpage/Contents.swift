@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
     var polynomialMixLabel: Label?
     var softClipGainLabel: Label?
     var finalMixLabel: Label?
-    
+
     var delaySlider: Slider?
     var decaySlider: Slider?
     var delayMixSlider: Slider?
@@ -72,10 +72,16 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         delayLabel = addLabel("Delay: \(distortion.delay) Milliseconds")
-        delaySlider = addSlider(#selector(setDelay), value: distortion.delay, minimum: 0.1, maximum: 500)
+        delaySlider = addSlider(#selector(setDelay),
+                                value: distortion.delay,
+                                minimum: 0.1,
+                                maximum: 500)
 
         decayLabel = addLabel("Decay: \(distortion.decay) Rate")
-        decaySlider = addSlider(#selector(setDecay), value: distortion.decay, minimum: 0.1, maximum: 50)
+        decaySlider = addSlider(#selector(setDecay),
+                                value: distortion.decay,
+                                minimum: 0.1,
+                                maximum: 50)
 
         delayMixLabel = addLabel("Delay Mix: \(distortion.delayMix)")
         delayMixSlider = addSlider(#selector(setDelayMix), value: distortion.delayMix)
@@ -90,10 +96,14 @@ class PlaygroundView: AKPlaygroundView {
         cubicTermSlider = addSlider(#selector(setCubicTerm), value: distortion.cubicTerm)
 
         polynomialMixLabel = addLabel("Polynomial Mix: \(distortion.polynomialMix)")
-        polynomialMixSlider = addSlider(#selector(setPolynomialMix), value: distortion.polynomialMix)
+        polynomialMixSlider = addSlider(#selector(setPolynomialMix),
+                                        value: distortion.polynomialMix)
 
         softClipGainLabel = addLabel("Soft Clip Gain: \(distortion.softClipGain) dB")
-        softClipGainSlider = addSlider(#selector(setSoftClipGain), value: distortion.softClipGain, minimum: -80, maximum: 20)
+        softClipGainSlider = addSlider(#selector(setSoftClipGain),
+                                       value: distortion.softClipGain,
+                                       minimum: -80,
+                                       maximum: 20)
 
         finalMixLabel = addLabel("Final Mix: \(distortion.finalMix)")
         finalMixSlider = addSlider(#selector(setFinalMix), value: distortion.finalMix)
@@ -204,21 +214,21 @@ class PlaygroundView: AKPlaygroundView {
         finalMixLabel!.text = "finalMix: \(finalMix)"
         printCode()
     }
-    
-    
+
+
     //: Audition Presets
-    
+
     func presetInfiniteDistortionWall() {
         distortion.presetInfiniteDistortionWall()
         updateUI()
     }
-    
+
     func updateUI() {
         updateTextFields()
         updateSliders()
         printCode()
     }
-    
+
     func updateSliders() {
         delaySlider?.value = Float(distortion.delay)
         decaySlider?.value = Float(distortion.decay)
@@ -230,14 +240,14 @@ class PlaygroundView: AKPlaygroundView {
         softClipGainSlider?.value = Float(distortion.softClipGain)
         finalMixSlider?.value = Float(distortion.finalMix)
     }
-    
+
     func updateTextFields() {
         let delay = String(format: "%0.3f", distortion.delayMix)
         delayLabel!.text = "Delay: \(delay) Milliseconds"
-        
+
         let decay = String(format: "%0.3f", distortion.decay)
         decayLabel!.text = "Decay: \(decay) Rate"
-        
+
         let delayMix = String(format: "%0.3f", distortion.delayMix)
         delayMixLabel!.text = "Delay Mix: \(delayMix)"
 

@@ -30,7 +30,7 @@ let tape = try? AKAudioFile()
 let player = try? AKAudioPlayer(file: tape!)
 
 //: We mix our reverberated oscillator with our player, so we can listen to both.
-let mixer = AKMixer(player!,reverb)
+let mixer = AKMixer(player!, reverb)
 AudioKit.output = mixer
 
 AudioKit.start()

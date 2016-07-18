@@ -18,71 +18,83 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var carrierMultiplierLabel: Label?
     var modulatingMultiplierLabel: Label?
     var modulationIndexLabel: Label?
-    
+
     var attackLabel: Label?
     var releaseLabel: Label?
-    
+
     override func setup() {
         addTitle("FM Oscillator Bank")
-        
-        
+
+
         carrierMultiplierLabel = addLabel("Carrier Multiplier: \(osc.carrierMultiplier)")
-        addSlider(#selector(setCarrierMultiplier), value: osc.carrierMultiplier, minimum: 0.0, maximum: 2.0)
+        addSlider(#selector(setCarrierMultiplier),
+                  value: osc.carrierMultiplier,
+                  minimum: 0.0,
+                  maximum: 2.0)
 
         modulatingMultiplierLabel = addLabel("Modulating Multiplier: \(osc.modulatingMultiplier)")
-        addSlider(#selector(setModulatingMultiplier), value: osc.modulatingMultiplier, minimum: 0.0, maximum: 2.0)
+        addSlider(#selector(setModulatingMultiplier),
+                  value: osc.modulatingMultiplier,
+                  minimum: 0.0,
+                  maximum: 2.0)
 
         modulationIndexLabel = addLabel("Modulation Index: \(osc.modulationIndex)")
-        addSlider(#selector(setModulationIndex), value: osc.modulationIndex, minimum: 0.0, maximum: 20.0)
+        addSlider(#selector(setModulationIndex),
+                  value: osc.modulationIndex,
+                  minimum: 0.0,
+                  maximum: 20.0)
 
-        
+
         attackLabel = addLabel("Attack: \(osc.attackDuration)")
         addSlider(#selector(setAttack), value: osc.attackDuration, minimum: 0.0, maximum: 2.0)
-        
+
         releaseLabel = addLabel("Release: \(osc.releaseDuration)")
         addSlider(#selector(setRelease), value: osc.releaseDuration, minimum: 0.0, maximum: 2.0)
-        
+
         let keyboard = PolyphonicKeyboardView(width: 500, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)
         keyboard.setNeedsDisplay()
         keyboard.delegate = self
         self.addSubview(keyboard)
     }
-    
+
     func noteOn(note: Int) {
         osc.play(noteNumber: note, velocity: 80)
     }
-    
+
     func noteOff(note: Int) {
         osc.stop(noteNumber: note)
     }
 
     func setCarrierMultiplier(slider: Slider) {
         osc.carrierMultiplier = Double(slider.value)
-        carrierMultiplierLabel!.text = "Carrier Multiplier: \(String(format: "%0.3f", osc.carrierMultiplier))"
+        carrierMultiplierLabel!.text =
+            "Carrier Multiplier: \(String(format: "%0.3f", osc.carrierMultiplier))"
     }
-    
+
     func setModulatingMultiplier(slider: Slider) {
         osc.modulatingMultiplier = Double(slider.value)
-        modulatingMultiplierLabel!.text = "Modulating Multiplier: \(String(format: "%0.3f", osc.modulatingMultiplier))"
+        modulatingMultiplierLabel!.text =
+            "Modulating Multiplier: \(String(format: "%0.3f", osc.modulatingMultiplier))"
     }
 
     func setModulationIndex(slider: Slider) {
         osc.modulationIndex = Double(slider.value)
-        modulationIndexLabel!.text = "Modulation Index: \(String(format: "%0.3f", osc.modulationIndex))"
+        modulationIndexLabel!.text =
+            "Modulation Index: \(String(format: "%0.3f", osc.modulationIndex))"
     }
 
     func setAttack(slider: Slider) {
         osc.attackDuration = Double(slider.value)
         attackLabel!.text = "Attack: \(String(format: "%0.3f", osc.attackDuration))"
     }
-    
+
     func setRelease(slider: Slider) {
         osc.releaseDuration = Double(slider.value)
         releaseLabel!.text = "Release: \(String(format: "%0.3f", osc.releaseDuration))"
     }
 
-    
+
 }
 
 

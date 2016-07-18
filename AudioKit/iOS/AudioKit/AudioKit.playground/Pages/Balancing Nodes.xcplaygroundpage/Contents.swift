@@ -28,15 +28,15 @@ source!.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Balancing Nodes")
-        
+
         addLabel("Listen to the difference in volume:")
         addButton("Balance", action: #selector(start))
         addButton("Bypass", action: #selector(bypass))
     }
-    
+
     func start() {
         rebalancedWithSource.start()
     }
