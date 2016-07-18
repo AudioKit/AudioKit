@@ -3,7 +3,6 @@
     <pages>
         <page name='Table Of Contents'/>
         <page name='3D Panner'/>
-        <page name='AKAudioFile Demo'/>
         <page name='Amplitude Envelope'/>
         <page name='Audio Player'/>
         <page name='AutoPan Operation'/>
@@ -29,6 +28,7 @@
         <page name='Drum Synthesizers'/>
         <page name='Dry Wet Mixer'/>
         <page name='Dynamics Processor'/>
+        <page name='Editing Audio Files'/>
         <page name='Fatten Effect'/>
         <page name='FFT Analysis'/>
         <page name='Filter Envelope'/>
@@ -79,17 +79,19 @@
         <page name='Parametric Equalizer'/>
         <page name='Peak Limiter'/>
         <page name='Pedestrians'/>
+        <page name='Phase Distortion Oscillator'/>
+        <page name='Phase Distortion Oscillator Bank'/>
         <page name='Phase-Locked Vocoder'/>
         <page name='Phasor Operation'/>
         <page name='Pink and White Noise Generators'/>
         <page name='Pitch Shifter'/>
         <page name='Playback Speed'/>
-        <page name='Phase Distortion Oscillator'/>
-        <page name='Phase Distortion Oscillator Bank'/>
         <page name='Plucked String Operation'/>
         <page name='Plucked String'/>
+        <page name='Processing Audio Files Asynchronously'/>
         <page name='PWM Oscillator'/>
         <page name='PWM Oscillator Bank'/>
+        <page name='Reading and Writing Audio Files'/>
         <page name='Recording Nodes'/>
         <page name='Resonant Filter'/>
         <page name='Resonant Filter Operation'/>
@@ -122,7 +124,5 @@
         <page name='Using Functions'/>
         <page name='Variable Delay Operation'/>
         <page name='Variable Delay'/>
-        <page name='AKAudioFile part2'/>
-        <page name='AKAudioFile part 3 Async Process'/>
     </pages>
 </playground>

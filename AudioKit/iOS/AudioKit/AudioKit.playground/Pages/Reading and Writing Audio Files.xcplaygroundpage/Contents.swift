@@ -2,9 +2,9 @@
 //:
 //: ---
 //:
-//: ## AKAudioFile Demo
+//: ## Reading and Writing Audio Files
 //:
-//: AKAudioFile inherits from AVAudioFile so you can use it just like any AVAudioFile :
+//: AKAudioFile inherits from AVAudioFile so you can use it just like any AVAudioFile
 import XCPlayground
 import AudioKit
 
