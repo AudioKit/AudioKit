@@ -3,7 +3,6 @@
 //: ---
 //:
 //: ## High Shelf Filter
-//: ### A high-Shelf filter takes an audio signal as an input, and cuts out the low-frequency components of the audio signal, allowing for the higher frequency components to "Shelf through" the filter.
 //:
 import XCPlayground
 import AudioKit
@@ -114,7 +113,8 @@ class PlaygroundView: AKPlaygroundView {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
         Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutOffFrequency = \(String(format: "%0.3f", highShelfFilter.cutOffFrequency))")
+        Swift.print("    cutOffFrequency = " +
+            String(format: "%0.3f", highShelfFilter.cutOffFrequency))
         Swift.print("    gain = \(String(format: "%0.3f", highShelfFilter.gain))")
         Swift.print("}\n")
     }

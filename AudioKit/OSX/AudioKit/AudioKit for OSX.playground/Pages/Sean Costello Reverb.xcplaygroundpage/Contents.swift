@@ -88,7 +88,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func setCutoffFrequency(slider: Slider) {
         reverb.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", reverb.cutoffFrequency))"
+        cutoffFrequencyLabel!.text = "Cutoff Frequency: " +
+            String(format: "%0.0f", reverb.cutoffFrequency)
         printCode()
     }
 

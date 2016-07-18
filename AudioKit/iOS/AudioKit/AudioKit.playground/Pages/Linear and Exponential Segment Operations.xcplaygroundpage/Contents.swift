@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Linear and Exponential Segment Operations
-//: ### You can create segments that vary parameters in operations over a certain duration.  Here we create an alien apocalypse.
+//: ### You can create segments that vary parameters in operations over a certain duration.
+//: ### Here we create an alien apocalypse.
 //:
 import XCPlayground
 import AudioKit

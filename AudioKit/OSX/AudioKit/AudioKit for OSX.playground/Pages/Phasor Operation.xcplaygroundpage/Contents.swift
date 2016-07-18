@@ -8,9 +8,10 @@ import XCPlayground
 import AudioKit
 
 let interval: Double = 2
-let numberOfNotes: Double = 24
+let noteCount: Double = 24
 let startingNote: Double = 48 // C
-let frequency = (floor(AKOperation.phasor(frequency: 0.5) * numberOfNotes) * interval  + startingNote).midiNoteToFrequency()
+let frequency = (floor(AKOperation.phasor(frequency: 0.5) * noteCount) * interval  + startingNote)
+    .midiNoteToFrequency()
 
 var amplitude = (AKOperation.phasor(frequency: 0.5) - 1).portamento() // prevents the click sound
 

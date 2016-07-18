@@ -38,7 +38,10 @@ public class KeyboardView: NSView {
         NSRectFill(self.bounds)
     }
 
-    public init(width: Int, height: Int, delegate: KeyboardDelegate, lowestKey: Int = 48, totalKeys: Int = 37) {
+    public init(width: Int, height: Int,
+                delegate: KeyboardDelegate,
+                lowestKey: Int = 48,
+                totalKeys: Int = 37) {
         self.delegate = delegate
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         let allowedNotes = notesWithSharps //["A", "B", "C#", "D", "E", "F#", "G"]
@@ -46,15 +49,18 @@ public class KeyboardView: NSView {
         let keyWidth = width / totalKeys - 1
         let height = Int(frame.height)
 
-        let blackFrame = NSView(frame: CGRect(x: 0, y: 0, width: (keyWidth + 1) * totalKeys + 1, height: height))
+        let blackFrame = NSView(frame:
+            CGRect(x: 0, y: 0, width: (keyWidth + 1) * totalKeys + 1, height: height))
         blackFrame.layer?.backgroundColor = CGColorCreateGenericGray(0.5, 0.5)
         self.addSubview(blackFrame)
 
         var keyCount = 0
         var increment = 0
         while keyCount < totalKeys {
-            if  allowedNotes.indexOf(notesWithFlats[(lowestKey + increment) % 12]) != nil || allowedNotes.indexOf(notesWithSharps[(lowestKey + increment) % 12]) != nil {
-                let newButton = KeyView(frame:CGRect(x: 0, y: 0, width: keyWidth, height: height - 2))
+            if  allowedNotes.indexOf(notesWithFlats[(lowestKey + increment) % 12]) != nil ||
+                allowedNotes.indexOf(notesWithSharps[(lowestKey + increment) % 12]) != nil {
+                let newButton = KeyView(frame:
+                    CGRect(x: 0, y: 0, width: keyWidth, height: height - 2))
                 if notesWithSharps[(lowestKey + increment) % 12].rangeOfString("#") != nil {
                     newButton.backgroundColor = NSColor.blackColor()
                 } else {

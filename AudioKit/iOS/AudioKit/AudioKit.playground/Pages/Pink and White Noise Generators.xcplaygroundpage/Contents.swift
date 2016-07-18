@@ -34,7 +34,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func setBalance(slider: Slider) {
         pinkWhiteMixer.balance = Double(slider.value)
-        balanceLabel!.text = "Pink to White Noise Balance: \(String(format: "%0.3f", pinkWhiteMixer.balance))"
+        balanceLabel!.text = "Pink to White Noise Balance: " +
+            String(format: "%0.3f", pinkWhiteMixer.balance)
         pinkWhiteMixer.balance // to plot value history
     }
     func setVolume(slider: Slider) {

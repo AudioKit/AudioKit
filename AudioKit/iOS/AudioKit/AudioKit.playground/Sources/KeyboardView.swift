@@ -30,15 +30,18 @@ public class KeyboardView: UIView {
         let keyWidth = width / totalKeys - 1
         let height = Int(frame.height)
 
-        let blackFrame = UIView(frame: CGRect(x: 0, y: 0, width: (keyWidth + 1) * totalKeys + 1, height: height))
+        let blackFrame = UIView(frame:
+            CGRect(x: 0, y: 0, width: (keyWidth + 1) * totalKeys + 1, height: height))
         blackFrame.backgroundColor = UIColor.blackColor()
         self.addSubview(blackFrame)
 
         var keyCount = 0
         var increment = 0
         while keyCount < totalKeys {
-            if  allowedNotes.indexOf(notesWithFlats[(lowestKey + increment) % 12]) != nil || allowedNotes.indexOf(notesWithSharps[(lowestKey + increment) % 12]) != nil {
-                let newButton = UIView(frame:CGRect(x: 0, y: 0, width: keyWidth, height: height - 2))
+            if  allowedNotes.indexOf(notesWithFlats[(lowestKey + increment) % 12]) != nil ||
+                allowedNotes.indexOf(notesWithSharps[(lowestKey + increment) % 12]) != nil {
+                let newButton = UIView(frame:
+                    CGRect(x: 0, y: 0, width: keyWidth, height: height - 2))
                 if notesWithSharps[(lowestKey + increment) % 12].rangeOfString("#") != nil {
                     newButton.backgroundColor = UIColor.blackColor()
                 } else {

@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## FM Oscillator Operation
-//: 
+//:
 import XCPlayground
 import AudioKit
 

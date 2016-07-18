@@ -38,7 +38,11 @@ class PlaygroundView: AKPlaygroundView {
 
     func play() {
         player.stop()
-        try! player.replaceFile(file)
+        do {
+            try player.replaceFile(file)
+        } catch {
+            print("Could not replace file!")
+        }
         player.play()
     }
 

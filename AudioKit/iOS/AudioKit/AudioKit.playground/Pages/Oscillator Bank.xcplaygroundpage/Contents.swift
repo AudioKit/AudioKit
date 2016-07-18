@@ -39,10 +39,16 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 
 
         detuningOffsetLabel = addLabel("Detuning Offset: \(osc.detuningOffset)")
-        addSlider(#selector(setDetuningOffset), value: osc.detuningOffset, minimum: -1000, maximum: 1000)
+        addSlider(#selector(setDetuningOffset),
+                  value: osc.detuningOffset,
+                  minimum: -1000,
+                  maximum: 1000)
 
         detuningMultiplierLabel = addLabel("Detuning Multiplier: \(osc.detuningMultiplier)")
-        addSlider(#selector(setDetuningMultiplier), value: osc.detuningMultiplier, minimum: 0.9, maximum: 1.1)
+        addSlider(#selector(setDetuningMultiplier),
+                  value: osc.detuningMultiplier,
+                  minimum: 0.9,
+                  maximum: 1.1)
 
         let keyboard = PolyphonicKeyboardView(width: 500, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)

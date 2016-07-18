@@ -258,7 +258,8 @@ class PlaygroundView: AKPlaygroundView {
         print("public func presetXXXXXX() {")
         print("    baseFrequency = \(String(format: "%0.3f", oscillator.baseFrequency))")
         print("    carrierMultiplier = \(String(format: "%0.3f", oscillator.carrierMultiplier))")
-        print("    modulatingMultiplier = \(String(format: "%0.3f", oscillator.modulatingMultiplier))")
+        print("    modulatingMultiplier = " +
+            String(format: "%0.3f", oscillator.modulatingMultiplier))
         print("    modulationIndex = \(String(format: "%0.3f", oscillator.modulationIndex))")
         print("}\n")
     }

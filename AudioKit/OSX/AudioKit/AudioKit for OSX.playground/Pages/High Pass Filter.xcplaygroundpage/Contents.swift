@@ -3,7 +3,9 @@
 //: ---
 //:
 //: ## High Pass Filter
-//: ### A high-pass filter takes an audio signal as an input, and cuts out the low-frequency components of the audio signal, allowing for the higher frequency components to "pass through" the filter.
+//: ### A high-pass filter takes an audio signal as an input, and cuts out the
+//: ### low-frequency components of the audio signal, allowing for the higher frequency
+//: ### components to "pass through" the filter.
 //:
 import XCPlayground
 import AudioKit
@@ -114,7 +116,8 @@ class PlaygroundView: AKPlaygroundView {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
         Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutoffFrequency = \(String(format: "%0.3f", highPassFilter.cutoffFrequency))")
+        Swift.print("    cutoffFrequency = " +
+            String(format: "%0.3f", highPassFilter.cutoffFrequency))
         Swift.print("    resonance = \(String(format: "%0.3f", highPassFilter.resonance))")
         Swift.print("}\n")
     }

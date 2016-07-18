@@ -16,9 +16,13 @@ AudioKit.output = AKMixer(tink, reverb)
 AudioKit.start()
 /*:
  ## Newton's Cradle and UIKit Dynamics
- This playground uses **UIKit Dynamics** to create a [Newton's Cradle](https://en.wikipedia.org/wiki/Newton%27s_cradle). Commonly seen on desks around the world, Newton's Cradle is a device that illustrates conservation of momentum and energy.
+ This playground uses **UIKit Dynamics** to create a
+ [Newton's Cradle](https://en.wikipedia.org/wiki/Newton%27s_cradle).
+ Commonly seen on desks around the world, Newton's Cradle is a device
+ that illustrates conservation of momentum and energy.
 
- Let's create an instance of our UIKit Dynamics based Newton's Cradle. Try adding more colors to the array to increase the number of balls in the device.
+ Let's create an instance of our UIKit Dynamics based Newton's Cradle.
+ Try adding more colors to the array to increase the number of balls in the device.
  */
 let newtonsCradle = NewtonsCradle(colors:
     [[#Color(colorLiteralRed: 0.878, green: 0.381, blue: 0.577, alpha: 1)#],
@@ -27,7 +31,7 @@ let newtonsCradle = NewtonsCradle(colors:
         [#Color(colorLiteralRed: 0.522, green: 0.8, blue: 0.346, alpha: 1)#]])
 /*:
  ### Size and spacing
- Try changing the size and spacing of the balls and see how that changes the device. 
+ Try changing the size and spacing of the balls and see how that changes the device.
  What happens if you make `ballPadding` a negative number?
  */
 newtonsCradle.ballSize = CGSize(width: 60, height: 60)
@@ -46,7 +50,8 @@ newtonsCradle.useSquaresInsteadOfBalls = false
 newtonsCradle.itemBehavior.allowsRotation = false
 /*:
  ### Gravity
- Change the `angle` and/or `magnitude` of gravity to see what Newton's Device might look like in another world.
+ Change the `angle` and/or `magnitude` of gravity to see what
+ Newton's Device might look like in another world.
  */
 newtonsCradle.gravityBehavior.angle = CGFloat(M_PI_2)
 newtonsCradle.gravityBehavior.magnitude = CGFloat(gravity)

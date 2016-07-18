@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-//: This first section sets up parameter naming in such a way to make the operation code easier to read below.
+//: This first section sets up parameter naming in such a way
+//: to make the operation code easier to read below.
 
 enum AutoPanParameter: Int {
     case Speed, Depth

@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Fatten Effect
-//: ### This is a cool fattening effect that Matthew Flecher wanted for the Analog Synth X project, so it was developed here in a playground first.
+//: ### This is a cool fattening effect that Matthew Flecher wanted for the
+//: ### Analog Synth X project, so it was developed here in a playground first.
 import XCPlayground
 import AudioKit
 
@@ -19,8 +20,10 @@ let input = AKStereoOperation.input
 let fattenTimeParameter = AKOperation.parameters(0)
 let fattenMixParameter = AKOperation.parameters(1)
 
-let fattenOperation = AKStereoOperation(
-    "\(input) dup \(1 - fattenMixParameter) * swap 0 \(fattenTimeParameter) 1.0 vdelay \(fattenMixParameter) * +")
+let fattenText = "\(input) dup \(1 - fattenMixParameter) * swap 0 " +
+    "\(fattenTimeParameter) 1.0 vdelay \(fattenMixParameter) * +"
+
+let fattenOperation = AKStereoOperation(fattenText)
 let fatten = AKOperationEffect(player, stereoOperation: fattenOperation)
 
 AudioKit.output = fatten
