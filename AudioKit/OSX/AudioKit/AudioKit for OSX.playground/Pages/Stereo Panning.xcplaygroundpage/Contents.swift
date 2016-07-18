@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Stereo Panning
-//: ### Panning is a basic operation that is essential to mixing and direction perception and it couldn't be easier with AKPanner.
+//: ### Panning is a basic operation that is essential to mixing and direction
+//: ### perception and it couldn't be easier with AKPanner.
 import XCPlayground
 import AudioKit
 

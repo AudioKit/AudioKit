@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Sporth Based Effect
-//: ### You can also create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth). This is an example of an effect written in Sporth.
+//: ### You can also create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth).
+//: ### This is an example of an effect written in Sporth.
 import XCPlayground
 import AudioKit
 

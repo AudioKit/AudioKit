@@ -3,7 +3,12 @@
 //: ---
 //:
 //: ## Multi-tap Delay
-//: ### A multi-tap delay is a delay line where multiple 'taps' or outputs are taken from a delay buffer at different points, and the taps are then summed with the original. Multi-tap delays are great for creating rhythmic delay patterns, but they can also be used to create sound fields of such density that they start to take on some of the qualities we'd more usually associate with reverb. - Geoff Smith, Sound on Sound
+//: ### A multi-tap delay is a delay line where multiple 'taps' or outputs are
+//: ### taken from a delay buffer at different points, and the taps are then
+//: ### summed with the original. Multi-tap delays are great for creating
+//: ### rhythmic delay patterns, but they can also be used to create sound
+//: ### fields of such density that they start to take on some of the qualities
+//: ### we'd more usually associate with reverb. - Geoff Smith, Sound on Sound
 import XCPlayground
 import AudioKit
 

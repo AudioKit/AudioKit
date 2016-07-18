@@ -15,7 +15,8 @@ var oscillator = AKOscillator(waveform: AKTable(.Sawtooth))
 var currentAmplitude = 0.1
 var currentRampTime = 0.2
 
-//: We pass our Oscillator thru a mixer. It fixes a problem with raw oscillator nodes that can only be recorded once they passed thru an AKMixer.
+//: We pass our Oscillator thru a mixer. It fixes a problem with raw oscillator
+//: nodes that can only be recorded once they passed thru an AKMixer.
 
 let oscMixer = AKMixer(oscillator)
 
@@ -35,7 +36,8 @@ AudioKit.output = mixer
 
 AudioKit.start()
 
-//: Now we set an AKNodeRecorder to our oscillator. You can change the recorded node to "reverb" if you prefer to record a "wet" oscillator...
+//: Now we set an AKNodeRecorder to our oscillator. You can change the recorded
+//: node to "reverb" if you prefer to record a "wet" oscillator...
 let recorder = try? AKNodeRecorder(node: oscMixer, file: tape!)
 
 

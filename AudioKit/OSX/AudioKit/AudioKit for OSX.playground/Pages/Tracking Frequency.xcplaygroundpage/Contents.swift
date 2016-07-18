@@ -3,7 +3,9 @@
 //: ---
 //:
 //: ## Tracking Frequency
-//: ### Tracking frequency is just as easy as tracking amplitude, and even includes amplitude, but it is more CPU intensive, so if you just need amplitude, use the amplitude tracker.
+//: ### Tracking frequency is just as easy as tracking amplitude, and
+//: ### even includes amplitude, but it is more CPU intensive, so if you just
+//: ### need amplitude, use the amplitude tracker.
 import XCPlayground
 import AudioKit
 

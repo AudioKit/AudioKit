@@ -3,7 +3,9 @@
 //: ---
 //:
 //: ## Low Pass Filter
-//: ### A low-pass filter takes an audio signal as an input, and cuts out the high-frequency components of the audio signal, allowing for the lower frequency components to "pass through" the filter.
+//: ### A low-pass filter takes an audio signal as an input, and cuts out the
+//: ### high-frequency components of the audio signal, allowing for the
+//: ### lower frequency components to "pass through" the filter.
 //:
 import XCPlayground
 import AudioKit

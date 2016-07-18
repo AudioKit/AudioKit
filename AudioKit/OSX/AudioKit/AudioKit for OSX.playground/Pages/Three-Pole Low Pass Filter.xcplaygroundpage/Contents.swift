@@ -86,7 +86,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func setCutoffFrequency(slider: Slider) {
         filter.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", filter.cutoffFrequency))"
+        cutoffFrequencyLabel!.text = "Cutoff Frequency: " +
+            String(format: "%0.0f", filter.cutoffFrequency)
     }
 
     func setResonance(slider: Slider) {

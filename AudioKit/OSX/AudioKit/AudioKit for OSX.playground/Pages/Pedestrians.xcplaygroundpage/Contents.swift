@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Pedestrians
-//: ### A British crossing signal implemented with AudioKit, an example from Andy Farnell's excellent book "Designing Sound"
+//: ### A British crossing signal implemented with AudioKit, an example from
+//: ### Andy Farnell's excellent book "Designing Sound"
 import XCPlayground
 import AudioKit
 
