@@ -148,8 +148,10 @@ class PlaygroundView: AKPlaygroundView {
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    pregain = \(String(format: "%0.3f", distortion.pregain))")
         Swift.print("    postgain = \(String(format: "%0.3f", distortion.postgain))")
-        Swift.print("    postiveShapeParameter = \(String(format: "%0.3f", distortion.postiveShapeParameter))")
-        Swift.print("    negativeShapeParameter = \(String(format: "%0.3f", distortion.negativeShapeParameter))")
+        Swift.print("    postiveShapeParameter = " +
+            String(format: "%0.3f", distortion.postiveShapeParameter))
+        Swift.print("    negativeShapeParameter = " +
+            String(format: "%0.3f", distortion.negativeShapeParameter))
         Swift.print("}\n")
     }
 

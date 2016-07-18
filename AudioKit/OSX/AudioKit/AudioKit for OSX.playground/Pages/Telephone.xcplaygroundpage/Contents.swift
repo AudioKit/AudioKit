@@ -16,7 +16,8 @@ let dialToneMix = mixer(dialTone1, dialTone2, balance: 0.5)
 let dialTone = AKOperationGenerator(operation: dialToneMix * 0.3)
 
 //: ## Telephone Ringing
-//: The ringing sound is also a pair of frequencies that play for 2 seconds, and repeats every 6 seconds.
+//: The ringing sound is also a pair of frequencies that play for 2 seconds,
+//: and repeats every 6 seconds.
 let ringingTone1 = AKOperation.sineWave(frequency: 480)
 let ringingTone2 = AKOperation.sineWave(frequency: 440)
 

@@ -3,7 +3,9 @@
 //: ---
 //:
 //: ## Tracking Amplitude
-//: ### Here, we show how you can determine the amplitude of an audio signal by outputting the value of a generator node into the AKAmplitudeTracker. This node is great if you want to build an app that does audio monitoring and analysis.
+//: ### Here, we show how you can determine the amplitude of an audio signal by
+//: ### outputting the value of a generator node into the AKAmplitudeTracker.
+//: ### This node is great if you want to build an app that does audio monitoring and analysis.
 import XCPlayground
 import AudioKit
 
@@ -34,5 +36,11 @@ AKPlaygroundLoop(every: 0.1) {
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 
-//: You can experiment with this playground by changing the volume function to a phasor or another well-known function to see how well the amplitude tracker can track.  Also, you could change the sound source from an oscillator to a noise generator, or any constant sound source (some things like a physical model would not work because the output has an envelope to its volume).  Instead of just plotting our results, we could use the value to drive other sounds or update an app's user interface.
+//: You can experiment with this playground by changing the volume function to a
+//: phasor or another well-known function to see how well the amplitude tracker
+//: can track.  Also, you could change the sound source from an oscillator to a
+//: noise generator, or any constant sound source (some things like a physical
+//: model would not work because the output has an envelope to its volume).
+//: Instead of just plotting our results, we could use the value to drive other
+//: sounds or update an app's user interface.
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

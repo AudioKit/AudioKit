@@ -1,6 +1,12 @@
 //: # AudioKit for OSX Playgrounds
 //:
-//: AudioKit comes with many playgrounds, each of which serves to teach some core concept, demonstrate a particular generator or synthesizer, or just show off some wacky sounds that we've discovered.  Because there are so many playgrounds that are inter-related in different ways, the order of the playgrounds in Xcode is more or less alphabetical, however this index page lists all the the playgrounds grouped by category.  Playgrounds that fit into multiple categories are listed in each relevant category.
+//: AudioKit comes with many playgrounds, each of which serves to teach some
+//: core concept, demonstrate a particular generator or synthesizer, or just
+//: show off some wacky sounds that we've discovered.  Because there are so
+//: many playgrounds that are inter-related in different ways, the order of the
+//: playgrounds in Xcode is more or less alphabetical, however this index page
+//: lists all the the playgrounds grouped by category.  Playgrounds that fit
+//: into multiple categories are listed in each relevant category.
 //:
 //: ## Getting Started
 //:
@@ -10,7 +16,10 @@
 //:
 //: ## This is going to be fun...
 //:
-//: So wait, before we jump into the actual tutorials, let's just highlight some of the cooler sound playgrounds we have.  Don't try to understand the code if you're just started, it will all be expained starting with the next section, Basic Tutorials.
+//: So wait, before we jump into the actual tutorials, let's just highlight some
+//: of the cooler sound playgrounds we have.  Don't try to understand the code
+//: if you're just started, it will all be expained starting with the next section,
+//: Basic Tutorials.
 //:
 //: * [Electro Drum Beat](Drum%20Synthesizers)
 //: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
@@ -25,7 +34,8 @@
 //:
 //: ## Mac OS X Playgrounds
 //:
-//: These playgrounds are exclusive to OS X because they use some feature not availalable on iOS, for instance microphone input.
+//: These playgrounds are exclusive to OS X because they use some feature not
+//: availalable on iOS, for instance microphone input.
 //:
 //: * [Selector Clock](SelectorClock)
 //: * [Tracking Microphone Input](Tracking%20Microphone%20Input)
@@ -34,7 +44,9 @@
 //:
 //: ## Basic Tutorials
 //:
-//: These tutorials help you get started with the basic concepts of AudioKit, starting with what you need to know about playgrounds in general and then moving on to sound creation and working with AudioKit nodes.
+//: These tutorials help you get started with the basic concepts of AudioKit,
+//: starting with what you need to know about playgrounds in general and then
+//: moving on to sound creation and working with AudioKit nodes.
 //:
 //: * [Non-Audio Tutorial](Non-Audio%20Tutorial)
 //: * [Connecting Nodes](Connecting%20Nodes)
@@ -46,7 +58,8 @@
 //:
 //: ## Plotting
 //:
-//: Playgrounds are a very visually compelling interface and you create a few different ways  of seeing what is happening to your audio signal.
+//: Playgrounds are a very visually compelling interface and you create a few
+//: different ways  of seeing what is happening to your audio signal.
 //:
 //: * [Output Waveform Plot](Output%20Waveform%20Plot)
 //: * [Rolling Output Plot](Rolling%20Output%20Plot)
@@ -62,7 +75,8 @@
 //:
 //: ## "Analog Synth X" Example Project
 //:
-//: AudioKit is shipped with an awesome synth example project and the following playgrounds are where we developed and tested out the effects for that synth.
+//: AudioKit is shipped with an awesome synth example project and the following
+//: playgrounds are where we developed and tested out the effects for that synth.
 //:
 //: * [Fatten Effect](Fatten%20Effect)
 //: * [Filter Section](Filter%20Section%20Example)
@@ -70,16 +84,22 @@
 //:
 //: ## Designing Sound
 //:
-//: These playgrounds are inspired by the "Practicals" section of the book "Designing Sound", by Andy Farnell.  While this book is excellent, the examples are implemented in Pd, which is okay, I guess, but hey, this is AudioKit!
+//: These playgrounds are inspired by the "Practicals" section of the book
+//: "Designing Sound", by Andy Farnell.  While this book is excellent, the
+//: examples are implemented in Pd, which is okay, I guess, but hey, this is AudioKit!
 //:
 //: * [Pedestrians](Pedestrians)
 //: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
 //:
-//: Hopefully we'll add more practicals over time.  If you're interested in making more, submit a pull-request to git repo and we'll be sure to include them.
+//: Hopefully we'll add more practicals over time.  If you're interested in
+//: making more, submit a pull-request to git repo and we'll be sure to include them.
 //:
 //: ## Playback Nodes
 //:
-//: Over the course of viewing the playgrounds so far, you've come across AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't require a playground of its own, but there are some playback-oriented nodes that are very useful and cool.
+//: Over the course of viewing the playgrounds so far, you've come across
+//: AKAudioPlayer repeatedly.  It is a simple neough class that it doesn't
+//: require a playground of its own, but there are some playback-oriented nodes
+//: that are very useful and cool.
 //:
 //: * [Sampler Instrument - EXS24](Sampler%20Instrument%20-%20EXS24)
 //: * [Sampler Instrument - Wav file](Sampler%20Instrument%20-%20Wav%20file)
@@ -93,7 +113,8 @@
 //:
 //: ### Oscillators
 //:
-//: Oscillators are the bread and butter of audio synthesis and there's no shortage of them in AudioKit.
+//: Oscillators are the bread and butter of audio synthesis and there's no
+//: shortage of them in AudioKit.
 //:
 //: * [Simple Oscillator](Simple%20Oscillator)
 //: * [FM Oscillator](FM%20Oscillator)
@@ -112,7 +133,8 @@
 //:
 //: ### Physical Models
 //:
-//: There are only a few of these to start off with, but we think they are a lot of fun and sound really good.  More on the way!
+//: There are only a few of these to start off with, but we think they are a
+//: lot of fun and sound really good.  More on the way!
 //:
 //: * [Drawbar Organ](Drawbar%20Organ)
 //: * [Dripping Sounds](Dripping%20Sounds)
@@ -122,18 +144,23 @@
 //:
 //: ## Effect Processor Nodes
 //:
-//: Here is where we start presenting playgrounds with the purpose of demonstrating a particular type of node.  This section covers effect processors such as what you might find on a electric guitar pedal board.
+//: Here is where we start presenting playgrounds with the purpose of demonstrating
+//: a particular type of node.  This section covers effect processors such as
+//: what you might find on a electric guitar pedal board.
 //:
 //: ### Delay Nodes
 //:
-//: Delay is a lot more powerful than simply repeating an earlier sound.  By varying parameters, you can get startlingly beautiful effects.
+//: Delay is a lot more powerful than simply repeating an earlier sound.
+//: By varying parameters, you can get startlingly beautiful effects.
 //:
 //: * [Delay](Delay)
 //: * [Variable Delay](Variable%20Delay)
 //:
 //: ### Distortion
 //:
-//: Distortion is a category for nodes that do more than just filter a sound, and basically change something essential to the sound, usually making for a harsher sound, but that's a matter of taste.
+//: Distortion is a category for nodes that do more than just filter a sound,
+//: and basically change something essential to the sound, usually making for a
+//: harsher sound, but that's a matter of taste.
 //:
 //: * [Distortion](Distortion)
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
@@ -144,7 +171,8 @@
 //:
 //: ### Dynamics Processing
 //:
-//: Dynamics processing is usually done at the mixing stage and involves changing the signal's output levels.
+//: Dynamics processing is usually done at the mixing stage and involves changing
+//: the signal's output levels.
 //:
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Peak Limiter](Peak%20Limiter)
@@ -182,11 +210,13 @@
 //: * [iOS-only Reverb](iOS-only%20Reverb)
 //: * [Sean Costello Reverb](Sean%20Costello%20Reverb)
 //:
-//: Convolution is included here because it often used for reverb effects, but it can do a lot more.
+//: Convolution is included here because it often used for reverb effects,
+//: but it can do a lot more.
 //:
 //: * [Convolution](Convolution)
 //:
-//: Then there are "reverbs" that are more commonly used as components, not as a stand-alone effect.
+//: Then there are "reverbs" that are more commonly used as components,
+//: not as a stand-alone effect.
 //:
 //: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
@@ -202,7 +232,8 @@
 //: * [Muli-tap Delay](Multi-tap%20Delay)
 //: * [Noise Operations](Noise%20Operations)
 //:
-//: Many of the types of things you can do in nodes are also possible with operations, but with great flexibility in how the parameters are changed over time.
+//: Many of the types of things you can do in nodes are also possible with operations,
+//: but with great flexibility in how the parameters are changed over time.
 //:
 //: * [AutoPan Operation](AutoPan%20Operation)
 //: * [AutoWah Operation](AutoWah%20Operation)
@@ -225,17 +256,19 @@
 //:
 //: ## Sporth
 //:
-//: Sporth is a simple but super-powerful stack-based audio processing language that you can run directly in AudioKit. Here are some examples.
+//: Sporth is a simple but super-powerful stack-based audio processing language
+//: that you can run directly in AudioKit. Here are some examples.
 //:
 //: * [Sporth Based Generator](Sporth%20Based%20Generator)
 //: * [Sporth Based Effect](Sporth%20Based%20Effect)
 //:
 //: ## Development
 //:
-//: These playgrounds are here basically for us to work on future AudioKit developments.  Proceed with caution!
+//: These playgrounds are here basically for us to work on future AudioKit developments.
+//: Proceed with caution!
 //:
-//: * [Parameter Intertia](Parameter%20Inertia)
 //: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
 //:
-//: Hey you got all the way to the bottom of this file, why not let us know by emailing audiokit@audiokit.io.  We'd love to hear from you!
+//: Hey you got all the way to the bottom of this file, why not let us know by
+//: emailing audiokit@audiokit.io.  We'd love to hear from you!
 //:

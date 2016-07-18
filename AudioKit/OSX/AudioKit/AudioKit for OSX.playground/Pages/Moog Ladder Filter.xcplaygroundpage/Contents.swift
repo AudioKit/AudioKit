@@ -3,7 +3,15 @@
 //: ---
 //:
 //: ## Moog Ladder Filter
-//: ### One of the coolest filters available in AudioKit is the Moog Ladder. It's based off of Robert Moog's iconic ladder filter, which was the first implementation of a voltage - controlled filter used in an analog synthesizer. As such, it was the first filter that gave the ability to use voltage control to determine the cutoff frequency of the filter. As we're dealing with a software implementation, and not an analog synthesizer, we don't have to worry about dealing with voltage control directly. However, by using this node, you can emulate some of the sounds of classic analog synthesizers in your app.
+//: ### One of the coolest filters available in AudioKit is the Moog Ladder.
+//: ### It's based off of Robert Moog's iconic ladder filter, which was the
+//: ### first implementation of a voltage - controlled filter used in an
+//: ### analog synthesizer. As such, it was the first filter that gave the
+//: ### ability to use voltage control to determine the cutoff frequency of the
+//: ### filter. As we're dealing with a software implementation, and not an
+//: ### analog synthesizer, we don't have to worry about dealing with
+//: ### voltage control directly. However, by using this node, you can
+//: ### emulate some of the sounds of classic analog synthesizers in your app.
 import XCPlayground
 import AudioKit
 
