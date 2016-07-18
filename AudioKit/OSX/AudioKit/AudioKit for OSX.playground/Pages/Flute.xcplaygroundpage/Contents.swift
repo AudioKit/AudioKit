@@ -25,7 +25,7 @@ AKPlaygroundLoop(frequency: playRate) {
 
     let frequency = (note+octave).midiNoteToFrequency()
     if random(0, 6) > 1.0 {
-        flute.trigger(frequency: frequency)
+        flute.trigger(frequency: frequency, amplitude: 0.1)
     }
 }
 
