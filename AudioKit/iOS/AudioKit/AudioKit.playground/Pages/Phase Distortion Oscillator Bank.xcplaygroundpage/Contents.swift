@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## Phase Distorion Oscillator Bank
+//: ## Phase Distortion Oscillator Bank
 
 import XCPlayground
 import AudioKit

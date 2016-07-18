@@ -44,7 +44,7 @@
 //: * [Dry Wet Mixer](Dry%20Wet%20Mixer)
 //: * [Balancing Nodes](Balancing%20Nodes)
 //: * [Stereo Panning](Stereo%20Panning)
-//: * [Recording Nodes](AKNodeRecorder)
+//: * [Recording Nodes](Recording%20Nodes)
 //: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
 //: * [3D Panner](3D%20Panner)
 //: * [Tremolo](Tremolo)
@@ -65,7 +65,7 @@
 //: * [Tracking Amplitude](Tracking%20Amplitude)
 //: * [Tracking Frequency](Tracking%20Frequency)
 //: * [Tracking Frequency of Audio File](Tracking%20Frequency%20of%20Audio%20File)
-//: * [FFT Analysis(FFT%20Analysis)
+//: * [FFT Analysis](FFT%20Analysis)
 //:
 //: ## "Analog Synth X" Example Project
 //:
@@ -107,6 +107,7 @@
 //: ## AKAudioFile Playgrounds
 //:
 //: These are playgrounds that are currently experimental, and in active development. Proceed with caution.
+//:
 //: * [AKAudioFile Demo](AKAudioFile%20Demo)
 //: * [AKAudioFile part2](AKAudioFile%20part2)
 //: * [AKAudioFile part3 Async Process](AKAudioFile%20part%203%20Async%20Process)
@@ -126,6 +127,8 @@
 //: * [Morphing Oscillator Bank](Morphing%20Oscillator%20Bank)
 //: * [Oscillator](Oscillator)
 //: * [Oscillator Bank](Oscillator%20Bank)
+//: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
+//: * [Phase Distortion Oscillator Bank](Phase%20Distortion%20Oscillator%20Bank)
 //: * [PWM Oscillator](PWM%20Oscillator)
 //: * [PWM Oscillator Bank](PWM%20Oscillator%20Bank)
 //:
