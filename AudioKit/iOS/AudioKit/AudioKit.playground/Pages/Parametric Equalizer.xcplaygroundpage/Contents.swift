@@ -50,7 +50,10 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         centerFreqLabel = addLabel("Center Frequency: \(parametricEQ.centerFrequency) Hz")
-        addSlider(#selector(setCenterFreq), value: parametricEQ.centerFrequency, minimum: 20, maximum: 22050)
+        addSlider(#selector(setCenterFreq),
+                  value: parametricEQ.centerFrequency,
+                  minimum: 20,
+                  maximum: 22050)
 
         qLabel = addLabel("Q: \(parametricEQ.q) Hz")
         addSlider(#selector(setQ), value: parametricEQ.q, minimum: 0.1, maximum: 20)

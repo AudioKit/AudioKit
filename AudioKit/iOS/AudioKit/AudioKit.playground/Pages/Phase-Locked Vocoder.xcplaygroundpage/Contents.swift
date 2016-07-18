@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Phase-Locked Vocoder
-//: ### A different kind of time and pitch stretching 
+//: ### A different kind of time and pitch stretching
 import XCPlayground
 import AudioKit
 

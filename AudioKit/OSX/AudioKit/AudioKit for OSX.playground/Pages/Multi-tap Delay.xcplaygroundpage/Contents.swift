@@ -12,7 +12,8 @@ let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-//: In AudioKit, you can create a multitap easily through creating a function that mixes together several delays and gains.
+//: In AudioKit, you can create a multitap easily through creating a function
+//: that mixes together several delays and gains.
 func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
     zip(times, gains).forEach { (time, gain) -> () in

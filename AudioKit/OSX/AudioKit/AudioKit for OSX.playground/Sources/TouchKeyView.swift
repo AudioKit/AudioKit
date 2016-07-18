@@ -21,11 +21,11 @@ public class TouchKeyView: NSButton {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override public func drawRect(rect: CGRect) {
         drawKey(text: letters, numeral: number)
     }
-    
+
     func drawKey(text text: String = "A B C", numeral: String = "1") {
 
         //// Gradient Declarations
@@ -53,10 +53,11 @@ public class TouchKeyView: NSButton {
                                   attributes: lettersFontAttributes)
             .size.height
 
-        let lettersTextRect: NSRect = NSMakeRect(lettersRect.minX,
-                                                 lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2,
-                                                 lettersRect.width,
-                                                 lettersTextHeight)
+        let lettersTextRect: NSRect =
+            NSMakeRect(lettersRect.minX,
+                       lettersRect.minY + (lettersRect.height - lettersTextHeight) / 2,
+                       lettersRect.width,
+                       lettersTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(lettersRect)
         NSString(string: text).drawInRect(NSOffsetRect(lettersTextRect, 0, 0),
@@ -77,9 +78,10 @@ public class TouchKeyView: NSButton {
             .boundingRectWithSize(NSMakeSize(numberRect.width, CGFloat.infinity),
                                   options: NSStringDrawingOptions.UsesLineFragmentOrigin,
                                   attributes: numberFontAttributes).size.height
-        let numberTextRect: NSRect = NSMakeRect(numberRect.minX,
-                                                numberRect.minY + (numberRect.height - numberTextHeight) / 2,
-                                                numberRect.width, numberTextHeight)
+        let numberTextRect: NSRect =
+            NSMakeRect(numberRect.minX,
+                       numberRect.minY + (numberRect.height - numberTextHeight) / 2,
+                       numberRect.width, numberTextHeight)
         NSGraphicsContext.saveGraphicsState()
         NSRectClip(numberRect)
         NSString(string: numeral).drawInRect(NSOffsetRect(numberTextRect, 0, 0),

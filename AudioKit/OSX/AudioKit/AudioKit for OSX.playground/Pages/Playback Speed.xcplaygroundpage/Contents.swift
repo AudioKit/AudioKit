@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Playback Speed
-//: ### Here we'll use the AKVariSpeed node to change the playback speed of a file (which also affects the pitch)
+//: ### Here we'll use the AKVariSpeed node to change the playback speed of a file
+//: ### (which also affects the pitch)
 //:
 import XCPlayground
 import AudioKit

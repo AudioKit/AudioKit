@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-//: Let's set a callback function that will be triggered when the player's playhead 
+//: Let's set a callback function that will be triggered when the player's playhead
 //: reaches the end and stop. (This will only occur when player.looping is set to false)
 
 func myCompletionCallBack() {
@@ -23,7 +23,7 @@ AudioKit.output = player
 AudioKit.start()
 player?.looping = true
 
-//: Don't forget to show the "debug area" to see what messages are printed by the player 
+//: Don't forget to show the "debug area" to see what messages are printed by the player
 //: and open the timeline view to use the controls this playground sets up....
 
 class PlaygroundView: AKPlaygroundView {

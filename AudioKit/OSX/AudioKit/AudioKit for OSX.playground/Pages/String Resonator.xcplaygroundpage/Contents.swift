@@ -87,7 +87,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func setFundamentalFrequency(slider: Slider) {
         stringResonator.fundamentalFrequency = Double(slider.value)
-        fundamentalFrequencyLabel!.text = "Fundamental Frequency: \(String(format: "%0.0f", stringResonator.fundamentalFrequency))"
+        fundamentalFrequencyLabel!.text = "Fundamental Frequency: " +
+            String(format: "%0.0f", stringResonator.fundamentalFrequency)
     }
 
     func setFeedback(slider: Slider) {

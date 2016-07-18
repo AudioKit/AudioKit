@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-//: This first section sets up parameter naming in such a way to make the operation code easier to read below.
+//: This first section sets up parameter naming in such a way
+//: to make the operation code easier to read below.
 
 enum AutoPanParameter: Int {
     case Speed, Depth
@@ -78,7 +79,11 @@ class PlaygroundView: AKPlaygroundView {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(part)loop.wav",
                                     baseDir: .Resources)
-        try! player.replaceFile(file!)
+        do {
+            try player.replaceFile(file!)
+        } catch {
+            print("Could not replace file!")
+        }
         player.play()
     }
 

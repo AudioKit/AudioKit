@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## Dripping Sounds
-//: ### Physical model of a water drop letting hitting a pool.  What's this good for?  We don't know, but hey it's cool. :)
+//: ### Physical model of a water drop letting hitting a pool.
+//: ### What's this good for?  We don't know, but hey it's cool. :)
 import AudioKit
 import XCPlayground
 

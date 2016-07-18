@@ -33,11 +33,11 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Guitar", action: #selector(startGuitarLoop))
         addButton("Lead", action: #selector(startLeadLoop))
         addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop",  action: #selector(stop))
+        addButton("Stop", action: #selector(stop))
 
         addLabel("Tone Filter: ")
         addButton("Process", action: #selector(processTone))
-        addButton("Bypass",  action: #selector(bypassTone))
+        addButton("Bypass", action: #selector(bypassTone))
 
         label1 = addLabel("Tone Filter 1/2 Power Point: \(toneFilter.halfPowerPoint)")
         addSlider(#selector(setToneFilterHalfPowerPoint),

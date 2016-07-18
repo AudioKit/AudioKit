@@ -31,7 +31,10 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         addSlider(#selector(setAmplitude), value: currentAmplitude)
 
         pulseWidthLabel = addLabel("Phase Distortion: \(oscillator.phaseDistortion)")
-        addSlider(#selector(setPhaseDistortion), value: oscillator.phaseDistortion, minimum: -1, maximum: 1)
+        addSlider(#selector(setPhaseDistortion),
+                  value: oscillator.phaseDistortion,
+                  minimum: -1,
+                  maximum: 1)
 
         rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
         addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 5.0)

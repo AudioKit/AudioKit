@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Noise Operations
-//: 
+//:
 import XCPlayground
 import AudioKit
 

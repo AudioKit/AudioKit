@@ -98,7 +98,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func setCutoffFrequency(slider: Slider) {
         moogLadder.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", moogLadder.cutoffFrequency))"
+        cutoffFrequencyLabel!.text = "Cutoff Frequency: " +
+            String(format: "%0.0f", moogLadder.cutoffFrequency)
         printCode()
     }
 

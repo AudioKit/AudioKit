@@ -3,7 +3,14 @@
 //: ---
 //:
 //: ## Bit Crush Effect
-//: ### An audio signal consists of two components, amplitude and frequency. When an analog audio signal is converted to a digial representation, these two components are stored by a bit-depth value, and a sample-rate value. The sample-rate represents the number of samples of audio per second, and the bit-depth represents the number of bits used capture that audio. The bit-depth specifies the dynamic range (the difference between the smallest and loudest audio signal). By changing the bit-depth of an audio file, you can create rather interesting digital distortion effects.
+//: ### An audio signal consists of two components, amplitude and frequency.
+//: ### When an analog audio signal is converted to a digial representation, these
+//: ### two components are stored by a bit-depth value, and a sample-rate value.
+//: ### The sample-rate represents the number of samples of audio per second, and the
+//: ### bit-depth represents the number of bits used capture that audio. The bit-depth
+//: ### specifies the dynamic range (the difference between the smallest and loudest
+//: ### audio signal). By changing the bit-depth of an audio file, you can create
+//: ### rather interesting digital distortion effects.
 import XCPlayground
 import AudioKit
 

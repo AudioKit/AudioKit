@@ -3,7 +3,11 @@
 //: ---
 //:
 //: ## Band Pass Filter
-//: ### Band-pass filters allow audio above a specified frequency range and bandwidth to pass through to an output. The center frequency is the starting point from where the frequency limit is set. Adjusting the bandwidth sets how far out above and below the center frequency the frequency band should be. Anything above that band should pass through.
+//: ### Band-pass filters allow audio above a specified frequency range and
+//: ### bandwidth to pass through to an output. The center frequency is the starting point
+//: ### from where the frequency limit is set. Adjusting the bandwidth sets how far out
+//: ### above and below the center frequency the frequency band should be.
+//: ### Anything above that band should pass through.
 import XCPlayground
 import AudioKit
 
@@ -104,24 +108,14 @@ class PlaygroundView: AKPlaygroundView {
         bandPassFilter.centerFrequency = Double(slider.value)
         let frequency = String(format: "%0.1f", bandPassFilter.centerFrequency)
         centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
-        printCode()
     }
 
     func setBandwidth(slider: Slider) {
         bandPassFilter.bandwidth = Double(slider.value)
         let bandwidth = String(format: "%0.1f", bandPassFilter.bandwidth)
         bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
-        printCode()
     }
 
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    centerFrequency = \(String(format: "%0.3f", bandPassFilter.centerFrequency))")
-        Swift.print("    bandwidth = \(String(format: "%0.3f", bandPassFilter.bandwidth))")
-        Swift.print("}\n")
-    }
 }
 
 

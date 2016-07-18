@@ -3,7 +3,8 @@
 //: ---
 //:
 //: ## General Purpose Oscillator
-//: ### This oscillator can be loaded with a wavetable of your own design, or with one of the defaults.
+//: ### This oscillator can be loaded with a wavetable of your own design,
+//: ### or with one of the defaults.
 import XCPlayground
 import AudioKit
 
