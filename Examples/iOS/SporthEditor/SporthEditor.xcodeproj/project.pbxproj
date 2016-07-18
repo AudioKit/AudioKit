@@ -15,7 +15,6 @@
 		783F1E7B1D353DB900DD1B58 /* Drone.sp in Resources */ = {isa = PBXBuildFile; fileRef = 783F1E791D353DB900DD1B58 /* Drone.sp */; };
 		78FFF99C1D36A91A009B2E07 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78FFF99B1D36A91A009B2E07 /* AudioKit.framework */; };
 		78FFF99D1D36A91A009B2E07 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 78FFF99B1D36A91A009B2E07 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C40ACAE41D38A098003A7431 /* Plucked Strings.sp in Resources */ = {isa = PBXBuildFile; fileRef = C40ACAE31D38A098003A7431 /* Plucked Strings.sp */; };
 		C40ACAE61D38AA43003A7431 /* Rhythmic.sp in Resources */ = {isa = PBXBuildFile; fileRef = C40ACAE51D38AA43003A7431 /* Rhythmic.sp */; };
 		C485C6381D337759007D1BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6371D337759007D1BFD /* AppDelegate.swift */; };
 		C485C63A1D337759007D1BFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C485C6391D337759007D1BFD /* ViewController.swift */; };
@@ -46,7 +45,6 @@
 		783F1E781D353DB900DD1B58 /* Chatting Robot.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Chatting Robot.sp"; sourceTree = "<group>"; };
 		783F1E791D353DB900DD1B58 /* Drone.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Drone.sp; sourceTree = "<group>"; };
 		78FFF99B1D36A91A009B2E07 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		C40ACAE31D38A098003A7431 /* Plucked Strings.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Plucked Strings.sp"; sourceTree = "<group>"; };
 		C40ACAE51D38AA43003A7431 /* Rhythmic.sp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rhythmic.sp; sourceTree = "<group>"; };
 		C485C6341D337759007D1BFD /* SporthEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SporthEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C485C6371D337759007D1BFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 			children = (
 				783F1E781D353DB900DD1B58 /* Chatting Robot.sp */,
 				783F1E791D353DB900DD1B58 /* Drone.sp */,
-				C40ACAE31D38A098003A7431 /* Plucked Strings.sp */,
 				C40ACAE51D38AA43003A7431 /* Rhythmic.sp */,
 			);
 			name = "Preloaded files";
@@ -184,7 +181,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				783F1E7A1D353DB900DD1B58 /* Chatting Robot.sp in Resources */,
-				C40ACAE41D38A098003A7431 /* Plucked Strings.sp in Resources */,
 				783F1E7B1D353DB900DD1B58 /* Drone.sp in Resources */,
 				C485C6421D337759007D1BFD /* LaunchScreen.storyboard in Resources */,
 				C485C63F1D337759007D1BFD /* Assets.xcassets in Resources */,
