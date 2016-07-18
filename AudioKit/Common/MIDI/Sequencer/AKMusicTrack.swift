@@ -110,10 +110,10 @@ public class AKMusicTrack {
     }
 
     /// Set length
-    ///
-    /// - parameter duration: How long the loop will last, from the end of the track backwards
     /// If any of your notes are longer than the new length, this will truncate those notes
     /// This will truncate your sequence if you shorten it - so make a copy if you plan on doing that.
+    ///
+    /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
     public func setLength(duration: AKDuration) {
 
