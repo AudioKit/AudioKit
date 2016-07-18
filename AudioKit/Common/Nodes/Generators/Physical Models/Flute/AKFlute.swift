@@ -80,7 +80,7 @@ public class AKFlute: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x706c756b /*'mand'*/
+        description.componentSubType      = 0x666c7574 /*'flut'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
@@ -105,8 +105,8 @@ public class AKFlute: AKNode, AKToggleable {
 
         guard let tree = internalAU?.parameterTree else { return }
 
-        frequencyParameter       = tree.valueForKey("frequency")       as? AUParameter
-        amplitudeParameter       = tree.valueForKey("amplitude")       as? AUParameter
+        frequencyParameter = tree.valueForKey("frequency") as? AUParameter
+        amplitudeParameter = tree.valueForKey("amplitude") as? AUParameter
 
         token = tree.tokenByAddingParameterObserver {
             address, value in
