@@ -71,12 +71,11 @@ public class AKSequencer {
         loadMIDIFile(filename)
     }
 
-    /// Initialize the sequence with a midi file and audioengine
+    /// Initialize the sequence with a midi file and audioengine - on hold while technology is still unstable
     ///
     /// - Parameters:
     ///   - filename: Location of the MIDI File
     ///   - engine: reference to the AV Audio Engine
-    /// - on hold while technology is still unstable
     ///
     public convenience init(filename: String, engine: AVAudioEngine) {
         self.init()
@@ -163,7 +162,7 @@ public class AKSequencer {
         loopEnabled = false
     }
 
-    ///  Set looping duration and count for all tracks
+    /// Set looping duration and count for all tracks
     ///
     /// - Parameters:
     ///   - duration: Duration of the loop in beats
