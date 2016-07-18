@@ -117,6 +117,11 @@ public class AKOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(waveform: AKTable(.Sine))
+    }
 
     /// Initialize this oscillator node
     ///
@@ -130,7 +135,7 @@ public class AKOscillatorBank: AKPolyphonicNode {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable = AKTable(.Sine),
+        waveform: AKTable,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
         sustainLevel: Double = 1.0,

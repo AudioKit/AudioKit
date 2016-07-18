@@ -114,6 +114,14 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    ///
+    /// - parameter frequency: In cycles per second, or Hz.
+    ///
+    public convenience override init() {
+        self.init(frequency: 440)
+    }
 
     /// Initialize this oscillator node
     ///
@@ -125,7 +133,7 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        frequency: Double = 440,
+        frequency: Double,
         amplitude: Double = 1.0,
         pulseWidth: Double = 0.5,
         detuningOffset: Double = 0,

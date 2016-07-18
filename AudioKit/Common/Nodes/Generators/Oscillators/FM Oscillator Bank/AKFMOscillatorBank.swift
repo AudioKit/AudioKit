@@ -161,6 +161,11 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(waveform: AKTable(.Sine))
+    }
 
     /// Initialize this oscillator node
     ///
@@ -172,7 +177,7 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable = AKTable(.Sine),
+        waveform: AKTable,
         carrierMultiplier: Double = 1.0,
         modulatingMultiplier: Double = 1,
         modulationIndex: Double = 1,

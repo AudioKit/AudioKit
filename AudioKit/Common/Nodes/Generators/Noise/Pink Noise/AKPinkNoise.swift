@@ -52,8 +52,7 @@ public class AKPinkNoise: AKNode, AKToggleable {
     ///
     /// - parameter amplitude: Amplitude. (Value between 0-1).
     ///
-    public init(
-        amplitude: Double = 1) {
+    public init(amplitude: Double = 1) {
 
 
         self.amplitude = amplitude

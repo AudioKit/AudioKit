@@ -125,6 +125,11 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
+    }
 
     /// Initialize this oscillator node
     ///
@@ -136,7 +141,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveformArray: [AKTable] = [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)],
+        waveformArray: [AKTable],
         index: Double = 0,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
