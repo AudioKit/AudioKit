@@ -76,7 +76,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(part)loop.wav",
+                                    baseDir: .Resources)
         try! player.replaceFile(file!)
         player.play()
     }

@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Tone Filter: ")
         addButton("Process", action: #selector(processTone))
-        addButton("Bypass",  action: #selector(bypassTone))
+        addButton("Bypass", action: #selector(bypassTone))
 
         label1 = addLabel("Tone Filter 1/2 Power Point: \(toneFilter.halfPowerPoint)")
         addSlider(#selector(setToneFilterHalfPowerPoint),

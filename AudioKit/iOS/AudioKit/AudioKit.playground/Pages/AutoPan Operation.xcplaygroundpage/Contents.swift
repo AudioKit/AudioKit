@@ -71,7 +71,6 @@ class PlaygroundView: AKPlaygroundView {
 
         depthLabel = addLabel("Depth: \(effect.depth)")
         addSlider(#selector(setDepth), value: effect.depth)
-    
     }
 
 
@@ -116,7 +115,7 @@ class PlaygroundView: AKPlaygroundView {
         depthLabel!.text = "Depth: \(String(format: "%0.3f", effect.depth))"
         printParameters()
     }
-    
+
     func printParameters() {
         let realSpeed = effect.parameters[AutoPanParameter.Speed.rawValue]
         let realDepth = effect.parameters[AutoPanParameter.Depth.rawValue]

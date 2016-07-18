@@ -43,7 +43,10 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Bypass", action: #selector(bypass))
 
         centerFrequencyLabel = addLabel("Center Frequency: \(filter.centerFrequency) Hz")
-        addSlider(#selector(setCenterFrequency), value: filter.centerFrequency, minimum: 20, maximum: 22050)
+        addSlider(#selector(setCenterFrequency),
+                  value: filter.centerFrequency,
+                  minimum: 20,
+                  maximum: 22050)
 
         attackLabel = addLabel("Attack: \(filter.attackDuration) Seconds")
         addSlider(#selector(setAttack), value: filter.attackDuration, minimum: 0, maximum: 0.1)

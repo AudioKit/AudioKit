@@ -19,7 +19,7 @@ var names = ["16", "5 1/3", "8", "4", "2 2/3", "2", "1 3/5", "1 1/3", "1"]
 var baseNote = 0
 
 class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
-    
+
     var amplitudeLabels = [Label]()
     var sliders = [Slider]()
     override func setup() {
@@ -29,39 +29,43 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
             amplitudeLabels[i].frame.origin.y = 800-CGFloat(i)*60
             sliders.append(addSlider(#selector(setAmplitude), value: amplitudes[i]))
             sliders[i].frame.origin.y = 780-CGFloat(i)*60
-            
+
         }
-        
-        let keyboard = KeyboardView(width: 500, height: 100, delegate: self, lowestKey: 48, totalKeys: 24)
+
+        let keyboard = KeyboardView(width: 500,
+                                    height: 100,
+                                    delegate: self,
+                                    lowestKey: 48,
+                                    totalKeys: 24)
         keyboard.frame.origin.y = CGFloat(yPosition)
         self.addSubview(keyboard)
-        
+
     }
-    
+
     func noteOn(note: Int) {
-        if (note != baseNote) {
+        if note != baseNote {
             stopAll()
             baseNote = note
             startAll()
         }
     }
-    
+
     func noteOff(note: Int) {
         stopAll()
     }
-    
+
     func stopAll() {
         for i in 0 ..< noteCount {
             oscillator.stop(noteNumber: baseNote + offsets[i])
         }
     }
-    
+
     func startAll() {
         for i in 0 ..< noteCount {
             oscillator.play(noteNumber: baseNote + offsets[i], velocity: Int(amplitudes[i] * 127))
         }
     }
-    
+
     func setAmplitude(slider: Slider) {
         if let index = sliders.indexOf(slider) {
             amplitudes[index] = Double(slider.value)

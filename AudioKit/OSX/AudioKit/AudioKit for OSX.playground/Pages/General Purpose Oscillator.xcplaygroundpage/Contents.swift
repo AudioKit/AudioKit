@@ -25,7 +25,8 @@ for i in 0..<custom.values.count {
 }
 for value in custom.values { value } // Click the eye icon ->
 
-//: Try changing the table to triangle, square, sine, or sawtooth. This will change the shape of the oscillator's waveform.
+//: Try changing the table to triangle, square, sine, or sawtooth.
+//: This will change the shape of the oscillator's waveform.
 var oscillator = AKOscillator(waveform: sine)
 AudioKit.output = oscillator
 AudioKit.start()
@@ -38,54 +39,58 @@ oscillator.amplitude = currentAmplitude
 let playgroundWidth = 500
 
 class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
-    
+
     var amplitudeLabel: Label?
     var rampTimeLabel: Label?
-    
+
     override func setup() {
         let plotView = AKOutputWaveformPlot.createView()
         plotView.frame.origin.y += 200
         self.addSubview(plotView)
-        
+
         addTitle("General Purpose Oscillator")
-        
+
         amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
         addSlider(#selector(setAmplitude), value: currentAmplitude)
-        
+
         rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
         addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 0.1)
-        
-        let keyboard = KeyboardView(width: playgroundWidth, height: 100, delegate: self, lowestKey: 24, totalKeys: 64)
+
+        let keyboard = KeyboardView(width: playgroundWidth,
+                                    height: 100,
+                                    delegate: self,
+                                    lowestKey: 24,
+                                    totalKeys: 64)
         keyboard.frame.origin.y = CGFloat(yPosition)
         self.addSubview(keyboard)
-        
-        
+
+
     }
-    
+
     func noteOn(note: Int) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
         }
         oscillator.frequency = note.midiNoteToFrequency()
-        
+
         // Still use rampTime for volume
         oscillator.rampTime = currentRampTime
         oscillator.amplitude = currentAmplitude
         oscillator.play()
     }
-    
+
     func noteOff(note: Int) {
         oscillator.amplitude = 0
     }
-    
-    
+
+
     func setAmplitude(slider: Slider) {
         currentAmplitude = Double(slider.value)
         let amp = String(format: "%0.3f", currentAmplitude)
         amplitudeLabel!.text = "Amplitude: \(amp)"
     }
-    
+
     func setRampTime(slider: Slider) {
         currentRampTime = Double(slider.value)
         let rampTime = String(format: "%0.3f", currentRampTime)

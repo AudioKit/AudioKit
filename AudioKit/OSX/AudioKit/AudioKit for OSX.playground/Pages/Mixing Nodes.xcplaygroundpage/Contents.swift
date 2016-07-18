@@ -50,39 +50,39 @@ lead.pan   = -0.2
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Mixer")
-        
+
         addLabel("Audio Playback")
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
-        
+
         addLabel("Drums Volume")
         addSlider(#selector(setDrumsVolume), value: drums.volume)
-        
+
         addLabel("Drums Pan")
         addSlider(#selector(setDrumsPan), value: drums.pan, minimum: -1, maximum: 1)
-        
+
         addLabel("Bass Volume")
         addSlider(#selector(setBassVolume), value: bass.volume)
-        
+
         addLabel("Bass Pan")
         addSlider(#selector(setBassPan), value: bass.pan, minimum: -1, maximum: 1)
-        
+
         addLabel("Guitar Volume")
         addSlider(#selector(setGuitarVolume), value: guitar.volume)
-        
+
         addLabel("Guitar Pan")
         addSlider(#selector(setGuitarPan), value: guitar.pan, minimum: -1, maximum: 1)
-        
+
         addLabel("Lead Volume")
         addSlider(#selector(setLeadVolume), value: lead.volume)
-        
+
         addLabel("Lead Pan")
         addSlider(#selector(setLeadPan), value: lead.pan, minimum: -1, maximum: 1)
     }
-    
+
     func start() {
         drums.play()
         bass.play()
@@ -99,31 +99,31 @@ class PlaygroundView: AKPlaygroundView {
     func setDrumsVolume(slider: Slider) {
         drums.volume = Double(slider.value)
     }
-    
+
     func setDrumsPan(slider: Slider) {
         drums.pan = Double(slider.value)
     }
-    
+
     func setBassVolume(slider: Slider) {
         bass.volume = Double(slider.value)
     }
-    
+
     func setBassPan(slider: Slider) {
         bass.pan = Double(slider.value)
     }
-    
+
     func setGuitarVolume(slider: Slider) {
         guitar.volume = Double(slider.value)
     }
-    
+
     func setGuitarPan(slider: Slider) {
         guitar.pan = Double(slider.value)
     }
-    
+
     func setLeadVolume(slider: Slider) {
         lead.volume = Double(slider.value)
     }
-    
+
     func setLeadPan(slider: Slider) {
         lead.pan = Double(slider.value)
     }

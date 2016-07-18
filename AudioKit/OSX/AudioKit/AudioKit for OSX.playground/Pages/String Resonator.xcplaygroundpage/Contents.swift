@@ -40,11 +40,18 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Mix", action: #selector(startMixLoop))
         addButton("Stop", action: #selector(stop))
 
-        fundamentalFrequencyLabel = addLabel("Fundamental Frequency: \(stringResonator.fundamentalFrequency)")
-        addSlider(#selector(setFundamentalFrequency), value: stringResonator.fundamentalFrequency, minimum: 0, maximum: 5000)
+        fundamentalFrequencyLabel =
+            addLabel("Fundamental Frequency: \(stringResonator.fundamentalFrequency)")
+        addSlider(#selector(setFundamentalFrequency),
+                  value: stringResonator.fundamentalFrequency,
+                  minimum: 0,
+                  maximum: 5000)
 
         feedbackLabel = addLabel("Feedback: \(stringResonator.feedback)")
-        addSlider(#selector(setFeedback), value: stringResonator.feedback, minimum: 0, maximum: 0.99)
+        addSlider(#selector(setFeedback),
+                  value: stringResonator.feedback,
+                  minimum: 0,
+                  maximum: 0.99)
     }
 
     func startLoop(part: String) {

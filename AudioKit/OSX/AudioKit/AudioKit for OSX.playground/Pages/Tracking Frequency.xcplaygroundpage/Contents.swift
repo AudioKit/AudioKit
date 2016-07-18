@@ -23,7 +23,8 @@ let oscillatorNode = AKOperationGenerator(operation: oscillator)
 let tracker = AKFrequencyTracker(oscillatorNode, hopSize: minimum, peakCount: maximum)
 
 
-//: The frequency tracker passes its input to the output, so we can insert into the signal chain at the bottom
+//: The frequency tracker passes its input to the output,
+//: so we can insert into the signal chain at the bottom
 AudioKit.output = tracker
 AudioKit.start()
 

@@ -28,20 +28,20 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
-    
+
+
     override func setup() {
         addTitle("Sporth Generators")
-        
+
         addLabel("Choose from the examples below:")
-        
+
         addButton("Chatting Robot", action: #selector(startChatting))
         addButton("Drone", action: #selector(startDrone))
-        
+
     }
-    
+
     //: Handle UI Events
-    
+
     func startChatting() {
         updateSporth(chattingRobot)
     }

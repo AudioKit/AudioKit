@@ -86,7 +86,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func setQualityFactor(slider: Slider) {
         filter.qualityFactor = Double(slider.value)
-        qualityFactorLabel!.text = "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
+        qualityFactorLabel!.text =
+            "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
         printCode()
     }
 

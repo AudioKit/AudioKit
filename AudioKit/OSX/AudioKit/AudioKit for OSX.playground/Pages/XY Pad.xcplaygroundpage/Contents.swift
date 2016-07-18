@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## XY Pad
-//: 
+//:
 import Cocoa
 import XCPlayground
 import AudioKit
@@ -20,7 +20,7 @@ AudioKit.start()
 
 class TouchView: NSView {
     var (path, currentPath) = (NSBezierPath(), NSBezierPath())
-    
+
     override func drawRect(dirtyRect: NSRect) {
         guard let contextPtr = NSGraphicsContext.currentContext()?.graphicsPort else {return}
         let context = unsafeBitCast(contextPtr, CGContext.self)
@@ -29,27 +29,27 @@ class TouchView: NSView {
         currentPath.lineWidth = 2.0
         currentPath.stroke()
     }
-    
+
     override func mouseDown(theEvent: NSEvent) {
         currentPath = NSBezierPath()
         currentPath.moveToPoint(theEvent.locationInWindow)
         oscillator.start()
         updateOscillator(theEvent)
     }
-    
+
     override func mouseDragged(theEvent: NSEvent) {
         currentPath.lineToPoint(theEvent.locationInWindow)
         needsDisplay = true
         updateOscillator(theEvent)
     }
-    
+
     override func mouseUp(theEvent: NSEvent) {
         path.appendBezierPath(currentPath)
         currentPath = NSBezierPath()
         needsDisplay = true
         oscillator.stop()
     }
-    
+
     func updateOscillator(theEvent: NSEvent) {
         let x = theEvent.locationInWindow.x/self.bounds.width
         let y = theEvent.locationInWindow.y/self.bounds.height

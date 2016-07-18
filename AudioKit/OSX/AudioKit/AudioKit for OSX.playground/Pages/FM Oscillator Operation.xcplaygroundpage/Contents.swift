@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## FM Oscillator Operation
-//: 
+//:
 import XCPlayground
 import AudioKit
 
@@ -14,7 +14,7 @@ let square2 = AKOperation.squareWave(frequency: sine, amplitude: sine, pulseWidt
 
 let freq  = sine.scale(minimum: 900, maximum: 200)
 let car   = square.scale(minimum: 1.2, maximum: 1.4)
-let mod   = square.scale(minimum: 1,   maximum: 3)
+let mod   = square.scale(minimum: 1, maximum: 3)
 let index = square2 * 3 + 5
 
 let oscillator = AKOperation.fmOscillator(

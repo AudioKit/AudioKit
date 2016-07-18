@@ -59,10 +59,17 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setPostgain), value: distortion.postgain, minimum: 0, maximum: 10)
 
         postiveShapeParameterLabel = addLabel("Postive Shape Parameter: \(distortion.postiveShapeParameter)")
-        addSlider(#selector(setPositiveShapeParameter), value: distortion.postiveShapeParameter, minimum: -10, maximum: 10)
+        addSlider(#selector(setPositiveShapeParameter),
+                  value: distortion.postiveShapeParameter,
+                  minimum: -10,
+                  maximum: 10)
 
-        negativeShapeParameterLabel = addLabel("Negative Shape Parameter: \(distortion.negativeShapeParameter)")
-        addSlider(#selector(setNegativeShapeParameter), value: distortion.negativeShapeParameter, minimum: -10, maximum: 10)
+        negativeShapeParameterLabel =
+            addLabel("Negative Shape Parameter: \(distortion.negativeShapeParameter)")
+        addSlider(#selector(setNegativeShapeParameter),
+                  value: distortion.negativeShapeParameter,
+                  minimum: -10,
+                  maximum: 10)
 
     }
 
@@ -141,7 +148,7 @@ class PlaygroundView: AKPlaygroundView {
         print("public func presetXXXXXX() {")
         print("    pregain = \(String(format: "%0.3f", distortion.pregain))")
         print("    postgain = \(String(format: "%0.3f", distortion.postgain))")
-        print("    feedback = \(String(format: "%0.3f", distortion.postiveShapeParameter))")
+        print("    postiveShapeParameter = \(String(format: "%0.3f", distortion.postiveShapeParameter))")
         print("    negativeShapeParameter = \(String(format: "%0.3f", distortion.negativeShapeParameter))")
         print("}\n")
     }

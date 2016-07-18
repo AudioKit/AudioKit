@@ -14,7 +14,6 @@ let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-//: The amplitude tracker's passes its input to the output, so we can insert into the signal chain at the bottom
 AudioKit.output = player
 AudioKit.start()
 player.play()

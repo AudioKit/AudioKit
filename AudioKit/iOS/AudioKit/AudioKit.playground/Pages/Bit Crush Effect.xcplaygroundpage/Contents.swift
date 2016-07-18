@@ -42,7 +42,10 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setBitDepth), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
 
         sampleRateLabel = addLabel("Sample Rate: \(bitcrusher.sampleRate)")
-        addSlider(#selector(setSampleRate), value: bitcrusher.sampleRate, minimum: 0, maximum: 16000)
+        addSlider(#selector(setSampleRate),
+                  value: bitcrusher.sampleRate,
+                  minimum: 0,
+                  maximum: 16000)
     }
 
     func startLoop(part: String) {

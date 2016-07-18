@@ -4,51 +4,50 @@ import XCPlayground
 import AudioKit
 
 class SelectorClock {
-    
+
     var sequencer = AKSequencer()
     var callbacker: AKCallbackInstrument?
     var bpm: Double
-    
-    init(tempo: Double = 120, division: Int = 4)
-    {
+
+    init(tempo: Double = 120, division: Int = 4) {
         bpm = tempo
-        
+
         callbacker = AKCallbackInstrument() { status, note, velocity in
             if note == 60 && status == .NoteOn {
                 print("myClock -> Start Note 60 at  \(myClock.sequencer.currentPosition)")
             }
         }
-        
+
         let clickTrack = sequencer.newTrack()
         for i in 0 ..< division {
-            clickTrack?.add(noteNumber: 80, velocity: 100, position: AKDuration(beats: Double(i) / Double(division)) , duration: AKDuration(beats: Double(0.1 / Double(division))))
-            clickTrack?.add(noteNumber: 60, velocity: 100, position: AKDuration(beats: (Double(i) + 0.5) / Double(division)) , duration: AKDuration(beats: Double(0.1 / Double(division))))
+            clickTrack?.add(noteNumber: 80, velocity: 100, position: AKDuration(beats: Double(i) / Double(division)), duration: AKDuration(beats: Double(0.1 / Double(division))))
+            clickTrack?.add(noteNumber: 60, velocity: 100, position: AKDuration(beats: (Double(i) + 0.5) / Double(division)), duration: AKDuration(beats: Double(0.1 / Double(division))))
         }
-        
+
         clickTrack?.setMIDIOutput((callbacker?.midiIn)!)
         clickTrack?.setLoopInfo(AKDuration(beats: 1.0), numberOfLoops: 10)
         sequencer.setTempo(bpm)
     }
-    
+
     func start() {
         sequencer.rewind()
         sequencer.play()
     }
-    
+
     func pause() {
         sequencer.stop()
     }
-    
+
     func stop() {
         sequencer.stop()
         sequencer.rewind()
     }
-    
+
     func play() {
         sequencer.play()
     }
 
-    
+
     var tempo: Double {
         get {
             return self.bpm

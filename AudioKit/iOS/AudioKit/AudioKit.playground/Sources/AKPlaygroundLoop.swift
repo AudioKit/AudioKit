@@ -15,7 +15,7 @@ public class AKPlaygroundLoop {
     private var internalHandler: Closure = {}
     private var trigger = 60
     private var counter = 0
-    
+
     /// Repeat this loop at a given period with a code block
     ///
     /// - parameter every: Period, or interval between block executions
@@ -28,7 +28,7 @@ public class AKPlaygroundLoop {
         displayLink.frameInterval = 1
         displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
-    
+
     /// Repeat this loop at a given frequency with a code block
     ///
     /// - parameter frequency: Frequency of block executions in Hz
@@ -41,7 +41,7 @@ public class AKPlaygroundLoop {
         displayLink.frameInterval = 1
         displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
-    
+
     /// Callback function for CADisplayLink
     @objc func update() {
         if counter < trigger {
