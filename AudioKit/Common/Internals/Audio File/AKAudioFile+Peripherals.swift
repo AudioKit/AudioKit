@@ -16,7 +16,7 @@ extension AKAudioFile {
     public var sampler: AKSampler? {
         let fileSampler = AKSampler()
         do {
-            try fileSampler.loadAKAudioFile(self)
+            try fileSampler.loadAudioFile(self)
         } catch let error as NSError {
         print( "ERROR AKAudioFile: cannot create sampler: \(error)")
         }
