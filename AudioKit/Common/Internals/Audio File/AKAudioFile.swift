@@ -225,33 +225,26 @@ public class AKAudioFile: AVAudioFile {
         }
     }()
     
-    /**
-     Super.init inherited from AVAudioFile superclass
-     
-     - Parameter fileURL: NSURL of the file.
-     
-     - Throws: NSError if init failed .
-     
-     - Returns: An initialized AKAudioFile object for reading, or nil if init failed.
-     
-     */
+    /// Initialize the audio file
+    ///
+    /// - parameter fileURL: NSURL of the file
+    /// - throws: NSError if init failed
+    /// - returns: An initialized AKAudioFile object for reading, or nil if init failed.
+    ///
     public override init(forReading fileURL: NSURL) throws {
         try super.init(forReading: fileURL)
     }
+
     
-    /**
-     Super.init inherited from AVAudioFile superclass
-     
-     - Parameters:
-     - fileURL: NSURL of the file.
-     - format: The processing commonFormat to use when reading from the file.
-     - interleaved: Bool (Whether to use an interleaved processing format.)
-     
-     - Throws: NSError if init failed .
-     
-     - Returns: An initialized AKAudioFile object for reading, or nil if init failed.
-     
-     */
+    /// Initialize the audio file
+    ///
+    /// - Parameters:
+    ///   - fileURL:     NSURL of the file
+    ///   - format:      The processing commonFormat to use when reading from the file.
+    ///   - interleaved: Whether to use an interleaved processing format.
+    /// - throws: NSError if init failed
+    /// - returns: An initialized AKAudioFile object for reading, or nil if init failed.
+    ///
     public override init(forReading fileURL: NSURL,
                                     commonFormat format: AVAudioCommonFormat,
                                                  interleaved: Bool) throws {
@@ -259,30 +252,26 @@ public class AKAudioFile: AVAudioFile {
         try super.init(forReading: fileURL, commonFormat: format, interleaved: interleaved)
     }
     
-    /**
-     Super.init inherited from AVAudioFile superclass
-     
-     - Parameters:
-     - fileURL: NSURL of the file.
-     - settings: The format of the file to create.
-     - format: The processing commonFormat to use when writing.
-     - interleaved: Bool (Whether to use an interleaved processing format.)
-     
-     - Throws: NSError if init failed .
-     
-     - Returns: An initialized AKAudioFile for writing, or nil if init failed.
-     
-     From Apple doc: The file type to create is inferred from the file extension of fileURL.
-     This method will overwrite a file at the specified URL if a file already exists.
-     
-     The file is opened for writing using the standard format, AVAudioPCMFormatFloat32.
-     
-     Note: It seems that Apple's AVAudioFile class has a bug with .wav files. They cannot be set
-     with a floating Point encoding. As a consequence, such files will fail to record properly.
-     So it's better to use .caf (or .aif) files for recording purpose.
-     
-     */
-    
+
+    /// Initialize the audio file
+    ///
+    /// From Apple doc: The file type to create is inferred from the file extension of fileURL.
+    /// This method will overwrite a file at the specified URL if a file already exists.
+    ///
+    /// The file is opened for writing using the standard format, AVAudioPCMFormatFloat32.
+    ///
+    /// Note: It seems that Apple's AVAudioFile class has a bug with .wav files. They cannot be set
+    /// with a floating Point encoding. As a consequence, such files will fail to record properly.
+    /// So it's better to use .caf (or .aif) files for recording purpose.
+    ///
+    /// - Parameters:
+    ///   - fileURL:     NSURL of the file.
+    ///   - settings:    The format of the file to create.
+    ///   - format:      The processing commonFormat to use when writing.
+    ///   - interleaved: Whether to use an interleaved processing format.
+    /// - throws: NSError if init failed
+    /// - returns: An initialized AKAudioFile for writing, or nil if init failed.
+    ///
     public override init(forWriting fileURL: NSURL,
                                     settings: [String : AnyObject],
                                     commonFormat format: AVAudioCommonFormat,

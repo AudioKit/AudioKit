@@ -11,18 +11,13 @@ import AVFoundation
 
 extension AKAudioFile {
 
-    /**
-     Opens a file for reading.
-     
-     - Parameters:
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file is located, can be set to .Resources,  .Documents or .Temp
-     
-     - Throws: NSError if init failed .
-     
-     - Returns: An initialized AKAudioFile for reading, or nil if init failed.
-     
-     */
+    /// Opens a file for reading.
+    ///
+    /// - parameter name:    Filename, including hte extension
+    /// - parameter baseDir: Location of file, can be set to .Resources, .Documents or .Temp
+    /// - throws: NSError if init failed
+    /// - returns: An initialized AKAudioFile for reading, or nil if init failed
+    ///
     public convenience init(readFileName name: String,
                                          baseDir: BaseDirectory = .Resources) throws {
         
@@ -66,12 +61,12 @@ extension AKAudioFile {
      
      
      - Parameters:
-     - name: the name of the file without its extension (String).
-     - ext: the extension of the file without "." (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-     - settings: The settings of the file to create.
-     - format: The processing commonFormat to use when writing.
-     - interleaved: Bool (Whether to use an interleaved processing format.)
+       - name: the name of the file without its extension (String).
+       - ext: the extension of the file without "." (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - settings: The settings of the file to create.
+       - format: The processing commonFormat to use when writing.
+       - interleaved: Bool (Whether to use an interleaved processing format.)
      
      
      - Throws: NSError if init failed .
@@ -147,9 +142,9 @@ extension AKAudioFile {
      Arrays must both have the same number of Floats.
      
      - Parameters:
-     - floatsArrays:[[Float]] An array of Arrays of floats
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - floatsArrays: An array of Arrays of floats
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
      
      - Throws: NSError if failed .
      
@@ -197,9 +192,9 @@ extension AKAudioFile {
      Convenience init to instantiate a file from an AVAudioPCMBuffer.
      
      - Parameters:
-     - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
-     - name: the name of the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
+       - name: the name of the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
      
      - Throws: NSError if failed .
      

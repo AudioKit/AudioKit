@@ -56,33 +56,32 @@ extension AKAudioFile {
         }
     }
 
-    /**
-     Exports to a new AKAudiofile with trimming options:
-     Can export from wav/aif to wav/aif/m4a/mp4
-     Can export from m4a/mp4 to m4a/mp4
-     Exporting from mp4/m4a to wav/aif is not supported.
-     
-     inTime and outTime can be set to extract only a portion of the current AKAudioFile.
-     If outTime is zero, it will be set to the file's duration (no end trimming)
-     
-     
-     - Parameters:
-       - name: the name of the file without its extension (String).
-       - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
-       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-       - callBack: AKCallback function that will be triggered when export completed.
-       - inTime: start range time value in seconds
-       - outTime: end range time value in seconds.
-     
-     - Throws: NSError if init failed .
-     
-     - Returns: An AKAudioFile ExportSession object, or nil if init failed.
-     
-     As soon as callback has been triggered, you can use ExportSession.status to check if export succeeded or not. If export succeeded, you can get the exported AKAudioFile using ExportSession.exportedAudioFile. ExportSession.progress lets you monitor export progress.
-     
-     See playground for an example of use.
-     
-     */
+    /// Exports to a new AKAudiofile with trimming options.
+    ///
+    /// Can export from wav/aif to wav/aif/m4a/mp4
+    /// Can export from m4a/mp4 to m4a/mp4
+    /// Exporting from mp4/m4a to wav/aif is not supported.
+    /// 
+    /// inTime and outTime can be set to extract only a portion of the current AKAudioFile.
+    /// If outTime is zero, it will be set to the file's duration (no end trimming)
+    /// 
+    /// As soon as callback has been triggered, you can use ExportSession.status to 
+    /// check if export succeeded or not. If export succeeded, you can get the exported 
+    /// AKAudioFile using ExportSession.exportedAudioFile. ExportSession.progress 
+    /// lets you monitor export progress.
+    ///
+    /// See playground for an example of use.
+    ///
+    /// - Parameters:
+    ///   - name: the name of the file without its extension (String).
+    ///   - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
+    ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - callBack: AKCallback function that will be triggered when export completed.
+    ///   - inTime: start range time value in seconds
+    ///   - outTime: end range time value in seconds.
+    /// - throws: NSError if init failed
+    /// - returns: An AKAudioFile ExportSession object, or nil if init failed.
+    ///
     public func export(
         name: String,
         ext: ExportFormat,
@@ -132,17 +131,15 @@ extension AKAudioFile {
                                  from: inTime,
                                  to: outTime)
     }
-    
-    /**
+
      
-     ExportSession wraps an AVAssetExportSession. It is returned by AKAudioFile.export().
-     The benefit of this object is that you directly gets the resulting AKAudioFile
-     if export succeeded. Most AVAssetExportSession properties/methods have been
-     re-implemented as public.
-     
-     See playground for an example of use.
-     
-     */
+    /// ExportSession wraps an AVAssetExportSession. It is returned by AKAudioFile.export().
+    /// The benefit of this object is that you directly gets the resulting AKAudioFile
+    /// if export succeeded. Most AVAssetExportSession properties/methods have been
+    /// re-implemented as public.
+    ///
+    /// See playground for an example of use.
+    ///
     public class ExportSession {
         
         private var outputAudioFile: AKAudioFile?
