@@ -103,14 +103,14 @@
 //: * [Sequencer - Multiple output](Sequencer%20-%20Multiple%20output)
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
-
-//: ## AKAudioFile Playgrounds
 //:
-//: These are playgrounds that are currently experimental, and in active development. Proceed with caution.
+//: ## Working with Audio Files
 //:
-//: * [AKAudioFile Demo](AKAudioFile%20Demo)
-//: * [AKAudioFile part2](AKAudioFile%20part2)
-//: * [AKAudioFile part3 Async Process](AKAudioFile%20part%203%20Async%20Process)
+//: There is a lot you can do with audio files and AudioKit.
+//:
+//: * [Reading and Writing Audio Files](Reading%20and%20Writing%20Audio%20Files)
+//: * [Editing Audio Files](Editing%20Audio%20Files)
+//: * [Processing Audio Files Asynchronously](Processing%20Audio%20Files%20Asynchronously)
 //:
 //: ## Generator Nodes
 //:

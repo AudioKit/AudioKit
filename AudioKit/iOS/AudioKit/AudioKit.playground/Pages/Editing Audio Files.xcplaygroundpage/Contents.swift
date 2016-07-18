@@ -2,7 +2,7 @@
 //:
 //: ---
 //:
-//: ## AKAudioFile part 2 : Audio editing !...
+//: ## Editing Audio Files
 //: ### Let's have some fun with our drum loop
 
 import XCPlayground
