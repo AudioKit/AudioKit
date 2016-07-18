@@ -46,8 +46,9 @@ class ControlsViewContoller: NSViewController {
             NSLog(Constants.Error.Identifier)
             return
         }
-        
-        if (vc.brain.generator?.parameters[index] != 0) {
+        if (vc.brain.generator?.parameters[index] != 1) {
+            vc.brain.generator?.parameters[index] = 1
+        } else if (vc.brain.generator?.parameters[index] != 0) {
             vc.brain.generator?.parameters[index] = 0
         }
     }
