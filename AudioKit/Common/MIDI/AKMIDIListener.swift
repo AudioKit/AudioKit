@@ -160,7 +160,7 @@ public extension AKMIDIListener {
     ///   - channel:         MIDI Channel (1-16)
     ///
     func receivedMIDIPitchWheel(pitchWheelValue: Int, channel: Int) {
-        print("channel: \(channel) pitchWheelC: \(pitchWheelValue)")
+        print("channel: \(channel) pitchWheel: \(pitchWheelValue)")
     }
 
     /// Receive program change

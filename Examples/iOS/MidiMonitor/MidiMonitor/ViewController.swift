@@ -21,15 +21,19 @@ class ViewController: UIViewController, AKMIDIListener {
         midi.addListener(self)
     }
     
-    func receivedMIDINoteOn(note: Int, velocity: Int, channel: Int) {
+    func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber,
+                                       velocity: MIDIVelocity,
+                                       channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("noteOn: \(note) velocity: \(velocity) ")
+        newString.appendContentsOf("noteOn: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
     
-    func receivedMIDINoteOff(note: Int, velocity: Int, channel: Int) {
+    func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber,
+                                        velocity: MIDIVelocity,
+                                        channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("noteOff: \(note) velocity: \(velocity) ")
+        newString.appendContentsOf("noteOff: \(noteNumber) velocity: \(velocity) ")
         updateText(newString)
     }
     
@@ -39,9 +43,11 @@ class ViewController: UIViewController, AKMIDIListener {
         updateText(newString)
     }
     
-    func receivedMIDIAftertouchOnNote(note: Int, pressure: Int, channel: Int) {
+    func receivedMIDIAftertouch(noteNumber noteNumber: MIDINoteNumber,
+                                           pressure: Int,
+                                           channel: Int) {
         var newString = "Channel: \(channel+1) "
-        newString.appendContentsOf("midiAftertouchOnNote: \(note) pressure: \(pressure) ")
+        newString.appendContentsOf("midiAftertouchOnNote: \(noteNumber) pressure: \(pressure) ")
         updateText(newString)
     }
 
