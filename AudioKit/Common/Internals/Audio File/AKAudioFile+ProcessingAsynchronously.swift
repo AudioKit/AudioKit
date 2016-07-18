@@ -233,10 +233,9 @@ extension AKAudioFile {
      AKAudioFile reversed (will play backward)
 
      - Parameters:
-     - name: the name of resulting the file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
-      - completionCallBack : AKCallback that will be triggered as soon as
-     process has been completed or failed.
+       - name: the name of resulting the file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
+       - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
 
      - Returns: A ReverseProcess Object.
 
@@ -261,11 +260,10 @@ extension AKAudioFile {
      AKAudioFile normalized with a peak of newMaxLevel dB if succeeded
 
      - Parameters:
-     - name: the name of the resulting file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
-     - newMaxLevel: max level targeted as a Float value (default if 0 dB)
-     - completionCallBack : AKCallback that will be triggered as soon as
-     process has been completed or failed.
+       - name: the name of the resulting file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
+       - newMaxLevel: max level targeted as a Float value (default if 0 dB)
+       - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
 
      - Returns: A NormalizeProcess Object.
 
@@ -290,11 +288,10 @@ extension AKAudioFile {
      AKAudioFile with another file audio appended, if succeeded
 
      - Parameters:
-     - file: AKAudioFile to be appended to the current file.
-     - name: the name of the resulting file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
-     - completionCallBack : AKCallback that will be triggered as soon as
-     process has been completed or failed.
+       - file: AKAudioFile to be appended to the current file.
+       - name: the name of the resulting file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
+       - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
 
      - Returns: an AppendProcess Object.
 
@@ -325,12 +322,11 @@ extension AKAudioFile {
      AKAudioFile extracted from the current AKAudioFile, if succeeded
 
      - Parameters:
-     - from: the starting sampleFrame for extraction.
-     - to: the ending sampleFrame for extraction
-     - name: the name of the resulting file without its extension (String).
-     - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
-     - completionCallBack : AKCallback that will be triggered as soon as
-     process has been completed or failed.
+       - fromSample: the starting sampleFrame for extraction.
+       - toSample: the ending sampleFrame for extraction
+       - name: the name of the resulting file without its extension (String).
+       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp (Default is .Temp)
+       - completionCallBack : AKCallback that will be triggered as soon as process has been completed or failed.
 
      - Returns: an ExtractProcess Object.
 

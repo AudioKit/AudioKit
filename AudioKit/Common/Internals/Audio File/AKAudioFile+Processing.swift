@@ -138,8 +138,8 @@ extension AKAudioFile {
      Returns an AKAudioFile that will contain a range of samples from the current AKAudioFile
      
      - Parameters:
-        - from: the starting sampleFrame for extraction.
-        - to: the ending sampleFrame for extraction
+        - fromSample: the starting sampleFrame for extraction.
+        - toSample: the ending sampleFrame for extraction
         - name: the name of the file without its extension (String).
         - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
      
@@ -149,7 +149,7 @@ extension AKAudioFile {
     public func extract(fromSample fromSample: Int64 = 0,
                                    toSample: Int64 = 0,
                                    baseDir: BaseDirectory = .Temp,
-                        name: String = "") throws -> AKAudioFile {
+                                   name: String = "") throws -> AKAudioFile {
 
         let fixedFrom = abs(fromSample)
         let fixedTo:Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample,Int64(self.samplesCount))
