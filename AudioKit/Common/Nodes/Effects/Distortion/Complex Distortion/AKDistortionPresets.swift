@@ -11,6 +11,7 @@ import Foundation
 /// Preset for the AKDistortion
 public extension AKDistortion {
     
+    /// Massive Distortion
     public func presetInfiniteDistortionWall() {
         delay = 475.776
         decay = 40.579

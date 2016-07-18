@@ -11,6 +11,7 @@ import Foundation
 /// Preset for the AKDelay
 public extension AKDelay {
 
+    /// Short Delay
     public func presetShortDelay() {
         time = 0.125
         feedback = 0.204
@@ -18,6 +19,7 @@ public extension AKDelay {
         dryWetMix = 0.100
     }
     
+    /// Long, dense delay
     public func presetDenseLongDelay() {
         time = 0.795
         feedback = 0.900
@@ -25,6 +27,7 @@ public extension AKDelay {
         dryWetMix = 0.924
     }
     
+    /// Electrical Circuits, Robotic Delay Effect
     public func presetElectricCircuitsDelay() {
         time = 0.025
         feedback = 0.797

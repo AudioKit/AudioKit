@@ -11,11 +11,13 @@ import Foundation
 /// Preset for the AKMoogLadder
 public extension AKMoogLadder {
     
+    /// Blurry, foggy filter
     public func presetFogMoogLadder() {
         cutoffFrequency = 515.578
         resonance = 0.206
     }
     
+    /// Dull noise filter
     public func presetDullNoiseMoogLadder() {
         cutoffFrequency = 3088.157
         resonance = 0.075

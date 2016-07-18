@@ -20,14 +20,6 @@ custom_categories:
     - AKTableType
     - AKTester
 
-  - name: Instruments
-    children:
-    - AKCallbackInstrument
-    - AKPolyphonicInstrument
-    - AKVoice
-    - AKSynthKick
-    - AKSynthSnare
-
   - name: MIDI
     children:
     - AKMIDI
@@ -42,6 +34,7 @@ custom_categories:
     - MIDIPacket
     - MIDIPacketList
     - MIDIPacketListGenerator
+    - AKCallbackInstrument
 
   - name: Sequencer
     children:
@@ -115,6 +108,7 @@ custom_categories:
     - AKMoogLadder
     - AKParametricEQ
     - AKPeakingParametricEqualizerFilter
+    - AKResonantFilter
     - AKRolandTB303Filter
     - AKStringResonator
     - AKThreePoleLowpassFilter
@@ -143,6 +137,8 @@ custom_categories:
     - AKMorphingOscillatorBank
     - AKOscillator
     - AKOscillatorBank
+    - AKPhaseDistortionOscillator
+    - AKPhaseDistortionOscillatorBank
     - AKPWMOscillator
     - AKPWMOscillatorBank
 
@@ -153,6 +149,8 @@ custom_categories:
     - AKMandolin
     - AKMetalBar
     - AKPluckedString
+    - AKSynthKick
+    - AKSynthSnare
 
   - name: Input Node
     children:
