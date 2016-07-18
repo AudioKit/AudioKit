@@ -185,7 +185,7 @@ class GeneratorBank: AKPolyphonicNode {
         
         vco1.play(noteNumber: noteNumber + offset1, velocity: velocity)
         vco2.play(noteNumber: noteNumber + offset2, velocity: velocity)
-        subOsc.play(noteNumber: noteNumber, velocity: velocity)
+        subOsc.play(noteNumber: noteNumber - 12, velocity: velocity)
         fmOsc.play(noteNumber: noteNumber, velocity: velocity)
         if onNotes.count == 0 {
             noise.start()
@@ -198,7 +198,7 @@ class GeneratorBank: AKPolyphonicNode {
     override func stop(noteNumber noteNumber: MIDINoteNumber) {
         vco1.stop(noteNumber: noteNumber + offset1)
         vco2.stop(noteNumber: noteNumber + offset2)
-        subOsc.stop(noteNumber: noteNumber)
+        subOsc.stop(noteNumber: noteNumber - 12)
         fmOsc.stop(noteNumber: noteNumber)
         onNotes.remove(noteNumber)
         if onNotes.count == 0 {
