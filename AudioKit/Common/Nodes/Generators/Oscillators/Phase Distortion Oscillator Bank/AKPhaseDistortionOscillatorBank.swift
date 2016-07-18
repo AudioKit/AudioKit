@@ -133,6 +133,11 @@ public class AKPhaseDistortionOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - Initialization
+    
+    /// Initialize the oscillator with defaults
+    public convenience override init() {
+        self.init(waveform: AKTable(.Sine))
+    }
 
     /// Initialize this oscillator node
     ///
@@ -143,7 +148,7 @@ public class AKPhaseDistortionOscillatorBank: AKPolyphonicNode {
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(
-        waveform: AKTable = AKTable(.Sine),
+        waveform: AKTable,
         phaseDistortion: Double = 0.0,
         attackDuration: Double = 0.1,
         decayDuration: Double = 0.1,
