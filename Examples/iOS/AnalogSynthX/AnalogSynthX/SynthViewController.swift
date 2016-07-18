@@ -117,7 +117,7 @@ class SynthViewController: UIViewController {
     func setDefaultValues() {
 
         // Set Preset Values
-        conductor.masterVolume.volume = 25.0 // Master Volume
+        conductor.masterVolume.volume = 1.0 // Master Volume
         conductor.core.vco1.detuningOffset = 0 // VCO1 Semitones
         conductor.core.offset2 = 0 // VCO2 Semitones
         conductor.core.vco2.detuningOffset = 0.0 // VCO2 Detune (Hz)
@@ -662,11 +662,11 @@ extension SynthViewController: VerticalSliderDelegate {
         switch (tag) {
         case ControlTag.adsrAttack.rawValue:
             statusLabel.text = "Attack: \(attackSlider.sliderValue.percentageString)"
-            conductor.core.attackDuration = value / 10.0
+            conductor.core.attackDuration = value
 
         case ControlTag.adsrDecay.rawValue:
             statusLabel.text = "Decay: \(decaySlider.sliderValue.percentageString)"
-            conductor.core.decayDuration = value / 10.0
+            conductor.core.decayDuration = value
 
         case ControlTag.adsrSustain.rawValue:
             statusLabel.text = "Sustain: \(sustainSlider.sliderValue.percentageString)"
