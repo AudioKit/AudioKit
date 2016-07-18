@@ -65,11 +65,10 @@ public class AKSampler: AKNode {
     ///
     /// - parameter file: an AKAudioFile
     ///
-    public func loadAKAudioFile(file:AKAudioFile) throws
-    {
+    public func loadAudioFile(file: AKAudioFile) throws {
         do {
             try samplerUnit.loadAudioFilesAtURLs([file.url])
-        } catch let error as NSError{
+        } catch let error as NSError {
             print("AKSampler Error loading \"\(file.fileNamePlusExtension)\" !...")
             throw error
         }
@@ -113,7 +112,7 @@ public class AKSampler: AKNode {
 
     /// Load a file path
     ///
-    /// - parameter file: Name of the file with the extension
+    /// - parameter filePath: Name of the file with the extension
     ///
     public func loadPath(filePath: String) {
         do {
@@ -135,18 +134,14 @@ public class AKSampler: AKNode {
         }
     }
 
-    /// Output Amplitude.
-    ///   - Range: -90.0 -> +12 db
-    ///   - Default: 0 db
+    /// Output Amplitude. Range: -90.0 -> +12 db, Default: 0 db
     public var amplitude: Double = 0 {
         didSet {
             samplerUnit.masterGain = Float(amplitude)
         }
     }
 
-    /// Normalized Output Volume.
-    ///   - Range:   0 - 1
-    ///   - Default: 1
+    /// Normalized Output Volume. Range: 0 -> 1, Default: 1
     public var volume: Double = 1 {
         didSet {
             let newGain = volume.denormalized(minimum: -90.0, maximum: 0.0, taper: 1)
@@ -154,15 +149,12 @@ public class AKSampler: AKNode {
         }
     }
 
-    /// Pan.
-    ///   - Range:   -1 - 1
-    ///   - Default: 0
+    /// Pan. Range: -1 -> 1, Default: 0
     public var pan: Double = 0 {
         didSet {
             samplerUnit.stereoPan = Float(100.0 * pan)
         }
     }
-
 
     // MARK: - Playback
 
@@ -178,6 +170,8 @@ public class AKSampler: AKNode {
     }
 
     /// Stop a MIDI Note
+    ///
+    /// - Parameters:
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
@@ -185,8 +179,8 @@ public class AKSampler: AKNode {
         samplerUnit.stopNote(UInt8(noteNumber), onChannel: UInt8(channel))
     }
 
-    static func getAUPresetXML() -> String{
-        var templateStr:String
+    static func getAUPresetXML() -> String {
+        var templateStr: String
         templateStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         templateStr.appendContentsOf("<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n")
         templateStr.appendContentsOf("<plist version=\"1.0\">\n")
