@@ -11,6 +11,7 @@ import AVFoundation
 /// Classic FM Synthesis audio generation.
 ///
 /// - Parameters:
+///   - waveform: Shape of the oscillation
 ///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
 ///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
 ///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
@@ -122,6 +123,7 @@ public class AKFMOscillator: AKNode, AKToggleable {
     /// Initialize this oscillator node
     ///
     /// - Parameters:
+    ///   - waveform: Shape of the oscillation
     ///   - baseFrequency: In cycles per second, or Hz, this is the common denominator for the carrier and modulating frequencies.
     ///   - carrierMultiplier: This multiplied by the baseFrequency gives the carrier frequency.
     ///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.

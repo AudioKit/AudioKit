@@ -8,8 +8,7 @@
 
 import AVFoundation
 
-/// This is a bandlimited square oscillator ported from the "square" function
-/// from the Faust programming language.
+/// Pulse-Width Modulating Oscillator
 ///
 /// - Parameters:
 ///   - frequency: In cycles per second, or Hz.

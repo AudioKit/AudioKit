@@ -8,10 +8,14 @@
 
 import AVFoundation
 
-/// Reads from the table sequentially and repeatedly at given frequency. Linear
-/// interpolation is applied for table look up from internal phase values.
+/// Pulse-Width Modulating Oscillator Bank
 ///
 /// - Parameters:
+///   - pulseWidth: Duty cycle width (range 0-1).
+///   - attackDuration: Attack time
+///   - decayDuration: Decay time
+///   - sustainLevel: Sustain Level
+///   - releaseDuration: Release time
 ///   - detuningOffset: Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
@@ -141,9 +145,11 @@ public class AKPWMOscillatorBank: AKPolyphonicNode {
     /// Initialize this oscillator node
     ///
     /// - Parameters:
-    ///   - waveform:  The waveform of oscillation
-    ///   - frequency: Frequency in cycles per second
-    ///   - amplitude: Output Amplitude.
+    ///   - pulseWidth: Duty cycle width (range 0-1).
+    ///   - attackDuration: Attack time
+    ///   - decayDuration: Decay time
+    ///   - sustainLevel: Sustain Level
+    ///   - releaseDuration: Release time
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
