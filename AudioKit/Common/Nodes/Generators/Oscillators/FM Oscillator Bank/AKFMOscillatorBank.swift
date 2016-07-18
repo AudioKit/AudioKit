@@ -8,12 +8,19 @@
 
 import AVFoundation
 
-/// Reads from the table sequentially and repeatedly at given frequency. Linear
-/// interpolation is applied for table look up from internal phase values.
+/// Frequency Modulation Polyphonic Oscillator
 ///
 /// - Parameters:
-///   - detuningOffset: Frequency offset in Hz.
-///   - detuningMultiplier: Frequency detuning multiplier
+///   - waveform:             The waveform of oscillation
+///   - carrierMultiplier:    This multiplied by the baseFrequency gives the carrier frequency.
+///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
+///   - modulationIndex:      This multiplied by the modulating frequency gives the modulation amplitude.
+///   - attackDuration:       Attack time
+///   - decayDuration:        Decay time
+///   - sustainLevel:         Sustain Level
+///   - releaseDuration:      Release time
+///   - detuningOffset:       Frequency offset in Hz.
+///   - detuningMultiplier:   Frequency detuning multiplier
 ///
 public class AKFMOscillatorBank: AKPolyphonicNode {
 
@@ -170,11 +177,16 @@ public class AKFMOscillatorBank: AKPolyphonicNode {
     /// Initialize this oscillator node
     ///
     /// - Parameters:
-    ///   - waveform:  The waveform of oscillation
-    ///   - frequency: Frequency in cycles per second
-    ///   - amplitude: Output Amplitude.
-    ///   - detuningOffset: Frequency offset in Hz.
-    ///   - detuningMultiplier: Frequency detuning multiplier
+    ///   - waveform:             The waveform of oscillation
+    ///   - carrierMultiplier:    This multiplied by the baseFrequency gives the carrier frequency.
+    ///   - modulatingMultiplier: This multiplied by the baseFrequency gives the modulating frequency.
+    ///   - modulationIndex:      This multiplied by the modulating frequency gives the modulation amplitude.
+    ///   - attackDuration:       Attack time
+    ///   - decayDuration:        Decay time
+    ///   - sustainLevel:         Sustain Level
+    ///   - releaseDuration:      Release time
+    ///   - detuningOffset:       Frequency offset in Hz.
+    ///   - detuningMultiplier:   Frequency detuning multiplier
     ///
     public init(
         waveform: AKTable,

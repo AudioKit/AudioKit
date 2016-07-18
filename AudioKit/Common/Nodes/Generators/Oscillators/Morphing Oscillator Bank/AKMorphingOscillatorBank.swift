@@ -8,11 +8,17 @@
 
 import AVFoundation
 
-/// Reads from the table sequentially and repeatedly at given frequency. Linear
-/// interpolation is applied for table look up from internal phase values.
+/// This is an oscillator with linear interpolation that is capable of morphing
+/// between an arbitrary number of wavetables.
 ///
 /// - Parameters:
-///   - detuningOffset: Frequency offset in Hz.
+///   - waveform:           The waveform of oscillation
+///   - index:              Index of the wavetable to use (fractional are okay).
+///   - attackDuration:     Attack time
+///   - decayDuration:      Decay time
+///   - sustainLevel:       Sustain Level
+///   - releaseDuration:    Release time
+///   - detuningOffset:     Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
 public class AKMorphingOscillatorBank: AKPolyphonicNode {
@@ -134,10 +140,13 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     /// Initialize this oscillator node
     ///
     /// - Parameters:
-    ///   - waveform:  The waveform of oscillation
-    ///   - frequency: Frequency in cycles per second
-    ///   - amplitude: Output Amplitude.
-    ///   - detuningOffset: Frequency offset in Hz.
+    ///   - waveform:           The waveform of oscillation
+    ///   - index:              Index of the wavetable to use (fractional are okay).
+    ///   - attackDuration:     Attack time
+    ///   - decayDuration:      Decay time
+    ///   - sustainLevel:       Sustain Level
+    ///   - releaseDuration:    Release time
+    ///   - detuningOffset:     Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
     public init(

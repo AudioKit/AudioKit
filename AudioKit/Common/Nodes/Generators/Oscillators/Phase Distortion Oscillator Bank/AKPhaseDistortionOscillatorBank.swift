@@ -8,10 +8,15 @@
 
 import AVFoundation
 
-/// Reads from the table sequentially and repeatedly at given frequency. Linear
-/// interpolation is applied for table look up from internal phase values.
+/// Phase Distortion Oscillator Bank
 ///
 /// - Parameters:
+///   - waveform:  The waveform of oscillation
+///   - phaseDistortion: Duty cycle width (range 0-1).
+///   - attackDuration: Attack time
+///   - decayDuration: Decay time
+///   - sustainLevel: Sustain Level
+///   - releaseDuration: Release time
 ///   - detuningOffset: Frequency offset in Hz.
 ///   - detuningMultiplier: Frequency detuning multiplier
 ///
@@ -144,6 +149,10 @@ public class AKPhaseDistortionOscillatorBank: AKPolyphonicNode {
     /// - Parameters:
     ///   - waveform:  The waveform of oscillation
     ///   - phaseDistortion: Duty cycle width (range 0-1).
+    ///   - attackDuration: Attack time
+    ///   - decayDuration: Decay time
+    ///   - sustainLevel: Sustain Level
+    ///   - releaseDuration: Release time
     ///   - detuningOffset: Frequency offset in Hz.
     ///   - detuningMultiplier: Frequency detuning multiplier
     ///
