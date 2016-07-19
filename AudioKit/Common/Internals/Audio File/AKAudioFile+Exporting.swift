@@ -82,13 +82,12 @@ extension AKAudioFile {
     /// - throws: NSError if init failed
     /// - returns: An AKAudioFile ExportSession object, or nil if init failed.
     ///
-    public func export(
-        name: String,
-        ext: ExportFormat,
-        baseDir: BaseDirectory,
-        callBack: (AKCallback),
-        inTime: Double = 0,
-        outTime: Double  = 0 ) throws -> ExportSession {
+    public func export(name name: String,
+                            ext: ExportFormat,
+                            baseDir: BaseDirectory,
+                            callBack: (AKCallback),
+                            inTime: Double = 0,
+                            outTime: Double  = 0) throws -> ExportSession {
         
         let fromFileExt = fileExt.lowercaseString
         

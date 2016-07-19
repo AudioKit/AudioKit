@@ -80,13 +80,13 @@ let tenPerCentsOfPiano = piano!.samplesCount / 10
 //: Fine, we'll pick a part from the beginning (but not at the beginning),
 //: so we extract from 10 % to 20 % of the piano song)
 
-let extractProcess = piano!.extractAsynchronously(tenPerCentsOfPiano,
-                                                  toSample:tenPerCentsOfPiano * 2,
+let extractProcess = piano!.extractAsynchronously(fromSample: tenPerCentsOfPiano,
+                                                  toSample: tenPerCentsOfPiano * 2,
                                                   completionCallBack: callback1)
 //: We want another player to play the piano backward. So we need the reversed audiofile:
 let reverseProcess = piano!.reverseAsynchronously(completionCallBack: callback2)
 //: Then, as a tribute to Franckenstein, we append the guitarloop to the leadloop into a single file
-let appendProcess = lead!.appendAsynchronously(guitar!, completionCallBack: callback3)
+let appendProcess = lead!.appendAsynchronously(file: guitar!, completionCallBack: callback3)
 
 //: Process will occur in background, so they won't block the program.
 //: Notice that the print will occur before any process has ended.

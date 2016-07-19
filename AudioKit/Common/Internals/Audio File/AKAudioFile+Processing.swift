@@ -26,8 +26,8 @@ extension AKAudioFile {
     - Throws: NSError if failed .
      
     - Returns: An AKAudioFile, or nil if init failed.*/
-    public func normalize( baseDir: BaseDirectory = .Temp,
-                           name: String = "", newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
+    public func normalize(baseDir baseDir: BaseDirectory = .Temp,
+                                  name: String = "", newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
         
         let level = self.maxLevel
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
@@ -68,8 +68,8 @@ extension AKAudioFile {
      - Throws: NSError if failed .
      
      - Returns: An AKAudioFile, or nil if init failed.*/
-    public func reverse( baseDir: BaseDirectory = .Temp,
-                         name: String = "" ) throws -> AKAudioFile {
+    public func reverse(baseDir baseDir: BaseDirectory = .Temp,
+                                name: String = "" ) throws -> AKAudioFile {
         
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
         
@@ -99,9 +99,9 @@ extension AKAudioFile {
      - Throws: NSError if failed .
      
      - Returns: An AKAudioFile, or nil if init failed.*/
-    public func append( file: AKAudioFile,
-                        baseDir: BaseDirectory = .Temp,
-                        name: String  = "") throws -> AKAudioFile {
+    public func append(file file: AKAudioFile,
+                            baseDir: BaseDirectory = .Temp,
+                            name: String  = "") throws -> AKAudioFile {
         
         if self.fileFormat != file.fileFormat {
             print( "ERROR AKAudioFile: appended file must be of the same format!")
@@ -184,9 +184,9 @@ extension AKAudioFile {
      - Throws: NSError if failed .
      
      - Returns: An AKAudioFile, or nil if init failed.*/
-    static public func silent(samples: Int64,
-                              baseDir: BaseDirectory = .Temp,
-                              name: String = "") throws -> AKAudioFile {
+    static public func silent(samples samples: Int64,
+                                      baseDir: BaseDirectory = .Temp,
+                                      name: String = "") throws -> AKAudioFile {
         
         if samples < 0 {
             print( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count !")
