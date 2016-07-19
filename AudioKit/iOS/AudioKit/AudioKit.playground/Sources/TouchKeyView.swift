@@ -21,9 +21,11 @@ public class TouchKeyView: UIButton {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     public override func drawRect(rect: CGRect) {
         drawKey(text: letters, numeral: number)
     }
+
     func drawKey(text text: String = "A B C", numeral: String = "1") {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -90,8 +92,8 @@ public class TouchKeyView: UIButton {
 }
 
 extension AKPlaygroundView {
-    public func addTouchKey(
-        num: String, text: String, action: Selector) -> TouchKeyView {
+
+    public func addTouchKey(num: String, text: String, action: Selector) -> TouchKeyView {
 
         let newButton = TouchKeyView(numeral: num, text: text)
 
@@ -99,7 +101,6 @@ extension AKPlaygroundView {
         if let button = lastButton {
             newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
             yPosition = Int(button.frame.origin.y)
-
         }
 
         newButton.frame.origin.y = CGFloat(yPosition)

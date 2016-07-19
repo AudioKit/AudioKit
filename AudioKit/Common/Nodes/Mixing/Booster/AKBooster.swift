@@ -11,8 +11,8 @@ import AVFoundation
 
 /// AudioKit version of Apple's Mixer Node
 public class AKBooster: AKNode, AKToggleable {
+    
     private let mixer = AVAudioMixerNode()
-
 
     /// Amplification Factor
     public var gain: Double = 1.0 {
