@@ -661,7 +661,7 @@
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="contentRect" x="225" y="508" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                     </window>
                     <connections>
@@ -679,7 +679,7 @@
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="OyM-R7-q77">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="163" y="208" width="300" height="150"/>
+                        <rect key="contentRect" x="630" y="335" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
                     </window>
                     <connections>
@@ -695,17 +695,17 @@
             <objects>
                 <viewController title="Controls" id="r5i-zN-Fh0" customClass="ControlsViewContoller" customModule="SporthEditor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="u5u-Jt-f9q">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fillEqually" orientation="vertical" alignment="centerX" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ePx-AZ-WUf">
-                                <rect key="frame" x="20" y="20" width="260" height="110"/>
+                                <rect key="frame" x="20" y="20" width="440" height="230"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n7s-iC-mM1">
-                                        <rect key="frame" x="0.0" y="89" width="260" height="21"/>
+                                        <rect key="frame" x="0.0" y="178.5" width="440" height="51.5"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uwf-vf-l71">
-                                                <rect key="frame" x="-2" y="2" width="23" height="17"/>
+                                                <rect key="frame" x="-2" y="17.5" width="23" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="19" id="Fpg-dP-FXd"/>
                                                 </constraints>
@@ -716,7 +716,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oNz-h2-v2X">
-                                                <rect key="frame" x="21" y="-7" width="61" height="32"/>
+                                                <rect key="frame" x="21" y="8.5" width="61" height="32"/>
                                                 <buttonCell key="cell" type="push" title="trig" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Nct-FD-MON">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -726,7 +726,7 @@
                                                 </connections>
                                             </button>
                                             <button identifier="0" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qae-kL-w4z">
-                                                <rect key="frame" x="78" y="-7" width="67" height="32"/>
+                                                <rect key="frame" x="78" y="8.5" width="67" height="32"/>
                                                 <buttonCell key="cell" type="push" title="gate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VjL-z3-lcV">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -736,7 +736,7 @@
                                                 </connections>
                                             </button>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bYj-oE-cK6">
-                                                <rect key="frame" x="145" y="0.0" width="117" height="21"/>
+                                                <rect key="frame" x="145" y="16" width="297" height="20"/>
                                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="Qo1-qH-fsy"/>
                                                 <connections>
                                                     <action selector="updateParameter1:" target="r5i-zN-Fh0" id="V69-pT-882"/>
@@ -757,10 +757,10 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q2o-qu-rQB">
-                                        <rect key="frame" x="0.0" y="59" width="260" height="22"/>
+                                        <rect key="frame" x="0.0" y="119" width="440" height="51.5"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1Gm-co-SbI">
-                                                <rect key="frame" x="-2" y="2" width="23" height="17"/>
+                                                <rect key="frame" x="-2" y="17.5" width="23" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="19" id="AJg-RO-NZn"/>
                                                 </constraints>
@@ -771,7 +771,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nM5-fa-CLy">
-                                                <rect key="frame" x="21" y="-7" width="61" height="32"/>
+                                                <rect key="frame" x="21" y="8.5" width="61" height="32"/>
                                                 <buttonCell key="cell" type="push" title="trig" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ypk-QA-0gI">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -781,7 +781,7 @@
                                                 </connections>
                                             </button>
                                             <button identifier="1" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zsy-uB-oTc">
-                                                <rect key="frame" x="78" y="-7" width="67" height="32"/>
+                                                <rect key="frame" x="78" y="8.5" width="67" height="32"/>
                                                 <buttonCell key="cell" type="push" title="gate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wof-1V-hJo">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -791,7 +791,7 @@
                                                 </connections>
                                             </button>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="DwZ-L9-QPR">
-                                                <rect key="frame" x="145" y="0.0" width="117" height="21"/>
+                                                <rect key="frame" x="145" y="16" width="297" height="20"/>
                                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="OQV-aG-UPi"/>
                                                 <connections>
                                                     <action selector="updateParameter2:" target="r5i-zN-Fh0" id="Whe-Fc-Mz7"/>
@@ -812,10 +812,10 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sB1-QA-1IR">
-                                        <rect key="frame" x="0.0" y="30" width="260" height="21"/>
+                                        <rect key="frame" x="0.0" y="59.5" width="440" height="51.5"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Pte-tz-dPw">
-                                                <rect key="frame" x="-2" y="2" width="23" height="17"/>
+                                                <rect key="frame" x="-2" y="17.5" width="23" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="19" id="4Ek-YV-Htr"/>
                                                 </constraints>
@@ -826,7 +826,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4tI-eb-HqJ">
-                                                <rect key="frame" x="21" y="-7" width="61" height="32"/>
+                                                <rect key="frame" x="21" y="8.5" width="61" height="32"/>
                                                 <buttonCell key="cell" type="push" title="trig" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TLX-AH-bnX">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -836,7 +836,7 @@
                                                 </connections>
                                             </button>
                                             <button identifier="2" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Rf8-aV-N4l">
-                                                <rect key="frame" x="78" y="-7" width="67" height="32"/>
+                                                <rect key="frame" x="78" y="8.5" width="67" height="32"/>
                                                 <buttonCell key="cell" type="push" title="gate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="06I-Ec-GyK">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -846,7 +846,7 @@
                                                 </connections>
                                             </button>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uEU-HI-hUL">
-                                                <rect key="frame" x="145" y="0.0" width="117" height="21"/>
+                                                <rect key="frame" x="145" y="16" width="297" height="20"/>
                                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="wCq-EX-veQ"/>
                                                 <connections>
                                                     <action selector="updateParameter3:" target="r5i-zN-Fh0" id="CcY-J5-PxM"/>
@@ -867,10 +867,10 @@
                                         </customSpacing>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rlB-7b-uYD">
-                                        <rect key="frame" x="0.0" y="0.0" width="260" height="22"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="440" height="51.5"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xmq-di-u9l">
-                                                <rect key="frame" x="-2" y="2" width="23" height="17"/>
+                                                <rect key="frame" x="-2" y="17.5" width="23" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="19" id="b4i-6k-Af4"/>
                                                 </constraints>
@@ -881,7 +881,7 @@
                                                 </textFieldCell>
                                             </textField>
                                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BEV-4d-i5Z">
-                                                <rect key="frame" x="21" y="-7" width="61" height="32"/>
+                                                <rect key="frame" x="21" y="8.5" width="61" height="32"/>
                                                 <buttonCell key="cell" type="push" title="trig" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jzx-Jx-Sfg">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -891,7 +891,7 @@
                                                 </connections>
                                             </button>
                                             <button identifier="3" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3bd-Rn-Ibw">
-                                                <rect key="frame" x="78" y="-7" width="67" height="32"/>
+                                                <rect key="frame" x="78" y="8.5" width="67" height="32"/>
                                                 <buttonCell key="cell" type="push" title="gate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eVW-FQ-W9a">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
@@ -901,7 +901,7 @@
                                                 </connections>
                                             </button>
                                             <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZTj-bl-qZ1">
-                                                <rect key="frame" x="145" y="0.0" width="117" height="21"/>
+                                                <rect key="frame" x="145" y="16" width="297" height="20"/>
                                                 <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="Skm-Wc-EsS"/>
                                                 <connections>
                                                     <action selector="updateParameter4:" target="r5i-zN-Fh0" id="SMR-Zt-2oE"/>
@@ -989,7 +989,7 @@
 550 550 3 p * + 0.1 sine +</string>
                                                                     <attributes>
                                                                         <color key="NSColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <font key="NSFont" size="16" name="FiraCode-Regular"/>
+                                                                        <font key="NSFont" metaFont="system" size="16"/>
                                                                         <integer key="NSLigature" value="0"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" defaultTabInterval="38.399999999999999" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                                             <tabStops>
