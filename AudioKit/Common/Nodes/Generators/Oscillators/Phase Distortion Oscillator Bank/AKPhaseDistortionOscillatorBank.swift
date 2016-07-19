@@ -179,7 +179,7 @@ public class AKPhaseDistortionOscillatorBank: AKPolyphonicNode {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
-        description.componentSubType      = 0x666d6f62 /*'fmob'*/
+        description.componentSubType      = 0x70686462 /*'phdb'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
