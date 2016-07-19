@@ -80,7 +80,7 @@ let tenPerCentsOfPiano = piano!.samplesCount / 10
 //: Fine, we'll pick a part from the beginning (but not at the beginning),
 //: so we extract from 10 % to 20 % of the piano song)
 
-let extractProcess = piano!.extractAsynchronously(fromSample: tenPerCentsOfPiano,
+let extractProcess = piano!.extractAsynchronously(tenPerCentsOfPiano,
                                                   toSample:tenPerCentsOfPiano * 2,
                                                   completionCallBack: callback1)
 //: We want another player to play the piano backward. So we need the reversed audiofile:
