@@ -18,7 +18,10 @@ let time = AKOperation.sineWave(frequency: 0.3).scale(minimum: 0.01, maximum: 0.
 let feedback = AKOperation.sineWave(frequency: 0.21).scale(minimum: 0.5, maximum: 0.9)
 
 let variableDelay = AKOperation.input.variableDelay(time: time,
-                                                    feedback: feedback, maximumDelayTime: 1.0)
+                                                    feedback: feedback,
+                                                    maximumDelayTime: 1.0)
+
+
 let effect = AKOperationEffect(player, operation: variableDelay)
 
 AudioKit.output = effect

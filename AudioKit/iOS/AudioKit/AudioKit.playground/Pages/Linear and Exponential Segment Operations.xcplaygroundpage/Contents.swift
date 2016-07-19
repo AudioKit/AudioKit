@@ -26,7 +26,7 @@ let amplitude = AKOperation.exponentialSegment(AKOperation.metronome(updateRate)
                                                duration: 1.0 / updateRate)
 let sine = AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
 
-let generator = AKOperationGenerator(operation:  sine)
+let generator = AKOperationGenerator(operation: sine)
 
 var delay = AKDelay(generator)
 
