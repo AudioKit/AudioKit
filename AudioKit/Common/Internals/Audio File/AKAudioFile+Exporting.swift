@@ -62,7 +62,7 @@ extension AKAudioFile {
     /// Can export from m4a/mp4 to m4a/mp4
     /// Exporting from mp4/m4a to wav/aif is not supported.
     /// 
-    /// inTime and outTime can be set to extract only a portion of the current AKAudioFile.
+    /// fromTime and toTime can be set to extract only a portion of the current AKAudioFile.
     /// If outTime is zero, it will be set to the file's duration (no end trimming)
     /// 
     /// As soon as callback has been triggered, you can use ExportSession.status to 
@@ -77,8 +77,8 @@ extension AKAudioFile {
     ///   - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
     ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
     ///   - callBack: AKCallback function that will be triggered when export completed.
-    ///   - inTime: start range time value in seconds
-    ///   - outTime: end range time value in seconds.
+    ///   - fromTime: start range time value in seconds
+    ///   - toTime: end range time value in seconds.
     /// - throws: NSError if init failed
     /// - returns: An AKAudioFile ExportSession object, or nil if init failed.
     ///
@@ -86,8 +86,8 @@ extension AKAudioFile {
                             ext: ExportFormat,
                             baseDir: BaseDirectory,
                             callBack: (AKCallback),
-                            inTime: Double = 0,
-                            outTime: Double  = 0) throws -> ExportSession {
+                            fromTime: Double = 0,
+                            toTime: Double = 0) throws -> ExportSession {
         
         let fromFileExt = fileExt.lowercaseString
         
@@ -127,8 +127,8 @@ extension AKAudioFile {
                                  presetName: avExportPreset,
                                  file: self,
                                  outputFileExtension:ext,
-                                 from: inTime,
-                                 to: outTime)
+                                 fromTime: fromTime,
+                                 toTime: toTime)
     }
 
      
@@ -154,8 +154,8 @@ extension AKAudioFile {
         ///   - presetName:          Name of the preset
         ///   - file:                AKAudioFile
         ///   - outputFileExtension: Extension to use for output
-        ///   - inTime:              Starting time
-        ///   - outTime:             Ending time
+        ///   - fromTime:            Starting time
+        ///   - toTime:              Ending time
         ///
         /// - throws: NSError if failed
         ///
@@ -164,8 +164,8 @@ extension AKAudioFile {
                     presetName: String,
                     file: AKAudioFile,
                     outputFileExtension: ExportFormat,
-                    from inTime: Double,
-                         to outTime: Double) throws {
+                    fromTime: Double,
+                    toTime: Double) throws {
             
             self.callBack = callBack
             
@@ -235,13 +235,13 @@ extension AKAudioFile {
             let inFrame: Int64
             let outFrame: Int64
             
-            if outTime == 0 {
+            if toTime == 0 {
                 outFrame = file.samplesCount
             } else {
-                outFrame = min(file.samplesCount, Int64(outTime * file.sampleRate))
+                outFrame = min(file.samplesCount, Int64(toTime * file.sampleRate))
             }
             
-            inFrame = abs(min(file.samplesCount, Int64(inTime * file.sampleRate)))
+            inFrame = abs(min(file.samplesCount, Int64(fromTime * file.sampleRate)))
             
             if (outFrame <= inFrame) {
                 print( "ERROR AKAudioFile export: In time must be less than Out time!...")
