@@ -14,15 +14,13 @@ extension AKComputedParameter {
     ///
     /// - Parameters:
     ///   - wah: Wah Amount (Default: 0, Minimum: 0, Maximum: 1)
-    ///   - mix: Dry/Wet Mix (Default: 1, Minimum: 0, Maximum: 1)
     ///   - amplitude: Overall level (Default: 0.1, Minimum: 0, Maximum: 1)
     ///
     public func autoWah(
         wah wah: AKParameter = 0,
-        mix: AKParameter = 1,
         amplitude: AKParameter = 0.1
         ) -> AKOperation {
-        return AKOperation(module: "autowah",
-                           inputs: self.toMono(), amplitude, wah, mix)
+        return AKOperation(module: "100 autowah",
+                           inputs: self.toMono(), amplitude, wah)
     }
 }
