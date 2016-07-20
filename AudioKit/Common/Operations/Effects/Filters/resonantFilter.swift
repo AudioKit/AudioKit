@@ -1,6 +1,6 @@
 //
 //  resonantFilter.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Daniel Clelland, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.

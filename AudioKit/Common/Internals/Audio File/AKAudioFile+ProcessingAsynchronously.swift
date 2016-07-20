@@ -1,6 +1,6 @@
 //
 //  AKAudioFile+ProcessingAsynchronously.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Laurent Veliscek and Brandon Barber on 12/07/2016.
 //  Copyright © 2016 AudioKit. All rights reserved.
