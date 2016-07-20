@@ -38,27 +38,6 @@ public class AKOperationEffect: AKNode, AKToggleable {
 
     // MARK: - Initializers
 
-    /// Initialize the effect with an input and an operation
-    ///
-    /// - Parameters:
-    ///   - input: AKNode to use for processing
-    ///   - operation: AKOperation stack to use
-    ///
-    public convenience init(_ input: AKNode, operation: AKOperation) {
-        // add "dup" to copy the left channel output to the right channel output
-        self.init(input, sporth: "\(operation.sporth) dup")
-    }
-
-    /// Initialize the effect with an input and a stereo operation
-    ///
-    /// - Parameters:
-    ///   - input: AKNode to use for processing
-    ///   - stereoOperation: AKStereoOperation stack to use
-    ///
-    public convenience init(_ input: AKNode, stereoOperation: AKStereoOperation) {
-        self.init(input, sporth:"\(stereoOperation.sporth) swap")
-    }
-
     /// Initialize the effect with an input and separate operations for each channel
     ///
     /// - Parameters:
@@ -103,9 +82,52 @@ public class AKOperationEffect: AKNode, AKToggleable {
             input.addConnectionPoint(self)
             self.internalAU?.setSporth(sporth)
         }
-
     }
 
+    /// Initialize the effect with an input and a valid Sporth string
+    ///
+    /// - Parameters:
+    ///   - input: AKNode to use for processing
+    ///   - sporth: String of valid Sporth code
+    ///
+    public init(_ input: AKNode, operation: ()->AKComputedParameter) {
+        
+        var description = AudioComponentDescription()
+        description.componentType         = kAudioUnitType_Effect
+        description.componentSubType      = 0x6373746d /*'cstm'*/
+        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentFlags        = 0
+        description.componentFlagsMask    = 0
+        
+        AUAudioUnit.registerSubclass(
+            AKOperationEffectAudioUnit.self,
+            asComponentDescription: description,
+            name: "Local AKOperationEffect",
+            version: UInt32.max)
+        
+        super.init()
+        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+            avAudioUnit, error in
+            
+            guard let avAudioUnitEffect = avAudioUnit else { return }
+            
+            self.avAudioNode = avAudioUnitEffect
+            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationEffectAudioUnit
+            AudioKit.engine.attachNode(self.avAudioNode)
+            input.addConnectionPoint(self)
+            let computedParameter = operation()
+            
+            if computedParameter.dynamicType == AKOperation.self {
+                let monoOperation = computedParameter as! AKOperation
+                self.internalAU?.setSporth(monoOperation.sporth + " dup ")
+            }
+            if computedParameter.dynamicType == AKStereoOperation.self {
+                let stereoOperation = computedParameter as! AKStereoOperation
+                self.internalAU?.setSporth(stereoOperation.sporth + " swap ")
+            }
+        }
+    }
+    
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         internalAU!.start()
