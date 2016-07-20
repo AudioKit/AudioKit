@@ -22,6 +22,6 @@ extension AKComputedParameter {
         feedback feedback: AKParameter = 0.6,
         cutoffFrequency: AKParameter = 4000
         ) -> AKStereoOperation {
-            return AKStereoOperation("(\(self.toStereo()) \(feedback) \(cutoffFrequency) revsc)")
+        return AKStereoOperation(module: "revsc", inputs: self.toStereo(), feedback, cutoffFrequency)
     }
 }

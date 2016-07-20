@@ -22,6 +22,7 @@ extension AKComputedParameter {
         mix: AKParameter = 1,
         amplitude: AKParameter = 0.1
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(amplitude) \(wah) \(100.0 * mix) autowah)")
+        return AKOperation(module: "autowah",
+                           inputs: self.toMono(), amplitude, wah, mix)
     }
 }

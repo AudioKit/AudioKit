@@ -23,7 +23,7 @@ extension AKOperation {
         end: AKParameter,
         duration: AKParameter
         ) -> AKOperation {
-            return AKOperation("(\(trigger) \(start) \(duration) \(end) line)")
+        return AKOperation(module: "line", inputs: trigger, start, duration, end)
     }
 }
 
@@ -42,6 +42,6 @@ extension AKOperation {
         end: AKParameter,
         duration: AKParameter
         ) -> AKOperation {
-            return AKOperation("(\(trigger) \(start) \(duration) \(end) expon)")
+        return AKOperation(module: "expon" , inputs: trigger, start, duration, end)
     }
 }

@@ -23,6 +23,7 @@ extension AKOperation {
         minimumFrequency: AKParameter = 0.5,
         maximumFrequency: AKParameter = 4
         ) -> AKOperation {
-            return AKOperation("(\(amplitude) \(minimumFrequency) \(maximumFrequency) jitter)")
+        return AKOperation(module: "jitter",
+                           inputs: amplitude, minimumFrequency, maximumFrequency)
     }
 }

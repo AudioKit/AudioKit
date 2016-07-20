@@ -24,6 +24,6 @@ extension AKComputedParameter {
         reverbDuration reverbDuration: AKParameter = 0.5,
         loopDuration: Double = 0.1
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(reverbDuration) \(loopDuration) allpass)")
+        return AKOperation(module: "allpass", inputs: self.toMono(), reverbDuration, loopDuration)
     }
 }
