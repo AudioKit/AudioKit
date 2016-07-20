@@ -14,14 +14,14 @@ let filter = AKOperation.input.highPassFilter(halfPowerPoint: halfPower)
 //: Noise Example
 // Bring down the amplitude so that when it is mixed it is not so loud
 let whiteNoise = AKWhiteNoise(amplitude: 0.1)
-let filteredNoise = AKOperationEffect(whiteNoise, operation: filter)
+let filteredNoise = AKOperationEffect(whiteNoise) { return filter }
 
 //: Music Example
 let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-let filteredPlayer = AKOperationEffect(player, operation: filter)
+let filteredPlayer = AKOperationEffect(player) { return filter }
 
 //: Mixdown and playback
 let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, balance: 0.5)
