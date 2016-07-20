@@ -27,7 +27,8 @@ extension AKAudioFile {
      
     - Returns: An AKAudioFile, or nil if init failed.*/
     public func normalize(baseDir baseDir: BaseDirectory = .Temp,
-                                  name: String = "", newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
+                                  name: String = "",
+                                  newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
         
         let level = self.maxLevel
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
@@ -54,7 +55,9 @@ extension AKAudioFile {
             newArrays.append(newArray)
         }
         
-        outputFile = try AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
+        outputFile = try AKAudioFile(createFileFromFloats: newArrays,
+                                     baseDir: baseDir,
+                                     name: name)
         return try AKAudioFile(forReading: outputFile.url)
     }
 
@@ -84,7 +87,9 @@ extension AKAudioFile {
         for array in arrays {
             newArrays.append(Array(array.reverse()))
         }
-        outputFile = try AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
+        outputFile = try AKAudioFile(createFileFromFloats: newArrays,
+                                     baseDir: baseDir,
+                                     name: name)
         return try AKAudioFile(forReading: outputFile.url)
     }
 
@@ -94,7 +99,7 @@ extension AKAudioFile {
      - Parameters:
         - file: an AKAudioFile that will be used to append audio from.
         - name: the name of the file without its extension (String).
-        - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+        - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
      
      - Throws: NSError if failed .
      
@@ -141,7 +146,7 @@ extension AKAudioFile {
         - fromSample: the starting sampleFrame for extraction.
         - toSample: the ending sampleFrame for extraction
         - name: the name of the file without its extension (String).
-        - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+        - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
      
      - Throws: NSError if failed .
      
