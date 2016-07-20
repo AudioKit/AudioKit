@@ -66,7 +66,7 @@ public struct AKOperation: AKComputedParameter {
             }
             counter += 1
         }
-        str += "\(setup) \n"
+        str += "\(setupString()) \n"
         str += "\(operationString()) \n"
         return str
     }
