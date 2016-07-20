@@ -22,12 +22,13 @@ extension AKOperation {
         amplitude: AKParameter = 1,
         index: AKParameter = 0
         ) -> AKOperation {
-            let sine     = "(\"sine\"     4096  gen_sine)"
-            let square   = "(\"square\"   4096 \"0 1 2047 1 2048 -1 4095 -1\" gen_line)"
-            let sawtooth = "(\"sawtooth\" 4096 \"0 -1 4095 1\" gen_line)"
-            let revsaw   = "(\"revsaw\"   4096 \"0 1 4095 -1\" gen_line)"
-            let oscmorph4 = "(\(frequency) \(amplitude) \(index) 3 / 0 \"sine\" \"square\" \"sawtooth\" \"revsaw\" oscmorph4)"
+        let sine     = "\"sine\"     4096  gen_sine \n"
+        let square   = "\"square\"   4096 \"0 1 2047 1 2048 -1 4095 -1\" gen_line \n"
+        let sawtooth = "\"sawtooth\" 4096 \"0 -1 4095 1\" gen_line \n"
+        let revsaw   = "\"revsaw\"   4096 \"0 1 4095 -1\" gen_line \n"
 
-            return AKOperation("(\(sine) \(square) \(sawtooth) \(revsaw) \(oscmorph4))")
+        return AKOperation(module: "3 / 0 \"sine\" \"square\" \"sawtooth\" \"revsaw\" oscmorph4",
+                           setup: "\(sine) \(square) \(sawtooth) \(revsaw)",
+                           inputs: frequency, amplitude, index)
     }
 }

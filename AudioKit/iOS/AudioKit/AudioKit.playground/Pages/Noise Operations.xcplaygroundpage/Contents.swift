@@ -10,11 +10,11 @@ import AudioKit
 let white = AKOperation.whiteNoise()
 let pink = AKOperation.pinkNoise()
 
-let balance = AKOperation.sineWave(frequency: 0.3).scale(minimum: 0, maximum: 1)
-let noise = mixer(white, pink, balance: 1)
-let pan = AKOperation.sineWave(frequency: 0.3)
+let lfo = AKOperation.sineWave(frequency: 0.3)
+let balance = lfo.scale(minimum: 0, maximum: 1)
+let noise = mixer(white, pink, balance: balance)
 
-let generator = AKOperationGenerator(stereoOperation: noise.pan(pan))
+let generator = AKOperationGenerator(stereoOperation: noise.pan(lfo))
 
 AudioKit.output = generator
 AudioKit.start()
