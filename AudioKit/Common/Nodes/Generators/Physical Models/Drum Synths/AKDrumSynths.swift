@@ -18,11 +18,12 @@ public class AKSynthKick: AKMIDIInstrument {
     /// Create the synth kick voice
     public override init() {
 
-        let frequency = AKOperation.lineSegment(AKOperation.trigger, start: 120, end: 40, duration: 0.03)
-        let volumeSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: 0.3)
-        let boom = AKOperation.sineWave(frequency: frequency, amplitude: volumeSlide)
-
-        generator = AKOperationGenerator(operation: boom)
+        generator = AKOperationGenerator() {
+            let frequency = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 120, end: 40, duration: 0.03)
+            let volumeSlide = AKOperation.lineSegment(trigger: AKOperation.trigger, start: 1, end: 0, duration: 0.3)
+            return AKOperation.sineWave(frequency: frequency, amplitude: volumeSlide)
+        }
+        
         filter = AKMoogLadder(generator)
         filter.cutoffFrequency = 666
         filter.resonance = 0.00
@@ -55,9 +56,14 @@ public class AKSynthSnare: AKMIDIInstrument {
         self.duration = duration
         self.resonance = resonance
 
-        let volSlide = AKOperation.lineSegment(AKOperation.trigger, start: 1, end: 0, duration: duration)
-        let white = AKOperation.whiteNoise(amplitude: volSlide)
-        generator = AKOperationGenerator(operation: white)
+        generator = AKOperationGenerator() {
+            let volSlide = AKOperation.lineSegment(
+                trigger: AKOperation.trigger,
+                start: 1,
+                end: 0,
+                duration: duration)
+            return AKOperation.whiteNoise(amplitude: volSlide)
+        }
 
         filter = AKMoogLadder(generator)
         filter.cutoffFrequency = 1666
