@@ -1,8 +1,8 @@
 //
 //  stringResonator.swift
-//  AudioKit For iOS
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 7/5/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
