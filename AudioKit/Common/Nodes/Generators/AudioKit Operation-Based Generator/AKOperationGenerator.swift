@@ -38,23 +38,6 @@ public class AKOperationGenerator: AKNode, AKToggleable {
 
     // MARK: - Initializers
 
-    /// Initialize the generator with an operation and indicate whether it responds to a trigger
-    ///
-    /// - parameter operation: AKOperation stack to use
-    ///
-    public convenience init(operation: AKOperation) {
-        self.init("\(operation.sporth) dup")
-    }
-
-    /// Initialize the generator with a stereo operation and indicate whether it responds to a trigger
-    ///
-    /// - parameter stereoOperation: AKStereoOperation stack to use
-    ///
-    public convenience init(stereoOperation: AKStereoOperation) {
-        let operationString = "\(stereoOperation.sporth)) swap"
-        self.init(operationString)
-    }
-
     /// Initialize the generator with a two mono operations for the left and right channel and indicate whether it responds to a trigger
     ///
     /// - Parameters:
@@ -64,6 +47,43 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     public convenience init(left: AKOperation, right: AKOperation) {
         let operationString = "\(right.sporth) \(left.sporth)"
         self.init(operationString)
+    }
+    
+    public init(operation: ()->AKComputedParameter) {
+        var description = AudioComponentDescription()
+        description.componentType         = kAudioUnitType_Generator
+        description.componentSubType      = 0x63737467 /*'cstg'*/
+        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
+        description.componentFlags        = 0
+        description.componentFlagsMask    = 0
+
+        AUAudioUnit.registerSubclass(
+            AKOperationGeneratorAudioUnit.self,
+            asComponentDescription: description,
+            name: "Local AKOperationGenerator",
+            version: UInt32.max)
+
+        super.init()
+        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
+            avAudioUnit, error in
+
+            guard let avAudioUnitEffect = avAudioUnit else { return }
+
+            self.avAudioNode = avAudioUnitEffect
+            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationGeneratorAudioUnit
+            AudioKit.engine.attachNode(self.avAudioNode)
+            
+            let computedParameter = operation()
+
+            if computedParameter.dynamicType == AKOperation.self {
+                let monoOperation = computedParameter as! AKOperation
+                self.internalAU?.setSporth(monoOperation.sporth + " dup ")
+            }
+            if computedParameter.dynamicType == AKStereoOperation.self {
+                let stereoOperation = computedParameter as! AKStereoOperation
+                self.internalAU?.setSporth(stereoOperation.sporth + " swap ")
+            }
+        }
     }
 
     /// Initialize this generator node with a generic sporth stack and a triggering flag
