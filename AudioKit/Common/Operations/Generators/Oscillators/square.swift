@@ -22,6 +22,8 @@ extension AKOperation {
         amplitude: AKParameter = 0.5,
         phase: AKParameter = 0
         ) -> AKOperation {
-            return AKOperation("\"square\" 4096 \"0 -1 2047 -1 2048 1 4095 1\" gen_line (\(frequency) \(amplitude) \(phase) \"square\" osc)")
+        return AKOperation(module: "\"square\" osc",
+                           setup: "\"square\" 4096 \"0 -1 2047 -1 2048 1 4095 1\" gen_line",
+                           inputs: frequency, amplitude, phase)
     }
 }

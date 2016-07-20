@@ -21,6 +21,6 @@ extension AKOperation {
         frequency frequency: AKParameter = 1,
         phase: Double = 0
         ) -> AKOperation {
-            return AKOperation("(\(frequency) \(phase) phasor)")
+        return AKOperation(module: "phasor", inputs: frequency, phase)
     }
 }

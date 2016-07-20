@@ -17,6 +17,6 @@ extension AKOperation {
     public static func pinkNoise(
         amplitude amplitude: AKParameter = 1.0
         ) -> AKOperation {
-            return AKOperation("(\(amplitude) pinknoise)")
+        return AKOperation(module: "pinknoise", inputs: amplitude)
     }
 }

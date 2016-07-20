@@ -22,6 +22,6 @@ extension AKComputedParameter {
         frequency frequency: AKParameter = 100.0,
                   feedback: AKParameter = 0.95
         ) -> AKOperation {
-        return AKOperation("(\(self.toMono()) \(frequency) \(feedback) streson)")
+        return AKOperation(module: "streson", inputs: self.toMono(), frequency, feedback)
     }
 }

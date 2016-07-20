@@ -24,6 +24,6 @@ extension AKOperation {
         hold: AKParameter = 0.3,
         release: AKParameter = 0.2
         ) -> AKOperation {
-            return AKOperation("((\(trigger) \(attack) \(hold) \(release) tenv) \(self.toMono()) *)")
+        return AKOperation(module: "tenv *", inputs: self, trigger, attack, hold, release)
     }
 }
