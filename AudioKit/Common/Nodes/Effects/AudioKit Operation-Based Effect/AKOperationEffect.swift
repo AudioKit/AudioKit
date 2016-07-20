@@ -46,7 +46,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
     ///
     public convenience init(_ input: AKNode, operation: AKOperation) {
         // add "dup" to copy the left channel output to the right channel output
-        self.init(input, sporth:"\(operation) dup")
+        self.init(input, sporth: "\(operation.sporth) dup")
     }
 
     /// Initialize the effect with an input and a stereo operation
@@ -56,7 +56,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
     ///   - stereoOperation: AKStereoOperation stack to use
     ///
     public convenience init(_ input: AKNode, stereoOperation: AKStereoOperation) {
-        self.init(input, sporth:"\(stereoOperation) swap")
+        self.init(input, sporth:"\(stereoOperation.sporth) swap")
     }
 
     /// Initialize the effect with an input and separate operations for each channel
@@ -67,7 +67,7 @@ public class AKOperationEffect: AKNode, AKToggleable {
     ///   - right: AKOperation stack to use on the right
     ///
     public convenience init(_ input: AKNode, left: AKOperation, right: AKOperation) {
-        self.init(input, sporth:"\(right) \(left)")
+        self.init(input, sporth:"\(right.sporth) \(left.sporth)")
     }
 
     /// Initialize the effect with an input and a valid Sporth string
