@@ -41,11 +41,12 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let oscillator = AKOperation.sineWave(frequency: AutoPan.speed, amplitude: AutoPan.depth)
+let effect = AKOperationEffect(player) {
+    let oscillator = AKOperation.sineWave(frequency: AutoPan.speed,
+                                          amplitude: AutoPan.depth)
+    return AKOperation.input.pan(oscillator)
+}
 
-let panner = AKOperation.input.pan(oscillator)
-
-let effect = AKOperationEffect(player, stereoOperation: panner)
 effect.parameters = [10, 1]
 AudioKit.output = effect
 AudioKit.start()
@@ -77,13 +78,8 @@ class PlaygroundView: AKPlaygroundView {
 
     func startLoop(part: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav",
-                                    baseDir: .Resources)
-        do {
-            try player.replaceFile(file!)
-        } catch {
-            print("Could not replace file!")
-        }
+        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
+        try? player.replaceFile(file!)
         player.play()
     }
 
@@ -113,11 +109,19 @@ class PlaygroundView: AKPlaygroundView {
     func setSpeed(slider: Slider) {
         effect.speed = Double(slider.value)
         speedLabel!.text = "Speed: \(String(format: "%0.3f", effect.speed))"
+        printParameters()
     }
 
     func setDepth(slider: Slider) {
         effect.depth = Double(slider.value)
         depthLabel!.text = "Depth: \(String(format: "%0.3f", effect.depth))"
+        printParameters()
+    }
+
+    func printParameters() {
+        let realSpeed = effect.parameters[AutoPanParameter.Speed.rawValue]
+        let realDepth = effect.parameters[AutoPanParameter.Depth.rawValue]
+        Swift.print("speed = \(realSpeed), depth = \(realDepth)")
     }
 }
 

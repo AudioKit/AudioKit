@@ -13,10 +13,12 @@ let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
+
+
 func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
     zip(times, gains).forEach { (time, gain) -> () in
-        let delay = AKVariableDelay(input, time: time, feedback: 0.0)
+        let delay = AKVariableDelay(input, time: time)
         mix.connect(AKBooster(delay, gain: gain))
     }
     return mix

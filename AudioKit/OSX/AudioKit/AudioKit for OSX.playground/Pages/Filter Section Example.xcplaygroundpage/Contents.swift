@@ -9,8 +9,9 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 
+
 //: Here we set up a player to the loop the file's playback
-var player = try AKAudioPlayer(file: file)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 // Filter Properties
@@ -22,11 +23,11 @@ var filterMix = 0.9
 var lfoAmplitude = 1000
 var lfoRate = 1.0 / 3.428
 
-let lfo = AKOperation.morphingOscillator(frequency: lfoRate, amplitude: lfoAmplitude, index: 0)
-let moog = AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency,
+let filterSectionEffect = AKOperationEffect(player) {
+    let lfo = AKOperation.sineWave(frequency: lfoRate, amplitude: lfoAmplitude)
+    return AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency,
                                               resonance: resonance)
-let filterSectionEffect = AKOperationEffect(player, operation: moog)
-
+}
 AudioKit.output = filterSectionEffect
 AudioKit.start()
 

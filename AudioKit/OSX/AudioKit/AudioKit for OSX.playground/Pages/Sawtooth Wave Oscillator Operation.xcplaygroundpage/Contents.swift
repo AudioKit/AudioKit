@@ -8,12 +8,12 @@ import XCPlayground
 import AudioKit
 
 //: Set up the operations that will be used to make a generator node
-let freq = AKOperation.jitter(amplitude: 200, minimumFrequency: 1, maximumFrequency: 10) + 200
-let amp  = AKOperation.randomVertexPulse(minimum: 0, maximum: 1, updateFrequency: 1)
-let oscillator = AKOperation.sawtoothWave(frequency: freq, amplitude: amp)
 
-//: Set up the nodes
-let generator = AKOperationGenerator(operation: oscillator)
+let generator = AKOperationGenerator() {
+    let freq = AKOperation.jitter(amplitude: 200, minimumFrequency: 1, maximumFrequency: 10) + 200
+    let amp  = AKOperation.randomVertexPulse(minimum: 0, maximum: 0.3, updateFrequency: 1)
+    return AKOperation.sawtoothWave(frequency: freq, amplitude: amp)
+}
 
 AudioKit.output = generator
 AudioKit.start()
