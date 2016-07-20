@@ -14,9 +14,9 @@ player.looping = true
 
 let frequency = AKOperation.sineWave(frequency: 0.3).scale(minimum: 200, maximum: 1200)
 
-let filter  = AKOperation.input.modalResonanceFilter(frequency: frequency, qualityFactor: 50) * 0.2
-
-let effect = AKOperationEffect(player, operation: filter)
+let effect = AKOperationEffect(player) {
+    return AKOperation.input.modalResonanceFilter(frequency: frequency, qualityFactor: 50) * 0.2
+}
 
 AudioKit.output = effect
 AudioKit.start()

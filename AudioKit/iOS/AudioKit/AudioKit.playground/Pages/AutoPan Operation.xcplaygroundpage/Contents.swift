@@ -41,11 +41,12 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let oscillator = AKOperation.sineWave(frequency: AutoPan.speed, amplitude: AutoPan.depth)
+let effect = AKOperationEffect(player) {
+    let oscillator = AKOperation.sineWave(frequency: AutoPan.speed,
+                                          amplitude: AutoPan.depth)
+    return AKOperation.input.pan(oscillator)
+}
 
-let panner = AKOperation.input.pan(oscillator)
-
-let effect = AKOperationEffect(player, stereoOperation: panner)
 effect.parameters = [10, 1]
 AudioKit.output = effect
 AudioKit.start()
