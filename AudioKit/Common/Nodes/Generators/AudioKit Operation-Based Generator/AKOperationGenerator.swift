@@ -43,8 +43,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     /// - parameter operation: AKOperation stack to use
     ///
     public convenience init(operation: AKOperation) {
-        let operationString = "\(operation) dup"
-        self.init(operationString)
+        self.init("\(operation.sporth) dup")
     }
 
     /// Initialize the generator with a stereo operation and indicate whether it responds to a trigger
@@ -52,7 +51,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     /// - parameter stereoOperation: AKStereoOperation stack to use
     ///
     public convenience init(stereoOperation: AKStereoOperation) {
-        let operationString = "\(stereoOperation) swap"
+        let operationString = "\(stereoOperation.sporth)) swap"
         self.init(operationString)
     }
 
@@ -63,7 +62,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     ///   - right: AKOperation to be heard from the right output
     ///
     public convenience init(left: AKOperation, right: AKOperation) {
-        let operationString = "\(right) \(left)"
+        let operationString = "\(right.sporth) \(left.sporth)"
         self.init(operationString)
     }
 
