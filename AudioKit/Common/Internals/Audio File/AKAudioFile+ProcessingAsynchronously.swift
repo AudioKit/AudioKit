@@ -70,13 +70,15 @@ extension AKAudioFile {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
-                    self.processedFile = try sourceFile.normalize(baseDir: baseDir, name: name, newMaxLevel: newMaxLevel)
+                    self.processedFile = try sourceFile.normalize(baseDir: baseDir,
+                                                                  name: name,
+                                                                  newMaxLevel: newMaxLevel)
                 } catch let error as NSError {
                     self.status = .Failed
                     print( "ERROR AKAudioFile: Normalize: \(error)")
                     self.error = error
                 }
-                print( "AKAudioFile: Normalizing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
+                print("AKAudioFile: Normalizing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
                 self.status = .Succeeded
                 completionCallBack()
             }
@@ -114,13 +116,14 @@ extension AKAudioFile {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
-                    self.processedFile = try sourceFile.reverse(baseDir: baseDir, name: name)
+                    self.processedFile = try sourceFile.reverse(baseDir: baseDir,
+                                                                name: name)
                 } catch let error as NSError {
                     self.status = .Failed
                     print( "ERROR AKAudioFile: Reverse: \(error)")
                     self.error = error
                 }
-                print( "AKAudioFile: Reversing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
+                print("AKAudioFile: Reversing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
                 self.status = .Succeeded
                 completionCallBack()
             }

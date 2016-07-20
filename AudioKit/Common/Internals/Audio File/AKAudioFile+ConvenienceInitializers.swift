@@ -63,7 +63,7 @@ extension AKAudioFile {
      - Parameters:
        - name: the name of the file without its extension (String).
        - ext: the extension of the file without "." (String).
-       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
        - settings: The settings of the file to create.
        - format: The processing commonFormat to use when writing.
        - interleaved: Bool (Whether to use an interleaved processing format.)
@@ -163,8 +163,10 @@ extension AKAudioFile {
         
         
         // create buffer for floats
-        let format = AVAudioFormat(standardFormatWithSampleRate: 44100, channels: AVAudioChannelCount (channelCount))
-        let buffer = AVAudioPCMBuffer(PCMFormat: format, frameCapacity:  AVAudioFrameCount(floatsArrays[0].count))
+        let format = AVAudioFormat(standardFormatWithSampleRate: 44100,
+                                   channels: AVAudioChannelCount (channelCount))
+        let buffer = AVAudioPCMBuffer(PCMFormat: format,
+                                      frameCapacity:  AVAudioFrameCount(floatsArrays[0].count))
         
         // Fill the buffers
         
@@ -194,7 +196,7 @@ extension AKAudioFile {
      - Parameters:
        - buffer: the :AVAudioPCMBuffer that will be used to fill the AKAudioFile
        - name: the name of the file without its extension (String).
-       - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+       - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
      
      - Throws: NSError if failed .
      
