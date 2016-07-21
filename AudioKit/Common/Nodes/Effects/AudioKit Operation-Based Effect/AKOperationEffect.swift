@@ -37,17 +37,46 @@ public class AKOperationEffect: AKNode, AKToggleable {
     }
 
     // MARK: - Initializers
-
-    /// Initialize the effect with an input and separate operations for each channel
+    
+    /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - input: AKNode to use for processing
-    ///   - left: AKOperation stack to use on the left
-    ///   - right: AKOperation stack to use on the right
+    ///   - input:            AKNode to use for processing
+    ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
+    ///   - operations:       Array of operations [left, right]
     ///
-    public convenience init(_ input: AKNode, left: AKOperation, right: AKOperation) {
-        self.init(input, sporth:"\(right.sporth) \(left.sporth)")
+    public convenience init(_ input: AKNode, numberOfChannels: Int, operations: ()->[AKOperation]) {
+        
+        let computedParameters = operations()
+        let left = computedParameters[0]
+        
+        if numberOfChannels == 2 {
+            let right = computedParameters[1]
+            self.init(input, sporth: "\(right.sporth) \(left.sporth)")
+        } else {
+            self.init(input, sporth: "\(left.sporth)")
+        }
     }
+    
+    /// Initialize the generator for stereo (2 channels)
+    ///
+    /// - Parameters:
+    ///   - input:     AKNode to use for processing
+    ///   - operation: Operation to generate, can be mono or stereo
+    ///
+    public convenience init(_ input: AKNode, operation: ()->AKComputedParameter) {
+        
+        let computedParameter = operation()
+        
+        if computedParameter.dynamicType == AKOperation.self {
+            let monoOperation = computedParameter as! AKOperation
+            self.init(input, sporth: monoOperation.sporth + " dup ")
+        } else {
+            let stereoOperation = computedParameter as! AKStereoOperation
+            self.init(input, sporth: stereoOperation.sporth + " swap ")
+        }
+    }
+    
 
     /// Initialize the effect with an input and a valid Sporth string
     ///
@@ -83,51 +112,8 @@ public class AKOperationEffect: AKNode, AKToggleable {
             self.internalAU?.setSporth(sporth)
         }
     }
-
-    /// Initialize the effect with an input and a valid Sporth string
-    ///
-    /// - Parameters:
-    ///   - input: AKNode to use for processing
-    ///   - sporth: String of valid Sporth code
-    ///
-    public init(_ input: AKNode, operation: ()->AKComputedParameter) {
-        
-        var description = AudioComponentDescription()
-        description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x6373746d /*'cstm'*/
-        description.componentManufacturer = 0x41754b74 /*'AuKt'*/
-        description.componentFlags        = 0
-        description.componentFlagsMask    = 0
-        
-        AUAudioUnit.registerSubclass(
-            AKOperationEffectAudioUnit.self,
-            asComponentDescription: description,
-            name: "Local AKOperationEffect",
-            version: UInt32.max)
-        
-        super.init()
-        AVAudioUnit.instantiateWithComponentDescription(description, options: []) {
-            avAudioUnit, error in
-            
-            guard let avAudioUnitEffect = avAudioUnit else { return }
-            
-            self.avAudioNode = avAudioUnitEffect
-            self.internalAU = avAudioUnitEffect.AUAudioUnit as? AKOperationEffectAudioUnit
-            AudioKit.engine.attachNode(self.avAudioNode)
-            input.addConnectionPoint(self)
-            let computedParameter = operation()
-            
-            if computedParameter.dynamicType == AKOperation.self {
-                let monoOperation = computedParameter as! AKOperation
-                self.internalAU?.setSporth(monoOperation.sporth + " dup ")
-            }
-            if computedParameter.dynamicType == AKStereoOperation.self {
-                let stereoOperation = computedParameter as! AKStereoOperation
-                self.internalAU?.setSporth(stereoOperation.sporth + " swap ")
-            }
-        }
-    }
     
+
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
         internalAU!.start()

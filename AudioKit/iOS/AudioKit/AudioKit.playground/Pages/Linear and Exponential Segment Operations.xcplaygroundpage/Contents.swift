@@ -15,16 +15,19 @@ let generator = AKOperationGenerator() {
     // Vary the starting frequency and duration randomly
     let start = AKOperation.randomNumberPulse() * 2000 + 300
     let duration = AKOperation.randomNumberPulse()
-    let frequency = AKOperation.lineSegment(trigger: AKOperation.metronome(frequency: updateRate),
-                                            start: start,
-                                            end: 0,
-                                            duration: duration)
-
+    let frequency = AKOperation.lineSegment(
+        trigger: AKOperation.metronome(frequency: updateRate),
+        start: start,
+        end: 0,
+        duration: duration)
+    
     // Decrease the amplitude exponentially
-    let amplitude = AKOperation.exponentialSegment(trigger: AKOperation.metronome(frequency: updateRate),
-                                                   start: 0.3,
-                                                   end: 0.01,
-                                                   duration: 1.0 / updateRate)
+    let amplitude = AKOperation.exponentialSegment(
+        trigger: AKOperation.metronome(frequency: updateRate),
+        start: 0.3,
+        end: 0.01,
+        duration: 1.0 / updateRate)
+    
     return AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
 }
 

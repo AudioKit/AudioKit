@@ -22,7 +22,6 @@ public class AKOperation: AKComputedParameter {
             if input.dynamicType == AKOperation.self {
                 if let operation = input as? AKOperation {
                     if operation.savedLocation >= 0 {
-                        print(operation)
                         opString += "\(operation.savedLocation) \"ak\" tget "
                     } else {
                         opString  += operation.inlineSporth
