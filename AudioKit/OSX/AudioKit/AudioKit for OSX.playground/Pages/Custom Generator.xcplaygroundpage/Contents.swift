@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let generator = AKOperationGenerator(numberOfChannels: 2) {
+let generator = AKOperationGenerator(numberOfChannels: 2) { _ in
 
     let slowSine = round(AKOperation.sineWave(frequency: 1)  * 12) / 12
     let vibrato  = slowSine.scale(minimum: -1200, maximum: 1200)

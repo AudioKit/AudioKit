@@ -9,10 +9,10 @@ import XCPlayground
 
 var currentFrequency = 60.0
 
-let generator = AKOperationGenerator() {
+let generator = AKOperationGenerator() { parameters in
     let beep = AKOperation.sineWave(frequency: 480)
     
-    let trig = AKOperation.metronome(frequency: AKOperation.parameters(0) / 60)
+    let trig = AKOperation.metronome(frequency: parameters[0] / 60)
     
     let beeps = beep.triggeredWithEnvelope(
         trigger: trig,

@@ -9,7 +9,7 @@ import AudioKit
 
 //: ### Dial Tone
 //: A dial tone is simply two sine waves at specific frequencies
-let dialTone = AKOperationGenerator() {
+let dialTone = AKOperationGenerator() { _ in
     let dialTone1 = AKOperation.sineWave(frequency: 350)
     let dialTone2 = AKOperation.sineWave(frequency: 440)
     return mixer(dialTone1, dialTone2) * 0.3
@@ -18,7 +18,7 @@ let dialTone = AKOperationGenerator() {
 //: ### Telephone Ringing
 //: The ringing sound is also a pair of frequencies that play for 2 seconds,
 //: and repeats every 6 seconds.
-let ringing = AKOperationGenerator() {
+let ringing = AKOperationGenerator() { _ in
     let ringingTone1 = AKOperation.sineWave(frequency: 480)
     let ringingTone2 = AKOperation.sineWave(frequency: 440)
     
@@ -36,7 +36,7 @@ let ringing = AKOperationGenerator() {
 
 //: ### Busy Signal
 //: The busy signal is similar as well, just a different set of parameters.
-let busy = AKOperationGenerator() {
+let busy = AKOperationGenerator() { _ in
     let busySignalTone1 = AKOperation.sineWave(frequency: 480)
     let busySignalTone2 = AKOperation.sineWave(frequency: 620)
     let busySignalTone = mixer(busySignalTone1, busySignalTone2)
@@ -65,10 +65,10 @@ keys["*"] = [941, 1209]
 keys["0"] = [941, 1336]
 keys["#"] = [941, 1477]
 
-let keypad = AKOperationGenerator() {
+let keypad = AKOperationGenerator() { parameters in
 
-    let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(1)) +
-        AKOperation.sineWave(frequency: AKOperation.parameters(2))
+    let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters[1]) +
+        AKOperation.sineWave(frequency: AKOperation.parameters[2])
     
     let momentaryPress = keyPressTone.triggeredWithEnvelope(
         trigger:AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)

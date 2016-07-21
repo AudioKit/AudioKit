@@ -15,15 +15,14 @@ let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let fatten = AKOperationEffect(player) { 
+let fatten = AKOperationEffect(player) { input, parameters in
 
-    let fattenTimeParameter = AKOperation.parameters(0)
-    let fattenMixParameter = AKOperation.parameters(1)
+    let time = parameters[0]
+    let mix = parameters[1]
     
-    let fattenText = "\(AKStereoOperation.input) dup \(1 - fattenMixParameter) * swap 0 " +
-        "\(fattenTimeParameter) 1.0 vdelay \(fattenMixParameter) * +"
+    let fatten = "\(input) dup \(1 - mix) * swap 0 \(time) 1.0 vdelay \(mix) * +"
     
-    return AKStereoOperation(fattenText)
+    return AKStereoOperation(fatten)
 }
 
 AudioKit.output = fatten

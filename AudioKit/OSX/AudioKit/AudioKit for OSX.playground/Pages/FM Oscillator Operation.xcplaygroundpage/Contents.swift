@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let generator = AKOperationGenerator() {
+let generator = AKOperationGenerator() { _ in
 
     // Set up the operations that will be used to make a generator node
     let sine = AKOperation.sineWave(frequency: 1)
@@ -26,7 +26,7 @@ let generator = AKOperationGenerator() {
         modulationIndex: index,
         amplitude: 0.5)
     
-    return oscillator //.pan(sine)
+    return oscillator.pan(sine)
 }
 
 let delay1 = AKDelay(generator,

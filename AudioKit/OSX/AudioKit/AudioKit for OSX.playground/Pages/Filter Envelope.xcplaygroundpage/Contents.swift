@@ -14,13 +14,13 @@ enum SynthParameter: Int {
 
 struct Synth {
     static var frequency: AKOperation {
-        return AKOperation.parameters(SynthParameter.Frequency.rawValue)
+        return AKOperation.parameters[SynthParameter.Frequency.rawValue]
     }
     static var cutoff: AKOperation {
-        return AKOperation.parameters(SynthParameter.Cutoff.rawValue)
+        return AKOperation.parameters[SynthParameter.Cutoff.rawValue]
     }
     static var gate: AKOperation {
-        return AKOperation.parameters(SynthParameter.Gate.rawValue)
+        return AKOperation.parameters[SynthParameter.Gate.rawValue]
     }
 }
 
@@ -39,7 +39,7 @@ extension AKOperationGenerator {
     }
 }
 
-let synth = AKOperationGenerator() {
+let synth = AKOperationGenerator() { parameters in 
     
     let oscillator = AKOperation.fmOscillator(
         baseFrequency: Synth.frequency,
