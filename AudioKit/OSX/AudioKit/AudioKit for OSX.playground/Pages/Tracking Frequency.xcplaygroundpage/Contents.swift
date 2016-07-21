@@ -10,7 +10,7 @@ import XCPlayground
 import AudioKit
 
 //: First lets set up sound source to track
-let oscillatorNode = AKOperationGenerator() {
+let oscillatorNode = AKOperationGenerator() { _ in
     // Let's set up the volume to be changing in the shape of a sine wave
     let volume = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 0.5)
     

@@ -40,7 +40,7 @@ let drone = "4 metro 0.003 0.001 0.1 tenv 57 mtof 0.5 1 1 1 fm mul " +
     "0.5 metro dup 0.003 0.001 0.1 tenv swap " +
 "\"notes\" tseq mtof 0.5 1 1 0.8 fm mul mix 0.3 mul"
 
-var generator = AKOperationGenerator(operation: AKOperation(chattingRobot))
+var generator = AKOperationGenerator() { _ in return AKOperation(chattingRobot) }
 
 AudioKit.output = generator
 AudioKit.start()
@@ -76,7 +76,7 @@ class PlaygroundView: AKPlaygroundView {
     func updateSporth(sporth: String) {
         generator.stop()
         AudioKit.stop()
-        generator = AKOperationGenerator(operation: AKOperation(sporth))
+        generator = AKOperationGenerator() { _ in return AKOperation(sporth) }
         AudioKit.output = generator
         AudioKit.start()
         generator.start()
