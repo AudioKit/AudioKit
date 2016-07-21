@@ -50,13 +50,13 @@ class FilterSection: AKNode {
 
     init(_ input: AKNode) {
 
-        output = AKOperationEffect(input) { input in
+        output = AKOperationEffect(input) { input, parameters in
             
-            let cutoff   = AKOperation.parameters(0)
-            let rez      = AKOperation.parameters(1)
-            let oscAmp   = AKOperation.parameters(2)
-            let oscRate  = AKOperation.parameters(3)
-            let oscIndex = AKOperation.parameters(4)
+            let cutoff   = parameters[0]
+            let rez      = parameters[1]
+            let oscAmp   = parameters[2]
+            let oscRate  = parameters[3]
+            let oscIndex = parameters[4]
             
             let lfo = AKOperation.morphingOscillator(frequency: oscRate,
                                                      amplitude: oscAmp,

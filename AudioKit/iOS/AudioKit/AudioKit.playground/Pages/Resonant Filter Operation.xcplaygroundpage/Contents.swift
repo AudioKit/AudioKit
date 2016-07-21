@@ -12,7 +12,7 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { player in
+let effect = AKOperationEffect(player) { player, _ in
     let frequency = AKOperation.sineWave(frequency: 0.5).scale(minimum: 2000, maximum: 5000)
     let bandwidth = abs(AKOperation.sineWave(frequency: 0.3)) * 1000
     
