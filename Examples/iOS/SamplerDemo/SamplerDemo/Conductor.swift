@@ -40,8 +40,8 @@ class Conductor {
         AudioKit.output = filter
 
         arpeggioSynthesizer.loadEXS24("Sounds/Sampler Instruments/sqrTone1")
-        padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
-        bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
+        padSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPad1")
+        bassSynthesizer.loadEXS24("Sounds/Sampler Instruments/sawPiano1")
         drumKit.loadEXS24("Sounds/Sampler Instruments/drumSimp")
         AudioKit.start()
         sequence = AKSequencer(filename: "seqDemo", engine: AudioKit.engine)
@@ -94,11 +94,11 @@ class Conductor {
         switch sound {
         case Sound.Square:
             soundPath = "Sounds/Sampler Instruments/sqrTone1"
-        case Sound.Piano:
-            soundPath = "Sounds/Sampler Instruments/sawPiano1"
         case Sound.Saw:
+            soundPath = "Sounds/Sampler Instruments/sawPiano1"
+        case Sound.SlowPad:
             soundPath = "Sounds/Sampler Instruments/sawPad1"
-        case Sound.Noise:
+        case Sound.Noisy:
             soundPath = "Sounds/Sampler Instruments/noisyRez"
         }
         

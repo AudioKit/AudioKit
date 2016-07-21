@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     
     @IBAction func useSoundForArpeggio(sender: UIButton) {
         guard let title = sender.currentTitle, sound = Sound(rawValue: title) else {
-            print("Type of sound for arpeggio wasn't detected")
+            print("Type of sound \(sender.currentTitle) for arpeggio wasn't detected")
             return
         }
         
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     
     @IBAction func useSoundForPad(sender: UIButton) {
         guard let title = sender.currentTitle, sound = Sound(rawValue: title) else {
-            print("Type of sound for pad wasn't detected")
+            print("Type of sound \(sender.currentTitle) for pad wasn't detected")
             return
         }
         
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     
     @IBAction func useSoundForBass(sender: UIButton) {
         guard let title = sender.currentTitle, sound = Sound(rawValue: title) else {
-            print("Type of sound for bass wasn't detected")
+            print("Type of sound \(sender.currentTitle) for bass wasn't detected")
             return
         }
         
