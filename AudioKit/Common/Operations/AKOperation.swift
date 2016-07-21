@@ -9,39 +9,55 @@
 import Foundation
 
 /// A computed parameter differs from a regular parameter in that it only exists within an operation (unlike float, doubles, and ints which have a value outside of an operation)
-public protocol AKComputedParameter: AKParameter {
-    func operationString() -> String
-    func setupString() -> String
-}
+public protocol AKComputedParameter: AKParameter {}
+
 
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
-public struct AKOperation: AKComputedParameter {
-    public func operationString() -> String {
+public class AKOperation: AKComputedParameter {
+
+    public var inlineSporth: String {
+        if valueText != "" { return valueText }
+        var opString = ""
+        for input in inputs {
+            if input.dynamicType == AKOperation.self {
+                if let operation = input as? AKOperation {
+                    if operation.savedLocation >= 0 {
+                        print(operation)
+                        opString += "\(operation.savedLocation) \"ak\" tget "
+                    } else {
+                        opString  += operation.inlineSporth
+                    }
+                }
+            } else {
+                opString  += "\(input) "
+            }
+            
+        }
+        opString  += "\(module) "
         return opString
     }
-    public func setupString() -> String {
-        return setup
-    }
-    public static var nextTableIndex = 0
-    public var tableIndex: Int = -1
-    public static var operationArray = [AKComputedParameter]()
+
+    public var valueText = ""
     public var module = ""
-    public var setup = ""
+    public var setupSporth = ""
+    public var inputs = [AKParameter]()
+    public var savedLocation = -1
+
     public var dependencies = [AKOperation]()
     
-    public var recursiveDependencies: [String] {
-        var all = [String]()
-        var uniq = [String]()
+    public var recursiveDependencies: [AKOperation] {
+        var all = [AKOperation]()
+        var uniq = [AKOperation]()
         var added = Set<String>()
         for dep in dependencies {
             all += dep.recursiveDependencies
-            all.append(dep.opString)
+            all.append(dep)
         }
         
         for elem in all {
-            if !added.contains(elem) {
+            if !added.contains(elem.inlineSporth) {
                 uniq.append(elem)
-                added.insert(elem)
+                added.insert(elem.inlineSporth)
             }
         }
 
@@ -49,25 +65,22 @@ public struct AKOperation: AKComputedParameter {
     }
     
     public var sporth: String {
+        let rd = recursiveDependencies
         var str = "\"ak\" \""
-        for _ in AKOperation.operationArray { //dependencies {
+        for _ in rd {
             str += "0 "
-//            for _ in op.dependencies {
-//                str += "0 "
-//            }
         }
         str += "\" gen_vals \n"
         
         var counter = 0
-        for op in AKOperation.operationArray {
-            if recursiveDependencies.contains(op.operationString()) { // && op.tableIndex >= 0 {
-                str += "\(op.setupString()) \n"
-                str += "\(op.operationString()) \(counter) \"ak\" tset\n"
-            }
+        for op in rd {
+            op.savedLocation = counter
+            str += "\(op.setupSporth) \n"
+            str += "\(op.inlineSporth) \(op.savedLocation) \"ak\" tset\n"
             counter += 1
         }
-        str += "\(setupString()) \n"
-        str += "\(operationString()) \n"
+        str += "\(setupSporth) \n"
+        str += "\(inlineSporth) \n"
         return str
     }
     
@@ -130,29 +143,21 @@ public struct AKOperation: AKComputedParameter {
         return AKOperation(module: "mtof", inputs: self)
     }
 
-    /// Sporth representation of the operation
-    public var opString = ""
-
     /// Redefining description to return the operation string
     public var description: String {
-        if tableIndex < 0 {
-            return operationString()
-        } else {
-            return "\(tableIndex) \"ak\" tget"
-        }
-        //return "\(operationString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
+        return inlineSporth
     }
-
+    
     /// Initialize the operation as a constant value
     ///
     /// - parameter value: Constant value as an operation
     ///
     public init(_ value: Double) {
-        self.opString = "\(value)"
+        self.valueText = "\(value)"
     }
 
     init(global: String) {
-        self.opString = global
+        self.valueText = global
     }
     
     /// Initialize the operation with a Sporth string
@@ -160,7 +165,7 @@ public struct AKOperation: AKComputedParameter {
     /// - parameter operationString: Valid Sporth string (proceed with caution
     ///
     public init(_ operationString: String) {
-        self.opString = operationString
+        self.valueText = operationString
         //self.tableIndex = -1 //AKOperation.nextTableIndex
         //AKOperation.nextTableIndex += 1
         //AKOperation.operationArray.append(self)
@@ -168,21 +173,16 @@ public struct AKOperation: AKComputedParameter {
     
     public init(module: String, setup: String = "",  inputs: AKParameter...) {
         self.module = module
-        self.setup = setup
-
+        self.setupSporth = setup
+        self.inputs = inputs
+        
         for input in inputs {
-            self.opString  += "\(input) "
             if input.dynamicType == AKOperation.self {
                 if let forcedInput = input as? AKOperation {
                     dependencies.append(forcedInput)
                 }
             }
-            
         }
-        self.opString  += "\(module) "
-        self.tableIndex = AKOperation.nextTableIndex
-        AKOperation.nextTableIndex += 1
-        AKOperation.operationArray.append(self)
     }
 }
 

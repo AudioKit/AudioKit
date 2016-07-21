@@ -9,40 +9,55 @@
 import Foundation
 
 /// Stereo version of AKComputedParameter
-public struct AKStereoOperation: AKComputedParameter {
-    
+public class AKStereoOperation: AKComputedParameter {
+
     /// Default stereo input to any operation stack
     public static var input = AKStereoOperation("((14 p) (15 p))")
     
-    /// Sporth representation of the stereo operation
-    var opString = ""
-    var module = ""
-    var setup = ""
-    var tableIndex = -1
     
-    public func operationString() -> String {
+    public var inlineSporth: String {
+        if valueText != "" { return valueText }
+        var opString = ""
+        for input in inputs {
+            if input.dynamicType == AKOperation.self {
+                if let operation = input as? AKOperation {
+                    if operation.savedLocation >= 0 {
+                        print(operation)
+                        opString += "\(operation.savedLocation) \"ak\" tget "
+                    } else {
+                        opString  += operation.inlineSporth
+                    }
+                }
+            } else {
+                opString  += "\(input) "
+            }
+            
+        }
+        opString  += "\(module) "
         return opString
     }
     
-    public func setupString() -> String {
-        return setup
-    }
+    public var valueText = ""
+    public var module = ""
+    public var setupSporth = ""
+    public var inputs = [AKParameter]()
+    public var savedLocation = -1
     
     public var dependencies = [AKOperation]()
     
-    public var recursiveDependencies: [String] {
-        var all = [String]()
-        var uniq = [String]()
+    public var recursiveDependencies: [AKOperation] {
+        var all = [AKOperation]()
+        var uniq = [AKOperation]()
         var added = Set<String>()
         for dep in dependencies {
             all += dep.recursiveDependencies
-            all.append(dep.opString)
+            all.append(dep)
         }
         
         for elem in all {
-            if !added.contains(elem) {
+            if !added.contains(elem.inlineSporth) {
                 uniq.append(elem)
-                added.insert(elem)
+                added.insert(elem.inlineSporth)
             }
         }
         
@@ -50,32 +65,28 @@ public struct AKStereoOperation: AKComputedParameter {
     }
     
     public var sporth: String {
+        let rd = recursiveDependencies
         var str = "\"ak\" \""
-        for _ in AKOperation.operationArray { //dependencies {
+        for _ in rd {
             str += "0 "
-            //            for _ in op.dependencies {
-            //                str += "0 "
-            //            }
         }
         str += "\" gen_vals \n"
         
         var counter = 0
-        for op in AKOperation.operationArray {
-            if recursiveDependencies.contains(op.operationString()) { // && op.tableIndex >= 0 {
-                str += "\(op.setupString()) \n"
-                str += "\(op.operationString()) \(counter) \"ak\" tset\n"
-                
-            }
+        for op in rd {
+            op.savedLocation = counter
+            str += "\(op.setupSporth) \n"
+            str += "\(op.inlineSporth) \(op.savedLocation) \"ak\" tset\n"
             counter += 1
         }
-        str += "\(setup) \n"
-        str += "\(operationString()) \n"
+        str += "\(setupSporth) \n"
+        str += "\(inlineSporth) \n"
         return str
     }
     
     /// Redefining description to return the operation string
     public var description: String {
-        return "\(opString.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())) "
+        return inlineSporth
     }
     
     /// Initialize the stereo operation with a Sporth string
@@ -83,26 +94,21 @@ public struct AKStereoOperation: AKComputedParameter {
     /// - parameter operationString: Valid Sporth string (proceed with caution
     ///
     public init(_ operationString: String) {
-        self.opString = operationString
+        self.valueText = operationString
     }
     
     public init(module: String, setup: String = "",  inputs: AKParameter...) {
         self.module = module
-        self.setup = setup
+        self.setupSporth = setup
+        self.inputs = inputs
         
         for input in inputs {
-            self.opString  += "\(input) "
             if input.dynamicType == AKOperation.self {
                 if let forcedInput = input as? AKOperation {
                     dependencies.append(forcedInput)
                 }
             }
-            
         }
-        self.opString  += "\(module) "
-        self.tableIndex = AKOperation.nextTableIndex
-        AKOperation.nextTableIndex += 1
-        AKOperation.operationArray.append(self)
     }
     
     /// Create a mono signal by dropping the right channel

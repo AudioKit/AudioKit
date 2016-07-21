@@ -39,23 +39,25 @@ extension AKOperationGenerator {
     }
 }
 
-let oscillator = AKOperation.fmOscillator(
-    baseFrequency: Synth.frequency,
-    carrierMultiplier: 3,
-    modulatingMultiplier: 0.7,
-    modulationIndex: 2,
-    amplitude: 0.1)
-let cutoff = Synth.cutoff.gatedADSREnvelope(Synth.gate,
-                                            attack: 0.1,
-                                            decay: 0.01,
-                                            sustain: 1,
-                                            release: 0.6)
-
-let filtered = oscillator.moogLadderFilter(cutoffFrequency: cutoff,
-                                           resonance: 0.9)
-
+let synth = AKOperationGenerator() {
+    
+    let oscillator = AKOperation.fmOscillator(
+        baseFrequency: Synth.frequency,
+        carrierMultiplier: 3,
+        modulatingMultiplier: 0.7,
+        modulationIndex: 2,
+        amplitude: 0.1)
+    let cutoff = Synth.cutoff.gatedADSREnvelope(
+        gate: Synth.gate,
+        attack: 0.1,
+        decay: 0.01,
+        sustain: 1,
+        release: 0.6)
+    
+    return oscillator.moogLadderFilter(cutoffFrequency: cutoff,
+        resonance: 0.9)
+}
 //: Set up the nodes
-let synth = AKOperationGenerator(operation: filtered)
 
 AudioKit.output = synth
 AudioKit.start()
