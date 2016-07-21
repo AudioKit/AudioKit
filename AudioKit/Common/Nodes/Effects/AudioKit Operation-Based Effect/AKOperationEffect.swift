@@ -64,9 +64,9 @@ public class AKOperationEffect: AKNode, AKToggleable {
     ///   - input:     AKNode to use for processing
     ///   - operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(_ input: AKNode, operation: ()->AKComputedParameter) {
+    public convenience init(_ input: AKNode, operation: (AKStereoOperation)->AKComputedParameter) {
         
-        let computedParameter = operation()
+        let computedParameter = operation(AKStereoOperation.input)
         
         if computedParameter.dynamicType == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation

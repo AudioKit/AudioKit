@@ -15,7 +15,40 @@ public protocol AKComputedParameter: AKParameter {}
 /// An AKOperation is a computed parameter that can be passed to other operations in the same operation node
 public class AKOperation: AKComputedParameter {
 
-    public var inlineSporth: String {
+    // MARK: - Dependency Management
+    
+    private var inputs = [AKParameter]()
+
+    internal var savedLocation = -1
+    
+    private var dependencies = [AKOperation]()
+    
+    internal var recursiveDependencies: [AKOperation] {
+        var all = [AKOperation]()
+        var uniq = [AKOperation]()
+        var added = Set<String>()
+        for dep in dependencies {
+            all += dep.recursiveDependencies
+            all.append(dep)
+        }
+        
+        for elem in all {
+            if !added.contains(elem.inlineSporth) {
+                uniq.append(elem)
+                added.insert(elem.inlineSporth)
+            }
+        }
+
+        return uniq
+    }
+    
+    // MARK: - String Representations
+    
+    private var valueText = ""
+    internal var setupSporth = ""
+    private var module = ""
+    
+    internal var inlineSporth: String {
         if valueText != "" { return valueText }
         var opString = ""
         for input in inputs {
@@ -35,35 +68,9 @@ public class AKOperation: AKComputedParameter {
         opString  += "\(module) "
         return opString
     }
-
-    public var valueText = ""
-    public var module = ""
-    public var setupSporth = ""
-    public var inputs = [AKParameter]()
-    public var savedLocation = -1
-
-    public var dependencies = [AKOperation]()
     
-    public var recursiveDependencies: [AKOperation] {
-        var all = [AKOperation]()
-        var uniq = [AKOperation]()
-        var added = Set<String>()
-        for dep in dependencies {
-            all += dep.recursiveDependencies
-            all.append(dep)
-        }
-        
-        for elem in all {
-            if !added.contains(elem.inlineSporth) {
-                uniq.append(elem)
-                added.insert(elem.inlineSporth)
-            }
-        }
-
-        return uniq
-    }
-    
-    public var sporth: String {
+    /// Final sporth string when this operation is the last operation in the stack
+    internal var sporth: String {
         let rd = recursiveDependencies
         var str = "\"ak\" \""
         for _ in rd {
@@ -83,8 +90,12 @@ public class AKOperation: AKComputedParameter {
         return str
     }
     
-    /// Default input to any operation
-    public static var input = AKOperation("(14 p)")
+    /// Redefining description to return the operation string
+    public var description: String {
+        return inlineSporth
+    }
+    
+    // MARK: - Inputs
     
     /// Left input to any stereo operation
     public static var leftInput = AKOperation("(14 p)")
@@ -94,7 +105,9 @@ public class AKOperation: AKComputedParameter {
     
     /// Dummy trigger
     public static var trigger = AKOperation("(0 p)")
-
+    
+    // MARK: - Functions
+    
     /// Call up a numbered parameter to the internal operation
     ///
     /// - parameter i: Number of the parameter to recall
@@ -103,6 +116,7 @@ public class AKOperation: AKComputedParameter {
         return AKOperation("(\(i) p)")
     }
     
+    /// Convert the operation to a mono operation
     public func toMono() -> AKOperation {
         return self
     }
@@ -142,10 +156,7 @@ public class AKOperation: AKComputedParameter {
         return AKOperation(module: "mtof", inputs: self)
     }
 
-    /// Redefining description to return the operation string
-    public var description: String {
-        return inlineSporth
-    }
+    // MARK: - Initialization
     
     /// Initialize the operation as a constant value
     ///
@@ -170,6 +181,12 @@ public class AKOperation: AKComputedParameter {
         //AKOperation.operationArray.append(self)
     }
     
+    /// Initialize the operation
+    ///
+    /// - parameter module: Sporth unit generator
+    /// - parameter setup:  Any setup Sporth code that this operation may require
+    /// - parameter inputs: All the parameters of the operation
+    ///
     public init(module: String, setup: String = "",  inputs: AKParameter...) {
         self.module = module
         self.setupSporth = setup
@@ -184,6 +201,8 @@ public class AKOperation: AKComputedParameter {
         }
     }
 }
+
+// MARK: - Global Functions 
 
 /// Performs absolute value on the operation
 ///

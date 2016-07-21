@@ -12,11 +12,11 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) {
+let effect = AKOperationEffect(player) { player in
     let frequency = AKOperation.sineWave(frequency: 0.5).scale(minimum: 2000, maximum: 5000)
     let bandwidth = abs(AKOperation.sineWave(frequency: 0.3)) * 1000
     
-    return AKOperation.input.resonantFilter(frequency: frequency, bandwidth: bandwidth) * 0.1
+    return player.resonantFilter(frequency: frequency, bandwidth: bandwidth) * 0.1
 }
 
 AudioKit.output = effect
