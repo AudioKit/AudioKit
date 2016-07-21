@@ -45,9 +45,11 @@ public class AKOperationEffect: AKNode, AKToggleable {
     ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations:       Array of operations [left, right]
     ///
-    public convenience init(_ input: AKNode, numberOfChannels: Int, operations: ()->[AKOperation]) {
+    public convenience init(_ input: AKNode,
+                              numberOfChannels: Int,
+                              operations: (AKStereoOperation, [AKOperation])->[AKOperation]) {
         
-        let computedParameters = operations()
+        let computedParameters = operations(AKStereoOperation.input, AKOperation.parameters)
         let left = computedParameters[0]
         
         if numberOfChannels == 2 {
@@ -64,9 +66,11 @@ public class AKOperationEffect: AKNode, AKToggleable {
     ///   - input:     AKNode to use for processing
     ///   - operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(_ input: AKNode, operation: (AKStereoOperation)->AKComputedParameter) {
+    public convenience init(_ input: AKNode,
+                              operation: (AKStereoOperation, [AKOperation])->AKComputedParameter) {
         
-        let computedParameter = operation(AKStereoOperation.input)
+
+        let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
         
         if computedParameter.dynamicType == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation
