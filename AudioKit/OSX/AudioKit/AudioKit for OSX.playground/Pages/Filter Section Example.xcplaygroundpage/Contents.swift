@@ -23,10 +23,10 @@ var filterMix = 0.9
 var lfoAmplitude = 1000
 var lfoRate = 1.0 / 3.428
 
-let filterSectionEffect = AKOperationEffect(player) {
+let filterSectionEffect = AKOperationEffect(player) { player in
     let lfo = AKOperation.sineWave(frequency: lfoRate, amplitude: lfoAmplitude)
-    return AKOperation.input.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency,
-                                              resonance: resonance)
+    return player.moogLadderFilter(cutoffFrequency: lfo + cutoffFrequency,
+                                   resonance: resonance)
 }
 AudioKit.output = filterSectionEffect
 AudioKit.start()

@@ -15,11 +15,11 @@ let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) {
+let effect = AKOperationEffect(player) { player in
     let duration = AKOperation.sineWave(frequency: 0.2).scale(minimum: 0, maximum: 5)
     
-    return AKOperation.input.reverberateWithFlatFrequencyResponse(reverbDuration: duration,
-                                                                  loopDuration: 0.1)
+    return player.reverberateWithFlatFrequencyResponse(reverbDuration: duration,
+                                                       loopDuration: 0.1)
 }
 
 AudioKit.output = effect

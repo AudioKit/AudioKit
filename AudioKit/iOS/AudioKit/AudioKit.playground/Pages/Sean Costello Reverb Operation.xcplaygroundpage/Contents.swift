@@ -13,8 +13,8 @@ let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) {
-    return AKOperation.input.reverberateWithCostello(
+let effect = AKOperationEffect(player) { player in
+    return player.reverberateWithCostello(
         feedback: AKOperation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
         cutoffFrequency: 10000)
 }

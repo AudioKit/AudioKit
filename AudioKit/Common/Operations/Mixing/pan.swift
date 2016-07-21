@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension AKOperation {
+extension AKComputedParameter {
 
     /// Panner
     ///
