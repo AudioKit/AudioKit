@@ -12,7 +12,7 @@ let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { player in
+let effect = AKOperationEffect(player) { player, _ in
     let sinusoid = AKOperation.sineWave(frequency: 0.3)
     let limitSine = sinusoid.scale(minimum: 0, maximum: 1)
     return player.clip(limitSine)

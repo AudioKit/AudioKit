@@ -14,13 +14,13 @@ enum SynthParameter: Int {
 
 struct Synth {
     static var frequency: AKOperation {
-        return AKOperation.parameters(SynthParameter.Frequency.rawValue)
+        return AKOperation.parameters[SynthParameter.Frequency.rawValue]
     }
     static var cutoff: AKOperation {
-        return AKOperation.parameters(SynthParameter.Cutoff.rawValue)
+        return AKOperation.parameters[SynthParameter.Cutoff.rawValue]
     }
     static var gate: AKOperation {
-        return AKOperation.parameters(SynthParameter.Gate.rawValue)
+        return AKOperation.parameters[SynthParameter.Gate.rawValue]
     }
 }
 
@@ -39,8 +39,8 @@ extension AKOperationGenerator {
     }
 }
 
-let synth = AKOperationGenerator() {
-
+let synth = AKOperationGenerator() { parameters in 
+    
     let oscillator = AKOperation.fmOscillator(
         baseFrequency: Synth.frequency,
         carrierMultiplier: 3,
@@ -53,9 +53,11 @@ let synth = AKOperationGenerator() {
         decay: 0.01,
         sustain: 1,
         release: 0.6)
-
-    return oscillator.moogLadderFilter(cutoffFrequency: cutoff, resonance: 0.9)
+    
+    return oscillator.moogLadderFilter(cutoffFrequency: cutoff,
+        resonance: 0.9)
 }
+//: Set up the nodes
 
 AudioKit.output = synth
 AudioKit.start()
@@ -72,12 +74,13 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         addTitle("Filter Envelope")
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(synth.cutoff)")
-        addSlider(#selector(setCutoffFrequency), value: synth.cutoff, minimum: 0, maximum: 5000)
+        addSlider(#selector(setCutoffFrequency),
+                  value: synth.cutoff,
+                  minimum: 0,
+                  maximum: 5000)
 
-        let keyboard = KeyboardView(width: playgroundWidth, height: 100)
+        let keyboard = KeyboardView(width: playgroundWidth, height: 100, delegate: self)
         keyboard.frame.origin.y = CGFloat(yPosition)
-        keyboard.setNeedsDisplay()
-        keyboard.delegate = self
         self.addSubview(keyboard)
     }
 
@@ -94,7 +97,6 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         synth.cutoff = Double(slider.value)
         cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", synth.cutoff))"
     }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))

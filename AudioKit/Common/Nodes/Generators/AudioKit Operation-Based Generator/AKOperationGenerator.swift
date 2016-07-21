@@ -48,10 +48,10 @@ public class AKOperationGenerator: AKNode, AKToggleable {
         
         if computedParameter.dynamicType == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation
-            self.init(monoOperation.sporth + " dup ")
+            self.init(sporth: monoOperation.sporth + " dup ")
         } else {
             let stereoOperation = computedParameter as! AKStereoOperation
-            self.init(stereoOperation.sporth + " swap ")
+            self.init(sporth: stereoOperation.sporth + " swap ")
         }
     }
 
@@ -68,9 +68,9 @@ public class AKOperationGenerator: AKNode, AKToggleable {
         
         if numberOfChannels == 2 {
             let right = computedParameters[1]
-            self.init("\(right.sporth) \(left.sporth)")
+            self.init(sporth: "\(right.sporth) \(left.sporth)")
         } else {
-            self.init("\(left.sporth)")
+            self.init(sporth: "\(left.sporth)")
         }
     }
 
@@ -79,7 +79,7 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     ///
     /// - parameter sporth: String of valid Sporth code
     ///
-    public init(_ sporth: String) {
+    public init(sporth: String) {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Generator
