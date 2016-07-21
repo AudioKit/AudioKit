@@ -14,7 +14,7 @@ func instrument(noteNumber: Int, rate: Double, amplitude: Double) -> AKOperation
         .triggeredWithEnvelope(trigger: metro, attack: 0.5, hold: 1, release: 1)
 }
 
-let generator = AKOperationGenerator() {
+let generator = AKOperationGenerator() { _ in
     let instrument1 = instrument(60, rate: 4, amplitude: 0.5)
     let instrument2 = instrument(62, rate: 5, amplitude: 0.4)
     let instrument3 = instrument(65, rate: 7, amplitude: 1.3/4.0)

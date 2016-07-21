@@ -8,7 +8,7 @@
 import XCPlayground
 import AudioKit
 
-let generator = AKOperationGenerator() {
+let generator = AKOperationGenerator() { _ in
 
     // Generate a sine wave at the right frequency
     let crossingSignalTone = AKOperation.sineWave(frequency: 2500)

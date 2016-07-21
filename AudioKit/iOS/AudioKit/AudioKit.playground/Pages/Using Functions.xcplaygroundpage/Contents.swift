@@ -13,7 +13,7 @@ func drone(frequency: Double, rate: Double) -> AKOperation {
     return tone.triggeredWithEnvelope(trigger: metro, attack: 0.01, hold: 0.1, release: 0.1)
 }
 
-let generator = AKOperationGenerator() {
+let generator = AKOperationGenerator() { _ in
     
     let drone1 = drone(440, rate: 3)
     let drone2 = drone(330, rate: 5)

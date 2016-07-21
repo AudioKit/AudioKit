@@ -9,8 +9,8 @@
 import XCPlayground
 import AudioKit
 
-let generator = AKOperationGenerator() {
-    let updateRate = AKOperation.parameters(0)
+let generator = AKOperationGenerator() { parameters in
+    let updateRate = parameters[0]
 
     // Vary the starting frequency and duration randomly
     let start = AKOperation.randomNumberPulse() * 2000 + 300
@@ -27,7 +27,6 @@ let generator = AKOperationGenerator() {
         start: 0.3,
         end: 0.01,
         duration: 1.0 / updateRate)
-    
     return AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
 }
 
