@@ -42,9 +42,9 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     ///
     /// - parameter operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(operation: ()->AKComputedParameter) {
+    public convenience init(operation: ([AKOperation])->AKComputedParameter) {
             
-        let computedParameter = operation()
+        let computedParameter = operation(AKOperation.parameters)
         
         if computedParameter.dynamicType == AKOperation.self {
             let monoOperation = computedParameter as! AKOperation
@@ -61,9 +61,9 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
     ///   - operations:       Array of operations [left, right]
     ///
-    public convenience init(numberOfChannels: Int, operations: ()->[AKOperation]) {
+    public convenience init(numberOfChannels: Int, operations: ([AKOperation])->[AKOperation]) {
         
-        let computedParameters = operations()
+        let computedParameters = operations(AKOperation.parameters)
         let left = computedParameters[0]
         
         if numberOfChannels == 2 {

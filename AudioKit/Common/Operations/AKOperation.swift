@@ -108,13 +108,23 @@ public class AKOperation: AKComputedParameter {
     
     // MARK: - Functions
     
-    /// Call up a numbered parameter to the internal operation
-    ///
-    /// - parameter i: Number of the parameter to recall
-    ///
-    public static func parameters(i: Int) -> AKOperation {
-        return AKOperation("(\(i) p)")
-    }
+    /// An= array of 14 parameters which may be sent to operations
+    public static var parameters: [AKOperation] =
+        [AKOperation("(0 p)"),
+         AKOperation("(1 p)"),
+         AKOperation("(2 p)"),
+         AKOperation("(3 p)"),
+         AKOperation("(4 p)"),
+         AKOperation("(5 p)"),
+         AKOperation("(6 p)"),
+         AKOperation("(7 p)"),
+         AKOperation("(8 p)"),
+         AKOperation("(9 p)"),
+         AKOperation("(10 p)"),
+         AKOperation("(11 p)"),
+         AKOperation("(12 p)"),
+         AKOperation("(13 p)")]
+    
     
     /// Convert the operation to a mono operation
     public func toMono() -> AKOperation {
