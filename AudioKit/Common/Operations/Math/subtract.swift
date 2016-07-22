@@ -14,7 +14,7 @@ extension AKOperation {
     /// - parameter subtrahend: The amount to subtract
     ///
     public func minus(subtrahend: AKParameter) -> AKOperation {
-        return AKOperation("(\(self) \(subtrahend) -)")
+        return AKOperation(module: "-", inputs: self, subtrahend)
     }
 }
 
@@ -36,7 +36,8 @@ public func -(left: AKParameter, right: AKParameter) -> AKOperation {
 ///   - second: 2nd parameter
 ///
 public func -(first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation("\(first.left()) \(second.left()) - \(first.right()) \(second.right()) -")
+    return AKStereoOperation(module: "rot swap - rot rot swap -",
+                             inputs: first.left(), first.right(), second.left(), second.right())
 }
 
 /// Negation
@@ -44,7 +45,7 @@ public func -(first: AKStereoOperation, second: AKStereoOperation) -> AKStereoOp
 /// - parameter parameter: Parameter to negate
 ///
 public prefix func -(x: AKParameter) -> AKOperation {
-    return AKOperation("(0 \(x) -)")
+    return AKOperation(module: "0 swap -", inputs: x)
 }
 
 /// Negation
@@ -52,5 +53,6 @@ public prefix func -(x: AKParameter) -> AKOperation {
 /// - parameter parameter: Parameter to negate
 ///
 public prefix func -(x: AKStereoOperation) -> AKStereoOperation {
-    return AKStereoOperation("(0 \(x.left()) -) (0 \(x.right()) -)")
+    return AKStereoOperation(module: "0 swap - swap 0 swap - swap", inputs: x.left(), x.right())
+    
 }

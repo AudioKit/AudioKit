@@ -1,8 +1,8 @@
 //
 //  stringResonator.swift
-//  AudioKit For iOS
+//  AudioKit
 //
-//  Created by Aurelius Prochazka on 7/5/16.
+//  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -22,6 +22,6 @@ extension AKComputedParameter {
         frequency frequency: AKParameter = 100.0,
                   feedback: AKParameter = 0.95
         ) -> AKOperation {
-        return AKOperation("(\(self.toMono()) \(frequency) \(feedback) streson)")
+        return AKOperation(module: "streson", inputs: self.toMono(), frequency, feedback)
     }
 }

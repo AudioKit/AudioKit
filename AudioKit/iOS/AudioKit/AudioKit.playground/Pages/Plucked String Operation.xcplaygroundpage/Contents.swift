@@ -9,13 +9,15 @@ import AudioKit
 
 let playRate = 2.0
 
-let frequency = (AKOperation.parameters(1) + 40).midiNoteToFrequency()
-let pluck = AKOperation.pluckedString(trigger: AKOperation.trigger,
-                                      frequency: frequency,
-                                      amplitude: 0.5,
-                                      lowestFrequency: 50)
+let pluckNode = AKOperationGenerator() { parameters in
+    let frequency = (AKOperation.parameters[1] + 40).midiNoteToFrequency()
+    return AKOperation.pluckedString(
+        trigger: AKOperation.trigger,
+        frequency: frequency,
+        amplitude: 0.5,
+        lowestFrequency: 50)
+}
 
-let pluckNode = AKOperationGenerator(operation: pluck)
 
 var delay  = AKDelay(pluckNode)
 delay.time = 1.5 / playRate

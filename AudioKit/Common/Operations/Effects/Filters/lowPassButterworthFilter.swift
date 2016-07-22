@@ -18,6 +18,6 @@ extension AKComputedParameter {
     public func lowPassButterworthFilter(
         cutoffFrequency cutoffFrequency: AKParameter = 1000
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(cutoffFrequency) butlp)")
+        return AKOperation(module: "butlp", inputs: self.toMono(), cutoffFrequency)
     }
 }

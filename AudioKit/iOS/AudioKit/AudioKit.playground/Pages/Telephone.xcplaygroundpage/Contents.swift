@@ -9,40 +9,44 @@ import AudioKit
 
 //: ### Dial Tone
 //: A dial tone is simply two sine waves at specific frequencies
-let dialTone1 = AKOperation.sineWave(frequency: 350)
-let dialTone2 = AKOperation.sineWave(frequency: 440)
-let dialToneMix = mixer(dialTone1, dialTone2)
-
-let dialTone = AKOperationGenerator(operation: dialToneMix * 0.3)
+let dialTone = AKOperationGenerator() { _ in
+    let dialTone1 = AKOperation.sineWave(frequency: 350)
+    let dialTone2 = AKOperation.sineWave(frequency: 440)
+    return mixer(dialTone1, dialTone2) * 0.3
+}
 
 //: ### Telephone Ringing
 //: The ringing sound is also a pair of frequencies that play for 2 seconds,
 //: and repeats every 6 seconds.
-let ringingTone1 = AKOperation.sineWave(frequency: 480)
-let ringingTone2 = AKOperation.sineWave(frequency: 440)
+let ringing = AKOperationGenerator() { _ in
+    let ringingTone1 = AKOperation.sineWave(frequency: 480)
+    let ringingTone2 = AKOperation.sineWave(frequency: 440)
+    
+    let ringingToneMix = mixer(ringingTone1, ringingTone2)
+    
+    let ringTrigger = AKOperation.metronome(frequency: 0.1666) // 1 / 6 seconds
+    
+    let rings = ringingToneMix.triggeredWithEnvelope(
+        trigger: ringTrigger,
+        attack: 0.01, hold: 2, release: 0.01)
+    
+    return rings * 0.4
+}
 
-let ringingToneMix = mixer(ringingTone1, ringingTone2)
-
-let ringTrigger = AKOperation.metronome(0.1666) // 1 / 6 seconds
-
-let rings = ringingToneMix.triggeredWithEnvelope(
-    ringTrigger,
-    attack: 0.01, hold: 2, release: 0.01)
-
-let ringing = AKOperationGenerator(operation: rings * 0.4)
 
 //: ### Busy Signal
 //: The busy signal is similar as well, just a different set of parameters.
-let busySignalTone1 = AKOperation.sineWave(frequency: 480)
-let busySignalTone2 = AKOperation.sineWave(frequency: 620)
-let busySignalTone = mixer(busySignalTone1, busySignalTone2)
-
-let busyTrigger = AKOperation.metronome(2)
-let busySignal = busySignalTone.triggeredWithEnvelope(
-    busyTrigger,
-    attack: 0.01, hold: 0.25, release: 0.01)
-let busy = AKOperationGenerator(operation: busySignal * 0.4)
-
+let busy = AKOperationGenerator() { _ in
+    let busySignalTone1 = AKOperation.sineWave(frequency: 480)
+    let busySignalTone2 = AKOperation.sineWave(frequency: 620)
+    let busySignalTone = mixer(busySignalTone1, busySignalTone2)
+    
+    let busyTrigger = AKOperation.metronome(frequency: 2)
+    let busySignal = busySignalTone.triggeredWithEnvelope(
+        trigger: busyTrigger,
+        attack: 0.01, hold: 0.25, release: 0.01)
+    return busySignal * 0.4
+}
 //: ## Key presses
 //: All the digits are also just combinations of sine waves
 //:
@@ -61,13 +65,15 @@ keys["*"] = [941, 1209]
 keys["0"] = [941, 1336]
 keys["#"] = [941, 1477]
 
-let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters(1)) +
-    AKOperation.sineWave(frequency: AKOperation.parameters(2))
+let keypad = AKOperationGenerator() { parameters in
 
-let momentaryPress = keyPressTone.triggeredWithEnvelope(
-    AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
-
-let keypad = AKOperationGenerator(operation: momentaryPress * 0.4)
+    let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters[1]) +
+        AKOperation.sineWave(frequency: AKOperation.parameters[2])
+    
+    let momentaryPress = keyPressTone.triggeredWithEnvelope(
+        trigger:AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
+    return momentaryPress * 0.4
+}
 
 AudioKit.output = AKMixer(dialTone, ringing, busy, keypad)
 AudioKit.start()
@@ -82,9 +88,6 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Telephone")
-
-
-        addLabel("Keypad")
 
         addTouchKey("1", text: "   ", action: #selector(touch1))
         addTouchKey("2", text: "ABC", action: #selector(touch2))

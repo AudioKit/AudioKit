@@ -9,10 +9,11 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
 
+//: Here we set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let tracker = AKFrequencyTracker(player, hopSize: 400, peakCount: 600)
+let tracker = AKFrequencyTracker(player)
 
 AudioKit.output = tracker
 AudioKit.start()

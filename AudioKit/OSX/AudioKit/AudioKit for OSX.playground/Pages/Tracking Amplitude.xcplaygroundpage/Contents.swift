@@ -9,21 +9,21 @@
 import XCPlayground
 import AudioKit
 
-//: Let's set up the volume to be changing in the shape of a sine wave
-let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0, maximum: 0.5)
+//: First lets set up sound source to track
+let oscillatorNode = AKOperationGenerator() { _ in 
+    // Let's set up the volume to be changing in the shape of a sine wave
+    let volume = AKOperation.sineWave(frequency:0.2).scale(minimum: 0, maximum: 0.5)
+    
+    // And lets make the frequency move around to make sure it doesn't affect the amplitude tracking
+    let frequency = AKOperation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
+    
+    // So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
+    return AKOperation.sineWave(frequency: frequency, amplitude: volume)
+}
 
-//: And let's make the frequency move around to make sure it doesn't affect the amplitude tracking
-let frequency = AKOperation.jitter(amplitude: 200, minimumFrequency: 10, maximumFrequency: 30) + 200
-
-//: So our oscillator will move around randomly in frequency and have a smoothly varying amplitude
-let oscillator = AKOperation.sineWave(frequency: frequency, amplitude: volume)
-
-//: Connect up the the nodes
-let oscillatorNode = AKOperationGenerator(operation: oscillator)
 let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
 
-//: The amplitude tracker passes its input to the output,
-//: so we can insert into the signal chain at the bottom
+//: The amplitude tracker passes its input to the output, so we can insert into the signal chain at the bottom
 AudioKit.output = trackedAmplitude
 AudioKit.start()
 oscillatorNode.start()

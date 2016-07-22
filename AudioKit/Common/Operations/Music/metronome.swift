@@ -15,7 +15,7 @@ extension AKOperation {
     ///
     /// - parameter frequency: The frequency to repeat. (Default: 2.0)
     ///
-    public static func metronome(frequency: AKParameter = 2.0) -> AKOperation {
-        return AKOperation("(\(frequency) metro)")
+    public static func metronome(frequency frequency: AKParameter = 2.0) -> AKOperation {
+        return AKOperation(module: "metro", inputs: frequency)
     }
 }

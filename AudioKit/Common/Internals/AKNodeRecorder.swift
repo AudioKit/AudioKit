@@ -1,6 +1,6 @@
 //
-//  AKAudioNodeRecorder2.swift
-//  AudioKit For iOS
+//  AKAudioNodeRecorder.swift
+//  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Tweaked by Laurent Veliscek
@@ -54,11 +54,13 @@ public class AKNodeRecorder {
 
     /// Initialize the node recorder
     ///
-    /// - Parameters:
-    ///   - node:       Node to record from
-    ///   - file:       Audio file to record to
     /// Recording buffer size is defaulted to be AKSettings.bufferLength
     /// You can set a different value by setting an AKSettings.recordingBufferLength
+    ///
+    /// - Parameters:
+    ///   - node: Node to record from
+    ///   - file: Audio file to record to
+    ///
     public init(node: AKNode = AudioKit.output!,
                 file: AKAudioFile? = nil) throws {
 

@@ -1,6 +1,6 @@
 //
 //  resonantFilter.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Daniel Clelland, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -20,6 +20,6 @@ extension AKComputedParameter {
         frequency frequency: AKParameter = 4000.0,
                   bandwidth: AKParameter = 1000.0
         ) -> AKOperation {
-        return AKOperation("(\(self.toMono()) \(frequency) \(bandwidth) reson)")
+        return AKOperation(module: "reson", inputs: self.toMono(), frequency, bandwidth)
     }
 }

@@ -1,6 +1,6 @@
 //
-//  Beat.swift
-//  AudioKit For iOS
+//  AKDuration.swift
+//  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.

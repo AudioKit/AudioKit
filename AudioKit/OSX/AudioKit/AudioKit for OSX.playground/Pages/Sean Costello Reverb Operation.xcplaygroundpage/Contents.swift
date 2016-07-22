@@ -7,15 +7,17 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 
-let player = try AKAudioPlayer(file: file)
+//: Here we set up a player to the loop the file's playback
+var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let reverb = AKOperation.input.reverberateWithCostello(
-    feedback: AKOperation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
-    cutoffFrequency: 10000)
-let effect = AKOperationEffect(player, stereoOperation: reverb)
+let effect = AKOperationEffect(player) { player, _ in
+    return player.reverberateWithCostello(
+        feedback: AKOperation.sineWave(frequency: 0.1).scale(minimum: 0.5, maximum: 0.97),
+        cutoffFrequency: 10000)
+}
 
 AudioKit.output = effect
 AudioKit.start()

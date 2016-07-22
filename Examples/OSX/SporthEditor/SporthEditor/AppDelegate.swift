@@ -10,16 +10,14 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    
-    @IBAction func openControlsWindow(sender: AnyObject?) {
+    lazy var controlsWindowController: NSWindowController? = {
         let storyboard = NSStoryboard(name: Constants.Name.storyboard, bundle: nil)
         let controlsWindowController = storyboard.instantiateControllerWithIdentifier(Constants.Identifier.controlsController) as! NSWindowController
-        
-        if let controlsWindow = controlsWindowController.window {
-            let application = NSApplication.sharedApplication()
-            application.runModalForWindow(controlsWindow)
-        }
+        return controlsWindowController
+    }()
+    
+    @IBAction func openControlsWindow(sender: AnyObject?) {
+        controlsWindowController?.showWindow(self)
     }
     
     @IBAction func openDocument(sender: AnyObject?) {

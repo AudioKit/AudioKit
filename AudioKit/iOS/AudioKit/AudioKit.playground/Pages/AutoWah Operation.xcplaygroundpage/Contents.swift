@@ -12,11 +12,10 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let wahAmount = AKOperation.sineWave(frequency: 0.6).scale(minimum: 1, maximum: 0)
-
-let autowah = AKOperation.input.autoWah(wah: wahAmount, mix: 1, amplitude: 1)
-
-let effect = AKOperationEffect(player, operation: autowah)
+let effect = AKOperationEffect(player) { player, _ in
+    let wahAmount = AKOperation.sineWave(frequency: 0.6).scale(minimum: 1, maximum: 0)
+    return player.autoWah(wah: wahAmount, amplitude: 0.6)
+}
 
 AudioKit.output = effect
 AudioKit.start()

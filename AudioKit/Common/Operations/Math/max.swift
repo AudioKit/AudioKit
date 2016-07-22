@@ -15,7 +15,7 @@ import Foundation
 ///   - y: 2nd operation
 ///
 public func max(x: AKComputedParameter, _ y: AKComputedParameter) -> AKOperation {
-    return AKOperation("(\(x) \(y) max)")
+    return AKOperation(module: "max", inputs: x, y)
 }
 
 /// Maximum of an operation and a parameter
@@ -25,7 +25,7 @@ public func max(x: AKComputedParameter, _ y: AKComputedParameter) -> AKOperation
 ///   - parameter: parameter
 ///
 public func max(operation: AKComputedParameter, _ parameter: AKParameter) -> AKOperation {
-    return AKOperation("\(operation.toMono()) \(parameter) max ")
+    return AKOperation(module: "max", inputs: operation.toMono(), parameter)
 }
 
 /// Maximum of an operation and a parameter
