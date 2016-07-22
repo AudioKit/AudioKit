@@ -2,102 +2,108 @@
 //:
 //: ---
 //:
-//: ## Processing Audio Files Asynchronously
-//: ### Let's make more noise while processing
-
-
+//: ## AKAudioFile Async process
+//: ### Processing some Audiofiles in background
 import XCPlayground
-
-import Foundation
 import AudioKit
 
+//: We begin by cleaning our bedroom... (any audioFiles in the Temp directory are deleted)
 
-//: We pick some audio to play with from the resources folder...
+AKAudioFile.cleanTempDirectory()
 
-let piano = try? AKAudioFile(readFileName: "poney.mp3")
-let guitar = try? AKAudioFile(readFileName: "guitarloop.wav")
-let lead = try? AKAudioFile(readFileName: "leadloop.wav")
+//: We load the piano piece from resources and play it :
+var piano = try? AKAudioFile(readFileName: "poney.mp3")
+let player = piano?.player
+player?.looping = true
 
-//: Within an AKAudioFile, there's already the player to listen to the file. Just ask for it :
-
-let player1 = piano!.player!
-player1.looping = true
-
-//: Then, we need 3 more players. They won't play now so we don't care. We'll use the same recipe.
-
-let player2 = piano!.player!
-player2.looping = true
-
-let player3 = piano!.player!
-player3.looping = true
-
-let player4 = piano!.player!
-player4.looping = true
-
-//: I love reverb..
-let reverb = AKReverb(player4)
-
-//: we put all of them them in a mixer.
-let mixer = AKMixer(player1, player2, player3, reverb)
-
-//: Let's have some sound now.
-
-AudioKit.output = mixer
+AudioKit.output = player!
 AudioKit.start()
-player1.play()
+player!.start()
+//: While our piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory that will handle any process in background
+//: We define a call back that will be invoked when an async process has been completed. Notice that the process can have succeeded or failed. if processedFile is different from nil, process succeeded, so you can get the processed file. If processedFile is nil, process failed, but you can get the process thrown error :
+func callBack(processedFile:AKAudioFile?, error:NSError?){
 
-//: Only player 1 is playing. The other players will play only when we'll have made
-//: some process to feed them. As we want to process in background, we need callbacks.
+    // Each time our process is triggered, it will display some info about AKAudioFile Process Factory status :
+    print ("callBack Async process completed !")
+    print ("callBack -> How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+    print ("callBack -> How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+    print ("callBack -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
-//: These callbacks will be triggered when process has been completed. Then, we
-//: can get the processed file and use it to feed a player, and start the player.
-//: So player 2, 3 and 4 will start to play as soon as their processed file have been completed.
-
-//: player2 will loop an extract of the piano piece.
-
-func callback1() {
-    try? player2.replaceFile(extractProcess.processedFile!)
-    player2.play()
+    // Now we handle the file (and the error if any occured.)
+    if processedFile != nil {
+        // We print its duration:
+        print ("callBack -> processed: \(processedFile!.duration)")
+        // We replace the actual played file with the processed file
+        try? player?.replaceFile(processedFile!)
+        print ("callBack -> Replaced player's file !")
+    } else {
+        print ("callBack -> error: \(error)")
+    }
 }
 
-//: player3 will play the piano backward.
-func callback2() {
-    try? player3.replaceFile(reverseProcess.processedFile!)
-    player3.play()
+//: Let's process our piano asynchronously. First, we reverse the piano so it will play backward...
+
+piano?.reverseAsynchronously(completionHandler: callBack)
+
+print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+print ("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+
+//: Now we lower the piano level by normalizing it to a max level set at - 6 dB
+piano?.normalizeAsynchronously(completionHandler: callBack, newMaxLevel: 0)
+
+print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+print ("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+
+
+
+//: Now, extract one second from piano...
+
+piano?.extractAsynchronously(completionHandler: callBack, fromSample: 100000, toSample:144100)
+
+print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+print ("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+
+
+
+//: You may have noticed that Async Processes are queued serially. That means that the next process will only occur AFTER previous processes have been completed. First in, first out, completionHandlers will always be triggered in the same order as you invoked an async process.
+
+//: Most of the time, you 'll want to chain process. Then, you have to define a specific callback for each process step. Let's experiment with the drum loop
+
+
+var drumloop = try?  AKAudioFile(readFileName: "drumloop.wav")
+
+//: We will first reverse the loop, and append the original loop to the reversed loop, and replace the file of our player with the resulting processed file. So we define our second (and last) process callBack :
+
+func appendDrumLoopCallBack(processedFile:AKAudioFile?, error:NSError?){
+    if processedFile != nil {
+        print("Original drum loop has been appended to the reversed loop, so we can play the resulting file.")
+        try? player?.replaceFile(processedFile!)
+    } else {
+        print ("error: \(error)")
+    }
+}
+//: So this callBack can be invoked by our first process callBack:
+
+func reverseDrumLoopCallBack(processedFile:AKAudioFile?, error:NSError?){
+    if processedFile != nil {
+        print("Drum Loop has been reversed")
+        processedFile!.appendAsynchronously(completionHandler: appendDrumLoopCallBack, file: drumloop!)
+    } else {
+        print ("error: \(error)")
+    }
 }
 
-//: player4 will play the result of appending the guitar loop to the lead loop
-func callback3() {
-    try? player4.replaceFile(appendProcess.processedFile!)
-    player4.play()
-}
+//: Then, invoking our first process will trig our second process that will trig our last callBack.
+drumloop?.reverseAsynchronously(completionHandler: reverseDrumLoopCallBack)
 
-//: Now, the callbacks are ready, let's begin with the "extract" process. We must
-//: provide a number of samples. Lets say we want 10 % of our (beautiful) piano piece
-
-let tenPerCentsOfPiano = piano!.samplesCount / 10
-
-//: Fine, we'll pick a part from the beginning (but not at the beginning),
-//: so we extract from 10 % to 20 % of the piano song)
-
-let extractProcess = piano!.extractAsynchronously(fromSample: tenPerCentsOfPiano,
-                                                  toSample: tenPerCentsOfPiano * 2,
-                                                  completionCallBack: callback1)
-//: We want another player to play the piano backward. So we need the reversed audiofile:
-let reverseProcess = piano!.reverseAsynchronously(completionCallBack: callback2)
-//: Then, as a tribute to Franckenstein, we append the guitarloop to the leadloop into a single file
-let appendProcess = lead!.appendAsynchronously(file: guitar!, completionCallBack: callback3)
-
-//: Process will occur in background, so they won't block the program.
-//: Notice that the print will occur before any process has ended.
-//: As soon as a process has been completed, its player will play,
-//: and new file will be processed and so on.
-
+//: These processes are done in background, that means that the next line will be printed BEFORE the first (or any) async process has ended.
 print ("Can refresh UI or do anything while processing...")
-
-//: Okay, the result is not so musical. But you can experiment with your own files
-//: (copy them in the playground resources folder so you can play with them)
-
 
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+
