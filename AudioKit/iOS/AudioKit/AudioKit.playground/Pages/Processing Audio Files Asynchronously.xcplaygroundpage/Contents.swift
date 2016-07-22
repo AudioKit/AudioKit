@@ -21,7 +21,7 @@ AudioKit.start()
 player!.start()
 //: While our piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory that will handle any process in background
 //: We define a call back that will be invoked when an async process has been completed. Notice that the process can have succeeded or failed. if processedFile is different from nil, process succeeded, so you can get the processed file. If processedFile is nil, process failed, but you can get the process thrown error :
-func callBack(processedFile:AKAudioFile?, error:NSError?){
+func callBack(processedFile: AKAudioFile?, error: NSError?) {
 
     // Each time our process is triggered, it will display some info about AKAudioFile Process Factory status :
     print ("callBack Async process completed !")
@@ -50,7 +50,7 @@ print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queued
 print ("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
 //: Now we lower the piano level by normalizing it to a max level set at - 6 dB
-piano?.normalizeAsynchronously(completionHandler: callBack, newMaxLevel: 0)
+piano?.normalizeAsynchronously(newMaxLevel: 0, completionHandler: callBack)
 
 print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
@@ -60,7 +60,7 @@ print ("How many async process have been completed: \(AKAudioFile.completedAsync
 
 //: Now, extract one second from piano...
 
-piano?.extractAsynchronously(completionHandler: callBack, fromSample: 100000, toSample:144100)
+piano?.extractAsynchronously(fromSample: 100000, toSample: 144100, completionHandler: callBack)
 
 print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
 print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
@@ -75,29 +75,22 @@ print ("How many async process have been completed: \(AKAudioFile.completedAsync
 
 var drumloop = try?  AKAudioFile(readFileName: "drumloop.wav")
 
-//: We will first reverse the loop, and append the original loop to the reversed loop, and replace the file of our player with the resulting processed file. So we define our second (and last) process callBack :
-
-func appendDrumLoopCallBack(processedFile:AKAudioFile?, error:NSError?){
-    if processedFile != nil {
-        print("Original drum loop has been appended to the reversed loop, so we can play the resulting file.")
-        try? player?.replaceFile(processedFile!)
-    } else {
-        print ("error: \(error)")
-    }
-}
-//: So this callBack can be invoked by our first process callBack:
-
-func reverseDrumLoopCallBack(processedFile:AKAudioFile?, error:NSError?){
-    if processedFile != nil {
+//: We will first reverse the loop, and append the original loop to the reversed loop, and replace the file of our player with the resulting processed file.
+drumloop?.reverseAsynchronously() { reversedFile, error in
+    if reversedFile != nil {
         print("Drum Loop has been reversed")
-        processedFile!.appendAsynchronously(completionHandler: appendDrumLoopCallBack, file: drumloop!)
+        reversedFile!.appendAsynchronously(file: drumloop!) { appendedFile, error in
+            if appendedFile != nil {
+                print("Original drum loop has been appended to the reversed loop, so we can play the resulting file.")
+                try? player?.replaceFile(appendedFile!)
+            } else {
+                print ("error: \(error)")
+            }
+        }
     } else {
         print ("error: \(error)")
     }
 }
-
-//: Then, invoking our first process will trig our second process that will trig our last callBack.
-drumloop?.reverseAsynchronously(completionHandler: reverseDrumLoopCallBack)
 
 //: These processes are done in background, that means that the next line will be printed BEFORE the first (or any) async process has ended.
 print ("Can refresh UI or do anything while processing...")
@@ -106,4 +99,3 @@ print ("Can refresh UI or do anything while processing...")
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-
