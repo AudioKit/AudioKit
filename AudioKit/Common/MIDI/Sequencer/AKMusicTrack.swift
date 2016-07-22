@@ -206,7 +206,7 @@ public class AKMusicTrack {
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
         }
     }
-
+    
     public var isEmpty : Bool{
         var outBool = true
         var iterator: MusicEventIterator = nil
@@ -229,6 +229,7 @@ public class AKMusicTrack {
         }
         return outBool
     }
+    
     /// Clear some events from the track
     ///
     /// - Parameters:

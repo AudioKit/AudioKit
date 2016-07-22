@@ -253,7 +253,9 @@ public class AKSequencer {
             currTime = fmod(currTime, length.beats)
             MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, constrainedTempo)
         }
-        MusicTrackClear(tempoTrack, 0, length.beats)
+        if !isTempoTrackEmpty {
+            MusicTrackClear(tempoTrack, 0, length.beats)
+        }
         MusicTrackNewExtendedTempoEvent(tempoTrack, 0, constrainedTempo)
     }
 
@@ -303,6 +305,31 @@ public class AKSequencer {
         }
 
         return tempoOut
+    }
+    
+    var isTempoTrackEmpty : Bool {
+        var outBool = true
+        var iterator: MusicEventIterator = nil
+        var tempoTrack: MusicTrack = nil
+        MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+        NewMusicEventIterator(tempoTrack, &iterator)
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafePointer<Void> = nil
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while(hasNextEvent) {
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            
+            if eventType != 5 {
+                outBool = true
+            }
+            MusicEventIteratorNextEvent(iterator)
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+        return outBool
     }
     
     /// Convert seconds into AKDuration
