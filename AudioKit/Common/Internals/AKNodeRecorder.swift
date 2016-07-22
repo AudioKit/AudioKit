@@ -171,18 +171,9 @@ public class AKNodeRecorder {
 
     /// Reset the AKAudioFile to clear previous recordings
     public func reset() throws {
-
-        // Delete the current file audio file
-        let fileManager = NSFileManager.defaultManager()
-        let url = internalAudioFile.url
+        
         let settings = internalAudioFile.processingFormat.settings
-
-        do {
-            try fileManager.removeItemAtPath(internalAudioFile.url.absoluteString)
-        } catch let error as NSError {
-            print ("AKNodeRecorder Error: cannot delete Recording file:  \(internalAudioFile.fileNamePlusExtension)")
-            throw error
-        }
+        let url = internalAudioFile.url
 
         // Creates a blank new file
         do {
