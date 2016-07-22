@@ -158,25 +158,26 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     // MARK: - Initialization
 
 
-    /**
-     Throwing Init of an AKAudioPlayer.
-
-     - Parameters:
-     - file: the AKAudioFile to play
-     - completionHandler : AKCallback that will be triggered when the player end playing
-     (useful for refreshing UI so we're not playing anymore, we stopped playing...
-     - looping : will loop play if set to true, or stop when play ends, so it can trig the completionHandler callBack. Default is false (non looping)
-
-     - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be catched as it is a throwing init.
-
-     Notice that completionCallBack will be triggered from a
-     background thread. Any UI update should be made using:
-
-     dispatch_async(dispatch_get_main_queue()) {
-     // UI updates...
-     }
-     */
-    public init(file: AKAudioFile, completionHandler: AKCallback? = nil, looping:Bool = false) throws {
+    /// Initialize the audio player
+    ///
+    ///
+    /// Notice that completionCallBack will be triggered from a
+    /// background thread. Any UI update should be made using:
+    ///
+    /// ```
+    /// dispatch_async(dispatch_get_main_queue()) {
+    ///    // UI updates...
+    /// }
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - file: the AKAudioFile to play
+    ///   - looping : will loop play if set to true, or stop when play ends, so it can trig the completionHandler callBack. Default is false (non looping)
+    ///   - completionHandler : AKCallback that will be triggered when the player end playing (useful for refreshing UI so we're not playing anymore, we stopped playing...
+    ///
+    /// - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be catched as it is a throwing init.
+    ///
+    public init(file: AKAudioFile, looping:Bool = false, completionHandler: AKCallback? = nil) throws {
 
         let readFile:AKAudioFile
 
