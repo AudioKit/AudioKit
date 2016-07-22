@@ -76,8 +76,7 @@ func myExportCallBack() {
 
 //: Then, we can extract from 1 to 2 seconds of drumloop, as an mp4 file that will be
 //: written in documents directory. If the destination file exists, it will be overwritten.
-let myExport = try? drumloop?.export(name: "exported",
-                                     ext: .m4a, baseDir: .Documents,
+let myExport = try? drumloop?.export(name: "exported", ext: .m4a, baseDir: .Documents,
                                      callBack: myExportCallBack,
                                      fromTime: 1, toTime: 2)
 
