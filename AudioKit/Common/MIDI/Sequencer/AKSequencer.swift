@@ -184,21 +184,21 @@ public class AKSequencer {
     /// - parameter length: Length of tracks in beats
     ///
     public func setLength(length: AKDuration) {
-        for track in tracks {
-            track.setLength(length)
-        }
-
-        let size: UInt32 = 0
-        var len = length.musicTimeStamp
-        var tempoTrack: MusicTrack = nil
-        MusicSequenceGetTempoTrack(sequence, &tempoTrack)
-        MusicTrackSetProperty(tempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
-
         if isAVSequencer {
             for track in avSequencer.tracks {
                 track.lengthInBeats = length.beats
                 track.loopRange = AVMakeBeatRange(0, length.beats)
             }
+        } else {
+            for track in tracks {
+                track.setLength(length)
+            }
+            
+            let size: UInt32 = 0
+            var len = length.musicTimeStamp
+            var tempoTrack: MusicTrack = nil
+            MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+            MusicTrackSetProperty(tempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
         }
     }
 

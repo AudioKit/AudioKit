@@ -123,7 +123,7 @@ public class AKSampler: AKNode {
     }
 
     internal func loadInstrument(file: String, type: String) {
-        print("filename is \(file)")
+        //print("filename is \(file)")
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: type) else {
                 fatalError("file not found.")
         }
