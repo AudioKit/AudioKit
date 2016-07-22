@@ -183,6 +183,28 @@ public class AKMusicTrack {
         if !isEmpty {
             MusicTrackClear(internalMusicTrack, 0, length)
         }
+        clearMetaEvents()
+    }
+    
+    func clearMetaEvents(){
+        var iterator: MusicEventIterator = nil
+        NewMusicEventIterator(internalMusicTrack, &iterator)
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafePointer<Void> = nil
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while(hasNextEvent) {
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            
+            if eventType == 5 {
+                MusicEventIteratorDeleteEvent(iterator)
+            }
+            MusicEventIteratorNextEvent(iterator)
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
     }
 
     public var isEmpty : Bool{
