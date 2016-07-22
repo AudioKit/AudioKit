@@ -116,7 +116,7 @@ public class AKMusicTrack {
     /// - parameter duration: How long the loop will last, from the end of the track backwards
     ///
     public func setLength(duration: AKDuration) {
-
+        
         let size: UInt32 = 0
         var len = duration.musicTimeStamp
         var tmpSeq: MusicSequence = nil
@@ -127,45 +127,50 @@ public class AKMusicTrack {
         MusicTrackGetSequence(internalMusicTrack, seqPtr)
         MusicSequenceNewTrack(tmpSeq, &tmpTrack)
         MusicTrackSetProperty(tmpTrack, kSequenceTrackProperty_TrackLength, &len, size)
-        MusicTrackCopyInsert(internalMusicTrack, 0, len, tmpTrack, 0)
-        self.clear()
-        MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
-        MusicTrackCopyInsert(tmpTrack, 0, len, internalMusicTrack, 0)
-        MusicSequenceDisposeTrack(tmpSeq, tmpTrack)
-
-        DisposeMusicSequence(tmpSeq)
-
-        //now to clean up any notes that are too long
-        var iterator: MusicEventIterator = nil
-        NewMusicEventIterator(internalMusicTrack, &iterator)
-        var eventTime = MusicTimeStamp(0)
-        var eventType = MusicEventType()
-        var eventData: UnsafePointer<Void> = nil
-        var eventDataSize: UInt32 = 0
-        var hasNextEvent: DarwinBoolean = false
-
-        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
-
-        while(hasNextEvent) {
-            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
-
-            if eventType == kMusicEventType_MIDINoteMessage {
-                let data = UnsafePointer<MIDINoteMessage>(eventData)
-                let channel = data.memory.channel
-                let note = data.memory.note
-                let velocity = data.memory.velocity
-                let dur = data.memory.duration
-
-                if eventTime + dur > duration.beats {
-                    var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(duration.beats - eventTime))
-                    MusicEventIteratorSetEventInfo(iterator, eventType, &newNote)
-                }
-            }
-
-            MusicEventIteratorNextEvent(iterator)
+        
+        if !isEmpty {
+            MusicTrackCopyInsert(internalMusicTrack, 0, len, tmpTrack, 0)
+            clear()
+            MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
+            MusicTrackCopyInsert(tmpTrack, 0, len, internalMusicTrack, 0)
+            MusicSequenceDisposeTrack(tmpSeq, tmpTrack)
+            
+            DisposeMusicSequence(tmpSeq)
+            
+            //now to clean up any notes that are too long
+            var iterator: MusicEventIterator = nil
+            NewMusicEventIterator(internalMusicTrack, &iterator)
+            var eventTime = MusicTimeStamp(0)
+            var eventType = MusicEventType()
+            var eventData: UnsafePointer<Void> = nil
+            var eventDataSize: UInt32 = 0
+            var hasNextEvent: DarwinBoolean = false
+            
             MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+            
+            while(hasNextEvent) {
+                MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+                
+                if eventType == kMusicEventType_MIDINoteMessage {
+                    let data = UnsafePointer<MIDINoteMessage>(eventData)
+                    let channel = data.memory.channel
+                    let note = data.memory.note
+                    let velocity = data.memory.velocity
+                    let dur = data.memory.duration
+                    
+                    if eventTime + dur > duration.beats {
+                        var newNote = MIDINoteMessage(channel: channel, note: note, velocity: velocity, releaseVelocity: 0, duration: Float32(duration.beats - eventTime))
+                        MusicEventIteratorSetEventInfo(iterator, eventType, &newNote)
+                    }
+                }
+                
+                MusicEventIteratorNextEvent(iterator)
+                MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+            }
+            DisposeMusicEventIterator(iterator)
+        } else {
+            MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
         }
-        DisposeMusicEventIterator(iterator)
     }
 
     /// A less destructive and simpler way to set the length
@@ -180,9 +185,55 @@ public class AKMusicTrack {
 
     /// Clear all events from the track
     public func clear() {
-        MusicTrackClear(internalMusicTrack, 0, length)
+        clearMetaEvents()
+        if !isEmpty {
+            MusicTrackClear(internalMusicTrack, 0, length)
+        }
     }
-
+    
+    func clearMetaEvents(){
+        var iterator: MusicEventIterator = nil
+        NewMusicEventIterator(internalMusicTrack, &iterator)
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafePointer<Void> = nil
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while(hasNextEvent) {
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            
+            if eventType == 5 {
+                MusicEventIteratorDeleteEvent(iterator)
+            }
+            MusicEventIteratorNextEvent(iterator)
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+    }
+    
+    public var isEmpty : Bool{
+        var outBool = true
+        var iterator: MusicEventIterator = nil
+        NewMusicEventIterator(internalMusicTrack, &iterator)
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafePointer<Void> = nil
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while(hasNextEvent) {
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            
+            outBool = false
+            //print("time is \(eventTime) - type is \(eventType)")
+            //print("data is \(eventData)")
+            MusicEventIteratorNextEvent(iterator)
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+        return outBool
+    }
+    
     /// Clear some events from the track
     ///
     /// - Parameters:
@@ -190,7 +241,9 @@ public class AKMusicTrack {
     ///   - duration: Duration of the range to clear, in beats
     ///
     public func clearRange(start start: AKDuration, duration: AKDuration) {
-        MusicTrackClear(internalMusicTrack, start.beats, duration.beats)
+        if !isEmpty {
+            MusicTrackClear(internalMusicTrack, start.beats, duration.beats)
+        }
     }
 
     /// Add Note to sequence
