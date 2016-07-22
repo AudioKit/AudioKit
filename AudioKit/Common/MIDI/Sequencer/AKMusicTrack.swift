@@ -180,9 +180,33 @@ public class AKMusicTrack {
 
     /// Clear all events from the track
     public func clear() {
-        MusicTrackClear(internalMusicTrack, 0, length)
+        if !isEmpty {
+            MusicTrackClear(internalMusicTrack, 0, length)
+        }
     }
 
+    public var isEmpty : Bool{
+        var outBool = true
+        var iterator: MusicEventIterator = nil
+        NewMusicEventIterator(internalMusicTrack, &iterator)
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafePointer<Void> = nil
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while(hasNextEvent) {
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            
+            if eventType != 5 {
+                outBool = true
+            }
+            MusicEventIteratorNextEvent(iterator)
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+        return outBool
+    }
     /// Clear some events from the track
     ///
     /// - Parameters:
