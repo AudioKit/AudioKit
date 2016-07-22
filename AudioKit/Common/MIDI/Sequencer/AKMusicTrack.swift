@@ -236,7 +236,9 @@ public class AKMusicTrack {
     ///   - duration: Duration of the range to clear, in beats
     ///
     public func clearRange(start start: AKDuration, duration: AKDuration) {
-        MusicTrackClear(internalMusicTrack, start.beats, duration.beats)
+        if !isEmpty {
+            MusicTrackClear(internalMusicTrack, start.beats, duration.beats)
+        }
     }
 
     /// Add Note to sequence
