@@ -157,8 +157,26 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
     // MARK: - Initialization
 
-    /// the safest way to proceed is to use an AKAudioFile
-    public init(file: AKAudioFile, completionHandler: AKCallback? = nil) throws {
+
+    /**
+     Throwing Init of an AKAudioPlayer.
+
+     - Parameters:
+     - file: the AKAudioFile to play
+     - completionHandler : AKCallback that will be triggered when the player end playing
+     (useful for refreshing UI so we're not playing anymore, we stopped playing...
+     - looping : will loop play if set to true, or stop when play ends, so it can trig the completionHandler callBack. Default is false (non looping)
+
+     - Returns: an AKAudioPlayer if init succeeds, or nil if init fails. If fails, errors may be catched as it is a throwing init.
+
+     Notice that completionCallBack will be triggered from a
+     background thread. Any UI update should be made using:
+
+     dispatch_async(dispatch_get_main_queue()) {
+     // UI updates...
+     }
+     */
+    public init(file: AKAudioFile, completionHandler: AKCallback? = nil, looping:Bool = false) throws {
 
         let readFile:AKAudioFile
 
@@ -174,6 +192,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         }
         self.internalAudioFile = readFile
         self.completionHandler = completionHandler
+        self.looping = looping
 
         super.init()
         AudioKit.engine.attachNode(internalPlayer)
@@ -186,34 +205,6 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         
         initialize()
     }
-
-    /*
-     /// To stay compatible with ealier version
-     /// Should be deprecated because you cannot handle errors at run time...
-     /// :-/
-     public convenience init(_ file: String, completionHandler: AKCallback? = nil) {
-
-
-     print ("AKAudioPlayer Warning: init using a file path string will be deprecated and won't throw error if it fails to init properly. Please init using an AKAudioFile (safer and lets you catch errors if something goes wrong).")
-     // build an empty AKAudioFile as a backup if we fail to create a valid one from "file"
-     var audioFile = try? AKAudioFile()
-
-     let nsurl = NSURL(string:file)
-     if nsurl != nil {
-     do {
-     audioFile = try AKAudioFile(forReading: nsurl!)
-     } catch let error as NSError {
-     print ("Couldn't create an AKAudioFile with file: \(file) !...")
-     print("Error: \(error)")
-     }
-
-     } else {
-     print("Cannot create a valid nsurl with file:\(file)")
-     }
-     //
-     try! self.init(file: audioFile!, completionHandler: completionHandler)
-     }
-     */
 
     // MARK: - Methods
 
