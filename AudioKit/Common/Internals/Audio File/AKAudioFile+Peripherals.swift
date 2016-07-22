@@ -1,6 +1,6 @@
 //
 //  AKAudioFile+Peripherals.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka and Laurent Veliscek on 7/4/16.
 //  Copyright © 2016 AudioKit. All rights reserved.

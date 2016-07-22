@@ -14,11 +14,11 @@
 import XCPlayground
 import AudioKit
 
-let file = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
-let player = try? AKAudioPlayer(file: file!)
-player!.looping = true
-var bitcrusher = AKBitCrusher(player!)
+let player = try AKAudioPlayer(file: file)
+player.looping = true
+var bitcrusher = AKBitCrusher(player)
 
 //: Set the parameters of the bitcrusher here
 bitcrusher.bitDepth = 16
@@ -27,7 +27,7 @@ bitcrusher.sampleRate = 3333
 AudioKit.output = bitcrusher
 AudioKit.start()
 
-player!.play()
+player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
@@ -56,10 +56,10 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func startLoop(part: String) {
-        player!.stop()
+        player.stop()
         let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player!.replaceFile(file!)
-        player!.play()
+        try? player.replaceFile(file!)
+        player.play()
     }
 
     func startDrumLoop() {
@@ -81,8 +81,9 @@ class PlaygroundView: AKPlaygroundView {
     func startMixLoop() {
         startLoop("mix")
     }
+
     func stop() {
-        player!.stop()
+        player.stop()
     }
 
     func setBitDepth(slider: Slider) {
@@ -102,11 +103,10 @@ class PlaygroundView: AKPlaygroundView {
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
-        print("public func presetXXXXXX() {")
-        print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
-        print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
-
-        print("}\n")
+        Swift.print("public func presetXXXXXX() {")
+        Swift.print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
+        Swift.print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
+        Swift.print("}\n")
     }
 }
 

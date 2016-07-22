@@ -1,6 +1,6 @@
 //
 //  AKAudioFile+ProcessingAsynchronously.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Laurent Veliscek and Brandon Barber on 12/07/2016.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -62,20 +62,23 @@ extension AKAudioFile {
         public let sourceFile: AKAudioFile
         public let processType: ProcessType = .Normalize
 
-        init (  sourceFile: AKAudioFile, baseDir: BaseDirectory,
-                name: String,
-                newMaxLevel: Float,
-                completionCallBack: AKCallback) {
+        init(sourceFile: AKAudioFile,
+             baseDir: BaseDirectory,
+             name: String,
+             newMaxLevel: Float,
+             completionCallBack: AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
-                    self.processedFile = try sourceFile.normalize(baseDir, name: name, newMaxLevel: newMaxLevel)
+                    self.processedFile = try sourceFile.normalize(baseDir: baseDir,
+                                                                  name: name,
+                                                                  newMaxLevel: newMaxLevel)
                 } catch let error as NSError {
                     self.status = .Failed
                     print( "ERROR AKAudioFile: Normalize: \(error)")
                     self.error = error
                 }
-                print( "AKAudioFile: Normalizing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
+                print("AKAudioFile: Normalizing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
                 self.status = .Succeeded
                 completionCallBack()
             }
@@ -106,19 +109,21 @@ extension AKAudioFile {
         public let sourceFile: AKAudioFile
         public let processType: ProcessType = .Reverse
 
-        init (  sourceFile: AKAudioFile, baseDir: BaseDirectory,
-                name: String,
-                completionCallBack: AKCallback) {
+        init(sourceFile: AKAudioFile,
+             baseDir: BaseDirectory,
+             name: String,
+             completionCallBack: AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
                 do {
-                    self.processedFile = try sourceFile.reverse(baseDir, name: name)
+                    self.processedFile = try sourceFile.reverse(baseDir: baseDir,
+                                                                name: name)
                 } catch let error as NSError {
                     self.status = .Failed
                     print( "ERROR AKAudioFile: Reverse: \(error)")
                     self.error = error
                 }
-                print( "AKAudioFile: Reversing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
+                print("AKAudioFile: Reversing \"\(self.sourceFile.fileNamePlusExtension)\" -> \"\(self.processedFile!.fileNamePlusExtension)\" completed!")
                 self.status = .Succeeded
                 completionCallBack()
             }
@@ -150,15 +155,15 @@ extension AKAudioFile {
         public let sourceFile: AKAudioFile
         public let processType: ProcessType = .Append
 
-        init (  sourceFile: AKAudioFile,
-                file: AKAudioFile,
-                baseDir: BaseDirectory,
-                name: String  = "",
-                completionCallBack: AKCallback) {
+        init(sourceFile: AKAudioFile,
+             file: AKAudioFile,
+             baseDir: BaseDirectory,
+             name: String  = "",
+             completionCallBack: AKCallback) {
             self.sourceFile = sourceFile
             dispatch_async(AudioKit.AKAudioFileProcessQueue) {
             do {
-                self.processedFile = try sourceFile.append(file, baseDir: baseDir, name: name)
+                self.processedFile = try sourceFile.append(file: file, baseDir: baseDir, name: name)
             } catch let error as NSError {
                 self.status = .Failed
                 print( "ERROR AKAudioFile: Append: \(error)")
@@ -247,9 +252,9 @@ extension AKAudioFile {
      }
      */
 
-    public func reverseAsynchronously( baseDir: BaseDirectory = .Temp,
-                               name: String = "",
-                               completionCallBack: AKCallback) -> ReverseProcess {
+    public func reverseAsynchronously(baseDir baseDir: BaseDirectory = .Temp,
+                                              name: String = "",
+                                              completionCallBack: AKCallback) -> ReverseProcess {
 
         let process = ReverseProcess(sourceFile: self, baseDir: baseDir, name: name, completionCallBack: completionCallBack)
         return process
@@ -274,10 +279,10 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func normalizeAsynchronously(baseDir: BaseDirectory = .Temp,
-                                        name: String = "",
-                                        newMaxLevel: Float = 0.0,
-                                        completionCallBack: AKCallback) -> NormalizeProcess {
+    public func normalizeAsynchronously(baseDir baseDir: BaseDirectory = .Temp,
+                                                name: String = "",
+                                                newMaxLevel: Float = 0.0,
+                                                completionCallBack: AKCallback) -> NormalizeProcess {
 
         let process = NormalizeProcess(sourceFile: self, baseDir: baseDir, name: name, newMaxLevel: newMaxLevel, completionCallBack: completionCallBack)
         return process
@@ -302,11 +307,11 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func appendAsynchronously(file: AKAudioFile,
-                                     baseDir: BaseDirectory = .Temp,
-                                     name: String = "",
-                                     newMaxLevel: Float = 0.0,
-                                     completionCallBack: AKCallback) -> AppendProcess {
+    public func appendAsynchronously(file file: AKAudioFile,
+                                          baseDir: BaseDirectory = .Temp,
+                                          name: String = "",
+                                          newMaxLevel: Float = 0.0,
+                                          completionCallBack: AKCallback) -> AppendProcess {
 
         let process = AppendProcess(sourceFile: self,
                                     file: file,
@@ -337,11 +342,11 @@ extension AKAudioFile {
      // UI updates...
      }
      */
-    public func extractAsynchronously(fromSample: Int64 = 0,
-                                      toSample: Int64 = 0,
-                                      baseDir: BaseDirectory = .Temp,
-                                      name: String = "",
-                                      completionCallBack: AKCallback) -> ExtractProcess {
+    public func extractAsynchronously(fromSample fromSample: Int64 = 0,
+                                                 toSample: Int64 = 0,
+                                                 baseDir: BaseDirectory = .Temp,
+                                                 name: String = "",
+                                                 completionCallBack: AKCallback) -> ExtractProcess {
 
 
         let fixedFrom = abs(fromSample)

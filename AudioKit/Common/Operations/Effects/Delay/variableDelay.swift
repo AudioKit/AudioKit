@@ -22,6 +22,7 @@ extension AKComputedParameter {
         feedback: AKParameter = 0.0,
         maximumDelayTime: Double = 5.0
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(feedback) \(time) \(maximumDelayTime) vdelay)")
+            return AKOperation(module: "vdelay",
+                               inputs: self.toMono(), feedback, time, maximumDelayTime)
     }
 }

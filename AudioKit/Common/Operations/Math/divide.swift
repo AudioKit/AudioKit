@@ -14,7 +14,7 @@ extension AKOperation {
     /// - parameter parameter: The amount to divide
     ///
     public func dividedBy(parameter: AKParameter) -> AKOperation {
-        return AKOperation("(\(self) \(parameter) /)")
+        return AKOperation(module: "/", inputs: self, parameter)
     }
 }
 

@@ -37,38 +37,50 @@ public class AKOperationEffect: AKNode, AKToggleable {
     }
 
     // MARK: - Initializers
-
-    /// Initialize the effect with an input and an operation
+    
+    /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - input: AKNode to use for processing
-    ///   - operation: AKOperation stack to use
+    ///   - input:            AKNode to use for processing
+    ///   - numberOfChannels: Only 2 channels are supported, but need to differentiate the initializer
+    ///   - operations:       Array of operations [left, right]
     ///
-    public convenience init(_ input: AKNode, operation: AKOperation) {
-        // add "dup" to copy the left channel output to the right channel output
-        self.init(input, sporth:"\(operation) dup")
+    public convenience init(_ input: AKNode,
+                              numberOfChannels: Int,
+                              operations: (AKStereoOperation, [AKOperation])->[AKOperation]) {
+        
+        let computedParameters = operations(AKStereoOperation.input, AKOperation.parameters)
+        let left = computedParameters[0]
+        
+        if numberOfChannels == 2 {
+            let right = computedParameters[1]
+            self.init(input, sporth: "\(right.sporth) \(left.sporth)")
+        } else {
+            self.init(input, sporth: "\(left.sporth)")
+        }
     }
-
-    /// Initialize the effect with an input and a stereo operation
+    
+    /// Initialize the generator for stereo (2 channels)
     ///
     /// - Parameters:
-    ///   - input: AKNode to use for processing
-    ///   - stereoOperation: AKStereoOperation stack to use
+    ///   - input:     AKNode to use for processing
+    ///   - operation: Operation to generate, can be mono or stereo
     ///
-    public convenience init(_ input: AKNode, stereoOperation: AKStereoOperation) {
-        self.init(input, sporth:"\(stereoOperation) swap")
-    }
+    public convenience init(_ input: AKNode,
+                              operation: (AKStereoOperation, [AKOperation])->AKComputedParameter) {
+        
 
-    /// Initialize the effect with an input and separate operations for each channel
-    ///
-    /// - Parameters:
-    ///   - input: AKNode to use for processing
-    ///   - left: AKOperation stack to use on the left
-    ///   - right: AKOperation stack to use on the right
-    ///
-    public convenience init(_ input: AKNode, left: AKOperation, right: AKOperation) {
-        self.init(input, sporth:"\(right) \(left)")
+        let computedParameter = operation(AKStereoOperation.input, AKOperation.parameters)
+        
+        if computedParameter.dynamicType == AKOperation.self {
+            let monoOperation = computedParameter as! AKOperation
+            self.init(input, sporth: monoOperation.sporth + " dup ")
+        } else {
+            let stereoOperation = computedParameter as! AKStereoOperation
+            self.init(input, sporth: stereoOperation.sporth + " swap ")
+        }
     }
+    
 
     /// Initialize the effect with an input and a valid Sporth string
     ///
@@ -103,8 +115,8 @@ public class AKOperationEffect: AKNode, AKToggleable {
             input.addConnectionPoint(self)
             self.internalAU?.setSporth(sporth)
         }
-
     }
+    
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {

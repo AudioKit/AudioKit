@@ -20,6 +20,6 @@ extension AKOperation {
         frequency frequency: AKParameter = 440,
         amplitude: AKParameter = 1
         ) -> AKOperation {
-            return AKOperation("(\(frequency) \(amplitude) sine)")
+            return AKOperation(module: "sine", inputs: frequency, amplitude)
     }
 }

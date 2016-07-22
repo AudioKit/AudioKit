@@ -7,21 +7,23 @@
 import XCPlayground
 import AudioKit
 
-//: Filter setup
-let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 100, maximum: 20000)
-let filter = AKOperation.input.lowPassFilter(halfPowerPoint: halfPower)
-
 //: Noise Example
 // Bring down the amplitude so that when it is mixed it is not so loud
 let whiteNoise = AKWhiteNoise(amplitude: 0.1)
-let filteredNoise = AKOperationEffect(whiteNoise, operation: filter)
+let filteredNoise = AKOperationEffect(whiteNoise) { whiteNoise, _ in
+    let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12000, maximum: 100)
+    return whiteNoise.lowPassFilter(halfPowerPoint: halfPower)
+}
 
 //: Music Example
 let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-let filteredPlayer = AKOperationEffect(player, operation: filter)
+let filteredPlayer = AKOperationEffect(player) { player, _ in
+    let halfPower = AKOperation.sineWave(frequency: 0.2).scale(minimum: 12000, maximum: 100)
+    return player.lowPassFilter(halfPowerPoint: halfPower)
+}
 
 //: Mixdown and playback
 let mixer = AKDryWetMixer(filteredNoise, filteredPlayer, balance: 0.5)

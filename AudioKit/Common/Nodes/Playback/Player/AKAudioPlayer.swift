@@ -1,6 +1,6 @@
 //
 //  AKAudioPlayer.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Aurelius Prochazka and Laurent Veliscek, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.

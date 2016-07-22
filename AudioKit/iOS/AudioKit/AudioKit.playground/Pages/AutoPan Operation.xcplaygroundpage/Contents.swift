@@ -10,27 +10,17 @@ import AudioKit
 //: This first section sets up parameter naming in such a way
 //: to make the operation code easier to read below.
 
-enum AutoPanParameter: Int {
-    case Speed, Depth
-}
-
-struct AutoPan {
-    static var speed: AKOperation {
-        return AKOperation.parameters(AutoPanParameter.Speed.rawValue)
-    }
-    static var depth: AKOperation {
-        return AKOperation.parameters(AutoPanParameter.Depth.rawValue)
-    }
-}
+let speedIndex = 0
+let depthIndex = 1
 
 extension AKOperationEffect {
     var speed: Double {
-        get { return self.parameters[AutoPanParameter.Speed.rawValue] }
-        set(newValue) { self.parameters[AutoPanParameter.Speed.rawValue] = newValue }
+        get { return self.parameters[speedIndex] }
+        set(newValue) { self.parameters[speedIndex] = newValue }
     }
     var depth: Double {
-        get { return self.parameters[AutoPanParameter.Depth.rawValue] }
-        set(newValue) { self.parameters[AutoPanParameter.Depth.rawValue] = newValue }
+        get { return self.parameters[depthIndex] }
+        set(newValue) { self.parameters[depthIndex] = newValue }
     }
 }
 
@@ -41,11 +31,12 @@ let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let oscillator = AKOperation.sineWave(frequency: AutoPan.speed, amplitude: AutoPan.depth)
+let effect = AKOperationEffect(player) { input, parameters in
+    let oscillator = AKOperation.sineWave(frequency: parameters[speedIndex],
+                                          amplitude: parameters[depthIndex])
+    return input.pan(oscillator)
+}
 
-let panner = AKOperation.input.pan(oscillator)
-
-let effect = AKOperationEffect(player, stereoOperation: panner)
 effect.parameters = [10, 1]
 AudioKit.output = effect
 AudioKit.start()
@@ -118,9 +109,9 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func printParameters() {
-        let realSpeed = effect.parameters[AutoPanParameter.Speed.rawValue]
-        let realDepth = effect.parameters[AutoPanParameter.Depth.rawValue]
-        print("speed = \(realSpeed), depth = \(realDepth)")
+        let realSpeed = effect.parameters[speedIndex]
+        let realDepth = effect.parameters[depthIndex]
+        Swift.print("speed = \(realSpeed), depth = \(realDepth)")
     }
 }
 
