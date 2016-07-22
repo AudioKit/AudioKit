@@ -168,7 +168,7 @@ public class AKMusicTrack {
                 MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
             }
             DisposeMusicEventIterator(iterator)
-        }else{
+        } else {
             MusicTrackSetProperty(internalMusicTrack, kSequenceTrackProperty_TrackLength, &len, size)
         }
     }
