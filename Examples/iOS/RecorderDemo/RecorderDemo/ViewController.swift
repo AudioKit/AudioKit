@@ -1,9 +1,9 @@
 //
 //  ViewController.swift
-//  Recorder Demo
+//  RecorderDemo
 //
-//  Created by bubu from bubuland on 19/07/2016.
-//  Copyright © 2016 Laurent Veliscek. All rights reserved.
+//  Created by Laurent Veliscek, revision history on Github.
+//  Copyright © 2016 AudioKit. All rights reserved.
 //
 
 import UIKit
@@ -12,11 +12,11 @@ import AudioKit
 class ViewController: UIViewController {
 
 
-    var recorder:AKNodeRecorder?
+    var recorder: AKNodeRecorder?
     var player: AKAudioPlayer?
-    var tape:AKAudioFile?
-    var micBooster:AKBooster?
-    var moogLadder:AKMoogLadder?
+    var tape: AKAudioFile?
+    var micBooster: AKBooster?
+    var moogLadder: AKMoogLadder?
 
     var state = State.readyToRecord
 
@@ -44,7 +44,10 @@ class ViewController: UIViewController {
 
         // Session settings
         AKSettings.bufferLength = .Medium
-        try? AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .DefaultToSpeaker)
+
+        do {
+            try AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .DefaultToSpeaker)
+        } catch { print("Errored setting category.") }
 
         // Patching
         let mic = AKMicrophone()
@@ -59,16 +62,7 @@ class ViewController: UIViewController {
         player?.looping = true
         player?.completionHandler = playingEnded
 
-
-        let time = AKOperation.sineWave(frequency: 0.3).scale(minimum: 0.01, maximum: 0.2)
-        let feedback = AKOperation.sineWave(frequency: 0.21).scale(minimum: 0.5, maximum: 0.9)
-
-        let variableDelay = AKOperation.input.variableDelay(time: time,
-                                                            feedback: feedback, maximumDelayTime: 1.0)
-        let effect = AKOperationEffect(player!, operation: variableDelay)
-
-        
-        moogLadder = AKMoogLadder(effect)
+        moogLadder = AKMoogLadder(player!)
 
         let mainMixer = AKMixer(moogLadder!, micBooster!)
 
@@ -79,7 +73,7 @@ class ViewController: UIViewController {
     }
 
     // CallBack triggered when playing has ended
-    // Must be seipatched on the main queue as completionHandler 
+    // Must be seipatched on the main queue as completionHandler
     // will be triggered by a background thread
     func playingEnded() {
         dispatch_async(dispatch_get_main_queue()) {
@@ -98,12 +92,17 @@ class ViewController: UIViewController {
             if AKSettings.headPhonesPlugged {
                 micBooster!.gain = 1
             }
-           try? recorder?.record()
+            do {
+                try recorder?.record()
+            } catch { print("Errored recording.") }
 
         case .recording :
             // Microphone monitoring is muted
-             micBooster!.gain = 0
-            try? player?.reloadFile()
+            micBooster!.gain = 0
+            do {
+                try player?.reloadFile()
+            } catch { print("Errored reloading.") }
+
             let recordedDuration = player != nil ? player?.audioFile.duration  : 0
             if recordedDuration > 0 {
                 recorder?.stop()
@@ -140,7 +139,7 @@ class ViewController: UIViewController {
         setSliders(true)
     }
 
-    func setSliders(active:Bool) {
+    func setSliders(active: Bool) {
         loopButton.hidden = !active
         moogLadderTitle.hidden = !active
         freqSlider.enabled = active
@@ -161,11 +160,14 @@ class ViewController: UIViewController {
             sender.setTitle("Loop is On", forState: .Normal)
 
         }
-        
+
     }
     @IBAction func resetButtonTouched(sender: UIButton) {
         player!.stop()
-        try? recorder?.reset()
+        do {
+            try recorder?.reset()
+        } catch { print("Errored resetting.") }
+
         //try? player?.replaceFile((recorder?.audioFile)!)
         setupUIForRecording()
     }
@@ -185,4 +187,3 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
-
