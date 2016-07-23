@@ -31,7 +31,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
     /// Will be triggered when AKAudioPlayer has finished to play.
     /// (will not as long as loop is on)
-    private var completionHandler: AKCallback?
+    public var completionHandler: AKCallback?
 
     /// Boolean indicating whether or not to loop the playback
     public var looping: Bool = false
