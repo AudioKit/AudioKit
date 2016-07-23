@@ -1,17 +1,16 @@
 //
 //  ViewController.swift
-//  RecorderDemo
+//  Recorder Demo
 //
-//  Created by Laurent Veliscek, revision history on Github.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  Created by bubu from bubuland on 19/07/2016.
+//  Copyright © 2016 Laurent Veliscek. All rights reserved.
 //
 
 import UIKit
 import AudioKit
 
 class ViewController: UIViewController {
-
-
+    
     var recorder: AKNodeRecorder?
     var player: AKAudioPlayer?
     var tape: AKAudioFile?
@@ -42,12 +41,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        setupButtonNames()
+        
         // Session settings
-        AKSettings.bufferLength = .Medium
-
-        do {
-            try AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .DefaultToSpeaker)
-        } catch { print("Errored setting category.") }
+        AKSettings.bufferLength = .Short
+        _ = try? AKSettings.setSessionCategory(.PlayAndRecord, withOptions: .DefaultToSpeaker)
 
         // Patching
         let mic = AKMicrophone()
@@ -61,10 +59,9 @@ class ViewController: UIViewController {
         player = tape?.player
         player?.looping = true
         player?.completionHandler = playingEnded
-
         moogLadder = AKMoogLadder(player!)
-
-        let mainMixer = AKMixer(moogLadder!, micBooster!)
+        let reverb = AKReverb(moogLadder!)
+        let mainMixer = AKMixer(reverb, micBooster!)
 
         AudioKit.output = mainMixer
         AudioKit.start()
@@ -73,7 +70,7 @@ class ViewController: UIViewController {
     }
 
     // CallBack triggered when playing has ended
-    // Must be seipatched on the main queue as completionHandler
+    // Must be seipatched on the main queue as completionHandler 
     // will be triggered by a background thread
     func playingEnded() {
         dispatch_async(dispatch_get_main_queue()) {
@@ -92,17 +89,12 @@ class ViewController: UIViewController {
             if AKSettings.headPhonesPlugged {
                 micBooster!.gain = 1
             }
-            do {
-                try recorder?.record()
-            } catch { print("Errored recording.") }
+           _ = try? recorder?.record()
 
         case .recording :
             // Microphone monitoring is muted
-            micBooster!.gain = 0
-            do {
-                try player?.reloadFile()
-            } catch { print("Errored reloading.") }
-
+             micBooster!.gain = 0
+            _ = try? player?.reloadFile()
             let recordedDuration = player != nil ? player?.audioFile.duration  : 0
             if recordedDuration > 0 {
                 recorder?.stop()
@@ -118,8 +110,18 @@ class ViewController: UIViewController {
             setupUIForPlaying ()
         }
     }
+    
+    struct Constants {
+        static let empty = ""
+    }
+    
+    func setupButtonNames() {
+        resetButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
+        mainButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
+        loopButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
+    }
 
-    func setupUIForRecording () {
+    func setupUIForRecording() {
         state = .readyToRecord
         infoLabel.text = "Ready to record"
         mainButton.setTitle("Record", forState: .Normal)
@@ -129,7 +131,7 @@ class ViewController: UIViewController {
         setSliders(false)
     }
 
-    func setupUIForPlaying () {
+    func setupUIForPlaying() {
         let recordedDuration =  player != nil ? player?.audioFile.duration  : 0
         infoLabel.text = "Recorded: \(String(format: "%0.1f", recordedDuration!)) seconds"
         mainButton.setTitle("Play", forState: .Normal)
@@ -140,14 +142,17 @@ class ViewController: UIViewController {
     }
 
     func setSliders(active: Bool) {
-        loopButton.hidden = !active
-        moogLadderTitle.hidden = !active
+        loopButton.enabled = active
+        moogLadderTitle.enabled = active
         freqSlider.enabled = active
         freqSlider.hidden = !active
         resonSlider.enabled = active
         resonSlider.hidden = !active
-        freqLabel.hidden = !active
-        resonLabel.hidden = !active
+        freqLabel.enabled = active
+        resonLabel.enabled = active
+        freqLabel.text = active ? "Cutoff Frequency" : Constants.empty
+        resonLabel.text = active ? "Resonance" : Constants.empty
+        moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
 
     @IBAction func loopButtonTouched(sender: UIButton) {
@@ -160,15 +165,11 @@ class ViewController: UIViewController {
             sender.setTitle("Loop is On", forState: .Normal)
 
         }
-
+        
     }
     @IBAction func resetButtonTouched(sender: UIButton) {
-        player!.stop()
-        do {
-            try recorder?.reset()
-        } catch { print("Errored resetting.") }
-
-        //try? player?.replaceFile((recorder?.audioFile)!)
+        _ = try? recorder?.reset()
+        _ = try? player?.replaceFile((recorder?.audioFile)!)
         setupUIForRecording()
     }
 
@@ -187,3 +188,4 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 }
+
