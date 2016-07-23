@@ -15,20 +15,19 @@ import Foundation
 import AVFoundation
 
 extension AKAudioFile {
-    /**
-     Returns an AKAudioFile with audio data of the current AKAudioFile normalized to have a peak of newMaxLevel dB.
-     
-     - Parameters:
-        - name: the name of the file without its extension (String).
-        - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-        - newMaxLevel: max level targeted as a Float value (default if 0 dB)
-     
-    - Throws: NSError if failed .
-     
-    - Returns: An AKAudioFile, or nil if init failed.*/
-    public func normalize(baseDir baseDir: BaseDirectory = .Temp,
-                                  name: String = "",
-                                  newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
+    
+    /// Normalize an AKAudioFile to have a peak of newMaxLevel dB.
+    ///
+    /// - Parameters:
+    ///   - baseDir:     where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - name:        the name of the file without its extension (String).
+    ///   - newMaxLevel: max level targeted as a Float value (default if 0 dB)
+    ///
+    /// - returns: An AKAudioFile, or nil if init failed.
+    ///
+    public func normalized(baseDir baseDir: BaseDirectory = .Temp,
+                                   name: String = "",
+                                   newMaxLevel: Float = 0.0 ) throws -> AKAudioFile {
         
         let level = self.maxLevel
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
@@ -60,19 +59,18 @@ extension AKAudioFile {
                                      name: name)
         return try AKAudioFile(forReading: outputFile.url)
     }
-
-    /**
-     Returns an AKAudioFile with audio reversed (will playback in reverse from end to beginning).
-     
-     - Parameters:
-        - name: the name of the file without its extension (String).
-        - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-     
-     - Throws: NSError if failed .
-     
-     - Returns: An AKAudioFile, or nil if init failed.*/
-    public func reverse(baseDir baseDir: BaseDirectory = .Temp,
-                                name: String = "" ) throws -> AKAudioFile {
+    
+    
+    /// Returns an AKAudioFile with audio reversed (will playback in reverse from end to beginning).
+    ///
+    /// - Parameters:
+    ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
+    ///   - name: the name of the file without its extension (String).
+    ///
+    /// - Returns: An AKAudioFile, or nil if init failed.
+    ///
+    public func reversed(baseDir baseDir: BaseDirectory = .Temp,
+                                 name: String = "" ) throws -> AKAudioFile {
         
         var outputFile = try AKAudioFile (writeIn: baseDir, name: name)
         
@@ -92,41 +90,77 @@ extension AKAudioFile {
                                      name: name)
         return try AKAudioFile(forReading: outputFile.url)
     }
-
-    /**
-     Returns an AKAudioFile with appended audio data from another AKAudioFile.
-     
-     - Parameters:
-        - file: an AKAudioFile that will be used to append audio from.
-        - name: the name of the file without its extension (String).
-        - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
-     
-     - Throws: NSError if failed .
-     
-     - Returns: An AKAudioFile, or nil if init failed.*/
-    public func append(file file: AKAudioFile,
-                            baseDir: BaseDirectory = .Temp,
-                            name: String  = "") throws -> AKAudioFile {
+    
+    
+    /// Returns an AKAudioFile with appended audio data from another AKAudioFile.
+    ///
+    /// Notice that Source file and appended file formats must match.
+    ///
+    /// - Parameters:
+    ///   - file: an AKAudioFile that will be used to append audio from.
+    ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
+    ///   - name: the name of the file without its extension (String).
+    ///
+    ///  - Returns: An AKAudioFile, or nil if init failed.
+    ///
+    public func appendedBy(file file: AKAudioFile,
+                                baseDir: BaseDirectory = .Temp,
+                                name: String  = "") throws -> AKAudioFile {
+        
+        
+        var sourceBuffer = self.pcmBuffer
+        var appendedBuffer = file.pcmBuffer
+        
         
         if self.fileFormat != file.fileFormat {
-            print( "ERROR AKAudioFile: appended file must be of the same format!")
-            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
+            print("WARNING AKAudioFile.append: appended file should be of same format as source file!")
+            print("WARNING AKAudioFile.append: trying to fix by converting files...")
+            // We use extract method to get a .CAF file with the right format for appending
+            // So sourceFile and appended File formats should match
+            do {
+                // First, we convert the source file to .CAF using extract()
+                let convertedFile = try self.extracted()
+                sourceBuffer = convertedFile.pcmBuffer
+                print("AKAudioFile.append: source file has been successfully converted")
+                
+                if convertedFile.fileFormat != file.fileFormat {
+                    do {
+                        // If still don't match we convert the appended file to .CAF using extract()
+                        let convertedAppendFile = try file.extracted()
+                        appendedBuffer = convertedAppendFile.pcmBuffer
+                        print("AKAudioFile.append: appended file has been successfully converted")
+                    } catch let error as NSError {
+                        print("ERROR AKAudioFile.append: cannot set append file format match source file format!...")
+                        throw error
+                    }
+                }
+            } catch let error as NSError {
+                print( "ERROR AKAudioFile: Cannot convert sourceFile to .CAF!")
+                throw error
+            }
+        }
+        
+        // We check that both pcm buffers share the same format
+        if appendedBuffer.format != sourceBuffer.format {
+            print("ERROR AKAudioFile.append: Couldn't match source file format with appended file format!...")
+            let userInfo: [NSObject : AnyObject] = [
+                NSLocalizedDescriptionKey :  NSLocalizedString("AKAudioFile append process Error", value: "Couldn't match source file format with appended file format", comment: ""),
+                NSLocalizedFailureReasonErrorKey :NSLocalizedString("AKAudioFile append process Error", value: "Couldn't match source file format with appended file format", comment: "")
+            ]
+            throw NSError(domain: "AKAudioFile ASync Process Unknown Error", code: 0, userInfo: userInfo)
         }
         
         let outputFile = try AKAudioFile (writeIn: baseDir, name: name)
         
         
-        let myBuffer = self.pcmBuffer
-        
         // Write the buffer in file
         do {
-            try outputFile.writeFromBuffer(myBuffer)
+            try outputFile.writeFromBuffer(sourceBuffer)
         } catch let error as NSError {
             print( "ERROR AKAudioFile: cannot writeFromBuffer Error: \(error)")
             throw error
         }
         
-        let appendedBuffer = file.pcmBuffer
         
         do {
             try outputFile.writeFromBuffer(appendedBuffer)
@@ -138,24 +172,21 @@ extension AKAudioFile {
         return try AKAudioFile(forReading: outputFile.url)
     }
     
-    
-    /**
-     Returns an AKAudioFile that will contain a range of samples from the current AKAudioFile
-     
-     - Parameters:
-        - fromSample: the starting sampleFrame for extraction.
-        - toSample: the ending sampleFrame for extraction
-        - name: the name of the file without its extension (String).
-        - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
-     
-     - Throws: NSError if failed .
-     
-     - Returns: An AKAudioFile, or nil if init failed.*/
-    public func extract(fromSample fromSample: Int64 = 0,
-                                   toSample: Int64 = 0,
-                                   baseDir: BaseDirectory = .Temp,
-                                   name: String = "") throws -> AKAudioFile {
-
+    /// Returns an AKAudioFile that will contain a range of samples from the current AKAudioFile
+    ///
+    /// - Parameters:
+    ///   - fromSample: the starting sampleFrame for extraction.
+    ///   - toSample: the ending sampleFrame for extraction
+    ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
+    ///   - name: the name of the file without its extension (String).
+    ///
+    /// - Returns: An AKAudioFile, or nil if init failed.
+    ///
+    public func extracted(fromSample fromSample: Int64 = 0,
+                                     toSample: Int64 = 0,
+                                     baseDir: BaseDirectory = .Temp,
+                                     name: String = "") throws -> AKAudioFile {
+        
         let fixedFrom = abs(fromSample)
         let fixedTo:Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample,Int64(self.samplesCount))
         if fixedTo <= fixedFrom {
@@ -176,36 +207,6 @@ extension AKAudioFile {
         let newFile = try AKAudioFile(createFileFromFloats: newArrays, baseDir: baseDir, name: name)
         return try AKAudioFile(forReading: newFile.url)
     }
-   
-    /**
-     Returns a silent AKAudioFile with a length set in samples.
-     For a silent file of one second, set samples value to 44100...
-     
-     - Parameters:
-        - samples: the number of samples to generate ( equals length in seconds multiplied by sample rate)
-        - name: the name of the file without its extension (String).
-        - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-     
-     - Throws: NSError if failed .
-     
-     - Returns: An AKAudioFile, or nil if init failed.*/
-    static public func silent(samples samples: Int64,
-                                      baseDir: BaseDirectory = .Temp,
-                                      name: String = "") throws -> AKAudioFile {
-        
-        if samples < 0 {
-            print( "ERROR AKAudioFile: cannot create silent AKAUdioFile with negative samples count !")
-            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
-        } else if samples == 0 {
-            let emptyFile = try AKAudioFile(writeIn: baseDir, name: name)
-            // we return it as a file for reading
-            return try AKAudioFile(forReading: emptyFile.url)
-        }
-        
-        let array = [Float](count:Int(samples), repeatedValue: 0.0)
-        let silentFile = try AKAudioFile(createFileFromFloats: [array, array], baseDir: baseDir, name: name)
-        
-        return try AKAudioFile(forReading: silentFile.url)
-    }
-
+    
+    
 }

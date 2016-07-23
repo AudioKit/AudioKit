@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Recorder
+//  RecorderDemo
 //
-//  Created by Kanstantsin Linou on 6/17/16.
+//  Created by Laurent Veliscek, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

@@ -127,7 +127,7 @@ public class AKAUPresetBuilder {
 
         //write to file
         do {
-            print("Writing to \(path)")
+            //print("Writing to \(path)")
             try str.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding)
         } catch let error as NSError {
             print("Could not write to \(path)")

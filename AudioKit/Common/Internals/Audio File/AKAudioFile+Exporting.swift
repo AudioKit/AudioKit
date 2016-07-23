@@ -11,18 +11,14 @@ import AVFoundation
 
 extension AKAudioFile {
     
-    /**
-     ExportFormat enum to set target format when exporting AKAudiofiles
-     
-     - wav
-     - aif
-     - mp4
-     - m4a
-     - caf
-     
-     Ex: let outputFormat = AKAudioFile.ExportFormats.aif
-     
-     */
+    /// ExportFormat enum to set target format when exporting AKAudiofiles
+    ///
+    /// - wav: Waveform Audio File Format (WAVE, or more commonly known as WAV due to its filename extension)
+    /// - aif: Audio Interchange File Format
+    /// - mp4: MPEG-4 Part 14 Compression
+    /// - m4a: MPEG 4 Audio
+    /// - caf: Core Audio Format
+    ///
     public enum ExportFormat {
         /// Waveform Audio File Format (WAVE, or more commonly known as WAV due to its filename extension)
         case wav
@@ -79,7 +75,7 @@ extension AKAudioFile {
     ///   - callBack: AKCallback function that will be triggered when export completed.
     ///   - fromTime: start range time value in seconds
     ///   - toTime: end range time value in seconds.
-    /// - throws: NSError if init failed
+    ///
     /// - returns: An AKAudioFile ExportSession object, or nil if init failed.
     ///
     public func export(name name: String,
@@ -156,8 +152,6 @@ extension AKAudioFile {
         ///   - outputFileExtension: Extension to use for output
         ///   - fromTime:            Starting time
         ///   - toTime:              Ending time
-        ///
-        /// - throws: NSError if failed
         ///
         public init(fileName: String, baseDir: BaseDirectory,
                     callBack: AKCallback,
@@ -289,7 +283,7 @@ extension AKAudioFile {
             return exporter.status == .Failed
         }
         
-        /** status returns current exporter status:
+        /* status returns current exporter status:
          enum AVAssetExportSessionStatus : Int {
          case Unknown
          case Waiting

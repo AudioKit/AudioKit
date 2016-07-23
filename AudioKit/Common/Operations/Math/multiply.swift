@@ -36,3 +36,24 @@ public func *(left: AKParameter, right: AKParameter) -> AKOperation {
     return left.toMono().times(right)
 }
 
+/// Helper function for Multiplication
+///
+/// - Parameters:
+///   - left: stereo operation
+///   - right: parameter
+///
+public func *(left: AKStereoOperation, right: AKParameter) -> AKStereoOperation {
+    return AKStereoOperation(module: "dup rot mul rot rot mul swap", inputs: left, right)
+}
+
+
+/// Helper function for Multiplication
+///
+/// - Parameters:
+///   - left: parameter
+///   - right: stereo operation
+///
+public func *(left: AKParameter, right: AKStereoOperation) -> AKStereoOperation {
+    return AKStereoOperation(module: "rot dup rot mul rot rot mul swap", inputs: left, right)
+}
+

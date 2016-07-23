@@ -67,6 +67,7 @@
         <page name='Parametric Equalizer'/>
         <page name='Peak Limiter'/>
         <page name='Pedestrians'/>
+        <page name='Phase Distortion Oscillator'/>
         <page name='Phase-Locked Vocoder'/>
         <page name='Phasor Operation'/>
         <page name='Pink and White Noise Generators'/>
@@ -75,6 +76,7 @@
         <page name='Plucked String'/>
         <page name='Plucked String Operation'/>
         <page name='Recording from Microphone'/>
+        <page name='Resonant Filter'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
         <page name='Rolling Output Plot'/>

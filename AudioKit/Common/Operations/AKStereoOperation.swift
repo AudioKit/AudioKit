@@ -96,7 +96,7 @@ public class AKStereoOperation: AKComputedParameter {
     
     /// Create a mono signal by dropping the right channel
     public func toMono() -> AKOperation {
-        return self.left()
+        return AKOperation(module: "add", inputs: self)
     }
     
     /// Create a mono signal by dropping the right channel

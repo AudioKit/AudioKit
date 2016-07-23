@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "78C20D971D1455DD001561C3"
-               BuildableName = "Recorder.app"
-               BlueprintName = "Recorder"
-               ReferencedContainer = "container:Recorder.xcodeproj">
+               BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
+               BuildableName = "RecorderDemo.app"
+               BlueprintName = "RecorderDemo"
+               ReferencedContainer = "container:RecorderDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,14 +28,34 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8DAD9EF01D3E4A3400CD3B0A"
+               BuildableName = "RecorderDemo.xctest"
+               BlueprintName = "RecorderDemoTests"
+               ReferencedContainer = "container:RecorderDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8DAD9EFB1D3E4A3400CD3B0A"
+               BuildableName = "RecorderDemo.xctest"
+               BlueprintName = "RecorderDemoUITests"
+               ReferencedContainer = "container:RecorderDemo.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "78C20D971D1455DD001561C3"
-            BuildableName = "Recorder.app"
-            BlueprintName = "Recorder"
-            ReferencedContainer = "container:Recorder.xcodeproj">
+            BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
+            BuildableName = "RecorderDemo.app"
+            BlueprintName = "RecorderDemo"
+            ReferencedContainer = "container:RecorderDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +75,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "78C20D971D1455DD001561C3"
-            BuildableName = "Recorder.app"
-            BlueprintName = "Recorder"
-            ReferencedContainer = "container:Recorder.xcodeproj">
+            BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
+            BuildableName = "RecorderDemo.app"
+            BlueprintName = "RecorderDemo"
+            ReferencedContainer = "container:RecorderDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +94,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "78C20D971D1455DD001561C3"
-            BuildableName = "Recorder.app"
-            BlueprintName = "Recorder"
-            ReferencedContainer = "container:Recorder.xcodeproj">
+            BlueprintIdentifier = "8DAD9EDC1D3E4A3400CD3B0A"
+            BuildableName = "RecorderDemo.app"
+            BlueprintName = "RecorderDemo"
+            ReferencedContainer = "container:RecorderDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
