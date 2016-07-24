@@ -165,8 +165,12 @@ public class AKSampler: AKNode {
     ///   - velocity: MIDI Velocity
     ///   - channel: MIDI Channnel
     ///
-    public func play(noteNumber noteNumber: MIDINoteNumber = 60, velocity: MIDIVelocity = 127, channel: Int = 0) {
-        samplerUnit.startNote(UInt8(noteNumber), withVelocity: UInt8(velocity), onChannel: UInt8(channel))
+    public func play(noteNumber noteNumber: MIDINoteNumber = 60,
+                                velocity: MIDIVelocity = 127,
+                                channel: MIDIChannel = 0) {
+        samplerUnit.startNote(UInt8(noteNumber),
+                              withVelocity: UInt8(velocity),
+                              onChannel: UInt8(channel))
     }
 
     /// Stop a MIDI Note
@@ -175,7 +179,7 @@ public class AKSampler: AKNode {
     ///   - noteNumber: MIDI Note Number to stop
     ///   - channel: MIDI Channnel
     ///
-    public func stop(noteNumber noteNumber: MIDINoteNumber = 60, channel: Int = 0) {
+    public func stop(noteNumber noteNumber: MIDINoteNumber = 60, channel: MIDIChannel = 0) {
         samplerUnit.stopNote(UInt8(noteNumber), onChannel: UInt8(channel))
     }
 

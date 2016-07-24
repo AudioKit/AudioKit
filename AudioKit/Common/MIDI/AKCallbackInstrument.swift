@@ -30,7 +30,9 @@ public class AKCallbackInstrument: AKMIDIInstrument {
         AudioKit.engine.attachNode(self.avAudioNode)
     }
 
-    private func triggerCallbacks(status: AKMIDIStatus, noteNumber: MIDINoteNumber, velocity: MIDIVelocity) {
+    private func triggerCallbacks(status: AKMIDIStatus,
+                                  noteNumber: MIDINoteNumber,
+                                  velocity: MIDIVelocity) {
         for callback in callbacks {
             callback(status, noteNumber, velocity)
         }
@@ -43,7 +45,9 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel
     ///
-    override public func start(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int) {
+    override public func start(noteNumber noteNumber: MIDINoteNumber,
+                                          velocity: MIDIVelocity,
+                                          channel: MIDIChannel) {
         triggerCallbacks(.NoteOn, noteNumber: noteNumber, velocity: velocity)
     }
 
@@ -54,7 +58,7 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     ///   - velocity:   MIDI Velocity (0-127)
     ///   - channel:    MIDI Channel
     ///
-    override public func stop(noteNumber noteNumber: MIDINoteNumber, channel: Int) {
+    override public func stop(noteNumber noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         triggerCallbacks(.NoteOff, noteNumber: noteNumber, velocity: 0)
     }
 }

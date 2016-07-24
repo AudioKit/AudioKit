@@ -12,6 +12,7 @@ import AudioToolbox
 
 public typealias MIDINoteNumber = Int
 public typealias MIDIVelocity = Int
+public typealias MIDIChannel = Int
 
 // MARK: - Randomization Helpers
 
