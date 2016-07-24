@@ -10,11 +10,11 @@ cd Frameworks
 ./build_frameworks.sh || exit 1
 cd ..
 
-echo "Building OSX HelloWorld"
-xcodebuild -project Examples/OSX/HelloWorld/HelloWorld.xcodeproj -scheme HelloWorld clean build  | xcpretty -c || exit 4
-
 echo "Building iOS HelloWorld"
-xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator -scheme HelloWorld -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 5
+xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator -scheme HelloWorld -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 4
+
+echo "Building macOS HelloWorld"
+xcodebuild -project Examples/macOS/HelloWorld/HelloWorld.xcodeproj -scheme HelloWorld clean build  | xcpretty -c || exit 5
 
 echo "Building tvOS HelloWorld"
 xcodebuild -project Examples/tvOS/HelloWorld/HelloWorld.xcodeproj -sdk appletvsimulator -scheme HelloWorld ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 6
@@ -49,14 +49,14 @@ xcodebuild -project Examples/iOS/SongProcessor/SongProcessor.xcodeproj -sdk ipho
 echo "Building iOS SporthEditor"
 xcodebuild -project Examples/iOS/SporthEditor/SporthEditor.xcodeproj -sdk iphonesimulator -scheme SporthEditor -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 14
 
-echo "Building OSX MicrophoneAnalysis"
-xcodebuild -project Examples/OSX/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj -scheme MicrophoneAnalysis ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 15
+echo "Building macOS MicrophoneAnalysis"
+xcodebuild -project Examples/macOS/MicrophoneAnalysis/MicrophoneAnalysis.xcodeproj -scheme MicrophoneAnalysis ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 15
 
-echo "Building OSX MidiMonitor"
-xcodebuild -project Examples/OSX/MidiMonitor/MidiMonitor.xcodeproj -scheme MidiMonitor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
+echo "Building macOS MidiMonitor"
+xcodebuild -project Examples/macOS/MidiMonitor/MidiMonitor.xcodeproj -scheme MidiMonitor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16
 
-echo "Building OSX SporthEditor"
-xcodebuild -project Examples/OSX/SporthEditor/SporthEditor.xcodeproj  -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 17
+echo "Building macOS SporthEditor"
+xcodebuild -project Examples/macOS/SporthEditor/SporthEditor.xcodeproj  -scheme SporthEditor ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 17
 
 echo "Skipping AudioKitParticles - requires hardware"
 #xcodebuild -project Examples/iOS/AudioKitParticles/AudioKitParticles.xcodeproj -sdk iphonesimulator -scheme AudioKitParticles ONLY_ACTIVE_ARCH=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 16

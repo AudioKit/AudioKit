@@ -12,8 +12,8 @@
 		C41702891C11954900AB689C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C41702871C11954900AB689C /* Main.storyboard */; };
 		C417028B1C11954900AB689C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C417028A1C11954900AB689C /* Assets.xcassets */; };
 		C417028E1C11954900AB689C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C417028C1C11954900AB689C /* LaunchScreen.storyboard */; };
-		EA127F3D1C42087400289567 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F3C1C42087400289567 /* AudioKit.framework */; };
-		EA127F3F1C4208D800289567 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA127F3C1C42087400289567 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C446B3F51D4554D8000AEFCA /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C446B3F41D4554D8000AEFCA /* AudioKit.framework */; };
+		C446B3F61D4554D8000AEFCA /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C446B3F41D4554D8000AEFCA /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EA127F3F1C4208D800289567 /* AudioKit.framework in Embed Frameworks */,
+				C446B3F61D4554D8000AEFCA /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,7 +38,7 @@
 		C417028A1C11954900AB689C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C417028D1C11954900AB689C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C417028F1C11954900AB689C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA127F3C1C42087400289567 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
+		C446B3F41D4554D8000AEFCA /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA127F3D1C42087400289567 /* AudioKit.framework in Frameworks */,
+				C446B3F51D4554D8000AEFCA /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +56,7 @@
 		C41702771C11954900AB689C = {
 			isa = PBXGroup;
 			children = (
+				C446B3F41D4554D8000AEFCA /* AudioKit.framework */,
 				C41702821C11954900AB689C /* HelloWorld */,
 				EA127F481C420B4200289567 /* Frameworks */,
 				C41702811C11954900AB689C /* Products */,
@@ -86,7 +87,6 @@
 		EA127F481C420B4200289567 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EA127F3C1C42087400289567 /* AudioKit.framework */,
 			);
 			name = Frameworks;
 			path = HelloWorld;
@@ -227,6 +227,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -266,6 +267,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
