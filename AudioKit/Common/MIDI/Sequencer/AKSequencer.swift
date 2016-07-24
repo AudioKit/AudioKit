@@ -38,7 +38,7 @@ public class AKSequencer {
             return avSequencer.tracks
         } else {
             //this won't do anything if not using an AVSeq
-            print("AVSequencer ERROR ! avTracks only work if isAVSequencer ")
+            print("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
 
             let tracks = [AVMusicTrack]()
             return tracks
@@ -172,7 +172,7 @@ public class AKSequencer {
     ///
     public func setLoopInfo(duration: AKDuration, numberOfLoops: Int) {
         if isAVSequencer {
-            print("AVSequencer ERROR ! setLoopInfo only work if not isAVSequencer ")
+            print("AKSequencer ERROR ! setLoopInfo only work if not isAVSequencer ")
 
             //nothing yet
         } else {
@@ -232,7 +232,7 @@ public class AKSequencer {
             if isAVSequencer {
                 return Double(avSequencer.rate)
             } else {
-                print("AVSequencer ERROR ! rate only work if isAVSequencer ")
+                print("AKSequencer ERROR ! rate only work if isAVSequencer ")
                 return nil
             }
         }
@@ -240,7 +240,7 @@ public class AKSequencer {
             if isAVSequencer {
                 avSequencer.rate = Float(newValue!)
             } else {
-                print("AVSequencer ERROR ! rate only work if isAVSequencer ")
+                print("AKSequencer ERROR ! rate only work if isAVSequencer ")
             }
         }
     }
@@ -274,7 +274,7 @@ public class AKSequencer {
     ///
     public func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
         if isAVSequencer {
-            print("AVSequencer ERROR ! addTempoEventAt only work if not isAVSequencer ")
+            print("AKSequencer ERROR ! addTempoEventAt only work if not isAVSequencer ")
             return }
 
         let constrainedTempo = min(max(bpm, 10.0), 280.0)
@@ -406,7 +406,7 @@ public class AKSequencer {
             }
         } else {
            //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
-            print("AVSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
+            print("AKSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
         }
     }
 
@@ -480,7 +480,7 @@ public class AKSequencer {
     /// Get a new track
     public func newTrack(name: String = "Unnamed") -> AKMusicTrack? {
         if isAVSequencer {
-            print("AVSequencer ERROR ! newTrack only work if not isAVSequencer ")
+            print("AKSequencer ERROR ! newTrack only work if not isAVSequencer ")
             return nil }
 
         var newMusicTrack: MusicTrack = nil
@@ -502,7 +502,7 @@ public class AKSequencer {
     ///
     public func clearRange(start start: AKDuration, duration: AKDuration) {
         if isAVSequencer {
-            print("AVSequencer ERROR ! clearRange only work if not isAVSequencer ")
+            print("AKSequencer ERROR ! clearRange only work if not isAVSequencer ")
         return }
 
         for track in tracks {
