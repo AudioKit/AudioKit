@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		C446B3E21D4544EF000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */; };
 		C446B3E31D4544EF000AEFCA /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3DF1D4544EF000AEFCA /* AKPlaygroundView.swift */; };
-		C446B3E41D4544EF000AEFCA /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E01D4544EF000AEFCA /* KeyboardView.swift */; };
-		C446B3E51D4544EF000AEFCA /* TouchKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E11D4544EF000AEFCA /* TouchKeyView.swift */; };
+		C446B3E41D4544EF000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */; };
+		C446B3E51D4544EF000AEFCA /* AKTouchKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E11D4544EF000AEFCA /* AKTouchKeyView.swift */; };
 		C456669A1D448D7E00D26565 /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B51D448D7D00D26565 /* AKDevice.swift */; };
 		C456669B1D448D7E00D26565 /* AKNodeRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */; };
 		C456669C1D448D7E00D26565 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B71D448D7D00D26565 /* AKNotifications.swift */; };
@@ -700,8 +700,8 @@
 		C446B3DC1D45447A000AEFCA /* Tutorials.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tutorials.playground; sourceTree = "<group>"; };
 		C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3DF1D4544EF000AEFCA /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
-		C446B3E01D4544EF000AEFCA /* KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
-		C446B3E11D4544EF000AEFCA /* TouchKeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchKeyView.swift; sourceTree = "<group>"; };
+		C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
+		C446B3E11D4544EF000AEFCA /* AKTouchKeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTouchKeyView.swift; sourceTree = "<group>"; };
 		C45662B51D448D7D00D26565 /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeRecorder.swift; sourceTree = "<group>"; };
 		C45662B71D448D7D00D26565 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
@@ -1428,8 +1428,8 @@
 			children = (
 				C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */,
 				C446B3DF1D4544EF000AEFCA /* AKPlaygroundView.swift */,
-				C446B3E01D4544EF000AEFCA /* KeyboardView.swift */,
-				C446B3E11D4544EF000AEFCA /* TouchKeyView.swift */,
+				C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */,
+				C446B3E11D4544EF000AEFCA /* AKTouchKeyView.swift */,
 			);
 			name = macOS;
 			path = "AudioKit for macOS/User Interface";
@@ -3797,7 +3797,7 @@
 				C456691C1D448D7E00D26565 /* AKMoogLadderPresets.swift in Sources */,
 				C45669721D448D7E00D26565 /* AKMorphingOscillatorBank.swift in Sources */,
 				C45667521D448D7E00D26565 /* plumber.c in Sources */,
-				C446B3E51D4544EF000AEFCA /* TouchKeyView.swift in Sources */,
+				C446B3E51D4544EF000AEFCA /* AKTouchKeyView.swift in Sources */,
 				C456698A1D448D7E00D26565 /* AKPWMOscillatorBank.swift in Sources */,
 				C456671C1D448D7E00D26565 /* pluck.c in Sources */,
 				C45667031D448D7E00D26565 /* gbuzz.c in Sources */,
@@ -3811,7 +3811,7 @@
 				C45668BB1D448D7E00D26565 /* AKAmplitudeTrackerAudioUnit.mm in Sources */,
 				C45667AB1D448D7E00D26565 /* switch.c in Sources */,
 				C456669B1D448D7E00D26565 /* AKNodeRecorder.swift in Sources */,
-				C446B3E41D4544EF000AEFCA /* KeyboardView.swift in Sources */,
+				C446B3E41D4544EF000AEFCA /* AKKeyboardView.swift in Sources */,
 				C45669511D448D7E00D26565 /* AKFlatFrequencyResponseReverb.swift in Sources */,
 				C45668991D448D7E00D26565 /* Stk.cpp in Sources */,
 				C45667131D448D7E00D26565 /* pan2.c in Sources */,

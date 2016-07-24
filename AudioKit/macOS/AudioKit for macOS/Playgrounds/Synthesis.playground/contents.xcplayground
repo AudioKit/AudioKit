@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='osx'>
+<playground version='6.0' target-platform='osx' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -26,6 +26,7 @@
         <page name='Pink and White Noise Generators'/>
         <page name='Plucked String'/>
         <page name='Plucked String Operation'/>
+        <page name='PWM Oscillator'/>
         <page name='Sawtooth Wave Oscillator Operation'/>
         <page name='Sporth Based Generator'/>
         <page name='Telephone'/>

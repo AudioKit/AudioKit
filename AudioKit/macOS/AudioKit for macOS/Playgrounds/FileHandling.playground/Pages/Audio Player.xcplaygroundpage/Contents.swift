@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             if player!.duration > 0 {
             self.playingPosSlider?.value = Float( player!.playhead / player!.duration)
 
-            self.playheadTextField?.text =
+            self.playheadTextField?.stringValue =
                 String(Int(100 * player!.playhead / player!.duration)) + " %"
 
             }
@@ -59,7 +59,9 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Load Drum Loop", action: #selector(loadDrumLoop))
         addButton("Load Mix Loop", action: #selector(loadMixLoop))
 
-        durationTextField = addTextField(nil, text: "Duration", value: player!.audioFile.duration)
+        durationTextField = addTextField(nil,
+                                         text: "Duration",
+                                         value: player!.audioFile.duration)
 
         addLineBreak()
 
@@ -149,13 +151,13 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func setInPosition(textField: TextField) {
-        if let value = Double(textField.text!) {
+        if let value = Double(textField.stringValue) {
             player!.startTime =  value
             updateSliders()
         }
     }
     func setOutPosition(textField: TextField) {
-        if let value = Double(textField.text!) {
+        if let value = Double(textField.stringValue) {
             player!.endTime =  value
             updateSliders()
         }
@@ -163,12 +165,12 @@ class PlaygroundView: AKPlaygroundView {
 
     func updateTextFields() {
         let inPos = String(format: "%0.2f", player!.startTime) + " seconds"
-        inPosTextField!.text = "\(inPos)"
+        inPosTextField!.stringValue = "\(inPos)"
 
         let outPos = String(format: "%0.2f", player!.endTime) + " seconds"
-        outPosTextField!.text = "\(outPos)"
+        outPosTextField!.stringValue = "\(outPos)"
         let duration = String(format: "%0.2f", player!.audioFile.duration) + " seconds"
-        durationTextField!.text = duration
+        durationTextField!.stringValue = duration
 
         let fileName = player!.audioFile.fileNamePlusExtension
         fileNameLabel!.text = "File name: \(fileName)"

@@ -18,7 +18,7 @@ var offsets = [-12, 7, 0, 12, 19, 24, 28, 31, 36]
 var names = ["16", "5 1/3", "8", "4", "2 2/3", "2", "1 3/5", "1 1/3", "1"]
 var baseNote = 0
 
-class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var amplitudeLabels = [Label]()
     var sliders = [Slider]()
@@ -32,11 +32,11 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 
         }
 
-        let keyboard = KeyboardView(width: 500,
-                                    height: 100,
-                                    delegate: self,
-                                    lowestKey: 48,
-                                    totalKeys: 24)
+        let keyboard = AKKeyboardView(width: 500,
+                                      height: 100,
+                                      lowestKey: 48,
+                                      totalKeys: 24)
+        keyboard.delegate = self
         keyboard.frame.origin.y = CGFloat(yPosition)
         self.addSubview(keyboard)
 

@@ -39,7 +39,7 @@ oscillator.amplitude = currentAmplitude
 
 let playgroundWidth = 500
 
-class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var amplitudeLabel: Label?
     var rampTimeLabel: Label?
@@ -57,10 +57,10 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
         addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 0.1)
 
-        let keyboard = KeyboardView(width: playgroundWidth,
-                                    height: 100,
-                                    lowestKey: 24,
-                                    totalKeys: 64)
+        let keyboard = AKKeyboardView(width: playgroundWidth,
+                                      height: 100,
+                                      lowestKey: 24,
+                                      totalKeys: 64)
         keyboard.frame.origin.y = CGFloat(yPosition)
         keyboard.setNeedsDisplay()
         keyboard.delegate = self

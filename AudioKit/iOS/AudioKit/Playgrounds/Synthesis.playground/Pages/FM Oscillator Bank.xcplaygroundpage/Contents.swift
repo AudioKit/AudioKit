@@ -14,7 +14,7 @@ let fmBank = AKFMOscillatorBank()
 AudioKit.output = fmBank
 AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     var carrierMultiplierLabel: Label?
     var modulatingMultiplierLabel: Label?
     var modulationIndexLabel: Label?
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         releaseLabel = addLabel("Release: \(fmBank.releaseDuration)")
         addSlider(#selector(setRelease), value: fmBank.releaseDuration, minimum: 0.0, maximum: 2.0)
 
-        let keyboard = PolyphonicKeyboardView(width: 500, height: 100)
+        let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)
         keyboard.setNeedsDisplay()
         keyboard.delegate = self

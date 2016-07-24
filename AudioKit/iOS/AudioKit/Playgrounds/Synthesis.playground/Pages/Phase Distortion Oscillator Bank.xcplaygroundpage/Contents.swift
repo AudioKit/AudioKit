@@ -12,7 +12,7 @@ let osc = AKPhaseDistortionOscillatorBank(waveform: AKTable(.Square))
 AudioKit.output = osc
 AudioKit.start()
 
-class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var phaseDistortionLabel: Label?
     var attackLabel: Label?
@@ -45,7 +45,7 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
                   minimum: 0.9,
                   maximum: 1.1)
 
-        let keyboard = PolyphonicKeyboardView(width: 500, height: 100)
+        let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition)
         keyboard.setNeedsDisplay()
         keyboard.delegate = self
