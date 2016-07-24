@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class TouchKeyView: UIButton {
+public class AKTouchKeyView: UIButton {
     public var letters = ""
     public var number = "1"
     public init(numeral: String = "1", text: String = "") {
@@ -93,9 +93,9 @@ public class TouchKeyView: UIButton {
 
 extension AKPlaygroundView {
 
-    public func addTouchKey(num: String, text: String, action: Selector) -> TouchKeyView {
+    public func addTouchKey(num: String, text: String, action: Selector) -> AKTouchKeyView {
 
-        let newButton = TouchKeyView(numeral: num, text: text)
+        let newButton = AKTouchKeyView(numeral: num, text: text)
 
         // Line up multiple buttons in a row
         if let button = lastButton {

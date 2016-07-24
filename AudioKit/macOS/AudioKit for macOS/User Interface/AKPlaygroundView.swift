@@ -144,6 +144,29 @@ public class AKPlaygroundView: NSView {
         yPosition += horizontalSpacing
         return newSlider
     }
+    
+    public func addTextField(action: Selector, text: String, value: Double = 0) -> TextField {
+        lastButton = nil
+        let newLabel = AKLabel(frame:
+            CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
+        newLabel.text = text
+//        newLabel.font = UIFont.systemFontOfSize(18)
+        newLabel.frame.origin.y = CGFloat(yPosition)
+        self.addSubview(newLabel)
+        
+        let newTextField =  NSTextField(frame:
+            CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
+        newTextField.frame.origin.y = CGFloat(yPosition)
+        newTextField.stringValue = "\(value)"
+//        newTextField.textAlignment = .Right
+        newTextField.setNeedsDisplay()
+        newTextField.target = self
+        newTextField.action = action
+        self.addSubview(newTextField)
+        yPosition += horizontalSpacing
+        
+        return newTextField
+    }
 
 
     public required init?(coder: NSCoder) {

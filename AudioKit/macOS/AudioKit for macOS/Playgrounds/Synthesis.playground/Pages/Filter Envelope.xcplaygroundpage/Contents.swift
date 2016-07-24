@@ -66,7 +66,7 @@ synth.start()
 
 let playgroundWidth = 500
 
-class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var cutoffFrequencyLabel: Label?
 
@@ -79,7 +79,8 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
                   minimum: 0,
                   maximum: 5000)
 
-        let keyboard = KeyboardView(width: playgroundWidth, height: 100, delegate: self)
+        let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
+        keyboard.delegate = self
         keyboard.frame.origin.y = CGFloat(yPosition)
         self.addSubview(keyboard)
     }

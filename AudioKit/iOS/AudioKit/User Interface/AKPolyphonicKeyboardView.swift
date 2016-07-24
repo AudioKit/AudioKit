@@ -1,5 +1,5 @@
 //
-//  KeyboardView.swift
+//  PolyphonicKeyboardView.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -8,14 +8,9 @@
 
 import UIKit
 
-public protocol KeyboardDelegate {
-    func noteOn(note: Int)
-    func noteOff(note: Int)
-}
+public class AKPolyphonicKeyboardView: UIView {
 
-public class KeyboardView: UIView {
-
-    public var delegate: KeyboardDelegate?
+    public var delegate: AKKeyboardDelegate?
     var keys: [UIView] = []
 
     var onKeys: Set<UIView> = []
@@ -74,54 +69,24 @@ public class KeyboardView: UIView {
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
 
-            for key in keys where !onKeys.contains(key) {
+            for key in keys {
                 if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
-                    delegate?.noteOn(key.tag)
-                    unhighlightKeys()
-                    key.backgroundColor = UIColor.redColor()
-                    onKeys.insert(key)
+                    if onKeys.contains(key) {
+                        delegate?.noteOff(key.tag)
+                        if notesWithSharps[key.tag % 12].rangeOfString("#") != nil {
+                            key.backgroundColor = UIColor.blackColor()
+                        } else {
+                            key.backgroundColor = UIColor.whiteColor()
+                        }
+                        onKeys.remove(key)
+                    } else {
+                        delegate?.noteOn(key.tag)
+                        key.backgroundColor = UIColor.redColor()
+                        onKeys.insert(key)
+                    }
                 }
             }
 
         }
-    }
-
-    override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for touch in touches {
-
-            for key in keys where !onKeys.contains(key) {
-                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
-                    delegate?.noteOn(key.tag)
-                    unhighlightKeys()
-                    key.backgroundColor = UIColor.redColor()
-                    onKeys.insert(key)
-                }
-            }
-
-            // determine vertical value
-            //setPercentagesWithTouchPoint(touchPoint)
-        }
-    }
-
-    override public func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        for touch in touches {
-            for key in keys where onKeys.contains(key) {
-                if CGRectContainsPoint(key.frame, touch.locationInView(self)) {
-                    delegate?.noteOff(key.tag)
-                    unhighlightKeys()
-                }
-            }
-        }
-    }
-
-    func unhighlightKeys() {
-        for key in onKeys {
-            if notesWithSharps[key.tag % 12].rangeOfString("#") != nil {
-                key.backgroundColor = UIColor.blackColor()
-            } else {
-                key.backgroundColor = UIColor.whiteColor()
-            }
-        }
-        onKeys.removeAll()
     }
 }

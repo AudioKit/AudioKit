@@ -124,9 +124,9 @@
 		C437927D1C0CE2E0001E9160 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		C446B3EC1D454AB6000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */; };
 		C446B3ED1D454AB6000AEFCA /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E81D454AB6000AEFCA /* AKPlaygroundView.swift */; };
-		C446B3EE1D454AB6000AEFCA /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E91D454AB6000AEFCA /* KeyboardView.swift */; };
-		C446B3EF1D454AB6000AEFCA /* PolyphonicKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3EA1D454AB6000AEFCA /* PolyphonicKeyboardView.swift */; };
-		C446B3F01D454AB6000AEFCA /* TouchKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3EB1D454AB6000AEFCA /* TouchKeyView.swift */; };
+		C446B3EE1D454AB6000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */; };
+		C446B3EF1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */; };
+		C446B3F01D454AB6000AEFCA /* AKTouchKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3EB1D454AB6000AEFCA /* AKTouchKeyView.swift */; };
 		C44B596D1C4B04BF0008507F /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B596C1C4B04BF0008507F /* segment.swift */; };
 		C44B597D1C4B5FC70008507F /* AKMorphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B59791C4B5FC70008507F /* AKMorphingOscillator.swift */; };
 		C44B597E1C4B5FC70008507F /* AKMorphingOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C44B597A1C4B5FC70008507F /* AKMorphingOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -830,9 +830,9 @@
 		C446B3C91D45296A000AEFCA /* Tutorials.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tutorials.playground; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3E81D454AB6000AEFCA /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
-		C446B3E91D454AB6000AEFCA /* KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
-		C446B3EA1D454AB6000AEFCA /* PolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolyphonicKeyboardView.swift; sourceTree = "<group>"; };
-		C446B3EB1D454AB6000AEFCA /* TouchKeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchKeyView.swift; sourceTree = "<group>"; };
+		C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
+		C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicKeyboardView.swift; sourceTree = "<group>"; };
+		C446B3EB1D454AB6000AEFCA /* AKTouchKeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTouchKeyView.swift; sourceTree = "<group>"; };
 		C44B596C1C4B04BF0008507F /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 		C44B59791C4B5FC70008507F /* AKMorphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMorphingOscillator.swift; sourceTree = "<group>"; };
 		C44B597A1C4B5FC70008507F /* AKMorphingOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMorphingOscillatorAudioUnit.h; sourceTree = "<group>"; };
@@ -1857,11 +1857,11 @@
 			isa = PBXGroup;
 			children = (
 				C446B3C91D45296A000AEFCA /* Tutorials.playground */,
+				C446B3C81D45296A000AEFCA /* Synthesis.playground */,
+				C446B3C71D45296A000AEFCA /* Processing.playground */,
 				C446B3C41D45296A000AEFCA /* Analysis.playground */,
 				C446B3C51D45296A000AEFCA /* FileHandling.playground */,
 				C446B3C61D45296A000AEFCA /* MIDI.playground */,
-				C446B3C71D45296A000AEFCA /* Processing.playground */,
-				C446B3C81D45296A000AEFCA /* Synthesis.playground */,
 			);
 			name = Playgrounds;
 			path = AudioKit/Playgrounds;
@@ -1872,9 +1872,9 @@
 			children = (
 				C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */,
 				C446B3E81D454AB6000AEFCA /* AKPlaygroundView.swift */,
-				C446B3E91D454AB6000AEFCA /* KeyboardView.swift */,
-				C446B3EA1D454AB6000AEFCA /* PolyphonicKeyboardView.swift */,
-				C446B3EB1D454AB6000AEFCA /* TouchKeyView.swift */,
+				C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */,
+				C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */,
+				C446B3EB1D454AB6000AEFCA /* AKTouchKeyView.swift */,
 			);
 			name = iOS;
 			path = "AudioKit/User Interface";
@@ -3813,12 +3813,12 @@
 				C4537FD41C3A438D00A51738 /* AKLowShelfFilter.swift in Sources */,
 				C4537FBB1C3A438D00A51738 /* AKDCBlockAudioUnit.mm in Sources */,
 				C48C6CF71D3C15F2008EA51B /* gen_sinesum.c in Sources */,
-				C446B3EE1D454AB6000AEFCA /* KeyboardView.swift in Sources */,
+				C446B3EE1D454AB6000AEFCA /* AKKeyboardView.swift in Sources */,
 				C48C6CD91D3C15F1008EA51B /* bpm.c in Sources */,
 				C48C6D271D3C15F2008EA51B /* tblrec.c in Sources */,
 				C49D69751D1F1DE300BF018A /* AKOscillatorBank.swift in Sources */,
 				C493520D1C3CBA6C00A28D7F /* AKBalancerAudioUnit.mm in Sources */,
-				C446B3F01D454AB6000AEFCA /* TouchKeyView.swift in Sources */,
+				C446B3F01D454AB6000AEFCA /* AKTouchKeyView.swift in Sources */,
 				C45380931C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm in Sources */,
 				C4537FD71C3A438D00A51738 /* AKLowShelfParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C48C6CB11D3C15F1008EA51B /* tevent.c in Sources */,
@@ -3982,7 +3982,7 @@
 				C4B192D01C3B637900C0F330 /* AKAmplitudeEnvelope.swift in Sources */,
 				C421DCDF1D39650000E15879 /* AKPhaseDistortionOscillator.swift in Sources */,
 				C48C6C841D3C15F1008EA51B /* mincer.c in Sources */,
-				C446B3EF1D454AB6000AEFCA /* PolyphonicKeyboardView.swift in Sources */,
+				C446B3EF1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift in Sources */,
 				C48C6CDF1D3C15F1008EA51B /* comb.c in Sources */,
 				C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */,
 				C48C6CFE1D3C15F2008EA51B /* kona.c in Sources */,

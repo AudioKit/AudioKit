@@ -1,5 +1,5 @@
 //
-//  KeyboardView.swift
+//  AKKeyboardView.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
@@ -9,26 +9,26 @@
 
 import Cocoa
 
-public protocol KeyboardDelegate {
+public protocol AKKeyboardDelegate {
     func noteOn(note: Int)
     func noteOff(note: Int)
 }
 
-public class KeyView: NSView {
-    public var backgroundColor = NSColor.blackColor()
-    public var midiNote = -1
-    public var delegate: KeyboardDelegate?
+class AKKeyView: NSView {
+    var backgroundColor = NSColor.blackColor()
+    var midiNote = -1
+    var delegate: AKKeyboardDelegate?
 
-    override public func drawRect(dirtyRect: NSRect) {
+    override func drawRect(dirtyRect: NSRect) {
         backgroundColor.setFill()
         NSRectFill(self.bounds)
     }
 }
 
-public class KeyboardView: NSView {
+public class AKKeyboardView: NSView {
 
-    var keys: [KeyView] = []
-    var delegate: KeyboardDelegate?
+    var keys: [AKKeyView] = []
+    public var delegate: AKKeyboardDelegate?
 
     let notesWithFlats  = ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
@@ -39,10 +39,8 @@ public class KeyboardView: NSView {
     }
 
     public init(width: Int, height: Int,
-                delegate: KeyboardDelegate,
                 lowestKey: Int = 48,
                 totalKeys: Int = 37) {
-        self.delegate = delegate
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         let allowedNotes = notesWithSharps //["A", "B", "C#", "D", "E", "F#", "G"]
 
@@ -59,7 +57,7 @@ public class KeyboardView: NSView {
         while keyCount < totalKeys {
             if  allowedNotes.indexOf(notesWithFlats[(lowestKey + increment) % 12]) != nil ||
                 allowedNotes.indexOf(notesWithSharps[(lowestKey + increment) % 12]) != nil {
-                let newButton = KeyView(frame:
+                let newButton = AKKeyView(frame:
                     CGRect(x: 0, y: 0, width: keyWidth, height: height - 2))
                 if notesWithSharps[(lowestKey + increment) % 12].rangeOfString("#") != nil {
                     newButton.backgroundColor = NSColor.blackColor()

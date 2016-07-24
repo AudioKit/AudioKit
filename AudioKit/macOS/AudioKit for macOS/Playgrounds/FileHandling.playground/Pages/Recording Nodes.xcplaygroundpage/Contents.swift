@@ -44,7 +44,7 @@ let recorder = try? AKNodeRecorder(node: oscMixer, file: tape!)
 
 let playgroundWidth = 500
 
-class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var frequencyLabel: Label?
     var amplitudeLabel: Label?
@@ -54,24 +54,8 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
     var speedLabel: Label?
     var autoInputLabel: Label?
     override func setup() {
-        addTitle("AKNodeRecorder")
+        addTitle("Recording Nodes")
 
-        addLineBreak()
-        addLabel(" ")
-
-        addLineBreak()
-        let keyboard = KeyboardView(width: playgroundWidth, height: 100, delegate: self)
-        keyboard.frame.origin.y = CGFloat(yPosition) * 3
-        self.addSubview(keyboard)
-
-        addLineBreak()
-        addLabel(" ")
-        addLineBreak()
-        addLabel(" ")
-        addLineBreak()
-        addLabel(" ")
-        addLineBreak()
-        addLabel(" ")
         recordLabel = addLabel("Press Record to Record...")
 
         addButton("Record", action: #selector(record))
@@ -84,6 +68,13 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
 
         addButton("Replay", action: #selector(replay))
         addButton("StopReplay", action: #selector(stopReplay))
+
+        addLineBreak()
+        let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
+        keyboard.delegate = self
+        
+        keyboard.frame.origin.y = CGFloat(280)
+        self.addSubview(keyboard)
 
     }
 

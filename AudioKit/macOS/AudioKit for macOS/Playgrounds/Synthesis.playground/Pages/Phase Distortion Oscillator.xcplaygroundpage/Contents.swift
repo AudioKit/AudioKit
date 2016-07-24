@@ -17,7 +17,7 @@ AudioKit.start()
 
 let playgroundWidth = 500
 
-class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var frequencyLabel: Label?
     var pulseWidthLabel: Label?
@@ -39,7 +39,9 @@ class PlaygroundView: AKPlaygroundView, KeyboardDelegate {
         rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
         addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 5.0)
 
-        let keyboard = KeyboardView(width: playgroundWidth, height: 100, delegate: self)
+        let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
+        keyboard.delegate = self
+
         keyboard.frame.origin.y = 200
         self.addSubview(keyboard)
     }
