@@ -17,7 +17,7 @@
                BlueprintIdentifier = "C42F36CB1C0582E6000E937C"
                BuildableName = "AudioKit.framework"
                BlueprintName = "AudioKit"
-               ReferencedContainer = "container:AudioKit For OSX.xcodeproj">
+               ReferencedContainer = "container:AudioKit for macOS.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,7 +48,7 @@
             BlueprintIdentifier = "C42F36CB1C0582E6000E937C"
             BuildableName = "AudioKit.framework"
             BlueprintName = "AudioKit"
-            ReferencedContainer = "container:AudioKit For OSX.xcodeproj">
+            ReferencedContainer = "container:AudioKit for macOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,7 +66,7 @@
             BlueprintIdentifier = "C42F36CB1C0582E6000E937C"
             BuildableName = "AudioKit.framework"
             BlueprintName = "AudioKit"
-            ReferencedContainer = "container:AudioKit For OSX.xcodeproj">
+            ReferencedContainer = "container:AudioKit for macOS.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
