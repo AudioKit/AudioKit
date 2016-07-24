@@ -259,7 +259,7 @@ public class AKMusicTrack {
                                velocity: MIDIVelocity,
                                position: AKDuration,
                                duration: AKDuration,
-                               channel: Int = 0) {
+                               channel: MIDIChannel = 0) {
 
         var noteMessage = MIDINoteMessage(
             channel: UInt8(channel),
@@ -278,7 +278,7 @@ public class AKMusicTrack {
     ///   - position: Where in the sequence to start the note (expressed in beats)
     ///   - channel: MIDI channel for this note
     ///
-    public func addController(controller: Int, value: Int, position: AKDuration, channel: Int = 0) {
+    public func addController(controller: Int, value: Int, position: AKDuration, channel: MIDIChannel = 0) {
 
         var controlMessage = MIDIChannelMessage(status: UInt8(11 << 4) | UInt8((channel) & 0xf), data1: UInt8(controller), data2: UInt8(value), reserved: 0)
         MusicTrackNewMIDIChannelEvent(internalMusicTrack, position.musicTimeStamp, &controlMessage)
