@@ -10,6 +10,7 @@ import Cocoa
 
 public typealias Label  = AKLabel
 public typealias Slider = AKSlider
+public typealias TextField = NSTextField
 
 public class AKLabel: NSTextField {
 
