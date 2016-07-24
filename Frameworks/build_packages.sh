@@ -5,7 +5,7 @@
 set -o pipefail
 
 VERSION=$(cat ../VERSION)
-PLATFORMS=${PLATFORMS:-"iOS tvOS OSX"}
+PLATFORMS=${PLATFORMS:-"iOS tvOS macOS"}
 
 if ! which gsed > /dev/null 2>&1;
 then

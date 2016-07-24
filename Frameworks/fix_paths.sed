@@ -1,1 +1,1 @@
-s/\/\.\.\/Frameworks\/AudioKit-[OSXitv]*//g
+s/\/\.\.\/Frameworks\/AudioKit-[imactvOS]*//g
