@@ -275,7 +275,7 @@
 				INFOPLIST_FILE = RecorderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Laurent.Veliscek.Recorder-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
 				PRODUCT_NAME = RecorderDemo;
 			};
 			name = Debug;
@@ -288,7 +288,7 @@
 				INFOPLIST_FILE = RecorderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Laurent.Veliscek.Recorder-Demo";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.recorder;
 				PRODUCT_NAME = RecorderDemo;
 			};
 			name = Release;
