@@ -51,8 +51,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                   maximum: 1.1)
 
         let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
-        keyboard.frame.origin.y = CGFloat(yPosition)
-        keyboard.setNeedsDisplay()
+        keyboard.frame.origin.y = CGFloat(50)
         keyboard.delegate = self
         self.addSubview(keyboard)
     }
@@ -100,7 +99,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 }
 
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 750))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
