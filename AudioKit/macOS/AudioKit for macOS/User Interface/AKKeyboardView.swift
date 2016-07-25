@@ -38,9 +38,7 @@ public class AKKeyboardView: NSView {
         NSRectFill(self.bounds)
     }
 
-    public init(width: Int, height: Int,
-                lowestKey: Int = 48,
-                totalKeys: Int = 37) {
+    public init(width: Int, height: Int, lowestKey: Int = 48, totalKeys: Int = 37) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
         let allowedNotes = notesWithSharps //["A", "B", "C#", "D", "E", "F#", "G"]
 
