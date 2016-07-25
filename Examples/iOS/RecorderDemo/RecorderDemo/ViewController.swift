@@ -42,6 +42,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        setupButtonNames()
+        
         // Session settings
         AKSettings.bufferLength = .Medium
 
@@ -118,6 +120,16 @@ class ViewController: UIViewController {
             setupUIForPlaying ()
         }
     }
+    
+    struct Constants {
+        static let empty = ""
+    }
+    
+    func setupButtonNames() {
+        resetButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
+        mainButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
+        loopButton.setTitle(Constants.empty, forState: UIControlState.Disabled)
+    }
 
     func setupUIForRecording () {
         state = .readyToRecord
@@ -140,14 +152,17 @@ class ViewController: UIViewController {
     }
 
     func setSliders(active: Bool) {
-        loopButton.hidden = !active
-        moogLadderTitle.hidden = !active
+        loopButton.enabled = active
+        moogLadderTitle.enabled = active
         freqSlider.enabled = active
         freqSlider.hidden = !active
         resonSlider.enabled = active
         resonSlider.hidden = !active
-        freqLabel.hidden = !active
-        resonLabel.hidden = !active
+        freqLabel.enabled = active
+        resonLabel.enabled = active
+        freqLabel.text = active ? "Cutoff Frequency" : Constants.empty
+        resonLabel.text = active ? "Resonance" : Constants.empty
+        moogLadderTitle.text = active ? "Moog Ladder Filter" : Constants.empty
     }
 
     @IBAction func loopButtonTouched(sender: UIButton) {
