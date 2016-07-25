@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C431471E1D42AF04005F18AB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C431471D1D42AF04005F18AB /* AudioKit.framework */; };
-		C43147201D42AF0A005F18AB /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C431471D1D42AF04005F18AB /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7814CAE81D463C30004EA355 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7814CAE61D463B49004EA355 /* AudioKit.framework */; };
+		7814CAEA1D463C75004EA355 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7814CAE61D463B49004EA355 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C4486EF11D42AE4700FE135F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4486EE91D42AE4700FE135F /* AppDelegate.swift */; };
 		C4486EF21D42AE4700FE135F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4486EEA1D42AE4700FE135F /* Assets.xcassets */; };
 		C4486EF31D42AE4700FE135F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4486EEB1D42AE4700FE135F /* LaunchScreen.storyboard */; };
@@ -23,7 +23,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C43147201D42AF0A005F18AB /* AudioKit.framework in Embed Frameworks */,
+				7814CAEA1D463C75004EA355 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,8 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7814CAE61D463B49004EA355 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		8DAD9EDD1D3E4A3400CD3B0A /* RecorderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecorderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C431471D1D42AF04005F18AB /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C4486EE91D42AE4700FE135F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4486EEA1D42AE4700FE135F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4486EEC1D42AE4700FE135F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -46,19 +46,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C431471E1D42AF04005F18AB /* AudioKit.framework in Frameworks */,
+				7814CAE81D463C30004EA355 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7814CAEB1D463D04004EA355 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7814CAE61D463B49004EA355 /* AudioKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7814CAEC1D463D0E004EA355 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				C4486EE91D42AE4700FE135F /* AppDelegate.swift */,
+				C4486EEA1D42AE4700FE135F /* Assets.xcassets */,
+				C4486EEB1D42AE4700FE135F /* LaunchScreen.storyboard */,
+				C4486EEF1D42AE4700FE135F /* Info.plist */,
+			);
+			name = "Supporting files";
+			sourceTree = "<group>";
+		};
 		8DAD9ED41D3E4A3400CD3B0A = {
 			isa = PBXGroup;
 			children = (
+				7814CAEB1D463D04004EA355 /* Frameworks */,
 				C4486EE81D42AE4700FE135F /* RecorderDemo */,
 				8DAD9EDE1D3E4A3400CD3B0A /* Products */,
-				C431471D1D42AF04005F18AB /* AudioKit.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,12 +92,9 @@
 		C4486EE81D42AE4700FE135F /* RecorderDemo */ = {
 			isa = PBXGroup;
 			children = (
-				C4486EE91D42AE4700FE135F /* AppDelegate.swift */,
-				C4486EEA1D42AE4700FE135F /* Assets.xcassets */,
-				C4486EEB1D42AE4700FE135F /* LaunchScreen.storyboard */,
 				C4486EED1D42AE4700FE135F /* Main.storyboard */,
-				C4486EEF1D42AE4700FE135F /* Info.plist */,
 				C4486EF01D42AE4700FE135F /* ViewController.swift */,
+				7814CAEC1D463D0E004EA355 /* Supporting files */,
 			);
 			path = RecorderDemo;
 			sourceTree = "<group>";
@@ -271,7 +287,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"../../../Frameworks/AudioKit-iOS",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = RecorderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -284,7 +304,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				FRAMEWORK_SEARCH_PATHS = "../../../Frameworks/AudioKit-iOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"../../../Frameworks/AudioKit-iOS",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = RecorderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
