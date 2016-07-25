@@ -25,87 +25,60 @@ AudioKit.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     //: UI Elements we'll need to be able to access
     var centerFrequencyLabel: Label?
     var bandwidthLabel: Label?
-    
+
     override func setup() {
         addTitle("Resonant Filter")
-        
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
-        
+
+        addButtons()
+
         addLabel("Resonant Filter Parameters")
-        
+
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-        
+
         centerFrequencyLabel = addLabel("Center Frequency: \(resonantFilter.frequency) Hz")
         addSlider(#selector(setCenterFrequency),
                   value: resonantFilter.frequency,
                   minimum: 20,
                   maximum: 22050)
-        
+
         bandwidthLabel = addLabel("Bandwidth \(resonantFilter.bandwidth) Cents")
         addSlider(#selector(setBandwidth),
                   value: resonantFilter.bandwidth,
                   minimum: 100,
                   maximum: 12000)
     }
-    
+
     //: Handle UI Events
-    
-    func startLoop(part: String) {
+
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-    
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-    
-    func startBassLoop() {
-        startLoop("bass")
-    }
-    
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-    
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-    
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    
-    func stop() {
+    override func stop() {
         player.stop()
     }
-    
+
     func process() {
         resonantFilter.play()
     }
-    
+
     func bypass() {
         resonantFilter.bypass()
     }
-    
+
     func setCenterFrequency(slider: Slider) {
         resonantFilter.frequency = Double(slider.value)
         let frequency = String(format: "%0.1f", resonantFilter.frequency)
         centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
     }
-    
+
     func setBandwidth(slider: Slider) {
         resonantFilter.bandwidth = Double(slider.value)
         let bandwidth = String(format: "%0.1f", resonantFilter.bandwidth)

@@ -15,13 +15,15 @@ func myCompletionCallBack() {
 }
 
 //: Then, we create a player to play some guitar.
-let guitarLoop = try? AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
+let guitarLoop = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
-let player = try? AKAudioPlayer(file: guitarLoop!, completionHandler: myCompletionCallBack)
+let player = try AKAudioPlayer(file: guitarLoop) {
+    print ("completion callBack has been triggered !")
+}
 
 AudioKit.output = player
 AudioKit.start()
-player?.looping = true
+player.looping = true
 
 //: Don't forget to show the "debug area" to see what messages are printed by the player
 //: and open the timeline view to use the controls this playground sets up....
@@ -43,25 +45,25 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
 
         AKPlaygroundLoop(every: 1/60.0) {
-            if player!.duration > 0 {
-            self.playingPosSlider?.value = Float( player!.playhead / player!.duration)
+            if player.duration > 0 {
+            self.playingPosSlider?.doubleValue = player.playhead / player.duration
 
             self.playheadTextField?.stringValue =
-                String(Int(100 * player!.playhead / player!.duration)) + " %"
+                String(Int(100 * player.playhead / player.duration)) + "%"
 
             }
 
         }
         addTitle("Audio Player")
 
-        fileNameLabel = addLabel("File name: \(player?.audioFile.fileNamePlusExtension)")
+        fileNameLabel = addLabel("File name: \(player.audioFile.fileNamePlusExtension)")
 
         addButton("Load Drum Loop", action: #selector(loadDrumLoop))
         addButton("Load Mix Loop", action: #selector(loadMixLoop))
 
         durationTextField = addTextField(nil,
                                          text: "Duration",
-                                         value: player!.audioFile.duration)
+                                         value: player.audioFile.duration)
 
         addLineBreak()
 
@@ -77,19 +79,19 @@ class PlaygroundView: AKPlaygroundView {
         addLineBreak()
         inPosTextField = addTextField(#selector(setInPosition),
                                       text: "In Position",
-                                      value: player!.startTime)
+                                      value: player.startTime)
 
         inPosSlider = addSlider(#selector(slideInPosition),
-                                value: player!.startTime,
+                                value: player.startTime,
                                 minimum: 0.0,
                                 maximum: 4.0)
 
         outPosTextField = addTextField(#selector(setOutPosition),
                                        text: "Out Position",
-                                       value: player!.endTime)
+                                       value: player.endTime)
 
         outPosSlider = addSlider(#selector(slideOutPosition),
-                                 value: player!.endTime,
+                                 value: player.endTime,
                                  minimum: 0.0,
                                  maximum: 4.0)
 
@@ -97,7 +99,7 @@ class PlaygroundView: AKPlaygroundView {
         playheadTextField  = addTextField(nil, text: "PlayHead", value: 0)
 
         playingPosSlider = addSlider(#selector(playBackSlidePosTouched),
-                                     value: player!.playhead,
+                                     value: player.playhead,
                                      minimum: 0.0,
                                      maximum: 1.0)
 
@@ -107,82 +109,82 @@ class PlaygroundView: AKPlaygroundView {
     //: Handle UI Events
 
     func play() {
-        player!.play()
+        player.play()
     }
 
     func stop() {
-        player!.stop()
+        player.stop()
     }
 
     func pause() {
-        player!.pause()
+        player.pause()
     }
 
 
     func enableLooping() {
-        player!.looping = true
+        player.looping = true
     }
 
     func disableLooping() {
-        player!.looping = false
+        player.looping = false
     }
 
     func loadDrumLoop() {
         let loopMp3 = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
-        try? player!.replaceFile(loopMp3!)
+        try? player.replaceFile(loopMp3!)
         updateUI()
     }
 
     func reloadFile() {
-        try? player!.reloadFile()
+        try? player.reloadFile()
         updateUI()
     }
 
     func loadMixLoop() {
         let mixloop = try? AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
-        try? player!.replaceFile(mixloop!)
+        try? player.replaceFile(mixloop!)
         updateUI()
     }
 
     func updateSliders() {
-        inPosSlider?.value = Float(player!.startTime)
-        outPosSlider?.value = Float(player!.endTime)
+        inPosSlider?.value = Float(player.startTime)
+        outPosSlider?.value = Float(player.endTime)
     }
 
     func setInPosition(textField: TextField) {
         if let value = Double(textField.stringValue) {
-            player!.startTime =  value
+            player.startTime =  value
             updateSliders()
         }
     }
     func setOutPosition(textField: TextField) {
         if let value = Double(textField.stringValue) {
-            player!.endTime =  value
+            player.endTime =  value
             updateSliders()
         }
     }
 
     func updateTextFields() {
-        let inPos = String(format: "%0.2f", player!.startTime) + " seconds"
+        let inPos = String(format: "%0.2f", player.startTime)
         inPosTextField!.stringValue = "\(inPos)"
 
-        let outPos = String(format: "%0.2f", player!.endTime) + " seconds"
+        let outPos = String(format: "%0.2f", player.endTime)
         outPosTextField!.stringValue = "\(outPos)"
-        let duration = String(format: "%0.2f", player!.audioFile.duration) + " seconds"
+        let duration = String(format: "%0.2f", player.audioFile.duration)
         durationTextField!.stringValue = duration
 
-        let fileName = player!.audioFile.fileNamePlusExtension
+        let fileName = player.audioFile.fileNamePlusExtension
         fileNameLabel!.text = "File name: \(fileName)"
     }
 
     func slideInPosition(slider: Slider) {
-        player!.startTime = Double(slider.value)
+        player.startTime = Double(slider.value)
         updateTextFields()
     }
 
     func slideOutPosition(slider: Slider) {
-        player!.endTime = Double(slider.value)
+        player.endTime = Double(slider.value)
         updateTextFields()
     }
 
@@ -193,7 +195,7 @@ class PlaygroundView: AKPlaygroundView {
 
 
     func playBackSlidePosTouched() {
-        playingPosSlider?.value = Float( player!.playhead)
+        playingPosSlider?.value = Float(player.playhead)
     }
 
 }

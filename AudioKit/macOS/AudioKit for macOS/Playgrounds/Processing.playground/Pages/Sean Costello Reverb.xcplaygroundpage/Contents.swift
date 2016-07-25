@@ -34,13 +34,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Sean Costello Reverb")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addButtons()
 
         cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
         addSlider(#selector(setCutoffFrequency),
@@ -55,34 +49,13 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Low Ringing Tail", action: #selector(presetLowRingingTail))
     }
 
-    func startLoop(part: String) {
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
+    override func stop() {
         player.stop()
     }
 

@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C446B3E21D4544EF000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */; };
-		C446B3E31D4544EF000AEFCA /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3DF1D4544EF000AEFCA /* AKPlaygroundView.swift */; };
 		C446B3E41D4544EF000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */; };
-		C446B3E51D4544EF000AEFCA /* AKTouchKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E11D4544EF000AEFCA /* AKTouchKeyView.swift */; };
 		C456669A1D448D7E00D26565 /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B51D448D7D00D26565 /* AKDevice.swift */; };
 		C456669B1D448D7E00D26565 /* AKNodeRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */; };
 		C456669C1D448D7E00D26565 /* AKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B71D448D7D00D26565 /* AKNotifications.swift */; };
@@ -687,6 +685,7 @@
 		C45669F41D448D7E00D26565 /* AKOutputWaveformPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666971D448D7E00D26565 /* AKOutputWaveformPlot.swift */; };
 		C45669F51D448D7E00D26565 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666981D448D7E00D26565 /* AKRollingOutputPlot.swift */; };
 		C45669F61D448D7E00D26565 /* AKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666991D448D7E00D26565 /* AKView.swift */; };
+		C48C16011D4585640055E87D /* AKPolyphonicKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -699,9 +698,7 @@
 		C446B3DB1D45447A000AEFCA /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Synthesis.playground; sourceTree = "<group>"; };
 		C446B3DC1D45447A000AEFCA /* Tutorials.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tutorials.playground; sourceTree = "<group>"; };
 		C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
-		C446B3DF1D4544EF000AEFCA /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
 		C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
-		C446B3E11D4544EF000AEFCA /* AKTouchKeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTouchKeyView.swift; sourceTree = "<group>"; };
 		C45662B51D448D7D00D26565 /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
 		C45662B61D448D7D00D26565 /* AKNodeRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNodeRecorder.swift; sourceTree = "<group>"; };
 		C45662B71D448D7D00D26565 /* AKNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKNotifications.swift; sourceTree = "<group>"; };
@@ -1378,6 +1375,7 @@
 		C45666971D448D7E00D26565 /* AKOutputWaveformPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKOutputWaveformPlot.swift; sourceTree = "<group>"; };
 		C45666981D448D7E00D26565 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C45666991D448D7E00D26565 /* AKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKView.swift; sourceTree = "<group>"; };
+		C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicKeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1427,9 +1425,8 @@
 			isa = PBXGroup;
 			children = (
 				C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */,
-				C446B3DF1D4544EF000AEFCA /* AKPlaygroundView.swift */,
 				C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */,
-				C446B3E11D4544EF000AEFCA /* AKTouchKeyView.swift */,
+				C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */,
 			);
 			name = macOS;
 			path = "AudioKit for macOS/User Interface";
@@ -3516,7 +3513,6 @@
 				C45666F21D448D7E00D26565 /* dcblock.c in Sources */,
 				C45666C01D448D7E00D26565 /* EZAudioPlot.m in Sources */,
 				C45666EF1D448D7E00D26565 /* conv.c in Sources */,
-				C446B3E31D4544EF000AEFCA /* AKPlaygroundView.swift in Sources */,
 				C456670D1D448D7E00D26565 /* mode.c in Sources */,
 				C456672F1D448D7E00D26565 /* streson.c in Sources */,
 				C45669A41D448D7E00D26565 /* AKMicrophone.swift in Sources */,
@@ -3632,6 +3628,7 @@
 				C456675A1D448D7E00D26565 /* bal.c in Sources */,
 				C456678D1D448D7E00D26565 /* mincer.c in Sources */,
 				C456679E1D448D7E00D26565 /* pshift.c in Sources */,
+				C48C16011D4585640055E87D /* AKPolyphonicKeyboardView.swift in Sources */,
 				C45668BF1D448D7E00D26565 /* AKFrequencyTrackerAudioUnit.mm in Sources */,
 				C45667231D448D7E00D26565 /* randh.c in Sources */,
 				C45667C11D448D7E00D26565 /* wpkorg35.c in Sources */,
@@ -3797,7 +3794,6 @@
 				C456691C1D448D7E00D26565 /* AKMoogLadderPresets.swift in Sources */,
 				C45669721D448D7E00D26565 /* AKMorphingOscillatorBank.swift in Sources */,
 				C45667521D448D7E00D26565 /* plumber.c in Sources */,
-				C446B3E51D4544EF000AEFCA /* AKTouchKeyView.swift in Sources */,
 				C456698A1D448D7E00D26565 /* AKPWMOscillatorBank.swift in Sources */,
 				C456671C1D448D7E00D26565 /* pluck.c in Sources */,
 				C45667031D448D7E00D26565 /* gbuzz.c in Sources */,
