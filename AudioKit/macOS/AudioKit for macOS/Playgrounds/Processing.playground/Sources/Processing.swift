@@ -13,28 +13,28 @@ public typealias Slider = AKSlider
 public typealias TextField = NSTextField
 
 public class AKLabel: NSTextField {
-
+    
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
-
+    
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     public var text: String = "" {
         didSet {
-        stringValue = text
+            stringValue = text
         }
     }
 }
 
 
 public class AKSlider: NSSlider {
-
+    
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
-
+    
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -49,31 +49,31 @@ public class AKSlider: NSSlider {
 }
 
 public class AKPlaygroundView: NSView {
-
+    
     public var elementHeight: CGFloat = 30
     public var yPosition: Int = 80
     public var horizontalSpacing = 40
     public var lastButton: NSButton?
-
+    
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setup()
     }
-
+    
     public func setup() {
     }
-
+    
     override public func drawRect(dirtyRect: NSRect) {
         NSColor.whiteColor().setFill()
         NSRectFill(dirtyRect)
         super.drawRect(dirtyRect)
     }
-
+    
     public func addLineBreak() {
         lastButton = nil
     }
-
-
+    
+    
     public func addTitle(text: String) -> NSTextField {
         let newLabel = NSTextField(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
@@ -88,19 +88,19 @@ public class AKPlaygroundView: NSView {
         yPosition += horizontalSpacing
         return newLabel
     }
-
+    
     public func addButton(label: String, action: Selector) -> NSButton {
         let newButton = NSButton(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newButton.title = "\(label)    "
         newButton.font = NSFont.systemFontOfSize(18)
-
+        
         // Line up multiple buttons in a row
         if let button = lastButton {
             newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
             yPosition -= horizontalSpacing
         }
-
+        
         newButton.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         newButton.sizeToFit()
         newButton.bezelStyle = NSBezelStyle.ShadowlessSquareBezelStyle
@@ -111,7 +111,7 @@ public class AKPlaygroundView: NSView {
         lastButton = newButton
         return newButton
     }
-
+    
     public func addLabel(text: String) -> AKLabel {
         lastButton = nil
         let newLabel = AKLabel(frame:
@@ -126,7 +126,7 @@ public class AKPlaygroundView: NSView {
         yPosition += horizontalSpacing
         return newLabel
     }
-
+    
     public func addSlider(action: Selector,
                           value: Double = 0,
                           minimum: Double = 0,
@@ -150,15 +150,17 @@ public class AKPlaygroundView: NSView {
         let newLabel = AKLabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
         newLabel.text = text
-//        newLabel.font = UIFont.systemFontOfSize(18)
-        newLabel.frame.origin.y = CGFloat(yPosition)
+        newLabel.editable = false
+        newLabel.bordered = false
+        newLabel.font = NSFont.systemFontOfSize(18)
+        newLabel.frame.origin.y = self.bounds.height - CGFloat(yPosition)
         self.addSubview(newLabel)
         
         let newTextField =  NSTextField(frame:
-            CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
-        newTextField.frame.origin.y = CGFloat(yPosition)
+            CGRect(x: 0, y: 0, width: 100, height: 20))
+        newTextField.frame.origin.y = self.bounds.height - CGFloat(yPosition)
+        newTextField.frame.origin.x = CGFloat(self.frame.size.width - 100)
         newTextField.stringValue = "\(value)"
-//        newTextField.textAlignment = .Right
         newTextField.setNeedsDisplay()
         newTextField.target = self
         newTextField.action = action
@@ -167,9 +169,52 @@ public class AKPlaygroundView: NSView {
         
         return newTextField
     }
-
-
+    
+    
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension AKPlaygroundView {
+
+    public func addButtons() {
+        addLabel("Audio Playback")
+        addButton("Drums",  action: #selector(startDrumLoop))
+        addButton("Bass",   action: #selector(startBassLoop))
+        addButton("Guitar", action: #selector(startGuitarLoop))
+        addButton("Lead",   action: #selector(startLeadLoop))
+        addButton("Mix",    action: #selector(startMixLoop))
+        addButton("Stop",   action: #selector(stop))
+    }
+    
+    
+    public func startDrumLoop() {
+        startLoop("drumloop.wav")
+    }
+    
+    public func startBassLoop() {
+        startLoop("bassloop.wav")
+    }
+    
+    public func startGuitarLoop() {
+        startLoop("guitarloop.wav")
+    }
+    
+    public func startLeadLoop() {
+        startLoop("leadloop.wav")
+    }
+    
+    public func startMixLoop() {
+        startLoop("mixloop.wav")
+    }
+    
+    public func startLoop(label: String) {
+        // override in subclass
+    }
+    public func stop() {
+        // override in subclass
+    }
+    
+}
+

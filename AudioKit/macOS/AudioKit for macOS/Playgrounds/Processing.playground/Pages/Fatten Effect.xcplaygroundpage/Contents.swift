@@ -19,9 +19,9 @@ let fatten = AKOperationEffect(player) { input, parameters in
 
     let time = parameters[0]
     let mix = parameters[1]
-    
+
     let fatten = "\(input) dup \(1 - mix) * swap 0 \(time) 1.0 vdelay \(mix) * +"
-    
+
     return AKStereoOperation(fatten)
 }
 
@@ -42,13 +42,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Analog Synth X Fatten")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addButtons()
 
         timeLabel = addLabel("Time: \(fatten.parameters[0])")
         addSlider(#selector(setTime), value: fatten.parameters[0], minimum: 0.03, maximum: 0.1)
@@ -57,34 +51,13 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setMix), value: fatten.parameters[1])
     }
 
-    func startLoop(part: String) {
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
+    override func stop() {
         player.stop()
     }
 

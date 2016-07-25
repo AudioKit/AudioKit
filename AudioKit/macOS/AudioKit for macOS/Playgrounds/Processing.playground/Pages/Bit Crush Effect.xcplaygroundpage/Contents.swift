@@ -37,13 +37,7 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Bit Crusher")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addButtons()
 
         bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
         addSlider(#selector(setBitDepth), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
@@ -55,34 +49,13 @@ class PlaygroundView: AKPlaygroundView {
                   maximum: 16000)
     }
 
-    func startLoop(part: String) {
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
+    override func stop() {
         player.stop()
     }
 
