@@ -74,6 +74,27 @@ public class AKSampler: AKNode {
         }
     }
 
+    /// Load an array of AKAudioFiles
+    ///
+    /// - parameter file: an array of AKAudioFile
+    ///
+    /// If a file name ends with a note name (ex: "violinC3.wav")
+    /// The file will be set to this note
+    /// Handy to set multi-sampled instruments or a drum kit...
+    public func loadAudioFiles(files: [AKAudioFile] ) throws {
+
+        var urls = [NSURL]()
+        for file in files {
+            urls.append(file.url)
+        }
+        do {
+            try samplerUnit.loadAudioFilesAtURLs(urls)
+        } catch let error as NSError {
+            print("AKSampler Error loading audioFiles !...")
+            throw error
+        }
+    }
+
     private func loadSoundFont(file: String, preset: Int, type: Int) {
         guard let url = NSBundle.mainBundle().URLForResource(file, withExtension: "sf2") else {
             fatalError("file not found.")

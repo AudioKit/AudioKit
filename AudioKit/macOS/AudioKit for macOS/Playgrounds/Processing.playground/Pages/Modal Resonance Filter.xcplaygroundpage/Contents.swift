@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setFrequency), value: filter.frequency, minimum: 0, maximum: 5000)
 
         qualityFactorLabel = addLabel("Quality Factor: \(filter.qualityFactor)")
-        addSlider(#selector(setQualityFactor), value: filter.qualityFactor, minimum: 0, maximum: 20)
+        addSlider(#selector(setQualityFactor), value: filter.qualityFactor, minimum: 0.1, maximum: 20)
     }
 
     override func startLoop(name: String) {
