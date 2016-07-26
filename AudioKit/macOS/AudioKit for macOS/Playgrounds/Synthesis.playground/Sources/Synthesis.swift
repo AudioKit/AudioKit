@@ -8,6 +8,7 @@
 
 import Cocoa
 
+public typealias AKColor = NSColor
 public typealias Label  = AKLabel
 public typealias Slider = AKSlider
 public typealias TextField = NSTextField
@@ -91,7 +92,7 @@ public class AKPlaygroundView: NSView {
     
     public func addButton(label: String, action: Selector) -> NSButton {
         let newButton = NSButton(frame:
-            CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
+            CGRect(x: 30, y: 0, width: self.bounds.width, height: elementHeight))
         newButton.title = "\(label)    "
         newButton.font = NSFont.systemFontOfSize(18)
         
@@ -112,6 +113,7 @@ public class AKPlaygroundView: NSView {
         return newButton
     }
     
+
     public func addLabel(text: String) -> AKLabel {
         lastButton = nil
         let newLabel = AKLabel(frame:
