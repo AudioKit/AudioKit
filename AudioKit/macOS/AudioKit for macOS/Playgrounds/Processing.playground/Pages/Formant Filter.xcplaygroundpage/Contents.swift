@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -21,7 +22,6 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
     var centerFrequencyLabel: Label?
     var attackLabel: Label?
     var decayLabel: Label?
@@ -49,9 +49,6 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setDecay), value: filter.decayDuration, minimum: 0, maximum: 0.1)
 
     }
-
-    //: Handle UI Events
-
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
@@ -104,7 +101,7 @@ class PlaygroundView: AKPlaygroundView {
 }
 
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 750))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

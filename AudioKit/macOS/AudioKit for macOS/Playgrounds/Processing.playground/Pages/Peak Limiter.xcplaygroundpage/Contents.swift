@@ -9,7 +9,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -29,7 +30,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
     var attackTimeLabel: Label?
     var decayTimeLabel: Label?
     var preGainLabel: Label?
@@ -63,9 +63,6 @@ class PlaygroundView: AKPlaygroundView {
                   maximum: 40)
 
     }
-
-    //: Handle UI Events
-
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)

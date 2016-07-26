@@ -9,7 +9,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -26,7 +27,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
     var rateLabel: Label?
     var pitchLabel: Label?
     var overlapLabel: Label?
@@ -44,9 +44,6 @@ class PlaygroundView: AKPlaygroundView {
         rateLabel = addLabel("Rate: \(variSpeed.rate) rate")
         addSlider(#selector(setRate), value: variSpeed.rate, minimum: 0.03125, maximum: 5.0)
     }
-
-    //: Handle UI Events
-
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)

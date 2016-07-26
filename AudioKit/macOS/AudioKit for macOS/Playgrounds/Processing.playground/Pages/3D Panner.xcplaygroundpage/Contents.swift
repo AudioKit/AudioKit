@@ -7,8 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
-
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -16,12 +16,11 @@ let panner = AK3DPanner(player)
 
 AudioKit.output = panner
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-
-    //: UI Elements we'll need to be able to access
     var xLabel: Label?
     var yLabel: Label?
     var zLabel: Label?
@@ -30,9 +29,6 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("3D Panner")
 
         addButtons()
-
-        addLabel("Parameters")
-
 
         xLabel = addLabel("x: \(panner.x)")
         addSlider(#selector(setX), value: Double(panner.x), minimum: -10, maximum: 10)
@@ -44,9 +40,6 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setZ), value: Double(panner.z), minimum: -10, maximum: 10)
 
     }
-
-    //: Handle UI Events
-
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)

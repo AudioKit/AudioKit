@@ -7,11 +7,12 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var tremolo = AKTremolo(player, waveform: AKTable(.PositiveSquare))
+var tremolo = AKTremolo(player, waveform: AKTable(.PositiveSine))
 tremolo.depth = 0.5
 tremolo.frequency = 8
 
@@ -31,9 +32,9 @@ class PlaygroundView: AKPlaygroundView {
 
         frequencyLabel = addLabel("Frequency: \(tremolo.frequency)")
         addSlider(#selector(setFrequency), value: tremolo.frequency, minimum: 0, maximum: 20)
-        
+
         depthLabel = addLabel("Depth: \(tremolo.depth)")
-        addSlider(#selector(setDepth), value: tremolo.depth, minimum: 0, maximum: 1.0) 
+        addSlider(#selector(setDepth), value: tremolo.depth, minimum: 0, maximum: 1.0)
     }
 
     func setFrequency(slider: Slider) {
@@ -45,21 +46,21 @@ class PlaygroundView: AKPlaygroundView {
         tremolo.depth = Double(slider.value)
         depthLabel!.text = "Depth: \(String(format: "%0.3f", tremolo.depth))"
     }
-    
+
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-    
+
     override func stop() {
         player.stop()
     }
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

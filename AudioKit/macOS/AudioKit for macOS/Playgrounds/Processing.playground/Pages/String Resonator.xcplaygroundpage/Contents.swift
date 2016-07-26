@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -71,7 +72,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 340))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 740))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

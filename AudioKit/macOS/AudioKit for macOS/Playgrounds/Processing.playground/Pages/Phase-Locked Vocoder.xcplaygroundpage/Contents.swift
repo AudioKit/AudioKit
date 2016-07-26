@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 let phaseLockedVocoder = AKPhaseLockedVocoder(file: file)
 
 AudioKit.output = phaseLockedVocoder

@@ -26,7 +26,8 @@ extension AKOperationEffect {
 
 //: Here we'll use the struct and the extension to refer to the autopan parameters by name
 
-let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
