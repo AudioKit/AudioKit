@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "leadloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -28,7 +29,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
     var ringModFreq1Label: Label?
     var ringModFreq2Label: Label?
     var ringModBalanceLabel: Label?
@@ -57,9 +57,6 @@ class PlaygroundView: AKPlaygroundView {
         addSlider(#selector(setMix), value: ringModulator.mix)
 
     }
-
-    //: Handle UI Events
-
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)

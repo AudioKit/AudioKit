@@ -8,7 +8,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 
 //: Here we set up a player to the loop the file's playback

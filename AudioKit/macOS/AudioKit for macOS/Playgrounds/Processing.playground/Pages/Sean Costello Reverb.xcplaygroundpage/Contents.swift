@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -71,8 +72,6 @@ class PlaygroundView: AKPlaygroundView {
         feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
         printCode()
     }
-
-    //: Audition Presets
 
     func presetShortTail() {
         reverb.presetShortTailCostelloReverb()

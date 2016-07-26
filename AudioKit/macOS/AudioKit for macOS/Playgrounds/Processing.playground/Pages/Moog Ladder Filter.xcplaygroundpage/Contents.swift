@@ -15,7 +15,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -95,9 +96,6 @@ class PlaygroundView: AKPlaygroundView {
         let rampTime = String(format: "%0.3f", moogLadder.rampTime)
         rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
-
-
-    //: Audition Presets
 
     func presetFogMoogLadder() {
         moogLadder.presetFogMoogLadder()

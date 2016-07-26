@@ -109,6 +109,21 @@ public class AKPlaygroundView: NSView {
         self.addSubview(newButton)
         yPosition += horizontalSpacing
         lastButton = newButton
+        
+        return newButton
+    }
+    
+    public func addPopUpButton(label: String, titles: [String], action: Selector) -> NSPopUpButton {
+        let newButton = NSPopUpButton(
+            frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight),
+            pullsDown: true)
+        newButton.addItemsWithTitles(titles)
+        newButton.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
+        newButton.target = self
+        newButton.action = action
+        newButton.title = "Set a new source audio file:"
+        self.addSubview(newButton)
+        yPosition += horizontalSpacing
         return newButton
     }
     
@@ -144,6 +159,11 @@ public class AKPlaygroundView: NSView {
         yPosition += horizontalSpacing
         return newSlider
     }
+        
+    public func updateValue(object: NSObject, forKey: String, value: Double) {
+        object.setValue(value, forKey: forKey)
+    }
+
     
     public func addTextField(action: Selector, text: String, value: Double = 0) -> TextField {
         lastButton = nil
@@ -170,43 +190,35 @@ public class AKPlaygroundView: NSView {
         return newTextField
     }
     
-    
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public static let defaultSourceAudio = "Acid Full.mp3"
+
 }
 
 extension AKPlaygroundView {
 
     public func addButtons() {
-        addLabel("Audio Playback")
-        addButton("Drums",  action: #selector(startDrumLoop))
-        addButton("Bass",   action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead",   action: #selector(startLeadLoop))
-        addButton("Mix",    action: #selector(startMixLoop))
+        addPopUpButton("",
+                       titles: [
+                        "Select from below:",
+                        "counting.mp3",
+                        "Acid Drums.mp3",
+                        "Acid Bass.mp3",
+                        "Acid Full.mp3",
+                        "80s Synth.mp3",
+                        "Lo-Fi Synth.mp3",
+                        "African.mp3",
+                        "mixloop.wav"],
+                       action: #selector(changeLoop))
         addButton("Stop",   action: #selector(stop))
     }
     
-    
-    public func startDrumLoop() {
-        startLoop("drumloop.wav")
-    }
-    
-    public func startBassLoop() {
-        startLoop("bassloop.wav")
-    }
-    
-    public func startGuitarLoop() {
-        startLoop("guitarloop.wav")
-    }
-    
-    public func startLeadLoop() {
-        startLoop("leadloop.wav")
-    }
-    
-    public func startMixLoop() {
-        startLoop("mixloop.wav")
+    public func changeLoop(sender: NSPopUpButton) {
+        startLoop(sender.itemTitles[sender.indexOfSelectedItem])
+        sender.title = sender.itemTitles[sender.indexOfSelectedItem]
     }
     
     public func startLoop(label: String) {

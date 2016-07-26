@@ -10,7 +10,8 @@ import XCPlayground
 import AudioKit
 
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 //: Here we set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
@@ -26,7 +27,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
     var pitchLabel: Label?
 
     override func setup() {
@@ -44,9 +44,6 @@ class PlaygroundView: AKPlaygroundView {
 
 
     }
-
-    //: Handle UI Events
-
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)

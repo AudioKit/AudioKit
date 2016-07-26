@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -26,7 +27,6 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
     var centerFrequencyLabel: Label?
     var bandwidthLabel: Label?
 
@@ -49,9 +49,6 @@ class PlaygroundView: AKPlaygroundView {
         bandwidthLabel = addLabel("Bandwidth \(filter.bandwidth) Cents")
         addSlider(#selector(setBandwidth), value: filter.bandwidth, minimum: 100, maximum: 12000)
     }
-
-    //: Handle UI Events
-
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
