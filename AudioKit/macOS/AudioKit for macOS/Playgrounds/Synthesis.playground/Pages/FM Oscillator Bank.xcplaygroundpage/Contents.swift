@@ -59,7 +59,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         self.addSubview(AKPropertySlider(
             property: "Attack",
             format: "%0.3f",
-            value: fmBank.modulatingMultiplier, maximum: 2,
+            value: fmBank.attackDuration, maximum: 2,
             color: AKColor.greenColor(),
             frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
         ) { duration in
