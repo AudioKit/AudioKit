@@ -98,8 +98,8 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func updateUI() {
-        detuneSlider!.currentValue = mandolin.detune
-        bodySizeSlider!.currentValue = mandolin.bodySize
+        detuneSlider!.value = mandolin.detune
+        bodySizeSlider!.value = mandolin.bodySize
         printCode()
     }
 

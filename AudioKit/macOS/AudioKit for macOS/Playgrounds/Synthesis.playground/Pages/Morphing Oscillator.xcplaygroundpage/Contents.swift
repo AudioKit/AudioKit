@@ -34,12 +34,27 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
 
-        frequencyLabel = addLabel("Frequency: 440")
-        addSlider(#selector(setFrequency), value: 440, minimum: 200, maximum: 800)
-
-        amplitudeLabel = addLabel("Amplitude: 0.1")
-        addSlider(#selector(setAmplitude), value: 0.1)
-
+        self.addSubview(AKPropertySlider(
+            property: "Frequency",
+            format: "%0.2f Hz",
+            value: morph.frequency,
+            minimum: 220,
+            maximum: 880,
+            color: AKColor.yellowColor(),
+            frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
+        ) { frequency in
+            morph.frequency = frequency
+            })
+        
+        self.addSubview(AKPropertySlider(
+            property: "Amplitude",
+            format: "%0.3f",
+            value: morph.amplitude,
+            color: AKColor.magentaColor(),
+            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+        ) { amplitude in
+            morph.amplitude = amplitude
+            })
         morphIndexLabel = addLabel("Morph Index: \(morph.index)")
         addLabel("Sine = 0")
         addLabel("Triangle = 1")
@@ -55,35 +70,10 @@ class PlaygroundView: AKPlaygroundView {
         morph.stop()
     }
 
-    func setFrequency(slider: Slider) {
-        morph.frequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", morph.frequency)
-        frequencyLabel!.text = "Frequency: \(frequency)"
-        printCode()
-    }
-
-    func setAmplitude(slider: Slider) {
-        morph.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", morph.amplitude)
-        amplitudeLabel!.text = "Amplitude: \(amp)"
-        printCode()
-    }
-
     func setMorphIndex(slider: Slider) {
         morph.index = Double(slider.value)
         let index = String(format: "%0.3f", morph.index)
         morphIndexLabel!.text = "Morph Index: \(index)"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    frequency = \(String(format: "%0.3f", morph.frequency))")
-        Swift.print("    resonance = \(String(format: "%0.3f", morph.amplitude))")
-        Swift.print("    index = \(String(format: "%0.3f", morph.index))")
-        Swift.print("}\n")
     }
 }
 

@@ -92,13 +92,13 @@ public class AKPlaygroundView: NSView {
     
     public func addButton(label: String, action: Selector) -> NSButton {
         let newButton = NSButton(frame:
-            CGRect(x: 30, y: 0, width: self.bounds.width, height: elementHeight))
+            CGRect(x: 10, y: 0, width: self.bounds.width, height: elementHeight))
         newButton.title = "\(label)    "
         newButton.font = NSFont.systemFontOfSize(18)
         
         // Line up multiple buttons in a row
         if let button = lastButton {
-            newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
+            newButton.frame.origin.x += button.frame.origin.x + button.frame.width
             yPosition -= horizontalSpacing
         }
         

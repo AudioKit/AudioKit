@@ -14,13 +14,13 @@ public class AKPropertySlider: NSImageView {
     }
     var callback: (Double)->()
     var initialValue: Double = 0
-    public var currentValue: Double = 0 {
+    public var value: Double = 0 {
         didSet {
             update()
         }
     }
-    var minimum: Double = 0
-    var maximum: Double = 0
+    public var minimum: Double = 0
+    public var maximum: Double = 0
     var property: String = ""
     var format = ""
     var color = NSColor.redColor()
@@ -33,7 +33,7 @@ public class AKPropertySlider: NSImageView {
          color: NSColor = NSColor.redColor(),
          frame: CGRect,
          callback: (x: Double)->()) {
-        self.currentValue = value
+        self.value = value
         self.initialValue = value
         self.minimum = minimum
         self.maximum = maximum
@@ -55,27 +55,35 @@ public class AKPropertySlider: NSImageView {
     override public func mouseDown(theEvent: NSEvent) {
         let loc = theEvent.locationInWindow
         let center = convertPoint(loc, fromView: nil)
-        currentValue = Double(center.x / bounds.width) * (maximum - minimum) + minimum
+        value = Double(center.x / bounds.width) * (maximum - minimum) + minimum
         update()
-        callback(currentValue)
+        callback(value)
     }
     override public func mouseDragged(theEvent: NSEvent) {
         let loc = theEvent.locationInWindow
         let center = convertPoint(loc, fromView: nil)
-        currentValue = Double(center.x / bounds.width) * (maximum - minimum) + minimum
+        value = Double(center.x / bounds.width) * (maximum - minimum) + minimum
+        if value > maximum { value = maximum }
+        if value < minimum { value = minimum }
         update()
-        callback(currentValue)
+        callback(value)
+    }
+    
+    public func randomize() -> Double {
+        value = random(minimum, maximum)
+        update()
+        return value
     }
     
     func update() {
         image = AKFlatSlider.imageOfFlatSlider(
             sliderColor: color,
-            currentValue: CGFloat(currentValue),
+            currentValue: CGFloat(value),
             initialValue: CGFloat(initialValue),
             minimum: CGFloat(minimum),
             maximum: CGFloat(maximum),
             propertyName: property,
-            currentValueText: String(format: format, currentValue)
+            currentValueText: String(format: format, value)
         )
     }
 }
