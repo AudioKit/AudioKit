@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+
 extension AKAudioFile {
     
     /// ExportFormat enum to set target format when exporting AKAudiofiles
@@ -72,18 +73,18 @@ extension AKAudioFile {
     ///   - name: the name of the file without its extension (String).
     ///   - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
     ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-    ///   - callBack: AKCallback function that will be triggered when export completed.
     ///   - fromTime: start range time value in seconds
     ///   - toTime: end range time value in seconds.
+    ///   - callBack: AKExportCallback function that will be triggered when export completed.
     ///
     /// - returns: An AKAudioFile ExportSession object, or nil if init failed.
     ///
     public func export(name name: String,
                             ext: ExportFormat,
                             baseDir: BaseDirectory,
-                            callBack: (AKCallback),
                             fromTime: Double = 0,
-                            toTime: Double = 0) throws -> ExportSession {
+                            toTime: Double = 0,
+                            callBack: AKExportCallback) throws -> ExportSession {
         
         let fromFileExt = fileExt.lowercaseString
         
@@ -116,18 +117,17 @@ extension AKAudioFile {
             }
         }
         
-        
         return try ExportSession(fileName: name,
                                  baseDir: baseDir,
-                                 callBack: callBack,
                                  presetName: avExportPreset,
                                  file: self,
                                  outputFileExtension:ext,
                                  fromTime: fromTime,
-                                 toTime: toTime)
+                                 toTime: toTime,
+                                 callBack: callBack)
     }
 
-     
+    
     /// ExportSession wraps an AVAssetExportSession. It is returned by AKAudioFile.export().
     /// The benefit of this object is that you directly gets the resulting AKAudioFile
     /// if export succeeded. Most AVAssetExportSession properties/methods have been
@@ -139,27 +139,28 @@ extension AKAudioFile {
         
         private var outputAudioFile: AKAudioFile?
         private var exporter: AVAssetExportSession
-        private var callBack: AKCallback
+        private var callBack: AKExportCallback
         
         /// Initalization
         ///
         /// - Parameters:
         ///   - fileName:            Name of the file
         ///   - baseDir:             Base directory
-        ///   - callBack:            Callback function
         ///   - presetName:          Name of the preset
         ///   - file:                AKAudioFile
         ///   - outputFileExtension: Extension to use for output
         ///   - fromTime:            Starting time
         ///   - toTime:              Ending time
+        ///   - callBack:            Callback function
         ///
-        public init(fileName: String, baseDir: BaseDirectory,
-                    callBack: AKCallback,
+        public init(fileName: String,
+                    baseDir: BaseDirectory,
                     presetName: String,
                     file: AKAudioFile,
                     outputFileExtension: ExportFormat,
                     fromTime: Double,
-                    toTime: Double) throws {
+                    toTime: Double,
+                    callBack: AKExportCallback) throws {
             
             self.callBack = callBack
             
@@ -168,7 +169,7 @@ extension AKAudioFile {
             
             // let asset = file.avAsset
             
-            let process = AVAssetExportSession(asset: asset, presetName:presetName)
+            let process = AVAssetExportSession(asset: asset, presetName: presetName)
             
             guard process != nil else {
                 print( "ERROR AKAudioFile export: cannot create an AVAssetExportSession!...")
@@ -269,7 +270,7 @@ extension AKAudioFile {
                     print(error.localizedDescription)
                 }
                 
-                callBack()
+                callBack(self)
             }
         }
         
@@ -304,7 +305,7 @@ extension AKAudioFile {
         }
         
         /// Returns the exported file as an AKAudioFile if export suceeded.
-        public var exportedAudioFile: AKAudioFile? {
+        public var audioFile: AKAudioFile? {
             return outputAudioFile
         }
         
@@ -318,4 +319,6 @@ extension AKAudioFile {
             exporter.cancelExport()
         }
     }
+    
+    public typealias AKExportCallback = ExportSession -> Void
 }
