@@ -17,8 +17,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var filter = AKLowPassButterworthFilter(player)
-
-//: Set the parameters here
 filter.cutoffFrequency = 500 // Hz
 
 AudioKit.output = filter
@@ -35,17 +33,17 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Low Pass Butterworth Filter")
 
         addButtons()
-
-        addLabel("Low Pass Filter Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        cutoffFrequencyLabel = addLabel("Cut-off Frequency: \(filter.cutoffFrequency) Hz")
-        addSlider(#selector(setCutoffFrequency),
-                  value: filter.cutoffFrequency,
-                  minimum: 10,
-                  maximum: 22050)
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: filter.cutoffFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.cutoffFrequency = sliderValue
+            })
     }
     override func startLoop(name: String) {
         player.stop()
@@ -63,12 +61,6 @@ class PlaygroundView: AKPlaygroundView {
 
     func bypass() {
         filter.bypass()
-    }
-
-    func setCutoffFrequency(slider: Slider) {
-        filter.cutoffFrequency = Double(slider.value)
-        let cutoffFrequency = String(format: "%0.1f", filter.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
     }
 }
 

@@ -41,11 +41,15 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        cutoffFrequencyLabel = addLabel("Cut-off Frequency: \(highPassFilter.cutoffFrequency) Hz")
-        addSlider(#selector(setCutoffFrequency),
-                  value: highPassFilter.cutoffFrequency,
-                  minimum: 10,
-                  maximum: 22050)
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: highPassFilter.cutoffFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            highPassFilter.cutoffFrequency = sliderValue
+            })
+
     }
     override func startLoop(name: String) {
         player.stop()
@@ -64,23 +68,6 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         highPassFilter.bypass()
     }
-
-    func setCutoffFrequency(slider: Slider) {
-        highPassFilter.cutoffFrequency = Double(slider.value)
-        let cutoffFrequency = String(format: "%0.1f", highPassFilter.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutoffFrequency = " +
-            String(format: "%0.3f", highPassFilter.cutoffFrequency))
-        Swift.print("}\n")
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))

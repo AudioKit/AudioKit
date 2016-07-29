@@ -30,27 +30,30 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var cutoffFrequencyLabel: Label?
-    var resonanceLabel: Label?
-
     override func setup() {
         addTitle("Low Pass Filter")
 
         addButtons()
-
-        addLabel("Low Pass Filter Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        cutoffFrequencyLabel = addLabel("Cut-off Frequency: \(lowPassFilter.cutoffFrequency) Hz")
-        addSlider(#selector(setCutoffFrequency),
-                  value: lowPassFilter.cutoffFrequency,
-                  minimum: 10,
-                  maximum: 22050)
-
-        resonanceLabel = addLabel("Resonance: 0 dB")
-        addSlider(#selector(setResonance), value: 0, minimum: -20, maximum: 40)
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: lowPassFilter.cutoffFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            lowPassFilter.cutoffFrequency = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Resonance",
+            format: "%0.1f dB",
+            value: lowPassFilter.resonance, minimum: -20, maximum: 40,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            lowPassFilter.resonance = sliderValue
+            })
 
     }
     override func startLoop(name: String) {
@@ -69,30 +72,6 @@ class PlaygroundView: AKPlaygroundView {
 
     func bypass() {
         lowPassFilter.bypass()
-    }
-
-    func setCutoffFrequency(slider: Slider) {
-        lowPassFilter.cutoffFrequency = Double(slider.value)
-        let cutoffFrequency = String(format: "%0.1f", lowPassFilter.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
-        printCode()
-    }
-
-    func setResonance(slider: Slider) {
-        lowPassFilter.resonance = Double(slider.value)
-        let resonance = String(format: "%0.1f", lowPassFilter.resonance)
-        resonanceLabel!.text = "Resonance: \(resonance) dB"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutOffFrequency = " +
-            String(format: "%0.3f", lowPassFilter.cutoffFrequency))
-        Swift.print("    resonance = \(String(format: "%0.3f", lowPassFilter.resonance))")
-        Swift.print("}\n")
     }
 
 }

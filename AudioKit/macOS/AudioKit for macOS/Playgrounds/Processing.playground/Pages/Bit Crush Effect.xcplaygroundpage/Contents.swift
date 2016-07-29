@@ -39,15 +39,24 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Bit Crusher")
 
         addButtons()
-
-        bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
-        addSlider(#selector(setBitDepth), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
-
-        sampleRateLabel = addLabel("Sample Rate: \(bitcrusher.sampleRate)")
-        addSlider(#selector(setSampleRate),
-                  value: bitcrusher.sampleRate,
-                  minimum: 0,
-                  maximum: 16000)
+        
+        addSubview(AKPropertySlider(
+            property: "Bit Depth",
+            format: "%0.2f",
+            value: bitcrusher.bitDepth, minimum: 1, maximum: 24,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            bitcrusher.bitDepth = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Sample Rate",
+            format: "%0.1f Hz",
+            value: bitcrusher.sampleRate, maximum: 16000,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            bitcrusher.sampleRate = sliderValue
+            })
     }
 
     override func startLoop(name: String) {
@@ -58,29 +67,6 @@ class PlaygroundView: AKPlaygroundView {
     }
     override func stop() {
         player.stop()
-    }
-
-    func setBitDepth(slider: Slider) {
-        bitcrusher.bitDepth = Double(slider.value)
-        let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
-        bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
-        printCode()
-    }
-
-    func setSampleRate(slider: Slider) {
-        bitcrusher.sampleRate = Double(slider.value)
-        let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
-        sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
-        Swift.print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
-        Swift.print("}\n")
     }
 }
 

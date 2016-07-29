@@ -26,6 +26,7 @@ filter.bandwidth = 600  // Cents
 filter.rampTime = 1.0
 AudioKit.output = filter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -39,19 +40,27 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        addLabel("Band Pass Filter Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        centerFrequencyLabel = addLabel("Center Frequency: \(filter.centerFrequency) Hz")
-        addSlider(#selector(setCenterFrequency),
-                  value: filter.centerFrequency,
-                  minimum: 20,
-                  maximum: 22050)
+        addSubview(AKPropertySlider(
+            property: "Center Frequency",
+            format: "%0.1f Hz",
+            value: filter.centerFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.centerFrequency = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Bandwidth",
+            format: "%0.1f Hz",
+            value: filter.bandwidth, minimum: 100, maximum: 1200,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            filter.bandwidth = sliderValue
+            })
 
-        bandwidthLabel = addLabel("Bandwidth \(filter.bandwidth) Cents")
-        addSlider(#selector(setBandwidth), value: filter.bandwidth, minimum: 100, maximum: 12000)
     }
     override func startLoop(name: String) {
         player.stop()
@@ -71,29 +80,6 @@ class PlaygroundView: AKPlaygroundView {
         filter.bypass()
     }
 
-    func setCenterFrequency(slider: Slider) {
-        filter.centerFrequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", filter.centerFrequency)
-        centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
-        printCode()
-    }
-
-    func setBandwidth(slider: Slider) {
-        filter.bandwidth = Double(slider.value)
-        let bandwidth = String(format: "%0.1f", filter.bandwidth)
-        bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
-        printCode()
-    }
-
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")
-        Swift.print("    bandwidth = \(String(format: "%0.3f", filter.bandwidth))")
-        Swift.print("}\n")
-    }
 }
 
 

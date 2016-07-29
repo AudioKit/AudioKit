@@ -51,8 +51,8 @@ public class AKSlider: NSSlider {
 public class AKPlaygroundView: NSView {
     
     public var elementHeight: CGFloat = 30
-    public var yPosition: Int = 80
-    public var horizontalSpacing = 40
+    public var yPosition: Int = 0
+    public var spacing = 25
     public var lastButton: NSButton?
     
     override public init(frame frameRect: NSRect) {
@@ -76,46 +76,42 @@ public class AKPlaygroundView: NSView {
     
     public func addTitle(text: String) -> NSTextField {
         let newLabel = NSTextField(frame:
-            CGRect(x: 0, y: 0, width: self.bounds.width, height: 2 * elementHeight))
+            CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.stringValue = text
         newLabel.editable = false
         newLabel.drawsBackground = false
         newLabel.bezeled = false
         newLabel.alignment = NSCenterTextAlignment
-        newLabel.frame.origin.y = self.bounds.height - CGFloat(2 * horizontalSpacing)
         newLabel.font = NSFont.boldSystemFontOfSize(24)
         self.addSubview(newLabel)
-        yPosition += horizontalSpacing
         return newLabel
     }
     
     public func addButton(label: String, action: Selector) -> NSButton {
         let newButton = NSButton(frame:
-            CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
+            CGRect(x: 10, y: 0, width: self.bounds.width, height: elementHeight))
         newButton.title = "\(label)    "
         newButton.font = NSFont.systemFontOfSize(18)
         
         // Line up multiple buttons in a row
         if let button = lastButton {
-            newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
-            yPosition -= horizontalSpacing
+            newButton.frame.origin.x += button.frame.origin.x + button.frame.width
+            yPosition -= spacing + Int(button.frame.height)
         }
         
-        newButton.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         newButton.sizeToFit()
         newButton.bezelStyle = NSBezelStyle.ShadowlessSquareBezelStyle
         newButton.target = self
         newButton.action = action
         self.addSubview(newButton)
-        yPosition += horizontalSpacing
-        lastButton = newButton
         
+        lastButton = newButton
         return newButton
     }
     
     public func addPopUpButton(label: String, titles: [String], action: Selector) -> NSPopUpButton {
         let newButton = NSPopUpButton(
-            frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight),
+            frame: CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight),
             pullsDown: true)
         newButton.addItemsWithTitles(titles)
         newButton.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
@@ -123,7 +119,6 @@ public class AKPlaygroundView: NSView {
         newButton.action = action
         newButton.title = "Set a new source audio file:"
         self.addSubview(newButton)
-        yPosition += horizontalSpacing
         return newButton
     }
     
@@ -136,58 +131,17 @@ public class AKPlaygroundView: NSView {
         newLabel.drawsBackground = false
         newLabel.bezeled = false
         newLabel.font = NSFont.systemFontOfSize(18)
-        newLabel.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
         self.addSubview(newLabel)
-        yPosition += horizontalSpacing
         return newLabel
     }
     
-    public func addSlider(action: Selector,
-                          value: Double = 0,
-                          minimum: Double = 0,
-                          maximum: Double = 1) -> AKSlider {
-        lastButton = nil
-        let newSlider = AKSlider(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
-        newSlider.frame.origin.y = self.bounds.height -  CGFloat(yPosition)
-        newSlider.minValue = Double(minimum)
-        newSlider.maxValue = Double(maximum)
-        newSlider.floatValue = Float(value)
-        newSlider.setNeedsDisplay()
-        newSlider.target = self
-        newSlider.action = action
-        self.addSubview(newSlider)
-        yPosition += horizontalSpacing
-        return newSlider
-    }
-        
-    public func updateValue(object: NSObject, forKey: String, value: Double) {
-        object.setValue(value, forKey: forKey)
-    }
-
-    
-    public func addTextField(action: Selector, text: String, value: Double = 0) -> TextField {
-        lastButton = nil
-        let newLabel = AKLabel(frame:
-            CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
-        newLabel.text = text
-        newLabel.editable = false
-        newLabel.bordered = false
-        newLabel.font = NSFont.systemFontOfSize(18)
-        newLabel.frame.origin.y = self.bounds.height - CGFloat(yPosition)
-        self.addSubview(newLabel)
-        
-        let newTextField =  NSTextField(frame:
-            CGRect(x: 0, y: 0, width: 100, height: 20))
-        newTextField.frame.origin.y = self.bounds.height - CGFloat(yPosition)
-        newTextField.frame.origin.x = CGFloat(self.frame.size.width - 100)
-        newTextField.stringValue = "\(value)"
-        newTextField.setNeedsDisplay()
-        newTextField.target = self
-        newTextField.action = action
-        self.addSubview(newTextField)
-        yPosition += horizontalSpacing
-        
-        return newTextField
+    public override func addSubview(view: NSView) {
+        yPosition += Int(view.frame.height) + spacing
+        view.frame.origin.y = self.bounds.height - CGFloat(yPosition)
+        if view.frame.origin.x < 30 {
+            view.frame.origin.x = 30
+        }
+        super.addSubview(view)
     }
     
     public required init?(coder: NSCoder) {
