@@ -38,11 +38,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
         keyboard.delegate = self
-
-        keyboard.frame.origin.y = CGFloat(200)
-
-        keyboard.delegate = self
-        self.addSubview(keyboard)
+        addSubview(keyboard)
     }
 
     func noteOn(note: Int) {

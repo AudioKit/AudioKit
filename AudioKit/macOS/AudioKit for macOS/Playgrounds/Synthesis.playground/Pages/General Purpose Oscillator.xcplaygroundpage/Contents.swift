@@ -47,23 +47,30 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
 
         addTitle("General Purpose Oscillator")
-
-        amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
-        addSlider(#selector(setAmplitude), value: currentAmplitude)
-
-        rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
-        addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 0.1)
+        
+        addSubview(AKPropertySlider(
+            property: "Amplitude",
+            value: currentAmplitude,
+            color: AKColor.redColor()
+        ) { amplitude in
+            currentAmplitude = amplitude
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Ramp Time",
+            value: currentRampTime, maximum: 0.1,
+            color: AKColor.cyanColor()
+        ) { time in
+            currentRampTime = time
+            })
 
         let keyboard = AKKeyboardView(width: playgroundWidth,
                                       height: 100,
                                       lowestKey: 24,
                                       totalKeys: 64)
         keyboard.delegate = self
-        keyboard.frame.origin.y = CGFloat(yPosition)
         addSubview(keyboard)
         addSubview(AKOutputWaveformPlot.createView())
-
-
     }
 
     func noteOn(note: Int) {
@@ -83,7 +90,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         oscillator.amplitude = 0
     }
 
-
     func setAmplitude(slider: Slider) {
         currentAmplitude = Double(slider.value)
         let amp = String(format: "%0.3f", currentAmplitude)
@@ -100,5 +106,4 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

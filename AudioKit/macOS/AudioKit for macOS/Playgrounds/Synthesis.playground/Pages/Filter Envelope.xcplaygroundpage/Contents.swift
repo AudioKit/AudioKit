@@ -71,12 +71,11 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("Filter Envelope")
 
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
             value: synth.cutoff, maximum: 5000,
-            color: AKColor.redColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.redColor()
         ) { frequency in
             synth.cutoff = frequency
         })
@@ -84,8 +83,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         let keyboard = AKKeyboardView(width: playgroundWidth - 60,
                                       height: 100, totalKeys: 36)
         keyboard.delegate = self
-        keyboard.frame.origin.y = CGFloat(yPosition)
-        self.addSubview(keyboard)
+        addSubview(keyboard)
     }
 
     func noteOn(note: Int) {

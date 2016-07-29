@@ -38,7 +38,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                       totalKeys: 24)
         keyboard.delegate = self
         keyboard.frame.origin.y = CGFloat(yPosition)
-        self.addSubview(keyboard)
+        addSubview(keyboard)
 
     }
 
