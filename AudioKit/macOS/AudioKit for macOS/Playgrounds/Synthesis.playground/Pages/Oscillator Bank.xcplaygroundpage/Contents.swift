@@ -3,55 +3,76 @@
 //: ---
 //:
 //: ## Oscillator Bank
-
 import XCPlayground
 import AudioKit
 
-let osc = AKOscillatorBank(waveform: AKTable(.Sine), attackDuration: 0.1, releaseDuration: 0.1)
+let osc = AKOscillatorBank(waveform: AKTable(.Sine),
+                           attackDuration: 0.1,
+                           releaseDuration: 0.1)
 
 AudioKit.output = osc
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var attackLabel: Label?
-    var decayLabel: Label?
-    var sustainLabel: Label?
-    var releaseLabel: Label?
-    var detuningOffsetLabel: Label?
-    var detuningMultiplierLabel: Label?
-
     override func setup() {
         addTitle("Oscillator Bank")
 
-        attackLabel = addLabel("Attack: \(osc.attackDuration)")
-        addSlider(#selector(setAttack), value: osc.attackDuration, minimum: 0.0, maximum: 2.0)
+        addSubview(AKPropertySlider(
+            property: "Attack",
+            format: "%0.3f",
+            value: osc.attackDuration, maximum: 2,
+            color: AKColor.greenColor()
+        ) { duration in
+            osc.attackDuration = duration
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Decay",
+            format: "%0.3f",
+            value: osc.decayDuration, maximum: 2,
+            color: AKColor.cyanColor()
+        ) { duration in
+            osc.decayDuration = duration
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Sustain Level",
+            format: "%0.3f",
+            value: osc.sustainLevel, maximum: 1,
+            color: AKColor.yellowColor()
+        ) { level in
+            osc.sustainLevel = level
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Release",
+            format: "%0.3f",
+            value:  osc.releaseDuration, maximum: 2,
+            color: AKColor.greenColor()
+        ) { duration in
+            osc.releaseDuration = duration
+            })
 
-        decayLabel = addLabel("Decay: \(osc.decayDuration)")
-        addSlider(#selector(setDecay), value: osc.decayDuration, minimum: 0.0, maximum: 2.0)
+        addSubview(AKPropertySlider(
+            property: "Detuning Offset",
+            format: "%0.3f",
+            value:  osc.releaseDuration, minimum: -1200, maximum: 1200,
+            color: AKColor.greenColor()
+        ) { offset in
+            osc.detuningOffset = offset
+            })
 
-        sustainLabel = addLabel("Sustain: \(osc.sustainLevel)")
-        addSlider(#selector(setSustain), value: osc.sustainLevel, minimum: 0.0, maximum: 2.0)
-
-
-        releaseLabel = addLabel("Release: \(osc.releaseDuration)")
-        addSlider(#selector(setRelease), value: osc.releaseDuration, minimum: 0.0, maximum: 2.0)
-
-
-        detuningOffsetLabel = addLabel("Detuning Offset: \(osc.detuningOffset)")
-        addSlider(#selector(setDetuningOffset),
-                  value: osc.detuningOffset,
-                  minimum: -1000,
-                  maximum: 1000)
-
-        detuningMultiplierLabel = addLabel("Detuning Multiplier: \(osc.detuningMultiplier)")
-        addSlider(#selector(setDetuningMultiplier),
-                  value: osc.detuningMultiplier,
-                  minimum: 0.9,
-                  maximum: 1.1)
+        addSubview(AKPropertySlider(
+            property: "Detuning Multiplier",
+            format: "%0.3f",
+            value:  osc.releaseDuration, minimum: 0.5, maximum: 2.0,
+            color: AKColor.greenColor()
+        ) { multiplier in
+            osc.detuningMultiplier = multiplier
+            })
 
         let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
-        keyboard.frame.origin.y = CGFloat(50)
         keyboard.delegate = self
         self.addSubview(keyboard)
     }
@@ -63,44 +84,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     func noteOff(note: Int) {
         osc.stop(noteNumber: note)
     }
-
-    func setAttack(slider: Slider) {
-        osc.attackDuration = Double(slider.value)
-        attackLabel!.text = "Attack: \(String(format: "%0.3f", osc.attackDuration))"
-    }
-
-    func setDecay(slider: Slider) {
-        osc.decayDuration = Double(slider.value)
-        decayLabel!.text = "Decay: \(String(format: "%0.3f", osc.decayDuration))"
-    }
-
-    func setSustain(slider: Slider) {
-        osc.sustainLevel = Double(slider.value)
-        sustainLabel!.text = "Sustain: \(String(format: "%0.3f", osc.sustainLevel))"
-    }
-
-    func setRelease(slider: Slider) {
-        osc.releaseDuration = Double(slider.value)
-        releaseLabel!.text = "Release: \(String(format: "%0.3f", osc.releaseDuration))"
-    }
-
-    func setDetuningOffset(slider: Slider) {
-        osc.detuningOffset = Double(slider.value)
-        detuningOffsetLabel!.text =
-            "Detuning Offset: \(String(format: "%0.3f", osc.detuningOffset))"
-    }
-
-    func setDetuningMultiplier(slider: Slider) {
-        osc.detuningMultiplier = Double(slider.value)
-        detuningMultiplierLabel!.text =
-            "Detuning Multiplier: \(String(format: "%0.3f", osc.detuningMultiplier))"
-    }
-
 }
-
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 750))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

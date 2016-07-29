@@ -26,61 +26,54 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addTitle("FM Oscillator Bank")
 
 
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Carrier Multiplier",
             format: "%0.3f",
             value: fmBank.carrierMultiplier, maximum: 2,
-            color: AKColor.redColor(),
-            frame: CGRect(x: 30, y: 390, width: self.bounds.width - 60, height: 60)
+            color: AKColor.redColor()
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
             })
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Modulating Multiplier",
             format: "%0.3f",
             value: fmBank.modulatingMultiplier, maximum: 2,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 300, width: self.bounds.width - 60, height: 60)
+            color: AKColor.greenColor()
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
             })
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Modulation Index",
             format: "%0.3f",
             value: fmBank.modulationIndex, maximum: 20,
-            color: AKColor.cyanColor(),
-            frame: CGRect(x: 30, y: 210, width: self.bounds.width - 60, height: 60)
+            color: AKColor.cyanColor()
         ) { index in
             fmBank.modulationIndex = index
             })
 
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Attack",
             format: "%0.3f",
             value: fmBank.attackDuration, maximum: 2,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
+            color: AKColor.greenColor()
         ) { duration in
             fmBank.attackDuration = duration
             })
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Release",
             format: "%0.3f",
             value: fmBank.releaseDuration, maximum: 2,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.greenColor()
         ) { duration in
             fmBank.releaseDuration = duration
             })
 
         let keyboard = AKPolyphonicKeyboardView(width: Int(self.bounds.width) - 60, height: 100)
-        keyboard.frame.origin.x = 30
-        keyboard.frame.origin.y = 480
         keyboard.delegate = self
-        self.addSubview(keyboard)
+        addSubview(keyboard)
     }
 
     func noteOn(note: Int) {

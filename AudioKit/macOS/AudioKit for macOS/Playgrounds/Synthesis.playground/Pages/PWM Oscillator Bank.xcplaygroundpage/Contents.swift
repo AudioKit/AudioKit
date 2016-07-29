@@ -40,8 +40,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSlider(#selector(setDetuningMultiplier), value: osc.detuningMultiplier, minimum: 0.9, maximum: 1.1)
 
         let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
-        keyboard.frame.origin.y = CGFloat(yPosition)
-        keyboard.setNeedsDisplay()
         keyboard.delegate = self
         self.addSubview(keyboard)
     }

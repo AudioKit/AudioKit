@@ -32,12 +32,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Metronome")
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Frequency",
             format: "%0.2f BPM",
             value: 60, minimum: 40, maximum: 240,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 55)
+            color: AKColor.greenColor()
         ) { frequency in
             generator.parameters[0] = frequency
         })

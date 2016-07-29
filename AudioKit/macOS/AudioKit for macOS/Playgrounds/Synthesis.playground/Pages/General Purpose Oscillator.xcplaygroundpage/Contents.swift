@@ -45,9 +45,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     var rampTimeLabel: Label?
 
     override func setup() {
-        let plotView = AKOutputWaveformPlot.createView()
-        plotView.frame.origin.y += 200
-        self.addSubview(plotView)
 
         addTitle("General Purpose Oscillator")
 
@@ -63,7 +60,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                                       totalKeys: 64)
         keyboard.delegate = self
         keyboard.frame.origin.y = CGFloat(yPosition)
-        self.addSubview(keyboard)
+        addSubview(keyboard)
+        addSubview(AKOutputWaveformPlot.createView())
 
 
     }

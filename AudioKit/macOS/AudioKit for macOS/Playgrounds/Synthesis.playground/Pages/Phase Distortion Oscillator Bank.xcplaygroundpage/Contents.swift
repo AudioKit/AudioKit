@@ -46,8 +46,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                   maximum: 1.1)
 
         let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
-        keyboard.frame.origin.y = CGFloat(yPosition)
-        keyboard.setNeedsDisplay()
         keyboard.delegate = self
         self.addSubview(keyboard)
     }

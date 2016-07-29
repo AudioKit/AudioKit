@@ -37,8 +37,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Detune",
             format: "%0.2f",
             value: mandolin.detune, minimum: 0.5, maximum: 2,
-            color: AKColor.magentaColor(),
-            frame: CGRect(x: 30, y: 210, width: self.bounds.width - 60, height: 60)
+            color: AKColor.magentaColor()
         ) { detune in
             mandolin.detune = detune
         }
@@ -48,8 +47,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Body Size",
             format: "%0.2f",
             value: mandolin.bodySize, minimum: 0.2, maximum: 3,
-            color: AKColor.cyanColor(),
-            frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
+            color: AKColor.cyanColor()
         ) { bodySize in
             mandolin.bodySize = bodySize
         }
@@ -60,8 +58,7 @@ class PlaygroundView: AKPlaygroundView {
             property: "Pluck Position",
             format: "%0.2f",
             value: pluckPosition,
-            color: AKColor.redColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.redColor()
         ) { position in
             pluckPosition = position
         })
