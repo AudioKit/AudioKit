@@ -73,7 +73,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKOutputWaveformPlot.createView())
     }
 
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
@@ -86,20 +86,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         oscillator.play()
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         oscillator.amplitude = 0
-    }
-
-    func setAmplitude(slider: Slider) {
-        currentAmplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", currentAmplitude)
-        amplitudeLabel!.text = "Amplitude: \(amp)"
-    }
-
-    func setRampTime(slider: Slider) {
-        currentRampTime = Double(slider.value)
-        let rampTime = String(format: "%0.3f", currentRampTime)
-        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 }
 

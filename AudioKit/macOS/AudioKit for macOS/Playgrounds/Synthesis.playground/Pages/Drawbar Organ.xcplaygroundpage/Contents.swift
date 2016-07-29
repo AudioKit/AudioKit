@@ -20,29 +20,29 @@ var baseNote = 0
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var amplitudeLabels = [Label]()
-    var sliders = [Slider]()
     override func setup() {
         addTitle("Drawbar Organ")
         for i in 0 ..< noteCount {
-            amplitudeLabels.append(addLabel("Amplitude \(names[i]): \(amplitudes[i])"))
-            amplitudeLabels[i].frame.origin.y = 800-CGFloat(i)*60
-            sliders.append(addSlider(#selector(setAmplitude), value: amplitudes[i]))
-            sliders[i].frame.origin.y = 780-CGFloat(i)*60
-
+            let slider = AKPropertySlider(
+                property: "Amplitude \(names[i])",
+                value: amplitudes[i],
+                color: AKColor.greenColor()
+            ) { amp in
+                amplitudes[i] = amp
+                }
+            addSubview(slider)
         }
 
-        let keyboard = AKKeyboardView(width: 500,
+        let keyboard = AKKeyboardView(width: 440,
                                       height: 100,
                                       lowestKey: 48,
                                       totalKeys: 24)
         keyboard.delegate = self
-        keyboard.frame.origin.y = CGFloat(yPosition)
         addSubview(keyboard)
 
     }
 
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         if note != baseNote {
             stopAll()
             baseNote = note
@@ -50,7 +50,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         }
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         stopAll()
     }
 
@@ -63,14 +63,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     func startAll() {
         for i in 0 ..< noteCount {
             oscillator.play(noteNumber: baseNote + offsets[i], velocity: Int(amplitudes[i] * 127))
-        }
-    }
-
-    func setAmplitude(slider: Slider) {
-        if let index = sliders.indexOf(slider) {
-            amplitudes[index] = Double(slider.value)
-            let amp = String(format: "%0.3f", amplitudes[index])
-            amplitudeLabels[index].text = "Amplitude \(names[index]): \(amp)"
         }
     }
 }

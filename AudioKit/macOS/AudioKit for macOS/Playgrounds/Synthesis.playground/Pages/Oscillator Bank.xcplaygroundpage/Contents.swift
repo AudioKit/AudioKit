@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Sustain Level",
             format: "%0.3f",
-            value: osc.sustainLevel, maximum: 1,
+            value: osc.sustainLevel,
             color: AKColor.yellowColor()
         ) { level in
             osc.sustainLevel = level
@@ -77,11 +77,11 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(keyboard)
     }
 
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         osc.play(noteNumber: note, velocity: 80)
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         osc.stop(noteNumber: note)
     }
 }

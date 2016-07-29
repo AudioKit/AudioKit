@@ -76,11 +76,11 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(keyboard)
     }
 
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         fmBank.play(noteNumber: note, velocity: 80)
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         fmBank.stop(noteNumber: note)
     }
 
