@@ -38,18 +38,28 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        addLabel("High Pass Filter Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        cutoffFrequencyLabel = addLabel("Cut-off Frequency: 6900 Hz")
-        addSlider(#selector(setCutoffFrequency), value: 6900, minimum: 10, maximum: 22050)
-
-        resonanceLabel = addLabel("Resonance: 0 dB")
-        addSlider(#selector(setResonance), value: 0, minimum: -20, maximum: 40)
-
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: highPassFilter.cutoffFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            highPassFilter.cutoffFrequency = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Resonance",
+            format: "%0.1f dB",
+            value: highPassFilter.resonance, minimum: -20, maximum: 40,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            highPassFilter.resonance = sliderValue
+            })
     }
+    
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
@@ -66,30 +76,6 @@ class PlaygroundView: AKPlaygroundView {
 
     func bypass() {
         highPassFilter.bypass()
-    }
-
-    func setCutoffFrequency(slider: Slider) {
-        highPassFilter.cutoffFrequency = Double(slider.value)
-        let cutoffFrequency = String(format: "%0.1f", highPassFilter.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
-        printCode()
-    }
-
-    func setResonance(slider: Slider) {
-        highPassFilter.resonance = Double(slider.value)
-        let resonance = String(format: "%0.1f", highPassFilter.resonance)
-        resonanceLabel!.text = "Resonance: \(resonance) dB"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutoffFrequency = " +
-            String(format: "%0.3f", highPassFilter.cutoffFrequency))
-        Swift.print("    resonance = \(String(format: "%0.3f", highPassFilter.resonance))")
-        Swift.print("}\n")
     }
 }
 

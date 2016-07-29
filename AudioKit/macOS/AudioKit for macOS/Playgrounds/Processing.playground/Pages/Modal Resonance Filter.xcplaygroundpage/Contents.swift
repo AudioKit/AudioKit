@@ -35,11 +35,24 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        frequencyLabel = addLabel("Frequency: \(filter.frequency)")
-        addSlider(#selector(setFrequency), value: filter.frequency, minimum: 0, maximum: 5000)
+        addSubview(AKPropertySlider(
+            property: "Frequency",
+            format: "%0.1f Hz",
+            value: filter.frequency, maximum: 5000,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.frequency = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Quality Factor",
+            format: "%0.1f",
+            value: filter.qualityFactor, minimum: 0.1, maximum: 20,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            filter.qualityFactor = sliderValue
+            })
 
-        qualityFactorLabel = addLabel("Quality Factor: \(filter.qualityFactor)")
-        addSlider(#selector(setQualityFactor), value: filter.qualityFactor, minimum: 0.1, maximum: 20)
     }
 
     override func startLoop(name: String) {
@@ -50,28 +63,6 @@ class PlaygroundView: AKPlaygroundView {
     }
     override func stop() {
         player.stop()
-    }
-
-    func setFrequency(slider: Slider) {
-        filter.frequency = Double(slider.value)
-        frequencyLabel!.text = "Frequency: \(String(format: "%0.0f", filter.frequency))"
-        printCode()
-    }
-
-    func setQualityFactor(slider: Slider) {
-        filter.qualityFactor = Double(slider.value)
-        qualityFactorLabel!.text =
-            "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    frequency = \(String(format: "%0.3f", filter.frequency))")
-        Swift.print("    qualityFactor = \(String(format: "%0.3f", filter.qualityFactor))")
-        Swift.print("}\n")
     }
 
 }

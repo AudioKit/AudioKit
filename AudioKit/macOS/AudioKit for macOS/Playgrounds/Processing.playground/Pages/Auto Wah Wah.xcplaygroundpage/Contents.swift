@@ -35,18 +35,22 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        wahLabel = addLabel("Wah: \(wah.wah)")
-        addSlider(#selector(setWah), value: wah.wah)
+        addSubview(AKPropertySlider(
+            property: "Wah",
+            value: wah.wah,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            wah.wah = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav",
-                                    baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-    func stop() {
+    override func stop() {
         player.stop()
     }
 

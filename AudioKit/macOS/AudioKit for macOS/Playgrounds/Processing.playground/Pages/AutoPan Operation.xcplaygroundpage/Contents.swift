@@ -53,13 +53,22 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        speedLabel = addLabel("Speed: \(effect.speed)")
-        addSlider(#selector(setSpeed), value: effect.speed, minimum: 0.1, maximum: 25)
-
-        depthLabel = addLabel("Depth: \(effect.depth)")
-        addSlider(#selector(setDepth), value: effect.depth)
+        addSubview(AKPropertySlider(
+            property: "Speed",
+            value: effect.speed, minimum: 0.1, maximum: 25,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.speed = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Depth",
+            value: effect.depth,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            effect.depth = sliderValue
+            })
     }
-
 
     override func startLoop(name: String) {
         player.stop()
@@ -70,24 +79,6 @@ class PlaygroundView: AKPlaygroundView {
 
     override func stop() {
         player.stop()
-    }
-
-    func setSpeed(slider: Slider) {
-        effect.speed = Double(slider.value)
-        speedLabel!.text = "Speed: \(String(format: "%0.3f", effect.speed))"
-        printParameters()
-    }
-
-    func setDepth(slider: Slider) {
-        effect.depth = Double(slider.value)
-        depthLabel!.text = "Depth: \(String(format: "%0.3f", effect.depth))"
-        printParameters()
-    }
-
-    func printParameters() {
-        let realSpeed = effect.parameters[speedIndex]
-        let realDepth = effect.parameters[depthIndex]
-        Swift.print("speed = \(realSpeed), depth = \(realDepth)")
     }
 }
 
