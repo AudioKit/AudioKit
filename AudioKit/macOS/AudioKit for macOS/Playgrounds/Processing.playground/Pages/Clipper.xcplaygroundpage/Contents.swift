@@ -30,35 +30,23 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        limitLabel = addLabel("Limit: \(clipper.limit)")
-        addSlider(#selector(setLimit), value: clipper.limit)
+        addSubview(AKPropertySlider(
+            property: "Limit",
+            value: clipper.limit,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            clipper.limit = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-
-    func stop() {
+    override func stop() {
         player.stop()
-    }
-
-    func setLimit(slider: Slider) {
-        clipper.limit = Double(slider.value)
-        let limit = String(format: "%0.3f", clipper.limit)
-        limitLabel!.text = "Limit: \(limit)"
-        printCode()
-    }
-
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    limit = \(String(format: "%0.3f", clipper.limit))")
-        Swift.print("}\n")
     }
 }
 

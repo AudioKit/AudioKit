@@ -35,15 +35,31 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Decimator")
 
         addButtons()
+        
+        addSubview(AKPropertySlider(
+            property: "Decimation",
+            value: decimator.decimation,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            decimator.decimation = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Rounding",
+            value: decimator.rounding,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            decimator.rounding = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Mix",
+            value: decimator.mix,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            decimator.mix = sliderValue
+            })
 
-        decimationLabel = addLabel("Decimation: \(decimator.decimation)")
-        addSlider(#selector(setDecimation), value: decimator.decimation)
-
-        roundingLabel = addLabel("Rounding: \(decimator.rounding)")
-        addSlider(#selector(setRounding), value: decimator.rounding)
-
-        mixLabel = addLabel("Mix: \(decimator.mix)")
-        addSlider(#selector(setMix), value: decimator.mix)
     }
     override func startLoop(name: String) {
         player.stop()
@@ -55,39 +71,6 @@ class PlaygroundView: AKPlaygroundView {
     override func stop() {
         player.stop()
     }
-
-    func setDecimation(slider: Slider) {
-        decimator.decimation = Double(slider.value)
-        let decimation = String(format: "%0.3f", decimator.decimation)
-        decimationLabel!.text = "Decimation: \(decimation)"
-        printCode()
-    }
-
-    func setRounding(slider: Slider) {
-        decimator.rounding = Double(slider.value)
-        let rounding = String(format: "%0.3f", decimator.rounding)
-        roundingLabel!.text = "Rounding: \(rounding)"
-        printCode()
-    }
-
-    func setMix(slider: Slider) {
-        decimator.mix = Double(slider.value)
-        let mix = String(format: "%0.3f", decimator.mix)
-        mixLabel!.text = "Mix: \(mix)"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    decimation = \(String(format: "%0.3f", decimator.decimation))")
-        Swift.print("    rounding = \(String(format: "%0.3f", decimator.rounding))")
-        Swift.print("    mix = \(String(format: "%0.3f", decimator.mix))")
-
-        Swift.print("}\n")
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))

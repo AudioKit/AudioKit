@@ -26,8 +26,8 @@ var dishConvolution = AKConvolution.init(player,
                                          impulseResponseFileURL: dish,
                                          partitionLength: 8192)
 
-var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 1)
-var dryWetMixer = AKDryWetMixer(player, mixer, balance: 1)
+var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
+var dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
 
 AudioKit.output = dryWetMixer
 AudioKit.start()
@@ -43,35 +43,33 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        addLineBreak()
-
-        addLabel("Convolution Parameters")
-
-        addLabel("Mix: Dry Audio to Fully Convolved")
-        addSlider(#selector(setDryWet), value: dryWetMixer.balance)
-
-        addLabel("Impulse Response: Stairwell to Dish")
-        addSlider(#selector(setIRMix), value: mixer.balance)
+        addSubview(AKPropertySlider(
+            property: "Dry Audio to Convolved",
+            value: dryWetMixer.balance,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            dryWetMixer.balance = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Stairwell to Dish",
+            value: mixer.balance,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            mixer.balance = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-
-    func stop() {
+    override func stop() {
         player.stop()
     }
 
-    func setIRMix(slider: Slider) {
-        mixer.balance = Double(slider.value)
-    }
-
-    func setDryWet(slider: Slider) {
-        dryWetMixer.balance = Double(slider.value)
-    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:400))
