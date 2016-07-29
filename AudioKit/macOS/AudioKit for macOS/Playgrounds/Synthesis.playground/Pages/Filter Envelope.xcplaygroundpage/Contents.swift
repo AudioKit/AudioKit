@@ -86,12 +86,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(keyboard)
     }
 
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         synth.frequency = note.midiNoteToFrequency()
         synth.gate = 1
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         synth.gate = 0
     }
 }

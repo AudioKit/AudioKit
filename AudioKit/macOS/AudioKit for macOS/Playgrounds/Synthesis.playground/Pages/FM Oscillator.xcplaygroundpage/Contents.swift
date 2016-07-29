@@ -86,7 +86,7 @@ class PlaygroundView: AKPlaygroundView {
         amplitudeSlider = AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
-            value: oscillator.amplitude, maximum: 1,
+            value: oscillator.amplitude,
             color: AKColor.purpleColor()
         ) { amplitude in
             oscillator.amplitude = amplitude

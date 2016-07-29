@@ -694,7 +694,7 @@
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C446B3D61D45447A000AEFCA /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
 		C446B3D71D45447A000AEFCA /* FileHandling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FileHandling.playground; sourceTree = "<group>"; };
-		C446B3D81D45447A000AEFCA /* HeadphonesRequired.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = HeadphonesRequired.playground; sourceTree = "<group>"; };
+		C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = macOSDevelopment.playground; sourceTree = "<group>"; };
 		C446B3D91D45447A000AEFCA /* MIDI.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MIDI.playground; sourceTree = "<group>"; };
 		C446B3DA1D45447A000AEFCA /* Processing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Processing.playground; sourceTree = "<group>"; };
 		C446B3DB1D45447A000AEFCA /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Synthesis.playground; sourceTree = "<group>"; };
@@ -1418,8 +1418,8 @@
 				C446B3DA1D45447A000AEFCA /* Processing.playground */,
 				C446B3D61D45447A000AEFCA /* Analysis.playground */,
 				C446B3D71D45447A000AEFCA /* FileHandling.playground */,
-				C446B3D81D45447A000AEFCA /* HeadphonesRequired.playground */,
 				C446B3D91D45447A000AEFCA /* MIDI.playground */,
+				C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */,
 			);
 			name = Playgrounds;
 			path = "AudioKit for macOS/Playgrounds";

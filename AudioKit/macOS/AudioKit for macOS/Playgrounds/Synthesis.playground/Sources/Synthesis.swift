@@ -53,7 +53,7 @@ public class AKPlaygroundView: NSView {
     
     public var elementHeight: CGFloat = 30
     public var yPosition: Int = 0
-    public var horizontalSpacing = 25
+    public var spacing = 25
     public var lastButton: NSButton?
     
     override public init(frame frameRect: NSRect) {
@@ -97,7 +97,7 @@ public class AKPlaygroundView: NSView {
         // Line up multiple buttons in a row
         if let button = lastButton {
             newButton.frame.origin.x += button.frame.origin.x + button.frame.width
-            yPosition -= horizontalSpacing + Int(button.frame.height)
+            yPosition -= spacing + Int(button.frame.height)
         }
         
         newButton.sizeToFit()
@@ -124,24 +124,8 @@ public class AKPlaygroundView: NSView {
         return newLabel
     }
     
-    public func addSlider(action: Selector,
-                          value: Double = 0,
-                          minimum: Double = 0,
-                          maximum: Double = 1) -> AKSlider {
-        lastButton = nil
-        let newSlider = AKSlider(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: 20))
-        newSlider.minValue = Double(minimum)
-        newSlider.maxValue = Double(maximum)
-        newSlider.floatValue = Float(value)
-        newSlider.setNeedsDisplay()
-        newSlider.target = self
-        newSlider.action = action
-        self.addSubview(newSlider)
-        return newSlider
-    }
-    
     public override func addSubview(view: NSView) {
-        yPosition += Int(view.frame.height) + horizontalSpacing
+        yPosition += Int(view.frame.height) + spacing
         view.frame.origin.y = self.bounds.height - CGFloat(yPosition)
         if view.frame.origin.x < 30 {
             view.frame.origin.x = 30
