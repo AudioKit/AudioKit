@@ -8,8 +8,8 @@
 
 #if os(OSX)
     public typealias AKView = NSView
-    typealias AKColor = NSColor
+    public typealias AKColor = NSColor
 #else
     public typealias AKView = UIView
-    typealias AKColor = UIColor
+    public typealias AKColor = UIColor
 #endif

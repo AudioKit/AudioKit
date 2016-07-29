@@ -65,7 +65,7 @@ public class AKOutputWaveformPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public static func createView(width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
+    public static func createView(width width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
 
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKOutputWaveformPlot(frame: frame)

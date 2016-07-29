@@ -25,11 +25,23 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
 
-        frequencyLabel = addLabel("Frequency: 440")
-        addSlider(#selector(setFrequency), value: 440, minimum: 200, maximum: 800)
-
-        amplitudeLabel = addLabel("Amplitude: 0.1")
-        addSlider(#selector(setAmplitude), value: 0.1)
+        addSubview(AKPropertySlider(
+            property: "Frequency",
+            format: "%0.2f Hz",
+            value: oscillator.frequency, minimum: 220, maximum: 880,
+            color: AKColor.yellowColor()
+        ) { frequency in
+            oscillator.frequency = frequency
+        })
+        
+        addSubview(AKPropertySlider(
+            property: "Amplitude",
+            format: "%0.3f",
+            value: oscillator.amplitude,
+            color: AKColor.magentaColor()
+        ) { amplitude in
+            oscillator.amplitude = amplitude
+        })
     }
 
     func start() {
@@ -39,32 +51,9 @@ class PlaygroundView: AKPlaygroundView {
     func stop() {
         oscillator.stop()
     }
-
-    func setFrequency(slider: Slider) {
-        oscillator.frequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", oscillator.frequency)
-        frequencyLabel!.text = "Frequency: \(frequency)"
-        printCode()
-    }
-
-    func setAmplitude(slider: Slider) {
-        oscillator.amplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", oscillator.amplitude)
-        amplitudeLabel!.text = "Amplitude: \(amp)"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    frequency = \(String(format: "%0.3f", oscillator.frequency))")
-        Swift.print("    amplitude = \(String(format: "%0.3f", oscillator.amplitude))")
-        Swift.print("}\n")
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 330))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

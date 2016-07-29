@@ -122,11 +122,11 @@
 		C43622CD1CCDC70B00DB41DE /* AKMIDISampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43622CC1CCDC70B00DB41DE /* AKMIDISampler.swift */; };
 		C437927B1C0CE2E0001E9160 /* AudioKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437927A1C0CE2E0001E9160 /* AudioKitTests.swift */; };
 		C437927D1C0CE2E0001E9160 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
+		C44243061D4B0FEE00C4182C /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */; };
+		C44243081D4B102100C4182C /* AKFlatSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44243071D4B102100C4182C /* AKFlatSlider.swift */; };
 		C446B3EC1D454AB6000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */; };
-		C446B3ED1D454AB6000AEFCA /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E81D454AB6000AEFCA /* AKPlaygroundView.swift */; };
 		C446B3EE1D454AB6000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */; };
 		C446B3EF1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */; };
-		C446B3F01D454AB6000AEFCA /* AKTouchKeyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3EB1D454AB6000AEFCA /* AKTouchKeyView.swift */; };
 		C44B596D1C4B04BF0008507F /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B596C1C4B04BF0008507F /* segment.swift */; };
 		C44B597D1C4B5FC70008507F /* AKMorphingOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B59791C4B5FC70008507F /* AKMorphingOscillator.swift */; };
 		C44B597E1C4B5FC70008507F /* AKMorphingOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C44B597A1C4B5FC70008507F /* AKMorphingOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -822,6 +822,8 @@
 		C43792781C0CE2E0001E9160 /* AudioKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C437927A1C0CE2E0001E9160 /* AudioKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKitTests.swift; sourceTree = "<group>"; };
 		C437927C1C0CE2E0001E9160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
+		C44243071D4B102100C4182C /* AKFlatSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatSlider.swift; sourceTree = "<group>"; };
 		C446B3C41D45296A000AEFCA /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
 		C446B3C51D45296A000AEFCA /* FileHandling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FileHandling.playground; sourceTree = "<group>"; };
 		C446B3C61D45296A000AEFCA /* MIDI.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MIDI.playground; sourceTree = "<group>"; };
@@ -829,10 +831,8 @@
 		C446B3C81D45296A000AEFCA /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Synthesis.playground; sourceTree = "<group>"; };
 		C446B3C91D45296A000AEFCA /* Tutorials.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tutorials.playground; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
-		C446B3E81D454AB6000AEFCA /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
 		C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicKeyboardView.swift; sourceTree = "<group>"; };
-		C446B3EB1D454AB6000AEFCA /* AKTouchKeyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTouchKeyView.swift; sourceTree = "<group>"; };
 		C44B596C1C4B04BF0008507F /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 		C44B59791C4B5FC70008507F /* AKMorphingOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMorphingOscillator.swift; sourceTree = "<group>"; };
 		C44B597A1C4B5FC70008507F /* AKMorphingOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMorphingOscillatorAudioUnit.h; sourceTree = "<group>"; };
@@ -1283,6 +1283,7 @@
 		C48DB7E11CD5797100D1EC13 /* MIDIPacket+SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDIPacket+SequenceType.swift"; sourceTree = "<group>"; };
 		C48DB7E21CD5797100D1EC13 /* MIDIPacketList+SequenceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MIDIPacketList+SequenceType.swift"; sourceTree = "<group>"; };
 		C48DB7E31CD5797100D1EC13 /* MIDIPacketListGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIDIPacketListGenerator.swift; sourceTree = "<group>"; };
+		C49024741D4AFE51001C4CBA /* iOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = iOSDevelopment.playground; sourceTree = "<group>"; };
 		C49351F91C3CB93300A28D7F /* AKPanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPanner.swift; sourceTree = "<group>"; };
 		C49351FA1C3CB93300A28D7F /* AKPannerAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPannerAudioUnit.h; sourceTree = "<group>"; };
 		C49351FB1C3CB93300A28D7F /* AKPannerAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPannerAudioUnit.mm; sourceTree = "<group>"; };
@@ -1862,6 +1863,7 @@
 				C446B3C41D45296A000AEFCA /* Analysis.playground */,
 				C446B3C51D45296A000AEFCA /* FileHandling.playground */,
 				C446B3C61D45296A000AEFCA /* MIDI.playground */,
+				C49024741D4AFE51001C4CBA /* iOSDevelopment.playground */,
 			);
 			name = Playgrounds;
 			path = AudioKit/Playgrounds;
@@ -1870,11 +1872,11 @@
 		C446B3E61D454AB6000AEFCA /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				C44243071D4B102100C4182C /* AKFlatSlider.swift */,
 				C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */,
-				C446B3E81D454AB6000AEFCA /* AKPlaygroundView.swift */,
+				C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */,
 				C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */,
 				C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */,
-				C446B3EB1D454AB6000AEFCA /* AKTouchKeyView.swift */,
 			);
 			name = iOS;
 			path = "AudioKit/User Interface";
@@ -3555,6 +3557,7 @@
 				C48DB7C51CD56AC100D1EC13 /* AKMIDIControl.swift in Sources */,
 				C48C6D281D3C15F2008EA51B /* tdiv.c in Sources */,
 				C45380181C3A4CCE00A51738 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
+				C44243061D4B0FEE00C4182C /* AKPropertySlider.swift in Sources */,
 				C48C6CD11D3C15F1008EA51B /* autowah.c in Sources */,
 				C4FE01631CED2DB40062B3A3 /* AKNodeRecorder.swift in Sources */,
 				C45380731C3A5BDA00A51738 /* AKOscillator.swift in Sources */,
@@ -3806,7 +3809,6 @@
 				C496149E1C2F33B400ACAB4E /* reverberateWithCostello.swift in Sources */,
 				C48C6C881D3C15F1008EA51B /* osc.c in Sources */,
 				C40C41D01C40E4EE009D870B /* AKTesterAudioUnit.mm in Sources */,
-				C446B3ED1D454AB6000AEFCA /* AKPlaygroundView.swift in Sources */,
 				C4537F3C1C39FCF700A51738 /* AKPeakLimiter.swift in Sources */,
 				C40AD69B1C463B2600B638AF /* AKMIDIInstrument.swift in Sources */,
 				C407163A1D21162900665C02 /* Twang.cpp in Sources */,
@@ -3818,7 +3820,6 @@
 				C48C6D271D3C15F2008EA51B /* tblrec.c in Sources */,
 				C49D69751D1F1DE300BF018A /* AKOscillatorBank.swift in Sources */,
 				C493520D1C3CBA6C00A28D7F /* AKBalancerAudioUnit.mm in Sources */,
-				C446B3F01D454AB6000AEFCA /* AKTouchKeyView.swift in Sources */,
 				C45380931C3A5C0C00A51738 /* AKWhiteNoiseAudioUnit.mm in Sources */,
 				C4537FD71C3A438D00A51738 /* AKLowShelfParametricEqualizerFilterAudioUnit.mm in Sources */,
 				C48C6CB11D3C15F1008EA51B /* tevent.c in Sources */,
@@ -3926,6 +3927,7 @@
 				C48C6D301D3C15F2008EA51B /* tog.c in Sources */,
 				C48C6D021D3C15F2008EA51B /* maygate.c in Sources */,
 				C4537FE41C3A438D00A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
+				C44243081D4B102100C4182C /* AKFlatSlider.swift in Sources */,
 				C40C416B1C40E3A5009D870B /* EZRecorder.m in Sources */,
 				C48C6CFD1D3C15F2008EA51B /* jitter.c in Sources */,
 				C4537FB31C3A438D00A51738 /* AKBandRejectButterworthFilterAudioUnit.mm in Sources */,

@@ -27,23 +27,38 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
         addTitle("PWM Oscillator")
 
-        amplitudeLabel = addLabel("Amplitude: \(currentAmplitude)")
-        addSlider(#selector(setAmplitude), value: currentAmplitude)
+        addSubview(AKPropertySlider(
+            property: "Amplitude",
+            format: "%0.3f",
+            value: currentAmplitude, 
+            color: AKColor.purpleColor()
+        ) { amplitude in
+            currentAmplitude = amplitude
+            })
 
-        pulseWidthLabel = addLabel("Pulse Width: \(oscillator.pulseWidth)")
-        addSlider(#selector(setPulseWidth), value: oscillator.pulseWidth, minimum: 0.5, maximum: 1)
+        addSubview(AKPropertySlider(
+            property: "Pulse Width",
+            value: oscillator.pulseWidth,
+            color: AKColor.redColor()
+        ) { amount in
+            oscillator.pulseWidth = amount
+            })
 
-        rampTimeLabel = addLabel("Ramp Time: \(currentRampTime)")
-        addSlider(#selector(setRampTime), value: currentRampTime, minimum: 0, maximum: 5.0)
+        addSubview(AKPropertySlider(
+            property: "Ramp Time",
+            format: "%0.3f s",
+            value: currentRampTime, maximum: 10,
+            color: AKColor.orangeColor()
+        ) { time in
+            currentRampTime = time
+            })
 
         let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
-        keyboard.frame.origin.y = CGFloat(yPosition)
-        keyboard.setNeedsDisplay()
         keyboard.delegate = self
-        self.addSubview(keyboard)
+        addSubview(keyboard)
     }
 
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
@@ -56,32 +71,12 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         oscillator.play()
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         oscillator.amplitude = 0
-    }
-
-    func setPulseWidth(slider: Slider) {
-        oscillator.pulseWidth = Double(slider.value)
-        let pw = String(format: "%0.3f", oscillator.pulseWidth)
-        pulseWidthLabel!.text = "Pulse Width: \(pw)"
-    }
-
-
-    func setAmplitude(slider: Slider) {
-        currentAmplitude = Double(slider.value)
-        let amp = String(format: "%0.3f", currentAmplitude)
-        amplitudeLabel!.text = "Amplitude: \(amp)"
-    }
-
-    func setRampTime(slider: Slider) {
-        currentRampTime = Double(slider.value)
-        let rampTime = String(format: "%0.3f", currentRampTime)
-        rampTimeLabel!.text = "Ramp Time: \(rampTime)"
     }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -27,61 +27,49 @@ let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
 class PlaygroundView: AKPlaygroundView {
 
-    // UI Elements we'll need to be able to access
-    var detuneLabel: Label?
-    var bodySizeLabel: Label?
-    var pluckPositionLabel: Label?
-    var detuneSlider: Slider?
-    var bodySizeSlider: Slider?
+    var detuneSlider: AKPropertySlider?
+    var bodySizeSlider: AKPropertySlider?
 
     override func setup() {
         addTitle("Mandolin")
+        
+        detuneSlider = AKPropertySlider(
+            property: "Detune",
+            format: "%0.2f",
+            value: mandolin.detune, minimum: 0.5, maximum: 2,
+            color: AKColor.magentaColor()
+        ) { detune in
+            mandolin.detune = detune
+        }
+        addSubview(detuneSlider!)
+        
+        bodySizeSlider = AKPropertySlider(
+            property: "Body Size",
+            format: "%0.2f",
+            value: mandolin.bodySize, minimum: 0.2, maximum: 3,
+            color: AKColor.cyanColor()
+        ) { bodySize in
+            mandolin.bodySize = bodySize
+        }
+        addSubview(bodySizeSlider!)
 
-        detuneLabel = addLabel("Detune: \(mandolin.detune)")
-        detuneSlider = addSlider(#selector(setDetune),
-                                 value: mandolin.detune,
-                                 minimum: 0.5,
-                                 maximum: 2.0)
+        addSubview(AKPropertySlider(
+            property: "Pluck Position",
+            format: "%0.2f",
+            value: pluckPosition,
+            color: AKColor.redColor()
+        ) { position in
+            pluckPosition = position
+        })
 
-        bodySizeLabel = addLabel("Body Size: \(mandolin.bodySize)")
-        bodySizeSlider = addSlider(#selector(setBodySize),
-                                   value: mandolin.bodySize,
-                                   minimum: 0.2,
-                                   maximum: 3.0)
-
-        pluckPositionLabel = addLabel("Pluck Position: \(pluckPosition)")
-        addSlider(#selector(setPluckPosition), value: pluckPosition)
-
-
+ 
         addButton("Large Resonant Mandolin", action: #selector(presetLargeResonance))
         addButton("Electric Guitar Mandolin", action: #selector(presetElectricGuitar))
+        addLineBreak()
         addButton("Small-Bodied Distorted Mandolin",
                   action: #selector(presetSmallDistortedMandolin))
         addButton("Acid Mandolin", action: #selector(presetAcidMandolin))
-        addLineBreak()
     }
-
-    func setDetune(slider: Slider) {
-        mandolin.detune = Double(slider.value)
-        let detune = String(format: "%0.2f", mandolin.detune)
-        detuneLabel!.text = "Detune: \(detune)"
-        printCode()
-    }
-
-    func setBodySize(slider: Slider) {
-        mandolin.bodySize = Double(slider.value)
-        let bodySize = String(format: "%0.2f", mandolin.bodySize)
-        bodySizeLabel!.text = "Body Size: \(bodySize)"
-        printCode()
-    }
-
-    func setPluckPosition(slider: Slider) {
-        pluckPosition = Double(slider.value)
-        let position = String(format: "%0.2f", pluckPosition)
-        pluckPositionLabel!.text = "Pluck Position: \(position)"
-        printCode()
-    }
-
 
     //: Audition Presets
 
@@ -106,22 +94,9 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func updateUI() {
-        updateTextFields()
-        updateSliders()
+        detuneSlider!.value = mandolin.detune
+        bodySizeSlider!.value = mandolin.bodySize
         printCode()
-    }
-
-    func updateSliders() {
-        detuneSlider?.value = Float(mandolin.detune)
-        bodySizeSlider?.value = Float(mandolin.bodySize)
-    }
-
-    func updateTextFields() {
-        let detune = String(format: "%0.3f", mandolin.detune)
-        detuneLabel!.text = "Detune: \(detune)"
-
-        let bodySize = String(format: "%0.3f", mandolin.bodySize)
-        bodySizeLabel!.text = "Body Size: \(bodySize)"
     }
 
     func printCode() {
@@ -135,7 +110,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 550, height: 500))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 550, height: 450))
 XCPlaygroundPage.currentPage.liveView = view
 
 AKPlaygroundLoop(frequency: playRate) {

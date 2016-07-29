@@ -46,24 +46,23 @@ generator.parameters = [2.0]
 generator.start()
 
 class PlaygroundView: AKPlaygroundView {
-    var speedLabel: Label?
 
     override func setup() {
         addTitle("Segment Operations")
 
-        speedLabel = addLabel("Update Rate: \(generator.parameters[0])")
-        addSlider(#selector(setSpeed), value: generator.parameters[0], minimum: 0.1, maximum: 10)
-
-    }
-
-    func setSpeed(slider: Slider) {
-        generator.parameters[0] = Double(slider.value)
-        speedLabel!.text = "Update Rate: \(String(format: "%0.3f", generator.parameters[0]))"
-        delay.time = 0.25 / Double(slider.value)
+        addSubview(AKPropertySlider(
+            property: "Update Rate",
+            format: "%0.3f Hz",
+            value: generator.parameters[0], minimum: 0.1, maximum: 10,
+            color: AKColor.redColor()
+        ) { rate in
+            generator.parameters[0] = rate
+            delay.time = 0.25 / rate
+            })
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 160))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
