@@ -106,9 +106,9 @@ extension AKPlaygroundView {
         newButton.frame.origin.y = CGFloat(yPosition)
         newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
         //        newButton.sizeToFit()
-        self.addSubview(newButton)
-        horizontalSpacing = Int((newButton.frame.height)) + 10
-        yPosition += horizontalSpacing
+        spacing = Int((newButton.frame.height)) + 10
+        super.addSubview(newButton)
+        yPosition += spacing
 
         lastButton = newButton
         return newButton
