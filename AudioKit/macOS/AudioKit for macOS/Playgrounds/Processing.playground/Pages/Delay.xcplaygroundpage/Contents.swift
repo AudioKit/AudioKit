@@ -27,34 +27,63 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var timeSlider: Slider?
-    var feedbackSlider: Slider?
-    var lowPassCutoffFrequencySlider: Slider?
-    var dryWetMixSlider: Slider?
+    var timeSlider: AKPropertySlider?
+    var feedbackSlider: AKPropertySlider?
+    var lowPassCutoffFrequencySlider: AKPropertySlider?
+    var dryWetMixSlider: AKPropertySlider?
 
     override func setup() {
         addTitle("Delay")
 
         addButtons()
+        addButton("Short", action: #selector(presetShortDelay))
+        addButton("Dense Long", action: #selector(presetDenseLongDelay))
+        addButton("Electric Circuits", action: #selector(presetElectricCircuitsDelay))
 
-        timeLabel = addLabel("Time: \(delay.time)")
-        dryWetMixSlider = addSlider(#selector(setTime), value: delay.time, minimum: 0, maximum: 1)
-
-        feedbackLabel = addLabel("Feedback: \(delay.feedback)")
-        feedbackSlider = addSlider(#selector(setFeedback), value: delay.feedback)
-
-        lowPassCutoffFrequencyLabel = addLabel("Low Pass Cutoff Frequency: \(delay.lowPassCutoff)")
-        lowPassCutoffFrequencySlider = addSlider(#selector(setLowPassCutoffFrequency),
-                                                 value: delay.lowPassCutoff,
-                                                 minimum: 0,
-                                                 maximum: 22050)
-
-        dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
-        dryWetMixSlider = addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
-
-        addButton("Short Delay", action: #selector(presetShortDelay))
-        addButton("Dense Long Delay", action: #selector(presetDenseLongDelay))
-        addButton("Electric Circuits Delay", action: #selector(presetElectricCircuitsDelay))
+        timeSlider = AKPropertySlider(
+            property: "Time",
+            value: delay.time,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            delay.time = sliderValue
+            }
+        addSubview(timeSlider!)
+        
+        feedbackSlider = AKPropertySlider(
+            property: "Feedback",
+            value: delay.feedback,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            delay.feedback = sliderValue
+        }
+        addSubview(feedbackSlider!)
+        
+        lowPassCutoffFrequencySlider = AKPropertySlider(
+            property: "Low Pass Cutoff",
+            value: delay.lowPassCutoff, maximum: 22050,
+            color: AKColor.magentaColor()
+        ) { sliderValue in
+            delay.lowPassCutoff = sliderValue
+        }
+        addSubview(lowPassCutoffFrequencySlider!)
+        
+        dryWetMixSlider = AKPropertySlider(
+            property: "Mix",
+            value: delay.dryWetMix,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            delay.dryWetMix = sliderValue
+        }
+        addSubview(dryWetMixSlider!)
+        
+        dryWetMixSlider = AKPropertySlider(
+            property: "Mix",
+            value: delay.dryWetMix,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            delay.dryWetMix = sliderValue
+        }
+        addSubview(dryWetMixSlider!)
     }
     override func startLoop(name: String) {
         player.stop()
@@ -65,34 +94,6 @@ class PlaygroundView: AKPlaygroundView {
 
     override func stop() {
         player.stop()
-    }
-
-    func setTime(slider: Slider) {
-        delay.time = Double(slider.value)
-        let time = String(format: "%0.3f", delay.time)
-        timeLabel!.text = "Time: \(time)"
-        printCode()
-    }
-
-    func setFeedback(slider: Slider) {
-        delay.feedback = Double(slider.value)
-        let feedback = String(format: "%0.2f", delay.feedback)
-        feedbackLabel!.text = "Feedback: \(feedback)"
-        printCode()
-    }
-
-    func setLowPassCutoffFrequency(slider: Slider) {
-        delay.lowPassCutoff = Double(slider.value)
-        let lowPassCutoff = String(format: "%0.2f Hz", delay.lowPassCutoff)
-        lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
-        printCode()
-    }
-
-    func setDryWetMix(slider: Slider) {
-        delay.dryWetMix = Double(slider.value)
-        let dryWetMix = String(format: "%0.2f", delay.dryWetMix)
-        dryWetMixLabel!.text = "Mix: \(dryWetMix)"
-        printCode()
     }
 
     func presetShortDelay() {
@@ -113,27 +114,6 @@ class PlaygroundView: AKPlaygroundView {
         updateUI()
     }
 
-    func updateSliders() {
-        timeSlider?.value = Float(delay.time)
-        feedbackSlider?.value = Float(delay.feedback)
-        lowPassCutoffFrequencySlider?.value = Float(delay.lowPassCutoff)
-        dryWetMixSlider?.value = Float(delay.dryWetMix)
-    }
-
-    func updateTextFields() {
-        let delayTime = String(format: "%0.1f", delay.time)
-        timeLabel!.text = "Time: \(delayTime)"
-
-        let feedback = String(format: "%0.3f", delay.feedback)
-        feedbackLabel!.text = "Feedback: \(feedback)"
-
-        let lowPassCutoff = String(format: "%0.3f", delay.lowPassCutoff)
-        lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
-
-        let dryWetMix = String(format: "%0.3f", delay.dryWetMix)
-        dryWetMixLabel!.text = "Mix: \(dryWetMix)"
-    }
-
     func printCode() {
         // Here we're just printing out the preset so it can be copy and pasted into code
 
@@ -146,14 +126,16 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func updateUI() {
-        updateTextFields()
-        updateSliders()
+        timeSlider?.value = delay.time
+        feedbackSlider?.value = delay.feedback
+        lowPassCutoffFrequencySlider?.value = delay.lowPassCutoff
+        dryWetMixSlider?.value = delay.dryWetMix
         printCode()
     }
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
