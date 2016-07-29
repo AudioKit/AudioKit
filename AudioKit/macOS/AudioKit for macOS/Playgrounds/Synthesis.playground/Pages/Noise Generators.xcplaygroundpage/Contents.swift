@@ -22,23 +22,21 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Pink and White Noise")
 
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Volume",
             format: "%0.2f",
             value: pink.amplitude,
-            color: AKColor.cyanColor(),
-            frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
+            color: AKColor.cyanColor()
         ) { amplitude in
             pink.amplitude = amplitude
             white.amplitude = amplitude
             })
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "White to Pink Balance",
             format: "%0.2f",
             value: whitePinkMixer.balance,
-            color: AKColor.magentaColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.magentaColor()
         ) { balance in
             whitePinkMixer.balance = balance
             })

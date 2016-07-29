@@ -81,7 +81,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             synth.cutoff = frequency
         })
         
-        let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
+        let keyboard = AKKeyboardView(width: playgroundWidth - 60,
+                                      height: 100, totalKeys: 36)
         keyboard.delegate = self
         keyboard.frame.origin.y = CGFloat(yPosition)
         self.addSubview(keyboard)

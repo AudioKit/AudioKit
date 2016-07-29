@@ -46,68 +46,62 @@ class PlaygroundView: AKPlaygroundView {
             property: "Frequency",
             format: "%0.2f Hz",
             value: oscillator.baseFrequency, maximum: 800,
-            color: AKColor.yellowColor(),
-            frame: CGRect(x: 30, y: 480, width: self.bounds.width - 60, height: 60)
+            color: AKColor.yellowColor()
         ) { frequency in
             oscillator.baseFrequency = frequency
         }
-        self.addSubview(frequencySlider!)
+        addSubview(frequencySlider!)
         
         carrierMultiplierSlider = AKPropertySlider(
             property: "Carrier Multiplier",
             format: "%0.3f",
             value: oscillator.carrierMultiplier, maximum: 20,
-            color: AKColor.redColor(),
-            frame: CGRect(x: 30, y: 390, width: self.bounds.width - 60, height: 60)
+            color: AKColor.redColor()
         ) { multiplier in
             oscillator.carrierMultiplier = multiplier
         }
-        self.addSubview(carrierMultiplierSlider!)
+        addSubview(carrierMultiplierSlider!)
         
         modulatingMultiplierSlider = AKPropertySlider(
             property: "Modulating Multiplier",
             format: "%0.3f",
             value: oscillator.modulatingMultiplier, maximum: 20,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 300, width: self.bounds.width - 60, height: 60)
+            color: AKColor.greenColor()
         ) { multiplier in
             oscillator.modulatingMultiplier = multiplier
         }
-        self.addSubview(modulatingMultiplierSlider!)
+        addSubview(modulatingMultiplierSlider!)
         
         modulationIndexSlider = AKPropertySlider(
             property: "Modulation Index",
             format: "%0.3f",
             value: oscillator.modulationIndex, maximum: 100,
-            color: AKColor.cyanColor(),
-            frame: CGRect(x: 30, y: 210, width: self.bounds.width - 60, height: 60)
+            color: AKColor.cyanColor()
         ) { index in
             oscillator.modulationIndex = index
         }
-        self.addSubview(modulationIndexSlider!)
+        addSubview(modulationIndexSlider!)
         
         
         amplitudeSlider = AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
             value: oscillator.amplitude, maximum: 1,
-            color: AKColor.purpleColor(),
-            frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
+            color: AKColor.purpleColor()
         ) { amplitude in
             oscillator.amplitude = amplitude
         }
-        self.addSubview(amplitudeSlider!)
+        addSubview(amplitudeSlider!)
         
         rampTimeSlider = AKPropertySlider(
             property: "Ramp Time",
             format: "%0.3f s",
             value: oscillator.rampTime, maximum: 10,
-            color: AKColor.orangeColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.orangeColor()
         ) { time in
             oscillator.rampTime = time
         }
-        self.addSubview(rampTimeSlider!)
+        addSubview(rampTimeSlider!)
         
     }
     

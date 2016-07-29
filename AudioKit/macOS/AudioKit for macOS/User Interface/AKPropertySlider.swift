@@ -26,12 +26,12 @@ public class AKPropertySlider: NSImageView {
     var color = NSColor.redColor()
     
     public init(property: String,
-         format: String,
+         format: String = "%0.3f",
          value: Double,
          minimum: Double = 0,
          maximum: Double = 1,
          color: NSColor = NSColor.redColor(),
-         frame: CGRect,
+         frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
          callback: (x: Double)->()) {
         self.value = value
         self.initialValue = value

@@ -27,10 +27,8 @@ let generator = AKOperationGenerator() { _ in
 
 AudioKit.output = generator
 AudioKit.start()
-
 //: Activate the signal
 generator.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

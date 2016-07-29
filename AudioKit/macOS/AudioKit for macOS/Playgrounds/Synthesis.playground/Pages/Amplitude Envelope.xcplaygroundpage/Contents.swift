@@ -33,61 +33,51 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Play Current", action: #selector(PlaygroundView.play))
 //        addButton("Randomize", action: #selector(randomize))
 
-        let plotView = AKRollingOutputPlot.createView(500, height: 330)
-        plotView.frame.origin.y += 410
-        self.addSubview(plotView)
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Attack",
-            format: "%0.3f",
+            format: "%0.3f s",
             value: fmWithADSR.attackDuration, maximum: 2,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 390, width: self.bounds.width - 60, height: 60)
+            color: AKColor.greenColor()
         ) { duration in
             fmWithADSR.attackDuration = duration
             })
-    
-        
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Decay",
-            format: "%0.3f",
+            format: "%0.3f s",
             value: fmWithADSR.decayDuration, maximum: 2,
-            color: AKColor.cyanColor(),
-            frame: CGRect(x: 30, y: 300, width: self.bounds.width - 60, height: 60)
+            color: AKColor.cyanColor()
         ) { duration in
             fmWithADSR.decayDuration = duration
             })
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Sustain Level",
-            format: "%0.3f",
-            value: fmWithADSR.sustainLevel, maximum: 1,
-            color: AKColor.yellowColor(),
-            frame: CGRect(x: 30, y: 210, width: self.bounds.width - 60, height: 60)
+            value: fmWithADSR.sustainLevel,
+            color: AKColor.yellowColor()
         ) { level in
             fmWithADSR.sustainLevel = level
             })
-        
-        
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Release",
-            format: "%0.3f",
+            format: "%0.3f s",
             value: fmWithADSR.releaseDuration, maximum: 2,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
+            color: AKColor.greenColor()
         ) { duration in
             fmWithADSR.releaseDuration = duration
             })
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Duration",
-            format: "%0.3f",
+            format: "%0.3f s",
             value: holdDuration, maximum: 5,
-            color: AKColor.greenColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.greenColor()
         ) { duration in
             self.holdDuration = duration
             })
+
+        addSubview(AKRollingOutputPlot.createView(width: 440, height: 330))
+
     }
     
     func play() {
@@ -111,7 +101,7 @@ class PlaygroundView: AKPlaygroundView {
 //    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 860))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 920))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

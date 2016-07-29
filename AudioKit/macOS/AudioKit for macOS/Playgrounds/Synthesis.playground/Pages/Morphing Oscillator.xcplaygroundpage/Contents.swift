@@ -34,24 +34,20 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Start", action: #selector(start))
         addButton("Stop", action: #selector(stop))
 
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Frequency",
             format: "%0.2f Hz",
-            value: morph.frequency,
-            minimum: 220,
-            maximum: 880,
-            color: AKColor.yellowColor(),
-            frame: CGRect(x: 30, y: 120, width: self.bounds.width - 60, height: 60)
+            value: morph.frequency, minimum: 220, maximum: 880,
+            color: AKColor.yellowColor()
         ) { frequency in
             morph.frequency = frequency
             })
         
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
             value: morph.amplitude,
-            color: AKColor.magentaColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.magentaColor()
         ) { amplitude in
             morph.amplitude = amplitude
             })
