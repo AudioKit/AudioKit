@@ -34,16 +34,6 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var delayLabel: Label?
-    var decayLabel: Label?
-    var delayMixLabel: Label?
-    var linearTermLabel: Label?
-    var squaredTermLabel: Label?
-    var cubicTermLabel: Label?
-    var polynomialMixLabel: Label?
-    var softClipGainLabel: Label?
-    var finalMixLabel: Label?
-
     var delaySlider: Slider?
     var decaySlider: Slider?
     var delayMixSlider: Slider?
@@ -53,7 +43,6 @@ class PlaygroundView: AKPlaygroundView {
     var polynomialMixSlider: Slider?
     var softClipGainSlider: Slider?
     var finalMixSlider: Slider?
-
 
     override func setup() {
         addTitle("Distortion")

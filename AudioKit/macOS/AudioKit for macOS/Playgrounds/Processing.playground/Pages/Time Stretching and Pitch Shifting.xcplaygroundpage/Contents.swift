@@ -30,10 +30,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var rateLabel: Label?
-    var pitchLabel: Label?
-    var overlapLabel: Label?
-
     override func setup() {
         addTitle("Time/Pitch")
 

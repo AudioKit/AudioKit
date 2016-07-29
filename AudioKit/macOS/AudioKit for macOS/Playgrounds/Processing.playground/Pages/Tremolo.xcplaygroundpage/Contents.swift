@@ -23,9 +23,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var frequencyLabel: Label?
-    var depthLabel: Label?
-
     override func setup() {
         addTitle("Tremolo")
         addButtons()

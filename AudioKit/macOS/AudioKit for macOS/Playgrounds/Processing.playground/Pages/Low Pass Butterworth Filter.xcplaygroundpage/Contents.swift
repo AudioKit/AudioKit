@@ -27,8 +27,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var cutoffFrequencyLabel: Label?
-
     override func setup() {
         addTitle("Low Pass Butterworth Filter")
 

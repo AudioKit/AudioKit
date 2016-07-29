@@ -30,9 +30,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var cutoffFrequencyLabel: Label?
-    var resonanceLabel: Label?
-
     override func setup() {
         addTitle("High Pass Filter")
 

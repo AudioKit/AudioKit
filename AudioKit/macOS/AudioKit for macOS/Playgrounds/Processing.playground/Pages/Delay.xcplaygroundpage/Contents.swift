@@ -27,11 +27,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var timeLabel: Label?
-    var feedbackLabel: Label?
-    var lowPassCutoffFrequencyLabel: Label?
-    var dryWetMixLabel: Label?
-
     var timeSlider: Slider?
     var feedbackSlider: Slider?
     var lowPassCutoffFrequencySlider: Slider?

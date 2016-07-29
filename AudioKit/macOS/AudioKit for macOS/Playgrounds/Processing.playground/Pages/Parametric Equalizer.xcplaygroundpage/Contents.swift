@@ -33,17 +33,10 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var centerFreqLabel: Label?
-    var qLabel: Label?
-    var gainLabel: Label?
-
     override func setup() {
         addTitle("Parametric EQ")
 
         addButtons()
-
-        addLabel("Parametric EQ Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 

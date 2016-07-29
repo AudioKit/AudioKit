@@ -45,8 +45,6 @@ AudioKit.start()
 let playgroundWidth = 500
 
 class PlaygroundView: AKPlaygroundView {
-    var speedLabel: Label?
-    var depthLabel: Label?
 
     override func setup() {
         addTitle("AutoPan")

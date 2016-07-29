@@ -32,9 +32,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var centerFrequencyLabel: Label?
-    var bandwidthLabel: Label?
-
     override func setup() {
         addTitle("Band Pass Butterworth Filter")
 

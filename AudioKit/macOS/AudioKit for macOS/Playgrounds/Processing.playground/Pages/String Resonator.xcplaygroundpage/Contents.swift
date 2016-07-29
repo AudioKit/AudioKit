@@ -27,9 +27,6 @@ player.play()
 //: User Interface Set up
 class PlaygroundView: AKPlaygroundView {
 
-    var fundamentalFrequencyLabel: Label?
-    var feedbackLabel: Label?
-
     override func setup() {
         addTitle("String Resonator")
 

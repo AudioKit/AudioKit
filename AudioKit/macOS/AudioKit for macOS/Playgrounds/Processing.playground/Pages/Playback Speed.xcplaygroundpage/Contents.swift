@@ -27,17 +27,10 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var rateLabel: Label?
-    var pitchLabel: Label?
-    var overlapLabel: Label?
-
     override func setup() {
         addTitle("Playback Speed")
 
         addButtons()
-
-        addLabel("VariSpeed Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 

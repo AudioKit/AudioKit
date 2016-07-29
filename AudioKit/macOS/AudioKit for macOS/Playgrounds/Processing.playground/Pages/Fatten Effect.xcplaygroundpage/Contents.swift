@@ -37,9 +37,6 @@ fatten.parameters = [0.1, 0.5]
 
 class PlaygroundView: AKPlaygroundView {
 
-    var timeLabel: Label?
-    var mixLabel: Label?
-
     override func setup() {
         addTitle("Analog Synth X Fatten")
 

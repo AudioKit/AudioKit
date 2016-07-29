@@ -37,8 +37,6 @@ drums.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var balanceLabel: Label?
-
     override func setup() {
         addTitle("Dry Wet Mix")
 

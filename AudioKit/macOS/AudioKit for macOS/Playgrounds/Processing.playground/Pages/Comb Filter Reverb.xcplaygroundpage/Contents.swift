@@ -25,8 +25,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var durationLabel: Label?
-
     override func setup() {
         addTitle("Comb Filter Reverb")
 
