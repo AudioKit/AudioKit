@@ -29,18 +29,10 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var ringModFreq1Label: Label?
-    var ringModFreq2Label: Label?
-    var ringModBalanceLabel: Label?
-    var finalMixLabel: Label?
-
     override func setup() {
         addTitle("Ring Modulator")
 
         addButtons()
-
-        addLabel("Ring Modulator Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 

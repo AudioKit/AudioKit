@@ -35,21 +35,10 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var thresholdLabel: Label?
-    var headRoomLabel: Label?
-    var expansionRatioLabel: Label?
-    var expansionThresholdLabel: Label?
-    var attackTimeLabel: Label?
-    var releaseTimeLabel: Label?
-    var masterGainLabel: Label?
-
     override func setup() {
         addTitle("Dynamics Processor")
 
         addButtons()
-
-        addLabel("Dynamics Processor Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 

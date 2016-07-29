@@ -32,9 +32,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var bitDepthLabel: Label?
-    var sampleRateLabel: Label?
-
     override func setup() {
         addTitle("Bit Crusher")
 

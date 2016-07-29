@@ -27,9 +27,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var frequencyLabel: Label?
-    var qualityFactorLabel: Label?
-
     override func setup() {
         addTitle("Modal Resonance Filter")
 

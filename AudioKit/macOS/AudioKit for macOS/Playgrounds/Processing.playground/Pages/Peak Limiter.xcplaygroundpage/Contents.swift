@@ -30,16 +30,10 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var attackTimeLabel: Label?
-    var decayTimeLabel: Label?
-    var preGainLabel: Label?
-
     override func setup() {
         addTitle("Peak Limiter")
 
         addButtons()
-
-        addLabel("Peak Limiter Parameters")
 
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))

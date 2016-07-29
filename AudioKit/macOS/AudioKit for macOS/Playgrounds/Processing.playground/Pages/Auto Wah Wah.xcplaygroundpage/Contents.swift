@@ -28,8 +28,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var wahLabel: Label?
-
     override func setup() {
         addTitle("Auto Wah Wah")
 

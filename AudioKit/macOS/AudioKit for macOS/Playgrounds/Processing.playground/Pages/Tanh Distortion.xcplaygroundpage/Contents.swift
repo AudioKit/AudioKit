@@ -30,11 +30,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var pregainLabel: Label?
-    var postgainLabel: Label?
-    var postiveShapeParameterLabel: Label?
-    var negativeShapeParameterLabel: Label?
-
     override func setup() {
         addTitle("Tanh Distortion")
 

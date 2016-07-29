@@ -25,8 +25,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var limitLabel: Label?
-
     override func setup() {
         addTitle("Clipper")
 

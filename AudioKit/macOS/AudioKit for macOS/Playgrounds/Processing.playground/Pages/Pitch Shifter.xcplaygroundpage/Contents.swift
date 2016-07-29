@@ -27,14 +27,10 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var pitchLabel: Label?
-
     override func setup() {
         addTitle("Pitch Shifter")
 
         addButtons()
-
-        addLabel("Time/Pitch Parameters")
 
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))

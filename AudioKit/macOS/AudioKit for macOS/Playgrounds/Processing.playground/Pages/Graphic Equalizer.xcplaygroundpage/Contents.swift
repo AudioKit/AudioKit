@@ -25,10 +25,6 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var lowLabel: Label?
-    var midLabel: Label?
-    var highLabel: Label?
-
     override func setup() {
         addTitle("Graphic Equalizer")
 

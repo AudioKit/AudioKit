@@ -31,10 +31,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var decimationLabel: Label?
-    var roundingLabel: Label?
-    var mixLabel: Label?
-
     override func setup() {
         addTitle("Decimator")
 

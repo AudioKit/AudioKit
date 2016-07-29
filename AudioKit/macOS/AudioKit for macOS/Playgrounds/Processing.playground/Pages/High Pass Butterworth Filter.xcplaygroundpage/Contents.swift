@@ -29,15 +29,11 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var cutoffFrequencyLabel: Label?
 
     override func setup() {
         addTitle("High Pass Butterworth Filter")
 
         addButtons()
-
-        addLabel("High Pass Filter Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 

@@ -21,15 +21,19 @@ player.play()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    var xLabel: Label?
-    var yLabel: Label?
-    var zLabel: Label?
-
+    
     override func setup() {
         addTitle("3D Panner")
 
         addButtons()
 
+        addSubview(AKPropertySlider(
+            property: "X",
+            value: effect.speed, minimum: 0.1, maximum: 25,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.speed = sliderValue
+            })
         xLabel = addLabel("x: \(panner.x)")
         addSlider(#selector(setX), value: Double(panner.x), minimum: -10, maximum: 10)
 

@@ -21,10 +21,6 @@ morph.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var frequencyLabel: Label?
-    var amplitudeLabel: Label?
-    var morphIndexLabel: Label?
-
     override func setup() {
         
         addTitle("Morphing Oscillator")

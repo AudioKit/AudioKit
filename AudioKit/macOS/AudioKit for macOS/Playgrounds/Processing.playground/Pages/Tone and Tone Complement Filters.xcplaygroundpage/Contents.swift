@@ -22,9 +22,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var label1: Label?
-    var label2: Label?
-
     override func setup() {
         addTitle("Tone Filters")
         addButtons()

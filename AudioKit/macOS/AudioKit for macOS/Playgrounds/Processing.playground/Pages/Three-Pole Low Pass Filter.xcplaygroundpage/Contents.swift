@@ -27,9 +27,6 @@ player.play()
 //: User Interface Set up
 class PlaygroundView: AKPlaygroundView {
 
-    var cutoffFrequencyLabel: Label?
-    var resonanceLabel: Label?
-
     override func setup() {
         addTitle("Three Pole Low Pass Filter")
 

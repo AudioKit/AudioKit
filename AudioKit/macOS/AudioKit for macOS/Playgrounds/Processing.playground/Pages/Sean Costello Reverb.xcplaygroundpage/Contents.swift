@@ -27,11 +27,6 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var cutoffFrequencyLabel: Label?
-    var feedbackLabel: Label?
-    var cutoffFrequencySlider: Slider?
-    var feedbackSlider: Slider?
-
     override func setup() {
         addTitle("Sean Costello Reverb")
 

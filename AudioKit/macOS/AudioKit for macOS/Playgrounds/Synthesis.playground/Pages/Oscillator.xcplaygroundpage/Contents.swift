@@ -41,9 +41,6 @@ let playgroundWidth = 500
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var amplitudeLabel: Label?
-    var rampTimeLabel: Label?
-
     override func setup() {
 
         addTitle("General Purpose Oscillator")

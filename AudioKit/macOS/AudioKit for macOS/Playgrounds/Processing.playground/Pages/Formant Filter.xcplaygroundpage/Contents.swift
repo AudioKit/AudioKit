@@ -22,10 +22,6 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var centerFrequencyLabel: Label?
-    var attackLabel: Label?
-    var decayLabel: Label?
-
     override func setup() {
         addTitle("Formant Filter")
 
