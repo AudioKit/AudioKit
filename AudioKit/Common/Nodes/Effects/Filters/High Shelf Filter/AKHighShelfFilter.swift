@@ -30,19 +30,19 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
     private var mixer: AKMixer
 
     /// Cut Off Frequency (Hz) ranges from 10000 to 22050 (Default: 10000)
-    public var cutOffFrequency: Double = 10000 {
+    public var cutoffFrequency: Double = 10000 {
         didSet {
-            if cutOffFrequency < 10000 {
-                cutOffFrequency = 10000
+            if cutoffFrequency < 10000 {
+                cutoffFrequency = 10000
             }
-            if cutOffFrequency > 22050 {
-                cutOffFrequency = 22050
+            if cutoffFrequency > 22050 {
+                cutoffFrequency = 22050
             }
             AudioUnitSetParameter(
                 internalAU,
                 kHighShelfParam_CutOffFrequency,
                 kAudioUnitScope_Global, 0,
-                Float(cutOffFrequency), 0)
+                Float(cutoffFrequency), 0)
         }
     }
 
@@ -98,7 +98,7 @@ public class AKHighShelfFilter: AKNode, AKToggleable {
         cutOffFrequency: Double = 10000,
         gain: Double = 0) {
 
-            self.cutOffFrequency = cutOffFrequency
+            self.cutoffFrequency = cutOffFrequency
             self.gain = gain
 
             inputGain = AKMixer(input)
