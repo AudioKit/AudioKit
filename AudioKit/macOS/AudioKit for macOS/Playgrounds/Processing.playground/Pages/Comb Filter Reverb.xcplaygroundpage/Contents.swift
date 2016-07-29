@@ -30,8 +30,13 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        durationLabel = addLabel("Duration: \(filter.reverbDuration)")
-        addSlider(#selector(setDuration), value: filter.reverbDuration, minimum: 0, maximum: 5)
+        addSubview(AKPropertySlider(
+            property: "Duration",
+            value: filter.reverbDuration, maximum: 5,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.reverbDuration = sliderValue
+            })
     }
 
     override func startLoop(name: String) {
@@ -42,21 +47,6 @@ class PlaygroundView: AKPlaygroundView {
     }
     override func stop() {
         player.stop()
-    }
-
-    func setDuration(slider: Slider) {
-        filter.reverbDuration = Double(slider.value)
-        durationLabel!.text = "Duration: \(String(format: "%0.3f", filter.reverbDuration))"
-        filter.reverbDuration // to plot value history
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    reverbDuration = \(String(format: "%0.3f", filter.reverbDuration))")
-        Swift.print("}\n")
     }
 
 }

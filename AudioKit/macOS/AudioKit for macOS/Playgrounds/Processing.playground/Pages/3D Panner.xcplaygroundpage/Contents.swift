@@ -29,21 +29,29 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKPropertySlider(
             property: "X",
-            value: effect.speed, minimum: 0.1, maximum: 25,
+            value: panner.x, minimum: -10, maximum: 10,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            panner.x = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Y",
+            value: panner.y, minimum: -10, maximum: 10,
             color: AKColor.greenColor()
         ) { sliderValue in
-            effect.speed = sliderValue
+            panner.y = sliderValue
             })
-        xLabel = addLabel("x: \(panner.x)")
-        addSlider(#selector(setX), value: Double(panner.x), minimum: -10, maximum: 10)
-
-        yLabel = addLabel("y: \(panner.y)")
-        addSlider(#selector(setY), value: Double(panner.y), minimum: -10, maximum: 10)
-
-        zLabel = addLabel("z: \(panner.z)")
-        addSlider(#selector(setZ), value: Double(panner.z), minimum: -10, maximum: 10)
-
+        
+        addSubview(AKPropertySlider(
+            property: "Z",
+            value: panner.z, minimum: -10, maximum: 10,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            panner.z = sliderValue
+            })
     }
+    
     override func startLoop(name: String) {
         player.stop()
         let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
@@ -52,21 +60,6 @@ class PlaygroundView: AKPlaygroundView {
     }
     override func stop() {
         player.stop()
-    }
-
-    func setX(slider: Slider) {
-        panner.x = Double(slider.value)
-        xLabel!.text = "x: \(panner.x)"
-    }
-    func setY(slider: Slider) {
-        panner.y = Double(slider.value)
-        yLabel!.text = "y: \(panner.y)"
-
-    }
-    func setZ(slider: Slider) {
-        panner.z = Double(slider.value)
-        zLabel!.text = "z: \(panner.z)"
-
     }
 
 }
