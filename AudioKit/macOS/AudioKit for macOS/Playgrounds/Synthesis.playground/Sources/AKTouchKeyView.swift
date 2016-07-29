@@ -108,7 +108,7 @@ extension AKPlaygroundView {
         newButton.frame.origin.y = self.bounds.height - CGFloat(yPosition)
         newButton.target = self
         newButton.action = action
-        self.addSubview(newButton)
+        super.addSubview(newButton)
 
         lastButton = newButton
         return newButton

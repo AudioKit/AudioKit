@@ -26,9 +26,7 @@ class PlaygroundView: AKPlaygroundView {
     var morphIndexLabel: Label?
 
     override func setup() {
-        let plotView = AKOutputWaveformPlot.createView(500, height: 550)
-        self.addSubview(plotView)
-
+        
         addTitle("Morphing Oscillator")
 
         addButton("Start", action: #selector(start))
@@ -45,18 +43,23 @@ class PlaygroundView: AKPlaygroundView {
         
         addSubview(AKPropertySlider(
             property: "Amplitude",
-            format: "%0.3f",
             value: morph.amplitude,
             color: AKColor.magentaColor()
         ) { amplitude in
             morph.amplitude = amplitude
             })
-        morphIndexLabel = addLabel("Morph Index: \(morph.index)")
-        addLabel("Sine = 0")
-        addLabel("Triangle = 1")
-        addLabel("Sawtooth = 2")
-        addLabel("Square = 3")
-        addSlider(#selector(setMorphIndex), value: morph.index, minimum: 0, maximum: 3)
+
+        addLabel("Index: Sine = 0, Triangle = 1, Sawtooth = 2, Square = 3")
+        
+        addSubview(AKPropertySlider(
+            property: "Morph Index",
+            value: morph.index, maximum: 3,
+            color: AKColor.redColor()
+        ) { index in
+            morph.index = index
+            })
+        
+        addSubview(AKOutputWaveformPlot.createView(440, height: 400))
     }
 
     func start() {
@@ -65,15 +68,9 @@ class PlaygroundView: AKPlaygroundView {
     func stop() {
         morph.stop()
     }
-
-    func setMorphIndex(slider: Slider) {
-        morph.index = Double(slider.value)
-        let index = String(format: "%0.3f", morph.index)
-        morphIndexLabel!.text = "Morph Index: \(index)"
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 950))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

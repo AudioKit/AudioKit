@@ -74,7 +74,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
         keyboard.delegate = self
-        self.addSubview(keyboard)
+        addSubview(keyboard)
     }
 
     func noteOn(note: Int) {

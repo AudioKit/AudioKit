@@ -50,12 +50,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Segment Operations")
 
-        self.addSubview(AKPropertySlider(
+        addSubview(AKPropertySlider(
             property: "Update Rate",
             format: "%0.3f Hz",
             value: generator.parameters[0], minimum: 0.1, maximum: 10,
-            color: AKColor.redColor(),
-            frame: CGRect(x: 30, y: 30, width: self.bounds.width - 60, height: 60)
+            color: AKColor.redColor()
         ) { rate in
             generator.parameters[0] = rate
             delay.time = 0.25 / rate
