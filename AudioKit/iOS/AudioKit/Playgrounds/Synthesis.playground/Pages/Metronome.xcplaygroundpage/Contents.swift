@@ -26,26 +26,24 @@ AudioKit.output = generator
 AudioKit.start()
 generator.start()
 
-class PlaygroundView: AKPlaygroundView {
 
-    var frequencyLabel: Label?
+class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Metronome")
-
-        frequencyLabel = addLabel("Frequency: \(currentFrequency) BPM")
-        addSlider(#selector(setFrequency), value: currentFrequency, minimum: 20, maximum: 320)
+        
+        addSubview(AKPropertySlider(
+            property: "Frequency",
+            format: "%0.2f BPM",
+            value: 60, minimum: 40, maximum: 240,
+            color: AKColor.greenColor()
+        ) { frequency in
+            generator.parameters[0] = frequency
+        })
     }
-
-    func setFrequency(slider: Slider) {
-        currentFrequency = Double(slider.value)
-        generator.parameters = [currentFrequency]
-        frequencyLabel!.text = "Frequency: \(String(format: "%0.1f", currentFrequency)) BPM"
-    }
-
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 160))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

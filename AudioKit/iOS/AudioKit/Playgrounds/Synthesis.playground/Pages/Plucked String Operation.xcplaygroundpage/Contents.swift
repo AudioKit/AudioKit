@@ -45,5 +45,4 @@ AKPlaygroundLoop(frequency: playRate) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

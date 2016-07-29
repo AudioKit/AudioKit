@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios'>
+<playground version='6.0' target-platform='ios' display-mode='raw'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
@@ -11,25 +11,24 @@
         <page name='Filter Envelope'/>
         <page name='Flute'/>
         <page name='FM Oscillator'/>
-        <page name='FM Oscillator Operation'/>
         <page name='FM Oscillator Bank'/>
+        <page name='FM Oscillator Operation'/>
         <page name='General Purpose Oscillator'/>
         <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Linear and Exponential Segment Operations'/>
         <page name='Mandolin'/>
-        <page name='Metal Bar'/>
         <page name='Metronome'/>
         <page name='Mono Synth'/>
         <page name='Morphing Oscillator'/>
         <page name='Morphing Oscillator Bank'/>
-        <page name='Newtons Cradle'/>
+        <page name='Noise Generators'/>
         <page name='Noise Operations'/>
         <page name='Oscillator'/>
         <page name='Oscillator Bank'/>
         <page name='Pedestrians'/>
         <page name='Phase Distortion Oscillator'/>
         <page name='Phase Distortion Oscillator Bank'/>
-        <page name='Pink and White Noise Generators'/>
+        <page name='Phasor Operation'/>
         <page name='Plucked String'/>
         <page name='Plucked String Operation'/>
         <page name='PWM Oscillator'/>

@@ -15,7 +15,6 @@ drip.intensity = 100
 
 let reverb = AKReverb(drip)
 
-
 AudioKit.output = reverb
 AudioKit.start()
 

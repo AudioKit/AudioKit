@@ -26,68 +26,60 @@ class PlaygroundView: AKPlaygroundView {
 
     var holdDuration = 1.0
 
-    var attackLabel: Label?
-    var decayLabel: Label?
-    var sustainLabel: Label?
-    var releaseLabel: Label?
-    var durationLabel: Label?
-    var attackSlider: Slider?
-    var decaySlider: Slider?
-    var sustainSlider: Slider?
-    var releaseSlider: Slider?
-    var durationSlider: Slider?
-
     override func setup() {
-        let plotView = AKRollingOutputPlot.createView(500, height: 560)
-        self.addSubview(plotView)
 
         addTitle("ADSR Envelope")
-
-        attackLabel = addLabel("Attack Duration: \(fmWithADSR.attackDuration)")
-        attackSlider = addSlider(#selector(setAttack), value: fmWithADSR.attackDuration)
-
-        decayLabel = addLabel("Decay Duration: \(fmWithADSR.decayDuration)")
-        decaySlider = addSlider(#selector(setDecay), value: fmWithADSR.decayDuration)
-
-        sustainLabel = addLabel("Sustain Label: \(fmWithADSR.sustainLevel)")
-        sustainSlider = addSlider(#selector(setSustain), value: fmWithADSR.sustainLevel)
-
-        releaseLabel = addLabel("Release Duration: \(fmWithADSR.releaseDuration)")
-        releaseSlider = addSlider(#selector(setRelease), value: fmWithADSR.releaseDuration)
-
-        durationLabel = addLabel("Hold Duration: \(holdDuration)")
-        durationSlider = addSlider(#selector(setDuration), value: 1.0, minimum: 0.0, maximum: 5.0)
-
+        
         addButton("Play Current", action: #selector(PlaygroundView.play))
-        addButton("Randomize", action: #selector(randomize))
+//        addButton("Randomize", action: #selector(randomize))
+
+        
+        addSubview(AKPropertySlider(
+            property: "Attack",
+            format: "%0.3f s",
+            value: fmWithADSR.attackDuration, maximum: 2,
+            color: AKColor.greenColor()
+        ) { duration in
+            fmWithADSR.attackDuration = duration
+            })
+        addSubview(AKPropertySlider(
+            property: "Decay",
+            format: "%0.3f s",
+            value: fmWithADSR.decayDuration, maximum: 2,
+            color: AKColor.cyanColor()
+        ) { duration in
+            fmWithADSR.decayDuration = duration
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Sustain Level",
+            value: fmWithADSR.sustainLevel,
+            color: AKColor.yellowColor()
+        ) { level in
+            fmWithADSR.sustainLevel = level
+            })
+        addSubview(AKPropertySlider(
+            property: "Release",
+            format: "%0.3f s",
+            value: fmWithADSR.releaseDuration, maximum: 2,
+            color: AKColor.greenColor()
+        ) { duration in
+            fmWithADSR.releaseDuration = duration
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Duration",
+            format: "%0.3f s",
+            value: holdDuration, maximum: 5,
+            color: AKColor.greenColor()
+        ) { duration in
+            self.holdDuration = duration
+            })
+
+        addSubview(AKRollingOutputPlot.createView(width: 440, height: 330))
 
     }
-
-    func setAttack(slider: Slider) {
-        fmWithADSR.attackDuration = Double(slider.value)
-        attackLabel!.text = "Attack Duration: \(fmWithADSR.attackDuration)"
-    }
-
-    func setDecay(slider: Slider) {
-        fmWithADSR.decayDuration = Double(slider.value)
-        decayLabel!.text = "Decay Duration: \(fmWithADSR.decayDuration)"
-    }
-
-    func setSustain(slider: Slider) {
-        fmWithADSR.sustainLevel = Double(slider.value)
-        sustainLabel!.text = "Sustain Label: \(fmWithADSR.sustainLevel)"
-    }
-
-    func setRelease(slider: Slider) {
-        fmWithADSR.releaseDuration = Double(slider.value)
-        releaseLabel!.text = "Release Duration: \(fmWithADSR.releaseDuration)"
-    }
-
-    func setDuration(slider: Slider) {
-        holdDuration = Double(slider.value)
-        durationLabel!.text = "Hold Duration: \(holdDuration)"
-    }
-
+    
     func play() {
         fmOscillator.baseFrequency = random(220, 880)
         fmWithADSR.start()
@@ -98,34 +90,18 @@ class PlaygroundView: AKPlaygroundView {
         fmWithADSR.stop()
     }
 
-    func randomize() {
-        fmWithADSR.attackDuration = random(0.01, 0.5)
-        fmWithADSR.decayDuration = random(0.01, 0.2)
-        fmWithADSR.sustainLevel = random(0.01, 1)
-        fmWithADSR.releaseDuration = random(0.01, 1)
-        holdDuration = fmWithADSR.attackDuration + fmWithADSR.decayDuration + 0.5
-
-
-        attackSlider!.value = Float(fmWithADSR.attackDuration)
-        attackLabel!.text = "Attack Duration: \(fmWithADSR.attackDuration)"
-
-        decaySlider!.value = Float(fmWithADSR.decayDuration)
-        decayLabel!.text = "Decay Duration: \(fmWithADSR.decayDuration)"
-
-        sustainSlider!.value = Float(fmWithADSR.sustainLevel)
-        sustainLabel!.text = "Sustain Level: \(fmWithADSR.sustainLevel)"
-
-        releaseSlider!.value = Float(fmWithADSR.releaseDuration)
-        releaseLabel!.text = "Release Duration: \(fmWithADSR.releaseDuration)"
-
-        durationSlider!.value = Float(holdDuration)
-        durationLabel!.text = "Hold Duration: \(holdDuration)"
-
-        play()
-    }
+//    func randomize() {
+//        fmWithADSR.attackDuration = random(0.01, 0.5)
+//        fmWithADSR.decayDuration = random(0.01, 0.2)
+//        fmWithADSR.sustainLevel = random(0.01, 1)
+//        fmWithADSR.releaseDuration = random(0.01, 1)
+//        holdDuration = fmWithADSR.attackDuration + fmWithADSR.decayDuration + 0.5
+//
+//        play()
+//    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 560))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 920))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

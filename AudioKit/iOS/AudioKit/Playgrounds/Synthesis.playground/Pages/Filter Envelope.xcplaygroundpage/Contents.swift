@@ -68,38 +68,35 @@ let playgroundWidth = 500
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var cutoffFrequencyLabel: Label?
-
     override func setup() {
         addTitle("Filter Envelope")
 
-        cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(synth.cutoff)")
-        addSlider(#selector(setCutoffFrequency),
-                  value: synth.cutoff,
-                  minimum: 0,
-                  maximum: 5000)
-
-        let keyboard = AKKeyboardView(width: playgroundWidth, height: 100, delegate: self)
-        keyboard.frame.origin.y = CGFloat(yPosition)
-        self.addSubview(keyboard)
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: synth.cutoff, maximum: 5000,
+            color: AKColor.redColor()
+        ) { frequency in
+            synth.cutoff = frequency
+        })
+        
+        let keyboard = AKKeyboardView(width: playgroundWidth - 60,
+                                      height: 100, totalKeys: 36)
+        keyboard.delegate = self
+        addSubview(keyboard)
     }
 
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         synth.frequency = note.midiNoteToFrequency()
         synth.gate = 1
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         synth.gate = 0
-    }
-
-    func setCutoffFrequency(slider: Slider) {
-        synth.cutoff = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(String(format: "%0.0f", synth.cutoff))"
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 300))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
