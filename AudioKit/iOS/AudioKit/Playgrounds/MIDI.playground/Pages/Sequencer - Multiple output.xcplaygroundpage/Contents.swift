@@ -30,7 +30,7 @@ sequencer = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
 //: Do some basic setup to make the sequence loop correctly
 sequencer.setLength(AKDuration(beats: 4))
 sequencer.enableLooping()
-//: Here we set each alternating track to a different instrument
+//: Set each alternating track to a different instrument
 //: (Note that track 0 in our case is just meta information...not actual notes)
 sequencer.avTracks[1].destinationAudioUnit = sampler1.samplerUnit
 sequencer.avTracks[2].destinationAudioUnit = sampler2.samplerUnit

@@ -14,7 +14,7 @@ let pulse = 0.23 // seconds
 
 let sampler = AKSampler()
 
-//: Here is where we reference the Wav file as it is in the app bundle
+//: Reference the Wav file as it is in the app bundle
 sampler.loadWav("Sounds/fmpia1")
 
 var delay  = AKDelay(sampler)

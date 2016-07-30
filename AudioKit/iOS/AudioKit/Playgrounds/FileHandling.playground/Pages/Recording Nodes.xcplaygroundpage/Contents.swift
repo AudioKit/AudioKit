@@ -9,7 +9,7 @@
 import XCPlayground
 import AudioKit
 
-//: Here we set up a source to be recorded
+//: Set up a source to be recorded
 var oscillator = AKOscillator(waveform: AKTable(.Sawtooth))
 var currentAmplitude = 0.1
 var currentRampTime = 0.2

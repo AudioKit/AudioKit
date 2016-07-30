@@ -12,7 +12,6 @@ let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames
                            baseDir: .Resources)
 
 
-//: Here we set up a player to the loop the file's playback
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 

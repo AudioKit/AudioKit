@@ -26,7 +26,7 @@ sequencer = AKSequencer(filename: "4tracks", engine: AudioKit.engine)
 sequencer.setLength(AKDuration(beats: 4))
 sequencer.enableLooping()
 
-//: Here we set all tracks of the sequencer to the same audioUnit
+//: Set all tracks of the sequencer to the same audioUnit
 sequencer.setGlobalAVAudioUnitOutput(sampler.samplerUnit)
 
 //: Hear it go

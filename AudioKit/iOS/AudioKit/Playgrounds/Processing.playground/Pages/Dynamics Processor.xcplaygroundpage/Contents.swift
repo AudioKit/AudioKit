@@ -17,8 +17,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var effect = AKDynamicsProcessor(player)
-
-//: Set the parameters here
 effect.threshold
 effect.headRoom
 effect.expansionRatio

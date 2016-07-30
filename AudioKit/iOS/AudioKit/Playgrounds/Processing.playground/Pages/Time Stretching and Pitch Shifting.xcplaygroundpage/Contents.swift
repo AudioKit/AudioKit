@@ -16,8 +16,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var timePitch = AKTimePitch(player)
-
-//: Set the parameters here
 timePitch.rate = 2.0
 timePitch.pitch = -400.0
 timePitch.overlap = 8.0

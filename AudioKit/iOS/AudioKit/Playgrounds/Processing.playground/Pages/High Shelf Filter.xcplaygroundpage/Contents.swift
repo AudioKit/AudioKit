@@ -14,8 +14,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var highShelfFilter = AKHighShelfFilter(player)
-
-//: Set the parameters here
 highShelfFilter.cutOffFrequency = 10000 // Hz
 highShelfFilter.gain = 0 // dB
 

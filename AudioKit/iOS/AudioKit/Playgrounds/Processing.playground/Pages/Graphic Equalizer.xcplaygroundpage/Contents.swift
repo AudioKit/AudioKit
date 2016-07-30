@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Graphic Equalizer
-//: ### Here we'll build a graphic equalizer from a set of equalizer filters
+//: ### This playground builds a graphic equalizer from a set of equalizer filters
 import XCPlayground
 import AudioKit
 

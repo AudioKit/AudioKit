@@ -28,7 +28,7 @@ AudioKit.output = trackedAmplitude
 AudioKit.start()
 oscillatorNode.start()
 
-//: And here's where we monitor the results of tracking the amplitude.
+//: Monitor the results of tracking the amplitude.
 AKPlaygroundLoop(every: 0.1) {
     let amp = trackedAmplitude.amplitude
 }

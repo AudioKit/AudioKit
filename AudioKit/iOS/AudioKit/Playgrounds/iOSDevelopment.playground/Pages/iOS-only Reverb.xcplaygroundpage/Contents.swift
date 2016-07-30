@@ -13,8 +13,6 @@ let file = try AKAudioFile(readFileName: "click.wav", baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 var reverb2 = AKReverb2(player)
-
-//: Set the parameters here
 reverb2.dryWetMix = 1 // CrossFade
 reverb2.gain = 0 // Decibels
 reverb2.minDelayTime = 0.008 // Secs
