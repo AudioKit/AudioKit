@@ -33,8 +33,8 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        
+        addSubview(AKBypassButton(node: ringModulator))
 
         addSubview(AKPropertySlider(
             property: "Frequency 1",
@@ -69,16 +69,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             ringModulator.mix = sliderValue
             })
-
-    }
-
-
-    func process() {
-        ringModulator.start()
-    }
-
-    func bypass() {
-        ringModulator.bypass()
     }
 }
 

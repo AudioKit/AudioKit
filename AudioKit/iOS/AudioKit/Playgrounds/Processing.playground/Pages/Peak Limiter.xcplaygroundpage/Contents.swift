@@ -35,8 +35,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: peakLimiter))
 
         addSubview(AKPropertySlider(
             property: "Attack Time",
@@ -64,15 +63,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             peakLimiter.preGain = sliderValue
             })
-    }
-
-
-    func process() {
-        peakLimiter.start()
-    }
-
-    func bypass() {
-        peakLimiter.bypass()
     }
 }
 

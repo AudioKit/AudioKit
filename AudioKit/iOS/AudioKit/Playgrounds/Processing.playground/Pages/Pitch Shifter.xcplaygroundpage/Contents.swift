@@ -31,8 +31,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: pitchshifter))
 
         addSubview(AKPropertySlider(
             property: "Pitch",
@@ -42,15 +41,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             pitchshifter.shift = sliderValue
             })
-    }
-
-
-    func process() {
-        pitchshifter.start()
-    }
-
-    func bypass() {
-        pitchshifter.bypass()
     }
 }
 

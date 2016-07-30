@@ -35,8 +35,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: distortion))
 
         addSubview(AKPropertySlider(
             property: "Pre-gain",
@@ -69,15 +68,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.negativeShapeParameter = sliderValue
             })
-    }
-
-
-    func process() {
-        distortion.start()
-    }
-
-    func bypass() {
-        distortion.bypass()
     }
 }
 

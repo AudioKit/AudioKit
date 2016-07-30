@@ -31,8 +31,8 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        
+        addSubview(AKBypassButton(node: highShelfFilter))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
@@ -51,18 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             highShelfFilter.gain = sliderValue
             })
-
     }
-
-
-    func process() {
-        highShelfFilter.start()
-    }
-
-    func bypass() {
-        highShelfFilter.bypass()
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))

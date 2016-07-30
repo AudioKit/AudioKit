@@ -31,8 +31,8 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        
+        addSubview(AKBypassButton(node: filter))
 
         addSubview(AKPropertySlider(
             property: "Frequency",
@@ -52,18 +52,7 @@ class PlaygroundView: AKPlaygroundView {
             filter.bandwidth = sliderValue
             })
     }
-
-
-    func process() {
-        filter.play()
-    }
-
-    func bypass() {
-        filter.bypass()
-    }
-
 }
-
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

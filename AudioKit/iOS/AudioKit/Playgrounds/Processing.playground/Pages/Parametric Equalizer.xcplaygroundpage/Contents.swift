@@ -37,8 +37,8 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        
+        addSubview(AKBypassButton(node: parametricEQ))
 
         addSubview(AKPropertySlider(
             property: "Center Frequency",
@@ -65,15 +65,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             parametricEQ.gain = sliderValue
             })
-    }
-
-
-    func process() {
-        parametricEQ.start()
-    }
-
-    func bypass() {
-        parametricEQ.bypass()
     }
 }
 

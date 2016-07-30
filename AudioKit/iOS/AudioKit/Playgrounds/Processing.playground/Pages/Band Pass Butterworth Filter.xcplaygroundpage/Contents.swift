@@ -39,8 +39,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: filter))
 
         addSubview(AKPropertySlider(
             property: "Center Frequency",
@@ -59,23 +58,10 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             filter.bandwidth = sliderValue
             })
-
     }
-
-
-    func process() {
-        filter.play()
-    }
-
-    func bypass() {
-        filter.bypass()
-    }
-
 }
 
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView(height: 450)
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
