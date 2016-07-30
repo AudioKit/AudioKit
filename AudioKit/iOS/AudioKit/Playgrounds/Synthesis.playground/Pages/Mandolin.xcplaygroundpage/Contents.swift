@@ -96,18 +96,7 @@ class PlaygroundView: AKPlaygroundView {
     func updateUI() {
         detuneSlider!.value = mandolin.detune
         bodySizeSlider!.value = mandolin.bodySize
-        printCode()
     }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    detune = \(String(format: "%0.3f", mandolin.detune))")
-        Swift.print("    bodySize = \(String(format: "%0.3f", mandolin.bodySize))")
-        Swift.print("}\n")
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 550, height: 450))
