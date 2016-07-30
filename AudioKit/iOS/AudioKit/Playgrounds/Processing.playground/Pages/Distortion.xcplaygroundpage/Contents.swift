@@ -25,8 +25,9 @@ distortion.polynomialMix  = 0.5
 distortion.softClipGain  = -6
 distortion.finalMix  = 0.5
 
-AudioKit.output = distortion
+AudioKit.output = AKBooster(distortion, gain: 0.1)
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -49,8 +50,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: distortion))
 
         delaySlider = AKPropertySlider(
             property: "Delay",
@@ -136,14 +136,6 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(finalMixSlider!)
     }
 
-    func process() {
-        distortion.start()
-    }
-
-    func bypass() {
-        distortion.bypass()
-    }
-
     func updateUI() {
         delaySlider?.value = distortion.delay
         decaySlider?.value = distortion.decay
@@ -157,8 +149,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView(height: 1000)
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

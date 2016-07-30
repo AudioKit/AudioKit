@@ -37,8 +37,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Time/Pitch Parameters")
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: timePitch))
 
         addSubview(AKPropertySlider(
             property: "Rate",
@@ -66,18 +65,6 @@ class PlaygroundView: AKPlaygroundView {
             timePitch.overlap = sliderValue
             })
     }
-
-
-
-    func process() {
-        timePitch.start()
-    }
-
-    func bypass() {
-        timePitch.bypass()
-    }
-
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))

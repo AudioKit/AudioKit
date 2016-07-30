@@ -40,8 +40,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: filter))
 
         addSubview(AKPropertySlider(
             property: "Center Frequency",
@@ -61,16 +60,6 @@ class PlaygroundView: AKPlaygroundView {
             filter.bandwidth = sliderValue
             })
     }
-
-
-    func process() {
-        filter.start()
-    }
-
-    func bypass() {
-        filter.bypass()
-    }
-
 }
 
 

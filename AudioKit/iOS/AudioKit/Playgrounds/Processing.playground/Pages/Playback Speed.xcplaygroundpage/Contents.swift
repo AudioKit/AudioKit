@@ -31,8 +31,8 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        
+        addSubview(AKBypassButton(node: variSpeed))
 
         addSubview(AKPropertySlider(
             property: "Rate",
@@ -42,16 +42,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             variSpeed.rate = sliderValue
             })
-
-    }
-
-
-    func process() {
-        variSpeed.start()
-    }
-
-    func bypass() {
-        variSpeed.bypass()
     }
 }
 

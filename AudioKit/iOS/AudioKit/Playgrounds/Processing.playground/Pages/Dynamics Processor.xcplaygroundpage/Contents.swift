@@ -39,8 +39,8 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        
+        addSubview(AKBypassButton(node: effect))
 
         addSubview(AKPropertySlider(
             property: "Threshold",
@@ -102,15 +102,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             effect.masterGain = sliderValue
             })
-    }
-
-
-    func process() {
-        effect.start()
-    }
-
-    func bypass() {
-        effect.bypass()
     }
 }
 

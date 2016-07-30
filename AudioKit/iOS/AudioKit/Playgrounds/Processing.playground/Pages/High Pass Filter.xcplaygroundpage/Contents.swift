@@ -35,8 +35,7 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: highPassFilter))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
@@ -55,16 +54,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             highPassFilter.resonance = sliderValue
             })
-    }
-
-
-
-    func process() {
-        highPassFilter.start()
-    }
-
-    func bypass() {
-        highPassFilter.bypass()
     }
 }
 

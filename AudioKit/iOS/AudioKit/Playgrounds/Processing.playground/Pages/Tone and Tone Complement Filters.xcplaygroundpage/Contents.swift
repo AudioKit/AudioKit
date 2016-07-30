@@ -29,8 +29,8 @@ class PlaygroundView: AKPlaygroundView {
             filenames: AKPlaygroundView.audioResourceFileNames))
 
         addLabel("Tone Filter: ")
-        addButton("Process", action: #selector(processTone))
-        addButton("Bypass", action: #selector(bypassTone))
+        
+        addSubview(AKBypassButton(node: toneFilter))
 
         addSubview(AKPropertySlider(
             property: "Half Power Point",
@@ -41,8 +41,8 @@ class PlaygroundView: AKPlaygroundView {
             })
 
         addLabel("Tone Complement Filter: ")
-        addButton("Process", action: #selector(processToneComplement))
-        addButton("Bypass", action: #selector(bypassToneComplement))
+        
+        addSubview(AKBypassButton(node: toneComplement))
 
         addSubview(AKPropertySlider(
             property: "Half Power Point",
@@ -51,23 +51,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             toneComplement.halfPowerPoint = sliderValue
             })
-
-    }
-
-    func processTone() {
-        toneFilter.start()
-    }
-
-    func bypassTone() {
-        toneFilter.bypass()
-    }
-
-    func processToneComplement() {
-        toneComplement.start()
-    }
-
-    func bypassToneComplement() {
-        toneComplement.bypass()
     }
 }
 

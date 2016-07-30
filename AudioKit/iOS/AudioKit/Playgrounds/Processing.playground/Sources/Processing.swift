@@ -7,16 +7,13 @@
 //
 import UIKit
 
-public typealias Slider    = UISlider
-public typealias Label     = UILabel
-public typealias TextField = UITextField
+public typealias Label = UILabel
 
 public class AKPlaygroundView: UIView {
     
     public var elementHeight: CGFloat = 30
     public var yPosition: Int = 25
     public var spacing = 25
-    public var lastButton: UIButton?
     
     public override init(frame frameRect: CGRect) {
         super.init(frame: frameRect)
@@ -28,13 +25,7 @@ public class AKPlaygroundView: UIView {
         self.init(frame: CGRect(x: 0, y: 0, width: 500, height: height))
     }
     
-    public func setup() {
-    }
-    
-    public func addLineBreak() {
-        lastButton = nil
-    }
-    
+    public func setup() {}
     
     public func addTitle(text: String) -> UILabel {
         let newLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
@@ -46,30 +37,7 @@ public class AKPlaygroundView: UIView {
         return newLabel
     }
     
-    public func addButton(label: String, action: Selector) -> UIButton {
-        
-        let newButton = UIButton(type: .Custom)
-        newButton.frame = CGRect(x: 10, y: 0, width: self.bounds.width, height: elementHeight)
-        newButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        newButton.backgroundColor = UIColor.blueColor()
-        newButton.setTitle(" \(label) ", forState: .Normal)
-        newButton.setNeedsDisplay()
-        // Line up multiple buttons in a row
-        if let button = lastButton {
-            newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
-            yPosition -= spacing + Int(button.frame.height)
-        }
-        
-        newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
-        newButton.sizeToFit()
-        self.addSubview(newButton)
-        
-        lastButton = newButton
-        return newButton
-    }
-    
     public func addLabel(text: String) -> UILabel {
-        lastButton = nil
         let newLabel = UILabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
         newLabel.text = text
