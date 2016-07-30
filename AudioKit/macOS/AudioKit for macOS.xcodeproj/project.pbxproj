@@ -670,7 +670,7 @@
 		C45669E51D448D7E00D26565 /* scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666841D448D7E00D26565 /* scale.swift */; };
 		C45669E61D448D7E00D26565 /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666851D448D7E00D26565 /* segment.swift */; };
 		C45669E71D448D7E00D26565 /* subtract.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666861D448D7E00D26565 /* subtract.swift */; };
-		C45669E81D448D7E00D26565 /* mix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666881D448D7E00D26565 /* mix.swift */; };
+		C45669E81D448D7E00D26565 /* mixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666881D448D7E00D26565 /* mixer.swift */; };
 		C45669E91D448D7E00D26565 /* pan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666891D448D7E00D26565 /* pan.swift */; };
 		C45669EA1D448D7E00D26565 /* adsrEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456668B1D448D7E00D26565 /* adsrEnvelope.swift */; };
 		C45669EB1D448D7E00D26565 /* metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456668C1D448D7E00D26565 /* metronome.swift */; };
@@ -1362,7 +1362,7 @@
 		C45666841D448D7E00D26565 /* scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = scale.swift; sourceTree = "<group>"; };
 		C45666851D448D7E00D26565 /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
 		C45666861D448D7E00D26565 /* subtract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subtract.swift; sourceTree = "<group>"; };
-		C45666881D448D7E00D26565 /* mix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mix.swift; sourceTree = "<group>"; };
+		C45666881D448D7E00D26565 /* mixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mixer.swift; sourceTree = "<group>"; };
 		C45666891D448D7E00D26565 /* pan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pan.swift; sourceTree = "<group>"; };
 		C456668B1D448D7E00D26565 /* adsrEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adsrEnvelope.swift; sourceTree = "<group>"; };
 		C456668C1D448D7E00D26565 /* metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = metronome.swift; sourceTree = "<group>"; };
@@ -3174,7 +3174,7 @@
 		C45666871D448D7E00D26565 /* Mixing */ = {
 			isa = PBXGroup;
 			children = (
-				C45666881D448D7E00D26565 /* mix.swift */,
+				C45666881D448D7E00D26565 /* mixer.swift */,
 				C45666891D448D7E00D26565 /* pan.swift */,
 			);
 			path = Mixing;
@@ -3539,7 +3539,7 @@
 				C45667701D448D7E00D26565 /* dtrig.c in Sources */,
 				C45666B01D448D7E00D26565 /* EZAudio.m in Sources */,
 				C45669201D448D7E00D26565 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
-				C45669E81D448D7E00D26565 /* mix.swift in Sources */,
+				C45669E81D448D7E00D26565 /* mixer.swift in Sources */,
 				C45667871D448D7E00D26565 /* line.c in Sources */,
 				C45666D61D448D7E00D26565 /* kiss_fft.c in Sources */,
 				C45666FE1D448D7E00D26565 /* fog.c in Sources */,
