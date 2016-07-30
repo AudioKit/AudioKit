@@ -84,7 +84,6 @@ public class AKPlaygroundView: UIView {
         if view.frame.origin.x < 30 {
             view.frame.origin.x = 30
         }
-        print(yPosition)
         super.addSubview(view)
         yPosition += Int(view.frame.height) + spacing
     }

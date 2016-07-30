@@ -38,9 +38,6 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Short", action: #selector(presetShortDelay))
-        addButton("Dense Long", action: #selector(presetDenseLongDelay))
-        addButton("Electric Circuits", action: #selector(presetElectricCircuitsDelay))
 
         timeSlider = AKPropertySlider(
             property: "Time",
@@ -77,43 +74,21 @@ class PlaygroundView: AKPlaygroundView {
             delay.dryWetMix = sliderValue
         }
         addSubview(dryWetMixSlider!)
-
-        dryWetMixSlider = AKPropertySlider(
-            property: "Mix",
-            value: delay.dryWetMix,
-            color: AKColor.cyanColor()
-        ) { sliderValue in
-            delay.dryWetMix = sliderValue
-        }
-        addSubview(dryWetMixSlider!)
-    }
-
-    func presetShortDelay() {
-        delay.presetShortDelay()
-        delay.start()
-        updateUI()
-    }
-
-    func presetDenseLongDelay() {
-        delay.presetDenseLongDelay()
-        delay.start()
-        updateUI()
-    }
-
-    func presetElectricCircuitsDelay() {
-        delay.presetElectricCircuitsDelay()
-        delay.start()
-        updateUI()
-    }
-
-    func printCode() {
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    time = \(String(format: "%0.3f", delay.time))")
-        Swift.print("    feedback = \(String(format: "%0.3f", delay.feedback))")
-        Swift.print("    lowPassCutoff = \(String(format: "%0.3f", delay.lowPassCutoff))")
-        Swift.print("    dryWetMix = \(String(format: "%0.3f", delay.dryWetMix))")
-        Swift.print("}\n")
+        
+        let presets = ["Short","Dense Long", "Electric Circuits"]
+        addSubview(AKPresetLoaderView(presets: presets) { preset in
+            switch preset {
+            case "Short":
+                delay.presetShortDelay()
+            case "Dense Long":
+                delay.presetDenseLongDelay()
+            case "Electric Circuits":
+                delay.presetElectricCircuitsDelay()
+            default: break
+            }
+            self.updateUI()
+            }
+        )
     }
 
     func updateUI() {

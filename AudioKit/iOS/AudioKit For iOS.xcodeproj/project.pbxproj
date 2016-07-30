@@ -314,6 +314,7 @@
 		C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */; };
 		C474B1651CE43A9D00EB8D8E /* AKAmplitudeTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */; };
 		C474B1661CE43A9D00EB8D8E /* AKFFTTap.swift in Sources */ = {isa = PBXBuildFile; fileRef = C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */; };
+		C47A62681D4D52F0001980B7 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */; };
 		C47AE4B81D39C5B10091118F /* AKPhaseDistortionOscillatorBank.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47AE4B41D39C5B10091118F /* AKPhaseDistortionOscillatorBank.swift */; };
 		C47AE4B91D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47AE4B51D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47AE4BA1D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47AE4B61D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm */; };
@@ -1021,6 +1022,7 @@
 		C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adsrEnvelope.swift; sourceTree = "<group>"; };
 		C474B1631CE43A9D00EB8D8E /* AKAmplitudeTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKAmplitudeTap.swift; sourceTree = "<group>"; };
 		C474B1641CE43A9D00EB8D8E /* AKFFTTap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFFTTap.swift; sourceTree = "<group>"; };
+		C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
 		C47AE4B41D39C5B10091118F /* AKPhaseDistortionOscillatorBank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPhaseDistortionOscillatorBank.swift; sourceTree = "<group>"; };
 		C47AE4B51D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhaseDistortionOscillatorBankAudioUnit.h; sourceTree = "<group>"; };
 		C47AE4B61D39C5B10091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaseDistortionOscillatorBankAudioUnit.mm; sourceTree = "<group>"; };
@@ -1880,6 +1882,7 @@
 				C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */,
 				C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */,
 				C4F8632B1D4CB4C60027A1F9 /* AKResourceAudioFileLoaderView.swift */,
+				C47A62671D4D52F0001980B7 /* AKPresetLoaderView.swift */,
 			);
 			name = iOS;
 			path = "AudioKit/User Interface";
@@ -3623,6 +3626,7 @@
 				C4537FAA1C3A438D00A51738 /* AKAutoWahAudioUnit.mm in Sources */,
 				C4537FEA1C3A438D00A51738 /* AKStringResonator.swift in Sources */,
 				C48C6CE81D3C15F1008EA51B /* dtrig.c in Sources */,
+				C47A62681D4D52F0001980B7 /* AKPresetLoaderView.swift in Sources */,
 				C4D1FCFD1CE5BCC80043209E /* AKTremolo.swift in Sources */,
 				C48C6CAB1D3C15F1008EA51B /* tblrec.c in Sources */,
 				C48C6C861D3C15F1008EA51B /* moogladder.c in Sources */,
