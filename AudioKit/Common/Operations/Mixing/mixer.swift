@@ -1,5 +1,5 @@
 //
-//  mix.swift
+//  mixer.swift
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
