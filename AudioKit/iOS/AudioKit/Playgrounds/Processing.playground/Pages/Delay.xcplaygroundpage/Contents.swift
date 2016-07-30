@@ -121,7 +121,6 @@ class PlaygroundView: AKPlaygroundView {
         feedbackSlider?.value = delay.feedback
         lowPassCutoffFrequencySlider?.value = delay.lowPassCutoff
         dryWetMixSlider?.value = delay.dryWetMix
-        printCode()
     }
 
 }

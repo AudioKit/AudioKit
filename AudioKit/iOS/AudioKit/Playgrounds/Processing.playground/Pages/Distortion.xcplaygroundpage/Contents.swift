@@ -54,10 +54,6 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        addLineBreak()
-
-        addButton("Infinite Distortion Wall", action: #selector(presetInfiniteDistortionWall))
-
         delaySlider = AKPropertySlider(
             property: "Delay",
             format: "%0.3f ms",
@@ -152,11 +148,6 @@ class PlaygroundView: AKPlaygroundView {
         distortion.bypass()
     }
 
-    func presetInfiniteDistortionWall() {
-        distortion.presetInfiniteDistortionWall()
-        updateUI()
-    }
-
     func updateUI() {
         delaySlider?.value = distortion.delay
         decaySlider?.value = distortion.decay
@@ -167,21 +158,6 @@ class PlaygroundView: AKPlaygroundView {
         polynomialMixSlider?.value = distortion.polynomialMix
         softClipGainSlider?.value = distortion.softClipGain
         finalMixSlider?.value = distortion.finalMix
-    }
-
-    func printCode() {
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    delay = \(String(format: "%0.3f", distortion.delay))")
-        Swift.print("    decay = \(String(format: "%0.3f", distortion.decay))")
-        Swift.print("    delayMix = \(String(format: "%0.3f", distortion.delayMix))")
-        Swift.print("    linearTerm = \(String(format: "%0.3f", distortion.linearTerm))")
-        Swift.print("    squaredTerm = \(String(format: "%0.3f", distortion.squaredTerm))")
-        Swift.print("    cubicTerm = \(String(format: "%0.3f", distortion.cubicTerm))")
-        Swift.print("    polynomialMix = \(String(format: "%0.3f", distortion.polynomialMix))")
-        Swift.print("    softClipGain = \(String(format: "%0.3f", distortion.softClipGain))")
-        Swift.print("    finalMix = \(String(format: "%0.3f", distortion.finalMix))")
-        Swift.print("}\n")
     }
 }
 

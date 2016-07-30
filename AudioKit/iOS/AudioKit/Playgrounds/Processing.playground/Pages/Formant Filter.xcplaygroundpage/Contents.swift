@@ -61,22 +61,12 @@ class PlaygroundView: AKPlaygroundView {
 
     }
 
-
     func process() {
         filter.play()
     }
 
     func bypass() {
         filter.bypass()
-    }
-
-    func printCode() {
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")
-        Swift.print("    attackDuration = \(String(format: "%0.3f", filter.attackDuration))")
-        Swift.print("    decayDuration = \(String(format: "%0.3f", filter.decayDuration))")
-        Swift.print("}\n")
     }
 
 }

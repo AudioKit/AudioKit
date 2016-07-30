@@ -77,13 +77,6 @@ class PlaygroundView: AKPlaygroundView {
         feedbackSlider?.value = reverb.feedback
     }
 
-    func printCode() {
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")
-        Swift.print("    feedback = \(String(format: "%0.3f", reverb.feedback))")
-        Swift.print("}\n")
-    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
