@@ -15,14 +15,13 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 var reverb = AKReverb(player)
 
-//: Load factory preset and give the dry/wet mix amount here
 reverb.dryWetMix = 0.5
 
 AudioKit.output = reverb
 AudioKit.start()
 
 player.play()
-reverb.loadFactoryPreset(.Cathedral)
+
 
 //: User Interface Set up
 
@@ -35,26 +34,6 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addLineBreak()
-        addButton("Cathedral", action: #selector(loadCathedral))
-        addButton("Large Chamber", action: #selector(loadLargeChamber))
-        addLineBreak()
-        addButton("Large Hall", action: #selector(loadLargeHall))
-        addButton("Large Hall 2", action: #selector(loadLargeHall2))
-        addLineBreak()
-        addButton("Large Room", action: #selector(loadLargeRoom))
-        addButton("Large Room 2", action: #selector(loadLargeRoom2))
-        addButton("Medium Chamber", action: #selector(loadMediumChamber))
-        addLineBreak()
-        addButton("Medium Hall", action: #selector(loadMediumHall))
-        addButton("Medium Hall 2", action: #selector(loadMediumHall2))
-
-        addButton("Medium Hall 3", action: #selector(loadMediumHall3))
-        addLineBreak()
-        addButton("Medium Room", action: #selector(loadMediumRoom))
-        addButton("Plate", action: #selector(loadPlate))
-        addButton("Small Room", action: #selector(loadSmallRoom))
-
         addSubview(AKPropertySlider(
             property: "Mix",
             value: reverb.dryWetMix,
@@ -62,63 +41,46 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             reverb.dryWetMix = sliderValue
             })
-    }
+        
+        let presets = ["Cathedral","Large Hall", "Large Hall 2",
+                       "Large Room", "Large Room 2", "Medium Chamber",
+                       "Medium Hall", "Medium Hall 2", "Medium Hall 3",
+                       "Medium Room", "Plate", "Small Room"]
+        addSubview(AKPresetLoaderView(presets: presets) { preset in
+            switch preset {
+            case "Cathedral":
+                reverb.loadFactoryPreset(.Cathedral)
+            case "Large Hall":
+                reverb.loadFactoryPreset(.LargeHall)
+            case "Large Hall 2":
+                reverb.loadFactoryPreset(.LargeHall2)
+            case "Large Room":
+                reverb.loadFactoryPreset(.LargeRoom)
+            case "Large Room 2":
+                reverb.loadFactoryPreset(.LargeRoom2)
+            case "Medium Chamber":
+                reverb.loadFactoryPreset(.MediumChamber)
+            case "Medium Hall":
+                reverb.loadFactoryPreset(.MediumHall)
+            case "Medium Hall 2":
+                reverb.loadFactoryPreset(.MediumHall2)
+            case "Medium Hall 3":
+                reverb.loadFactoryPreset(.MediumHall3)
+            case "Medium Room":
+                reverb.loadFactoryPreset(.MediumRoom)
+            case "Plate":
+                reverb.loadFactoryPreset(.Plate)
+            case "Small Room":
+                reverb.loadFactoryPreset(.SmallRoom)
+            default: break
+            }}
+        )
 
-    func loadCathedral() {
-        reverb.loadFactoryPreset(.Cathedral)
-    }
-
-    func loadLargeChamber() {
-        reverb.loadFactoryPreset(.LargeChamber)
-    }
-
-    func loadLargeHall() {
-        reverb.loadFactoryPreset(.LargeHall)
-    }
-
-    func loadLargeHall2() {
-        reverb.loadFactoryPreset(.LargeHall2)
-    }
-
-    func loadLargeRoom() {
-        reverb.loadFactoryPreset(.LargeRoom)
-    }
-
-    func loadLargeRoom2() {
-        reverb.loadFactoryPreset(.LargeRoom2)
-    }
-
-    func loadMediumChamber() {
-        reverb.loadFactoryPreset(.MediumChamber)
-    }
-
-    func loadMediumHall() {
-        reverb.loadFactoryPreset(.MediumHall)
-    }
-
-    func loadMediumHall2() {
-        reverb.loadFactoryPreset(.MediumHall2)
-    }
-
-    func loadMediumHall3() {
-        reverb.loadFactoryPreset(.MediumHall3)
-    }
-
-    func loadMediumRoom() {
-        reverb.loadFactoryPreset(.MediumRoom)
-    }
-
-    func loadPlate() {
-        reverb.loadFactoryPreset(.Plate)
-    }
-
-    func loadSmallRoom() {
-        reverb.loadFactoryPreset(.SmallRoom)
     }
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

@@ -36,8 +36,6 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        addButton("Short Tail", action: #selector(presetShortTail))
-        addButton("Low Ringing Tail", action: #selector(presetLowRingingTail))
 
         cutoffFrequencySlider = AKPropertySlider(
             property: "Cutoff Frequency",
@@ -58,18 +56,19 @@ class PlaygroundView: AKPlaygroundView {
             reverb.feedback = sliderValue
             }
         addSubview(feedbackSlider!)
-    }
-
-
-
-    func presetShortTail() {
-        reverb.presetShortTailCostelloReverb()
-        updateUI()
-    }
-
-    func presetLowRingingTail() {
-        reverb.presetLowRingingLongTailCostelloReverb()
-        updateUI()
+        
+        let presets = ["Short Tail", "Low Ringing Tail"]
+        addSubview(AKPresetLoaderView(presets: presets) { preset in
+            switch preset {
+            case "Short Tail":
+                reverb.presetShortTailCostelloReverb()
+            case "Low Ringing Tail":
+                reverb.presetLowRingingLongTailCostelloReverb()
+            default: break
+            }
+            self.updateUI()
+            }
+        )
     }
 
     func updateUI() {
