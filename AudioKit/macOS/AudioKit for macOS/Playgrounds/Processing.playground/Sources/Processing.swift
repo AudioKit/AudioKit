@@ -28,26 +28,6 @@ public class AKLabel: NSTextField {
     }
 }
 
-
-public class AKSlider: NSSlider {
-    
-    override public init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-    }
-    
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    public var value: Float {
-        get {
-            return floatValue
-        }
-        set {
-            floatValue = value
-        }
-    }
-}
-
 public class AKPlaygroundView: NSView {
     
     public var elementHeight: CGFloat = 30

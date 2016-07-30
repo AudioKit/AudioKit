@@ -34,9 +34,6 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Tanh Distortion")
 
         addButtons()
-
-        addLabel("Distortion Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 

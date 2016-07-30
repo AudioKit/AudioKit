@@ -35,7 +35,7 @@ public class AKAudioFile: AVAudioFile {
     
     // Used for exporting, can be accessed with public .avAsset property
     private lazy var internalAVAsset: AVURLAsset = {
-        let avAssetUrl = NSURL(fileURLWithPath:self.url.absoluteString)
+        let avAssetUrl = NSURL(fileURLWithPath: self.url.absoluteString)
         return  AVURLAsset(URL: avAssetUrl)
     }()
 

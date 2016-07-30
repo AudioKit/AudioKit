@@ -24,9 +24,10 @@ extension AKOperationEffect {
     }
 }
 
-//: Here we'll use the struct and the extension to refer to the autopan parameters by name
+//: Use the struct and the extension to refer to the autopan parameters by name
 
-let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -40,21 +41,16 @@ let effect = AKOperationEffect(player) { input, parameters in
 effect.parameters = [10, 1]
 AudioKit.output = effect
 AudioKit.start()
+player.play()
 
 class PlaygroundView: AKPlaygroundView {
-    var speedLabel: Label?
-    var depthLabel: Label?
 
     override func setup() {
         addTitle("AutoPan")
-
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
         
         addSubview(AKPropertySlider(
             property: "Speed",
@@ -72,41 +68,9 @@ class PlaygroundView: AKPlaygroundView {
             effect.depth = sliderValue
             })
     }
-
-
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    func stop() {
-        player.stop()
-    }
-
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 370))
+let view = PlaygroundView(height: 350)
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 
