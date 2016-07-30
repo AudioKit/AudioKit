@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -26,79 +27,34 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var frequencyLabel: Label?
-    var qualityFactorLabel: Label?
-
     override func setup() {
         addTitle("Modal Resonance Filter")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        frequencyLabel = addLabel("Frequency: \(filter.frequency)")
-        addSlider(#selector(setFrequency), value: filter.frequency, minimum: 0, maximum: 5000)
+        addSubview(AKPropertySlider(
+            property: "Frequency",
+            format: "%0.1f Hz",
+            value: filter.frequency, maximum: 5000,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.frequency = sliderValue
+            })
 
-        qualityFactorLabel = addLabel("Quality Factor: \(filter.qualityFactor)")
-        addSlider(#selector(setQualityFactor), value: filter.qualityFactor, minimum: 0.1, maximum: 20)
+        addSubview(AKPropertySlider(
+            property: "Quality Factor",
+            format: "%0.1f",
+            value: filter.qualityFactor, minimum: 0.1, maximum: 20,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            filter.qualityFactor = sliderValue
+            })
+
     }
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
 
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func setFrequency(slider: Slider) {
-        filter.frequency = Double(slider.value)
-        frequencyLabel!.text = "Frequency: \(String(format: "%0.0f", filter.frequency))"
-        printCode()
-    }
-
-    func setQualityFactor(slider: Slider) {
-        filter.qualityFactor = Double(slider.value)
-        qualityFactorLabel!.text =
-            "Quality Factor: \(String(format: "%0.1f", filter.qualityFactor))"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    frequency = \(String(format: "%0.3f", filter.frequency))")
-        Swift.print("    qualityFactor = \(String(format: "%0.3f", filter.qualityFactor))")
-        Swift.print("}\n")
-    }
 
 }
 

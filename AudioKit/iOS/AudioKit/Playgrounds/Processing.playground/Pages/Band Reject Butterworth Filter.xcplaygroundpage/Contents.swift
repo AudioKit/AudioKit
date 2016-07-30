@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -21,73 +22,41 @@ filter.bandwidth = 600  // Cents
 
 AudioKit.output = filter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
-    var centerFrequencyLabel: Label?
-    var bandwidthLabel: Label?
-
     override func setup() {
         addTitle("Band Reject Butterworth Filter")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
-
-        addLabel("Band Pass Filter Parameters")
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        centerFrequencyLabel = addLabel("Center Frequency: \(filter.centerFrequency) Hz")
-        addSlider(#selector(setCenterFrequency),
-                  value: filter.centerFrequency,
-                  minimum: 20,
-                  maximum: 22050)
+        addSubview(AKPropertySlider(
+            property: "Center Frequency",
+            format: "%0.1f Hz",
+            value: filter.centerFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.centerFrequency = sliderValue
+            })
 
-        bandwidthLabel = addLabel("Bandwidth \(filter.bandwidth) Cents")
-        addSlider(#selector(setBandwidth), value: filter.bandwidth, minimum: 100, maximum: 12000)
+        addSubview(AKPropertySlider(
+            property: "Bandwidth",
+            format: "%0.1f Hz",
+            value: filter.bandwidth, minimum: 100, maximum: 12000,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            filter.bandwidth = sliderValue
+            })
     }
 
-    //: Handle UI Events
-
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
 
     func process() {
         filter.play()
@@ -95,29 +64,6 @@ class PlaygroundView: AKPlaygroundView {
 
     func bypass() {
         filter.bypass()
-    }
-
-    func setCenterFrequency(slider: Slider) {
-        filter.centerFrequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", filter.centerFrequency)
-        centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
-        printCode()
-    }
-
-    func setBandwidth(slider: Slider) {
-        filter.bandwidth = Double(slider.value)
-        let bandwidth = String(format: "%0.1f", filter.bandwidth)
-        bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")
-        Swift.print("    bandwidth = \(String(format: "%0.3f", filter.bandwidth))")
-        Swift.print("}\n")
     }
 }
 

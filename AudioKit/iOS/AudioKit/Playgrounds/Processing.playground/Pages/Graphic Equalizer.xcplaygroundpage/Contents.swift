@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -19,88 +20,44 @@ var highFilter = AKEqualizerFilter(midFilter, centerFrequency: 5000, bandwidth: 
 
 AudioKit.output = highFilter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
-    var lowLabel: Label?
-    var midLabel: Label?
-    var highLabel: Label?
-
     override func setup() {
         addTitle("Graphic Equalizer")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
         addLabel("Equalizer Gains")
 
-        lowLabel = addLabel("Low: \(lowFilter.gain)")
-        addSlider(#selector(setLowGain), value: lowFilter.gain, minimum: 0, maximum: 10)
+        addSubview(AKPropertySlider(
+            property: "Low",
+            value: lowFilter.gain, maximum: 10,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            lowFilter.gain = sliderValue
+            })
 
-        midLabel = addLabel("Mid: \(midFilter.gain)")
-        addSlider(#selector(setMidGain), value: midFilter.gain, minimum: 0, maximum: 10)
+        addSubview(AKPropertySlider(
+            property: "Mid",
+            value: midFilter.gain, maximum: 10,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            midFilter.gain = sliderValue
+            })
 
-        highLabel = addLabel("High: \(highFilter.gain)")
-        addSlider(#selector(setHighGain), value: highFilter.gain, minimum: 0, maximum: 10)
-    }
-
-    //: Handle UI Events
-
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func setLowGain(slider: Slider) {
-        lowFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", lowFilter.gain)
-        lowLabel!.text = "Low: \(gain)"
-    }
-
-    func setMidGain(slider: Slider) {
-        midFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", midFilter.gain)
-        midLabel!.text = "Mid: \(gain)"
-    }
-
-    func setHighGain(slider: Slider) {
-        highFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", highFilter.gain)
-        highLabel!.text = "High: \(gain)"
+        addSubview(AKPropertySlider(
+            property: "High",
+            value: highFilter.gain, maximum: 10,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            highFilter.gain = sliderValue
+            })
     }
 
 }

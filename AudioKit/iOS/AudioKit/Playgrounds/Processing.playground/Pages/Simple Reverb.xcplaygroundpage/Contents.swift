@@ -8,7 +8,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -28,22 +29,16 @@ reverb.loadFactoryPreset(.Cathedral)
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
-        addTitle("Apple Reverb")
+        addTitle("Reverb")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
         addLineBreak()
-
-        addLabel("Apple Reverb")
-
         addButton("Cathedral", action: #selector(loadCathedral))
         addButton("Large Chamber", action: #selector(loadLargeChamber))
+        addLineBreak()
         addButton("Large Hall", action: #selector(loadLargeHall))
         addButton("Large Hall 2", action: #selector(loadLargeHall2))
         addLineBreak()
@@ -60,38 +55,13 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Plate", action: #selector(loadPlate))
         addButton("Small Room", action: #selector(loadSmallRoom))
 
-        addLabel("Mix: ")
-        addSlider(#selector(setDryWet), value: reverb.dryWetMix)
-    }
-
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    func stop() {
-        player.stop()
+        addSubview(AKPropertySlider(
+            property: "Mix",
+            value: reverb.dryWetMix,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            reverb.dryWetMix = sliderValue
+            })
     }
 
     func loadCathedral() {
@@ -146,18 +116,6 @@ class PlaygroundView: AKPlaygroundView {
         reverb.loadFactoryPreset(.SmallRoom)
     }
 
-    func setDryWet(slider: Slider) {
-        reverb.dryWetMix = Double(slider.value)
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    dryWetMix = \(String(format: "%0.3f", reverb.dryWetMix))")
-        Swift.print("}\n")
-    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))

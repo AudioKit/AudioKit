@@ -10,7 +10,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -29,66 +30,36 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
-    var cutoffFrequencyLabel: Label?
-    var resonanceLabel: Label?
-
     override func setup() {
         addTitle("High Pass Filter")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
-
-        addLabel("High Pass Filter Parameters")
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        cutoffFrequencyLabel = addLabel("Cut-off Frequency: 6900 Hz")
-        addSlider(#selector(setCutoffFrequency), value: 6900, minimum: 10, maximum: 22050)
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: highPassFilter.cutoffFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            highPassFilter.cutoffFrequency = sliderValue
+            })
 
-        resonanceLabel = addLabel("Resonance: 0 dB")
-        addSlider(#selector(setResonance), value: 0, minimum: -20, maximum: 40)
-
+        addSubview(AKPropertySlider(
+            property: "Resonance",
+            format: "%0.1f dB",
+            value: highPassFilter.resonance, minimum: -20, maximum: 40,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            highPassFilter.resonance = sliderValue
+            })
     }
 
-    //: Handle UI Events
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
 
     func process() {
         highPassFilter.start()
@@ -96,30 +67,6 @@ class PlaygroundView: AKPlaygroundView {
 
     func bypass() {
         highPassFilter.bypass()
-    }
-
-    func setCutoffFrequency(slider: Slider) {
-        highPassFilter.cutoffFrequency = Double(slider.value)
-        let cutoffFrequency = String(format: "%0.1f", highPassFilter.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "Cut-off Frequency: \(cutoffFrequency) Hz"
-        printCode()
-    }
-
-    func setResonance(slider: Slider) {
-        highPassFilter.resonance = Double(slider.value)
-        let resonance = String(format: "%0.1f", highPassFilter.resonance)
-        resonanceLabel!.text = "Resonance: \(resonance) dB"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutoffFrequency = " +
-            String(format: "%0.3f", highPassFilter.cutoffFrequency))
-        Swift.print("    resonance = \(String(format: "%0.3f", highPassFilter.resonance))")
-        Swift.print("}\n")
     }
 }
 
