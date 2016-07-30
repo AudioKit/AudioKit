@@ -40,23 +40,40 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        rateLabel = addLabel("Rate: \(timePitch.rate) rate")
-        addSlider(#selector(setRate), value: timePitch.rate, minimum: 0.03125, maximum: 5.0)
-
-        pitchLabel = addLabel("Pitch: \(timePitch.pitch) Cents")
-        addSlider(#selector(setPitch), value: timePitch.pitch, minimum: -2400, maximum: 2400)
-
-        overlapLabel = addLabel("Overlap: \(timePitch.overlap)")
-        addSlider(#selector(setOverlap), value: timePitch.overlap, minimum: 3.0, maximum: 32.0)
-
+        addSubview(AKPropertySlider(
+            property: "Rate",
+            format: "%0.3f",
+            value: timePitch.rate, minimum: 0.3125, maximum: 5,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            timePitch.rate = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Pitch",
+            format: "%0.3f Cents",
+            value: timePitch.pitch, minimum: -2400, maximum: 2400,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            timePitch.pitch = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Overlap",
+            value: timePitch.overlap, minimum: 3, maximum: 32,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            timePitch.overlap = sliderValue
+            })
     }
-    func startLoop(part: String) {
+    
+    override func startLoop(name: String) {
         player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop", baseDir: .Resources)
+        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
         try? player.replaceFile(file!)
         player.play()
     }
-    func stop() {
+    override func stop() {
         player.stop()
     }
 
@@ -67,23 +84,7 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         timePitch.bypass()
     }
-    func setRate(slider: Slider) {
-        timePitch.rate = Double(slider.value)
-        let rate = String(format: "%0.1f", timePitch.rate)
-        rateLabel!.text = "Rate: \(rate) rate"
-    }
 
-    func setPitch(slider: Slider) {
-        timePitch.pitch = Double(slider.value)
-        let pitch = String(format: "%0.1f", timePitch.pitch)
-        pitchLabel!.text = "Pitch: \(pitch) Cents"
-    }
-
-    func setOverlap(slider: Slider) {
-        timePitch.overlap = Double(slider.value)
-        let overlap = String(format: "%0.1f", timePitch.overlap)
-        overlapLabel!.text = "Overlap: \(overlap)"
-    }
 
 }
 

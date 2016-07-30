@@ -27,22 +27,35 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
+    var cutoffFrequencySlider: AKPropertySlider?
+    var feedbackSlider: AKPropertySlider?
+    
     override func setup() {
         addTitle("Sean Costello Reverb")
 
         addButtons()
-
-        cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(reverb.cutoffFrequency)")
-        addSlider(#selector(setCutoffFrequency),
-                  value: reverb.cutoffFrequency,
-                  minimum: 0,
-                  maximum: 5000)
-
-        feedbackLabel = addLabel("Feedback: \(reverb.feedback)")
-        addSlider(#selector(setFeedback), value: reverb.feedback, minimum: 0, maximum: 0.99)
-
         addButton("Short Tail", action: #selector(presetShortTail))
         addButton("Low Ringing Tail", action: #selector(presetLowRingingTail))
+        
+        cutoffFrequencySlider = AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: reverb.cutoffFrequency, maximum: 5000,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            reverb.cutoffFrequency = sliderValue
+            }
+        addSubview(cutoffFrequencySlider!)
+        
+
+        feedbackSlider = AKPropertySlider(
+            property: "Feedback",
+            value: reverb.feedback,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            reverb.feedback = sliderValue
+            }
+        addSubview(feedbackSlider!)
     }
 
     override func startLoop(name: String) {
@@ -54,51 +67,23 @@ class PlaygroundView: AKPlaygroundView {
     override func stop() {
         player.stop()
     }
-
-    func setCutoffFrequency(slider: Slider) {
-        reverb.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: " +
-            String(format: "%0.0f", reverb.cutoffFrequency)
-        printCode()
-    }
-
-    func setFeedback(slider: Slider) {
-        reverb.feedback = Double(slider.value)
-        feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", reverb.feedback))"
-        printCode()
-    }
-
+    
     func presetShortTail() {
         reverb.presetShortTailCostelloReverb()
         updateUI()
     }
-
+    
     func presetLowRingingTail() {
         reverb.presetLowRingingLongTailCostelloReverb()
         updateUI()
     }
 
     func updateUI() {
-        updateTextFields()
-        updateSliders()
-        printCode()
+        cutoffFrequencySlider?.value = reverb.cutoffFrequency
+        feedbackSlider?.value = reverb.feedback
     }
-
-    func updateSliders() {
-        cutoffFrequencySlider?.value = Float(reverb.cutoffFrequency)
-        feedbackSlider?.value = Float(reverb.feedback)
-    }
-
-    func updateTextFields() {
-        let cutoffFrequency = String(format: "%0.3f", reverb.cutoffFrequency)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: \(cutoffFrequency)"
-
-        let feedback = String(format: "%0.3f", reverb.feedback)
-        feedbackLabel!.text = "Feedback: \(feedback)"
-    }
-
+    
     func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
 
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")

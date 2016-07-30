@@ -42,11 +42,22 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        timeLabel = addLabel("Time: \(fatten.parameters[0])")
-        addSlider(#selector(setTime), value: fatten.parameters[0], minimum: 0.03, maximum: 0.1)
-
-        mixLabel = addLabel("Mix: \(fatten.parameters[0])")
-        addSlider(#selector(setMix), value: fatten.parameters[1])
+        addSubview(AKPropertySlider(
+            property: "Time",
+            format:  "%0.3f s",
+            value: fatten.parameters[0],  minimum: 0.03, maximum: 0.1,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            fatten.parameters[0] = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Mix",
+            value: fatten.parameters[1],
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            fatten.parameters[1] = sliderValue
+            })
     }
 
     override func startLoop(name: String) {
@@ -58,17 +69,6 @@ class PlaygroundView: AKPlaygroundView {
     override func stop() {
         player.stop()
     }
-
-    func setTime(slider: Slider) {
-        fatten.parameters = [Double(slider.value), fatten.parameters[1]]
-        timeLabel!.text = "Time: \(String(format: "%0.3f", fatten.parameters[0]))"
-    }
-
-    func setMix(slider: Slider) {
-        fatten.parameters = [fatten.parameters[0], Double(slider.value)]
-        mixLabel!.text = "Mix: \(String(format: "%0.3f", fatten.parameters[1]))"
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))

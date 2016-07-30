@@ -34,64 +34,111 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var delaySlider: Slider?
-    var decaySlider: Slider?
-    var delayMixSlider: Slider?
-    var linearTermSlider: Slider?
-    var squaredTermSlider: Slider?
-    var cubicTermSlider: Slider?
-    var polynomialMixSlider: Slider?
-    var softClipGainSlider: Slider?
-    var finalMixSlider: Slider?
+    var delaySlider: AKPropertySlider?
+    var decaySlider: AKPropertySlider?
+    var delayMixSlider: AKPropertySlider?
+    var linearTermSlider: AKPropertySlider?
+    var squaredTermSlider: AKPropertySlider?
+    var cubicTermSlider: AKPropertySlider?
+    var polynomialMixSlider: AKPropertySlider?
+    var softClipGainSlider: AKPropertySlider?
+    var finalMixSlider: AKPropertySlider?
 
     override func setup() {
         addTitle("Distortion")
 
         addButtons()
 
-        addLabel("Distortion Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-
-        delayLabel = addLabel("Delay: \(distortion.delay) Milliseconds")
-        delaySlider = addSlider(#selector(setDelay),
-                                value: distortion.delay,
-                                minimum: 0.1,
-                                maximum: 500)
-
-        decayLabel = addLabel("Decay: \(distortion.decay) Rate")
-        decaySlider = addSlider(#selector(setDecay),
-                                value: distortion.decay,
-                                minimum: 0.1,
-                                maximum: 50)
-
-        delayMixLabel = addLabel("Delay Mix: \(distortion.delayMix)")
-        delayMixSlider = addSlider(#selector(setDelayMix), value: distortion.delayMix)
-
-        linearTermLabel = addLabel("Linear Term: \(distortion.linearTerm)")
-        linearTermSlider = addSlider(#selector(setLinearTerm), value: distortion.linearTerm)
-
-        squaredTermLabel = addLabel("Squared Term: \(distortion.squaredTerm)")
-        squaredTermSlider = addSlider(#selector(setSquaredTerm), value: distortion.squaredTerm)
-
-        cubicTermLabel = addLabel("Cubic Term: \(distortion.cubicTerm)")
-        cubicTermSlider = addSlider(#selector(setCubicTerm), value: distortion.cubicTerm)
-
-        polynomialMixLabel = addLabel("Polynomial Mix: \(distortion.polynomialMix)")
-        polynomialMixSlider = addSlider(#selector(setPolynomialMix),
-                                        value: distortion.polynomialMix)
-
-        softClipGainLabel = addLabel("Soft Clip Gain: \(distortion.softClipGain) dB")
-        softClipGainSlider = addSlider(#selector(setSoftClipGain),
-                                       value: distortion.softClipGain,
-                                       minimum: -80,
-                                       maximum: 20)
-
-        finalMixLabel = addLabel("Final Mix: \(distortion.finalMix)")
-        finalMixSlider = addSlider(#selector(setFinalMix), value: distortion.finalMix)
-
+        
+        addLineBreak()
+        
         addButton("Infinite Distortion Wall", action: #selector(presetInfiniteDistortionWall))
+        
+        delaySlider = AKPropertySlider(
+            property: "Delay",
+            format: "%0.3f ms",
+            value: distortion.delay, minimum: 0.1, maximum: 500,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.delay = sliderValue
+        }
+        addSubview(delaySlider!)
+        
+        decaySlider = AKPropertySlider(
+            property: "Decay Rate",
+            value: distortion.decay, minimum: 0.1, maximum: 50,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.decay = sliderValue
+        }
+        addSubview(decaySlider!)
+        
+        delayMixSlider = AKPropertySlider(
+            property: "Delay Mix",
+            value: distortion.delayMix,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.delayMix = sliderValue
+        }
+        addSubview(delayMixSlider!)
+        
+        linearTermSlider = AKPropertySlider(
+            property: "Linear Term",
+            value: distortion.linearTerm,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.linearTerm = sliderValue
+        }
+        addSubview(linearTermSlider!)
+
+        squaredTermSlider = AKPropertySlider(
+            property: "Squared Term",
+            value: distortion.squaredTerm,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.squaredTerm = sliderValue
+        }
+        addSubview(squaredTermSlider!)
+        
+        cubicTermSlider = AKPropertySlider(
+            property: "Cubic Term",
+            value: distortion.cubicTerm,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.cubicTerm = sliderValue
+        }
+        addSubview(cubicTermSlider!)
+        
+        polynomialMixSlider = AKPropertySlider(
+            property: "Polynomial Mix",
+            value: distortion.polynomialMix,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.polynomialMix = sliderValue
+        }
+        addSubview(polynomialMixSlider!)
+        
+        softClipGainSlider = AKPropertySlider(
+            property: "Soft Clip Gain",
+            format: "%0.3f dB",
+            value: distortion.softClipGain, minimum: -80, maximum: 20,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.softClipGain = sliderValue
+        }
+        addSubview(softClipGainSlider!)
+        
+        finalMixSlider = AKPropertySlider(
+            property: "Final Mix",
+            value: distortion.finalMix,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.finalMix = sliderValue
+        }
+        addSubview(finalMixSlider!)
+
     }
     override func startLoop(name: String) {
         player.stop()
@@ -111,123 +158,24 @@ class PlaygroundView: AKPlaygroundView {
         distortion.bypass()
     }
 
-    func setDelay(slider: Slider) {
-        distortion.delay = Double(slider.value)
-        let delay = String(format: "%0.3f", distortion.delay)
-        delayLabel!.text = "Delay: \(delay) Milliseconds"
-        printCode()
-    }
-
-    func setDecay(slider: Slider) {
-        distortion.decay = Double(slider.value)
-        let decay = String(format: "%0.3f", distortion.decay)
-        decayLabel!.text = "Decay: \(decay) Rate"
-        printCode()
-    }
-
-    func setDelayMix(slider: Slider) {
-        distortion.delayMix = Double(slider.value)
-        let delayMix = String(format: "%0.3f", distortion.delayMix)
-        delayMixLabel!.text = "Delay Mix: \(delayMix)"
-        printCode()
-    }
-
-    func setLinearTerm(slider: Slider) {
-        distortion.linearTerm = Double(slider.value)
-        let linearTerm = String(format: "%0.3f", distortion.linearTerm)
-        linearTermLabel!.text = "linearTerm: \(linearTerm)"
-        printCode()
-    }
-
-    func setSquaredTerm(slider: Slider) {
-        distortion.squaredTerm = Double(slider.value)
-        let squaredTerm = String(format: "%0.3f", distortion.squaredTerm)
-        squaredTermLabel!.text = "squaredTerm: \(squaredTerm)"
-        printCode()
-    }
-
-    func setCubicTerm(slider: Slider) {
-        distortion.cubicTerm = Double(slider.value)
-        let cubicTerm = String(format: "%0.3f", distortion.cubicTerm)
-        cubicTermLabel!.text = "cubicTerm: \(cubicTerm)"
-        printCode()
-    }
-
-    func setPolynomialMix(slider: Slider) {
-        distortion.polynomialMix = Double(slider.value)
-        let polynomialMix = String(format: "%0.3f", distortion.polynomialMix)
-        polynomialMixLabel!.text = "polynomialMix: \(polynomialMix)"
-        printCode()
-    }
-
-    func setSoftClipGain(slider: Slider) {
-        distortion.softClipGain = Double(slider.value)
-        let softClipGain = String(format: "%0.3f", distortion.softClipGain)
-        softClipGainLabel!.text = "softClipGain: \(softClipGain) dB"
-        printCode()
-    }
-
-    func setFinalMix(slider: Slider) {
-        distortion.finalMix = Double(slider.value)
-        let finalMix = String(format: "%0.3f", distortion.finalMix)
-        finalMixLabel!.text = "finalMix: \(finalMix)"
-        printCode()
-    }
-
     func presetInfiniteDistortionWall() {
         distortion.presetInfiniteDistortionWall()
         updateUI()
     }
 
     func updateUI() {
-        updateTextFields()
-        updateSliders()
-        printCode()
-    }
-
-    func updateSliders() {
-        delaySlider?.value = Float(distortion.delay)
-        decaySlider?.value = Float(distortion.decay)
-        delayMixSlider?.value = Float(distortion.delayMix)
-        linearTermSlider?.value = Float(distortion.linearTerm)
-        squaredTermSlider?.value = Float(distortion.squaredTerm)
-        cubicTermSlider?.value = Float(distortion.cubicTerm)
-        polynomialMixSlider?.value = Float(distortion.polynomialMix)
-        softClipGainSlider?.value = Float(distortion.softClipGain)
-        finalMixSlider?.value = Float(distortion.finalMix)
-    }
-
-    func updateTextFields() {
-        let delay = String(format: "%0.3f", distortion.delayMix)
-        delayLabel!.text = "Delay: \(delay) Milliseconds"
-
-        let decay = String(format: "%0.3f", distortion.decay)
-        decayLabel!.text = "Decay: \(decay) Rate"
-
-        let delayMix = String(format: "%0.3f", distortion.delayMix)
-        delayMixLabel!.text = "Delay Mix: \(delayMix)"
-
-        let linearTerm = String(format: "%0.3f", distortion.linearTerm)
-        linearTermLabel!.text = "Linear Term: \(linearTerm)"
-
-        let squaredTerm = String(format: "%0.3f", distortion.squaredTerm)
-        squaredTermLabel!.text = "Squared Term:\(squaredTerm)"
-
-        let cubicTerm = String(format: "%0.3f", distortion.cubicTerm)
-        cubicTermLabel!.text = "Cubic Term: \(cubicTerm)"
-
-        let polynomialMix = String(format: "%0.3f", distortion.polynomialMix)
-        polynomialMixLabel!.text = "Polynomial Mix: \(polynomialMix)"
-
-        let softClipGain = String(format: "%0.3f", distortion.softClipGain)
-        softClipGainLabel!.text = "Soft Clip Gain: \(softClipGain) dB"
-
-        let finalMix = String(format: "%0.3f", distortion.finalMix)
-        finalMixLabel!.text = "Final Mix:\(finalMix)"
+        delaySlider?.value = distortion.delay
+        decaySlider?.value = distortion.decay
+        delayMixSlider?.value = distortion.delayMix
+        linearTermSlider?.value = distortion.linearTerm
+        squaredTermSlider?.value = distortion.squaredTerm
+        cubicTermSlider?.value = distortion.cubicTerm
+        polynomialMixSlider?.value = distortion.polynomialMix
+        softClipGainSlider?.value = distortion.softClipGain
+        finalMixSlider?.value = distortion.finalMix
     }
 
     func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
 
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    delay = \(String(format: "%0.3f", distortion.delay))")

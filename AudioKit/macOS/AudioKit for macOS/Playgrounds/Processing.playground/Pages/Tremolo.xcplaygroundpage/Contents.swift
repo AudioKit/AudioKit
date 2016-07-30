@@ -27,21 +27,22 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Tremolo")
         addButtons()
 
-        frequencyLabel = addLabel("Frequency: \(tremolo.frequency)")
-        addSlider(#selector(setFrequency), value: tremolo.frequency, minimum: 0, maximum: 20)
-
-        depthLabel = addLabel("Depth: \(tremolo.depth)")
-        addSlider(#selector(setDepth), value: tremolo.depth, minimum: 0, maximum: 1.0)
-    }
-
-    func setFrequency(slider: Slider) {
-        tremolo.frequency = Double(slider.value)
-        frequencyLabel!.text = "Frequency: \(String(format: "%0.3f", tremolo.frequency))"
-    }
-
-    func setDepth(slider: Slider) {
-        tremolo.depth = Double(slider.value)
-        depthLabel!.text = "Depth: \(String(format: "%0.3f", tremolo.depth))"
+        addSubview(AKPropertySlider(
+            property: "Frequency",
+            format: "%0.3f Hz",
+            value: tremolo.frequency, maximum: 20,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            tremolo.frequency = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Depth",
+            value: tremolo.depth,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            tremolo.depth = sliderValue
+            })
     }
 
     override func startLoop(name: String) {

@@ -9,11 +9,8 @@
 import XCPlayground
 import AudioKit
 
-
 let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
                            baseDir: .Resources)
-
-//: Here we set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -34,11 +31,15 @@ class PlaygroundView: AKPlaygroundView {
 
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-
-        pitchLabel = addLabel("Pitch: \(pitchshifter.shift) Semitones")
-        addSlider(#selector(setPitch), value: pitchshifter.shift, minimum: -24, maximum: 24)
-
-
+        
+        addSubview(AKPropertySlider(
+            property: "Pitch",
+            format: "%0.3f Semitones",
+            value: pitchshifter.shift, minimum: -24, maximum: 24,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            pitchshifter.shift = sliderValue
+            })
     }
     override func startLoop(name: String) {
         player.stop()
@@ -56,21 +57,6 @@ class PlaygroundView: AKPlaygroundView {
 
     func bypass() {
         pitchshifter.bypass()
-    }
-
-    func setPitch(slider: Slider) {
-        pitchshifter.shift = Double(slider.value)
-        let pitch = String(format: "%0.1f", pitchshifter.shift)
-        pitchLabel!.text = "Pitch: \(pitch) Semitones"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    shift = \(String(format: "%0.3f", pitchshifter.shift))")
-        Swift.print("}\n")
     }
 }
 

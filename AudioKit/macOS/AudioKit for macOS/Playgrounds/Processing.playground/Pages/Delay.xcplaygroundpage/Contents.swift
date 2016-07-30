@@ -115,7 +115,6 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
 
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    time = \(String(format: "%0.3f", delay.time))")

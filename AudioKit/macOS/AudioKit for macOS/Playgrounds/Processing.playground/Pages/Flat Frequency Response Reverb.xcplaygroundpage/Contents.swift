@@ -29,9 +29,14 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Flat Frequency Response Reverb")
 
         addButtons()
-
-        durationLabel = addLabel("Duration: \(reverb.reverbDuration)")
-        addSlider(#selector(setDuration), value: reverb.reverbDuration, minimum: 0, maximum: 5)
+        
+        addSubview(AKPropertySlider(
+            property: "Duration",
+            value: reverb.reverbDuration, maximum: 5,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            reverb.reverbDuration = sliderValue
+            })
     }
 
     override func startLoop(name: String) {
@@ -44,19 +49,6 @@ class PlaygroundView: AKPlaygroundView {
         player.stop()
     }
 
-    func setDuration(slider: Slider) {
-        reverb.reverbDuration = Double(slider.value)
-        durationLabel!.text = "Duration: \(String(format: "%0.3f", reverb.reverbDuration))"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    reverbDuration = \(String(format: "%0.3f", reverb.reverbDuration))")
-        Swift.print("}\n")
-    }
 
 }
 
