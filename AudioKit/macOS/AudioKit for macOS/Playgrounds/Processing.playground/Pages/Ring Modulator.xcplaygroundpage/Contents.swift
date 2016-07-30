@@ -14,8 +14,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var ringModulator = AKRingModulator(player)
-
-//: Set the parameters here
 ringModulator.frequency1 = 440 // Hz
 ringModulator.frequency2 = 660 // Hz
 ringModulator.balance = 0.5
@@ -36,17 +34,39 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        ringModFreq1Label = addLabel("Frequency 1: \(ringModulator.frequency1) Hertz")
-        addSlider(#selector(setFreq1), value: ringModulator.frequency1, minimum: 0.5, maximum: 8000)
-
-        ringModFreq2Label = addLabel("Frequency 2: \(ringModulator.frequency2) Hertz")
-        addSlider(#selector(setFreq2), value: ringModulator.frequency2, minimum: 0.5, maximum: 8000)
-
-        ringModBalanceLabel = addLabel("Balance: \(ringModulator.balance)")
-        addSlider(#selector(setBalance), value: ringModulator.balance)
-
-        finalMixLabel = addLabel("Finalmix: \(ringModulator.mix)")
-        addSlider(#selector(setMix), value: ringModulator.mix)
+        addSubview(AKPropertySlider(
+            property: "Frequency 1",
+            format: "%0.2f Hz",
+            value: ringModulator.frequency1, minimum: 0.5, maximum: 8000,
+            color: AKColor.greenColor()
+            ) { sliderValue in
+                ringModulator.frequency1 = sliderValue
+        })
+        
+        addSubview(AKPropertySlider(
+            property: "Frequency 2",
+            format: "%0.2f Hz",
+            value: ringModulator.frequency2, minimum: 0.5, maximum: 8000,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            ringModulator.frequency2 = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Balance",
+            value: ringModulator.balance,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            ringModulator.balance = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Mix",
+            value: ringModulator.mix,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            ringModulator.mix = sliderValue
+            })
 
     }
     override func startLoop(name: String) {
@@ -66,46 +86,6 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         ringModulator.bypass()
     }
-
-    func setFreq1(slider: Slider) {
-        ringModulator.frequency1 = Double(slider.value)
-        let ringModFreq1 = String(format: "%0.1f", ringModulator.frequency1)
-        ringModFreq1Label!.text = "Frequency 1: \(ringModFreq1) Hertz"
-        printCode()
-    }
-
-    func setFreq2(slider: Slider) {
-        ringModulator.frequency2 = Double(slider.value)
-        let ringModFreq2 = String(format: "%0.1f", ringModulator.frequency2)
-        ringModFreq2Label!.text = "Frequency 2: \(ringModFreq2) Hertz"
-        printCode()
-    }
-
-    func setBalance(slider: Slider) {
-        ringModulator.balance = Double(slider.value)
-        let ringModBalance = String(format: "%0.1f", ringModulator.balance)
-        ringModBalanceLabel!.text = "Balance: \(ringModBalance)"
-        printCode()
-    }
-
-    func setMix(slider: Slider) {
-        ringModulator.mix = Double(slider.value)
-        let finalMix = String(format: "%0.1f", ringModulator.mix)
-        finalMixLabel!.text = "Mix: \(finalMix)"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    frequency1 = \(String(format: "%0.3f", ringModulator.frequency1))")
-        Swift.print("    frequency2 = \(String(format: "%0.3f", ringModulator.frequency2))")
-        Swift.print("    balance = \(String(format: "%0.3f", ringModulator.balance))")
-        Swift.print("    mix = \(String(format: "%0.3f", ringModulator.mix))")
-        Swift.print("}\n")
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))

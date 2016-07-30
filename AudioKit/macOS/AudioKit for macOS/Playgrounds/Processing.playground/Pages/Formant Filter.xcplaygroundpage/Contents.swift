@@ -17,6 +17,7 @@ var filter = AKFormantFilter(player)
 
 AudioKit.output = filter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -26,23 +27,35 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Formant Filter")
 
         addButtons()
-
-        addLabel("Formant Filter Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        centerFrequencyLabel = addLabel("Center Frequency: \(filter.centerFrequency) Hz")
-        addSlider(#selector(setCenterFrequency),
-                  value: filter.centerFrequency,
-                  minimum: 20,
-                  maximum: 22050)
+        addSubview(AKPropertySlider(
+            property: "Center Frequency",
+            format: "%0.1f Hz",
+            value: filter.centerFrequency, maximum: 8000,
+            color: AKColor.yellowColor()
+        ) { sliderValue in
+            filter.centerFrequency = sliderValue
+            })
 
-        attackLabel = addLabel("Attack: \(filter.attackDuration) Seconds")
-        addSlider(#selector(setAttack), value: filter.attackDuration, minimum: 0, maximum: 0.1)
-
-        decayLabel = addLabel("Decay: \(filter.decayDuration) Seconds")
-        addSlider(#selector(setDecay), value: filter.decayDuration, minimum: 0, maximum: 0.1)
+        addSubview(AKPropertySlider(
+            property: "Attack",
+            format: "%0.3f s",
+            value: filter.attackDuration, maximum: 0.1,
+            color: AKColor.greenColor()
+        ) { duration in
+            filter.attackDuration = duration
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Decay",
+            format: "%0.3f s",
+            value: filter.decayDuration, maximum: 0.1,
+            color: AKColor.cyanColor()
+        ) { duration in
+            filter.decayDuration = duration
+            })
 
     }
     override func startLoop(name: String) {
@@ -63,29 +76,7 @@ class PlaygroundView: AKPlaygroundView {
         filter.bypass()
     }
 
-    func setCenterFrequency(slider: Slider) {
-        filter.centerFrequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", filter.centerFrequency)
-        centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
-        printCode()
-    }
-
-    func setAttack(slider: Slider) {
-        filter.attackDuration = Double(slider.value)
-        let attack = String(format: "%0.3f", filter.attackDuration)
-        attackLabel!.text = "Attack: \(attack) Seconds"
-        printCode()
-    }
-
-    func setDecay(slider: Slider) {
-        filter.decayDuration = Double(slider.value)
-        let decay = String(format: "%0.3f", filter.decayDuration)
-        decayLabel!.text = "Decay: \(decay) Seconds"
-        printCode()
-    }
-
     func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
 
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    centerFrequency = \(String(format: "%0.3f", filter.centerFrequency))")

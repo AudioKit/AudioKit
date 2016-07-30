@@ -31,18 +31,24 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Three Pole Low Pass Filter")
 
         addButtons()
+        
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: filter.cutoffFrequency, maximum: 5000,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.cutoffFrequency = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Resonance",
+            value: filter.resonance,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            filter.resonance = sliderValue
+            })
 
-        cutoffFrequencyLabel = addLabel("Cutoff Frequency: \(filter.cutoffFrequency)")
-        addSlider(#selector(setCutoffFrequency),
-                  value: filter.cutoffFrequency,
-                  minimum: 0,
-                  maximum: 5000)
-
-        resonanceLabel = addLabel("Resonance: \(filter.resonance)")
-        addSlider(#selector(setResonance),
-                  value: filter.resonance,
-                  minimum: 0,
-                  maximum: 0.99)
     }
 
     override func startLoop(name: String) {
@@ -56,19 +62,9 @@ class PlaygroundView: AKPlaygroundView {
         player.stop()
     }
 
-    func setCutoffFrequency(slider: Slider) {
-        filter.cutoffFrequency = Double(slider.value)
-        cutoffFrequencyLabel!.text = "Cutoff Frequency: " +
-            String(format: "%0.0f", filter.cutoffFrequency)
-    }
-
-    func setResonance(slider: Slider) {
-        filter.resonance = Double(slider.value)
-        resonanceLabel!.text = "Resonance: \(String(format: "%0.3f", filter.resonance))"
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 400))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

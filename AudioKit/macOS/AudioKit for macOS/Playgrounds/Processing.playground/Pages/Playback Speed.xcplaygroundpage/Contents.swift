@@ -34,8 +34,15 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        rateLabel = addLabel("Rate: \(variSpeed.rate) rate")
-        addSlider(#selector(setRate), value: variSpeed.rate, minimum: 0.03125, maximum: 5.0)
+        addSubview(AKPropertySlider(
+            property: "Rate",
+            format: "%0.3f",
+            value: variSpeed.rate, minimum: 0.3125, maximum: 5,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            variSpeed.rate = sliderValue
+            })
+        
     }
     override func startLoop(name: String) {
         player.stop()
@@ -54,22 +61,6 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         variSpeed.bypass()
     }
-
-    func setRate(slider: Slider) {
-        variSpeed.rate = Double(slider.value)
-        let rate = String(format: "%0.3f", variSpeed.rate)
-        rateLabel!.text = "Rate: \(rate) rate"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    rate = \(String(format: "%0.3f", variSpeed.rate))")
-        Swift.print("}\n")
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))

@@ -29,16 +29,14 @@ reverb.loadFactoryPreset(.Cathedral)
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
-        addTitle("Apple Reverb")
+        addTitle("Reverb")
 
         addButtons()
 
         addLineBreak()
-
-        addLabel("Apple Reverb")
-
         addButton("Cathedral", action: #selector(loadCathedral))
         addButton("Large Chamber", action: #selector(loadLargeChamber))
+        addLineBreak()
         addButton("Large Hall", action: #selector(loadLargeHall))
         addButton("Large Hall 2", action: #selector(loadLargeHall2))
         addLineBreak()
@@ -55,8 +53,13 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Plate", action: #selector(loadPlate))
         addButton("Small Room", action: #selector(loadSmallRoom))
 
-        addLabel("Mix: ")
-        addSlider(#selector(setDryWet), value: reverb.dryWetMix)
+        addSubview(AKPropertySlider(
+            property: "Mix",
+            value: reverb.dryWetMix,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            reverb.dryWetMix = sliderValue
+            })
     }
 
     override func startLoop(name: String) {
@@ -122,18 +125,6 @@ class PlaygroundView: AKPlaygroundView {
         reverb.loadFactoryPreset(.SmallRoom)
     }
 
-    func setDryWet(slider: Slider) {
-        reverb.dryWetMix = Double(slider.value)
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    dryWetMix = \(String(format: "%0.3f", reverb.dryWetMix))")
-        Swift.print("}\n")
-    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))

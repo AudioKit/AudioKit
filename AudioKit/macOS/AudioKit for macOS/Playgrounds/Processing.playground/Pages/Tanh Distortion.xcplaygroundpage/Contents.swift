@@ -40,26 +40,37 @@ class PlaygroundView: AKPlaygroundView {
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        pregainLabel = addLabel("Pregain: \(distortion.pregain) Hz")
-        addSlider(#selector(setPregain), value: distortion.pregain, minimum: 0, maximum: 10)
+        addSubview(AKPropertySlider(
+            property: "Pre-gain",
+            value: distortion.pregain, maximum: 10,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.pregain = sliderValue
+            })
 
-        postgainLabel = addLabel("Postgain: \(distortion.postgain) Hz")
-        addSlider(#selector(setPostgain), value: distortion.postgain, minimum: 0, maximum: 10)
-
-        postiveShapeParameterLabel =
-            addLabel("Postive Shape Parameter: \(distortion.postiveShapeParameter)")
-        addSlider(#selector(setPositiveShapeParameter),
-                  value: distortion.postiveShapeParameter,
-                  minimum: -10,
-                  maximum: 10)
-
-        negativeShapeParameterLabel =
-            addLabel("Negative Shape Parameter: \(distortion.negativeShapeParameter)")
-        addSlider(#selector(setNegativeShapeParameter),
-                  value: distortion.negativeShapeParameter,
-                  minimum: -10,
-                  maximum: 10)
-
+        addSubview(AKPropertySlider(
+            property: "Post-gain",
+            value: distortion.postgain, maximum: 10,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.postgain = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Postive Shape Parameter",
+            value: distortion.postiveShapeParameter, minimum: -10, maximum: 10,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.postiveShapeParameter = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Negative Shape Parameter",
+            value: distortion.negativeShapeParameter, minimum: -10, maximum: 10,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            distortion.negativeShapeParameter = sliderValue
+            })
     }
     override func startLoop(name: String) {
         player.stop()
@@ -78,51 +89,9 @@ class PlaygroundView: AKPlaygroundView {
     func bypass() {
         distortion.bypass()
     }
-
-    func setPregain(slider: Slider) {
-        distortion.pregain = Double(slider.value)
-        let pregain = String(format: "%0.2f", distortion.pregain)
-        pregainLabel!.text = "Pregain: \(pregain) Hz"
-        printCode()
-    }
-
-    func setPostgain(slider: Slider) {
-        distortion.postgain = Double(slider.value)
-        let postgain = String(format: "%0.2f", distortion.postgain)
-        postgainLabel!.text = "Postgain: \(postgain) Hz"
-        printCode()
-    }
-
-    func setPositiveShapeParameter(slider: Slider) {
-        distortion.postiveShapeParameter = Double(slider.value)
-        let postiveShapeParameter = String(format: "%0.2f", distortion.postiveShapeParameter)
-        postiveShapeParameterLabel!.text = "Positive Shape Parameter: \(postiveShapeParameter)"
-        printCode()
-    }
-
-    func setNegativeShapeParameter(slider: Slider) {
-        distortion.negativeShapeParameter = Double(slider.value)
-        let negativeShapeParameter = String(format: "%0.2f", distortion.negativeShapeParameter)
-        negativeShapeParameterLabel!.text = "Negative Shape Parameter: \(negativeShapeParameter)"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    pregain = \(String(format: "%0.3f", distortion.pregain))")
-        Swift.print("    postgain = \(String(format: "%0.3f", distortion.postgain))")
-        Swift.print("    postiveShapeParameter = " +
-            String(format: "%0.3f", distortion.postiveShapeParameter))
-        Swift.print("    negativeShapeParameter = " +
-            String(format: "%0.3f", distortion.negativeShapeParameter))
-        Swift.print("}\n")
-    }
-
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 590))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

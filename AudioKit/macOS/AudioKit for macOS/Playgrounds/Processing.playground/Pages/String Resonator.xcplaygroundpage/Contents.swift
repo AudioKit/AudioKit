@@ -32,18 +32,22 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        fundamentalFrequencyLabel =
-            addLabel("Fundamental Frequency: \(stringResonator.fundamentalFrequency)")
-        addSlider(#selector(setFundamentalFrequency),
-                  value: stringResonator.fundamentalFrequency,
-                  minimum: 0,
-                  maximum: 5000)
-
-        feedbackLabel = addLabel("Feedback: \(stringResonator.feedback)")
-        addSlider(#selector(setFeedback),
-                  value: stringResonator.feedback,
-                  minimum: 0,
-                  maximum: 0.99)
+        addSubview(AKPropertySlider(
+            property: "Fundamental Frequency",
+            format: "%0.1f Hz",
+            value: stringResonator.fundamentalFrequency, maximum: 5000,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            stringResonator.fundamentalFrequency = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Feedback",
+            value: stringResonator.feedback,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            stringResonator.feedback = sliderValue
+            })
     }
 
     override func startLoop(name: String) {
@@ -55,18 +59,6 @@ class PlaygroundView: AKPlaygroundView {
     override func stop() {
         player.stop()
     }
-
-    func setFundamentalFrequency(slider: Slider) {
-        stringResonator.fundamentalFrequency = Double(slider.value)
-        fundamentalFrequencyLabel!.text = "Fundamental Frequency: " +
-            String(format: "%0.0f", stringResonator.fundamentalFrequency)
-    }
-
-    func setFeedback(slider: Slider) {
-        stringResonator.feedback = Double(slider.value)
-        feedbackLabel!.text = "Feedback: \(String(format: "%0.3f", stringResonator.feedback))"
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 740))

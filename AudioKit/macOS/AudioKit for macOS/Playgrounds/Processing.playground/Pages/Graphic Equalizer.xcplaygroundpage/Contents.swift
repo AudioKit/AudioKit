@@ -20,6 +20,7 @@ var highFilter = AKEqualizerFilter(midFilter, centerFrequency: 5000, bandwidth: 
 
 AudioKit.output = highFilter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
@@ -32,14 +33,29 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Equalizer Gains")
 
-        lowLabel = addLabel("Low: \(lowFilter.gain)")
-        addSlider(#selector(setLowGain), value: lowFilter.gain, minimum: 0, maximum: 10)
-
-        midLabel = addLabel("Mid: \(midFilter.gain)")
-        addSlider(#selector(setMidGain), value: midFilter.gain, minimum: 0, maximum: 10)
-
-        highLabel = addLabel("High: \(highFilter.gain)")
-        addSlider(#selector(setHighGain), value: highFilter.gain, minimum: 0, maximum: 10)
+        addSubview(AKPropertySlider(
+            property: "Low",
+            value: lowFilter.gain, maximum: 10,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            lowFilter.gain = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "Mid",
+            value: midFilter.gain, maximum: 10,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            midFilter.gain = sliderValue
+            })
+        
+        addSubview(AKPropertySlider(
+            property: "High",
+            value: highFilter.gain, maximum: 10,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            highFilter.gain = sliderValue
+            })
     }
     override func startLoop(name: String) {
         player.stop()
@@ -50,25 +66,6 @@ class PlaygroundView: AKPlaygroundView {
     override func stop() {
         player.stop()
     }
-
-    func setLowGain(slider: Slider) {
-        lowFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", lowFilter.gain)
-        lowLabel!.text = "Low: \(gain)"
-    }
-
-    func setMidGain(slider: Slider) {
-        midFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", midFilter.gain)
-        midLabel!.text = "Mid: \(gain)"
-    }
-
-    func setHighGain(slider: Slider) {
-        highFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.3f", highFilter.gain)
-        highLabel!.text = "High: \(gain)"
-    }
-
 }
 
 
