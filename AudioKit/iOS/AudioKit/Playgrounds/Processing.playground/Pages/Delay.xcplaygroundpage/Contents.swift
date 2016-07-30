@@ -8,7 +8,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -26,106 +27,65 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
-    var timeLabel: Label?
-    var feedbackLabel: Label?
-    var lowPassCutoffFrequencyLabel: Label?
-    var dryWetMixLabel: Label?
-
-    var timeSlider: Slider?
-    var feedbackSlider: Slider?
-    var lowPassCutoffFrequencySlider: Slider?
-    var dryWetMixSlider: Slider?
+    var timeSlider: AKPropertySlider?
+    var feedbackSlider: AKPropertySlider?
+    var lowPassCutoffFrequencySlider: AKPropertySlider?
+    var dryWetMixSlider: AKPropertySlider?
 
     override func setup() {
         addTitle("Delay")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
+        addButton("Short", action: #selector(presetShortDelay))
+        addButton("Dense Long", action: #selector(presetDenseLongDelay))
+        addButton("Electric Circuits", action: #selector(presetElectricCircuitsDelay))
 
-        timeLabel = addLabel("Time: \(delay.time)")
-        dryWetMixSlider = addSlider(#selector(setTime), value: delay.time, minimum: 0, maximum: 1)
+        timeSlider = AKPropertySlider(
+            property: "Time",
+            value: delay.time,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            delay.time = sliderValue
+            }
+        addSubview(timeSlider!)
 
-        feedbackLabel = addLabel("Feedback: \(delay.feedback)")
-        feedbackSlider = addSlider(#selector(setFeedback), value: delay.feedback)
+        feedbackSlider = AKPropertySlider(
+            property: "Feedback",
+            value: delay.feedback,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            delay.feedback = sliderValue
+        }
+        addSubview(feedbackSlider!)
 
-        lowPassCutoffFrequencyLabel = addLabel("Low Pass Cutoff Frequency: \(delay.lowPassCutoff)")
-        lowPassCutoffFrequencySlider = addSlider(#selector(setLowPassCutoffFrequency),
-                                                 value: delay.lowPassCutoff,
-                                                 minimum: 0,
-                                                 maximum: 22050)
+        lowPassCutoffFrequencySlider = AKPropertySlider(
+            property: "Low Pass Cutoff",
+            value: delay.lowPassCutoff, maximum: 22050,
+            color: AKColor.magentaColor()
+        ) { sliderValue in
+            delay.lowPassCutoff = sliderValue
+        }
+        addSubview(lowPassCutoffFrequencySlider!)
 
-        dryWetMixLabel = addLabel("Mix: \(delay.dryWetMix)")
-        dryWetMixSlider = addSlider(#selector(setDryWetMix), value: delay.dryWetMix)
+        dryWetMixSlider = AKPropertySlider(
+            property: "Mix",
+            value: delay.dryWetMix,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            delay.dryWetMix = sliderValue
+        }
+        addSubview(dryWetMixSlider!)
 
-        addButton("Short Delay", action: #selector(presetShortDelay))
-        addButton("Dense Long Delay", action: #selector(presetDenseLongDelay))
-        addButton("Electric Circuits Delay", action: #selector(presetElectricCircuitsDelay))
-    }
-
-    //: Handle UI Events
-
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    func stop() {
-        player.stop()
-    }
-
-    func setTime(slider: Slider) {
-        delay.time = Double(slider.value)
-        let time = String(format: "%0.3f", delay.time)
-        timeLabel!.text = "Time: \(time)"
-        printCode()
-    }
-
-    func setFeedback(slider: Slider) {
-        delay.feedback = Double(slider.value)
-        let feedback = String(format: "%0.2f", delay.feedback)
-        feedbackLabel!.text = "Feedback: \(feedback)"
-        printCode()
-    }
-
-    func setLowPassCutoffFrequency(slider: Slider) {
-        delay.lowPassCutoff = Double(slider.value)
-        let lowPassCutoff = String(format: "%0.2f Hz", delay.lowPassCutoff)
-        lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
-        printCode()
-    }
-
-    func setDryWetMix(slider: Slider) {
-        delay.dryWetMix = Double(slider.value)
-        let dryWetMix = String(format: "%0.2f", delay.dryWetMix)
-        dryWetMixLabel!.text = "Mix: \(dryWetMix)"
-        printCode()
+        dryWetMixSlider = AKPropertySlider(
+            property: "Mix",
+            value: delay.dryWetMix,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            delay.dryWetMix = sliderValue
+        }
+        addSubview(dryWetMixSlider!)
     }
 
     func presetShortDelay() {
@@ -146,29 +106,7 @@ class PlaygroundView: AKPlaygroundView {
         updateUI()
     }
 
-    func updateSliders() {
-        timeSlider?.value = Float(delay.time)
-        feedbackSlider?.value = Float(delay.feedback)
-        lowPassCutoffFrequencySlider?.value = Float(delay.lowPassCutoff)
-        dryWetMixSlider?.value = Float(delay.dryWetMix)
-    }
-
-    func updateTextFields() {
-        let delayTime = String(format: "%0.1f", delay.time)
-        timeLabel!.text = "Time: \(delayTime)"
-
-        let feedback = String(format: "%0.3f", delay.feedback)
-        feedbackLabel!.text = "Feedback: \(feedback)"
-
-        let lowPassCutoff = String(format: "%0.3f", delay.lowPassCutoff)
-        lowPassCutoffFrequencyLabel!.text = "Low Pass Cutoff Frequency: \(lowPassCutoff)"
-
-        let dryWetMix = String(format: "%0.3f", delay.dryWetMix)
-        dryWetMixLabel!.text = "Mix: \(dryWetMix)"
-    }
-
     func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
 
         Swift.print("public func presetXXXXXX() {")
         Swift.print("    time = \(String(format: "%0.3f", delay.time))")
@@ -179,14 +117,16 @@ class PlaygroundView: AKPlaygroundView {
     }
 
     func updateUI() {
-        updateTextFields()
-        updateSliders()
+        timeSlider?.value = delay.time
+        feedbackSlider?.value = delay.feedback
+        lowPassCutoffFrequencySlider?.value = delay.lowPassCutoff
+        dryWetMixSlider?.value = delay.dryWetMix
         printCode()
     }
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
+let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = view
 

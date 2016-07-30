@@ -8,7 +8,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -25,8 +26,8 @@ var dishConvolution = AKConvolution.init(player,
                                          impulseResponseFileURL: dish,
                                          partitionLength: 8192)
 
-var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 1)
-var dryWetMixer = AKDryWetMixer(player, mixer, balance: 1)
+var mixer = AKDryWetMixer(stairwellConvolution, dishConvolution, balance: 0.5)
+var dryWetMixer = AKDryWetMixer(player, mixer, balance: 0.5)
 
 AudioKit.output = dryWetMixer
 AudioKit.start()
@@ -40,62 +41,29 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Convolution")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addLineBreak()
+        addSubview(AKPropertySlider(
+            property: "Dry Audio to Convolved",
+            value: dryWetMixer.balance,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            dryWetMixer.balance = sliderValue
+            })
 
-        addLabel("Convolution Parameters")
-
-        addLabel("Mix: Dry Audio to Fully Convolved")
-        addSlider(#selector(setDryWet), value: dryWetMixer.balance)
-
-        addLabel("Impulse Response: Stairwell to Dish")
-        addSlider(#selector(setIRMix), value: mixer.balance)
+        addSubview(AKPropertySlider(
+            property: "Stairwell to Dish",
+            value: mixer.balance,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            mixer.balance = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
 
-    func startDrumLoop() {
-        startLoop("drum")
-    }
 
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    func stop() {
-        player.stop()
-    }
-
-    func setIRMix(slider: Slider) {
-        mixer.balance = Double(slider.value)
-    }
-
-    func setDryWet(slider: Slider) {
-        dryWetMixer.balance = Double(slider.value)
-    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height:400))

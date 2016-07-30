@@ -4,11 +4,12 @@
 //:
 //: ## Auto Wah Wah
 //: ### One of the most iconic guitar effects is the wah-pedal.
-//: ### Here, we run an audio loop of a guitar through an AKAutoWah node.
+//: ### This playground runs an audio loop of a guitar through an AKAutoWah node.
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "guitarloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -27,59 +28,22 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var wahLabel: Label?
-
     override func setup() {
         addTitle("Auto Wah Wah")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        wahLabel = addLabel("Wah: \(wah.wah)")
-        addSlider(#selector(setWah), value: wah.wah)
+        addSubview(AKPropertySlider(
+            property: "Wah",
+            value: wah.wah,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            wah.wah = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav",
-                                    baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func setWah(slider: Slider) {
-        wah.wah = Double(slider.value)
-        wahLabel!.text = "Wah: \(String(format: "%0.3f", wah.wah))"
-    }
 
 }
 

@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -24,67 +25,24 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var durationLabel: Label?
-
     override func setup() {
         addTitle("Flat Frequency Response Reverb")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        durationLabel = addLabel("Duration: \(reverb.reverbDuration)")
-        addSlider(#selector(setDuration), value: reverb.reverbDuration, minimum: 0, maximum: 5)
+        addSubview(AKPropertySlider(
+            property: "Duration",
+            value: reverb.reverbDuration, maximum: 5,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            reverb.reverbDuration = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
 
-    func startDrumLoop() {
-        startLoop("drum")
-    }
 
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func setDuration(slider: Slider) {
-        reverb.reverbDuration = Double(slider.value)
-        durationLabel!.text = "Duration: \(String(format: "%0.3f", reverb.reverbDuration))"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    reverbDuration = \(String(format: "%0.3f", reverb.reverbDuration))")
-        Swift.print("}\n")
-    }
 
 }
 

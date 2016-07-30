@@ -7,7 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -26,66 +27,35 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
-    var cutOffFrequencyLabel: Label?
-    var gainLabel: Label?
-
     override func setup() {
         addTitle("High Shelf Filter")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
-
-        addLabel("High Shelf Filter Parameters")
-
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        cutOffFrequencyLabel = addLabel("Cut-off Frequency: 10000 Hz")
-        addSlider(#selector(setCutOffFrequency), value: 10000, minimum: 10000, maximum: 22050)
+        addSubview(AKPropertySlider(
+            property: "Cutoff Frequency",
+            format: "%0.1f Hz",
+            value: highShelfFilter.cutOffFrequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            highShelfFilter.cutOffFrequency = sliderValue
+            })
 
-        gainLabel = addLabel("Gain: 0 dB")
-        addSlider(#selector(setGain), value: 0, minimum: -40, maximum: 40)
+        addSubview(AKPropertySlider(
+            property: "Gain",
+            format: "%0.1f dB",
+            value: highShelfFilter.gain, minimum: -40, maximum: 40,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            highShelfFilter.gain = sliderValue
+            })
 
     }
 
-    //: Handle UI Events
-
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
 
     func process() {
         highShelfFilter.start()
@@ -95,29 +65,6 @@ class PlaygroundView: AKPlaygroundView {
         highShelfFilter.bypass()
     }
 
-    func setCutOffFrequency(slider: Slider) {
-        highShelfFilter.cutOffFrequency = Double(slider.value)
-        let cutOffFrequency = String(format: "%0.1f", highShelfFilter.cutOffFrequency)
-        cutOffFrequencyLabel!.text = "Cut-off Frequency: \(cutOffFrequency) Hz"
-        printCode()
-    }
-
-    func setGain(slider: Slider) {
-        highShelfFilter.gain = Double(slider.value)
-        let gain = String(format: "%0.1f", highShelfFilter.gain)
-        gainLabel!.text = "Gain: \(gain) dB"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutOffFrequency = " +
-            String(format: "%0.3f", highShelfFilter.cutOffFrequency))
-        Swift.print("    gain = \(String(format: "%0.3f", highShelfFilter.gain))")
-        Swift.print("}\n")
-    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))

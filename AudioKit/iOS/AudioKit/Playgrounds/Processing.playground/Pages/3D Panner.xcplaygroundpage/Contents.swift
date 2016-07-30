@@ -7,8 +7,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
-
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -16,88 +16,45 @@ let panner = AK3DPanner(player)
 
 AudioKit.output = panner
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
-    var xLabel: Label?
-    var yLabel: Label?
-    var zLabel: Label?
-
     override func setup() {
         addTitle("3D Panner")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addLabel("Parameters")
+        addSubview(AKPropertySlider(
+            property: "X",
+            value: panner.x, minimum: -10, maximum: 10,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            panner.x = sliderValue
+            })
 
+        addSubview(AKPropertySlider(
+            property: "Y",
+            value: panner.y, minimum: -10, maximum: 10,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            panner.y = sliderValue
+            })
 
-        xLabel = addLabel("x: \(panner.x)")
-        addSlider(#selector(setX), value: Double(panner.x), minimum: -10, maximum: 10)
-
-        yLabel = addLabel("y: \(panner.y)")
-        addSlider(#selector(setY), value: Double(panner.y), minimum: -10, maximum: 10)
-
-        zLabel = addLabel("z: \(panner.z)")
-        addSlider(#selector(setZ), value: Double(panner.z), minimum: -10, maximum: 10)
-
+        addSubview(AKPropertySlider(
+            property: "Z",
+            value: panner.z, minimum: -10, maximum: 10,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            panner.z = sliderValue
+            })
     }
 
-    //: Handle UI Events
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func setX(slider: Slider) {
-        panner.x = Double(slider.value)
-        xLabel!.text = "x: \(panner.x)"
-    }
-    func setY(slider: Slider) {
-        panner.y = Double(slider.value)
-        yLabel!.text = "y: \(panner.y)"
-
-    }
-    func setZ(slider: Slider) {
-        panner.z = Double(slider.value)
-        zLabel!.text = "z: \(panner.z)"
-
-    }
 
 }
 

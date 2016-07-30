@@ -8,7 +8,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 
 //: Here we set up a player to the loop the file's playback
@@ -19,9 +20,9 @@ let fatten = AKOperationEffect(player) { input, parameters in
 
     let time = parameters[0]
     let mix = parameters[1]
-    
+
     let fatten = "\(input) dup \(1 - mix) * swap 0 \(time) 1.0 vdelay \(mix) * +"
-    
+
     return AKStereoOperation(fatten)
 }
 
@@ -36,67 +37,31 @@ fatten.parameters = [0.1, 0.5]
 
 class PlaygroundView: AKPlaygroundView {
 
-    var timeLabel: Label?
-    var mixLabel: Label?
-
     override func setup() {
         addTitle("Analog Synth X Fatten")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        timeLabel = addLabel("Time: \(fatten.parameters[0])")
-        addSlider(#selector(setTime), value: fatten.parameters[0], minimum: 0.03, maximum: 0.1)
+        addSubview(AKPropertySlider(
+            property: "Time",
+            format:  "%0.3f s",
+            value: fatten.parameters[0],  minimum: 0.03, maximum: 0.1,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            fatten.parameters[0] = sliderValue
+            })
 
-        mixLabel = addLabel("Mix: \(fatten.parameters[0])")
-        addSlider(#selector(setMix), value: fatten.parameters[1])
+        addSubview(AKPropertySlider(
+            property: "Mix",
+            value: fatten.parameters[1],
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            fatten.parameters[1] = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func setTime(slider: Slider) {
-        fatten.parameters = [Double(slider.value), fatten.parameters[1]]
-        timeLabel!.text = "Time: \(String(format: "%0.3f", fatten.parameters[0]))"
-    }
-
-    func setMix(slider: Slider) {
-        fatten.parameters = [fatten.parameters[0], Double(slider.value)]
-        mixLabel!.text = "Mix: \(String(format: "%0.3f", fatten.parameters[1]))"
-    }
 
 }
 

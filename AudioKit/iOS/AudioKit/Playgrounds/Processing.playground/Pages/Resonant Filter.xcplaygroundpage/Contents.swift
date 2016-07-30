@@ -7,110 +7,61 @@
 import XCPlayground
 import AudioKit
 
-let file = try? AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try? AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file!)
 player.looping = true
 
-//: Next, we'll connect the audio sources to a Resonant filter
-var resonantFilter = AKResonantFilter(player)
+var filter = AKResonantFilter(player)
+filter.frequency = 5000 // Hz
+filter.bandwidth = 600  // Cents
 
-//: Set the parameters of the Resonant filter here
-resonantFilter.frequency = 5000 // Hz
-resonantFilter.bandwidth = 600  // Cents
-
-AudioKit.output = resonantFilter
+AudioKit.output = filter
 AudioKit.start()
+player.play()
 
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
-    //: UI Elements we'll need to be able to access
-    var centerFrequencyLabel: Label?
-    var bandwidthLabel: Label?
-    
+
     override func setup() {
         addTitle("Resonant Filter")
-        
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
-        
-        addLabel("Resonant Filter Parameters")
-        
+
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
-        
-        centerFrequencyLabel = addLabel("Center Frequency: \(resonantFilter.frequency) Hz")
-        addSlider(#selector(setCenterFrequency),
-                  value: resonantFilter.frequency,
-                  minimum: 20,
-                  maximum: 22050)
-        
-        bandwidthLabel = addLabel("Bandwidth \(resonantFilter.bandwidth) Cents")
-        addSlider(#selector(setBandwidth),
-                  value: resonantFilter.bandwidth,
-                  minimum: 100,
-                  maximum: 12000)
+
+        addSubview(AKPropertySlider(
+            property: "Frequency",
+            format: "%0.1f Hz",
+            value: filter.frequency, minimum: 20, maximum: 22050,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            filter.frequency = sliderValue
+            })
+
+        addSubview(AKPropertySlider(
+            property: "Bandwidth",
+            format: "%0.1f Hz",
+            value: filter.bandwidth, minimum: 100, maximum: 1200,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            filter.bandwidth = sliderValue
+            })
     }
-    
-    //: Handle UI Events
-    
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-    
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-    
-    func startBassLoop() {
-        startLoop("bass")
-    }
-    
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-    
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-    
-    func startMixLoop() {
-        startLoop("mix")
-    }
-    
-    func stop() {
-        player.stop()
-    }
-    
+
+
     func process() {
-        resonantFilter.play()
+        filter.play()
     }
-    
+
     func bypass() {
-        resonantFilter.bypass()
+        filter.bypass()
     }
-    
-    func setCenterFrequency(slider: Slider) {
-        resonantFilter.frequency = Double(slider.value)
-        let frequency = String(format: "%0.1f", resonantFilter.frequency)
-        centerFrequencyLabel!.text = "Center Frequency: \(frequency) Hz"
-    }
-    
-    func setBandwidth(slider: Slider) {
-        resonantFilter.bandwidth = Double(slider.value)
-        let bandwidth = String(format: "%0.1f", resonantFilter.bandwidth)
-        bandwidthLabel!.text = "Bandwidth: \(bandwidth) Cents"
-    }
+
 }
 
 

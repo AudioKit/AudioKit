@@ -14,7 +14,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -31,83 +32,33 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var bitDepthLabel: Label?
-    var sampleRateLabel: Label?
-
     override func setup() {
         addTitle("Bit Crusher")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        bitDepthLabel = addLabel("Bit Depth: \(bitcrusher.bitDepth)")
-        addSlider(#selector(setBitDepth), value: bitcrusher.bitDepth, minimum: 1, maximum: 24)
+        addSubview(AKPropertySlider(
+            property: "Bit Depth",
+            format: "%0.2f",
+            value: bitcrusher.bitDepth, minimum: 1, maximum: 24,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            bitcrusher.bitDepth = sliderValue
+            })
 
-        sampleRateLabel = addLabel("Sample Rate: \(bitcrusher.sampleRate)")
-        addSlider(#selector(setSampleRate),
-                  value: bitcrusher.sampleRate,
-                  minimum: 0,
-                  maximum: 16000)
+        addSubview(AKPropertySlider(
+            property: "Sample Rate",
+            format: "%0.1f Hz",
+            value: bitcrusher.sampleRate, maximum: 16000,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            bitcrusher.sampleRate = sliderValue
+            })
     }
 
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
 
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func setBitDepth(slider: Slider) {
-        bitcrusher.bitDepth = Double(slider.value)
-        let bitDepth = String(format: "%0.1f", bitcrusher.bitDepth)
-        bitDepthLabel!.text = "Bit Depth: \(bitDepth)"
-        printCode()
-    }
-
-    func setSampleRate(slider: Slider) {
-        bitcrusher.sampleRate = Double(slider.value)
-        let sampleRate = String(format: "%0.0f", bitcrusher.sampleRate)
-        sampleRateLabel!.text = "Sample Rate: \(sampleRate)"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    bitDepth = \(String(format: "%0.3f", bitcrusher.bitDepth))")
-        Swift.print("    sampleRate = \(String(format: "%0.3f", bitcrusher.sampleRate))")
-        Swift.print("}\n")
-    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))

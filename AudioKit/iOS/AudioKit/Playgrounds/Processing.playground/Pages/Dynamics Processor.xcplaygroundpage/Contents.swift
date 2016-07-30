@@ -10,7 +10,8 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+                           baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
@@ -34,110 +35,77 @@ player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
-    //: UI Elements we'll need to be able to access
-    var thresholdLabel: Label?
-    var headRoomLabel: Label?
-    var expansionRatioLabel: Label?
-    var expansionThresholdLabel: Label?
-    var attackTimeLabel: Label?
-    var releaseTimeLabel: Label?
-    var masterGainLabel: Label?
-
     override func setup() {
         addTitle("Dynamics Processor")
 
-        addLabel("Audio Playback")
-        addButton("Drums", action: #selector(startDrumLoop))
-        addButton("Bass", action: #selector(startBassLoop))
-        addButton("Guitar", action: #selector(startGuitarLoop))
-        addButton("Lead", action: #selector(startLeadLoop))
-        addButton("Mix", action: #selector(startMixLoop))
-        addButton("Stop", action: #selector(stop))
-
-        addLabel("Dynamics Processor Parameters")
-
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
-        thresholdLabel = addLabel("Threshold: \(effect.threshold) dB")
-        setupSliders()
+        addSubview(AKPropertySlider(
+            property: "Threshold",
+            format: "%0.2f dB",
+            value: effect.threshold, minimum: -40, maximum: 20,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.threshold = sliderValue
+            })
+
+        addSubview(AKPropertySlider(
+            property: "Head Room",
+            format: "%0.2f dB",
+            value: effect.headRoom, minimum: 0.1, maximum: 40,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.headRoom = sliderValue
+            })
+
+        addSubview(AKPropertySlider(
+            property: "Expansion Ratio",
+            value: effect.expansionRatio, minimum: 1, maximum: 50,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.expansionRatio = sliderValue
+            })
+
+        addSubview(AKPropertySlider(
+            property: "Expansion Threshold",
+            value: effect.expansionThreshold, minimum: 1, maximum: 50,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.expansionThreshold = sliderValue
+            })
+
+        addSubview(AKPropertySlider(
+            property: "Attack Time",
+            format: "%0.3f s",
+            value: effect.attackTime, minimum: 0.0001, maximum: 0.2,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.attackTime = sliderValue
+            })
+
+        addSubview(AKPropertySlider(
+            property: "Release Time",
+            format: "%0.3f s",
+            value: effect.releaseTime, minimum: 0.01, maximum: 3,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.releaseTime = sliderValue
+            })
+
+        addSubview(AKPropertySlider(
+            property: "Master Gain",
+            format: "%0.2f dB",
+            value: effect.masterGain, minimum: -40, maximum: 40,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.masterGain = sliderValue
+            })
     }
 
-    func setupSliders() {
-        addSlider(#selector(setThreshold),
-                  value: effect.threshold,
-                  minimum: -40,
-                  maximum: 20)
-
-        headRoomLabel = addLabel("Head Room: \(effect.headRoom) dB")
-        addSlider(#selector(setHeadRoom),
-                  value: effect.headRoom,
-                  minimum: 0.1,
-                  maximum: 40.0)
-
-        expansionRatioLabel = addLabel("Expansion Ratio: \(effect.expansionRatio) rate")
-        addSlider(#selector(setExpansionRatio),
-                  value: effect.expansionRatio,
-                  minimum: 1,
-                  maximum: 50.0)
-
-        expansionThresholdLabel = addLabel("Expansion Threshold: \(effect.expansionThreshold) rate")
-        addSlider(#selector(setExpansionThreshold),
-                  value: effect.expansionThreshold,
-                  minimum: 1,
-                  maximum: 50.0)
-
-        attackTimeLabel = addLabel("Attack Time: \(effect.attackTime) secs")
-        addSlider(#selector(setAttackTime),
-                  value: effect.attackTime,
-                  minimum: 0.0001,
-                  maximum: 0.2)
-
-        releaseTimeLabel = addLabel("Release Time: \(effect.releaseTime) secs")
-        addSlider(#selector(setReleaseTime),
-                  value: effect.releaseTime,
-                  minimum: 0.01,
-                  maximum: 3)
-
-        masterGainLabel = addLabel("Master Gain: \(effect.masterGain) dB")
-        addSlider(#selector(setMasterGain),
-                  value: effect.masterGain,
-                  minimum: -40,
-                  maximum: 40)
-    }
-
-    //: Handle UI Events
-
-    func startLoop(part: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(part)loop.wav", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    func startDrumLoop() {
-        startLoop("drum")
-    }
-
-    func startBassLoop() {
-        startLoop("bass")
-    }
-
-    func startGuitarLoop() {
-        startLoop("guitar")
-    }
-
-    func startLeadLoop() {
-        startLoop("lead")
-    }
-
-    func startMixLoop() {
-        startLoop("mix")
-    }
-
-    func stop() {
-        player.stop()
-    }
 
     func process() {
         effect.start()
@@ -145,68 +113,6 @@ class PlaygroundView: AKPlaygroundView {
 
     func bypass() {
         effect.bypass()
-    }
-
-    func setThreshold(slider: Slider) {
-        effect.threshold = Double(slider.value)
-        let threshold = String(format: "%0.3f", effect.threshold)
-        thresholdLabel!.text = "Threshold: \(threshold) dB"
-        printCode()
-    }
-
-    func setHeadRoom(slider: Slider) {
-        effect.headRoom = Double(slider.value)
-        let headRoom = String(format: "%0.3f", effect.headRoom)
-        headRoomLabel!.text = "Head Room: \(headRoom) dB"
-        printCode()
-    }
-
-    func setExpansionRatio(slider: Slider) {
-        effect.expansionRatio = Double(slider.value)
-        let expansionRatio = String(format: "%0.3f", effect.expansionRatio)
-        expansionRatioLabel!.text = "Expansion Ratio: \(expansionRatio) rate"
-        printCode()
-    }
-
-    func setExpansionThreshold(slider: Slider) {
-        effect.expansionThreshold = Double(slider.value)
-        let expansionThreshold = String(format: "%0.3f", effect.expansionThreshold)
-        expansionThresholdLabel!.text = "Expansion Threshold: \(expansionThreshold) rate"
-        printCode()
-    }
-
-    func setAttackTime(slider: Slider) {
-        effect.attackTime = Double(slider.value)
-        let attackTime = String(format: "%0.3f", effect.attackTime)
-        attackTimeLabel!.text = "Attack Time: \(attackTime) secs"
-        printCode()
-    }
-
-    func setReleaseTime(slider: Slider) {
-        effect.releaseTime = Double(slider.value)
-        let releaseTime = String(format: "%0.3f", effect.releaseTime)
-        releaseTimeLabel!.text = "Release Time: \(releaseTime) secs"
-        printCode()
-    }
-
-    func setMasterGain(slider: Slider) {
-        effect.masterGain = Double(slider.value)
-        let masterGain = String(format: "%0.3f", effect.masterGain)
-        masterGainLabel!.text = "Master Gain: \(masterGain) dB"
-        printCode()
-    }
-
-    func printCode() {
-        // Here we're just printing out the preset so it can be copy and pasted into code
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    threshold = \(String(format: "%0.3f", effect.threshold))")
-        Swift.print("    headRoom = \(String(format: "%0.3f", effect.headRoom))")
-        Swift.print("    expansionRatio = \(String(format: "%0.3f", effect.expansionRatio))")
-        Swift.print("    attackTime = \(String(format: "%0.3f", effect.attackTime))")
-        Swift.print("    releaseTime = \(String(format: "%0.3f", effect.releaseTime))")
-        Swift.print("    masterGain = \(String(format: "%0.3f", effect.masterGain))")
-        Swift.print("}\n")
     }
 }
 
