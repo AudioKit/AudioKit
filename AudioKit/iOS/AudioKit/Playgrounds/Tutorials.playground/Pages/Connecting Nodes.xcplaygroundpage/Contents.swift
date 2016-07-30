@@ -14,11 +14,11 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
-//: Here we set up a player to the loop the file's playback
+//: Set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-//: Next we'll connect the audio player to a delay effect
+//: Connect the audio player to a delay effect
 var delay = AKDelay(player)
 
 //: Set the parameters of the delay here

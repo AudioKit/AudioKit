@@ -15,8 +15,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var distortion = AKDistortion(player)
-
-//: Set the parameters here
 distortion.delay  = 0.1
 distortion.decay  = 1.0
 distortion.delayMix  = 0.5
@@ -34,15 +32,15 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
 
-    var delaySlider: AKPropertySlider?
-    var decaySlider: AKPropertySlider?
-    var delayMixSlider: AKPropertySlider?
-    var linearTermSlider: AKPropertySlider?
-    var squaredTermSlider: AKPropertySlider?
-    var cubicTermSlider: AKPropertySlider?
+    var delaySlider:         AKPropertySlider?
+    var decaySlider:         AKPropertySlider?
+    var delayMixSlider:      AKPropertySlider?
+    var linearTermSlider:    AKPropertySlider?
+    var squaredTermSlider:   AKPropertySlider?
+    var cubicTermSlider:     AKPropertySlider?
     var polynomialMixSlider: AKPropertySlider?
-    var softClipGainSlider: AKPropertySlider?
-    var finalMixSlider: AKPropertySlider?
+    var softClipGainSlider:  AKPropertySlider?
+    var finalMixSlider:      AKPropertySlider?
 
     override func setup() {
         addTitle("Distortion")
@@ -136,9 +134,7 @@ class PlaygroundView: AKPlaygroundView {
             distortion.finalMix = sliderValue
         }
         addSubview(finalMixSlider!)
-
     }
-
 
     func process() {
         distortion.start()

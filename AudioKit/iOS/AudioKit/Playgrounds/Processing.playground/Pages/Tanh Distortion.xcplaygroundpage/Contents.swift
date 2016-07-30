@@ -15,8 +15,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var distortion = AKTanhDistortion(player)
-
-//: Set the parameters here
 distortion.pregain = 1.0
 distortion.postgain = 1.0
 distortion.postiveShapeParameter = 1.0

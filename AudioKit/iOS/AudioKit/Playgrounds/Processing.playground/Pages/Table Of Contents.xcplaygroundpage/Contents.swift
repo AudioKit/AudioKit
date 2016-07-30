@@ -140,7 +140,7 @@
 //:
 //: ### Physical Models & Instruments
 //:
-//: Here we emulate real life sounds.
+//: These playgrounds emulate real life sounds.
 //:
 //: * [Drawbar Organ](Drawbar%20Organ)
 //: * [Dripping Sounds](Dripping%20Sounds)
@@ -151,7 +151,7 @@
 //:
 //: ## Effect Processor Nodes
 //:
-//: Here is where we start presenting playgrounds with the purpose of
+//: This secions starts presenting playgrounds with the purpose of
 //: demonstrating a particular type of node.  This section covers effect
 //: processors such as what you might find on a electric guitar pedal board.
 //:

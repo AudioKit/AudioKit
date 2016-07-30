@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Phasor Operation
-//: ### Here we use the phasor to sweep amplitude and frequencies
+//: ### Using the phasor to sweep amplitude and frequencies
 import XCPlayground
 import AudioKit
 

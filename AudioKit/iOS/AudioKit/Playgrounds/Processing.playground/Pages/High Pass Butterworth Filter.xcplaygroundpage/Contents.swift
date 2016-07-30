@@ -17,8 +17,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var highPassFilter = AKHighPassButterworthFilter(player)
-
-//: Set the parameters here
 highPassFilter.cutoffFrequency = 6900 // Hz
 
 AudioKit.output = highPassFilter

@@ -19,7 +19,6 @@ AudioKit.start()
 player.play()
 let fft = AKFFTTap(player)
 
-//: And here's where we monitor the results of tracking the amplitude.
 AKPlaygroundLoop(every: 0.1) {
     let max = fft.fftData.maxElement()!
     let index = fft.fftData.indexOf(max)

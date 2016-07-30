@@ -16,8 +16,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var peakLimiter = AKPeakLimiter(player)
-
-//: Set the parameters here
 peakLimiter.attackTime = 0.001 // Secs
 peakLimiter.decayTime = 0.01 // Secs
 peakLimiter.preGain = 10 // dB

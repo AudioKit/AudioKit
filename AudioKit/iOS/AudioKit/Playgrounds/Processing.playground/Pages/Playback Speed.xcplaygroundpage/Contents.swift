@@ -3,7 +3,7 @@
 //: ---
 //:
 //: ## Playback Speed
-//: ### Here we'll use the AKVariSpeed node to change the playback speed of a file
+//: ### This playground uses the AKVariSpeed node to change the playback speed of a file
 //: ### (which also affects the pitch)
 //:
 import XCPlayground
@@ -15,8 +15,6 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var variSpeed = AKVariSpeed(player)
-
-//: Set the parameters here
 variSpeed.rate = 2.0
 
 AudioKit.output = variSpeed
