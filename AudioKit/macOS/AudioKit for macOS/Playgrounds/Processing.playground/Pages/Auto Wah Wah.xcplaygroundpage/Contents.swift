@@ -51,12 +51,6 @@ class PlaygroundView: AKPlaygroundView {
     override func stop() {
         player.stop()
     }
-
-    func setWah(slider: Slider) {
-        wah.wah = Double(slider.value)
-        wahLabel!.text = "Wah: \(String(format: "%0.3f", wah.wah))"
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))

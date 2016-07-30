@@ -3,9 +3,8 @@
 //  AudioKit
 //
 //  Created by Aurelius Prochazka, revision history on Github.
-//  Copyright (c) 2015 Aurelius Prochazka. All rights reserved.
+//  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
-
 import UIKit
 
 public typealias Slider    = UISlider
@@ -25,6 +24,10 @@ public class AKPlaygroundView: UIView {
         setup()
     }
     
+    public convenience init(height: Int) {
+        self.init(frame: CGRect(x: 0, y: 0, width: 500, height: height))
+    }
+    
     public func setup() {
     }
     
@@ -39,7 +42,7 @@ public class AKPlaygroundView: UIView {
         newLabel.textAlignment = .Center
         newLabel.font = UIFont.boldSystemFontOfSize(24)
         self.addSubview(newLabel)
-
+        
         return newLabel
     }
     
@@ -90,4 +93,15 @@ public class AKPlaygroundView: UIView {
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    public static let audioResourceFileNames = [
+        "Acid Full.mp3",
+        "Acid Drums.mp3",
+        "Acid Bass.mp3",
+        "80s Synth.mp3",
+        "Lo-Fi Synth.mp3",
+        "African.mp3",
+        "mixloop.wav",
+        "counting.mp3"]
+
 }

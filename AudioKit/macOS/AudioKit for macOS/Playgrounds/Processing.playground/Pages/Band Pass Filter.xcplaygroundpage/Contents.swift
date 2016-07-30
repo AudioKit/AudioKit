@@ -38,8 +38,6 @@ class PlaygroundView: AKPlaygroundView {
 
         addButtons()
 
-        addLabel("Band Pass Filter Parameters")
-
         addButton("Process", action: #selector(process))
         addButton("Bypass", action: #selector(bypass))
 
