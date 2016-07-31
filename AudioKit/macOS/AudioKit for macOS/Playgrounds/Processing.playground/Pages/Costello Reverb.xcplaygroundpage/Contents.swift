@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -29,14 +29,14 @@ class PlaygroundView: AKPlaygroundView {
 
     var cutoffFrequencySlider: AKPropertySlider?
     var feedbackSlider: AKPropertySlider?
-    
+
     override func setup() {
         addTitle("Sean Costello Reverb")
 
-        addButtons()
-        addButton("Short Tail", action: #selector(presetShortTail))
-        addButton("Low Ringing Tail", action: #selector(presetLowRingingTail))
-        
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
+
         cutoffFrequencySlider = AKPropertySlider(
             property: "Cutoff Frequency",
             format: "%0.1f Hz",
@@ -46,7 +46,7 @@ class PlaygroundView: AKPlaygroundView {
             reverb.cutoffFrequency = sliderValue
             }
         addSubview(cutoffFrequencySlider!)
-        
+
 
         feedbackSlider = AKPropertySlider(
             property: "Feedback",
@@ -56,44 +56,29 @@ class PlaygroundView: AKPlaygroundView {
             reverb.feedback = sliderValue
             }
         addSubview(feedbackSlider!)
-    }
 
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-    override func stop() {
-        player.stop()
-    }
-    
-    func presetShortTail() {
-        reverb.presetShortTailCostelloReverb()
-        updateUI()
-    }
-    
-    func presetLowRingingTail() {
-        reverb.presetLowRingingLongTailCostelloReverb()
-        updateUI()
+        let presets = ["Short Tail", "Low Ringing Tail"]
+        addSubview(AKPresetLoaderView(presets: presets) { preset in
+            switch preset {
+            case "Short Tail":
+                reverb.presetShortTailCostelloReverb()
+            case "Low Ringing Tail":
+                reverb.presetLowRingingLongTailCostelloReverb()
+            default: break
+            }
+            self.updateUI()
+            }
+        )
     }
 
     func updateUI() {
         cutoffFrequencySlider?.value = reverb.cutoffFrequency
         feedbackSlider?.value = reverb.feedback
     }
-    
-    func printCode() {
 
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    cutoffFrequency = \(String(format: "%0.3f", reverb.cutoffFrequency))")
-        Swift.print("    feedback = \(String(format: "%0.3f", reverb.feedback))")
-        Swift.print("}\n")
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -9,15 +9,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var timePitch = AKTimePitch(player)
-
-//: Set the parameters here
 timePitch.rate = 2.0
 timePitch.pitch = -400.0
 timePitch.overlap = 8.0
@@ -33,12 +31,13 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Time/Pitch")
 
-        addButtons()
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
         addLabel("Time/Pitch Parameters")
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: timePitch))
 
         addSubview(AKPropertySlider(
             property: "Rate",
@@ -48,7 +47,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             timePitch.rate = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Pitch",
             format: "%0.3f Cents",
@@ -57,7 +56,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             timePitch.pitch = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Overlap",
             value: timePitch.overlap, minimum: 3, maximum: 32,
@@ -66,30 +65,9 @@ class PlaygroundView: AKPlaygroundView {
             timePitch.overlap = sliderValue
             })
     }
-    
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-    override func stop() {
-        player.stop()
-    }
-
-    func process() {
-        timePitch.start()
-    }
-
-    func bypass() {
-        timePitch.bypass()
-    }
-
-
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 600))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -10,15 +10,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var highPassFilter = AKHighPassFilter(player)
-
-//: Set the parameters here
 highPassFilter.cutoffFrequency = 6900 // Hz
 highPassFilter.resonance = 0 // dB
 
@@ -33,10 +31,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("High Pass Filter")
 
-        addButtons()
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKBypassButton(node: highPassFilter))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",
@@ -46,7 +45,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             highPassFilter.cutoffFrequency = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Resonance",
             format: "%0.1f dB",
@@ -56,28 +55,9 @@ class PlaygroundView: AKPlaygroundView {
             highPassFilter.resonance = sliderValue
             })
     }
-    
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-    override func stop() {
-        player.stop()
-    }
-
-    func process() {
-        highPassFilter.start()
-    }
-
-    func bypass() {
-        highPassFilter.bypass()
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

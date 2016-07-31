@@ -9,7 +9,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -17,8 +17,6 @@ player.looping = true
 
 //: Next, we'll connect the audio sources to a decimator
 var decimator = AKDecimator(player)
-
-//: Set the parameters of the decimator here
 decimator.decimation =  0.5 // Normalized Value 0 - 1
 decimator.rounding = 0.5 // Normalized Value 0 - 1
 decimator.mix = 0.5 // Normalized Value 0 - 1
@@ -34,8 +32,10 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Decimator")
 
-        addButtons()
-        
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
+
         addSubview(AKPropertySlider(
             property: "Decimation",
             value: decimator.decimation,
@@ -43,7 +43,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             decimator.decimation = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Rounding",
             value: decimator.rounding,
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             decimator.rounding = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Mix",
             value: decimator.mix,
@@ -61,21 +61,10 @@ class PlaygroundView: AKPlaygroundView {
             })
 
     }
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    override func stop() {
-        player.stop()
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

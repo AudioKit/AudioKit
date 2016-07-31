@@ -3,15 +3,14 @@
 //: ---
 //:
 //: ## Filter Section
-//: ### This is where we created the filter for the Analog Synth X example project.
+//: ### This playgrounds was the development area for the filter in the Analog Synth X example project.
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 
-//: Here we set up a player to the loop the file's playback
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 

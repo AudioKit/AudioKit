@@ -8,15 +8,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var distortion = AKTanhDistortion(player)
-
-//: Set the parameters here
 distortion.pregain = 1.0
 distortion.postgain = 1.0
 distortion.postiveShapeParameter = 1.0
@@ -33,9 +31,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Tanh Distortion")
 
-        addButtons()
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
+
+        addSubview(AKBypassButton(node: distortion))
 
         addSubview(AKPropertySlider(
             property: "Pre-gain",
@@ -52,7 +52,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.postgain = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Postive Shape Parameter",
             value: distortion.postiveShapeParameter, minimum: -10, maximum: 10,
@@ -60,7 +60,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             distortion.postiveShapeParameter = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Negative Shape Parameter",
             value: distortion.negativeShapeParameter, minimum: -10, maximum: 10,
@@ -69,27 +69,9 @@ class PlaygroundView: AKPlaygroundView {
             distortion.negativeShapeParameter = sliderValue
             })
     }
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-    override func stop() {
-        player.stop()
-    }
-
-    func process() {
-        distortion.start()
-    }
-
-    func bypass() {
-        distortion.bypass()
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
