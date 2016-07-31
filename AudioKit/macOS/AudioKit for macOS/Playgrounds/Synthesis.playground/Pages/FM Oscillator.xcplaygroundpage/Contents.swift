@@ -24,8 +24,6 @@ class PlaygroundView: AKPlaygroundView {
     var amplitudeSlider: AKPropertySlider?
     var rampTimeSlider: AKPropertySlider?
     
-    
-    
     override func setup() {
         addTitle("FM Oscillator")
         
