@@ -8,7 +8,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: AKPlaygroundView.audioResourceFileNames))
+            filenames: audioResourceFileNames))
 
         addSubview(AKPropertySlider(
             property: "Wah",
@@ -45,4 +45,5 @@ class PlaygroundView: AKPlaygroundView {
     }}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = PlaygroundView()//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

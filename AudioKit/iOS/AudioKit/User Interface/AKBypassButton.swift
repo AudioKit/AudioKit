@@ -47,8 +47,9 @@ public class AKBypassButton: UIView {
         //// Variable Declarations
         let processingColor = isBypassed ? gray : green
         let bypassingCOlor = isBypassed ? red : gray
-        let bypassedText = isBypassed ? "Bypassed" : "Bypass"
-        let processingText = isBypassed ? "Process" : "Processing"
+        
+        let bypassedText = isBypassed ? "Off / Bypassed" : "Stop / Bypass"
+        let processingText = isBypassed ? "Play / Process" : "Playing"
 
         //// bypassGroup
         //// bypassOuter Drawing

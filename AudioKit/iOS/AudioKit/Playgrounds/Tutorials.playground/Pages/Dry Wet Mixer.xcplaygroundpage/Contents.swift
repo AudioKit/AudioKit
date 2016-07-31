@@ -43,29 +43,19 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Dry Wet Mix")
 
         addLabel("Audio Playback")
-        addButton("Start", action: #selector(start))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKBypassButton(node: drums))
 
-        balanceLabel = addLabel("Balance: \(mixture.balance)")
-        addSlider(#selector(setDuration), value: mixture.balance)
+        addSubview(AKPropertySlider(
+            property: "Balance",
+            value: mixture.balance,
+            color: AKColor.cyanColor()
+        ) { sliderValue in
+            mixture.balance = sliderValue
+        })
     }
-
-    func start() {
-        drums.play()
-    }
-    func stop() {
-        drums.stop()
-    }
-
-    func setDuration(slider: Slider) {
-        mixture.balance = Double(slider.value)
-        balanceLabel!.text = "Balance: \(String(format: "%0.3f", mixture.balance))"
-    }
-
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 300))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

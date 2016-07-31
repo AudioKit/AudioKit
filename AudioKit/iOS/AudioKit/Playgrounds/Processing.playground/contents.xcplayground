@@ -46,9 +46,9 @@
         <page name='Playback Speed'/>
         <page name='Resonant Filter'/>
         <page name='Resonant Filter Operation'/>
+        <page name='Reverb'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
-        <page name='Simple Reverb'/>
         <page name='Sporth Based Effect'/>
         <page name='Stereo Panning'/>
         <page name='String Resonator'/>

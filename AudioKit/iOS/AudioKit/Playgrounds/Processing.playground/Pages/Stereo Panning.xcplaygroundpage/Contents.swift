@@ -9,7 +9,7 @@ import XCPlayground
 import AudioKit
 
 //: Set up the audio player
-let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)

@@ -91,26 +91,26 @@ public class AKTouchKeyView: UIButton {
 
 }
 
-extension AKPlaygroundView {
-
-    public func addTouchKey(num: String, text: String, action: Selector) -> AKTouchKeyView {
-
-        let newButton = AKTouchKeyView(numeral: num, text: text)
-
-        // Line up multiple buttons in a row
-        if let button = lastButton {
-            newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
-            yPosition = Int(button.frame.origin.y)
-        }
-
-        newButton.frame.origin.y = CGFloat(yPosition)
-        newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
-        //        newButton.sizeToFit()
-        spacing = Int((newButton.frame.height)) + 10
-        super.addSubview(newButton)
-        yPosition += spacing
-
-        lastButton = newButton
-        return newButton
-    }
-}
+//extension AKPlaygroundView {
+//
+//    public func addTouchKey(num: String, text: String, action: Selector) -> AKTouchKeyView {
+//
+//        let newButton = AKTouchKeyView(numeral: num, text: text)
+//
+//        // Line up multiple buttons in a row
+//        if let button = lastButton {
+//            newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
+//            yPosition = Int(button.frame.origin.y)
+//        }
+//
+//        newButton.frame.origin.y = CGFloat(yPosition)
+//        newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
+//        //        newButton.sizeToFit()
+//        spacing = Int((newButton.frame.height)) + 10
+//        super.addSubview(newButton)
+//        yPosition += spacing
+//
+//        lastButton = newButton
+//        return newButton
+//    }
+//}
