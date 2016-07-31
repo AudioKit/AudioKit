@@ -31,7 +31,7 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: AKPlaygroundView.audioResourceFileNames))
-        
+
         addSubview(AKBypassButton(node: highShelfFilter))
 
         addSubview(AKPropertySlider(
@@ -54,8 +54,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

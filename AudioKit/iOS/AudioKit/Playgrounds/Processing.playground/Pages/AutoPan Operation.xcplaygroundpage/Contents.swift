@@ -70,8 +70,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(height: 350)
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

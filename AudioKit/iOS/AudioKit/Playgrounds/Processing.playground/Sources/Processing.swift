@@ -21,8 +21,8 @@ public class AKPlaygroundView: UIView {
         setup()
     }
     
-    public convenience init(height: Int) {
-        self.init(frame: CGRect(x: 0, y: 0, width: 500, height: height))
+    public convenience init() {
+        self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
     }
     
     public func setup() {}
@@ -54,6 +54,8 @@ public class AKPlaygroundView: UIView {
         }
         super.addSubview(view)
         yPosition += Int(view.frame.height) + spacing
+        
+        frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: CGFloat(yPosition))
     }
     
     

@@ -12,19 +12,15 @@ public class AKBypassButton: UIView {
     var bypassOuterPath = UIBezierPath()
     var processOuterPath = UIBezierPath()
     
-    var isBypassed = false
-    
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first {
             
             let touchLocation = touch.locationInView(self)
-            if bypassOuterPath.containsPoint(touchLocation) && !isBypassed {
+            if bypassOuterPath.containsPoint(touchLocation) && node.isPlaying {
                 node.bypass()
-                isBypassed = true
             }
-            if processOuterPath.containsPoint(touchLocation) && isBypassed {
+            if processOuterPath.containsPoint(touchLocation) && node.isBypassed {
                 node.start()
-                isBypassed = false
             }
             setNeedsDisplay()
         }
@@ -100,6 +96,6 @@ public class AKBypassButton: UIView {
     }
     
     override public func drawRect(rect: CGRect) {
-        drawBypassButton(isBypassed: isBypassed)
+        drawBypassButton(isBypassed: node.isBypassed)
     }
 }
