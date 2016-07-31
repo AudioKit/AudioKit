@@ -57,8 +57,19 @@ class PlaygroundView: AKPlaygroundView {
 
         addLabel("Audio Playback")
         
-        addButton("Start All", action: #selector(start))
-        addButton("Stop All", action: #selector(stop))
+        addSubview(AKButton(title: "Start All") {
+            drums.play()
+            bass.play()
+            guitar.play()
+            lead.play()
+            })
+        
+        addSubview(AKButton(title: "Stop All", color: AKColor.redColor()) {
+            drums.stop()
+            bass.stop()
+            guitar.stop()
+            lead.stop()
+            })
 
         addSubview(AKPropertySlider(
             property: "Drums Volume",
@@ -119,19 +130,6 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             lead.pan = sliderValue
             })
-    }
-
-    func start() {
-        drums.play()
-        bass.play()
-        guitar.play()
-        lead.play()
-    }
-    func stop() {
-        drums.stop()
-        bass.stop()
-        guitar.stop()
-        lead.stop()
     }
 }
 

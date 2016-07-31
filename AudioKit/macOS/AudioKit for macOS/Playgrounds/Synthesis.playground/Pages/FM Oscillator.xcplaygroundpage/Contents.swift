@@ -29,18 +29,43 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("FM Oscillator")
         
-        addButton("Start", action: #selector(start))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKBypassButton(node: oscillator))
         
-        addLineBreak()
+        let presets = ["Stun Ray", "Wobble", "Fog Horn", "Buzzer", "Spiral"]
+        addSubview(AKPresetLoaderView(presets: presets) { preset in
+            switch preset {
+            case "Stun Ray":
+                oscillator.presetStunRay()
+                oscillator.start()
+            case "Wobble":
+                oscillator.presetWobble()
+                oscillator.start()
+            case "Fog Horn":
+                oscillator.presetFogHorn()
+                oscillator.start()
+            case "Buzzer":
+                oscillator.presetBuzzer()
+                oscillator.start()
+            case "Spiral":
+                oscillator.presetSpiral()
+                oscillator.start()
+            default: break
+            }
+            self.frequencySlider?.value            = oscillator.baseFrequency
+            self.carrierMultiplierSlider?.value    = oscillator.carrierMultiplier
+            self.modulatingMultiplierSlider?.value = oscillator.modulatingMultiplier
+            self.modulationIndexSlider?.value      = oscillator.modulationIndex
+            self.amplitudeSlider?.value            = oscillator.amplitude
+            self.rampTimeSlider?.value             = oscillator.rampTime
+            }
+        )
         
-        addButton("Stun Ray", action: #selector(presetStunRay))
-        addButton("Wobble", action: #selector(presetWobble))
-        addButton("Fog Horn", action: #selector(presetFogHorn))
-        addButton("Buzzer", action: #selector(presetBuzzer))
-        addButton("Spiral", action: #selector(presetSpiral))
-        addLineBreak()
-        addButton("Randomize", action: #selector(presetRandom))
+        addSubview(AKButton(title: "Randomize") {
+            oscillator.baseFrequency = self.frequencySlider!.randomize()
+            oscillator.carrierMultiplier = self.carrierMultiplierSlider!.randomize()
+            oscillator.modulatingMultiplier = self.modulatingMultiplierSlider!.randomize()
+            oscillator.modulationIndex = self.modulationIndexSlider!.randomize()
+        })
         
         frequencySlider = AKPropertySlider(
             property: "Frequency",
@@ -102,69 +127,9 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.rampTime = time
         }
         addSubview(rampTimeSlider!)
-        
     }
-    
-    func start() {
-        oscillator.play()
-    }
-    func stop() {
-        oscillator.stop()
-    }
-    
-    func presetStunRay() {
-        oscillator.presetStunRay()
-        oscillator.start()
-        updateUI()
-    }
-    
-    func presetFogHorn() {
-        oscillator.presetFogHorn()
-        oscillator.start()
-        updateUI()
-    }
-    
-    func presetBuzzer() {
-        oscillator.presetBuzzer()
-        oscillator.start()
-        updateUI()
-    }
-    
-    func presetSpiral() {
-        oscillator.presetSpiral()
-        oscillator.start()
-        updateUI()
-    }
-    
-    func presetWobble() {
-        oscillator.presetWobble()
-        oscillator.start()
-        updateUI()
-    }
-    
-    func presetRandom() {
-        oscillator.baseFrequency = frequencySlider!.randomize()
-        oscillator.carrierMultiplier = carrierMultiplierSlider!.randomize()
-        oscillator.modulatingMultiplier = modulatingMultiplierSlider!.randomize()
-        oscillator.modulationIndex = modulationIndexSlider!.randomize()
-        oscillator.start()
-        updateUI()
-    }
-    
-    func updateUI() {
-        frequencySlider?.value            = oscillator.baseFrequency
-        carrierMultiplierSlider?.value    = oscillator.carrierMultiplier
-        modulatingMultiplierSlider?.value = oscillator.modulatingMultiplier
-        modulationIndexSlider?.value      = oscillator.modulationIndex
-        amplitudeSlider?.value            = oscillator.amplitude
-        rampTimeSlider?.value             = oscillator.rampTime
-        
-    }
-    
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 750))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
-
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

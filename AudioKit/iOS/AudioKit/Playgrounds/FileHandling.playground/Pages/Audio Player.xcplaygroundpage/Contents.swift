@@ -48,9 +48,7 @@ class PlaygroundView: AKPlaygroundView {
 
             self.playheadTextField?.text =
                 String(Int(100 * player!.playhead / player!.duration)) + " %"
-
             }
-
         }
         addTitle("Audio Player")
 

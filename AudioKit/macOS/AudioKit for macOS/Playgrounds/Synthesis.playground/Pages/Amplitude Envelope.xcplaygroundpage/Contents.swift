@@ -30,8 +30,11 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("ADSR Envelope")
         
-        addButton("Play Current", action: #selector(PlaygroundView.play))
-//        addButton("Randomize", action: #selector(randomize))
+        addSubview(AKButton(title: "Trigger") {
+            fmOscillator.baseFrequency = random(220, 880)
+            fmWithADSR.start()
+            self.performSelector(#selector(self.stop), withObject: nil, afterDelay: self.holdDuration)
+            })
 
         
         addSubview(AKPropertySlider(
@@ -79,26 +82,10 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKRollingOutputPlot.createView(width: 440, height: 330))
 
     }
-    
-    func play() {
-        fmOscillator.baseFrequency = random(220, 880)
-        fmWithADSR.start()
-        self.performSelector(#selector(stop), withObject: nil, afterDelay: holdDuration)
-    }
-
     func stop() {
         fmWithADSR.stop()
     }
 
-//    func randomize() {
-//        fmWithADSR.attackDuration = random(0.01, 0.5)
-//        fmWithADSR.decayDuration = random(0.01, 0.2)
-//        fmWithADSR.sustainLevel = random(0.01, 1)
-//        fmWithADSR.releaseDuration = random(0.01, 1)
-//        holdDuration = fmWithADSR.attackDuration + fmWithADSR.decayDuration + 0.5
-//
-//        play()
-//    }
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 920))

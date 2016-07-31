@@ -51,11 +51,21 @@ class PlaygroundView: AKPlaygroundView {
                 oscillator.start()
             default: break
             }
-            self.updateUI()
+            self.frequencySlider?.value            = oscillator.baseFrequency
+            self.carrierMultiplierSlider?.value    = oscillator.carrierMultiplier
+            self.modulatingMultiplierSlider?.value = oscillator.modulatingMultiplier
+            self.modulationIndexSlider?.value      = oscillator.modulationIndex
+            self.amplitudeSlider?.value            = oscillator.amplitude
+            self.rampTimeSlider?.value             = oscillator.rampTime
             }
         )
         
-        addButton("Randomize", action: #selector(presetRandom))
+        addSubview(AKButton(title: "Randomize") {
+            oscillator.baseFrequency = self.frequencySlider!.randomize()
+            oscillator.carrierMultiplier = self.carrierMultiplierSlider!.randomize()
+            oscillator.modulatingMultiplier = self.modulatingMultiplierSlider!.randomize()
+            oscillator.modulationIndex = self.modulationIndexSlider!.randomize()
+        })
         
         frequencySlider = AKPropertySlider(
             property: "Frequency",
@@ -117,26 +127,6 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.rampTime = time
         }
         addSubview(rampTimeSlider!)
-    }
-
-    
-    func presetRandom() {
-        oscillator.baseFrequency = frequencySlider!.randomize()
-        oscillator.carrierMultiplier = carrierMultiplierSlider!.randomize()
-        oscillator.modulatingMultiplier = modulatingMultiplierSlider!.randomize()
-        oscillator.modulationIndex = modulationIndexSlider!.randomize()
-        oscillator.start()
-        updateUI()
-    }
-    
-    func updateUI() {
-        frequencySlider?.value            = oscillator.baseFrequency
-        carrierMultiplierSlider?.value    = oscillator.carrierMultiplier
-        modulatingMultiplierSlider?.value = oscillator.modulatingMultiplier
-        modulationIndexSlider?.value      = oscillator.modulationIndex
-        amplitudeSlider?.value            = oscillator.amplitude
-        rampTimeSlider?.value             = oscillator.rampTime
-        
     }
 }
 

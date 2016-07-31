@@ -40,84 +40,69 @@ AudioKit.start()
 let recorder = try? AKNodeRecorder(node: oscMixer, file: tape!)
 
 
-//: Here, we build our User interface
-
-let playgroundWidth = 500
+//: Build our User interface
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var frequencyLabel: Label?
-    var amplitudeLabel: Label?
-    var rampTimeLabel: Label?
     var recordLabel: Label?
-    var replayLabel: Label?
-    var speedLabel: Label?
-    var autoInputLabel: Label?
+    var playLabel: Label?
+
     override func setup() {
         addTitle("Recording Nodes")
 
         recordLabel = addLabel("Press Record to Record...")
 
-        addButton("Record", action: #selector(record))
-        addButton("StopRecord", action: #selector(stopRecord))
-        addButton("reset", action: #selector(reset))
-        addLineBreak()
+        addSubview(AKButton(title: "Record", color: AKColor.redColor()) {
+            self.recordLabel!.text = "Recording..."
+            try? recorder?.record()
+            })
+        
+        addSubview(AKButton(title: "Stop Recording", color: AKColor.redColor()) {
+            let dur = String(format: "%0.3f seconds", recorder!.recordedDuration)
+            self.recordLabel!.text = "Stopped. (\(dur) recorded)"
+            recorder?.stop()
+            })
+        
+        addSubview(AKButton(title: "Reset Recording", color: AKColor.redColor()) {
+            self.recordLabel!.text = "Tape Cleared!"
+            try? recorder?.reset()
+            })
 
-        replayLabel = addLabel("Press Replay to play-back...")
+        playLabel = addLabel("Press Play to playback...")
 
-        addButton("Replay", action: #selector(replay))
-        addButton("StopReplay", action: #selector(stopReplay))
+        addSubview(AKButton(title: "Play") {
+            try? player?.reloadFile()
+            // If the tape is not empty, we can play it !...
+            if player?.audioFile.duration > 0 {
+                self.playLabel!.text = "Playing..."
+                player?.completionHandler = self.callback
+                player?.play()
+            } else {
+                self.playLabel!.text = "Tape is empty!..."
+            }
+            })
+        
+        addSubview(AKButton(title: "Stop") {
+            self.playLabel!.text = "Stopped playback!"
+            player?.stop()
+            })
 
-        let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
+        let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.frame.origin.y = CGFloat(yPosition + 50)
         keyboard.setNeedsDisplay()
         keyboard.delegate = self
         self.addSubview(keyboard)
     }
 
-    func record() {
-        recordLabel!.text = "Recording..."
-        try? recorder?.record()
-    }
-
-    func stopRecord() {
-        recordLabel!.text = "Stopped. ( \(recorder!.recordedDuration) seconds recorded)"
-        recorder?.stop()
-    }
-
-    func reset() {
-        recordLabel!.text = "Tape Cleared !"
-        try? recorder?.reset()
-    }
-
     func callback() {
         // We use Dispatch_async to refresh UI as callback is invoked from a background thread
          dispatch_async(dispatch_get_main_queue()) {
-        self.replayLabel!.text = "Finished to replay!"}
-    }
-
-    func replay() {
-        // We reloadFile() to refresh before playing
-        try? player?.reloadFile()
-        // If the tape is not empty, we can play it !...
-        if player?.audioFile.duration > 0 {
-            replayLabel!.text = "Replaying..."
-            player?.completionHandler = callback
-            player?.play()
-        } else {
-            replayLabel!.text = "Tape is empty!..."
+            self.playLabel!.text = "Finished playing!"
         }
     }
 
-    func stopReplay() {
-        replayLabel!.text = "Replay stopped !"
-        player?.stop()
-    }
-
-
-
     // Synth UI
-    func noteOn(note: Int) {
+    func noteOn(note: MIDINoteNumber) {
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
@@ -130,13 +115,10 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         oscillator.play()
     }
 
-    func noteOff(note: Int) {
+    func noteOff(note: MIDINoteNumber) {
         oscillator.amplitude = 0
     }
 }
 
-
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
