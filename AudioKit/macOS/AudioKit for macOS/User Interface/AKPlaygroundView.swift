@@ -10,6 +10,8 @@ import Cocoa
 
 public typealias Label = AKLabel
 
+
+
 public class AKLabel: NSTextField {
     
     override public init(frame frameRect: NSRect) {
@@ -26,7 +28,19 @@ public class AKLabel: NSTextField {
     }
 }
 
+public let processingPlaygroundFiles = [
+    "Acid Full.mp3",
+    "Acid Drums.mp3",
+    "Acid Bass.mp3",
+    "80s Synth.mp3",
+    "Lo-Fi Synth.mp3",
+    "African.mp3",
+    "mixloop.wav",
+    "counting.mp3"]
+
 public class AKPlaygroundView: NSView {
+    
+    
     
     public var elementHeight: CGFloat = 30
     public var spacing = 25
@@ -87,7 +101,6 @@ public class AKPlaygroundView: NSView {
             yPosition += Int(view.frame.height) + spacing
             super.addSubview(view)
         }
-        Swift.print(yPosition)
         frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: CGFloat(yPosition))
     }
     
@@ -95,15 +108,4 @@ public class AKPlaygroundView: NSView {
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    public static let audioResourceFileNames = [
-        "Acid Full.mp3",
-        "Acid Drums.mp3",
-        "Acid Bass.mp3",
-        "80s Synth.mp3",
-        "Lo-Fi Synth.mp3",
-        "African.mp3",
-        "mixloop.wav",
-        "counting.mp3"]
-    
 }
