@@ -56,21 +56,15 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Sporth Generators")
         
-        addLabel("Choose from the examples below:")
-        
-        addButton("Chatting Robot", action: #selector(startChatting))
-        addButton("Drone", action: #selector(startDrone))
-        
-    }
-    
-    //: Handle UI Events
-    
-    func startChatting() {
-        updateSporth(chattingRobot)
-    }
-    
-    func startDrone() {
-        updateSporth(drone)
+        addSubview(AKPresetLoaderView(presets: ["Chatting", "Drone"]) { preset in
+            switch preset {
+            case "Chatting":
+                self.updateSporth(chattingRobot)
+            case "Drone":
+                self.updateSporth(drone)
+            default: break
+            }
+            })
     }
     
     func updateSporth(sporth: String) {

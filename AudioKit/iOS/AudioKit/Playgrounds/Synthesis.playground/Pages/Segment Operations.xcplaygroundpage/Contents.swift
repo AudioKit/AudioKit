@@ -2,9 +2,9 @@
 //:
 //: ---
 //:
-//: ## Linear and Exponential Segment Operations
-//: ### You can create segments that vary parameters in operations over a certain duration.
-//: ### This playground creates an alien apocalypse soundscape.
+//: ## Segment Operations
+//: ### You can create segments that vary parameters in operations linearly or exponentially over a certain duration.
+//: ### Here we create an alien apocalypse.
 //:
 import XCPlayground
 import AudioKit

@@ -21,12 +21,15 @@ morph.start()
 
 class PlaygroundView: AKPlaygroundView {
 
+    var frequencyLabel: Label?
+    var amplitudeLabel: Label?
+    var morphIndexLabel: Label?
+
     override func setup() {
         
         addTitle("Morphing Oscillator")
 
-        addButton("Start", action: #selector(start))
-        addButton("Stop", action: #selector(stop))
+        addSubview(AKBypassButton(node: morph))
 
         addSubview(AKPropertySlider(
             property: "Frequency",
@@ -55,7 +58,7 @@ class PlaygroundView: AKPlaygroundView {
             morph.index = index
             })
         
-        addSubview(AKOutputWaveformPlot.createView(440, height: 400))
+        addSubview(AKOutputWaveformPlot.createView(width: 440, height: 400))
     }
 
     func start() {

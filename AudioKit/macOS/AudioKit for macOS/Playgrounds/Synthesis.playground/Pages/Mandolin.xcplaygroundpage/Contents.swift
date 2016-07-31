@@ -62,51 +62,28 @@ class PlaygroundView: AKPlaygroundView {
             pluckPosition = position
         })
 
- 
-        addButton("Large Resonant Mandolin", action: #selector(presetLargeResonance))
-        addButton("Electric Guitar Mandolin", action: #selector(presetElectricGuitar))
-        addLineBreak()
-        addButton("Small-Bodied Distorted Mandolin",
-                  action: #selector(presetSmallDistortedMandolin))
-        addButton("Acid Mandolin", action: #selector(presetAcidMandolin))
+        
+        let presets = ["Large, Resonant", "Electric Guitar-ish", "Small-Bodied, Distorted", "Acid Mandolin"]
+        addSubview(AKPresetLoaderView(presets: presets) { preset in
+            switch preset {
+            case "Large, Resonant":
+                mandolin.presetLargeResonantMandolin()
+            case "Electric Guitar-ish":
+                mandolin.presetElectricGuitarMandolin()
+            case "Small-Bodied, Distorted":
+                mandolin.presetSmallBodiedDistortedMandolin()
+            case "Acid Mandolin":
+                mandolin.presetAcidMandolin()
+            default: break
+            }
+            self.updateUI()
+            }
+        )
     }
-
-    //: Audition Presets
-
-    func presetLargeResonance() {
-        mandolin.presetLargeResonantMandolin()
-        updateUI()
-    }
-
-    func presetElectricGuitar() {
-        mandolin.presetElectricGuitarMandolin()
-        updateUI()
-    }
-
-    func presetSmallDistortedMandolin() {
-        mandolin.presetSmallBodiedDistortedMandolin()
-        updateUI()
-    }
-
-    func presetAcidMandolin() {
-        mandolin.presetAcidMandolin()
-        updateUI()
-    }
-
     func updateUI() {
         detuneSlider!.value = mandolin.detune
         bodySizeSlider!.value = mandolin.bodySize
-        printCode()
     }
-
-    func printCode() {
-
-        Swift.print("public func presetXXXXXX() {")
-        Swift.print("    detune = \(String(format: "%0.3f", mandolin.detune))")
-        Swift.print("    bodySize = \(String(format: "%0.3f", mandolin.bodySize))")
-        Swift.print("}\n")
-    }
-
 }
 
 let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 550, height: 450))

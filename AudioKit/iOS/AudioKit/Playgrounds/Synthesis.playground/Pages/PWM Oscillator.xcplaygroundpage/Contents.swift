@@ -19,11 +19,6 @@ let playgroundWidth = 500
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var frequencyLabel: Label?
-    var pulseWidthLabel: Label?
-    var amplitudeLabel: Label?
-    var rampTimeLabel: Label?
-
     override func setup() {
         addTitle("PWM Oscillator")
 

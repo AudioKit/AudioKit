@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-//: Here we set up the instruments, which can be polyphnic, but we only need mono for this example
+//: Set up instruments:
 var kick = AKSynthKick()
 var snare = AKSynthSnare(duration: 0.07)
 

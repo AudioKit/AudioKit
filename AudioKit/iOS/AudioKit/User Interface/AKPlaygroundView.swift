@@ -66,7 +66,7 @@ public class AKPlaygroundView: UIView {
     
     // TO BE DEPRECATED:
     
-    public func addButton(label: String, action: Selector) -> UIButton {
+    public func addButton(label: String, action: Selector) {
         
         let newButton = UIButton(type: .Custom)
         newButton.frame = CGRect(x: 10, y: 0, width: self.bounds.width, height: elementHeight)
@@ -77,8 +77,6 @@ public class AKPlaygroundView: UIView {
         
         newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
         newButton.sizeToFit()
-        self.addSubview(newButton)
-        
-        return newButton
+        self.addSubview(newButton)        
     }
 }

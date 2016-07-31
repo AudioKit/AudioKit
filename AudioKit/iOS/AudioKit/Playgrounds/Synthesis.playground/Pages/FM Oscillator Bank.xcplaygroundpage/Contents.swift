@@ -15,12 +15,6 @@ AudioKit.output = fmBank
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
-    var carrierMultiplierLabel: Label?
-    var modulatingMultiplierLabel: Label?
-    var modulationIndexLabel: Label?
-
-    var attackLabel: Label?
-    var releaseLabel: Label?
 
     override func setup() {
         addTitle("FM Oscillator Bank")

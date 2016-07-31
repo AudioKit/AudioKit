@@ -37,8 +37,6 @@ var currentRampTime = 0.05
 oscillator.rampTime = currentRampTime
 oscillator.amplitude = currentAmplitude
 
-let playgroundWidth = 500
-
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     override func setup() {
@@ -61,7 +59,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             currentRampTime = time
             })
 
-        let keyboard = AKKeyboardView(width: playgroundWidth,
+        let keyboard = AKKeyboardView(width: 440,
                                       height: 100,
                                       lowestKey: 24,
                                       totalKeys: 64)
@@ -88,7 +86,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
