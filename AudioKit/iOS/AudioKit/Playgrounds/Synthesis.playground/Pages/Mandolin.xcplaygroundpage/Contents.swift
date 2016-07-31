@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Mandolin")
-        
+
         detuneSlider = AKPropertySlider(
             property: "Detune",
             format: "%0.2f",
@@ -42,7 +42,7 @@ class PlaygroundView: AKPlaygroundView {
             mandolin.detune = detune
         }
         addSubview(detuneSlider!)
-        
+
         bodySizeSlider = AKPropertySlider(
             property: "Body Size",
             format: "%0.2f",
@@ -62,7 +62,7 @@ class PlaygroundView: AKPlaygroundView {
             pluckPosition = position
         })
 
-        
+
         let presets = ["Large, Resonant", "Electric Guitar-ish", "Small-Bodied, Distorted", "Acid Mandolin"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
@@ -86,8 +86,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 550, height: 450))
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 AKPlaygroundLoop(frequency: playRate) {
     var note1 = scale.randomElement()

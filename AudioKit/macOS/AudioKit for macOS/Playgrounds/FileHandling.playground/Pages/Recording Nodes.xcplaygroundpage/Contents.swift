@@ -135,8 +135,5 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-
-
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()

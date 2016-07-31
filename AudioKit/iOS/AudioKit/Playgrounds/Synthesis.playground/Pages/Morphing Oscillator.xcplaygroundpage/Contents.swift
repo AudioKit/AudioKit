@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView {
     var morphIndexLabel: Label?
 
     override func setup() {
-        
+
         addTitle("Morphing Oscillator")
 
         addSubview(AKBypassButton(node: morph))
@@ -39,7 +39,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { frequency in
             morph.frequency = frequency
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Amplitude",
             value: morph.amplitude,
@@ -49,7 +49,7 @@ class PlaygroundView: AKPlaygroundView {
             })
 
         addLabel("Index: Sine = 0, Triangle = 1, Sawtooth = 2, Square = 3")
-        
+
         addSubview(AKPropertySlider(
             property: "Morph Index",
             value: morph.index, maximum: 3,
@@ -57,7 +57,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { index in
             morph.index = index
             })
-        
+
         addSubview(AKOutputWaveformPlot.createView(width: 440, height: 400))
     }
 
@@ -69,8 +69,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 950))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

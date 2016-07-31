@@ -28,7 +28,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { multiplier in
             fmBank.carrierMultiplier = multiplier
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Modulating Multiplier",
             format: "%0.3f",
@@ -37,7 +37,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { multiplier in
             fmBank.modulatingMultiplier = multiplier
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Modulation Index",
             format: "%0.3f",
@@ -55,7 +55,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { duration in
             fmBank.attackDuration = duration
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Release",
             format: "%0.3f",
@@ -81,8 +81,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 }
 
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

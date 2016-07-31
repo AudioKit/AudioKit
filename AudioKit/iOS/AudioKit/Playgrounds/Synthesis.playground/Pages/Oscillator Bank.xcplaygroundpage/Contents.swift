@@ -26,7 +26,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { duration in
             osc.attackDuration = duration
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Decay",
             format: "%0.3f",
@@ -35,7 +35,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { duration in
             osc.decayDuration = duration
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Sustain Level",
             format: "%0.3f",
@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { level in
             osc.sustainLevel = level
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Release",
             format: "%0.3f",
@@ -86,7 +86,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 750))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

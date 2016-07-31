@@ -21,15 +21,15 @@ let dialTone = AKOperationGenerator() { _ in
 let ringing = AKOperationGenerator() { _ in
     let ringingTone1 = AKOperation.sineWave(frequency: 480)
     let ringingTone2 = AKOperation.sineWave(frequency: 440)
-    
+
     let ringingToneMix = mixer(ringingTone1, ringingTone2)
-    
+
     let ringTrigger = AKOperation.metronome(frequency: 0.1666) // 1 / 6 seconds
-    
+
     let rings = ringingToneMix.triggeredWithEnvelope(
         trigger: ringTrigger,
         attack: 0.01, hold: 2, release: 0.01)
-    
+
     return rings * 0.4
 }
 
@@ -40,7 +40,7 @@ let busy = AKOperationGenerator() { _ in
     let busySignalTone1 = AKOperation.sineWave(frequency: 480)
     let busySignalTone2 = AKOperation.sineWave(frequency: 620)
     let busySignalTone = mixer(busySignalTone1, busySignalTone2)
-    
+
     let busyTrigger = AKOperation.metronome(frequency: 2)
     let busySignal = busySignalTone.triggeredWithEnvelope(
         trigger: busyTrigger,
@@ -69,7 +69,7 @@ let keypad = AKOperationGenerator() { parameters in
 
     let keyPressTone = AKOperation.sineWave(frequency: AKOperation.parameters[1]) +
         AKOperation.sineWave(frequency: AKOperation.parameters[2])
-    
+
     let momentaryPress = keyPressTone.triggeredWithEnvelope(
         trigger:AKOperation.trigger, attack: 0.01, hold: 0.1, release: 0.01)
     return momentaryPress * 0.4
@@ -177,7 +177,6 @@ class PlaygroundView: AKPlaygroundView {
     func touchHash() { touchKeyPad("#") }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 320, height: 700))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
