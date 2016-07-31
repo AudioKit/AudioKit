@@ -832,8 +832,6 @@
 		C446B3C41D45296A000AEFCA /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
 		C446B3C51D45296A000AEFCA /* FileHandling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FileHandling.playground; sourceTree = "<group>"; };
 		C446B3C61D45296A000AEFCA /* MIDI.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MIDI.playground; sourceTree = "<group>"; };
-		C446B3C71D45296A000AEFCA /* Processing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Processing.playground; sourceTree = "<group>"; };
-		C446B3C81D45296A000AEFCA /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Synthesis.playground; sourceTree = "<group>"; };
 		C446B3C91D45296A000AEFCA /* Tutorials.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tutorials.playground; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
@@ -1368,6 +1366,8 @@
 		C4D1FCFA1CE5BCC80043209E /* AKTremoloAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTremoloAudioUnit.h; sourceTree = "<group>"; };
 		C4D1FCFB1CE5BCC80043209E /* AKTremoloAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKTremoloAudioUnit.mm; sourceTree = "<group>"; };
 		C4D1FCFC1CE5BCC80043209E /* AKTremoloDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKTremoloDSPKernel.hpp; sourceTree = "<group>"; };
+		C4D86EAF1D4E148900563FF5 /* Processing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Processing.playground; path = ../../../Common/Playgrounds/Processing.playground; sourceTree = "<group>"; };
+		C4D86EB01D4E148900563FF5 /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Synthesis.playground; path = ../../../Common/Playgrounds/Synthesis.playground; sourceTree = "<group>"; };
 		C4DBDA221C21FCF50033494B /* squareWave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = squareWave.swift; sourceTree = "<group>"; };
 		C4E120A91D4D95AB00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
 		C4E120AB1D4DBD6300CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
@@ -1867,9 +1867,9 @@
 		C446B3C31D45296A000AEFCA /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				C4D86EB01D4E148900563FF5 /* Synthesis.playground */,
+				C4D86EAF1D4E148900563FF5 /* Processing.playground */,
 				C446B3C91D45296A000AEFCA /* Tutorials.playground */,
-				C446B3C81D45296A000AEFCA /* Synthesis.playground */,
-				C446B3C71D45296A000AEFCA /* Processing.playground */,
 				C446B3C41D45296A000AEFCA /* Analysis.playground */,
 				C446B3C51D45296A000AEFCA /* FileHandling.playground */,
 				C446B3C61D45296A000AEFCA /* MIDI.playground */,
