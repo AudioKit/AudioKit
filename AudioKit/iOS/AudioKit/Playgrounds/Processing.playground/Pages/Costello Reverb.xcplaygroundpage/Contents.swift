@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView {
             reverb.feedback = sliderValue
             }
         addSubview(feedbackSlider!)
-        
+
         let presets = ["Short Tail", "Low Ringing Tail"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
@@ -78,8 +78,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 500))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
