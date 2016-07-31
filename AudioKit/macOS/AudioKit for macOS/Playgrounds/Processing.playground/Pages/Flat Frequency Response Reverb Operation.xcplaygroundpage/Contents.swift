@@ -7,12 +7,10 @@
 import XCPlayground
 import AudioKit
 
-//: Music Example
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 
-//: Here we set up a player to the loop the file's playback
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 

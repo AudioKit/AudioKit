@@ -7,14 +7,11 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
-//: Here we set up a player to the loop the file's playback
 var player = try AKAudioPlayer(file: file)
 player.looping = true
-
-
 
 func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     let mix = AKMixer(input)
@@ -25,13 +22,13 @@ func multitapDelay(input: AKNode, times: [Double], gains: [Double]) -> AKMixer {
     return mix
 }
 
-// Delay Properties
+//: Delay Properties
 var delayTime = 0.2 // Seconds
 var delayMix  = 0.4 // 0 (dry) - 1 (wet)
 let gains = [0.5, 0.25, 0.15].map { gain -> Double in gain * delayMix }
 let input = player
 
-// Delay Definition
+//: Delay Definition
 let leftDelay = multitapDelay(input,
     times: [1.5, 2.5, 3.5].map { t -> Double in t * delayTime },
     gains: gains)

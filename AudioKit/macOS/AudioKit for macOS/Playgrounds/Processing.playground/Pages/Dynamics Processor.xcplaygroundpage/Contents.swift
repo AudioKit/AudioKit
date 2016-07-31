@@ -10,15 +10,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var effect = AKDynamicsProcessor(player)
-
-//: Set the parameters here
 effect.threshold
 effect.headRoom
 effect.expansionRatio
@@ -38,9 +36,11 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Dynamics Processor")
 
-        addButtons()
-        addButton("Process", action: #selector(process))
-        addButton("Bypass", action: #selector(bypass))
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
+
+        addSubview(AKBypassButton(node: effect))
 
         addSubview(AKPropertySlider(
             property: "Threshold",
@@ -59,7 +59,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             effect.headRoom = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Expansion Ratio",
             value: effect.expansionRatio, minimum: 1, maximum: 50,
@@ -67,7 +67,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             effect.expansionRatio = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Expansion Threshold",
             value: effect.expansionThreshold, minimum: 1, maximum: 50,
@@ -75,7 +75,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             effect.expansionThreshold = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Attack Time",
             format: "%0.3f s",
@@ -93,7 +93,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             effect.releaseTime = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Master Gain",
             format: "%0.2f dB",
@@ -103,27 +103,9 @@ class PlaygroundView: AKPlaygroundView {
             effect.masterGain = sliderValue
             })
     }
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-    override func stop() {
-        player.stop()
-    }
-
-    func process() {
-        effect.start()
-    }
-
-    func bypass() {
-        effect.bypass()
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

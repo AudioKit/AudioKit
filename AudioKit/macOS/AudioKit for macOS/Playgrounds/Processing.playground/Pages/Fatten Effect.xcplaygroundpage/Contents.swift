@@ -8,11 +8,10 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 
-//: Here we set up a player to the loop the file's playback
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
@@ -40,7 +39,9 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Analog Synth X Fatten")
 
-        addButtons()
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
 
         addSubview(AKPropertySlider(
             property: "Time",
@@ -50,7 +51,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             fatten.parameters[0] = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Mix",
             value: fatten.parameters[1],
@@ -60,19 +61,10 @@ class PlaygroundView: AKPlaygroundView {
             })
     }
 
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-    override func stop() {
-        player.stop()
-    }
+
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 350))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

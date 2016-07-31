@@ -60,11 +60,12 @@ public class AKResourcesAudioFileLoaderView: UIView {
         self.titles = filenames
     }
     
-    func drawAudioFileLoader(sliderColor sliderColor: UIColor = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000), fileName: String = "None") {
+    func drawAudioFileLoader(fileName fileName: String = "None") {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
+        let sliderColor = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
         let backgroundColor = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
         let color = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
         let dark = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)

@@ -1,4 +1,4 @@
-//: # AudioKit for macOS Playgrounds
+//: # Playgrounds Table of Contents
 //:
 //: AudioKit comes with many playgrounds, each of which serves to teach some
 //: core concept, demonstrate a particular generator or synthesizer, or just
@@ -18,29 +18,18 @@
 //:
 //: So wait, before we jump into the actual tutorials, let's just highlight some
 //: of the cooler sound playgrounds we have.  Don't try to understand the code
-//: if you're just started, it will all be expained starting with the next section,
-//: Basic Tutorials.
+//: if you're just started, it will all be expained starting with the next
+//: section, Basic Tutorials.
 //:
 //: * [Electro Drum Beat](Drum%20Synthesizers)
+//: * [Filter Envelope](Filter%20Envelope)
 //: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
 //: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
 //: * [EXS24 Sampler](Sampler%20Instrument%20-%20EXS24)
 //: * [Crazy Drum Effects](Variable%20Delay)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
 //: * [Newton's Cradle](Newtons%20Cradle)
-//: * [3D Panner](3D%20Panner)
 //: * [Tremolo](Tremolo)
-//: * [Metronome](Metronome)
-//:
-//: ## Mac OS X Playgrounds
-//:
-//: These playgrounds are exclusive to OS X because they use some feature not
-//: availalable on iOS, for instance microphone input.
-//:
-//: * [Selector Clock](SelectorClock)
-//: * [Tracking Microphone Input](Tracking%20Microphone%20Input)
-//: * [Recording from Microphone](Recording%20From%20Microphone)
-//: * [XY Pad](XY%20Pad)
 //:
 //: ## Basic Tutorials
 //:
@@ -55,6 +44,11 @@
 //: * [Dry Wet Mixer](Dry%20Wet%20Mixer)
 //: * [Balancing Nodes](Balancing%20Nodes)
 //: * [Stereo Panning](Stereo%20Panning)
+//: * [Recording Nodes](Recording%20Nodes)
+//: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
+//: * [3D Panner](3D%20Panner)
+//: * [Tremolo](Tremolo)
+//: * [Metronome](Metronome)
 //:
 //: ## Plotting
 //:
@@ -71,7 +65,7 @@
 //: * [Tracking Amplitude](Tracking%20Amplitude)
 //: * [Tracking Frequency](Tracking%20Frequency)
 //: * [Tracking Frequency of Audio File](Tracking%20Frequency%20of%20Audio%20File)
-//: * [FFT Analysis(FFT%20Analysis)
+//: * [FFT Analysis](FFT%20Analysis)
 //:
 //: ## "Analog Synth X" Example Project
 //:
@@ -101,13 +95,22 @@
 //: require a playground of its own, but there are some playback-oriented nodes
 //: that are very useful and cool.
 //:
+//: * [Audio Player](Audio%20Player)
+//: * [Playback Speed](Playback%20Speed)
 //: * [Sampler Instrument - EXS24](Sampler%20Instrument%20-%20EXS24)
 //: * [Sampler Instrument - Wav file](Sampler%20Instrument%20-%20Wav%20file)
 //: * [Sequencer - Single output](Sequencer%20-%20Single%20output)
 //: * [Sequencer - Multiple output](Sequencer%20-%20Multiple%20output)
 //: * [Time Stretching and Pitch Shifting](Time%20Stretching%20and%20Pitch%20Shifting)
-//: * [Pitch Shifter](Pitch%20Shifter)
 //: * [Phase-Locked Vocoder](Phase-Locked%20Vocoder)
+//:
+//: ## Working with Audio Files
+//:
+//: There is a lot you can do with audio files and AudioKit.
+//:
+//: * [Reading and Writing Audio Files](Reading%20and%20Writing%20Audio%20Files)
+//: * [Editing Audio Files](Editing%20Audio%20Files)
+//: * [Processing Audio Files Asynchronously](Processing%20Audio%20Files%20Asynchronously)
 //:
 //: ## Generator Nodes
 //:
@@ -116,37 +119,41 @@
 //: Oscillators are the bread and butter of audio synthesis and there's no
 //: shortage of them in AudioKit.
 //:
-//: * [Simple Oscillator](Simple%20Oscillator)
 //: * [FM Oscillator](FM%20Oscillator)
+//: * [FM OscillatorBank](FM%20Oscillator%20Bank)
 //: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
+//: * [Mono Synth](Mono%20Synth)
 //: * [Morphing Oscillator](Morphing%20Oscillator)
-//: * [Sawtooth Oscillator](Sawtooth%20Oscillator)
-//: * [Square Wave Oscillator](Square%20Wave%20Oscillator)
-//: * [Triangular Wave Oscillator](Triangular%20Wave%20Oscillator)
+//: * [Morphing Oscillator Bank](Morphing%20Oscillator%20Bank)
+//: * [Oscillator](Oscillator)
+//: * [Oscillator Bank](Oscillator%20Bank)
+//: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
+//: * [Phase Distortion Oscillator Bank](Phase%20Distortion%20Oscillator%20Bank)
+//: * [PWM Oscillator](PWM%20Oscillator)
+//: * [PWM Oscillator Bank](PWM%20Oscillator%20Bank)
 //:
 //: ### Noise Generators
 //:
 //: Two noise "colors" to start off with, but we aim to have a much larger spectrum soon.
 //:
-//: * [Pink Noise Generator](Pink%20Noise%20Generator)
-//: * [White Noise Generator](White%20Noise%20Generator)
+//: * [Pink and White Noise Generators](Pink%20and%20White%20Noise%20Generators)
 //:
-//: ### Physical Models
+//: ### Physical Models & Instruments
 //:
-//: There are only a few of these to start off with, but we think they are a
-//: lot of fun and sound really good.  More on the way!
+//: These playgrounds emulate real life sounds.
 //:
 //: * [Drawbar Organ](Drawbar%20Organ)
 //: * [Dripping Sounds](Dripping%20Sounds)
-//: * [Plucked String](Plucked%20String)
-//: * [Mandolin](Mandolin)
 //: * [Flute](Flute)
+//: * [Mandolin](Mandolin)
+//: * [Plucked String](Plucked%20String)
+//: * [Metal Bar](Metal%20Bar)
 //:
 //: ## Effect Processor Nodes
 //:
-//: Here is where we start presenting playgrounds with the purpose of demonstrating
-//: a particular type of node.  This section covers effect processors such as
-//: what you might find on a electric guitar pedal board.
+//: This secions starts presenting playgrounds with the purpose of
+//: demonstrating a particular type of node.  This section covers effect
+//: processors such as what you might find on a electric guitar pedal board.
 //:
 //: ### Delay Nodes
 //:
@@ -162,17 +169,16 @@
 //: and basically change something essential to the sound, usually making for a
 //: harsher sound, but that's a matter of taste.
 //:
-//: * [Distortion](Distortion)
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
 //: * [Decimator](Decimator)
-//: * [Ring Modulation](Ring%20Modulation)
+//: * [Ring Modulator](Ring%20Modulator)
+//: * [Distortion](Distortion)
 //: * [Tanh Distortion](Tanh%20Distortion)
-//: * [Complex Distortion](Complex%20Distortion)
 //:
 //: ### Dynamics Processing
 //:
-//: Dynamics processing is usually done at the mixing stage and involves changing
-//: the signal's output levels.
+//: Dynamics processing is usually done at the mixing stage and involves
+//: changing the signal's output levels.
 //:
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Peak Limiter](Peak%20Limiter)
@@ -185,15 +191,14 @@
 //: * [Band Pass Butterworth Filter](Band%20Pass%20Butterworth%20Filter)
 //: * [Band Pass Filter](Band%20Pass%20Filter)
 //: * [Band Reject Butterworth Filter](Band%20Reject%20Butterworth%20Filter)
-//: * [Filter Envelope](Filter%20Envelope)
 //: * [Formant Filter](Formant%20Filter)
 //: * [Graphic Equalizer](Graphic%20Equalizer)
 //: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
 //: * [High Pass Filter](High%20Pass%20Filter)
 //: * [High Shelf Filter](High%20Shelf%20Filter)
-//: * [Low Pass Butterworth Filter](Loiw%20Pass%20Butterworth%20Filter)
+//: * [Low Pass Butterworth Filter](Low%20Pass%20Butterworth%20Filter)
 //: * [Low Pass Filter](Low%20Pass%20Filter)
-//: * [Low Shelf Filter](Low%20Shelf%20Filter)
+//: * [Low  Shelf Filter](Low%20Shelf%20Filter)
 //: * [Modal Resonance Filter](Modal%20Resonance%20Filter)
 //: * [Moog Ladder Filter](Moog%20Ladder%20Filter)
 //: * [Parametric Equalizer](Parametric%20Equalizer)
@@ -210,13 +215,11 @@
 //: * [iOS-only Reverb](iOS-only%20Reverb)
 //: * [Sean Costello Reverb](Sean%20Costello%20Reverb)
 //:
-//: Convolution is included here because it often used for reverb effects,
-//: but it can do a lot more.
+//: Convolution is included here because it often used for reverb effects, but it can do a lot more.
 //:
 //: * [Convolution](Convolution)
 //:
-//: Then there are "reverbs" that are more commonly used as components,
-//: not as a stand-alone effect.
+//: Then there are "reverbs" that are more commonly used as components, not as a stand-alone effect.
 //:
 //: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
@@ -230,7 +233,6 @@
 //: * [Using Functions](Using%20Functions)
 //: * [Using Functions Part 2](Using%20Functions%20Part%202)
 //: * [Muli-tap Delay](Multi-tap%20Delay)
-//: * [Noise Operations](Noise%20Operations)
 //:
 //: Many of the types of things you can do in nodes are also possible with operations,
 //: but with great flexibility in how the parameters are changed over time.
@@ -240,6 +242,7 @@
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Clip](Clip%20Operation)
 //: * [Drum Synthesizers](Drum%20Synthesizers)
+//: * [Filter Envelope](Filter%20Envelope)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
 //: * [FM Oscillator](FM%20Oscillator%20Operation)
 //: * [High Pass Filter](High%20Pass%20Filter%20Operation)
@@ -262,13 +265,7 @@
 //: * [Sporth Based Generator](Sporth%20Based%20Generator)
 //: * [Sporth Based Effect](Sporth%20Based%20Effect)
 //:
-//: ## Development
-//:
-//: These playgrounds are here basically for us to work on future AudioKit developments.
-//: Proceed with caution!
-//:
-//: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
-//:
 //: Hey you got all the way to the bottom of this file, why not let us know by
 //: emailing audiokit@audiokit.io.  We'd love to hear from you!
 //:
+

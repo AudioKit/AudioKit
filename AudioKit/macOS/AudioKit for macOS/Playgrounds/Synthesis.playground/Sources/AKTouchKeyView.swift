@@ -100,10 +100,10 @@ extension AKPlaygroundView {
         // Line up multiple buttons in a row
         if let button = lastButton {
             newButton.frame.origin.x += button.frame.origin.x + button.frame.width + 10
-            yPosition -= horizontalSpacing
+            yPosition -= spacing
         }
-        horizontalSpacing = Int((newButton.frame.height)) + 10
-        yPosition += horizontalSpacing
+        spacing = Int((newButton.frame.height)) + 10
+        yPosition += spacing
 
         newButton.frame.origin.y = self.bounds.height - CGFloat(yPosition)
         newButton.target = self

@@ -24,9 +24,9 @@ extension AKOperationEffect {
     }
 }
 
-//: Here we'll use the struct and the extension to refer to the autopan parameters by name
+//: Use the struct and the extension to refer to the autopan parameters by name
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.defaultSourceAudio,
+let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -41,16 +41,17 @@ let effect = AKOperationEffect(player) { input, parameters in
 effect.parameters = [10, 1]
 AudioKit.output = effect
 AudioKit.start()
-
-let playgroundWidth = 500
+player.play()
 
 class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("AutoPan")
-
-        addButtons()
-
+        
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: AKPlaygroundView.audioResourceFileNames))
+        
         addSubview(AKPropertySlider(
             property: "Speed",
             value: effect.speed, minimum: 0.1, maximum: 25,
@@ -67,21 +68,9 @@ class PlaygroundView: AKPlaygroundView {
             effect.depth = sliderValue
             })
     }
-
-    override func startLoop(name: String) {
-        player.stop()
-        let file = try? AKAudioFile(readFileName: "\(name)", baseDir: .Resources)
-        try? player.replaceFile(file!)
-        player.play()
-    }
-
-    override func stop() {
-        player.stop()
-    }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

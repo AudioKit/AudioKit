@@ -13,6 +13,8 @@
         <page name='Clip Operation'/>
         <page name='Comb Filter Reverb'/>
         <page name='Convolution'/>
+        <page name='Costello Reverb'/>
+        <page name='Costello Reverb Operation'/>
         <page name='Decimator'/>
         <page name='Delay'/>
         <page name='Distortion'/>
@@ -46,9 +48,7 @@
         <page name='Resonant Filter Operation'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
-        <page name='Sean Costello Reverb'/>
-        <page name='Sean Costello Reverb Operation'/>
-        <page name='Simple Reverb'/>
+        <page name='Reverb'/>
         <page name='Sporth Based Effect'/>
         <page name='Stereo Panning'/>
         <page name='String Resonator'/>
