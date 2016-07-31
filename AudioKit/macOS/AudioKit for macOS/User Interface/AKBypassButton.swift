@@ -45,8 +45,8 @@ public class AKBypassButton: NSView {
         //// Variable Declarations
         let processingColor: NSColor = isBypassed ? gray : green
         let bypassingCOlor: NSColor = isBypassed ? red : gray
-        let bypassedText: String = isBypassed ? "Bypassed" : "Bypass"
-        let processingText: String = isBypassed ? "Process" : "Processing"
+        let bypassedText: String = isBypassed ? "Off / Bypassed" : "Stop / Bypass"
+        let processingText: String = isBypassed ? "Play / Start" : "Playing"
         
         //// bypassGroup
         //// bypassOuter Drawing
