@@ -16,7 +16,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     override func setup() {
         addTitle("Morphing Oscillator Bank")
-        
+
         addSubview(AKPropertySlider(
             property: "Morph Index",
             value: osc.index, maximum: 3,
@@ -33,7 +33,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { duration in
             osc.attackDuration = duration
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Release",
             format: "%0.3f s",
@@ -51,7 +51,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { offset in
             osc.detuningOffset = offset
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Detuning Multiplier",
             value:  osc.detuningMultiplier, minimum: 0.5, maximum: 2.0,
@@ -75,8 +75,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 }
 
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 650))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

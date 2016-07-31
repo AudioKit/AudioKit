@@ -52,10 +52,10 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     override func setup() {
         addTitle("Sporth Generators")
-        
+
         addSubview(AKPresetLoaderView(presets: ["Chatting", "Drone"]) { preset in
             switch preset {
             case "Chatting":
@@ -66,7 +66,7 @@ class PlaygroundView: AKPlaygroundView {
             }
             })
     }
-    
+
     func updateSporth(sporth: String) {
         generator.stop()
         AudioKit.stop()
@@ -75,11 +75,10 @@ class PlaygroundView: AKPlaygroundView {
         AudioKit.start()
         generator.start()
     }
-    
+
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 550))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

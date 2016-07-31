@@ -31,7 +31,7 @@ class PlaygroundView: AKPlaygroundView {
             pink.amplitude = amplitude
             white.amplitude = amplitude
             })
-        
+
         addSubview(AKPropertySlider(
             property: "White to Pink Balance",
             format: "%0.2f",
@@ -45,8 +45,7 @@ class PlaygroundView: AKPlaygroundView {
 
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 270))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

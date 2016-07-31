@@ -20,7 +20,7 @@ let generator = AKOperationGenerator() { parameters in
         start: start,
         end: 0,
         duration: duration)
-    
+
     // Decrease the amplitude exponentially
     let amplitude = AKOperation.exponentialSegment(
         trigger: AKOperation.metronome(frequency: updateRate),
@@ -62,8 +62,7 @@ class PlaygroundView: AKPlaygroundView {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: 500, height: 160))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

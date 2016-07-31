@@ -39,8 +39,8 @@ extension AKOperationGenerator {
     }
 }
 
-let synth = AKOperationGenerator() { parameters in 
-    
+let synth = AKOperationGenerator() { parameters in
+
     let oscillator = AKOperation.fmOscillator(
         baseFrequency: Synth.frequency,
         carrierMultiplier: 3,
@@ -53,7 +53,7 @@ let synth = AKOperationGenerator() { parameters in
         decay: 0.01,
         sustain: 1,
         release: 0.6)
-    
+
     return oscillator.moogLadderFilter(cutoffFrequency: cutoff,
         resonance: 0.9)
 }
@@ -79,7 +79,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { frequency in
             synth.cutoff = frequency
         })
-        
+
         let keyboard = AKKeyboardView(width: playgroundWidth - 60,
                                       height: 100, totalKeys: 36)
         keyboard.delegate = self
@@ -96,8 +96,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 }
 
-let view = PlaygroundView(frame: CGRect(x: 0, y: 0, width: playgroundWidth, height: 300))
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-XCPlaygroundPage.currentPage.liveView = view
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
