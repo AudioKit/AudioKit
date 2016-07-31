@@ -102,8 +102,6 @@ class PlaygroundView: AKPlaygroundView {
         updateUI()
     }
 
-    //: Handle UI Events
-
     func play() {
         player!.play()
     }

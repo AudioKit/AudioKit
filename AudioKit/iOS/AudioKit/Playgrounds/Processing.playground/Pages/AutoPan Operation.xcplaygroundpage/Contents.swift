@@ -26,7 +26,7 @@ extension AKOperationEffect {
 
 //: Use the struct and the extension to refer to the autopan parameters by name
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -47,11 +47,11 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("AutoPan")
-        
+
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: AKPlaygroundView.audioResourceFileNames))
-        
+            filenames: audioResourceFileNames))
+
         addSubview(AKPropertySlider(
             property: "Speed",
             value: effect.speed, minimum: 0.1, maximum: 25,
@@ -59,7 +59,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             effect.speed = sliderValue
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Depth",
             value: effect.depth,

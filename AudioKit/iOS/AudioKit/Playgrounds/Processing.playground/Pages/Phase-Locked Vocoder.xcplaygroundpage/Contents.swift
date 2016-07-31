@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: AKPlaygroundView.audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
                            baseDir: .Resources)
 let phaseLockedVocoder = AKPhaseLockedVocoder(file: file)
 
