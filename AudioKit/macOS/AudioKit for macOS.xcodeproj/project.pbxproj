@@ -1388,6 +1388,7 @@
 		C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicKeyboardView.swift; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DABC471D4F065D00A8942F /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Analysis.playground; path = ../../../Common/Playgrounds/Analysis.playground; sourceTree = "<group>"; };
+		C4DABC491D4F0C9A00A8942F /* Basics.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Basics.playground; path = ../../../Common/Playgrounds/Basics.playground; sourceTree = "<group>"; };
 		C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
 		C4E120AD1D4DF39B00CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
@@ -1424,6 +1425,7 @@
 		C446B3D51D45447A000AEFCA /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				C4DABC491D4F0C9A00A8942F /* Basics.playground */,
 				C480BF001D4E150800204FDF /* Synthesis.playground */,
 				C480BEFF1D4E150800204FDF /* Processing.playground */,
 				C4DABC471D4F065D00A8942F /* Analysis.playground */,
