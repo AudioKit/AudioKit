@@ -45,7 +45,6 @@ var generator = AKOperationGenerator() { _ in return AKOperation(chattingRobot) 
 AudioKit.output = generator
 AudioKit.start()
 
-generator.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 

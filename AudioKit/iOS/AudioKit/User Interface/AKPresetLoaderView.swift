@@ -16,24 +16,24 @@ public class AKPresetLoaderView: UIView {
     var currentIndex = 0
     var presets = [String]()
     var callback: String -> ()
-    var isPresetLoaded = true
+    var isPresetLoaded = false
     
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first {
-            var isPresetChanged = false
+            isPresetLoaded = false
             let touchLocation = touch.locationInView(self)
             if upOuterPath.containsPoint(touchLocation) {
                 currentIndex -= 1
-                isPresetChanged = true
+                isPresetLoaded = true
             }
             if downOuterPath.containsPoint(touchLocation) {
                 currentIndex += 1
-                isPresetChanged = true
+                isPresetLoaded = true
             }
             if currentIndex < 0 { currentIndex = presets.count - 1 }
             if currentIndex >= presets.count { currentIndex = 0 }
             
-            if isPresetChanged {
+            if isPresetLoaded {
                 callback(presets[currentIndex])
                 setNeedsDisplay()
             }
@@ -50,11 +50,12 @@ public class AKPresetLoaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func drawPresetLoader(red red: UIColor = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000), presetName: String = "None", isPresetLoaded: Bool = false) {
+    func drawPresetLoader(presetName presetName: String = "None", isPresetLoaded: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Color Declarations
+        let red = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
         let gray = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
         let green = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000)
         let dark = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
@@ -151,6 +152,7 @@ public class AKPresetLoaderView: UIView {
     }
     
     override public func drawRect(rect: CGRect) {
-        drawPresetLoader(presetName: presets[currentIndex], isPresetLoaded: isPresetLoaded)
+        let presetName = isPresetLoaded ? presets[currentIndex] : "None"
+        drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)
     }
 }

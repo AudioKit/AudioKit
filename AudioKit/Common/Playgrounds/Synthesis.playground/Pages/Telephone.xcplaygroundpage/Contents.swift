@@ -86,95 +86,47 @@ class PlaygroundView: AKPlaygroundView {
 
     override func setup() {
         addTitle("Telephone")
+        addSubview(AKTelephoneView() { key, state in
+            switch key {
+            case "CALL":
+                if state == "down" {
+                    busy.stop()
+                    dialTone.stop()
+                    if ringing.isStarted {
+                        ringing.stop()
+                        dialTone.start()
+                    } else {
+                        ringing.start()
+                    }
+                }
+                
+            case "BUSY":
+                if state == "down" {
+                    ringing.stop()
+                    dialTone.stop()
+                    if busy.isStarted {
+                        busy.stop()
+                        dialTone.start()
+                    } else {
+                        busy.start()
+                    }
+                }
 
-        addTouchKey("1", text: "   ", action: #selector(touch1))
-        addTouchKey("2", text: "ABC", action: #selector(touch2))
-        addTouchKey("3", text: "DEF", action: #selector(touch3))
-        addLineBreak()
-        addTouchKey("4", text: "GHI", action: #selector(touch4))
-        addTouchKey("5", text: "JKL", action: #selector(touch5))
-        addTouchKey("6", text: "MNO", action: #selector(touch6))
-        addLineBreak()
-        addTouchKey("7", text: "PQRS", action: #selector(touch7))
-        addTouchKey("8", text: "TUV", action: #selector(touch8))
-        addTouchKey("9", text: "WXYZ", action: #selector(touch9))
-        addLineBreak()
-        addTouchKey("✶", text: "GHI", action: #selector(touchStar))
-        addTouchKey("0", text: "JKL", action: #selector(touch0))
-        addTouchKey("#", text: "MNO", action: #selector(touchHash))
-        addLineBreak()
-        addTouchKey("🚫", text: "BUSY", action: #selector(touchBusy))
-        addTouchKey("☏", text: "CALL", action: #selector(touchCall))
-    }
-
-    func startDialTone() {
-        dialTone.start()
-    }
-    func stopDialTone() {
-        dialTone.stop()
-    }
-
-    func startRinging() {
-        ringing.start()
-    }
-    func stopRinging() {
-        ringing.stop()
-    }
-
-    func startBusySignal() {
-        busy.start()
-    }
-    func stopBusySignal() {
-        busy.stop()
-    }
-
-    func touchCall() {
-        busy.stop()
-        dialTone.stop()
-        if ringing.isStarted {
-            ringing.stop()
-            dialTone.start()
-        } else {
-            ringing.start()
+            default:
+                if state == "down" {
+                    dialTone.stop()
+                    ringing.stop()
+                    busy.stop()
+                    print(key)
+                    keypad.parameters[1] = keys[key]![0]
+                    keypad.parameters[2] = keys[key]![1]
+                    keypad.parameters[0] = 1
+                } else {
+                    keypad.parameters[0] = 0
+                }
         }
+        })
     }
-
-    func touchBusy() {
-        ringing.stop()
-        dialTone.stop()
-        if busy.isStarted {
-            busy.stop()
-            dialTone.start()
-        } else {
-            busy.start()
-        }
-    }
-
-    func touchKeyPad(text: String) {
-        dialTone.stop()
-        ringing.stop()
-        busy.stop()
-        keypad.parameters[1] = keys[text]![0]
-        keypad.parameters[2] = keys[text]![1]
-        keypad.trigger()
-        usleep(250000)
-    }
-
-    func touch1() { touchKeyPad("1") }
-    func touch2() { touchKeyPad("2") }
-    func touch3() { touchKeyPad("3") }
-
-    func touch4() { touchKeyPad("4") }
-    func touch5() { touchKeyPad("5") }
-    func touch6() { touchKeyPad("6") }
-
-    func touch7() { touchKeyPad("7") }
-    func touch8() { touchKeyPad("8") }
-    func touch9() { touchKeyPad("9") }
-
-    func touchStar() { touchKeyPad("*") }
-    func touch0() { touchKeyPad("0") }
-    func touchHash() { touchKeyPad("#") }
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

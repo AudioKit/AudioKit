@@ -16,23 +16,23 @@ public class AKPresetLoaderView: NSView {
     var currentIndex = 0
     var presets = [String]()
     var callback: String -> ()
-    var isPresetLoaded = true
+    var isPresetLoaded = false
     
     override public func mouseDown(theEvent: NSEvent) {
-        var isPresetChanged = false
+        var isPresetLoaded = false
         let touchLocation = convertPoint(theEvent.locationInWindow, fromView: nil)
         if upOuterPath.containsPoint(touchLocation) {
             currentIndex -= 1
-            isPresetChanged = true
+            isPresetLoaded = true
         }
         if downOuterPath.containsPoint(touchLocation) {
             currentIndex += 1
-            isPresetChanged = true
+            isPresetLoaded = true
         }
         if currentIndex < 0 { currentIndex = presets.count - 1 }
         if currentIndex >= presets.count { currentIndex = 0 }
         
-        if isPresetChanged {
+        if isPresetLoaded {
             callback(presets[currentIndex])
             needsDisplay = true
         }
@@ -152,6 +152,7 @@ public class AKPresetLoaderView: NSView {
     }
     
     override public func drawRect(rect: CGRect) {
-        drawPresetLoader(presetName: presets[currentIndex], isPresetLoaded: isPresetLoaded)
+        let presetName = isPresetLoaded ? presets[currentIndex] : "None"
+        drawPresetLoader(presetName: presetName, isPresetLoaded: isPresetLoaded)
     }
 }
