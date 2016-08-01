@@ -19,13 +19,11 @@ AudioKit.start()
 player.play()
 let fft = AKFFTTap(player)
 
+
 AKPlaygroundLoop(every: 0.1) {
     let max = fft.fftData.maxElement()!
     let index = fft.fftData.indexOf(max)
 }
 
-//: This keeps the playground running so that audio can play for a long time
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
