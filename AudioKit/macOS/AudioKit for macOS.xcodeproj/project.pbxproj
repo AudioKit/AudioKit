@@ -690,6 +690,7 @@
 		C47E640E1D4D8CE50044B028 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */; };
 		C48BF9D11D47383D009F1B7C /* AKFlatSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */; };
 		C48C16011D4585640055E87D /* AKPolyphonicKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */; };
+		C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */; };
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
 		C4E120AE1D4DF39B00CD3572 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AD1D4DF39B00CD3572 /* AKButton.swift */; };
 		C4E120B01D4DF96E00CD3572 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */; };
@@ -1387,6 +1388,7 @@
 		C480BF001D4E150800204FDF /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Synthesis.playground; path = ../../../Common/Playgrounds/Synthesis.playground; sourceTree = "<group>"; };
 		C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatSlider.swift; sourceTree = "<group>"; };
 		C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicKeyboardView.swift; sourceTree = "<group>"; };
+		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
 		C4E120AD1D4DF39B00CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
@@ -1443,11 +1445,12 @@
 				C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */,
 				C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */,
 				C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */,
-				C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */,
 				C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */,
 				C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */,
+				C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */,
 				C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */,
 				C47E64091D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift */,
+				C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */,
 			);
 			name = macOS;
 			path = "AudioKit for macOS/User Interface";
@@ -3542,6 +3545,7 @@
 				C45669A41D448D7E00D26565 /* AKMicrophone.swift in Sources */,
 				C456695D1D448D7E00D26565 /* AKPinkNoise.swift in Sources */,
 				C45667DB1D448D7E00D26565 /* FileWvIn.cpp in Sources */,
+				C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */,
 				C45669761D448D7E00D26565 /* AKOscillator.swift in Sources */,
 				C48BF9D11D47383D009F1B7C /* AKFlatSlider.swift in Sources */,
 				C45667181D448D7E00D26565 /* phaser.c in Sources */,
