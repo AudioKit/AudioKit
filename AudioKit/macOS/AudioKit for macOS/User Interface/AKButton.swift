@@ -18,8 +18,16 @@ import Foundation
 
 public class AKButton: NSView {
     internal var callback: ()->()
-    internal var title: String
-    internal var color: NSColor
+    public var title: String {
+        didSet {
+            needsDisplay = true
+        }
+    }
+    public  var color: NSColor {
+        didSet {
+            needsDisplay = true
+        }
+    }
  
     override public func mouseDown(theEvent: NSEvent) {
         callback()

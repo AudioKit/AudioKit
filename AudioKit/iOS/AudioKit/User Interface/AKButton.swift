@@ -10,8 +10,16 @@ import Foundation
 
 public class AKButton: UIView {
     internal var callback: ()->()
-    internal var title: String
-    internal var color: UIColor
+    public var title: String {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    public var color: UIColor {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         callback()

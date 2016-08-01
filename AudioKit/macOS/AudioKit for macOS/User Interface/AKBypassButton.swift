@@ -35,7 +35,7 @@ public class AKBypassButton: NSView {
     
     func drawBypassButton(isBypassed isBypassed: Bool = false) {
         //// General Declarations
-        let context = unsafeBitCast(NSGraphicsContext.currentContext()!.graphicsPort, CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.currentContext()!.graphicsPort, CGContext.self)
         
         //// Color Declarations
         let red = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1)
