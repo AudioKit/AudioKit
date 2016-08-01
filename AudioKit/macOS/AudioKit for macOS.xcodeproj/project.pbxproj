@@ -701,7 +701,6 @@
 		C446B3D71D45447A000AEFCA /* FileHandling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FileHandling.playground; sourceTree = "<group>"; };
 		C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = macOSDevelopment.playground; sourceTree = "<group>"; };
 		C446B3D91D45447A000AEFCA /* MIDI.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MIDI.playground; sourceTree = "<group>"; };
-		C446B3DC1D45447A000AEFCA /* Basics.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Basics.playground; sourceTree = "<group>"; };
 		C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C45662B51D448D7D00D26565 /* AKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKDevice.swift; sourceTree = "<group>"; };
@@ -1428,7 +1427,6 @@
 				C480BF001D4E150800204FDF /* Synthesis.playground */,
 				C480BEFF1D4E150800204FDF /* Processing.playground */,
 				C4DABC471D4F065D00A8942F /* Analysis.playground */,
-				C446B3DC1D45447A000AEFCA /* Basics.playground */,
 				C446B3D71D45447A000AEFCA /* FileHandling.playground */,
 				C446B3D91D45447A000AEFCA /* MIDI.playground */,
 				C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */,
