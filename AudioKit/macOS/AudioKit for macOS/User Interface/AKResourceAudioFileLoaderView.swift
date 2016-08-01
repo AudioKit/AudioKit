@@ -64,7 +64,7 @@ public class AKResourcesAudioFileLoaderView: NSView {
     
     func drawAudioFileLoader(sliderColor sliderColor: NSColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1), fileName: String = "None") {
         //// General Declarations
-        let context = unsafeBitCast(NSGraphicsContext.currentContext()!.graphicsPort, CGContext.self)
+        let _ = unsafeBitCast(NSGraphicsContext.currentContext()!.graphicsPort, CGContext.self)
         
         //// Color Declarations
         let backgroundColor = NSColor(calibratedRed: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)

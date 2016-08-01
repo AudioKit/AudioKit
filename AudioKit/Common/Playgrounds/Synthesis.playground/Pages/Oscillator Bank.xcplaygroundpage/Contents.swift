@@ -14,6 +14,8 @@ AudioKit.output = osc
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+    
+    var keyboard: AKKeyboardView?
 
     override func setup() {
         addTitle("Oscillator Bank")
@@ -72,9 +74,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             osc.detuningMultiplier = multiplier
             })
 
-        let keyboard = AKPolyphonicKeyboardView(width: 500, height: 100)
-        keyboard.delegate = self
-        addSubview(keyboard)
+        keyboard = AKKeyboardView(width: 440, height: 100)
+        keyboard!.polyphonicMode = false
+        keyboard!.delegate = self
+        addSubview(keyboard!)
+        
+        addSubview(AKButton(title: "Toggle Polyphony") {
+            self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
+            })
     }
 
     func noteOn(note: MIDINoteNumber) {

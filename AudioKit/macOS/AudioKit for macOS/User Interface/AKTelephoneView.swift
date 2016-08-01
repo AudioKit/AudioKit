@@ -294,7 +294,7 @@ public class AKTelephoneView: NSView {
     
     public class func drawKey(text text: String = "A B C", numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let context = NSGraphicsContext.currentContext()!.CGContext
+        let _ = NSGraphicsContext.currentContext()!.CGContext
         
         //// Color Declarations
         let pressedKeyColor = NSColor(calibratedRed: 0.655, green: 0.745, blue: 0.804, alpha: 1)
@@ -347,7 +347,7 @@ public class AKTelephoneView: NSView {
     
     public class func drawCenteredKey(numeral numeral: String = "1", isPressed: Bool = true) {
         //// General Declarations
-        let context = NSGraphicsContext.currentContext()!.CGContext
+        let _ = NSGraphicsContext.currentContext()!.CGContext
         
         //// Color Declarations
         let pressedKeyColor = NSColor(calibratedRed: 0.655, green: 0.745, blue: 0.804, alpha: 1)

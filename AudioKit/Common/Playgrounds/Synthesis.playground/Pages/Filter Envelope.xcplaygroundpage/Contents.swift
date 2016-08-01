@@ -57,13 +57,14 @@ let synth = AKOperationGenerator() { parameters in
     return oscillator.moogLadderFilter(cutoffFrequency: cutoff,
         resonance: 0.9)
 }
-//: Set up the nodes
 
 AudioKit.output = synth
 AudioKit.start()
 synth.parameters = [0, 1000, 0] // Initialize the array
 synth.start()
 
+
+//: Setup the user interface
 let playgroundWidth = 500
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {

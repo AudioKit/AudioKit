@@ -15,10 +15,11 @@ AudioKit.output = fmBank
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
+    
+    var keyboard: AKKeyboardView?
 
     override func setup() {
         addTitle("FM Oscillator Bank")
-
 
         addSubview(AKPropertySlider(
             property: "Carrier Multiplier",
@@ -65,9 +66,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             fmBank.releaseDuration = duration
             })
 
-        let keyboard = AKPolyphonicKeyboardView(width: Int(self.bounds.width) - 60, height: 100)
-        keyboard.delegate = self
-        addSubview(keyboard)
+        keyboard = AKKeyboardView(width: 440, height: 100)
+        keyboard!.polyphonicMode = false
+        keyboard!.delegate = self
+        addSubview(keyboard!)
+        
+        addSubview(AKButton(title: "Toggle Polyphony") {
+            self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
+            })
     }
 
     func noteOn(note: MIDINoteNumber) {
@@ -77,11 +83,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     func noteOff(note: MIDINoteNumber) {
         fmBank.stop(noteNumber: note)
     }
-
 }
-
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
