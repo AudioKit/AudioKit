@@ -1,4 +1,4 @@
-//: # MIDI Playgrounds
+//: # Sequencing Playgrounds
 //:
 //: ## Playback Nodes
 //:
@@ -8,7 +8,6 @@
 //: that are very useful and cool.
 //:
 //: * [Sampler](Sampler)
-//: * [Sequencer - Single output](Sequencer%20-%20Single%20output)
-//: * [Sequencer - Multiple output](Sequencer%20-%20Multiple%20output)
+//: * [Sequencer](Sequencer)
 //: * [Selector Clock](Selector%20Clock)
 //:
