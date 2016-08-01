@@ -1439,15 +1439,15 @@
 			isa = PBXGroup;
 			children = (
 				C4E120AD1D4DF39B00CD3572 /* AKButton.swift */,
-				C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */,
 				C47E640B1D4D895F0044B028 /* AKBypassButton.swift */,
-				C47E64091D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift */,
+				C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */,
 				C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */,
+				C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */,
 				C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */,
 				C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */,
 				C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */,
-				C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */,
 				C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */,
+				C47E64091D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift */,
 			);
 			name = macOS;
 			path = "AudioKit for macOS/User Interface";
