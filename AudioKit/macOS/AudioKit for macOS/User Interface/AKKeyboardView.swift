@@ -83,7 +83,7 @@ public protocol AKKeyboardDelegate {
     func noteOff(note: Int)
 }
 
-public class AKKeyboardView: NSView, KeyDelegate {
+public class AKKeyboardView: NSView, KeyDelegate, AKMIDIListener {
     public var polyphonicMode = false {
         didSet {
             if polyphonicMode {
@@ -102,6 +102,7 @@ public class AKKeyboardView: NSView, KeyDelegate {
     
     public var delegate: AKKeyboardDelegate?
     public var totalKeysCorrected: Int = 37
+    let midi = AKMIDI()
     
     var keys: [KeyView] = []
     
@@ -120,7 +121,8 @@ public class AKKeyboardView: NSView, KeyDelegate {
                 lowestKey: Int = 48, totalKeys: Int = 37,
                 polyphonic: Bool = false) {
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        
+        midi.openInput()
+        midi.addListener(self)
         //let allowedNotes = notesWithSharps     // ["A", "B", "C#", "D", "E", "F#", "G"]
         
         var increment = 0    // start value for main loop - see below
@@ -300,6 +302,13 @@ public class AKKeyboardView: NSView, KeyDelegate {
         if !polyphonicMode {
             lastKeyPressed?.releaseKey() // release lastkey if set -> resets automatic lastKeyPressed
         }
+    }
+    
+    public func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        delegate?.noteOn(noteNumber)
+    }
+    public func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        delegate?.noteOff(noteNumber)
     }
 }
 
