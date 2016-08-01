@@ -2,9 +2,8 @@
 <playground version='6.0' target-platform='ios'>
     <pages>
         <page name='Table Of Contents'/>
-        <page name='Sequencer - Multiple output'/>
-        <page name='Sequencer - Single output'/>
-        <page name='SelectorClock'/>
+        <page name='Callback Instrument'/>
         <page name='Sampler'/>
+        <page name='Sequencer'/>
     </pages>
 </playground>

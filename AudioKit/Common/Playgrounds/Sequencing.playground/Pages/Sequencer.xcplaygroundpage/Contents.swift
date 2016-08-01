@@ -2,17 +2,17 @@
 //:
 //: ---
 //:
-//: ## Sequencer - Multiple output
+//: ## Sequencer
 //:
 import XCPlayground
 import AudioKit
 
 //: Create some samplers, load different sounds, and connect it to a mixer and the output
 var fmPianoSampler = AKSampler()
-fmPianoSampler.loadWav("fmpia1")
+fmPianoSampler.loadWav("FM Piano")
 
 var bellSampler = AKSampler()
-bellSampler.loadWav("Bell)
+bellSampler.loadWav("Bell")
 
 var mixer = AKMixer(fmPianoSampler, bellSampler)
 
