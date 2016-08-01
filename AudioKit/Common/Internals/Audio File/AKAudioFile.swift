@@ -1,6 +1,6 @@
 //
 //  AKAudioFile.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -13,17 +13,13 @@ import AVFoundation
 public class AKAudioFile: AVAudioFile {
 
     // MARK: - embedded enums
-
-    /**
-     BaseDirectory enum
-
-     - Temp: Temp Directory.
-     - Documents: Documents Directory
-     - Resources: Resources Directory (Shouldn't be used for writing / recording files).
-
-     Ex: let directory = AKAudioFile.BaseDirectory.Temp
-
-     */
+    
+    /// Common places for files
+    ///
+    /// - Temp:      Temp Directory
+    /// - Documents: Documents Directory
+    /// - Resources: Resources Directory (Shouldn't be used for writing / recording files)
+    ///
     public enum BaseDirectory {
         /// Temporary directory
         case Temp
@@ -88,7 +84,7 @@ public class AKAudioFile: AVAudioFile {
         }
     }
 
-    /**  commonFormatString translates commonFormat in an human readable string.
+    /*  commonFormatString translates commonFormat in an human readable string.
      enum AVAudioCommonFormat : UInt {
      case OtherFormat
      case PCMFormatFloat32
@@ -97,6 +93,7 @@ public class AKAudioFile: AVAudioFile {
      case PCMFormatInt32
      }  */
 
+    /// Human-readable version of common format
     public var commonFormatString: String {
         get {
 

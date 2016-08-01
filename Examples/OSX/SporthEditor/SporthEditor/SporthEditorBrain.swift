@@ -29,7 +29,7 @@ class SporthEditorBrain {
     func run(code: String) {
         generator?.stop()
         AudioKit.stop()
-        generator = AKOperationGenerator(operation: AKOperation(code))
+        generator = AKOperationGenerator() { _ in return AKOperation(code) }
         AudioKit.output = generator
         AudioKit.start()
         generator?.start()

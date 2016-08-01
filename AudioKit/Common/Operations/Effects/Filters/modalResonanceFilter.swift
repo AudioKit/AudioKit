@@ -22,6 +22,6 @@ extension AKComputedParameter {
         frequency frequency: AKParameter = 500.0,
         qualityFactor: AKParameter = 50.0
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(frequency) \(qualityFactor) mode)")
+            return AKOperation(module: "mode", inputs: self.toMono(), frequency, qualityFactor)
     }
 }

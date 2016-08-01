@@ -14,12 +14,19 @@ import AVFoundation
     
     /// Enum of available AVAudioSession Categories
     public enum SessionCategory: String {
+        // Audio silenced by silent switch and screen lock - audio is mixable
         case Ambient = "AVAudioSessionCategoryAmbient"
+        // Audio is silenced by silent switch and screen lock - audio is non mixable
         case SoloAmbient = "AVAudioSessionCategorySoloAmbient"
+        // Audio is not silenced by silent switch and screen lock - audio is non mixable
         case Playback = "AVAudioSessionCategoryPlayback"
+        // Silences playback audio
         case Record = "AVAudioSessionCategoryRecord"
+        // Audio is not silenced by silent switch and screen lock - audio is non mixable. To allow mixing see AVAudioSessionCategoryOptionMixWithOthers.
         case PlayAndRecord = "AVAudioSessionCategoryPlayAndRecord"
+        // Disables playback and recording
         case AudioProcessing = "AVAudioSessionCategoryAudioProcessing"
+        // Use to multi-route audio. May be used on input, output, or both.
         case MultiRoute = "AVAudioSessionCategoryMultiRoute"
     }
     

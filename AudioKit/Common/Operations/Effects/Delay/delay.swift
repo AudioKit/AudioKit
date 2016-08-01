@@ -20,6 +20,7 @@ extension AKComputedParameter {
         time time: Double = 1.0,
         feedback: AKParameter = 0.0
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(feedback) \(time) delay)")
+            return AKOperation(module: "delay",
+                               inputs: self.toMono(), feedback, time)
     }
 }

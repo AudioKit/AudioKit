@@ -24,6 +24,6 @@ extension AKComputedParameter {
         cutoffFrequency cutoffFrequency: AKParameter = 1000,
         resonance: AKParameter = 0.5
         ) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(cutoffFrequency) \(resonance) moogladder)")
+        return AKOperation(module: "moogladder", inputs: self.toMono(), cutoffFrequency, resonance)
     }
 }

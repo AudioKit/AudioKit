@@ -9,24 +9,27 @@
 import XCPlayground
 import AudioKit
 
-let updateRate = AKOperation.parameters(0)
+let generator = AKOperationGenerator() { parameters in
+    let updateRate = parameters[0]
 
-//: Vary the starting frequency and duration randomly
-let start = AKOperation.randomNumberPulse() * 2000 + 300
-let duration = AKOperation.randomNumberPulse()
-let frequency = AKOperation.lineSegment(AKOperation.metronome(updateRate),
-                                        start: start,
-                                        end: 0,
-                                        duration: duration)
+    // Vary the starting frequency and duration randomly
+    let start = AKOperation.randomNumberPulse() * 2000 + 300
+    let duration = AKOperation.randomNumberPulse()
+    let frequency = AKOperation.lineSegment(
+        trigger: AKOperation.metronome(frequency: updateRate),
+        start: start,
+        end: 0,
+        duration: duration)
+    
+    // Decrease the amplitude exponentially
+    let amplitude = AKOperation.exponentialSegment(
+        trigger: AKOperation.metronome(frequency: updateRate),
+        start: 0.3,
+        end: 0.01,
+        duration: 1.0 / updateRate)
+    return AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
+}
 
-//: Decrease the amplitude exponentially
-let amplitude = AKOperation.exponentialSegment(AKOperation.metronome(updateRate),
-                                               start: 0.3,
-                                               end: 0.01,
-                                               duration: 1.0 / updateRate)
-let sine = AKOperation.sineWave(frequency: frequency, amplitude:  amplitude)
-
-let generator = AKOperationGenerator(operation:  sine)
 
 var delay = AKDelay(generator)
 

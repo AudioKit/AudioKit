@@ -19,11 +19,11 @@ extension AKOperation {
     ///   - release: Release time, in seconds. (Default: 0.2)
     ///
     public func triggeredWithEnvelope(
-        trigger: AKParameter,
+        trigger trigger: AKParameter,
         attack: AKParameter = 0.1,
         hold: AKParameter = 0.3,
         release: AKParameter = 0.2
         ) -> AKOperation {
-            return AKOperation("((\(trigger) \(attack) \(hold) \(release) tenv) \(self.toMono()) *)")
+        return AKOperation(module: "tenv *", inputs: self, trigger, attack, hold, release)
     }
 }

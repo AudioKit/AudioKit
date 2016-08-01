@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-/** Audio from the standard input */
+/// Audio from the standard input
 public struct AKGetAUParams {
     
     private func getAUParams(inputAU: AudioUnit) -> ([AudioUnitParameterInfo]) {

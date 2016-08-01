@@ -1,6 +1,6 @@
 //
 //  AKAudioFile+Exporting.swift
-//  AudioKit For iOS
+//  AudioKit
 //
 //  Created by Laurent Veliscek, revision history on Github.
 //  Copyright © 2016 AudioKit. All rights reserved.
@@ -9,20 +9,17 @@
 import Foundation
 import AVFoundation
 
+
 extension AKAudioFile {
     
-    /**
-     ExportFormat enum to set target format when exporting AKAudiofiles
-     
-     - wav
-     - aif
-     - mp4
-     - m4a
-     - caf
-     
-     Ex: let outputFormat = AKAudioFile.ExportFormats.aif
-     
-     */
+    /// ExportFormat enum to set target format when exporting AKAudiofiles
+    ///
+    /// - wav: Waveform Audio File Format (WAVE, or more commonly known as WAV due to its filename extension)
+    /// - aif: Audio Interchange File Format
+    /// - mp4: MPEG-4 Part 14 Compression
+    /// - m4a: MPEG 4 Audio
+    /// - caf: Core Audio Format
+    ///
     public enum ExportFormat {
         /// Waveform Audio File Format (WAVE, or more commonly known as WAV due to its filename extension)
         case wav
@@ -62,7 +59,7 @@ extension AKAudioFile {
     /// Can export from m4a/mp4 to m4a/mp4
     /// Exporting from mp4/m4a to wav/aif is not supported.
     /// 
-    /// inTime and outTime can be set to extract only a portion of the current AKAudioFile.
+    /// fromTime and toTime can be set to extract only a portion of the current AKAudioFile.
     /// If outTime is zero, it will be set to the file's duration (no end trimming)
     /// 
     /// As soon as callback has been triggered, you can use ExportSession.status to 
@@ -76,19 +73,18 @@ extension AKAudioFile {
     ///   - name: the name of the file without its extension (String).
     ///   - ext: the output file formal as an ExportFormat enum value (.aif, .wav, .m4a, .mp4, .caf)
     ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
-    ///   - callBack: AKCallback function that will be triggered when export completed.
-    ///   - inTime: start range time value in seconds
-    ///   - outTime: end range time value in seconds.
-    /// - throws: NSError if init failed
+    ///   - fromTime: start range time value in seconds
+    ///   - toTime: end range time value in seconds.
+    ///   - callBack: AKExportCallback function that will be triggered when export completed.
+    ///
     /// - returns: An AKAudioFile ExportSession object, or nil if init failed.
     ///
-    public func export(
-        name: String,
-        ext: ExportFormat,
-        baseDir: BaseDirectory,
-        callBack: (AKCallback),
-        inTime: Double = 0,
-        outTime: Double  = 0 ) throws -> ExportSession {
+    public func export(name name: String,
+                            ext: ExportFormat,
+                            baseDir: BaseDirectory,
+                            fromTime: Double = 0,
+                            toTime: Double = 0,
+                            callBack: AKExportCallback) throws -> ExportSession {
         
         let fromFileExt = fileExt.lowercaseString
         
@@ -121,18 +117,17 @@ extension AKAudioFile {
             }
         }
         
-        
         return try ExportSession(fileName: name,
                                  baseDir: baseDir,
-                                 callBack: callBack,
                                  presetName: avExportPreset,
                                  file: self,
                                  outputFileExtension:ext,
-                                 from: inTime,
-                                 to: outTime)
+                                 fromTime: fromTime,
+                                 toTime: toTime,
+                                 callBack: callBack)
     }
 
-     
+    
     /// ExportSession wraps an AVAssetExportSession. It is returned by AKAudioFile.export().
     /// The benefit of this object is that you directly gets the resulting AKAudioFile
     /// if export succeeded. Most AVAssetExportSession properties/methods have been
@@ -144,29 +139,28 @@ extension AKAudioFile {
         
         private var outputAudioFile: AKAudioFile?
         private var exporter: AVAssetExportSession
-        private var callBack: AKCallback
+        private var callBack: AKExportCallback
         
         /// Initalization
         ///
         /// - Parameters:
         ///   - fileName:            Name of the file
         ///   - baseDir:             Base directory
-        ///   - callBack:            Callback function
         ///   - presetName:          Name of the preset
         ///   - file:                AKAudioFile
         ///   - outputFileExtension: Extension to use for output
-        ///   - inTime:              Starting time
-        ///   - outTime:             Ending time
+        ///   - fromTime:            Starting time
+        ///   - toTime:              Ending time
+        ///   - callBack:            Callback function
         ///
-        /// - throws: NSError if failed
-        ///
-        public init(fileName: String, baseDir: BaseDirectory,
-                    callBack: AKCallback,
+        public init(fileName: String,
+                    baseDir: BaseDirectory,
                     presetName: String,
                     file: AKAudioFile,
                     outputFileExtension: ExportFormat,
-                    from inTime: Double,
-                         to outTime: Double) throws {
+                    fromTime: Double,
+                    toTime: Double,
+                    callBack: AKExportCallback) throws {
             
             self.callBack = callBack
             
@@ -175,7 +169,7 @@ extension AKAudioFile {
             
             // let asset = file.avAsset
             
-            let process = AVAssetExportSession(asset: asset, presetName:presetName)
+            let process = AVAssetExportSession(asset: asset, presetName: presetName)
             
             guard process != nil else {
                 print( "ERROR AKAudioFile export: cannot create an AVAssetExportSession!...")
@@ -236,13 +230,13 @@ extension AKAudioFile {
             let inFrame: Int64
             let outFrame: Int64
             
-            if outTime == 0 {
+            if toTime == 0 {
                 outFrame = file.samplesCount
             } else {
-                outFrame = min(file.samplesCount, Int64(outTime * file.sampleRate))
+                outFrame = min(file.samplesCount, Int64(toTime * file.sampleRate))
             }
             
-            inFrame = abs(min(file.samplesCount, Int64(inTime * file.sampleRate)))
+            inFrame = abs(min(file.samplesCount, Int64(fromTime * file.sampleRate)))
             
             if (outFrame <= inFrame) {
                 print( "ERROR AKAudioFile export: In time must be less than Out time!...")
@@ -276,7 +270,7 @@ extension AKAudioFile {
                     print(error.localizedDescription)
                 }
                 
-                callBack()
+                callBack(self)
             }
         }
         
@@ -290,7 +284,7 @@ extension AKAudioFile {
             return exporter.status == .Failed
         }
         
-        /** status returns current exporter status:
+        /* status returns current exporter status:
          enum AVAssetExportSessionStatus : Int {
          case Unknown
          case Waiting
@@ -311,7 +305,7 @@ extension AKAudioFile {
         }
         
         /// Returns the exported file as an AKAudioFile if export suceeded.
-        public var exportedAudioFile: AKAudioFile? {
+        public var audioFile: AKAudioFile? {
             return outputAudioFile
         }
         
@@ -325,4 +319,6 @@ extension AKAudioFile {
             exporter.cancelExport()
         }
     }
+    
+    public typealias AKExportCallback = ExportSession -> Void
 }

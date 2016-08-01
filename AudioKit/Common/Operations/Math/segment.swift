@@ -18,12 +18,12 @@ extension AKOperation {
     ///   - duration: Length of time
     ///
     public static func lineSegment(
-        trigger: AKOperation,
+        trigger trigger: AKOperation,
         start: AKParameter,
         end: AKParameter,
         duration: AKParameter
         ) -> AKOperation {
-            return AKOperation("(\(trigger) \(start) \(duration) \(end) line)")
+        return AKOperation(module: "line", inputs: trigger, start, duration, end)
     }
 }
 
@@ -37,11 +37,11 @@ extension AKOperation {
     ///   - duration: Length of time
     ///
     public static func exponentialSegment(
-        trigger: AKOperation,
+        trigger trigger: AKOperation,
         start: AKParameter,
         end: AKParameter,
         duration: AKParameter
         ) -> AKOperation {
-            return AKOperation("(\(trigger) \(start) \(duration) \(end) expon)")
+        return AKOperation(module: "expon" , inputs: trigger, start, duration, end)
     }
 }

@@ -89,7 +89,7 @@
     [AUParameterTree createParameterWithIdentifier:@"sampleRate"
                                               name:@"Sample Rate (Hz)"
                                            address:sampleRateAddress
-                                               min:0.0
+                                               min:1.0
                                                max:20000.0
                                               unit:kAudioUnitParameterUnit_Hertz
                                           unitName:nil

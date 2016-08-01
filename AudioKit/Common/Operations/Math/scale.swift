@@ -21,7 +21,7 @@ extension AKOperation {
         minimum minimum: AKParameter = 0,
         maximum: AKParameter = 1
         ) -> AKOperation {
-            return AKOperation("(\(self) \(minimum) \(maximum) biscale)")
+        return AKOperation(module: "biscale", inputs: self, minimum, maximum)
     }
 
 }

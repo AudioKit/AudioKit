@@ -38,6 +38,8 @@ public class AKSequencer {
             return avSequencer.tracks
         } else {
             //this won't do anything if not using an AVSeq
+            print("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
+
             let tracks = [AVMusicTrack]()
             return tracks
         }
@@ -170,6 +172,8 @@ public class AKSequencer {
     ///
     public func setLoopInfo(duration: AKDuration, numberOfLoops: Int) {
         if isAVSequencer {
+            print("AKSequencer ERROR ! setLoopInfo only work if not isAVSequencer ")
+
             //nothing yet
         } else {
             for track in tracks {
@@ -184,21 +188,21 @@ public class AKSequencer {
     /// - parameter length: Length of tracks in beats
     ///
     public func setLength(length: AKDuration) {
-        for track in tracks {
-            track.setLength(length)
-        }
-
-        let size: UInt32 = 0
-        var len = length.musicTimeStamp
-        var tempoTrack: MusicTrack = nil
-        MusicSequenceGetTempoTrack(sequence, &tempoTrack)
-        MusicTrackSetProperty(tempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
-
         if isAVSequencer {
             for track in avSequencer.tracks {
                 track.lengthInBeats = length.beats
                 track.loopRange = AVMakeBeatRange(0, length.beats)
             }
+        } else {
+            for track in tracks {
+                track.setLength(length)
+            }
+            
+            let size: UInt32 = 0
+            var len = length.musicTimeStamp
+            var tempoTrack: MusicTrack = nil
+            MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+            MusicTrackSetProperty(tempoTrack, kSequenceTrackProperty_TrackLength, &len, size)
         }
     }
 
@@ -228,12 +232,15 @@ public class AKSequencer {
             if isAVSequencer {
                 return Double(avSequencer.rate)
             } else {
+                print("AKSequencer ERROR ! rate only work if isAVSequencer ")
                 return nil
             }
         }
         set {
             if isAVSequencer {
                 avSequencer.rate = Float(newValue!)
+            } else {
+                print("AKSequencer ERROR ! rate only work if isAVSequencer ")
             }
         }
     }
@@ -253,7 +260,9 @@ public class AKSequencer {
             currTime = fmod(currTime, length.beats)
             MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, constrainedTempo)
         }
-        MusicTrackClear(tempoTrack, 0, length.beats)
+        if !isTempoTrackEmpty {
+            MusicTrackClear(tempoTrack, 0, length.beats)
+        }
         MusicTrackNewExtendedTempoEvent(tempoTrack, 0, constrainedTempo)
     }
 
@@ -264,7 +273,9 @@ public class AKSequencer {
     ///   - position: Point in time in beats
     ///
     public func addTempoEventAt(tempo bpm: Double, position: AKDuration) {
-        if isAVSequencer { return }
+        if isAVSequencer {
+            print("AKSequencer ERROR ! addTempoEventAt only work if not isAVSequencer ")
+            return }
 
         let constrainedTempo = min(max(bpm, 10.0), 280.0)
 
@@ -303,6 +314,31 @@ public class AKSequencer {
         }
 
         return tempoOut
+    }
+    
+    var isTempoTrackEmpty : Bool {
+        var outBool = true
+        var iterator: MusicEventIterator = nil
+        var tempoTrack: MusicTrack = nil
+        MusicSequenceGetTempoTrack(sequence, &tempoTrack)
+        NewMusicEventIterator(tempoTrack, &iterator)
+        var eventTime = MusicTimeStamp(0)
+        var eventType = MusicEventType()
+        var eventData: UnsafePointer<Void> = nil
+        var eventDataSize: UInt32 = 0
+        var hasNextEvent: DarwinBoolean = false
+        
+        MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        while(hasNextEvent) {
+            MusicEventIteratorGetEventInfo(iterator, &eventTime, &eventType, &eventData, &eventDataSize)
+            
+            if eventType != 5 {
+                outBool = true
+            }
+            MusicEventIteratorNextEvent(iterator)
+            MusicEventIteratorHasCurrentEvent(iterator, &hasNextEvent)
+        }
+        return outBool
     }
     
     /// Convert seconds into AKDuration
@@ -370,6 +406,7 @@ public class AKSequencer {
             }
         } else {
            //do nothing - doesn't apply. In the old C-api, MusicTracks could point at AUNodes, but we don't use those
+            print("AKSequencer ERROR ! setGlobalAVAudioUnitOutput only work if isAVSequencer ")
         }
     }
 
@@ -442,7 +479,9 @@ public class AKSequencer {
 
     /// Get a new track
     public func newTrack(name: String = "Unnamed") -> AKMusicTrack? {
-        if isAVSequencer { return nil }
+        if isAVSequencer {
+            print("AKSequencer ERROR ! newTrack only work if not isAVSequencer ")
+            return nil }
 
         var newMusicTrack: MusicTrack = nil
         MusicSequenceNewTrack(sequence, &newMusicTrack)
@@ -462,7 +501,9 @@ public class AKSequencer {
     ///   - duration: Length of time after the start position to clear
     ///
     public func clearRange(start start: AKDuration, duration: AKDuration) {
-        if isAVSequencer { return }
+        if isAVSequencer {
+            print("AKSequencer ERROR ! clearRange only work if not isAVSequencer ")
+        return }
 
         for track in tracks {
             track.clearRange(start: start, duration: duration)

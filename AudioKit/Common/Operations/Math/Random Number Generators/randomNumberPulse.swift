@@ -23,6 +23,7 @@ extension AKOperation {
         maximum: AKParameter = 1,
         updateFrequency: AKParameter = 10
         ) -> AKOperation {
-            return AKOperation("(\(minimum) \(maximum) \(updateFrequency) randh)")
+        return AKOperation(module: "randh",
+                           inputs: minimum, maximum, updateFrequency)
     }
 }

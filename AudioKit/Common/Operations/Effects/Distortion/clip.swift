@@ -16,6 +16,6 @@ extension AKComputedParameter {
     /// - parameter limit: Threshold / limiting value. (Default: 1.0, Minimum: 0.0, Maximum: 1.0)
     ///
     public func clip(limit: AKParameter = 1.0) -> AKOperation {
-            return AKOperation("(\(self.toMono()) \(limit) clip)")
+        return AKOperation(module: "clip", inputs: self.toMono(), limit)
     }
 }

@@ -49,12 +49,16 @@ extension VerticalSlider {
     }
 
     func setupView() {
-        knobRect = CGRect(x: 0, y: convertValueToY(currentValue) - (knobSize.height / 2), width: knobSize.width, height: knobSize.height)
+        knobRect = CGRect(x: 0,
+                          y: convertValueToY(currentValue) - (knobSize.height / 2),
+                          width: knobSize.width,
+                          height: knobSize.height)
         barLength = bounds.height - (barMargin * 2)
     }
 
     override func drawRect(rect: CGRect) {
-        VerticalSliderStyles.drawVerticalSlider(controlFrame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height), knobRect: knobRect)
+        VerticalSliderStyles.drawVerticalSlider(controlFrame:
+            CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height), knobRect: knobRect)
     }
 
     override func prepareForInterfaceBuilder() {

@@ -30,5 +30,11 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
+        appDelegate.openControlsWindow(nil)
+    }
+    
+    override func viewWillDisappear() {
+        brain.stop()
     }
 }
