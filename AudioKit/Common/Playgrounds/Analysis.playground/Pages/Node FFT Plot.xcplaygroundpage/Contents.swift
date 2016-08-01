@@ -15,9 +15,20 @@ AudioKit.output = mixer
 AudioKit.start()
 
 oscillator.start()
+var multiplier = 1.1
 
-AKPlaygroundLoop(frequency: 5) {
-    oscillator.frequency = random(220, 20000)
+AKPlaygroundLoop(frequency: 10) {
+    if oscillator.frequency > 10000 {
+        oscillator.frequency = 10000
+        multiplier = 0.9
+    }
+    
+    if oscillator.frequency < 100 {
+        oscillator.frequency = 100
+        multiplier = 1.1
+    }
+
+    oscillator.frequency *= multiplier
     oscillator.amplitude = 0.2
 }
 

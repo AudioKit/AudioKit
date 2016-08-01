@@ -698,7 +698,6 @@
 
 /* Begin PBXFileReference section */
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C446B3D61D45447A000AEFCA /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Analysis.playground; sourceTree = "<group>"; };
 		C446B3D71D45447A000AEFCA /* FileHandling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FileHandling.playground; sourceTree = "<group>"; };
 		C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = macOSDevelopment.playground; sourceTree = "<group>"; };
 		C446B3D91D45447A000AEFCA /* MIDI.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MIDI.playground; sourceTree = "<group>"; };
@@ -1389,6 +1388,7 @@
 		C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatSlider.swift; sourceTree = "<group>"; };
 		C48C16001D4585640055E87D /* AKPolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicKeyboardView.swift; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
+		C4DABC471D4F065D00A8942F /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Analysis.playground; path = ../../../Common/Playgrounds/Analysis.playground; sourceTree = "<group>"; };
 		C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
 		C4E120AD1D4DF39B00CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
@@ -1427,8 +1427,8 @@
 			children = (
 				C480BF001D4E150800204FDF /* Synthesis.playground */,
 				C480BEFF1D4E150800204FDF /* Processing.playground */,
+				C4DABC471D4F065D00A8942F /* Analysis.playground */,
 				C446B3DC1D45447A000AEFCA /* Tutorials.playground */,
-				C446B3D61D45447A000AEFCA /* Analysis.playground */,
 				C446B3D71D45447A000AEFCA /* FileHandling.playground */,
 				C446B3D91D45447A000AEFCA /* MIDI.playground */,
 				C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */,
