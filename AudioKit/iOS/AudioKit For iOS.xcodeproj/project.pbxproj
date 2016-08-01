@@ -832,7 +832,6 @@
 		C44243071D4B102100C4182C /* AKFlatSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatSlider.swift; sourceTree = "<group>"; };
 		C446B3C51D45296A000AEFCA /* FileHandling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FileHandling.playground; sourceTree = "<group>"; };
 		C446B3C61D45296A000AEFCA /* MIDI.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MIDI.playground; sourceTree = "<group>"; };
-		C446B3C91D45296A000AEFCA /* Tutorials.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Tutorials.playground; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C446B3EA1D454AB6000AEFCA /* AKPolyphonicKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPolyphonicKeyboardView.swift; sourceTree = "<group>"; };
@@ -1872,7 +1871,6 @@
 				C4D86EB01D4E148900563FF5 /* Synthesis.playground */,
 				C4D86EAF1D4E148900563FF5 /* Processing.playground */,
 				C4DABC481D4F068200A8942F /* Analysis.playground */,
-				C446B3C91D45296A000AEFCA /* Tutorials.playground */,
 				C446B3C51D45296A000AEFCA /* FileHandling.playground */,
 				C446B3C61D45296A000AEFCA /* MIDI.playground */,
 				C49024741D4AFE51001C4CBA /* iOSDevelopment.playground */,
