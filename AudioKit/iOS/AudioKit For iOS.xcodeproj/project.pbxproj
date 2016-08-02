@@ -831,7 +831,6 @@
 		C437927C1C0CE2E0001E9160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
 		C44243071D4B102100C4182C /* AKFlatSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatSlider.swift; sourceTree = "<group>"; };
-		C446B3C51D45296A000AEFCA /* FileHandling.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = FileHandling.playground; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C44B596C1C4B04BF0008507F /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
@@ -1005,7 +1004,6 @@
 		C463027D1C20E7A7009B44D9 /* scale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = scale.swift; sourceTree = "<group>"; };
 		C463027E1C20E7A7009B44D9 /* subtract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = subtract.swift; sourceTree = "<group>"; };
 		C46303C71C212682009B44D9 /* AKMicrophone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMicrophone.swift; sourceTree = "<group>"; };
-		C46404521D4F2BB500042B38 /* Sequencing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Sequencing.playground; path = ../../../Common/Playgrounds/Sequencing.playground; sourceTree = "<group>"; };
 		C46501111C727DFE00EF6CF7 /* AKMetalBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKMetalBar.swift; sourceTree = "<group>"; };
 		C46501121C727DFE00EF6CF7 /* AKMetalBarAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMetalBarAudioUnit.h; sourceTree = "<group>"; };
 		C46501131C727DFE00EF6CF7 /* AKMetalBarAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKMetalBarAudioUnit.mm; sourceTree = "<group>"; };
@@ -1300,6 +1298,7 @@
 		C49A09E11D509984007D8ADB /* pdhalf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pdhalf.c; sourceTree = "<group>"; };
 		C49A09E31D509990007D8ADB /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
 		C49A09E51D50999A007D8ADB /* smoothdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smoothdelay.c; sourceTree = "<group>"; };
+		C49A09FB1D5151B2007D8ADB /* AdvancedPlayback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AdvancedPlayback.playground; path = ../../../Common/Playgrounds/AdvancedPlayback.playground; sourceTree = "<group>"; };
 		C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillator.swift; sourceTree = "<group>"; };
 		C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPWMOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -1875,8 +1874,7 @@
 				C4D86EB01D4E148900563FF5 /* Synthesis.playground */,
 				C4D86EAF1D4E148900563FF5 /* Processing.playground */,
 				C4DABC481D4F068200A8942F /* Analysis.playground */,
-				C46404521D4F2BB500042B38 /* Sequencing.playground */,
-				C446B3C51D45296A000AEFCA /* FileHandling.playground */,
+				C49A09FB1D5151B2007D8ADB /* AdvancedPlayback.playground */,
 				C49024741D4AFE51001C4CBA /* iOSDevelopment.playground */,
 			);
 			name = Playgrounds;
