@@ -14,14 +14,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var bitcrusher = AKBitCrusher(player)
 
-//: Set the parameters of the bitcrusher here
+var bitcrusher = AKBitCrusher(player)
 bitcrusher.bitDepth = 16
 bitcrusher.sampleRate = 3333
 
@@ -37,7 +36,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKPropertySlider(
             property: "Bit Depth",

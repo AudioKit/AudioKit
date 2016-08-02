@@ -7,14 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var reverb = AKCostelloReverb(player)
 
-//: Set the parameters of the reverb here
+var reverb = AKCostelloReverb(player)
 reverb.cutoffFrequency = 9900 // Hz
 reverb.feedback = 0.92
 
@@ -35,7 +34,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         cutoffFrequencySlider = AKPropertySlider(
             property: "Cutoff Frequency",

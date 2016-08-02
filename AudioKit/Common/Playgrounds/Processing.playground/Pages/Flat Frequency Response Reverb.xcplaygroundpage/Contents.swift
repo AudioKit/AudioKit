@@ -7,14 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.1)
 
-//: Set the parameters of the delay here
+var reverb = AKFlatFrequencyResponseReverb(player, loopDuration: 0.1)
 reverb.reverbDuration = 1
 
 AudioKit.output = reverb
@@ -30,7 +29,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKPropertySlider(
             property: "Duration",
@@ -40,10 +39,8 @@ class PlaygroundView: AKPlaygroundView {
             reverb.reverbDuration = sliderValue
             })
     }
-
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
