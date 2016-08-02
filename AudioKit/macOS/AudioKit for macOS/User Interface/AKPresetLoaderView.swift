@@ -19,7 +19,7 @@ public class AKPresetLoaderView: NSView {
     var isPresetLoaded = false
     
     override public func mouseDown(theEvent: NSEvent) {
-        var isPresetLoaded = false
+        isPresetLoaded = false
         let touchLocation = convertPoint(theEvent.locationInWindow, fromView: nil)
         if upOuterPath.containsPoint(touchLocation) {
             currentIndex -= 1

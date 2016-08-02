@@ -1,3 +1,10 @@
+# Aurora
+# by Paul Batchelor
+
+# p0: 0.5 Probability
+# p1: 0.5 Speed
+# p2: 0.5 Release
+
 'seq' '69 71 73 74 68' gen_vals
 1 p 30 220 scale 4 pset
 2 p 0.01 2 scale 5 pset

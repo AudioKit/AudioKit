@@ -1,11 +1,10 @@
-# Distance Intelligence
+# Distant Intelligence
 # By Paul Batchelor July 2016
 
-
-# Control 1: pitch
-# Control 2: tempo
-# Control 3: FM Brightness
-# Control 4: FM Detune
+# p0: 0 Pitch
+# p1: 0 Tempo
+# p2: 0 FM Brightness
+# p3: 0 FM Detune
 
 _seq '67 69 71 72 74 76' gen_vals
 _amps '1.0 0.5 0.25 0.5' gen_vals
