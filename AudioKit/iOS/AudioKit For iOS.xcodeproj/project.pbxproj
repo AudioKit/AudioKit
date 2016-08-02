@@ -436,7 +436,6 @@
 		C48C6CB41D3C15F1008EA51B /* tin.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BBB1D3C15F1008EA51B /* tin.c */; };
 		C48C6CB51D3C15F1008EA51B /* tone.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BBC1D3C15F1008EA51B /* tone.c */; };
 		C48C6CB61D3C15F1008EA51B /* trand.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BBD1D3C15F1008EA51B /* trand.c */; };
-		C48C6CB71D3C15F1008EA51B /* trem.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BBE1D3C15F1008EA51B /* trem.c */; };
 		C48C6CB81D3C15F1008EA51B /* tseg.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BBF1D3C15F1008EA51B /* tseg.c */; };
 		C48C6CB91D3C15F1008EA51B /* tseq.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC01D3C15F1008EA51B /* tseq.c */; };
 		C48C6CBA1D3C15F1008EA51B /* vdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC11D3C15F1008EA51B /* vdelay.c */; };
@@ -507,7 +506,6 @@
 		C48C6CFB1D3C15F2008EA51B /* in.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C061D3C15F1008EA51B /* in.c */; };
 		C48C6CFC1D3C15F2008EA51B /* jcrev.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C071D3C15F1008EA51B /* jcrev.c */; };
 		C48C6CFD1D3C15F2008EA51B /* jitter.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C081D3C15F1008EA51B /* jitter.c */; };
-		C48C6CFE1D3C15F2008EA51B /* kona.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C091D3C15F1008EA51B /* kona.c */; };
 		C48C6CFF1D3C15F2008EA51B /* line.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C0A1D3C15F1008EA51B /* line.c */; };
 		C48C6D001D3C15F2008EA51B /* loadspa.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C0B1D3C15F1008EA51B /* loadspa.c */; };
 		C48C6D011D3C15F2008EA51B /* lpf18.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C0C1D3C15F1008EA51B /* lpf18.c */; };
@@ -588,6 +586,10 @@
 		C493520E1C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49352051C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp */; };
 		C496149E1C2F33B400ACAB4E /* reverberateWithCostello.swift in Sources */ = {isa = PBXBuildFile; fileRef = C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */; };
 		C49614A81C2F361400ACAB4E /* variableDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49614A71C2F361400ACAB4E /* variableDelay.swift */; };
+		C49A09E01D509946007D8ADB /* smoothdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09DF1D509946007D8ADB /* smoothdelay.c */; };
+		C49A09E21D509984007D8ADB /* pdhalf.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E11D509984007D8ADB /* pdhalf.c */; };
+		C49A09E41D509990007D8ADB /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E31D509990007D8ADB /* print.c */; };
+		C49A09E61D50999A007D8ADB /* smoothdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E51D50999A007D8ADB /* smoothdelay.c */; };
 		C49D69561D1F1C6500BF018A /* AKPWMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */; };
 		C49D69571D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49D69581D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */; };
@@ -1143,7 +1145,6 @@
 		C48C6BBB1D3C15F1008EA51B /* tin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tin.c; sourceTree = "<group>"; };
 		C48C6BBC1D3C15F1008EA51B /* tone.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tone.c; sourceTree = "<group>"; };
 		C48C6BBD1D3C15F1008EA51B /* trand.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trand.c; sourceTree = "<group>"; };
-		C48C6BBE1D3C15F1008EA51B /* trem.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trem.c; sourceTree = "<group>"; };
 		C48C6BBF1D3C15F1008EA51B /* tseg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tseg.c; sourceTree = "<group>"; };
 		C48C6BC01D3C15F1008EA51B /* tseq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tseq.c; sourceTree = "<group>"; };
 		C48C6BC11D3C15F1008EA51B /* vdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vdelay.c; sourceTree = "<group>"; };
@@ -1214,7 +1215,6 @@
 		C48C6C061D3C15F1008EA51B /* in.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = in.c; sourceTree = "<group>"; };
 		C48C6C071D3C15F1008EA51B /* jcrev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jcrev.c; sourceTree = "<group>"; };
 		C48C6C081D3C15F1008EA51B /* jitter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = jitter.c; sourceTree = "<group>"; };
-		C48C6C091D3C15F1008EA51B /* kona.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = kona.c; sourceTree = "<group>"; };
 		C48C6C0A1D3C15F1008EA51B /* line.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = line.c; sourceTree = "<group>"; };
 		C48C6C0B1D3C15F1008EA51B /* loadspa.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loadspa.c; sourceTree = "<group>"; };
 		C48C6C0C1D3C15F1008EA51B /* lpf18.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lpf18.c; sourceTree = "<group>"; };
@@ -1296,6 +1296,10 @@
 		C49352051C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKBalancerDSPKernel.hpp; sourceTree = "<group>"; };
 		C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCostello.swift; sourceTree = "<group>"; };
 		C49614A71C2F361400ACAB4E /* variableDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = variableDelay.swift; sourceTree = "<group>"; };
+		C49A09DF1D509946007D8ADB /* smoothdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smoothdelay.c; sourceTree = "<group>"; };
+		C49A09E11D509984007D8ADB /* pdhalf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pdhalf.c; sourceTree = "<group>"; };
+		C49A09E31D509990007D8ADB /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
+		C49A09E51D50999A007D8ADB /* smoothdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smoothdelay.c; sourceTree = "<group>"; };
 		C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillator.swift; sourceTree = "<group>"; };
 		C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPWMOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -2755,6 +2759,7 @@
 				C48C6BAB1D3C15F1008EA51B /* samphold.c */,
 				C48C6BAC1D3C15F1008EA51B /* scale.c */,
 				C48C6BAD1D3C15F1008EA51B /* sdelay.c */,
+				C49A09DF1D509946007D8ADB /* smoothdelay.c */,
 				C48C6BAE1D3C15F1008EA51B /* streson.c */,
 				C48C6BAF1D3C15F1008EA51B /* switch.c */,
 				C48C6BB01D3C15F1008EA51B /* tabread.c */,
@@ -2771,7 +2776,6 @@
 				C48C6BBB1D3C15F1008EA51B /* tin.c */,
 				C48C6BBC1D3C15F1008EA51B /* tone.c */,
 				C48C6BBD1D3C15F1008EA51B /* trand.c */,
-				C48C6BBE1D3C15F1008EA51B /* trem.c */,
 				C48C6BBF1D3C15F1008EA51B /* tseg.c */,
 				C48C6BC01D3C15F1008EA51B /* tseq.c */,
 				C48C6BC11D3C15F1008EA51B /* vdelay.c */,
@@ -2871,7 +2875,6 @@
 				C48C6C061D3C15F1008EA51B /* in.c */,
 				C48C6C071D3C15F1008EA51B /* jcrev.c */,
 				C48C6C081D3C15F1008EA51B /* jitter.c */,
-				C48C6C091D3C15F1008EA51B /* kona.c */,
 				C48C6C0A1D3C15F1008EA51B /* line.c */,
 				C48C6C0B1D3C15F1008EA51B /* loadspa.c */,
 				C48C6C0C1D3C15F1008EA51B /* lpf18.c */,
@@ -2888,12 +2891,14 @@
 				C48C6C171D3C15F1008EA51B /* pan.c */,
 				C48C6C181D3C15F1008EA51B /* pareq.c */,
 				C48C6C191D3C15F1008EA51B /* paulstretch.c */,
+				C49A09E11D509984007D8ADB /* pdhalf.c */,
 				C48C6C1A1D3C15F1008EA51B /* phaser.c */,
 				C48C6C1B1D3C15F1008EA51B /* phasor.c */,
 				C48C6C1C1D3C15F1008EA51B /* pinknoise.c */,
 				C48C6C1D1D3C15F1008EA51B /* pluck.c */,
 				C48C6C1E1D3C15F1008EA51B /* port.c */,
 				C48C6C1F1D3C15F1008EA51B /* posc3.c */,
+				C49A09E31D509990007D8ADB /* print.c */,
 				C48C6C201D3C15F1008EA51B /* prop.c */,
 				C48C6C211D3C15F1008EA51B /* pshift.c */,
 				C48C6C221D3C15F1008EA51B /* ptrack.c */,
@@ -2906,6 +2911,7 @@
 				C48C6C291D3C15F1008EA51B /* rpt.c */,
 				C48C6C2A1D3C15F1008EA51B /* samphold.c */,
 				C48C6C2B1D3C15F1008EA51B /* scale.c */,
+				C49A09E51D50999A007D8ADB /* smoothdelay.c */,
 				C48C6C2C1D3C15F1008EA51B /* srand.c */,
 				C48C6C2D1D3C15F1008EA51B /* streson.c */,
 				C48C6C2E1D3C15F1008EA51B /* switch.c */,
@@ -3561,6 +3567,7 @@
 				C48C6D061D3C15F2008EA51B /* mode.c in Sources */,
 				C48C6CAE1D3C15F1008EA51B /* tenv.c in Sources */,
 				C4A916511C24F95E006C1A15 /* triggeredWithEnvelope.swift in Sources */,
+				C49A09E61D50999A007D8ADB /* smoothdelay.c in Sources */,
 				C48C6D031D3C15F2008EA51B /* maytrig.c in Sources */,
 				C48C6C721D3C15F1008EA51B /* expon.c in Sources */,
 				C46EECCF1C9FF3C8007FEA1B /* adsrEnvelope.swift in Sources */,
@@ -3598,8 +3605,8 @@
 				C48C6CB31D3C15F1008EA51B /* timer.c in Sources */,
 				C48C6C7F1D3C15F1008EA51B /* jitter.c in Sources */,
 				C48C6CCD1D3C15F1008EA51B /* adsr.c in Sources */,
-				C48C6CB71D3C15F1008EA51B /* trem.c in Sources */,
 				C48C6CEB1D3C15F1008EA51B /* expon.c in Sources */,
+				C49A09E01D509946007D8ADB /* smoothdelay.c in Sources */,
 				C40C42B41C420C1D009D870B /* AKAudioPlayer.swift in Sources */,
 				C48C6CCC1D3C15F1008EA51B /* stack.c in Sources */,
 				C4537FE21C3A438D00A51738 /* AKPeakingParametricEqualizerFilter.swift in Sources */,
@@ -3792,6 +3799,7 @@
 				C4537FAE1C3A438D00A51738 /* AKBandPassButterworthFilterAudioUnit.mm in Sources */,
 				C48C6CD51D3C15F1008EA51B /* bitcrush.c in Sources */,
 				C48C6CB41D3C15F1008EA51B /* tin.c in Sources */,
+				C49A09E21D509984007D8ADB /* pdhalf.c in Sources */,
 				C453804B1C3A59EA00A51738 /* AKOperationEffectAudioUnit.mm in Sources */,
 				C48C6CDE1D3C15F1008EA51B /* clip.c in Sources */,
 				C4537F091C39D07100A51738 /* AKDelay.swift in Sources */,
@@ -3932,6 +3940,7 @@
 				C48C6C971D3C15F1008EA51B /* progress.c in Sources */,
 				C48C6C801D3C15F1008EA51B /* line.c in Sources */,
 				C48C6D201D3C15F2008EA51B /* scale.c in Sources */,
+				C49A09E41D509990007D8ADB /* print.c in Sources */,
 				C4537FE61C3A438D00A51738 /* AKRolandTB303Filter.swift in Sources */,
 				C4E751791C2204AD00688A1B /* sawtoothWave.swift in Sources */,
 				C48C6D1C1D3C15F2008EA51B /* revsc.c in Sources */,
@@ -4007,7 +4016,6 @@
 				C48C6C841D3C15F1008EA51B /* mincer.c in Sources */,
 				C48C6CDF1D3C15F1008EA51B /* comb.c in Sources */,
 				C46781971C1C127B0000BF29 /* AKNodeFFTPlot.swift in Sources */,
-				C48C6CFE1D3C15F2008EA51B /* kona.c in Sources */,
 				C48C6C901D3C15F1008EA51B /* phaser.c in Sources */,
 				C463028A1C20E7A7009B44D9 /* reverberateWithFlatFrequencyResponse.swift in Sources */,
 				C48C6C661D3C15F1008EA51B /* compressor.c in Sources */,
