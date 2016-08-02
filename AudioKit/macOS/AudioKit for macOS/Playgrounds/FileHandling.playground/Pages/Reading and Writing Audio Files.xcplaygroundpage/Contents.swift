@@ -10,7 +10,7 @@ import AudioKit
 
 // Let's create an AKaudioFile :
 let akAudioFile = try AKAudioFile(readFileName: "click.wav",
-                                   baseDir: .Resources)
+                                  baseDir: .Resources)
 
 // converted in an AVAudioFile
 let avAudioFile = akAudioFile as AVAudioFile
@@ -39,8 +39,8 @@ do {
 
 //: So it's a good idea to check that the AKAudioFile is valid before using it.
 //: Let's display some info about drumloop :
-print("drumloop!.sampleRate:  \(drumloop.sampleRate)")
-print("drumloop!.duration:  \(drumloop.duration)")
+print("drumloop.sampleRate: \(drumloop.sampleRate)")
+print("drumloop.duration: \(drumloop.duration)")
 // and so on...
 
 
