@@ -7,14 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var filter = AKThreePoleLowpassFilter(player)
 
-//: Set the parameters of the Moog Ladder Filter here.
+var filter = AKThreePoleLowpassFilter(player)
 filter.cutoffFrequency = 300 // Hz
 filter.resonance = 0.6
 filter.rampTime = 0.1
@@ -32,7 +31,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",

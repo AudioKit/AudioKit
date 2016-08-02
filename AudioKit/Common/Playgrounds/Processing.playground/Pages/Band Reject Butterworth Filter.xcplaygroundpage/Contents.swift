@@ -3,20 +3,16 @@
 //: ---
 //:
 //: ## Band Reject Butterworth Filter
-
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-//: Next, we'll connect the audio sources to a band pass filter
 var filter = AKBandRejectButterworthFilter(player)
-
-//: Set the parameters of the band pass filter here
 filter.centerFrequency = 5000 // Hz
 filter.bandwidth = 600  // Cents
 
@@ -33,7 +29,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKBypassButton(node: filter))
 

@@ -15,11 +15,12 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
+
 var moogLadder = AKMoogLadder(player)
 moogLadder.cutoffFrequency = 300 // Hz
 moogLadder.resonance = 0.6
@@ -37,7 +38,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKPropertySlider(
             property: "Cutoff Frequency",

@@ -7,14 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var filter = AKCombFilterReverb(player, loopDuration: 0.1)
 
-//: Set the parameters of the Comb Filter here
+var filter = AKCombFilterReverb(player, loopDuration: 0.1)
 filter.reverbDuration = 1
 
 AudioKit.output = filter
@@ -30,7 +29,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKPropertySlider(
             property: "Duration",

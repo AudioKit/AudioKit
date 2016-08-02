@@ -7,14 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var stringResonator = AKStringResonator(player)
 
-//: Set the parameters of the String Resonator here.
+var stringResonator = AKStringResonator(player)
 stringResonator.feedback = 0.9
 stringResonator.fundamentalFrequency = 1000
 stringResonator.rampTime = 0.1
@@ -32,7 +31,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKPropertySlider(
             property: "Fundamental Frequency",

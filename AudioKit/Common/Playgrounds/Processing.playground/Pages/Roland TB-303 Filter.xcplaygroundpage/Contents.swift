@@ -7,14 +7,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var filter = AKRolandTB303Filter(player)
 
-//: Set the parameters of the filter here
+var filter = AKRolandTB303Filter(player)
 filter.cutoffFrequency = 1350
 filter.resonance = 0.8
 
@@ -30,8 +29,6 @@ AKPlaygroundLoop(every: timeStep) {
 
     let hz = 2.0
     filter.cutoffFrequency = (1.0 - cos(2 * 3.14 * hz * time)) * 600 + 700
-//    filter.resonance = (1.0 - sin(2 * 3.14 * 2 * hz * time)) * 0.5
-
     time += timeStep
 }
 

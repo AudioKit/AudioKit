@@ -8,14 +8,13 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: audioResourceFileNames[0],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
 player.looping = true
-var wah = AKAutoWah(player)
 
-//: Set the parameters of the auto-wah here
+var wah = AKAutoWah(player)
 wah.wah = 1
 wah.amplitude = 1
 
@@ -33,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: audioResourceFileNames))
+            filenames: processingPlaygroundFiles))
 
         addSubview(AKPropertySlider(
             property: "Wah",
