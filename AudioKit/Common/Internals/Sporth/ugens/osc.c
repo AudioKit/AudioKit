@@ -36,13 +36,11 @@ int sporth_osc(sporth_stack *stack, void *ud)
             freq = sporth_stack_pop_float(stack);
 
             if(plumber_ftmap_search(pd, ftname, &osc->ft) == PLUMBER_NOTOK) {
-                free(ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
 
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
             break;
         case PLUMBER_INIT:
             osc = pd->last->ud;
@@ -54,7 +52,6 @@ int sporth_osc(sporth_stack *stack, void *ud)
 
             sp_osc_init(pd->sp, osc->data, osc->ft, phs);
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
             break;
 
         case PLUMBER_COMPUTE:

@@ -82,7 +82,17 @@ char * sporth_tokenizer(char *str,
                 }
                 break;
             case COMMENT:
-                *pos = *pos + 1;
+                //*pos = *pos + 1;
+                switch(c) {
+                    case '\n':
+                        mode = SPACE;
+                        *pos = *pos + 1;
+                        offset++;
+                        break;
+                    default:
+                        *pos = *pos + 1;
+                        break;
+                }
                 break;
             default:
                 printf("This shouldn't happen. Eep.\n");

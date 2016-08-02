@@ -28,7 +28,6 @@ int sporth_gen_sporth(sporth_stack *stack, void *ud)
             ftname = sporth_stack_pop_string(stack);
             sp_ftbl_create(pd->sp, &ft, size);
             plumber_ftmap_add(pd, ftname, ft);
-            free(ftname);
 #ifdef DEBUG_MODE
             fprintf(stderr, "gen_sporth: compiling file %s to table of size %d\n", 
                     filename, size);
@@ -50,7 +49,6 @@ int sporth_gen_sporth(sporth_stack *stack, void *ud)
                 plumber_close_file(&my_pd);
             } 
             plumber_clean(&my_pd);
-            free(filename);
             sp_destroy(&sp);
             break;
 
@@ -58,8 +56,6 @@ int sporth_gen_sporth(sporth_stack *stack, void *ud)
             filename = sporth_stack_pop_string(stack);
             size = sporth_stack_pop_float(stack);
             ftname = sporth_stack_pop_string(stack);
-            free(ftname);
-            free(filename);
             break;
 
         case PLUMBER_COMPUTE:
