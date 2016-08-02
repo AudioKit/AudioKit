@@ -30,15 +30,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             let contentData = NSFileManager.defaultManager().contentsAtPath(filePath!)
             let sporth = NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
             Swift.print("\n\n\n\n\n\n\(sporth!)")
-            
-            for  line in sporth!.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
-            {
-                if line.charact = "#" {
-                    Swift.print("comment")
-                }
-            }
-            
-            //self.updateSporth(sporth!)
+            self.updateSporth(sporth!)
             })
         addSubview(AKPropertySlider(
             property: "Parameter 0",
