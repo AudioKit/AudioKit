@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		C42C1F001D23B0550020D550 /* SongExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1EFF1D23B0550020D550 /* SongExporter.swift */; };
+		C49A09F31D50A4FA007D8ADB /* bassloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09EF1D50A4FA007D8ADB /* bassloop.wav */; };
+		C49A09F41D50A4FA007D8ADB /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F01D50A4FA007D8ADB /* drumloop.wav */; };
+		C49A09F51D50A4FA007D8ADB /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F11D50A4FA007D8ADB /* guitarloop.wav */; };
+		C49A09F61D50A4FA007D8ADB /* leadloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F21D50A4FA007D8ADB /* leadloop.wav */; };
+		C49A09F81D50A50B007D8ADB /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F71D50A50B007D8ADB /* mixloop.wav */; };
 		C4CB57541D1AFB1500479598 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57531D1AFB1500479598 /* AppDelegate.swift */; };
 		C4CB57591D1AFB1500479598 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CB57571D1AFB1500479598 /* Main.storyboard */; };
 		C4CB575B1D1AFB1500479598 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CB575A1D1AFB1500479598 /* Assets.xcassets */; };
@@ -20,11 +25,6 @@
 		C4CB57731D1AFC6100479598 /* ArtistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57721D1AFC6100479598 /* ArtistsViewController.swift */; };
 		C4CB57751D1AFC7300479598 /* SongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57741D1AFC7300479598 /* SongsViewController.swift */; };
 		C4CB57771D1AFC8200479598 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57761D1AFC8200479598 /* SongViewController.swift */; };
-		C4CB577E1D1AFCBD00479598 /* bassloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB57791D1AFCBD00479598 /* bassloop.wav */; };
-		C4CB577F1D1AFCBD00479598 /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577A1D1AFCBD00479598 /* drumloop.wav */; };
-		C4CB57801D1AFCBD00479598 /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577B1D1AFCBD00479598 /* guitarloop.wav */; };
-		C4CB57811D1AFCBD00479598 /* leadloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577C1D1AFCBD00479598 /* leadloop.wav */; };
-		C4CB57821D1AFCBD00479598 /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C4CB577D1D1AFCBD00479598 /* mixloop.wav */; };
 		C4CB57841D1AFCFE00479598 /* SongProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57831D1AFCFE00479598 /* SongProcessor.swift */; };
 		C4CB57951D1B190600479598 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4CB57931D1B18F700479598 /* AudioKit.framework */; };
 		C4CB57961D1B190600479598 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4CB57931D1B18F700479598 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -46,6 +46,11 @@
 
 /* Begin PBXFileReference section */
 		C42C1EFF1D23B0550020D550 /* SongExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongExporter.swift; sourceTree = "<group>"; };
+		C49A09EF1D50A4FA007D8ADB /* bassloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bassloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/bassloop.wav; sourceTree = "<group>"; };
+		C49A09F01D50A4FA007D8ADB /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
+		C49A09F11D50A4FA007D8ADB /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
+		C49A09F21D50A4FA007D8ADB /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
+		C49A09F71D50A50B007D8ADB /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mixloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Processing.playground/Resources/mixloop.wav; sourceTree = "<group>"; };
 		C4CB57501D1AFB1500479598 /* SongProcessor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongProcessor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4CB57531D1AFB1500479598 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4CB57581D1AFB1500479598 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -60,11 +65,6 @@
 		C4CB57721D1AFC6100479598 /* ArtistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArtistsViewController.swift; path = "View Controllers/iTunes Library Access/ArtistsViewController.swift"; sourceTree = "<group>"; };
 		C4CB57741D1AFC7300479598 /* SongsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongsViewController.swift; path = "View Controllers/iTunes Library Access/SongsViewController.swift"; sourceTree = "<group>"; };
 		C4CB57761D1AFC8200479598 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongViewController.swift; path = "View Controllers/iTunes Library Access/SongViewController.swift"; sourceTree = "<group>"; };
-		C4CB57791D1AFCBD00479598 /* bassloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bassloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/bassloop.wav; sourceTree = "<group>"; };
-		C4CB577A1D1AFCBD00479598 /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
-		C4CB577B1D1AFCBD00479598 /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
-		C4CB577C1D1AFCBD00479598 /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
-		C4CB577D1D1AFCBD00479598 /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mixloop.wav; path = ../../../../AudioKit/iOS/AudioKit/AudioKit.playground/Resources/mixloop.wav; sourceTree = "<group>"; };
 		C4CB57831D1AFCFE00479598 /* SongProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongProcessor.swift; sourceTree = "<group>"; };
 		C4CB57931D1B18F700479598 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,11 +140,11 @@
 		C4CB57781D1AFC9100479598 /* Loops */ = {
 			isa = PBXGroup;
 			children = (
-				C4CB57791D1AFCBD00479598 /* bassloop.wav */,
-				C4CB577A1D1AFCBD00479598 /* drumloop.wav */,
-				C4CB577B1D1AFCBD00479598 /* guitarloop.wav */,
-				C4CB577C1D1AFCBD00479598 /* leadloop.wav */,
-				C4CB577D1D1AFCBD00479598 /* mixloop.wav */,
+				C49A09EF1D50A4FA007D8ADB /* bassloop.wav */,
+				C49A09F01D50A4FA007D8ADB /* drumloop.wav */,
+				C49A09F11D50A4FA007D8ADB /* guitarloop.wav */,
+				C49A09F21D50A4FA007D8ADB /* leadloop.wav */,
+				C49A09F71D50A50B007D8ADB /* mixloop.wav */,
 			);
 			name = Loops;
 			sourceTree = "<group>";
@@ -208,14 +208,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4CB577F1D1AFCBD00479598 /* drumloop.wav in Resources */,
+				C49A09F41D50A4FA007D8ADB /* drumloop.wav in Resources */,
 				C4CB575E1D1AFB1500479598 /* LaunchScreen.storyboard in Resources */,
 				C4CB575B1D1AFB1500479598 /* Assets.xcassets in Resources */,
-				C4CB57811D1AFCBD00479598 /* leadloop.wav in Resources */,
+				C49A09F61D50A4FA007D8ADB /* leadloop.wav in Resources */,
 				C4CB57591D1AFB1500479598 /* Main.storyboard in Resources */,
-				C4CB57801D1AFCBD00479598 /* guitarloop.wav in Resources */,
-				C4CB577E1D1AFCBD00479598 /* bassloop.wav in Resources */,
-				C4CB57821D1AFCBD00479598 /* mixloop.wav in Resources */,
+				C49A09F51D50A4FA007D8ADB /* guitarloop.wav in Resources */,
+				C49A09F31D50A4FA007D8ADB /* bassloop.wav in Resources */,
+				C49A09F81D50A50B007D8ADB /* mixloop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
