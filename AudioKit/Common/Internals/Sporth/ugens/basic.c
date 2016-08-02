@@ -1292,3 +1292,59 @@ int sporth_sr(sporth_stack *stack, void *ud)
     }
     return PLUMBER_OK;
 }
+
+int sporth_limit(sporth_stack *stack, void *ud)
+{
+    plumber_data *pd = ud;
+    SPFLOAT min, max, in, out;
+    switch(pd->mode){
+        case PLUMBER_CREATE:
+#ifdef DEBUG_MODE
+            fprintf(stderr, "ampdb: Creating\n");
+#endif
+            plumber_add_ugen(pd, SPORTH_LIMIT, NULL);
+            if(sporth_check_args(stack, "fff") != SPORTH_OK) {
+                fprintf(stderr, "limit: not enough args\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+
+            max = sporth_stack_pop_float(stack);
+            min = sporth_stack_pop_float(stack);
+            in = sporth_stack_pop_float(stack);
+  
+            out = (in > max ? max : in); 
+            out = (out < min ? min : out); 
+            sporth_stack_push_float(stack, out);
+            break;
+        case PLUMBER_INIT:
+#ifdef DEBUG_MODE
+            fprintf(stderr, "limit: Initializing\n");
+#endif
+            max = sporth_stack_pop_float(stack);
+            min = sporth_stack_pop_float(stack);
+            in = sporth_stack_pop_float(stack);
+
+            out = (in > max ? max : in); 
+            out = (out < min ? min : out); 
+            sporth_stack_push_float(stack, out);
+            break;
+        case PLUMBER_COMPUTE:
+            max = sporth_stack_pop_float(stack);
+            min = sporth_stack_pop_float(stack);
+            in = sporth_stack_pop_float(stack);
+
+            out = (in > max ? max : in); 
+            out = (out < min ? min : out); 
+            sporth_stack_push_float(stack, out);
+            break;
+        case PLUMBER_DESTROY:
+            break;
+        default:
+            fprintf(stderr,"limit: unknown mode!");
+            stack->error++;
+            return PLUMBER_NOTOK;
+            break;
+    }
+    return PLUMBER_OK;
+}

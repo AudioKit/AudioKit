@@ -35,19 +35,16 @@ int sporth_ftsum(sporth_stack *stack, void *ud)
             start = (uint32_t) sporth_stack_pop_float(stack);
 
             if(plumber_ftmap_search(pd, ftname, &ftsum->ft) == PLUMBER_NOTOK) {
-                free(ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
             break;
         case PLUMBER_INIT:
             ftname = sporth_stack_pop_string(stack);
             end = (uint32_t) sporth_stack_pop_float(stack);
             start = (uint32_t) sporth_stack_pop_float(stack);
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
             break;
 
         case PLUMBER_COMPUTE:

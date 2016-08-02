@@ -35,8 +35,6 @@ int sporth_gen_line(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             plumber_ftmap_add(pd, str, ft);
-            free(str);
-            free(args);
             break;
 
         case PLUMBER_INIT:
@@ -44,8 +42,6 @@ int sporth_gen_line(sporth_stack *stack, void *ud)
             args = sporth_stack_pop_string(stack);
             size = (int)sporth_stack_pop_float(stack);
             str = sporth_stack_pop_string(stack);
-            free(str);
-            free(args);
             break;
 
         case PLUMBER_COMPUTE:

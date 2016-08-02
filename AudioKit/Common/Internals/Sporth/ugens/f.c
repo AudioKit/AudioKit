@@ -91,15 +91,12 @@ int sporth_fload(sporth_stack *stack, void *ud)
             fload->handle = dlopen(fload->filename, RTLD_NOW);
             if(fload->handle == NULL) {
                 fprintf(stderr, "Error loading %s: %s\n", fload->name, dlerror());
-                free(fload->name);
                 return PLUMBER_NOTOK;
             }
 
             fload->getter = dlsym(fload->handle, "sporth_return_ugen");
             fload->fun = fload->getter();
             plumber_ftmap_add_userdata(pd, fload->name, (void *)fload);
-            free(fload->name);
-            free(fload->filename);
             break;
         case PLUMBER_INIT:
 
@@ -109,8 +106,6 @@ int sporth_fload(sporth_stack *stack, void *ud)
             fload = pd->last->ud;
             fload->filename= sporth_stack_pop_string(stack);
             fload->name = sporth_stack_pop_string(stack);
-            free(fload->name);
-            free(fload->filename);
 
             break;
 
@@ -147,12 +142,10 @@ int sporth_fclose(sporth_stack *stack, void *ud)
             fclose->name = sporth_stack_pop_string(stack);
            
             if(plumber_ftmap_search_userdata(pd, fclose->name, (void *)&fload) == PLUMBER_NOTOK) {
-                free(fclose->name);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             fclose->handle = fload->handle;
-            free(fclose->name);
             break;
         case PLUMBER_INIT:
 
@@ -161,7 +154,6 @@ int sporth_fclose(sporth_stack *stack, void *ud)
 #endif
             fclose = pd->last->ud;
             fclose->name = sporth_stack_pop_string(stack);
-            free(fclose->name);
 
             break;
 
@@ -169,6 +161,9 @@ int sporth_fclose(sporth_stack *stack, void *ud)
             break;
 
         case PLUMBER_DESTROY:
+#ifdef DEBUG_MODE
+            fprintf(stderr, "fclose: destroying\n");
+#endif
             fclose= pd->last->ud;
             dlclose(fclose->handle);
             free(fclose);
@@ -201,12 +196,10 @@ int sporth_fexec(sporth_stack *stack, void *ud)
             fexec->name = sporth_stack_pop_string(stack);
            
             if(plumber_ftmap_search_userdata(pd, fexec->name, (void *)&fload) == PLUMBER_NOTOK) {
-                free(fexec->name);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             fexec->fun = fload->fun;
-            free(fexec->name);
             fexec->fun(pd, stack, &fexec->ud);
             break;
         case PLUMBER_INIT:
@@ -216,7 +209,6 @@ int sporth_fexec(sporth_stack *stack, void *ud)
 #endif
             fexec = pd->last->ud;
             fexec->name = sporth_stack_pop_string(stack);
-            free(fexec->name);
 
             fexec->fun(pd, stack, &fexec->ud);
             break;

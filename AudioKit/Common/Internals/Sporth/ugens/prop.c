@@ -24,18 +24,15 @@ int sporth_prop(sporth_stack *stack, void *ud)
             bpm = sporth_stack_pop_float(stack);
             if(sp_prop_init(pd->sp, data, str) == SP_NOT_OK) {
                 stack->error++;
-                free(str);
                 return PLUMBER_NOTOK;
             }
             sporth_stack_push_float(stack, 0);
-            free(str);
             break;
         case PLUMBER_INIT:
             data = pd->last->ud;
             str = sporth_stack_pop_string(stack);
             bpm = sporth_stack_pop_float(stack);
             sporth_stack_push_float(stack, 0);
-            free(str);
             break;
         case PLUMBER_COMPUTE:
             bpm = sporth_stack_pop_float(stack);

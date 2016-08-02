@@ -29,13 +29,11 @@ int sporth_posc3(sporth_stack *stack, void *ud)
             amp = sporth_stack_pop_float(stack);
             freq = sporth_stack_pop_float(stack);
             if(plumber_ftmap_search(pd, str, &tbl) == PLUMBER_NOTOK) {
-                free(str);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
             sp_posc3_init(pd->sp, posc3, tbl);
             sporth_stack_push_float(stack, 0);
-            free(str);
             break;
         case PLUMBER_INIT:
 
@@ -48,7 +46,6 @@ int sporth_posc3(sporth_stack *stack, void *ud)
             freq = sporth_stack_pop_float(stack);
             posc3 = pd->last->ud;
 
-            free(str);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:

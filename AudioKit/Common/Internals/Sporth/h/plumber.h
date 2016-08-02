@@ -2,7 +2,7 @@
 #include "sporth.h"
 
 /* implement macros */
-#define SPORTH_UGEN(key, func, macro)  macro,
+#define SPORTH_UGEN(key, func, macro, ninputs, noutputs)  macro,
 enum {
 SP_DUMMY = SPORTH_FOFFSET - 1,
 #include "ugens.h"
@@ -84,6 +84,10 @@ typedef struct plumber_data {
     void *ud;
     plumber_pipe *next;
     plumber_pipe *last;
+    sp_progress *prog;
+    int showprog;
+    int recompile;
+    char *str;
 } plumber_data;
 
 typedef int (* plumber_dyn_func) (plumber_data *, sporth_stack *, void **);
@@ -111,7 +115,7 @@ int plumber_register(plumber_data *plumb);
 int plumber_clean(plumber_data *plumb);
 
 int plumber_add_float(plumber_data *plumb, plumbing *pipes, float num);
-int plumber_add_string(plumber_data *plumb, plumbing *pipes, const char *str);
+char * plumber_add_string(plumber_data *plumb, plumbing *pipes, const char *str);
 int plumber_add_ugen(plumber_data *plumb, uint32_t id, void *ud);
 
 int plumber_compute(plumber_data *plumb, int mode);

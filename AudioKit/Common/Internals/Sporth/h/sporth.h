@@ -18,7 +18,7 @@ SPORTH_WORD
 
 typedef struct {
     float fval;
-    char sval[SPORTH_MAXCHAR];
+    char *sval;
     int type;
 } sporth_stack_val;
 
@@ -65,7 +65,7 @@ int sporth_htable_destroy(sporth_htable *ht);
 
 int sporth_stack_init(sporth_stack *stack);
 int sporth_stack_push_float(sporth_stack *stack, float val);
-int sporth_stack_push_string(sporth_stack *stack, const char *str);
+int sporth_stack_push_string(sporth_stack *stack, char **str);
 float sporth_stack_pop_float(sporth_stack *stack);
 char * sporth_stack_pop_string(sporth_stack *stack);
 int sporth_check_args(sporth_stack *stack, const char *args);

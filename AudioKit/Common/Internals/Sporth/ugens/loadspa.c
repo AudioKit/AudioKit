@@ -30,15 +30,11 @@ int sporth_loadspa(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             plumber_ftmap_add(pd, str, ft);
-            free(str);
-            free(filename);
             break;
 
         case PLUMBER_INIT:
             filename = sporth_stack_pop_string(stack);
             str = sporth_stack_pop_string(stack);
-            free(str);
-            free(filename);
             break;
 
         case PLUMBER_COMPUTE:

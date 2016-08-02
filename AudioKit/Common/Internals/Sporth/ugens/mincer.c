@@ -32,7 +32,6 @@ int sporth_mincer(sporth_stack *stack, void *ud)
             pitch = sporth_stack_pop_float(stack);
             amp = sporth_stack_pop_float(stack);
             time = sporth_stack_pop_float(stack);
-            free(ftname);
 
             sporth_stack_push_float(stack, 0);
             break;
@@ -53,7 +52,6 @@ int sporth_mincer(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
 
-            free(ftname);
             sp_mincer_init(pd->sp, mincer, ft);
             sporth_stack_push_float(stack, 0);
             break;
@@ -67,7 +65,6 @@ int sporth_mincer(sporth_stack *stack, void *ud)
             mincer->pitch = pitch;
             sp_mincer_compute(pd->sp, mincer, NULL, &out);
             sporth_stack_push_float(stack, out);
-            free(ftname);
             break;
         case PLUMBER_DESTROY:
             mincer = pd->last->ud;
