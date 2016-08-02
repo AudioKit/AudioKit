@@ -1,3 +1,10 @@
+# Plucked Strings
+# by Paul Batchelor
+
+# p0: 0.5 Randomness?
+# p1: 0.5 Mix?
+# p2: 0.5 Gain?
+
 # Create buffer with length 80000 samples
 'buf' 80000 zeros
 
@@ -10,7 +17,7 @@ tick 4 pset
 'seq' '0 2 7 11 14 4 2' gen_vals
 
 # our maygate clock with a guaranteed start
-4 p 1 metro 0.7 maytrig +
+3 p 1 metro 0.7 maytrig +
 # duplicate the clock signal for tseq and pluck
 dup
 
@@ -28,12 +35,12 @@ dup dup 10 10 8000 zrev 0.5 * drop + dcblk
 
 
 # duplicate our entire signal and record it in buffer
-dup 3 p * swap 4 p 'buf' tblrec
+dup 2 p * swap 4 p 'buf' tblrec
 
 # mincer object shuffles through recording buffer
 0 'buf' tbldur
-1 p randi 1
-1.5 'buf' mincer 2 p *
+0 p randi 1
+1.5 'buf' mincer 1 p *
 
 # Sum mincer with everything else
 +

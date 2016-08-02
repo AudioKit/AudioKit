@@ -1,4 +1,4 @@
-# Chatting.sp
+# Chatting
 # By Paul Batchelor July 2016
 
 'f1' '350 600 400' gen_vals

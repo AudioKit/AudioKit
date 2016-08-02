@@ -3,10 +3,10 @@
 # July 2016
 
 # Controls:
-# p0: filter cutoff
-# p1: crazy delay/chorus level
-# p2: portamento time for random delay changes
-# p3: tempo
+# p0: 0.5 Filter Cutoff
+# p1: 0.5 Crazy Delay/Chorus Level
+# p2: 0.5 Random Delay Portamento
+# p3: 0.5 Tempo
 
 "seq" "0 10 12 3 7 2" gen_vals
 "seq2" "15 17 14 7 19" gen_vals
@@ -84,4 +84,3 @@ dup -7 2048 1024 pshift + 0.5 *
 dup -7 2048 1024 pshift + 0.5 *
 
 dcblk
-dup
