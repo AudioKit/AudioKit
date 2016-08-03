@@ -19,7 +19,7 @@ player?.looping = true
 AudioKit.output = player!
 AudioKit.start()
 player!.start()
-//: While our piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory that will handle any process in background
+//: While the piano is playing, we will process the file in background. AKAudioFile has a private ProcessFactory that will handle any process in background
 //: We define a call back that will be invoked when an async process has been completed. Notice that the process can have succeeded or failed. if processedFile is different from nil, process succeeded, so you can get the processed file. If processedFile is nil, process failed, but you can get the process thrown error :
 func callBack(processedFile: AKAudioFile?, error: NSError?) {
     

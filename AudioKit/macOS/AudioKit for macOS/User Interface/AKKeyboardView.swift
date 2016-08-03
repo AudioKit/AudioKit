@@ -305,10 +305,23 @@ public class AKKeyboardView: NSView, KeyDelegate, AKMIDIListener {
     }
     
     public func receivedMIDINoteOn(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        delegate?.noteOn(noteNumber)
+        for key in keys {
+            if key.midiNote == noteNumber {
+                dispatch_async(dispatch_get_main_queue(), { 
+                    key.pressKey()
+                })
+            }
+        }
     }
+
     public func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
-        delegate?.noteOff(noteNumber)
+        for key in keys {
+            if key.midiNote == noteNumber {
+                dispatch_async(dispatch_get_main_queue(), {
+                    key.releaseKey()
+                })
+            }
+        }
     }
 }
 
