@@ -111,9 +111,9 @@ public class AKADSRView: NSView {
         let initialMax: NSPoint = NSMakePoint(0, 0)
         
         
-        let halfInitialToHighPoint = NSMakePoint((highPoint.x + initialPoint.x) / 2.0, highPoint.y)
-        let halfHighToSustainPoint = NSMakePoint((highPoint.x + sustainPoint.x) / 2.0, sustainPoint.y)
-        let halfReleaseToEndPoint = NSMakePoint((releasePoint.x + endPoint.x) / 2.0, endPoint.y)
+        let initialToHighControlPoint = NSMakePoint(initialPoint.x, highPoint.y)
+        let highToSustainControlPoint = NSMakePoint(highPoint.x, sustainPoint.y)
+        let releaseToEndControlPoint = NSMakePoint(releasePoint.x, endPoint.y)
 
 
         //// attackTouchArea Drawing
@@ -173,7 +173,7 @@ public class AKADSRView: NSView {
                                      controlPoint1: releaseAxis,
                                      controlPoint2: endPoint)
         releaseAreaPath.curveToPoint(releasePoint,
-                                     controlPoint1: halfReleaseToEndPoint,
+                                     controlPoint1: releaseToEndControlPoint,
                                      controlPoint2: releasePoint)
         releaseAreaPath.lineToPoint(releaseAxis)
         releaseAreaPath.closePath()
@@ -209,7 +209,7 @@ public class AKADSRView: NSView {
                                    controlPoint1: sustainAxis,
                                    controlPoint2: sustainPoint)
         decayAreaPath.curveToPoint(highPoint,
-                                   controlPoint1: halfHighToSustainPoint,
+                                   controlPoint1: highToSustainControlPoint,
                                    controlPoint2: highPoint)
         decayAreaPath.lineToPoint(highPoint)
         decayAreaPath.closePath()
@@ -227,7 +227,7 @@ public class AKADSRView: NSView {
         attackAreaPath.lineToPoint(highPointAxis)
         attackAreaPath.lineToPoint(highPoint)
         attackAreaPath.curveToPoint(initialPoint,
-                                    controlPoint1: halfInitialToHighPoint,
+                                    controlPoint1: initialToHighControlPoint,
                                     controlPoint2: initialPoint)
         attackAreaPath.closePath()
         attackColor.setFill()
@@ -242,14 +242,14 @@ public class AKADSRView: NSView {
         curvePath.moveToPoint(initialPoint)
         curvePath.curveToPoint(highPoint,
                                controlPoint1: initialPoint,
-                               controlPoint2: halfInitialToHighPoint)
+                               controlPoint2: initialToHighControlPoint)
         curvePath.curveToPoint(sustainPoint,
                                controlPoint1: highPoint,
-                               controlPoint2: halfHighToSustainPoint)
+                               controlPoint2: highToSustainControlPoint)
         curvePath.lineToPoint(releasePoint)
         curvePath.curveToPoint(endPoint,
                                controlPoint1: releasePoint,
-                               controlPoint2: halfReleaseToEndPoint)
+                               controlPoint2: releaseToEndControlPoint)
         NSColor.blackColor().setStroke()
         curvePath.lineWidth = curveStrokeWidth
         curvePath.stroke()

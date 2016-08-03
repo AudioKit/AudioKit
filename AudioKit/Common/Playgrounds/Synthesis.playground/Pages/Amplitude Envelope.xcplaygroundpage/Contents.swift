@@ -34,21 +34,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.sustainLevel    = fmWithADSR.sustainLevel
         addSubview(adsrView)
         
-//        addSubview(AKButton(title: "Trigger") {
-//            fmOscillator.baseFrequency = random(220, 880)
-//            fmWithADSR.start()
-//            self.performSelector(#selector(self.stop), withObject: nil, afterDelay: self.holdDuration)
-//            })
-        
-//        addSubview(AKPropertySlider(
-//            property: "Duration",
-//            format: "%0.3f s",
-//            value: holdDuration, maximum: 5,
-//            color: AKColor.greenColor()
-//        ) { duration in
-//            self.holdDuration = duration
-//            })
-
         let plot = AKRollingOutputPlot.createView(width: 440, height: 330)
         addSubview(plot)
         
@@ -58,9 +43,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(keyboard)
 
     }
-//    func stop() {
-//        fmWithADSR.stop()
-//    }
     
     func noteOn(note: MIDINoteNumber) {
         fmWithADSR.play(noteNumber: note, velocity: 80)
