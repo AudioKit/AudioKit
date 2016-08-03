@@ -7,22 +7,13 @@
 import XCPlayground
 import AudioKit
 
-
-var fmOscillator = AKFMOscillator()
-var fmWithADSR = AKAmplitudeEnvelope(fmOscillator,
-                                     attackDuration: 0.1,
-                                     decayDuration: 0.1,
-                                     sustainLevel: 0.8,
-                                     releaseDuration: 0.1)
-
-AudioKit.output = fmWithADSR
+var fmWithADSR = AKFMOscillatorBank()
+AudioKit.output = AKBooster(fmWithADSR, gain: 5)
 AudioKit.start()
-
-fmOscillator.start()
 
 //: User Interface Set up
 
-class PlaygroundView: AKPlaygroundView {
+class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var holdDuration = 1.0
 
@@ -30,60 +21,53 @@ class PlaygroundView: AKPlaygroundView {
 
         addTitle("ADSR Envelope")
         
-        addSubview(AKButton(title: "Trigger") {
-            fmOscillator.baseFrequency = random(220, 880)
-            fmWithADSR.start()
-            self.performSelector(#selector(self.stop), withObject: nil, afterDelay: self.holdDuration)
-            })
+        let adsrView = AKADSRView(node: fmWithADSR) {
+            att, dec, sus, rel in
+            fmWithADSR.attackDuration = att
+            fmWithADSR.decayDuration = dec
+            fmWithADSR.sustainLevel = sus
+            fmWithADSR.releaseDuration = rel
+        }
+        adsrView.attackDuration  = fmWithADSR.attackDuration
+        adsrView.decayDuration   = fmWithADSR.decayDuration
+        adsrView.releaseDuration = fmWithADSR.releaseDuration
+        adsrView.sustainLevel    = fmWithADSR.sustainLevel
+        addSubview(adsrView)
+        
+//        addSubview(AKButton(title: "Trigger") {
+//            fmOscillator.baseFrequency = random(220, 880)
+//            fmWithADSR.start()
+//            self.performSelector(#selector(self.stop), withObject: nil, afterDelay: self.holdDuration)
+//            })
+        
+//        addSubview(AKPropertySlider(
+//            property: "Duration",
+//            format: "%0.3f s",
+//            value: holdDuration, maximum: 5,
+//            color: AKColor.greenColor()
+//        ) { duration in
+//            self.holdDuration = duration
+//            })
 
+        let plot = AKRollingOutputPlot.createView(width: 440, height: 330)
+        addSubview(plot)
         
-        addSubview(AKPropertySlider(
-            property: "Attack",
-            format: "%0.3f s",
-            value: fmWithADSR.attackDuration, maximum: 2,
-            color: AKColor.greenColor()
-        ) { duration in
-            fmWithADSR.attackDuration = duration
-            })
-        addSubview(AKPropertySlider(
-            property: "Decay",
-            format: "%0.3f s",
-            value: fmWithADSR.decayDuration, maximum: 2,
-            color: AKColor.cyanColor()
-        ) { duration in
-            fmWithADSR.decayDuration = duration
-            })
-        
-        addSubview(AKPropertySlider(
-            property: "Sustain Level",
-            value: fmWithADSR.sustainLevel,
-            color: AKColor.yellowColor()
-        ) { level in
-            fmWithADSR.sustainLevel = level
-            })
-        addSubview(AKPropertySlider(
-            property: "Release",
-            format: "%0.3f s",
-            value: fmWithADSR.releaseDuration, maximum: 2,
-            color: AKColor.greenColor()
-        ) { duration in
-            fmWithADSR.releaseDuration = duration
-            })
-        
-        addSubview(AKPropertySlider(
-            property: "Duration",
-            format: "%0.3f s",
-            value: holdDuration, maximum: 5,
-            color: AKColor.greenColor()
-        ) { duration in
-            self.holdDuration = duration
-            })
-
-        addSubview(AKRollingOutputPlot.createView(width: 440, height: 330))
+        let keyboard = AKKeyboardView(width: 440, height: 100)
+        keyboard.polyphonicMode = false
+        keyboard.delegate = self
+        addSubview(keyboard)
 
     }
-    func stop() {
-        fmWithADSR.stop()
+//    func stop() {
+//        fmWithADSR.stop()
+//    }
+    
+    func noteOn(note: MIDINoteNumber) {
+        fmWithADSR.play(noteNumber: note, velocity: 80)
+    }
+    
+    func noteOff(note: MIDINoteNumber) {
+        fmWithADSR.stop(noteNumber: note)
     }
 
 }
