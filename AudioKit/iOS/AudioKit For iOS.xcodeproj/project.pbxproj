@@ -590,6 +590,7 @@
 		C49A09E21D509984007D8ADB /* pdhalf.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E11D509984007D8ADB /* pdhalf.c */; };
 		C49A09E41D509990007D8ADB /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E31D509990007D8ADB /* print.c */; };
 		C49A09E61D50999A007D8ADB /* smoothdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E51D50999A007D8ADB /* smoothdelay.c */; };
+		C49A09FD1D529742007D8ADB /* AKADSRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A09FC1D529742007D8ADB /* AKADSRView.swift */; };
 		C49D69561D1F1C6500BF018A /* AKPWMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */; };
 		C49D69571D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49D69581D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */; };
@@ -1299,6 +1300,7 @@
 		C49A09E31D509990007D8ADB /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
 		C49A09E51D50999A007D8ADB /* smoothdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smoothdelay.c; sourceTree = "<group>"; };
 		C49A09FB1D5151B2007D8ADB /* AdvancedPlayback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AdvancedPlayback.playground; path = ../../../Common/Playgrounds/AdvancedPlayback.playground; sourceTree = "<group>"; };
+		C49A09FC1D529742007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillator.swift; sourceTree = "<group>"; };
 		C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPWMOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -1885,6 +1887,7 @@
 			isa = PBXGroup;
 			children = (
 				C47A62691D4D6E25001980B7 /* AKBypassButton.swift */,
+				C49A09FC1D529742007D8ADB /* AKADSRView.swift */,
 				C4E120AB1D4DBD6300CD3572 /* AKButton.swift */,
 				C44243071D4B102100C4182C /* AKFlatSlider.swift */,
 				C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */,
@@ -3802,6 +3805,7 @@
 				C48C6CDE1D3C15F1008EA51B /* clip.c in Sources */,
 				C4537F091C39D07100A51738 /* AKDelay.swift in Sources */,
 				C48C6C831D3C15F1008EA51B /* metro.c in Sources */,
+				C49A09FD1D529742007D8ADB /* AKADSRView.swift in Sources */,
 				C4E751A71C2354EE00688A1B /* max.swift in Sources */,
 				C46C795C1C4C5C4600F6CE3D /* morphingOscillator.swift in Sources */,
 				C48C6D081D3C15F2008EA51B /* noise.c in Sources */,

@@ -31,6 +31,11 @@ public class AKADSRView: NSView {
             return true
         }
     }
+    override public var wantsDefaultClipping: Bool {
+        get {
+            return false
+        }
+    }
     
     override public func mouseDown(theEvent: NSEvent) {
         
@@ -66,6 +71,13 @@ public class AKADSRView: NSView {
                 releaseDuration -= Double(touchLocation.y - lastPoint.y) / 500.0
             }
         }
+        if attackDuration < 0 { attackDuration = 0 }
+        if decayDuration < 0 { decayDuration = 0 }
+        if releaseDuration < 0 { releaseDuration = 0 }
+        if sustainLevel < 0 { sustainLevel = 0 }
+        if sustainLevel > 1 { sustainLevel = 1 }
+
+        
         self.callback(attackDuration, decayDuration, sustainLevel, releaseDuration)
         lastPoint = touchLocation
         needsDisplay = true
@@ -94,21 +106,23 @@ public class AKADSRView: NSView {
         let backgroundColor = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)
 
         //// Variable Declarations
+        let attackClickRoom = CGFloat(30) // to allow the attack to be clicked even if is zero
         let oneSecond: CGFloat = 0.7 * size.width
-        let initialPoint: NSPoint = NSMakePoint(0, size.height)
+        let initialPoint = NSMakePoint(attackClickRoom, size.height)
         let curveStrokeWidth: CGFloat = min(max(1, size.height / 50.0), max(1, size.width / 100.0))
-        let endAxes: NSPoint = NSMakePoint(size.width, size.height)
-        let releasePoint: NSPoint = NSMakePoint(oneSecond, sustainLevel * size.height)
-        let endPoint: NSPoint = NSMakePoint(releasePoint.x + releaseDurationMS / 1000.0 * oneSecond, size.height + 0)
-        let endMax: NSPoint = NSMakePoint(min(endPoint.x, size.width), 0)
-        let releaseAxis: NSPoint = NSMakePoint(releasePoint.x, endPoint.y)
-        let releaseMax: NSPoint = NSMakePoint(releasePoint.x, 0)
-        let highPoint: NSPoint = NSMakePoint(max(0, min(oneSecond * maxADFraction, attackDurationMS / 1000.0 * oneSecond)), 2)
-        let highPointAxis: NSPoint = NSMakePoint(highPoint.x, size.height)
-        let highMax: NSPoint = NSMakePoint(highPoint.x, 0)
-        let sustainPoint: NSPoint = NSMakePoint(max(highPoint.x, min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1000.0 * oneSecond)), sustainLevel * size.height)
-        let sustainAxis: NSPoint = NSMakePoint(sustainPoint.x, size.height)
-        let initialMax: NSPoint = NSMakePoint(0, 0)
+        let buffer = CGFloat(10)//curveStrokeWidth / 2.0 // make a little room for drwing the stroke
+        let endAxes = NSMakePoint(size.width, size.height)
+        let releasePoint = NSMakePoint(attackClickRoom + oneSecond, sustainLevel * (size.height - buffer) + buffer)
+        let endPoint = NSMakePoint(releasePoint.x + releaseDurationMS / 1000.0 * oneSecond, size.height)
+        let endMax = NSMakePoint(min(endPoint.x, size.width), buffer)
+        let releaseAxis = NSMakePoint(releasePoint.x, endPoint.y)
+        let releaseMax = NSMakePoint(releasePoint.x, buffer)
+        let highPoint  = NSMakePoint(attackClickRoom + min(oneSecond * maxADFraction, attackDurationMS / 1000.0 * oneSecond), buffer)
+        let highPointAxis = NSMakePoint(highPoint.x, size.height)
+        let highMax = NSMakePoint(highPoint.x, buffer)
+        let sustainPoint = NSMakePoint(max(highPoint.x, attackClickRoom + min(oneSecond * maxADFraction, (attackDurationMS + decayDurationMS) / 1000.0 * oneSecond)), sustainLevel * (size.height - buffer) + buffer)
+        let sustainAxis = NSMakePoint(sustainPoint.x, size.height)
+        let initialMax = NSMakePoint(0, buffer)
         
         
         let initialToHighControlPoint = NSMakePoint(initialPoint.x, highPoint.y)
@@ -120,11 +134,11 @@ public class AKADSRView: NSView {
         NSGraphicsContext.saveGraphicsState()
 
         attackTouchAreaPath = NSBezierPath()
-        attackTouchAreaPath.moveToPoint(initialPoint)
+        attackTouchAreaPath.moveToPoint(NSMakePoint(0, size.height))
         attackTouchAreaPath.lineToPoint(highPointAxis)
         attackTouchAreaPath.lineToPoint(highMax)
         attackTouchAreaPath.lineToPoint(initialMax)
-        attackTouchAreaPath.lineToPoint(initialPoint)
+        attackTouchAreaPath.lineToPoint(NSMakePoint(0, size.height))
         attackTouchAreaPath.closePath()
         backgroundColor.setFill()
         attackTouchAreaPath.fill()
