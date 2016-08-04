@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Decimator
 //: ### Decimation is a type of digital distortion like bit crushing,
 //: ### but instead of directly stating what bit depth and sample rate you want,
@@ -66,5 +62,3 @@ class PlaygroundView: AKPlaygroundView {
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

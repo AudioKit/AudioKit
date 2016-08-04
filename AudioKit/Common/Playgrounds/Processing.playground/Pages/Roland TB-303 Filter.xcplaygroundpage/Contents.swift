@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Roland TB-303 Filter
 //:
 import XCPlayground
@@ -33,5 +29,3 @@ AKPlaygroundLoop(every: timeStep) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Output Waveform Plot
 //: ### If you open the Assitant editor and make sure it shows the
 //: ### "Output Waveform Plot.xcplaygroundpage (Timeline) view",
@@ -26,4 +22,3 @@ let plotView = AKOutputWaveformPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

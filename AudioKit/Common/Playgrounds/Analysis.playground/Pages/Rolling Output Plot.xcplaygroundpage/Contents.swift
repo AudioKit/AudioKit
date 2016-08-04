@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Rolling Output Plot
 //: ###  If you open the Assitant editor and make sure it shows the
 //: ### "Rolling Output Plot.xcplaygroundpage (Timeline) view",
@@ -23,4 +19,3 @@ let plotView = AKRollingOutputPlot.createView()
 XCPlaygroundPage.currentPage.liveView = plotView
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

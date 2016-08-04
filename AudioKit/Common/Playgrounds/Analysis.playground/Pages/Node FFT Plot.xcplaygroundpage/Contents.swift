@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Node FFT Plot
 //: ### You can also do spectral analysis of your signal by looking at FFT Plot.
 //: ### Here we create spikes in the plot by randomly playing an osccilator at a specific frequency.
@@ -22,7 +18,7 @@ AKPlaygroundLoop(frequency: 10) {
         oscillator.frequency = 10000
         multiplier = 0.9
     }
-    
+
     if oscillator.frequency < 100 {
         oscillator.frequency = 100
         multiplier = 1.1
@@ -41,4 +37,3 @@ plot.color = NSColor.purpleColor()
 XCPlaygroundPage.currentPage.liveView = plot
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

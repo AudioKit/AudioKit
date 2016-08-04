@@ -3,8 +3,6 @@
     <pages>
         <page name='Table Of Contents'/>
         <page name='Amplitude Envelope'/>
-        <page name='Bit Crush Operation'/>
-        <page name='Custom Generator'/>
         <page name='Drawbar Organ'/>
         <page name='Dripping Sounds'/>
         <page name='Drum Synthesizers'/>
@@ -13,9 +11,7 @@
         <page name='FM Oscillator'/>
         <page name='FM Oscillator Bank'/>
         <page name='FM Oscillator Operation'/>
-        <page name='Low-Frequency Oscillating of Parameters'/>
         <page name='Mandolin'/>
-        <page name='Metronome'/>
         <page name='Morphing Oscillator'/>
         <page name='Morphing Oscillator Bank'/>
         <page name='Noise Generators'/>
@@ -35,7 +31,5 @@
         <page name='Segment Operations'/>
         <page name='Sporth Based Generator'/>
         <page name='Telephone'/>
-        <page name='Using Functions'/>
-        <page name='Using Functions Part 2'/>
     </pages>
 </playground>

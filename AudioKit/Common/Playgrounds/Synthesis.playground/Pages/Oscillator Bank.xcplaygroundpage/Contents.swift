@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Oscillator Bank
 import XCPlayground
 import AudioKit
@@ -14,7 +10,7 @@ AudioKit.output = osc
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
-    
+
     var keyboard: AKKeyboardView?
 
     override func setup() {
@@ -78,7 +74,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
         addSubview(keyboard!)
-        
+
         addSubview(AKButton(title: "Toggle Polyphony") {
             self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
             })
@@ -95,4 +91,3 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

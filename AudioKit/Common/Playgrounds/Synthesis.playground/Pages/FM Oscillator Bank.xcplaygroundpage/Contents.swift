@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## FM Oscillator Bank
 //: ### Open the timeline view to use the controls this playground sets up.
 //:
@@ -15,7 +11,7 @@ AudioKit.output = fmBank
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
-    
+
     var keyboard: AKKeyboardView?
 
     override func setup() {
@@ -70,7 +66,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
         addSubview(keyboard!)
-        
+
         addSubview(AKButton(title: "Toggle Polyphony") {
             self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
             })
@@ -87,4 +83,3 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

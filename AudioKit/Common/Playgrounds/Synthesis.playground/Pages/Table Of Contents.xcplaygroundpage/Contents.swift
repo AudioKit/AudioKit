@@ -1,4 +1,4 @@
-//: # AudioKit for macOS Playgrounds
+//: # Synthesis Playgrounds
 //:
 //: AudioKit comes with many playgrounds, each of which serves to teach some
 //: core concept, demonstrate a particular generator or synthesizer, or just
@@ -8,25 +8,6 @@
 //: lists all the the playgrounds grouped by category.  Playgrounds that fit
 //: into multiple categories are listed in each relevant category.
 //:
-//: ## Getting Started
-//:
-//: Let's start off just making sure you're all set up and can make sound.
-//:
-//: * [Introduction and Hello World](Introduction%20and%20Hello%20World)
-//:
-//: ## This is going to be fun...
-//:
-//: So wait, before we jump into the actual tutorials, let's just highlight some
-//: of the cooler sound playgrounds we have.  Don't try to understand the code
-//: if you're just started, it will all be expained starting with the next section,
-//: Basic Tutorials.
-//:
-//: * [Electro Drum Beat](Drum%20Synthesizers)
-//: * [Alien Apocalypse](Linear%20and%20Exponential%20Segment%20Operations)
-//: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
-//: * [Newton's Cradle](Newtons%20Cradle)
-//: * [Metronome](Metronome)
-//: * [XY Pad](XY%20Pad)
 //:
 //: ## Designing Sound
 //:
@@ -38,7 +19,7 @@
 //: * [Telephone](Telephone) - Dialtone, ringing, busy signal, and digits
 //:
 //: Hopefully we'll add more practicals over time.  If you're interested in
-//: making more, submit a pull-request to git repo and we'll be sure to include them.
+//: making more, submit a pull-request to the git repository and we'll be sure to include them.
 //:
 //: ## Generator Nodes
 //:
@@ -47,68 +28,62 @@
 //: Oscillators are the bread and butter of audio synthesis and there's no
 //: shortage of them in AudioKit.
 //:
-//: * [Simple Oscillator](Simple%20Oscillator)
+//: * [Oscillator](Oscillator)
+//: * [Oscillator Synth](Oscillator%20Synth)
 //: * [FM Oscillator](FM%20Oscillator)
-//: * [General Purpose Oscillator](General%20Purpose%20Oscillator)
 //: * [Morphing Oscillator](Morphing%20Oscillator)
-//: * [Sawtooth Oscillator](Sawtooth%20Oscillator)
-//: * [Square Wave Oscillator](Square%20Wave%20Oscillator)
-//: * [Triangular Wave Oscillator](Triangular%20Wave%20Oscillator)
+//: * [Phase Distortion Oscillator](Phase%20Distortion%20Oscillator)
+//: * [Pulse Width Modulation Oscillator](PWM%20Oscillator)
+//:
+//: Oscillators are the basis of many synths which also usually have envelopes:
+//:
+//: * [Amplitude Envelope](Amplitude%20Envelope)
+//: * [Filter Envelope](Filter%20Envelope)
+//:
+//: There are also oscillator banks which are a collection of oscillators 
+//: that allow you to play several notes at once (polyphony).
+//:
+//: * [Oscillator Bank](Oscillator%20Bank)
+//: * [FM Oscillator Bank](FM%20Oscillator%20Bank)
+//: * [Morphing Oscillator Bank](Morphing%20Oscillator%20Bank)
+//: * [Phase Distortion Oscillator Bank](Phase%20Distortion%20Oscillator%20Bank)
+//: * [Pulse Width Modulation Oscillator Bank](PWM%20Oscillator%20Bank)
 //:
 //: ### Noise Generators
 //:
-//: Two noise "colors" to start off with, but we aim to have a much larger spectrum soon.
+//: There are two noise "colors" to start off with, pink and white, 
+//: but we aim to have a much larger spectrum soon.
 //:
-//: * [Pink Noise Generator](Pink%20Noise%20Generator)
-//: * [White Noise Generator](White%20Noise%20Generator)
+//: * [Noise Generators](Noise%20Generators)
 //:
 //: ### Physical Models
 //:
-//: There are only a few of these to start off with, but we think they are a
-//: lot of fun and sound really good.  More on the way!
+//: These playgrounds highlight sound synthesis in which the intent is to
+//: to model a real-life sound, instrument, or object.
 //:
 //: * [Drawbar Organ](Drawbar%20Organ)
 //: * [Dripping Sounds](Dripping%20Sounds)
+//: * [Drum Synthesizers](Drum%20Synthesizers)
 //: * [Plucked String](Plucked%20String)
 //: * [Mandolin](Mandolin)
 //: * [Flute](Flute)
 //:
 //: ## Operations
 //:
-//: Operations are used to make the internals of a single node.
-//:
-//: * [Custom Generator](Custom%20Generator)
-//: * [Low-Frequency Oscillating of Parameters](Low-Frequency%20Oscillating%20of%20Parameters)
-//: * [Using Functions](Using%20Functions)
-//: * [Using Functions Part 2](Using%20Functions%20Part%202)
-//: * [Noise Operations](Noise%20Operations)
-//:
 //: Many of the types of things you can do in nodes are also possible with operations,
 //: but with great flexibility in how the parameters are changed over time.
 //:
-//: * [Bit Crush](Bit%20Crush%20Operation)
-//: * [Drum Synthesizers](Drum%20Synthesizers)
 //: * [FM Oscillator](FM%20Oscillator%20Operation)
-//: * [Linear and Exponential Segment Operations](Linear%20and%20Exponential%20Segment%20Operations)
+//: * [Segment Operations](Segment%20Operations)
 //: * [Noise](Noise%20Operations)
 //: * [Phasor](Phasor%20Operation)
-//: * [Plucked String Operation](Plucked%20String%20Operation)
-//: * [Sawtooth Wave Oscillator Operation](Sawtooth%20Wave%20Oscillator%20Operation)
+//: * [Plucked String](Plucked%20String%20Operation)
+//: * [Sawtooth Wave Oscillator](Sawtooth%20Wave%20Oscillator%20Operation)
 //:
-//: ## Sporth
+//: ### Sporth
 //:
 //: Sporth is a simple but super-powerful stack-based audio processing language
-//: that you can run directly in AudioKit. Here are some examples.
+//: that you can run directly in AudioKit. This playground contains several examples of sound synthesis with Sporth.
 //:
 //: * [Sporth Based Generator](Sporth%20Based%20Generator)
-//:
-//: ## Development
-//:
-//: These playgrounds are here basically for us to work on future AudioKit developments.
-//: Proceed with caution!
-//:
-
-//:
-//: Hey you got all the way to the bottom of this file, why not let us know by
-//: emailing audiokit@audiokit.io.  We'd love to hear from you!
 //:

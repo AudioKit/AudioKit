@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Telephone
 //: ### AudioKit is great for sound design. Here, we show you how to create some telephone sounds.
 import XCPlayground
@@ -99,7 +95,7 @@ class PlaygroundView: AKPlaygroundView {
                         ringing.start()
                     }
                 }
-                
+
             case "BUSY":
                 if state == "down" {
                     ringing.stop()
@@ -130,4 +126,3 @@ class PlaygroundView: AKPlaygroundView {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

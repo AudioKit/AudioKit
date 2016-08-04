@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Plucked String Operation
 //: ### Experimenting with a physical model of a string
 import XCPlayground
@@ -45,4 +41,3 @@ AKPlaygroundLoop(frequency: playRate) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Node Output Plot
 //: ### What's interesting here is that we're plotting the waveform BEFORE the delay is processed
 import XCPlayground
@@ -26,7 +22,7 @@ player.play()
 public class PlaygroundView: AKPlaygroundView {
     public override func setup() {
         addTitle("Node Output Plots")
-        
+
         addLabel("This is the output of the player")
         let plot = AKNodeOutputPlot(player, frame: CGRect.init(x: 0, y: 0, width: 440, height: 300))
         plot.plotType = .Rolling
@@ -34,7 +30,7 @@ public class PlaygroundView: AKPlaygroundView {
         plot.shouldMirror = true
         plot.color = NSColor.blueColor()
         addSubview(plot)
-        
+
         addLabel("This is the output of the delay")
         let plot2 = AKNodeOutputPlot(delay, frame: CGRect.init(x: 0, y: 0, width: 440, height: 300))
         plot2.plotType = .Rolling
@@ -48,4 +44,3 @@ public class PlaygroundView: AKPlaygroundView {
 
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

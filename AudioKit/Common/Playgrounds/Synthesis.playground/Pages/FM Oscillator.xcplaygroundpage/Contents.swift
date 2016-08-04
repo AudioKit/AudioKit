@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## FM Oscillator
 //: ### Open the timeline view to use the controls this playground sets up.
 //:
@@ -15,7 +11,7 @@ AudioKit.output = oscillator
 AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView {
-    
+
     // UI Elements we'll need to be able to access
     var frequencySlider: AKPropertySlider?
     var carrierMultiplierSlider: AKPropertySlider?
@@ -23,14 +19,14 @@ class PlaygroundView: AKPlaygroundView {
     var modulationIndexSlider: AKPropertySlider?
     var amplitudeSlider: AKPropertySlider?
     var rampTimeSlider: AKPropertySlider?
-    
-    
-    
+
+
+
     override func setup() {
         addTitle("FM Oscillator")
-        
+
         addSubview(AKBypassButton(node: oscillator))
-        
+
         let presets = ["Stun Ray", "Wobble", "Fog Horn", "Buzzer", "Spiral"]
         addSubview(AKPresetLoaderView(presets: presets) { preset in
             switch preset {
@@ -59,14 +55,14 @@ class PlaygroundView: AKPlaygroundView {
             self.rampTimeSlider?.value             = oscillator.rampTime
             }
         )
-        
+
         addSubview(AKButton(title: "Randomize") {
             oscillator.baseFrequency = self.frequencySlider!.randomize()
             oscillator.carrierMultiplier = self.carrierMultiplierSlider!.randomize()
             oscillator.modulatingMultiplier = self.modulatingMultiplierSlider!.randomize()
             oscillator.modulationIndex = self.modulationIndexSlider!.randomize()
         })
-        
+
         frequencySlider = AKPropertySlider(
             property: "Frequency",
             format: "%0.2f Hz",
@@ -76,7 +72,7 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.baseFrequency = frequency
         }
         addSubview(frequencySlider!)
-        
+
         carrierMultiplierSlider = AKPropertySlider(
             property: "Carrier Multiplier",
             format: "%0.3f",
@@ -86,7 +82,7 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.carrierMultiplier = multiplier
         }
         addSubview(carrierMultiplierSlider!)
-        
+
         modulatingMultiplierSlider = AKPropertySlider(
             property: "Modulating Multiplier",
             format: "%0.3f",
@@ -96,7 +92,7 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.modulatingMultiplier = multiplier
         }
         addSubview(modulatingMultiplierSlider!)
-        
+
         modulationIndexSlider = AKPropertySlider(
             property: "Modulation Index",
             format: "%0.3f",
@@ -106,8 +102,8 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.modulationIndex = index
         }
         addSubview(modulationIndexSlider!)
-        
-        
+
+
         amplitudeSlider = AKPropertySlider(
             property: "Amplitude",
             format: "%0.3f",
@@ -117,7 +113,7 @@ class PlaygroundView: AKPlaygroundView {
             oscillator.amplitude = amplitude
         }
         addSubview(amplitudeSlider!)
-        
+
         rampTimeSlider = AKPropertySlider(
             property: "Ramp Time",
             format: "%0.3f s",
@@ -132,4 +128,3 @@ class PlaygroundView: AKPlaygroundView {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

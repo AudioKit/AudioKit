@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Sawtooth Wave Oscillator Operation
 //: ### Maybe the most annoying sound ever. Sorry.
 import XCPlayground
@@ -21,5 +17,3 @@ AudioKit.start()
 generator.start()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

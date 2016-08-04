@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Oscillator
 //: ### This oscillator can be loaded with a wavetable of your own design,
 //: ### or with one of the defaults.
@@ -42,7 +38,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
 
         addTitle("General Purpose Oscillator")
-        
+
         addSubview(AKPropertySlider(
             property: "Amplitude",
             value: currentAmplitude,
@@ -50,7 +46,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         ) { amplitude in
             currentAmplitude = amplitude
             })
-        
+
         addSubview(AKPropertySlider(
             property: "Ramp Time",
             value: currentRampTime, maximum: 0.1,
@@ -88,4 +84,3 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

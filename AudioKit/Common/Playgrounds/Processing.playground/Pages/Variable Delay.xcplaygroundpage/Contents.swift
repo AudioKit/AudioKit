@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Variable Delay
 //: ### When you smoothly vary effect parameters, you get completely new kinds of effects.
 import XCPlayground
@@ -36,5 +32,3 @@ AKPlaygroundLoop(every: timeStep) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -13,11 +13,11 @@ public typealias Label = AKLabel
 
 
 public class AKLabel: NSTextField {
-    
+
     override public init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
     }
-    
+
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,31 +38,33 @@ public let processingPlaygroundFiles = [
     "mixloop.wav",
     "counting.mp3"]
 
+public let playbackPlaygroundFIles = ["drumloop.wav", "poney.mp3"]
+
 public class AKPlaygroundView: NSView {
-    
-    
-    
+
+
+
     public var elementHeight: CGFloat = 30
     public var spacing = 25
     private var potentialSubviews = [NSView]()
-    
+
     public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         setup()
     }
-    
+
     public convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 500, height: 1000))
     }
-    
+
     public func setup() {}
-    
+
     override public func drawRect(dirtyRect: NSRect) {
         NSColor.whiteColor().setFill()
         NSRectFill(dirtyRect)
         super.drawRect(dirtyRect)
     }
-    
+
     public func addTitle(text: String) -> NSTextField {
         let newLabel = NSTextField(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width - 60, height: elementHeight))
@@ -75,7 +77,7 @@ public class AKPlaygroundView: NSView {
         self.addSubview(newLabel)
         return newLabel
     }
-    
+
     public func addLabel(text: String) -> AKLabel {
         let newLabel = AKLabel(frame:
             CGRect(x: 0, y: 0, width: self.bounds.width, height: elementHeight))
@@ -87,7 +89,7 @@ public class AKPlaygroundView: NSView {
         self.addSubview(newLabel)
         return newLabel
     }
-    
+
     public override func addSubview(view: NSView) {
         subviews.removeAll()
         potentialSubviews.append(view)
@@ -103,8 +105,8 @@ public class AKPlaygroundView: NSView {
         }
         frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: CGFloat(yPosition))
     }
-    
-    
+
+
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
