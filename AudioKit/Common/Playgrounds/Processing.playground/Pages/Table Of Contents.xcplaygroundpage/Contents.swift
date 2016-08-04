@@ -43,14 +43,13 @@
 //: changing the signal's output levels.
 //:
 //: * [Clipper](Clipper)
+//: * [Compressorr](Compressor)
 //: * [Dynamics Processor](Dynamics%20Processor)
+//: * [Expander](Expander)
 //: * [Peak Limiter](Peak%20Limiter)
-//: * [Tremolo](Tremolo)
-//: * [3D Panner](3D%20Panner)
 //:
 //: ### Filters
 //:
-//: * [Amplitude Envelope](Amplitude%20Envelope)
 //: * [Auto Wah Wah](Auto%20Wah%20Wah)
 //: * [Band Pass Butterworth Filter](Band%20Pass%20Butterworth%20Filter)
 //: * [Band Pass Filter](Band%20Pass%20Filter)
@@ -71,6 +70,8 @@
 //: * [String Resonator](String%20Resonator)
 //: * [Three-Pole Low Pass Filter](Three-Pole%20Low%20Pass%20Filter)
 //: * [Tone and Tone Complement Filters](Tone%20and%20Tone%20Complement%20Filters)
+//: * [Tremolo](Tremolo)
+//: * [3D Panner](3D%20Panner)
 //:
 //: ### Reverb
 //:
