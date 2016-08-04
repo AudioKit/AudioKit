@@ -58,6 +58,7 @@
         <page name='Tremolo'/>
         <page name='Variable Delay'/>
         <page name='Variable Delay Operation'/>
+        <page name='Vocoder'/>
         <page name='3D Panner'/>
     </pages>
 </playground>
