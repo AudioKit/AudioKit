@@ -123,7 +123,6 @@
 		C437927B1C0CE2E0001E9160 /* AudioKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C437927A1C0CE2E0001E9160 /* AudioKitTests.swift */; };
 		C437927D1C0CE2E0001E9160 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F35001C057E03000E937C /* AudioKit.framework */; };
 		C44243061D4B0FEE00C4182C /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */; };
-		C44243081D4B102100C4182C /* AKFlatSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44243071D4B102100C4182C /* AKFlatSlider.swift */; };
 		C446B3EC1D454AB6000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */; };
 		C446B3EE1D454AB6000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */; };
 		C44B596D1C4B04BF0008507F /* segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44B596C1C4B04BF0008507F /* segment.swift */; };
@@ -831,7 +830,6 @@
 		C437927A1C0CE2E0001E9160 /* AudioKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKitTests.swift; sourceTree = "<group>"; };
 		C437927C1C0CE2E0001E9160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C44243051D4B0FEE00C4182C /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
-		C44243071D4B102100C4182C /* AKFlatSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatSlider.swift; sourceTree = "<group>"; };
 		C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
 		C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKeyboardView.swift; sourceTree = "<group>"; };
 		C44B596C1C4B04BF0008507F /* segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segment.swift; sourceTree = "<group>"; };
@@ -1889,7 +1887,6 @@
 				C47A62691D4D6E25001980B7 /* AKBypassButton.swift */,
 				C49A09FC1D529742007D8ADB /* AKADSRView.swift */,
 				C4E120AB1D4DBD6300CD3572 /* AKButton.swift */,
-				C44243071D4B102100C4182C /* AKFlatSlider.swift */,
 				C446B3E91D454AB6000AEFCA /* AKKeyboardView.swift */,
 				C446B3E71D454AB6000AEFCA /* AKPlaygroundLoop.swift */,
 				C4E120A91D4D95AB00CD3572 /* AKPlaygroundView.swift */,
@@ -3959,7 +3956,6 @@
 				C48C6D301D3C15F2008EA51B /* tog.c in Sources */,
 				C48C6D021D3C15F2008EA51B /* maygate.c in Sources */,
 				C4537FE41C3A438D00A51738 /* AKPeakingParametricEqualizerFilterAudioUnit.mm in Sources */,
-				C44243081D4B102100C4182C /* AKFlatSlider.swift in Sources */,
 				C40C416B1C40E3A5009D870B /* EZRecorder.m in Sources */,
 				C48C6CFD1D3C15F2008EA51B /* jitter.c in Sources */,
 				C4537FB31C3A438D00A51738 /* AKBandRejectButterworthFilterAudioUnit.mm in Sources */,

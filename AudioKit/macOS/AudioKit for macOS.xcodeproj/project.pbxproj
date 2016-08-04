@@ -690,7 +690,6 @@
 		C47E640A1D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E64091D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift */; };
 		C47E640C1D4D895F0044B028 /* AKBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E640B1D4D895F0044B028 /* AKBypassButton.swift */; };
 		C47E640E1D4D8CE50044B028 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */; };
-		C48BF9D11D47383D009F1B7C /* AKFlatSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */; };
 		C49A09FA1D514822007D8ADB /* AKADSRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A09F91D514822007D8ADB /* AKADSRView.swift */; };
 		C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */; };
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
@@ -1386,7 +1385,6 @@
 		C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
 		C480BEFF1D4E150800204FDF /* Processing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Processing.playground; path = ../../../Common/Playgrounds/Processing.playground; sourceTree = "<group>"; };
 		C480BF001D4E150800204FDF /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Synthesis.playground; path = ../../../Common/Playgrounds/Synthesis.playground; sourceTree = "<group>"; };
-		C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKFlatSlider.swift; sourceTree = "<group>"; };
 		C49A09F91D514822007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C4A0855C1D4F1DB100514F8A /* AdvancedPlayback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AdvancedPlayback.playground; path = ../../../Common/Playgrounds/AdvancedPlayback.playground; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
@@ -1445,7 +1443,6 @@
 				C4E120AD1D4DF39B00CD3572 /* AKButton.swift */,
 				C49A09F91D514822007D8ADB /* AKADSRView.swift */,
 				C47E640B1D4D895F0044B028 /* AKBypassButton.swift */,
-				C48BF9D01D47383D009F1B7C /* AKFlatSlider.swift */,
 				C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */,
 				C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */,
 				C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */,
@@ -3552,7 +3549,6 @@
 				C45667DB1D448D7E00D26565 /* FileWvIn.cpp in Sources */,
 				C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */,
 				C45669761D448D7E00D26565 /* AKOscillator.swift in Sources */,
-				C48BF9D11D47383D009F1B7C /* AKFlatSlider.swift in Sources */,
 				C45667181D448D7E00D26565 /* phaser.c in Sources */,
 				C45666BA1D448D7E00D26565 /* EZAudioFloatConverter.m in Sources */,
 				C456675D1D448D7E00D26565 /* bitcrush.c in Sources */,
