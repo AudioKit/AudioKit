@@ -13,6 +13,7 @@
         <page name='Clipper'/>
         <page name='Clip Operation'/>
         <page name='Comb Filter Reverb'/>
+        <page name='Compressor'/>
         <page name='Convolution'/>
         <page name='Costello Reverb'/>
         <page name='Costello Reverb Operation'/>
@@ -20,6 +21,7 @@
         <page name='Delay'/>
         <page name='Distortion'/>
         <page name='Dynamics Processor'/>
+        <page name='Expander'/>
         <page name='Fatten Effect'/>
         <page name='Filter Section Example'/>
         <page name='Flat Frequency Response Reverb'/>
