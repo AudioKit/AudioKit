@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Dripping Sounds
 //: ### Physical model of a water drop letting hitting a pool.
 //: ### What's this good for?  We don't know, but hey it's cool. :)
@@ -23,4 +19,3 @@ AKPlaygroundLoop(frequency: playRate) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

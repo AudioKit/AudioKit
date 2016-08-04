@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Segment Operations
 //: ### You can create segments that vary parameters in operations linearly or exponentially over a certain duration.
 //: ### Here we create an alien apocalypse.
@@ -64,5 +60,3 @@ class PlaygroundView: AKPlaygroundView {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

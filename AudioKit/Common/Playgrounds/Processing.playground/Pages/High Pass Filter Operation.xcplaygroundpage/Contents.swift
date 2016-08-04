@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## High Pass Filter Operation
 //:
 import XCPlayground
@@ -36,5 +32,3 @@ player.play()
 
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

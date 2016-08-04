@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Sporth Based Generator
 //: ### You can create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth).
 //: ### With this playground you can load up a few demonstration sporth patches to try out.
@@ -19,10 +15,10 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     var p2Slider: AKPropertySlider?
     var p3Slider: AKPropertySlider?
     var keyboard: AKKeyboardView?
-    
+
     override func setup() {
         addTitle("Sporth Generators")
-        
+
         addLabel("Choose one of the Sporth files:")
 
         let sporthFiles = ["Aurora",
@@ -47,7 +43,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                 sliders[i]?.property = "Parameter \(i)"
                 sliders[i]?.value = 0.0
             }
-            
+
             // Process the comments in the file to customize the UI
             search: for  line in sporth!.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet())
             {
@@ -72,7 +68,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                     }
                 }
             }
-            
+
             })
         addLabel("Open up the console view to see the Sporth code.")
 
@@ -110,14 +106,14 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.delegate = self
         addSubview(keyboard!)
     }
-    
-    
+
+
     func noteOn(note: MIDINoteNumber) {
         generator.parameters[4] = 1
         generator.parameters[5] = Double(note)
-        
+
     }
-    
+
     func noteOff(note: MIDINoteNumber) {
         generator.parameters[4] = 0
     }
@@ -135,5 +131,3 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

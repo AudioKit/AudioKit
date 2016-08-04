@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## MultiDelay Example
 //: ### This is similar to the MultiDelay implemented in the Analog Synth X example project.
 import XCPlayground
@@ -46,4 +42,3 @@ player.play()
 
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

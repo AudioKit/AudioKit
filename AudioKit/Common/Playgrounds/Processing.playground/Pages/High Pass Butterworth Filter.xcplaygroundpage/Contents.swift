@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## High Pass Butterworth Filter
 //: ### A high-pass filter takes an audio signal as an input, and cuts out the
 //: ### low-frequency components of the audio signal, allowing for the higher frequency
@@ -51,5 +47,3 @@ class PlaygroundView: AKPlaygroundView {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

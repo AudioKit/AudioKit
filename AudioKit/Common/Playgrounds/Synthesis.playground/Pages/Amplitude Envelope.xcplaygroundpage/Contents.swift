@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Amplitude Envelope
 //: ### Enveloping an FM Oscillator with an ADSR envelope
 import XCPlayground
@@ -20,7 +16,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     override func setup() {
 
         addTitle("ADSR Envelope")
-        
+
         let adsrView = AKADSRView(node: fmWithADSR) {
             att, dec, sus, rel in
             fmWithADSR.attackDuration = att
@@ -33,21 +29,21 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         adsrView.releaseDuration = fmWithADSR.releaseDuration
         adsrView.sustainLevel    = fmWithADSR.sustainLevel
         addSubview(adsrView)
-        
+
         let plot = AKRollingOutputPlot.createView(width: 440, height: 330)
         addSubview(plot)
-        
+
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.polyphonicMode = false
         keyboard.delegate = self
         addSubview(keyboard)
 
     }
-    
+
     func noteOn(note: MIDINoteNumber) {
         fmWithADSR.play(noteNumber: note, velocity: 80)
     }
-    
+
     func noteOff(note: MIDINoteNumber) {
         fmWithADSR.stop(noteNumber: note)
     }
@@ -56,5 +52,3 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

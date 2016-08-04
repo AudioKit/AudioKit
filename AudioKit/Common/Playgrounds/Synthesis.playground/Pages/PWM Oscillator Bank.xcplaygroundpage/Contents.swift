@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## PWM Oscillator Bank
 
 import XCPlayground
@@ -15,7 +11,7 @@ AudioKit.start()
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
     var keyboard: AKKeyboardView?
-    
+
     override func setup() {
         addTitle("PWM Oscillator Bank")
 
@@ -66,7 +62,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
         addSubview(keyboard!)
-        
+
         addSubview(AKButton(title: "Toggle Polyphony") {
             self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
             })
@@ -85,5 +81,3 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

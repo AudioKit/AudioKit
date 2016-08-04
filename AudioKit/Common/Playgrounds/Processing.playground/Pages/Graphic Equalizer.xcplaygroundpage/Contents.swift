@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Graphic Equalizer
 //: ### This playground builds a graphic equalizer from a set of equalizer filters
 import XCPlayground
@@ -65,5 +61,3 @@ class PlaygroundView: AKPlaygroundView {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

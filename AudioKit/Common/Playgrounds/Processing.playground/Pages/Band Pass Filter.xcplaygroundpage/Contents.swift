@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Band Pass Filter
 //: ### Band-pass filters allow audio above a specified frequency range and
 //: ### bandwidth to pass through to an output. The center frequency is the starting point
@@ -63,5 +59,3 @@ class PlaygroundView: AKPlaygroundView {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Sporth Based Effect
 //: ### You can create nodes for AudioKit using [Sporth](https://github.com/PaulBatchelor/Sporth).
 //: ### This is an example of an effect written in Sporth.
@@ -24,5 +20,3 @@ AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

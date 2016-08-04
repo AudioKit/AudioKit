@@ -74,7 +74,7 @@ public class AKRollingOutputPlot: EZAudioPlot {
         plot.backgroundColor = AKColor.whiteColor()
         plot.color = AKColor.greenColor()
         plot.shouldFill = true
-        plot.shouldMirror = true
+        plot.shouldMirror = false
         plot.shouldCenterYAxis = true
 
         let containerView = AKView(frame: frame)

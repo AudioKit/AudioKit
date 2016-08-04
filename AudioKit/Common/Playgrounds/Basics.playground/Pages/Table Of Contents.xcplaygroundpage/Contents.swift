@@ -9,10 +9,12 @@
 //: ## Basic Tutorials
 //:
 //: These tutorials help you get started with the basic concepts of AudioKit,
-//: starting with what you need to know about playgrounds in general and then
-//: moving on to sound creation and working with AudioKit nodes.
+//: starting with what you need to know about playgrounds in general:
 //:
 //: * [Non-Audio Tutorial](Non-Audio%20Tutorial)
+//:
+//: Then, moving on to working with AudioKit nodes:
+//:
 //: * [Connecting Nodes](Connecting%20Nodes)
 //: * [Mixing Nodes](Mixing%20Nodes)
 //: * [Splitting Nodes](Splitting%20Nodes)
@@ -20,3 +22,12 @@
 //: * [Balancing Nodes](Balancing%20Nodes)
 //: * [Stereo Panning](Stereo%20Panning)
 //: * [Parameter Ramp Time](Parameter%20Ramp%20Time)
+//:
+//: A gentle introduction to the power of AudioKit operations:
+//:
+//: * [Metronome](Metronome)
+//: * [Low-Frequency Oscillating of Parameters](Low-Frequency%20Oscillating%20of%20Parameters)
+//: * [Using Functions](Using%20Functions)
+//: * [Using Functions Part 2](Using%20Functions%20Part%202)
+//: * [Stereo Operation](Stereo%20Operation)
+

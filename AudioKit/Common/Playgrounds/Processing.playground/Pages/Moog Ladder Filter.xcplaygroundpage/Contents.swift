@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Moog Ladder Filter
 //: ### One of the coolest filters available in AudioKit is the Moog Ladder.
 //: ### It's based off of Robert Moog's iconic ladder filter, which was the
@@ -63,5 +59,3 @@ class PlaygroundView: AKPlaygroundView {
 }
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

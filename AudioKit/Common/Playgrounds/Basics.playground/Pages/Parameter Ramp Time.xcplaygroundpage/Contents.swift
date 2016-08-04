@@ -3,7 +3,10 @@
 //: ---
 //:
 //: ## Parameter Ramp Time
-//: ### Ramping to values at different rates
+//: ### Most AudioKit nodes have parameters that you can change.
+//: ### Its very common need to change these parameters in a smooth way
+//: ### to avoid pops and clicks, so you can set a ramp time to slow the 
+//: ### variation of a property from its current value to its next.
 import XCPlayground
 import AudioKit
 

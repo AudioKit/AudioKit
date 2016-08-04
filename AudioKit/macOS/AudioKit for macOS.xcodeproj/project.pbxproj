@@ -1386,7 +1386,7 @@
 		C480BEFF1D4E150800204FDF /* Processing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Processing.playground; path = ../../../Common/Playgrounds/Processing.playground; sourceTree = "<group>"; };
 		C480BF001D4E150800204FDF /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Synthesis.playground; path = ../../../Common/Playgrounds/Synthesis.playground; sourceTree = "<group>"; };
 		C49A09F91D514822007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
-		C4A0855C1D4F1DB100514F8A /* AdvancedPlayback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AdvancedPlayback.playground; path = ../../../Common/Playgrounds/AdvancedPlayback.playground; sourceTree = "<group>"; };
+		C4A0855C1D4F1DB100514F8A /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playback.playground; path = ../../../Common/Playgrounds/Playback.playground; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DABC471D4F065D00A8942F /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Analysis.playground; path = ../../../Common/Playgrounds/Analysis.playground; sourceTree = "<group>"; };
 		C4DABC491D4F0C9A00A8942F /* Basics.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Basics.playground; path = ../../../Common/Playgrounds/Basics.playground; sourceTree = "<group>"; };
@@ -1430,7 +1430,7 @@
 				C480BF001D4E150800204FDF /* Synthesis.playground */,
 				C480BEFF1D4E150800204FDF /* Processing.playground */,
 				C4DABC471D4F065D00A8942F /* Analysis.playground */,
-				C4A0855C1D4F1DB100514F8A /* AdvancedPlayback.playground */,
+				C4A0855C1D4F1DB100514F8A /* Playback.playground */,
 				C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */,
 			);
 			name = Playgrounds;

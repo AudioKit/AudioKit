@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Tracking Frequency of an Audio File
 //: ### Here is a more real-world example of tracking the pitch of an audio stream
 import XCPlayground
@@ -25,5 +21,3 @@ AKPlaygroundLoop(every: 0.1) {
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

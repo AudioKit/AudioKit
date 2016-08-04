@@ -9,6 +9,18 @@
 import UIKit
 public typealias Label = UILabel
 
+public let processingPlaygroundFiles = [
+    "Acid Full.mp3",
+    "Acid Drums.mp3",
+    "Acid Bass.mp3",
+    "80s Synth.mp3",
+    "Lo-Fi Synth.mp3",
+    "African.mp3",
+    "mixloop.wav",
+    "counting.mp3"]
+
+public let playbackPlaygroundFiles = ["drumloop.wav", "poney.mp3"]
+
 public class AKPlaygroundView: UIView {
     
     public var elementHeight: CGFloat = 30

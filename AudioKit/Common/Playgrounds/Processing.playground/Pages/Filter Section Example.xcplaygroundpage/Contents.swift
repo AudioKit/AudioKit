@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Filter Section
 //: ### This playgrounds was the development area for the filter in the Analog Synth X example project.
 import XCPlayground
@@ -34,4 +30,3 @@ AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

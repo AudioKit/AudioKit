@@ -1297,8 +1297,8 @@
 		C49A09E11D509984007D8ADB /* pdhalf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pdhalf.c; sourceTree = "<group>"; };
 		C49A09E31D509990007D8ADB /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
 		C49A09E51D50999A007D8ADB /* smoothdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smoothdelay.c; sourceTree = "<group>"; };
-		C49A09FB1D5151B2007D8ADB /* AdvancedPlayback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = AdvancedPlayback.playground; path = ../../../Common/Playgrounds/AdvancedPlayback.playground; sourceTree = "<group>"; };
 		C49A09FC1D529742007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
+		C49A0A001D53228B007D8ADB /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playback.playground; path = ../../../Common/Playgrounds/Playback.playground; sourceTree = "<group>"; };
 		C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillator.swift; sourceTree = "<group>"; };
 		C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPWMOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -1874,7 +1874,7 @@
 				C4D86EB01D4E148900563FF5 /* Synthesis.playground */,
 				C4D86EAF1D4E148900563FF5 /* Processing.playground */,
 				C4DABC481D4F068200A8942F /* Analysis.playground */,
-				C49A09FB1D5151B2007D8ADB /* AdvancedPlayback.playground */,
+				C49A0A001D53228B007D8ADB /* Playback.playground */,
 				C49024741D4AFE51001C4CBA /* iOSDevelopment.playground */,
 			);
 			name = Playgrounds;

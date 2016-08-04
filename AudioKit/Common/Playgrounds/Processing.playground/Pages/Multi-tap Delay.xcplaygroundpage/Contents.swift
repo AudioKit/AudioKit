@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Multi-tap Delay
 //: ### A multi-tap delay is a delay line where multiple 'taps' or outputs are
 //: ### taken from a delay buffer at different points, and the taps are then
@@ -34,4 +30,3 @@ AudioKit.start()
 player.play()
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

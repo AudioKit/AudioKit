@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Drum Synthesizers
 //: ### These can also be hooked up to MIDI or a sequencer.
 import XCPlayground
@@ -40,4 +36,3 @@ AKPlaygroundLoop(frequency: 4.44) {
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
