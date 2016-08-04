@@ -38,7 +38,13 @@ public let processingPlaygroundFiles = [
     "mixloop.wav",
     "counting.mp3"]
 
-public let playbackPlaygroundFIles = ["drumloop.wav", "poney.mp3"]
+public let playbackPlaygroundFiles = [
+    "mixloop.wav",
+    "poney.mp3",
+    "bassloop.wav",
+    "drumloop.wav",
+    "guitarloop.wav",
+    "leadloop.wav"]
 
 public class AKPlaygroundView: NSView {
 
