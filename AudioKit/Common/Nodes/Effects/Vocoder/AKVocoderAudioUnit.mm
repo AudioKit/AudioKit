@@ -10,7 +10,9 @@
 #import "AKVocoderDSPKernel.hpp"
 
 #import <AVFoundation/AVFoundation.h>
-#import "AKBufferedAudioBus.hpp"
+#import "BufferedAudioBus.hpp"
+
+#import <AudioKit/AudioKit-Swift.h>
 
 @interface AKVocoderAudioUnit()
 
@@ -27,17 +29,18 @@
     AKVocoderDSPKernel _kernel;
 
     BufferedInputBus _inputBus;
+    BufferedInputBus _exciteBus;
 }
 @synthesize parameterTree = _parameterTree;
 
-- (void)setAttacktime:(float)attackTime {
-    _kernel.setAttacktime(attackTime);
+- (void)setAttackTime:(float)attackTime {
+    _kernel.setAttackTime(attackTime);
 }
-- (void)setRel:(float)rel {
-    _kernel.setRel(rel);
+- (void)setReleaseTime:(float)releaseTime {
+    _kernel.setReleaseTime(releaseTime);
 }
-- (void)setBandwidthratio:(float)bandwidthRatio {
-    _kernel.setBandwidthratio(bandwidthRatio);
+- (void)setBandwidthRatio:(float)bandwidthRatio {
+    _kernel.setBandwidthRatio(bandwidthRatio);
 }
 
 
@@ -53,6 +56,10 @@
     return _kernel.started;
 }
 
+- (BOOL)isSetUp {
+    return _kernel.resetted;
+}
+
 - (instancetype)initWithComponentDescription:(AudioComponentDescription)componentDescription
                                      options:(AudioComponentInstantiationOptions)options
                                        error:(NSError **)outError {
@@ -63,8 +70,8 @@
     }
 
     // Initialize a default format for the busses.
-    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:44100.
-                                                                                  channels:2];
+    AVAudioFormat *defaultFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:AKSettings.sampleRate
+                                                                                  channels:AKSettings.numberOfChannels];
 
     // Create a DSP kernel to handle the signal processing.
     _kernel.init(defaultFormat.channelCount, defaultFormat.sampleRate);
@@ -76,19 +83,19 @@
                                            address:attackTimeAddress
                                                min:0.001
                                                max:0.5
-                                              unit:kAudioUnitParameterUnit_Generic
+                                              unit:kAudioUnitParameterUnit_Seconds
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
                                dependentParameters:nil];
-    // Create a parameter object for the rel.
-    AUParameter *relAUParameter =
-    [AUParameterTree createParameterWithIdentifier:@"rel"
-                                              name:@"Release time"
-                                           address:relAddress
+    // Create a parameter object for the releaseTime.
+    AUParameter *releaseTimeAUParameter =
+    [AUParameterTree createParameterWithIdentifier:@"releaseTime"
+                                              name:@"Release time (seconds)"
+                                           address:releaseTimeAddress
                                                min:0.001
                                                max:0.5
-                                              unit:kAudioUnitParameterUnit_Generic
+                                              unit:kAudioUnitParameterUnit_Seconds
                                           unitName:nil
                                              flags:0
                                       valueStrings:nil
@@ -106,45 +113,68 @@
                                       valueStrings:nil
                                dependentParameters:nil];
 
+
     // Initialize the parameter values.
     attackTimeAUParameter.value = 0.1;
-    relAUParameter.value = 0.1;
+    releaseTimeAUParameter.value = 0.1;
     bandwidthRatioAUParameter.value = 0.5;
 
-    _kernel.setParameter(attackTimeAddress,     attackTimeAUParameter.value);
-    _kernel.setParameter(relAddress,            relAUParameter.value);
-    _kernel.setParameter(bandwidthRatioAddress, bandwidthRatioAUParameter.value);
+    _rampTime = AKSettings.rampTime;
+
+    _kernel.setParameter(attackTimeAddress,       attackTimeAUParameter.value);
+    _kernel.setParameter(releaseTimeAddress,      releaseTimeAUParameter.value);
+    _kernel.setParameter(bandwidthRatioAddress,   bandwidthRatioAUParameter.value);
 
     // Create the parameter tree.
     _parameterTree = [AUParameterTree createTreeWithChildren:@[
         attackTimeAUParameter,
-        relAUParameter,
+        releaseTimeAUParameter,
         bandwidthRatioAUParameter
     ]];
 
     // Create the input and output busses.
     _inputBus.init(defaultFormat, 8);
+    _exciteBus.init(defaultFormat, 8);
     _outputBus = [[AUAudioUnitBus alloc] initWithFormat:defaultFormat error:nil];
 
     // Create the input and output bus arrays.
     _inputBusArray  = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeInput
-                                                              busses: @[_inputBus.bus]];
+                                                              busses: @[_inputBus.bus, _exciteBus.bus]];
     _outputBusArray = [[AUAudioUnitBusArray alloc] initWithAudioUnit:self
                                                              busType:AUAudioUnitBusTypeOutput
                                                               busses: @[_outputBus]];
 
     // Make a local pointer to the kernel to avoid capturing self.
-    __block AKVocoderDSPKernel *blockKernel = &_kernel;
+    __block AKVocoderDSPKernel *vocoderKernel = &_kernel;
 
     // implementorValueObserver is called when a parameter changes value.
     _parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
+        vocoderKernel->setParameter(param.address, value);
     };
 
     // implementorValueProvider is called when the value needs to be refreshed.
     _parameterTree.implementorValueProvider = ^(AUParameter *param) {
-        return blockKernel->getParameter(param.address);
+        return vocoderKernel->getParameter(param.address);
+    };
+
+    // A function to provide string representations of parameter values.
+    _parameterTree.implementorStringFromValueCallback = ^(AUParameter *param, const AUValue *__nullable valuePtr) {
+        AUValue value = valuePtr == nil ? param.value : *valuePtr;
+
+        switch (param.address) {
+            case attackTimeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case releaseTimeAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            case bandwidthRatioAddress:
+                return [NSString stringWithFormat:@"%.3f", value];
+
+            default:
+                return @"?";
+        }
     };
 
     self.maximumFramesToRender = 512;
@@ -177,24 +207,29 @@
         return NO;
     }
     _inputBus.allocateRenderResources(self.maximumFramesToRender);
+    _exciteBus.allocateRenderResources(self.maximumFramesToRender);
 
     _kernel.init(self.outputBus.format.channelCount, self.outputBus.format.sampleRate);
     _kernel.reset();
 
+    [self setUpParameterRamp];
+
+    return YES;
+}
+
+- (void)setUpParameterRamp {
     /*
      While rendering, we want to schedule all parameter changes. Setting them
      off the render thread is not thread safe.
      */
     __block AUScheduleParameterBlock scheduleParameter = self.scheduleParameterBlock;
 
-    // Ramp over 20 milliseconds.
-    __block AUAudioFrameCount rampTime = AUAudioFrameCount(0.02 * self.outputBus.format.sampleRate);
+    // Ramp over rampTime in seconds.
+    __block AUAudioFrameCount rampTime = AUAudioFrameCount(_rampTime * self.outputBus.format.sampleRate);
 
     self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
         scheduleParameter(AUEventSampleTimeImmediate, rampTime, param.address, value);
     };
-
-    return YES;
 }
 
 - (void)deallocateRenderResources {
@@ -202,14 +237,7 @@
     _kernel.destroy();
 
     _inputBus.deallocateRenderResources();
-
-    // Make a local pointer to the kernel to avoid capturing self.
-    __block AKVocoderDSPKernel *blockKernel = &_kernel;
-
-    // Go back to setting parameters instead of scheduling them.
-    self.parameterTree.implementorValueObserver = ^(AUParameter *param, AUValue value) {
-        blockKernel->setParameter(param.address, value);
-    };
+    _exciteBus.deallocateRenderResources();
 }
 
 - (AUInternalRenderBlock)internalRenderBlock {
@@ -219,6 +247,7 @@
      */
     __block AKVocoderDSPKernel *state = &_kernel;
     __block BufferedInputBus *input = &_inputBus;
+    __block BufferedInputBus *excite = &_exciteBus;
 
     return ^AUAudioUnitStatus(
                               AudioUnitRenderActionFlags *actionFlags,
@@ -235,9 +264,16 @@
         if (err != 0) {
             return err;
         }
+        
+        AUAudioUnitStatus err2 = excite->pullInput(&pullFlags, timestamp, frameCount, 1, pullInputBlock);
+        
+        if (err2 != 0) {
+            return err2;
+        }
 
         AudioBufferList *inAudioBufferList = input->mutableAudioBufferList;
-
+        AudioBufferList *exciteAudioBufferList = excite->mutableAudioBufferList;
+        
         /*
          If the caller passed non-nil output pointers, use those. Otherwise,
          process in-place in the input buffer. If your algorithm cannot process
@@ -251,7 +287,7 @@
             }
         }
 
-        state->setBuffers(inAudioBufferList, outAudioBufferList);
+        state->setBuffers(inAudioBufferList, exciteAudioBufferList, outAudioBufferList);
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
 
         return noErr;

@@ -590,6 +590,10 @@
 		C49A09E41D509990007D8ADB /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E31D509990007D8ADB /* print.c */; };
 		C49A09E61D50999A007D8ADB /* smoothdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C49A09E51D50999A007D8ADB /* smoothdelay.c */; };
 		C49A09FD1D529742007D8ADB /* AKADSRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A09FC1D529742007D8ADB /* AKADSRView.swift */; };
+		C49A0A061D53E0C3007D8ADB /* AKVocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A021D53E0C3007D8ADB /* AKVocoder.swift */; };
+		C49A0A071D53E0C3007D8ADB /* AKVocoderAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A031D53E0C3007D8ADB /* AKVocoderAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49A0A081D53E0C3007D8ADB /* AKVocoderAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A041D53E0C3007D8ADB /* AKVocoderAudioUnit.mm */; };
+		C49A0A091D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A051D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp */; };
 		C49D69561D1F1C6500BF018A /* AKPWMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */; };
 		C49D69571D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49D69581D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */; };
@@ -1299,6 +1303,10 @@
 		C49A09E51D50999A007D8ADB /* smoothdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smoothdelay.c; sourceTree = "<group>"; };
 		C49A09FC1D529742007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C49A0A001D53228B007D8ADB /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playback.playground; path = ../../../Common/Playgrounds/Playback.playground; sourceTree = "<group>"; };
+		C49A0A021D53E0C3007D8ADB /* AKVocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocoder.swift; sourceTree = "<group>"; };
+		C49A0A031D53E0C3007D8ADB /* AKVocoderAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVocoderAudioUnit.h; sourceTree = "<group>"; };
+		C49A0A041D53E0C3007D8ADB /* AKVocoderAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKVocoderAudioUnit.mm; sourceTree = "<group>"; };
+		C49A0A051D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKVocoderDSPKernel.hpp; sourceTree = "<group>"; };
 		C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillator.swift; sourceTree = "<group>"; };
 		C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPWMOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -1803,6 +1811,7 @@
 				C42F358B1C057F4C000E937C /* Filters */,
 				C46809681CEECB6900ADFC05 /* Pitch Shifter */,
 				C46302B81C20E846009B44D9 /* Reverb */,
+				C49A0A011D53E0C3007D8ADB /* Vocoder */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -3001,6 +3010,17 @@
 			path = Booster;
 			sourceTree = "<group>";
 		};
+		C49A0A011D53E0C3007D8ADB /* Vocoder */ = {
+			isa = PBXGroup;
+			children = (
+				C49A0A021D53E0C3007D8ADB /* AKVocoder.swift */,
+				C49A0A031D53E0C3007D8ADB /* AKVocoderAudioUnit.h */,
+				C49A0A041D53E0C3007D8ADB /* AKVocoderAudioUnit.mm */,
+				C49A0A051D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp */,
+			);
+			path = Vocoder;
+			sourceTree = "<group>";
+		};
 		C49D694C1D1F1C6500BF018A /* PWM Oscillator */ = {
 			isa = PBXGroup;
 			children = (
@@ -3307,11 +3327,13 @@
 				C4537FEB1C3A438D00A51738 /* AKStringResonatorAudioUnit.h in Headers */,
 				C49D69701D1F1DE300BF018A /* AKFMOscillatorBankDSPKernel.hpp in Headers */,
 				C49D69591D1F1C6500BF018A /* AKPWMOscillatorDSPKernel.hpp in Headers */,
+				C49A0A091D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp in Headers */,
 				C40718121D211A2300665C02 /* Twang.h in Headers */,
 				C49D69571D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h in Headers */,
 				C40C41581C40E3A5009D870B /* EZAudioFloatConverter.h in Headers */,
 				C493520E1C3CBA6C00A28D7F /* AKBalancerDSPKernel.hpp in Headers */,
 				C48C6CC61D3C15F1008EA51B /* sporth.h in Headers */,
+				C49A0A071D53E0C3007D8ADB /* AKVocoderAudioUnit.h in Headers */,
 				C45380551C3A5A4300A51738 /* AKOperationGeneratorDSPKernel.hpp in Headers */,
 				C4537FAB1C3A438D00A51738 /* AKAutoWahDSPKernel.hpp in Headers */,
 				C4537F291C39D2A300A51738 /* AKBitCrusherAudioUnit.h in Headers */,
@@ -3765,6 +3787,7 @@
 				C48C6CDD1D3C15F1008EA51B /* butlp.c in Sources */,
 				C4AC8BD11C4E2960009EA58E /* AKExpander.swift in Sources */,
 				C4A916121C24ED23006C1A15 /* pluckedString.swift in Sources */,
+				C49A0A061D53E0C3007D8ADB /* AKVocoder.swift in Sources */,
 				C48C6C8F1D3C15F1008EA51B /* pdhalf.c in Sources */,
 				C4C136F11C2F94A00026FD7A /* AKStereoOperation.swift in Sources */,
 				C468096D1CEECB6900ADFC05 /* AKPitchShifter.swift in Sources */,
@@ -3780,6 +3803,7 @@
 				C45380421C3A599F00A51738 /* AKFrequencyTrackerAudioUnit.mm in Sources */,
 				C407163C1D21164E00665C02 /* Fir.cpp in Sources */,
 				5251477B1CC4AD7E00421C52 /* AKNotifications.swift in Sources */,
+				C49A0A081D53E0C3007D8ADB /* AKVocoderAudioUnit.mm in Sources */,
 				C48C6CCF1D3C15F1008EA51B /* argtbl.c in Sources */,
 				C48C6CB21D3C15F1008EA51B /* thresh.c in Sources */,
 				C48C6C6D1D3C15F1008EA51B /* dmetro.c in Sources */,

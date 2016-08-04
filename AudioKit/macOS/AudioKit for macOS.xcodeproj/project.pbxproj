@@ -691,6 +691,10 @@
 		C47E640C1D4D895F0044B028 /* AKBypassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E640B1D4D895F0044B028 /* AKBypassButton.swift */; };
 		C47E640E1D4D8CE50044B028 /* AKPresetLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */; };
 		C49A09FA1D514822007D8ADB /* AKADSRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A09F91D514822007D8ADB /* AKADSRView.swift */; };
+		C49A0A0F1D53F2AC007D8ADB /* AKVocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A0B1D53F2AC007D8ADB /* AKVocoder.swift */; };
+		C49A0A101D53F2AC007D8ADB /* AKVocoderAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A0C1D53F2AC007D8ADB /* AKVocoderAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49A0A111D53F2AC007D8ADB /* AKVocoderAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A0D1D53F2AC007D8ADB /* AKVocoderAudioUnit.mm */; };
+		C49A0A121D53F2AC007D8ADB /* AKVocoderDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A0E1D53F2AC007D8ADB /* AKVocoderDSPKernel.hpp */; };
 		C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */; };
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
 		C4E120AE1D4DF39B00CD3572 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AD1D4DF39B00CD3572 /* AKButton.swift */; };
@@ -1386,6 +1390,10 @@
 		C480BEFF1D4E150800204FDF /* Processing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Processing.playground; path = ../../../Common/Playgrounds/Processing.playground; sourceTree = "<group>"; };
 		C480BF001D4E150800204FDF /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Synthesis.playground; path = ../../../Common/Playgrounds/Synthesis.playground; sourceTree = "<group>"; };
 		C49A09F91D514822007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
+		C49A0A0B1D53F2AC007D8ADB /* AKVocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocoder.swift; sourceTree = "<group>"; };
+		C49A0A0C1D53F2AC007D8ADB /* AKVocoderAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVocoderAudioUnit.h; sourceTree = "<group>"; };
+		C49A0A0D1D53F2AC007D8ADB /* AKVocoderAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKVocoderAudioUnit.mm; sourceTree = "<group>"; };
+		C49A0A0E1D53F2AC007D8ADB /* AKVocoderDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKVocoderDSPKernel.hpp; sourceTree = "<group>"; };
 		C4A0855C1D4F1DB100514F8A /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playback.playground; path = ../../../Common/Playgrounds/Playback.playground; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DABC471D4F065D00A8942F /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Analysis.playground; path = ../../../Common/Playgrounds/Analysis.playground; sourceTree = "<group>"; };
@@ -2090,6 +2098,7 @@
 				C45665321D448D7E00D26565 /* Filters */,
 				C456659F1D448D7E00D26565 /* Pitch Shifter */,
 				C45665A41D448D7E00D26565 /* Reverb */,
+				C49A0A0A1D53F2AC007D8ADB /* Vocoder */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -3235,6 +3244,17 @@
 			path = "../Common/User Interface";
 			sourceTree = "<group>";
 		};
+		C49A0A0A1D53F2AC007D8ADB /* Vocoder */ = {
+			isa = PBXGroup;
+			children = (
+				C49A0A0B1D53F2AC007D8ADB /* AKVocoder.swift */,
+				C49A0A0C1D53F2AC007D8ADB /* AKVocoderAudioUnit.h */,
+				C49A0A0D1D53F2AC007D8ADB /* AKVocoderAudioUnit.mm */,
+				C49A0A0E1D53F2AC007D8ADB /* AKVocoderDSPKernel.hpp */,
+			);
+			path = Vocoder;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3273,6 +3293,7 @@
 				C45668F31D448D7E00D26565 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
 				C45668E61D448D7E00D26565 /* AKTremoloDSPKernel.hpp in Headers */,
 				C456692D1D448D7E00D26565 /* AKStringResonatorDSPKernel.hpp in Headers */,
+				C49A0A121D53F2AC007D8ADB /* AKVocoderDSPKernel.hpp in Headers */,
 				C45669491D448D7E00D26565 /* AKConvolutionAudioUnit.h in Headers */,
 				C456695E1D448D7E00D26565 /* AKPinkNoiseAudioUnit.h in Headers */,
 				C456692F1D448D7E00D26565 /* AKThreePoleLowpassFilterAudioUnit.h in Headers */,
@@ -3396,6 +3417,7 @@
 				C45669011D448D7E00D26565 /* AKHighPassButterworthFilterAudioUnit.h in Headers */,
 				C45669A11D448D7E00D26565 /* AKPluckedStringAudioUnit.h in Headers */,
 				C456683B1D448D7E00D26565 /* SKINImsg.h in Headers */,
+				C49A0A101D53F2AC007D8ADB /* AKVocoderAudioUnit.h in Headers */,
 				C456674F1D448D7E00D26565 /* ugens.h in Headers */,
 				C45668FD1D448D7E00D26565 /* AKFormantFilterAudioUnit.h in Headers */,
 				C45668FB1D448D7E00D26565 /* AKEqualizerFilterDSPKernel.hpp in Headers */,
@@ -3531,6 +3553,7 @@
 				C45669671D448D7E00D26565 /* AKFMOscillatorAudioUnit.mm in Sources */,
 				C45666A11D448D7E00D26565 /* AKAudioFile+Peripherals.swift in Sources */,
 				C456673A1D448D7E00D26565 /* thresh.c in Sources */,
+				C49A0A111D53F2AC007D8ADB /* AKVocoderAudioUnit.mm in Sources */,
 				C45666E21D448D7E00D26565 /* biquad.c in Sources */,
 				C45667C01D448D7E00D26565 /* waveset.c in Sources */,
 				C45666A81D448D7E00D26565 /* AudioKitHelpers.swift in Sources */,
@@ -3981,6 +4004,7 @@
 				C45667041D448D7E00D26565 /* hilbert.c in Sources */,
 				C45669D71D448D7E00D26565 /* sineWave.swift in Sources */,
 				C45669F11D448D7E00D26565 /* AKFFTTap.swift in Sources */,
+				C49A0A0F1D53F2AC007D8ADB /* AKVocoder.swift in Sources */,
 				C456671F1D448D7E00D26565 /* progress.c in Sources */,
 				C45666F41D448D7E00D26565 /* dist.c in Sources */,
 				C45667241D448D7E00D26565 /* randi.c in Sources */,

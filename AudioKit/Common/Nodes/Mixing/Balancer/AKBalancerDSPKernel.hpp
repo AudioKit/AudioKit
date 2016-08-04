@@ -104,9 +104,9 @@ private:
     int inputChannels = 4;
     float sampleRate = AKSettings.sampleRate;
 
-    AudioBufferList* inBufferListPtr = nullptr;
-    AudioBufferList* compBufferListPtr = nullptr;
-    AudioBufferList* outBufferListPtr = nullptr;
+    AudioBufferList *inBufferListPtr = nullptr;
+    AudioBufferList *compBufferListPtr = nullptr;
+    AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_bal *bal;

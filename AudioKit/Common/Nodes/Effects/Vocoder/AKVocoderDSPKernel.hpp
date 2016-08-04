@@ -9,8 +9,10 @@
 #ifndef AKVocoderDSPKernel_hpp
 #define AKVocoderDSPKernel_hpp
 
-#import "AKDSPKernel.hpp"
-#import "AKParameterRamper.hpp"
+#import "DSPKernel.hpp"
+#import "ParameterRamper.hpp"
+
+#import <AudioKit/AudioKit-Swift.h>
 
 extern "C" {
 #include "soundpipe.h"
@@ -18,11 +20,11 @@ extern "C" {
 
 enum {
     attackTimeAddress = 0,
-    relAddress = 1,
+    releaseTimeAddress = 1,
     bandwidthRatioAddress = 2
 };
 
-class AKVocoderDSPKernel : public AKDSPKernel {
+class AKVocoderDSPKernel : public DSPKernel {
 public:
     // MARK: Member Functions
 
@@ -34,13 +36,18 @@ public:
         sampleRate = float(inSampleRate);
 
         sp_create(&sp);
+        sp->sr = sampleRate;
+        sp->nchan = channels;
         sp_vocoder_create(&vocoder);
         sp_vocoder_init(sp, vocoder);
-        vocoder->atk = 0.1;
-        vocoder->rel = 0.1;
-        vocoder->bwratio = 0.5;
-    }
+        *vocoder->atk = 0.1;
+        *vocoder->rel = 0.1;
+        *vocoder->bwratio = 0.5;
 
+        attackTimeRamper.init();
+        releaseTimeRamper.init();
+        bandwidthRatioRamper.init();
+    }
 
     void start() {
         started = true;
@@ -56,36 +63,40 @@ public:
     }
 
     void reset() {
+        resetted = true;
+        attackTimeRamper.reset();
+        releaseTimeRamper.reset();
+        bandwidthRatioRamper.reset();
     }
 
-    void setAttacktime(float atk) {
-        attackTime = atk;
-        attackTimeRamper.set(clamp(atk, (float)0.001, (float)0.5));
+    void setAttackTime(float value) {
+        attackTime = clamp(value, 0.001f, 0.5f);
+        attackTimeRamper.setImmediate(attackTime);
     }
 
-    void setRel(float rel) {
-        rel = rel;
-        relRamper.set(clamp(rel, (float)0.001, (float)0.5));
+    void setReleaseTime(float value) {
+        releaseTime = clamp(value, 0.001f, 0.5f);
+        releaseTimeRamper.setImmediate(releaseTime);
     }
 
-    void setBandwidthratio(float bwratio) {
-        bandwidthRatio = bwratio;
-        bandwidthRatioRamper.set(clamp(bwratio, (float)0.1, (float)2));
+    void setBandwidthRatio(float value) {
+        bandwidthRatio = clamp(value, 0.1f, 2.0f);
+        bandwidthRatioRamper.setImmediate(bandwidthRatio);
     }
 
 
     void setParameter(AUParameterAddress address, AUValue value) {
         switch (address) {
             case attackTimeAddress:
-                attackTimeRamper.set(clamp(value, (float)0.001, (float)0.5));
+                attackTimeRamper.setUIValue(clamp(value, 0.001f, 0.5f));
                 break;
 
-            case relAddress:
-                relRamper.set(clamp(value, (float)0.001, (float)0.5));
+            case releaseTimeAddress:
+                releaseTimeRamper.setUIValue(clamp(value, 0.001f, 0.5f));
                 break;
 
             case bandwidthRatioAddress:
-                bandwidthRatioRamper.set(clamp(value, (float)0.1, (float)2));
+                bandwidthRatioRamper.setUIValue(clamp(value, 0.1f, 2.0f));
                 break;
 
         }
@@ -94,13 +105,13 @@ public:
     AUValue getParameter(AUParameterAddress address) {
         switch (address) {
             case attackTimeAddress:
-                return attackTimeRamper.goal();
+                return attackTimeRamper.getUIValue();
 
-            case relAddress:
-                return relRamper.goal();
+            case releaseTimeAddress:
+                return releaseTimeRamper.getUIValue();
 
             case bandwidthRatioAddress:
-                return bandwidthRatioRamper.goal();
+                return bandwidthRatioRamper.getUIValue();
 
             default: return 0.0f;
         }
@@ -109,44 +120,49 @@ public:
     void startRamp(AUParameterAddress address, AUValue value, AUAudioFrameCount duration) override {
         switch (address) {
             case attackTimeAddress:
-                attackTimeRamper.startRamp(clamp(value, (float)0.001, (float)0.5), duration);
+                attackTimeRamper.startRamp(clamp(value, 0.001f, 0.5f), duration);
                 break;
 
-            case relAddress:
-                relRamper.startRamp(clamp(value, (float)0.001, (float)0.5), duration);
+            case releaseTimeAddress:
+                releaseTimeRamper.startRamp(clamp(value, 0.001f, 0.5f), duration);
                 break;
 
             case bandwidthRatioAddress:
-                bandwidthRatioRamper.startRamp(clamp(value, (float)0.1, (float)2), duration);
+                bandwidthRatioRamper.startRamp(clamp(value, 0.1f, 2.0f), duration);
                 break;
 
         }
     }
 
-    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *outBufferList) {
+    void setBuffers(AudioBufferList *inBufferList, AudioBufferList *exciteBufferList, AudioBufferList *outBufferList) {
         inBufferListPtr = inBufferList;
+        exciteBufferListPtr = exciteBufferList;
         outBufferListPtr = outBufferList;
     }
 
     void process(AUAudioFrameCount frameCount, AUAudioFrameCount bufferOffset) override {
-        // For each sample.
+
         for (int frameIndex = 0; frameIndex < frameCount; ++frameIndex) {
+
             int frameOffset = int(frameIndex + bufferOffset);
 
-            vocoder->atk = attackTimeRamper.getStep();
-            vocoder->rel = relRamper.getStep();
-            vocoder->bwratio = bandwidthRatioRamper.getStep();
+            attackTime = attackTimeRamper.getAndStep();
+            *vocoder->atk = (float)attackTime;
+            releaseTime = releaseTimeRamper.getAndStep();
+            *vocoder->rel = (float)releaseTime;
+            bandwidthRatio = bandwidthRatioRamper.getAndStep();
+            *vocoder->bwratio = (float)bandwidthRatio;
 
-            if (!started) {
-                outBufferListPtr->mBuffers[0] = inBufferListPtr->mBuffers[0];
-                outBufferListPtr->mBuffers[1] = inBufferListPtr->mBuffers[1];
-                return;
-            }
             for (int channel = 0; channel < channels; ++channel) {
                 float *in  = (float *)inBufferListPtr->mBuffers[channel].mData  + frameOffset;
+                float *excite = (float *)exciteBufferListPtr->mBuffers[channel].mData + frameOffset;
                 float *out = (float *)outBufferListPtr->mBuffers[channel].mData + frameOffset;
 
-                sp_vocoder_compute(sp, vocoder, in, out);
+                if (started) {
+                    sp_vocoder_compute(sp, vocoder, excite, in, out);
+                } else {
+                    *out = *in;
+                }
             }
         }
     }
@@ -154,26 +170,26 @@ public:
     // MARK: Member Variables
 
 private:
-
-    int channels = 2;
-    float sampleRate = 44100.0;
+    int channels = AKSettings.numberOfChannels;
+    float sampleRate = AKSettings.sampleRate;
 
     AudioBufferList *inBufferListPtr = nullptr;
+    AudioBufferList *exciteBufferListPtr = nullptr;
     AudioBufferList *outBufferListPtr = nullptr;
 
     sp_data *sp;
     sp_vocoder *vocoder;
 
-
     float attackTime = 0.1;
-    float rel = 0.1;
+    float releaseTime = 0.1;
     float bandwidthRatio = 0.5;
 
 public:
     bool started = true;
-    AKParameterRamper attackTimeRamper = 0.1;
-    AKParameterRamper relRamper = 0.1;
-    AKParameterRamper bandwidthRatioRamper = 0.5;
+    bool resetted = false;
+    ParameterRamper attackTimeRamper = 0.1;
+    ParameterRamper releaseTimeRamper = 0.1;
+    ParameterRamper bandwidthRatioRamper = 0.5;
 };
 
 #endif /* AKVocoderDSPKernel_hpp */
