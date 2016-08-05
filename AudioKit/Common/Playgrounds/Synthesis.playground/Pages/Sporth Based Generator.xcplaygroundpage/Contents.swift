@@ -26,6 +26,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
                            "Crystalline",
                            "Distant Intelligence",
                            "Influx",
+                           "kLtz",
                            "Simple Keyboard"]
         addSubview(AKPresetLoaderView(presets: sporthFiles) { filename in
             let filePath = NSBundle.mainBundle().pathForResource(filename, ofType: "sp")
