@@ -206,8 +206,8 @@ public typealias AKCallback = Void -> Void
         tester = AKTester(node, samples: samples)
         output = tester
         start()
-        tester?.play()
         self.engine.pause()
+        tester?.play()
         let renderer = AKOfflineRenderer(engine: self.engine)
         renderer.render(Int32(samples))
     }
