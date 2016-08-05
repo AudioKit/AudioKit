@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C42899921D552E2C00B941B5 /* smoothDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899911D552E2C00B941B5 /* smoothDelay.swift */; };
+		C42899941D552F9F00B941B5 /* lowPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */; };
 		C446B3E21D4544EF000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */; };
 		C446B3E41D4544EF000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */; };
 		C456669A1D448D7E00D26565 /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B51D448D7D00D26565 /* AKDevice.swift */; };
@@ -702,13 +704,32 @@
 		C49A0A431D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A3F1D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49A0A441D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A401D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */; };
 		C49A0A451D543B34007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A411D543B34007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */; };
+		C49A0ABC1D5481D7007D8ADB /* AKOfflineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = C49A0ABA1D5481D7007D8ADB /* AKOfflineRenderer.m */; };
+		C49A0ABD1D548253007D8ADB /* AKOfflineRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49A0AF51D548402007D8ADB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42F36CC1C0582E6000E937C /* AudioKit.framework */; };
+		C49A0AFF1D54841A007D8ADB /* AKFMOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0AFB1D54841A007D8ADB /* AKFMOscillatorTests.swift */; };
+		C49A0B001D54841A007D8ADB /* AKOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */; };
+		C49A0B011D54841A007D8ADB /* AKTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0AFD1D54841A007D8ADB /* AKTestCase.swift */; };
+		C49A0B021D54841A007D8ADB /* fmOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0AFE1D54841A007D8ADB /* fmOscillatorTests.swift */; };
 		C4DABC461D4EF6C500A8942F /* AKTelephoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */; };
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
 		C4E120AE1D4DF39B00CD3572 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AD1D4DF39B00CD3572 /* AKButton.swift */; };
 		C4E120B01D4DF96E00CD3572 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C49A0AF61D548402007D8ADB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C42F36C31C0582E6000E937C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F36CB1C0582E6000E937C;
+			remoteInfo = AudioKit;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		C42899911D552E2C00B941B5 /* smoothDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = smoothDelay.swift; sourceTree = "<group>"; };
+		C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lowPassButterworthFilter.swift; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = macOSDevelopment.playground; sourceTree = "<group>"; };
 		C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
@@ -1408,6 +1429,14 @@
 		C49A0A3F1D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKKorgLowPassFilterAudioUnit.h; sourceTree = "<group>"; };
 		C49A0A401D543B34007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKKorgLowPassFilterAudioUnit.mm; sourceTree = "<group>"; };
 		C49A0A411D543B34007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKKorgLowPassFilterDSPKernel.hpp; sourceTree = "<group>"; };
+		C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOfflineRenderer.h; sourceTree = "<group>"; };
+		C49A0ABA1D5481D7007D8ADB /* AKOfflineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKOfflineRenderer.m; sourceTree = "<group>"; };
+		C49A0AF01D548401007D8ADB /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C49A0AF41D548402007D8ADB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C49A0AFB1D54841A007D8ADB /* AKFMOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKFMOscillatorTests.swift; path = ../../Common/Tests/AKFMOscillatorTests.swift; sourceTree = "<group>"; };
+		C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKOscillatorTests.swift; path = ../../Common/Tests/AKOscillatorTests.swift; sourceTree = "<group>"; };
+		C49A0AFD1D54841A007D8ADB /* AKTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKTestCase.swift; path = ../../Common/Tests/AKTestCase.swift; sourceTree = "<group>"; };
+		C49A0AFE1D54841A007D8ADB /* fmOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = fmOscillatorTests.swift; path = ../../Common/Tests/fmOscillatorTests.swift; sourceTree = "<group>"; };
 		C4A0855C1D4F1DB100514F8A /* Playback.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Playback.playground; path = ../../../Common/Playgrounds/Playback.playground; sourceTree = "<group>"; };
 		C4DABC451D4EF6C500A8942F /* AKTelephoneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTelephoneView.swift; sourceTree = "<group>"; };
 		C4DABC471D4F065D00A8942F /* Analysis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Analysis.playground; path = ../../../Common/Playgrounds/Analysis.playground; sourceTree = "<group>"; };
@@ -1425,6 +1454,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C49A0AED1D548401007D8ADB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C49A0AF51D548402007D8ADB /* AudioKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1433,6 +1470,7 @@
 			children = (
 				C45662B31D448D7400D26565 /* AudioKit */,
 				C446B3D51D45447A000AEFCA /* Playgrounds */,
+				C49A0AF11D548402007D8ADB /* Tests */,
 				C42F36CD1C0582E6000E937C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1441,6 +1479,7 @@
 			isa = PBXGroup;
 			children = (
 				C42F36CC1C0582E6000E937C /* AudioKit.framework */,
+				C49A0AF01D548401007D8ADB /* Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2000,6 +2039,8 @@
 				C45664D21D448D7E00D26565 /* AKTesterAudioUnit.h */,
 				C45664D31D448D7E00D26565 /* AKTesterAudioUnit.mm */,
 				C45664D41D448D7E00D26565 /* AKTesterDSPKernel.hpp */,
+				C49A0AB91D5481D7007D8ADB /* AKOfflineRenderer.h */,
+				C49A0ABA1D5481D7007D8ADB /* AKOfflineRenderer.m */,
 			);
 			path = Testing;
 			sourceTree = "<group>";
@@ -3103,6 +3144,7 @@
 			isa = PBXGroup;
 			children = (
 				C45666541D448D7E00D26565 /* delay.swift */,
+				C42899911D552E2C00B941B5 /* smoothDelay.swift */,
 				C45666551D448D7E00D26565 /* variableDelay.swift */,
 			);
 			path = Delay;
@@ -3125,6 +3167,7 @@
 				C456665C1D448D7E00D26565 /* dcBlock.swift */,
 				C456665D1D448D7E00D26565 /* highPassButterworthFilter.swift */,
 				C456665E1D448D7E00D26565 /* highPassFilter.swift */,
+				C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */,
 				C456665F1D448D7E00D26565 /* lowPassButterworthFilter.swift */,
 				C45666601D448D7E00D26565 /* lowPassFilter.swift */,
 				C45666611D448D7E00D26565 /* modalResonanceFilter.swift */,
@@ -3284,6 +3327,18 @@
 			path = "Korg Low Pass Filter";
 			sourceTree = "<group>";
 		};
+		C49A0AF11D548402007D8ADB /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C49A0AFB1D54841A007D8ADB /* AKFMOscillatorTests.swift */,
+				C49A0AFC1D54841A007D8ADB /* AKOscillatorTests.swift */,
+				C49A0AFD1D54841A007D8ADB /* AKTestCase.swift */,
+				C49A0AFE1D54841A007D8ADB /* fmOscillatorTests.swift */,
+				C49A0AF41D548402007D8ADB /* Info.plist */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3318,6 +3373,7 @@
 				C45666B11D448D7E00D26565 /* EZAudioDevice.h in Headers */,
 				C45668E01D448D7E00D26565 /* AKAmplitudeEnvelopeAudioUnit.h in Headers */,
 				C45666AC1D448D7E00D26565 /* DSPKernel.hpp in Headers */,
+				C49A0ABD1D548253007D8ADB /* AKOfflineRenderer.h in Headers */,
 				C45669A31D448D7E00D26565 /* AKPluckedStringDSPKernel.hpp in Headers */,
 				C45668F31D448D7E00D26565 /* AKBandRejectButterworthFilterDSPKernel.hpp in Headers */,
 				C45668E61D448D7E00D26565 /* AKTremoloDSPKernel.hpp in Headers */,
@@ -3478,17 +3534,39 @@
 			productReference = C42F36CC1C0582E6000E937C /* AudioKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C49A0AEF1D548401007D8ADB /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C49A0AF81D548402007D8ADB /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				C49A0AEC1D548401007D8ADB /* Sources */,
+				C49A0AED1D548401007D8ADB /* Frameworks */,
+				C49A0AEE1D548401007D8ADB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C49A0AF71D548402007D8ADB /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = C49A0AF01D548401007D8ADB /* Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C42F36C31C0582E6000E937C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = AudioKit;
 				TargetAttributes = {
 					C42F36CB1C0582E6000E937C = {
 						CreatedOnToolsVersion = 7.2;
+					};
+					C49A0AEF1D548401007D8ADB = {
+						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
 			};
@@ -3505,6 +3583,7 @@
 			projectRoot = "";
 			targets = (
 				C42F36CB1C0582E6000E937C /* AudioKit */,
+				C49A0AEF1D548401007D8ADB /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -3533,6 +3612,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C49A0AEE1D548401007D8ADB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -3555,6 +3641,7 @@
 				C45667341D448D7E00D26565 /* tbvcf.c in Sources */,
 				C45669BC1D448D7E00D26565 /* AKParameter.swift in Sources */,
 				C45666CD1D448D7E00D26565 /* TPCircularBuffer.c in Sources */,
+				C49A0ABC1D5481D7007D8ADB /* AKOfflineRenderer.m in Sources */,
 				C45668A61D448D7E00D26565 /* AKCallbackInstrument.swift in Sources */,
 				C4E120B01D4DF96E00CD3572 /* AKPlaygroundView.swift in Sources */,
 				C45667A81D448D7E00D26565 /* scale.c in Sources */,
@@ -3723,6 +3810,7 @@
 				C45666E71D448D7E00D26565 /* bltriangle.c in Sources */,
 				C45666C81D448D7E00D26565 /* EZOutput.m in Sources */,
 				C45667171D448D7E00D26565 /* pdhalf.c in Sources */,
+				C42899941D552F9F00B941B5 /* lowPassButterworthFilter.swift in Sources */,
 				C45667C21D448D7E00D26565 /* zeros.c in Sources */,
 				C456669A1D448D7E00D26565 /* AKDevice.swift in Sources */,
 				C456691D1D448D7E00D26565 /* AKParametricEQ.swift in Sources */,
@@ -3964,6 +4052,7 @@
 				C45666B21D448D7E00D26565 /* EZAudioDevice.m in Sources */,
 				C45667981D448D7E00D26565 /* phasor.c in Sources */,
 				C45669CB1D448D7E00D26565 /* resonantFilter.swift in Sources */,
+				C42899921D552E2C00B941B5 /* smoothDelay.swift in Sources */,
 				C49A0A311D542999007D8ADB /* threePoleLowPassFilter.swift in Sources */,
 				C45669531D448D7E00D26565 /* AKFlatFrequencyResponseReverbAudioUnit.mm in Sources */,
 				C45667A91D448D7E00D26565 /* srand.c in Sources */,
@@ -4063,7 +4152,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C49A0AEC1D548401007D8ADB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C49A0B021D54841A007D8ADB /* fmOscillatorTests.swift in Sources */,
+				C49A0AFF1D54841A007D8ADB /* AKFMOscillatorTests.swift in Sources */,
+				C49A0B011D54841A007D8ADB /* AKTestCase.swift in Sources */,
+				C49A0B001D54841A007D8ADB /* AKOscillatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C49A0AF71D548402007D8ADB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C42F36CB1C0582E6000E937C /* AudioKit */;
+			targetProxy = C49A0AF61D548402007D8ADB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		C42F36D21C0582E6000E937C /* Debug */ = {
@@ -4206,6 +4314,34 @@
 			};
 			name = Release;
 		};
+		C49A0AF91D548402007D8ADB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C49A0AFA1D548402007D8ADB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.audiokit.Tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4223,6 +4359,15 @@
 			buildConfigurations = (
 				C42F36D51C0582E6000E937C /* Debug */,
 				C42F36D61C0582E6000E937C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C49A0AF81D548402007D8ADB /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C49A0AF91D548402007D8ADB /* Debug */,
+				C49A0AFA1D548402007D8ADB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
