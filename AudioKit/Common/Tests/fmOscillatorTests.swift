@@ -12,10 +12,20 @@ import XCTest
 
 class fmOscillatorTests: AKTestCase {
     
-    var duration = 1.0
-
+    override func setUp() {
+        super.setUp()
+        duration = 1.0
+    }
+    
+    func testDefault() {
+        output = AKOperationGenerator() { _ in
+            return AKOperation.fmOscillator()
+        }
+        AKTestMD5("7b67fe4fc2ac128d6010cc93e47250ed")
+    }
+    
     func testFMOscillatorOperation() {
-        let generator = AKOperationGenerator() { _ in
+        output = AKOperationGenerator() { _ in
             let line = AKOperation.lineSegment(
                 trigger: AKOperation.metronome(frequency: 0.1),
                 start: 0.001, end: 5, duration: self.duration)
@@ -26,10 +36,7 @@ class fmOscillatorTests: AKTestCase {
                 modulationIndex: line * 6,
                 amplitude: line / 5)
         }
-        AudioKit.testOutput(generator, duration: duration)
-        let expectedMD5 = "c89e8a75eba1f867cd6e4fb7a3a267f2"
-        let md5 = AudioKit.tester!.MD5
-        XCTAssertEqual(expectedMD5, md5)
+        AKTestMD5("c89e8a75eba1f867cd6e4fb7a3a267f2")
     }
 
 }
