@@ -50,3 +50,4 @@ rot dup -0.1 1024 512 pshift + +
 
 1 2 p 0.01 port -  cf
 
+dup

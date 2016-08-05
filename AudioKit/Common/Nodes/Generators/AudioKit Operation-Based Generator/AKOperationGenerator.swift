@@ -19,6 +19,14 @@ public class AKOperationGenerator: AKNode, AKToggleable {
     public var isStarted: Bool {
         return internalAU!.isPlaying()
     }
+    
+    public var sporth: String = "" {
+        didSet  {
+            self.stop()
+            self.internalAU?.setSporth(sporth)
+            self.start()
+        }
+    }
 
     /// Parameters for changing internal operations
     public var parameters: [Double] {

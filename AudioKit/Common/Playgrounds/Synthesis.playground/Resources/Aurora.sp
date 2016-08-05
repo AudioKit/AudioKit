@@ -31,7 +31,3 @@ mix
 
 6 p dup 0.96 10000 revsc drop 0.1 * 1 1 p - * 200 buthp  +
 dup
-
-# slider 1: probability
-# slider 2: speed (also inverse reverb send)
-# slider 3: release time

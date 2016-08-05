@@ -35,3 +35,4 @@ fm *
 2 _args tget 1.5 * 3 _args tget / 0.1 0 _pad osc +
 
 dup dup 5 8 3000 zrev drop 0.3 * +
+dup
