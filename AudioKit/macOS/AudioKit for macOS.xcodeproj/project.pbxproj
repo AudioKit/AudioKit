@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C42899921D552E2C00B941B5 /* smoothDelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899911D552E2C00B941B5 /* smoothDelay.swift */; };
 		C42899941D552F9F00B941B5 /* lowPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */; };
+		C42899961D5543E400B941B5 /* korgLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899951D5543E400B941B5 /* korgLowPassFilter.swift */; };
 		C446B3E21D4544EF000AEFCA /* AKPlaygroundLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */; };
 		C446B3E41D4544EF000AEFCA /* AKKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */; };
 		C456669A1D448D7E00D26565 /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B51D448D7D00D26565 /* AKDevice.swift */; };
@@ -637,7 +638,6 @@
 		C45669C41D448D7E00D26565 /* dcBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456665C1D448D7E00D26565 /* dcBlock.swift */; };
 		C45669C51D448D7E00D26565 /* highPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456665D1D448D7E00D26565 /* highPassButterworthFilter.swift */; };
 		C45669C61D448D7E00D26565 /* highPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456665E1D448D7E00D26565 /* highPassFilter.swift */; };
-		C45669C71D448D7E00D26565 /* lowPassButterworthFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456665F1D448D7E00D26565 /* lowPassButterworthFilter.swift */; };
 		C45669C81D448D7E00D26565 /* lowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666601D448D7E00D26565 /* lowPassFilter.swift */; };
 		C45669C91D448D7E00D26565 /* modalResonanceFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666611D448D7E00D26565 /* modalResonanceFilter.swift */; };
 		C45669CA1D448D7E00D26565 /* moogLadderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45666621D448D7E00D26565 /* moogLadderFilter.swift */; };
@@ -730,6 +730,7 @@
 /* Begin PBXFileReference section */
 		C42899911D552E2C00B941B5 /* smoothDelay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = smoothDelay.swift; sourceTree = "<group>"; };
 		C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lowPassButterworthFilter.swift; sourceTree = "<group>"; };
+		C42899951D5543E400B941B5 /* korgLowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = korgLowPassFilter.swift; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = macOSDevelopment.playground; sourceTree = "<group>"; };
 		C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
@@ -1360,7 +1361,6 @@
 		C456665C1D448D7E00D26565 /* dcBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = dcBlock.swift; sourceTree = "<group>"; };
 		C456665D1D448D7E00D26565 /* highPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = highPassButterworthFilter.swift; sourceTree = "<group>"; };
 		C456665E1D448D7E00D26565 /* highPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = highPassFilter.swift; sourceTree = "<group>"; };
-		C456665F1D448D7E00D26565 /* lowPassButterworthFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lowPassButterworthFilter.swift; sourceTree = "<group>"; };
 		C45666601D448D7E00D26565 /* lowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = lowPassFilter.swift; sourceTree = "<group>"; };
 		C45666611D448D7E00D26565 /* modalResonanceFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = modalResonanceFilter.swift; sourceTree = "<group>"; };
 		C45666621D448D7E00D26565 /* moogLadderFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = moogLadderFilter.swift; sourceTree = "<group>"; };
@@ -3167,8 +3167,8 @@
 				C456665C1D448D7E00D26565 /* dcBlock.swift */,
 				C456665D1D448D7E00D26565 /* highPassButterworthFilter.swift */,
 				C456665E1D448D7E00D26565 /* highPassFilter.swift */,
+				C42899951D5543E400B941B5 /* korgLowPassFilter.swift */,
 				C42899931D552F9F00B941B5 /* lowPassButterworthFilter.swift */,
-				C456665F1D448D7E00D26565 /* lowPassButterworthFilter.swift */,
 				C45666601D448D7E00D26565 /* lowPassFilter.swift */,
 				C45666611D448D7E00D26565 /* modalResonanceFilter.swift */,
 				C45666621D448D7E00D26565 /* moogLadderFilter.swift */,
@@ -3921,6 +3921,7 @@
 				C45668931D448D7E00D26565 /* SineWave.cpp in Sources */,
 				C45668AB1D448D7E00D26565 /* AKMIDIInstrument.swift in Sources */,
 				C456669C1D448D7E00D26565 /* AKNotifications.swift in Sources */,
+				C42899961D5543E400B941B5 /* korgLowPassFilter.swift in Sources */,
 				C45669D91D448D7E00D26565 /* squareWave.swift in Sources */,
 				C45666C61D448D7E00D26565 /* EZMicrophone.m in Sources */,
 				C45668D11D448D7E00D26565 /* AKClipperAudioUnit.mm in Sources */,
@@ -4087,7 +4088,6 @@
 				C456673E1D448D7E00D26565 /* trand.c in Sources */,
 				C45667761D448D7E00D26565 /* fof.c in Sources */,
 				C456671E1D448D7E00D26565 /* posc3.c in Sources */,
-				C45669C71D448D7E00D26565 /* lowPassButterworthFilter.swift in Sources */,
 				C45666C41D448D7E00D26565 /* EZAudioUtilities.m in Sources */,
 				C45669DE1D448D7E00D26565 /* divide.swift in Sources */,
 				C45668B71D448D7E00D26565 /* AKSequencer.swift in Sources */,
