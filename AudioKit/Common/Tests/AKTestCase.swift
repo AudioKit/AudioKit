@@ -10,6 +10,22 @@ import XCTest
 @testable import AudioKit
 
 class AKTestCase: XCTestCase {
+    
+    var duration = 0.1
+    var output: AKNode?
+    
+    var MD5: String {
+        return AudioKit.tester!.MD5
+    }
+    
+    func auditionTest() {
+        AudioKit.auditionTest(node: output!, duration: duration)
+    }
+    
+    func AKTestMD5(md5: String) {
+        AudioKit.test(node: output!, duration: duration)
+        XCTAssertEqual(md5, MD5)
+    }
 
     override func setUp() {
         super.setUp()

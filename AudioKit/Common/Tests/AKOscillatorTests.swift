@@ -11,14 +11,23 @@ import XCTest
 
 class AKOscillatorTests: AKTestCase {
 
-    var duration = 0.1
-    
-    func testOscillator() {
-        let osc = AKOscillator(waveform: AKTable(.Sine, size: 4096))
-        AudioKit.testOutput(osc, duration: duration)
-        let expectedMD5 = "221e422c2ced547a391a18900ef08516"
-        let md5 = AudioKit.tester!.MD5
-        XCTAssertEqual(expectedMD5, md5)
+    func testDefault() {
+        output = AKOscillator()
+        AKTestMD5("221e422c2ced547a391a18900ef08516")
     }
-
+    
+    func testParametersSetOnInit() {
+        output = AKOscillator(waveform: AKTable(.Square),
+                              frequency: 400,
+                              amplitude: 0.5)
+        AKTestMD5("f6e65ca01b18cd5ee413d12a9287ca71")
+    }
+    
+    func testParametersSetAfterInit() {
+        let oscillator = AKOscillator(waveform: AKTable(.Square))
+        oscillator.frequency = 400
+        oscillator.amplitude = 0.5
+        output = oscillator
+        AKTestMD5("f6e65ca01b18cd5ee413d12a9287ca71")
+    }
 }

@@ -200,7 +200,7 @@ public typealias AKCallback = Void -> Void
     ///   - node: AKNode to test
     ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    public static func testOutput(node: AKNode, duration: Double) {
+    public static func test(node node: AKNode, duration: Double) {
         let samples = Int(duration * AKSettings.sampleRate)
         
         tester = AKTester(node, samples: samples)
@@ -210,6 +210,23 @@ public typealias AKCallback = Void -> Void
         tester?.play()
         let renderer = AKOfflineRenderer(engine: self.engine)
         renderer.render(Int32(samples))
+    }
+    
+    /// Test the output of a given node
+    ///
+    /// - Parameters:
+    ///   - node: AKNode to test
+    ///   - duration: Number of seconds to test (accurate to the sample)
+    ///
+    public static func auditionTest(node node: AKNode, duration: Double) {
+        output = node
+        start()
+        if let playableNode = node as? AKToggleable {
+            playableNode.play()
+        }
+        usleep(UInt32(duration * 1000000))
+        stop()
+        start()
     }
 
     // Listen to changes in audio configuration
