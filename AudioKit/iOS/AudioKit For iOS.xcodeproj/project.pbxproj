@@ -597,6 +597,11 @@
 		C49A0A1D1D540009007D8ADB /* reverberateWithCombFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A1C1D540009007D8ADB /* reverberateWithCombFilter.swift */; };
 		C49A0A1F1D540514007D8ADB /* threePoleLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A1E1D540514007D8ADB /* threePoleLowPassFilter.swift */; };
 		C49A0A231D540819007D8ADB /* pitchShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A221D540819007D8ADB /* pitchShift.swift */; };
+		C49A0A371D5435C2007D8ADB /* AKKorgLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A331D5435C2007D8ADB /* AKKorgLowPassFilter.swift */; };
+		C49A0A381D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A341D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C49A0A391D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A351D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */; };
+		C49A0A3A1D5435C2007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A361D5435C2007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */; };
+		C49A0A3C1D54370A007D8ADB /* korgLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A3B1D54370A007D8ADB /* korgLowPassFilter.swift */; };
 		C49D69561D1F1C6500BF018A /* AKPWMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */; };
 		C49D69571D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49D69581D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */; };
@@ -1313,6 +1318,11 @@
 		C49A0A1C1D540009007D8ADB /* reverberateWithCombFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCombFilter.swift; sourceTree = "<group>"; };
 		C49A0A1E1D540514007D8ADB /* threePoleLowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = threePoleLowPassFilter.swift; sourceTree = "<group>"; };
 		C49A0A221D540819007D8ADB /* pitchShift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pitchShift.swift; sourceTree = "<group>"; };
+		C49A0A331D5435C2007D8ADB /* AKKorgLowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKorgLowPassFilter.swift; sourceTree = "<group>"; };
+		C49A0A341D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKKorgLowPassFilterAudioUnit.h; sourceTree = "<group>"; };
+		C49A0A351D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKKorgLowPassFilterAudioUnit.mm; sourceTree = "<group>"; };
+		C49A0A361D5435C2007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKKorgLowPassFilterDSPKernel.hpp; sourceTree = "<group>"; };
+		C49A0A3B1D54370A007D8ADB /* korgLowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = korgLowPassFilter.swift; sourceTree = "<group>"; };
 		C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillator.swift; sourceTree = "<group>"; };
 		C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPWMOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -1847,6 +1857,7 @@
 				C4537F671C3A438D00A51738 /* High Pass Filter */,
 				C4537F691C3A438D00A51738 /* High Shelf Filter */,
 				C4537F6B1C3A438D00A51738 /* High Shelf Parametric Equalizer Filter */,
+				C49A0A321D5435C2007D8ADB /* Korg Low Pass Filter */,
 				C4537F701C3A438D00A51738 /* Low Pass Butterworth Filter */,
 				C4537F751C3A438D00A51738 /* Low Pass Filter */,
 				C4537F771C3A438D00A51738 /* Low Shelf Filter */,
@@ -2444,6 +2455,7 @@
 				C463026C1C20E7A7009B44D9 /* dcBlock.swift */,
 				C463026D1C20E7A7009B44D9 /* highPassButterworthFilter.swift */,
 				C463026E1C20E7A7009B44D9 /* highPassFilter.swift */,
+				C49A0A3B1D54370A007D8ADB /* korgLowPassFilter.swift */,
 				C463026F1C20E7A7009B44D9 /* lowPassButterworthFilter.swift */,
 				C46302701C20E7A7009B44D9 /* lowPassFilter.swift */,
 				C4E751AE1C23675A00688A1B /* modalResonanceFilter.swift */,
@@ -3030,6 +3042,17 @@
 			path = Vocoder;
 			sourceTree = "<group>";
 		};
+		C49A0A321D5435C2007D8ADB /* Korg Low Pass Filter */ = {
+			isa = PBXGroup;
+			children = (
+				C49A0A331D5435C2007D8ADB /* AKKorgLowPassFilter.swift */,
+				C49A0A341D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.h */,
+				C49A0A351D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.mm */,
+				C49A0A361D5435C2007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp */,
+			);
+			path = "Korg Low Pass Filter";
+			sourceTree = "<group>";
+		};
 		C49D694C1D1F1C6500BF018A /* PWM Oscillator */ = {
 			isa = PBXGroup;
 			children = (
@@ -3384,6 +3407,7 @@
 				C48C6C4C1D3C15F1008EA51B /* _kiss_fft_guts.h in Headers */,
 				C45380721C3A5BDA00A51738 /* AKFMOscillatorDSPKernel.hpp in Headers */,
 				C40718041D2119AC00665C02 /* SKINImsg.h in Headers */,
+				C49A0A3A1D5435C2007D8ADB /* AKKorgLowPassFilterDSPKernel.hpp in Headers */,
 				C4537FE71C3A438D00A51738 /* AKRolandTB303FilterAudioUnit.h in Headers */,
 				C4537FDA1C3A438D00A51738 /* AKModalResonanceFilterAudioUnit.h in Headers */,
 				C4537F121C39D0B400A51738 /* AKVariableDelayDSPKernel.hpp in Headers */,
@@ -3441,6 +3465,7 @@
 				C40717B81D21195000665C02 /* Flute.h in Headers */,
 				C40C414E1C40E3A5009D870B /* EZAudio.h in Headers */,
 				C453804A1C3A59EA00A51738 /* AKOperationEffectAudioUnit.h in Headers */,
+				C49A0A381D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.h in Headers */,
 				C453808E1C3A5C0C00A51738 /* AKPinkNoiseAudioUnit.h in Headers */,
 				C4E8ED0B1C4391C70041965F /* AKConvolutionAudioUnit.h in Headers */,
 				C49D696E1D1F1DE300BF018A /* AKFMOscillatorBankAudioUnit.h in Headers */,
@@ -3837,6 +3862,7 @@
 				C48C6CDE1D3C15F1008EA51B /* clip.c in Sources */,
 				C4537F091C39D07100A51738 /* AKDelay.swift in Sources */,
 				C48C6C831D3C15F1008EA51B /* metro.c in Sources */,
+				C49A0A371D5435C2007D8ADB /* AKKorgLowPassFilter.swift in Sources */,
 				C49A09FD1D529742007D8ADB /* AKADSRView.swift in Sources */,
 				C4E751A71C2354EE00688A1B /* max.swift in Sources */,
 				C46C795C1C4C5C4600F6CE3D /* morphingOscillator.swift in Sources */,
@@ -3856,6 +3882,7 @@
 				C48C6D221D3C15F2008EA51B /* streson.c in Sources */,
 				C48C6CE91D3C15F1008EA51B /* dust.c in Sources */,
 				8D6C6C531D421EBB008BFA4A /* AKAudioFile+Utilities.swift in Sources */,
+				C49A0A3C1D54370A007D8ADB /* korgLowPassFilter.swift in Sources */,
 				C48C6C5E1D3C15F1008EA51B /* blsquare.c in Sources */,
 				C49351FD1C3CB93300A28D7F /* AKPanner.swift in Sources */,
 				C40716421D21168100665C02 /* PoleZero.cpp in Sources */,
@@ -3976,6 +4003,7 @@
 				C48C6D201D3C15F2008EA51B /* scale.c in Sources */,
 				C49A09E41D509990007D8ADB /* print.c in Sources */,
 				C4537FE61C3A438D00A51738 /* AKRolandTB303Filter.swift in Sources */,
+				C49A0A391D5435C2007D8ADB /* AKKorgLowPassFilterAudioUnit.mm in Sources */,
 				C4E751791C2204AD00688A1B /* sawtoothWave.swift in Sources */,
 				C48C6D1C1D3C15F2008EA51B /* revsc.c in Sources */,
 				C44B596D1C4B04BF0008507F /* segment.swift in Sources */,
