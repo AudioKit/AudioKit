@@ -18,7 +18,7 @@ public class AKPropertySlider: UIView {
     }
     public var minimum: Double = 0
     public var maximum: Double = 0
-    var property: String = ""
+    public var property: String = ""
     var format = ""
     var color = AKColor.redColor()
     public var lastTouch = CGPointZero
