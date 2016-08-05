@@ -1,4 +1,4 @@
-//: ## Sean Costello Reverb Operation
+//: ## Costello Reverb Operation
 //:
 import XCPlayground
 import AudioKit
@@ -19,4 +19,18 @@ AudioKit.output = effect
 AudioKit.start()
 player.play()
 
+//: User Interface
+
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Costello Reverb Operation")
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: processingPlaygroundFiles))
+
+    }
+}
+
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()

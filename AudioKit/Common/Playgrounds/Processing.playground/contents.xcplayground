@@ -11,7 +11,6 @@
         <page name='Bit Crush Effect'/>
         <page name='Bit Crush Operation'/>
         <page name='Clipper'/>
-        <page name='Clip Operation'/>
         <page name='Comb Filter Reverb'/>
         <page name='Compressor'/>
         <page name='Convolution'/>
@@ -45,6 +44,7 @@
         <page name='Parametric Equalizer'/>
         <page name='Peak Limiter'/>
         <page name='Pitch Shifter'/>
+        <page name='Pitch Shift Operation'/>
         <page name='Resonant Filter'/>
         <page name='Resonant Filter Operation'/>
         <page name='Reverb'/>

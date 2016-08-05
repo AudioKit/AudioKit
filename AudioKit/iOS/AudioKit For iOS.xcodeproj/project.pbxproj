@@ -594,6 +594,9 @@
 		C49A0A071D53E0C3007D8ADB /* AKVocoderAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A031D53E0C3007D8ADB /* AKVocoderAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49A0A081D53E0C3007D8ADB /* AKVocoderAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A041D53E0C3007D8ADB /* AKVocoderAudioUnit.mm */; };
 		C49A0A091D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C49A0A051D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp */; };
+		C49A0A1D1D540009007D8ADB /* reverberateWithCombFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A1C1D540009007D8ADB /* reverberateWithCombFilter.swift */; };
+		C49A0A1F1D540514007D8ADB /* threePoleLowPassFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A1E1D540514007D8ADB /* threePoleLowPassFilter.swift */; };
+		C49A0A231D540819007D8ADB /* pitchShift.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49A0A221D540819007D8ADB /* pitchShift.swift */; };
 		C49D69561D1F1C6500BF018A /* AKPWMOscillator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */; };
 		C49D69571D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C49D69581D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */; };
@@ -1307,6 +1310,9 @@
 		C49A0A031D53E0C3007D8ADB /* AKVocoderAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKVocoderAudioUnit.h; sourceTree = "<group>"; };
 		C49A0A041D53E0C3007D8ADB /* AKVocoderAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKVocoderAudioUnit.mm; sourceTree = "<group>"; };
 		C49A0A051D53E0C3007D8ADB /* AKVocoderDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKVocoderDSPKernel.hpp; sourceTree = "<group>"; };
+		C49A0A1C1D540009007D8ADB /* reverberateWithCombFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reverberateWithCombFilter.swift; sourceTree = "<group>"; };
+		C49A0A1E1D540514007D8ADB /* threePoleLowPassFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = threePoleLowPassFilter.swift; sourceTree = "<group>"; };
+		C49A0A221D540819007D8ADB /* pitchShift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pitchShift.swift; sourceTree = "<group>"; };
 		C49D694D1D1F1C6500BF018A /* AKPWMOscillator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPWMOscillator.swift; sourceTree = "<group>"; };
 		C49D694E1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPWMOscillatorAudioUnit.h; sourceTree = "<group>"; };
 		C49D694F1D1F1C6500BF018A /* AKPWMOscillatorAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPWMOscillatorAudioUnit.mm; sourceTree = "<group>"; };
@@ -2407,6 +2413,7 @@
 				C46302671C20E7A7009B44D9 /* Distortion */,
 				C463026B1C20E7A7009B44D9 /* Filters */,
 				C46302711C20E7A7009B44D9 /* Reverb */,
+				C49A0A221D540819007D8ADB /* pitchShift.swift */,
 			);
 			path = Effects;
 			sourceTree = "<group>";
@@ -2443,6 +2450,7 @@
 				C4E751AF1C23675A00688A1B /* moogLadderFilter.swift */,
 				6520FFC11D361B030052410C /* resonantFilter.swift */,
 				C49E9E341D2C2C6700E5E8BF /* stringResonator.swift */,
+				C49A0A1E1D540514007D8ADB /* threePoleLowPassFilter.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -2451,6 +2459,7 @@
 			isa = PBXGroup;
 			children = (
 				C4E751AA1C235CE800688A1B /* reverberateWithChowning.swift */,
+				C49A0A1C1D540009007D8ADB /* reverberateWithCombFilter.swift */,
 				C496149D1C2F33B400ACAB4E /* reverberateWithCostello.swift */,
 				C46302731C20E7A7009B44D9 /* reverberateWithFlatFrequencyResponse.swift */,
 			);
@@ -3557,6 +3566,7 @@
 				C48C6CE71D3C15F1008EA51B /* drip.c in Sources */,
 				C463028D1C20E7A7009B44D9 /* sineWave.swift in Sources */,
 				C46302921C20E7A7009B44D9 /* subtract.swift in Sources */,
+				C49A0A231D540819007D8ADB /* pitchShift.swift in Sources */,
 				C48C6D071D3C15F2008EA51B /* moogladder.c in Sources */,
 				C4AC8BD01C4E2960009EA58E /* AKCompressor.swift in Sources */,
 				C4537FBD1C3A438D00A51738 /* AKEqualizerFilter.swift in Sources */,
@@ -3710,6 +3720,7 @@
 				C48C6D131D3C15F2008EA51B /* port.c in Sources */,
 				EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */,
 				C4537FDD1C3A438D00A51738 /* AKMoogLadder.swift in Sources */,
+				C49A0A1D1D540009007D8ADB /* reverberateWithCombFilter.swift in Sources */,
 				C463028B1C20E7A7009B44D9 /* fmOscillator.swift in Sources */,
 				C48C6CB91D3C15F1008EA51B /* tseq.c in Sources */,
 				C48C6D341D3C15F2008EA51B /* tseg.c in Sources */,
@@ -3975,6 +3986,7 @@
 				C48C6D321D3C15F2008EA51B /* tphasor.c in Sources */,
 				C48C6D261D3C15F2008EA51B /* tadsr.c in Sources */,
 				C40716581D21171000665C02 /* FileWvIn.cpp in Sources */,
+				C49A0A1F1D540514007D8ADB /* threePoleLowPassFilter.swift in Sources */,
 				C46302801C20E7A7009B44D9 /* delay.swift in Sources */,
 				C467816D1C1C0C090000BF29 /* AKNodeOutputPlot.swift in Sources */,
 				C48C6D301D3C15F2008EA51B /* tog.c in Sources */,

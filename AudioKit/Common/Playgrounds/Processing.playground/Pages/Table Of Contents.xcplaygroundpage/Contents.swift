@@ -33,7 +33,6 @@
 //: * [Bit Crush Effect](Bit%20Crush%20Effect)
 //: * [Decimator](Decimator)
 //: * [Distortion](Distortion)
-//: * [Pitch Shifter](Pitch%20Shifter)
 //: * [Ring Modulator](Ring%20Modulator)
 //: * [Tanh Distortion](Tanh%20Distortion)
 //:
@@ -73,6 +72,11 @@
 //: * [Tremolo](Tremolo)
 //: * [3D Panner](3D%20Panner)
 //:
+//: ### Pitch Shifting
+//:
+//: * [Pitch Shifter](Pitch%20Shifter)
+//: * [Pitch Shifter Operation](Pitch%20Shifter%20Operation)
+//:
 //: ### Reverb
 //:
 //: These are the more traditional reverb efffects.
@@ -98,7 +102,6 @@
 //: * [AutoPan Operation](AutoPan%20Operation)
 //: * [AutoWah Operation](AutoWah%20Operation)
 //: * [Bit Crush](Bit%20Crush%20Operation)
-//: * [Clip](Clip%20Operation)
 //: * [Costello Reverb Operation](Costello%20Reverb%20Operation)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
 //: * [High Pass Filter](High%20Pass%20Filter%20Operation)
