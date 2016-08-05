@@ -5,7 +5,8 @@ import XCPlayground
 import AudioKit
 
 var generator = AKOperationGenerator(sporth: "")
-
+AudioKit.output = generator
+AudioKit.start()
 //: User Interface Set up
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
@@ -33,7 +34,8 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             let contentData = NSFileManager.defaultManager().contentsAtPath(filePath!)
             let sporth = NSString(data: contentData!, encoding: NSUTF8StringEncoding) as? String
             Swift.print("\n\n\n\n\n\n\(sporth!)")
-            self.updateSporth(sporth!)
+            generator.sporth = sporth!
+
 
             let sliders = [self.p0Slider, self.p1Slider, self.p2Slider, self.p3Slider]
 
@@ -118,16 +120,6 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     func noteOff(note: MIDINoteNumber) {
         generator.parameters[4] = 0
     }
-
-    func updateSporth(sporth: String) {
-        generator.stop()
-        AudioKit.stop()
-        generator = AKOperationGenerator() { _ in return AKOperation(sporth) }
-        AudioKit.output = generator
-        AudioKit.start()
-        generator.start()
-    }
-
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

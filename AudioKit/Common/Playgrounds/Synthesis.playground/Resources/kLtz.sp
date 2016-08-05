@@ -15,4 +15,4 @@ _trig 1 zeros
 dup 2 p 0.1 0.99 scale
 0 _trig tget 4 0 tdiv 0.001 0.29 trand
 0.4 1024 smoothdelay 0.3 * +
-
+dup

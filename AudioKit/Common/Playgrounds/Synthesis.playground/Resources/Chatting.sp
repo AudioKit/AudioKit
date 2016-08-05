@@ -28,3 +28,4 @@
 
 butbp + + 0.4 dmetro 0.5 maygate 0.01
 port * 2.0 * dup jcrev +
+dup
