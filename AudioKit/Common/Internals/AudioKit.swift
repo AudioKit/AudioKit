@@ -198,11 +198,18 @@ public typealias AKCallback = Void -> Void
     ///
     /// - Parameters:
     ///   - node: AKNode to test
-    ///   - samples: Number of samples to generate in the test
+    ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    public static func testOutput(node: AKNode, samples: Int) {
+    public static func testOutput(node: AKNode, duration: Double) {
+        let samples = Int(duration * AKSettings.sampleRate)
+        
         tester = AKTester(node, samples: samples)
         output = tester
+        start()
+        tester?.play()
+        self.engine.pause()
+        let renderer = AKOfflineRenderer(engine: self.engine)
+        renderer.render(Int32(samples))
     }
 
     // Listen to changes in audio configuration

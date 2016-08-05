@@ -101,6 +101,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKPhaseLockedVocoderAudioUnit.h"
 
 // Testing
+#import "AKOfflineRenderer.h"
 #import "AKTesterAudioUnit.h"
 
 // Plots
