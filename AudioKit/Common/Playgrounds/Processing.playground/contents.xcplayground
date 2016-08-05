@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='ios' display-mode='raw' executeOnSourceChanges='false'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='AutoPan Operation'/>
@@ -52,6 +52,7 @@
         <page name='Reverb'/>
         <page name='Ring Modulator'/>
         <page name='Roland TB-303 Filter'/>
+        <page name='Smooth Delay Operation'/>
         <page name='Sporth Based Effect'/>
         <page name='String Resonator'/>
         <page name='Tanh Distortion'/>
