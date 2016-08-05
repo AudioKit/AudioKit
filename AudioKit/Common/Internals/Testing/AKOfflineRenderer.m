@@ -20,7 +20,6 @@
 - (void)render:(int)samples {
     AVAudioOutputNode *outputNode = self.engine.outputNode;
     AudioStreamBasicDescription const *audioDescription = [outputNode outputFormatForBus:0].streamDescription;
-    NSTimeInterval duration = 1;
     NSUInteger lengthInFrames = (NSUInteger)samples;
     const NSUInteger kBufferLength = 3756;
     AudioBufferList *bufferList = AEAllocateAndInitAudioBufferList(*audioDescription, kBufferLength);
