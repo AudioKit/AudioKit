@@ -43,24 +43,24 @@ class PlaygroundView: AKPlaygroundView {
         addSubview(AKPropertySlider(
             property: "Attack Time",
             format:  "%0.3f s",
-            value: vocoder.attackTime, minimum: 0.01, maximum: 0.5,
-            callback: { sliderValue in
+            value: vocoder.attackTime, minimum: 0.01, maximum: 0.5)
+        { sliderValue in
                 vocoder.attackTime = sliderValue
-        }))
+        })
         addSubview(AKPropertySlider(
             property: "Release Time",
             format:  "%0.3f s",
-            value: vocoder.releaseTime, minimum: 0.01, maximum: 0.5,
-            callback: { sliderValue in
+            value: vocoder.releaseTime, minimum: 0.01, maximum: 0.5)
+        { sliderValue in
                 vocoder.releaseTime = sliderValue
-        }))
+        })
         addSubview(AKPropertySlider(
             property: "Bandwidth Ratio",
             format:  "%0.3f",
-            value: vocoder.bandwidthRatio, minimum: 0.1, maximum: 2,
-            callback: { sliderValue in
-                vocoder.bandwidthRatio = sliderValue
-        }))
+            value: vocoder.bandwidthRatio, minimum: 0.1, maximum: 2)
+        { sliderValue in
+            vocoder.bandwidthRatio = sliderValue
+        })
 
     }
     

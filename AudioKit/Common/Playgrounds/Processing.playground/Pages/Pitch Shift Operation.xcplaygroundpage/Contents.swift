@@ -1,4 +1,4 @@
-//: ## Variable Delay Operation
+//: ## Pitch Shift Operation
 //:
 import XCPlayground
 import AudioKit
@@ -10,49 +10,43 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 let effect = AKOperationEffect(player) { player, parameters in
-    let time = AKOperation.sineWave(frequency: parameters[1])
-        .scale(minimum: 0.001, maximum: parameters[0])
-    let feedback = AKOperation.sineWave(frequency: parameters[2])
-        .scale(minimum: 0.5, maximum: 0.9)
-    return player.variableDelay(time: time,
-                                feedback: feedback,
-                                maximumDelayTime: 1.0)
+    let sinusoid = AKOperation.sineWave(frequency: parameters[2])
+    let shift = parameters[0] + sinusoid * parameters[1] / 2.0
+    return player.pitchShift(semitones: shift)
 }
-effect.parameters = [0.2, 0.3, 0.21]
+effect.parameters = [0, 7, 3]
 
 AudioKit.output = effect
 AudioKit.start()
 player.play()
 
-//: User Interface
-
 class PlaygroundView: AKPlaygroundView {
     
     override func setup() {
-        addTitle("Variable Delay Operation")
+        addTitle("Pitch Shift Operation")
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
             filenames: processingPlaygroundFiles))
         
         addSubview(AKPropertySlider(
-            property: "Maximum Delay",
-            format: "%0.3f s",
-            value: effect.parameters[0], maximum: 0.3)
-        { sliderValue in
+            property: "Base Shift",
+            format: "%0.3f semitones",
+            value: effect.parameters[0], minimum: -12, maximum: 12
+        ) { sliderValue in
             effect.parameters[0] = sliderValue
             })
         addSubview(AKPropertySlider(
-            property: "Delay Frequency",
-            format: "%0.3f Hz",
-            value: effect.parameters[1])
-        { sliderValue in
+            property: "Range",
+            format: "%0.3f semitones",
+            value: effect.parameters[1], minimum: 0, maximum: 24
+        ) { sliderValue in
             effect.parameters[1] = sliderValue
             })
         addSubview(AKPropertySlider(
-            property: "Feedback Frequency",
+            property: "Speed",
             format: "%0.3f Hz",
-            value: effect.parameters[2])
-        { sliderValue in
+            value: effect.parameters[2], minimum: 0.001, maximum: 10
+        ) { sliderValue in
             effect.parameters[2] = sliderValue
             })
     }
