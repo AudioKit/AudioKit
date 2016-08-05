@@ -71,7 +71,7 @@ public:
     }
 
     void setSampleRate(float value) {
-        sampleRate = clamp(value, 0.0f, 20000.0f);
+        sampleRate = clamp(value, 1.0f, 20000.0f);
         sampleRateRamper.setImmediate(sampleRate);
     }
 
@@ -83,7 +83,7 @@ public:
                 break;
 
             case sampleRateAddress:
-                sampleRateRamper.setUIValue(clamp(value, 0.0f, 20000.0f));
+                sampleRateRamper.setUIValue(clamp(value, 1.0f, 20000.0f));
                 break;
 
         }
@@ -108,7 +108,7 @@ public:
                 break;
 
             case sampleRateAddress:
-                sampleRateRamper.startRamp(clamp(value, 0.0f, 20000.0f), duration);
+                sampleRateRamper.startRamp(clamp(value, 1.0f, 20000.0f), duration);
                 break;
 
         }

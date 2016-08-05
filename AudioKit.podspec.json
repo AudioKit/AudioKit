@@ -6,7 +6,7 @@
     },
     "license": {
         "type": "MIT",
-	"file": "LICENSE"
+        "file": "LICENSE"
     },
     "homepage": "http://audiokit.io/",
     "social_media_url": "http://twitter.com/AudioKitMan",
@@ -24,15 +24,18 @@
 	"AVFoundation"
     ],
     "osx": {
-	"public_header_files": "OSX/AudioKit.framework/Versions/A/Headers/*.h",
+        "source_files": "OSX/AudioKit.framework/Versions/A/Headers/*{.h, .m}",
+        "public_header_files": "OSX/AudioKit.framework/Versions/A/Headers/*.h",
         "vendored_frameworks": "OSX/AudioKit.framework"
     },
     "ios": {
-	"public_header_files": "iOS/AudioKit.framework/Headers/*.h",
+        "source_files": "iOS/AudioKit.framework/Headers/*.h",
+        "public_header_files": "iOS/AudioKit.framework/Headers/*.h",
         "vendored_frameworks": "iOS/AudioKit.framework"
     },
     "tvos": {
-	"public_header_files": "tvOS/AudioKit.framework/Headers/*.h",
+        "source_files": "tvOS/AudioKit.framework/Headers/*.h",
+        "public_header_files": "tvOS/AudioKit.framework/Headers/*.h",
         "vendored_frameworks": "tvOS/AudioKit.framework"
     }
 }
