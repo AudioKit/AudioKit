@@ -10,6 +10,9 @@ cd Frameworks
 ./build_frameworks.sh || exit 1
 cd ..
 
+echo "Running iOS Tests"
+xcodebuild -scheme Tests -project AudioKit/iOS/AudioKit\ for\ iOS.xcodeproj test -destination 'platform=iOS Simulator,name=iPhone 5s' | xcpretty -c || exit 3
+
 echo "Building iOS HelloWorld"
 xcodebuild -project Examples/iOS/HelloWorld/HelloWorld.xcodeproj -sdk iphonesimulator -scheme HelloWorld -arch x86_64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" clean build | xcpretty -c || exit 4
 
