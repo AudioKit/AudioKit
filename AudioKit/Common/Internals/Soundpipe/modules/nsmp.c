@@ -119,7 +119,7 @@ int nano_compute(sp_data *sp, nanosamp *smp, float *out)
         frac = fabs(tmp - index);
 
         if(index >= smp->ft->size) {
-            index = smp->ft->size - 1;
+            index = (uint32_t)smp->ft->size - 1;
         }
         
         x1 = tbl[index];
