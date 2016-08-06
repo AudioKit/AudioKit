@@ -1400,6 +1400,15 @@ int sp_tenvx_destroy(sp_tenvx **p);
 int sp_tenvx_init(sp_data *sp, sp_tenvx *p);
 int sp_tenvx_compute(sp_data *sp, sp_tenvx *p, SPFLOAT *in, SPFLOAT *out);
 typedef struct {
+    SPFLOAT time;
+    uint32_t timer;
+} sp_tgate;
+
+int sp_tgate_create(sp_tgate **p);
+int sp_tgate_destroy(sp_tgate **p);
+int sp_tgate_init(sp_data *sp, sp_tgate *p);
+int sp_tgate_compute(sp_data *sp, sp_tgate *p, SPFLOAT *in, SPFLOAT *out);
+typedef struct {
     int mode, init;
     SPFLOAT prev, thresh;
 } sp_thresh;

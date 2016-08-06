@@ -1300,7 +1300,7 @@ int sporth_limit(sporth_stack *stack, void *ud)
     switch(pd->mode){
         case PLUMBER_CREATE:
 #ifdef DEBUG_MODE
-            fprintf(stderr, "ampdb: Creating\n");
+            fprintf(stderr, "limit: Creating\n");
 #endif
             plumber_add_ugen(pd, SPORTH_LIMIT, NULL);
             if(sporth_check_args(stack, "fff") != SPORTH_OK) {
@@ -1342,6 +1342,68 @@ int sporth_limit(sporth_stack *stack, void *ud)
             break;
         default:
             fprintf(stderr,"limit: unknown mode!");
+            stack->error++;
+            return PLUMBER_NOTOK;
+            break;
+    }
+    return PLUMBER_OK;
+}
+typedef struct {
+    SPFLOAT pval;
+    SPFLOAT out;
+} inv_d;
+int sporth_inv(sporth_stack *stack, void *ud)
+{
+    plumber_data *pd = ud;
+    inv_d *inv;
+    SPFLOAT val;
+    switch(pd->mode){
+        case PLUMBER_CREATE:
+#ifdef DEBUG_MODE
+            fprintf(stderr, "inv: Creating\n");
+#endif
+            inv = malloc(sizeof(inv_d));
+            plumber_add_ugen(pd, SPORTH_INV, inv);
+            if(sporth_check_args(stack, "f") != SPORTH_OK) {
+                fprintf(stderr, "limit: not enough args\n");
+                stack->error++;
+                return PLUMBER_NOTOK;
+            }
+            val = sporth_stack_pop_float(stack);
+            inv->out  = (1.0 / val);
+            inv->pval = val;
+            sporth_stack_push_float(stack, inv->out);
+            break;
+        case PLUMBER_INIT:
+#ifdef DEBUG_MODE
+            fprintf(stderr, "inv: Initializing\n");
+#endif
+            inv = (inv_d *)pd->last->ud;
+            val = sporth_stack_pop_float(stack);
+
+            if(val != inv->pval) { 
+                inv->out = (1.0 / val);
+                inv->pval = val;
+            }
+
+            sporth_stack_push_float(stack, inv->out);
+            break;
+        case PLUMBER_COMPUTE:
+            inv = (inv_d *)pd->last->ud;
+            val = sporth_stack_pop_float(stack);
+
+            if(val != inv->pval) { 
+                inv->out = (1.0 / val);
+                inv->pval = val;
+            }
+            sporth_stack_push_float(stack, inv->out);
+            break;
+        case PLUMBER_DESTROY:
+            inv = (inv_d *)pd->last->ud;
+            free(inv);
+            break;
+        default:
+            fprintf(stderr,"inv: unknown mode!");
             stack->error++;
             return PLUMBER_NOTOK;
             break;

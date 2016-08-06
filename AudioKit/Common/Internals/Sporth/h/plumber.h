@@ -165,3 +165,4 @@ int plumber_process_null(sp_data *sp, void *ud, void (*callback)(sp_data *, void
 
 int plumber_argtbl_create(plumber_data *plumb, plumber_argtbl **at, uint32_t size);
 int plumber_argtbl_destroy(plumber_data *plumb, plumber_argtbl **at);
+int plumber_create_var(plumber_data *plumb, char *str, float **var);
