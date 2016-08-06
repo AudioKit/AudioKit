@@ -121,6 +121,7 @@
 		C42899B01D55AC9000B941B5 /* tgate.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899AF1D55AC9000B941B5 /* tgate.c */; };
 		C42899B21D55ACAA00B941B5 /* nsmp.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899B11D55ACAA00B941B5 /* nsmp.c */; };
 		C42899B41D55ACBF00B941B5 /* peaklim.c in Sources */ = {isa = PBXBuildFile; fileRef = C42899B31D55ACBF00B941B5 /* peaklim.c */; };
+		C42899C41D55D2D600B941B5 /* AKPhaseDistortionOscillatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42899C31D55D2D600B941B5 /* AKPhaseDistortionOscillatorTests.swift */; };
 		C42ADFFE1C2C9E37000CEED2 /* AKRollingOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */; };
 		C42BF6CC1CE80E6600155BE7 /* Numeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42BF6CB1CE80E6600155BE7 /* Numeric.swift */; };
 		C42F35041C057E03000E937C /* AudioKit.h in Headers */ = {isa = PBXBuildFile; fileRef = C42F35031C057E03000E937C /* AudioKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -850,6 +851,7 @@
 		C42899AF1D55AC9000B941B5 /* tgate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tgate.c; sourceTree = "<group>"; };
 		C42899B11D55ACAA00B941B5 /* nsmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nsmp.c; sourceTree = "<group>"; };
 		C42899B31D55ACBF00B941B5 /* peaklim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = peaklim.c; sourceTree = "<group>"; };
+		C42899C31D55D2D600B941B5 /* AKPhaseDistortionOscillatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKPhaseDistortionOscillatorTests.swift; path = ../../Common/Tests/AKPhaseDistortionOscillatorTests.swift; sourceTree = "<group>"; };
 		C42ADFFD1C2C9E37000CEED2 /* AKRollingOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKRollingOutputPlot.swift; sourceTree = "<group>"; };
 		C42BF6CB1CE80E6600155BE7 /* Numeric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Numeric.swift; sourceTree = "<group>"; };
 		C42F35001C057E03000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -3085,6 +3087,7 @@
 			children = (
 				C49A0A9D1D548168007D8ADB /* AKFMOscillatorTests.swift */,
 				C49A0A9E1D548168007D8ADB /* AKOscillatorTests.swift */,
+				C42899C31D55D2D600B941B5 /* AKPhaseDistortionOscillatorTests.swift */,
 				C49A0A9F1D548168007D8ADB /* AKTestCase.swift */,
 				C49A0AA01D548168007D8ADB /* fmOscillatorTests.swift */,
 				C49A0A961D548144007D8ADB /* Info.plist */,
@@ -4169,6 +4172,7 @@
 				C49A0AA41D548168007D8ADB /* fmOscillatorTests.swift in Sources */,
 				C49A0AA11D548168007D8ADB /* AKFMOscillatorTests.swift in Sources */,
 				C49A0AA31D548168007D8ADB /* AKTestCase.swift in Sources */,
+				C42899C41D55D2D600B941B5 /* AKPhaseDistortionOscillatorTests.swift in Sources */,
 				C49A0AA21D548168007D8ADB /* AKOscillatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4385,6 +4389,7 @@
 				C49A0A9C1D548144007D8ADB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
