@@ -46,7 +46,7 @@ public class AKDryWetMixer: AKNode {
     ///   - wet: Wet Input (or just input 2)
     ///   - balance: Balance Point (0 = all dry, 1 = all wet)
     ///
-    public init(_ dry: AKNode, _ wet: AKNode, balance: Double) {
+    public init(_ dry: AKNode, _ wet: AKNode, balance: Double = 0.5) {
 
         self.balance = balance
 
