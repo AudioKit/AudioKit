@@ -1,4 +1,4 @@
-//: # Processing Playgrounds
+//: # Effects Processing Playgrounds
 //:
 //: ## "Analog Synth X" Example Project
 //:
@@ -10,18 +10,15 @@
 //: * [Muli-tap Delay](Multi-tap%20Delay)
 //: * [MultiDelay](MultiDelay%20Example)
 //:
-//: ## Effect Processor Nodes
+//: ## Nodes
 //:
-//: This secions starts presenting playgrounds with the purpose of
-//: demonstrating a particular type of node.  This section covers effect
-//: processors such as what you might find on a electric guitar pedal board.
-//:
-//: ### Delay Nodes
+//: ### Delays
 //:
 //: Delay is a lot more powerful than simply repeating an earlier sound.
 //: By varying parameters, you can get startlingly beautiful effects.
 //:
 //: * [Delay](Delay)
+//: * [Smooth Delay](Smooth%20Delay)
 //: * [Variable Delay](Variable%20Delay)
 //:
 //: ### Distortion
@@ -42,35 +39,14 @@
 //: changing the signal's output levels.
 //:
 //: * [Clipper](Clipper)
-//: * [Compressorr](Compressor)
+//: * [Compressor](Compressor)
 //: * [Dynamics Processor](Dynamics%20Processor)
 //: * [Expander](Expander)
 //: * [Peak Limiter](Peak%20Limiter)
 //:
 //: ### Filters
 //:
-//: * [Auto Wah Wah](Auto%20Wah%20Wah)
-//: * [Band Pass Butterworth Filter](Band%20Pass%20Butterworth%20Filter)
-//: * [Band Pass Filter](Band%20Pass%20Filter)
-//: * [Band Reject Butterworth Filter](Band%20Reject%20Butterworth%20Filter)
-//: * [Formant Filter](Formant%20Filter)
-//: * [Graphic Equalizer](Graphic%20Equalizer)
-//: * [High Pass Butterworth Filter](High%20Pass%20Butterworth%20Filter)
-//: * [High Pass Filter](High%20Pass%20Filter)
-//: * [High Shelf Filter](High%20Shelf%20Filter)
-//: * [Low Pass Butterworth Filter](Low%20Pass%20Butterworth%20Filter)
-//: * [Low Pass Filter](Low%20Pass%20Filter)
-//: * [Low  Shelf Filter](Low%20Shelf%20Filter)
-//: * [Modal Resonance Filter](Modal%20Resonance%20Filter)
-//: * [Moog Ladder Filter](Moog%20Ladder%20Filter)
-//: * [Parametric Equalizer](Parametric%20Equalizer)
-//: * [Resonant Filter](Resonant%20Filter)
-//: * [Roland TB-303 Filter](Roland%20TB-303%20Filter)
-//: * [String Resonator](String%20Resonator)
-//: * [Three-Pole Low Pass Filter](Three-Pole%20Low%20Pass%20Filter)
-//: * [Tone and Tone Complement Filters](Tone%20and%20Tone%20Complement%20Filters)
-//: * [Tremolo](Tremolo)
-//: * [3D Panner](3D%20Panner)
+//: * Filter playground pages were moved to a dedicated playground
 //:
 //: ### Pitch Shifting
 //:
@@ -94,6 +70,14 @@
 //: * [Comb Filter Reverb](Comb%20Filter%20Reverb)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb)
 //:
+//: ### Other
+//:
+//: * [Auto Wah Wah](Auto%20Wah%20Wah)
+//: * [Graphic Equalizer](Graphic%20Equalizer)
+//: * [String Resonator](String%20Resonator)
+//: * [Tremolo](Tremolo)
+//: * [3D Panner](3D%20Panner)
+
 //: ## Operations
 //:
 //: Many of the types of things you can do in nodes are also possible with operations,
@@ -104,12 +88,7 @@
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Costello Reverb Operation](Costello%20Reverb%20Operation)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
-//: * [High Pass Filter](High%20Pass%20Filter%20Operation)
-//: * [Low Pass Filter](Low%20Pass%20Filter%20Operation)
-//: * [Modal Resonance Filter](Modal%20Resonance%20Filter%20Operation)
-//: * [Moog Ladder Filter](Moog%20Ladder%20Filter%20Operation)
 //: * [Plucked String Operation](Plucked%20String%20Operation)
-//: * [Resonant Filter Operation](Resonant%20Filter%20Operation)
 //: * [Sawtooth Wave Oscillator Operation](Sawtooth%20Wave%20Oscillator%20Operation)
 //: * [Variable Delay](Variable%20Delay%20Operation)
 //:

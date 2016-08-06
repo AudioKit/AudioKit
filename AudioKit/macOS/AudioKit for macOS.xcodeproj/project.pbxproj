@@ -745,6 +745,8 @@
 		C428999F1D55488900B941B5 /* tgate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tgate.c; sourceTree = "<group>"; };
 		C42899A11D55496A00B941B5 /* nsmp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = nsmp.c; sourceTree = "<group>"; };
 		C42899A31D55498500B941B5 /* peaklim.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = peaklim.c; sourceTree = "<group>"; };
+		C42899C61D56839B00B941B5 /* Effects.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Effects.playground; path = ../../../Common/Playgrounds/Effects.playground; sourceTree = "<group>"; };
+		C42899C71D5683A000B941B5 /* Filters.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Filters.playground; path = ../../../Common/Playgrounds/Filters.playground; sourceTree = "<group>"; };
 		C42F36CC1C0582E6000E937C /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = macOSDevelopment.playground; sourceTree = "<group>"; };
 		C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundLoop.swift; sourceTree = "<group>"; };
@@ -1429,7 +1431,6 @@
 		C47E64091D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKResourceAudioFileLoaderView.swift; sourceTree = "<group>"; };
 		C47E640B1D4D895F0044B028 /* AKBypassButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKBypassButton.swift; sourceTree = "<group>"; };
 		C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPresetLoaderView.swift; sourceTree = "<group>"; };
-		C480BEFF1D4E150800204FDF /* Processing.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Processing.playground; path = ../../../Common/Playgrounds/Processing.playground; sourceTree = "<group>"; };
 		C480BF001D4E150800204FDF /* Synthesis.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = Synthesis.playground; path = ../../../Common/Playgrounds/Synthesis.playground; sourceTree = "<group>"; };
 		C49A09F91D514822007D8ADB /* AKADSRView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKADSRView.swift; sourceTree = "<group>"; };
 		C49A0A0B1D53F2AC007D8ADB /* AKVocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKVocoder.swift; sourceTree = "<group>"; };
@@ -1503,9 +1504,10 @@
 			children = (
 				C4DABC491D4F0C9A00A8942F /* Basics.playground */,
 				C480BF001D4E150800204FDF /* Synthesis.playground */,
-				C480BEFF1D4E150800204FDF /* Processing.playground */,
-				C4DABC471D4F065D00A8942F /* Analysis.playground */,
 				C4A0855C1D4F1DB100514F8A /* Playback.playground */,
+				C42899C61D56839B00B941B5 /* Effects.playground */,
+				C42899C71D5683A000B941B5 /* Filters.playground */,
+				C4DABC471D4F065D00A8942F /* Analysis.playground */,
 				C446B3D81D45447A000AEFCA /* macOSDevelopment.playground */,
 			);
 			name = Playgrounds;
