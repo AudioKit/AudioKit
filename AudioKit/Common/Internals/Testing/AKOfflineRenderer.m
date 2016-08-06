@@ -21,8 +21,8 @@
     AVAudioOutputNode *outputNode = self.engine.outputNode;
     AudioStreamBasicDescription const *audioDescription = [outputNode outputFormatForBus:0].streamDescription;
     NSUInteger lengthInFrames = (NSUInteger)samples;
-    const NSUInteger kBufferLength = 3756;
-    AudioBufferList *bufferList = AEAllocateAndInitAudioBufferList(*audioDescription, kBufferLength);
+    const NSUInteger kBufferLength = 512;
+    AudioBufferList *bufferList = AEAudioBufferListCreate(*audioDescription, kBufferLength);
     AudioTimeStamp timeStamp;
     memset (&timeStamp, 0, sizeof(timeStamp));
     timeStamp.mFlags = kAudioTimeStampSampleTimeValid;
@@ -34,9 +34,9 @@
     }
     if (status == noErr && timeStamp.mSampleTime < lengthInFrames) {
         NSUInteger restBufferLength = (NSUInteger) (lengthInFrames - timeStamp.mSampleTime);
-        AudioBufferList *restBufferList = AEAllocateAndInitAudioBufferList(*audioDescription, (int)restBufferLength);
+        AudioBufferList *restBufferList = AEAudioBufferListCreate(*audioDescription, (int)restBufferLength);
         status = [self renderToBufferList:restBufferList bufferLength:restBufferLength timeStamp:&timeStamp];
-        AEFreeAudioBufferList(restBufferList);
+        AEAudioBufferListFree(restBufferList);
     }
 }
 
@@ -47,7 +47,7 @@
     AudioUnit outputUnit = self.engine.outputNode.audioUnit;
     OSStatus status = AudioUnitRender(outputUnit, 0, timeStamp, 0, (int)bufferLength, bufferList);
     if (status != noErr) {
-        NSLog(@"Can not render audio unit");
+        NSLog(@"Can not render audio unit %d", status);
         return status;
     }
     timeStamp->mSampleTime += bufferLength;
@@ -60,20 +60,21 @@
     }
 }
 
-AudioBufferList *AEAllocateAndInitAudioBufferList(AudioStreamBasicDescription audioFormat, int frameCount) {
+AudioBufferList *AEAudioBufferListCreate(AudioStreamBasicDescription audioFormat, int frameCount) {
     int numberOfBuffers = audioFormat.mFormatFlags & kAudioFormatFlagIsNonInterleaved ? audioFormat.mChannelsPerFrame : 1;
     int channelsPerBuffer = audioFormat.mFormatFlags & kAudioFormatFlagIsNonInterleaved ? 1 : audioFormat.mChannelsPerFrame;
     int bytesPerBuffer = audioFormat.mBytesPerFrame * frameCount;
-    AudioBufferList *audio = malloc(sizeof(AudioBufferList) + (numberOfBuffers - 1) * sizeof(AudioBuffer));
-    if (!audio) {
+    
+    AudioBufferList *audio = malloc(sizeof(AudioBufferList) + (numberOfBuffers-1)*sizeof(AudioBuffer));
+    if ( !audio ) {
         return NULL;
     }
     audio->mNumberBuffers = numberOfBuffers;
-    for (int i = 0; i < numberOfBuffers; i++) {
-        if (bytesPerBuffer > 0) {
+    for ( int i=0; i<numberOfBuffers; i++ ) {
+        if ( bytesPerBuffer > 0 ) {
             audio->mBuffers[i].mData = calloc(bytesPerBuffer, 1);
-            if (!audio->mBuffers[i].mData) {
-                for (int j = 0; j < i; j++) free(audio->mBuffers[j].mData);
+            if ( !audio->mBuffers[i].mData ) {
+                for ( int j=0; j<i; j++ ) free(audio->mBuffers[j].mData);
                 free(audio);
                 return NULL;
             }
@@ -85,10 +86,9 @@ AudioBufferList *AEAllocateAndInitAudioBufferList(AudioStreamBasicDescription au
     }
     return audio;
 }
-
-void AEFreeAudioBufferList(AudioBufferList *bufferList) {
-    for (int i = 0; i < bufferList->mNumberBuffers; i++) {
-        if (bufferList->mBuffers[i].mData) free(bufferList->mBuffers[i].mData);
+void AEAudioBufferListFree(AudioBufferList *bufferList ) {
+    for ( int i=0; i<bufferList->mNumberBuffers; i++ ) {
+        if ( bufferList->mBuffers[i].mData ) free(bufferList->mBuffers[i].mData);
     }
     free(bufferList);
 }
