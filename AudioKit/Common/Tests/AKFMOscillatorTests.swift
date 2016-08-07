@@ -41,4 +41,40 @@ class AKFMOscillatorTests: AKTestCase {
         output = oscillator
         AKTestMD5("9d4ba935daab84b999de48fd9314d3ae")
     }
+    
+    func testPresetStunRay() {
+        let preset = AKFMOscillator()
+        preset.presetStunRay()
+        output = preset
+        AKTestMD5("b13ecfd0016315c849f303575943620f")
+    }
+    
+    func testPresetFogHorn() {
+        let preset = AKFMOscillator()
+        preset.presetFogHorn()
+        output = preset
+        AKTestMD5("bc0e57053d775dab5fc78ab5bbcca0a9")
+    }
+    
+    func testPresetBuzzer() {
+        let preset = AKFMOscillator()
+        preset.presetBuzzer()
+        output = preset
+        AKTestMD5("e1e9935fa572f645a635959155af0b8e")
+    }
+    
+    func testPresetSpiral() {
+        let preset = AKFMOscillator()
+        preset.presetSpiral()
+        output = preset
+        AKTestMD5("88f31145f1f245ae0288939761767bec")
+    }
+    
+    func testPresetWobble() {
+        let preset = AKFMOscillator()
+        preset.presetWobble()
+        output = preset
+        AKTestMD5("8add95c227860472781b6b9bb4d21f44")
+    }
+
 }

@@ -443,7 +443,6 @@
 		C48C6CB81D3C15F1008EA51B /* tseg.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BBF1D3C15F1008EA51B /* tseg.c */; };
 		C48C6CB91D3C15F1008EA51B /* tseq.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC01D3C15F1008EA51B /* tseq.c */; };
 		C48C6CBA1D3C15F1008EA51B /* vdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC11D3C15F1008EA51B /* vdelay.c */; };
-		C48C6CBB1D3C15F1008EA51B /* vocoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC21D3C15F1008EA51B /* vocoder.c */; };
 		C48C6CBC1D3C15F1008EA51B /* waveset.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC31D3C15F1008EA51B /* waveset.c */; };
 		C48C6CBD1D3C15F1008EA51B /* wpkorg35.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC41D3C15F1008EA51B /* wpkorg35.c */; };
 		C48C6CBE1D3C15F1008EA51B /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC51D3C15F1008EA51B /* zitarev.c */; };
@@ -566,7 +565,6 @@
 		C48C6D341D3C15F2008EA51B /* tseg.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C3F1D3C15F1008EA51B /* tseg.c */; };
 		C48C6D351D3C15F2008EA51B /* tseq.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C401D3C15F1008EA51B /* tseq.c */; };
 		C48C6D361D3C15F2008EA51B /* vdelay.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C411D3C15F1008EA51B /* vdelay.c */; };
-		C48C6D371D3C15F2008EA51B /* vocoder.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C421D3C15F1008EA51B /* vocoder.c */; };
 		C48C6D381D3C15F2008EA51B /* waveset.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C431D3C15F1008EA51B /* waveset.c */; };
 		C48C6D391D3C15F2008EA51B /* wpkorg35.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C441D3C15F1008EA51B /* wpkorg35.c */; };
 		C48C6D3A1D3C15F2008EA51B /* zeros.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6C451D3C15F1008EA51B /* zeros.c */; };
@@ -1156,7 +1154,6 @@
 		C48C6BBF1D3C15F1008EA51B /* tseg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tseg.c; sourceTree = "<group>"; };
 		C48C6BC01D3C15F1008EA51B /* tseq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tseq.c; sourceTree = "<group>"; };
 		C48C6BC11D3C15F1008EA51B /* vdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vdelay.c; sourceTree = "<group>"; };
-		C48C6BC21D3C15F1008EA51B /* vocoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vocoder.c; sourceTree = "<group>"; };
 		C48C6BC31D3C15F1008EA51B /* waveset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = waveset.c; sourceTree = "<group>"; };
 		C48C6BC41D3C15F1008EA51B /* wpkorg35.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wpkorg35.c; sourceTree = "<group>"; };
 		C48C6BC51D3C15F1008EA51B /* zitarev.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zitarev.c; sourceTree = "<group>"; };
@@ -1279,7 +1276,6 @@
 		C48C6C3F1D3C15F1008EA51B /* tseg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tseg.c; sourceTree = "<group>"; };
 		C48C6C401D3C15F1008EA51B /* tseq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tseq.c; sourceTree = "<group>"; };
 		C48C6C411D3C15F1008EA51B /* vdelay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vdelay.c; sourceTree = "<group>"; };
-		C48C6C421D3C15F1008EA51B /* vocoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vocoder.c; sourceTree = "<group>"; };
 		C48C6C431D3C15F1008EA51B /* waveset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = waveset.c; sourceTree = "<group>"; };
 		C48C6C441D3C15F1008EA51B /* wpkorg35.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wpkorg35.c; sourceTree = "<group>"; };
 		C48C6C451D3C15F1008EA51B /* zeros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zeros.c; sourceTree = "<group>"; };
@@ -2792,7 +2788,6 @@
 				C48C6BBF1D3C15F1008EA51B /* tseg.c */,
 				C48C6BC01D3C15F1008EA51B /* tseq.c */,
 				C48C6BC11D3C15F1008EA51B /* vdelay.c */,
-				C48C6BC21D3C15F1008EA51B /* vocoder.c */,
 				C48C6BC31D3C15F1008EA51B /* waveset.c */,
 				C48C6BC41D3C15F1008EA51B /* wpkorg35.c */,
 				C48C6BC51D3C15F1008EA51B /* zitarev.c */,
@@ -2951,7 +2946,6 @@
 				C48C6C401D3C15F1008EA51B /* tseq.c */,
 				C42899A71D55AC3000B941B5 /* v.c */,
 				C48C6C411D3C15F1008EA51B /* vdelay.c */,
-				C48C6C421D3C15F1008EA51B /* vocoder.c */,
 				C48C6C431D3C15F1008EA51B /* waveset.c */,
 				C48C6C441D3C15F1008EA51B /* wpkorg35.c */,
 				C48C6C451D3C15F1008EA51B /* zeros.c */,
@@ -3556,7 +3550,6 @@
 				C4E120AA1D4D95AB00CD3572 /* AKPlaygroundView.swift in Sources */,
 				C4E751AB1C235CE800688A1B /* reverberateWithChowning.swift in Sources */,
 				C4A9164E1C24F95E006C1A15 /* metronome.swift in Sources */,
-				C48C6D371D3C15F2008EA51B /* vocoder.c in Sources */,
 				C4537FD11C3A438D00A51738 /* AKLowPassButterworthFilterAudioUnit.mm in Sources */,
 				C48C6CF61D3C15F2008EA51B /* gen_sine.c in Sources */,
 				C48C6C561D3C15F1008EA51B /* autowah.c in Sources */,
@@ -3729,7 +3722,6 @@
 				C48C6C751D3C15F1008EA51B /* fofilt.c in Sources */,
 				C40C41531C40E3A5009D870B /* EZAudioDisplayLink.m in Sources */,
 				C48C6CD71D3C15F1008EA51B /* blsquare.c in Sources */,
-				C48C6CBB1D3C15F1008EA51B /* vocoder.c in Sources */,
 				C48C6D251D3C15F2008EA51B /* tabread.c in Sources */,
 				C48C6C811D3C15F1008EA51B /* lpf18.c in Sources */,
 				C42899B21D55ACAA00B941B5 /* nsmp.c in Sources */,
