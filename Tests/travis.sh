@@ -7,7 +7,7 @@ set -o pipefail
 
 echo "Building AudioKit Frameworks"
 cd Frameworks
-#./build_frameworks.sh || exit 1
+./build_frameworks.sh || exit 1
 cd ..
 
 echo "Running iOS Tests"
