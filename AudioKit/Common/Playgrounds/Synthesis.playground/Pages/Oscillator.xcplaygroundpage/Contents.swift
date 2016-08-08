@@ -56,7 +56,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             currentRampTime = time
             })
 
-        let keyboard = AKKBView(width: 440,
+        let keyboard = AKKeyboardView(width: 440,
                                       height: 100,
                                       firstOctave: 4,
                                       octaveCount: 4)
