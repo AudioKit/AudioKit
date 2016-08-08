@@ -78,7 +78,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         })
 
         let keyboard = AKKeyboardView(width: playgroundWidth - 60,
-                                      height: 100, totalKeys: 36)
+                                      height: 100)
         keyboard.delegate = self
         addSubview(keyboard)
     }
