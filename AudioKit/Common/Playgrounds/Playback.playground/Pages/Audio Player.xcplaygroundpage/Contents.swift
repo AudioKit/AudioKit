@@ -37,9 +37,13 @@ class PlaygroundView: AKPlaygroundView {
             player: player,
             filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
         
-        addSubview(AKButton(title: "Toggle Looping") {
+        addSubview(AKButton(title: "Disable Looping") {
             player.looping = !player.looping
-            })
+            if player.looping {
+                return "Disable Looping"
+            } else {
+                return "Enable Looping"
+            }})
 
         inPositionSlider = AKPropertySlider(
             property: "In Position",

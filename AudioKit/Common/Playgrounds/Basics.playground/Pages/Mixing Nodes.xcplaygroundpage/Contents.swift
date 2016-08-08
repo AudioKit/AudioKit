@@ -55,18 +55,16 @@ class PlaygroundView: AKPlaygroundView {
     override func setup() {
         addTitle("Mixer")
                 
-        addSubview(AKButton(title: "Start All") {
-            drums.play()
-            bass.play()
-            guitar.play()
-            lead.play()
-            })
-        
-        addSubview(AKButton(title: "Stop All", color: AKColor.redColor()) {
-            drums.stop()
-            bass.stop()
-            guitar.stop()
-            lead.stop()
+        addSubview(AKButton(title: "Stop All") {
+            drums.isPlaying  ? drums.stop()  : drums.play()
+            bass.isPlaying   ? bass.stop()   : bass.play()
+            guitar.isPlaying ? guitar.stop() : guitar.play()
+            lead.isPlaying   ? lead.stop()   : lead.play()
+            
+            if drums.isPlaying {
+                return "Stop All"
+            }
+            return "Start All"
             })
         
         addSubview(AKPropertySlider(

@@ -89,7 +89,7 @@ public class AKPropertySlider: NSView {
         
         //// Color Declarations
         let backgroundColor = NSColor(calibratedRed: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let sliderColor = NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1)
+        let sliderColor = color // NSColor(calibratedRed: 1, green: 0, blue: 0.062, alpha: 1)
         
         //// Variable Declarations
         let currentWidth: CGFloat = currentValue < minimum ? 0 : (currentValue < maximum ? (currentValue - minimum) / (maximum - minimum) * self.frame.width : self.frame.width)

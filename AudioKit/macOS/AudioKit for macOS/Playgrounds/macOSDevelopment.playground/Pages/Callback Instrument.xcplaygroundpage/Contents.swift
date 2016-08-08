@@ -48,12 +48,15 @@ class PlaygroundView: AKPlaygroundView {
         
         addSubview(AKButton(title: "Play") {
             sequencer.play()
+            return ""
             })
         addSubview(AKButton(title: "Pause", color: AKColor.redColor()) {
             sequencer.stop()
+            return ""
             })
         addSubview(AKButton(title: "Rewind", color: AKColor.cyanColor()) {
             sequencer.rewind()
+            return ""
             })
         addLabel("Open the console log to show output.")
     }
