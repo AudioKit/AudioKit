@@ -6,11 +6,7 @@ import AudioKit
 
 let pulse = 0.23 // seconds
 
-//: We are going to load an EXS24 instrument and send it random notes
-
 let sampler = AKSampler()
-
-//: Here is where we reference the Wav file as it is in the app bundle
 sampler.loadWav("FM Piano")
 
 var delay  = AKDelay(sampler)
@@ -24,12 +20,10 @@ reverb.loadFactoryPreset(.LargeRoom)
 var mixer = AKMixer(reverb)
 mixer.volume = 5.0
 
-//: Connect the sampler to the main output
 AudioKit.output = mixer
 AudioKit.start()
 
 //: This is a loop to send a random note to the sampler
-//: The sampler 'play' function is very useful here
 AKPlaygroundLoop(every: pulse) { timer in
     let scale = [0, 2, 4, 5, 7, 9, 11, 12]
     var note = scale.randomElement()

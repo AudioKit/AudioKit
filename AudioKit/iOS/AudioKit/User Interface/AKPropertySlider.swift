@@ -98,7 +98,7 @@ public class AKPropertySlider: UIView {
         
         //// Color Declarations
         let backgroundColor = UIColor(red: 0.835, green: 0.842, blue: 0.836, alpha: 0.925)
-        let sliderColor = UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
+        let sliderColor = color //UIColor(red: 1.000, green: 0.000, blue: 0.062, alpha: 1.000)
         
         //// Variable Declarations
         let currentWidth: CGFloat = currentValue < minimum ? 0 : (currentValue < maximum ? (currentValue - minimum) / (maximum - minimum) * 440 : 440)

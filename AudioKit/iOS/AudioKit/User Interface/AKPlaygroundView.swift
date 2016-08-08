@@ -80,21 +80,4 @@ public class AKPlaygroundView: UIView {
     public required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    // TO BE DEPRECATED:
-    
-    public func addButton(label: String, action: Selector) {
-        
-        let newButton = UIButton(type: .Custom)
-        newButton.frame = CGRect(x: 10, y: 0, width: self.bounds.width, height: elementHeight)
-        newButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        newButton.backgroundColor = UIColor.blueColor()
-        newButton.setTitle(" \(label) ", forState: .Normal)
-        newButton.setNeedsDisplay()
-        
-        newButton.addTarget(self, action: action, forControlEvents: .TouchDown)
-        newButton.sizeToFit()
-        self.addSubview(newButton)        
-    }
 }
