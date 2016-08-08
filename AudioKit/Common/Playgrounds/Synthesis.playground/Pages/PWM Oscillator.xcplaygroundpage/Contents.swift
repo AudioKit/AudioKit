@@ -5,6 +5,8 @@ import AudioKit
 
 var oscillator = AKPWMOscillator()
 oscillator.pulseWidth = 0.5
+
+var currentMIDINote = 0
 var currentAmplitude = 0.1
 var currentRampTime = 0.0
 
@@ -38,18 +40,19 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Ramp Time",
             format: "%0.3f s",
-            value: currentRampTime, maximum: 10,
+            value: currentRampTime, maximum: 2,
             color: AKColor.orangeColor()
         ) { time in
             currentRampTime = time
             })
 
-        let keyboard = AKKeyboardView(width: playgroundWidth, height: 100)
+        let keyboard = AKKeyboardView(width: playgroundWidth - 60, height: 100)
         keyboard.delegate = self
         addSubview(keyboard)
     }
 
     func noteOn(note: MIDINoteNumber) {
+        currentMIDINote = note
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
@@ -63,7 +66,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 
     func noteOff(note: MIDINoteNumber) {
-        oscillator.amplitude = 0
+        if currentMIDINote == note {
+            oscillator.amplitude = 0
+        }
     }
 }
 

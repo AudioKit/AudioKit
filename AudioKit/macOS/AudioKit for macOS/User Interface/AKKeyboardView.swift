@@ -5,10 +5,6 @@
 //  Created by Aurelius Prochazka, revision history on Github.
 //  Copyright (c) 2016 Aurelius Prochazka. All rights reserved.
 //
-//  31 July 2016
-//  Adapted by Jop van der Werff to resemble a bit more a real-world keyboard
-//  This KeyboardView also will begin with a white key and end with a white key
-//  according real-world keyboards, but also to function well for the code implemented
 
 import Cocoa
 
@@ -40,11 +36,15 @@ public class AKKeyboardView: NSView, AKMIDIListener {
     
     public var polyphonicMode = false {
         didSet {
+            for note in onKeys {
+                delegate?.noteOff(note)
+            }
+            onKeys.removeAll()
+            needsDisplay = true
         }
     }
     
     let midi = AKMIDI()
-    
     
     let naturalNotes = ["C", "D", "E", "F", "G", "A", "B"]
     let notesWithSharps = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
