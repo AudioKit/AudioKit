@@ -7,7 +7,7 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
+let file = try AKAudioFile(readFileName: filtersPlaygroundFiles[0],
                            baseDir: .Resources)
 
 let player = try AKAudioPlayer(file: file)
@@ -32,7 +32,7 @@ class PlaygroundView: AKPlaygroundView {
 
         addSubview(AKResourcesAudioFileLoaderView(
             player: player,
-            filenames: processingPlaygroundFiles))
+            filenames: filtersPlaygroundFiles))
 
         addSubview(AKBypassButton(node: filter))
 

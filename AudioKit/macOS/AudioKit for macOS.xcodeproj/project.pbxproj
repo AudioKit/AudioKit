@@ -716,6 +716,7 @@
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
 		C4E120AE1D4DF39B00CD3572 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AD1D4DF39B00CD3572 /* AKButton.swift */; };
 		C4E120B01D4DF96E00CD3572 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */; };
+		C4F8D0921D59516400D85987 /* AKPlaygroundResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1447,6 +1448,7 @@
 		C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
 		C4E120AD1D4DF39B00CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
+		C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundResources.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3296,6 +3298,7 @@
 			children = (
 				C446B3DD1D4544EF000AEFCA /* macOS */,
 				C45666951D448D7E00D26565 /* AKNodeFFTPlot.swift */,
+				C4F8D0911D59516400D85987 /* AKPlaygroundResources.swift */,
 				C45666961D448D7E00D26565 /* AKNodeOutputPlot.swift */,
 				C45666971D448D7E00D26565 /* AKOutputWaveformPlot.swift */,
 				C45666981D448D7E00D26565 /* AKRollingOutputPlot.swift */,
@@ -4095,6 +4098,7 @@
 				C456689B1D448D7E00D26565 /* Twang.cpp in Sources */,
 				C45668C51D448D7E00D26565 /* AKDelay.swift in Sources */,
 				C45669301D448D7E00D26565 /* AKThreePoleLowpassFilterAudioUnit.mm in Sources */,
+				C4F8D0921D59516400D85987 /* AKPlaygroundResources.swift in Sources */,
 				C456671A1D448D7E00D26565 /* pinknoise.c in Sources */,
 				C45669A01D448D7E00D26565 /* AKPluckedString.swift in Sources */,
 				C45667601D448D7E00D26565 /* bltriangle.c in Sources */,
