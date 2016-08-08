@@ -28,24 +28,6 @@ public class AKLabel: NSTextField {
     }
 }
 
-public let processingPlaygroundFiles = [
-    "Acid Full.mp3",
-    "Acid Drums.mp3",
-    "Acid Bass.mp3",
-    "80s Synth.mp3",
-    "Lo-Fi Synth.mp3",
-    "African.mp3",
-    "mixloop.wav",
-    "counting.mp3"]
-
-public let playbackPlaygroundFiles = [
-    "mixloop.wav",
-    "poney.mp3",
-    "bassloop.wav",
-    "drumloop.wav",
-    "guitarloop.wav",
-    "leadloop.wav"]
-
 public class AKPlaygroundView: NSView {
 
 
