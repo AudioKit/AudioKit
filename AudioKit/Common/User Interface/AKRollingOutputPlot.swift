@@ -65,7 +65,7 @@ public class AKRollingOutputPlot: EZAudioPlot {
     ///   - width: Width of the view
     ///   - height: Height of the view
     ///
-    public static func createView(width width: CGFloat = 1000.0, height: CGFloat = 500.0) -> AKView {
+    public static func createView(width width: CGFloat = 440, height: CGFloat = 200.0) -> AKView {
 
         let frame = CGRect(x: 0.0, y: 0.0, width: width, height: height)
         let plot = AKRollingOutputPlot(frame: frame)
@@ -74,7 +74,7 @@ public class AKRollingOutputPlot: EZAudioPlot {
         plot.backgroundColor = AKColor.whiteColor()
         plot.color = AKColor.greenColor()
         plot.shouldFill = true
-        plot.shouldMirror = false
+        plot.shouldMirror = true
         plot.shouldCenterYAxis = true
 
         let containerView = AKView(frame: frame)
