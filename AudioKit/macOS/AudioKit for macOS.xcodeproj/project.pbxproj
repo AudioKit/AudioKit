@@ -716,6 +716,7 @@
 		C4E0C1A31D474715003AC57E /* AKPropertySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */; };
 		C4E120AE1D4DF39B00CD3572 /* AKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AD1D4DF39B00CD3572 /* AKButton.swift */; };
 		C4E120B01D4DF96E00CD3572 /* AKPlaygroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */; };
+		C4F8D08E1D5858B400D85987 /* AKKBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D08D1D5858B400D85987 /* AKKBView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1447,6 +1448,7 @@
 		C4E0C1A21D474715003AC57E /* AKPropertySlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPropertySlider.swift; sourceTree = "<group>"; };
 		C4E120AD1D4DF39B00CD3572 /* AKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKButton.swift; sourceTree = "<group>"; };
 		C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKPlaygroundView.swift; sourceTree = "<group>"; };
+		C4F8D08D1D5858B400D85987 /* AKKBView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKKBView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1509,6 +1511,7 @@
 				C49A09F91D514822007D8ADB /* AKADSRView.swift */,
 				C47E640B1D4D895F0044B028 /* AKBypassButton.swift */,
 				C446B3E01D4544EF000AEFCA /* AKKeyboardView.swift */,
+				C4F8D08D1D5858B400D85987 /* AKKBView.swift */,
 				C446B3DE1D4544EF000AEFCA /* AKPlaygroundLoop.swift */,
 				C4E120AF1D4DF96E00CD3572 /* AKPlaygroundView.swift */,
 				C47E640D1D4D8CE50044B028 /* AKPresetLoaderView.swift */,
@@ -3828,6 +3831,7 @@
 				C456692A1D448D7E00D26565 /* AKStringResonator.swift in Sources */,
 				C456671D1D448D7E00D26565 /* port.c in Sources */,
 				C456670C1D448D7E00D26565 /* mincer.c in Sources */,
+				C4F8D08E1D5858B400D85987 /* AKKBView.swift in Sources */,
 				C47E640A1D4D7F5D0044B028 /* AKResourceAudioFileLoaderView.swift in Sources */,
 				C45666F51D448D7E00D26565 /* dmetro.c in Sources */,
 				C45669841D448D7E00D26565 /* AKPhaseDistortionOscillatorBankAudioUnit.mm in Sources */,
