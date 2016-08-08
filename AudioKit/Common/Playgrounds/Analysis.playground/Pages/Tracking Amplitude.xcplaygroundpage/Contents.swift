@@ -18,16 +18,40 @@ let oscillatorNode = AKOperationGenerator() { _ in
 }
 
 let trackedAmplitude = AKAmplitudeTracker(oscillatorNode)
-
-//: The amplitude tracker passes its input to the output, so we can insert into the signal chain at the bottom
 AudioKit.output = trackedAmplitude
 AudioKit.start()
 oscillatorNode.start()
 
-//: And here's where we monitor the results of tracking the amplitude.
-AKPlaygroundLoop(every: 0.1) {
-    let amp = trackedAmplitude.amplitude
+//: User Interface
+
+class PlaygroundView: AKPlaygroundView {
+    
+    var trackedAmplitudeSlider: AKPropertySlider?
+    
+    override func setup() {
+        
+        AKPlaygroundLoop(every: 0.1) {
+            self.trackedAmplitudeSlider?.value = trackedAmplitude.amplitude
+        }
+        
+        addTitle("Tracking Amplitude")
+        
+        trackedAmplitudeSlider = AKPropertySlider(
+            property: "Tracked Amplitude",
+            format: "%0.3f",
+            value: 0, maximum: 0.55,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            // Do nothing, just for display
+            }
+        addSubview(trackedAmplitudeSlider!)
+        
+        addSubview(AKRollingOutputPlot.createView())
+    }
 }
+
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 //: This keeps the playground running so that audio can play for a long time
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

@@ -71,4 +71,3 @@ class PlaygroundView: AKPlaygroundView {
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
-XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
