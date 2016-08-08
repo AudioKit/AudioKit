@@ -64,9 +64,15 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         keyboard!.delegate = self
         addSubview(keyboard!)
 
-        addSubview(AKButton(title: "Toggle Polyphony") {
+        addSubview(AKButton(title: "Go Polyphonic") {
             self.keyboard?.polyphonicMode = !self.keyboard!.polyphonicMode
-        })
+            dump(self.keyboard?.polyphonicMode)
+            if self.keyboard!.polyphonicMode {
+                return "Go Monophonic"
+            } else {
+                return "Go Polyphonic"
+            }
+            })
     }
 
     func noteOn(note: MIDINoteNumber) {

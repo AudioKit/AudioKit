@@ -9,7 +9,7 @@
 import Foundation
 
 public class AKButton: UIView {
-    internal var callback: ()->()
+    internal var callback: ()->(String)
     public var title: String {
         didSet {
             setNeedsDisplay()
@@ -22,14 +22,14 @@ public class AKButton: UIView {
     }
     
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        callback()
-        setNeedsDisplay()
+        let newTitle = callback()
+        if newTitle != "" { title = newTitle }
     }
     
     public init(title: String,
                 color: UIColor = UIColor(red: 0.029, green: 1.000, blue: 0.000, alpha: 1.000),
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
-                callback: ()->()) {
+                callback: ()->(String)) {
         self.title = title
         self.callback = callback
         self.color = color

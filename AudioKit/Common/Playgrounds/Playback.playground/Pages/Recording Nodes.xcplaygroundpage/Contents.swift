@@ -49,39 +49,43 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         recordLabel = addLabel("Press Record to Record...")
 
         addSubview(AKButton(title: "Record", color: AKColor.redColor()) {
-            self.recordLabel!.text = "Recording..."
-            try? recorder?.record()
-            })
+            if recorder!.isRecording {
+                let dur = String(format: "%0.3f seconds", recorder!.recordedDuration)
+                self.recordLabel!.text = "Stopped. (\(dur) recorded)"
+                recorder?.stop()
+                return "Record"
+            } else {
+                self.recordLabel!.text = "Recording..."
+                try? recorder?.record()
+                return "Stop"
+            }})
 
-        addSubview(AKButton(title: "Stop Recording", color: AKColor.redColor()) {
-            let dur = String(format: "%0.3f seconds", recorder!.recordedDuration)
-            self.recordLabel!.text = "Stopped. (\(dur) recorded)"
-            recorder?.stop()
-            })
 
         addSubview(AKButton(title: "Reset Recording", color: AKColor.redColor()) {
             self.recordLabel!.text = "Tape Cleared!"
             try? recorder?.reset()
+            return "Reset Recording"
             })
 
         playLabel = addLabel("Press Play to playback...")
 
         addSubview(AKButton(title: "Play") {
-            try? player?.reloadFile()
-            // If the tape is not empty, we can play it !...
-            if player?.audioFile.duration > 0 {
-                self.playLabel!.text = "Playing..."
-                player?.completionHandler = self.callback
-                player?.play()
+            if player!.isPlaying {
+                self.playLabel!.text = "Stopped playback!"
+                player?.stop()
+                return "Play"
             } else {
-                self.playLabel!.text = "Tape is empty!..."
-            }
-            })
-
-        addSubview(AKButton(title: "Stop") {
-            self.playLabel!.text = "Stopped playback!"
-            player?.stop()
-            })
+                try? player?.reloadFile()
+                // If the tape is not empty, we can play it !...
+                if player?.audioFile.duration > 0 {
+                    self.playLabel!.text = "Playing..."
+                    player?.completionHandler = self.callback
+                    player?.play()
+                } else {
+                    self.playLabel!.text = "Tape is empty!..."
+                }
+                return "Stop"
+            }})
 
         let keyboard = AKKeyboardView(width: 440, height: 100)
         keyboard.delegate = self
