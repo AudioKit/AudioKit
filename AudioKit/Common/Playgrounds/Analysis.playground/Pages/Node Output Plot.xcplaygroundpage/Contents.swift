@@ -22,6 +22,22 @@ player.play()
 public class PlaygroundView: AKPlaygroundView {
     public override func setup() {
         addTitle("Node Output Plots")
+        
+        addSubview(AKPropertySlider(
+            property: "Time",
+            value: delay.time,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            delay.time = sliderValue
+        })
+        
+        addSubview(AKPropertySlider(
+            property: "Feedback",
+            value: delay.feedback,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            delay.feedback = sliderValue
+        })
 
         addLabel("This is the output of the player")
         let plot = AKNodeOutputPlot(player, frame: CGRect.init(x: 0, y: 0, width: 440, height: 300))

@@ -7,15 +7,35 @@ import AudioKit
 
 let file = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
 
-var player = try AKAudioPlayer(file: file)
+let player = try AKAudioPlayer(file: file)
 player.looping = true
 
-AudioKit.output = player
+var variSpeed = AKVariSpeed(player)
+variSpeed.rate = 2.0
+
+AudioKit.output = variSpeed
 AudioKit.start()
 player.play()
 
-let plotView = AKRollingOutputPlot.createView()
+//: User Interface Set up
 
-XCPlaygroundPage.currentPage.liveView = plotView
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Playback Speed")
+                
+        addSubview(AKPropertySlider(
+            property: "Rate",
+            format: "%0.3f",
+            value: variSpeed.rate, minimum: 0.3125, maximum: 5,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            variSpeed.rate = sliderValue
+            })
+        
+        addSubview(AKRollingOutputPlot.createView())
+    }
+}
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
