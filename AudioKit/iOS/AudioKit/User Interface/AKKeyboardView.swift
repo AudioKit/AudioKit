@@ -49,6 +49,16 @@ public class AKKeyboardView: UIView, AKMIDIListener {
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(i)
         }
+        
+        let backgroundPath = UIBezierPath(rect: CGRect(x: size.width * CGFloat(octaveCount), y: 0, width: size.width / 7.0, height: size.height))
+        UIColor.blackColor().setFill()
+        backgroundPath.fill()
+        
+        let lastC = UIBezierPath(rect:
+            CGRect(x: whiteKeyX(0, octaveNumber: octaveCount), y: 1, width: whiteKeySize.width - 2, height: whiteKeySize.height))
+        whiteKeyColor(0, octaveNumber: octaveCount).setFill()
+        lastC.fill()
+        
     }
     
     var whiteKeySize: CGSize {
@@ -116,7 +126,7 @@ public class AKKeyboardView: UIView, AKMIDIListener {
         self.octaveCount = octaveCount
         self.firstOctave = firstOctave
         super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        size = CGSize(width: width / octaveCount, height: height)
+        size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
         setNeedsDisplay()
     }
     
@@ -141,11 +151,11 @@ public class AKKeyboardView: UIView, AKMIDIListener {
             if y > size.height * topKeyHeightRatio {
                 let octNum = Int(x / size.width)
                 let scaledX = x - CGFloat(octNum) * size.width
-                note = (firstOctave + octNum) * 12 + whiteKeyNotes[Int(scaledX / whiteKeySize.width)]
+                note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))]
             } else {
                 let octNum = Int(x / size.width)
                 let scaledX = x - CGFloat(octNum) * size.width
-                note = (firstOctave + octNum) * 12 + topKeyNotes[Int(scaledX / topKeySize.width)]
+                note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
             }
             if note != 0 { notes.append(note) }
         }
