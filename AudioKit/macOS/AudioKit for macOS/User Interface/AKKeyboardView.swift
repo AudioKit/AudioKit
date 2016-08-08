@@ -220,6 +220,12 @@ public class AKKeyboardView: NSView, AKMIDIListener {
             self.delegate?.noteOff(noteNumber)
             self.needsDisplay = true
         })
-
+    }
+    public func receivedMIDIController(controller: Int, value: Int, channel: MIDIChannel) {
+        if controller == Int(AKMIDIControl.DamperOnOff.rawValue) && value == 0 {
+            for note in onKeys {
+                delegate?.noteOff(note)
+            }
+        }
     }
 }
