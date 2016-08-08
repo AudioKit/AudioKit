@@ -28,6 +28,7 @@ var oscillator = AKOscillator(waveform: sine)
 AudioKit.output = oscillator
 AudioKit.start()
 
+var currentMIDINote = 0
 var currentAmplitude = 0.2
 var currentRampTime = 0.05
 oscillator.rampTime = currentRampTime
@@ -49,22 +50,23 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addSubview(AKPropertySlider(
             property: "Ramp Time",
-            value: currentRampTime, maximum: 0.1,
+            value: currentRampTime,
             color: AKColor.cyanColor()
         ) { time in
             currentRampTime = time
             })
 
-        let keyboard = AKKeyboardView(width: 440,
+        let keyboard = AKKBView(width: 440,
                                       height: 100,
-                                      lowestKey: 24,
-                                      totalKeys: 64)
+                                      firstOctave: 4,
+                                      octaveCount: 4)
         keyboard.delegate = self
         addSubview(keyboard)
         addSubview(AKOutputWaveformPlot.createView())
     }
 
     func noteOn(note: MIDINoteNumber) {
+        currentMIDINote = note
         // start from the correct note if amplitude is zero
         if oscillator.amplitude == 0 {
             oscillator.rampTime = 0
@@ -78,7 +80,9 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
     }
 
     func noteOff(note: MIDINoteNumber) {
-        oscillator.amplitude = 0
+        if note == currentMIDINote {
+            oscillator.amplitude = 0
+        }
     }
 }
 

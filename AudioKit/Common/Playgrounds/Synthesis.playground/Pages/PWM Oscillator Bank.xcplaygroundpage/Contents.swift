@@ -10,7 +10,7 @@ AudioKit.start()
 
 class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
-    var keyboard: AKKeyboardView?
+    var keyboard: AKKBView?
 
     override func setup() {
         addTitle("PWM Oscillator Bank")
@@ -58,7 +58,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
             osc.detuningMultiplier = multiplier
             })
 
-        keyboard = AKKeyboardView(width: 440, height: 100)
+        keyboard = AKKBView(width: 440, height: 100, firstOctave: 3, octaveCount: 3)
         keyboard!.polyphonicMode = false
         keyboard!.delegate = self
         addSubview(keyboard!)
