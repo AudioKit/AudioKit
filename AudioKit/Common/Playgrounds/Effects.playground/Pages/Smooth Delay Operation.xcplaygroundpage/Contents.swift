@@ -3,25 +3,56 @@
 import XCPlayground
 import AudioKit
 
-let file = try AKAudioFile(readFileName: processingPlaygroundFiles[7],
+let file = try AKAudioFile(readFileName: processingPlaygroundFiles[0],
                            baseDir: .Resources)
 
 var player = try AKAudioPlayer(file: file)
 player.looping = true
 
-let effect = AKOperationEffect(player) { player, _ in
-    let time = AKOperation.sineWave(frequency: 0.3).scale(minimum: 0.01, maximum: 0.2)
-    let feedback = AKOperation.sineWave(frequency: 0.21).scale(minimum: 0.5, maximum: 0.95)
+let effect = AKOperationEffect(player) { player, parameters in
     let delayedPlayer = player.smoothDelay(
-        time: time,
+        time: parameters[0],
         samples: 1024,
-        feedback: feedback,
+        feedback: parameters[1],
         maximumDelayTime: 2.0)
     return mixer(player.toMono(), delayedPlayer)
 }
+effect.parameters = [0.1, 0.7]
 
 AudioKit.output = effect
 AudioKit.start()
 player.play()
+
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Smooth Delay Operation")
+        
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: processingPlaygroundFiles))
+        
+        addSubview(AKPropertySlider(
+            property: "Time",
+            value: effect.parameters[0],
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            effect.parameters[0] = sliderValue
+        })
+        
+        addSubview(AKPropertySlider(
+            property: "Feedback",
+            value: effect.parameters[1],
+            color: AKColor.redColor()
+        ) { sliderValue in
+            effect.parameters[0] = sliderValue
+        })
+    }
+    
+}
+
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

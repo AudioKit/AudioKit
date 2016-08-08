@@ -1,7 +1,3 @@
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
-//:
-//: ---
-//:
 //: ## Tracking Microphone Input
 //:
 import XCPlayground
@@ -17,14 +13,44 @@ AudioKit.output = silence
 AudioKit.start()
 
 
-//: And here's where we monitor the results of tracking the amplitude.
-AKPlaygroundLoop(every: 0.1) {
-    let amp = tracker.amplitude
-    let freq = tracker.frequency
+//: User Interface
+
+class PlaygroundView: AKPlaygroundView {
+    
+    var trackedAmplitudeSlider: AKPropertySlider?
+    var trackedFrequencySlider: AKPropertySlider?
+    
+    override func setup() {
+        
+        AKPlaygroundLoop(every: 0.1) {
+            self.trackedAmplitudeSlider?.value = tracker.amplitude
+            self.trackedFrequencySlider?.value = tracker.frequency
+        }
+        
+        addTitle("Tracking Frequency")
+        
+        trackedAmplitudeSlider = AKPropertySlider(
+            property: "Tracked Amplitude",
+            format: "%0.3f",
+            value: 0, maximum: 0.8,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            // Do nothing, just for display
+        }
+        addSubview(trackedAmplitudeSlider!)
+        
+        trackedFrequencySlider = AKPropertySlider(
+            property: "Tracked Frequency",
+            format: "%0.3f",
+            value: 0, maximum: 2400,
+            color: AKColor.redColor()
+        ) { sliderValue in
+            // Do nothing, just for display
+        }
+        addSubview(trackedFrequencySlider!)
+        
+    }
 }
 
-//: This keeps the playground running so that audio can play for a long time
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
-
-
-//: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
