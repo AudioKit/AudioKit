@@ -3,17 +3,9 @@
 import XCPlayground
 import AudioKit
 
-//: Let's set a callback function that will be triggered when the player's playhead
-//: reaches the end and stop. (This will only occur when player.looping is set to false)
+let mixloop = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 
-func myCompletionCallBack() {
-    print ("completion callBack has been triggered !")
-}
-
-//: Then, we create a player to play some guitar.
-let guitarLoop = try AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
-
-let player = try AKAudioPlayer(file: guitarLoop) {
+let player = try AKAudioPlayer(file: mixloop) {
     print ("completion callBack has been triggered !")
 }
 
@@ -27,173 +19,57 @@ player.looping = true
 class PlaygroundView: AKPlaygroundView {
 
     // UI Elements we'll need to be able to access
-    var infoTextField: TextField?
-    var durationTextField: TextField?
-    var inPosSlider: Slider?
-    var outPosSlider: Slider?
-    var inPosTextField: TextField?
-    var outPosTextField: TextField?
-    var fileNameLabel: Label?
-    var playingPosSlider: Slider?
-    var playheadTextField: TextField?
-
+    var inPositionSlider: AKPropertySlider?
+    var outPositionSlider: AKPropertySlider?
+    var playingPositionSlider: AKPropertySlider?
 
     override func setup() {
 
         AKPlaygroundLoop(every: 1/60.0) {
             if player.duration > 0 {
-            self.playingPosSlider?.doubleValue = player.playhead / player.duration
-
-            self.playheadTextField?.stringValue =
-                String(Int(100 * player.playhead / player.duration)) + "%"
-
+                self.playingPositionSlider?.value = player.playhead
             }
 
         }
         addTitle("Audio Player")
 
-        fileNameLabel = addLabel("File name: \(player.audioFile.fileNamePlusExtension)")
+        addSubview(AKResourcesAudioFileLoaderView(
+            player: player,
+            filenames: ["mixloop.wav", "drumloop.wav", "bassloop.wav", "guitarloop.wav", "leadloop.wav"]))
+        
+        addSubview(AKButton(title: "Toggle Looping") {
+            player.looping = !player.looping
+            })
 
-        addButton("Load Drum Loop", action: #selector(loadDrumLoop))
-        addButton("Load Mix Loop", action: #selector(loadMixLoop))
-
-        durationTextField = addTextField(nil,
-                                         text: "Duration",
-                                         value: player.audioFile.duration)
-
-        addLineBreak()
-
-        addButton("Play", action: #selector(play))
-        addButton("Stop", action: #selector(stop))
-        addButton("Pause", action: #selector(pause))
-        addLineBreak()
-
-        addButton("Enable Looping", action: #selector(enableLooping))
-        addButton("Disable Looping", action: #selector(disableLooping))
-        addButton("Reload", action: #selector(reloadFile))
-
-        addLineBreak()
-        inPosTextField = addTextField(#selector(setInPosition),
-                                      text: "In Position",
-                                      value: player.startTime)
-
-        inPosSlider = addSlider(#selector(slideInPosition),
-                                value: player.startTime,
-                                minimum: 0.0,
-                                maximum: 4.0)
-
-        outPosTextField = addTextField(#selector(setOutPosition),
-                                       text: "Out Position",
-                                       value: player.endTime)
-
-        outPosSlider = addSlider(#selector(slideOutPosition),
-                                 value: player.endTime,
-                                 minimum: 0.0,
-                                 maximum: 4.0)
-
-
-        playheadTextField  = addTextField(nil, text: "PlayHead", value: 0)
-
-        playingPosSlider = addSlider(#selector(playBackSlidePosTouched),
-                                     value: player.playhead,
-                                     minimum: 0.0,
-                                     maximum: 1.0)
-
-        updateUI()
-    }
-
-    //: Handle UI Events
-
-    func play() {
-        player.play()
-    }
-
-    func stop() {
-        player.stop()
-    }
-
-    func pause() {
-        player.pause()
-    }
-
-
-    func enableLooping() {
-        player.looping = true
-    }
-
-    func disableLooping() {
-        player.looping = false
-    }
-
-    func loadDrumLoop() {
-        let loopMp3 = try? AKAudioFile(readFileName: "drumloop.wav", baseDir: .Resources)
-
-        try? player.replaceFile(loopMp3!)
-        updateUI()
-    }
-
-    func reloadFile() {
-        try? player.reloadFile()
-        updateUI()
-    }
-
-    func loadMixLoop() {
-        let mixloop = try? AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
-        try? player.replaceFile(mixloop!)
-        updateUI()
-    }
-
-    func updateSliders() {
-        inPosSlider?.value = Float(player.startTime)
-        outPosSlider?.value = Float(player.endTime)
-    }
-
-    func setInPosition(textField: TextField) {
-        if let value = Double(textField.stringValue) {
-            player.startTime =  value
-            updateSliders()
+        inPositionSlider = AKPropertySlider(
+            property: "In Position",
+            format: "%0.2f s",
+            value: player.startTime, maximum: 3.428,
+            color: AKColor.greenColor()
+        ) { sliderValue in
+            player.startTime = sliderValue
         }
-    }
-    func setOutPosition(textField: TextField) {
-        if let value = Double(textField.stringValue) {
-            player.endTime =  value
-            updateSliders()
+        addSubview(inPositionSlider!)
+        
+        outPositionSlider = AKPropertySlider(
+            property: "Out Position",
+            format: "%0.2f s",
+            value: player.endTime, maximum: 3.428
+        ) { sliderValue in
+            player.endTime = sliderValue
         }
+        addSubview(outPositionSlider!)
+        
+        playingPositionSlider = AKPropertySlider(
+            property: "Position",
+            format: "%0.2f s",
+            value: player.playhead, maximum: 3.428,
+            color: AKColor.yellowColor()
+        ) { sliderValue in
+            // Can't do player.playhead = sliderValue
+        }
+        addSubview(playingPositionSlider!)
     }
-
-    func updateTextFields() {
-        let inPos = String(format: "%0.2f", player.startTime)
-        inPosTextField!.stringValue = "\(inPos)"
-
-        let outPos = String(format: "%0.2f", player.endTime)
-        outPosTextField!.stringValue = "\(outPos)"
-        let duration = String(format: "%0.2f", player.audioFile.duration)
-        durationTextField!.stringValue = duration
-
-        let fileName = player.audioFile.fileNamePlusExtension
-        fileNameLabel!.text = "File name: \(fileName)"
-    }
-
-    func slideInPosition(slider: Slider) {
-        player.startTime = Double(slider.value)
-        updateTextFields()
-    }
-
-    func slideOutPosition(slider: Slider) {
-        player.endTime = Double(slider.value)
-        updateTextFields()
-    }
-
-    func updateUI() {
-        updateTextFields()
-        updateSliders()
-    }
-
-
-    func playBackSlidePosTouched() {
-        playingPosSlider?.value = Float(player.playhead)
-    }
-
 }
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
