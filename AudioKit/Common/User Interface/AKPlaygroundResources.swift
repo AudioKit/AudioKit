@@ -33,6 +33,4 @@ public let filtersPlaygroundFiles = [
     "Drums.mp3",
     "Guitar.mp3",
     "Synth.mp3",
-    "Strings.mp3",
-    "mixloop.wav",
-    "poney.mp3"]
+    "Strings.mp3"]
