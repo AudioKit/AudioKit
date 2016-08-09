@@ -15,6 +15,6 @@ class AKResonantFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKResonantFilter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("81c81979cf56ad4e0428ee5d9d445962")
     }
 }

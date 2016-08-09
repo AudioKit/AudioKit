@@ -15,6 +15,6 @@ class AKAmplitudeEnvelopeTests: AKTestCase {
         let input = AKOscillator()
         output = AKAmplitudeEnvelope(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("f845e4dba87f2df0496d23e585923771")
     }
 }

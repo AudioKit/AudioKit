@@ -15,6 +15,6 @@ class AKBitCrusherTests: AKTestCase {
         let input = AKOscillator()
         output = AKBitCrusher(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("7887dd8d95b9116bc123a09fc15e040f")
     }
 }
