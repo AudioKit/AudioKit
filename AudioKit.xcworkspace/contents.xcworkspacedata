@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:AudioKit/OSX/AudioKit For OSX.xcodeproj">
+      location = "group:AudioKit/macOS/AudioKit for macOS.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:AudioKit/tvOS/AudioKit For tvOS.xcodeproj">
