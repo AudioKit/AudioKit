@@ -1,5 +1,5 @@
 //
-//  AKCombFilterReverbTests.swift
+//  AKDistortionTests.swift
 //  AudioKitTestSuite
 //
 //  Created by Aurelius Prochazka on 8/9/16.
@@ -9,12 +9,12 @@
 import XCTest
 @testable import AudioKit
 
-class AKCombFilterReverbTests: AKTestCase {
+class AKDistortionTests: AKTestCase {
 
     func testDefault() {
         let input = AKOscillator()
-        output = AKCombFilterReverb(input)
+        output = AKDistortion(input)
         input.start()
-        AKTestMD5("882c7029a5097769b85bd176f5752684")
+        AKTestMD5("")
     }
 }
