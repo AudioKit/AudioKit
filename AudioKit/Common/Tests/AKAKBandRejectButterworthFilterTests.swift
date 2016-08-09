@@ -15,6 +15,6 @@ class AKBandRejectButterworthFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKBandRejectButterworthFilter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("d1fae8a7406110b5250d9861b76a52fa")
     }
 }

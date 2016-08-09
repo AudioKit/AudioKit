@@ -15,6 +15,6 @@ class AKPeakingParametricEqualizerFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKPeakingParametricEqualizerFilter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("c70baaa31a6917c731b2b9b274a015b5")
     }
 }
