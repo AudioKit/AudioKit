@@ -15,6 +15,6 @@ class AKDelayTests: AKTestCase {
         let input = AKOscillator()
         output = AKDelay(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("9d8276ae08417423c632dacc348406b3")
     }
 }
