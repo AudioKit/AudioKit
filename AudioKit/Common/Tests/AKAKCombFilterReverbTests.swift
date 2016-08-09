@@ -15,6 +15,6 @@ class AKCombFilterReverbTests: AKTestCase {
         let input = AKOscillator()
         output = AKCombFilterReverb(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("882c7029a5097769b85bd176f5752684")
     }
 }

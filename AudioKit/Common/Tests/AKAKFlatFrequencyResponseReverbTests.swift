@@ -15,6 +15,6 @@ class AKFlatFrequencyResponseReverbTests: AKTestCase {
         let input = AKOscillator()
         output = AKFlatFrequencyResponseReverb(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("bb236a2f697859030b98c75742764802")
     }
 }

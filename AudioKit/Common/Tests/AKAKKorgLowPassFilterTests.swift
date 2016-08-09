@@ -15,6 +15,6 @@ class AKKorgLowPassFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKKorgLowPassFilter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("d1e2f071287f83dbe547032fe00fec5c")
     }
 }

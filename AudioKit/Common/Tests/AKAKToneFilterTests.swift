@@ -15,6 +15,6 @@ class AKToneFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKToneFilter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("0dfbfda795edb60341efae8a8c7083c5")
     }
 }
