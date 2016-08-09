@@ -15,6 +15,6 @@ class AKRolandTB303FilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKRolandTB303Filter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("f79da36c8bc5feab8aa6df426dece8c8")
     }
 }

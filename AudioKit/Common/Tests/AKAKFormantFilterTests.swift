@@ -15,6 +15,6 @@ class AKFormantFilterTests: AKTestCase {
         let input = AKOscillator()
         output = AKFormantFilter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("d72788f70f5034a6300f32eae5cba575")
     }
 }
