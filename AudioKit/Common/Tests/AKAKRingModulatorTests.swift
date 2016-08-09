@@ -15,6 +15,6 @@ class AKRingModulatorTests: AKTestCase {
         let input = AKOscillator()
         output = AKRingModulator(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("4cd72c9b6398a8b7dcd1f5e7966c66f2")
     }
 }
