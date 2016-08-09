@@ -20,6 +20,7 @@
 		C4F8D09C1D5A10D700D85987 /* AKCostelloReverbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D09B1D5A10D700D85987 /* AKCostelloReverbTests.swift */; };
 		C4F8D09E1D5A12F200D85987 /* AKChowningReverbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D09D1D5A12F200D85987 /* AKChowningReverbTests.swift */; };
 		C4F8D0A01D5A2B5200D85987 /* AKReverbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D09F1D5A2B5200D85987 /* AKReverbTests.swift */; };
+		C4F8D0A21D5A2F6300D85987 /* AKVariableDelayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D0A11D5A2F6300D85987 /* AKVariableDelayTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		C4F8D09B1D5A10D700D85987 /* AKCostelloReverbTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKCostelloReverbTests.swift; path = ../../../Common/Tests/AKCostelloReverbTests.swift; sourceTree = "<group>"; };
 		C4F8D09D1D5A12F200D85987 /* AKChowningReverbTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKChowningReverbTests.swift; path = ../../../Common/Tests/AKChowningReverbTests.swift; sourceTree = "<group>"; };
 		C4F8D09F1D5A2B5200D85987 /* AKReverbTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKReverbTests.swift; path = ../../../Common/Tests/AKReverbTests.swift; sourceTree = "<group>"; };
+		C4F8D0A11D5A2F6300D85987 /* AKVariableDelayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKVariableDelayTests.swift; path = ../../../Common/Tests/AKVariableDelayTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				C4289A3B1D56D26200B941B5 /* AKPhaseDistortionOscillatorTests.swift */,
 				C4F8D09F1D5A2B5200D85987 /* AKReverbTests.swift */,
 				C4289A3C1D56D26200B941B5 /* AKTestCase.swift */,
+				C4F8D0A11D5A2F6300D85987 /* AKVariableDelayTests.swift */,
 				C4289A3D1D56D26200B941B5 /* fmOscillatorTests.swift */,
 				C4289A2B1D56D20300B941B5 /* Info.plist */,
 			);
@@ -242,6 +245,7 @@
 				C4289A3E1D56D26200B941B5 /* AKFMOscillatorTests.swift in Sources */,
 				C4289A3F1D56D26200B941B5 /* AKOscillatorTests.swift in Sources */,
 				C4289A421D56D26200B941B5 /* fmOscillatorTests.swift in Sources */,
+				C4F8D0A21D5A2F6300D85987 /* AKVariableDelayTests.swift in Sources */,
 				C4F8D09E1D5A12F200D85987 /* AKChowningReverbTests.swift in Sources */,
 				C4289A401D56D26200B941B5 /* AKPhaseDistortionOscillatorTests.swift in Sources */,
 				C4289A411D56D26200B941B5 /* AKTestCase.swift in Sources */,
