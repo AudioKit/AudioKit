@@ -15,6 +15,6 @@ class AKPeakLimiterTests: AKTestCase {
         let input = AKOscillator()
         output = AKPeakLimiter(input)
         input.start()
-        AKTestMD5("")
+        AKTestMD5("325d340c8085aa5232f17c0398a1cdfb")
     }
 }
