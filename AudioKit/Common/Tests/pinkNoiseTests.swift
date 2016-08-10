@@ -21,7 +21,7 @@ class pinkNoiseTests: AKTestCase {
         output = AKOperationGenerator() { _ in
             return AKOperation.pinkNoise()
         }
-        AKTestMD5("")
+        AKTestMD5("ddf3ff7735d85181d93abd7655b9658b")
     }
 
 }
