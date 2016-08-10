@@ -21,7 +21,7 @@ class triangleTests: AKTestCase {
         output = AKOperationGenerator() { _ in
             return AKOperation.triangle()
         }
-        AKTestMD5("")
+        AKTestMD5("2f0d3ee205fe2ef312df7bd31e4a2e32")
     }
 
 }
