@@ -23,7 +23,7 @@ class bitcrushTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.bitCrush()
         }
-        AKTestMD5("")
+        AKTestMD5("caa59f9097349327fe6fcd7fda814aeb")
     }
 
 }

@@ -21,7 +21,7 @@ class sawtoothTests: AKTestCase {
         output = AKOperationGenerator() { _ in
             return AKOperation.sawtooth()
         }
-        AKTestMD5("")
+        AKTestMD5("0b3fff37bccfc2ce47622192bfe9386f")
     }
 
 }

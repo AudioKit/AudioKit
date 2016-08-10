@@ -23,7 +23,7 @@ class reverberateWithCombFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.reverberateWithCombFilter()
         }
-        AKTestMD5("")
+        AKTestMD5("65b2a1ed137e036c9ee2cc0f0090f4c4")
     }
 
 }

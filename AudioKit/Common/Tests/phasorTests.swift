@@ -21,7 +21,7 @@ class phasorTests: AKTestCase {
         output = AKOperationGenerator() { _ in
             return AKOperation.phasor()
         }
-        AKTestMD5("")
+        AKTestMD5("3158517a6a14167e736cf7038a828dc8")
     }
 
 }
