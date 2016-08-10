@@ -23,7 +23,7 @@ class clipTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.clip()
         }
-        AKTestMD5("")
+        AKTestMD5("bbd65231d8058e69db028f541ee148f8")
     }
 
 }
