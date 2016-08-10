@@ -17,11 +17,16 @@ class triangleWaveTests: AKTestCase {
         duration = 1.0
     }
 
-    func testDefault() {
+    func testParameterSweep() {
         output = AKOperationGenerator() { _ in
-            return AKOperation.triangleWave()
+            let ramp = AKOperation.lineSegment(
+                trigger: AKOperation.metronome(),
+                start: 1,
+                end: 0,
+                duration: self.duration)
+            return AKOperation.triangleWave(frequency: ramp * 2000, amplitude: ramp)
         }
-        AKTestMD5("")
+        AKTestMD5("4eddd8c721f3487810f91bff1be28cc3")
     }
 
 }

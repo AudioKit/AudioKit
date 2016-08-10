@@ -21,9 +21,9 @@ class smoothDelayTests: AKTestCase {
         let input = AKOscillator()
         input.start()
         output = AKOperationEffect(input) { input, _ in
-            return input.smoothDelay()
+            return input.smoothDelay(time: 0.1, maximumDelayTime: 0.1)
         }
-        AKTestMD5("")
+        AKTestMD5("6ed22f8d4248c827f3ecb8b0e0e654de")
     }
 
 }
