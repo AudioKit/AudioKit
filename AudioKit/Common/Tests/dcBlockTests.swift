@@ -23,7 +23,7 @@ class dcBlockTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.dcBlock()
         }
-        AKTestMD5("")
+        AKTestMD5("d2b120199019b639d5a7e2b3463e9c97")
     }
 
 }

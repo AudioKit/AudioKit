@@ -21,7 +21,7 @@ class morphingOscillatorTests: AKTestCase {
         output = AKOperationGenerator() { _ in
             return AKOperation.morphingOscillator()
         }
-        AKTestMD5("")
+        AKTestMD5("0f35f624f51793188ce35e55519b59d4")
     }
 
 }

@@ -21,7 +21,7 @@ class whiteNoiseTests: AKTestCase {
         output = AKOperationGenerator() { _ in
             return AKOperation.whiteNoise()
         }
-        AKTestMD5("")
+        AKTestMD5("3383b3631de1e37d309c4e35ff023c1b")
     }
 
 }

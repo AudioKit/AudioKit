@@ -23,7 +23,7 @@ class threePoleLowPassFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.threePoleLowPassFilter()
         }
-        AKTestMD5("")
+        AKTestMD5("f0e98afe3c49dc1b903c12dd18381e27")
     }
 
 }
