@@ -17,13 +17,18 @@ class threePoleLowPassFilterTests: AKTestCase {
         duration = 1.0
     }
 
-    func testDefault() {
+    func testParameterSweep() {
         let input = AKOscillator()
         input.start()
         output = AKOperationEffect(input) { input, _ in
-            return input.threePoleLowPassFilter()
+            let ramp = AKOperation.lineSegment(
+                trigger: AKOperation.metronome(),
+                start: 1,
+                end: 0,
+                duration: self.duration)
+            return input.threePoleLowPassFilter(distortion: ramp, cutoffFrequency: ramp * 8000, resonance: ramp * 0.9)
         }
-        AKTestMD5("")
+        AKTestMD5("ed404fb1aad4a455acef28ff339d6819")
     }
 
 }

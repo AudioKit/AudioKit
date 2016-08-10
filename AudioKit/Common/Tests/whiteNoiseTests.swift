@@ -17,11 +17,16 @@ class whiteNoiseTests: AKTestCase {
         duration = 1.0
     }
 
-    func testDefault() {
+    func testParameterSweep() {
         output = AKOperationGenerator() { _ in
-            return AKOperation.whiteNoise()
+            let line = AKOperation.lineSegment(
+                trigger: AKOperation.metronome(),
+                start: 0,
+                end: 1,
+                duration: self.duration)
+            return AKOperation.whiteNoise(amplitude: line)
         }
-        AKTestMD5("")
+        AKTestMD5("d5713a02d87070053570eeb6a75f3283")
     }
 
 }

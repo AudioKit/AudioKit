@@ -17,13 +17,18 @@ class variableDelayTests: AKTestCase {
         duration = 1.0
     }
 
-    func testDefault() {
+    func testParameterSweep() {
         let input = AKOscillator()
         input.start()
         output = AKOperationEffect(input) { input, _ in
-            return input.variableDelay()
+            let ramp = AKOperation.lineSegment(
+                trigger: AKOperation.metronome(),
+                start: 1,
+                end: 0,
+                duration: self.duration)
+            return input.variableDelay(time: 0.1 * ramp, feedback: 0.9 * ramp)
         }
-        AKTestMD5("")
+        AKTestMD5("e22477485213822ea56e2fa6a4d5fe86")
     }
 
 }
