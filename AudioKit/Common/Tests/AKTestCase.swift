@@ -22,9 +22,9 @@ class AKTestCase: XCTestCase {
         AudioKit.auditionTest(node: output!, duration: duration)
     }
     
-    func AKTestMD5(md5: String) {
+    func AKTestMD5(md5: String, alternate: String = "") {
         AudioKit.test(node: output!, duration: duration)
-        XCTAssertEqual(md5, MD5)
+        XCTAssertTrue([md5, alternate].contains(MD5))
     }
 
     override func setUp() {
