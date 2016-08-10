@@ -23,7 +23,7 @@ class korgLowPassFilterTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.korgLowPassFilter()
         }
-        AKTestMD5("")
+        AKTestMD5("1d77cb1ff547d3a1af18c538d0a125ae")
     }
 
 }

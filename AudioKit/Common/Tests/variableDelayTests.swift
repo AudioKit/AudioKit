@@ -23,7 +23,7 @@ class variableDelayTests: AKTestCase {
         output = AKOperationEffect(input) { input, _ in
             return input.variableDelay()
         }
-        AKTestMD5("")
+        AKTestMD5("d2b120199019b639d5a7e2b3463e9c97")
     }
 
 }
