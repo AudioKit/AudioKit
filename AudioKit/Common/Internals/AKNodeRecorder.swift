@@ -35,6 +35,9 @@ public class AKNodeRecorder {
         return internalAudioFile.duration
     }
 
+    /// Used for fixing recordings being truncated
+    private var recordBufferDuration: Double = 16384 / AKSettings.sampleRate
+
     /// return the AKAudioFile for reading
     public var audioFile: AKAudioFile? {
 
@@ -101,7 +104,7 @@ public class AKNodeRecorder {
         #if os(iOS)
             // requestRecordPermission...
             var permissionGranted: Bool = false
-            
+
             AKSettings.session.requestRecordPermission() {
                 (granted: Bool)-> Void in
                 if granted {
@@ -116,9 +119,8 @@ public class AKNodeRecorder {
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
             }
 
-        // Sets AVAudioSession Category to be Play and Record
+            // Sets AVAudioSession Category to be Play and Record
 
-            // Here's the reason why I'd like to change record() to be a throwing method
             if (AKSettings.session != AKSettings.SessionCategory.PlayAndRecord.rawValue)
             {
                 do {
@@ -134,16 +136,15 @@ public class AKNodeRecorder {
         if  node != nil {
 
             let recordingBufferLength:AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
+            recording = true
 
             print ("recording")
             node!.avAudioNode.installTapOnBus(0, bufferSize: recordingBufferLength, format: internalAudioFile.processingFormat, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                 do {
-                    buffer.frameLength = recordingBufferLength
+                    self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
                     try self.internalAudioFile.writeFromBuffer(buffer)
-                    self.recording = true
                     print("writing ( file duration:  \(self.internalAudioFile.duration) seconds)")
                 } catch let error as NSError {
-                    self.recording = false
                     print("Write failed: error -> \(error.localizedDescription)")
                 }
             })
@@ -161,8 +162,14 @@ public class AKNodeRecorder {
 
         recording = false
         if  node != nil {
+            if AKSettings.fixTruncatedRecordings {
+                //  delay before stopping so the recording is not truncated.
+                let delay = UInt32(recordBufferDuration * 1000000)
+                usleep(delay)
+            }
             node!.avAudioNode.removeTapOnBus(0)
             print("Recording Stopped.")
+
         } else {
             print ("AKNodeRecorder Error: input node is not available")
         }
@@ -171,9 +178,24 @@ public class AKNodeRecorder {
 
     /// Reset the AKAudioFile to clear previous recordings
     public func reset() throws {
-        
+
+        // Stop recording
+        if recording {
+            stop()
+        }
+
+        // Delete the physical recording file
+        let fileManager = NSFileManager.defaultManager()
         let settings = internalAudioFile.processingFormat.settings
         let url = internalAudioFile.url
+
+        do {
+            try fileManager.removeItemAtPath(audioFile!.url.absoluteString)
+        } catch let error as NSError {
+            print ("AKNodeRecorder Error: cannot delete Recording file:  \(audioFile!.fileNamePlusExtension)")
+            throw error
+        }
+
 
         // Creates a blank new file
         do {
