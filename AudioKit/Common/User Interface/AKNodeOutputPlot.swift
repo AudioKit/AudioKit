@@ -13,12 +13,16 @@ import Foundation
 public class AKNodeOutputPlot: EZAudioPlot {
 
     internal func setupNode(input: AKNode?) {
-        input?.avAudioNode.installTapOnBus(0, bufferSize: bufferSize, format: AudioKit.format) { [weak self] (buffer, time) -> Void in
+        input?.avAudioNode.installTapOnBus(0,
+                                           bufferSize: bufferSize,
+                                           format: AudioKit.format) { [weak self] (buffer, time) -> Void in
+                                            
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize
                 let offset = Int(buffer.frameCapacity - buffer.frameLength)
                 let tail = buffer.floatChannelData[0]
-                strongSelf.updateBuffer(&tail[offset], withBufferSize: strongSelf.bufferSize)
+                strongSelf.updateBuffer(&tail[offset],
+                                        withBufferSize: strongSelf.bufferSize)
             }
         }
     }

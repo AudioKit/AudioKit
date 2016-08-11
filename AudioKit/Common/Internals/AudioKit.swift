@@ -39,10 +39,14 @@ public typealias AKCallback = Void -> Void
     public static var availableInputs: [AKDevice]? {
         #if os(OSX)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.inputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
+            return EZAudioDevice.inputDevices().map {
+                AKDevice(name: $0.name, deviceID: $0.deviceID)
+            }
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
-                return devices.map({ AKDevice(name: $0.portName, deviceID: $0.UID) })
+                return devices.map {
+                    AKDevice(name: $0.portName, deviceID: $0.UID)
+                }
             }
             return nil
         #endif
@@ -51,7 +55,9 @@ public typealias AKCallback = Void -> Void
     public static var availableOutputs: [AKDevice]? {
         #if os(OSX)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.outputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
+            return EZAudioDevice.outputDevices().map {
+                AKDevice(name: $0.name, deviceID: $0.deviceID)
+            }
         #else
             return nil
         #endif
@@ -212,7 +218,7 @@ public typealias AKCallback = Void -> Void
         renderer.render(Int32(samples))
     }
     
-    /// Test the output of a given node
+    /// Audition the test to hear what it sounds like
     ///
     /// - Parameters:
     ///   - node: AKNode to test

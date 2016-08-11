@@ -12,13 +12,16 @@ import Foundation
 @IBDesignable
 public class AKOutputWaveformPlot: EZAudioPlot {
     internal func setupNode() {
-        AudioKit.engine.outputNode.installTapOnBus(0, bufferSize: bufferSize, format: nil) { [weak self] (buffer, time) -> Void in
+        AudioKit.engine.outputNode.installTapOnBus(0,
+                                                   bufferSize: bufferSize,
+                                                   format: nil) { [weak self] (buffer, time) -> Void in
+
             if let strongSelf = self {
                 buffer.frameLength = strongSelf.bufferSize
                 let offset = Int(buffer.frameCapacity - buffer.frameLength)
                 let tail = buffer.floatChannelData[0]
                 strongSelf.updateBuffer(&tail[offset],
-                    withBufferSize: strongSelf.bufferSize)
+                                        withBufferSize: strongSelf.bufferSize)
             }
         }
     }
