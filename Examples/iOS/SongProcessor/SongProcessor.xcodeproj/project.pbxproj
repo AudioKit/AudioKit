@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		C42C1F001D23B0550020D550 /* SongExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42C1EFF1D23B0550020D550 /* SongExporter.swift */; };
+		C47AC62F1D5E70350005E485 /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C47AC62E1D5E70350005E485 /* mixloop.wav */; };
 		C49A09F31D50A4FA007D8ADB /* bassloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09EF1D50A4FA007D8ADB /* bassloop.wav */; };
 		C49A09F41D50A4FA007D8ADB /* drumloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F01D50A4FA007D8ADB /* drumloop.wav */; };
 		C49A09F51D50A4FA007D8ADB /* guitarloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F11D50A4FA007D8ADB /* guitarloop.wav */; };
 		C49A09F61D50A4FA007D8ADB /* leadloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F21D50A4FA007D8ADB /* leadloop.wav */; };
-		C49A09F81D50A50B007D8ADB /* mixloop.wav in Resources */ = {isa = PBXBuildFile; fileRef = C49A09F71D50A50B007D8ADB /* mixloop.wav */; };
 		C4CB57541D1AFB1500479598 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CB57531D1AFB1500479598 /* AppDelegate.swift */; };
 		C4CB57591D1AFB1500479598 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4CB57571D1AFB1500479598 /* Main.storyboard */; };
 		C4CB575B1D1AFB1500479598 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4CB575A1D1AFB1500479598 /* Assets.xcassets */; };
@@ -46,11 +46,11 @@
 
 /* Begin PBXFileReference section */
 		C42C1EFF1D23B0550020D550 /* SongExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongExporter.swift; sourceTree = "<group>"; };
+		C47AC62E1D5E70350005E485 /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mixloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/mixloop.wav; sourceTree = "<group>"; };
 		C49A09EF1D50A4FA007D8ADB /* bassloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bassloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/bassloop.wav; sourceTree = "<group>"; };
 		C49A09F01D50A4FA007D8ADB /* drumloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = drumloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/drumloop.wav; sourceTree = "<group>"; };
 		C49A09F11D50A4FA007D8ADB /* guitarloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = guitarloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/guitarloop.wav; sourceTree = "<group>"; };
 		C49A09F21D50A4FA007D8ADB /* leadloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = leadloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Basics.playground/Resources/leadloop.wav; sourceTree = "<group>"; };
-		C49A09F71D50A50B007D8ADB /* mixloop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mixloop.wav; path = ../../../../AudioKit/Common/Playgrounds/Processing.playground/Resources/mixloop.wav; sourceTree = "<group>"; };
 		C4CB57501D1AFB1500479598 /* SongProcessor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SongProcessor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4CB57531D1AFB1500479598 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4CB57581D1AFB1500479598 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 				C49A09F01D50A4FA007D8ADB /* drumloop.wav */,
 				C49A09F11D50A4FA007D8ADB /* guitarloop.wav */,
 				C49A09F21D50A4FA007D8ADB /* leadloop.wav */,
-				C49A09F71D50A50B007D8ADB /* mixloop.wav */,
+				C47AC62E1D5E70350005E485 /* mixloop.wav */,
 			);
 			name = Loops;
 			sourceTree = "<group>";
@@ -215,7 +215,7 @@
 				C4CB57591D1AFB1500479598 /* Main.storyboard in Resources */,
 				C49A09F51D50A4FA007D8ADB /* guitarloop.wav in Resources */,
 				C49A09F31D50A4FA007D8ADB /* bassloop.wav in Resources */,
-				C49A09F81D50A50B007D8ADB /* mixloop.wav in Resources */,
+				C47AC62F1D5E70350005E485 /* mixloop.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
