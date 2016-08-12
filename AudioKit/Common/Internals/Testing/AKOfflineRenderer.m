@@ -1,9 +1,9 @@
 //
 //  AKOfflineRenderer.m
-//  AudioKit for iOS
+//  AudioKit
 //
 //  Lifted from The Amazing Audio Engine by Michael Tyson.
-//  Copyright © 2016 AudioKit. All rights reserved.
+//  https://github.com/TheAmazingAudioEngine/TheAmazingAudioEngine
 //
 
 #import <Foundation/Foundation.h>
