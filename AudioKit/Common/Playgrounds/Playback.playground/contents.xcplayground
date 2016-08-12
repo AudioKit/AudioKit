@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios' display-mode='rendered'>
+<playground version='6.0' target-platform='osx' display-mode='rendered'>
     <pages>
         <page name='Table Of Contents'/>
         <page name='Audio Player'/>
         <page name='Editing Audio Files'/>
+        <page name='Exporting files'/>
         <page name='Phase-Locked Vocoder'/>
         <page name='Playback Speed'/>
         <page name='Processing Audio File Asynchronously'/>
@@ -12,6 +13,5 @@
         <page name='Sampler'/>
         <page name='Sequencer'/>
         <page name='Time Stretching and Pitch Shifting'/>
-        <page name='Exporting files'/>
     </pages>
 </playground>
