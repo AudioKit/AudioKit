@@ -15,6 +15,6 @@ class AKCompressorTests: AKTestCase {
         let input = AKOscillator()
         output = AKCompressor(input)
         input.start()
-        AKTestMD5("a39edf51b73abdc2d6a179ff5ebb8792", alternate: "035ab56a28646a8168dd92df8f92efc9")
+        AKTestMD5("035ab56a28646a8168dd92df8f92efc9")
     }
 }
