@@ -25,7 +25,6 @@
 		C456669D1D448D7E00D26565 /* AKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B81D448D7D00D26565 /* AKSettings.swift */; };
 		C456669E1D448D7E00D26565 /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662B91D448D7D00D26565 /* AKTable.swift */; };
 		C456669F1D448D7E00D26565 /* AKAudioFile+ConvenienceInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662BC1D448D7D00D26565 /* AKAudioFile+ConvenienceInitializers.swift */; };
-		C45666A01D448D7E00D26565 /* AKAudioFile+Exporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662BD1D448D7D00D26565 /* AKAudioFile+Exporting.swift */; };
 		C45666A11D448D7E00D26565 /* AKAudioFile+Peripherals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662BE1D448D7D00D26565 /* AKAudioFile+Peripherals.swift */; };
 		C45666A21D448D7E00D26565 /* AKAudioFile+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662BF1D448D7D00D26565 /* AKAudioFile+Processing.swift */; };
 		C45666A31D448D7E00D26565 /* AKAudioFile+ProcessingAsynchronously.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45662C01D448D7D00D26565 /* AKAudioFile+ProcessingAsynchronously.swift */; };
@@ -753,7 +752,6 @@
 		C45662B81D448D7D00D26565 /* AKSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKSettings.swift; sourceTree = "<group>"; };
 		C45662B91D448D7D00D26565 /* AKTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKTable.swift; sourceTree = "<group>"; };
 		C45662BC1D448D7D00D26565 /* AKAudioFile+ConvenienceInitializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+ConvenienceInitializers.swift"; sourceTree = "<group>"; };
-		C45662BD1D448D7D00D26565 /* AKAudioFile+Exporting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Exporting.swift"; sourceTree = "<group>"; };
 		C45662BE1D448D7D00D26565 /* AKAudioFile+Peripherals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Peripherals.swift"; sourceTree = "<group>"; };
 		C45662BF1D448D7D00D26565 /* AKAudioFile+Processing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+Processing.swift"; sourceTree = "<group>"; };
 		C45662C01D448D7D00D26565 /* AKAudioFile+ProcessingAsynchronously.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AKAudioFile+ProcessingAsynchronously.swift"; sourceTree = "<group>"; };
@@ -1573,7 +1571,6 @@
 			isa = PBXGroup;
 			children = (
 				C45662BC1D448D7D00D26565 /* AKAudioFile+ConvenienceInitializers.swift */,
-				C45662BD1D448D7D00D26565 /* AKAudioFile+Exporting.swift */,
 				C45662BE1D448D7D00D26565 /* AKAudioFile+Peripherals.swift */,
 				C45662BF1D448D7D00D26565 /* AKAudioFile+Processing.swift */,
 				C45662C01D448D7D00D26565 /* AKAudioFile+ProcessingAsynchronously.swift */,
@@ -3767,7 +3764,6 @@
 				C45669E91D448D7E00D26565 /* pan.swift in Sources */,
 				C45667A31D448D7E00D26565 /* reverse.c in Sources */,
 				C456675E1D448D7E00D26565 /* blsaw.c in Sources */,
-				C45666A01D448D7E00D26565 /* AKAudioFile+Exporting.swift in Sources */,
 				C456677E1D448D7E00D26565 /* gen_sine.c in Sources */,
 				C428999E1D55479200B941B5 /* v.c in Sources */,
 				C45666EA1D448D7E00D26565 /* buthp.c in Sources */,
