@@ -12,5 +12,6 @@
         <page name='Sampler'/>
         <page name='Sequencer'/>
         <page name='Time Stretching and Pitch Shifting'/>
+        <page name='Exporting files'/>
     </pages>
 </playground>
