@@ -15,6 +15,6 @@ class AKDistortionTests: AKTestCase {
         let input = AKOscillator()
         output = AKDistortion(input)
         input.start()
-        AKTestMD5("9bff443e585a40e4ed1622806b5a3e7f", alternate: "a0c5749a0b65905ca22bc427adb45894")
+        AKTestMD5("a0c5749a0b65905ca22bc427adb45894")
     }
 }
