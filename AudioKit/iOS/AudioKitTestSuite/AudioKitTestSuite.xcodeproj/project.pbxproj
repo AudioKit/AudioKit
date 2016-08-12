@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C4289A151D56D20300B941B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4289A141D56D20300B941B5 /* AppDelegate.swift */; };
-		C4289A361D56D24700B941B5 /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4289A341D56D23D00B941B5 /* AudioKit.framework */; };
-		C4289A371D56D24700B941B5 /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C4289A341D56D23D00B941B5 /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C42D30A61D5A9C5C00F92555 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C42D30A51D5A9C5C00F92555 /* Default-568h@2x.png */; };
 		C4F8D1D51D5A8B7100D85987 /* AKAKAmplitudeEnvelopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D17D1D5A8B7100D85987 /* AKAKAmplitudeEnvelopeTests.swift */; };
 		C4F8D1D61D5A8B7100D85987 /* AKAKAutoWahTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F8D17E1D5A8B7100D85987 /* AKAKAutoWahTests.swift */; };
@@ -109,6 +107,13 @@
 			remoteGlobalIDString = C4289A101D56D20300B941B5;
 			remoteInfo = AudioKitTestSuite;
 		};
+		C47AC6291D5D585E0005E485 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C47AC6251D5D585E0005E485 /* AudioKit for iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C42F35001C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -118,7 +123,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C4289A371D56D24700B941B5 /* AudioKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,8 +135,8 @@
 		C4289A201D56D20300B941B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4289A251D56D20300B941B5 /* AudioKitTestSuiteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AudioKitTestSuiteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4289A2B1D56D20300B941B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4289A341D56D23D00B941B5 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		C42D30A51D5A9C5C00F92555 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C47AC6251D5D585E0005E485 /* AudioKit for iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit for iOS.xcodeproj"; path = "../AudioKit for iOS.xcodeproj"; sourceTree = "<group>"; };
 		C4F8D17D1D5A8B7100D85987 /* AKAKAmplitudeEnvelopeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAKAmplitudeEnvelopeTests.swift; path = ../../../Common/Tests/AKAKAmplitudeEnvelopeTests.swift; sourceTree = "<group>"; };
 		C4F8D17E1D5A8B7100D85987 /* AKAKAutoWahTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAKAutoWahTests.swift; path = ../../../Common/Tests/AKAKAutoWahTests.swift; sourceTree = "<group>"; };
 		C4F8D17F1D5A8B7100D85987 /* AKAKBandPassButterworthFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AKAKBandPassButterworthFilterTests.swift; path = ../../../Common/Tests/AKAKBandPassButterworthFilterTests.swift; sourceTree = "<group>"; };
@@ -228,7 +232,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4289A361D56D24700B941B5 /* AudioKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +248,7 @@
 		C4289A081D56D20300B941B5 = {
 			isa = PBXGroup;
 			children = (
-				C4289A341D56D23D00B941B5 /* AudioKit.framework */,
+				C47AC6251D5D585E0005E485 /* AudioKit for iOS.xcodeproj */,
 				C4289A131D56D20300B941B5 /* AudioKitTestSuite */,
 				C4289A281D56D20300B941B5 /* AudioKitTestSuiteTests */,
 				C4289A121D56D20300B941B5 /* Products */,
@@ -367,6 +370,14 @@
 			path = AudioKitTestSuiteTests;
 			sourceTree = "<group>";
 		};
+		C47AC6261D5D585E0005E485 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C47AC62A1D5D585E0005E485 /* AudioKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -436,6 +447,12 @@
 			mainGroup = C4289A081D56D20300B941B5;
 			productRefGroup = C4289A121D56D20300B941B5 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C47AC6261D5D585E0005E485 /* Products */;
+					ProjectRef = C47AC6251D5D585E0005E485 /* AudioKit for iOS.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C4289A101D56D20300B941B5 /* AudioKitTestSuite */,
@@ -443,6 +460,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C47AC62A1D5D585E0005E485 /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = C47AC6291D5D585E0005E485 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C4289A0F1D56D20300B941B5 /* Resources */ = {

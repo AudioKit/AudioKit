@@ -2,7 +2,7 @@
 //  AKOfflineRenderer.m
 //  AudioKit for iOS
 //
-//  Created by Aurelius Prochazka on 8/4/16.
+//  Lifted from The Amazing Audio Engine by Michael Tyson.
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 

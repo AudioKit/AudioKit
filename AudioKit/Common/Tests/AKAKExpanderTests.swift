@@ -15,6 +15,6 @@ class AKExpanderTests: AKTestCase {
         let input = AKOscillator()
         output = AKExpander(input)
         input.start()
-        AKTestMD5("088edccae23805e40db383979c321064", alternate: "2681f2a7c8ef95e01cd5e88f0d9bcdfe")
+        AKTestMD5("2681f2a7c8ef95e01cd5e88f0d9bcdfe")
     }
 }
