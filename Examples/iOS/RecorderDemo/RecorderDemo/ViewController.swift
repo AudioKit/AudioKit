@@ -43,6 +43,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
 
         setupButtonNames()
+
+        // Clean tempFiles !
+        AKAudioFile.cleanTempDirectory()
         
         // Session settings
         AKSettings.bufferLength = .Medium
