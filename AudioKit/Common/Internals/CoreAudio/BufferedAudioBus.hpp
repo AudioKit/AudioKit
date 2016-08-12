@@ -10,6 +10,9 @@
 #import <AudioUnit/AudioUnit.h>
 #import <AVFoundation/AVFoundation.h>
 
+#pragma mark BufferedAudioBus Utility Class
+// Utility classes to manage audio formats and buffers for an audio unit implementation's input and output audio busses.
+
 // Reusable non-ObjC class, accessible from render thread.
 struct BufferedAudioBus {
     AUAudioUnitBus* bus = nullptr;
@@ -47,8 +50,11 @@ struct BufferedAudioBus {
     }
 };
 
+#pragma mark - BufferedOutputBus: BufferedAudioBus
+#pragma mark prepareOutputBufferList()
 /*
-	`BufferedOutputBus`
+ BufferedOutputBus
+ 
 	This class provides a prepareOutputBufferList method to copy the internal buffer pointers
 	to the output buffer list in case the client passed in null buffer pointers.
  */
@@ -68,8 +74,12 @@ struct BufferedOutputBus: BufferedAudioBus {
     }
 };
 
+#pragma mark - BufferedInputBus: BufferedAudioBus
+#pragma mark pullInput()
+#pragma mark prepareInputBufferList()
 /*
-	`BufferedInputBus`
+	BufferedInputBus
+ 
 	This class manages a buffer into which an audio unit with input busses can
  pull its input data.
  */
@@ -93,8 +103,8 @@ struct BufferedInputBus : BufferedAudioBus {
     }
     
     /*
-    	\c prepareInputBufferList populates the \c mutableAudioBufferList with the data
-     pointers from the \c originalAudioBufferList.
+     prepareInputBufferList populates the mutableAudioBufferList with the data
+     pointers from the originalAudioBufferList.
      
      The upstream audio unit may overwrite these with its own pointers, so each
      render cycle this function needs to be called to reset them.
@@ -111,4 +121,3 @@ struct BufferedInputBus : BufferedAudioBus {
         }
     }
 };
-
