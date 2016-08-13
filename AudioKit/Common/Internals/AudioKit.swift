@@ -34,6 +34,8 @@ public typealias AKCallback = Void -> Void
             engine.connect(output!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
         }
     }
+    
+    // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
     public static var availableInputs: [AKDevice]? {
@@ -114,6 +116,8 @@ public typealias AKCallback = Void -> Void
         #endif
     }
 
+    // MARK: - Start/Stop
+    
     /// Start up the audio engine
     public static func start() {
         if output == nil {
@@ -195,7 +199,7 @@ public typealias AKCallback = Void -> Void
         #endif
     }
 
-    // MARK: Testing
+    // MARK: - Testing
 
     /// Testing AKNode
     public static var tester: AKTester?
@@ -234,6 +238,8 @@ public typealias AKCallback = Void -> Void
         stop()
         start()
     }
+    
+    // MARK: - Configuration Change Response
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
@@ -267,6 +273,8 @@ public typealias AKCallback = Void -> Void
             }
         }
     }
+    
+    // MARK: - Deinitialization
 
     deinit {
         #if os(iOS)
