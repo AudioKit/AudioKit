@@ -260,10 +260,9 @@ public class AKSequencer {
             currTime = fmod(currTime, length.beats)
             MusicTrackNewExtendedTempoEvent(tempoTrack, currTime, constrainedTempo)
         }
-        
+
 // Had to comment out this line and two below to make the synth arpeggiator work.  Doing so brings back the "Invalid beat range or track is empty" error
 //        if !isTempoTrackEmpty {
-        print(length.beats)
             MusicTrackClear(tempoTrack, 0, length.beats)
 //        }
         MusicTrackNewExtendedTempoEvent(tempoTrack, 0, constrainedTempo)
