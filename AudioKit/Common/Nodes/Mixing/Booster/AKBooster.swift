@@ -12,7 +12,7 @@ import AVFoundation
 ///
 /// - Parameters:
 ///   - input: Input node to process
-///   - gain: Boosting. A
+///   - gain: Boosting multiplier.
 ///
 public class AKBooster: AKNode, AKToggleable {
 
@@ -69,8 +69,8 @@ public class AKBooster: AKNode, AKToggleable {
     /// Initialize this gainner node
     ///
     /// - Parameters:
-    ///   - input: Input node to process
-    ///   - gain: Boosting. A value of -1 is hard left, and a value of 1 is hard right, and 0 is center.
+    ///   - input: AKNode whose output will be amplified
+    ///   - gain: Amplification factor (Default: 1, Minimum: 0)
     ///
     public init(
         _ input: AKNode,
@@ -80,7 +80,7 @@ public class AKBooster: AKNode, AKToggleable {
 
         var description = AudioComponentDescription()
         description.componentType         = kAudioUnitType_Effect
-        description.componentSubType      = 0x70616e32 /*'gain2'*/
+        description.componentSubType      = 0x6761696e /*'gain'*/
         description.componentManufacturer = 0x41754b74 /*'AuKt'*/
         description.componentFlags        = 0
         description.componentFlagsMask    = 0
