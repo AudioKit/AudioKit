@@ -24,19 +24,32 @@ var counter = 0
 
 AKPlaygroundLoop(frequency: 2.66) {
     let frequencyToggle = counter % 2
-    let rampTimeToggle = counter % 16
     if frequencyToggle > 0 {
         filter.cutoffFrequency = 111
     } else {
         filter.cutoffFrequency = 666
     }
-    if rampTimeToggle > 8 {
-        filter.rampTime = 0.2
-    } else {
-        filter.rampTime = 0.0002
-    }
     counter += 1
 }
 
+//: User Interface Set up
+
+class PlaygroundView: AKPlaygroundView {
+    
+    override func setup() {
+        addTitle("Parameter Ramp Time")
+        
+        addSubview(AKPropertySlider(
+            property: "Ramp TIme",
+            format: "%0.3f s",
+            value: filter.rampTime
+        ) { sliderValue in
+            filter.rampTime = sliderValue
+            })
+    }
+}
+
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+XCPlaygroundPage.currentPage.liveView = PlaygroundView()
+
 //: [TOC](Table%20Of%20Contents) | [Previous](@previous) | [Next](@next)

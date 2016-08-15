@@ -6,6 +6,8 @@
 //  Copyright © 2016 AudioKit. All rights reserved.
 //
 
+/// Button that just access the start/stop feature of an AKNode,
+/// primarily used for playgrounds, but potentially useful in your own code.
 public class AKBypassButton: UIView {
 
     var node: AKToggleable
@@ -26,11 +28,18 @@ public class AKBypassButton: UIView {
         }
     }
 
+    /// Instatiate the button with a node and a size
+    ///
+    /// - Parameters:
+    ///   - node:  Toggleable node that will be affected
+    ///   - frame: bounds of the button
+    ///
     public init(node: AKToggleable, frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60)) {
         self.node = node
         super.init(frame: frame)
     }
 
+    /// Required initializer
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -97,6 +106,7 @@ public class AKBypassButton: UIView {
         CGContextRestoreGState(context)
     }
 
+    /// Draw the button
     override public func drawRect(rect: CGRect) {
         drawBypassButton(isBypassed: node.isBypassed)
     }

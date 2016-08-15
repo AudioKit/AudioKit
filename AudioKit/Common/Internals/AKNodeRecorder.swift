@@ -82,7 +82,8 @@ public class AKNodeRecorder {
 
             do {
                 // We initialize AKAudioFile for writing (and check that we can write to)
-                self.internalAudioFile = try AKAudioFile(forWriting: file!.url, settings: file!.processingFormat.settings)
+                self.internalAudioFile = try AKAudioFile(forWriting: file!.url,
+                                                         settings: file!.processingFormat.settings)
             } catch let error as NSError {
                 print ("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
                 throw error
@@ -116,13 +117,14 @@ public class AKNodeRecorder {
 
             if !permissionGranted {
                 print("AKNodeRecorder Error: Permission to record not granted")
-                throw NSError(domain: NSURLErrorDomain, code: NSURLErrorUnknown, userInfo: nil)
+                throw NSError(domain: NSURLErrorDomain,
+                              code: NSURLErrorUnknown,
+                              userInfo: nil)
             }
 
             // Sets AVAudioSession Category to be Play and Record
 
-            if (AKSettings.session != AKSettings.SessionCategory.PlayAndRecord.rawValue)
-            {
+            if (AKSettings.session != AKSettings.SessionCategory.PlayAndRecord.rawValue) {
                 do {
                     try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord)
                 } catch let error as NSError {
@@ -135,11 +137,13 @@ public class AKNodeRecorder {
 
         if  node != nil {
 
-            let recordingBufferLength:AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
+            let recordingBufferLength: AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
             recording = true
 
             print ("recording")
-            node!.avAudioNode.installTapOnBus(0, bufferSize: recordingBufferLength, format: internalAudioFile.processingFormat, block: { (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
+            node!.avAudioNode.installTapOnBus(0, bufferSize: recordingBufferLength,
+                                              format: internalAudioFile.processingFormat) {
+                (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
                 do {
                     self.recordBufferDuration = Double(buffer.frameLength) / AKSettings.sampleRate
                     try self.internalAudioFile.writeFromBuffer(buffer)
@@ -147,7 +151,7 @@ public class AKNodeRecorder {
                 } catch let error as NSError {
                     print("Write failed: error -> \(error.localizedDescription)")
                 }
-            })
+            }
         } else {
             print ("AKNodeRecorder Error: input node is not available")
         }
@@ -195,7 +199,6 @@ public class AKNodeRecorder {
             print ("AKNodeRecorder Error: cannot delete Recording file:  \(audioFile!.fileNamePlusExtension)")
             throw error
         }
-
 
         // Creates a blank new file
         do {
