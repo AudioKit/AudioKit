@@ -8,7 +8,7 @@
 
 import XCTest
 
-@testable import AudioKit
+import AudioKit
 
 class triangleTests: AKTestCase {
 
@@ -26,7 +26,7 @@ class triangleTests: AKTestCase {
                 duration: self.duration)
             return AKOperation.triangle(frequency: ramp * 2000, amplitude: ramp, phase: ramp)
         }
-        AKTestMD5("9678f48d9a5da9bf123bd693a32e98d1")
+        AKTestMD5("2f01ae01dcb43f267d0854ddea5db002")
     }
 
 }
