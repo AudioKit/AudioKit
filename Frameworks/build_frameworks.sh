@@ -8,7 +8,7 @@ PROJECT_NAME=AudioKit
 CONFIGURATION=Release
 BUILD_DIR="$PWD/build"
 VERSION=`cat ../VERSION`
-PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
+PLATFORMS=${PLATFORMS:-"iOS"} # macOS tvOS"}
 
 if test "$TRAVIS" = true;
 then
