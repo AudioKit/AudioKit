@@ -23,7 +23,7 @@ extension AKOperation {
         phase: AKParameter = 0
         ) -> AKOperation {
         return AKOperation(module: "\"triangle\" osc",
-                           setup: "\"triangle\" 4096 \"0 -1 2048 1 4095 -1\" gen_line",
+                           setup: "\"triangle\" 4096 \"0 -1 2048 1 4096 -1\" gen_line",
                            inputs: frequency, amplitude, phase)
     }
 }
