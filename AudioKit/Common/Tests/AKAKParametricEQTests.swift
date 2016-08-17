@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import AudioKit
+import AudioKit
 
 class AKParametricEQTests: AKTestCase {
 
