@@ -3298,7 +3298,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */;
+			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4030,7 +4030,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */ = {
+		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4BDE83F1C12FFBC00207DA9 /* Debug */,
