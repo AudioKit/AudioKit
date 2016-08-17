@@ -426,14 +426,21 @@ public class AKSequencer {
 
     /// Current Time
     public var currentPosition: AKDuration {
+        var position = AKDuration(beats: 0.0)
         if isAVSequencer {
-            return AKDuration(beats: avSequencer.currentPositionInBeats)
+            position = AKDuration(beats: avSequencer.currentPositionInBeats)
         } else {
             var currentTime = MusicTimeStamp()
             MusicPlayerGetTime(musicPlayer, &currentTime)
-            let duration = AKDuration(beats: currentTime)
-            return duration
+            position =  AKDuration(beats: currentTime)
         }
+        while position > length {
+            position -= length
+        }
+        if position < AKDuration(beats: 0.0) {
+            position = AKDuration(beats: 0.0)
+        }
+        return position
     }
 
     /// Track count
