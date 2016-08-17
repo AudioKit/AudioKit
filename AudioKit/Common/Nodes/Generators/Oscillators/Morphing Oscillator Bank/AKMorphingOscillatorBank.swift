@@ -30,11 +30,11 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
 
     private var waveformArray = [AKTable]()
 
-    private var attackDurationParameter: AUParameter?
-    private var decayDurationParameter: AUParameter?
-    private var sustainLevelParameter: AUParameter?
-    private var releaseDurationParameter: AUParameter?
-    private var detuningOffsetParameter: AUParameter?
+    private var attackDurationParameter:     AUParameter?
+    private var decayDurationParameter:      AUParameter?
+    private var sustainLevelParameter:       AUParameter?
+    private var releaseDurationParameter:    AUParameter?
+    private var detuningOffsetParameter:     AUParameter?
     private var detuningMultiplierParameter: AUParameter?
 
     /// Ramp Time represents the speed at which parameters are allowed to change
@@ -131,7 +131,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
     }
 
     // MARK: - Initialization
-    
+
     /// Initialize the oscillator with defaults
     public convenience override init() {
         self.init(waveformArray: [AKTable(.Triangle), AKTable(.Square), AKTable(.Sine), AKTable(.Sawtooth)])
@@ -194,7 +194,7 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
             AudioKit.engine.attachNode(self.avAudioNode)
             for i in 0 ..< waveformArray.count {
                 self.internalAU?.setupWaveform(UInt32(i), size: Int32(waveformArray[i].size))
-                for j in 0 ..< waveformArray[i].size{
+                for j in 0 ..< waveformArray[i].size {
                     self.internalAU?.setWaveform(UInt32(i), withValue: waveformArray[i].values[j], atIndex: UInt32(j))
                 }
             }
@@ -230,11 +230,11 @@ public class AKMorphingOscillatorBank: AKPolyphonicNode {
         }
         internalAU?.index = Float(index) / Float(waveformArray.count - 1)
 
-        internalAU?.attackDuration = Float(attackDuration)
-        internalAU?.decayDuration = Float(decayDuration)
-        internalAU?.sustainLevel = Float(sustainLevel)
-        internalAU?.releaseDuration = Float(releaseDuration)
-        internalAU?.detuningOffset = Float(detuningOffset)
+        internalAU?.attackDuration     = Float(attackDuration)
+        internalAU?.decayDuration      = Float(decayDuration)
+        internalAU?.sustainLevel       = Float(sustainLevel)
+        internalAU?.releaseDuration    = Float(releaseDuration)
+        internalAU?.detuningOffset     = Float(detuningOffset)
         internalAU?.detuningMultiplier = Float(detuningMultiplier)
     }
 
