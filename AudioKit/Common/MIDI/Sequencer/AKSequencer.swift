@@ -434,8 +434,14 @@ public class AKSequencer {
             MusicPlayerGetTime(musicPlayer, &currentTime)
             position =  AKDuration(beats: currentTime)
         }
-        while position > length {
-            position -= length
+        if loopEnabled {
+            while position > length {
+                position -= length
+            }
+        } else {
+            if position > length {
+                position = length
+            }
         }
         if position < AKDuration(beats: 0.0) {
             position = AKDuration(beats: 0.0)
