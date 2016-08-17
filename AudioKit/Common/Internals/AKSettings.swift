@@ -166,7 +166,7 @@ import AVFoundation
 
     /// Checks if headphones are plugged
     /// Returns true if headPhones are plugged, otherwise return false
-    static public var headPhonesPlugged:Bool {
+    static public var headPhonesPlugged: Bool {
         let route = session.currentRoute
         var headPhonesFound = false
         if route.outputs.count > 0 {
