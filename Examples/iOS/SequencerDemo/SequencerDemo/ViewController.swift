@@ -17,13 +17,13 @@ class ViewController: UIViewController {
     let conductor = Conductor()
     
     func setupUI() {
-        var buttons = [UIButton!]()
+        var buttons = [UIButton]()
         buttons.append(melodyButton)
         buttons.append(bassButton)
         buttons.append(snareButton)
         for button in buttons {
-            button?.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-            button?.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
+            button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+            button.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Disabled)
         }
     }
     
