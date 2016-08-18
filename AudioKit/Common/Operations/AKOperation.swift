@@ -257,7 +257,7 @@ public func log10(operation: AKOperation) -> AKOperation {
 
 /// Rounds the operation to the nearest integer
 ///
-/// - parameterd operation: AKComputedParameter to operate on
+/// - parameter operation: AKComputedParameter to operate on
 ///
 public func round(operation: AKOperation) -> AKOperation {
     return operation.round()

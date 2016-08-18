@@ -29,11 +29,9 @@ int sporth_paulstretch(sporth_stack *stack, void *ud)
             windowsize = sporth_stack_pop_float(stack);
             stretch = sporth_stack_pop_float(stack);
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
-                free(ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
-            free(ftname);
             sp_paulstretch_init(pd->sp, paulstretch, ft, windowsize, stretch);
             sporth_stack_push_float(stack, 0);
             break;
@@ -47,7 +45,6 @@ int sporth_paulstretch(sporth_stack *stack, void *ud)
             windowsize = sporth_stack_pop_float(stack);
             stretch = sporth_stack_pop_float(stack);
             paulstretch = pd->last->ud;
-            free(ftname);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_COMPUTE:

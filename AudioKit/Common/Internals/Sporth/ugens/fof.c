@@ -48,8 +48,6 @@ int sporth_fof(sporth_stack *stack, void *ud)
             form = sporth_stack_pop_float(stack);
             fund = sporth_stack_pop_float(stack);
             amp = sporth_stack_pop_float(stack);
-            free(sinestr);
-            free(winstr);
             sporth_stack_push_float(stack, 0);
             break;
         case PLUMBER_INIT:
@@ -73,22 +71,17 @@ int sporth_fof(sporth_stack *stack, void *ud)
             fof = pd->last->ud;
 
             if(plumber_ftmap_search(pd, sinestr, &sine) == PLUMBER_NOTOK) {
-                free(sinestr);
-                free(winstr);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
 
             if(plumber_ftmap_search(pd, winstr, &win) == PLUMBER_NOTOK) {
-                free(winstr);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
 
             sp_fof_init(pd->sp, fof, sine, win, iolaps, iphs);
             sporth_stack_push_float(stack, 0);
-            free(sinestr);
-            free(winstr);
             break;
         case PLUMBER_COMPUTE:
             iolaps = sporth_stack_pop_float(stack);

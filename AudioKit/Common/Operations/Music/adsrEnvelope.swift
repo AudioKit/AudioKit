@@ -10,10 +10,10 @@ import Foundation
 
 extension AKOperation {
 
-    /// Trigger based linear AHD envelope generator
+    /// Gate based linear AHD envelope generator
     ///
     /// - Parameters:
-    ///   - trigger: A triggering operation such as a metronome
+    ///   - gate: 1 for on and 0 for off
     ///   - attack: Attack time, in seconds. (Default: 0.1)
     ///   - hold: Hold time, in seconds. (Default: 0.3)
     ///   - release: Release time, in seconds. (Default: 0.2)

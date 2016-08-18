@@ -14,7 +14,7 @@ public class AKTester: AKNode, AKToggleable {
     // MARK: - Properties
 
     private var internalAU: AKTesterAudioUnit?
-
+    private var testedNode: AKToggleable?
     private var token: AUParameterObserverToken?
     var totalSamples = 0
 
@@ -38,6 +38,7 @@ public class AKTester: AKNode, AKToggleable {
     ///
     public init(_ input: AKNode, samples: Int) {
 
+        testedNode = input as? AKToggleable
         totalSamples = samples
 
         var description = AudioComponentDescription()
@@ -70,6 +71,7 @@ public class AKTester: AKNode, AKToggleable {
 
     /// Function to start, play, or activate the node, all do the same thing
     public func start() {
+        testedNode?.start()
         self.internalAU!.start()
     }
 

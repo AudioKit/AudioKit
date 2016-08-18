@@ -24,6 +24,7 @@ extension AKOperation {
         amplitude: AKParameter = 0.5,
         lowestFrequency: Double = 110
         ) -> AKOperation {
-        return AKOperation(module: "pluck", inputs: trigger, frequency, amplitude, lowestFrequency)
+        return AKOperation(module: "pluck",
+                           inputs: trigger, frequency, amplitude, lowestFrequency)
     }
 }

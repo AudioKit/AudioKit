@@ -30,7 +30,17 @@ public class AKMixer: AKNode, AKToggleable {
         return volume != 0.0
     }
     
-    /// Initialize the mixer node
+    /// Initialize the mixer node with no inputs, to be connected later
+    ///
+    /// - parameter inputs: A varaiadic list of AKNodes
+    ///
+    public override init() {
+        super.init()
+        self.avAudioNode = mixerAU
+        AudioKit.engine.attachNode(self.avAudioNode)
+    }
+    
+    /// Initialize the mixer node with multiple inputs
     ///
     /// - parameter inputs: A varaiadic list of AKNodes
     ///

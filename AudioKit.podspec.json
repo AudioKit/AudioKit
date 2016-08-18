@@ -1,18 +1,18 @@
 {
     "name": "AudioKit",
-    "version": "3.2",
+    "version": "3.3",
     "authors": {
         "Aurelius Prochazka": "audiokit@audiokit.io"
     },
     "license": {
         "type": "MIT",
-	"file": "LICENSE"
+        "file": "LICENSE"
     },
     "homepage": "http://audiokit.io/",
     "social_media_url": "http://twitter.com/AudioKitMan",
     "documentation_url": "http://audiokit.io/docs/",
     "source": {
-        "http": "https://github.com/audiokit/AudioKit/releases/download/v3.2/AudioKit.framework.zip"
+        "http": "https://github.com/audiokit/AudioKit/releases/download/v3.3/AudioKit.framework.zip"
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "platforms": {
@@ -24,15 +24,18 @@
 	"AVFoundation"
     ],
     "osx": {
-	"public_header_files": "OSX/AudioKit.framework/Versions/A/Headers/*.h",
+        "source_files": "OSX/AudioKit.framework/Versions/A/Headers/*{.h, .m}",
+        "public_header_files": "OSX/AudioKit.framework/Versions/A/Headers/*.h",
         "vendored_frameworks": "OSX/AudioKit.framework"
     },
     "ios": {
-	"public_header_files": "iOS/AudioKit.framework/Headers/*.h",
+        "source_files": "iOS/AudioKit.framework/Headers/*.h",
+        "public_header_files": "iOS/AudioKit.framework/Headers/*.h",
         "vendored_frameworks": "iOS/AudioKit.framework"
     },
     "tvos": {
-	"public_header_files": "tvOS/AudioKit.framework/Headers/*.h",
+        "source_files": "tvOS/AudioKit.framework/Headers/*.h",
+        "public_header_files": "tvOS/AudioKit.framework/Headers/*.h",
         "vendored_frameworks": "tvOS/AudioKit.framework"
     }
 }

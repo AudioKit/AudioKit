@@ -35,7 +35,6 @@ int sporth_atget(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             } printf("found argtable %s of size %d\n", ftname, at->size);
             atd->at = at;
-            free(ftname);
             sporth_stack_push_float(stack, 0.0);
             break;
 
@@ -43,7 +42,6 @@ int sporth_atget(sporth_stack *stack, void *ud)
             atd = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
             atd->index = floor(sporth_stack_pop_float(stack));
-            free(ftname);
             sporth_stack_push_float(stack, 0.0);
             break;
 
@@ -90,7 +88,6 @@ int sporth_atset(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             atd->at = at;
-            free(ftname);
             break;
 
         case PLUMBER_INIT:
@@ -101,7 +98,6 @@ int sporth_atset(sporth_stack *stack, void *ud)
             /* TODO: figure out why this segfaults  
             *atd->at->tbl[atd->index] = atd->val;
             */
-            free(ftname);
             break;
 
         case PLUMBER_COMPUTE:
@@ -146,7 +142,6 @@ int sporth_atblsize(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             *tsize = at->size;
-            free(ftname);
             sporth_stack_push_float(stack, *tsize);
             break;
 
@@ -154,7 +149,6 @@ int sporth_atblsize(sporth_stack *stack, void *ud)
             tsize = pd->last->ud;
             ftname = sporth_stack_pop_string(stack);
             *tsize = at->size;
-            free(ftname);
             sporth_stack_push_float(stack, *tsize);
             break;
 

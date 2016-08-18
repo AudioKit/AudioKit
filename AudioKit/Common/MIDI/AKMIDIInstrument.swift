@@ -45,7 +45,7 @@ public class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     public func receivedMIDINoteOn(noteNumber: MIDINoteNumber,
                                    velocity: MIDIVelocity,
-                                   channel: Int) {
+                                   channel: MIDIChannel) {
         if velocity > 0 {
             start(noteNumber: noteNumber, velocity: velocity, channel: channel)
         } else {
@@ -64,7 +64,7 @@ public class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///
     public func start(noteNumber noteNumber: MIDINoteNumber,
                                  velocity: MIDIVelocity,
-                                 channel: Int) {
+                                 channel: MIDIChannel) {
         play(noteNumber: noteNumber, velocity: velocity)
     }
 
@@ -74,7 +74,7 @@ public class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
     ///   - noteNumber: Note number to stop
     ///   - channel:    Channel on which to stop the note
     ///
-    public func stop(noteNumber noteNumber: MIDINoteNumber, channel: Int) {
+    public func stop(noteNumber noteNumber: MIDINoteNumber, channel: MIDIChannel) {
         // OVerride in subclass
     }
     
@@ -87,9 +87,9 @@ public class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         if(Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 > 0) {
             start(noteNumber: MIDINoteNumber(data2),
                   velocity: MIDIVelocity(data3),
-                  channel: Int(channel))
+                  channel: MIDIChannel(channel))
         } else if Int(status) == AKMIDIStatus.NoteOn.rawValue && data3 == 0 {
-            stop(noteNumber: MIDINoteNumber(data2), channel: Int(channel))
+            stop(noteNumber: MIDINoteNumber(data2), channel: MIDIChannel(channel))
         }
     }
 

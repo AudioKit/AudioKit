@@ -51,7 +51,6 @@ public class AKStereoOperation: AKComputedParameter {
             if input.dynamicType == AKOperation.self {
                 if let operation = input as? AKOperation {
                     if operation.savedLocation >= 0 {
-                        print(operation)
                         opString += "\(operation.savedLocation) \"ak\" tget "
                     } else {
                         opString  += operation.inlineSporth
@@ -96,7 +95,7 @@ public class AKStereoOperation: AKComputedParameter {
     
     /// Create a mono signal by dropping the right channel
     public func toMono() -> AKOperation {
-        return self.left()
+        return AKOperation(module: "add", inputs: self)
     }
     
     /// Create a mono signal by dropping the right channel

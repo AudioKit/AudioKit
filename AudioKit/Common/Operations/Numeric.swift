@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: Numeric Protocol
 
-///  Helps with casting Int, Float, Double to angles and us repeating ourselves
-///  when making arithmetic operators.
+/// Very simple protoocol for anything with an instrinsic floating point value.
+/// Allows constants to be passed into an AudioKit operation as well as other operations.
 public protocol Numeric: AKParameter {
     /// Raw value of the numeric parameter
     func value() -> Double

@@ -16,9 +16,6 @@ public typealias AKCallback = Void -> Void
 @objc public class AudioKit: NSObject {
 
 
-    // Queue used for AKAudioFile Async Processings
-    static let AKAudioFileProcessQueue = dispatch_queue_create("AKAudioFileProcessQueue", DISPATCH_QUEUE_SERIAL)
-
     // MARK: Global audio format (44.1K, Stereo)
 
     /// Format of AudioKit Nodes
@@ -37,15 +34,21 @@ public typealias AKCallback = Void -> Void
             engine.connect(output!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
         }
     }
+    
+    // MARK: - Device Management
 
     /// Enumerate the list of available input devices.
     public static var availableInputs: [AKDevice]? {
         #if os(OSX)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.inputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
+            return EZAudioDevice.inputDevices().map {
+                AKDevice(name: $0.name, deviceID: $0.deviceID)
+            }
         #else
             if let devices = AVAudioSession.sharedInstance().availableInputs {
-                return devices.map({ AKDevice(name: $0.portName, deviceID: $0.UID) })
+                return devices.map {
+                    AKDevice(name: $0.portName, deviceID: $0.UID)
+                }
             }
             return nil
         #endif
@@ -54,7 +57,9 @@ public typealias AKCallback = Void -> Void
     public static var availableOutputs: [AKDevice]? {
         #if os(OSX)
             EZAudioUtilities.setShouldExitOnCheckResultFail(false)
-            return EZAudioDevice.outputDevices().map({ AKDevice(name: $0.name, deviceID: $0.deviceID) })
+            return EZAudioDevice.outputDevices().map {
+                AKDevice(name: $0.name, deviceID: $0.deviceID)
+            }
         #else
             return nil
         #endif
@@ -111,6 +116,8 @@ public typealias AKCallback = Void -> Void
         #endif
     }
 
+    // MARK: - Start/Stop
+    
     /// Start up the audio engine
     public static func start() {
         if output == nil {
@@ -192,7 +199,7 @@ public typealias AKCallback = Void -> Void
         #endif
     }
 
-    // MARK: Testing
+    // MARK: - Testing
 
     /// Testing AKNode
     public static var tester: AKTester?
@@ -201,12 +208,38 @@ public typealias AKCallback = Void -> Void
     ///
     /// - Parameters:
     ///   - node: AKNode to test
-    ///   - samples: Number of samples to generate in the test
+    ///   - duration: Number of seconds to test (accurate to the sample)
     ///
-    public static func testOutput(node: AKNode, samples: Int) {
+    public static func test(node node: AKNode, duration: Double) {
+        let samples = Int(duration * AKSettings.sampleRate)
+        
         tester = AKTester(node, samples: samples)
         output = tester
+        start()
+        self.engine.pause()
+        tester?.play()
+        let renderer = AKOfflineRenderer(engine: self.engine)
+        renderer.render(Int32(samples))
     }
+    
+    /// Audition the test to hear what it sounds like
+    ///
+    /// - Parameters:
+    ///   - node: AKNode to test
+    ///   - duration: Number of seconds to test (accurate to the sample)
+    ///
+    public static func auditionTest(node node: AKNode, duration: Double) {
+        output = node
+        start()
+        if let playableNode = node as? AKToggleable {
+            playableNode.play()
+        }
+        usleep(UInt32(duration * 1000000))
+        stop()
+        start()
+    }
+    
+    // MARK: - Configuration Change Response
 
     // Listen to changes in audio configuration
     // and restart the audio engine if it stops and should be playing
@@ -240,6 +273,8 @@ public typealias AKCallback = Void -> Void
             }
         }
     }
+    
+    // MARK: - Deinitialization
 
     deinit {
         #if os(iOS)

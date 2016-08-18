@@ -40,8 +40,6 @@ int sporth_gen_padsynth(sporth_stack *stack, void *ud)
             sp_gen_padsynth(pd->sp, ft, amps, freq, bw);
 
             plumber_ftmap_add(pd, ftname, ft);
-            free(ftname);
-            free(ampname);
             break;
 
         case PLUMBER_INIT:
@@ -50,9 +48,6 @@ int sporth_gen_padsynth(sporth_stack *stack, void *ud)
             freq = sporth_stack_pop_float(stack);
             size = (uint32_t)sporth_stack_pop_float(stack);
             ftname = sporth_stack_pop_string(stack);
-
-            free(ftname);
-            free(ampname);
             break;
 
         case PLUMBER_COMPUTE:
