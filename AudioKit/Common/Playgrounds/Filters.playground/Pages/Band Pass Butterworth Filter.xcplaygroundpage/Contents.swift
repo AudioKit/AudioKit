@@ -16,7 +16,7 @@ player.looping = true
 //: Next, we'll connect the audio sources to a band pass filter
 var filter = AKBandPassButterworthFilter(player)
 filter.centerFrequency = 5000 // Hz
-filter.bandwidth = 600  // Cents
+filter.bandwidth = 600 // Cents
 filter.rampTime = 1.0
 AudioKit.output = filter
 AudioKit.start()

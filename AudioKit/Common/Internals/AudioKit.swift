@@ -140,7 +140,8 @@ public typealias AKCallback = Void -> Void
 
                 #if os(iOS)
                     if AKSettings.defaultToSpeaker {
-                        try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
+                        try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord,
+                                                          withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
 
                         // listen to AVAudioEngineConfigurationChangeNotification
                         // and restart the engine if it's stopped.
