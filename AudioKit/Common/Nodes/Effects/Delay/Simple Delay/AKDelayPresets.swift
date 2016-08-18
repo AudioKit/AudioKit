@@ -35,4 +35,14 @@ public extension AKDelay {
         dryWetMix = 0.747
     }
     
+    /// Print out current values in case you want to save it as a preset 
+    public func printCurrentValuesAsPreset() {
+        print("public func presetSomeNewDelay() {")
+        print("    time = \(String(format: "%0.3f", time))")
+        print("    feedback = \(String(format: "%0.3f", feedback))")
+        print("    lowPassCutoff = \(String(format: "%0.3f", lowPassCutoff))")
+        print("    dryWetMix = \(String(format: "%0.3f", dryWetMix))")
+        print("}\n")
+    }
+    
 }

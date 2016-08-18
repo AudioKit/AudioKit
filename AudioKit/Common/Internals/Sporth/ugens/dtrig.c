@@ -35,11 +35,9 @@ int sporth_dtrig(sporth_stack *stack, void *ud)
 
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
                 stack->error++;
-                free(ftname);
                 return PLUMBER_NOTOK;
             }
 
-            free(ftname);
             break;
         case PLUMBER_INIT:
 
@@ -58,7 +56,6 @@ int sporth_dtrig(sporth_stack *stack, void *ud)
 
             sp_dtrig_init(pd->sp, dtrig, ft);
             sporth_stack_push_float(stack, 0);
-            free(ftname);
             break;
         case PLUMBER_COMPUTE:
             scale = sporth_stack_pop_float(stack);

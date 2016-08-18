@@ -43,6 +43,7 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 #import "AKEqualizerFilterAudioUnit.h"
 #import "AKHighPassButterworthFilterAudioUnit.h"
 #import "AKHighShelfParametricEqualizerFilterAudioUnit.h"
+#import "AKKorgLowPassFilterAudioUnit.h"
 #import "AKLowPassButterworthFilterAudioUnit.h"
 #import "AKLowShelfParametricEqualizerFilterAudioUnit.h"
 #import "AKModalResonanceFilterAudioUnit.h"
@@ -93,12 +94,14 @@ FOUNDATION_EXPORT const unsigned char AudioKitVersionString[];
 
 // Mixing
 #import "AKBalancerAudioUnit.h"
+#import "AKBoosterAudioUnit.h"
 #import "AKPannerAudioUnit.h"
 
 // Playback
 #import "AKPhaseLockedVocoderAudioUnit.h"
 
 // Testing
+#import "AKOfflineRenderer.h"
 #import "AKTesterAudioUnit.h"
 
 // Plots

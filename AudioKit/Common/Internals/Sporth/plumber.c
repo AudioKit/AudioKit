@@ -6,9 +6,15 @@
 
 #include "plumber.h"
 
-#define SPORTH_UGEN(key, func, macro) int func(sporth_stack *stack, void *ud);
+#define SPORTH_UGEN(key, func, macro, ninputs, noutputs) \
+    int func(sporth_stack *stack, void *ud);
 #include "ugens.h"
 #undef SPORTH_UGEN
+
+#ifdef BUILD_JACK
+int sp_process_jack(plumber_data *pd, 
+        void *ud, void (*callback)(sp_data *, void *), int port);
+#endif 
 
 enum {
     SPACE,
@@ -28,6 +34,7 @@ enum {
     DRIVER_RAW,
     DRIVER_PLOT,
     DRIVER_SPA,
+    DRIVER_JACK,
     DRIVER_NULL
 };
 
@@ -87,9 +94,11 @@ int plumber_init(plumber_data *plumb)
     plumber_ftmap_init(plumb);
     plumb->seed = (int) time(NULL);
     plumb->fp = NULL;
+    plumb->recompile = 0;
     int pos;
     for(pos = 0; pos < 16; pos++) plumb->p[pos] = 0;
     for(pos = 0; pos < 16; pos++) plumb->f[pos] = sporth_f_default;
+    plumb->showprog = 0;
     return PLUMBER_OK;
 }
 
@@ -117,7 +126,7 @@ int plumbing_compute(plumber_data *plumb, plumbing *pipes, int mode)
                 break;
             case SPORTH_STRING:
                 sval = pipe->ud;
-                if(mode == PLUMBER_INIT) sporth_stack_push_string(&sporth->stack, sval);
+                if(mode == PLUMBER_INIT) sporth_stack_push_string(&sporth->stack, &sval);
                 break;
             default:
                 plumb->last = pipe;
@@ -210,8 +219,10 @@ int plumbing_destroy(plumbing *pipes)
         fprintf(stderr, "Pipe %d\ttype %d\n", n, pipe->type);
 #endif
 
-        if(pipe->type == SPORTH_FLOAT || pipe->type == SPORTH_STRING)
+        if(pipe->type == SPORTH_FLOAT || pipe->type == SPORTH_STRING) {
             free(pipe->ud);
+        }
+
         free(pipe);
         pipe = next;
     }
@@ -260,13 +271,13 @@ int plumber_add_float(plumber_data *plumb, plumbing *pipes, float num)
     return PLUMBER_OK;
 }
 
-int plumber_add_string(plumber_data *plumb, plumbing *pipes, const char *str)
+char * plumber_add_string(plumber_data *plumb, plumbing *pipes, const char *str)
 {
     plumber_pipe *new = malloc(sizeof(plumber_pipe));
 
     if(new == NULL) {
         fprintf(stderr,"Memory error\n");
-        return PLUMBER_NOTOK;
+        return NULL;
     }
 
     new->type = SPORTH_STRING;
@@ -276,11 +287,11 @@ int plumber_add_string(plumber_data *plumb, plumbing *pipes, const char *str)
     strncpy(sval, str, new->size);
     if(new->ud == NULL) {
         fprintf(stderr,"Memory error\n");
-        return PLUMBER_NOTOK;
+        return NULL;
     }
 
     plumbing_add_pipe(pipes, new);
-    return PLUMBER_OK;
+    return sval;
 }
 
 int plumber_add_ugen(plumber_data *plumb, uint32_t id, void *ud)
@@ -325,8 +336,8 @@ int plumber_lexer(plumber_data *plumb, plumbing *pipes, char *out, uint32_t len)
 #ifdef DEBUG_MODE
             fprintf(stderr, "%s is a string!\n", out);
 #endif
-            plumber_add_string(plumb, pipes, tmp);
-            sporth_stack_push_string(&plumb->sporth.stack, out + 1);
+            tmp = plumber_add_string(plumb, pipes, tmp);
+            sporth_stack_push_string(&plumb->sporth.stack, &tmp);
             break;
         case SPORTH_WORD:
             /* A sporth word is like a string, except it looks like _this
@@ -341,8 +352,8 @@ int plumber_lexer(plumber_data *plumb, plumbing *pipes, char *out, uint32_t len)
 #ifdef DEBUG_MODE
             fprintf(stderr, "%s is a word!\n", out);
 #endif
-            plumber_add_string(plumb, pipes, tmp);
-            sporth_stack_push_string(&plumb->sporth.stack, out + 1);
+            tmp = plumber_add_string(plumb, pipes, tmp);
+            sporth_stack_push_string(&plumb->sporth.stack, &tmp);
             break;
         case SPORTH_FUNC:
 #ifdef DEBUG_MODE
@@ -696,7 +707,7 @@ int plumber_ftmap_destroy(plumber_data *plumb)
 
 int plumber_register(plumber_data *plumb)
 {
-#define SPORTH_UGEN(key, func, macro) {key, func, plumb},
+#define SPORTH_UGEN(key, func, macro, ninputs, noutputs) {key, func, plumb},
     sporth_func flist[] = {
 #include "ugens.h"
         {NULL, NULL, NULL}
@@ -738,6 +749,10 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
     argv++;
     argc--;
     int driver = DRIVER_FILE;
+    int nullfile = 0;
+    int i;
+    int rc;
+    int port = 6449;
     while(argc > 0 && argv[0][0] == '-') {
         switch(argv[0][1]) {
             case 'd':
@@ -767,6 +782,9 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
                    fprintf(stderr,"There was a problem setting the output file..\n");
                     exit(1);
                 }
+                break; 
+            case 'P':
+                pd->showprog = 1;
                 break;
             case 'r':
                 if(--argc) {
@@ -803,6 +821,10 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
                         driver = DRIVER_PLOT;
                     } else if ((!strcmp(argv[0], "spa"))) {
                         driver = DRIVER_SPA;
+#ifdef BUILD_JACK
+                    } else if ((!strcmp(argv[0], "jack"))) {
+                        driver = DRIVER_JACK;
+#endif
                     } else {
                        fprintf(stderr,"Could not find driver \"%s\".\n", argv[0]);
                         exit(1);
@@ -819,6 +841,18 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
             case 'n':
                 driver = DRIVER_NULL;
                 break;
+            case '0':
+                nullfile = 1;
+                break;
+            case 'p':
+                argv++;
+                if(--argc) { 
+                    port = atoi(argv[0]);
+                } else {
+                    fprintf(stderr, "Please specify a port number for jack\n");
+                    exit(1);
+                }
+                break;
             default:
                 fprintf(stderr,"default.. \n");
                 exit(1);
@@ -827,6 +861,7 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
         argv++;
         argc--;
     }
+
 
     if(argc == 0) {
         pd->fp = stdin;
@@ -851,7 +886,22 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
     sp->sr = sr;
     if(time != NULL) sp->len = str2time(pd, time);
     pd->ud = ud;
-    if(plumber_parse(pd) == PLUMBER_OK){
+    if(pd->showprog) {
+        sp_progress_create(&pd->prog);
+        sp_progress_init(sp, pd->prog);
+    }
+    if(nullfile) {
+        pd->mode = PLUMBER_CREATE;
+        for(i = 0; i < nchan; i++) {
+            plumber_add_float(pd, pd->pipes, 0);
+            sporth_stack_push_float(&pd->sporth.stack, 0);
+        }
+        rc = PLUMBER_OK;
+    } else {
+        rc  = plumber_parse(pd);
+    }
+
+    if(rc == PLUMBER_OK){
         plumber_compute(pd, PLUMBER_INIT);
         pd->sporth.stack.pos = 0;
 #ifdef DEBUG_MODE
@@ -874,6 +924,11 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
                 sp_process_spa(sp, ud, process);
 #endif
                 break;
+#ifdef BUILD_JACK
+            case DRIVER_JACK:
+                sp_process_jack(pd, ud, process, port);
+                break;
+#endif
             case DRIVER_NULL:
                 plumber_process_null(sp, ud, process);
                 break;
@@ -888,6 +943,11 @@ void sporth_run(plumber_data *pd, int argc, char *argv[],
        fprintf(stderr,"Uh-oh! Sporth created %d error(s).\n",
                 pd->sporth.stack.error);
     }
+
+    if(pd->showprog){
+        sp_progress_destroy(&pd->prog);
+    }
+
     plumber_clean(pd);
     sp_destroy(&sp);
 }

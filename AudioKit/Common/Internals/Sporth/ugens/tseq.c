@@ -31,7 +31,6 @@ int sporth_tseq(sporth_stack *stack, void *ud)
             trig = sporth_stack_pop_float(stack);
 
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
 
             break;
         case PLUMBER_INIT:
@@ -45,7 +44,6 @@ int sporth_tseq(sporth_stack *stack, void *ud)
 #endif
 
             if(plumber_ftmap_search(pd, ftname, &ft) == PLUMBER_NOTOK) {
-                free(ftname);
                 stack->error++;
                 return PLUMBER_NOTOK;
             }
@@ -53,7 +51,6 @@ int sporth_tseq(sporth_stack *stack, void *ud)
             tseq = pd->last->ud;
             sp_tseq_init(pd->sp, tseq, ft);
             sporth_stack_push_float(stack, 0.0);
-            free(ftname);
             break;
 
         case PLUMBER_COMPUTE:

@@ -45,6 +45,7 @@ public:
     
     void setSporth(char *sporth) {
         sporthCode = sporth;
+        plumber_recompile_string(&pd, sporthCode);
     }
     
     void trigger(int trigger) {

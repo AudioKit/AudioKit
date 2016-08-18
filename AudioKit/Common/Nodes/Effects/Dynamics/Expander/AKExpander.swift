@@ -173,9 +173,6 @@ public class AKExpander: AKNode, AKToggleable {
     ///   - attackTime: Attack Time (secs) ranges from 0.0001 to 0.2 (Default: 0.001)
     ///   - releaseTime: Release Time (secs) ranges from 0.01 to 3 (Default: 0.05)
     ///   - masterGain: Master Gain (dB) ranges from -40 to 40 (Default: 0)
-    ///   - compressionAmount: Compression Amount (dB) ranges from -40 to 40 (read only)
-    ///   - inputAmplitude: Input Amplitude (dB) ranges from -40 to 40 (read only)
-    ///   - outputAmplitude: Output Amplitude (dB) ranges from -40 to 40 (read only)
     ///
     public init(
         _ input: AKNode,

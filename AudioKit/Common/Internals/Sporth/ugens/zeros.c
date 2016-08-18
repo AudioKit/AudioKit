@@ -25,13 +25,11 @@ int sporth_zeros(sporth_stack *stack, void *ud)
 #endif
             sp_ftbl_create(pd->sp, &ft, size);
             plumber_ftmap_add(pd, str, ft);
-            free(str);
             break;
 
         case PLUMBER_INIT:
             size = (int)sporth_stack_pop_float(stack);
             str = sporth_stack_pop_string(stack);
-            free(str);
             break;
 
         case PLUMBER_COMPUTE:

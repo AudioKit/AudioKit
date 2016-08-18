@@ -40,8 +40,10 @@ int sp_gen_padsynth(sp_data *sp, sp_ftbl *ps, sp_ftbl *amps,
         SPFLOAT fi;
         bw_Hz = (pow(2.0, bw/1200.0) - 1.0) * f * nh;
 
-        bwi = bw_Hz/(2.0*sp->sr);
-        fi = f*nh/sp->sr;
+        //bwi = bw_Hz/(2.0*sp->sr);
+        //fi = f*nh/sp->sr;
+        bwi = bw_Hz/(2.0*ps->size);
+        fi = f*nh/ps->size;
         for (i = 0; i < N/2 ; i++) {
             SPFLOAT hprofile;
             hprofile = sp_padsynth_profile((i / (SPFLOAT) N) - fi, bwi);

@@ -33,7 +33,6 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
                 return PLUMBER_NOTOK;
             }
             sp_tblrec_init(pd->sp, td, ft);
-            free(ftname);
             break;
 
         case PLUMBER_INIT:
@@ -43,7 +42,6 @@ int sporth_tblrec(sporth_stack *stack, void *ud)
             sporth_stack_pop_float(stack);
             td->index = 0;
             td->record = 0;
-            free(ftname);
             break;
 
         case PLUMBER_COMPUTE:

@@ -9,12 +9,25 @@ typedef struct {
 static void process(sp_data *sp, void *udata){
     UserData *ud = udata;
     plumber_data *pd = &ud->pd;
-    plumber_compute(pd, PLUMBER_COMPUTE);
     SPFLOAT out = 0;
     int chan;
+
+    if(pd->recompile) {
+        fprintf(stderr, "Recompiling!\n");
+        plumber_recompile_string(&ud->pd, pd->str);
+        pd->recompile = 0;
+        free(pd->str);
+    }
+    
+    plumber_compute(pd, PLUMBER_COMPUTE);
+
     for (chan = 0; chan < pd->nchan; chan++) {
         out = sporth_stack_pop_float(&pd->sporth.stack);
         sp->out[chan] = out;
+    }
+
+    if(pd->showprog) {
+        sp_progress_compute(sp, pd->prog, NULL, NULL);
     }
 }
 

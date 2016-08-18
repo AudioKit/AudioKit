@@ -31,11 +31,12 @@ static int search_for_ft(plumber_data *pd, sporth_oscmorph *om)
     return PLUMBER_OK;
 }
 
+/*TODO: remove */
 static void free_strings(sporth_oscmorph *om)
 {
     int n;
     for(n = 0; n < om->nft; n++) {
-        free(om->ftname[n]);
+
     }
 }
 
@@ -130,7 +131,7 @@ int sporth_oscmorph4(sporth_stack *stack, void *ud)
     return PLUMBER_OK;
 }
 
-
+/*TODO: remove malloc from here */
 int sporth_oscmorph2(sporth_stack *stack, void *ud)
 {
     plumber_data *pd = ud;

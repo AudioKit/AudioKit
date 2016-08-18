@@ -10,7 +10,7 @@ import Foundation
 
 extension AKOperation {
 
-    /// Morphing Oscillator (under development, subject to change)
+    /// Morphing Oscillator 
     ///
     /// - Parameters:
     ///   - frequency: Frequency in cycles per second (Default: 440)

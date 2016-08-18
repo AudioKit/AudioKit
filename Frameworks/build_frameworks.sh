@@ -8,7 +8,7 @@ PROJECT_NAME=AudioKit
 CONFIGURATION=Release
 BUILD_DIR="$PWD/build"
 VERSION=`cat ../VERSION`
-PLATFORMS=${PLATFORMS:-"iOS OSX tvOS"}
+PLATFORMS=${PLATFORMS:-"iOS macOS tvOS"}
 
 if test "$TRAVIS" = true;
 then
@@ -30,7 +30,7 @@ fi
 # Provide 3 arguments: platform (iOS or tvOS), simulator os, native os
 create_universal_framework()
 {
-	PROJECT="../AudioKit/$1/AudioKit For $1.xcodeproj"
+	PROJECT="../AudioKit/$1/AudioKit for $1.xcodeproj"
 	DIR="AudioKit-$1"
 	OUTPUT="$DIR/${PROJECT_NAME}.framework"
 	rm -rf "$OUTPUT"
@@ -53,7 +53,7 @@ create_universal_framework()
 	fi
 }
 
-create_osx_framework()
+create_macos_framework()
 {
 	PROJECT="../AudioKit/$1/AudioKit For $1.xcodeproj"
 	DIR="AudioKit-$1"
@@ -72,7 +72,7 @@ for os in $PLATFORMS; do
 		create_universal_framework iOS iphonesimulator iphoneos
 	elif test $os = 'tvOS'; then
 		create_universal_framework tvOS appletvsimulator appletvos
-	elif test $os = 'OSX'; then
-		create_osx_framework OSX macosx
+	elif test $os = 'macOS'; then
+		create_macos_framework macOS macosx
 	fi
 done

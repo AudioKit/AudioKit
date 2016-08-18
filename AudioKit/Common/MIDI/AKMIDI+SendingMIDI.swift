@@ -90,14 +90,25 @@ extension AKMIDI {
     }
     
     /// Send a Note On Message
-    public func sendNoteMessage(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: Int = 0) {
+    public func sendNoteOnMessage(noteNumber noteNumber: MIDINoteNumber,
+                                             velocity: MIDIVelocity,
+                                             channel: MIDIChannel = 0) {
         let noteCommand: UInt8 = UInt8(0x90) + UInt8(channel)
         let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
         self.sendMessage(message)
     }
-    
+
+    /// Send a Note Off Message
+    public func sendNoteOffMessage(noteNumber noteNumber: MIDINoteNumber,
+                                             velocity: MIDIVelocity,
+                                             channel: MIDIChannel = 0) {
+        let noteCommand: UInt8 = UInt8(0x80) + UInt8(channel)
+        let message: [UInt8] = [noteCommand, UInt8(noteNumber), UInt8(velocity)]
+        self.sendMessage(message)
+    }
+
     /// Send a Continuous Controller message
-    public func sendControllerMessage(control: Int, value: Int, channel: Int = 0) {
+    public func sendControllerMessage(control: Int, value: Int, channel: MIDIChannel = 0) {
         let controlCommand: UInt8 = UInt8(0xB0) + UInt8(channel)
         let message: [UInt8] = [controlCommand, UInt8(control), UInt8(value)]
         self.sendMessage(message)
