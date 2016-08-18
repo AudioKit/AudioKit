@@ -3125,11 +3125,11 @@
 		C4A916491C24F95E006C1A15 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */,
 				C4A9164A1C24F95E006C1A15 /* metronome.swift */,
 				C4A9164B1C24F95E006C1A15 /* periodicTrigger.swift */,
 				C4A9164C1C24F95E006C1A15 /* portamento.swift */,
 				C4A9164D1C24F95E006C1A15 /* triggeredWithEnvelope.swift */,
-				C46EECCE1C9FF3C8007FEA1B /* adsrEnvelope.swift */,
 			);
 			path = Music;
 			sourceTree = "<group>";
@@ -3492,7 +3492,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */;
+			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4223,7 +4223,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */ = {
+		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F35061C057E03000E937C /* Debug */,
