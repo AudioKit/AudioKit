@@ -263,6 +263,7 @@
 		C47AE4E11D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = C47AE4D91D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C47AE4E21D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = C47AE4DA1D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm */; };
 		C47AE4E31D39CCC60091118F /* AKPhaseDistortionOscillatorBankDSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C47AE4DB1D39CCC60091118F /* AKPhaseDistortionOscillatorBankDSPKernel.hpp */; };
+		C483F63F1D666DA200374B2A /* trackedAmplitude.swift in Sources */ = {isa = PBXBuildFile; fileRef = C483F63E1D666DA200374B2A /* trackedAmplitude.swift */; };
 		C484438A1C311C4F007BE794 /* triggeredWithEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48443891C311C4F007BE794 /* triggeredWithEnvelope.swift */; };
 		C484438D1C311C59007BE794 /* AKParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484438B1C311C59007BE794 /* AKParameter.swift */; };
 		C484438E1C311C59007BE794 /* AKStereoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C484438C1C311C59007BE794 /* AKStereoOperation.swift */; };
@@ -936,6 +937,7 @@
 		C47AE4D91D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKPhaseDistortionOscillatorBankAudioUnit.h; sourceTree = "<group>"; };
 		C47AE4DA1D39CCC60091118F /* AKPhaseDistortionOscillatorBankAudioUnit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AKPhaseDistortionOscillatorBankAudioUnit.mm; sourceTree = "<group>"; };
 		C47AE4DB1D39CCC60091118F /* AKPhaseDistortionOscillatorBankDSPKernel.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AKPhaseDistortionOscillatorBankDSPKernel.hpp; sourceTree = "<group>"; };
+		C483F63E1D666DA200374B2A /* trackedAmplitude.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = trackedAmplitude.swift; sourceTree = "<group>"; };
 		C48443891C311C4F007BE794 /* triggeredWithEnvelope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = triggeredWithEnvelope.swift; sourceTree = "<group>"; };
 		C484438B1C311C59007BE794 /* AKParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKParameter.swift; sourceTree = "<group>"; };
 		C484438C1C311C59007BE794 /* AKStereoOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AKStereoOperation.swift; sourceTree = "<group>"; };
@@ -3034,6 +3036,7 @@
 				C4E752301C23888700688A1B /* multiply.swift */,
 				C4E752321C23888700688A1B /* scale.swift */,
 				C4E752331C23888700688A1B /* subtract.swift */,
+				C483F63E1D666DA200374B2A /* trackedAmplitude.swift */,
 			);
 			path = Math;
 			sourceTree = "<group>";
@@ -3298,7 +3301,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */;
+			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -3461,6 +3464,7 @@
 				C48C6A791D3C1574008EA51B /* drip.c in Sources */,
 				C48C6A991D3C1574008EA51B /* paulstretch.c in Sources */,
 				C48C6AEB1D3C1574008EA51B /* conv.c in Sources */,
+				C483F63F1D666DA200374B2A /* trackedAmplitude.swift in Sources */,
 				C48C6B361D3C1574008EA51B /* tenvx.c in Sources */,
 				C48C6B401D3C1574008EA51B /* tseq.c in Sources */,
 				C42FFBDA1C3D039C00823BD4 /* AKPanner.swift in Sources */,
@@ -4030,7 +4034,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */ = {
+		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4BDE83F1C12FFBC00207DA9 /* Debug */,
