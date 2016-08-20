@@ -19,7 +19,7 @@ public typealias AKCallback = Void -> Void
     // MARK: Global audio format (44.1K, Stereo)
 
     /// Format of AudioKit Nodes
-    public static let format = AKSettings.audioFormat
+    public static var format = AKSettings.audioFormat
 
     // MARK: - Internal audio engine mechanics
 

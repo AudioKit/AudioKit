@@ -709,9 +709,16 @@ BOOL __shouldExitOnCheckResultFail = YES;
 
 + (void)freeHistoryInfo:(EZPlotHistoryInfo *)historyInfo
 {
+    // This seems to be in the wrong order. It is causing memory errors in sporadic ways.
+    //    free(historyInfo->buffer);
+    //    free(historyInfo);
+    //    TPCircularBufferCleanup(&historyInfo->circularBuffer);
+    
+    // I believe the order should be:
+    
     free(historyInfo->buffer);
-    free(historyInfo);
     TPCircularBufferCleanup(&historyInfo->circularBuffer);
+    free(historyInfo);
 }
 
 //------------------------------------------------------------------------------
