@@ -20,10 +20,9 @@ player.play()
 
 var time = 0.0
 let timeStep = 0.02
+let hz = 2.0
 
 AKPlaygroundLoop(every: timeStep) {
-
-    let hz = 2.0
     filter.cutoffFrequency = (1.0 - cos(2 * 3.14 * hz * time)) * 600 + 700
     time += timeStep
 }

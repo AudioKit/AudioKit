@@ -11,7 +11,7 @@ import CoreAudio
 
 /// MIDI receiving Sampler
 ///
-/// be sure to enableMIDI if you want to receive messages
+/// Be sure to enableMIDI if you want to receive messages
 ///
 public class AKMIDISampler: AKSampler {
     // MARK: - Properties

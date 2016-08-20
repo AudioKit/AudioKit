@@ -1,10 +1,8 @@
 //: ## Morphing Oscillator
-//: ### Oscillator with four different waveforms built in
+//: ### Oscillator with four different waveforms built in.
 import XCPlayground
 import AudioKit
 
-//: Try changing the table type to triangle or another AKTableType
-//: or changing the number of points to a smaller number (has to be a power of 2)
 var morph = AKMorphingOscillator(waveformArray:
     [AKTable(.Sine), AKTable(.Triangle), AKTable(.Sawtooth), AKTable(.Square)])
 morph.frequency = 400
