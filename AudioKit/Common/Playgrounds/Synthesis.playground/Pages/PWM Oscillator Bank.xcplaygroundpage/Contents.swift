@@ -44,7 +44,7 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
         addSubview(AKPropertySlider(
             property: "Detuning Offset",
             format: "%0.1f Cents",
-            value:  osc.releaseDuration, minimum: -1200, maximum: 1200,
+            value:  osc.releaseDuration, minimum: -100, maximum: 100,
             color: AKColor.greenColor()
         ) { offset in
             osc.detuningOffset = offset

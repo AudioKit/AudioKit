@@ -1,9 +1,9 @@
 //: ## Amplitude Envelope
-//: ### Enveloping an FM Oscillator with an ADSR envelope
+//: ### Enveloping an Oscillator with an ADSR envelope
 import XCPlayground
 import AudioKit
 
-var fmWithADSR = AKFMOscillatorBank()
+var fmWithADSR = AKOscillatorBank()
 AudioKit.output = AKBooster(fmWithADSR, gain: 5)
 AudioKit.start()
 
