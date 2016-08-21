@@ -40,7 +40,7 @@ public class AKAudioFile: AVAudioFile {
     }()
 
 
-    // MARK: - Public AKAudioFileFormat Properties
+    // MARK: - Public Properties
 
     /// The number of samples can be accessed by .length property,
     /// but samplesCount has a less ambiguous meaning
@@ -77,7 +77,7 @@ public class AKAudioFile: AVAudioFile {
         }
     }
 
-    /// true if file format is "deinterleaved native-endian float (AVAudioPCMFormatFloat32)", otherwise false
+    /// true only if file format is "deinterleaved native-endian float (AVAudioPCMFormatFloat32)"
     public var standard: Bool {
         get {
             return self.fileFormat.standard
@@ -145,8 +145,7 @@ public class AKAudioFile: AVAudioFile {
         return internalAVAsset
     }
 
-    /// As The description doesn't provide so much informations, I appended the
-    /// fileFormat String. (But may be it is a bad practice... let me know :-)
+    /// As The description doesn't provide so much informations, appended the fileFormat.
     override public var description: String {
         get {
             return super.description + "\n" + String(self.fileFormat)
@@ -225,7 +224,7 @@ public class AKAudioFile: AVAudioFile {
     /// Initialize the audio file
     ///
     /// - parameter fileURL: NSURL of the file
-    /// - throws: NSError if init failed
+    ///
     /// - returns: An initialized AKAudioFile object for reading, or nil if init failed.
     ///
     public override init(forReading fileURL: NSURL) throws {
@@ -239,7 +238,7 @@ public class AKAudioFile: AVAudioFile {
     ///   - fileURL:     NSURL of the file
     ///   - format:      The processing commonFormat to use when reading from the file.
     ///   - interleaved: Whether to use an interleaved processing format.
-    /// - throws: NSError if init failed
+    ///
     /// - returns: An initialized AKAudioFile object for reading, or nil if init failed.
     ///
     public override init(forReading fileURL: NSURL,
@@ -285,8 +284,6 @@ public class AKAudioFile: AVAudioFile {
     /// - Parameters:
     ///   - fileURL: NSURL of the file.
     ///   - settings: The settings of the file to create.
-    ///
-    /// - Throws: NSError if init failed .
     ///
     /// - Returns: An initialized AKAudioFile for writing, or nil if init failed.
     ///
