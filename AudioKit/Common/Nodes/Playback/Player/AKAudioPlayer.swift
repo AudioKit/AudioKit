@@ -121,7 +121,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         set {
             let wasPlaying = playing
             if newValue > Double(endingFrame) / internalAudioFile.sampleRate {
-                print ("ERROR: AKAudioPlayer cannot set a startTime bigger that endTime: \(Double(endingFrame) / internalAudioFile.sampleRate) seconds")
+                print("ERROR: AKAudioPlayer cannot set a startTime bigger that endTime: \(Double(endingFrame) / internalAudioFile.sampleRate) seconds")
             } else {
                 startingFrame = UInt32(newValue * internalAudioFile.sampleRate
                 )
@@ -144,7 +144,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             let wasPlaying = playing
             if newValue < Double(startingFrame) / internalAudioFile.sampleRate
                 || newValue > Double(Double(totalFrameCount) / internalAudioFile.sampleRate) {
-                print ("ERROR: AKAudioPlayer cannot set an endTime more than file's duration: \(duration) seconds or less than startTime: \(Double(startingFrame) / internalAudioFile.sampleRate) seconds")
+                print("ERROR: AKAudioPlayer cannot set an endTime more than file's duration: \(duration) seconds or less than startTime: \(Double(startingFrame) / internalAudioFile.sampleRate) seconds")
             } else {
                 endingFrame = UInt32(newValue * internalAudioFile.sampleRate)
                 stop()
@@ -187,8 +187,8 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             readFile = try AKAudioFile(forReading: file.url)
 
         } catch let error as NSError {
-            print ("AKAudioPlayer Error: cannot open file \(file.fileNamePlusExtension) for reading!...")
-            print ("Error: \(error)")
+            print("AKAudioPlayer Error: cannot open file \(file.fileNamePlusExtension) for reading!...")
+            print("Error: \(error)")
             throw error
         }
         self.internalAudioFile = readFile
@@ -212,18 +212,16 @@ public class AKAudioPlayer: AKNode, AKToggleable {
     /// Start playback
     public func start() {
 
-        if (!playing) {
-            if (audioFileBuffer != nil)
-            {
+        if !playing {
+            if audioFileBuffer != nil {
                 playing = true
                 paused = false
                 internalPlayer.play()
-            }
-            else {
-                print ("AKAudioPlayer Warning: cannot play an empty file!...")
+            } else {
+                print("AKAudioPlayer Warning: cannot play an empty file!...")
             }
         } else {
-            print ("AKAudioPlayer Warning: already playing!...")
+            print("AKAudioPlayer Warning: already playing!...")
         }
     }
 
@@ -247,10 +245,10 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         internalPlayer.pause()
             }
             else {
-                print ("AKAudioPlayer Warning: already paused!...")
+                print("AKAudioPlayer Warning: already paused!...")
             }
         } else {
-             print ("AKAudioPlayer Warning: Cannot pause when not playing!...")
+             print("AKAudioPlayer Warning: Cannot pause when not playing!...")
         }
     }
 
@@ -265,7 +263,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         do {
             newAudioFile = try AKAudioFile(forReading: internalAudioFile.url)
         } catch let error as NSError {
-            print ("AKAudioPlayer Error:Couldn't reLoadFile !...")
+            print("AKAudioPlayer Error:Couldn't reLoadFile !...")
             print("Error: \(error)")
             throw error
         }
@@ -285,10 +283,10 @@ public class AKAudioPlayer: AKNode, AKToggleable {
         do {
             try reloadFile()
         } catch let error as NSError {
-            print ("AKAudioPlayer Error: Couldn't reload replaced File: \"\(file.fileNamePlusExtension)\" !...")
+            print("AKAudioPlayer Error: Couldn't reload replaced File: \"\(file.fileNamePlusExtension)\" !...")
             print("Error: \(error)")
         }
-          print ("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
+          print("AKAudioPlayer -> File with \"\(internalAudioFile.fileNamePlusExtension)\" Reloaded")
     }
 
 
@@ -307,7 +305,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
         self.startTime = time
 
-        if (endingFrame > startingFrame ) {
+        if endingFrame > startingFrame {
             stop()
             play()
         } else {
@@ -327,8 +325,8 @@ public class AKAudioPlayer: AKNode, AKToggleable {
 
         // Warning if file's samplerate don't match with AKSettings.samplesRate
         if internalAudioFile.sampleRate != AKSettings.sampleRate {
-            print ("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" has a different sample rate from AudioKit's Settings !")
-            print ("Audio will be played at a bad pitch/speed, in / out time will not be set properly !")
+            print("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" has a different sample rate from AudioKit's Settings !")
+            print("Audio will be played at a bad pitch/speed, in / out time will not be set properly !")
         }
 
         if internalAudioFile.length > 0 {
@@ -336,7 +334,7 @@ public class AKAudioPlayer: AKNode, AKToggleable {
             scheduleBuffer()
 
         } else {
-            print ("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" is an empty file")
+            print("AKAudioPlayer Warning:  \"\(internalAudioFile.fileNamePlusExtension)\" is an empty file")
         }
     }
 

@@ -24,15 +24,15 @@ func callBack(processedFile: AKAudioFile?, error: NSError?){
 
     // First, we check if processed file is valid (different from nil)
     if let converted = processedFile {
-        print ("Export succeeded, converted file: \(converted.fileNamePlusExtension)")
+        print("Export succeeded, converted file: \(converted.fileNamePlusExtension)")
         // We print the exported file's duration
-        print ("Exsported File Duration: \(converted.duration) seconds")
+        print("Exsported File Duration: \(converted.duration) seconds")
         // And we replace the file being played
         try? player!.replaceFile(converted)
     }
     else {
         // An error occured. So we print the Error
-        print ("Error: \(error!.localizedDescription)")
+        print("Error: \(error!.localizedDescription)")
     }
 }
 

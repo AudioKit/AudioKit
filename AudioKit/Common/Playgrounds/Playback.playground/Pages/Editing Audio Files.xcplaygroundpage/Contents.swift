@@ -56,7 +56,7 @@ var sequence = try? threeTimesLoop!.appendedBy(file: fixedLoop!)
 for i in 0..<16 {
     let newSampleIndex = randomInt(0..<samplesBox.count)
     let newSound = samplesBox[newSampleIndex]
-    print ("picked sample #\(newSampleIndex) name: \(newSound.fileNamePlusExtension)")
+    print("picked sample #\(newSampleIndex) name: \(newSound.fileNamePlusExtension)")
     var newFile = try? sequence!.appendedBy(file: newSound)
     sequence = newFile!
 }
