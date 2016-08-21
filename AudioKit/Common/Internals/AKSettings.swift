@@ -116,8 +116,8 @@ import AVFoundation
                 do {
                     try session.setCategory(category.rawValue, withOptions: options!)
                 } catch let error as NSError {
-                    print ("AKAsettings Error: Cannot set AVAudioSession Category to \(String(category)) with options: \(String(options!))")
-                    print ("AKAsettings Error: \(error))")
+                    print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(category)) with options: \(String(options!))")
+                    print("AKAsettings Error: \(error))")
                     throw error
                 }
             }
@@ -126,8 +126,8 @@ import AVFoundation
             do {
                 try session.setCategory(category.rawValue)
             } catch let error as NSError {
-                print ("AKAsettings Error: Cannot set AVAudioSession Category to \(String(category))")
-                print ("AKAsettings Error: \(error))")
+                print("AKAsettings Error: Cannot set AVAudioSession Category to \(String(category))")
+                print("AKAsettings Error: \(error))")
                 throw error
             }
         }
@@ -137,8 +137,8 @@ import AVFoundation
         do {
             try session.setPreferredIOBufferDuration(bufferLength.duration)
         } catch let error as NSError {
-            print ("AKAsettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
-            print ("AKAsettings Error: \(error))")
+            print("AKAsettings Error: Cannot set Preferred IOBufferDuration to \(bufferLength.duration) ( = \(bufferLength.samplesCount) samples)")
+            print("AKAsettings Error: \(error))")
             throw error
         }
 
@@ -146,8 +146,8 @@ import AVFoundation
         do {
             try session.setActive(true)
         } catch let error as NSError {
-            print ("AKAsettings Error: Cannot set AVAudioSession.setActive to true")
-            print ("AKAsettings Error: \(error))")
+            print("AKAsettings Error: Cannot set AVAudioSession.setActive to true")
+            print("AKAsettings Error: \(error))")
             throw error
         }
 
@@ -155,12 +155,12 @@ import AVFoundation
         // FOR DEBUG !
         // (setting the AVAudioSession can be non effective under certain circonstances even if there's no error thrown.)
         // You may uncomment the next 'print' lines for debugging :
-        // print ("AKSettings: asked for: \(category.rawValue)")
-        // print ("AKSettings: Session.category is set to: \(session.category)")
+        // print("AKSettings: asked for: \(category.rawValue)")
+        // print("AKSettings: Session.category is set to: \(session.category)")
 
         if options != nil {
-            // print ("AKSettings: asked for options: \(options!)")
-            // print ("AKSettings: Session.category is set to: \(session.categoryOptions)")
+            // print("AKSettings: asked for options: \(options!)")
+            // print("AKSettings: Session.category is set to: \(session.categoryOptions)")
         }
     }
 

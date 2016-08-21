@@ -46,8 +46,8 @@ public class AKNodeRecorder {
             internalAudioFileForReading = try AKAudioFile(forReading: internalAudioFile.url)
             return internalAudioFileForReading
         } catch let error as NSError {
-            print ("Cannot create internal audio file for reading")
-            print ("Error: \(error.localizedDescription)")
+            print("Cannot create internal audio file for reading")
+            print("Error: \(error.localizedDescription)")
             return nil
         }
 
@@ -74,7 +74,7 @@ public class AKNodeRecorder {
             do {
                 self.internalAudioFile = try AKAudioFile()
             } catch let error as NSError {
-                print ("AKNodeRecorder Error: Cannot create an empty audio file")
+                print("AKNodeRecorder Error: Cannot create an empty audio file")
                 throw error
             }
 
@@ -85,7 +85,7 @@ public class AKNodeRecorder {
                 self.internalAudioFile = try AKAudioFile(forWriting: file!.url,
                                                          settings: file!.processingFormat.settings)
             } catch let error as NSError {
-                print ("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
+                print("AKNodeRecorder Error: cannot write to \(file!.fileNamePlusExtension)")
                 throw error
             }
         }
@@ -97,7 +97,7 @@ public class AKNodeRecorder {
     /// Start recording
     public func record() throws {
         if recording {
-            print ("AKNodeRecorder Warning: already recording !")
+            print("AKNodeRecorder Warning: already recording !")
             return
         }
 
@@ -140,7 +140,7 @@ public class AKNodeRecorder {
             let recordingBufferLength: AVAudioFrameCount = AKSettings.recordingBufferLength.samplesCount
             recording = true
 
-            print ("recording")
+            print("recording")
             node!.avAudioNode.installTapOnBus(0, bufferSize: recordingBufferLength,
                                               format: internalAudioFile.processingFormat) {
                 (buffer: AVAudioPCMBuffer!, time: AVAudioTime!) -> Void in
@@ -153,14 +153,14 @@ public class AKNodeRecorder {
                 }
             }
         } else {
-            print ("AKNodeRecorder Error: input node is not available")
+            print("AKNodeRecorder Error: input node is not available")
         }
     }
 
     /// Stop recording
     public func stop() {
         if !recording {
-            print ("AKNodeRecorder Warning: Cannot stop recording, already stopped !")
+            print("AKNodeRecorder Warning: Cannot stop recording, already stopped !")
             return
         }
 
@@ -175,7 +175,7 @@ public class AKNodeRecorder {
             print("Recording Stopped.")
 
         } else {
-            print ("AKNodeRecorder Error: input node is not available")
+            print("AKNodeRecorder Error: input node is not available")
         }
     }
 
@@ -196,16 +196,16 @@ public class AKNodeRecorder {
         do {
             try fileManager.removeItemAtPath(audioFile!.url.absoluteString)
         } catch let error as NSError {
-            print ("AKNodeRecorder Error: cannot delete Recording file:  \(audioFile!.fileNamePlusExtension)")
+            print("AKNodeRecorder Error: cannot delete Recording file:  \(audioFile!.fileNamePlusExtension)")
             throw error
         }
 
         // Creates a blank new file
         do {
             internalAudioFile = try AKAudioFile(forWriting: url, settings: settings)
-            print ("AKNodeRecorder: file has been cleared")
+            print("AKNodeRecorder: file has been cleared")
         } catch let error as NSError {
-            print ("AKNodeRecorder Error: cannot record to file: \(internalAudioFile.fileNamePlusExtension)")
+            print("AKNodeRecorder Error: cannot record to file: \(internalAudioFile.fileNamePlusExtension)")
             throw error
         }
     }

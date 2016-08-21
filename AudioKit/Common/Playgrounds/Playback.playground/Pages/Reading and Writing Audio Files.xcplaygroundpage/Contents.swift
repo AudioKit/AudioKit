@@ -30,7 +30,7 @@ do {
     let nonExistentFile = try AKAudioFile(readFileName: "nonExistent.wav",
                                           baseDir: .Resources)
 } catch let error as NSError {
-    print ("There's an error: \(error)")
+    print("There's an error: \(error)")
 }
 
 //: So it's a good idea to check that the AKAudioFile is valid before using it.
@@ -49,16 +49,16 @@ try drumloop.export(
     name: "exported", ext: .m4a, baseDir: .Documents,
     fromTime: 1, toTime: 2) { export in
 
-        print ("myExportCallBack has been triggered. It means that export ended")
+        print("myExportCallBack has been triggered. It means that export ended")
         if export.succeeded {
-            print ("Export succeeded")
+            print("Export succeeded")
             // we get the resulting AKAudioFile
             let exportedfile = export.audioFile
 
             // If it is valid, we can play it :
             if exportedfile != nil {
 
-                print (exportedfile?.fileNamePlusExtension)
+                print(exportedfile?.fileNamePlusExtension)
                 let player = try? AKAudioPlayer(file: exportedfile!)
                 AudioKit.output = player
                 AudioKit.start()
@@ -66,7 +66,7 @@ try drumloop.export(
             }
 
         } else {
-            print ("Export failed")
+            print("Export failed")
         }
 }
 
