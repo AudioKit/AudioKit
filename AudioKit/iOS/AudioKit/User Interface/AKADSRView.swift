@@ -12,14 +12,14 @@ public typealias ADSRCallback = (Double, Double, Double, Double)->()
 public class AKADSRView: UIView {
     
     var node: AKNode
-    public var attackDuration = 0.1
-    public var decayDuration = 0.1
-    public var sustainLevel = 0.1
+    public var attackDuration  = 0.1
+    public var decayDuration   = 0.1
+    public var sustainLevel    = 0.1
     public var releaseDuration = 0.1
     
     var decaySustainTouchAreaPath = UIBezierPath()
-    var attackTouchAreaPath = UIBezierPath()
-    var releaseTouchAreaPath = UIBezierPath()
+    var attackTouchAreaPath       = UIBezierPath()
+    var releaseTouchAreaPath      = UIBezierPath()
     
     var callback: ADSRCallback
     var currentDragArea = ""
@@ -92,12 +92,12 @@ public class AKADSRView: UIView {
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let attackColor = UIColor(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
-        let decayColor = UIColor(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
-        let sustainColor = UIColor(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
-        let releaseColor = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
+        let attackColor     = UIColor(red: 0.767, green: 0.000, blue: 0.000, alpha: 1.000)
+        let decayColor      = UIColor(red: 0.942, green: 0.648, blue: 0.000, alpha: 1.000)
+        let sustainColor    = UIColor(red: 0.320, green: 0.800, blue: 0.616, alpha: 1.000)
+        let releaseColor    = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
         let backgroundColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-        
+
         //// Variable Declarations
         let attackClickRoom = CGFloat(30) // to allow the attack to be clicked even if is zero
         let oneSecond: CGFloat = 0.7 * size.width
@@ -120,7 +120,7 @@ public class AKADSRView: UIView {
         
         let initialToHighControlPoint = CGPoint(x: initialPoint.x, y: highPoint.y)
         let highToSustainControlPoint = CGPoint(x: highPoint.x, y: sustainPoint.y)
-        let releaseToEndControlPoint = CGPoint(x: releasePoint.x, y: endPoint.y)
+        let releaseToEndControlPoint  = CGPoint(x: releasePoint.x, y: endPoint.y)
         
         
         //// attackTouchArea Drawing

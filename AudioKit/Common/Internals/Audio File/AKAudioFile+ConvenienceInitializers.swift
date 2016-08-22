@@ -33,9 +33,9 @@ extension AKAudioFile {
             func resourcePath(name: String?) -> String? {
                 return NSBundle.mainBundle().pathForResource(name, ofType: "")
             }
-            let path =  resourcePath(name)
+            let path = resourcePath(name)
             if path == nil {
-                print( "ERROR: AKAudioFile cannot find \"\(name)\" in resources!...")
+                print("ERROR: AKAudioFile cannot find \"\(name)\" in resources!...")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist, userInfo: nil)
             }
             filePath = path!
@@ -45,7 +45,7 @@ extension AKAudioFile {
         do {
             try self.init(forReading: fileUrl)
         } catch let error as NSError {
-            print ("Error !!! AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile !...")
+            print("Error !!! AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile !...")
             print(error.localizedDescription)
             throw error
         }

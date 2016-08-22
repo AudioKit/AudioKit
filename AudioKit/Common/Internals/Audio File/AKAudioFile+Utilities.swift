@@ -58,46 +58,46 @@ extension AKAudioFile {
                 let filePathName = "\(tempPath)/\(fileName)"
                 do {
                     try fileManager.removeItemAtPath(filePathName)
-                    print ("\"\(fileName)\" deleted.")
+                    print("\"\(fileName)\" deleted.")
                     deletedFilesCount += 1
                 } catch let error as NSError {
-                    print ("Couldn't delete \(fileName) from Temp Directory")
-                    print ("Error: \(error)")
+                    print("Couldn't delete \(fileName) from Temp Directory")
+                    print("Error: \(error)")
                 }
             }
             
             // Checks file type (only Audio Files)
             for fileName in fileNames {
                 let fileNameLowerCase = fileName.lowercaseString
-                if (fileNameLowerCase.hasSuffix(".wav")) {
+                if fileNameLowerCase.hasSuffix(".wav") {
                     deleteFileWithFileName (fileName)
                 }
-                if (fileNameLowerCase.hasSuffix(".caf")) {
+                if fileNameLowerCase.hasSuffix(".caf") {
                     deleteFileWithFileName (fileName)
                 }
-                if (fileNameLowerCase.hasSuffix(".aif")) {
+                if fileNameLowerCase.hasSuffix(".aif") {
                     deleteFileWithFileName (fileName)
                 }
-                if (fileNameLowerCase.hasSuffix(".mp4")) {
+                if fileNameLowerCase.hasSuffix(".mp4") {
                     deleteFileWithFileName (fileName)
                 }
-                if (fileNameLowerCase.hasSuffix(".m4a")) {
+                if fileNameLowerCase.hasSuffix(".m4a") {
                     deleteFileWithFileName (fileName)
                 }
             }
             
             // print report
             switch deletedFilesCount {
-            case 0: print ("AKAudioFile.cleanTempDirectory: No file deleted.")
-            case 1: print ("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) File deleted.")
-            default: print ("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) Files deleted.")
+            case 0: print("AKAudioFile.cleanTempDirectory: No file deleted.")
+            case 1: print("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) File deleted.")
+            default: print("AKAudioFile.cleanTempDirectory: \(deletedFilesCount) Files deleted.")
                 
             }
             
             
         } catch let error as NSError {
-            print ("Couldn't access Temp Directory")
-            print ("Error: \(error)")
+            print("Couldn't access Temp Directory")
+            print("Error: \(error)")
         }
     }
     
