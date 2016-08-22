@@ -335,7 +335,7 @@ extension AKAudioFile {
         let asset  = AVURLAsset(URL: assetUrl)
 
         if let internalExportSession = AVAssetExportSession(asset: asset, presetName: avExportPreset) {
-            print ("internalExportSession session created")
+            print("internalExportSession session created")
 
             var filePath: String = ""
             switch baseDir {
@@ -368,15 +368,15 @@ extension AKAudioFile {
             // Check if out file exists
             if fileManager.fileExistsAtPath((nsurl?.absoluteString)!) {
                 // Then delete file
-                print ("AKAudioFile export: Output file already exists, trying to delete...")
+                print("AKAudioFile export: Output file already exists, trying to delete...")
                 do {
                     try fileManager.removeItemAtPath((nsurl?.absoluteString)!)
                 } catch let error as NSError {
-                    print ("Error !!! AKAudioFile: couldn't delete file \"\(nsurl!)\" !...")
+                    print("Error !!! AKAudioFile: couldn't delete file \"\(nsurl!)\" !...")
                     print(error.localizedDescription)
                     callBack(processedFile: nil, error: error)
                 }
-                print ("AKAudioFile export: Output file has been deleted !")
+                print("AKAudioFile export: Output file has been deleted !")
             }
 
             internalExportSession.outputURL = NSURL.fileURLWithPath(filePath)
@@ -395,7 +395,7 @@ extension AKAudioFile {
 
             inFrame = abs(min(samplesCount, fromSample))
 
-            if (outFrame <= inFrame) {
+            if outFrame <= inFrame {
                 print( "ERROR AKAudioFile export: In time must be less than Out time!...")
                 callBack(processedFile: nil,
                          error: NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil))
@@ -712,7 +712,7 @@ extension AKAudioFile {
 
                 } else {
                     isExporting = false
-                    print ("ExportFactory: All exports have been completed")
+                    print("ExportFactory: All exports have been completed")
                 }
             } else {
                 print("ExportFactory: Error : sessionId:\(currentExportProcessId) doesn't exist !!")
@@ -729,7 +729,7 @@ extension AKAudioFile {
                 print("ExportFactory: exporting session #\(session.idStamp)")
                 exportSessionsArray[currentExportProcessId]!.avAssetExportSession.exportAsynchronouslyWithCompletionHandler(completionHandler)
             } else {
-                print ("ExportFactory: is busy !")
+                print("ExportFactory: is busy !")
                 print("ExportFactory: Queuing session #\(session.idStamp)")
             }
         }

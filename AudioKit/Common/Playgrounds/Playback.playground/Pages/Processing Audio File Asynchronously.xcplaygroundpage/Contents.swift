@@ -20,20 +20,20 @@ player!.start()
 func callBack(processedFile: AKAudioFile?, error: NSError?) {
 
     // Each time our process is triggered, it will display some info about AKAudioFile Process Factory status :
-    print ("callBack Async process completed !")
-    print ("callBack -> How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
-    print ("callBack -> How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
-    print ("callBack -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+    print("callBack Async process completed !")
+    print("callBack -> How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+    print("callBack -> How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+    print("callBack -> How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
     // Now we handle the file (and the error if any occured.)
     if processedFile != nil {
         // We print its duration:
-        print ("callBack -> processed: \(processedFile!.duration)")
+        print("callBack -> processed: \(processedFile!.duration)")
         // We replace the actual played file with the processed file
         try? player?.replaceFile(processedFile!)
-        print ("callBack -> Replaced player's file !")
+        print("callBack -> Replaced player's file !")
     } else {
-        print ("callBack -> error: \(error)")
+        print("callBack -> error: \(error)")
     }
 }
 
@@ -41,16 +41,16 @@ func callBack(processedFile: AKAudioFile?, error: NSError?) {
 
 piano?.reverseAsynchronously(completionHandler: callBack)
 
-print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
-print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
-print ("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+print("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
 //: Now we lower the piano level by normalizing it to a max level set at - 6 dB
 piano?.normalizeAsynchronously(newMaxLevel: 0, completionHandler: callBack)
 
-print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
-print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
-print ("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+print("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
 
 
@@ -58,9 +58,9 @@ print ("How many async process have been completed: \(AKAudioFile.completedAsync
 
 piano?.extractAsynchronously(fromSample: 100000, toSample: 144100, completionHandler: callBack)
 
-print ("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
-print ("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
-print ("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
+print("How many async process have been scheduled: \(AKAudioFile.scheduledAsyncProcessesCount)")
+print("How many uncompleted processes remain in the queue: \(AKAudioFile.queuedAsyncProcessCount)")
+print("How many async process have been completed: \(AKAudioFile.completedAsyncProcessesCount)")
 
 
 
@@ -80,16 +80,16 @@ drumloop?.reverseAsynchronously() { reversedFile, error in
                 print("Original drum loop has been appended to the reversed loop, so we can play the resulting file.")
                 try? player?.replaceFile(appendedFile!)
             } else {
-                print ("error: \(error)")
+                print("error: \(error)")
             }
         }
     } else {
-        print ("error: \(error)")
+        print("error: \(error)")
     }
 }
 
 //: These processes are done in background, that means that the next line will be printed BEFORE the first (or any) async process has ended.
-print ("Can refresh UI or do anything while processing...")
+print("Can refresh UI or do anything while processing...")
 
 
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true

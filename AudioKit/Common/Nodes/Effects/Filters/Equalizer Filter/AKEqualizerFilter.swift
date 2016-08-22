@@ -15,7 +15,7 @@ import AVFoundation
 ///
 /// - Parameters:
 ///   - input: Input node to process
-///   - centerFrequency: Center frequency. (in Hertz)
+///   - centerFrequency: Center frequency in Hertz
 ///   - bandwidth: The peak/notch bandwidth in Hertz
 ///   - gain: The peak/notch gain
 ///
@@ -88,7 +88,7 @@ public class AKEqualizerFilter: AKNode, AKToggleable {
     ///
     /// - Parameters:
     ///   - input: Input node to process
-    ///   - centerFrequency: Center frequency. (in Hertz)
+    ///   - centerFrequency: Center frequency in Hertz
     ///   - bandwidth: The peak/notch bandwidth in Hertz
     ///   - gain: The peak/notch gain
     ///

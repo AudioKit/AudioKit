@@ -11,15 +11,13 @@ import AVFoundation
 
 public typealias AKCallback = Void -> Void
 
-
 /// Top level AudioKit managing class
 @objc public class AudioKit: NSObject {
-
 
     // MARK: Global audio format (44.1K, Stereo)
 
     /// Format of AudioKit Nodes
-    public static let format = AKSettings.audioFormat
+    public static var format = AKSettings.audioFormat
 
     // MARK: - Internal audio engine mechanics
 
@@ -31,7 +29,9 @@ public typealias AKCallback = Void -> Void
     /// An audio output operation that most applications will need to use last
     public static var output: AKNode? {
         didSet {
-            engine.connect(output!.avAudioNode, to: engine.outputNode, format: AudioKit.format)
+            engine.connect(output!.avAudioNode,
+                           to: engine.outputNode,
+                           format: AudioKit.format)
         }
     }
     
@@ -100,6 +100,7 @@ public typealias AKCallback = Void -> Void
             }
         #endif
     }
+    
     /// Change the preferred output device, giving it one of the names from the list of available output.
     public static func setOutputDevice(output: AKDevice) throws {
         #if os(OSX)
@@ -140,10 +141,11 @@ public typealias AKCallback = Void -> Void
 
                 #if os(iOS)
                     if AKSettings.defaultToSpeaker {
-                        try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
+                        try AKSettings.setSessionCategory(AKSettings.SessionCategory.PlayAndRecord,
+                                                          withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
 
                         // listen to AVAudioEngineConfigurationChangeNotification
-                        // and restart the engine if it's stopped.
+                        // and restart the engine if it is stopped.
                         NSNotificationCenter.defaultCenter().addObserver(
                             self,
                             selector: #selector(AudioKit.audioEngineConfigurationChange(_:)),
