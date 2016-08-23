@@ -53,6 +53,17 @@ public class AKMIDIInstrument: AKPolyphonicNode, AKMIDIListener {
         }
     }
     
+    /// Handle MIDI commands that come in externally
+    ///
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note number
+    ///   - velocity:   MIDI velocity
+    ///   - channel:    MIDI channel
+    ///
+    public func receivedMIDINoteOff(noteNumber noteNumber: MIDINoteNumber, velocity: MIDIVelocity, channel: MIDIChannel) {
+        stop(noteNumber: noteNumber, channel: channel)
+    }
+    
     // MARK: - MIDI Note Start/Stop
 
     /// Start a note
