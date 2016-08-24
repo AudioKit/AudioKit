@@ -47,7 +47,7 @@
     AudioUnit outputUnit = self.engine.outputNode.audioUnit;
     OSStatus status = AudioUnitRender(outputUnit, 0, timeStamp, 0, (int)bufferLength, bufferList);
     if (status != noErr) {
-        NSLog(@"Can not render audio unit %d", status);
+        NSLog(@"Can not render audio unit %d", (int)status);
         return status;
     }
     timeStamp->mSampleTime += bufferLength;
