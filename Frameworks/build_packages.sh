@@ -37,6 +37,8 @@ create_package()
 	cd $DIR
 	mkdir -p Examples
 	cp -a ../../Examples/$1/* Examples/
+	# Exceptions of any example projects to skip
+	rm -rf Examples/SongProcessor
 	find Examples -name project.pbxproj -exec gsed -i -f ../fix_paths.sed {} \;
 	cp ../../README.md ../../VERSION ../../LICENSE ../INSTALL.md .
 	cp -a ../docs/docsets/AudioKit.docset .
