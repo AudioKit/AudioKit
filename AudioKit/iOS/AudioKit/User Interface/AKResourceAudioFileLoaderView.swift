@@ -160,10 +160,10 @@ public class AKResourcesAudioFileLoaderView: UIView {
         
         let nameLabelInset: CGRect = CGRectInset(nameLabelRect, 10, 0)
         let nameLabelTextHeight: CGFloat = NSString(string: fileName).boundingRectWithSize(CGSize(width: nameLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nameLabelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, nameLabelInset)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, nameLabelInset)
         NSString(string: fileName).drawInRect(CGRect(x: nameLabelInset.minX, y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, width: nameLabelInset.width, height: nameLabelTextHeight), withAttributes: nameLabelFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
     
     override public func drawRect(rect: CGRect) {
