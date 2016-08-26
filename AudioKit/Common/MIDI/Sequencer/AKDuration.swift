@@ -113,7 +113,7 @@ public func ceil(duration: AKDuration) -> AKDuration {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to add
 ///
-public func +=(inout lhs: AKDuration, rhs: AKDuration) {
+public func +=( inout lhs: AKDuration, rhs: AKDuration) {
     lhs.beats = lhs.beats + rhs.beats
 }
 
@@ -122,7 +122,7 @@ public func +=(inout lhs: AKDuration, rhs: AKDuration) {
 /// - parameter lhs: Starting duration
 /// - parameter rhs: Amount to subtract
 ///
-public func -=(inout lhs: AKDuration, rhs: AKDuration) {
+public func -=( inout lhs: AKDuration, rhs: AKDuration) {
     lhs.beats = lhs.beats - rhs.beats
 }
 
