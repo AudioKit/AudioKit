@@ -1,4 +1,4 @@
-AudioKit V3.2
+AudioKit V3.3
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
@@ -13,7 +13,7 @@ If you need support, the best thing to do is to join AudioKit's google group:
 
 https://groups.google.com/forum/#!forum/audiokit
 
-### Version 3.2
+### Version 3
 The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
 
 * Installation as a framework
