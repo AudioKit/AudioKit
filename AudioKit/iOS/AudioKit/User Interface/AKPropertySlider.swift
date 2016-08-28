@@ -10,21 +10,20 @@ import Foundation
 
 @IBDesignable public class AKPropertySlider: UIView {
     
-    @IBInspectable public var initialValue: Double = 0.5
+    @IBInspectable public var value: Double = 0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     @IBInspectable public var minimum: Double = 0
     @IBInspectable public var maximum: Double = 1
     @IBInspectable public var property: String = "Property"
     @IBInspectable public var format: String = "%0.3f"
     @IBInspectable public var sliderColor: UIColor = UIColor.redColor()
-    @IBInspectable public var textColor: UIColor = UIColor.whiteColor()
+    @IBInspectable public var textColor: UIColor = UIColor.blackColor()
     @IBInspectable public var fontSize: CGFloat = 24
     
     public var callback: ((Double)->())?
-    public var value: Double = 0 {
-        didSet {
-            setNeedsDisplay()
-        }
-    }
     public var lastTouch = CGPoint.zero
 
     public init(property: String,
@@ -36,7 +35,6 @@ import Foundation
                 frame: CGRect = CGRect(x: 0, y: 0, width: 440, height: 60),
                 callback: (x: Double)->()) {
         self.value = value
-        self.initialValue = value
         self.minimum = minimum
         self.maximum = maximum
         self.property = property
@@ -52,12 +50,13 @@ import Foundation
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
+        contentMode = .Redraw
     }
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         self.userInteractionEnabled = true
-        self.value = initialValue
+        contentMode = .Redraw
     }
     
     override public func prepareForInterfaceBuilder() {
@@ -102,7 +101,6 @@ import Foundation
 
     override public func drawRect(rect: CGRect) {
         drawFlatSlider(currentValue: CGFloat(value),
-            initialValue: CGFloat(initialValue),
             minimum: CGFloat(minimum),
             maximum: CGFloat(maximum),
             propertyName: property,
@@ -122,7 +120,8 @@ import Foundation
 
         //// sliderArea Drawing
         let sliderAreaPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: width, height: height))
-        UIColor.clearColor().setFill()
+        let bgColor = self.backgroundColor ?? UIColor(colorLiteralRed: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+        bgColor.setFill()
         sliderAreaPath.fill()
 
 
