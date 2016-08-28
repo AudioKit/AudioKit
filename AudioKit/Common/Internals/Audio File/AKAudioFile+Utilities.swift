@@ -125,7 +125,7 @@ extension AKAudioFile {
             return try AKAudioFile(forReading: emptyFile.url)
         }
         
-        let array = [Float](count:Int(samples), repeatedValue: 0.0)
+        let array = [Float](zeroes:Int(samples))
         let silentFile = try AKAudioFile(createFileFromFloats: [array, array], baseDir: baseDir, name: name)
         
         return try AKAudioFile(forReading: silentFile.url)
