@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -15,14 +15,14 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0iP-KI-bHz">
-                                <rect key="frame" x="0.0" y="28" width="600" height="53"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="73"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULU-Ix-Byq">
-                                        <rect key="frame" x="0.0" y="0.0" width="200" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="73"/>
                                         <color key="backgroundColor" red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="◁◁">
@@ -33,7 +33,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f2d-aA-ePV">
-                                        <rect key="frame" x="200" y="0.0" width="200" height="53"/>
+                                        <rect key="frame" x="138" y="0.0" width="138" height="73"/>
                                         <color key="backgroundColor" red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="☐">
@@ -44,7 +44,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k2H-Mg-lHX">
-                                        <rect key="frame" x="400" y="0.0" width="200" height="53"/>
+                                        <rect key="frame" x="276" y="0.0" width="138" height="73"/>
                                         <color key="backgroundColor" red="0.20392156862745098" green="0.28627450980392155" blue="0.36862745098039218" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <state key="normal" title="▷">
@@ -65,10 +65,10 @@
                                 </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ze1-bf-MRk">
-                                <rect key="frame" x="116" y="81" width="485" height="54"/>
+                                <rect key="frame" x="116" y="100" width="299" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T2f-hb-Ruy">
-                                        <rect key="frame" x="0.0" y="0.0" width="162" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="74"/>
                                         <color key="backgroundColor" red="0.10196078431372549" green="0.73725490196078436" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Square">
@@ -79,7 +79,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xn2-Ho-y4f">
-                                        <rect key="frame" x="162" y="0.0" width="162" height="54"/>
+                                        <rect key="frame" x="100" y="0.0" width="100" height="74"/>
                                         <color key="backgroundColor" red="0.14706722048223383" green="0.79607843137254897" blue="0.64685110970100645" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Saw">
@@ -90,7 +90,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gi-vB-XqM">
-                                        <rect key="frame" x="323" y="0.0" width="162" height="54"/>
+                                        <rect key="frame" x="199" y="0.0" width="100" height="74"/>
                                         <color key="backgroundColor" red="0.10196078431372549" green="0.73725490196078436" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Noisy">
@@ -103,10 +103,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Jtl-SG-xWb">
-                                <rect key="frame" x="116" y="174" width="485" height="53"/>
+                                <rect key="frame" x="116" y="213" width="299" height="73"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qdP-Ln-csj">
-                                        <rect key="frame" x="0.0" y="0.0" width="162" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="73"/>
                                         <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Square">
@@ -117,7 +117,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhK-xG-gxK">
-                                        <rect key="frame" x="162" y="0.0" width="162" height="53"/>
+                                        <rect key="frame" x="100" y="0.0" width="100" height="73"/>
                                         <color key="backgroundColor" red="0.13333333333333333" green="0.65490196078431373" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Saw">
@@ -128,7 +128,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5k-We-TXh">
-                                        <rect key="frame" x="323" y="0.0" width="162" height="53"/>
+                                        <rect key="frame" x="199" y="0.0" width="100" height="73"/>
                                         <color key="backgroundColor" red="0.20000000000000001" green="0.59999999999999998" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="SlowPad">
@@ -141,10 +141,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3ZK-Ac-4zw">
-                                <rect key="frame" x="116" y="267" width="485" height="53"/>
+                                <rect key="frame" x="116" y="325" width="299" height="72"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rzR-iW-0nA">
-                                        <rect key="frame" x="0.0" y="0.0" width="243" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="72"/>
                                         <color key="backgroundColor" red="0.60784313725490191" green="0.34901960784313724" blue="0.71372549019607845" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Square">
@@ -155,7 +155,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZy-Ha-PBe">
-                                        <rect key="frame" x="243" y="0.0" width="242" height="53"/>
+                                        <rect key="frame" x="150" y="0.0" width="149" height="72"/>
                                         <color key="backgroundColor" red="0.6705882352941176" green="0.41176470588235292" blue="0.77647058823529413" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Saw">
@@ -168,10 +168,10 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rmD-jr-VJ6">
-                                <rect key="frame" x="0.0" y="81" width="116" height="53.5"/>
+                                <rect key="frame" x="0.0" y="100" width="116" height="73"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Arpeggio" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZr-2Y-blw">
-                                        <rect key="frame" x="20" y="0.0" width="76" height="53.5"/>
+                                        <rect key="frame" x="20" y="0.0" width="76" height="73"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -186,10 +186,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IqU-s4-Enb">
-                                <rect key="frame" x="0.0" y="174" width="116" height="53"/>
+                                <rect key="frame" x="0.0" y="213" width="116" height="72.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chords" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVz-ST-NOn">
-                                        <rect key="frame" x="20" y="0.0" width="76" height="53"/>
+                                        <rect key="frame" x="20" y="0.0" width="76" height="72.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -204,10 +204,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LdS-fM-Rhv">
-                                <rect key="frame" x="0.0" y="267" width="116" height="53"/>
+                                <rect key="frame" x="0.0" y="325" width="116" height="72"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bass" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uqi-wr-BvU">
-                                        <rect key="frame" x="20" y="0.0" width="76" height="53"/>
+                                        <rect key="frame" x="20" y="0.0" width="76" height="72"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -222,10 +222,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qWh-Hc-SNf">
-                                <rect key="frame" x="0.0" y="360" width="116" height="53"/>
+                                <rect key="frame" x="0.0" y="437" width="116" height="72.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Drum" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdp-2O-baY">
-                                        <rect key="frame" x="20" y="0.0" width="76" height="53"/>
+                                        <rect key="frame" x="20" y="0.0" width="76" height="72.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -240,10 +240,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gg9-l6-j4O">
-                                <rect key="frame" x="0.0" y="453" width="116" height="53.5"/>
+                                <rect key="frame" x="0.0" y="550" width="116" height="73"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pbc-IG-gGG">
-                                        <rect key="frame" x="20" y="0.0" width="76" height="53.5"/>
+                                        <rect key="frame" x="20" y="0.0" width="76" height="73"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -258,10 +258,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xmh-7g-zwh">
-                                <rect key="frame" x="0.0" y="547" width="116" height="53"/>
+                                <rect key="frame" x="0.0" y="663" width="116" height="72.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bars" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quU-dN-fNf">
-                                        <rect key="frame" x="20" y="0.0" width="76" height="53"/>
+                                        <rect key="frame" x="20" y="0.0" width="76" height="72.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -276,10 +276,10 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Zz2-kp-uwO">
-                                <rect key="frame" x="116" y="547" width="485" height="53"/>
+                                <rect key="frame" x="116" y="663" width="299" height="73"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mq-xX-JjH">
-                                        <rect key="frame" x="0.0" y="0.0" width="97" height="53"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="73"/>
                                         <color key="backgroundColor" red="0.61960784313725492" green="0.42352941176470588" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="1">
@@ -290,7 +290,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkU-9i-0Lm">
-                                        <rect key="frame" x="97" y="0.0" width="97" height="53"/>
+                                        <rect key="frame" x="60" y="0.0" width="60" height="73"/>
                                         <color key="backgroundColor" red="0.68235294117647061" green="0.48627450980392156" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="2">
@@ -301,7 +301,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VDP-Ae-ywB">
-                                        <rect key="frame" x="194" y="0.0" width="97" height="53"/>
+                                        <rect key="frame" x="120" y="0.0" width="60" height="73"/>
                                         <color key="backgroundColor" red="0.74509803921568629" green="0.5490196078431373" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="4">
@@ -312,7 +312,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iu-cY-D9X">
-                                        <rect key="frame" x="291" y="0.0" width="97" height="53"/>
+                                        <rect key="frame" x="179" y="0.0" width="60" height="73"/>
                                         <color key="backgroundColor" red="0.68235294117647061" green="0.48627450980392156" blue="0.35686274509803922" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="8">
@@ -323,7 +323,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdZ-gS-hti">
-                                        <rect key="frame" x="388" y="0.0" width="97" height="53"/>
+                                        <rect key="frame" x="239" y="0.0" width="60" height="73"/>
                                         <color key="backgroundColor" red="0.61960784313725492" green="0.42352941176470588" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="16">
@@ -335,150 +335,110 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ2-jh-UYl">
-                                <rect key="frame" x="0.0" y="134" width="600" height="40"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="qcB-XU-oKh">
-                                        <rect key="frame" x="18" y="0.0" width="564" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="331" id="FI8-mv-QOK"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="FI8-mv-QOK"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <action selector="adjustArpeggioSynthesizerVolume:" destination="BYZ-38-t0r" eventType="valueChanged" id="5wL-Nc-9vq"/>
-                                        </connections>
-                                    </slider>
-                                </subviews>
-                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJ2-jh-UYl" customClass="AKPropertySlider" customModule="AudioKit">
+                                <rect key="frame" x="0.0" y="173" width="414" height="40"/>
+                                <color key="backgroundColor" red="0.15294117647058825" green="0.76470588235294112" blue="0.58039215686274515" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="3uB-rx-i76"/>
-                                    <constraint firstAttribute="trailing" secondItem="qcB-XU-oKh" secondAttribute="trailing" constant="20" symbolic="YES" id="Lch-T6-ywv"/>
-                                    <constraint firstAttribute="bottom" secondItem="qcB-XU-oKh" secondAttribute="bottom" id="Zs3-vo-z6Y"/>
-                                    <constraint firstItem="qcB-XU-oKh" firstAttribute="top" secondItem="rJ2-jh-UYl" secondAttribute="top" id="kcc-tz-F6a"/>
-                                    <constraint firstItem="qcB-XU-oKh" firstAttribute="leading" secondItem="rJ2-jh-UYl" secondAttribute="leading" constant="20" symbolic="YES" id="thM-3P-qUC"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Volume"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.10588235294117647" green="0.56862745098039214" blue="0.44705882352941179" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwQ-kz-gUA">
-                                <rect key="frame" x="0.0" y="227" width="600" height="40"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="wzV-BX-3M3">
-                                        <rect key="frame" x="18" y="0.0" width="564" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="331" id="JRn-3S-wIY"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="JRn-3S-wIY"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <action selector="adjustPadSynthesizerVolume:" destination="BYZ-38-t0r" eventType="valueChanged" id="HKF-pq-zzp"/>
-                                        </connections>
-                                    </slider>
-                                </subviews>
-                                <color key="backgroundColor" red="0.16078431372549018" green="0.50196078431372548" blue="0.72549019607843135" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duy-v8-PBi" customClass="AKPropertySlider" customModule="AudioKit">
+                                <rect key="frame" x="0.0" y="397" width="414" height="40"/>
+                                <color key="backgroundColor" red="0.59999999999999998" green="0.30980392156862746" blue="0.72941176470588232" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="wzV-BX-3M3" firstAttribute="top" secondItem="iwQ-kz-gUA" secondAttribute="top" id="IEC-IA-byg"/>
-                                    <constraint firstItem="wzV-BX-3M3" firstAttribute="centerY" secondItem="iwQ-kz-gUA" secondAttribute="centerY" id="P9g-wS-cHd"/>
-                                    <constraint firstAttribute="height" constant="40" id="Qzp-nN-mZg"/>
-                                    <constraint firstAttribute="trailing" secondItem="wzV-BX-3M3" secondAttribute="trailing" constant="20" symbolic="YES" id="e8j-C4-PUn"/>
-                                    <constraint firstItem="wzV-BX-3M3" firstAttribute="leading" secondItem="iwQ-kz-gUA" secondAttribute="leading" constant="20" symbolic="YES" id="fH6-Hg-F9f"/>
-                                    <constraint firstAttribute="bottom" secondItem="wzV-BX-3M3" secondAttribute="bottom" id="kKz-pA-tBT"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="P9g-wS-cHd"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="duy-v8-PBi">
-                                <rect key="frame" x="0.0" y="320" width="600" height="40"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="8h6-WB-Qfv">
-                                        <rect key="frame" x="18" y="0.0" width="564" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="331" id="HKh-0d-WiV"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="HKh-0d-WiV"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <action selector="adjustBassSynthesizerVolume:" destination="BYZ-38-t0r" eventType="valueChanged" id="ING-Tq-ek0"/>
-                                        </connections>
-                                    </slider>
-                                </subviews>
-                                <color key="backgroundColor" red="0.55686274509803924" green="0.26666666666666666" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="8h6-WB-Qfv" firstAttribute="top" secondItem="duy-v8-PBi" secondAttribute="top" id="85A-Jl-Hm6"/>
-                                    <constraint firstAttribute="trailing" secondItem="8h6-WB-Qfv" secondAttribute="trailing" constant="20" symbolic="YES" id="Cfa-7X-L4F"/>
-                                    <constraint firstItem="8h6-WB-Qfv" firstAttribute="centerY" secondItem="duy-v8-PBi" secondAttribute="centerY" id="Elm-au-xgl"/>
-                                    <constraint firstItem="8h6-WB-Qfv" firstAttribute="leading" secondItem="duy-v8-PBi" secondAttribute="leading" constant="20" symbolic="YES" id="UhS-2V-Pu8"/>
                                     <constraint firstAttribute="height" constant="40" id="fXF-vs-wVA"/>
-                                    <constraint firstAttribute="bottom" secondItem="8h6-WB-Qfv" secondAttribute="bottom" id="rWA-63-j9e"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="Elm-au-xgl"/>
-                                    </mask>
-                                </variation>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.47843137254901963" green="0.16862745098039217" blue="0.61568627450980395" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Volume"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIQ-sz-U2M">
-                                <rect key="frame" x="0.0" y="413" width="600" height="40"/>
-                                <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="aCy-tP-NUS">
-                                        <rect key="frame" x="18" y="0.0" width="564" height="41"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="331" id="JRm-PH-nct"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="JRm-PH-nct"/>
-                                            </mask>
-                                        </variation>
-                                        <connections>
-                                            <action selector="adjustDrumKitVolume:" destination="BYZ-38-t0r" eventType="valueChanged" id="m8j-mK-H8C"/>
-                                        </connections>
-                                    </slider>
-                                </subviews>
-                                <color key="backgroundColor" red="0.8901960784313725" green="0.44705882352941173" blue="0.29411764705882354" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xIQ-sz-U2M" customClass="AKPropertySlider" customModule="AudioKit">
+                                <rect key="frame" x="0.0" y="510" width="414" height="40"/>
+                                <color key="backgroundColor" red="0.8901960784313725" green="0.44705882352941173" blue="0.29411764705882354" alpha="0.77144222122302153" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="aCy-tP-NUS" firstAttribute="leading" secondItem="xIQ-sz-U2M" secondAttribute="leading" constant="20" symbolic="YES" id="BSv-yA-INH"/>
-                                    <constraint firstAttribute="bottom" secondItem="aCy-tP-NUS" secondAttribute="bottom" id="Hc7-5H-ZgI"/>
-                                    <constraint firstItem="aCy-tP-NUS" firstAttribute="centerY" secondItem="xIQ-sz-U2M" secondAttribute="centerY" id="RBG-ps-AZP"/>
                                     <constraint firstAttribute="height" constant="40" id="YGV-kp-AIc"/>
-                                    <constraint firstItem="aCy-tP-NUS" firstAttribute="top" secondItem="xIQ-sz-U2M" secondAttribute="top" id="l95-qr-Lbm"/>
-                                    <constraint firstAttribute="trailing" secondItem="aCy-tP-NUS" secondAttribute="trailing" constant="20" symbolic="YES" id="pHi-37-idq"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="RBG-ps-AZP"/>
-                                    </mask>
-                                </variation>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.85490196078431369" green="0.36078431372549019" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Volume"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJX-iR-1ys">
-                                <rect key="frame" x="0.0" y="507" width="600" height="40"/>
+                                <rect key="frame" x="0.0" y="623" width="414" height="40"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Cbw-kM-AE0">
-                                        <rect key="frame" x="20" y="0.0" width="560" height="40"/>
+                                        <rect key="frame" x="20" y="0.0" width="374" height="40"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CYv-jq-JEG">
-                                                <rect key="frame" x="-2" y="0.0" width="274" height="41"/>
-                                                <connections>
-                                                    <action selector="adjustFilterFrequency:" destination="BYZ-38-t0r" eventType="valueChanged" id="pU9-2Y-Hqh"/>
-                                                </connections>
-                                            </slider>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.10000000000000001" maxValue="1.8999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="EXj-my-drY">
-                                                <rect key="frame" x="288" y="0.0" width="274" height="41"/>
-                                                <connections>
-                                                    <action selector="adjustTempo:" destination="BYZ-38-t0r" eventType="valueChanged" id="R5b-rD-J7g"/>
-                                                </connections>
-                                            </slider>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfC-zk-fLU" customClass="AKPropertySlider" customModule="AudioKit">
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="40"/>
+                                                <color key="backgroundColor" red="0.69019607843137254" green="0.14509803921568629" blue="0.12941176470588237" alpha="1" colorSpace="calibratedRGB"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                        <color key="value" red="0.60392156860000001" green="0.12941176469999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Frequency"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="format" value=" "/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhT-ku-vix" customClass="AKPropertySlider" customModule="AudioKit">
+                                                <rect key="frame" x="197" y="0.0" width="177" height="40"/>
+                                                <color key="backgroundColor" red="0.69019607843137254" green="0.14509803921568629" blue="0.12941176470588237" alpha="1" colorSpace="calibratedRGB"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                                        <color key="value" red="0.60392156860000001" green="0.12941176469999999" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Speed Multiplier"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="format" value="%0.3f"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="initialValue">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="minimum">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="maximum">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -490,20 +450,36 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EdG-Fh-kak">
-                                <rect key="frame" x="116" y="360" width="484" height="53"/>
+                                <rect key="frame" x="116" y="437" width="298" height="72.5"/>
                                 <color key="backgroundColor" red="0.89019607840000003" green="0.44705882349999998" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIS-ik-x9o">
-                                <rect key="frame" x="116" y="453" width="484" height="53.5"/>
+                                <rect key="frame" x="116" y="550" width="298" height="73"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tempo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQV-QF-bv6">
-                                        <rect key="frame" x="194" y="0.0" width="56" height="53.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Tempo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQV-QF-bv6">
+                                        <rect key="frame" x="194" y="0.0" width="56" height="73"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.75294117650000003" green="0.22352941179999999" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwQ-kz-gUA" customClass="AKPropertySlider" customModule="AudioKit">
+                                <rect key="frame" x="0.0" y="285" width="414" height="40"/>
+                                <color key="backgroundColor" red="0.12549019607843137" green="0.58039215686274515" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Qzp-nN-mZg"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="property" value="Volume"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="sliderColor">
+                                        <color key="value" red="0.13333333333333333" green="0.41960784313725491" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -513,7 +489,6 @@
                             <constraint firstItem="rJ2-jh-UYl" firstAttribute="top" secondItem="rmD-jr-VJ6" secondAttribute="bottom" id="2RD-3o-ONR"/>
                             <constraint firstItem="Zz2-kp-uwO" firstAttribute="top" secondItem="xmh-7g-zwh" secondAttribute="top" id="46v-ei-d6b"/>
                             <constraint firstItem="ze1-bf-MRk" firstAttribute="leading" secondItem="rmD-jr-VJ6" secondAttribute="trailing" id="4Xp-t8-TiH"/>
-                            <constraint firstItem="zQV-QF-bv6" firstAttribute="leading" secondItem="EXj-my-drY" secondAttribute="leading" id="4x4-49-OBK"/>
                             <constraint firstItem="IqU-s4-Enb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="50b-Bd-4Er"/>
                             <constraint firstItem="duy-v8-PBi" firstAttribute="top" secondItem="LdS-fM-Rhv" secondAttribute="bottom" id="7T6-OV-Vdr"/>
                             <constraint firstAttribute="leading" secondItem="qWh-Hc-SNf" secondAttribute="leading" id="7XP-x4-KqI"/>
@@ -568,7 +543,6 @@
                             <constraint firstItem="LdS-fM-Rhv" firstAttribute="bottom" secondItem="3ZK-Ac-4zw" secondAttribute="bottom" id="kb5-xe-6YJ"/>
                             <constraint firstItem="EdG-Fh-kak" firstAttribute="top" secondItem="duy-v8-PBi" secondAttribute="bottom" id="lrA-qJ-9v3"/>
                             <constraint firstItem="SJX-iR-1ys" firstAttribute="top" secondItem="gg9-l6-j4O" secondAttribute="bottom" id="mA8-vv-uSm"/>
-                            <constraint firstItem="zQV-QF-bv6" firstAttribute="centerX" secondItem="EXj-my-drY" secondAttribute="centerX" id="mmA-qE-8q0"/>
                             <constraint firstAttribute="trailing" secondItem="rJ2-jh-UYl" secondAttribute="trailing" id="nJn-g8-z7j"/>
                             <constraint firstItem="ze1-bf-MRk" firstAttribute="top" secondItem="0iP-KI-bHz" secondAttribute="bottom" id="nXq-aQ-YKI"/>
                             <constraint firstItem="IqU-s4-Enb" firstAttribute="top" secondItem="rJ2-jh-UYl" secondAttribute="bottom" id="pOl-bN-jbM"/>
@@ -589,16 +563,18 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="hNm-Oy-cSq"/>
-                                <exclude reference="mmA-qE-8q0"/>
                                 <exclude reference="HtE-fU-XYq"/>
                             </mask>
                         </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
-                        <outlet property="arpeggioVolumeSlider" destination="qcB-XU-oKh" id="5NM-MX-ZSj"/>
-                        <outlet property="bassVolumeSlider" destination="8h6-WB-Qfv" id="m4m-wF-5UN"/>
-                        <outlet property="drumVolumeSlider" destination="aCy-tP-NUS" id="4Ly-bf-15D"/>
-                        <outlet property="padVolumeSlider" destination="wzV-BX-3M3" id="RML-uN-pXD"/>
+                        <outlet property="arpeggioVolumeSlider" destination="rJ2-jh-UYl" id="mh1-uB-g4h"/>
+                        <outlet property="bassVolumeSlider" destination="duy-v8-PBi" id="qae-Ct-r4N"/>
+                        <outlet property="drumVolumeSlider" destination="xIQ-sz-U2M" id="qqv-O0-Gsr"/>
+                        <outlet property="filterFrequencySlider" destination="qfC-zk-fLU" id="17r-cI-fRA"/>
+                        <outlet property="padVolumeSlider" destination="iwQ-kz-gUA" id="hOc-As-60W"/>
+                        <outlet property="tempoSlider" destination="UhT-ku-vix" id="49b-1O-eme"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
