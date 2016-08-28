@@ -101,7 +101,7 @@ extension AKAudioFile {
     ///   - baseDir: where the file will be located, can be set to .Resources, .Documents or .Temp
     ///   - name: the name of the file without its extension (String).
     ///
-    ///  - Returns: An AKAudioFile, or nil if init failed.
+    /// - Returns: An AKAudioFile, or nil if init failed.
     ///
     public func appendedBy(file file: AKAudioFile,
                                 baseDir: BaseDirectory = .Temp,
@@ -194,7 +194,7 @@ extension AKAudioFile {
                                      name: String = "") throws -> AKAudioFile {
         
         let fixedFrom = abs(fromSample)
-        let fixedTo:Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample,Int64(self.samplesCount))
+        let fixedTo: Int64 = toSample == 0 ? Int64(self.samplesCount) : min(toSample, Int64(self.samplesCount))
         if fixedTo <= fixedFrom {
             print( "ERROR AKAudioFile: cannot extract, from must be less than to !")
             throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo:nil)
