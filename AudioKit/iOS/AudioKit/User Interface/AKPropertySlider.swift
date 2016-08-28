@@ -119,7 +119,6 @@ import Foundation
 
         //// Variable Declarations
         let currentWidth: CGFloat = currentValue < minimum ? 0 : (currentValue < maximum ? (currentValue - minimum) / (maximum - minimum) * width : width)
-        let initialX: CGFloat = initialValue < minimum ? 9 : 9 + (initialValue < maximum ? (initialValue - minimum) / (maximum - minimum) * width : width)
 
         //// sliderArea Drawing
         let sliderAreaPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: width, height: height))
@@ -131,26 +130,6 @@ import Foundation
         let valueRectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: currentWidth, height: height))
         sliderColor.setFill()
         valueRectanglePath.fill()
-
-
-        //// initialValueBezier Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, (initialX - 8), -0)
-
-        let initialValueBezierPath = UIBezierPath()
-        initialValueBezierPath.moveToPoint(CGPoint(x: 0, y: 0))
-        initialValueBezierPath.addLineToPoint(CGPoint(x: 0.25, y: height))
-        UIColor.whiteColor().setFill()
-        initialValueBezierPath.fill()
-        UIColor.blackColor().setStroke()
-        initialValueBezierPath.lineWidth = 0.5
-        CGContextSaveGState(context)
-        CGContextSetLineDash(context, 0, [2, 2], 2)
-        initialValueBezierPath.stroke()
-        CGContextRestoreGState(context)
-
-        CGContextRestoreGState(context)
-
 
         //// nameLabel Drawing
         let nameLabelRect = CGRect(x: 0, y: 0, width: width, height: height)
