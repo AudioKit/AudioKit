@@ -66,7 +66,8 @@ import UIKit
     @IBInspectable public var releaseColor: UIColor = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
     let bgColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     
-    @IBInspectable public var curveStrokeWidth: CGFloat = 1 //min(max(1, size.height / 50.0), max(1, size.width / 100.0))
+    @IBInspectable public var curveStrokeWidth: CGFloat = 1
+    @IBInspectable public var curveColor: UIColor = UIColor.blackColor()
 
 
     var lastPoint = CGPoint.zero
@@ -127,7 +128,6 @@ import UIKit
     override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
-        // make sure we are filling the circle and masking by default
         contentMode = .ScaleAspectFill
         clipsToBounds = true
     }
@@ -170,7 +170,6 @@ import UIKit
     }
 
     required public init?(coder aDecoder: NSCoder) {
-        print("init from coder")
         super.init(coder: aDecoder)
 //        setupViews()
     }
@@ -338,7 +337,7 @@ import UIKit
         curvePath.addCurveToPoint(endPoint,
                                   controlPoint1: releasePoint,
                                   controlPoint2: releaseToEndControlPoint)
-        UIColor.blackColor().setStroke()
+        curveColor.setStroke()
         curvePath.lineWidth = curveStrokeWidth
         curvePath.stroke()
 
