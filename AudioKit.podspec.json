@@ -16,18 +16,12 @@
     },
     "summary": "Open-source audio synthesis, processing, & analysis platform.",
     "platforms": {
-        "osx": "10.11",
         "ios": "9.0",
         "tvos": "9.0"
     },
     "frameworks": [
 	"AVFoundation"
     ],
-    "osx": {
-        "source_files": "macOS/AudioKit.framework/Versions/A/Headers/*{.h, .m}",
-        "public_header_files": "macOS/AudioKit.framework/Versions/A/Headers/*.h",
-        "vendored_frameworks": "macOS/AudioKit.framework"
-    },
     "ios": {
         "source_files": "iOS/AudioKit.framework/Headers/*.h",
         "public_header_files": "iOS/AudioKit.framework/Headers/*.h",
