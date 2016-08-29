@@ -33,6 +33,7 @@ class KnobSmall: Knob {
         setNeedsDisplay()
     }
     
+    // MARK: - PaintCode generated code
     func drawKnobSmall(knobValue knobValue: CGFloat = 0.332) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -61,6 +62,7 @@ class KnobSmall: Knob {
         CGContextRestoreGState(context)
     }
     
+    // MARK: - Allow knobs to appear in IB
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
@@ -68,6 +70,5 @@ class KnobSmall: Knob {
         knob120_base = UIImage(named: "knob120_base", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)!
         knob120_indicator = UIImage(named: "knob120_indicator", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)!
     }
-
 
 }

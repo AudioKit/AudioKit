@@ -61,6 +61,7 @@ class KnobMedium: Knob {
         CGContextRestoreGState(context)
     }
     
+    // MARK: - Allow knobs to appear in IB
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
