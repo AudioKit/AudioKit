@@ -176,3 +176,14 @@ extension Double {
     }
 
 }
+
+extension Array where Element: IntegerLiteralConvertible {
+    /// Initialize array with zeroes, ~10x faster than append for array of size 4096
+    ///
+    /// - parameter count: Number of elements in the array
+    ///
+
+    public init(zeroes count: Int) {
+        self = [Element](count: count, repeatedValue: 0)
+    }
+}
