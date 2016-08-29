@@ -22,7 +22,7 @@ class KnobLarge: Knob {
     var knob212_indicator = UIImage(named: "knob212_indicator")
 
     override func drawRect(rect: CGRect) {
-        SynthStyleKit.drawKnobLarge(knobValue: knobValue)
+        drawKnobLarge(knobValue: knobValue)
     }
 
     // MARK: - Set Percentages
