@@ -17,7 +17,6 @@
 		949B1C4B1C431E5400BFFA10 /* KnobMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */; };
 		949B1C4C1C431E5400BFFA10 /* KnobSmall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */; };
 		949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C301C431E5400BFFA10 /* RoundedButton.swift */; };
-		949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */; };
 		949B1C501C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */; };
 		949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */; };
 		949B1C521C431E5400BFFA10 /* SMBasicSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */; };
@@ -29,7 +28,6 @@
 		94C8EC781C4C1C7600AAA604 /* SynthVC+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */; };
 		94FBB47E1C4483AE00E14C86 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */; };
 		94FBB4821C44868000E14C86 /* VerticalSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4811C44868000E14C86 /* VerticalSlider.swift */; };
-		94FBB4841C4487D000E14C86 /* VerticalSliderStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */; };
 		C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */; };
 		C42FFBFF1C3DDAAC00823BD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42FFBFD1C3DDAAC00823BD4 /* Main.storyboard */; };
 		C42FFC011C3DDAAC00823BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42FFC001C3DDAAC00823BD4 /* Assets.xcassets */; };
@@ -76,7 +74,6 @@
 		949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobMedium.swift; sourceTree = "<group>"; };
 		949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KnobSmall.swift; sourceTree = "<group>"; };
 		949B1C301C431E5400BFFA10 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthStyleKit.swift; sourceTree = "<group>"; };
 		949B1C341C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "WaveformSegmentedView+Extensions.swift"; path = "../Extensions/WaveformSegmentedView+Extensions.swift"; sourceTree = "<group>"; };
 		949B1C361C431E5400BFFA10 /* SMAlphaImageSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMAlphaImageSegment.swift; sourceTree = "<group>"; };
 		949B1C371C431E5400BFFA10 /* SMBasicSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMBasicSegment.swift; sourceTree = "<group>"; };
@@ -88,7 +85,6 @@
 		94C8EC771C4C1C7600AAA604 /* SynthVC+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SynthVC+Delegates.swift"; sourceTree = "<group>"; };
 		94FBB47D1C4483AE00E14C86 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		94FBB4811C44868000E14C86 /* VerticalSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSlider.swift; sourceTree = "<group>"; };
-		94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalSliderStyles.swift; sourceTree = "<group>"; };
 		C42FFBF61C3DDAAC00823BD4 /* AnalogSynthX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnalogSynthX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42FFBF91C3DDAAC00823BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C42FFBFE1C3DDAAC00823BD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -184,7 +180,6 @@
 				949B1C2F1C431E5400BFFA10 /* KnobSmall.swift */,
 				949B1C2E1C431E5400BFFA10 /* KnobMedium.swift */,
 				949B1C2D1C431E5400BFFA10 /* KnobLarge.swift */,
-				949B1C311C431E5400BFFA10 /* SynthStyleKit.swift */,
 			);
 			name = Knobs;
 			sourceTree = "<group>";
@@ -193,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				94FBB4811C44868000E14C86 /* VerticalSlider.swift */,
-				94FBB4831C4487D000E14C86 /* VerticalSliderStyles.swift */,
 			);
 			name = Sliders;
 			sourceTree = "<group>";
@@ -371,7 +365,6 @@
 				949B1C4D1C431E5400BFFA10 /* RoundedButton.swift in Sources */,
 				94453BC31C4499BD00608231 /* String+RandomGreeting.swift in Sources */,
 				C42FFBFA1C3DDAAC00823BD4 /* AppDelegate.swift in Sources */,
-				949B1C4E1C431E5400BFFA10 /* SynthStyleKit.swift in Sources */,
 				949B1C501C431E5400BFFA10 /* WaveformSegmentedView+Extensions.swift in Sources */,
 				949B1C511C431E5400BFFA10 /* SMAlphaImageSegment.swift in Sources */,
 				949B1C491C431E5400BFFA10 /* Knob.swift in Sources */,
@@ -386,7 +379,6 @@
 				949B1C541C431E5400BFFA10 /* SMSegment.swift in Sources */,
 				94FBB4821C44868000E14C86 /* VerticalSlider.swift in Sources */,
 				94FBB47E1C4483AE00E14C86 /* Double+Extensions.swift in Sources */,
-				94FBB4841C4487D000E14C86 /* VerticalSliderStyles.swift in Sources */,
 				94B009E71C4B61BD000CF18E /* SynthVC+NoteNames.swift in Sources */,
 				949B1C4A1C431E5400BFFA10 /* KnobLarge.swift in Sources */,
 			);
