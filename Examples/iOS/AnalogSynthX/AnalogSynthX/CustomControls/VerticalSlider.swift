@@ -16,7 +16,7 @@ protocol VerticalSliderDelegate {
 
 @IBDesignable
 class VerticalSlider: UIControl {
-    
+
     var minValue: CGFloat = 0.0
     var maxValue: CGFloat = 1.0
     var currentValue: CGFloat = 0.45 {
@@ -31,31 +31,31 @@ class VerticalSlider: UIControl {
             setupView()
         }
     }
-    
+
     let knobSize = CGSize(width: 43, height: 31)
-    let barMargin:CGFloat = 20.0
+    let barMargin: CGFloat = 20.0
     var knobRect: CGRect!
     var barLength: CGFloat = 164.0
     var isSliding = false
     var sliderValue: CGFloat = 0.5
     var delegate: VerticalSliderDelegate?
-    
+
     //// Image Declarations
     var slider_top = UIImage(named: "slider_top.png")
     var slider_track = UIImage(named: "slider_track.png")
-    
-    
+
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentMode = .Redraw
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.userInteractionEnabled = true
         contentMode = .Redraw
     }
-    
+
     class override func requiresConstraintBasedLayout() -> Bool {
         return true
     }
@@ -67,21 +67,21 @@ extension VerticalSlider {
         super.awakeFromNib()
         setupView()
     }
-    
+
     func setupView() {
-        
+
         knobRect = CGRect(x: 0, y: convertValueToY(currentValue) - (knobSize.height / 2), width: knobSize.width, height: knobSize.height)
         barLength = bounds.height - (barMargin * 2)
-        
+
         let bundle = NSBundle(forClass: self.dynamicType)
         slider_top =  UIImage(named: "slider_top", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)!
         slider_track =  UIImage(named: "slider_track", inBundle: bundle, compatibleWithTraitCollection: self.traitCollection)!
     }
-    
+
     override func drawRect(rect: CGRect) {
         drawVerticalSlider(controlFrame: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height), knobRect: knobRect)
     }
-    
+
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         setupView()
@@ -110,13 +110,13 @@ extension VerticalSlider {
         }
         return true
     }
-    
+
     override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
         let rawY = touch.locationInView(self).y
-        
+
         if isSliding {
             let value = convertYToValue(rawY)
-            
+
             if value != minValue || value != maxValue {
                 currentValue = value
                 delegate?.sliderValueDidChange(Double(currentValue), tag: self.tag)
@@ -125,15 +125,15 @@ extension VerticalSlider {
         }
         return true
     }
-    
+
     override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
         isSliding = false
     }
-    
-    func drawVerticalSlider(controlFrame controlFrame: CGRect = CGRectMake(0, 0, 40, 216), knobRect: CGRect = CGRectMake(0, 89, 36, 32)) {
+
+    func drawVerticalSlider(controlFrame controlFrame: CGRect = CGRect(x: 0, y: 0, width: 40, height: 216), knobRect: CGRect = CGRect(x: 0, y: 89, width: 36, height: 32)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-        
+
         //// Background Drawing
         let backgroundRect = CGRectMake(controlFrame.minX + 2, controlFrame.minY + 10, 38, 144)
         let backgroundPath = UIBezierPath(rect: backgroundRect)
@@ -141,8 +141,8 @@ extension VerticalSlider {
         backgroundPath.addClip()
         slider_track!.drawInRect(CGRectMake(floor(backgroundRect.minX + 0.5), floor(backgroundRect.minY + 0.5), slider_track!.size.width, slider_track!.size.height))
         CGContextRestoreGState(context)
-        
-        
+
+
         //// Slider Top Drawing
         let sliderTopRect = CGRectMake(knobRect.origin.x, knobRect.origin.y, knobRect.size.width, knobRect.size.height)
         let sliderTopPath = UIBezierPath(rect: sliderTopRect)
