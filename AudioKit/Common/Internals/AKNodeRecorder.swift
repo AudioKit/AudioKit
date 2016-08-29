@@ -8,8 +8,6 @@
 //
 
 import Foundation
-
-import Foundation
 import AVFoundation
 
 /// Simple audio recorder class
