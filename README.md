@@ -7,13 +7,13 @@ AudioKit V3.2
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/AudioKit.svg?style=flat)](https://github.com/CocoaPods/Specs/tree/master/Specs/AudioKit)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitMan.svg?style=social)](http://twitter.com/AudioKitMan)
 
-AudioKit is an audio synthesis, processing, and analysis platform for OS X, iOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
+AudioKit is an audio synthesis, processing, and analysis platform for iOS, macOS, and tvOS. This document serves as a one-page introduction to AudioKit, but we have much more information available on the AudioKit website at http://audiokit.io/
 
 If you need support, the best thing to do is to join AudioKit's google group:
 
 https://groups.google.com/forum/#!forum/audiokit
 
-### Version 3.2
+### Version 3
 The third major revision of AudioKit has been completely rewritten to offer the following improvements over previous versions:
 
 * Installation as a framework
@@ -80,17 +80,22 @@ if oscillator.isPlaying {
 ```
 ## Playgrounds
 
-Because Playgrounds have very different capabilities depending on whether they are for OSX or iOS, we have two sets of playgrounds for each OS.  At this point tvOS behaves very much like iOS so there is no set of playgrounds explicitly for tvOS.
+We have so many playground pages that it became difficult to maintain them in one playground, so we separated them into categories:
 
-### AudioKit for iOS Playgrounds
-There are many playground pages within the AudioKit for iOS Playground.  Each playground includes a demo of a node or operation or an example of sound design.  The first playground is a Table of Contents in which the playgrounds are organized via markup.  The playground may also be opened up to view the playgrounds alphabetically.
+* Basics - Starting tutorials to get things up and running, making sounds, and connecting various types of components
+* Synthesis - Oscillators, physical models, generative audio
+* Playback - Audio files, Sequencing, Sampling
+* Effects - Processing sound
+* Filters - Frequency range modification
+* Analysis - Pitch and loudness detection, FFT spectrum analysis
 
-### AudioKit for OS X Playgrounds
-OS X Playgrounds have slightly different capabilities from iOS ones, so while most playgrounds are the same across the two platforms, a few playgrounds only exist on one or the other.  As of this writing, access to a microphone is only capable on the OS X playgrounds, for instance.
+Because Playgrounds have some different capabilities on different platforms, there are a few playground pages available in OS Specific playgrounds for iOS and macOS.
+At this point tvOS behaves very much like iOS so there is no set of playgrounds explicitly for tvOS.
+
 
 ## Tests
 
-So far, the only testing that we do automatically through Travis is to ensure that all of the projects included with AudioKit build successfully.  AudioKit version 2 was heavily tested, but at the time of this writing AudioKit 3 does not have a test suite in place.  This is high on our priority list after an initial release.
+We ensure all the included projects build by automatically testing them using Travis Continuous Integration.  There are also unit tests for many of the nodes and operations in AudioKit, which we run locally because at this time they don't quite work on Travis (but we'd love some help if you want to figure that one out!).
 
 ## Package Managers
 
@@ -103,7 +108,7 @@ github "audiokit/AudioKit"
 If you use CocoaPods, you can also easily get the latest AudioKit binary framework for your project. Use this in your `Podfile`:
 
 ```
-pod 'AudioKit', '~> 3.2'
+pod 'AudioKit', '~> 3.3'
 ```
 
 ## About Us
