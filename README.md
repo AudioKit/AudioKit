@@ -1,4 +1,4 @@
-AudioKit V3.2
+AudioKit V3.3
 ===
 
 [![Build Status](https://travis-ci.org/audiokit/AudioKit.svg)](https://travis-ci.org/audiokit/AudioKit)
