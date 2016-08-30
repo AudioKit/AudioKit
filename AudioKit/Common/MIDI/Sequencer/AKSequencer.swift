@@ -40,8 +40,7 @@ public class AKSequencer {
             //this won't do anything if not using an AVSeq
             print("AKSequencer ERROR ! avTracks only work if isAVSequencer ")
 
-            let tracks = [AVMusicTrack]()
-            return tracks
+            return []
         }
     }
 
@@ -452,10 +451,10 @@ public class AKSequencer {
         let bundle = NSBundle.mainBundle()
         let file = bundle.pathForResource(filename, ofType: "mid")
         let fileURL = NSURL.fileURLWithPath(file!)
-        MusicSequenceFileLoad(sequence, fileURL, MusicSequenceFileTypeID.MIDIType, MusicSequenceLoadFlags.SMF_PreserveTracks)
+        MusicSequenceFileLoad(sequence, fileURL, .MIDIType, .SMF_PreserveTracks)
         if isAVSequencer {
             do {
-               try avSequencer.loadFromURL(fileURL, options: AVMusicSequenceLoadOptions.SMF_PreserveTracks)
+               try avSequencer.loadFromURL(fileURL, options: .SMF_PreserveTracks)
             } catch _ {
                 print("failed to load midi into avseq")
             }
@@ -489,8 +488,6 @@ public class AKSequencer {
 
         var newMusicTrack: MusicTrack = nil
         MusicSequenceNewTrack(sequence, &newMusicTrack)
-        var count: UInt32 = 0
-        MusicSequenceGetTrackCount(sequence, &count)
         tracks.append(AKMusicTrack(musicTrack: newMusicTrack, name: name))
 
         //print("Calling initTracks() from newTrack")
@@ -527,10 +524,7 @@ public class AKSequencer {
     public func genData() -> NSData? {
         var status = noErr
         var data: Unmanaged<CFData>?
-        status = MusicSequenceFileCreateData(sequence,
-                                             MusicSequenceFileTypeID.MIDIType,
-                                             MusicSequenceFileFlags.EraseFile,
-                                             480, &data)
+        status = MusicSequenceFileCreateData(sequence, .MIDIType, .EraseFile, 480, &data)
         if status != noErr {
             print("error creating MusicSequence Data")
             return nil
