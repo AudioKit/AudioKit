@@ -14,24 +14,11 @@ public typealias MIDINoteNumber = Int
 public typealias MIDIVelocity = Int
 public typealias MIDIChannel = Int
 
-// MARK: - Randomization Helpers
-
-/// Random integer in the range
-///
-/// - parameter range: Range of valid integers to choose from
-///
-public func randomInt(range: Range<Int>) -> Int {
-    let width = range.maxElement()! - range.minElement()!
-    return Int(arc4random_uniform(UInt32(width))) + range.minElement()!
-}
-
-/// Extension to Array for Random Element
-extension Array {
-
+extension CollectionType where Index == Int {
     /// Return a random element from the array
-    public func randomElement() -> Element {
-        let index = Int(arc4random_uniform(UInt32(self.count)))
-        return self[index]
+    public func randomElement() -> Generator.Element {
+        let offset = Int(arc4random_uniform(UInt32(count)))
+        return self[startIndex.advancedBy(offset)]
     }
 }
 
