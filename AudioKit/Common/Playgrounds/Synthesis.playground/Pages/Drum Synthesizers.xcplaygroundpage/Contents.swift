@@ -20,7 +20,7 @@ AKPlaygroundLoop(frequency: 4.44) {
 
     let onFirstBeat = counter == 0
     let everyOtherBeat = counter % 4 == 2
-    let randomHit = randomInt(0...3) == 0
+    let randomHit = (0...3).randomElement() == 0
 
     if onFirstBeat || randomHit {
         kick.play(noteNumber:60, velocity: 100)
@@ -28,7 +28,7 @@ AKPlaygroundLoop(frequency: 4.44) {
     }
 
     if everyOtherBeat {
-        let velocity = randomInt(1...100)
+        let velocity = (1...100).randomElement()
         snare.play(noteNumber:60, velocity: velocity)
         snare.stop(noteNumber:60)
     }
