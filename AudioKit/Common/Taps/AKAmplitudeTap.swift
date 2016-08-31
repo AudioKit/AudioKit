@@ -27,7 +27,7 @@ public class AKAmplitudeTap {
                 sum += pow(Float(buffer.floatChannelData.memory[i]), 2)
             }
             
-            print(NSString(format:"%0.5f",sqrt(sum/Float(self.bufferSize))))
+//            print(NSString(format:"%0.5f",sqrt(sum/Float(self.bufferSize))))
         }
     }
 }

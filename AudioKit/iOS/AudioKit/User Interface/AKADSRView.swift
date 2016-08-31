@@ -66,7 +66,8 @@ import UIKit
     @IBInspectable public var releaseColor: UIColor = UIColor(red: 0.720, green: 0.519, blue: 0.888, alpha: 1.000)
     let bgColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
     
-    @IBInspectable public var curveStrokeWidth: CGFloat = 1 //min(max(1, size.height / 50.0), max(1, size.width / 100.0))
+    @IBInspectable public var curveStrokeWidth: CGFloat = 1
+    @IBInspectable public var curveColor: UIColor = UIColor.blackColor()
 
 
     var lastPoint = CGPoint.zero
@@ -127,7 +128,6 @@ import UIKit
     override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
         
-        // make sure we are filling the circle and masking by default
         contentMode = .ScaleAspectFill
         clipsToBounds = true
     }
@@ -138,25 +138,6 @@ import UIKit
 
     public class override func requiresConstraintBasedLayout() -> Bool {
         return true
-    }
-        
-    func setupViews() {
-        // set default values
-        layer.borderColor = UIColor.lightGrayColor().CGColor
-        layer.borderWidth = 1.0
-        layer.masksToBounds = true
-        
-        contentMode = .ScaleAspectFill
-        clipsToBounds = true
-        
-        // make sure we are attempting to keep a 1:1 aspect ratio
-        translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraintEqualToAnchor(heightAnchor, multiplier: 1.0).active = true
-        
-//        drawCurveCanvas(attackDurationMS: CGFloat(attackDuration * 1000),
-//                        decayDurationMS: CGFloat(decayDuration * 1000),
-//                        releaseDurationMS: CGFloat(releaseDuration * 500),
-//                        sustainLevel: CGFloat(1.0 - sustainLevel))
     }
 
     public init(callback: ADSRCallback? = nil) {
@@ -170,9 +151,7 @@ import UIKit
     }
 
     required public init?(coder aDecoder: NSCoder) {
-        print("init from coder")
         super.init(coder: aDecoder)
-//        setupViews()
     }
 
     func drawCurveCanvas(size size: CGSize = CGSize(width: 440, height: 151), attackDurationMS: CGFloat = 449, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
@@ -199,11 +178,9 @@ import UIKit
         let sustainAxis = CGPoint(x: sustainPoint.x, y: size.height)
         let initialMax = CGPoint(x: 0, y: buffer)
 
-
         let initialToHighControlPoint = CGPoint(x: initialPoint.x, y: highPoint.y)
         let highToSustainControlPoint = CGPoint(x: highPoint.x, y: sustainPoint.y)
         let releaseToEndControlPoint  = CGPoint(x: releasePoint.x, y: endPoint.y)
-
 
         //// attackTouchArea Drawing
         CGContextSaveGState(context!)
@@ -338,7 +315,7 @@ import UIKit
         curvePath.addCurveToPoint(endPoint,
                                   controlPoint1: releasePoint,
                                   controlPoint2: releaseToEndControlPoint)
-        UIColor.blackColor().setStroke()
+        curveColor.setStroke()
         curvePath.lineWidth = curveStrokeWidth
         curvePath.stroke()
 
