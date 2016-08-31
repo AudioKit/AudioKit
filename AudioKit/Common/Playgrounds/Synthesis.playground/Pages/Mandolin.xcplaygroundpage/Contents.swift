@@ -86,13 +86,13 @@ XCPlaygroundPage.currentPage.liveView = PlaygroundView()
 
 AKPlaygroundLoop(frequency: playRate) {
     var note1 = scale.randomElement()
-    let octave1 = randomInt(2...5)  * 12
-    let course1 = randomInt(1...4)
+    let octave1 = (2...5).randomElement() * 12
+    let course1 = (1...4).randomElement()
     if random(0, 10) < 1.0 { note1 += 1 }
 
     var note2 = scale.randomElement()
-    let octave2 = randomInt(2...5)  * 12
-    let course2 = randomInt(1...4)
+    let octave2 = (2...5).randomElement() * 12
+    let course2 = (1...4).randomElement()
     if random(0, 10) < 1.0 { note2 += 1 }
 
 

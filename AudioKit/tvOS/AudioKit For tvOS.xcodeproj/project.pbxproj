@@ -275,14 +275,11 @@
 		C48C6A531D3C1574008EA51B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69571D3C1573008EA51B /* fft.c */; };
 		C48C6A541D3C1574008EA51B /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69591D3C1573008EA51B /* ini.c */; };
 		C48C6A551D3C1574008EA51B /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C695A1D3C1573008EA51B /* ini.h */; };
-		C48C6A561D3C1574008EA51B /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C48C695B1D3C1573008EA51B /* LICENSE.txt */; };
 		C48C6A571D3C1574008EA51B /* _kiss_fft_guts.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C695D1D3C1573008EA51B /* _kiss_fft_guts.h */; };
-		C48C6A581D3C1574008EA51B /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = C48C695E1D3C1573008EA51B /* COPYING */; };
 		C48C6A591D3C1574008EA51B /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C695F1D3C1573008EA51B /* kiss_fft.c */; };
 		C48C6A5A1D3C1574008EA51B /* kiss_fft.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C69601D3C1573008EA51B /* kiss_fft.h */; };
 		C48C6A5B1D3C1574008EA51B /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69611D3C1573008EA51B /* kiss_fftr.c */; };
 		C48C6A5C1D3C1574008EA51B /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C69621D3C1573008EA51B /* kiss_fftr.h */; };
-		C48C6A5D1D3C1574008EA51B /* README in Resources */ = {isa = PBXBuildFile; fileRef = C48C69631D3C1573008EA51B /* README */; };
 		C48C6A5E1D3C1574008EA51B /* adsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69651D3C1573008EA51B /* adsr.c */; };
 		C48C6A5F1D3C1574008EA51B /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69661D3C1573008EA51B /* allpass.c */; };
 		C48C6A601D3C1574008EA51B /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C69671D3C1573008EA51B /* atone.c */; };
@@ -3302,7 +3299,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */;
+			buildConfigurationList = C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -3335,12 +3332,9 @@
 				C4E3773C1D1357D900FDB70D /* mand7.raw in Resources */,
 				C4E3773D1D1357D900FDB70D /* mand8.raw in Resources */,
 				C4E377331D1357D900FDB70D /* mand1.raw in Resources */,
-				C48C6A581D3C1574008EA51B /* COPYING in Resources */,
-				C48C6A5D1D3C1574008EA51B /* README in Resources */,
 				C4E377371D1357D900FDB70D /* mand2.raw in Resources */,
 				C4E377341D1357D900FDB70D /* mand10.raw in Resources */,
 				C4E3773A1D1357D900FDB70D /* mand5.raw in Resources */,
-				C48C6A561D3C1574008EA51B /* LICENSE.txt in Resources */,
 				C4E377361D1357D900FDB70D /* mand12.raw in Resources */,
 				C4E3773F1D1357D900FDB70D /* mandpluk.raw in Resources */,
 				C4E377351D1357D900FDB70D /* mand11.raw in Resources */,
@@ -4037,7 +4031,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit for tvOS" */ = {
+		C4BDE8331C12FFBC00207DA9 /* Build configuration list for PBXProject "AudioKit For tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4BDE83F1C12FFBC00207DA9 /* Debug */,

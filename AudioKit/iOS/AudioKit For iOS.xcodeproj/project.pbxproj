@@ -335,14 +335,11 @@
 		C48C6C481D3C15F1008EA51B /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B4C1D3C15F1008EA51B /* fft.c */; };
 		C48C6C491D3C15F1008EA51B /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B4E1D3C15F1008EA51B /* ini.c */; };
 		C48C6C4A1D3C15F1008EA51B /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6B4F1D3C15F1008EA51B /* ini.h */; };
-		C48C6C4B1D3C15F1008EA51B /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C48C6B501D3C15F1008EA51B /* LICENSE.txt */; };
 		C48C6C4C1D3C15F1008EA51B /* _kiss_fft_guts.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6B521D3C15F1008EA51B /* _kiss_fft_guts.h */; };
-		C48C6C4D1D3C15F1008EA51B /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = C48C6B531D3C15F1008EA51B /* COPYING */; };
 		C48C6C4E1D3C15F1008EA51B /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B541D3C15F1008EA51B /* kiss_fft.c */; };
 		C48C6C4F1D3C15F1008EA51B /* kiss_fft.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6B551D3C15F1008EA51B /* kiss_fft.h */; };
 		C48C6C501D3C15F1008EA51B /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B561D3C15F1008EA51B /* kiss_fftr.c */; };
 		C48C6C511D3C15F1008EA51B /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6B571D3C15F1008EA51B /* kiss_fftr.h */; };
-		C48C6C521D3C15F1008EA51B /* README in Resources */ = {isa = PBXBuildFile; fileRef = C48C6B581D3C15F1008EA51B /* README */; };
 		C48C6C531D3C15F1008EA51B /* adsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B5A1D3C15F1008EA51B /* adsr.c */; };
 		C48C6C541D3C15F1008EA51B /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B5B1D3C15F1008EA51B /* allpass.c */; };
 		C48C6C551D3C15F1008EA51B /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6B5C1D3C15F1008EA51B /* atone.c */; };
@@ -715,7 +712,6 @@
 		EAF9C9871C69A3E500C10CCE /* AKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9C9861C69A3E500C10CCE /* AKDevice.swift */; };
 		FE52FEEF1CB70A8500A35B63 /* AKAUPresetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE52FEEE1CB70A8500A35B63 /* AKAUPresetBuilder.swift */; };
 		FEBD4F6F1C5D47550007B60D /* AKMIDIListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBD4F6E1C5D47550007B60D /* AKMIDIListener.swift */; };
-		FEE48A461C967A6800DD788C /* TemplateAUPreset.h in Resources */ = {isa = PBXBuildFile; fileRef = FEE48A451C967A6800DD788C /* TemplateAUPreset.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -3496,7 +3492,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */;
+			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -3518,20 +3514,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C48C6C4D1D3C15F1008EA51B /* COPYING in Resources */,
 				C4A929671D1343AE0095E429 /* mand8.raw in Resources */,
 				C4A929651D1343AE0095E429 /* mand6.raw in Resources */,
 				C4A929611D1343AE0095E429 /* mand2.raw in Resources */,
-				C48C6C4B1D3C15F1008EA51B /* LICENSE.txt in Resources */,
 				C4A929601D1343AE0095E429 /* mand12.raw in Resources */,
 				C4A929641D1343AE0095E429 /* mand5.raw in Resources */,
 				C4A929661D1343AE0095E429 /* mand7.raw in Resources */,
-				C48C6C521D3C15F1008EA51B /* README in Resources */,
 				C4A9295F1D1343AE0095E429 /* mand11.raw in Resources */,
 				C4A929681D1343AE0095E429 /* mand9.raw in Resources */,
 				C4A929691D1343AE0095E429 /* mandpluk.raw in Resources */,
 				C4A929621D1343AE0095E429 /* mand3.raw in Resources */,
-				FEE48A461C967A6800DD788C /* TemplateAUPreset.h in Resources */,
 				C4A9295D1D1343AE0095E429 /* mand1.raw in Resources */,
 				C4A929631D1343AE0095E429 /* mand4.raw in Resources */,
 				C4A9295E1D1343AE0095E429 /* mand10.raw in Resources */,
@@ -4236,7 +4228,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */ = {
+		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F35061C057E03000E937C /* Debug */,

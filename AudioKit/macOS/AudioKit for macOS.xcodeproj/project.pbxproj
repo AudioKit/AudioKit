@@ -75,14 +75,11 @@
 		C45666D01D448D7E00D26565 /* fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C45662F41D448D7D00D26565 /* fft.c */; };
 		C45666D11D448D7E00D26565 /* ini.c in Sources */ = {isa = PBXBuildFile; fileRef = C45662F61D448D7D00D26565 /* ini.c */; };
 		C45666D21D448D7E00D26565 /* ini.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662F71D448D7D00D26565 /* ini.h */; };
-		C45666D31D448D7E00D26565 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C45662F81D448D7D00D26565 /* LICENSE.txt */; };
 		C45666D41D448D7E00D26565 /* _kiss_fft_guts.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662FA1D448D7D00D26565 /* _kiss_fft_guts.h */; };
-		C45666D51D448D7E00D26565 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = C45662FB1D448D7D00D26565 /* COPYING */; };
 		C45666D61D448D7E00D26565 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = C45662FC1D448D7D00D26565 /* kiss_fft.c */; };
 		C45666D71D448D7E00D26565 /* kiss_fft.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662FD1D448D7D00D26565 /* kiss_fft.h */; };
 		C45666D81D448D7E00D26565 /* kiss_fftr.c in Sources */ = {isa = PBXBuildFile; fileRef = C45662FE1D448D7D00D26565 /* kiss_fftr.c */; };
 		C45666D91D448D7E00D26565 /* kiss_fftr.h in Headers */ = {isa = PBXBuildFile; fileRef = C45662FF1D448D7D00D26565 /* kiss_fftr.h */; };
-		C45666DA1D448D7E00D26565 /* README in Resources */ = {isa = PBXBuildFile; fileRef = C45663001D448D7D00D26565 /* README */; };
 		C45666DB1D448D7E00D26565 /* adsr.c in Sources */ = {isa = PBXBuildFile; fileRef = C45663021D448D7D00D26565 /* adsr.c */; };
 		C45666DC1D448D7E00D26565 /* allpass.c in Sources */ = {isa = PBXBuildFile; fileRef = C45663031D448D7D00D26565 /* allpass.c */; };
 		C45666DD1D448D7E00D26565 /* atone.c in Sources */ = {isa = PBXBuildFile; fileRef = C45663041D448D7D00D26565 /* atone.c */; };
@@ -3593,9 +3590,7 @@
 				C45668711D448D7E00D26565 /* mand1.raw in Resources */,
 				C45668741D448D7E00D26565 /* mand12.raw in Resources */,
 				C45668791D448D7E00D26565 /* mand6.raw in Resources */,
-				C45666DA1D448D7E00D26565 /* README in Resources */,
 				C456687D1D448D7E00D26565 /* mandpluk.raw in Resources */,
-				C45666D51D448D7E00D26565 /* COPYING in Resources */,
 				C45668751D448D7E00D26565 /* mand2.raw in Resources */,
 				C45668781D448D7E00D26565 /* mand5.raw in Resources */,
 				C456687B1D448D7E00D26565 /* mand8.raw in Resources */,
@@ -3604,7 +3599,6 @@
 				C45668761D448D7E00D26565 /* mand3.raw in Resources */,
 				C45668771D448D7E00D26565 /* mand4.raw in Resources */,
 				C456687C1D448D7E00D26565 /* mand9.raw in Resources */,
-				C45666D31D448D7E00D26565 /* LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
