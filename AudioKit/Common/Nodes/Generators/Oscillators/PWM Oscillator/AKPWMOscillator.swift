@@ -24,7 +24,6 @@ public class AKPWMOscillator: AKNode, AKToggleable {
     internal var internalAU: AKPWMOscillatorAudioUnit?
     internal var token: AUParameterObserverToken?
 
-
     private var frequencyParameter: AUParameter?
     private var amplitudeParameter: AUParameter?
     private var pulseWidthParameter: AUParameter?

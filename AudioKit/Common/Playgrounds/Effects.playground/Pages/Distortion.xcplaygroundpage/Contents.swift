@@ -11,15 +11,15 @@ let player = try AKAudioPlayer(file: file)
 player.looping = true
 
 var distortion = AKDistortion(player)
-distortion.delay  = 0.1
-distortion.decay  = 1.0
-distortion.delayMix  = 0.5
-distortion.linearTerm  = 0.5
-distortion.squaredTerm  = 0.5
-distortion.cubicTerm  = 50
-distortion.polynomialMix  = 0.5
-distortion.softClipGain  = -6
-distortion.finalMix  = 0.5
+distortion.delay = 0.1
+distortion.decay = 1.0
+distortion.delayMix = 0.5
+distortion.linearTerm = 0.5
+distortion.squaredTerm = 0.5
+distortion.cubicTerm = 50
+distortion.polynomialMix = 0.5
+distortion.softClipGain = -6
+distortion.finalMix = 0.5
 
 AudioKit.output = AKBooster(distortion, gain: 0.1)
 AudioKit.start()
