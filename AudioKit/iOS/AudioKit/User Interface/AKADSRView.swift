@@ -139,25 +139,6 @@ import UIKit
     public class override func requiresConstraintBasedLayout() -> Bool {
         return true
     }
-        
-    func setupViews() {
-        // set default values
-        layer.borderColor = UIColor.lightGrayColor().CGColor
-        layer.borderWidth = 1.0
-        layer.masksToBounds = true
-        
-        contentMode = .ScaleAspectFill
-        clipsToBounds = true
-        
-        // make sure we are attempting to keep a 1:1 aspect ratio
-        translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraintEqualToAnchor(heightAnchor, multiplier: 1.0).active = true
-        
-//        drawCurveCanvas(attackDurationMS: CGFloat(attackDuration * 1000),
-//                        decayDurationMS: CGFloat(decayDuration * 1000),
-//                        releaseDurationMS: CGFloat(releaseDuration * 500),
-//                        sustainLevel: CGFloat(1.0 - sustainLevel))
-    }
 
     public init(callback: ADSRCallback? = nil) {
         self.callback = callback
@@ -171,7 +152,6 @@ import UIKit
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        setupViews()
     }
 
     func drawCurveCanvas(size size: CGSize = CGSize(width: 440, height: 151), attackDurationMS: CGFloat = 449, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
@@ -198,11 +178,9 @@ import UIKit
         let sustainAxis = CGPoint(x: sustainPoint.x, y: size.height)
         let initialMax = CGPoint(x: 0, y: buffer)
 
-
         let initialToHighControlPoint = CGPoint(x: initialPoint.x, y: highPoint.y)
         let highToSustainControlPoint = CGPoint(x: highPoint.x, y: sustainPoint.y)
         let releaseToEndControlPoint  = CGPoint(x: releasePoint.x, y: endPoint.y)
-
 
         //// attackTouchArea Drawing
         CGContextSaveGState(context)
