@@ -30,7 +30,7 @@ let scale = [0, 2, 4, 5, 7, 9, 11, 12]
 
 AKPlaygroundLoop(frequency: playRate) {
     var note = scale.randomElement()
-    let octave = randomInt(0...3)  * 12
+    let octave = (0...3).randomElement() * 12
     if random(0, 10) < 1.0 { note += 1 }
     if !scale.contains(note % 12) { print("ACCIDENT!") }
 

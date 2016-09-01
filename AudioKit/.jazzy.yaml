@@ -100,6 +100,7 @@ custom_categories:
     - AKHighPassFilter
     - AKHighShelfFilter
     - AKHighShelfParametricEqualizerFilter
+    - AKKorgLowPassFilter
     - AKLowPassButterworthFilter
     - AKLowPassFilter
     - AKLowShelfFilter
@@ -225,4 +226,16 @@ custom_categories:
     - AKAmplitudeTap
     - AKFFTTap
 
-
+  - name: UI Elements
+    children:
+    - AKADSRView
+    - AKButton
+    - AKBypassButton
+    - AKKeyboardView
+    - AKNotifications
+    - AKPlaygroundLoop
+    - AKPlaygroundView
+    - AKPresetLoaderView
+    - AKPropertySlider
+    - AKResourcesAudioFileLoaderView
+    - AKTelephoneView

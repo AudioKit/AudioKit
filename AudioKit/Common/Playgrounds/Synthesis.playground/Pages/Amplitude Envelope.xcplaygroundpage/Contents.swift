@@ -17,12 +17,16 @@ class PlaygroundView: AKPlaygroundView, AKKeyboardDelegate {
 
         addTitle("ADSR Envelope")
 
-        let adsrView = AKADSRView(node: fmWithADSR) {
+        let adsrView = AKADSRView() {
             att, dec, sus, rel in
             fmWithADSR.attackDuration = att
             fmWithADSR.decayDuration = dec
             fmWithADSR.sustainLevel = sus
             fmWithADSR.releaseDuration = rel
+            Swift.print("fmWithADSR.attackDuration  = \(att)")
+            Swift.print("fmWithADSR.decayDuration   = \(dec)")
+            Swift.print("fmWithADSR.sustainLevel    = \(sus)")
+            Swift.print("fmWithADSR.releaseDuration = \(rel)\n")
         }
         adsrView.attackDuration  = fmWithADSR.attackDuration
         adsrView.decayDuration   = fmWithADSR.decayDuration

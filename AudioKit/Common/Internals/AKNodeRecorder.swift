@@ -8,8 +8,6 @@
 //
 
 import Foundation
-
-import Foundation
 import AVFoundation
 
 /// Simple audio recorder class
@@ -40,11 +38,9 @@ public class AKNodeRecorder {
 
     /// return the AKAudioFile for reading
     public var audioFile: AKAudioFile? {
-
-        var internalAudioFileForReading: AKAudioFile
         do {
-            internalAudioFileForReading = try AKAudioFile(forReading: internalAudioFile.url)
-            return internalAudioFileForReading
+            return try AKAudioFile(forReading: internalAudioFile.url)
+
         } catch let error as NSError {
             print("Cannot create internal audio file for reading")
             print("Error: \(error.localizedDescription)")

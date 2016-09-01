@@ -15,7 +15,7 @@ extension AKAudioFile {
     
     /// returns file Mime Type if exists
     /// Otherwise, returns nil
-    /// (useful when sendind an AKAudioFile by email)
+    /// (useful when sending an AKAudioFile by email)
     public var mimeType: String? {
         switch self.fileExt.uppercaseString {
         case "WAV":
@@ -54,7 +54,7 @@ extension AKAudioFile {
             let fileNames = try fileManager.contentsOfDirectoryAtPath("\(tempPath)")
             
             // function for deleting files
-            func deleteFileWithFileName (fileName: String) {
+            func deleteFileWithFileName(fileName: String) {
                 let filePathName = "\(tempPath)/\(fileName)"
                 do {
                     try fileManager.removeItemAtPath(filePathName)
@@ -70,19 +70,19 @@ extension AKAudioFile {
             for fileName in fileNames {
                 let fileNameLowerCase = fileName.lowercaseString
                 if fileNameLowerCase.hasSuffix(".wav") {
-                    deleteFileWithFileName (fileName)
+                    deleteFileWithFileName(fileName)
                 }
                 if fileNameLowerCase.hasSuffix(".caf") {
-                    deleteFileWithFileName (fileName)
+                    deleteFileWithFileName(fileName)
                 }
                 if fileNameLowerCase.hasSuffix(".aif") {
-                    deleteFileWithFileName (fileName)
+                    deleteFileWithFileName(fileName)
                 }
                 if fileNameLowerCase.hasSuffix(".mp4") {
-                    deleteFileWithFileName (fileName)
+                    deleteFileWithFileName(fileName)
                 }
                 if fileNameLowerCase.hasSuffix(".m4a") {
-                    deleteFileWithFileName (fileName)
+                    deleteFileWithFileName(fileName)
                 }
             }
             
@@ -106,7 +106,7 @@ extension AKAudioFile {
     /// For a silent file of one second, set samples value to 44100...
     ///
     /// - Parameters:
-    ///   - samples: the number of samples to generate ( equals length in seconds multiplied by sample rate)
+    ///   - samples: the number of samples to generate (equals length in seconds multiplied by sample rate)
     ///   - baseDir: where the file will be located, can be set to .Resources,  .Documents or .Temp
     ///   - name: the name of the file without its extension (String).
     ///
@@ -125,7 +125,7 @@ extension AKAudioFile {
             return try AKAudioFile(forReading: emptyFile.url)
         }
         
-        let array = [Float](count:Int(samples), repeatedValue: 0.0)
+        let array = [Float](zeroes:Int(samples))
         let silentFile = try AKAudioFile(createFileFromFloats: [array, array], baseDir: baseDir, name: name)
         
         return try AKAudioFile(forReading: silentFile.url)

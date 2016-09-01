@@ -7,19 +7,28 @@
 //
 
 import UIKit
+import AudioKit
 
 class ViewController: UIViewController {
-    @IBOutlet var arpeggioVolumeSlider: UISlider!
-    @IBOutlet var padVolumeSlider: UISlider!
-    @IBOutlet var bassVolumeSlider: UISlider!
-    @IBOutlet var drumVolumeSlider: UISlider!
-    @IBOutlet var filterVolumeSlider: UISlider!
+    @IBOutlet var arpeggioVolumeSlider: AKPropertySlider!
+    @IBOutlet var padVolumeSlider: AKPropertySlider!
+    @IBOutlet var bassVolumeSlider: AKPropertySlider!
+    @IBOutlet var drumVolumeSlider: AKPropertySlider!
+    @IBOutlet var filterFrequencySlider: AKPropertySlider!
+    @IBOutlet var tempoSlider: AKPropertySlider!
     
     let conductor = Conductor()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        arpeggioVolumeSlider.callback = adjustArpeggioVolume
+        padVolumeSlider.callback = adjustPadSynthesizerVolume
+        bassVolumeSlider.callback = adjustBassSynthesizerVolume
+        drumVolumeSlider.callback = adjustDrumKitVolume
+        filterFrequencySlider.callback = adjustFilterFrequency
+        tempoSlider.callback = adjustTempo
     }
     
     @IBAction func useSoundForArpeggio(sender: UIButton) {
@@ -49,28 +58,28 @@ class ViewController: UIViewController {
         conductor.useSound(sound, synthesizer: Synthesizer.Bass)
     }
     
-    @IBAction func adjustArpeggioSynthesizerVolume(sender: UISlider) {
-        conductor.adjustVolume(sender.value, instrument: Instrument.Arpeggio)
+    func adjustArpeggioVolume(newValue: Double) {
+        conductor.adjustVolume(Float(newValue), instrument: Instrument.Arpeggio)
     }
     
-    @IBAction func adjustPadSynthesizerVolume(sender: UISlider) {
-        conductor.adjustVolume(sender.value, instrument: Instrument.Pad)
+    func adjustPadSynthesizerVolume(newValue: Double) {
+        conductor.adjustVolume(Float(newValue), instrument: Instrument.Pad)
     }
     
-    @IBAction func adjustBassSynthesizerVolume(sender: UISlider) {
-        conductor.adjustVolume(sender.value, instrument: Instrument.Bass)
+    func adjustBassSynthesizerVolume(newValue: Double) {
+        conductor.adjustVolume(Float(newValue), instrument: Instrument.Bass)
     }
     
-    @IBAction func adjustDrumKitVolume(sender: UISlider) {
-        conductor.adjustVolume(sender.value, instrument: Instrument.Drum)
+    func adjustDrumKitVolume(newValue: Double) {
+        conductor.adjustVolume(Float(newValue), instrument: Instrument.Drum)
     }
     
-    @IBAction func adjustFilterFrequency(sender: UISlider) {
-        conductor.adjustFilterFrequency(sender.value)
+    func adjustFilterFrequency(newValue: Double) {
+        conductor.adjustFilterFrequency(Float(newValue))
     }
     
-    @IBAction func adjustTempo(sender: UISlider) {
-        conductor.adjustTempo(sender.value)
+    func adjustTempo(newValue: Double) {
+        conductor.adjustTempo(Float(newValue))
     }
     
     @IBAction func setLength(sender: UIButton) {
