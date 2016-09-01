@@ -80,6 +80,10 @@ extension AKMIDI {
         packetListPointer.dealloc(1)//necessary? wish i could do this without the alloc above
     }
     
+    public func clearEndpoints() {
+        endpoints.removeAll()
+    }
+    
     /// Send Messsage from midi event data
     public func sendEvent(event: AKMIDIEvent) {
         sendMessage(event.internalData)
