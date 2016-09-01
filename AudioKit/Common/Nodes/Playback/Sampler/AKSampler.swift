@@ -26,6 +26,16 @@ public class AKSampler: AKNode {
 
     /// Sampler AV Audio Unit
     public var samplerUnit = AVAudioUnitSampler()
+    
+    /// Transposition amount in semitones, from -24 to 24, Default: 0
+    public var tuning: Double {
+        get {
+            return Double(samplerUnit.globalTuning / 100.0)
+        }
+        set {
+            samplerUnit.globalTuning = Float(newValue * 100.0)
+        }
+    }
 
     // MARK: - Initializers
 

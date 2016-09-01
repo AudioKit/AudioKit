@@ -47,7 +47,7 @@ public class AKPhaseDistortionOscillatorBank: AKPolyphonicNode {
         }
     }
 
-    /// Duty cycle width (range -1 - -1).
+    /// Duty cycle width (range -1 - 1).
     public var phaseDistortion: Double = 0.0 {
         willSet {
             if phaseDistortion != newValue {
