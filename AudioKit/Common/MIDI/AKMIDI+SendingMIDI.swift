@@ -80,7 +80,7 @@ extension AKMIDI {
         packetListPointer.dealloc(1)//necessary? wish i could do this without the alloc above
     }
     
-    public func clearEndpoints(){
+    public func clearEndpoints() {
         endpoints.removeAll()
     }
     
