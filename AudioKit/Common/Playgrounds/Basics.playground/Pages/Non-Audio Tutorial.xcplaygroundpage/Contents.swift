@@ -30,7 +30,7 @@ let bundle = NSBundle.mainBundle()
 
 //: To reference a file, you use the bundle from about and the `pathForResource`
 //: method that includes the name with the extension given in the `ofType` parameter.
-let file = try AKAudioFile(readFileName: "PianoBassDrumLoop.wav", baseDir: .Resources)
+let file = try AKAudioFile(readFileName: "mixloop.wav", baseDir: .Resources)
 
 //: You are not limited to using the sound files provided with AudioKit, in fact
 //: we encourage you to drag your own sound files to the Resources folder.
