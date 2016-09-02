@@ -73,7 +73,7 @@ public struct AKTable: CollectionType {
         return values.endIndex
     }
 
-    public subscript (index: Int) -> Float {
+    public subscript(index: Int) -> Float {
         return values[index]
     }
 
@@ -94,6 +94,8 @@ public struct AKTable: CollectionType {
         self.type = type
         self.phase = phase
         self.size = size
+        
+        self.values = [Float](zeroes: size)
         
         switch type {
         case .Sine:
@@ -121,7 +123,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a triangle wave
     mutating func standardTriangleWave() {
-        values = [Float](zeroes: count)
         let slope = Float(4.0) / Float(count)
         let phaseOffset = Int(phase * count)
         for i in indices {
@@ -135,7 +136,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a square wave
     mutating func standardSquareWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             if (i + phaseOffset) % count < count / 2 {
@@ -148,7 +148,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a sawtooth wave
     mutating func standardSawtoothWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             values[i] = -1.0 + 2.0 * Float((i + phaseOffset) % count) / Float(count)
@@ -157,7 +156,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a reverse sawtooth wave
     mutating func standardReverseSawtoothWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             values[i] = 1.0 - 2.0 * Float((i + phaseOffset) % count) / Float(count)
@@ -166,7 +164,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a sine wave
     mutating func standardSineWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             values[i] = sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count))
@@ -175,7 +172,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a triangle wave
     mutating func positiveTriangleWave() {
-        values = [Float](zeroes: count)
         let slope = Float(2.0) / Float(count)
         for i in indices {
             let phaseOffset = Int(phase * count)
@@ -189,7 +185,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a square wave
     mutating func positiveSquareWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             if (i + phaseOffset) % count < count / 2 {
@@ -202,7 +197,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a sawtooth wave
     mutating func positiveSawtoothWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             values[i] = Float((i + phaseOffset) % count) / Float(count)
@@ -211,7 +205,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a reverse sawtooth wave
     mutating func positiveReverseSawtoothWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             values[i] = 1.0 - Float((i + phaseOffset) % count) / Float(count)
@@ -220,7 +213,6 @@ public struct AKTable: CollectionType {
 
     /// Instantiate the table as a sine wave
     mutating func positiveSineWave() {
-        values = [Float](zeroes: count)
         let phaseOffset = Int(phase * count)
         for i in indices {
             values[i] = 0.5 + 0.5 * sin(2 * 3.14159265 * Float(i + phaseOffset) / Float(count))

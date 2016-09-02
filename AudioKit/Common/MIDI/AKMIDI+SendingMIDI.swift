@@ -21,27 +21,27 @@ extension AKMIDI {
         }
         return nameArray
     }
-    
+
     /// Open a MIDI Output Port
     ///
     /// - parameter namedOutput: String containing the name of the MIDI Input
     ///
     public func openOutput(namedOutput: String = "") {
-        
+
         var result = noErr
-        
+
         let outputCount = MIDIGetNumberOfDestinations()
         var foundDest = false
         result = MIDIOutputPortCreate(client, outputPortName, &outputPort)
-        
+
         if result != noErr {
             print("Error creating MIDI output port : \(result)")
         }
-        
+
         for i in 0 ..< outputCount {
             let src = MIDIGetDestination(i)
             var endpointName: Unmanaged<CFString>? = nil
-            
+
             MIDIObjectGetStringProperty(src, kMIDIPropertyName, &endpointName)
             let endpointNameStr = (endpointName?.takeRetainedValue())! as String
             if namedOutput.isEmpty || namedOutput == endpointNameStr {
@@ -54,12 +54,12 @@ extension AKMIDI {
             print("no midi destination found named \"\(namedOutput)\"")
         }
     }
-    
+
     /// Send Message with data
     public func sendMessage(data: [UInt8]) {
         var result = noErr
         let packetListPointer: UnsafeMutablePointer<MIDIPacketList> = UnsafeMutablePointer.alloc(1)
-        
+
         var packet: UnsafeMutablePointer<MIDIPacket> = nil
         packet = MIDIPacketListInit(packetListPointer)
         packet = MIDIPacketListAdd(packetListPointer, 1024, packet, 0, data.count, data)
@@ -71,24 +71,25 @@ extension AKMIDI {
                 }
             }
         }
-        
+
         if virtualOutput != 0 {
             MIDIReceived(virtualOutput, packetListPointer)
         }
-        
+
         packetListPointer.destroy()
         packetListPointer.dealloc(1)//necessary? wish i could do this without the alloc above
     }
-    
+
+    /// Clear MIDI destinations
     public func clearEndpoints() {
         endpoints.removeAll()
     }
-    
+
     /// Send Messsage from midi event data
     public func sendEvent(event: AKMIDIEvent) {
         sendMessage(event.internalData)
     }
-    
+
     /// Send a Note On Message
     public func sendNoteOnMessage(noteNumber noteNumber: MIDINoteNumber,
                                              velocity: MIDIVelocity,
