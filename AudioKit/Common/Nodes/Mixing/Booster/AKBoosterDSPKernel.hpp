@@ -44,6 +44,8 @@ public:
     }
     
     void reset() {
+        resetted = true;
+        gainRamper.reset();
     }
 
     void setGain(float value) {
