@@ -55,11 +55,11 @@
 		C40C411F1C40E2E1009D870B /* AudioKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411C1C40E2E1009D870B /* AudioKit.swift */; };
 		C40C41201C40E2E1009D870B /* AKTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411D1C40E2E1009D870B /* AKTable.swift */; };
 		C40C41211C40E2E1009D870B /* AudioKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C411E1C40E2E1009D870B /* AudioKitHelpers.swift */; };
-		C40C41281C40E344009D870B /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41231C40E344009D870B /* BufferedAudioBus.hpp */; };
-		C40C41291C40E344009D870B /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41241C40E344009D870B /* DSPKernel.hpp */; };
+		C40C41281C40E344009D870B /* BufferedAudioBus.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41231C40E344009D870B /* BufferedAudioBus.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
+		C40C41291C40E344009D870B /* DSPKernel.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41241C40E344009D870B /* DSPKernel.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C412A1C40E344009D870B /* DSPKernel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C40C41251C40E344009D870B /* DSPKernel.mm */; };
 		C40C412B1C40E344009D870B /* AKGetAUParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40C41261C40E344009D870B /* AKGetAUParams.swift */; };
-		C40C412C1C40E344009D870B /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41271C40E344009D870B /* ParameterRamper.hpp */; };
+		C40C412C1C40E344009D870B /* ParameterRamper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = C40C41271C40E344009D870B /* ParameterRamper.hpp */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C414E1C40E3A5009D870B /* EZAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C412E1C40E3A5009D870B /* EZAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C40C414F1C40E3A5009D870B /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = C40C412F1C40E3A5009D870B /* EZAudio.m */; };
 		C40C41501C40E3A5009D870B /* EZAudioDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = C40C41301C40E3A5009D870B /* EZAudioDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -446,7 +446,7 @@
 		C48C6CBC1D3C15F1008EA51B /* waveset.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC31D3C15F1008EA51B /* waveset.c */; };
 		C48C6CBD1D3C15F1008EA51B /* wpkorg35.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC41D3C15F1008EA51B /* wpkorg35.c */; };
 		C48C6CBE1D3C15F1008EA51B /* zitarev.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC51D3C15F1008EA51B /* zitarev.c */; };
-		C48C6CBF1D3C15F1008EA51B /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6BC61D3C15F1008EA51B /* soundpipe.h */; };
+		C48C6CBF1D3C15F1008EA51B /* soundpipe.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6BC61D3C15F1008EA51B /* soundpipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C48C6CC01D3C15F1008EA51B /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BC81D3C15F1008EA51B /* md5.c */; };
 		C48C6CC11D3C15F1008EA51B /* md5.h in Headers */ = {isa = PBXBuildFile; fileRef = C48C6BC91D3C15F1008EA51B /* md5.h */; };
 		C48C6CC21D3C15F1008EA51B /* test.c in Sources */ = {isa = PBXBuildFile; fileRef = C48C6BCA1D3C15F1008EA51B /* test.c */; };
@@ -3491,7 +3491,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */;
+			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4219,7 +4219,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */ = {
+		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F35061C057E03000E937C /* Debug */,
