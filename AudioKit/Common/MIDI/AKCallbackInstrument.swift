@@ -21,7 +21,7 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     ///
     /// - parameter callback: Initial callback
     ///
-    public init(callback: AKMIDICallback) {
+    public init(callback: AKMIDICallback? = nil) {
         super.init()
         let midi = AKMIDI()
         self.enableMIDI(midi.client, name: "callback midi in")
