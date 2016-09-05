@@ -84,7 +84,7 @@ public protocol AKKeyboardDelegate {
     }
     
     override public func intrinsicContentSize() -> CGSize {
-        return CGSize(width: 440, height: 150)
+        return CGSize(width: 1024, height: 84)
     }
     
     public class override func requiresConstraintBasedLayout() -> Bool {
