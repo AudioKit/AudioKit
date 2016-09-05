@@ -53,6 +53,10 @@ public protocol AKKeyboardDelegate {
     
     // MARK: - Initialization
     
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
     public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
                 polyphonic: Bool = false) {
         self.octaveCount = octaveCount
