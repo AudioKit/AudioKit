@@ -22,6 +22,19 @@ extension CollectionType where Index == Int {
     }
 }
 
+/// Helper function to convert codes for Audio Units
+/// - parameter string: Four character string to convert
+public func fourCC(string: String) -> UInt32 {
+    let utf8 = string.utf8
+    precondition(utf8.count == 4, "Must be a 4 char string")
+    var out: UInt32 = 0
+    for char in utf8 {
+        out <<= 8
+        out |= UInt32(char)
+    }
+    return out
+}
+
 /// Random double between bounds
 ///
 /// - Parameters:
