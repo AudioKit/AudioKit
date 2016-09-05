@@ -45,6 +45,50 @@ public protocol AKKeyboardDelegate {
     let topKeyNotes = [0,0,0,1,1,2,2,3,3,4,4,4,5,5,5,6,6,7,7,8,8,9,9,10,10,11,11,11]
     let whiteKeyNotes = [0, 2, 4, 5, 7, 9, 11]
     
+    func getNoteName(note: Int) -> String {
+        let keyInOctave = note % 12
+        return notesWithSharps[keyInOctave]
+    }
+
+    
+    // MARK: - Initialization
+    
+    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
+                polyphonic: Bool = false) {
+        self.octaveCount = octaveCount
+        self.firstOctave = firstOctave
+        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        setNeedsDisplay()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        contentMode = .Redraw
+    }
+    
+    // MARK: - Storyboard Rendering
+    
+    override public func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        
+        contentMode = .Redraw
+        clipsToBounds = true
+    }
+    
+    override public func intrinsicContentSize() -> CGSize {
+        return CGSize(width: 440, height: 150)
+    }
+    
+    public class override func requiresConstraintBasedLayout() -> Bool {
+        return true
+    }
+    
+    // MARK: - Drawing
+    
     override public func drawRect(rect: CGRect) {
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(i)
@@ -58,38 +102,6 @@ public protocol AKKeyboardDelegate {
             CGRect(x: whiteKeyX(0, octaveNumber: octaveCount), y: 1, width: whiteKeySize.width - 2, height: whiteKeySize.height))
         whiteKeyColor(0, octaveNumber: octaveCount).setFill()
         lastC.fill()
-        
-    }
-    
-    var whiteKeySize: CGSize {
-        get {
-            return CGSize(width: oneOctaveSize.width / 7.0, height: oneOctaveSize.height - 2)
-        }
-    }
-    
-    var topKeySize: CGSize {
-        get {
-            return CGSize(width: oneOctaveSize.width / (4 * 7), height: oneOctaveSize.height * topKeyHeightRatio)
-        }
-    }
-    
-    func whiteKeyX(n: Int, octaveNumber: Int) -> CGFloat {
-        return CGFloat(n) * whiteKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
-    }
-    
-    func topKeyX(n: Int, octaveNumber: Int) -> CGFloat {
-        return CGFloat(n) * topKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
-    }
-    
-    func whiteKeyColor(n: Int, octaveNumber: Int) -> UIColor {
-        return onKeys.contains((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n]) ? keyOnColor : whiteKeyOff
-    }
-    
-    func topKeyColor(n: Int, octaveNumber: Int) -> UIColor {
-        if notesWithSharps[topKeyNotes[n]].rangeOfString("#") != nil {
-            return onKeys.contains((firstOctave + octaveNumber) * 12 + topKeyNotes[n]) ? keyOnColor : blackKeyOff
-        }
-        return UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
         
     }
     
@@ -121,38 +133,7 @@ public protocol AKKeyboardDelegate {
     }
     
     
-    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
-                polyphonic: Bool = false) {
-        self.octaveCount = octaveCount
-        self.firstOctave = firstOctave
-        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
-        setNeedsDisplay()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        let width = Int(self.frame.width)
-        let height = Int(self.frame.height)
-        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
-        contentMode = .Redraw
-    }
-    
-    override public func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-        
-        contentMode = .Redraw
-        clipsToBounds = true
-    }
-    
-    public class override func requiresConstraintBasedLayout() -> Bool {
-        return true
-    }
-    
-    public func GetNoteName(note : Int) -> String {
-        let keyInOctave = note % 12
-        return notesWithSharps[keyInOctave]
-    }
+    // MARK: - Touch Handling
     
     func notesFromTouches(touches: Set<UITouch>) -> [MIDINoteNumber] {
         var notes = [MIDINoteNumber]()
@@ -219,5 +200,39 @@ public protocol AKKeyboardDelegate {
             }
         }
         setNeedsDisplay()
+    }
+    
+    // MARK: - Private helper properties and functions
+    
+    var whiteKeySize: CGSize {
+        get {
+            return CGSize(width: oneOctaveSize.width / 7.0, height: oneOctaveSize.height - 2)
+        }
+    }
+    
+    var topKeySize: CGSize {
+        get {
+            return CGSize(width: oneOctaveSize.width / (4 * 7), height: oneOctaveSize.height * topKeyHeightRatio)
+        }
+    }
+    
+    func whiteKeyX(n: Int, octaveNumber: Int) -> CGFloat {
+        return CGFloat(n) * whiteKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
+    }
+    
+    func topKeyX(n: Int, octaveNumber: Int) -> CGFloat {
+        return CGFloat(n) * topKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
+    }
+    
+    func whiteKeyColor(n: Int, octaveNumber: Int) -> UIColor {
+        return onKeys.contains((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n]) ? keyOnColor : whiteKeyOff
+    }
+    
+    func topKeyColor(n: Int, octaveNumber: Int) -> UIColor {
+        if notesWithSharps[topKeyNotes[n]].rangeOfString("#") != nil {
+            return onKeys.contains((firstOctave + octaveNumber) * 12 + topKeyNotes[n]) ? keyOnColor : blackKeyOff
+        }
+        return UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
+        
     }
 }
