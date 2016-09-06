@@ -20,7 +20,7 @@ public class AKSampler: AKNode {
 
     // MARK: - Properties
 
-    private var internalAU: AUAudioUnit?
+    public var internalAU: AUAudioUnit?
 
     private var token: AUParameterObserverToken?
 

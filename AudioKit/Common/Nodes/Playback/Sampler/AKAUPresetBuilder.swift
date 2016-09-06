@@ -568,7 +568,7 @@ public class AKAUPresetBuilder {
         return str
     }
     
-    static func generateFileRef(wavRef: Int = 268435457, samplePath: String) -> String {
+    static public func generateFileRef(wavRef: Int = 268435457, samplePath: String) -> String {
         var str: String = ""
         str.appendContentsOf("            <key>Sample:\(wavRef)</key>\n")
         str.appendContentsOf("            <string>\(samplePath)</string>\n")
