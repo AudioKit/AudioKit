@@ -40,7 +40,7 @@ class PlaygroundView: AKPlaygroundView {
         addTitle("Parameter Ramp Time")
         
         addSubview(AKPropertySlider(
-            property: "Ramp TIme",
+            property: "Ramp Time",
             format: "%0.3f s",
             value: filter.rampTime
         ) { sliderValue in

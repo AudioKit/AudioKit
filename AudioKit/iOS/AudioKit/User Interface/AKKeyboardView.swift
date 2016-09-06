@@ -13,22 +13,22 @@ public protocol AKKeyboardDelegate {
     func noteOff(note: Int)
 }
 
-public class AKKeyboardView: UIView, AKMIDIListener {
+@IBDesignable public class AKKeyboardView: UIView, AKMIDIListener {
 
-    let whiteKeyOff = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
-    let blackKeyOff = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
-    let keyOnColor = UIColor(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
-    let topWhiteKeyOff = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
+    @IBInspectable public var octaveCount: Int = 2
+    @IBInspectable public var firstOctave: Int = 4
+    @IBInspectable public var topKeyHeightRatio: CGFloat = 0.55
+
+    @IBInspectable public var  whiteKeyOff: UIColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
+    @IBInspectable public var  blackKeyOff: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)
+    @IBInspectable public var  keyOnColor: UIColor = UIColor(red: 1.000, green: 0.000, blue: 0.000, alpha: 1.000)
     
     public var delegate: AKKeyboardDelegate?
     
-    var size = CGSizeZero
-    var topKeyHeightRatio: CGFloat = 0.55
+    var oneOctaveSize = CGSizeZero
     var xOffset: CGFloat = 1
     var onKeys = Set<MIDINoteNumber>()
     
-    var octaveCount = 3
-    var firstOctave = 4
     
     public var polyphonicMode = false {
         didSet {
@@ -45,12 +45,60 @@ public class AKKeyboardView: UIView, AKMIDIListener {
     let topKeyNotes = [0,0,0,1,1,2,2,3,3,4,4,4,5,5,5,6,6,7,7,8,8,9,9,10,10,11,11,11]
     let whiteKeyNotes = [0, 2, 4, 5, 7, 9, 11]
     
+    func getNoteName(note: Int) -> String {
+        let keyInOctave = note % 12
+        return notesWithSharps[keyInOctave]
+    }
+
+    
+    // MARK: - Initialization
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
+                polyphonic: Bool = false) {
+        self.octaveCount = octaveCount
+        self.firstOctave = firstOctave
+        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        setNeedsDisplay()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    // MARK: - Storyboard Rendering
+    
+    override public func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
+        
+        contentMode = .Redraw
+        clipsToBounds = true
+    }
+    
+    override public func intrinsicContentSize() -> CGSize {
+        return CGSize(width: 1024, height: 84)
+    }
+    
+    public class override func requiresConstraintBasedLayout() -> Bool {
+        return true
+    }
+    
+    // MARK: - Drawing
+    
     override public func drawRect(rect: CGRect) {
         for i in 0 ..< octaveCount {
             drawOctaveCanvas(i)
         }
         
-        let backgroundPath = UIBezierPath(rect: CGRect(x: size.width * CGFloat(octaveCount), y: 0, width: size.width / 7.0, height: size.height))
+        let backgroundPath = UIBezierPath(rect: CGRect(x: oneOctaveSize.width * CGFloat(octaveCount), y: 0, width: oneOctaveSize.width / 7.0, height: oneOctaveSize.height))
         UIColor.blackColor().setFill()
         backgroundPath.fill()
         
@@ -61,41 +109,9 @@ public class AKKeyboardView: UIView, AKMIDIListener {
         
     }
     
-    var whiteKeySize: CGSize {
-        get {
-            return CGSize(width: size.width / 7.0, height: size.height - 2)
-        }
-    }
-    
-    var topKeySize: CGSize {
-        get {
-            return CGSize(width: size.width / (4 * 7), height: size.height * topKeyHeightRatio)
-        }
-    }
-    
-    func whiteKeyX(n: Int, octaveNumber: Int) -> CGFloat {
-        return CGFloat(n) * whiteKeySize.width + xOffset + size.width * CGFloat(octaveNumber)
-    }
-    
-    func topKeyX(n: Int, octaveNumber: Int) -> CGFloat {
-        return CGFloat(n) * topKeySize.width + xOffset + size.width * CGFloat(octaveNumber)
-    }
-    
-    func whiteKeyColor(n: Int, octaveNumber: Int) -> UIColor {
-        return onKeys.contains((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n]) ? keyOnColor : whiteKeyOff
-    }
-    
-    func topKeyColor(n: Int, octaveNumber: Int) -> UIColor {
-        if notesWithSharps[topKeyNotes[n]].rangeOfString("#") != nil {
-            return onKeys.contains((firstOctave + octaveNumber) * 12 + topKeyNotes[n]) ? keyOnColor : blackKeyOff
-        }
-        return topWhiteKeyOff
-        
-    }
-    
     func drawOctaveCanvas(octaveNumber: Int) {
         //// background Drawing
-        let backgroundPath = UIBezierPath(rect: CGRect(x: 0 + size.width * CGFloat(octaveNumber), y: 0, width: size.width, height: size.height))
+        let backgroundPath = UIBezierPath(rect: CGRect(x: 0 + oneOctaveSize.width * CGFloat(octaveNumber), y: 0, width: oneOctaveSize.width, height: oneOctaveSize.height))
         UIColor.blackColor().setFill()
         backgroundPath.fill()
         
@@ -121,23 +137,7 @@ public class AKKeyboardView: UIView, AKMIDIListener {
     }
     
     
-    public init(width: Int, height: Int, firstOctave: Int = 4, octaveCount: Int = 3,
-                polyphonic: Bool = false) {
-        self.octaveCount = octaveCount
-        self.firstOctave = firstOctave
-        super.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        size = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
-        setNeedsDisplay()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    public func GetNoteName(note : Int) -> String {
-        let keyInOctave = note % 12
-        return notesWithSharps[keyInOctave]
-    }
+    // MARK: - Touch Handling
     
     func notesFromTouches(touches: Set<UITouch>) -> [MIDINoteNumber] {
         var notes = [MIDINoteNumber]()
@@ -148,13 +148,13 @@ public class AKKeyboardView: UIView, AKMIDIListener {
         
             var note = 0
             
-            if y > size.height * topKeyHeightRatio {
-                let octNum = Int(x / size.width)
-                let scaledX = x - CGFloat(octNum) * size.width
+            if y > oneOctaveSize.height * topKeyHeightRatio {
+                let octNum = Int(x / oneOctaveSize.width)
+                let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
                 note = (firstOctave + octNum) * 12 + whiteKeyNotes[max(0, Int(scaledX / whiteKeySize.width))]
             } else {
-                let octNum = Int(x / size.width)
-                let scaledX = x - CGFloat(octNum) * size.width
+                let octNum = Int(x / oneOctaveSize.width)
+                let scaledX = x - CGFloat(octNum) * oneOctaveSize.width
                 note = (firstOctave + octNum) * 12 + topKeyNotes[max(0, Int(scaledX / topKeySize.width))]
             }
             if note != 0 { notes.append(note) }
@@ -204,5 +204,39 @@ public class AKKeyboardView: UIView, AKMIDIListener {
             }
         }
         setNeedsDisplay()
+    }
+    
+    // MARK: - Private helper properties and functions
+    
+    var whiteKeySize: CGSize {
+        get {
+            return CGSize(width: oneOctaveSize.width / 7.0, height: oneOctaveSize.height - 2)
+        }
+    }
+    
+    var topKeySize: CGSize {
+        get {
+            return CGSize(width: oneOctaveSize.width / (4 * 7), height: oneOctaveSize.height * topKeyHeightRatio)
+        }
+    }
+    
+    func whiteKeyX(n: Int, octaveNumber: Int) -> CGFloat {
+        return CGFloat(n) * whiteKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
+    }
+    
+    func topKeyX(n: Int, octaveNumber: Int) -> CGFloat {
+        return CGFloat(n) * topKeySize.width + xOffset + oneOctaveSize.width * CGFloat(octaveNumber)
+    }
+    
+    func whiteKeyColor(n: Int, octaveNumber: Int) -> UIColor {
+        return onKeys.contains((firstOctave + octaveNumber) * 12 + whiteKeyNotes[n]) ? keyOnColor : whiteKeyOff
+    }
+    
+    func topKeyColor(n: Int, octaveNumber: Int) -> UIColor {
+        if notesWithSharps[topKeyNotes[n]].rangeOfString("#") != nil {
+            return onKeys.contains((firstOctave + octaveNumber) * 12 + topKeyNotes[n]) ? keyOnColor : blackKeyOff
+        }
+        return UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 0.000)
+        
     }
 }

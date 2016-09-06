@@ -88,8 +88,6 @@
 //: * [Bit Crush](Bit%20Crush%20Operation)
 //: * [Costello Reverb Operation](Costello%20Reverb%20Operation)
 //: * [Flat Frequency Response Reverb](Flat%20Frequency%20Response%20Reverb%20Operation)
-//: * [Plucked String Operation](Plucked%20String%20Operation)
-//: * [Sawtooth Wave Oscillator Operation](Sawtooth%20Wave%20Oscillator%20Operation)
 //: * [Variable Delay](Variable%20Delay%20Operation)
 //:
 //: ### Sporth

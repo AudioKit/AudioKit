@@ -3492,7 +3492,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */;
+			buildConfigurationList = C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -4228,7 +4228,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit For iOS" */ = {
+		C42F34FA1C057E03000E937C /* Build configuration list for PBXProject "AudioKit for iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C42F35061C057E03000E937C /* Debug */,

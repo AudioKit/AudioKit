@@ -71,11 +71,42 @@ import UIKit
 
 
     var lastPoint = CGPoint.zero
+    
+    // MARK: - Initialization
+    
+    public init(callback: ADSRCallback? = nil) {
+        self.callback = callback
+        super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
+        backgroundColor = UIColor.whiteColor()
+    }
 
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    // MARK: - Storyboard Rendering
+    
+    override public func prepareForInterfaceBuilder() {
+        super.prepareForInterfaceBuilder()
+        
+        contentMode = .ScaleAspectFill
+        clipsToBounds = true
+    }
+    
+    override public func intrinsicContentSize() -> CGSize {
+        return CGSize(width: 440, height: 150)
+    }
+    
+    public class override func requiresConstraintBasedLayout() -> Bool {
+        return true
+    }
+    
+    // MARK: - Touch Handling
+    
     override public func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.locationInView(self)
-
+            
             if decaySustainTouchAreaPath.containsPoint(touchLocation) {
                 currentDragArea = "ds"
             }
@@ -89,11 +120,11 @@ import UIKit
         }
         setNeedsDisplay()
     }
-
+    
     override public func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first {
             let touchLocation = touch.locationInView(self)
-
+            
             if currentDragArea != "" {
                 if currentDragArea == "ds" {
                     sustainPercent -= (touchLocation.y - lastPoint.y) / 10.0
@@ -113,7 +144,7 @@ import UIKit
             if releaseTime < 0 { releaseTime = 0 }
             if sustainPercent < 0 { sustainPercent = 0 }
             if sustainPercent > 100 { sustainPercent = 100 }
-
+            
             if let realCallback = self.callback {
                 realCallback(Double(attackTime / 1000.0),
                              Double(decayTime / 1000.0),
@@ -125,34 +156,7 @@ import UIKit
         setNeedsDisplay()
     }
     
-    override public func prepareForInterfaceBuilder() {
-        super.prepareForInterfaceBuilder()
-        
-        contentMode = .ScaleAspectFill
-        clipsToBounds = true
-    }
-    
-    override public func intrinsicContentSize() -> CGSize {
-        return CGSize(width: 440, height: 150)
-    }
-
-    public class override func requiresConstraintBasedLayout() -> Bool {
-        return true
-    }
-
-    public init(callback: ADSRCallback? = nil) {
-        self.callback = callback
-        super.init(frame: CGRect(x: 0, y: 0, width: 440, height: 150))
-        backgroundColor = UIColor.whiteColor()
-    }
-
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    // MARK: - Drawing
 
     func drawCurveCanvas(size size: CGSize = CGSize(width: 440, height: 151), attackDurationMS: CGFloat = 449, decayDurationMS: CGFloat = 262, releaseDurationMS: CGFloat = 448, sustainLevel: CGFloat = 0.583, maxADFraction: CGFloat = 0.75) {
         //// General Declarations
