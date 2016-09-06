@@ -68,16 +68,16 @@ public protocol AKKeyboardDelegate {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        let width = Int(self.frame.width)
-        let height = Int(self.frame.height)
-        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
-        contentMode = .Redraw
     }
     
     // MARK: - Storyboard Rendering
     
     override public func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
+
+        let width = Int(self.frame.width)
+        let height = Int(self.frame.height)
+        oneOctaveSize = CGSize(width: width / octaveCount - width / (octaveCount * octaveCount * 7), height: Double(height))
         
         contentMode = .Redraw
         clipsToBounds = true
