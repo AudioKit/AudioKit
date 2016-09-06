@@ -35,7 +35,7 @@ extension AKAudioFile {
             }
             let path = resourcePath(name)
             if path == nil {
-                print("ERROR: AKAudioFile cannot find \"\(name)\" in resources!...")
+                print("ERROR: AKAudioFile cannot find \"\(name)\" in resources")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorFileDoesNotExist, userInfo: nil)
             }
             filePath = path!
@@ -45,7 +45,7 @@ extension AKAudioFile {
         do {
             try self.init(forReading: fileUrl)
         } catch let error as NSError {
-            print("Error !!! AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile !...")
+            print("Error: AKAudioFile: \"\(name)\" doesn't seem to be a valid AudioFile")
             print(error.localizedDescription)
             throw error
         }
@@ -98,13 +98,13 @@ extension AKAudioFile {
             case .Documents:
                 filePath =  (NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]) + "/" + fileNameWithExtension
             case .Resources:
-                print( "ERROR AKAudioFile: cannot create a file in applications resources!...")
+                print( "ERROR AKAudioFile: cannot create a file in applications resources")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
             
             let nsurl = NSURL(string: filePath)
             guard nsurl != nil else {
-                print( "ERROR AKAudioFile: directory \"\(filePath)\" isn't valid!...")
+                print( "ERROR AKAudioFile: directory \"\(filePath)\" isn't valid")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
             
@@ -113,7 +113,7 @@ extension AKAudioFile {
             
             let fileManager = NSFileManager.defaultManager()
             if fileManager.fileExistsAtPath((directoryPath?.absoluteString)!) == false {
-                print( "ERROR AKAudioFile: directory \"\(directoryPath)\" doesn't exists!...")
+                print( "ERROR AKAudioFile: directory \"\(directoryPath)\" doesn't exist")
                 throw NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotCreateFile, userInfo: nil)
             }
             

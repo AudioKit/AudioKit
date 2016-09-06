@@ -15,17 +15,17 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     // MARK: Properties
 
     /// All callbacks that will get triggered by MIDI events
-    public var callbacks = [AKMIDICallback]()
+    public var callback: AKMIDICallback?
 
     /// Initialize the callback instrument
     ///
     /// - parameter callback: Initial callback
     ///
-    public init(callback: AKMIDICallback) {
+    public init(callback: AKMIDICallback? = nil) {
         super.init()
         let midi = AKMIDI()
         self.enableMIDI(midi.client, name: "callback midi in")
-        callbacks.append(callback)
+        self.callback = callback
         avAudioNode = AVAudioMixerNode()
         AudioKit.engine.attachNode(self.avAudioNode)
     }
@@ -33,8 +33,8 @@ public class AKCallbackInstrument: AKMIDIInstrument {
     private func triggerCallbacks(status: AKMIDIStatus,
                                   noteNumber: MIDINoteNumber,
                                   velocity: MIDIVelocity) {
-        for callback in callbacks {
-            callback(status, noteNumber, velocity)
+        if callback != nil {
+            callback!(status, noteNumber, velocity)
         }
     }
 
