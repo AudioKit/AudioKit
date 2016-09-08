@@ -139,10 +139,10 @@ import Foundation
 
         let nameLabelInset: CGRect = CGRectInset(nameLabelRect, 10, 0)
         let nameLabelTextHeight: CGFloat = NSString(string: propertyName).boundingRectWithSize(CGSize(width: nameLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: nameLabelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, nameLabelInset)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, nameLabelInset)
         NSString(string: propertyName).drawInRect(CGRect(x: nameLabelInset.minX, y: nameLabelInset.minY + (nameLabelInset.height - nameLabelTextHeight) / 2, width: nameLabelInset.width, height: nameLabelTextHeight), withAttributes: nameLabelFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// valueLabel Drawing
@@ -154,10 +154,10 @@ import Foundation
 
         let valueLabelInset: CGRect = CGRectInset(valueLabelRect, 10, 0)
         let valueLabelTextHeight: CGFloat = NSString(string: currentValueText).boundingRectWithSize(CGSize(width: valueLabelInset.width, height: CGFloat.infinity), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: valueLabelFontAttributes, context: nil).size.height
-        CGContextSaveGState(context)
-        CGContextClipToRect(context, valueLabelInset)
+        CGContextSaveGState(context!)
+        CGContextClipToRect(context!, valueLabelInset)
         NSString(string: currentValueText).drawInRect(CGRect(x: valueLabelInset.minX, y: valueLabelInset.minY + (valueLabelInset.height - valueLabelTextHeight) / 2, width: valueLabelInset.width, height: valueLabelTextHeight), withAttributes: valueLabelFontAttributes)
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
 }
