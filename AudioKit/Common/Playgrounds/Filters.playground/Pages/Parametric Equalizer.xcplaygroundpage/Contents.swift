@@ -1,5 +1,5 @@
 //: ## Parametric Equalizer
-//: #### A parametric equalizer can be used to raise or lower specific frequencies
+//: ### A parametric equalizer can be used to raise or lower specific frequencies
 //: ### or frequency bands. Live sound engineers often use parametric equalizers
 //: ### during a concert in order to keep feedback from occuring, as they allow
 //: ### much more precise control over the frequency spectrum than other
