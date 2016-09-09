@@ -40,8 +40,7 @@ class PlaygroundView: AKPlaygroundView {
         ) { sliderValue in
             filter.cutoffFrequency = sliderValue
             })
-
+    }
 }
-
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 XCPlaygroundPage.currentPage.liveView = PlaygroundView()
