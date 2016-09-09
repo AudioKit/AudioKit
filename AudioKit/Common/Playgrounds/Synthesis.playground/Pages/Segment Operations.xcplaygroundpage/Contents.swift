@@ -1,7 +1,5 @@
 //: ## Segment Operations
 //: You can create segments that vary parameters in operations linearly or exponentially over a certain duration.
-//: Here we create an alien apocalypse.
-//:
 import XCPlayground
 import AudioKit
 
